@@ -314,6 +314,38 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
+        /* Note Card No Image Style */
+        .note-card-no-image {
+            border-left: 4px solid #2cb696;
+        }
+        .note-card-no-image .card-content {
+            padding: 24px;
+        }
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .note-badge-inline {
+            background-color: #2cb696;
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .card-excerpt {
+            font-size: 0.9rem;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
         /* Loading Spinner */
         .loading-container {
             text-align: center;
@@ -509,54 +541,56 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const API_URL = "https://note.com/api/v2/creators/kizuna_works/contents?kind=note&page=1&per_page=12";
+            const RSS_URL = "https://note.com/kizuna_works/rss";
+            const API_KEY = "ov8zqmcpon2nfe5tptbfyvolvr71cgkudmabt2ja";
+            const API_ENDPOINT = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}&api_key=${API_KEY}&count=12`;
             
             const container = document.getElementById('note-articles');
             const loading = document.getElementById('note-loading');
 
             const formatDate = (dateString) => {
                 if (!dateString) return '';
-                const date = new Date(dateString);
-                if (isNaN(date.getTime())) return '';
+                const date = new Date(dateString.replace(/-/g, '/'));
+                if (isNaN(date.getTime())) return dateString.split(' ')[0].replace(/-/g, '.');
                 const year = date.getFullYear();
                 const month = String(date.getMonth() + 1).padStart(2, '0');
                 const day = String(date.getDate()).padStart(2, '0');
                 return `${year}.${month}.${day}`;
             };
 
-            fetch(API_URL)
+            const stripHtml = (html) => {
+                if (!html) return '';
+                const tmp = document.createElement('div');
+                tmp.innerHTML = html;
+                return tmp.textContent || tmp.innerText || '';
+            };
+
+            fetch(API_ENDPOINT)
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     return response.json();
                 })
                 .then(data => {
                     loading.remove();
-
-                    if (data.data && data.data.contents && data.data.contents.length > 0) {
-                        data.data.contents.forEach(item => {
-                            let thumbnail = item.eyecatch || '';
-                            if (!thumbnail) {
-                                thumbnail = 'data:image/svg+xml;charset=utf-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 320 180\'%3E%3Crect width=\'320\' height=\'180\' fill=\'%23e2e8f0\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2394a3b8\' font-size=\'16\' font-family=\'sans-serif\'%3ENo Image%3C/text%3E%3C/svg%3E';
-                            }
-
+                    if (data.status === 'ok' && data.items && data.items.length > 0) {
+                        data.items.forEach(item => {
+                            const excerpt = stripHtml(item.description).substring(0, 100) + '...';
                             const card = document.createElement('a');
-                            card.href = item.noteUrl;
+                            card.href = item.link;
                             card.target = '_blank';
                             card.rel = 'noopener noreferrer';
-                            card.className = 'article-card';
-                            
+                            card.className = 'article-card note-card-no-image';
                             card.innerHTML = `
-                                <div class="note-badge">note</div>
-                                <img src="${thumbnail}" alt="${item.name}" class="card-image" loading="lazy">
                                 <div class="card-content">
-                                    <span class="card-date">${formatDate(item.publishAt)}</span>
-                                    <h3 class="card-title">${item.name}</h3>
+                                    <div class="card-meta">
+                                        <span class="note-badge-inline">note</span>
+                                        <span class="card-date">${formatDate(item.pubDate)}</span>
+                                    </div>
+                                    <h3 class="card-title">${item.title}</h3>
+                                    <p class="card-excerpt">${excerpt}</p>
                                     <span class="card-button">noteで読む</span>
                                 </div>
                             `;
-                            
                             container.appendChild(card);
                         });
                     } else {
@@ -564,7 +598,7 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Note API Error:', error);
+                    console.error('RSS Fetch Error:', error);
                     loading.remove();
                     container.innerHTML = '<div class="error-message"><p>記事の取得に失敗しました</p></div>';
                 });
