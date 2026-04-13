@@ -251,23 +251,78 @@
             border: 1px solid transparent;
         }
 
-        /* Screenshot Section */
-        .screenshot-area {
-            max-width: 800px;
-            margin: 0 auto;
-            aspect-ratio: 16/9;
-            background-color: var(--color-bg);
-            border: 2px dashed #cccccc;
-            border-radius: 12px;
+        /* Screenshot Gallery */
+        .screenshot-gallery {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
+            gap: 32px;
+            max-width: 960px;
+            margin: 0 auto;
         }
 
-        .screenshot-text {
-            color: var(--color-gray);
-            font-size: 16px;
-            font-weight: 500;
+        .screenshot-item {
+            margin: 0;
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            border: 1px solid #e2e8f0;
+        }
+
+        .screenshot-item figcaption {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Before & After Section */
+        .ba-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .ba-item {
+            position: relative;
+        }
+
+        .ba-item img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            border: 1px solid #e2e8f0;
+        }
+
+        .ba-label {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+            z-index: 1;
+        }
+
+        .ba-label-before {
+            background-color: #94a3b8;
+        }
+
+        .ba-label-after {
+            background-color: #2E8B2E;
+        }
+
+        .ba-caption {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 14px;
+            color: #64748b;
         }
 
         /* Pricing Section */
@@ -535,6 +590,11 @@
                 grid-template-columns: 1fr;
             }
 
+            .ba-container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
             .pricing-grid {
                 grid-template-columns: 1fr;
                 gap: 24px;
@@ -722,8 +782,35 @@
         <section class="pricing-bg">
             <div class="section-wrapper fade-in">
                 <h2 class="section-title">設定画面イメージ</h2>
-                <div class="screenshot-area">
-                    <span class="screenshot-text">スクリーンショット準備中</span>
+                <p class="section-subtitle">プラグインの設定画面からすべての機能をノーコードで操作できます。</p>
+                <div class="screenshot-gallery">
+                    <figure class="screenshot-item">
+                        <img src="/images/field-styler-config-list.png" alt="フィールドスタイラー 設定済みフィールド一覧" loading="lazy">
+                        <figcaption>設定済みフィールド一覧 — フィールドごとの設定内容を一目で確認</figcaption>
+                    </figure>
+                    <figure class="screenshot-item">
+                        <img src="/images/field-styler-config-detail.png" alt="フィールドスタイラー フィールド設定詳細" loading="lazy">
+                        <figcaption>フィールド設定画面 — 全10機能を直感的に設定</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-wrapper fade-in">
+                <h2 class="section-title">導入効果 — Before & After</h2>
+                <p class="section-subtitle">プラグインを適用するだけで、一覧画面の視認性が大きく向上します。</p>
+                <div class="ba-container">
+                    <div class="ba-item">
+                        <span class="ba-label ba-label-before">Before</span>
+                        <img src="/images/field-styler-before.png" alt="フィールドスタイラー導入前の一覧画面" loading="lazy">
+                        <p class="ba-caption">導入前 — すべてのフィールドが同じスタイルで表示</p>
+                    </div>
+                    <div class="ba-item">
+                        <span class="ba-label ba-label-after">After</span>
+                        <img src="/images/field-styler-after.png" alt="フィールドスタイラー導入後の一覧画面" loading="lazy">
+                        <p class="ba-caption">導入後 — 背景色・文字色・条件付きスタイルで視認性が向上</p>
+                    </div>
                 </div>
             </div>
         </section>
