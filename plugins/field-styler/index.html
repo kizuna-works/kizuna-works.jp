@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フィールドスタイラー（Field Styler） - kintoneプラグイン | KIZUNA Works</title>
+    <meta name="description" content="kintoneのフィールドを自由にカスタマイズ。背景色・フォント・文字色・条件付きスタイルなど全10機能をノーコードで設定できるプラグイン。30日間無料トライアル付き。">
+    <meta property="og:title" content="フィールドスタイラー（Field Styler） - kintoneプラグイン | KIZUNA Works">
+    <meta property="og:description" content="kintoneのフィールドを自由にカスタマイズ。全10機能をノーコードで設定。30日間無料トライアル付き。">
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="https://kizuna-works.jp/plugins/field-styler/">
+    <meta property="og:site_name" content="KIZUNA Works">
+    <link rel="icon" href="/images/favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Styles */
+        :root {
+            --color-navy: #1B3A6B;
+            --color-green: #2E8B2E;
+            --color-bg: #F0F4F8;
+            --color-text: #333333;
+            --color-text-light: #666666;
+            --color-white: #ffffff;
+            --color-gray: #999999;
+            --color-gray-light: #e2e8f0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--color-text);
+            line-height: 1.6;
+            background-color: var(--color-white);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header */
+        .site-header {
+            background-color: var(--color-bg);
+            border-bottom: 3px solid var(--color-navy);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-logo img {
+            height: 64px;
+            width: auto;
+            display: block;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-link {
+            background-color: var(--color-navy);
+            color: var(--color-white);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .nav-link:hover {
+            background-color: var(--color-green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+            color: var(--color-white);
+            padding: 80px 5%;
+            text-align: center;
+        }
+
+        .hero-subtitle-small {
+            font-size: 14px;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle-en {
+            font-size: 20px;
+            opacity: 0.7;
+            margin-top: 4px;
+            margin-bottom: 24px;
+            display: block;
+            font-weight: 500;
+        }
+
+        .hero-copy {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--color-green);
+            color: var(--color-white);
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 700;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #36a336;
+            transform: translateY(-2px);
+        }
+
+        /* Common Section Styles */
+        .section-wrapper {
+            padding: 80px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--color-navy);
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--color-text-light);
+            font-size: 16px;
+            margin-bottom: 48px;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background-color: var(--color-white);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 32px 24px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            color: var(--color-navy);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: var(--color-text-light);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .feature-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .badge.active {
+            background-color: #E8F5E9;
+            color: var(--color-green);
+            border: 1px solid var(--color-green);
+        }
+
+        .badge.inactive {
+            background-color: var(--color-gray-light);
+            color: #94a3b8;
+            border: 1px solid transparent;
+        }
+
+        /* Screenshot Section */
+        .screenshot-area {
+            max-width: 800px;
+            margin: 0 auto;
+            aspect-ratio: 16/9;
+            background-color: var(--color-bg);
+            border: 2px dashed #cccccc;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .screenshot-text {
+            color: var(--color-gray);
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Pricing Section */
+        .pricing-bg {
+            background-color: var(--color-bg);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background-color: var(--color-white);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 40px 32px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .pricing-card.recommended {
+            border: 2px solid var(--color-green);
+        }
+
+        .recommended-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--color-green);
+            color: var(--color-white);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .plan-name {
+            font-size: 20px;
+            color: var(--color-navy);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .plan-price {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .plan-price .amount {
+            font-size: 40px;
+            font-weight: 900;
+            color: var(--color-navy);
+        }
+
+        .plan-price .unit {
+            font-size: 14px;
+            color: var(--color-text-light);
+        }
+
+        .plan-discount {
+            text-align: center;
+            color: var(--color-green);
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .plan-features {
+            margin-bottom: 32px;
+            flex-grow: 1;
+        }
+
+        .plan-features li {
+            margin-bottom: 12px;
+            font-size: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .btn-disabled {
+            display: block;
+            text-align: center;
+            background-color: var(--color-gray);
+            color: var(--color-white);
+            padding: 16px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        /* FAQ Section */
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--color-gray-light);
+        }
+
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            padding: 24px 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-navy);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-icon {
+            font-size: 20px;
+            color: var(--color-navy);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.is-open .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .faq-answer-inner {
+            padding-bottom: 24px;
+            color: var(--color-text-light);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* Bottom CTA */
+        .bottom-cta {
+            background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+            color: var(--color-white);
+            text-align: center;
+            padding: 60px 5%;
+        }
+
+        .bottom-cta-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .bottom-cta-desc {
+            font-size: 16px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+        }
+
+        .bottom-cta-links {
+            margin-top: 24px;
+            font-size: 14px;
+        }
+
+        .bottom-cta-links a {
+            text-decoration: underline;
+        }
+
+        .bottom-cta-links a:hover {
+            color: #d1d5db;
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: var(--color-navy);
+            color: var(--color-white);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-nav a {
+            color: var(--color-white);
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--color-green);
+        }
+
+        .footer-copy {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .site-header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 5%;
+            }
+
+            .header-logo img {
+                height: 56px;
+            }
+
+            .header-nav {
+                flex-wrap: wrap;
+                gap: 6px;
+                justify-content: center;
+            }
+
+            .nav-link {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .hero {
+                padding: 60px 5%;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-copy {
+                font-size: 16px;
+            }
+
+            .section-wrapper {
+                padding: 60px 5%;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .bottom-cta-title {
+                font-size: 22px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 24px;
+            }
+
+            .footer-nav {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "フィールドスタイラー（Field Styler）",
+        "description": "kintoneのフィールドを自由にカスタマイズ。背景色・フォント・文字色・条件付きスタイルなど全10機能をノーコードで設定できるプラグイン。",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web (kintone)",
+        "url": "https://kizuna-works.jp/plugins/field-styler/",
+        "offers": [
+            {
+                "@type": "Offer",
+                "name": "月額プラン",
+                "price": "1000",
+                "priceCurrency": "JPY",
+                "priceValidUntil": "2027-12-31",
+                "availability": "https://schema.org/PreOrder",
+                "description": "全10機能が利用可能。30日間無料トライアル付き。いつでもキャンセル可能。"
+            },
+            {
+                "@type": "Offer",
+                "name": "年額プラン",
+                "price": "10000",
+                "priceCurrency": "JPY",
+                "priceValidUntil": "2027-12-31",
+                "availability": "https://schema.org/PreOrder",
+                "description": "全10機能が利用可能。30日間無料トライアル付き。月額プランより2ヶ月分お得。"
+            }
+        ],
+        "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+        },
+        "featureList": [
+            "背景色変更",
+            "フォント変更（15種類）",
+            "文字色変更",
+            "文字数制限",
+            "太字",
+            "条件付きスタイル（最大5条件）",
+            "フォントサイズ変更",
+            "コピー機能",
+            "入力文字種制限（9種類）",
+            "プレースホルダー"
+        ]
+    }
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2096869114957752" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <header class="site-header">
+        <a href="/index.html" class="header-logo">
+            <img src="/images/logo.png" alt="KIZUNA Works">
+        </a>
+        <nav class="header-nav">
+            <a href="/tools/index.html" class="nav-link">無料ツール</a>
+            <a href="/plugins/index.html" class="nav-link">プラグイン</a>
+            <a href="/blog/index.html" class="nav-link">ブログ</a>
+            <a href="/contact.html" class="nav-link">お問い合わせ</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero fade-in">
+            <span class="hero-subtitle-small">kintone プラグイン</span>
+            <h1 class="hero-title">フィールドスタイラー</h1>
+            <span class="hero-subtitle-en">Field Styler</span>
+            <p class="hero-copy">kintoneのフィールドを自由にカスタマイズ。<br>背景色・フォント・文字色・条件付きスタイルなど、全10機能をノーコードで設定。</p>
+            <a href="#pricing" class="btn-primary">30日間無料で試す</a>
+        </section>
+
+        <section class="section-wrapper fade-in">
+            <h2 class="section-title">全10機能でフィールドを自在にカスタマイズ</h2>
+            <p class="section-subtitle">プログラミング不要。プラグイン設定画面から直感的に操作できます。</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎨</span>
+                    <h3 class="feature-title">背景色</h3>
+                    <p class="feature-desc">フィールドの背景色を自由に変更。カラーピッカーで直感的に設定できます。</p>
+                    <div class="feature-badges">
+                        <span class="badge active">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge active">一覧</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔤</span>
+                    <h3 class="feature-title">フォント</h3>
+                    <p class="feature-desc">15種類のフォントから選択。メイリオ、ヒラギノ、Arial等、日本語・英語フォントに対応。</p>
+                    <div class="feature-badges">
+                        <span class="badge active">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge active">一覧</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🖌️</span>
+                    <h3 class="feature-title">文字色</h3>
+                    <p class="feature-desc">文字の色をカラーピッカーで自由に変更。重要項目の視認性向上に。</p>
+                    <div class="feature-badges">
+                        <span class="badge active">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge active">一覧</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📏</span>
+                    <h3 class="feature-title">文字数制限</h3>
+                    <p class="feature-desc">入力できる文字数を制限。保存時にもバリデーションを実行し、確実に制御します。</p>
+                    <div class="feature-badges">
+                        <span class="badge inactive">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge inactive">一覧</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🅱️</span>
+                    <h3 class="feature-title">太字</h3>
+                    <p class="feature-desc">フィールドの文字を太字に。見出しや重要項目を目立たせることができます。</p>
+                    <div class="feature-badges">
+                        <span class="badge active">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge active">一覧</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3 class="feature-title">条件付きスタイル</h3>
+                    <p class="feature-desc">値に応じて背景色・文字色を動的に変更。最大5条件まで設定可能。</p>
+                    <div class="feature-badges">
+                        <span class="badge active">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge active">一覧</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔍</span>
+                    <h3 class="feature-title">フォントサイズ</h3>
+                    <p class="feature-desc">文字サイズをピクセル単位で自由に変更。小さく控えめに、大きく目立たせることも。</p>
+                    <div class="feature-badges">
+                        <span class="badge active">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge active">一覧</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📋</span>
+                    <h3 class="feature-title">コピー機能</h3>
+                    <p class="feature-desc">ワンクリックでフィールドの値をクリップボードにコピー。一覧画面でも使えます。</p>
+                    <div class="feature-badges">
+                        <span class="badge active">詳細</span><span class="badge inactive">作成</span><span class="badge inactive">編集</span><span class="badge active">一覧</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <h3 class="feature-title">入力文字種制限</h3>
+                    <p class="feature-desc">半角英数字のみ、ひらがなのみなど9種類の制限パターンから選択可能。</p>
+                    <div class="feature-badges">
+                        <span class="badge inactive">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge inactive">一覧</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">💬</span>
+                    <h3 class="feature-title">プレースホルダー</h3>
+                    <p class="feature-desc">空欄時にヒントテキストを表示。入力ガイドとして活用できます。</p>
+                    <div class="feature-badges">
+                        <span class="badge active">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge inactive">一覧</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing-bg">
+            <div class="section-wrapper fade-in">
+                <h2 class="section-title">設定画面イメージ</h2>
+                <div class="screenshot-area">
+                    <span class="screenshot-text">スクリーンショット準備中</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="section-wrapper fade-in">
+            <h2 class="section-title">料金プラン</h2>
+            <p class="section-subtitle">すべてのプランに30日間の無料トライアル付き。クレジットカード不要で今すぐお試しいただけます。</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="plan-name">月額プラン</h3>
+                    <div class="plan-price">
+                        <span class="amount">¥1,000</span>
+                        <span class="unit">/月（税込）</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>✅ 全10機能が利用可能</li>
+                        <li>✅ 30日間無料トライアル</li>
+                        <li>✅ いつでもキャンセル可能</li>
+                        <li>✅ メールサポート付き</li>
+                    </ul>
+                    <span class="btn-disabled">近日販売開始予定</span>
+                </div>
+
+                <div class="pricing-card recommended">
+                    <span class="recommended-badge">おすすめ</span>
+                    <h3 class="plan-name">年額プラン</h3>
+                    <div class="plan-price">
+                        <span class="amount">¥10,000</span>
+                        <span class="unit">/年（税込）</span>
+                    </div>
+                    <div class="plan-discount">月額換算 約¥833/月 — 2ヶ月分お得！</div>
+                    <ul class="plan-features">
+                        <li>✅ 全10機能が利用可能</li>
+                        <li>✅ 30日間無料トライアル</li>
+                        <li>✅ 月額プランより2ヶ月分お得</li>
+                        <li>✅ メールサポート付き</li>
+                    </ul>
+                    <span class="btn-disabled">近日販売開始予定</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing-bg">
+            <div class="section-wrapper fade-in">
+                <h2 class="section-title">よくある質問</h2>
+                
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            無料トライアル期間中に料金は発生しますか？
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                いいえ、30日間の無料トライアル期間中は一切料金は発生しません。トライアル終了後に自動的に課金されることもありません。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            どのkintone環境で利用できますか？
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                kintoneのデスクトップ版で利用可能です。スタンダードコースのkintone環境であれば、ドメインを問わずご利用いただけます。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            1つのライセンスで複数のアプリに使えますか？
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                はい、1つのライセンスで同一kintone環境内のすべてのアプリでご利用いただけます。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            設定にプログラミングの知識は必要ですか？
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                いいえ、プラグインの設定画面からすべての機能をノーコードで設定できます。カラーピッカーやドロップダウンで直感的に操作可能です。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            解約はいつでもできますか？
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                はい、いつでもキャンセル可能です。解約後も契約期間終了までは引き続きご利用いただけます。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bottom-cta fade-in">
+            <h2 class="bottom-cta-title">まずは30日間、無料でお試しください</h2>
+            <p class="bottom-cta-desc">クレジットカード不要・かんたん設定で今すぐ始められます</p>
+            <div style="max-width: 300px; margin: 0 auto;">
+                <span class="btn-disabled">近日販売開始予定</span>
+            </div>
+            <p class="bottom-cta-links">ご不明な点は <a href="/contact.html">お問い合わせ</a> からお気軽にどうぞ</p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <img src="/images/logo-white.png" alt="KIZUNA Works" style="height: 48px; mix-blend-mode: screen;">
+            </div>
+            <nav class="footer-nav">
+                <a href="/privacy.html">プライバシーポリシー</a>
+                <a href="/terms.html">利用規約</a>
+                <a href="/tokushoho.html">特定商取引法に基づく表記</a>
+                <a href="/refund.html">返金ポリシー</a>
+                <a href="/contact.html">お問い合わせ</a>
+            </nav>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 KIZUNA Works All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            /* Intersection Observer for Fade-in Animations */
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(el => observer.observe(el));
+
+            /* FAQ Accordion Logic */
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const item = question.parentElement;
+                    const answer = question.nextElementSibling;
+                    const isOpen = item.classList.contains('is-open');
+
+                    // Close all other accordions
+                    document.querySelectorAll('.faq-item').forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('is-open');
+                            otherItem.querySelector('.faq-answer').style.maxHeight = null;
+                        }
+                    });
+
+                    // Toggle current accordion
+                    if (isOpen) {
+                        item.classList.remove('is-open');
+                        answer.style.maxHeight = null;
+                    } else {
+                        item.classList.add('is-open');
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
