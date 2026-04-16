@@ -208,6 +208,21 @@ Update the grid in `tools/index.astro` and its JSON-LD `ItemList`.
 
 ---
 
+## Security Notes
+
+- **`.git/config` には GitHub トークンが平文で保存されている** — 絶対にコミット・共有しない
+- `.git/` ディレクトリは Git 管理外のため、通常のコミット操作では漏洩しない
+- `.gitignore` に `.git/config` を記載する必要はないが、`C:\kizuna-works.jp\.git\config` を直接共有しないよう注意
+- **トークンの有効期限：90日**（期限切れ時は GitHub で新しい PAT を発行して再設定）
+- **スコープ：** `repo` + `workflow` の両方が必要
+- トークン再設定コマンド：
+  ```bash
+  cd C:\kizuna-works.jp
+  git remote set-url origin https://kizuna-works:<新TOKEN>@github.com/kizuna-works/kizuna-works.jp.git
+  ```
+
+---
+
 ## Notes for Future Work
 
 - [ ] フィールドスタイラーの販売開始時に Stripe Payment Link を `/plugins/field-styler/` に追加する
