@@ -5,5 +5,13 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   site: 'https://kizuna-works.jp',
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx(),
+    sitemap({
+      customPages: [
+        'https://kizuna-works.jp/tools/stamp-maker.html',
+        'https://kizuna-works.jp/tools/natsuin.html',
+      ],
+    }),
+  ],
 });
