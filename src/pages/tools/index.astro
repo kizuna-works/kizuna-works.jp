@@ -1,0 +1,307 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="無料Webツール一覧 | KIZUNA Works"
+  description="インストール不要・登録不要で使える無料Webツール。電子印鑑メーカーなど、ブラウザだけで完結する便利ツールを公開中。"
+  ogTitle="無料ツール | KIZUNA Works"
+  ogDescription="業務効率化に役立つ無料ツールをご利用いただけます"
+  ogUrl="https://kizuna-works.jp/tools/"
+  canonical="https://kizuna-works.jp/tools/"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/tools/",
+          "url": "https://kizuna-works.jp/tools/",
+          "name": "無料Webツール一覧 | KIZUNA Works",
+          "description": "インストール不要・登録不要で使える無料Webツール。電子印鑑メーカーなど、ブラウザだけで完結する便利ツールを公開中。"
+        },
+        {
+          "@type": "ItemList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "inkan（電子印鑑メーカー）",
+                "url": "https://kizuna-works.jp/tools/stamp-maker.html",
+                "applicationCategory": "BusinessApplication",
+                "operatingSystem": "WebBrowser",
+                "offers": {
+                  "@type": "Offer",
+                  "price": "0",
+                  "priceCurrency": "JPY"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body {
+      background-color: #f4f7f6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Hero Section */
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(27,58,107,0.45) 0%, rgba(42,82,152,0.4) 100%),
+        url('/images/tools-bg.png') center center / cover no-repeat;
+      color: #FFFFFF;
+      padding: 80px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #1B3A6B 0%, #2E8B2E 100%);
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      font-weight: 500;
+      opacity: 0.95;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Intro Section */
+    .intro-section {
+      padding: 60px 20px 40px;
+      background-color: #f4f7f6;
+    }
+
+    .intro-card {
+      background-color: #FFFFFF;
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 16px;
+      padding: 40px 50px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    .intro-card h2 {
+      color: #1B3A6B;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+
+    .intro-card h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 3px;
+      background-color: #2E8B2E;
+      border-radius: 2px;
+    }
+
+    .intro-card p {
+      color: #4a5568;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    /* Tools Grid Section */
+    .tools-grid-section {
+      padding: 0 20px 80px;
+      background-color: #f4f7f6;
+      flex: 1;
+    }
+
+    .tools-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .tool-card {
+      background-color: #FFFFFF;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-top: 4px solid transparent;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(27, 58, 107, 0.12);
+      border-top-color: #2E8B2E;
+    }
+
+    .tool-image-wrapper {
+      background-color: #e2e8f0;
+      height: 200px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tool-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .tool-card:hover .tool-image-wrapper img {
+      transform: scale(1.05);
+    }
+
+    .tool-content {
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .tool-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .tool-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background-color: #f1f5f9;
+      color: #64748b;
+    }
+
+    .tool-tag.highlight {
+      background-color: #e6f4e6;
+      color: #2E8B2E;
+    }
+
+    .tool-content h3 {
+      font-size: 1.4rem;
+      color: #1B3A6B;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .tool-content p {
+      color: #4a5568;
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+      flex: 1;
+    }
+
+    .tool-btn {
+      display: inline-block;
+      text-align: center;
+      background-color: #2E8B2E;
+      color: #FFFFFF;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .tool-btn:hover {
+      background-color: #1B3A6B;
+      color: #FFFFFF;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 20px;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .intro-section {
+        padding: 40px 15px 30px;
+      }
+      .intro-card {
+        padding: 30px 20px;
+      }
+      .intro-card h2 {
+        font-size: 1.4rem;
+      }
+      .tools-grid-section {
+        padding: 0 15px 60px;
+      }
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <section class="hero">
+    <h1>無料Webツール</h1>
+    <p>インストール不要・登録不要。ブラウザだけで使える便利ツールを無料で公開しています</p>
+  </section>
+
+  <section class="intro-section">
+    <div class="intro-card">
+      <h2>ツールの特長</h2>
+      <p>KIZUNA Worksが提供する無料Webツールは、すべてブラウザ上で動作し、インストールやアカウント登録は一切不要です。誰でもすぐに、安全にご利用いただけます。業務効率化やペーパーレス化に役立つツールを順次公開しています。</p>
+    </div>
+  </section>
+
+  <section class="tools-grid-section">
+    <div class="tools-grid">
+      <article class="tool-card">
+        <div class="tool-image-wrapper">
+          <img src="/images/stamp-maker-preview.png" alt="inkan（電子印鑑メーカー）のプレビュー画像">
+        </div>
+        <div class="tool-content">
+          <div class="tool-tags">
+            <span class="tool-tag highlight">完全無料</span>
+            <span class="tool-tag">登録不要</span>
+            <span class="tool-tag">透過PNG対応</span>
+          </div>
+          <h3>inkan（電子印鑑メーカー）</h3>
+          <p>ブラウザ上で簡単に、背景が透過された高品質な電子印鑑（認印・データ印）を作成できる完全無料のWebアプリです。書類のペーパーレス化をサポートします。</p>
+          <a href="/tools/stamp-maker.html" class="tool-btn">無料で使う</a>
+        </div>
+      </article>
+    </div>
+  </section>
+</Layout>

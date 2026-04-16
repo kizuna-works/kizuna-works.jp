@@ -1,0 +1,457 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="KIZUNA Works | 業務効率化ツール・kintoneプラグイン"
+  description="KIZUNA Worksは業務効率化ツール・kintoneプラグイン・無料Webアプリを提供します。電子印鑑メーカーなどの無料ツールも公開中。"
+  ogTitle="KIZUNA Works - kintone DX Solutions"
+  ogDescription="kintoneプラグイン・無料ツールでDXを支援します"
+  ogUrl="https://kizuna-works.jp/"
+>
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    /* =========================================
+       Utility
+    ========================================= */
+    .bg-light { background-color: #f4f7f6; }
+    .bg-white { background-color: #FFFFFF; }
+    .text-center { text-align: center; }
+    .mt-4 { margin-top: 2rem; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 20px;
+    }
+
+    /* =========================================
+       Section Titles
+    ========================================= */
+    .section-title {
+      text-align: center;
+      color: #1B3A6B;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 50px;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background-color: #2E8B2E;
+      border-radius: 2px;
+    }
+
+    /* =========================================
+       Buttons
+    ========================================= */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #2E8B2E;
+      color: #FFFFFF;
+      box-shadow: 0 4px 15px rgba(46, 139, 46, 0.3);
+    }
+
+    .btn-primary:hover {
+      background-color: #1B3A6B;
+      color: #FFFFFF;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(27, 58, 107, 0.4);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: #FFFFFF;
+      border: 2px solid #FFFFFF;
+    }
+
+    .btn-outline:hover {
+      background-color: #FFFFFF;
+      color: #1B3A6B;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+    }
+
+    /* =========================================
+       Hero Section
+    ========================================= */
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(13,33,71,0.75) 0%, rgba(27,58,107,0.7) 40%, rgba(42,82,152,0.65) 70%, rgba(26,107,74,0.7) 100%),
+        url('/images/hero-bg.png') center center / cover no-repeat;
+      color: #FFFFFF;
+      padding: 120px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      right: -5%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(46,139,46,0.15) 0%, rgba(46,139,46,0) 70%);
+      border-radius: 50%;
+    }
+
+    .hero-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-size: 2.6rem;
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* =========================================
+       Services Section (3 Cards)
+    ========================================= */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .service-card {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+      border-top: 5px solid transparent;
+      position: relative;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(27, 58, 107, 0.12);
+      border-top-color: #2E8B2E;
+    }
+
+    .service-icon {
+      width: 70px;
+      height: 70px;
+      background: #F0F4F8;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: #1B3A6B;
+    }
+
+    .service-icon svg {
+      width: 35px;
+      height: 35px;
+    }
+
+    .service-card h3 {
+      color: #1B3A6B;
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+    }
+
+    .service-card p {
+      color: #555;
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+    }
+
+    .service-link {
+      display: inline-block;
+      color: #2E8B2E;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .service-link::after {
+      content: '→';
+      margin-left: 5px;
+      transition: margin-left 0.3s;
+    }
+
+    .service-card:hover .service-link::after {
+      margin-left: 10px;
+    }
+
+    /* =========================================
+       Feature Sections (Tools & Plugins)
+    ========================================= */
+    .feature-card {
+      display: flex;
+      background: #FFFFFF;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .feature-card.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .feature-image {
+      flex: 1;
+      min-height: 300px;
+      background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-image::after {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.1) 20px, rgba(255,255,255,0.1) 40px);
+    }
+
+    .feature-image svg {
+      width: 100px;
+      height: 100px;
+      color: #94a3b8;
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-content {
+      flex: 1;
+      padding: 60px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .feature-content h3 {
+      font-size: 1.8rem;
+      color: #1B3A6B;
+      margin-bottom: 20px;
+      border-left: 5px solid #2E8B2E;
+      padding-left: 15px;
+    }
+
+    .feature-content p {
+      color: #4a5568;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .plugins .feature-card {
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 10px 30px rgba(27, 58, 107, 0.05);
+    }
+
+    /* =========================================
+       Blog Section
+    ========================================= */
+    .coming-soon-box {
+      background: #FFFFFF;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 50px 30px;
+      border-radius: 16px;
+      border: 2px dashed #cbd5e1;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    }
+
+    .coming-soon-box h3 {
+      color: #1B3A6B;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .coming-soon-box p {
+      color: #64748b;
+    }
+
+    /* =========================================
+       Responsive
+    ========================================= */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 80px 15px;
+      }
+      .hero-title {
+        font-size: 2rem;
+      }
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+      .container {
+        padding: 60px 15px;
+      }
+      .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+      }
+      .feature-card, .feature-card.reverse {
+        flex-direction: column;
+      }
+      .feature-image {
+        min-height: 200px;
+      }
+      .feature-content {
+        padding: 40px 20px;
+      }
+      .feature-content h3 {
+        font-size: 1.5rem;
+      }
+      .hero-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1 class="hero-title">つながりで、仕事をもっとスマートに</h1>
+      <p class="hero-subtitle">KIZUNA Worksは、業務効率化ツール・kintoneプラグイン・無料Webアプリを提供します</p>
+      <div class="hero-actions">
+        <a href="/tools/" class="btn btn-primary">無料ツールを使う</a>
+        <a href="/plugins/" class="btn btn-outline">プラグインを見る</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="services bg-white">
+    <div class="container">
+      <h2 class="section-title">提供サービス</h2>
+      <div class="grid-3">
+        <div class="card service-card">
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          </div>
+          <h3>無料HTMLツール</h3>
+          <p>ブラウザで完結する便利なWebツールを無料で公開しています。インストール不要ですぐに使えます。</p>
+          <a href="/tools/" class="service-link">ツール一覧へ</a>
+        </div>
+        <div class="card service-card">
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.439 7.85c-.049.322-.059.648-.029.975.322.05.64.048.976-.017a2.122 2.122 0 0 1 2.453 1.547 2.119 2.119 0 0 1-1.381 2.559 2.1 2.1 0 0 1-1.89-.25 2.122 2.122 0 0 1-.84-1.62c-.03-.327.06-.653.03-.98-.327-.04-.653-.05-.98.03a2.115 2.115 0 0 1-2.584 1.341 2.118 2.118 0 0 1-1.463-2.512 2.12 2.12 0 0 1-2.658 1.523c.319.066.64.08.966.037.03-.314.04-.627-.02-.937a2.123 2.123 0 0 1-1.57-2.43 2.12 2.12 0 0 1-2.55 1.39 2.122 2.122 0 0 1-1.636-.822 2.115 2.115 0 0 1-.03 2.76z"></path><path d="M4.561 16.15c.049-.322.059-.648.029-.975-.322-.05-.64-.048-.976.017a2.122 2.122 0 0 1-2.453-1.547 2.119 2.119 0 0 1 1.381-2.559 2.1 2.1 0 0 1 1.89.25 2.122 2.122 0 0 1 .84 1.62c.03.327-.06.653-.03.98.327.04.653.05.98-.03a2.115 2.115 0 0 1 2.584-1.341 2.118 2.118 0 0 1 1.463 2.512 2.12 2.12 0 0 1-2.658 1.523c-.319-.066-.64-.08-.966-.037-.03.314-.04.627.02.937a2.123 2.123 0 0 1 1.57 2.43 2.12 2.12 0 0 1-2.55 1.39 2.122 2.122 0 0 1-1.636-.822 2.115 2.115 0 0 1 .03-2.76z"></path></svg>
+          </div>
+          <h3>kintoneプラグイン</h3>
+          <p>kintoneの機能を拡張し、日々の業務をさらに効率化するための高品質なプラグインを提供します。</p>
+          <a href="/plugins/" class="service-link">プラグイン一覧へ</a>
+        </div>
+        <div class="card service-card">
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
+          </div>
+          <h3>ブログ・コラム</h3>
+          <p>ツールの活用方法や、システム導入・業務改善に役立つノウハウを発信しています。</p>
+          <a href="/blog/" class="service-link">記事一覧へ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tools bg-light">
+    <div class="container">
+      <h2 class="section-title">無料ツール</h2>
+      <div class="feature-card">
+        <div class="feature-image" style="background:#1a1a2e; padding:0; overflow:hidden;">
+          <img src="/images/stamp-maker-preview.png" alt="電子印鑑メーカー プレビュー" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="feature-content">
+          <h3>inkan（電子印鑑メーカー）</h3>
+          <p>ブラウザ上で簡単に、背景が透過された高品質な電子印鑑（認印・データ印）を作成できる完全無料のWebアプリです。書類のペーパーレス化をサポートします。</p>
+          <div>
+            <a href="/tools/stamp-maker.html" class="btn btn-primary">無料で使う</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="plugins bg-white">
+    <div class="container">
+      <h2 class="section-title">kintoneプラグイン</h2>
+      <div class="feature-card reverse">
+        <div class="feature-image">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+        </div>
+        <div class="feature-content">
+          <h3>フィールドスタイラー</h3>
+          <p>kintoneのフィールドを自由にスタイリング。色やサイズ、配置を柔軟に変更でき、アプリの視認性・操作性を劇的に向上させるプラグインです。</p>
+          <div>
+            <a href="/plugins/field-styler/" class="btn btn-primary">詳細・購入</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blog bg-light">
+    <div class="container text-center">
+      <h2 class="section-title">ブログ・コラム</h2>
+      <div class="coming-soon-box">
+        <h3>近日公開予定</h3>
+        <p>業務改善に役立つ情報や、当サイトで提供しているツールの便利な使い方などを順次発信していく予定です。</p>
+      </div>
+      <div class="mt-4">
+        <a href="/blog/" class="btn btn-primary">ブログ一覧へ</a>
+      </div>
+    </div>
+  </section>
+</Layout>

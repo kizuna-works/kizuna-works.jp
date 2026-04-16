@@ -1,0 +1,230 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogUrl?: string;
+  ogType?: string;
+  ogImage?: string;
+  canonical?: string;
+}
+
+const {
+  title,
+  description,
+  ogTitle,
+  ogDescription,
+  ogUrl = 'https://kizuna-works.jp/',
+  ogType = 'website',
+  ogImage = 'https://kizuna-works.jp/images/ogp.png',
+  canonical,
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content={description}>
+  <title>{title}</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  {canonical && <link rel="canonical" href={canonical}>}
+
+  <meta property="og:title" content={ogTitle ?? title}>
+  <meta property="og:description" content={ogDescription ?? description}>
+  <meta property="og:url" content={ogUrl}>
+  <meta property="og:type" content={ogType}>
+  <meta property="og:image" content={ogImage}>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@KIZUNA_works_DX">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Google tag (gtag.js) -->
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-Q1B44N0922"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Q1B44N0922');
+  </script>
+
+  <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2096869114957752" crossorigin="anonymous"></script>
+
+  <slot name="head" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="/" class="site-header-logo">
+        <img src="/images/logo.png" alt="KIZUNA Works">
+      </a>
+      <nav class="site-header-nav">
+        <a href="/tools/" class="site-nav-btn">無料ツール</a>
+        <a href="/plugins/" class="site-nav-btn">プラグイン</a>
+        <a href="/blog/" class="site-nav-btn">ブログ</a>
+        <a href="/contact/" class="site-nav-btn">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <slot />
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-brand">
+        <img src="/images/logo-white.png" alt="KIZUNA Works" style="height:48px; width:auto; margin-bottom:10px; display:block; mix-blend-mode:screen;">
+      </div>
+      <div class="site-footer-links">
+        <a href="/privacy/">プライバシーポリシー</a>
+        <a href="/terms/">利用規約</a>
+        <a href="/tokushoho/">特定商取引法に基づく表記</a>
+        <a href="/refund/">返金ポリシー</a>
+        <a href="/contact/">お問い合わせ</a>
+      </div>
+    </div>
+    <div class="site-footer-copy">
+      <p>&copy; 2026 KIZUNA Works All Rights Reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+<style>
+  /* =========================================
+     Site Header
+  ========================================= */
+  .site-header {
+    background: #F0F4F8;
+    border-bottom: 3px solid #1B3A6B;
+    padding: 8px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+
+  .site-header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .site-header-logo img {
+    display: block;
+    height: 64px;
+    width: auto;
+    transition: transform 0.3s ease;
+  }
+
+  .site-header-logo:hover img {
+    transform: scale(1.05);
+  }
+
+  .site-header-nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .site-nav-btn {
+    display: inline-block;
+    background-color: #1B3A6B;
+    color: #FFFFFF;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .site-nav-btn:hover {
+    background-color: #2E8B2E;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  /* =========================================
+     Site Footer
+  ========================================= */
+  .site-footer {
+    background-color: #1B3A6B;
+    color: #FFFFFF;
+    padding: 60px 5% 30px;
+  }
+
+  .site-footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 40px;
+    margin-bottom: 30px;
+  }
+
+  .site-footer-links {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .site-footer-links a {
+    color: #FFFFFF;
+    opacity: 0.9;
+    font-weight: 500;
+  }
+
+  .site-footer-links a:hover {
+    color: #2E8B2E;
+    opacity: 1;
+  }
+
+  .site-footer-copy {
+    text-align: center;
+    opacity: 0.7;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+  }
+
+  /* =========================================
+     Responsive
+  ========================================= */
+  @media (max-width: 768px) {
+    .site-header-inner {
+      flex-direction: column;
+      padding: 5px 0;
+    }
+    .site-header-logo img {
+      height: 56px;
+    }
+    .site-nav-btn {
+      font-size: 0.85rem;
+      padding: 6px 12px;
+    }
+    .site-footer-inner {
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+    }
+    .site-footer-links {
+      justify-content: center;
+      gap: 15px;
+    }
+  }
+</style>

@@ -1,0 +1,209 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import Layout from './Layout.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+const formattedPubDate = pubDate.toLocaleDateString('ja-JP', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+const formattedUpdatedDate = updatedDate
+  ? updatedDate.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })
+  : null;
+---
+
+<Layout
+  title={`${title} | KIZUNA Works`}
+  description={description}
+  ogUrl={`https://kizuna-works.jp/blog/`}
+>
+  <style is:global>
+    body { background-color: #F0F4F8; }
+
+    .blog-post-wrapper {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 0 20px 80px;
+    }
+
+    .blog-post-card {
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .blog-post-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #1B3A6B, #2E8B2E);
+    }
+
+    .blog-hero-image {
+      width: 100%;
+    }
+
+    .blog-hero-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 0;
+    }
+
+    .blog-post-content {
+      padding: 50px 60px;
+    }
+
+    .blog-post-meta {
+      color: #64748b;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .blog-post-meta .updated {
+      font-style: italic;
+      margin-left: 10px;
+    }
+
+    .blog-post-title {
+      color: #1B3A6B;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .blog-prose {
+      color: #4a5568;
+      line-height: 1.9;
+    }
+
+    .blog-prose h2 {
+      color: #1B3A6B;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 2em 0 1em;
+      padding-left: 14px;
+      border-left: 4px solid #2E8B2E;
+    }
+
+    .blog-prose h3 {
+      color: #1B3A6B;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 1.5em 0 0.8em;
+    }
+
+    .blog-prose p {
+      margin-bottom: 1.2em;
+    }
+
+    .blog-prose a {
+      color: #2E8B2E;
+      text-decoration: underline;
+    }
+
+    .blog-prose a:hover {
+      color: #1B3A6B;
+    }
+
+    .blog-prose ul, .blog-prose ol {
+      list-style: disc;
+      margin-left: 1.5em;
+      margin-bottom: 1.2em;
+    }
+
+    .blog-prose ol {
+      list-style: decimal;
+    }
+
+    .blog-prose blockquote {
+      border-left: 4px solid #2E8B2E;
+      padding-left: 1em;
+      color: #64748b;
+      font-style: italic;
+      margin: 1.5em 0;
+    }
+
+    .blog-prose code {
+      background: #F0F4F8;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .blog-prose pre {
+      background: #1a1a2e;
+      color: #e8e8f8;
+      padding: 1.5em;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 1.5em 0;
+    }
+
+    .blog-prose pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    .blog-back-link {
+      display: inline-block;
+      margin-top: 40px;
+      color: #2E8B2E;
+      font-weight: 700;
+    }
+
+    .blog-back-link:hover {
+      color: #1B3A6B;
+    }
+
+    @media (max-width: 768px) {
+      .blog-post-wrapper {
+        margin: 30px auto;
+        padding: 0 15px 60px;
+      }
+      .blog-post-content {
+        padding: 30px 20px;
+      }
+      .blog-post-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+
+  <main class="blog-post-wrapper">
+    <article class="blog-post-card">
+      {heroImage && (
+        <div class="blog-hero-image">
+          <Image width={800} height={400} src={heroImage} alt={title} />
+        </div>
+      )}
+      <div class="blog-post-content">
+        <div class="blog-post-meta">
+          <time datetime={pubDate.toISOString()}>{formattedPubDate}</time>
+          {formattedUpdatedDate && (
+            <span class="updated">（更新: {formattedUpdatedDate}）</span>
+          )}
+        </div>
+        <h1 class="blog-post-title">{title}</h1>
+        <div class="blog-prose">
+          <slot />
+        </div>
+        <a href="/blog/" class="blog-back-link">← ブログ一覧に戻る</a>
+      </div>
+    </article>
+  </main>
+</Layout>

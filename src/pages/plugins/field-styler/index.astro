@@ -1,0 +1,814 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+
+<Layout
+  title="フィールドスタイラー（Field Styler） - kintoneプラグイン | KIZUNA Works"
+  description="kintoneのフィールドを自由にカスタマイズ。背景色・フォント・文字色・条件付きスタイルなど全10機能をノーコードで設定できるプラグイン。30日間無料トライアル付き。"
+  ogTitle="フィールドスタイラー（Field Styler） - kintoneプラグイン | KIZUNA Works"
+  ogDescription="kintoneのフィールドを自由にカスタマイズ。全10機能をノーコードで設定。30日間無料トライアル付き。"
+  ogType="product"
+  ogUrl="https://kizuna-works.jp/plugins/field-styler/"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "フィールドスタイラー（Field Styler）",
+      "description": "kintoneのフィールドを自由にカスタマイズ。背景色・フォント・文字色・条件付きスタイルなど全10機能をノーコードで設定できるプラグイン。",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web (kintone)",
+      "url": "https://kizuna-works.jp/plugins/field-styler/",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "月額プラン",
+          "price": "1000",
+          "priceCurrency": "JPY",
+          "priceValidUntil": "2027-12-31",
+          "availability": "https://schema.org/PreOrder",
+          "description": "全10機能が利用可能。30日間無料トライアル付き。いつでもキャンセル可能。"
+        },
+        {
+          "@type": "Offer",
+          "name": "年額プラン",
+          "price": "10000",
+          "priceCurrency": "JPY",
+          "priceValidUntil": "2027-12-31",
+          "availability": "https://schema.org/PreOrder",
+          "description": "全10機能が利用可能。30日間無料トライアル付き。月額プランより2ヶ月分お得。"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "KIZUNA Works",
+        "url": "https://kizuna-works.jp"
+      },
+      "featureList": [
+        "背景色変更",
+        "フォント変更（15種類）",
+        "文字色変更",
+        "文字数制限",
+        "太字",
+        "条件付きスタイル（最大5条件）",
+        "フォントサイズ変更",
+        "コピー機能",
+        "入力文字種制限（9種類）",
+        "プレースホルダー"
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray: #999999;
+      --color-gray-light: #e2e8f0;
+    }
+
+    /* Fade-in Animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.85) 0%, rgba(42,82,152,0.75) 100%), url('/images/field-styler-bg.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-subtitle-small {
+      font-size: 14px;
+      letter-spacing: 2px;
+      opacity: 0.8;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .hero-title {
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .hero-subtitle-en {
+      font-size: 20px;
+      opacity: 0.7;
+      margin-top: 4px;
+      margin-bottom: 24px;
+      display: block;
+      font-weight: 500;
+    }
+
+    .hero-copy {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    /* Section Wrapper */
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 16px;
+      margin-bottom: 48px;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .feature-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .feature-title {
+      font-size: 18px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .feature-badges {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .badge.active {
+      background-color: #E8F5E9;
+      color: var(--color-green);
+      border: 1px solid var(--color-green);
+    }
+
+    .badge.inactive {
+      background-color: var(--color-gray-light);
+      color: #94a3b8;
+      border: 1px solid transparent;
+    }
+
+    /* Screenshot Gallery */
+    .screenshot-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .screenshot-item {
+      margin: 0;
+    }
+
+    .screenshot-item img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      border: 1px solid #e2e8f0;
+    }
+
+    .screenshot-item figcaption {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    /* Before & After */
+    .ba-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .ba-item {
+      position: relative;
+    }
+
+    .ba-item img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      border: 1px solid #e2e8f0;
+    }
+
+    .ba-label {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      z-index: 1;
+    }
+
+    .ba-label-before {
+      background-color: #94a3b8;
+    }
+
+    .ba-label-after {
+      background-color: #2E8B2E;
+    }
+
+    .ba-caption {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    /* Pricing */
+    .pricing-bg {
+      background-color: var(--color-bg);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .btn-disabled {
+      display: block;
+      text-align: center;
+      background-color: var(--color-gray);
+      color: var(--color-white);
+      padding: 16px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 24px 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .faq-icon {
+      font-size: 20px;
+      color: var(--color-navy);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.is-open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+
+    .faq-answer-inner {
+      padding-bottom: 24px;
+      color: var(--color-text-light);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* Bottom CTA */
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .bottom-cta-links {
+      margin-top: 24px;
+      font-size: 14px;
+    }
+
+    .bottom-cta-links a {
+      text-decoration: underline;
+    }
+
+    .bottom-cta-links a:hover {
+      color: #d1d5db;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 5%;
+      }
+      .hero-title {
+        font-size: 32px;
+      }
+      .hero-copy {
+        font-size: 16px;
+      }
+      .section-wrapper {
+        padding: 60px 5%;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .ba-container {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .bottom-cta-title {
+        font-size: 22px;
+      }
+    }
+  </style>
+
+  <main>
+    <section class="hero fade-in">
+      <span class="hero-subtitle-small">kintone プラグイン</span>
+      <h1 class="hero-title">フィールドスタイラー</h1>
+      <span class="hero-subtitle-en">Field Styler</span>
+      <p class="hero-copy">kintoneのフィールドを自由にカスタマイズ。<br>背景色・フォント・文字色・条件付きスタイルなど、全10機能をノーコードで設定。</p>
+      <a href="#pricing" class="btn-primary">30日間無料で試す</a>
+    </section>
+
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">全10機能でフィールドを自在にカスタマイズ</h2>
+      <p class="section-subtitle">プログラミング不要。プラグイン設定画面から直感的に操作できます。</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon">🎨</span>
+          <h3 class="feature-title">背景色</h3>
+          <p class="feature-desc">フィールドの背景色を自由に変更。カラーピッカーで直感的に設定できます。</p>
+          <div class="feature-badges">
+            <span class="badge active">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge active">一覧</span>
+          </div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🔤</span>
+          <h3 class="feature-title">フォント</h3>
+          <p class="feature-desc">15種類のフォントから選択。メイリオ、ヒラギノ、Arial等、日本語・英語フォントに対応。</p>
+          <div class="feature-badges">
+            <span class="badge active">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge active">一覧</span>
+          </div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🖌️</span>
+          <h3 class="feature-title">文字色</h3>
+          <p class="feature-desc">文字の色をカラーピッカーで自由に変更。重要項目の視認性向上に。</p>
+          <div class="feature-badges">
+            <span class="badge active">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge active">一覧</span>
+          </div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">📏</span>
+          <h3 class="feature-title">文字数制限</h3>
+          <p class="feature-desc">入力できる文字数を制限。保存時にもバリデーションを実行し、確実に制御します。</p>
+          <div class="feature-badges">
+            <span class="badge inactive">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge inactive">一覧</span>
+          </div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🅱️</span>
+          <h3 class="feature-title">太字</h3>
+          <p class="feature-desc">フィールドの文字を太字に。見出しや重要項目を目立たせることができます。</p>
+          <div class="feature-badges">
+            <span class="badge active">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge active">一覧</span>
+          </div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">⚡</span>
+          <h3 class="feature-title">条件付きスタイル</h3>
+          <p class="feature-desc">値に応じて背景色・文字色を動的に変更。最大5条件まで設定可能。</p>
+          <div class="feature-badges">
+            <span class="badge active">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge active">一覧</span>
+          </div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🔍</span>
+          <h3 class="feature-title">フォントサイズ</h3>
+          <p class="feature-desc">文字サイズをピクセル単位で自由に変更。小さく控えめに、大きく目立たせることも。</p>
+          <div class="feature-badges">
+            <span class="badge active">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge active">一覧</span>
+          </div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">📋</span>
+          <h3 class="feature-title">コピー機能</h3>
+          <p class="feature-desc">ワンクリックでフィールドの値をクリップボードにコピー。一覧画面でも使えます。</p>
+          <div class="feature-badges">
+            <span class="badge active">詳細</span><span class="badge inactive">作成</span><span class="badge inactive">編集</span><span class="badge active">一覧</span>
+          </div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🔒</span>
+          <h3 class="feature-title">入力文字種制限</h3>
+          <p class="feature-desc">半角英数字のみ、ひらがなのみなど9種類の制限パターンから選択可能。</p>
+          <div class="feature-badges">
+            <span class="badge inactive">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge inactive">一覧</span>
+          </div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">💬</span>
+          <h3 class="feature-title">プレースホルダー</h3>
+          <p class="feature-desc">空欄時にヒントテキストを表示。入力ガイドとして活用できます。</p>
+          <div class="feature-badges">
+            <span class="badge active">詳細</span><span class="badge active">作成</span><span class="badge active">編集</span><span class="badge inactive">一覧</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定画面イメージ</h2>
+        <p class="section-subtitle">プラグインの設定画面からすべての機能をノーコードで操作できます。</p>
+        <div class="screenshot-gallery">
+          <figure class="screenshot-item">
+            <img src="/images/field-styler-config-list.png" alt="フィールドスタイラー 設定済みフィールド一覧" loading="lazy">
+            <figcaption>設定済みフィールド一覧 — フィールドごとの設定内容を一目で確認</figcaption>
+          </figure>
+          <figure class="screenshot-item">
+            <img src="/images/field-styler-config-detail.png" alt="フィールドスタイラー フィールド設定詳細" loading="lazy">
+            <figcaption>フィールド設定画面 — 全10機能を直感的に設定</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">導入効果 — Before & After</h2>
+        <p class="section-subtitle">プラグインを適用するだけで、一覧画面の視認性が大きく向上します。</p>
+        <div class="ba-container">
+          <div class="ba-item">
+            <span class="ba-label ba-label-before">Before</span>
+            <img src="/images/field-styler-before.png" alt="フィールドスタイラー導入前の一覧画面" loading="lazy">
+            <p class="ba-caption">導入前 — すべてのフィールドが同じスタイルで表示</p>
+          </div>
+          <div class="ba-item">
+            <span class="ba-label ba-label-after">After</span>
+            <img src="/images/field-styler-after.png" alt="フィールドスタイラー導入後の一覧画面" loading="lazy">
+            <p class="ba-caption">導入後 — 背景色・文字色・条件付きスタイルで視認性が向上</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">料金プラン</h2>
+      <p class="section-subtitle">すべてのプランに30日間の無料トライアル付き。クレジットカード不要で今すぐお試しいただけます。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">月額プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥1,000</span>
+            <span class="unit">/月（税込）</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全10機能が利用可能</li>
+            <li>✅ 30日間無料トライアル</li>
+            <li>✅ いつでもキャンセル可能</li>
+            <li>✅ メールサポート付き</li>
+          </ul>
+          <span class="btn-disabled">近日販売開始予定</span>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">おすすめ</span>
+          <h3 class="plan-name">年額プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥10,000</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">月額換算 約¥833/月 — 2ヶ月分お得！</div>
+          <ul class="plan-features">
+            <li>✅ 全10機能が利用可能</li>
+            <li>✅ 30日間無料トライアル</li>
+            <li>✅ 月額プランより2ヶ月分お得</li>
+            <li>✅ メールサポート付き</li>
+          </ul>
+          <span class="btn-disabled">近日販売開始予定</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">よくある質問</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              無料トライアル期間中に料金は発生しますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                いいえ、30日間の無料トライアル期間中は一切料金は発生しません。トライアル終了後に自動的に課金されることもありません。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              どのkintone環境で利用できますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                kintoneのデスクトップ版で利用可能です。スタンダードコースのkintone環境であれば、ドメインを問わずご利用いただけます。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              1つのライセンスで複数のアプリに使えますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい、1つのライセンスで同一kintone環境内のすべてのアプリでご利用いただけます。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              設定にプログラミングの知識は必要ですか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                いいえ、プラグインの設定画面からすべての機能をノーコードで設定できます。カラーピッカーやドロップダウンで直感的に操作可能です。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              解約はいつでもできますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい、いつでもキャンセル可能です。解約後も契約期間終了までは引き続きご利用いただけます。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">まずは30日間、無料でお試しください</h2>
+      <p class="bottom-cta-desc">クレジットカード不要・かんたん設定で今すぐ始められます</p>
+      <div style="max-width: 300px; margin: 0 auto;">
+        <span class="btn-disabled">近日販売開始予定</span>
+      </div>
+      <p class="bottom-cta-links">ご不明な点は <a href="/contact/">お問い合わせ</a> からお気軽にどうぞ</p>
+    </section>
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      /* Intersection Observer for Fade-in Animations */
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      const fadeElements = document.querySelectorAll('.fade-in');
+      fadeElements.forEach(el => observer.observe(el));
+
+      /* FAQ Accordion Logic */
+      const faqQuestions = document.querySelectorAll('.faq-question');
+
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+    });
+  </script>
+</Layout>
