@@ -71,6 +71,7 @@ c:\kizuna-works.jp\
 │   │   ├── plugins-bg.png              # プラグインページ 背景
 │   │   ├── contact-bg.png              # お問い合わせページ 背景
 │   │   ├── stamp-maker-preview.png     # inkan（電子印鑑メーカー）プレビュー画像
+│   │   ├── natsuin-preview.png         # Natsuin（PDF捺印ツール）のプレビュー画像
 │   │   ├── field-styler-before.png     # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png      # フィールドスタイラー 導入後スクリーンショット
 │   │   ├── field-styler-bg.png         # フィールドスタイラーページ 背景
