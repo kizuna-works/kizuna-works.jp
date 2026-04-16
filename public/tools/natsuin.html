@@ -17,18 +17,18 @@
 :root{--navy:#1B3A6B;--navy-light:#2a4f8a;--navy-dark:#132a4e;--green:#2E8B2E;--green-light:#3da63d;--red:#c0392b;--red-light:#e74c3c;--bg:#F0F4F8;--bg-white:#fff;--bg-card:#f8fafc;--text-primary:#1a1a2e;--text-secondary:#4a5568;--text-muted:#8896a6;--border:#d4dce8;--border-light:#e8edf4;--shadow-sm:0 1px 3px rgba(27,58,107,.08);--shadow-md:0 4px 12px rgba(27,58,107,.1);--shadow-lg:0 8px 32px rgba(27,58,107,.12);--radius:8px;--radius-lg:12px;--transition:.2s ease;--sidebar-width:270px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:14px}
-body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;overflow:hidden}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text-primary);height:100vh;overflow:hidden;display:flex;flex-direction:column;}
 
-/* Header */
-.header{background:var(--navy);color:#fff;padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(27,58,107,.2);position:relative;z-index:100}
-.header-left{display:flex;align-items:center;gap:10px}
-.header h1.header-brand{font-size:1.2rem;font-weight:700;color:#4ecdc4;letter-spacing:.04em}
-.header-right{display:flex;align-items:center;gap:6px}
-.header-link{color:rgba(255,255,255,.8);text-decoration:none;font-size:.8rem;padding:5px 10px;border-radius:6px;transition:var(--transition);display:flex;align-items:center;gap:4px}
-.header-link:hover{background:rgba(255,255,255,.1);color:#fff}
+/* Site Header */
+.site-header{background:#F0F4F8;border-bottom:3px solid #1B3A6B;padding:8px 5%;position:sticky;top:0;z-index:300;flex-shrink:0;}
+.site-header-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;}
+.site-header-logo img{display:block;height:64px;width:auto;}
+.site-header-nav{display:flex;gap:10px;flex-wrap:wrap;}
+.site-nav-btn{display:inline-block;background-color:#1B3A6B;color:#FFFFFF !important;font-size:.95rem;font-weight:500;padding:8px 16px;border-radius:20px;text-decoration:none;transition:all .3s ease;}
+.site-nav-btn:hover{background-color:#2E8B2E;transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.2);}
 
 /* Layout */
-.app-layout{display:flex;height:calc(100vh - 52px);position:relative}
+.app-layout{display:flex;flex:1;overflow:hidden;position:relative}
 
 /* Sidebar */
 .sidebar{width:var(--sidebar-width);min-width:var(--sidebar-width);background:var(--bg-white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:var(--transition)}
@@ -132,9 +132,11 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .tray-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:140}
 .tray-backdrop.show{display:block}
 @media(max-width:768px){
-  .header h1{font-size:.92rem}
-  .header-link .link-text{display:none}
-  .sidebar{position:fixed;top:52px;right:0;width:290px;height:calc(100vh - 52px);z-index:150;transform:translateX(100%);box-shadow:var(--shadow-lg)}
+  .site-header{padding:6px 4%;}
+  .site-header-inner{flex-direction:column;gap:8px;}
+  .site-header-logo img{height:52px;}
+  .site-nav-btn{font-size:.82rem;padding:6px 12px;}
+  .sidebar{position:fixed;top:0;right:0;width:290px;height:100vh;z-index:150;transform:translateX(100%);box-shadow:var(--shadow-lg)}
   .sidebar.open{transform:translateX(0)}
   .tray-toggle{display:flex}
   .toolbar{padding:5px 8px;gap:3px}
@@ -154,13 +156,17 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 </head>
 <body>
 
-<header class="header">
-  <div class="header-left">
-    <h1 class="header-brand">Natsuin</h1>
-  </div>
-  <div class="header-right">
-    <a href="https://kizuna-works.jp/tools/stamp-maker.html" class="header-link" target="_blank">&#9733; <span class="link-text">電子印鑑メーカー</span></a>
-    <a href="https://kizuna-works.jp/tools/" class="header-link">&#9776; <span class="link-text">ツール一覧</span></a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="https://kizuna-works.jp/" class="site-header-logo">
+      <img src="/images/logo.png" alt="KIZUNA Works">
+    </a>
+    <nav class="site-header-nav">
+      <a href="https://kizuna-works.jp/tools/" class="site-nav-btn">無料ツール</a>
+      <a href="https://kizuna-works.jp/plugins/" class="site-nav-btn">プラグイン</a>
+      <a href="https://kizuna-works.jp/blog/" class="site-nav-btn">ブログ</a>
+      <a href="https://kizuna-works.jp/contact/" class="site-nav-btn">お問い合わせ</a>
+    </nav>
   </div>
 </header>
 
