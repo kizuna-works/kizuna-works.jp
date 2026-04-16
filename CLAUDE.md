@@ -232,6 +232,45 @@ Update the grid in `tools/index.astro` and its JSON-LD `ItemList`.
 
 ---
 
+## ページ追加・更新時のSEOチェックリスト
+
+### 新規ページを追加する場合は以下を必ず設定すること
+
+#### frontmatterの必須項目
+- title: ページタイトル（日本語・キーワード含む・30文字前後）
+- description: meta description（日本語・120〜140文字・キーワード含む）
+- canonical: 正式URL（例：https://kizuna-works.jp/[ページ名]/）
+- ogTitle: OGタイトル（titleと同じでOK）
+- ogDescription: OG説明文（descriptionと同じでOK）
+- ogUrl: 正式URL（canonicalと同じでOK）
+- ogType: "website"（製品ページも"website"を使用。"product"は非標準のため使用禁止）
+- ogImage: OGP画像URL（デフォルト：https://kizuna-works.jp/images/ogp.png）
+
+#### JSON-LDの設定
+- 全ページにWebPageスキーマを追加する
+- ツール一覧・プラグイン一覧にはItemListスキーマを追加する
+- 製品ページにはSoftwareApplicationスキーマを追加する
+- `<script>`タグには必ず`is:inline`ディレクティブを付与する
+
+#### 画像のaltテキスト
+- 全ての`<img>`タグにalt属性を設定する
+- alt属性はページの内容・画像の内容を具体的に日本語で説明する
+- 空のalt属性（`alt=""`）は装飾画像のみ許可
+
+#### 内部リンク
+- 新規ページは必ずヘッダー・フッター・または関連ページからリンクを張る
+- 孤立ページ（どこからもリンクされないページ）を作らない
+
+#### staticHTMLファイル（public/tools/配下）を追加する場合
+- `astro.config.mjs` の sitemap customPages に追加する
+- Search Consoleでインデックス申請を行う（人間側の作業）
+
+#### SITE_STRUCTURE.mdの更新
+- 新規ファイルを `SITE_STRUCTURE.md` に追加する
+- ファイルのパスと役割を日本語で記載する
+
+---
+
 ## Notes for Future Work
 
 - [ ] フィールドスタイラーの販売開始時に Stripe Payment Link を `/plugins/field-styler/` に追加する
