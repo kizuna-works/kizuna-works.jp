@@ -7,7 +7,7 @@
 | Site name | KIZUNA Works |
 | Domain | kizuna-works.jp |
 | Repository | kizuna-works/kizuna-works.jp |
-| Local path | `C:\kizuna-astro` |
+| Local path | `C:\kizuna-works.jp`（作業ディレクトリ） |
 | Contact | info@kizuna-works.jp |
 | X (Twitter) | @KIZUNA_works_DX |
 | Description | kintoneプラグイン・無料Webツール・業務効率化サービスを提供するサイト |
