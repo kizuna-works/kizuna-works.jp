@@ -223,6 +223,15 @@ Update the grid in `tools/index.astro` and its JSON-LD `ItemList`.
 
 ---
 
+## サイト更新時のルール
+
+- ページの追加・削除・移動を行った場合は、必ず `SITE_STRUCTURE.md` も更新する
+- 新しいファイルを追加した場合は、`SITE_STRUCTURE.md` にパスと役割の説明を追記する
+- ファイルを削除・移動した場合は、`SITE_STRUCTURE.md` の該当箇所を修正する
+- `SITE_STRUCTURE.md` の更新はサイト更新と同じコミットに含める
+
+---
+
 ## Notes for Future Work
 
 - [ ] フィールドスタイラーの販売開始時に Stripe Payment Link を `/plugins/field-styler/` に追加する
