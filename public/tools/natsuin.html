@@ -17,7 +17,7 @@
 :root{--navy:#1B3A6B;--navy-light:#2a4f8a;--navy-dark:#132a4e;--green:#2E8B2E;--green-light:#3da63d;--red:#c0392b;--red-light:#e74c3c;--bg:#F0F4F8;--bg-white:#fff;--bg-card:#f8fafc;--text-primary:#1a1a2e;--text-secondary:#4a5568;--text-muted:#8896a6;--border:#d4dce8;--border-light:#e8edf4;--shadow-sm:0 1px 3px rgba(27,58,107,.08);--shadow-md:0 4px 12px rgba(27,58,107,.1);--shadow-lg:0 8px 32px rgba(27,58,107,.12);--radius:8px;--radius-lg:12px;--transition:.2s ease;--sidebar-width:270px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:14px}
-body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text-primary);height:100vh;overflow:hidden;display:flex;flex-direction:column;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;display:flex;flex-direction:column;}
 
 /* Site Header */
 .site-header{background:#F0F4F8;border-bottom:3px solid #1B3A6B;padding:8px 5%;position:sticky;top:0;z-index:300;flex-shrink:0;}
@@ -28,7 +28,15 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .site-nav-btn:hover{background-color:#2E8B2E;transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.2);}
 
 /* Layout */
-.app-layout{display:flex;flex:1;overflow:hidden;position:relative}
+.app-layout{display:flex;flex:1;min-height:0;overflow:hidden;position:relative}
+
+/* Site Footer */
+.site-footer{background-color:#1B3A6B;color:#FFFFFF;padding:60px 5% 30px;flex-shrink:0;}
+.site-footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:40px;margin-bottom:30px;}
+.site-footer-links{display:flex;gap:30px;flex-wrap:wrap;align-items:center;}
+.site-footer-links a{color:#FFFFFF;opacity:.9;font-weight:500;text-decoration:none;}
+.site-footer-links a:hover{color:#2E8B2E;opacity:1;}
+.site-footer-copy{text-align:center;opacity:.7;font-size:.9rem;letter-spacing:1px;}
 
 /* Sidebar */
 .sidebar{width:var(--sidebar-width);min-width:var(--sidebar-width);background:var(--bg-white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:var(--transition)}
@@ -137,6 +145,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
   .site-header-logo img{height:52px;}
   .site-nav-btn{font-size:.82rem;padding:6px 12px;}
   .sidebar{position:fixed;top:0;right:0;width:290px;height:100vh;z-index:150;transform:translateX(100%);box-shadow:var(--shadow-lg)}
+  .site-footer-inner{flex-direction:column;text-align:center;align-items:center;}
+  .site-footer-links{justify-content:center;gap:15px;}
   .sidebar.open{transform:translateX(0)}
   .tray-toggle{display:flex}
   .toolbar{padding:5px 8px;gap:3px}
@@ -279,6 +289,24 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
     </div>
   </div>
 </div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-brand">
+      <img src="/images/logo-white.png" alt="KIZUNA Works" style="height:48px;width:auto;margin-bottom:10px;display:block;mix-blend-mode:screen;">
+    </div>
+    <div class="site-footer-links">
+      <a href="https://kizuna-works.jp/privacy/">プライバシーポリシー</a>
+      <a href="https://kizuna-works.jp/terms/">利用規約</a>
+      <a href="https://kizuna-works.jp/tokushoho/">特定商取引法に基づく表記</a>
+      <a href="https://kizuna-works.jp/refund/">返金ポリシー</a>
+      <a href="https://kizuna-works.jp/contact/">お問い合わせ</a>
+    </div>
+  </div>
+  <div class="site-footer-copy">
+    <p>&copy; 2026 KIZUNA Works All Rights Reserved.</p>
+  </div>
+</footer>
 
 <button class="tray-toggle" id="trayToggle">&#128396;</button>
 <div class="toast" id="toast"></div>
