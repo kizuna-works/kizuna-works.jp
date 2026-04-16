@@ -77,7 +77,8 @@ c:\kizuna-works.jp\
 │   │   ├── field-styler-config-list.png    # フィールドスタイラー 設定一覧画面
 │   │   └── field-styler-config-detail.png # フィールドスタイラー 設定詳細画面
 │   ├── tools/
-│   │   └── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）
+│   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）
+│   │   └── natsuin.html        # Natsuin（PDF電子印鑑・署名ツール）スタンドアロンHTMLアプリ（Astro管理外）
 │   ├── CNAME                   # GitHub Pages カスタムドメイン設定（kizuna-works.jp）
 │   └── robots.txt              # 検索エンジンクローラー制御
 │
