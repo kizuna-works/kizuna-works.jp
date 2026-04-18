@@ -344,6 +344,9 @@ const posts = (await getCollection('blog')).sort(
       <div class="article-grid">
         {posts.length > 0 ? posts.map((post) => (
           <a href={`/blog/${post.id}/`} class="article-card">
+            {post.data.ogImage && (
+              <img class="card-image" src={post.data.ogImage} alt={post.data.title} width="640" height="360" loading="lazy" />
+            )}
             <div class="card-content">
               <p class="card-date">
                 {post.data.pubDate.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })}
