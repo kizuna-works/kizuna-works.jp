@@ -7,8 +7,6 @@ tags: ["kintone", "運用定着", "DX推進", "kintone管理者"]
 ogImage: "/images/blog/kintone-teichaku-shinai-riyu.png"
 ---
 
-# kintoneが定着しない本当の理由
-
 「kintoneを導入したのに、なかなか現場に使ってもらえない」そんな悩みを抱える管理者は少なくありません。定着しない原因を「現場のITリテラシーや意識の問題」だけで片付けていませんか？実は、導入を進める管理者側が見落としているポイントが、定着の壁となっていることがほとんどです。今回は、kintoneが定着しない7つの理由と、その改善のヒントを解説します。
 
 ---
@@ -27,10 +25,12 @@ ogImage: "/images/blog/kintone-teichaku-shinai-riyu.png"
 
 **対策：** 一覧画面をユーザーの役割ごとに複数作成したり、不要なフィールドを非表示にしたりするなど、画面の整理を行いましょう。自分にとって必要な情報だけがパッと目に入る状態を作ることが重要です。
 
-![フィールドスタイラー導入前の一覧画面](/images/field-styler-before.png)
+<img src="/images/field-styler-before.png" alt="フィールドスタイラー導入前の一覧画面" width="1920" height="960" loading="lazy" />
+
 *導入前 — すべてのフィールドが同じスタイルで、どこを見ればいいか分かりにくい*
 
-![フィールドスタイラー導入後の一覧画面](/images/field-styler-after.png)
+<img src="/images/field-styler-after.png" alt="フィールドスタイラー導入後の一覧画面" width="1920" height="960" loading="lazy" />
+
 *導入後 — 背景色・文字色・条件付きスタイルで重要項目が一目でわかる*
 
 ---
@@ -75,7 +75,7 @@ ogImage: "/images/blog/kintone-teichaku-shinai-riyu.png"
 
 ### 知っておくと操作効率が大きく変わるkintoneショートカットキー
 
-![kintoneショートカットキーの一覧](/images/blog/kintone-shortcut-keys.png)
+<img src="/images/blog/kintone-shortcut-keys.png" alt="kintoneショートカットキーの一覧" width="880" height="380" loading="lazy" />
 
 | 操作 | キー |
 |------|------|
