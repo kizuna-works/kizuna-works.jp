@@ -50,8 +50,10 @@ c:\kizuna-works.jp\
 │   │   │   └── [...slug].astro # ブログ記事動的ルート（/blog/[記事スラッグ]/）
 │   │   ├── plugins/
 │   │   │   ├── index.astro     # プラグイン一覧ページ（/plugins/）
-│   │   │   └── field-styler/
-│   │   │       └── index.astro # フィールドスタイラー製品ページ（/plugins/field-styler/）
+│   │   │   ├── field-styler/
+│   │   │   │   └── index.astro # フィールドスタイラー製品ページ（/plugins/field-styler/）
+│   │   │   └── kw-conditional-numbering/
+│   │   │       └── index.astro # 条件分岐自動採番プラグイン製品ページ（/plugins/kw-conditional-numbering/）
 │   │   └── tools/
 │   │       └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   ├── content/
@@ -79,6 +81,9 @@ c:\kizuna-works.jp\
 │   │   ├── field-styler-bg.png         # フィールドスタイラーページ 背景
 │   │   ├── field-styler-config-list.png    # フィールドスタイラー 設定一覧画面
 │   │   └── field-styler-config-detail.png # フィールドスタイラー 設定詳細画面
+│   ├── downloads/
+│   │   ├── .gitkeep                                    # ディレクトリをGit管理するための空ファイル
+│   │   └── kw-conditional-numbering-v1.0.0.zip         # 条件分岐自動採番プラグイン配布ファイル（手動配置）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）
 │   │   └── natsuin.html        # Natsuin（PDF電子印鑑・署名ツール）スタンドアロンHTMLアプリ（Astro管理外）
