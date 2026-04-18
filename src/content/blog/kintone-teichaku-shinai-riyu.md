@@ -25,6 +25,8 @@ ogImage: "/images/blog/kintone-teichaku-shinai-riyu.png"
 
 **対策：** 一覧画面をユーザーの役割ごとに複数作成したり、不要なフィールドを非表示にしたりするなど、画面の整理を行いましょう。自分にとって必要な情報だけがパッと目に入る状態を作ることが重要です。
 
+こうした画面の見づらさを手軽に解消できるのが、KIZUNA Worksが提供するkintoneプラグイン **[フィールドスタイラー（Field Styler）](/plugins/field-styler/)** です。背景色・文字色・条件付きスタイルなどをノーコードで設定でき、一覧画面の視認性を大幅に改善できます。以下のBefore/Afterをご覧ください。
+
 <img src="/images/field-styler-before.png" alt="フィールドスタイラー導入前の一覧画面" width="1920" height="960" loading="lazy" />
 
 *導入前 — すべてのフィールドが同じスタイルで、どこを見ればいいか分かりにくい*
