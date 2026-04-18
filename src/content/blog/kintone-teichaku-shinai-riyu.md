@@ -69,6 +69,8 @@ ogImage: "/images/blog/kintone-teichaku-shinai-riyu.png"
 
 ### 知っておくと操作効率が大きく変わるkintoneショートカットキー
 
+![kintoneショートカットキーの一覧](/images/blog/kintone-shortcut-keys.png)
+
 | 操作 | キー |
 |------|------|
 | レコード詳細画面で編集モードに切り替える | `e` キーを押す |
