@@ -5,7 +5,7 @@ import Layout from './Layout.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, ogImage, author, tags } = Astro.props;
 
 const formattedPubDate = pubDate.toLocaleDateString('ja-JP', {
   year: 'numeric',
@@ -15,13 +15,47 @@ const formattedPubDate = pubDate.toLocaleDateString('ja-JP', {
 const formattedUpdatedDate = updatedDate
   ? updatedDate.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })
   : null;
+
+const canonicalUrl = `https://kizuna-works.jp${Astro.url.pathname}`;
+const ogImageUrl = ogImage
+  ? `https://kizuna-works.jp${ogImage}`
+  : 'https://kizuna-works.jp/images/ogp.png';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description,
+  "url": canonicalUrl,
+  "datePublished": pubDate.toISOString(),
+  ...(updatedDate ? { "dateModified": updatedDate.toISOString() } : {}),
+  "image": ogImageUrl,
+  "author": {
+    "@type": "Organization",
+    "name": author ?? "KIZUNA Works",
+    "url": "https://kizuna-works.jp/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "KIZUNA Works",
+    "url": "https://kizuna-works.jp/"
+  },
+  ...(tags && tags.length > 0 ? { "keywords": tags.join(", ") } : {})
+};
 ---
 
 <Layout
   title={`${title} | KIZUNA Works`}
   description={description}
-  ogUrl={`https://kizuna-works.jp/blog/`}
+  ogTitle={`${title} | KIZUNA Works`}
+  ogDescription={description}
+  ogUrl={canonicalUrl}
+  ogImage={ogImageUrl}
+  canonical={canonicalUrl}
 >
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+  </Fragment>
   <style is:global>
     body { background-color: #F0F4F8; }
 

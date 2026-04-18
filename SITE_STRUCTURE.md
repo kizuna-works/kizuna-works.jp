@@ -55,7 +55,9 @@ c:\kizuna-works.jp\
 │   │   └── tools/
 │   │       └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   ├── content/
-│   │   └── blog/               # ブログ記事 Markdown/MDX ファイル置き場（現在は空）
+│   │   ├── config.ts           # コンテンツコレクションのスキーマ定義（blog コレクション）
+│   │   └── blog/               # ブログ記事 Markdown/MDX ファイル置き場
+│   │       └── kintone-teichaku-shinai-riyu.md  # 「kintoneが定着しない本当の理由」記事
 │   └── styles/
 │       └── global.css          # グローバルCSS（最小リセット・スティッキーフッター用）
 │
@@ -134,7 +136,7 @@ kintone プラグイン「フィールドスタイラー」の製品ページ。
 
 | パス | 内容 | 優先度 |
 |------|------|--------|
-| `src/content/blog/*.md` | ブログ記事（Markdown形式） | 高 |
+| `src/content/blog/*.md` | ブログ記事（Markdown形式）― 初回記事追加済み | 高 |
 | `public/images/ogp.png` | OGP画像の更新 | 中 |
 | `src/pages/plugins/<新プラグイン>/index.astro` | 新規プラグイン製品ページ | 新プラグイン追加時 |
 | `src/pages/tools/<新ツール>/index.astro` | 新規ツールページ（必要な場合） | 新ツール追加時 |
