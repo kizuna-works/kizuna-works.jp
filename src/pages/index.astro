@@ -8,46 +8,56 @@ const recentPosts = (await getCollection('blog'))
   .slice(0, 3);
 ---
 
-<script is:inline type="application/ld+json" set:html={JSON.stringify({
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": "https://kizuna-works.jp/#website",
-      "url": "https://kizuna-works.jp/",
-      "name": "KIZUNA Works",
-      "description": "業務効率化ツール・kintoneプラグイン・無料Webアプリを提供するサイト",
-      "inLanguage": "ja"
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://kizuna-works.jp/#organization",
-      "name": "KIZUNA Works",
-      "url": "https://kizuna-works.jp/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://kizuna-works.jp/images/logo.png"
-      },
-      "sameAs": [
-        "https://twitter.com/KIZUNA_works_DX"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "info@kizuna-works.jp",
-        "contactType": "customer service"
-      }
-    }
-  ]
-})} />
-
 <Layout
   title="KIZUNA Works | 業務効率化ツール・kintoneプラグイン"
-  description="KIZUNA Worksは業務効率化ツール・kintoneプラグイン・無料Webアプリを提供します。電子印鑑メーカーなどの無料ツールも公開中。"
+  description="KIZUNA Worksは、業務効率化ツール・kintoneプラグイン・無料Webアプリを提供するサービスです。電子印鑑メーカーなどのブラウザ完結型無料ツールや、条件分岐自動採番・フィールドスタイラーなどのkintoneプラグインを無料・有料で提供しています。"
   ogTitle="KIZUNA Works - kintone DX Solutions"
-  ogDescription="kintoneプラグイン・無料ツールでDXを支援します"
+  ogDescription="kintoneプラグイン・無料Webツールで現場の業務効率化を支援。電子印鑑メーカー、条件分岐自動採番プラグインなどを提供するKIZUNA Worksの公式サイトです。"
   ogUrl="https://kizuna-works.jp/"
   canonical="https://kizuna-works.jp/"
 >
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/",
+          "url": "https://kizuna-works.jp/",
+          "name": "KIZUNA Works | 業務効率化ツール・kintoneプラグイン",
+          "description": "KIZUNA Worksは、業務効率化ツール・kintoneプラグイン・無料Webアプリを提供するサービスです。"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://kizuna-works.jp/#website",
+          "url": "https://kizuna-works.jp/",
+          "name": "KIZUNA Works",
+          "description": "業務効率化ツール・kintoneプラグイン・無料Webアプリを提供するサイト",
+          "inLanguage": "ja"
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://kizuna-works.jp/#organization",
+          "name": "KIZUNA Works",
+          "url": "https://kizuna-works.jp/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/logo.png"
+          },
+          "sameAs": [
+            "https://twitter.com/KIZUNA_works_DX"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "info@kizuna-works.jp",
+            "contactType": "customer service"
+          }
+        }
+      ]
+    }
+    </script>
+  </Fragment>
   <style is:global>
     body { background-color: #FFFFFF; }
 
@@ -469,6 +479,18 @@ const recentPosts = (await getCollection('blog'))
           <p>kintoneのフィールドを自由にスタイリング。色やサイズ、配置を柔軟に変更でき、アプリの視認性・操作性を劇的に向上させるプラグインです。</p>
           <div>
             <a href="/plugins/field-styler/" class="btn btn-primary">詳細・購入</a>
+          </div>
+        </div>
+      </div>
+      <div class="feature-card" style="margin-top: 40px;">
+        <div class="feature-image feature-image--dark">
+          <img src="/images/conditional-numbering-banner.png" alt="条件分岐自動採番プラグイン — フィールドの条件に応じて採番ルールを自動切替" width="1200" height="675" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="feature-content">
+          <h3>条件分岐自動採番</h3>
+          <p>部署・担当者・ステータスなどの条件に応じて採番ルールを自動切替。CSVインポート後の一括採番にも対応した、kintone専用の自動採番プラグインです。完全無料で配布中。</p>
+          <div>
+            <a href="/plugins/kw-conditional-numbering/" class="btn btn-primary">無料でダウンロード</a>
           </div>
         </div>
       </div>
