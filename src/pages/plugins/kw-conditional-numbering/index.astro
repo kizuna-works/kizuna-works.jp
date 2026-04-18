@@ -623,7 +623,7 @@ import Layout from '../../../layouts/Layout.astro';
       <h2 class="bottom-cta-title">無料でダウンロード</h2>
       <p class="bottom-cta-desc">GitHubアカウント不要。ボタンをクリックするだけですぐにご利用いただけます。</p>
       <div class="cta-buttons">
-        <a href="/downloads/kw-conditional-numbering-v1.0.0.zip" download class="btn-primary">ダウンロード（無料）</a>
+        <a href="/downloads/kw-conditional-numbering-v1.0.0.zip" download class="btn-primary" id="btn-download">ダウンロード（無料）</a>
         <a href="/contact/" class="btn-secondary">お問い合わせ</a>
       </div>
       <p class="bottom-cta-note">ご利用にあたってのご質問は info@kizuna-works.jp までお気軽にどうぞ。</p>
@@ -643,6 +643,18 @@ import Layout from '../../../layouts/Layout.astro';
       }, { threshold: 0.1 });
 
       document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          gtag('event', 'file_download', {
+            file_name: 'kw-conditional-numbering-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: 'ダウンロード（無料）',
+            link_url: '/downloads/kw-conditional-numbering-v1.0.0.zip'
+          });
+        });
+      }
     });
   </script>
 </Layout>
