@@ -11,6 +11,7 @@ export default defineConfig({
       customPages: [
         'https://kizuna-works.jp/tools/stamp-maker.html',
         'https://kizuna-works.jp/tools/natsuin.html',
+        'https://kizuna-works.jp/tools/musubi.html',
       ],
     }),
   ],

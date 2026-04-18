@@ -86,7 +86,8 @@ c:\kizuna-works.jp\
 │   │   └── kw-conditional-numbering-v1.0.0.zip         # 条件分岐自動採番プラグイン配布ファイル（手動配置）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）
-│   │   └── natsuin.html        # Natsuin（PDF電子印鑑・署名ツール）スタンドアロンHTMLアプリ（Astro管理外）
+│   │   ├── natsuin.html        # Natsuin（PDF電子印鑑・署名ツール）スタンドアロンHTMLアプリ（Astro管理外）
+│   │   └── musubi.html         # Musubi（PDF結合・分割ツール）スタンドアロンHTMLアプリ（Astro管理外）
 │   ├── CNAME                   # GitHub Pages カスタムドメイン設定（kizuna-works.jp）
 │   └── robots.txt              # 検索エンジンクローラー制御
 │

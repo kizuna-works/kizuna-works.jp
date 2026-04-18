@@ -1,0 +1,1028 @@
+<!--
+  Musubi - PDF結合・分割ツール
+  PDFを結合・分割・並び替え・回転・抽出できる無料Webツール
+  Version: 1.0.0
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="PDFファイルを結合・分割・並び替え・回転できる無料Webツール。ドラッグ&ドロップで直感的に操作。インストール不要・登録不要。ファイルはブラウザ内で処理されます。">
+<link rel="canonical" href="https://kizuna-works.jp/tools/musubi.html">
+<meta property="og:title" content="Musubi（PDF結合・分割ツール）| KIZUNA Works">
+<meta property="og:description" content="PDFファイルを結合・分割・並び替え・回転できる無料Webツール。インストール不要・登録不要。">
+<meta property="og:url" content="https://kizuna-works.jp/tools/musubi.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://kizuna-works.jp/images/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@KIZUNA_works_DX">
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<title>Musubi（PDF結合・分割ツール）| KIZUNA Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Musubi（PDF結合・分割ツール）",
+  "url": "https://kizuna-works.jp/tools/musubi.html",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "WebBrowser",
+  "description": "PDFファイルを結合・分割・並び替え・回転できる無料Webツール。",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "JPY"
+  }
+}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1B44N0922"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q1B44N0922');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2096869114957752" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+:root{
+  --navy:#1B3A6B;--navy-light:#2a4f8a;--navy-dark:#132a4e;
+  --green:#2E8B2E;--green-light:#3da63d;
+  --red:#c0392b;--red-light:#e74c3c;
+  --orange:#e67e22;--orange-light:#f39c12;
+  --bg:#F0F4F8;--bg-white:#fff;--bg-card:#f8fafc;
+  --text-primary:#1a1a2e;--text-secondary:#4a5568;--text-muted:#8896a6;
+  --border:#d4dce8;--border-light:#e8edf4;
+  --shadow-sm:0 1px 3px rgba(27,58,107,.08);
+  --shadow-md:0 4px 12px rgba(27,58,107,.1);
+  --shadow-lg:0 8px 32px rgba(27,58,107,.12);
+  --radius:8px;--radius-lg:12px;
+  --transition:.2s ease;
+  --sidebar-width:280px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;display:flex;flex-direction:column;}
+
+/* Site Header */
+.site-header{background:#F0F4F8;border-bottom:3px solid #1B3A6B;padding:8px 5%;position:sticky;top:0;z-index:300;flex-shrink:0;}
+.site-header-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;}
+.site-header-logo img{display:block;height:64px;width:auto;}
+.site-header-nav{display:flex;gap:10px;flex-wrap:wrap;}
+.site-nav-btn{display:inline-block;background-color:#1B3A6B;color:#FFFFFF !important;font-size:.95rem;font-weight:500;padding:8px 16px;border-radius:20px;text-decoration:none;transition:all .3s ease;}
+.site-nav-btn:hover{background-color:#2E8B2E;transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.2);}
+
+/* Layout */
+.app-layout{display:flex;flex:1;min-height:0;overflow:hidden;position:relative}
+
+/* Site Footer */
+.site-footer{background-color:#1B3A6B;color:#FFFFFF;padding:60px 5% 30px;flex-shrink:0;}
+.site-footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:40px;margin-bottom:30px;}
+.site-footer-links{display:flex;gap:30px;flex-wrap:wrap;align-items:center;}
+.site-footer-links a{color:#FFFFFF;opacity:.9;font-weight:500;text-decoration:none;}
+.site-footer-links a:hover{color:#2E8B2E;opacity:1;}
+.site-footer-copy{text-align:center;opacity:.7;font-size:.9rem;letter-spacing:1px;}
+
+/* Sidebar */
+.sidebar{width:var(--sidebar-width);min-width:var(--sidebar-width);background:var(--bg-white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:var(--transition)}
+.sidebar-header{padding:14px 16px 10px;border-bottom:1px solid var(--border-light)}
+.sidebar-title{font-size:.95rem;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:6px}
+.sidebar-body{flex:1;overflow-y:auto;padding:12px 14px}
+.sidebar-footer{padding:12px 14px;border-top:1px solid var(--border-light);background:var(--bg-card)}
+
+/* Output mode cards */
+.section-label{font-size:.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.output-modes{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.radio-card{display:block;padding:10px 12px;border:2px solid var(--border-light);border-radius:var(--radius);cursor:pointer;transition:var(--transition);background:var(--bg-white);position:relative}
+.radio-card:hover{border-color:var(--navy-light);background:var(--bg-card)}
+.radio-card input[type="radio"]{position:absolute;opacity:0;pointer-events:none}
+.radio-card.selected{border-color:var(--navy);background:rgba(27,58,107,.04)}
+.radio-card-title{font-size:.86rem;font-weight:600;color:var(--text-primary);margin-bottom:2px;display:flex;align-items:center;gap:6px}
+.radio-card-desc{font-size:.72rem;color:var(--text-muted);line-height:1.4}
+
+/* Input group */
+.input-group{margin-bottom:12px}
+.input-group label{display:block;font-size:.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:4px}
+.input-group .input-wrap{display:flex;align-items:center}
+.input-group input[type="text"]{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:.85rem;outline:none;transition:var(--transition)}
+.input-group input[type="text"]:focus{border-color:var(--navy)}
+.input-group .suffix{padding:0 6px;color:var(--text-muted);font-size:.85rem;flex-shrink:0}
+.input-hint{font-size:.7rem;color:var(--text-muted);margin-top:3px;line-height:1.4}
+
+/* Download button */
+.btn-download{width:100%;padding:14px 16px;background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);color:#fff;border:none;border-radius:var(--radius);font-family:inherit;font-size:.98rem;font-weight:700;cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--shadow-md)}
+.btn-download:hover:not(:disabled){background:linear-gradient(135deg,var(--navy-light) 0%,var(--navy) 100%);transform:translateY(-1px);box-shadow:var(--shadow-lg)}
+.btn-download:disabled{opacity:.45;cursor:not-allowed;background:var(--text-muted)}
+
+.privacy-note{margin-top:10px;padding:8px 10px;background:rgba(46,139,46,.08);border-left:3px solid var(--green);border-radius:4px;font-size:.7rem;color:var(--text-secondary);line-height:1.5}
+
+/* Main area */
+.main-area{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:6px;padding:8px 14px;background:var(--bg-white);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.toolbar-divider{width:1px;height:26px;background:var(--border);margin:0 3px}
+.btn{padding:6px 12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-white);color:var(--text-primary);font-family:inherit;font-size:.8rem;font-weight:500;cursor:pointer;transition:var(--transition);display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.btn:hover{background:var(--bg);border-color:var(--navy)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn-primary:hover{background:var(--navy-light);border-color:var(--navy-light)}
+.btn-danger{color:var(--red);border-color:var(--border)}
+.btn-danger:hover{background:rgba(192,57,43,.08);border-color:var(--red)}
+.stats{font-size:.78rem;color:var(--text-secondary);padding:0 8px;white-space:nowrap}
+.stats strong{color:var(--navy);font-weight:700}
+
+/* Grid container */
+.grid-container{flex:1;overflow-y:auto;background:#dde3ea;padding:20px}
+.thumbnail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;max-width:1400px;margin:0 auto}
+
+/* Thumbnail card */
+.thumb-card{position:relative;background:#fff;border:2px solid var(--border-light);border-radius:var(--radius);overflow:hidden;cursor:grab;transition:border-color .15s ease,box-shadow .15s ease;box-shadow:var(--shadow-sm);user-select:none}
+.thumb-card:hover{border-color:var(--navy-light);box-shadow:var(--shadow-md)}
+.thumb-card:active{cursor:grabbing}
+.thumb-card.selected{border-color:var(--navy);box-shadow:0 0 0 2px rgba(27,58,107,.15),var(--shadow-md)}
+.thumb-card.sortable-ghost{opacity:.4}
+.thumb-card.sortable-chosen{cursor:grabbing}
+.thumb-card.sortable-drag{box-shadow:var(--shadow-lg);transform:rotate(-2deg)}
+
+.thumb-check{position:absolute;top:6px;left:6px;z-index:3;background:rgba(255,255,255,.9);border-radius:4px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow-sm)}
+.thumb-check input[type="checkbox"]{width:16px;height:16px;cursor:pointer;accent-color:var(--navy)}
+
+.thumb-order{position:absolute;top:6px;right:6px;z-index:3;background:var(--navy);color:#fff;min-width:26px;height:22px;padding:0 6px;border-radius:11px;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-sm)}
+
+.thumb-img-wrap{background:#f0f4f8;min-height:180px;max-height:240px;display:flex;align-items:center;justify-content:center;padding:8px;overflow:hidden}
+.thumb-img-inner{position:relative;display:inline-block;transition:transform .2s ease}
+.thumb-img-inner img{max-width:100%;max-height:220px;display:block;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+
+.thumb-info{padding:6px 8px;background:var(--bg-card);border-top:1px solid var(--border-light)}
+.thumb-meta{font-size:.68rem;color:var(--text-muted);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.thumb-meta strong{color:var(--navy);font-weight:600}
+
+.thumb-actions{display:flex;border-top:1px solid var(--border-light)}
+.thumb-btn{flex:1;padding:6px 4px;background:#fff;border:none;border-right:1px solid var(--border-light);font-family:inherit;font-size:.78rem;color:var(--text-secondary);cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:2px}
+.thumb-btn:last-child{border-right:none}
+.thumb-btn:hover{background:var(--bg)}
+.thumb-btn.thumb-btn-rotate:hover{color:var(--navy)}
+.thumb-btn.thumb-btn-dup:hover{color:var(--green)}
+.thumb-btn.thumb-btn-del:hover{color:var(--red);background:rgba(192,57,43,.06)}
+
+/* File divider */
+.file-divider{grid-column:1/-1;display:flex;align-items:center;gap:10px;padding:8px 4px;margin-top:6px;font-size:.78rem;font-weight:600;color:var(--text-secondary)}
+.file-divider:first-child{margin-top:0}
+.file-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.file-divider .file-icon{color:var(--navy)}
+
+/* Welcome */
+.welcome-area{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:40px 20px;text-align:center;overflow-y:auto}
+.welcome-content{max-width:640px;width:100%}
+.welcome-title{font-size:2.8rem;font-weight:700;color:var(--navy);margin-bottom:6px;letter-spacing:2px}
+.welcome-tagline{font-size:1.05rem;color:var(--text-secondary);margin-bottom:28px;letter-spacing:1px}
+.drop-zone{width:100%;max-width:520px;margin:0 auto;padding:48px 32px;border:2px dashed var(--border);border-radius:var(--radius-lg);background:var(--bg-white);transition:var(--transition);cursor:pointer}
+.drop-zone:hover,.drop-zone.dragover{border-color:var(--navy);background:rgba(27,58,107,.04);transform:translateY(-1px)}
+.drop-zone-icon{font-size:44px;margin-bottom:14px;opacity:.6}
+.drop-zone h3{font-size:1.05rem;font-weight:600;color:var(--navy);margin-bottom:8px}
+.drop-zone p{color:var(--text-secondary);font-size:.85rem;line-height:1.6}
+.drop-zone-multi{margin-top:6px;color:var(--green)!important;font-weight:500}
+.drop-zone-privacy{margin-top:14px;font-size:.75rem!important;color:var(--text-muted)!important}
+
+.feature-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:30px;max-width:520px;margin-left:auto;margin-right:auto}
+.feature-item{background:var(--bg-white);padding:14px 4px;border-radius:var(--radius);border:1px solid var(--border-light);font-size:.72rem;font-weight:600;color:var(--navy);line-height:1.5}
+.feature-item .fi-icon{font-size:1.5rem;display:block;margin-bottom:4px}
+
+/* Scrollbar */
+.sidebar-body::-webkit-scrollbar,.grid-container::-webkit-scrollbar,.welcome-area::-webkit-scrollbar{width:6px;height:6px}
+.sidebar-body::-webkit-scrollbar-track,.grid-container::-webkit-scrollbar-track,.welcome-area::-webkit-scrollbar-track{background:transparent}
+.sidebar-body::-webkit-scrollbar-thumb,.grid-container::-webkit-scrollbar-thumb,.welcome-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--navy);color:#fff;padding:10px 22px;border-radius:var(--radius);font-size:.85rem;box-shadow:var(--shadow-lg);z-index:9999;transition:transform .3s ease;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.toast-error{background:var(--red)}
+.toast.toast-success{background:var(--green)}
+
+/* Mobile */
+.tray-toggle{display:none;position:fixed;bottom:20px;right:20px;width:56px;height:56px;background:var(--navy);color:#fff;border:none;border-radius:50%;font-size:22px;box-shadow:var(--shadow-lg);cursor:pointer;z-index:200;align-items:center;justify-content:center}
+.tray-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:140}
+.tray-backdrop.show{display:block}
+
+@media(max-width:768px){
+  .site-header{padding:6px 4%;}
+  .site-header-inner{flex-direction:column;gap:8px;}
+  .site-header-logo img{height:52px;}
+  .site-nav-btn{font-size:.82rem;padding:6px 12px;}
+  .sidebar{position:fixed;top:0;right:0;width:300px;height:100vh;z-index:150;transform:translateX(100%);box-shadow:var(--shadow-lg)}
+  .sidebar.open{transform:translateX(0)}
+  .tray-toggle{display:flex}
+  .site-footer-inner{flex-direction:column;text-align:center;align-items:center;}
+  .site-footer-links{justify-content:center;gap:15px;}
+  .toolbar{padding:6px 8px;gap:3px}
+  .btn{padding:5px 8px;font-size:.75rem}
+  .stats{font-size:.72rem}
+  .grid-container{padding:12px}
+  .thumbnail-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+  .thumb-img-wrap{min-height:140px;max-height:180px}
+  .thumb-img-inner img{max-height:160px}
+  .welcome-title{font-size:2rem}
+  .drop-zone{padding:32px 20px}
+  .feature-grid{grid-template-columns:repeat(3,1fr)}
+}
+
+/* Processing */
+.processing-overlay{display:none;position:fixed;inset:0;background:rgba(27,58,107,.4);z-index:9000;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
+.processing-overlay.show{display:flex}
+.processing-box{background:#fff;padding:28px 44px;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);text-align:center;min-width:240px}
+.processing-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.processing-text{font-size:.88rem;color:var(--text-secondary);margin-bottom:4px}
+.processing-progress{font-size:.8rem;color:var(--navy);font-weight:600;margin-top:6px}
+
+/* Confirm dialog */
+.confirm-overlay{display:none;position:fixed;inset:0;background:rgba(27,58,107,.4);z-index:9500;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
+.confirm-overlay.show{display:flex}
+.confirm-box{background:#fff;padding:24px 28px;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);text-align:center;max-width:400px;width:90%}
+.confirm-title{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:8px}
+.confirm-text{font-size:.88rem;color:var(--text-secondary);margin-bottom:18px;line-height:1.6}
+.confirm-actions{display:flex;gap:10px;justify-content:center}
+.confirm-actions .btn{padding:8px 20px}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="https://kizuna-works.jp/" class="site-header-logo">
+      <img src="/images/logo.png" alt="KIZUNA Works">
+    </a>
+    <nav class="site-header-nav">
+      <a href="https://kizuna-works.jp/tools/" class="site-nav-btn">無料ツール</a>
+      <a href="https://kizuna-works.jp/plugins/" class="site-nav-btn">プラグイン</a>
+      <a href="https://kizuna-works.jp/blog/" class="site-nav-btn">ブログ</a>
+      <a href="https://kizuna-works.jp/contact/" class="site-nav-btn">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">&#9881;&#65039; 出力設定</div>
+    </div>
+
+    <div class="sidebar-body">
+      <div class="section-label">出力モード</div>
+      <div class="output-modes" id="outputModes">
+        <label class="radio-card selected" data-mode="merge">
+          <input type="radio" name="outMode" value="merge" checked>
+          <div class="radio-card-title">&#128279; すべて結合</div>
+          <div class="radio-card-desc">全ページを1つのPDFに結合</div>
+        </label>
+        <label class="radio-card" data-mode="extract">
+          <input type="radio" name="outMode" value="extract">
+          <div class="radio-card-title">&#9986;&#65039; 選択ページを抽出</div>
+          <div class="radio-card-desc">チェックしたページだけで新規PDF</div>
+        </label>
+        <label class="radio-card" data-mode="split-all">
+          <input type="radio" name="outMode" value="split-all">
+          <div class="radio-card-title">&#128209; 1ページずつ分割</div>
+          <div class="radio-card-desc">各ページを個別PDFにしてZIP</div>
+        </label>
+        <label class="radio-card" data-mode="split-range">
+          <input type="radio" name="outMode" value="split-range">
+          <div class="radio-card-title">&#127919; 範囲指定で分割</div>
+          <div class="radio-card-desc">指定した範囲ごとにPDF作成</div>
+        </label>
+      </div>
+
+      <div class="input-group" id="rangeInputGroup" style="display:none;">
+        <label for="rangeInput">ページ範囲</label>
+        <input type="text" id="rangeInput" placeholder="例: 1-3,5,7-10">
+        <div class="input-hint">カンマ区切りで複数範囲を指定できます</div>
+      </div>
+
+      <div class="input-group">
+        <label for="outputFilename">ファイル名</label>
+        <div class="input-wrap">
+          <input type="text" id="outputFilename" value="musubi" maxlength="80">
+          <span class="suffix" id="filenameSuffix">.pdf</span>
+        </div>
+        <div class="input-hint" id="filenameHint">拡張子は自動で付与されます</div>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="btn-download" id="btnExecute" disabled>
+        &#128229; ダウンロード
+      </button>
+      <div class="privacy-note">
+        &#128274; ファイルはブラウザ内で処理されます。<br>
+        サーバーにはアップロードされません。
+      </div>
+    </div>
+  </aside>
+
+  <div class="tray-backdrop" id="trayBackdrop"></div>
+
+  <main class="main-area">
+    <div class="toolbar" id="toolbar" style="display:none;">
+      <button class="btn btn-primary" id="btnAddMore">&#43; ファイル追加</button>
+      <div class="toolbar-divider"></div>
+      <button class="btn" id="btnSelectAll">全選択</button>
+      <button class="btn" id="btnDeselectAll">全解除</button>
+      <button class="btn" id="btnInvertSelection">選択反転</button>
+      <div class="toolbar-divider"></div>
+      <button class="btn" id="btnRotateSelected" title="選択ページを90°回転">&#8634; 回転</button>
+      <button class="btn btn-danger" id="btnDeleteSelected" title="選択ページを削除">&#10005; 削除</button>
+      <div style="flex:1;min-width:8px"></div>
+      <div class="stats" id="stats">&#128196; <strong id="statFiles">0</strong> ファイル / <strong id="statPages">0</strong> ページ / <strong id="statSelected">0</strong> 選択中</div>
+      <button class="btn btn-danger" id="btnReset" title="すべてクリア">リセット</button>
+    </div>
+
+    <div class="welcome-area" id="welcomeArea">
+      <div class="welcome-content">
+        <h2 class="welcome-title">Musubi</h2>
+        <p class="welcome-tagline">PDFを、結ぶ。ほどく。</p>
+        <div class="drop-zone" id="dropZone">
+          <div class="drop-zone-icon">&#128196;</div>
+          <h3>PDFファイルをドロップ</h3>
+          <p>またはクリックしてファイルを選択</p>
+          <p class="drop-zone-multi">&#10004; 複数のファイルを同時に選択できます</p>
+          <p class="drop-zone-privacy">&#8251; ファイルはブラウザ内で処理されます。サーバーにはアップロードされません。</p>
+        </div>
+        <input type="file" id="pdfFileInput" accept="application/pdf" multiple hidden>
+        <div class="feature-grid">
+          <div class="feature-item"><span class="fi-icon">&#128279;</span>結合</div>
+          <div class="feature-item"><span class="fi-icon">&#9986;&#65039;</span>分割</div>
+          <div class="feature-item"><span class="fi-icon">&#8634;</span>回転</div>
+          <div class="feature-item"><span class="fi-icon">&#8646;</span>並替</div>
+          <div class="feature-item"><span class="fi-icon">&#127919;</span>抽出</div>
+          <div class="feature-item"><span class="fi-icon">&#128230;</span>ZIP</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-container" id="gridContainer" style="display:none;">
+      <div class="thumbnail-grid" id="thumbnailGrid"></div>
+    </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-brand">
+      <img src="/images/logo-white.png" alt="KIZUNA Works" style="height:48px;width:auto;margin-bottom:10px;display:block;mix-blend-mode:screen;">
+    </div>
+    <div class="site-footer-links">
+      <a href="https://kizuna-works.jp/privacy/">プライバシーポリシー</a>
+      <a href="https://kizuna-works.jp/terms/">利用規約</a>
+      <a href="https://kizuna-works.jp/tokushoho/">特定商取引法に基づく表記</a>
+      <a href="https://kizuna-works.jp/refund/">返金ポリシー</a>
+      <a href="https://kizuna-works.jp/contact/">お問い合わせ</a>
+    </div>
+  </div>
+  <div class="site-footer-copy">
+    <p>&copy; 2026 KIZUNA Works All Rights Reserved.</p>
+  </div>
+</footer>
+
+<button class="tray-toggle" id="trayToggle" title="出力設定">&#9881;&#65039;</button>
+<div class="toast" id="toast"></div>
+<div class="processing-overlay" id="processingOverlay">
+  <div class="processing-box">
+    <div class="processing-spinner"></div>
+    <div class="processing-text" id="processingText">処理中...</div>
+    <div class="processing-progress" id="processingProgress"></div>
+  </div>
+</div>
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-title" id="confirmTitle">確認</div>
+    <div class="confirm-text" id="confirmText"></div>
+    <div class="confirm-actions">
+      <button class="btn" id="btnConfirmCancel">キャンセル</button>
+      <button class="btn btn-primary" id="btnConfirmOk">OK</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+const pdfjsLib = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs');
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs';
+
+/* ---- State ---- */
+const state = {
+  files: [],            // [{ id, name, arrayBuffer, pdfjsDoc, totalPages, isEncrypted }]
+  pages: [],            // [{ id, fileId, originalPageIndex, rotation, thumbnail, fileName, originalPageNumber }]
+  selectedPageIds: new Set(),
+  outputMode: 'merge',
+  idCounter: 0,
+};
+
+/* ---- Helpers ---- */
+const $ = id => document.getElementById(id);
+const genId = (prefix) => `${prefix}_${Date.now()}_${++state.idCounter}`;
+
+function showToast(msg, type = '', duration = 2800) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' toast-' + type : '');
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(() => { t.className = 'toast' + (type ? ' toast-' + type : ''); }, duration);
+}
+
+function showProcessing(text, progress = '') {
+  $('processingText').textContent = text;
+  $('processingProgress').textContent = progress;
+  $('processingOverlay').classList.add('show');
+}
+function updateProcessing(text, progress = '') {
+  $('processingText').textContent = text;
+  $('processingProgress').textContent = progress;
+}
+function hideProcessing() { $('processingOverlay').classList.remove('show'); }
+
+function confirmDialog(title, text) {
+  return new Promise(resolve => {
+    $('confirmTitle').textContent = title;
+    $('confirmText').textContent = text;
+    const overlay = $('confirmOverlay');
+    overlay.classList.add('show');
+    const cleanup = () => {
+      overlay.classList.remove('show');
+      $('btnConfirmOk').onclick = null;
+      $('btnConfirmCancel').onclick = null;
+    };
+    $('btnConfirmOk').onclick = () => { cleanup(); resolve(true); };
+    $('btnConfirmCancel').onclick = () => { cleanup(); resolve(false); };
+  });
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 200);
+}
+
+function sanitizeFilename(name) {
+  if (!name) return 'musubi';
+  return name.replace(/[<>:"/\\|?*\x00-\x1F]/g, '_').trim() || 'musubi';
+}
+
+function formatDate() {
+  const d = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}`;
+}
+
+/* ---- PDF Loading ---- */
+async function generateThumbnail(pdfjsDoc, pageNum, maxWidth = 300) {
+  const page = await pdfjsDoc.getPage(pageNum);
+  const baseVp = page.getViewport({ scale: 1 });
+  const scale = Math.min(maxWidth / baseVp.width, 1.5);
+  const viewport = page.getViewport({ scale });
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.ceil(viewport.width);
+  canvas.height = Math.ceil(viewport.height);
+  const ctx = canvas.getContext('2d');
+  await page.render({ canvasContext: ctx, viewport }).promise;
+  return canvas.toDataURL('image/jpeg', 0.82);
+}
+
+async function loadPdfFile(file) {
+  if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+    showToast(`${file.name} はPDFファイルではありません`, 'error');
+    return false;
+  }
+  if (file.size > 100 * 1024 * 1024) {
+    showToast(`${file.name} は100MBを超えています`, 'error');
+    return false;
+  }
+
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    // pdf.jsはArrayBufferを変換してしまうのでコピーを渡す
+    const pdfjsDoc = await pdfjsLib.getDocument({ data: arrayBuffer.slice(0) }).promise;
+    const fileId = genId('file');
+
+    state.files.push({
+      id: fileId,
+      name: file.name,
+      arrayBuffer: arrayBuffer,
+      pdfjsDoc,
+      totalPages: pdfjsDoc.numPages,
+    });
+
+    for (let i = 1; i <= pdfjsDoc.numPages; i++) {
+      updateProcessing('サムネイル生成中...', `${file.name} (${i}/${pdfjsDoc.numPages})`);
+      const thumb = await generateThumbnail(pdfjsDoc, i);
+      state.pages.push({
+        id: genId('page'),
+        fileId,
+        originalPageIndex: i - 1,
+        rotation: 0,
+        thumbnail: thumb,
+        fileName: file.name,
+        originalPageNumber: i,
+      });
+    }
+    return true;
+  } catch (err) {
+    console.error(err);
+    if (err && /password/i.test(err.message || '')) {
+      showToast(`${file.name} はパスワード保護されています（非対応）`, 'error');
+    } else {
+      showToast(`${file.name} の読み込みに失敗しました`, 'error');
+    }
+    return false;
+  }
+}
+
+async function handleFiles(fileList) {
+  if (!fileList || fileList.length === 0) return;
+  showProcessing('PDFを読み込み中...');
+  const wasEmpty = state.pages.length === 0;
+  let successCount = 0;
+  for (const file of fileList) {
+    const ok = await loadPdfFile(file);
+    if (ok) successCount++;
+  }
+  hideProcessing();
+  if (successCount > 0) {
+    if (wasEmpty) showWelcome(false);
+    renderGrid();
+    showToast(`${successCount}ファイルを読み込みました`, 'success');
+  }
+}
+
+/* ---- Grid Rendering ---- */
+function showWelcome(show) {
+  $('welcomeArea').style.display = show ? 'flex' : 'none';
+  $('gridContainer').style.display = show ? 'none' : 'block';
+  $('toolbar').style.display = show ? 'none' : 'flex';
+}
+
+function renderGrid() {
+  const grid = $('thumbnailGrid');
+  grid.innerHTML = '';
+
+  let prevFileId = null;
+  state.pages.forEach((page, idx) => {
+    if (page.fileId !== prevFileId) {
+      const file = state.files.find(f => f.id === page.fileId);
+      if (file) {
+        const divider = document.createElement('div');
+        divider.className = 'file-divider';
+        divider.setAttribute('data-file-divider', '');
+        divider.innerHTML = `<span class="file-icon">&#128196;</span> ${escapeHtml(file.name)}`;
+        grid.appendChild(divider);
+      }
+      prevFileId = page.fileId;
+    }
+    grid.appendChild(createThumbnailCard(page, idx));
+  });
+
+  initSortable();
+  updateStats();
+  updateExecuteButton();
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function createThumbnailCard(page, idx) {
+  const card = document.createElement('div');
+  card.className = 'thumb-card';
+  card.dataset.pageId = page.id;
+  if (state.selectedPageIds.has(page.id)) card.classList.add('selected');
+
+  const checked = state.selectedPageIds.has(page.id) ? 'checked' : '';
+  card.innerHTML = `
+    <label class="thumb-check" title="選択">
+      <input type="checkbox" ${checked}>
+    </label>
+    <div class="thumb-order">${idx + 1}</div>
+    <div class="thumb-img-wrap">
+      <div class="thumb-img-inner" style="transform:rotate(${page.rotation}deg)">
+        <img src="${page.thumbnail}" alt="Page ${page.originalPageNumber}" draggable="false">
+      </div>
+    </div>
+    <div class="thumb-info">
+      <div class="thumb-meta"><strong>P.${page.originalPageNumber}</strong> / ${escapeHtml(page.fileName)}</div>
+    </div>
+    <div class="thumb-actions">
+      <button class="thumb-btn thumb-btn-rotate" data-action="rotate" title="90°回転">&#8634;</button>
+      <button class="thumb-btn thumb-btn-dup" data-action="duplicate" title="複製">&#9113;</button>
+      <button class="thumb-btn thumb-btn-del" data-action="delete" title="削除">&#10005;</button>
+    </div>
+  `;
+
+  // Checkbox
+  card.querySelector('input[type="checkbox"]').addEventListener('change', (e) => {
+    e.stopPropagation();
+    togglePageSelection(page.id);
+  });
+  card.querySelector('.thumb-check').addEventListener('click', e => e.stopPropagation());
+
+  // Action buttons
+  card.querySelectorAll('.thumb-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const action = btn.dataset.action;
+      if (action === 'rotate') rotatePage(page.id);
+      else if (action === 'duplicate') duplicatePage(page.id);
+      else if (action === 'delete') deletePage(page.id);
+    });
+  });
+
+  return card;
+}
+
+let sortableInstance = null;
+function initSortable() {
+  if (sortableInstance) {
+    sortableInstance.destroy();
+    sortableInstance = null;
+  }
+  const grid = $('thumbnailGrid');
+  sortableInstance = Sortable.create(grid, {
+    animation: 150,
+    ghostClass: 'sortable-ghost',
+    chosenClass: 'sortable-chosen',
+    dragClass: 'sortable-drag',
+    filter: '.thumb-check, .thumb-btn, .file-divider',
+    preventOnFilter: false,
+    onEnd: (evt) => {
+      // Get only thumb-card elements in current order
+      const cards = Array.from(grid.querySelectorAll('.thumb-card'));
+      const newOrder = cards.map(c => c.dataset.pageId);
+      // Reorder state.pages to match
+      const pageMap = new Map(state.pages.map(p => [p.id, p]));
+      state.pages = newOrder.map(id => pageMap.get(id)).filter(Boolean);
+      renderGrid();
+    },
+  });
+}
+
+function updateStats() {
+  $('statFiles').textContent = state.files.length;
+  $('statPages').textContent = state.pages.length;
+  $('statSelected').textContent = state.selectedPageIds.size;
+}
+
+function updateExecuteButton() {
+  const btn = $('btnExecute');
+  const mode = state.outputMode;
+  let enabled = state.pages.length > 0;
+  if (mode === 'extract') enabled = state.selectedPageIds.size > 0;
+  if (mode === 'split-range') enabled = state.pages.length > 0 && ($('rangeInput').value || '').trim() !== '';
+  btn.disabled = !enabled;
+}
+
+/* ---- Page Operations ---- */
+function rotatePage(pageId) {
+  const page = state.pages.find(p => p.id === pageId);
+  if (!page) return;
+  page.rotation = (page.rotation + 90) % 360;
+  // Partial update: only transform
+  const card = document.querySelector(`.thumb-card[data-page-id="${pageId}"]`);
+  if (card) {
+    const inner = card.querySelector('.thumb-img-inner');
+    if (inner) inner.style.transform = `rotate(${page.rotation}deg)`;
+  }
+}
+
+function deletePage(pageId) {
+  state.pages = state.pages.filter(p => p.id !== pageId);
+  state.selectedPageIds.delete(pageId);
+  if (state.pages.length === 0) {
+    showWelcome(true);
+  } else {
+    renderGrid();
+  }
+  updateStats();
+  updateExecuteButton();
+}
+
+function duplicatePage(pageId) {
+  const idx = state.pages.findIndex(p => p.id === pageId);
+  if (idx < 0) return;
+  const orig = state.pages[idx];
+  const copy = { ...orig, id: genId('page') };
+  state.pages.splice(idx + 1, 0, copy);
+  renderGrid();
+  showToast('ページを複製しました', 'success');
+}
+
+function togglePageSelection(pageId) {
+  if (state.selectedPageIds.has(pageId)) state.selectedPageIds.delete(pageId);
+  else state.selectedPageIds.add(pageId);
+  const card = document.querySelector(`.thumb-card[data-page-id="${pageId}"]`);
+  if (card) card.classList.toggle('selected');
+  updateStats();
+  updateExecuteButton();
+}
+
+function selectAll() {
+  state.pages.forEach(p => state.selectedPageIds.add(p.id));
+  renderGrid();
+}
+function deselectAll() {
+  state.selectedPageIds.clear();
+  renderGrid();
+}
+function invertSelection() {
+  const inverted = new Set();
+  state.pages.forEach(p => { if (!state.selectedPageIds.has(p.id)) inverted.add(p.id); });
+  state.selectedPageIds = inverted;
+  renderGrid();
+}
+function deleteSelected() {
+  if (state.selectedPageIds.size === 0) { showToast('ページを選択してください'); return; }
+  state.pages = state.pages.filter(p => !state.selectedPageIds.has(p.id));
+  state.selectedPageIds.clear();
+  if (state.pages.length === 0) showWelcome(true);
+  else renderGrid();
+  updateStats();
+  updateExecuteButton();
+}
+function rotateSelected() {
+  if (state.selectedPageIds.size === 0) { showToast('ページを選択してください'); return; }
+  state.pages.forEach(p => {
+    if (state.selectedPageIds.has(p.id)) p.rotation = (p.rotation + 90) % 360;
+  });
+  renderGrid();
+}
+
+async function resetAll() {
+  if (state.pages.length === 0) return;
+  const ok = await confirmDialog('リセット確認', 'すべてのファイルとページを破棄します。よろしいですか？');
+  if (!ok) return;
+  state.files = [];
+  state.pages = [];
+  state.selectedPageIds.clear();
+  $('pdfFileInput').value = '';
+  showWelcome(true);
+  updateStats();
+  updateExecuteButton();
+  showToast('リセットしました');
+}
+
+/* ---- Output: PDF Generation ---- */
+async function getLoadedPdfLibDocs() {
+  const { PDFDocument } = PDFLib;
+  const map = new Map();
+  for (const f of state.files) {
+    // pdf-lib用にArrayBufferを渡す（loadはコピーを作る）
+    const doc = await PDFDocument.load(f.arrayBuffer, { ignoreEncryption: false });
+    map.set(f.id, doc);
+  }
+  return map;
+}
+
+async function buildPdfFromPages(pages, loadedDocs) {
+  const { PDFDocument, degrees } = PDFLib;
+  const outDoc = await PDFDocument.create();
+
+  // Group consecutive pages from same file for efficient copyPages
+  let current = null;
+  const groups = [];
+  for (const p of pages) {
+    if (!current || current.fileId !== p.fileId) {
+      current = { fileId: p.fileId, items: [] };
+      groups.push(current);
+    }
+    current.items.push(p);
+  }
+
+  for (const g of groups) {
+    const srcDoc = loadedDocs.get(g.fileId);
+    if (!srcDoc) continue;
+    const indices = g.items.map(it => it.originalPageIndex);
+    const copied = await outDoc.copyPages(srcDoc, indices);
+    copied.forEach((page, i) => {
+      const pageState = g.items[i];
+      if (pageState.rotation !== 0) {
+        const currentRot = page.getRotation().angle || 0;
+        page.setRotation(degrees((currentRot + pageState.rotation) % 360));
+      }
+      outDoc.addPage(page);
+    });
+  }
+
+  return await outDoc.save();
+}
+
+async function outputMerge() {
+  if (state.pages.length === 0) return;
+  const loadedDocs = await getLoadedPdfLibDocs();
+  updateProcessing('PDFを結合中...');
+  const bytes = await buildPdfFromPages(state.pages, loadedDocs);
+  const name = sanitizeFilename($('outputFilename').value) + '.pdf';
+  downloadBlob(new Blob([bytes], { type: 'application/pdf' }), name);
+  showToast(`${state.pages.length}ページを結合しました`, 'success');
+}
+
+async function outputExtract() {
+  const selected = state.pages.filter(p => state.selectedPageIds.has(p.id));
+  if (selected.length === 0) { showToast('ページを選択してください', 'error'); return; }
+  const loadedDocs = await getLoadedPdfLibDocs();
+  updateProcessing('選択ページを抽出中...');
+  const bytes = await buildPdfFromPages(selected, loadedDocs);
+  const name = sanitizeFilename($('outputFilename').value) + '_extracted.pdf';
+  downloadBlob(new Blob([bytes], { type: 'application/pdf' }), name);
+  showToast(`${selected.length}ページを抽出しました`, 'success');
+}
+
+async function outputSplitAll() {
+  if (state.pages.length === 0) return;
+  const loadedDocs = await getLoadedPdfLibDocs();
+  const zip = new JSZip();
+  const base = sanitizeFilename($('outputFilename').value);
+  const pad = String(state.pages.length).length;
+
+  for (let i = 0; i < state.pages.length; i++) {
+    updateProcessing('ページを分割中...', `${i + 1}/${state.pages.length}`);
+    const bytes = await buildPdfFromPages([state.pages[i]], loadedDocs);
+    const num = String(i + 1).padStart(pad, '0');
+    zip.file(`${base}_${num}.pdf`, bytes);
+  }
+
+  updateProcessing('ZIPファイルを生成中...');
+  const zipBlob = await zip.generateAsync({ type: 'blob' });
+  downloadBlob(zipBlob, `${base}_split_${formatDate()}.zip`);
+  showToast(`${state.pages.length}ページをZIPでダウンロードしました`, 'success');
+}
+
+function parseRanges(str, maxPage) {
+  const parts = str.split(/[,、]/).map(s => s.trim()).filter(s => s);
+  const ranges = [];
+  for (const part of parts) {
+    let m;
+    if ((m = part.match(/^(\d+)\s*[-–~〜]\s*(\d+)$/))) {
+      const start = parseInt(m[1], 10), end = parseInt(m[2], 10);
+      if (start < 1 || end < start || end > maxPage) return { error: `範囲 "${part}" が無効です（1〜${maxPage}の範囲で指定）` };
+      const pages = [];
+      for (let i = start; i <= end; i++) pages.push(i);
+      ranges.push({ label: `${start}-${end}`, pages });
+    } else if ((m = part.match(/^(\d+)$/))) {
+      const n = parseInt(m[1], 10);
+      if (n < 1 || n > maxPage) return { error: `ページ番号 "${n}" が無効です（1〜${maxPage}の範囲で指定）` };
+      ranges.push({ label: `p${n}`, pages: [n] });
+    } else {
+      return { error: `"${part}" の形式が不正です` };
+    }
+  }
+  if (ranges.length === 0) return { error: '範囲を入力してください' };
+  return { ranges };
+}
+
+async function outputSplitRange() {
+  const rangeStr = $('rangeInput').value.trim();
+  const parsed = parseRanges(rangeStr, state.pages.length);
+  if (parsed.error) { showToast(parsed.error, 'error'); return; }
+
+  const loadedDocs = await getLoadedPdfLibDocs();
+  const zip = new JSZip();
+  const base = sanitizeFilename($('outputFilename').value);
+
+  for (let r = 0; r < parsed.ranges.length; r++) {
+    const range = parsed.ranges[r];
+    updateProcessing('範囲指定で分割中...', `${r + 1}/${parsed.ranges.length}`);
+    const pages = range.pages.map(n => state.pages[n - 1]).filter(Boolean);
+    if (pages.length === 0) continue;
+    const bytes = await buildPdfFromPages(pages, loadedDocs);
+    zip.file(`${base}_${range.label}.pdf`, bytes);
+  }
+
+  updateProcessing('ZIPファイルを生成中...');
+  const zipBlob = await zip.generateAsync({ type: 'blob' });
+  downloadBlob(zipBlob, `${base}_ranges_${formatDate()}.zip`);
+  showToast('範囲指定で分割しました', 'success');
+}
+
+async function executeOutput() {
+  if (state.pages.length === 0) return;
+  const mode = state.outputMode;
+
+  try {
+    showProcessing('PDFを準備中...');
+    switch (mode) {
+      case 'merge': await outputMerge(); break;
+      case 'extract': await outputExtract(); break;
+      case 'split-all': await outputSplitAll(); break;
+      case 'split-range': await outputSplitRange(); break;
+    }
+  } catch (err) {
+    console.error(err);
+    showToast('処理中にエラーが発生しました', 'error');
+  } finally {
+    hideProcessing();
+  }
+}
+
+/* ---- Output Mode Switching ---- */
+function setOutputMode(mode) {
+  state.outputMode = mode;
+  document.querySelectorAll('.radio-card').forEach(el => {
+    el.classList.toggle('selected', el.dataset.mode === mode);
+    const input = el.querySelector('input[type="radio"]');
+    if (input) input.checked = el.dataset.mode === mode;
+  });
+  $('rangeInputGroup').style.display = (mode === 'split-range') ? 'block' : 'none';
+
+  // ファイル名サフィックスの調整
+  const suffix = $('filenameSuffix');
+  const hint = $('filenameHint');
+  if (mode === 'split-all' || mode === 'split-range') {
+    suffix.textContent = '.zip';
+    hint.textContent = '分割結果はZIPファイルでまとめてダウンロードされます';
+  } else if (mode === 'extract') {
+    suffix.textContent = '.pdf';
+    hint.textContent = '選択したページのみで新しいPDFを作成します';
+  } else {
+    suffix.textContent = '.pdf';
+    hint.textContent = '全ページを1つのPDFに結合します';
+  }
+  updateExecuteButton();
+}
+
+/* ---- Event Listeners ---- */
+$('dropZone').addEventListener('click', () => $('pdfFileInput').click());
+$('btnAddMore').addEventListener('click', () => $('pdfFileInput').click());
+$('pdfFileInput').addEventListener('change', async e => {
+  await handleFiles(e.target.files);
+  e.target.value = '';
+});
+
+['dragenter','dragover'].forEach(ev =>
+  $('dropZone').addEventListener(ev, e => { e.preventDefault(); $('dropZone').classList.add('dragover'); })
+);
+['dragleave','drop'].forEach(ev =>
+  $('dropZone').addEventListener(ev, () => $('dropZone').classList.remove('dragover'))
+);
+$('dropZone').addEventListener('drop', async e => {
+  e.preventDefault();
+  await handleFiles(e.dataTransfer.files);
+});
+
+// Grid container also accepts drop (for adding more)
+$('gridContainer').addEventListener('dragover', e => { if (e.dataTransfer.types.includes('Files')) e.preventDefault(); });
+$('gridContainer').addEventListener('drop', async e => {
+  if (!e.dataTransfer.files.length) return;
+  e.preventDefault();
+  await handleFiles(e.dataTransfer.files);
+});
+
+// Toolbar buttons
+$('btnSelectAll').addEventListener('click', selectAll);
+$('btnDeselectAll').addEventListener('click', deselectAll);
+$('btnInvertSelection').addEventListener('click', invertSelection);
+$('btnRotateSelected').addEventListener('click', rotateSelected);
+$('btnDeleteSelected').addEventListener('click', deleteSelected);
+$('btnReset').addEventListener('click', resetAll);
+
+// Output mode radio cards
+document.querySelectorAll('.radio-card').forEach(card => {
+  card.addEventListener('click', (e) => {
+    // Don't trigger on input direct click (let it naturally update)
+    setOutputMode(card.dataset.mode);
+  });
+});
+
+// Range input - live update execute button
+$('rangeInput').addEventListener('input', updateExecuteButton);
+
+// Execute button
+$('btnExecute').addEventListener('click', executeOutput);
+
+// Tray toggle (mobile)
+$('trayToggle').addEventListener('click', () => {
+  $('sidebar').classList.toggle('open');
+  $('trayBackdrop').classList.toggle('show');
+});
+$('trayBackdrop').addEventListener('click', () => {
+  $('sidebar').classList.remove('open');
+  $('trayBackdrop').classList.remove('show');
+});
+
+// Initial state
+setOutputMode('merge');
+updateStats();
+updateExecuteButton();
+
+// Default filename with date
+$('outputFilename').value = 'musubi_' + formatDate();
+</script>
+</body>
+</html>
