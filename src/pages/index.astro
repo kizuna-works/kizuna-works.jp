@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import BlogCard from '../components/BlogCard.astro';
 
 const recentPosts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -56,8 +57,6 @@ const recentPosts = (await getCollection('blog'))
     .bg-light { background-color: #f4f7f6; }
     .bg-white { background-color: #FFFFFF; }
     .text-center { text-align: center; }
-    .mt-4 { margin-top: 2rem; }
-
     .container {
       max-width: 1100px;
       margin: 0 auto;
@@ -313,6 +312,9 @@ const recentPosts = (await getCollection('blog'))
       z-index: 1;
     }
 
+    .feature-image--dark { background: #1a1a2e; padding: 0; }
+    .feature-image--light { background: #f0f4f8; padding: 0; }
+
     .feature-content {
       flex: 1;
       padding: 60px 50px;
@@ -350,71 +352,9 @@ const recentPosts = (await getCollection('blog'))
       margin-bottom: 40px;
     }
 
-    .blog-card {
-      background: #FFFFFF;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      transition: transform 0.3s, box-shadow 0.3s;
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .blog-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.14);
-    }
-
-    .blog-card-image {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      background-color: #e2e8f0;
-    }
-
-    .blog-card-body {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .blog-card-date {
-      font-size: 0.85rem;
+    .no-posts {
       color: #64748b;
-      margin-bottom: 8px;
-    }
-
-    .blog-card-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1B3A6B;
-      line-height: 1.5;
-      margin-bottom: 12px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .blog-card-btn {
-      margin-top: auto;
-      display: inline-block;
-      text-align: center;
-      padding: 8px 14px;
-      border: 1px solid #1B3A6B;
-      color: #1B3A6B;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      transition: all 0.3s;
-    }
-
-    .blog-card:hover .blog-card-btn {
-      background-color: #1B3A6B;
-      color: #FFFFFF;
+      margin-bottom: 40px;
     }
 
     /* =========================================
@@ -503,7 +443,7 @@ const recentPosts = (await getCollection('blog'))
     <div class="container">
       <h2 class="section-title">無料ツール</h2>
       <div class="feature-card">
-        <div class="feature-image" style="background:#1a1a2e; padding:0; overflow:hidden;">
+        <div class="feature-image feature-image--dark">
           <img src="/images/stamp-maker-preview.png" alt="inkan（電子印鑑メーカー）- ブラウザで使える無料の電子印鑑作成ツール" width="949" height="813" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
         </div>
         <div class="feature-content">
@@ -521,7 +461,7 @@ const recentPosts = (await getCollection('blog'))
     <div class="container">
       <h2 class="section-title">kintoneプラグイン</h2>
       <div class="feature-card reverse">
-        <div class="feature-image" style="background:#f0f4f8; padding:0; overflow:hidden;">
+        <div class="feature-image feature-image--light">
           <img src="/images/field-styler-after.png" alt="フィールドスタイラー導入後 — 背景色・文字色・条件付きスタイルで一覧画面の視認性が向上" width="1920" height="960" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
         </div>
         <div class="feature-content">
@@ -541,22 +481,16 @@ const recentPosts = (await getCollection('blog'))
       {recentPosts.length > 0 ? (
         <div class="blog-grid">
           {recentPosts.map((post) => (
-            <a href={`/blog/${post.id}/`} class="blog-card">
-              {post.data.ogImage && (
-                <img src={post.data.ogImage} alt={post.data.title} class="blog-card-image" width="640" height="360" loading="lazy" />
-              )}
-              <div class="blog-card-body">
-                <p class="blog-card-date">
-                  {post.data.pubDate.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </p>
-                <h3 class="blog-card-title">{post.data.title}</h3>
-                <span class="blog-card-btn">記事を読む</span>
-              </div>
-            </a>
+            <BlogCard
+              href={`/blog/${post.id}/`}
+              title={post.data.title}
+              date={post.data.pubDate}
+              ogImage={post.data.ogImage}
+            />
           ))}
         </div>
       ) : (
-        <p style="color:#64748b; margin-bottom:40px;">記事を準備中です。</p>
+        <p class="no-posts">記事を準備中です。</p>
       )}
       <a href="/blog/" class="btn btn-primary">ブログ一覧へ</a>
     </div>
