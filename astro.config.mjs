@@ -12,6 +12,7 @@ export default defineConfig({
         'https://kizuna-works.jp/tools/stamp-maker.html',
         'https://kizuna-works.jp/tools/natsuin.html',
         'https://kizuna-works.jp/tools/musubi.html',
+        'https://kizuna-works.jp/tools/KizunaTsumugi.html',
       ],
     }),
   ],
