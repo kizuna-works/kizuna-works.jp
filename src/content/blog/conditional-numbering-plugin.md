@@ -1,7 +1,8 @@
 ---
 title: "kintone採番を条件で分岐させる──条件分岐自動採番プラグインの機能と設定ガイド"
-description: "部門・カテゴリ・担当者ごとに採番ルールを分けたいkintone管理者向けに、条件分岐自動採番プラグインの機能と設定方法を詳しく解説します。"
+description: "部門・カテゴリ・担当者ごとに採番ルールを分けたいkintone管理者向けに、条件分岐自動採番プラグインの機能と設定方法を解説します。採番フォーマットの組み立て方・条件分岐設定・連番リセット・一括採番まで、設定画面のUIだけで実現できる完全無料プラグインです。"
 pubDate: 2026-04-19
+author: "KIZUNA Works"
 tags: ["kintone", "プラグイン", "採番", "業務効率化", "kintoneカスタマイズ"]
 ogImage: "/images/blog/conditional-numbering-plugin.png"
 ---
