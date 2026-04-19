@@ -210,6 +210,30 @@ Update the grid in `tools/index.astro` and its JSON-LD `ItemList`.
 
 ## Security Notes
 
+### CDN ライブラリの SRI（Subresource Integrity）管理
+
+`public/tools/natsuin.html` と `public/tools/musubi.html` の外部CDNスクリプトには SRI ハッシュ（sha384）が設定されている。**ライブラリのバージョンを更新した場合は必ず SRI ハッシュも再計算して更新すること。**
+
+**対象ファイルと現在のバージョン：**
+
+| ライブラリ | バージョン | 使用ファイル |
+|---|---|---|
+| pdf.js | 4.4.168 | natsuin.html |
+| pdf-lib | 1.17.1 | natsuin.html / musubi.html |
+| Sortable | 1.15.2 | musubi.html |
+| jszip | 3.10.1 | musubi.html |
+
+**SRI ハッシュの再計算コマンド（Python）：**
+
+```python
+import urllib.request, hashlib, base64
+url = 'https://cdnjs.cloudflare.com/ajax/libs/<library>/<version>/<file>.js'
+data = urllib.request.urlopen(url).read()
+print('sha384-' + base64.b64encode(hashlib.sha384(data).digest()).decode())
+```
+
+---
+
 - **`.git/config` には GitHub トークンが平文で保存されている** — 絶対にコミット・共有しない
 - `.git/` ディレクトリは Git 管理外のため、通常のコミット操作では漏洩しない
 - `.gitignore` に `.git/config` を記載する必要はないが、`C:\kizuna-works.jp\.git\config` を直接共有しないよう注意
