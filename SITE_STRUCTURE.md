@@ -34,6 +34,8 @@ c:\kizuna-works.jp\
 │   │   └── fonts/              # フォントファイル（Atkinson Hyperlegible）
 │   │       ├── atkinson-bold.woff
 │   │       └── atkinson-regular.woff
+│   ├── components/             # 再利用可能なAstroコンポーネント
+│   │   └── BlogCard.astro      # ブログ記事カード（ホームページ・ブログ一覧で使用）
 │   ├── layouts/                # 共通レイアウトコンポーネント
 │   │   ├── Layout.astro        # 全ページ共通レイアウト（GA4・AdSense・Noto Sans JP・ヘッダー・フッター）
 │   │   └── BlogPost.astro      # ブログ記事専用レイアウト
@@ -59,28 +61,39 @@ c:\kizuna-works.jp\
 │   ├── content/
 │   │   ├── config.ts           # コンテンツコレクションのスキーマ定義（blog コレクション）
 │   │   └── blog/               # ブログ記事 Markdown/MDX ファイル置き場
-│   │       └── kintone-teichaku-shinai-riyu.md  # 「kintoneが定着しない本当の理由」記事
+│   │       ├── kintone-teichaku-shinai-riyu.md      # 「kintoneが定着しない本当の理由」記事
+│   │       └── conditional-numbering-plugin.md      # 「条件分岐自動採番プラグインの機能と設定ガイド」記事
 │   └── styles/
 │       └── global.css          # グローバルCSS（最小リセット・スティッキーフッター用）
 │
 ├── public/                     # そのまま公開される静的ファイル（Astro が処理しない）
 │   ├── images/                 # サイト全体で使用する画像ファイル
-│   │   ├── logo.png                    # ヘッダー用ロゴ（カラー）
-│   │   ├── logo-white.png              # フッター用ロゴ（白）
-│   │   ├── favicon.png                 # ファビコン
-│   │   ├── ogp.png                     # OGP（SNSシェア用）サムネイル
-│   │   ├── hero-bg.png                 # トップページ ヒーロー背景
-│   │   ├── blog-bg.png                 # ブログページ 背景
-│   │   ├── tools-bg.png                # ツールページ 背景
-│   │   ├── plugins-bg.png              # プラグインページ 背景
-│   │   ├── contact-bg.png              # お問い合わせページ 背景
-│   │   ├── stamp-maker-preview.png     # inkan（電子印鑑メーカー）プレビュー画像
-│   │   ├── natsuin-preview.png         # Natsuin（PDF捺印ツール）のプレビュー画像
-│   │   ├── field-styler-before.png     # フィールドスタイラー 導入前スクリーンショット
-│   │   ├── field-styler-after.png      # フィールドスタイラー 導入後スクリーンショット
-│   │   ├── field-styler-bg.png         # フィールドスタイラーページ 背景
+│   │   ├── logo.png                        # ヘッダー用ロゴ（カラー）
+│   │   ├── logo-white.png                  # フッター用ロゴ（白）
+│   │   ├── favicon.png                     # ファビコン
+│   │   ├── ogp.png                         # OGP（SNSシェア用）デフォルトサムネイル
+│   │   ├── hero-bg.png / hero-bg.webp      # トップページ ヒーロー背景
+│   │   ├── blog-bg.png / blog-bg.webp      # ブログページ 背景
+│   │   ├── tools-bg.png / tools-bg.webp    # ツールページ 背景
+│   │   ├── plugins-bg.png / plugins-bg.webp # プラグインページ 背景
+│   │   ├── contact-bg.png / contact-bg.webp # お問い合わせページ 背景
+│   │   ├── stamp-maker-preview.png         # inkan（電子印鑑メーカー）プレビュー画像
+│   │   ├── natsuin-preview.png             # Natsuin（PDF捺印ツール）プレビュー画像
+│   │   ├── musubi-preview.png              # Musubi（PDF結合・分割ツール）プレビュー画像
+│   │   ├── conditional-numbering-icon.png  # 条件分岐自動採番プラグイン アイコン
+│   │   ├── conditional-numbering-banner.png # 条件分岐自動採番プラグイン バナー
+│   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
+│   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
+│   │   ├── field-styler-bg.png / field-styler-bg.webp # フィールドスタイラーページ 背景
 │   │   ├── field-styler-config-list.png    # フィールドスタイラー 設定一覧画面
-│   │   └── field-styler-config-detail.png # フィールドスタイラー 設定詳細画面
+│   │   ├── field-styler-config-detail.png  # フィールドスタイラー 設定詳細画面
+│   │   └── blog/                           # ブログ記事用画像
+│   │       ├── kintone-teichaku-shinai-riyu.png         # 「kintoneが定着しない」記事 OGP・サムネイル
+│   │       ├── kintone-shortcut-keys.png                # kintoneショートカットキー一覧画像
+│   │       ├── conditional-numbering-plugin.png         # 採番プラグイン記事 OGP・サムネイル（1200×630px）
+│   │       ├── conditional-numbering-setting-format.png # 採番プラグイン フォーマット設定画面スクショ
+│   │       ├── conditional-numbering-setting-condition.png # 採番プラグイン 条件分岐設定画面スクショ
+│   │       └── conditional-numbering-setting-counter.png   # 採番プラグイン 連番管理画面スクショ
 │   ├── downloads/
 │   │   ├── .gitkeep                                    # ディレクトリをGit管理するための空ファイル
 │   │   └── kw-conditional-numbering-v1.0.0.zip         # 条件分岐自動採番プラグイン配布ファイル（手動配置）
@@ -142,7 +155,7 @@ kintone プラグイン「フィールドスタイラー」の製品ページ。
 
 | パス | 内容 | 優先度 |
 |------|------|--------|
-| `src/content/blog/*.md` | ブログ記事（Markdown形式）― 初回記事追加済み | 高 |
+| `src/content/blog/*.md` | ブログ記事（Markdown形式）― 随時追加 | 高 |
 | `public/images/ogp.png` | OGP画像の更新 | 中 |
 | `src/pages/plugins/<新プラグイン>/index.astro` | 新規プラグイン製品ページ | 新プラグイン追加時 |
 | `src/pages/tools/<新ツール>/index.astro` | 新規ツールページ（必要な場合） | 新ツール追加時 |
