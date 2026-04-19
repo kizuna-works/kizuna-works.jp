@@ -9,7 +9,7 @@ import Layout from '../../../layouts/Layout.astro';
   ogDescription="kintoneのレコード保存時に、部署・担当者・ステータスなどのフィールド値に応じて採番ルールを自動切替するkintone専用の自動採番プラグイン。18種類のフォーマット・条件ごとの連番管理・CSVインポート後の一括採番に対応。完全無料で配布中。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/kw-conditional-numbering/"
-  ogImage="https://kizuna-works.jp/images/ogp.png"
+  ogImage="https://kizuna-works.jp/images/blog/conditional-numbering-plugin.png"
   canonical="https://kizuna-works.jp/plugins/kw-conditional-numbering/"
 >
   <Fragment slot="head">
@@ -440,6 +440,52 @@ import Layout from '../../../layouts/Layout.astro';
       opacity: 0.7;
     }
 
+    /* Screenshots Section */
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .screenshot-item {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .screenshot-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+
+    .screenshot-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+
+    .screenshot-caption {
+      padding: 16px 20px;
+    }
+
+    .screenshot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .screenshot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .hero {
@@ -557,6 +603,52 @@ import Layout from '../../../layouts/Layout.astro';
           <div class="format-card">
             <span class="format-pattern">00001-テキスト-YYMMDD</span>
             <span class="format-example">例）00001-AD-260418</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">設定画面イメージ</h2>
+      <div class="screenshots-grid">
+        <div class="screenshot-item">
+          <img
+            src="/images/blog/conditional-numbering-setting-format.png"
+            alt="条件分岐自動採番プラグイン — 採番フォーマット設定画面。パーツ1〜3で日付・テキスト・連番を組み合わせて設定できる。"
+            width="1200"
+            height="700"
+            loading="lazy"
+          />
+          <div class="screenshot-caption">
+            <strong>フォーマット設定</strong>
+            <p>パーツ1〜3で日付・テキスト・連番を自由に組み合わせ。区切り文字や桁数も設定できます。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <img
+            src="/images/blog/conditional-numbering-setting-condition.png"
+            alt="条件分岐自動採番プラグイン — 条件分岐設定画面。フィールド値ごとにテキストと連番の独立設定ができる。"
+            width="1200"
+            height="500"
+            loading="lazy"
+          />
+          <div class="screenshot-caption">
+            <strong>条件分岐設定</strong>
+            <p>フィールド値ごとにテキストを切り替え、連番を独立させるかどうかも条件別に設定できます。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <img
+            src="/images/blog/conditional-numbering-setting-counter.png"
+            alt="条件分岐自動採番プラグイン — 連番管理画面。現在の連番値の確認・手動編集・リセット・一括採番ができる。"
+            width="1200"
+            height="600"
+            loading="lazy"
+          />
+          <div class="screenshot-caption">
+            <strong>連番管理・一括採番</strong>
+            <p>現在の連番値の確認・手動編集・リセット、CSVインポート後の一括採番がこの画面から実行できます。</p>
           </div>
         </div>
       </div>
