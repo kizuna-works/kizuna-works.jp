@@ -362,35 +362,48 @@ a{color:inherit;text-decoration:none}
 
 /* ---- Responsive tweaks ---- */
 @media (max-width:480px){
-  .kw-header{padding:0 12px;height:52px}
-  .kw-brand-text{font-size:13px}
-  .kw-brand-ver{display:none}
-  .kw-head-btn{padding:6px 10px;font-size:11px}
-  .kw-head-btn span{display:none}
   .kw-preview{padding:16px}
   .kw-preview-stage{min-height:240px;padding:12px}
   .kw-preview-actions .kw-btn{min-width:80px;padding:8px 10px;font-size:11px}
+}
+
+/* ---- Site Header ---- */
+.site-header{background:#F0F4F8;border-bottom:3px solid #1B3A6B;padding:8px 5%;position:sticky;top:0;z-index:300;flex-shrink:0;}
+.site-header-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;}
+.site-header-logo img{display:block;height:64px;width:auto;}
+.site-header-nav{display:flex;gap:10px;flex-wrap:wrap;}
+.site-nav-btn{display:inline-block;background-color:#1B3A6B;color:#FFFFFF !important;font-size:.95rem;font-weight:500;padding:8px 16px;border-radius:20px;text-decoration:none;transition:all .3s ease;}
+.site-nav-btn:hover{background-color:#2E8B2E;transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.2);}
+
+/* ---- Site Footer ---- */
+.site-footer{background-color:#1B3A6B;color:#FFFFFF;padding:60px 5% 30px;flex-shrink:0;}
+.site-footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:40px;margin-bottom:30px;}
+.site-footer-links{display:flex;gap:30px;flex-wrap:wrap;align-items:center;}
+.site-footer-links a{color:#FFFFFF;opacity:.9;font-weight:500;text-decoration:none;}
+.site-footer-links a:hover{color:#2E8B2E;opacity:1;}
+.site-footer-copy{text-align:center;opacity:.7;font-size:.9rem;letter-spacing:1px;}
+@media (max-width:768px){
+  .site-header{padding:6px 4%;}
+  .site-header-inner{flex-direction:column;gap:8px;}
+  .site-header-logo img{height:52px;}
+  .site-footer-inner{flex-direction:column;text-align:center;align-items:center;}
+  .site-footer-links{justify-content:center;gap:15px;}
 }
 </style>
 </head>
 <body>
 
-<!-- ===== Header ===== -->
-<header class="kw-header">
-  <div class="kw-brand">
-    <div class="kw-brand-mark">K</div>
-    <div class="kw-brand-text">KIZUNA <em>Tsumugi</em></div>
-    <span class="kw-brand-ver">v1.0.0</span>
-  </div>
-  <div class="kw-head-right">
-    <button class="kw-head-btn" onclick="KW.scrollToHistory()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
-      <span>履歴</span>
-    </button>
-    <button class="kw-head-btn" onclick="KW.showLicense()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      <span>License</span>
-    </button>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="https://kizuna-works.jp/" class="site-header-logo">
+      <img src="/images/logo.png" alt="KIZUNA Works">
+    </a>
+    <nav class="site-header-nav">
+      <a href="https://kizuna-works.jp/tools/" class="site-nav-btn">無料ツール</a>
+      <a href="https://kizuna-works.jp/plugins/" class="site-nav-btn">プラグイン</a>
+      <a href="https://kizuna-works.jp/blog/" class="site-nav-btn">ブログ</a>
+      <a href="https://kizuna-works.jp/contact/" class="site-nav-btn">お問い合わせ</a>
+    </nav>
   </div>
 </header>
 
@@ -699,8 +712,22 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 
-<footer class="kw-footer">
-  © 2026 KIZUNA Works &nbsp;·&nbsp; KIZUNA Tsumugi v1.0.0 &nbsp;·&nbsp; Offline QR Code Generator
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-brand">
+      <img src="/images/logo-white.png" alt="KIZUNA Works" style="height:48px;width:auto;margin-bottom:10px;display:block;mix-blend-mode:screen;">
+    </div>
+    <div class="site-footer-links">
+      <a href="https://kizuna-works.jp/privacy/">プライバシーポリシー</a>
+      <a href="https://kizuna-works.jp/terms/">利用規約</a>
+      <a href="https://kizuna-works.jp/tokushoho/">特定商取引法に基づく表記</a>
+      <a href="https://kizuna-works.jp/refund/">返金ポリシー</a>
+      <a href="https://kizuna-works.jp/contact/">お問い合わせ</a>
+    </div>
+  </div>
+  <div class="site-footer-copy">
+    <p>&copy; 2026 KIZUNA Works All Rights Reserved.</p>
+  </div>
 </footer>
 
 <!-- ===== QR library (inlined, MIT License, Kazuhiko Arase) ===== -->
