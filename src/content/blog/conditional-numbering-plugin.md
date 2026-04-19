@@ -7,8 +7,6 @@ tags: ["kintone", "プラグイン", "採番", "業務効率化", "kintoneカス
 ogImage: "/images/blog/conditional-numbering-plugin.png"
 ---
 
-![条件分岐自動採番プラグイン — kintoneの採番を条件で分岐させるプラグイン](/images/blog/conditional-numbering-plugin.png)
-
 kintoneの標準機能にも「レコード番号」はありますが、実務では**「伝票番号に部門コードを入れたい」「月が変わったら連番をリセットしたい」「営業所ごとに独立した採番にしたい」**といったニーズが出てきます。
 
 そのたびにカスタマイズJSで個別対応するのは、構築・保守ともに手間がかかります。
