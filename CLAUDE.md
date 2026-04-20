@@ -132,16 +132,25 @@ public/
 ### Adding a Blog Post
 
 1. Create a Markdown file in `src/content/blog/`
-2. Include the following frontmatter:
+2. Place images in `public/images/blog/`
+3. Include the following frontmatter:
 
 ```md
 ---
 title: "記事タイトル"
 description: "記事の説明文"
 pubDate: 2025-01-01
-heroImage: "/images/hero.png"  # optional
+author: "KIZUNA Works"
+tags: ["タグ1", "タグ2"]
+ogImage: "/images/blog/article-slug.png"  # optional — OGP・サムネイル・記事ヘッダー画像
 ---
 ```
+
+**画像の保存ルール:**
+- 保存場所: `public/images/blog/`
+- frontmatterでは `ogImage: "/images/blog/ファイル名.png"` で参照
+- 本文中のインライン画像も `![alt](/images/blog/ファイル名.png)` で参照
+- `heroImage: image()` は使用しない（他ページからURL参照できないため）
 
 ### Updating a Page
 
