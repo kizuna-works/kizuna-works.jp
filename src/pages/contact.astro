@@ -10,6 +10,40 @@ import Layout from '../layouts/Layout.astro';
   ogUrl="https://kizuna-works.jp/contact/"
   canonical="https://kizuna-works.jp/contact/"
 >
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ContactPage",
+          "@id": "https://kizuna-works.jp/contact/",
+          "url": "https://kizuna-works.jp/contact/",
+          "name": "お問い合わせ | KIZUNA Works",
+          "description": "KIZUNA Worksへのお問い合わせページです。お気軽にご連絡ください。",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://kizuna-works.jp/#organization",
+          "name": "KIZUNA Works",
+          "url": "https://kizuna-works.jp/",
+          "email": "info@kizuna-works.jp",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "email": "info@kizuna-works.jp",
+            "availableLanguage": "Japanese"
+          }
+        }
+      ]
+    }
+    </script>
+  </Fragment>
   <style is:global>
     body { background-color: #f4f7f6; }
 
