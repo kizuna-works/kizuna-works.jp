@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="画像をブラウザ上でリサイズ・圧縮・フォーマット変換できる完全無料のWebツール。JPEG・PNG・WebP・GIF・BMP・TIFFに対応。インストール不要・登録不要。ファイルはブラウザ内で処理されます。">
+<link rel="canonical" href="https://kizuna-works.jp/tools/Shuku.html">
+<meta property="og:title" content="Shuku（画像変換・圧縮・リサイズツール）| KIZUNA Works">
+<meta property="og:description" content="画像をブラウザ上でリサイズ・圧縮・フォーマット変換できる完全無料のWebツール。JPEG・PNG・WebP・GIF対応。インストール不要・登録不要。">
+<meta property="og:url" content="https://kizuna-works.jp/tools/Shuku.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://kizuna-works.jp/images/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@KIZUNA_works_DX">
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<title>Shuku（画像変換・圧縮・リサイズツール）| KIZUNA Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://kizuna-works.jp/tools/Shuku.html",
+      "url": "https://kizuna-works.jp/tools/Shuku.html",
+      "name": "Shuku（画像変換・圧縮・リサイズツール）| KIZUNA Works",
+      "description": "画像をブラウザ上でリサイズ・圧縮・フォーマット変換できる完全無料のWebツール。JPEG・PNG・WebP・GIF・BMP・TIFFに対応。",
+      "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Shuku（画像変換・圧縮・リサイズツール）",
+      "url": "https://kizuna-works.jp/tools/Shuku.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "WebBrowser",
+      "description": "画像をブラウザ上でリサイズ・圧縮・フォーマット変換できる完全無料のWebツール。JPEG・PNG・WebP・GIF・BMP・TIFFに対応。",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+    }
+  ]
+}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1B44N0922"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q1B44N0922');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2096869114957752" crossorigin="anonymous"></script>
+<style>
+:root {
+  --bg:      #1a1b20;
+  --panel:   #23252c;
+  --panel2:  #1e2027;
+  --border:  #33353d;
+  --text:    #e8e9ed;
+  --muted:   #8a8b90;
+  --accent:  #c8a872;
+  --accent2: #a8885a;
+  --danger:  #d26b6b;
+  --success: #6bb07a;
+  --info:    #6b9bd2;
+  --radius:  8px;
+  --radius-lg: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { height: 100%; }
+body { min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); color: var(--text); font-family: 'Noto Sans JP', 'Segoe UI', 'Hiragino Sans', sans-serif; font-size: 14px; }
+
+/* ── トップバー ── */
+.topbar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 20px; height: 52px;
+  background: var(--panel); border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+.topbar-logo { font-size: 11px; letter-spacing: .15em; color: var(--accent); font-weight: 600; text-transform: uppercase; }
+.topbar-sep { width: 1px; height: 20px; background: var(--border); }
+.topbar-title { font-size: 15px; font-weight: 600; color: var(--text); }
+.topbar-badge { font-size: 10px; background: var(--accent); color: #1a1b20; border-radius: 3px; padding: 2px 6px; font-weight: 700; letter-spacing: .05em; }
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+
+/* ── メインレイアウト ── */
+.main { display: grid; grid-template-columns: 1fr 320px; flex: 1; min-height: 0; overflow: hidden; }
+@media (max-width: 800px) { .main { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: auto; } }
+
+/* ── 左エリア ── */
+.left-area { display: flex; flex-direction: column; overflow: hidden; border-right: 1px solid var(--border); }
+
+/* ドロップゾーン */
+.drop-zone {
+  margin: 16px; border: 2px dashed var(--border); border-radius: var(--radius-lg);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; padding: 32px 20px; cursor: pointer; transition: all .2s;
+  background: var(--panel2); flex-shrink: 0;
+}
+.drop-zone:hover, .drop-zone.drag-over { border-color: var(--accent); background: rgba(200,168,114,.06); }
+.drop-zone svg { opacity: .4; transition: opacity .2s; }
+.drop-zone:hover svg, .drop-zone.drag-over svg { opacity: .8; }
+.drop-zone p { color: var(--muted); font-size: 13px; text-align: center; line-height: 1.6; }
+.drop-zone span { color: var(--accent); cursor: pointer; }
+.drop-zone span:hover { text-decoration: underline; }
+#file-input { display: none; }
+.accept-text { font-size: 11px; color: var(--muted); opacity: .7; }
+
+/* ファイルリスト */
+.file-list-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.file-list-header h3 { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+.file-list-header .file-count { font-size: 12px; color: var(--accent); font-weight: 600; }
+.btn-clear { font-size: 11px; color: var(--danger); background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; }
+.btn-clear:hover { background: rgba(210,107,107,.15); }
+
+.file-list { flex: 1; overflow-y: auto; padding: 8px; }
+.file-list::-webkit-scrollbar { width: 4px; }
+.file-list::-webkit-scrollbar-track { background: transparent; }
+.file-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.file-item {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px;
+  border-radius: var(--radius); border: 1px solid transparent;
+  cursor: pointer; transition: all .15s; position: relative;
+}
+.file-item:hover { background: var(--panel); border-color: var(--border); }
+.file-item.selected { background: rgba(200,168,114,.1); border-color: var(--accent); }
+.file-item.done { opacity: .7; }
+.file-thumb {
+  width: 48px; height: 48px; border-radius: 6px; object-fit: cover;
+  background: var(--panel); flex-shrink: 0; border: 1px solid var(--border);
+}
+.file-thumb-placeholder {
+  width: 48px; height: 48px; border-radius: 6px; background: var(--panel);
+  flex-shrink: 0; border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center; color: var(--muted);
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+}
+.file-info { flex: 1; min-width: 0; }
+.file-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.file-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.file-status { font-size: 11px; font-weight: 600; margin-top: 3px; }
+.file-status.done { color: var(--success); }
+.file-status.error { color: var(--danger); }
+.file-status.processing { color: var(--accent); }
+.file-remove { opacity: 0; background: none; border: none; color: var(--danger); cursor: pointer; font-size: 16px; padding: 2px 4px; transition: opacity .15s; flex-shrink: 0; }
+.file-item:hover .file-remove { opacity: 1; }
+.empty-state { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+
+/* ── 右パネル ── */
+.right-panel { overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 14px; background: var(--bg); }
+.right-panel::-webkit-scrollbar { width: 4px; }
+.right-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.section {
+  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px;
+}
+.section-title {
+  font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase;
+  letter-spacing: .12em; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;
+}
+.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* フォームコントロール */
+.form-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.form-row:last-child { margin-bottom: 0; }
+.form-label { font-size: 12px; color: var(--muted); min-width: 60px; flex-shrink: 0; }
+.form-control {
+  flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--text); padding: 6px 10px; font-size: 13px; outline: none; transition: border-color .15s;
+}
+.form-control:focus { border-color: var(--accent); }
+.form-control::placeholder { color: var(--muted); opacity: .5; }
+select.form-control { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8b90' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+
+/* トグルスイッチ */
+.toggle-group { display: flex; gap: 4px; flex: 1; }
+.toggle-btn { flex: 1; padding: 6px 4px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg); color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; text-align: center; }
+.toggle-btn.active { background: rgba(200,168,114,.15); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+
+/* スライダー */
+.slider-wrap { display: flex; align-items: center; gap: 10px; }
+.slider-wrap input[type=range] { flex: 1; -webkit-appearance: none; height: 4px; background: var(--border); border-radius: 2px; outline: none; cursor: pointer; }
+.slider-wrap input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); cursor: pointer; border: 2px solid var(--bg); transition: transform .1s; }
+.slider-wrap input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+.slider-val { font-size: 13px; font-weight: 600; color: var(--accent); min-width: 38px; text-align: right; }
+
+/* 縦2カラム入力 */
+.dim-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 6px; align-items: center; }
+.dim-sep { text-align: center; color: var(--muted); font-size: 16px; }
+.lock-btn { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); cursor: pointer; transition: all .15s; flex-shrink: 0; color: var(--muted); }
+.lock-btn.locked { border-color: var(--accent); color: var(--accent); background: rgba(200,168,114,.1); }
+
+/* チェックボックス */
+.checkbox-row { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 4px 0; }
+.checkbox-row input[type=checkbox] { width: 15px; height: 15px; accent-color: var(--accent); cursor: pointer; }
+.checkbox-row span { font-size: 12px; color: var(--muted); }
+
+/* アクションボタン */
+.btn-primary {
+  width: 100%; padding: 12px; border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #1a1b20; font-size: 14px; font-weight: 700; border: none; cursor: pointer;
+  transition: all .2s; letter-spacing: .03em;
+}
+.btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(200,168,114,.3); }
+.btn-primary:active { transform: translateY(0); filter: brightness(.95); }
+.btn-primary:disabled { opacity: .4; cursor: not-allowed; transform: none; box-shadow: none; filter: none; }
+.btn-secondary {
+  width: 100%; padding: 9px; border-radius: var(--radius);
+  background: transparent; color: var(--text); font-size: 13px; font-weight: 500;
+  border: 1px solid var(--border); cursor: pointer; transition: all .15s;
+}
+.btn-secondary:hover { background: var(--panel); border-color: var(--muted); }
+.btn-secondary:disabled { opacity: .4; cursor: not-allowed; }
+
+/* プログレスバー */
+.progress-wrap { background: var(--bg); border-radius: 4px; height: 4px; overflow: hidden; }
+.progress-bar { height: 100%; background: var(--accent); border-radius: 4px; transition: width .3s; }
+
+/* 出力サマリー */
+.output-summary { background: rgba(107,176,122,.08); border: 1px solid rgba(107,176,122,.3); border-radius: var(--radius); padding: 10px 12px; font-size: 12px; line-height: 1.8; }
+.output-summary .s-row { display: flex; justify-content: space-between; }
+.output-summary .s-val { font-weight: 600; color: var(--success); }
+
+/* トースト */
+#toast {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
+  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 10px 20px; font-size: 13px; z-index: 9999; transition: transform .3s;
+  box-shadow: 0 4px 24px rgba(0,0,0,.5);
+}
+#toast.show { transform: translateX(-50%) translateY(0); }
+#toast.success { border-color: var(--success); color: var(--success); }
+#toast.error { border-color: var(--danger); color: var(--danger); }
+
+/* ローディングスピナー */
+.spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(200,168,114,.3); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; vertical-align: middle; margin-right: 6px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===== SITE HEADER ===== */
+.site-header{background:#F0F4F8;border-bottom:3px solid #1B3A6B;padding:8px 5%;flex-shrink:0;}
+.site-header-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;}
+.site-header-logo img{display:block;height:64px;width:auto;}
+.site-header-nav{display:flex;gap:10px;flex-wrap:wrap;}
+.site-nav-btn{display:inline-block;background-color:#1B3A6B;color:#FFFFFF !important;font-size:.95rem;font-weight:500;padding:8px 16px;border-radius:20px;text-decoration:none;transition:all .3s ease;}
+.site-nav-btn:hover{background-color:#2E8B2E;transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.2);}
+
+/* ===== SITE FOOTER ===== */
+.site-footer{background-color:#1B3A6B;color:#FFFFFF;padding:60px 5% 30px;flex-shrink:0;}
+.site-footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:40px;margin-bottom:30px;}
+.site-footer-brand img{height:48px;width:auto;display:block;margin-bottom:10px;mix-blend-mode:screen;}
+.site-footer-links{display:flex;gap:30px;flex-wrap:wrap;align-items:center;}
+.site-footer-links a{color:#FFFFFF;opacity:.9;font-weight:500;text-decoration:none;}
+.site-footer-links a:hover{color:#2E8B2E;opacity:1;}
+.site-footer-copy{text-align:center;opacity:.7;font-size:.9rem;letter-spacing:1px;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" class="site-header-logo">
+      <img src="/images/logo.png" alt="KIZUNA Works">
+    </a>
+    <nav class="site-header-nav">
+      <a href="/tools/" class="site-nav-btn">無料ツール</a>
+      <a href="/plugins/" class="site-nav-btn">プラグイン</a>
+      <a href="/blog/" class="site-nav-btn">ブログ</a>
+      <a href="/contact/" class="site-nav-btn">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Shuku（画像変換・圧縮・リサイズツール）| KIZUNA Works</h1>
+
+<!-- トップバー -->
+<header class="topbar">
+  <span class="topbar-logo">KIZUNA Works</span>
+  <span class="topbar-sep"></span>
+  <span class="topbar-title">Shuku</span>
+  <span class="topbar-badge">v1.0.0</span>
+  <div class="topbar-right">
+    <span id="kw-shell-status" style="font-size:11px; color:var(--muted); display:none;">● Shell連携</span>
+  </div>
+</header>
+
+<input type="file" id="file-input" accept="image/*" multiple>
+
+<main class="main">
+  <!-- 左エリア：ファイル管理 -->
+  <section class="left-area">
+    <!-- ドロップゾーン -->
+    <div class="drop-zone" id="drop-zone">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <rect x="4" y="10" width="32" height="24" rx="3" stroke="#c8a872" stroke-width="1.5"/>
+        <path d="M14 22l6-6 6 6" stroke="#c8a872" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M20 16v12" stroke="#c8a872" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="12" cy="18" r="2.5" stroke="#c8a872" stroke-width="1.2"/>
+      </svg>
+      <p>ここに画像をドラッグ＆ドロップ<br>または <span id="browse-link">クリックして選択</span></p>
+      <p class="accept-text">JPEG · PNG · WebP · GIF · BMP · TIFF</p>
+    </div>
+
+    <!-- ファイルリスト -->
+    <div class="file-list-header">
+      <h3>ファイル一覧</h3>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="file-count" id="file-count">0 件</span>
+        <button class="btn-clear" id="btn-clear-all">すべて削除</button>
+      </div>
+    </div>
+
+    <div class="file-list" id="file-list">
+      <div class="empty-state" id="empty-state">
+        画像ファイルを追加してください
+      </div>
+    </div>
+  </section>
+
+  <!-- 右パネル：設定 -->
+  <aside class="right-panel">
+
+    <!-- リサイズ設定 -->
+    <div class="section">
+      <div class="section-title">リサイズ</div>
+
+      <div class="form-row">
+        <span class="form-label">モード</span>
+        <div class="toggle-group">
+          <button class="toggle-btn active" data-mode="px" id="mode-px">px指定</button>
+          <button class="toggle-btn" data-mode="pct" id="mode-pct">スケール%</button>
+          <button class="toggle-btn" data-mode="off" id="mode-off">なし</button>
+        </div>
+      </div>
+
+      <!-- px指定パネル -->
+      <div id="panel-px">
+        <div class="form-row" style="align-items:flex-end;gap:6px;">
+          <div style="flex:1;">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">幅 (px)</div>
+            <input type="number" id="w-px" class="form-control" placeholder="auto" min="1" max="10000" style="width:100%;">
+          </div>
+          <button class="lock-btn locked" id="lock-btn" title="アスペクト比ロック">
+            <svg id="lock-icon" width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+              <rect x="3" y="6" width="8" height="7" rx="1.5"/>
+              <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            </svg>
+          </button>
+          <div style="flex:1;">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">高さ (px)</div>
+            <input type="number" id="h-px" class="form-control" placeholder="auto" min="1" max="10000" style="width:100%;">
+          </div>
+        </div>
+        <div class="checkbox-row" style="margin-top:6px;">
+          <input type="checkbox" id="no-enlarge" checked>
+          <span>元サイズより拡大しない</span>
+        </div>
+      </div>
+
+      <!-- スケール%パネル -->
+      <div id="panel-pct" style="display:none;">
+        <div class="form-row">
+          <span class="form-label">スケール</span>
+          <div class="slider-wrap" style="flex:1;">
+            <input type="range" id="scale-range" min="1" max="200" value="50" step="1">
+            <span class="slider-val" id="scale-val">50%</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <span class="form-label">直接入力</span>
+          <input type="number" id="scale-input" class="form-control" value="50" min="1" max="200" style="width:80px;">
+          <span style="color:var(--muted);font-size:13px;">%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 出力設定 -->
+    <div class="section">
+      <div class="section-title">出力フォーマット</div>
+      <div class="form-row">
+        <span class="form-label">形式</span>
+        <select class="form-control" id="out-format">
+          <option value="original">変更しない（元の形式）</option>
+          <option value="jpeg">JPEG</option>
+          <option value="png">PNG</option>
+          <option value="webp">WebP</option>
+          <option value="gif">GIF（静止画）</option>
+        </select>
+      </div>
+
+      <div id="quality-row">
+        <div class="form-row" style="margin-top:8px;">
+          <span class="form-label">品質</span>
+          <div class="slider-wrap" style="flex:1;">
+            <input type="range" id="quality-range" min="1" max="100" value="85" step="1">
+            <span class="slider-val" id="quality-val">85%</span>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px;padding-left:68px;">JPEG・WebP に有効（PNG は可逆圧縮）</div>
+      </div>
+    </div>
+
+    <!-- ファイル名設定 -->
+    <div class="section">
+      <div class="section-title">ファイル名</div>
+      <div class="form-row">
+        <span class="form-label">接頭辞</span>
+        <input type="text" id="prefix" class="form-control" placeholder="なし">
+      </div>
+      <div class="form-row">
+        <span class="form-label">接尾辞</span>
+        <input type="text" id="suffix" class="form-control" placeholder="_converted">
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="keep-original-name" checked>
+        <span>元のファイル名を保持する</span>
+      </div>
+    </div>
+
+    <!-- 変換プログレス -->
+    <div class="section" id="progress-section" style="display:none;">
+      <div class="section-title">処理中</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;" id="progress-text">準備中...</div>
+      <div class="progress-wrap">
+        <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- 出力サマリー -->
+    <div id="output-summary" style="display:none;" class="output-summary">
+      <div class="s-row"><span>処理完了</span><span class="s-val" id="sum-count">0件</span></div>
+      <div class="s-row"><span>変換前合計</span><span id="sum-before">—</span></div>
+      <div class="s-row"><span>変換後合計</span><span id="sum-after">—</span></div>
+      <div class="s-row"><span>削減率</span><span class="s-val" id="sum-reduction">—</span></div>
+    </div>
+
+    <!-- アクションボタン -->
+    <button class="btn-primary" id="btn-convert" disabled>
+      変換を開始
+    </button>
+    <button class="btn-secondary" id="btn-download-zip" disabled>
+      📦 ZIP一括ダウンロード
+    </button>
+    <button class="btn-secondary" id="btn-download-each" disabled>
+      💾 個別ダウンロード
+    </button>
+
+  </aside>
+</main>
+
+<div id="toast"></div>
+
+<!-- JSZip CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script>
+'use strict';
+
+// ── 状態管理 ──────────────────────────────────
+const state = {
+  files: [],       // { id, file, name, size, imgWidth, imgHeight, thumb, status, resultBlob, resultSize }
+  resizeMode: 'px',
+  aspectLocked: true,
+  processing: false,
+  results: [],
+};
+
+let nextId = 0;
+
+// ── DOM参照 ──────────────────────────────────
+const dropZone     = document.getElementById('drop-zone');
+const fileInput    = document.getElementById('file-input');
+const fileList     = document.getElementById('file-list');
+const emptyState   = document.getElementById('empty-state');
+const fileCount    = document.getElementById('file-count');
+const btnConvert   = document.getElementById('btn-convert');
+const btnDlZip     = document.getElementById('btn-download-zip');
+const btnDlEach    = document.getElementById('btn-download-each');
+const btnClear     = document.getElementById('btn-clear-all');
+const lockBtn      = document.getElementById('lock-btn');
+const wPx          = document.getElementById('w-px');
+const hPx          = document.getElementById('h-px');
+const scaleRange   = document.getElementById('scale-range');
+const scaleInput   = document.getElementById('scale-input');
+const scaleVal     = document.getElementById('scale-val');
+const outFormat    = document.getElementById('out-format');
+const qualityRange = document.getElementById('quality-range');
+const qualityVal   = document.getElementById('quality-val');
+const progressSec  = document.getElementById('progress-section');
+const progressBar  = document.getElementById('progress-bar');
+const progressText = document.getElementById('progress-text');
+const outputSum    = document.getElementById('output-summary');
+const panelPx      = document.getElementById('panel-px');
+const panelPct     = document.getElementById('panel-pct');
+
+// ── ドラッグ＆ドロップ ─────────────────────────
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); addFiles(e.dataTransfer.files); });
+dropZone.addEventListener('click', () => fileInput.click());
+document.getElementById('browse-link').addEventListener('click', e => { e.stopPropagation(); fileInput.click(); });
+fileInput.addEventListener('change', () => { addFiles(fileInput.files); fileInput.value = ''; });
+
+// ── ファイル追加 ─────────────────────────────
+function addFiles(fileList_) {
+  const ACCEPT = ['image/jpeg','image/jpg','image/png','image/webp','image/gif','image/bmp','image/tiff','image/x-tiff'];
+  Array.from(fileList_).forEach(file => {
+    if (!file.type.startsWith('image/') && !ACCEPT.includes(file.type.toLowerCase())) { toast(`スキップ: ${file.name}（非対応形式）`, 'error'); return; }
+    const id = nextId++;
+    const entry = { id, file, name: file.name, size: file.size, imgWidth: 0, imgHeight: 0, thumb: null, status: 'pending', resultBlob: null, resultSize: 0 };
+    state.files.push(entry);
+    renderFileItem(entry);
+    loadThumb(entry);
+  });
+  updateUI();
+}
+
+function loadThumb(entry) {
+  const isTiff = entry.file.type === 'image/tiff' || entry.file.type === 'image/x-tiff' || entry.name.toLowerCase().endsWith('.tiff') || entry.name.toLowerCase().endsWith('.tif');
+  if (isTiff) {
+    entry.status = 'pending';
+    entry.imgWidth = 0; entry.imgHeight = 0;
+    updateFileItem(entry);
+    return;
+  }
+  const url = URL.createObjectURL(entry.file);
+  const img = new Image();
+  img.onload = () => {
+    entry.imgWidth = img.naturalWidth; entry.imgHeight = img.naturalHeight;
+    entry.thumb = url;
+    // ピクセルサイズが判明したらサムネを更新
+    updateFileItem(entry);
+  };
+  img.onerror = () => { URL.revokeObjectURL(url); entry.status = 'error'; updateFileItem(entry); };
+  img.src = url;
+}
+
+// ── リスト描画 ───────────────────────────────
+function renderFileItem(entry) {
+  emptyState.style.display = 'none';
+  const el = document.createElement('div');
+  el.className = 'file-item';
+  el.dataset.id = entry.id;
+  el.innerHTML = buildItemHTML(entry);
+  fileList.appendChild(el);
+  el.querySelector('.file-remove').addEventListener('click', ev => { ev.stopPropagation(); removeFile(entry.id); });
+}
+
+function buildItemHTML(entry) {
+  const ext = entry.name.split('.').pop().toUpperCase();
+  const thumb = entry.thumb
+    ? `<img class="file-thumb" src="${entry.thumb}" alt="">`
+    : `<div class="file-thumb-placeholder">${ext}</div>`;
+  const meta = entry.imgWidth
+    ? `${fmtSize(entry.size)} · ${entry.imgWidth}×${entry.imgHeight}px`
+    : fmtSize(entry.size);
+  const statusHtml = entry.status === 'done'
+    ? `<div class="file-status done">✔ ${fmtSize(entry.resultSize)}${entry.resultSize < entry.size ? ` (${Math.round((1-entry.resultSize/entry.size)*100)}%削減)` : ''}</div>`
+    : entry.status === 'error' ? `<div class="file-status error">✖ エラー</div>`
+    : entry.status === 'processing' ? `<div class="file-status processing"><span class="spinner"></span>処理中</div>`
+    : '';
+  return `${thumb}
+    <div class="file-info">
+      <div class="file-name">${escHtml(entry.name)}</div>
+      <div class="file-meta">${meta}</div>
+      ${statusHtml}
+    </div>
+    <button class="file-remove" title="削除">✕</button>`;
+}
+
+function updateFileItem(entry) {
+  const el = fileList.querySelector(`[data-id="${entry.id}"]`);
+  if (el) el.innerHTML = buildItemHTML(entry);
+  el?.querySelector('.file-remove').addEventListener('click', ev => { ev.stopPropagation(); removeFile(entry.id); });
+}
+
+function removeFile(id) {
+  state.files = state.files.filter(f => f.id !== id);
+  const el = fileList.querySelector(`[data-id="${id}"]`);
+  if (el) el.remove();
+  if (!state.files.length) emptyState.style.display = '';
+  updateUI();
+}
+
+btnClear.addEventListener('click', () => {
+  state.files = [];
+  fileList.innerHTML = '';
+  fileList.appendChild(emptyState);
+  emptyState.style.display = '';
+  outputSum.style.display = 'none';
+  btnDlZip.disabled = true; btnDlEach.disabled = true;
+  updateUI();
+});
+
+// ── リサイズモード切替 ───────────────────────
+document.querySelectorAll('.toggle-btn[data-mode]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.toggle-btn[data-mode]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.resizeMode = btn.dataset.mode;
+    panelPx.style.display  = state.resizeMode === 'px'  ? '' : 'none';
+    panelPct.style.display = state.resizeMode === 'pct' ? '' : 'none';
+  });
+});
+
+// アスペクト比ロック
+lockBtn.addEventListener('click', () => {
+  state.aspectLocked = !state.aspectLocked;
+  lockBtn.classList.toggle('locked', state.aspectLocked);
+  lockBtn.title = state.aspectLocked ? 'アスペクト比ロック中' : 'アスペクト比フリー';
+  const lockIconPaths = state.aspectLocked
+    ? `<rect x="3" y="6" width="8" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6" stroke="currentColor" stroke-width="1.5" fill="none"/>`
+    : `<rect x="3" y="6" width="8" height="7" rx="1.5"/><path d="M4.5 6V4a2.5 2.5 0 015 0" stroke="currentColor" stroke-width="1.5" fill="none" stroke-dasharray="2 2"/>`;
+  document.getElementById('lock-icon').innerHTML = lockIconPaths;
+});
+
+// アスペクト比連動
+wPx.addEventListener('input', () => {
+  if (!state.aspectLocked || !selectedAspect()) return;
+  const ar = selectedAspect();
+  if (wPx.value) hPx.value = Math.round(wPx.value / ar);
+});
+hPx.addEventListener('input', () => {
+  if (!state.aspectLocked || !selectedAspect()) return;
+  const ar = selectedAspect();
+  if (hPx.value) wPx.value = Math.round(hPx.value * ar);
+});
+function selectedAspect() {
+  const sel = state.files.find(f => f.imgWidth);
+  return sel ? sel.imgWidth / sel.imgHeight : null;
+}
+
+// スケールスライダー同期
+scaleRange.addEventListener('input', () => { scaleInput.value = scaleRange.value; scaleVal.textContent = scaleRange.value + '%'; });
+scaleInput.addEventListener('input', () => { scaleRange.value = Math.min(200, Math.max(1, scaleInput.value)); scaleVal.textContent = scaleRange.value + '%'; });
+
+// 品質スライダー
+qualityRange.addEventListener('input', () => { qualityVal.textContent = qualityRange.value + '%'; });
+outFormat.addEventListener('change', () => {
+  const fmt = outFormat.value;
+  document.getElementById('quality-row').style.opacity = (fmt === 'png' || fmt === 'gif') ? '.4' : '1';
+});
+
+// ── 変換処理 ──────────────────────────────────
+btnConvert.addEventListener('click', processAll);
+
+async function processAll() {
+  if (state.processing || !state.files.length) return;
+  state.processing = true;
+  btnConvert.disabled = true;
+  btnConvert.innerHTML = '<span class="spinner"></span>変換中...';
+  progressSec.style.display = '';
+  outputSum.style.display = 'none';
+  btnDlZip.disabled = true; btnDlEach.disabled = true;
+  state.results = [];
+
+  let totalBefore = 0, totalAfter = 0;
+
+  for (let i = 0; i < state.files.length; i++) {
+    const entry = state.files[i];
+    progressText.textContent = `${i+1}/${state.files.length}  ${entry.name}`;
+    progressBar.style.width = `${Math.round((i/state.files.length)*100)}%`;
+    entry.status = 'processing';
+    updateFileItem(entry);
+
+    try {
+      const blob = await convertImage(entry);
+      entry.resultBlob = blob;
+      entry.resultSize = blob.size;
+      entry.status = 'done';
+      totalBefore += entry.size;
+      totalAfter  += blob.size;
+      state.results.push({ entry, blob });
+    } catch(e) {
+      entry.status = 'error';
+      console.error(e);
+    }
+    updateFileItem(entry);
+  }
+
+  progressBar.style.width = '100%';
+  progressText.textContent = '完了';
+  setTimeout(() => { progressSec.style.display = 'none'; }, 1000);
+
+  // サマリー表示
+  const doneCount = state.results.length;
+  const reduction = totalBefore > 0 ? Math.round((1 - totalAfter/totalBefore)*100) : 0;
+  document.getElementById('sum-count').textContent    = `${doneCount}件`;
+  document.getElementById('sum-before').textContent   = fmtSize(totalBefore);
+  document.getElementById('sum-after').textContent    = fmtSize(totalAfter);
+  document.getElementById('sum-reduction').textContent = reduction > 0 ? `${reduction}% 削減` : `+${-reduction}% 増加`;
+  document.getElementById('sum-reduction').style.color = reduction > 0 ? 'var(--success)' : 'var(--danger)';
+  outputSum.style.display = '';
+
+  state.processing = false;
+  btnConvert.disabled = false;
+  btnConvert.innerHTML = '変換を開始';
+  if (doneCount > 0) { btnDlZip.disabled = false; btnDlEach.disabled = false; }
+  toast(`${doneCount}件の変換が完了しました`, 'success');
+}
+
+async function convertImage(entry) {
+  return new Promise((resolve, reject) => {
+    const isTiff = entry.file.type === 'image/tiff' || entry.file.type === 'image/x-tiff' ||
+                   entry.name.toLowerCase().endsWith('.tiff') || entry.name.toLowerCase().endsWith('.tif');
+    if (isTiff) {
+      reject(new Error('TIFFはブラウザ処理非対応（スキップ）'));
+      entry.status = 'error';
+      return;
+    }
+
+    const url = URL.createObjectURL(entry.file);
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const [tw, th] = calcDims(entry, img.naturalWidth, img.naturalHeight);
+      const canvas = document.createElement('canvas');
+      canvas.width = tw; canvas.height = th;
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      // GIF/PNG は白背景フォールバック（JPEGに変換時透過を処理）
+      const fmt = getOutMime(entry);
+      if (fmt === 'image/jpeg') { ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,tw,th); }
+      ctx.drawImage(img, 0, 0, tw, th);
+      const quality = parseInt(qualityRange.value) / 100;
+      canvas.toBlob(blob => {
+        if (!blob) { reject(new Error('変換失敗')); return; }
+        resolve(blob);
+      }, fmt, fmt === 'image/png' || fmt === 'image/gif' ? undefined : quality);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('画像読み込みエラー')); };
+    img.src = url;
+  });
+}
+
+function calcDims(entry, ow, oh) {
+  const noEnlarge = document.getElementById('no-enlarge').checked;
+  if (state.resizeMode === 'off') return [ow, oh];
+
+  if (state.resizeMode === 'pct') {
+    const s = parseInt(scaleRange.value) / 100;
+    return [Math.round(ow * s), Math.round(oh * s)];
+  }
+
+  // px モード
+  const wVal = parseInt(wPx.value) || 0;
+  const hVal = parseInt(hPx.value) || 0;
+  if (!wVal && !hVal) return [ow, oh];
+
+  let tw, th;
+  if (wVal && hVal) {
+    tw = wVal; th = hVal;
+  } else if (wVal) {
+    tw = wVal; th = Math.round(oh * (wVal/ow));
+  } else {
+    th = hVal; tw = Math.round(ow * (hVal/oh));
+  }
+
+  if (noEnlarge && (tw > ow || th > oh)) {
+    const scale = Math.min(ow/tw, oh/th);
+    tw = Math.round(tw*scale); th = Math.round(th*scale);
+  }
+  return [Math.max(1, tw), Math.max(1, th)];
+}
+
+function getOutMime(entry) {
+  const fmt = outFormat.value;
+  if (fmt === 'original') {
+    const t = entry.file.type;
+    if (t === 'image/jpeg' || t === 'image/jpg') return 'image/jpeg';
+    if (t === 'image/png') return 'image/png';
+    if (t === 'image/webp') return 'image/webp';
+    if (t === 'image/gif') return 'image/png'; // GIF→Canvas は静止画のみ
+    return 'image/png';
+  }
+  const map = { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', gif: 'image/png' };
+  return map[fmt] || 'image/png';
+}
+
+function getOutExt(mime) {
+  return { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[mime] || 'png';
+}
+
+function buildOutName(entry) {
+  const prefix  = document.getElementById('prefix').value  || '';
+  const suffix  = document.getElementById('suffix').value;
+  const sfx     = suffix !== '' ? suffix : '_converted';
+  const keepOriginal = document.getElementById('keep-original-name').checked;
+  const base    = keepOriginal ? entry.name.replace(/\.[^.]+$/, '') : `image_${entry.id}`;
+  const mime    = getOutMime(entry);
+  const ext     = getOutExt(mime);
+  return `${prefix}${base}${sfx}.${ext}`;
+}
+
+// ── ダウンロード ─────────────────────────────
+btnDlZip.addEventListener('click', async () => {
+  if (!state.results.length) return;
+  btnDlZip.disabled = true;
+  btnDlZip.textContent = '⏳ ZIP作成中...';
+  const zip = new JSZip();
+  state.results.forEach(r => {
+    zip.file(buildOutName(r.entry), r.blob);
+  });
+  const zipBlob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
+  downloadBlob(zipBlob, `KIZUNA_Images_${yyyymmdd()}.zip`);
+  btnDlZip.disabled = false;
+  btnDlZip.textContent = '📦 ZIP一括ダウンロード';
+});
+
+btnDlEach.addEventListener('click', () => {
+  state.results.forEach((r, i) => {
+    setTimeout(() => downloadBlob(r.blob, buildOutName(r.entry)), i * 200);
+  });
+});
+
+function downloadBlob(blob, name) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+
+// ── UI更新 ───────────────────────────────────
+function updateUI() {
+  const n = state.files.length;
+  fileCount.textContent = `${n} 件`;
+  btnConvert.disabled = n === 0 || state.processing;
+  emptyState.style.display = n === 0 ? '' : 'none';
+}
+
+// ── トースト ──────────────────────────────────
+function toast(msg, type = '') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show ' + type;
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { el.className = type; }, 3000);
+}
+
+// ── ユーティリティ ────────────────────────────
+function fmtSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
+  return (bytes/1024/1024).toFixed(2) + ' MB';
+}
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function yyyymmdd() { return new Date().toISOString().slice(0,10).replace(/-/g,''); }
+
+// ── shell.html 連携ブリッジ ─────────────────────
+(function() {
+  const isInShell = window.parent !== window;
+  if (!isInShell) return;
+
+  document.getElementById('kw-shell-status').style.display = '';
+
+  // 準備完了を親に通知
+  const notifyReady = () => {
+    window.parent.postMessage({ type: 'KW_READY', app: 'shuku' }, '*');
+  };
+  if (document.readyState === 'complete') notifyReady();
+  else window.addEventListener('load', notifyReady);
+
+  // 親からのメッセージ受信
+  window.addEventListener('message', e => {
+    if (!e.data || typeof e.data !== 'object') return;
+    const { type, payload } = e.data;
+    if (type === 'KW_PING') { window.parent.postMessage({ type: 'KW_PONG', app: 'shuku' }, '*'); }
+  });
+})();
+</script>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-brand">
+      <img src="/images/logo-white.png" alt="KIZUNA Works" width="2816" height="1536">
+    </div>
+    <div class="site-footer-links">
+      <a href="/privacy/">プライバシーポリシー</a>
+      <a href="/terms/">利用規約</a>
+      <a href="/tokushoho/">特定商取引法に基づく表記</a>
+      <a href="/refund/">返金ポリシー</a>
+      <a href="/contact/">お問い合わせ</a>
+    </div>
+  </div>
+  <div class="site-footer-copy">
+    <p>&copy; 2026 KIZUNA Works All Rights Reserved.</p>
+  </div>
+</footer>
+</body>
+</html>
