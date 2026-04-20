@@ -32,7 +32,7 @@
   --tr:      0.18s ease;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; overflow: hidden; }
+html { height: 100%; }
 body {
   background: var(--bg);
   color: var(--text);
@@ -41,42 +41,31 @@ body {
   -webkit-font-smoothing: antialiased;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 button { cursor: pointer; font-family: inherit; border: none; background: none; color: inherit; }
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--panel); }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
 
-/* ===== HEADER ===== */
-.header {
-  background: var(--panel);
-  border-bottom: 1px solid var(--border);
-  padding: 0 16px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-shrink: 0;
-  z-index: 20;
-}
-.brand { display: flex; align-items: center; gap: 10px; }
-.brand-mark {
-  width: 30px; height: 30px;
-  border-radius: 7px;
-  background: linear-gradient(135deg, var(--accent) 0, #a88a5a 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px;
-}
-.brand-text { font-size: 14px; font-weight: 700; letter-spacing: .03em; }
-.brand-text em { color: var(--accent); font-style: normal; }
-.brand-ver {
-  font-size: 10px; color: var(--text3);
-  padding: 2px 6px; border: 1px solid var(--border);
-  border-radius: 4px; margin-left: 6px;
-}
+/* ===== SITE HEADER ===== */
+.site-header{background:#F0F4F8;border-bottom:3px solid #1B3A6B;padding:8px 5%;position:sticky;top:0;z-index:300;flex-shrink:0;}
+.site-header-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;}
+.site-header-logo img{display:block;height:64px;width:auto;}
+.site-header-nav{display:flex;gap:10px;flex-wrap:wrap;}
+.site-nav-btn{display:inline-block;background-color:#1B3A6B;color:#FFFFFF !important;font-size:.95rem;font-weight:500;padding:8px 16px;border-radius:20px;text-decoration:none;transition:all .3s ease;}
+.site-nav-btn:hover{background-color:#2E8B2E;transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.2);}
+
+/* ===== SITE FOOTER ===== */
+.site-footer{background-color:#1B3A6B;color:#FFFFFF;padding:60px 5% 30px;flex-shrink:0;}
+.site-footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:40px;margin-bottom:30px;}
+.site-footer-links{display:flex;gap:30px;flex-wrap:wrap;align-items:center;}
+.site-footer-links a{color:#FFFFFF;opacity:.9;font-weight:500;text-decoration:none;}
+.site-footer-links a:hover{color:#2E8B2E;opacity:1;}
+.site-footer-copy{text-align:center;opacity:.7;font-size:.9rem;letter-spacing:1px;}
 
 /* ===== LAYOUT ===== */
-.body { display: flex; flex: 1; overflow: hidden; }
+.body { display: flex; flex: 1; min-height: 0; overflow: hidden; }
 
 /* ===== SIDEBAR ===== */
 .sidebar {
@@ -270,6 +259,8 @@ input[type=range]::-webkit-slider-thumb {
 
 /* ===== MOBILE ===== */
 @media (max-width: 768px) {
+  .site-header-inner{flex-direction:column;gap:8px;}
+  .site-footer-inner{flex-direction:column;text-align:center;align-items:center;}
   .sidebar { display: none; }
   .toolbar { padding: 5px 8px; gap: 4px; }
 }
@@ -277,16 +268,17 @@ input[type=range]::-webkit-slider-thumb {
 </head>
 <body>
 
-<header class="header">
-  <div class="brand">
-    <div class="brand-mark">🎭</div>
-    <div>
-      <span class="brand-text">KIZUNA <em>Masuku</em></span>
-      <span class="brand-ver">v1.0.0</span>
-    </div>
-  </div>
-  <div style="display:flex;gap:8px;align-items:center;">
-    <span id="filenameBadge" style="font-size:11px;color:var(--text3);display:none;"></span>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="https://kizuna-works.jp/" class="site-header-logo">
+      <img src="/images/logo.png" alt="KIZUNA Works">
+    </a>
+    <nav class="site-header-nav">
+      <a href="https://kizuna-works.jp/tools/" class="site-nav-btn">無料ツール</a>
+      <a href="https://kizuna-works.jp/plugins/" class="site-nav-btn">プラグイン</a>
+      <a href="https://kizuna-works.jp/blog/" class="site-nav-btn">ブログ</a>
+      <a href="https://kizuna-works.jp/contact/" class="site-nav-btn">お問い合わせ</a>
+    </nav>
   </div>
 </header>
 
@@ -434,6 +426,24 @@ input[type=range]::-webkit-slider-thumb {
 
   </main>
 </div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-brand">
+      <img src="/images/logo-white.png" alt="KIZUNA Works" style="height:48px;width:auto;margin-bottom:10px;display:block;mix-blend-mode:screen;">
+    </div>
+    <div class="site-footer-links">
+      <a href="https://kizuna-works.jp/privacy/">プライバシーポリシー</a>
+      <a href="https://kizuna-works.jp/terms/">利用規約</a>
+      <a href="https://kizuna-works.jp/tokushoho/">特定商取引法に基づく表記</a>
+      <a href="https://kizuna-works.jp/refund/">返金ポリシー</a>
+      <a href="https://kizuna-works.jp/contact/">お問い合わせ</a>
+    </div>
+  </div>
+  <div class="site-footer-copy">
+    <p>&copy; 2026 KIZUNA Works All Rights Reserved.</p>
+  </div>
+</footer>
 
 <!-- トースト -->
 <div class="toast" id="toast"></div>
