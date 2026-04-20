@@ -267,7 +267,197 @@ print('sha384-' + base64.b64encode(hashlib.sha384(data).digest()).decode())
 
 ## ページ追加・更新時のSEOチェックリスト
 
-### 新規ページを追加する場合は以下を必ず設定すること
+> **重要：** 無料ツール・ブログ・プラグインのページを追加・更新する際は、コミット前に必ずこのチェックリストを実行すること。指示がない場合でも自動的に適用すること。
+
+---
+
+### 【共通】全ページ必須項目（Astro `.astro` ページ）
+
+#### Layout コンポーネントの props
+- `title`: ページタイトル（日本語・キーワード含む・30〜60文字）
+- `description`: meta description（日本語・120〜140文字・キーワード含む）
+- `canonical`: 正式URL（例：`https://kizuna-works.jp/tools/new-tool/`）
+- `ogTitle`: OGタイトル（titleと同じでOK）
+- `ogDescription`: OG説明文（descriptionと同じ文字数・内容）
+- `ogUrl`: 正式URL（canonicalと同じ）
+- `ogType`: `"website"`（"product"は非標準のため使用禁止）
+- `ogImage`: OGP画像URL（デフォルト：`https://kizuna-works.jp/images/ogp.png`）
+
+#### JSON-LD（`<Fragment slot="head">` 内に `<script is:inline type="application/ld+json">` で記述）
+- 全ページ: `WebPage` スキーマ
+- ツール一覧・プラグイン一覧: `ItemList` スキーマ（各アイテムに `SoftwareApplication`）
+- 個別ツール・プラグインページ: `SoftwareApplication` スキーマ（`offers.price: "0"` または価格）
+- ブログ記事: `BlogPosting` スキーマ（`[...slug].astro` が自動生成するため追加不要）
+
+#### コンテンツ
+- `<h1>` タグが必ず1つ存在すること
+- 全 `<img>` に具体的な日本語 `alt` テキストを設定（装飾のみ `alt=""` 許可）
+- 新規ページは必ずヘッダーナビ・フッター・または関連ページからリンクを張る
+
+#### SITE_STRUCTURE.md の更新
+- 新規ファイルを追加したら `SITE_STRUCTURE.md` にパスと役割を記載する
+
+---
+
+### 【ブログ記事】`src/content/blog/*.md` を追加・更新する場合
+
+frontmatter の必須項目：
+
+```md
+---
+title: "記事タイトル（日本語・30〜60文字・キーワード含む）"
+description: "記事の説明文（120〜140文字・キーワード含む）"
+pubDate: YYYY-MM-DD
+author: "KIZUNA Works"
+tags: ["タグ1", "タグ2"]
+ogImage: "/images/blog/article-slug.png"
+---
+```
+
+チェック項目：
+- [ ] `title` が30〜60文字でキーワードを含む
+- [ ] `description` が120〜140文字でキーワードを含む
+- [ ] `pubDate` が正しい日付
+- [ ] `ogImage` の画像ファイルが `public/images/blog/` に存在する
+- [ ] 記事内の `<img>` / `![]()` に alt テキストがある
+- [ ] 関連するプラグイン・ツールページへの内部リンクを含める
+- [ ] 本文内の `**太字**` 記法は正しくレンダリングされるか確認
+
+---
+
+### 【無料ツール】`public/tools/*.html` を追加・更新する場合
+
+staticHTMLファイルのため、Layout.astro は使用しない。以下を `<head>` 内に直接記述すること。
+
+#### `<head>` 必須項目（テンプレート）
+
+```html
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ツールの説明（120〜140文字・キーワード含む）">
+<link rel="canonical" href="https://kizuna-works.jp/tools/tool-name.html">
+<meta property="og:title" content="ToolName（ツール説明）| KIZUNA Works">
+<meta property="og:description" content="ツールの説明（120〜140文字）">
+<meta property="og:url" content="https://kizuna-works.jp/tools/tool-name.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://kizuna-works.jp/images/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@KIZUNA_works_DX">
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<title>ToolName（ツール説明）| KIZUNA Works</title>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://kizuna-works.jp/tools/tool-name.html",
+      "url": "https://kizuna-works.jp/tools/tool-name.html",
+      "name": "ToolName（ツール説明）| KIZUNA Works",
+      "description": "...",
+      "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "ToolName（ツール説明）",
+      "url": "https://kizuna-works.jp/tools/tool-name.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "WebBrowser",
+      "description": "...",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+    }
+  ]
+}
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1B44N0922"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q1B44N0922');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2096869114957752" crossorigin="anonymous"></script>
+```
+
+#### `<body>` 内の必須項目
+
+```html
+<!-- サイトヘッダー（共通） -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" class="site-header-logo">
+      <img src="/images/logo.png" alt="KIZUNA Works">
+    </a>
+    <nav class="site-header-nav">
+      <a href="/tools/" class="site-nav-btn">無料ツール</a>
+      <a href="/plugins/" class="site-nav-btn">プラグイン</a>
+      <a href="/blog/" class="site-nav-btn">ブログ</a>
+      <a href="/contact/" class="site-nav-btn">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- 視覚的に非表示のh1（SEO用）-->
+<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">ToolName（ツール説明）| KIZUNA Works</h1>
+```
+
+#### 追加後の作業
+- [ ] `astro.config.mjs` の `sitemap.customPages` にURLを追加する
+- [ ] `tools/index.astro` のグリッドに新ツールのカードを追加する
+- [ ] `tools/index.astro` の JSON-LD `ItemList` に新ツールを追加する
+- [ ] `SITE_STRUCTURE.md` に追記する
+- [ ] （人間側）Google Search Console でインデックス申請を行う
+
+---
+
+### 【プラグイン】`src/pages/plugins/*/index.astro` を追加・更新する場合
+
+#### Layout props
+- `title`: `"プラグイン名 - kintoneプラグイン | KIZUNA Works"`（40〜65文字）
+- `description`: 120〜140文字、「kintone」「プラグイン」「ノーコード」等のキーワードを含む
+- `canonical` / `ogUrl`: `https://kizuna-works.jp/plugins/plugin-name/`
+- `ogImage`: プラグイン専用画像があれば指定、なければ `/images/ogp.png`
+
+#### JSON-LD（`<Fragment slot="head">` 内）
+
+```json
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://kizuna-works.jp/plugins/plugin-name/",
+      "url": "https://kizuna-works.jp/plugins/plugin-name/",
+      "name": "...",
+      "description": "..."
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "プラグイン名",
+      "url": "https://kizuna-works.jp/plugins/plugin-name/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "kintone",
+      "description": "...",
+      "offers": [
+        { "@type": "Offer", "name": "月額プラン", "price": "1000", "priceCurrency": "JPY", "billingIncrement": "P1M" },
+        { "@type": "Offer", "name": "年額プラン", "price": "10000", "priceCurrency": "JPY", "billingIncrement": "P1Y" }
+      ]
+    }
+  ]
+}
+```
+
+#### 追加後の作業
+- [ ] `plugins/index.astro` のグリッドに新プラグインのカードを追加する
+- [ ] `plugins/index.astro` の JSON-LD `ItemList` に新プラグインを追加する
+- [ ] `SITE_STRUCTURE.md` に追記する
+
+---
+
+### 旧チェックリスト（参考：共通 SEO 要素一覧）
 
 #### frontmatterの必須項目
 - title: ページタイトル（日本語・キーワード含む・30文字前後）
