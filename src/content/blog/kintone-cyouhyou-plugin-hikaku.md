@@ -1,7 +1,7 @@
 ---
 title: "【2026年最新】kintone帳票出力プラグイン徹底比較｜失敗しない選び方とおすすめ5選"
 description: "2026年最新のkintone帳票出力プラグインを徹底比較。プリントクリエイター・レポトン・ドキュトーン・SVF Cloud・OPROARTSの機能・コスト・電子帳簿保存法対応を整理し、失敗しない選び方と導入のポイントをわかりやすく解説します。"
-pubDate: 2026-06-01
+pubDate: 2026-04-23
 author: "KIZUNA Works"
 tags: ["kintone", "帳票出力", "プラグイン", "業務効率化", "電子帳簿保存法"]
 ogImage: "/images/blog/kintone-cyouhyou-plugin-hikaku.png"
