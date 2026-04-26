@@ -31,7 +31,7 @@ export interface Plugin {
 
 export const plugins: Plugin[] = [
   {
-    id: 'field-styler',
+    id: 'kw-field-styler',
     name: 'フィールドスタイラー',
     formName: 'フィールドスタイラープラグイン',
     subtitle: 'kintone プラグイン',
