@@ -1,6 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import SupporterForm from '../../components/SupporterForm.astro';
 import { plugins, pluginsItemListJsonLd } from '../../data/plugins';
 
 const itemListJson = JSON.stringify(pluginsItemListJsonLd);
@@ -280,6 +279,57 @@ const itemListJson = JSON.stringify(pluginsItemListJsonLd);
       color: var(--color-white);
     }
 
+    /* Supporter License CTA */
+    .supporter-cta-section {
+      padding: 0 5% 80px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .supporter-cta-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f4faf4 100%);
+      border: 2px solid var(--color-green);
+      border-radius: 14px;
+      max-width: 720px;
+      width: 100%;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: var(--shadow-card);
+    }
+
+    .supporter-cta-title {
+      color: var(--color-navy);
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0 0 16px;
+      line-height: 1.5;
+    }
+
+    .supporter-cta-text {
+      color: var(--color-text-main);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin: 0 0 28px;
+    }
+
+    .supporter-cta-button {
+      display: inline-block;
+      padding: 14px 28px;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background-color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+
+    .supporter-cta-button:hover {
+      background-color: var(--color-navy);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
     @media (max-width: 768px) {
       .hero {
         padding: 60px 5%;
@@ -296,6 +346,12 @@ const itemListJson = JSON.stringify(pluginsItemListJsonLd);
       .plugins-grid {
         grid-template-columns: 1fr;
       }
+      .supporter-cta-card {
+        padding: 32px 20px;
+      }
+      .supporter-cta-title {
+        font-size: 1.2rem;
+      }
     }
   </style>
 
@@ -309,7 +365,7 @@ const itemListJson = JSON.stringify(pluginsItemListJsonLd);
     <section class="intro-section">
       <div class="intro-card">
         <h2>KIZUNA Works プラグインの特長</h2>
-        <p>KIZUNA Worksのプラグインは、kintoneの標準機能では手が届かない「見た目のカスタマイズ」や「入力制御」を実現します。ノーコードで設定でき、プログラミング知識は不要。基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間¥3,000（税抜）のサポーターライセンスで広告非表示・サポーター特典をお楽しみいただけます。</p>
+        <p>KIZUNA Worksのプラグインは、kintoneの標準機能では手が届かない「見た目のカスタマイズ」や「入力制御」を実現します。ノーコードで設定でき、プログラミング知識は不要。基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターライセンスで広告非表示・サポーター特典をお楽しみいただけます。</p>
       </div>
     </section>
 
@@ -349,6 +405,17 @@ const itemListJson = JSON.stringify(pluginsItemListJsonLd);
       </div>
     </section>
 
-    <SupporterForm />
+    <section class="supporter-cta-section">
+      <div class="supporter-cta-card">
+        <h2 class="supporter-cta-title">プラグインを気に入っていただけましたか？</h2>
+        <p class="supporter-cta-text">
+          基本機能は無料でご利用いただけます。<br />
+          広告非表示・サポーター特典付きの「年間サポーターライセンス」もご用意しています。
+        </p>
+        <a href="/plugins/supporter/" class="supporter-cta-button">
+          サポーターライセンスの詳細・お申し込みへ <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </section>
   </main>
 </Layout>

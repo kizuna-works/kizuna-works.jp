@@ -35,7 +35,10 @@ c:\kizuna-works.jp\
 │   │       ├── atkinson-bold.woff
 │   │       └── atkinson-regular.woff
 │   ├── components/             # 再利用可能なAstroコンポーネント
-│   │   └── BlogCard.astro      # ブログ記事カード（ホームページ・ブログ一覧で使用）
+│   │   ├── BlogCard.astro      # ブログ記事カード（ホームページ・ブログ一覧で使用）
+│   │   └── SupporterForm.astro # サポーターライセンス申込フォーム（pluginIdで対象固定可）
+│   ├── data/                   # ビルド時参照される TS データ
+│   │   └── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）
 │   ├── layouts/                # 共通レイアウトコンポーネント
 │   │   ├── Layout.astro        # 全ページ共通レイアウト（GA4・AdSense・Noto Sans JP・ヘッダー・フッター）
 │   │   └── BlogPost.astro      # ブログ記事専用レイアウト
@@ -52,6 +55,8 @@ c:\kizuna-works.jp\
 │   │   │   └── [...slug].astro # ブログ記事動的ルート（/blog/[記事スラッグ]/）
 │   │   ├── plugins/
 │   │   │   ├── index.astro     # プラグイン一覧ページ（/plugins/）
+│   │   │   ├── supporter/
+│   │   │   │   └── index.astro # 年間サポーターライセンス案内＆申込フォーム（/plugins/supporter/）
 │   │   │   ├── field-styler/
 │   │   │   │   └── index.astro # フィールドスタイラー製品ページ（/plugins/field-styler/）
 │   │   │   └── kw-conditional-numbering/
