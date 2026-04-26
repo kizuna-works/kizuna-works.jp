@@ -36,7 +36,8 @@ c:\kizuna-works.jp\
 │   │       └── atkinson-regular.woff
 │   ├── components/             # 再利用可能なAstroコンポーネント
 │   │   ├── BlogCard.astro      # ブログ記事カード（ホームページ・ブログ一覧で使用）
-│   │   └── SupporterForm.astro # サポーターライセンス申込フォーム（pluginIdで対象固定可）
+│   │   ├── SupporterCTA.astro  # サポーターライセンス案内ページへの誘導カード（pluginIdでURL自動付与）
+│   │   └── SupporterForm.astro # サポーターライセンス申込フォーム（URL ?plugin=<id> で自動選択対応）
 │   ├── data/                   # ビルド時参照される TS データ
 │   │   └── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）
 │   ├── layouts/                # 共通レイアウトコンポーネント

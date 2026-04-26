@@ -72,7 +72,7 @@ if (pluginId && !fixedPlugin) {
             <select id="sf-pluginName" name="pluginName" class="sf-select">
               <option value="">選択してください</option>
               {plugins.map((plugin) => (
-                <option value={plugin.formName}>{plugin.formName}</option>
+                <option value={plugin.formName} data-plugin-id={plugin.id}>{plugin.formName}</option>
               ))}
             </select>
           )}
@@ -272,6 +272,23 @@ if (pluginId && !fixedPlugin) {
   (function () {
     const form = document.getElementById('sf-form');
     if (!form) return;
+
+    // Pre-select plugin from URL query param `?plugin=<id>` (when in select mode).
+    // Useful when arriving from an individual plugin page CTA.
+    try {
+      const pluginParam = new URLSearchParams(window.location.search).get('plugin');
+      if (pluginParam) {
+        const select = form.querySelector('select[name="pluginName"]');
+        if (select) {
+          const opt = Array.from(select.options).find(
+            (o) => o.dataset.pluginId === pluginParam,
+          );
+          if (opt) select.value = opt.value;
+        }
+      }
+    } catch (_) {
+      /* ignore URL parsing errors */
+    }
 
     const submitBtn = document.getElementById('sf-submit');
     const successMsg = document.getElementById('sf-success');
