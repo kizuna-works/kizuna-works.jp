@@ -58,8 +58,7 @@ export const plugins: Plugin[] = [
       '条件分岐自動採番プラグイン — フィールドの条件に応じて採番ルールを自動切替',
     imageWidth: 1200,
     imageHeight: 675,
-    status: 'available',
-    price: 0,
+    status: 'coming-soon',
   },
 ];
 

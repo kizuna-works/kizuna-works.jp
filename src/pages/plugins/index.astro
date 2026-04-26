@@ -265,12 +265,21 @@ const itemListJson = JSON.stringify(pluginsItemListJsonLd);
     }
 
     .badge-coming-soon {
-      background-color: #94a3b8;
-      color: var(--color-white);
-      padding: 6px 12px;
+      background-color: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffe082;
+      padding: 6px 14px;
       border-radius: 20px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .badge-coming-soon::before {
+      content: '🔧';
+      font-size: 0.95rem;
     }
 
     .badge-recommended {
@@ -375,9 +384,9 @@ const itemListJson = JSON.stringify(pluginsItemListJsonLd);
               <p class="plugin-desc">{plugin.description}</p>
               <div class="plugin-meta">
                 {plugin.status === 'available' ? (
-                  <span class="badge-free">無料</span>
+                  <span class="badge-free">無料配布中</span>
                 ) : (
-                  <span class="badge-coming-soon">近日販売開始予定</span>
+                  <span class="badge-coming-soon">準備中</span>
                 )}
               </div>
               {plugin.status === 'available' && plugin.price !== undefined && (
