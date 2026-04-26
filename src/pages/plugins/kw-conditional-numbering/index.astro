@@ -382,6 +382,60 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
       color: #94a3b8;
     }
 
+    /* FAQ */
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 24px 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .faq-icon {
+      font-size: 20px;
+      color: var(--color-navy);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.is-open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+
+    .faq-answer-inner {
+      padding-bottom: 24px;
+      color: var(--color-text-light);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .faq-answer-inner a {
+      color: var(--color-navy);
+      text-decoration: underline;
+    }
+
     /* Pricing */
     .pricing-grid {
       display: grid;
@@ -851,7 +905,7 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
             <li>✅ 設定画面に控えめな広告エリア表示あり</li>
             <li>✅ メールでお問い合わせ可能</li>
           </ul>
-          <a href="/downloads/kw-conditional-numbering-v1.0.0.zip" download class="btn-primary">無料でダウンロード</a>
+          <a href="/downloads/kw-conditional-numbering-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -872,15 +926,87 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
       </div>
     </section>
 
-    <!-- Download CTA -->
-    <section class="bottom-cta fade-in">
-      <h2 class="bottom-cta-title">無料でダウンロード</h2>
-      <p class="bottom-cta-desc">GitHubアカウント不要。ボタンをクリックするだけですぐにご利用いただけます。</p>
-      <div class="cta-buttons">
-        <a href="/downloads/kw-conditional-numbering-v1.0.0.zip" download class="btn-primary" id="btn-download">ダウンロード（無料）</a>
-        <a href="/contact/" class="btn-secondary">お問い合わせ</a>
+    <!-- FAQ Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">よくある質問</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              本当に無料で使えますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい、18種類のフォーマット・条件分岐採番・CSVインポート後の一括採番など、すべての機能を無料でご利用いただけます。利用期限もなく、ずっとお使いいただけます。設定画面に控えめな広告エリアが表示されますが、プラグインの動作には影響しません。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              年間サポーターライセンスとは何ですか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                KIZUNA Works のプラグイン開発を応援していただける方向けの年間ライセンス（年額 ¥3,300・税込）です。広告エリアの非表示、プラグイン作成リクエスト・改善要望の送付、サポーターの声を優先反映などの特典があります。詳しくは <a href="/plugins/supporter/?plugin=kw-conditional-numbering">サポーターライセンスのご案内</a> をご覧ください。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              CSVインポートしたレコードにも採番できますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい、対応しています。CSVインポート後、プラグイン設定画面の「一括採番」ボタンを押すことで、採番フィールドが空欄のレコードに対してまとめて採番できます。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              連番をリセットしたり手動で変更できますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい、設定画面から条件ごとの現在の連番値を確認・編集・リセットできます。年度切り替えや運用変更にも柔軟に対応可能です。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              どのkintone環境で利用できますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                kintoneのデスクトップ版で利用可能です。スタンダードコース・ワイドコースのkintone環境であれば、ドメインを問わずご利用いただけます。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              設定にプログラミングの知識は必要ですか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                いいえ、プラグインの設定画面からすべての機能をノーコードで設定できます。ドロップダウンと入力欄で直感的に操作可能です。
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <p class="bottom-cta-note">ご利用にあたってのご質問は info@kizuna-works.jp までお気軽にどうぞ。</p>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+      <p class="bottom-cta-note">info@kizuna-works.jp までお気軽にどうぞ</p>
     </section>
 
     <SupporterCTA pluginId="kw-conditional-numbering" />
@@ -899,6 +1025,31 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
       }, { threshold: 0.1 });
 
       document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      /* FAQ Accordion Logic */
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
 
       const dlBtn = document.getElementById('btn-download');
       if (dlBtn) {
