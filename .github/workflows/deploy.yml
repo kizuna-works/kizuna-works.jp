@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Rebuild daily at 06:00 JST (21:00 UTC) to refresh note RSS feed
+    - cron: '0 21 * * *'
 
 permissions:
   contents: read
