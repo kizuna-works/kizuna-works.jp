@@ -295,6 +295,124 @@ import Layout from '../../layouts/Layout.astro';
       color: var(--color-white);
     }
 
+    /* Supporter License Form */
+    .supporter-section {
+      padding-top: 0;
+    }
+
+    .supporter-card {
+      background-color: var(--color-white);
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 40px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .supporter-intro {
+      font-size: 1rem;
+      color: var(--color-text-main);
+      line-height: 1.9;
+      margin-bottom: 36px;
+      text-align: center;
+    }
+
+    .supporter-form .form-group {
+      margin-bottom: 24px;
+    }
+
+    .supporter-form label {
+      display: block;
+      font-weight: 700;
+      color: var(--color-navy);
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .supporter-form .required {
+      color: #e74c3c;
+      margin-left: 4px;
+      font-size: 0.85rem;
+    }
+
+    .supporter-form input,
+    .supporter-form select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      background-color: var(--color-white);
+      color: var(--color-text-main);
+      box-sizing: border-box;
+      transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    }
+
+    .supporter-form input:focus,
+    .supporter-form select:focus {
+      outline: none;
+      border-color: var(--color-green);
+      box-shadow: 0 0 0 3px rgba(46, 139, 46, 0.15);
+    }
+
+    .supporter-form .field-error {
+      color: #e74c3c;
+      font-size: 0.85rem;
+      margin: 6px 0 0;
+      min-height: 1em;
+    }
+
+    .supporter-form .form-submit {
+      display: block;
+      width: 100%;
+      padding: 14px 20px;
+      margin-top: 8px;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      border: none;
+      border-radius: 6px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background-color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+
+    .supporter-form .form-submit:hover:not(:disabled) {
+      background-color: var(--color-navy);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .supporter-form .form-submit:disabled {
+      background-color: #94a3b8;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .form-message {
+      padding: 28px 24px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .form-message-success {
+      background-color: #e6f4ea;
+      color: #1e6b3a;
+      border: 1px solid var(--color-green);
+    }
+
+    .form-message-error {
+      background-color: #fdecea;
+      color: #c0392b;
+      border: 1px solid #e74c3c;
+      margin-top: 16px;
+    }
+
     @media (max-width: 768px) {
       .hero {
         padding: 60px 5%;
@@ -310,6 +428,9 @@ import Layout from '../../layouts/Layout.astro';
       }
       .plugins-grid {
         grid-template-columns: 1fr;
+      }
+      .supporter-card {
+        padding: 32px 20px;
       }
     }
   </style>
@@ -367,5 +488,152 @@ import Layout from '../../layouts/Layout.astro';
         </a>
       </div>
     </section>
+
+    <section class="section-container supporter-section">
+      <h2 class="section-title">年間サポーターライセンス 申込フォーム</h2>
+      <div class="supporter-card">
+        <p class="supporter-intro">
+          無料プランをお試しいただき、気に入っていただけましたら<br />
+          年間サポーターライセンス（¥3,000/年・税抜）をご検討ください。<br />
+          月額換算わずか250円のご支援が、開発の大きな励みになります。
+        </p>
+
+        <form id="supporter-form" class="supporter-form" novalidate>
+          <div class="form-group">
+            <label for="sf-companyName">会社・団体名<span class="required">必須</span></label>
+            <input type="text" id="sf-companyName" name="companyName" autocomplete="organization" />
+            <p class="field-error" data-error-for="companyName"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="sf-domain">ドメイン<span class="required">必須</span></label>
+            <input type="text" id="sf-domain" name="domain" placeholder="例：abc.cybozu.com" autocomplete="off" />
+            <p class="field-error" data-error-for="domain"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="sf-email">担当者メールアドレス<span class="required">必須</span></label>
+            <input type="email" id="sf-email" name="email" autocomplete="email" />
+            <p class="field-error" data-error-for="email"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="sf-pluginName">プラグイン名<span class="required">必須</span></label>
+            <select id="sf-pluginName" name="pluginName">
+              <option value="">選択してください</option>
+              <option value="フィールドスタイラープラグイン">フィールドスタイラープラグイン</option>
+              <option value="条件分岐自動採番プラグイン">条件分岐自動採番プラグイン</option>
+            </select>
+            <p class="field-error" data-error-for="pluginName"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="sf-paymentMethod">支払い方法<span class="required">必須</span></label>
+            <select id="sf-paymentMethod" name="paymentMethod">
+              <option value="">選択してください</option>
+              <option value="銀行振込">銀行振込</option>
+              <option value="Square決済">Square決済</option>
+            </select>
+            <p class="field-error" data-error-for="paymentMethod"></p>
+          </div>
+
+          <button type="submit" id="sf-submit" class="form-submit">申し込む</button>
+        </form>
+
+        <div id="sf-success" class="form-message form-message-success" hidden>
+          お申し込みを受け付けました。担当者メールアドレス宛にご連絡いたします。
+        </div>
+        <div id="sf-error" class="form-message form-message-error" hidden>
+          送信に失敗しました。時間をおいて再度お試しいただくか、info@kizuna-works.jpまでご連絡ください。
+        </div>
+      </div>
+    </section>
   </main>
+
+  <script is:inline>
+    (function () {
+      const form = document.getElementById('supporter-form');
+      if (!form) return;
+
+      const submitBtn = document.getElementById('sf-submit');
+      const successMsg = document.getElementById('sf-success');
+      const errorMsg = document.getElementById('sf-error');
+      const ENDPOINT = 'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec';
+
+      const setError = (name, msg) => {
+        const el = form.querySelector('[data-error-for="' + name + '"]');
+        if (el) el.textContent = msg || '';
+      };
+
+      const clearErrors = () => {
+        form.querySelectorAll('.field-error').forEach((el) => {
+          el.textContent = '';
+        });
+      };
+
+      const validate = (data) => {
+        let ok = true;
+        if (!data.companyName.trim()) {
+          setError('companyName', '会社・団体名を入力してください');
+          ok = false;
+        }
+        if (!data.domain.trim()) {
+          setError('domain', 'ドメインを入力してください');
+          ok = false;
+        }
+        if (!data.email.trim()) {
+          setError('email', '担当者メールアドレスを入力してください');
+          ok = false;
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) {
+          setError('email', '正しいメールアドレスの形式で入力してください');
+          ok = false;
+        }
+        if (!data.pluginName) {
+          setError('pluginName', 'プラグイン名を選択してください');
+          ok = false;
+        }
+        if (!data.paymentMethod) {
+          setError('paymentMethod', '支払い方法を選択してください');
+          ok = false;
+        }
+        return ok;
+      };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearErrors();
+        errorMsg.hidden = true;
+
+        const data = {
+          companyName: form.companyName.value,
+          domain: form.domain.value,
+          email: form.email.value,
+          pluginName: form.pluginName.value,
+          paymentMethod: form.paymentMethod.value,
+        };
+
+        if (!validate(data)) return;
+
+        const originalLabel = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = '送信中...';
+
+        try {
+          await fetch(ENDPOINT, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          form.hidden = true;
+          successMsg.hidden = false;
+        } catch (err) {
+          console.error('Supporter form submit error:', err);
+          errorMsg.hidden = false;
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel;
+        }
+      });
+    })();
+  </script>
 </Layout>
