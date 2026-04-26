@@ -1,14 +1,13 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import SupporterForm from '../../../components/SupporterForm.astro';
-import { plugins } from '../../../data/plugins';
 ---
 
 <Layout
   title="年間サポーターライセンス | KIZUNA Works"
-  description="KIZUNA Works の kintone プラグインをご愛用いただいている方向けの年間サポーターライセンス。広告非表示・優先サポート・開発リクエスト権など、開発を応援していただける特典をご用意しています。1プラグインあたり年間¥3,000（税抜）。"
+  description="ちょこっとプラグインの年間サポーターライセンス。広告非表示・プラグイン作成リクエスト・改善要望の送付など、開発を応援していただける特典付き。1プラグインあたり年間¥3,000（税抜）。"
   ogTitle="年間サポーターライセンス | KIZUNA Works"
-  ogDescription="広告非表示・サポーター特典付きの年間サポーターライセンス。1プラグインあたり年間¥3,000（税抜）で開発を応援いただけます。"
+  ogDescription="ちょこっとプラグインの年間サポーターライセンス。広告非表示・プラグインリクエスト・改善要望の送付などの特典付き。"
   ogUrl="https://kizuna-works.jp/plugins/supporter/"
   ogType="website"
   canonical="https://kizuna-works.jp/plugins/supporter/"
@@ -23,7 +22,7 @@ import { plugins } from '../../../data/plugins';
           "@id": "https://kizuna-works.jp/plugins/supporter/",
           "url": "https://kizuna-works.jp/plugins/supporter/",
           "name": "年間サポーターライセンス | KIZUNA Works",
-          "description": "KIZUNA Works の kintone プラグイン年間サポーターライセンスのご案内・お申し込みフォーム。",
+          "description": "ちょこっとプラグインの年間サポーターライセンスのご案内・お申し込みフォーム。",
           "isPartOf": {
             "@type": "WebSite",
             "name": "KIZUNA Works",
@@ -73,6 +72,7 @@ import { plugins } from '../../../data/plugins';
       --transition-speed: 0.3s;
     }
 
+    /* Breadcrumb */
     .breadcrumb-bar {
       max-width: 1200px;
       margin: 0 auto;
@@ -93,28 +93,32 @@ import { plugins } from '../../../data/plugins';
       color: #cbd5e1;
     }
 
+    /* Hero */
     .supporter-hero {
       position: relative;
       background: linear-gradient(135deg, rgba(27,58,107,0.55) 0%, rgba(46,139,46,0.5) 100%),
                   url('/images/plugins-bg.webp') center center / cover no-repeat;
       background-color: var(--color-navy);
-      padding: 90px 5%;
+      padding: 100px 5%;
       text-align: center;
       color: var(--color-white);
     }
+
     .supporter-hero h1 {
-      font-size: 2.4rem;
+      font-size: 2.6rem;
       font-weight: 700;
-      margin: 0 0 16px;
-      letter-spacing: 0.04em;
+      margin: 0 0 18px;
+      letter-spacing: 0.08em;
     }
+
     .supporter-hero .lead {
-      font-size: 1.1rem;
-      max-width: 700px;
+      font-size: 1.15rem;
+      max-width: 720px;
       margin: 0 auto;
       font-weight: 500;
       line-height: 1.7;
     }
+
     .hero-gradient-line {
       height: 6px;
       background: linear-gradient(to right, var(--color-navy), var(--color-green));
@@ -122,32 +126,164 @@ import { plugins } from '../../../data/plugins';
       display: block;
     }
 
+    /* Section base */
     .content-section {
       max-width: 900px;
       margin: 0 auto;
       padding: 60px 5% 0;
     }
 
+    .content-section:last-of-type {
+      padding-bottom: 80px;
+    }
+
     .content-section h2 {
       font-size: 1.6rem;
       color: var(--color-navy);
-      margin: 0 0 24px;
+      margin: 0 0 28px;
       padding-left: 14px;
       border-left: 5px solid var(--color-green);
       line-height: 1.4;
     }
 
-    .content-section p {
+    .content-section .section-desc {
       font-size: 1rem;
-      line-height: 1.9;
+      line-height: 1.8;
       color: var(--color-text-main);
       margin: 0 0 20px;
     }
 
+    /* Plan comparison table */
+    .plan-table-wrapper {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    .plan-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .plan-table thead th {
+      padding: 18px 16px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: center;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .plan-table thead th:first-child {
+      width: 35%;
+      background-color: #14305a;
+    }
+
+    .plan-table thead th:last-child {
+      border-right: none;
+      background-color: var(--color-green);
+    }
+
+    .plan-table tbody th,
+    .plan-table tbody td {
+      padding: 16px;
+      font-size: 0.95rem;
+      border-top: 1px solid #e2e8f0;
+      vertical-align: middle;
+    }
+
+    .plan-table tbody th {
+      background-color: #F0F4F8;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .plan-table tbody td {
+      text-align: center;
+      color: var(--color-text-main);
+    }
+
+    .plan-table tbody td.cell-supporter {
+      background-color: #f4faf4;
+      font-weight: 700;
+      color: var(--color-navy);
+    }
+
+    .plan-table tbody td.cell-price-supporter {
+      font-weight: 700;
+      color: var(--color-navy);
+    }
+
+    .plan-table tbody td .check {
+      color: var(--color-green);
+      font-weight: 700;
+    }
+
+    .plan-table tbody td .cross {
+      color: #94a3b8;
+    }
+
+    /* Mobile: stack the table */
+    @media (max-width: 640px) {
+      .plan-table thead {
+        display: none;
+      }
+
+      .plan-table,
+      .plan-table tbody,
+      .plan-table tr,
+      .plan-table th,
+      .plan-table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .plan-table tr {
+        padding: 18px 16px;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .plan-table tr:first-child {
+        border-top: none;
+      }
+
+      .plan-table tbody th {
+        background: none;
+        padding: 0 0 12px;
+        font-size: 1rem;
+        text-align: left;
+        border-top: none;
+      }
+
+      .plan-table tbody td {
+        text-align: left;
+        padding: 8px 0 8px 16px;
+        border-top: none;
+        position: relative;
+      }
+
+      .plan-table tbody td::before {
+        content: attr(data-label) '：';
+        font-weight: 700;
+        color: var(--color-text-muted);
+        margin-right: 8px;
+      }
+
+      .plan-table tbody td.cell-supporter {
+        background: none;
+      }
+    }
+
+    /* Perks list */
     .perks-list {
       list-style: none;
       padding: 0;
-      margin: 0 0 20px;
+      margin: 0;
       display: grid;
       gap: 14px;
     }
@@ -159,7 +295,7 @@ import { plugins } from '../../../data/plugins';
       position: relative;
       box-shadow: var(--shadow-card);
       font-size: 1rem;
-      line-height: 1.65;
+      line-height: 1.7;
       color: var(--color-text-main);
     }
 
@@ -167,8 +303,7 @@ import { plugins } from '../../../data/plugins';
       content: '✓';
       position: absolute;
       left: 18px;
-      top: 50%;
-      transform: translateY(-50%);
+      top: 18px;
       width: 28px;
       height: 28px;
       background-color: var(--color-green);
@@ -181,100 +316,43 @@ import { plugins } from '../../../data/plugins';
       font-size: 0.95rem;
     }
 
-    .perk-strong {
-      color: var(--color-navy);
-      font-weight: 700;
-    }
-
-    .price-card {
-      background-color: var(--color-white);
-      border-radius: 14px;
-      padding: 32px 28px;
-      box-shadow: var(--shadow-card);
-      border-top: 4px solid var(--color-green);
-      max-width: 560px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .price-card-name {
-      font-size: 1.1rem;
-      color: var(--color-navy);
-      font-weight: 700;
-      margin: 0 0 8px;
-    }
-
-    .price-card-amount {
-      font-size: 2.4rem;
-      color: var(--color-navy);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-      margin: 0;
-    }
-
-    .price-card-amount .yen-unit {
-      font-size: 1rem;
-      color: var(--color-text-muted);
-      font-weight: 500;
-      margin-left: 6px;
-    }
-
-    .price-card-note {
-      font-size: 0.9rem;
-      color: var(--color-text-muted);
-      margin: 12px 0 0;
-      line-height: 1.6;
-    }
-
-    .future-plan {
-      max-width: 720px;
-      margin: 16px auto 0;
-      background-color: #fff8e1;
-      border: 1px solid #ffe082;
-      border-radius: 8px;
-      padding: 16px 20px;
-      font-size: 0.92rem;
-      color: #6d4c00;
-      line-height: 1.7;
-    }
-
-    .future-plan strong {
-      color: #5a3a00;
-    }
-
-    .target-list {
-      background-color: var(--color-white);
-      border-radius: 10px;
-      padding: 24px;
-      box-shadow: var(--shadow-card);
+    /* Notes list */
+    .notes-list {
       list-style: none;
-      margin: 0 0 20px;
+      padding: 24px 28px;
+      margin: 0;
+      background-color: var(--color-white);
+      border-left: 4px solid #94a3b8;
+      border-radius: 0 10px 10px 0;
+      box-shadow: var(--shadow-card);
     }
 
-    .target-list li {
-      padding: 12px 0;
-      border-bottom: 1px solid #e2e8f0;
+    .notes-list li {
+      position: relative;
+      padding: 8px 0 8px 22px;
       font-size: 0.95rem;
+      line-height: 1.7;
       color: var(--color-text-main);
     }
-    .target-list li:last-child {
-      border-bottom: none;
+
+    .notes-list li::before {
+      content: '・';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+      font-weight: 700;
     }
 
-    .form-anchor {
-      padding-top: 60px;
-    }
-
+    /* Mobile */
     @media (max-width: 768px) {
       .supporter-hero {
-        padding: 60px 5%;
+        padding: 70px 5%;
       }
       .supporter-hero h1 {
-        font-size: 1.7rem;
+        font-size: 1.9rem;
       }
       .supporter-hero .lead {
-        font-size: 0.95rem;
+        font-size: 1rem;
       }
       .content-section {
         padding: 40px 5% 0;
@@ -282,8 +360,8 @@ import { plugins } from '../../../data/plugins';
       .content-section h2 {
         font-size: 1.35rem;
       }
-      .price-card-amount {
-        font-size: 2rem;
+      .notes-list {
+        padding: 20px 18px;
       }
     }
   </style>
@@ -296,71 +374,84 @@ import { plugins } from '../../../data/plugins';
     </nav>
 
     <section class="supporter-hero">
-      <h1>年間サポーターライセンス</h1>
+      <h1>現場の声を、絆に。</h1>
       <p class="lead">
-        KIZUNA Works のプラグインを気に入ってくださった方に、<br />
-        広告非表示・特典付きで開発を応援していただける年間ライセンスです。
+        ちょこっとプラグインの年間サポーターとして開発を応援してください
       </p>
     </section>
     <div class="hero-gradient-line"></div>
 
     <section class="content-section">
-      <h2>サポーターライセンスとは</h2>
-      <p>
-        KIZUNA Works のプラグインは、基本機能を無料でご利用いただけます。
-        サポーターライセンスは、無料プランに表示される広告を非表示にしつつ、
-        プラグインの継続開発を応援していただくための任意のライセンスです。
-      </p>
-      <p>
-        ご支援いただいた皆さまの声を優先的に反映し、より便利なプラグインを長く提供できる体制を維持していきます。
-      </p>
+      <h2>プランについて</h2>
+      <div class="plan-table-wrapper">
+        <table class="plan-table">
+          <thead>
+            <tr>
+              <th scope="col">項目</th>
+              <th scope="col">無料プラン</th>
+              <th scope="col">年間サポーター</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">基本機能</th>
+              <td data-label="無料プラン"><span class="check">利用可</span></td>
+              <td class="cell-supporter" data-label="年間サポーター"><span class="check">利用可</span></td>
+            </tr>
+            <tr>
+              <th scope="row">広告表示</th>
+              <td data-label="無料プラン">あり</td>
+              <td class="cell-supporter" data-label="年間サポーター">なし</td>
+            </tr>
+            <tr>
+              <th scope="row">プラグインリクエスト</th>
+              <td data-label="無料プラン"><span class="cross">不可</span></td>
+              <td class="cell-supporter" data-label="年間サポーター"><span class="check">可</span></td>
+            </tr>
+            <tr>
+              <th scope="row">改善要望の送付</th>
+              <td data-label="無料プラン"><span class="cross">不可</span></td>
+              <td class="cell-supporter" data-label="年間サポーター"><span class="check">可</span></td>
+            </tr>
+            <tr>
+              <th scope="row">料金</th>
+              <td data-label="無料プラン">無料</td>
+              <td class="cell-price-supporter" data-label="年間サポーター">1プラグインあたり<br />年額¥3,000（税抜）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section class="content-section">
-      <h2>サポーター特典</h2>
+      <h2>サポーターの特典</h2>
       <ul class="perks-list">
-        <li><span class="perk-strong">プラグイン内の広告エリアが非表示</span>になります</li>
-        <li>設定画面に <span class="perk-strong">無料ツール・他プラグインへのリンク</span>を表示し、業務効率化に役立つ情報をお届けします</li>
-        <li>設定画面から <span class="perk-strong">プラグインリクエストフォーム</span>へアクセスでき、機能要望を直接お送りいただけます</li>
-        <li><span class="perk-strong">サポーターの声を優先</span>してプラグイン開発を進めます</li>
+        <li>プラグイン内の広告エリアが非表示になります</li>
+        <li>設定画面から無料ツール・プラグインへのリンクを利用できます</li>
+        <li>プラグイン作成リクエストフォームをご利用いただけます</li>
+        <li>既存プラグインへの改善要望をお送りいただけます</li>
+        <li>サポーターの声を優先してプラグイン開発を進めます</li>
       </ul>
     </section>
 
     <section class="content-section">
-      <h2>料金</h2>
-      <div class="price-card">
-        <p class="price-card-name">個別サポーターライセンス</p>
-        <p class="price-card-amount">¥3,000<span class="yen-unit">／年・税抜</span></p>
-        <p class="price-card-note">対象プラグイン1つにつきの年額です。<br />複数プラグインをご利用の場合は、それぞれお申し込みください。</p>
-      </div>
-      <div class="future-plan">
-        <strong>近日提供予定:</strong> プラグインのラインナップが充実次第、すべてのプラグインをまとめて利用できる「全プラグインサポーターライセンス」をご用意する予定です。
-      </div>
-    </section>
-
-    <section class="content-section">
-      <h2>対象プラグイン</h2>
-      <ul class="target-list">
-        {plugins.map((p) => (
-          <li>
-            <a href={`/plugins/${p.slug}/`}>{p.formName}</a>
-          </li>
-        ))}
-      </ul>
-      <p>※ 各プラグインの詳細はリンク先のページをご覧ください。</p>
-    </section>
-
-    <section class="content-section">
-      <h2>ご利用の流れ</h2>
-      <p>
-        下記フォームよりお申し込みいただくと、ご入力のメールアドレス宛に
-        Square 決済リンク（または銀行振込の場合は見積書・請求書）をお送りします。
-        ご入金確認後、ライセンスを発行し、プラグインの広告エリアが非表示になります。
+      <h2>年間サポーターライセンス 申込フォーム</h2>
+      <p class="section-desc">
+        以下のフォームからお申し込みください。<br />
+        お申し込み内容を確認の上、担当者メールアドレスへご連絡いたします。
       </p>
     </section>
-
-    <div id="form" class="form-anchor"></div>
 
     <SupporterForm />
+
+    <section class="content-section">
+      <h2>注意事項</h2>
+      <ul class="notes-list">
+        <li>本ライセンスはご購入後の返金はいたしかねます</li>
+        <li>ライセンスは登録ドメイン1つに対して有効です</li>
+        <li>第三者への譲渡・転売は禁止しております</li>
+        <li>お支払い確認後、3営業日以内にライセンスを発行いたします</li>
+      </ul>
+    </section>
   </main>
 </Layout>
