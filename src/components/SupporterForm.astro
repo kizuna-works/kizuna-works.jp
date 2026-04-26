@@ -22,6 +22,25 @@ if (pluginId && !fixedPlugin) {
     <div class="sf-card">
       <form id="sf-form" class="sf-form" novalidate>
         <div class="sf-group">
+          <label class="sf-label">
+            申込種別<span class="sf-required">必須</span>
+          </label>
+          <div class="sf-radio-row" role="radiogroup" aria-label="申込種別">
+            <label class="sf-radio">
+              <input type="radio" name="applicationType" value="new" checked />
+              <span>新規申込</span>
+            </label>
+            <label class="sf-radio">
+              <input type="radio" name="applicationType" value="renew" />
+              <span>更新申込</span>
+            </label>
+          </div>
+          <p class="sf-help" id="sf-help-applicationType">
+            既存ライセンスの期限が近づいている場合は「更新申込」をお選びください。新ライセンスは現ライセンス終了日の翌日から起算されます。
+          </p>
+        </div>
+
+        <div class="sf-group">
           <label for="sf-companyName" class="sf-label">
             会社・団体名<span class="sf-required">必須</span>
           </label>
@@ -187,6 +206,46 @@ if (pluginId && !fixedPlugin) {
     min-height: 1em;
   }
 
+  .sf-help {
+    color: #64748b;
+    font-size: 0.85rem;
+    margin: 8px 0 0;
+    line-height: 1.6;
+  }
+
+  .sf-radio-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .sf-radio {
+    flex: 1 1 0;
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+    font-weight: 700;
+    color: #1B3A6B;
+  }
+
+  .sf-radio:has(input:checked) {
+    border-color: #2E8B2E;
+    background-color: #f4faf4;
+    box-shadow: 0 0 0 2px rgba(46, 139, 46, 0.15);
+  }
+
+  .sf-radio input[type="radio"] {
+    accent-color: #2E8B2E;
+    cursor: pointer;
+  }
+
   .sf-submit {
     display: block;
     width: 100%;
@@ -264,10 +323,12 @@ if (pluginId && !fixedPlugin) {
     const form = document.getElementById('sf-form');
     if (!form) return;
 
-    // Pre-select plugin from URL query param `?plugin=<id>` (when in select mode).
-    // Useful when arriving from an individual plugin page CTA.
+    // Pre-fill from URL query params:
+    //   ?plugin=<id>  : pre-select plugin (when in select mode)
+    //   ?mode=renew   : switch the applicationType radio to 「更新申込」
     try {
-      const pluginParam = new URLSearchParams(window.location.search).get('plugin');
+      const params = new URLSearchParams(window.location.search);
+      const pluginParam = params.get('plugin');
       if (pluginParam) {
         const select = form.querySelector('select[name="pluginName"]');
         if (select) {
@@ -276,6 +337,11 @@ if (pluginId && !fixedPlugin) {
           );
           if (opt) select.value = opt.value;
         }
+      }
+      const modeParam = params.get('mode');
+      if (modeParam === 'renew') {
+        const renewRadio = form.querySelector('input[name="applicationType"][value="renew"]');
+        if (renewRadio) renewRadio.checked = true;
       }
     } catch (_) {
       /* ignore URL parsing errors */
@@ -332,12 +398,14 @@ if (pluginId && !fixedPlugin) {
       clearErrors();
       errorMsg.hidden = true;
 
+      const checkedType = form.querySelector('input[name="applicationType"]:checked');
       const data = {
         companyName: form.companyName.value,
         domain: form.domain.value,
         email: form.email.value,
         pluginName: form.pluginName.value,
         paymentMethod: form.paymentMethod.value,
+        applicationType: checkedType ? checkedType.value : 'new',
       };
 
       if (!validate(data)) return;
