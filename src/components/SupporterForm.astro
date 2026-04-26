@@ -85,6 +85,10 @@ if (pluginId && !fixedPlugin) {
         </div>
 
         <button type="submit" id="sf-submit" class="sf-submit">申し込む</button>
+        <p id="sf-waiting" class="sf-waiting" hidden>
+          処理に時間がかかります（最大 30 秒ほど）。<br />
+          画面が切り替わるまで、そのままお待ちください。
+        </p>
       </form>
 
       <div id="sf-success" class="sf-message sf-message-success" hidden>
@@ -212,6 +216,18 @@ if (pluginId && !fixedPlugin) {
     box-shadow: none;
   }
 
+  .sf-waiting {
+    margin: 14px 0 0;
+    padding: 12px 16px;
+    background-color: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #6d4c00;
+    text-align: center;
+  }
+
   .sf-message {
     padding: 28px 24px;
     border-radius: 8px;
@@ -268,6 +284,7 @@ if (pluginId && !fixedPlugin) {
     const submitBtn = document.getElementById('sf-submit');
     const successMsg = document.getElementById('sf-success');
     const errorMsg = document.getElementById('sf-error-msg');
+    const waitingMsg = document.getElementById('sf-waiting');
     const ENDPOINT =
       'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec';
 
@@ -328,6 +345,7 @@ if (pluginId && !fixedPlugin) {
       const originalLabel = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = '送信中...';
+      if (waitingMsg) waitingMsg.hidden = false;
 
       try {
         await fetch(ENDPOINT, {
@@ -343,6 +361,7 @@ if (pluginId && !fixedPlugin) {
         errorMsg.hidden = false;
         submitBtn.disabled = false;
         submitBtn.textContent = originalLabel;
+        if (waitingMsg) waitingMsg.hidden = true;
       }
     });
   })();

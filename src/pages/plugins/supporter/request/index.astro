@@ -205,6 +205,18 @@ import { plugins } from '../../../../data/plugins';
       box-shadow: none;
     }
 
+    .req-waiting {
+      margin: 14px 0 0;
+      padding: 12px 16px;
+      background-color: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #6d4c00;
+      text-align: center;
+    }
+
     .req-message {
       padding: 28px 24px;
       border-radius: 8px;
@@ -350,6 +362,10 @@ import { plugins } from '../../../../data/plugins';
           </div>
 
           <button type="submit" id="req-submit" class="req-submit">送信する</button>
+          <p id="req-waiting" class="req-waiting" hidden>
+            送信処理中です。<br />
+            画面が切り替わるまで、そのままお待ちください。
+          </p>
         </form>
 
         <div id="req-success" class="req-message req-message-success" hidden>
@@ -371,6 +387,7 @@ import { plugins } from '../../../../data/plugins';
       const submitBtn = document.getElementById('req-submit');
       const successMsg = document.getElementById('req-success');
       const errorMsg = document.getElementById('req-error-msg');
+      const waitingMsg = document.getElementById('req-waiting');
       const targetGroup = document.getElementById('req-target-group');
       const titleInput = document.getElementById('req-title');
       const titleCount = document.getElementById('req-title-count');
@@ -474,6 +491,7 @@ import { plugins } from '../../../../data/plugins';
         const originalLabel = submitBtn.textContent;
         submitBtn.disabled = true;
         submitBtn.textContent = '送信中...';
+        if (waitingMsg) waitingMsg.hidden = false;
 
         try {
           await fetch(ENDPOINT, {
@@ -489,6 +507,7 @@ import { plugins } from '../../../../data/plugins';
           errorMsg.hidden = false;
           submitBtn.disabled = false;
           submitBtn.textContent = originalLabel;
+          if (waitingMsg) waitingMsg.hidden = true;
         }
       });
     })();
