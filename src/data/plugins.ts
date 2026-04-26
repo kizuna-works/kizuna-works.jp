@@ -34,7 +34,7 @@ export const plugins: Plugin[] = [
     id: 'field-styler',
     name: 'フィールドスタイラー',
     formName: 'フィールドスタイラープラグイン',
-    subtitle: 'Field Styler',
+    subtitle: 'kintone プラグイン',
     slug: 'field-styler',
     description:
       'kintoneフィールドの背景色・文字色・フォント・条件付きスタイルなど、10種類のカスタマイズをノーコードで実現。',
