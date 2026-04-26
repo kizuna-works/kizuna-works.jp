@@ -382,6 +382,100 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
       color: #94a3b8;
     }
 
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      text-align: center;
+    }
+
     /* Bottom CTA */
     .bottom-cta {
       background: linear-gradient(135deg, #1B3074 0%, #1B3A6B 100%);
@@ -543,6 +637,10 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
       }
       .bottom-cta-title {
         font-size: 22px;
+      }
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
       }
     }
   </style>
@@ -734,6 +832,44 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
         <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
         <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
       </ul>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">プランについて</h2>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">基本プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥0</span>
+            <span class="unit">/ 完全無料</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全機能（18フォーマット・条件分岐・一括採番）が利用可能</li>
+            <li>✅ 利用期限なし・いつまでも無料</li>
+            <li>✅ 設定画面に控えめな広告エリア表示あり</li>
+            <li>✅ メールでお問い合わせ可能</li>
+          </ul>
+          <a href="/downloads/kw-conditional-numbering-v1.0.0.zip" download class="btn-primary">無料でダウンロード</a>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">開発を応援</span>
+          <h3 class="plan-name">年間サポーター</h3>
+          <div class="plan-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-features">
+            <li>✅ 全機能（18フォーマット・条件分岐・一括採番）が利用可能</li>
+            <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+            <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            <li>✅ サポーターの声を優先して開発に反映</li>
+          </ul>
+          <a href="/plugins/supporter/?plugin=kw-conditional-numbering" class="btn-primary">サポーターになる →</a>
+        </div>
+      </div>
     </section>
 
     <!-- Download CTA -->
