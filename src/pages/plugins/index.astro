@@ -1,5 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { plugins, pluginsItemListJsonLd } from '../../data/plugins';
+
+const itemListJson = JSON.stringify(pluginsItemListJsonLd);
 ---
 
 <Layout
@@ -11,8 +14,7 @@ import Layout from '../../layouts/Layout.astro';
   canonical="https://kizuna-works.jp/plugins/"
 >
   <Fragment slot="head">
-    <script is:inline type="application/ld+json">
-    {
+    <script is:inline type="application/ld+json" set:html={`{
       "@context": "https://schema.org",
       "@graph": [
         {
@@ -24,28 +26,10 @@ import Layout from '../../layouts/Layout.astro';
         },
         {
           "@type": "ItemList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "item": {
-                "@type": "SoftwareApplication",
-                "name": "フィールドスタイラー",
-                "url": "https://kizuna-works.jp/plugins/field-styler/",
-                "description": "kintoneフィールドの背景色・文字色・フォント・条件付きスタイルなど、10種類のカスタマイズをノーコードで実現。"
-              }
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "条件分岐自動採番 kintone プラグイン",
-              "url": "https://kizuna-works.jp/plugins/kw-conditional-numbering/"
-            }
-          ]
+          "itemListElement": ${itemListJson}
         }
       ]
-    }
-    </script>
+    }`} />
   </Fragment>
 
   <style is:global>
@@ -452,40 +436,36 @@ import Layout from '../../layouts/Layout.astro';
     <section class="section-container">
       <h2 class="section-title">プラグイン一覧</h2>
       <div class="plugins-grid">
-        <a href="/plugins/field-styler/" class="plugin-card">
-          <img src="/images/field-styler-after.png" alt="フィールドスタイラー導入後の一覧画面 — 背景色・文字色・条件付きスタイルで視認性が向上" class="plugin-card-image" width="1920" height="960" loading="lazy" />
-          <div class="plugin-card-content">
-            <h3 class="plugin-title">フィールドスタイラー</h3>
-            <span class="plugin-subtitle">Field Styler</span>
-            <p class="plugin-desc">kintoneフィールドの背景色・文字色・フォント・条件付きスタイルなど、10種類のカスタマイズをノーコードで実現。</p>
-            <div class="plugin-meta">
-              <span class="badge-coming-soon">近日販売開始予定</span>
+        {plugins.map((plugin) => (
+          <a href={`/plugins/${plugin.slug}/`} class="plugin-card">
+            <img
+              src={plugin.image}
+              alt={plugin.imageAlt}
+              class="plugin-card-image"
+              width={plugin.imageWidth}
+              height={plugin.imageHeight}
+              loading="lazy"
+            />
+            <div class="plugin-card-content">
+              <h3 class="plugin-title">{plugin.name}</h3>
+              <span class="plugin-subtitle">{plugin.subtitle}</span>
+              <p class="plugin-desc">{plugin.description}</p>
+              <div class="plugin-meta">
+                {plugin.status === 'available' ? (
+                  <span class="badge-free">無料</span>
+                ) : (
+                  <span class="badge-coming-soon">近日販売開始予定</span>
+                )}
+              </div>
+              {plugin.status === 'available' && plugin.price !== undefined && (
+                <div class="plugin-pricing-row">
+                  <span class="badge-price">¥{plugin.price.toLocaleString()}</span>
+                </div>
+              )}
+              <span class="plugin-button">詳しく見る &rarr;</span>
             </div>
-            <span class="plugin-button">詳しく見る &rarr;</span>
-          </div>
-        </a>
-        <a href="/plugins/kw-conditional-numbering/" class="plugin-card">
-          <img
-            src="/images/conditional-numbering-banner.png"
-            alt="条件分岐自動採番プラグイン — フィールドの条件に応じて採番ルールを自動切替"
-            class="plugin-card-image"
-            width="1200"
-            height="675"
-            loading="lazy"
-          />
-          <div class="plugin-card-content">
-            <h3 class="plugin-title">条件分岐自動採番</h3>
-            <span class="plugin-subtitle">kintone プラグイン</span>
-            <p class="plugin-desc">条件分岐で採番ルールを自動切替。CSVインポート後の一括採番にも対応。</p>
-            <div class="plugin-meta">
-              <span class="badge-free">無料</span>
-            </div>
-            <div class="plugin-pricing-row">
-              <span class="badge-price">¥0</span>
-            </div>
-            <span class="plugin-button">詳しく見る &rarr;</span>
-          </div>
-        </a>
+          </a>
+        ))}
       </div>
     </section>
 
@@ -521,8 +501,9 @@ import Layout from '../../layouts/Layout.astro';
             <label for="sf-pluginName">プラグイン名<span class="required">必須</span></label>
             <select id="sf-pluginName" name="pluginName">
               <option value="">選択してください</option>
-              <option value="フィールドスタイラープラグイン">フィールドスタイラープラグイン</option>
-              <option value="条件分岐自動採番プラグイン">条件分岐自動採番プラグイン</option>
+              {plugins.map((plugin) => (
+                <option value={plugin.formName}>{plugin.formName}</option>
+              ))}
             </select>
             <p class="field-error" data-error-for="pluginName"></p>
           </div>
