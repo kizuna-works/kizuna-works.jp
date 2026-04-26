@@ -43,7 +43,8 @@ export const plugins: Plugin[] = [
       'フィールドスタイラー導入後の一覧画面 — 背景色・文字色・条件付きスタイルで視認性が向上',
     imageWidth: 1920,
     imageHeight: 960,
-    status: 'coming-soon',
+    status: 'available',
+    price: 0,
   },
   {
     id: 'kw-conditional-numbering',
@@ -58,7 +59,8 @@ export const plugins: Plugin[] = [
       '条件分岐自動採番プラグイン — フィールドの条件に応じて採番ルールを自動切替',
     imageWidth: 1200,
     imageHeight: 675,
-    status: 'coming-soon',
+    status: 'available',
+    price: 0,
   },
 ];
 
