@@ -1,0 +1,496 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import { plugins } from '../../../../data/plugins';
+---
+
+<Layout
+  title="プラグイン作成リクエスト・改善要望フォーム | KIZUNA Works"
+  description="ちょこっとプラグイン 年間サポーター様専用のプラグイン作成リクエスト・改善要望フォームです。"
+  ogTitle="プラグイン作成リクエスト・改善要望フォーム | KIZUNA Works"
+  ogDescription="ちょこっとプラグイン 年間サポーター様専用のリクエストフォーム。"
+  ogUrl="https://kizuna-works.jp/plugins/supporter/request/"
+  ogType="website"
+  canonical="https://kizuna-works.jp/plugins/supporter/request/"
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.15);
+      --transition-speed: 0.3s;
+    }
+
+    .req-hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.6) 0%, rgba(46,139,46,0.55) 100%),
+                  url('/images/plugins-bg.webp') center center / cover no-repeat;
+      background-color: var(--color-navy);
+      padding: 80px 5%;
+      text-align: center;
+      color: var(--color-white);
+    }
+    .req-hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 14px;
+      letter-spacing: 0.05em;
+    }
+    .req-hero p {
+      font-size: 1rem;
+      max-width: 720px;
+      margin: 0 auto;
+      font-weight: 500;
+      line-height: 1.7;
+    }
+    .hero-gradient-line {
+      height: 6px;
+      background: linear-gradient(to right, var(--color-navy), var(--color-green));
+      width: 100%;
+      display: block;
+    }
+
+    .req-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 50px 5% 80px;
+    }
+
+    .req-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      padding: 40px 36px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .req-intro {
+      background-color: #f4faf4;
+      border-left: 4px solid var(--color-green);
+      padding: 14px 18px;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--color-text-main);
+      margin: 0 0 32px;
+    }
+
+    .req-group {
+      margin-bottom: 22px;
+    }
+
+    .req-label {
+      display: block;
+      font-weight: 700;
+      color: var(--color-navy);
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    .req-required {
+      color: #e74c3c;
+      margin-left: 6px;
+      font-size: 0.78rem;
+      background-color: #fdecea;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 700;
+      vertical-align: middle;
+    }
+
+    .req-optional {
+      color: var(--color-text-muted);
+      margin-left: 6px;
+      font-size: 0.78rem;
+      background-color: #f0f4f8;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+      vertical-align: middle;
+    }
+
+    .req-input,
+    .req-select,
+    .req-textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      background-color: var(--color-white);
+      color: var(--color-text-main);
+      box-sizing: border-box;
+      transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    }
+
+    .req-textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .req-input:focus,
+    .req-select:focus,
+    .req-textarea:focus {
+      outline: none;
+      border-color: var(--color-green);
+      box-shadow: 0 0 0 3px rgba(46, 139, 46, 0.15);
+    }
+
+    .req-radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding-top: 4px;
+    }
+
+    .req-radio-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .req-radio-option input[type="radio"] {
+      cursor: pointer;
+    }
+
+    .req-error {
+      color: #e74c3c;
+      font-size: 0.85rem;
+      margin: 6px 0 0;
+      min-height: 1em;
+    }
+
+    .req-counter {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      text-align: right;
+      margin-top: 4px;
+    }
+
+    .req-submit {
+      display: block;
+      width: 100%;
+      padding: 14px 20px;
+      margin-top: 12px;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      border: none;
+      border-radius: 6px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background-color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+
+    .req-submit:hover:not(:disabled) {
+      background-color: var(--color-navy);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .req-submit:disabled {
+      background-color: #94a3b8;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .req-message {
+      padding: 28px 24px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .req-message-success {
+      background-color: #e6f4ea;
+      color: #1e6b3a;
+      border: 1px solid var(--color-green);
+    }
+
+    .req-message-error {
+      background-color: #fdecea;
+      color: #c0392b;
+      border: 1px solid #e74c3c;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .req-hero {
+        padding: 60px 5%;
+      }
+      .req-hero h1 {
+        font-size: 1.5rem;
+      }
+      .req-section {
+        padding: 30px 5% 60px;
+      }
+      .req-card {
+        padding: 28px 20px;
+      }
+    }
+  </style>
+
+  <main>
+    <section class="req-hero">
+      <h1>プラグイン作成リクエスト・改善要望フォーム</h1>
+      <p>サポーターの皆さまからの声を、ひとつひとつ形にしていきます。</p>
+    </section>
+    <div class="hero-gradient-line"></div>
+
+    <section class="req-section">
+      <div class="req-card">
+        <p class="req-intro">
+          このフォームは <strong>年間サポーター様専用</strong>です。<br />
+          ご入力いただいたドメインがサポーター台帳と照合されます。サポーターでない場合は受付できませんのでご了承ください。
+        </p>
+
+        <form id="req-form" novalidate>
+          <div class="req-group">
+            <label for="req-companyName" class="req-label">
+              会社・団体名<span class="req-required">必須</span>
+            </label>
+            <input type="text" id="req-companyName" name="companyName" class="req-input" autocomplete="organization" />
+            <p class="req-error" data-error-for="companyName"></p>
+          </div>
+
+          <div class="req-group">
+            <label for="req-domain" class="req-label">
+              ドメイン<span class="req-required">必須</span>
+            </label>
+            <input type="text" id="req-domain" name="domain" class="req-input" placeholder="例：abc.cybozu.com" autocomplete="off" />
+            <p class="req-error" data-error-for="domain"></p>
+          </div>
+
+          <div class="req-group">
+            <label for="req-email" class="req-label">
+              担当者メールアドレス<span class="req-required">必須</span>
+            </label>
+            <input type="email" id="req-email" name="email" class="req-input" autocomplete="email" />
+            <p class="req-error" data-error-for="email"></p>
+          </div>
+
+          <div class="req-group">
+            <span class="req-label">
+              リクエスト種別<span class="req-required">必須</span>
+            </span>
+            <div class="req-radio-group" id="req-type-group">
+              <label class="req-radio-option">
+                <input type="radio" name="requestType" value="新プラグイン作成" />
+                <span>新プラグイン作成</span>
+              </label>
+              <label class="req-radio-option">
+                <input type="radio" name="requestType" value="既存プラグイン改善要望" />
+                <span>既存プラグイン改善要望</span>
+              </label>
+            </div>
+            <p class="req-error" data-error-for="requestType"></p>
+          </div>
+
+          <div class="req-group" id="req-target-group" hidden>
+            <label for="req-targetPlugin" class="req-label">
+              対象プラグイン<span class="req-required">必須</span>
+            </label>
+            <select id="req-targetPlugin" name="targetPlugin" class="req-select">
+              <option value="">選択してください</option>
+              {plugins.map((plugin) => (
+                <option value={plugin.formName}>{plugin.formName}</option>
+              ))}
+            </select>
+            <p class="req-error" data-error-for="targetPlugin"></p>
+          </div>
+
+          <div class="req-group">
+            <label for="req-title" class="req-label">
+              タイトル<span class="req-required">必須</span>
+            </label>
+            <input type="text" id="req-title" name="title" class="req-input" maxlength="100" placeholder="例：◯◯フィールドの一括コピー機能がほしい" />
+            <p class="req-counter"><span id="req-title-count">0</span> / 100</p>
+            <p class="req-error" data-error-for="title"></p>
+          </div>
+
+          <div class="req-group">
+            <label for="req-detail" class="req-label">
+              詳細<span class="req-required">必須</span>
+            </label>
+            <textarea id="req-detail" name="detail" class="req-textarea" maxlength="2000" placeholder="どのような場面で使いたいか、現在の困りごと、想定される動作などをご記入ください。"></textarea>
+            <p class="req-counter"><span id="req-detail-count">0</span> / 2000</p>
+            <p class="req-error" data-error-for="detail"></p>
+          </div>
+
+          <div class="req-group">
+            <span class="req-label">
+              優先度<span class="req-optional">任意</span>
+            </span>
+            <div class="req-radio-group">
+              <label class="req-radio-option">
+                <input type="radio" name="priority" value="高" />
+                <span>高</span>
+              </label>
+              <label class="req-radio-option">
+                <input type="radio" name="priority" value="中" />
+                <span>中</span>
+              </label>
+              <label class="req-radio-option">
+                <input type="radio" name="priority" value="低" />
+                <span>低</span>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" id="req-submit" class="req-submit">送信する</button>
+        </form>
+
+        <div id="req-success" class="req-message req-message-success" hidden>
+          リクエストを受け付けました。<br />
+          内容を確認のうえ、担当者メールアドレス宛にご連絡いたします。
+        </div>
+        <div id="req-error-msg" class="req-message req-message-error" hidden>
+          送信に失敗しました。時間をおいて再度お試しいただくか、info@kizuna-works.jpまでご連絡ください。
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script is:inline>
+    (function () {
+      const form = document.getElementById('req-form');
+      if (!form) return;
+
+      const submitBtn = document.getElementById('req-submit');
+      const successMsg = document.getElementById('req-success');
+      const errorMsg = document.getElementById('req-error-msg');
+      const targetGroup = document.getElementById('req-target-group');
+      const titleInput = document.getElementById('req-title');
+      const titleCount = document.getElementById('req-title-count');
+      const detailInput = document.getElementById('req-detail');
+      const detailCount = document.getElementById('req-detail-count');
+
+      const ENDPOINT =
+        'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec';
+
+      // 種別ラジオで対象プラグイン表示切替
+      form.querySelectorAll('input[name="requestType"]').forEach(function (r) {
+        r.addEventListener('change', function () {
+          if (this.value === '既存プラグイン改善要望') {
+            targetGroup.hidden = false;
+          } else {
+            targetGroup.hidden = true;
+            document.getElementById('req-targetPlugin').value = '';
+          }
+        });
+      });
+
+      // 文字数カウンター
+      titleInput.addEventListener('input', function () {
+        titleCount.textContent = this.value.length;
+      });
+      detailInput.addEventListener('input', function () {
+        detailCount.textContent = this.value.length;
+      });
+
+      const setError = (name, msg) => {
+        const el = form.querySelector('[data-error-for="' + name + '"]');
+        if (el) el.textContent = msg || '';
+      };
+
+      const clearErrors = () => {
+        form.querySelectorAll('.req-error').forEach((el) => {
+          el.textContent = '';
+        });
+      };
+
+      const getRadioValue = (name) => {
+        const checked = form.querySelector('input[name="' + name + '"]:checked');
+        return checked ? checked.value : '';
+      };
+
+      const validate = (data) => {
+        let ok = true;
+        if (!data.companyName.trim()) {
+          setError('companyName', '会社・団体名を入力してください');
+          ok = false;
+        }
+        if (!data.domain.trim()) {
+          setError('domain', 'ドメインを入力してください');
+          ok = false;
+        }
+        if (!data.email.trim()) {
+          setError('email', '担当者メールアドレスを入力してください');
+          ok = false;
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) {
+          setError('email', '正しいメールアドレスの形式で入力してください');
+          ok = false;
+        }
+        if (!data.requestType) {
+          setError('requestType', 'リクエスト種別を選択してください');
+          ok = false;
+        }
+        if (data.requestType === '既存プラグイン改善要望' && !data.targetPlugin) {
+          setError('targetPlugin', '対象プラグインを選択してください');
+          ok = false;
+        }
+        if (!data.title.trim()) {
+          setError('title', 'タイトルを入力してください');
+          ok = false;
+        }
+        if (!data.detail.trim()) {
+          setError('detail', '詳細を入力してください');
+          ok = false;
+        }
+        return ok;
+      };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearErrors();
+        errorMsg.hidden = true;
+
+        const data = {
+          formType: 'plugin-request',
+          companyName: form.companyName.value,
+          domain: form.domain.value,
+          email: form.email.value,
+          requestType: getRadioValue('requestType'),
+          targetPlugin: form.targetPlugin ? form.targetPlugin.value : '',
+          title: form.title.value,
+          detail: form.detail.value,
+          priority: getRadioValue('priority'),
+        };
+
+        if (!validate(data)) return;
+
+        const originalLabel = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = '送信中...';
+
+        try {
+          await fetch(ENDPOINT, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          form.hidden = true;
+          successMsg.hidden = false;
+        } catch (err) {
+          console.error('Plugin request submit error:', err);
+          errorMsg.hidden = false;
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel;
+        }
+      });
+    })();
+  </script>
+</Layout>

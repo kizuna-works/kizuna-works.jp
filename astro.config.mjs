@@ -16,6 +16,8 @@ export default defineConfig({
         'https://kizuna-works.jp/tools/masuku.html',
         'https://kizuna-works.jp/tools/Shuku.html',
       ],
+      // Exclude supporter-only request form from sitemap (URL-only access for supporters)
+      filter: (page) => !page.includes('/plugins/supporter/request/'),
     }),
   ],
 });
