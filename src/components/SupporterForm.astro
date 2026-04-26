@@ -1,0 +1,357 @@
+---
+import { plugins } from '../data/plugins';
+
+interface Props {
+  /**
+   * When provided, the form is locked to this single plugin and shows a fixed
+   * display instead of the select dropdown. Useful on individual plugin pages.
+   */
+  pluginId?: string;
+}
+
+const { pluginId } = Astro.props;
+const fixedPlugin = pluginId ? plugins.find((p) => p.id === pluginId) : null;
+
+if (pluginId && !fixedPlugin) {
+  throw new Error(`SupporterForm: unknown pluginId "${pluginId}"`);
+}
+---
+
+<section class="sf-section">
+  <div class="sf-inner">
+    <h2 class="sf-title">年間サポーターライセンス 申込フォーム</h2>
+    <div class="sf-card">
+      <p class="sf-intro">
+        無料プランをお試しいただき、気に入っていただけましたら<br />
+        年間サポーターライセンス（¥3,000/年・税抜）をご検討ください。<br />
+        月額換算わずか250円のご支援が、開発の大きな励みになります。
+      </p>
+
+      <form id="sf-form" class="sf-form" novalidate>
+        <div class="sf-group">
+          <label for="sf-companyName" class="sf-label">
+            会社・団体名<span class="sf-required">必須</span>
+          </label>
+          <input type="text" id="sf-companyName" name="companyName" class="sf-input" autocomplete="organization" />
+          <p class="sf-error" data-error-for="companyName"></p>
+        </div>
+
+        <div class="sf-group">
+          <label for="sf-domain" class="sf-label">
+            ドメイン<span class="sf-required">必須</span>
+          </label>
+          <input
+            type="text"
+            id="sf-domain"
+            name="domain"
+            class="sf-input"
+            placeholder="例：abc.cybozu.com"
+            autocomplete="off"
+          />
+          <p class="sf-error" data-error-for="domain"></p>
+        </div>
+
+        <div class="sf-group">
+          <label for="sf-email" class="sf-label">
+            担当者メールアドレス<span class="sf-required">必須</span>
+          </label>
+          <input type="email" id="sf-email" name="email" class="sf-input" autocomplete="email" />
+          <p class="sf-error" data-error-for="email"></p>
+        </div>
+
+        <div class="sf-group">
+          <label for="sf-pluginName" class="sf-label">
+            プラグイン名<span class="sf-required">必須</span>
+          </label>
+          {fixedPlugin ? (
+            <>
+              <div class="sf-fixed-display" id="sf-pluginName-display">{fixedPlugin.formName}</div>
+              <input type="hidden" id="sf-pluginName" name="pluginName" value={fixedPlugin.formName} />
+            </>
+          ) : (
+            <select id="sf-pluginName" name="pluginName" class="sf-select">
+              <option value="">選択してください</option>
+              {plugins.map((plugin) => (
+                <option value={plugin.formName}>{plugin.formName}</option>
+              ))}
+            </select>
+          )}
+          <p class="sf-error" data-error-for="pluginName"></p>
+        </div>
+
+        <div class="sf-group">
+          <label for="sf-paymentMethod" class="sf-label">
+            支払い方法<span class="sf-required">必須</span>
+          </label>
+          <select id="sf-paymentMethod" name="paymentMethod" class="sf-select">
+            <option value="">選択してください</option>
+            <option value="銀行振込">銀行振込</option>
+            <option value="Square決済">Square決済</option>
+          </select>
+          <p class="sf-error" data-error-for="paymentMethod"></p>
+        </div>
+
+        <button type="submit" id="sf-submit" class="sf-submit">申し込む</button>
+      </form>
+
+      <div id="sf-success" class="sf-message sf-message-success" hidden>
+        お申し込みを受け付けました。担当者メールアドレス宛にご連絡いたします。
+      </div>
+      <div id="sf-error-msg" class="sf-message sf-message-error" hidden>
+        送信に失敗しました。時間をおいて再度お試しいただくか、info@kizuna-works.jpまでご連絡ください。
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Self-contained styles. All class names prefixed with `sf-` to avoid
+     collisions with parent pages that use generic class names like
+     `.section-title`, `.form-group`, etc. */
+  .sf-section {
+    padding: 60px 5% 80px;
+    background-color: #F0F4F8;
+  }
+
+  .sf-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .sf-title {
+    font-size: 1.75rem;
+    color: #1B3A6B;
+    margin: 0 0 30px;
+    padding-left: 16px;
+    border-left: 5px solid #2E8B2E;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  .sf-card {
+    background-color: #FFFFFF;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .sf-intro {
+    font-size: 1rem;
+    color: #333333;
+    line-height: 1.9;
+    margin: 0 0 36px;
+    text-align: center;
+  }
+
+  .sf-group {
+    margin-bottom: 24px;
+  }
+
+  .sf-label {
+    display: block;
+    font-weight: 700;
+    color: #1B3A6B;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+
+  .sf-required {
+    color: #e74c3c;
+    margin-left: 6px;
+    font-size: 0.78rem;
+    background-color: #fdecea;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+    vertical-align: middle;
+  }
+
+  .sf-input,
+  .sf-select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: #FFFFFF;
+    color: #333333;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .sf-input:focus,
+  .sf-select:focus {
+    outline: none;
+    border-color: #2E8B2E;
+    box-shadow: 0 0 0 3px rgba(46, 139, 46, 0.15);
+  }
+
+  .sf-fixed-display {
+    width: 100%;
+    padding: 12px 14px;
+    background-color: #F0F4F8;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #1B3A6B;
+    font-weight: 700;
+    box-sizing: border-box;
+  }
+
+  .sf-error {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin: 6px 0 0;
+    min-height: 1em;
+  }
+
+  .sf-submit {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    margin-top: 8px;
+    background-color: #2E8B2E;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+
+  .sf-submit:hover:not(:disabled) {
+    background-color: #1B3A6B;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .sf-submit:disabled {
+    background-color: #94a3b8;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .sf-message {
+    padding: 28px 24px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .sf-message-success {
+    background-color: #e6f4ea;
+    color: #1e6b3a;
+    border: 1px solid #2E8B2E;
+  }
+
+  .sf-message-error {
+    background-color: #fdecea;
+    color: #c0392b;
+    border: 1px solid #e74c3c;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .sf-section {
+      padding: 40px 5% 60px;
+    }
+    .sf-card {
+      padding: 32px 20px;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById('sf-form');
+    if (!form) return;
+
+    const submitBtn = document.getElementById('sf-submit');
+    const successMsg = document.getElementById('sf-success');
+    const errorMsg = document.getElementById('sf-error-msg');
+    const ENDPOINT =
+      'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec';
+
+    const setError = (name, msg) => {
+      const el = form.querySelector('[data-error-for="' + name + '"]');
+      if (el) el.textContent = msg || '';
+    };
+
+    const clearErrors = () => {
+      form.querySelectorAll('.sf-error').forEach((el) => {
+        el.textContent = '';
+      });
+    };
+
+    const validate = (data) => {
+      let ok = true;
+      if (!data.companyName.trim()) {
+        setError('companyName', '会社・団体名を入力してください');
+        ok = false;
+      }
+      if (!data.domain.trim()) {
+        setError('domain', 'ドメインを入力してください');
+        ok = false;
+      }
+      if (!data.email.trim()) {
+        setError('email', '担当者メールアドレスを入力してください');
+        ok = false;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) {
+        setError('email', '正しいメールアドレスの形式で入力してください');
+        ok = false;
+      }
+      if (!data.pluginName) {
+        setError('pluginName', 'プラグイン名を選択してください');
+        ok = false;
+      }
+      if (!data.paymentMethod) {
+        setError('paymentMethod', '支払い方法を選択してください');
+        ok = false;
+      }
+      return ok;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearErrors();
+      errorMsg.hidden = true;
+
+      const data = {
+        companyName: form.companyName.value,
+        domain: form.domain.value,
+        email: form.email.value,
+        pluginName: form.pluginName.value,
+        paymentMethod: form.paymentMethod.value,
+      };
+
+      if (!validate(data)) return;
+
+      const originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = '送信中...';
+
+      try {
+        await fetch(ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        form.hidden = true;
+        successMsg.hidden = false;
+      } catch (err) {
+        console.error('Supporter form submit error:', err);
+        errorMsg.hidden = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
+    });
+  })();
+</script>
