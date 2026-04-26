@@ -4,7 +4,9 @@ export async function GET() {
   const endpoint = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}&api_key=${API_KEY}&count=12`;
 
   try {
-    const response = await fetch(endpoint);
+    const response = await fetch(endpoint, {
+      headers: { Referer: "https://kizuna-works.jp/" },
+    });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
     return new Response(JSON.stringify(data), {
