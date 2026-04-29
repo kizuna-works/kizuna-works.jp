@@ -126,6 +126,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-conditional-numbering-v1.1.0.zip         # 条件分岐自動採番プラグイン配布ファイル（手動配置）
 │   │   ├── kw-field-styler-v1.1.0.zip                  # フィールドスタイラープラグイン配布ファイル（手動配置）
 │   │   └── kw-form-deco-v1.0.0.zip                     # FormDecoプラグイン配布ファイル（手動配置）
+│   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）
 │   │   ├── natsuin.html        # Natsuin（PDF電子印鑑・署名ツール）スタンドアロンHTMLアプリ（Astro管理外）
