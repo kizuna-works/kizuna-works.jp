@@ -62,6 +62,22 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
   },
+  {
+    id: 'kw-form-deco',
+    name: 'FormDeco',
+    formName: 'FormDecoプラグイン',
+    subtitle: 'kintone プラグイン',
+    slug: 'form-deco',
+    description:
+      'kintoneレコード詳細画面の罫線（区切り線）スタイルとスペースフィールドの装飾（テキスト・画像）をノーコードでカスタマイズ。',
+    image: '/images/form-deco-banner.png',
+    imageAlt:
+      'FormDecoプラグイン — 罫線とスペースフィールドの装飾サンプル',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({

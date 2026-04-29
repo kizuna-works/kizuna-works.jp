@@ -60,8 +60,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 年間サポーターライセンス案内＆申込フォーム（/plugins/supporter/）
 │   │   │   ├── field-styler/
 │   │   │   │   └── index.astro # フィールドスタイラー製品ページ（/plugins/field-styler/）
-│   │   │   └── kw-conditional-numbering/
-│   │   │       └── index.astro # 条件分岐自動採番プラグイン製品ページ（/plugins/kw-conditional-numbering/）
+│   │   │   ├── kw-conditional-numbering/
+│   │   │   │   └── index.astro # 条件分岐自動採番プラグイン製品ページ（/plugins/kw-conditional-numbering/）
+│   │   │   └── form-deco/
+│   │   │       └── index.astro # FormDecoプラグイン製品ページ（/plugins/form-deco/）
 │   │   └── tools/
 │   │       └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   ├── content/
@@ -92,6 +94,8 @@ c:\kizuna-works.jp\
 │   │   ├── musubi-preview.png              # Musubi（PDF結合・分割ツール）プレビュー画像
 │   │   ├── conditional-numbering-icon.png  # 条件分岐自動採番プラグイン アイコン
 │   │   ├── conditional-numbering-banner.png # 条件分岐自動採番プラグイン バナー
+│   │   ├── form-deco-icon.png              # FormDecoプラグイン アイコン
+│   │   ├── form-deco-banner.png            # FormDecoプラグイン バナー（1200×675・OGP/グリッド共用）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
 │   │   ├── field-styler-bg.png / field-styler-bg.webp # フィールドスタイラーページ 背景
@@ -104,6 +108,11 @@ c:\kizuna-works.jp\
 │   │       ├── conditional-numbering-setting-format.png # 採番プラグイン フォーマット設定画面スクショ
 │   │       ├── conditional-numbering-setting-condition.png # 採番プラグイン 条件分岐設定画面スクショ
 │   │       ├── conditional-numbering-setting-counter.png   # 採番プラグイン 連番管理画面スクショ
+│   │       ├── form-deco-setting-border.png                # FormDecoプラグイン 罫線スタイル設定画面スクショ
+│   │       ├── form-deco-setting-space-text.png            # FormDecoプラグイン スペース設定（テキストモード）スクショ
+│   │       ├── form-deco-setting-space-image.png           # FormDecoプラグイン スペース設定（画像モード）スクショ
+│   │       ├── form-deco-after-text.png                    # FormDecoプラグイン 適用後のレコード詳細画面（罫線・テキスト装飾Afterサンプル）
+│   │       ├── form-deco-after-image.png                   # FormDecoプラグイン 適用後のレコード詳細画面（罫線・画像表示Afterサンプル）
 │   │       ├── kintone-2026-update.png                  # 「2026年最新版 kintoneアップデート」記事 OGP・サムネイル
 │   │       ├── kintone-cyouhyou-plugin-hikaku.png       # 「kintone帳票出力プラグイン徹底比較」記事 OGP・サムネイル
 │   │       ├── kintone-2026-04-update.png               # 「2026年4月最新 kintoneアップデート総まとめ」記事 OGP・サムネイル
@@ -114,7 +123,9 @@ c:\kizuna-works.jp\
 │   │       └── kintone-design-plugin-osusume-install.png      # 同記事 フィールドスタイラー設定画面スクショ
 │   ├── downloads/
 │   │   ├── .gitkeep                                    # ディレクトリをGit管理するための空ファイル
-│   │   └── kw-conditional-numbering-v1.0.0.zip         # 条件分岐自動採番プラグイン配布ファイル（手動配置）
+│   │   ├── kw-conditional-numbering-v1.1.0.zip         # 条件分岐自動採番プラグイン配布ファイル（手動配置）
+│   │   ├── kw-field-styler-v1.1.0.zip                  # フィールドスタイラープラグイン配布ファイル（手動配置）
+│   │   └── kw-form-deco-v1.0.0.zip                     # FormDecoプラグイン配布ファイル（手動配置）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）
 │   │   ├── natsuin.html        # Natsuin（PDF電子印鑑・署名ツール）スタンドアロンHTMLアプリ（Astro管理外）

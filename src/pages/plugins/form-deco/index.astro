@@ -1,0 +1,954 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+---
+
+<Layout
+  title="FormDeco — kintoneの罫線・スペース装飾プラグイン | KIZUNA Works"
+  description="kintoneレコード詳細画面の罫線（区切り線）スタイルと、スペースフィールドの装飾（背景色・テキスト・画像）をノーコードでカスタマイズできる無料kintoneプラグイン。フォームの見た目を整えて視認性アップ。完全無料配布中。"
+  ogTitle="FormDeco — kintoneの罫線・スペース装飾プラグイン | KIZUNA Works"
+  ogDescription="kintoneレコード詳細画面の罫線（区切り線）スタイルと、スペースフィールドの装飾（背景色・テキスト・画像）をノーコードでカスタマイズできる無料kintoneプラグイン。フォームの見た目を整えて視認性アップ。完全無料配布中。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/form-deco/"
+  ogImage="https://kizuna-works.jp/images/form-deco-banner.png"
+  canonical="https://kizuna-works.jp/plugins/form-deco/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/form-deco/",
+          "url": "https://kizuna-works.jp/plugins/form-deco/",
+          "name": "FormDeco — kintoneの罫線・スペース装飾プラグイン | KIZUNA Works",
+          "description": "kintoneレコード詳細画面の罫線（区切り線）スタイルとスペースフィールドの装飾をノーコードでカスタマイズできる無料kintoneプラグイン。"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "FormDeco", "item": "https://kizuna-works.jp/plugins/form-deco/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "FormDeco — kintoneの罫線・スペース装飾プラグイン",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock"
+          },
+          "description": "kintoneレコード詳細画面の罫線スタイルとスペースフィールドの装飾（背景色・テキスト・画像）をノーコードでカスタマイズするプラグイン。",
+          "url": "https://kizuna-works.jp/plugins/form-deco/",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "罫線スタイル変更（線種・太さ・色）",
+            "スペースフィールドの背景色設定",
+            "スペースにテキスト表示（フォント・サイズ・色・揃え）",
+            "スペースに画像表示（自動圧縮）",
+            "スペース要素ID候補の自動取得"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    /* Fade-in Animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      background-color: var(--color-white);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    /* Section Wrapper */
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    /* Problem Cards */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    /* Feature List */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    /* Steps */
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    /* Notes */
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 24px 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .faq-icon {
+      font-size: 20px;
+      color: var(--color-navy);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.is-open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+
+    .faq-answer-inner {
+      padding-bottom: 24px;
+      color: var(--color-text-light);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .faq-answer-inner a {
+      color: var(--color-navy);
+      text-decoration: underline;
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    /* Bottom CTA */
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .bottom-cta-links {
+      margin-top: 24px;
+      font-size: 14px;
+    }
+
+    .bottom-cta-links a {
+      text-decoration: underline;
+    }
+
+    .bottom-cta-links a:hover {
+      color: #d1d5db;
+    }
+
+    /* Screenshots Section */
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .screenshot-item {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .screenshot-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+
+    .screenshot-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+
+    .screenshot-caption {
+      padding: 16px 20px;
+    }
+
+    .screenshot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .screenshot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 5%;
+      }
+      .hero-title {
+        font-size: 28px;
+      }
+      .hero-copy {
+        font-size: 15px;
+      }
+      .hero-icon {
+        width: 140px;
+        height: 140px;
+      }
+      .section-wrapper {
+        padding: 60px 5%;
+      }
+      .problem-grid {
+        grid-template-columns: 1fr;
+      }
+      .bottom-cta-title {
+        font-size: 22px;
+      }
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/form-deco-icon.png"
+        alt="FormDecoプラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">FormDeco — kintone 罫線・スペース装飾プラグイン</h1>
+      <p class="hero-copy">レコード詳細画面の罫線（区切り線）と、スペースフィールドの背景・テキスト・画像をノーコードでカスタマイズ。フォームの見た目を整えて、業務アプリの視認性をぐっと向上させます。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">標準のkintoneだと届かない「ちょっとした見た目の調整」を補完します</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">📐</span>
+            <h3 class="problem-title">罫線が地味で見づらい</h3>
+            <p class="problem-desc">セクションの区切りが曖昧で、項目の塊がパッと把握できない</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🎨</span>
+            <h3 class="problem-title">スペースを活かせていない</h3>
+            <p class="problem-desc">フォームに余白だけ確保しても、ただの空きスペースになっている</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">💻</span>
+            <h3 class="problem-title">JavaScriptは書きたくない</h3>
+            <p class="problem-desc">CSS・JSを書ける人がいない／メンテが続かない</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">主な機能</h2>
+      <ul class="feature-list">
+        <li><span><strong>罫線スタイル変更</strong> — 線種（実線・点線・破線・二重線）／太さ（1〜10px）／色をカラーピッカーで自由に設定。レコード詳細画面の罫線が一括で変わります。</span></li>
+        <li><span><strong>スペースの背景色</strong> — 区切りやハイライトとして使える色付きエリアを簡単に作成できます。</span></li>
+        <li><span><strong>スペースにテキスト表示</strong> — 見出し・案内文・注意書きを設置可能。フォント・サイズ・色・太字・水平/垂直揃えまで細かく調整できます。</span></li>
+        <li><span><strong>スペースに画像表示</strong> — ロゴ・アイコン・バナー画像を配置可能。アップロード時に自動で40KB以下に圧縮されるので、サイズを気にせずファイルを選ぶだけ。</span></li>
+        <li><span><strong>スペース要素ID候補を自動表示</strong> — フォームに設定済みのスペースの要素IDを自動取得して入力候補に。手入力との併用も可能です。</span></li>
+      </ul>
+    </section>
+
+    <!-- Screenshots: settings -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定画面イメージ</h2>
+        <p class="section-subtitle">罫線・スペースの装飾はすべて設定画面でノーコード設定できます</p>
+        <div class="screenshots-grid">
+          <div class="screenshot-item">
+            <img
+              src="/images/blog/form-deco-setting-border.png"
+              alt="FormDecoプラグイン — 罫線スタイル設定画面。線の種類・太さ・色をカラーピッカーで指定できる。"
+              width="828"
+              height="341"
+              loading="lazy"
+            />
+            <div class="screenshot-caption">
+              <strong>罫線スタイル設定</strong>
+              <p>線の種類（実線・点線・破線・二重線）、太さ、色をカラーピッカーで自由に指定できます。</p>
+            </div>
+          </div>
+          <div class="screenshot-item">
+            <img
+              src="/images/blog/form-deco-setting-space-text.png"
+              alt="FormDecoプラグイン — スペース設定（テキストモード）。要素ID・背景色・テキスト・フォント・色・揃えを設定できる。"
+              width="844"
+              height="667"
+              loading="lazy"
+            />
+            <div class="screenshot-caption">
+              <strong>スペース設定（テキスト）</strong>
+              <p>背景色とテキストを設定。フォント・サイズ・色・太字・水平/垂直揃えまで細かく調整できます。</p>
+            </div>
+          </div>
+          <div class="screenshot-item">
+            <img
+              src="/images/blog/form-deco-setting-space-image.png"
+              alt="FormDecoプラグイン — スペース設定（画像モード）。ファイル選択ボタンとプレビュー、自動圧縮の説明が表示されている。"
+              width="902"
+              height="709"
+              loading="lazy"
+            />
+            <div class="screenshot-caption">
+              <strong>スペース設定（画像）</strong>
+              <p>ファイルを選ぶだけでアップロード。最大40KB・最大幅1200pxに自動圧縮するのでサイズを気にせず配置できます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screenshots: applied result -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">導入後の表示イメージ</h2>
+      <div class="screenshots-grid">
+        <div class="screenshot-item">
+          <img
+            src="/images/blog/form-deco-after-text.png"
+            alt="FormDecoプラグイン適用後 — レコード詳細画面に色付きの罫線とテキスト装飾されたスペースが表示されている。"
+            width="661"
+            height="680"
+            loading="lazy"
+          />
+          <div class="screenshot-caption">
+            <strong>テキスト装飾サンプル</strong>
+            <p>赤い点線の罫線でセクションを明確に区切り、目立たせたいスペースに案内テキストを表示できます。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <img
+            src="/images/blog/form-deco-after-image.png"
+            alt="FormDecoプラグイン適用後 — レコード詳細画面のスペースに会社ロゴ画像が表示されている。"
+            width="449"
+            height="387"
+            loading="lazy"
+          />
+          <div class="screenshot-caption">
+            <strong>画像表示サンプル</strong>
+            <p>緑の二重線の罫線とともに、スペースにロゴやアイコン画像を配置可能。社内アプリのブランディングにも活用できます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">インストール手順</h2>
+        <p class="section-subtitle">5ステップで導入完了。プログラミング知識は不要です。</p>
+        <ol class="steps-list">
+          <li>「プランについて」セクションのダウンロードボタンから <code>plugin.zip</code> をダウンロード</li>
+          <li>kintone の<strong>システム管理 → プラグイン</strong>を開く</li>
+          <li>「読み込む」ボタンから <code>plugin.zip</code> をアップロード</li>
+          <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>でプラグインを追加</li>
+          <li>プラグインの設定画面から罫線・スペースの装飾を設定して保存</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">プランについて</h2>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">基本プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥0</span>
+            <span class="unit">/ 完全無料</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全機能（罫線スタイル・スペース装飾・画像挿入）が利用可能</li>
+            <li>✅ 利用期限なし・いつまでも無料</li>
+            <li>✅ 一覧画面に控えめなお知らせバナー表示あり</li>
+          </ul>
+          <a href="/downloads/kw-form-deco-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">開発を応援</span>
+          <h3 class="plan-name">年間サポーター</h3>
+          <div class="plan-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-features">
+            <li>✅ 全機能（罫線スタイル・スペース装飾・画像挿入）が利用可能</li>
+            <li>✅ プラグイン内の<strong>お知らせバナーが完全非表示</strong></li>
+            <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            <li>✅ サポーターの声を優先して開発に反映</li>
+          </ul>
+          <a href="/plugins/supporter/?plugin=kw-form-deco" class="btn-primary">サポーターになる →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">よくある質問</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              本当に無料で使えますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい、罫線カスタマイズ・スペースの背景／テキスト／画像など、すべての機能を無料でご利用いただけます。利用期限もなく、ずっとお使いいただけます。一覧画面に控えめなお知らせバナーが表示されますが、プラグインの動作には影響しません。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              年間サポーターライセンスとは何ですか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                KIZUNA Works のプラグイン開発を応援していただける方向けの年間ライセンス（年額 ¥3,300・税込）です。バナー非表示、プラグイン作成リクエスト・改善要望の送付、サポーターの声を優先反映などの特典があります。詳しくは <a href="/plugins/supporter/?plugin=kw-form-deco">サポーターライセンスのご案内</a> をご覧ください。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              スペースに表示する画像のサイズに制限はありますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                kintoneのプラグイン設定の容量制約により、画像は1枚あたり40KB以下に自動圧縮されます。アップロード時にブラウザ側で最大幅1200px・JPEG形式に変換するので、ファイルサイズを気にせず通常の写真やロゴをそのまま選択していただけます（透過は失われます）。極端に大きい高解像度画像はエラーになることがあります。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              スペースフィールドの設定が必要ですか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい、装飾したいスペースには事前に<strong>「要素ID」</strong>を設定してください（kintoneのフォーム編集画面 → スペースの歯車アイコン → 設定）。要素IDが設定済みのスペースは、プラグイン設定画面の入力欄で候補として自動表示されます。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              罫線の見た目を罫線ごとに変えられますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                現バージョンではレコード詳細画面の<strong>すべての罫線が一括で同じスタイル</strong>になります。罫線ごとに個別指定する機能は今後の改善予定です。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              どのkintone環境で利用できますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                kintoneのデスクトップ版で利用可能です。スタンダードコース・ワイドコースのkintone環境であれば、ドメインを問わずご利用いただけます。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              設定にプログラミングの知識は必要ですか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                いいえ、プラグインの設定画面からすべての機能をノーコードで設定できます。ドロップダウン・カラーピッカー・ファイル選択ボタンで直感的に操作可能です。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome 最新版での確認を推奨します。</li>
+        <li>罫線カスタマイズは kintone 内部のCSSクラス名に依存しているため、kintone 本体のアップデートで動作しなくなる可能性があります。</li>
+        <li>スペースに挿入する画像は自動的にJPEG形式に変換されるため、PNGの透過情報は失われます。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+      <p class="bottom-cta-links">info@kizuna-works.jp までお気軽にどうぞ</p>
+    </section>
+
+    <SupporterCTA pluginId="kw-form-deco" />
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      /* FAQ Accordion Logic */
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          gtag('event', 'file_download', {
+            file_name: 'kw-form-deco-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: 'ダウンロード（無料）',
+            link_url: '/downloads/kw-form-deco-v1.0.0.zip'
+          });
+        });
+      }
+    });
+  </script>
+</Layout>
