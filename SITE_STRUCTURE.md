@@ -62,8 +62,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # フィールドスタイラー製品ページ（/plugins/field-styler/）
 │   │   │   ├── kw-conditional-numbering/
 │   │   │   │   └── index.astro # 条件分岐自動採番プラグイン製品ページ（/plugins/kw-conditional-numbering/）
-│   │   │   └── form-deco/
-│   │   │       └── index.astro # FormDecoプラグイン製品ページ（/plugins/form-deco/）
+│   │   │   ├── form-deco/
+│   │   │   │   └── index.astro # FormDecoプラグイン製品ページ（/plugins/form-deco/）
+│   │   │   └── lookup-suggest/
+│   │   │       └── index.astro # ルックアップサジェストプラグイン製品ページ（/plugins/lookup-suggest/）
 │   │   └── tools/
 │   │       └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   ├── content/
@@ -96,6 +98,13 @@ c:\kizuna-works.jp\
 │   │   ├── conditional-numbering-banner.png # 条件分岐自動採番プラグイン バナー
 │   │   ├── form-deco-icon.png              # FormDecoプラグイン アイコン
 │   │   ├── form-deco-banner.png            # FormDecoプラグイン バナー（1200×675・OGP/グリッド共用）
+│   │   ├── lookup-suggest-icon.png         # ルックアップサジェストプラグイン アイコン
+│   │   ├── lookup-suggest-banner.png       # ルックアップサジェストプラグイン バナー（1200×675・OGP/グリッド共用）
+│   │   ├── lookup-suggest-config-01.png    # ルックアップサジェストプラグイン 設定画面スクショ① — ルックアップフィールド選択ドロップダウン
+│   │   ├── lookup-suggest-config-02.png    # ルックアップサジェストプラグイン 設定画面スクショ② — サジェスト一覧に表示するフィールドのチップ選択UI
+│   │   ├── lookup-suggest-action-01.png    # ルックアップサジェストプラグイン 動作画面スクショ① — レコード画面のヒントバナー表示状態（入力前）
+│   │   ├── lookup-suggest-action-02.png    # ルックアップサジェストプラグイン 動作画面スクショ② — 「株式」入力中に8件の候補が会社名・電話番号付きで表示
+│   │   ├── lookup-suggest-action-03.png    # ルックアップサジェストプラグイン 動作画面スクショ③ — 電話番号「03」で検索し電話番号始まりの3社がヒット（追加検索フィールドの活用例）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
 │   │   ├── field-styler-bg.png / field-styler-bg.webp # フィールドスタイラーページ 背景
@@ -125,7 +134,8 @@ c:\kizuna-works.jp\
 │   │   ├── .gitkeep                                    # ディレクトリをGit管理するための空ファイル
 │   │   ├── kw-conditional-numbering-v1.1.0.zip         # 条件分岐自動採番プラグイン配布ファイル（手動配置）
 │   │   ├── kw-field-styler-v1.1.0.zip                  # フィールドスタイラープラグイン配布ファイル（手動配置）
-│   │   └── kw-form-deco-v1.0.0.zip                     # FormDecoプラグイン配布ファイル（手動配置）
+│   │   ├── kw-form-deco-v1.0.0.zip                     # FormDecoプラグイン配布ファイル（手動配置）
+│   │   └── kw-lookup-suggest-v1.0.0.zip                # ルックアップサジェストプラグイン配布ファイル（手動配置）
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）

@@ -78,6 +78,22 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
   },
+  {
+    id: 'kw-lookup-suggest',
+    name: 'ルックアップサジェスト',
+    formName: 'ルックアップサジェストプラグイン',
+    subtitle: 'kintone プラグイン',
+    slug: 'lookup-suggest',
+    description:
+      'kintoneのルックアップフィールドにライブサジェスト機能を追加。入力中に参照先候補を直下に表示し、画面遷移なしでルックアップ取得を完結。',
+    image: '/images/lookup-suggest-banner.png',
+    imageAlt:
+      'ルックアップサジェストプラグイン — 入力中に候補リストを表示し、画面遷移なしで取得完結',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({
