@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="画像やPDFファイルの個人情報・機密情報をブラウザ上で黒塗り・モザイク・ぼかしできる完全無料のWebツール。インストール不要・登録不要。ファイルはブラウザ内で処理されます。">
 <link rel="canonical" href="https://kizuna-works.jp/tools/masuku.html">
 <meta property="og:title" content="Masuku（画像・PDFマスキングツール）| KIZUNA Works">
@@ -307,12 +307,61 @@ input[type=range]::-webkit-slider-thumb {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* ===== MOBILE DRAWER ===== */
+.tray-toggle {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  background: var(--accent);
+  color: #1a1b20;
+  border: none;
+  border-radius: 50%;
+  font-size: 22px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.5);
+  cursor: pointer;
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+.tray-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 140;
+}
+.tray-backdrop.show { display: block; }
+
 /* ===== MOBILE ===== */
 @media (max-width: 768px) {
   .site-header-inner{flex-direction:column;gap:8px;}
+  .site-header-nav{justify-content:center;gap:6px;}
+  .site-nav-btn{font-size:.82rem;padding:6px 12px;}
   .site-footer-inner{flex-direction:column;text-align:center;align-items:center;}
-  .sidebar { display: none; }
+  .site-footer-links{justify-content:center;gap:15px;}
+  .body { overflow: visible; }
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    max-width: 85vw;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 150;
+    transform: translateX(100%);
+    transition: transform .25s ease;
+    box-shadow: -4px 0 16px rgba(0,0,0,.5);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .tray-toggle { display: flex; }
   .toolbar { padding: 5px 8px; gap: 4px; }
+  .canvas-area { padding: 12px; }
+  .welcome { padding: 20px; }
+  .drop-zone { padding: 36px 20px; }
 }
 </style>
 </head>
@@ -495,6 +544,10 @@ input[type=range]::-webkit-slider-thumb {
     <p>&copy; 2026 KIZUNA Works All Rights Reserved.</p>
   </div>
 </footer>
+
+<!-- モバイル用ドロワー -->
+<button class="tray-toggle" id="trayToggle" type="button" aria-label="ツールパネルを開く">&#9881;&#65039;</button>
+<div class="tray-backdrop" id="trayBackdrop"></div>
 
 <!-- トースト -->
 <div class="toast" id="toast"></div>
@@ -1083,6 +1136,29 @@ document.addEventListener('keydown', e => {
 
 // ===== 初期化 =====
 setTool('black');
+
+// ===== モバイルドロワー =====
+const trayToggle = document.getElementById('trayToggle');
+const trayBackdrop = document.getElementById('trayBackdrop');
+const sidebarEl = document.querySelector('.sidebar');
+function closeTray() {
+  sidebarEl.classList.remove('open');
+  trayBackdrop.classList.remove('show');
+}
+function openTray() {
+  sidebarEl.classList.add('open');
+  trayBackdrop.classList.add('show');
+}
+trayToggle.addEventListener('click', () => {
+  if (sidebarEl.classList.contains('open')) closeTray();
+  else openTray();
+});
+trayBackdrop.addEventListener('click', closeTray);
+sidebarEl.addEventListener('click', (e) => {
+  if (e.target.closest('.action-btn, .tool-btn, #fileInput')) {
+    if (window.matchMedia('(max-width: 768px)').matches) closeTray();
+  }
+});
 </script>
 
 </body>
