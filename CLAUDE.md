@@ -265,6 +265,40 @@ print('sha384-' + base64.b64encode(hashlib.sha384(data).digest()).decode())
 
 ---
 
+## モバイル表示の鉄則（壊さないための前提知識）
+
+> **最重要：** これは過去に発生した不具合の再発防止ルール。新規ページ・新規記事・新規コンポーネントの追加時、コミット前に必ず確認すること。
+
+### 既知の地雷：フレックス子要素の min-content オーバーフロー
+
+`body` は `display: flex; flex-direction: column`（[src/styles/global.css](src/styles/global.css)）。フレックス子要素はデフォルト `min-width: auto` ＝ コンテンツの最小幅まで広がる仕様のため、内部に **min-content がビューポートを超える要素**（5列以上の比較表・`<pre>` コードブロック・`white-space: nowrap` の長文・固定幅 div など）があると `<main>` がビューポート外まで広がり、ヘッダーと本文の左右位置がずれる。
+
+**対策（既に global.css に実装済・絶対に削除しない）：**
+```css
+body { overflow-x: clip; }
+body > *:not(header):not(footer) { flex: 1; min-width: 0; width: 100%; }
+```
+
+### 新規ページ作成時のモバイル必須チェック
+
+- [ ] 5列以上のテーブルを置く場合、`overflow-x: auto` のラッパー or `display: block` で内部スクロールできること（ブログは `BlogPost.astro` で対応済み）
+- [ ] `<img>` には `max-width: 100%; height: auto` が効くこと（global.css でグローバル適用済）
+- [ ] `<pre>` には `overflow-x: auto` が効くこと（`BlogPost.astro` で対応済）
+- [ ] **Layout.astro を継承しないスタンドアロン HTML（`public/tools/*.html`）を新規追加する場合は、ヘッダー幅とコンテンツ幅が一致するよう独自 CSS で `overflow-x: clip` 相当を仕込むこと**
+- [ ] ビルド後、Chrome DevTools のレスポンシブモードで **375px 幅** にして横スクロールバーが出ないことを確認
+
+### コミット前の自動検証コマンド
+
+新規ブログ記事・新規ページ追加後：
+```bash
+npm run build
+# 最新ファイルの dist/<page>/index.html を確認し、以下を grep
+grep -E "blog-prose table|blog-prose img|min-width:0|overflow-x:clip" dist/blog/<slug>/index.html
+```
+↑ 全部ヒットしなければ何かが壊れている。
+
+---
+
 ## ページ追加・更新時のSEOチェックリスト
 
 > **重要：** 無料ツール・ブログ・プラグインのページを追加・更新する際は、コミット前に必ずこのチェックリストを実行すること。指示がない場合でも自動的に適用すること。

@@ -37,7 +37,17 @@ img {
   height: auto;
 }
 
-/* Main content area expands to push footer down */
+/*
+ * Main content area expands to push footer down.
+ *
+ * min-width: 0 + width: 100% are NOT optional — flex items default to
+ * min-width: auto (= min-content), which lets wide descendants (e.g. wide
+ * comparison tables with display:block, <pre> code blocks, long URLs) push
+ * <main> beyond the viewport on mobile, causing the header and body width
+ * to misalign. Same goes for body's overflow-x:clip below.
+ * Verified incident: 2026-05-03, 3 blog articles broke on mobile.
+ * Don't remove these unless you've replaced them with an equivalent guard.
+ */
 body > *:not(header):not(footer) {
   flex: 1;
   min-width: 0;
