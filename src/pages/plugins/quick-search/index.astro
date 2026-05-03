@@ -1,0 +1,1132 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+---
+
+<Layout
+  title="クイックサーチ kintone プラグイン | KIZUNA Works"
+  description="kintone一覧画面のフィルター/ソートアイコン横にインライン検索バーを追加するプラグイン。AND/OR切替・複数キーワード・テキスト系/選択肢系フィールド横断検索に対応し、レコードを瞬時に絞り込みできます。完全無料で配布中。"
+  ogTitle="クイックサーチ kintone プラグイン | KIZUNA Works"
+  ogDescription="kintone一覧画面のフィルター/ソートアイコン横にインライン検索バーを追加するプラグイン。AND/OR切替・複数キーワード・テキスト系/選択肢系フィールド横断検索に対応し、レコードを瞬時に絞り込みできます。完全無料で配布中。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/quick-search/"
+  ogImage="https://kizuna-works.jp/images/quick-search-banner.png"
+  canonical="https://kizuna-works.jp/plugins/quick-search/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/quick-search/",
+          "url": "https://kizuna-works.jp/plugins/quick-search/",
+          "name": "クイックサーチ kintone プラグイン | KIZUNA Works",
+          "description": "kintone一覧画面のフィルター/ソートアイコン横にインライン検索バーを追加するプラグイン。AND/OR切替・複数キーワード・テキスト系/選択肢系フィールド横断検索に対応し、レコードを瞬時に絞り込みできます。完全無料で配布中。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/quick-search-banner.png",
+            "width": 1200,
+            "height": 675
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "クイックサーチ", "item": "https://kizuna-works.jp/plugins/quick-search/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "クイックサーチ kintone プラグイン",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "url": "https://kizuna-works.jp/plugins/quick-search/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-search-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/quick-search-banner.png",
+          "screenshot": [
+            "https://kizuna-works.jp/images/quick-search-action-01.png",
+            "https://kizuna-works.jp/images/quick-search-action-02.png",
+            "https://kizuna-works.jp/images/quick-search-action-03.png",
+            "https://kizuna-works.jp/images/quick-search-config-01.png",
+            "https://kizuna-works.jp/images/quick-search-config-02.png",
+            "https://kizuna-works.jp/images/quick-search-config-03.png"
+          ],
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone一覧画面のフィルター/ソートアイコン横にインライン検索バーを追加し、AND/OR切替・複数キーワード・テキスト系/選択肢系フィールドの横断検索に対応するプラグイン。基本機能は完全無料。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "一覧ヘッダー横へのインライン検索バー設置",
+            "AND / OR モードのワンクリック切替",
+            "スペース区切りの複数キーワード対応",
+            "テキスト系・選択肢系フィールドの横断検索",
+            "ビューフィルタ維持・全検索・クリアの 3 種類のボタン",
+            "Enter キー対応 + 状態保持",
+            "ボタンカラーのカスタマイズ"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    /* Fade-in Animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    /* Section Wrapper */
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    /* Problem Cards */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .problem-icon {
+      font-size: 48px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      color: var(--color-navy);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      color: var(--color-text-light);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* Feature List */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 4px solid var(--color-green);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      line-height: 1.7;
+    }
+
+    .feature-list li::before {
+      content: '✓';
+      color: var(--color-green);
+      font-weight: 900;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+
+    .feature-list strong {
+      color: var(--color-navy);
+    }
+
+    /* Before/After Compare */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    .compare-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      padding: 28px 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .compare-card.before {
+      border-top: 5px solid #cbd5e0;
+    }
+
+    .compare-card.after {
+      border-top: 5px solid var(--color-green);
+    }
+
+    .compare-card-title {
+      color: var(--color-navy);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .compare-steps {
+      padding-left: 24px;
+      line-height: 1.9;
+      color: var(--color-text);
+      font-size: 14px;
+    }
+
+    .compare-steps li {
+      margin-bottom: 6px;
+    }
+
+    /* Steps List */
+    .steps-list {
+      counter-reset: step-counter;
+      list-style: none;
+      padding: 0;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      position: relative;
+      padding: 18px 24px 18px 64px;
+      background-color: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 8px;
+      margin-bottom: 14px;
+      line-height: 1.7;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      width: 32px;
+      height: 32px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .steps-list code {
+      background-color: var(--color-bg);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background-color: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 20px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: inherit;
+      line-height: 1.5;
+    }
+
+    .faq-icon {
+      font-size: 24px;
+      color: var(--color-green);
+      transition: transform 0.3s;
+      font-weight: 300;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+
+    .faq-item.is-open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+
+    .faq-answer-inner {
+      padding: 0 24px 20px;
+      color: var(--color-text);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .faq-answer code {
+      background-color: var(--color-bg);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    .faq-answer a {
+      color: var(--color-navy);
+      text-decoration: underline;
+    }
+
+    /* Notes */
+    .notes-list {
+      list-style: disc;
+      padding-left: 24px;
+      color: var(--color-text);
+      line-height: 1.9;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      margin-bottom: 8px;
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border: 2px solid var(--color-gray-light);
+      border-radius: 12px;
+      padding: 36px 28px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .pricing-card.recommended {
+      border-color: var(--color-green);
+      box-shadow: 0 8px 24px rgba(46,139,46,0.15);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .plan-name {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    /* Screenshots */
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    .screenshot-item {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .screenshot-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+
+    .screenshot-thumb {
+      background-color: #f8fafc;
+      padding: 16px;
+      border-bottom: 1px solid var(--color-gray-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 220px;
+    }
+
+    .screenshot-thumb img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .screenshot-caption {
+      padding: 18px 20px 20px;
+      flex: 1;
+    }
+
+    .screenshot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .screenshot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Bottom CTA */
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .bottom-cta-links {
+      margin-top: 24px;
+      font-size: 14px;
+    }
+
+    .bottom-cta-links a {
+      text-decoration: underline;
+    }
+
+    .bottom-cta-links a:hover {
+      color: #d1d5db;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 5%;
+      }
+      .hero-title {
+        font-size: 28px;
+      }
+      .hero-copy {
+        font-size: 15px;
+      }
+      .hero-icon {
+        width: 140px;
+        height: 140px;
+      }
+      .section-wrapper {
+        padding: 60px 5%;
+      }
+      .problem-grid {
+        grid-template-columns: 1fr;
+      }
+      .compare-grid {
+        grid-template-columns: 1fr;
+      }
+      .bottom-cta-title {
+        font-size: 22px;
+      }
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/quick-search-icon.png"
+        alt="クイックサーチプラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">クイックサーチ kintone プラグイン</h1>
+      <p class="hero-copy">kintone 一覧画面のフィルター/ソートアイコン横にインライン検索バーを追加。AND / OR 切替・スペース区切りの複数キーワード・テキスト系/選択肢系フィールドの横断検索に対応した、レコード絞り込みを高速化するプラグインです。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">kintone 標準絞り込みの「クリックの多さ」「複数フィールド検索の不便さ」「都度設定のやり直し」を解消</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🖱️</span>
+            <h3 class="problem-title">絞り込みパネルを毎回開くのが面倒</h3>
+            <p class="problem-desc">標準絞り込みは漏斗アイコン → 条件設定パネル → 適用、のステップが必要。毎回操作が冗長になる</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🔀</span>
+            <h3 class="problem-title">複数フィールドの横断検索ができない</h3>
+            <p class="problem-desc">「会社名 OR 担当者名 OR メモ」のような複数フィールドを 1 つのキーワードで一気に検索したいが、標準では条件を 1 つずつ追加する必要がある</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">⚙️</span>
+            <h3 class="problem-title">AND / OR の切替が直感的でない</h3>
+            <p class="problem-desc">複数キーワードでの絞り込み時、AND と OR を切り替えるたびに条件式を組み直すのは大変</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">主な機能</h2>
+      <ul class="feature-list">
+        <li><span><strong>インライン検索バー</strong> — 一覧画面のフィルター/ソートアイコンの右隣に検索バーを設置。クリック数を減らして検索を即実行できます。</span></li>
+        <li><span><strong>AND / OR トグル</strong> — 複数キーワード時の検索モードをワンクリックで切替。クリア後も最後の状態を保持します。</span></li>
+        <li><span><strong>複数キーワード対応</strong> — スペース区切り（半角・全角どちらでも可）で複数キーワードを指定。AND モードなら全キーワードを含むレコード、OR モードならいずれかを含むレコードがヒット。</span></li>
+        <li><span><strong>3 種類の検索ボタン</strong> — 「検索」（ビューフィルタ維持）/「全検索」（フィルタ無視）/「クリア」（元に戻す）を使い分け可能。</span></li>
+        <li><span><strong>テキスト系・選択肢系の横断検索</strong> — 文字列・リッチエディタ・リンク・ルックアップ・ドロップダウン・チェックボックスなど、種類の異なるフィールドを 1 つのキーワードで一気に検索。</span></li>
+        <li><span><strong>選択肢のファジーマッチ</strong> — ドロップダウンに「東京都」がある状態で「東京」と入力 → 部分一致で該当選択肢を自動展開してヒット。</span></li>
+        <li><span><strong>ボタンカラーのカスタマイズ</strong> — 各ボタンの色を管理画面のカラーピッカーで自由に指定可能。コーポレートカラーに合わせられます。</span></li>
+        <li><span><strong>ビュー単位で表示制御</strong> — 検索バーを表示する一覧ビューを管理画面で個別選択。一部ビューだけに出すといった運用が可能。</span></li>
+        <li><span><strong>JS カスタマイズ非依存</strong> — 検索バーは sync で DOM 投入され、他の JavaScript カスタマイズの async 処理に影響されません。</span></li>
+      </ul>
+    </section>
+
+    <!-- Before/After Comparison Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">標準絞り込みとの違い</h2>
+        <p class="section-subtitle">「会社名・担当者名で素早く絞り込みたい」操作を比較</p>
+        <div class="compare-grid">
+          <div class="compare-card before">
+            <h3 class="compare-card-title">kintone 標準</h3>
+            <ol class="compare-steps">
+              <li>漏斗（フィルター）アイコンをクリック</li>
+              <li>絞り込み条件パネルが開く</li>
+              <li>条件を 1 行追加（フィールド・演算子・値を選ぶ）</li>
+              <li>必要なら「OR」で別フィールドの条件を追加</li>
+              <li>「適用」をクリックして絞り込み</li>
+              <li>条件を変えるたびに同じ作業を繰り返し</li>
+            </ol>
+          </div>
+          <div class="compare-card after">
+            <h3 class="compare-card-title">クイックサーチ</h3>
+            <ol class="compare-steps">
+              <li>検索バーにキーワードを入力（複数はスペース区切り）</li>
+              <li>必要なら AND/OR をワンクリック切替</li>
+              <li>Enter または検索ボタンで即絞り込み</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action Screenshots Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">動作画面イメージ</h2>
+      <p class="section-subtitle">レコード一覧画面で実際にどう見えるか</p>
+      <div class="screenshots-grid">
+        <div class="screenshot-item">
+          <div class="screenshot-thumb">
+            <img
+              src="/images/quick-search-action-01.png"
+              alt="クイックサーチプラグイン — kintone一覧画面のフィルター/ソートアイコンの右隣に AND/OR トグル・キーワード入力欄・検索/全検索/クリアの3ボタンを備えた検索バーが並んで表示されている"
+              width="1310"
+              height="525"
+              loading="lazy"
+            />
+          </div>
+          <div class="screenshot-caption">
+            <strong>① 検索バー全景</strong>
+            <p>kintoneツールバーのフィルター/ソートアイコンの右隣に検索バーがインライン配置されます。AND/OR トグル・キーワード入力欄・3 種類の検索ボタンが一目で操作可能。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <div class="screenshot-thumb">
+            <img
+              src="/images/quick-search-action-02.png"
+              alt="クイックサーチプラグイン — AND モードで「アプリ 80」の2つのキーワードを入力し、両方を含む2件のレコードに絞り込まれた状態"
+              width="1313"
+              height="337"
+              loading="lazy"
+            />
+          </div>
+          <div class="screenshot-caption">
+            <strong>② AND モードで複数キーワード検索</strong>
+            <p>「アプリ 80」のように半角スペースで区切った 2 つのキーワードを AND で検索。両方のキーワードを含むレコードだけが瞬時に絞り込まれます。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <div class="screenshot-thumb">
+            <img
+              src="/images/quick-search-action-03.png"
+              alt="クイックサーチプラグイン — OR モードで「A C」のキーワードを入力し、商品Aまたは商品Cのいずれかを含む7件のレコードに絞り込まれた状態"
+              width="1309"
+              height="580"
+              loading="lazy"
+            />
+          </div>
+          <div class="screenshot-caption">
+            <strong>③ OR モードで横断検索</strong>
+            <p>OR モードに切替えれば「いずれかのキーワード」を含むレコードを一気に取得。トグルボタンをクリックするだけで AND ⇔ OR を切替えられ、クリア後もモードは維持されます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Config Screenshots Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定画面イメージ</h2>
+        <p class="section-subtitle">プログラミング知識不要・ノーコードで完結</p>
+        <div class="screenshots-grid">
+          <div class="screenshot-item">
+            <div class="screenshot-thumb">
+              <img
+                src="/images/quick-search-config-01.png"
+                alt="クイックサーチプラグイン 設定画面 — テキスト系・選択肢系・ルックアップが混在するアプリのフィールドがチップ式 UI でリストアップされ、案件名/詳細/確度/商談フェーズ/提案商品が選択されている"
+                width="930"
+                height="500"
+                loading="lazy"
+              />
+            </div>
+            <div class="screenshot-caption">
+              <strong>① 検索対象フィールドの選択</strong>
+              <p>アプリのフィールドがチップ式で並びます。文字列・リッチテキスト・リンク・ルックアップ・ドロップダウン・チェックボックスなどを横断的に選択可能。「全選択」「全解除」も用意。</p>
+            </div>
+          </div>
+          <div class="screenshot-item">
+            <div class="screenshot-thumb">
+              <img
+                src="/images/quick-search-config-02.png"
+                alt="クイックサーチプラグイン 設定画面 — 検索バーを表示する一覧ビューを複数選択でき、プレースホルダーテキストを自由に編集できる入力欄が表示されている"
+                width="926"
+                height="499"
+                loading="lazy"
+              />
+            </div>
+            <div class="screenshot-caption">
+              <strong>② 表示ビュー・プレースホルダーの設定</strong>
+              <p>検索バーを表示する一覧ビューを個別に選択できます（一部ビューだけに出すといった運用も可能）。プレースホルダーテキストもアプリの内容に合わせて自由にカスタマイズ。</p>
+            </div>
+          </div>
+          <div class="screenshot-item">
+            <div class="screenshot-thumb">
+              <img
+                src="/images/quick-search-config-03.png"
+                alt="クイックサーチプラグイン 設定画面 — AND/OR トグル・検索・全検索・クリアの4種類のボタンの背景色をカラーピッカーで指定でき、下部にプレビューエリアで実際の見た目を確認できる"
+                width="921"
+                height="531"
+                loading="lazy"
+              />
+            </div>
+            <div class="screenshot-caption">
+              <strong>③ ボタンカラーのカスタマイズ</strong>
+              <p>AND/OR トグル・検索・全検索・クリアの 4 ボタンの色をカラーピッカーで自由に指定。下部のプレビューエリアで設定中の見た目をリアルタイムに確認できます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">5 ステップで導入完了。プログラミング知識は不要です。</p>
+      <ol class="steps-list">
+        <li>「プランについて」セクションのダウンロードボタンから <code>plugin.zip</code> をダウンロード</li>
+        <li>kintone の<strong>システム管理 → プラグイン</strong>を開く</li>
+        <li>「読み込む」ボタンから <code>plugin.zip</code> をアップロード</li>
+        <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>でクイックサーチを追加し、設定画面で「検索対象フィールド」「検索バーを表示する一覧」を選択して保存</li>
+        <li><strong>アプリを更新（デプロイ）</strong>してから一覧画面をリロード</li>
+      </ol>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能（AND/OR 切替・複数キーワード・横断検索・ボタンカラー）が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 一覧画面に控えめな広告バナーが表示</li>
+            </ul>
+            <a href="/downloads/kw-quick-search-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能（AND/OR 切替・複数キーワード・横断検索・ボタンカラー）が利用可能</li>
+              <li>✅ 一覧画面の<strong>広告バナーが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-quick-search" class="btn-primary">サポーターになる →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">よくある質問</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            本当に無料で使えますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、AND/OR 切替・複数キーワード対応・横断検索・ボタンカラーのカスタマイズなど、すべての機能を無料でご利用いただけます。利用期限もなく、ずっとお使いいただけます。一覧画面に控えめな広告バナーが表示されますが、プラグインの動作には影響しません。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            年間サポーターライセンスとは何ですか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              KIZUNA Works のプラグイン開発を応援していただける方向けの年間ライセンス（年額 ¥3,300・税込）です。広告バナーの非表示、プラグイン作成リクエスト・改善要望の送付、サポーターの声を優先反映などの特典があります。詳しくは <a href="/plugins/supporter/?plugin=kw-quick-search">サポーターライセンスのご案内</a> をご覧ください。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            どのフィールドで検索できますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <strong>テキスト系</strong>（文字列1行・文字列複数行・リッチエディタ・リンク・ルックアップ）と <strong>選択肢系</strong>（ドロップダウン・ラジオボタン・チェックボックス・複数選択）に対応しています。テキスト系は <code>like</code> による部分一致、選択肢系は入力キーワードを選択肢ラベルへ部分一致させた上で <code>in</code> 検索を行います。数値・日付・添付ファイル・ユーザー/組織/グループ選択は kintone の <code>like</code>/<code>in</code> 演算子の制約上 v1 では未対応です。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            「検索」と「全検索」の違いは？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <strong>検索</strong>はビューに保存された絞り込み条件を保ったまま、その上にキーワードでの絞り込みを AND 結合します。<strong>全検索</strong>はビューの絞り込み条件を無視し、アプリ全レコードからキーワードで検索します。「クリア」はビューの絞り込み条件のみが効いた元の状態に戻します。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            AND モードと OR モードの違いは？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <strong>AND モード</strong>は「すべてのキーワードがいずれかの対象フィールドに含まれる」レコードがヒットします。<strong>OR モード</strong>は「いずれかのキーワードがいずれかの対象フィールドに含まれる」レコードがヒットします。トグルボタンをクリックするだけで切替可能で、クリア後もモードは維持されます。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            ドロップダウンで「東京」と入力すると「東京都」もヒットしますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい。選択肢系フィールドはキーワードを<strong>選択肢ラベルへの部分一致</strong>で評価し、該当する選択肢キーをすべて <code>in (...)</code> 句に展開します。「東京」と入力すると「東京都」「東京駅」など部分一致するすべての選択肢が検索対象になります。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            検索が 0 件になります。なぜ？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              kintone の全文検索インデックスの仕様上、<strong>1 文字キーワード</strong>はヒットしないことが多いです。2 文字以上で再検索してください。また、AND モードでは全キーワードがいずれかの対象フィールドに含まれている必要があるため、対象フィールド数を増やすか、OR モードに切替えてみてください。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            検索バーの位置はどこですか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              kintone の <code>kintone.app.getHeaderMenuSpaceElement()</code> を使い、一覧ヘッダー内のフィルター/ソートアイコンの右隣に表示します。kintone のデザイン変更により位置取りが変わる可能性に備えて、ヘッダー直下の <code>getHeaderSpaceElement()</code> へのフォールバックも実装済みです。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            他のプラグインや JavaScript カスタマイズと併用できますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              問題ありません。検索バーは sync で DOM 投入されるため、他カスタマイズの async 処理（auth・network 待ちなど）の影響を受けません。同じく <code>getHeaderMenuSpaceElement()</code> を使うカスタマイズと併用しても、固有 ID <code>#kwqs-bar</code> で重複 mount を回避します。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            モバイル（kintoneモバイル版）でも使えますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              v1.0.0 ではデスクトップ版のみ対応しています。モバイル版（kintone.mobile.*）への対応は今後のバージョンで検討中です。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            どのkintone環境で利用できますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              kintoneのデスクトップ版で利用可能です。スタンダードコース・ワイドコースのkintone環境であれば、ドメインを問わずご利用いただけます。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">注意事項</h2>
+        <ul class="notes-list">
+          <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+          <li>kintone はサイボウズ株式会社の登録商標です。</li>
+          <li>動作は Google Chrome 最新版での確認を推奨します。</li>
+          <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+          <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+          <li>カレンダー / カスタマイズビューでは検索バーは表示されません（LIST 形式のみ対応）。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+      <p class="bottom-cta-links">info@kizuna-works.jp までお気軽にどうぞ</p>
+    </section>
+
+    <SupporterCTA pluginId="kw-quick-search" />
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      /* FAQ Accordion Logic */
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          gtag('event', 'file_download', {
+            file_name: 'kw-quick-search-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: 'ダウンロード（無料）',
+            link_url: '/downloads/kw-quick-search-v1.0.0.zip'
+          });
+        });
+      }
+    });
+  </script>
+</Layout>

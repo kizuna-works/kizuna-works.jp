@@ -94,6 +94,22 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
   },
+  {
+    id: 'kw-quick-search',
+    name: 'クイックサーチ',
+    formName: 'クイックサーチプラグイン',
+    subtitle: 'kintone プラグイン',
+    slug: 'quick-search',
+    description:
+      'kintone一覧画面のフィルター/ソートアイコン横にインライン検索バーを追加。AND/OR切替・複数キーワード対応で、テキスト系・選択肢系フィールドを横断検索できます。',
+    image: '/images/quick-search-banner.png',
+    imageAlt:
+      'クイックサーチプラグイン — 一覧画面のツールバー横にインライン検索バーを設置し、複数キーワードでレコードを素早く絞り込み',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({

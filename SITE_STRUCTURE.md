@@ -64,8 +64,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 条件分岐自動採番プラグイン製品ページ（/plugins/kw-conditional-numbering/）
 │   │   │   ├── form-deco/
 │   │   │   │   └── index.astro # FormDecoプラグイン製品ページ（/plugins/form-deco/）
-│   │   │   └── lookup-suggest/
-│   │   │       └── index.astro # ルックアップサジェストプラグイン製品ページ（/plugins/lookup-suggest/）
+│   │   │   ├── lookup-suggest/
+│   │   │   │   └── index.astro # ルックアップサジェストプラグイン製品ページ（/plugins/lookup-suggest/）
+│   │   │   └── quick-search/
+│   │   │       └── index.astro # クイックサーチプラグイン製品ページ（/plugins/quick-search/）
 │   │   └── tools/
 │   │       └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   ├── content/
@@ -105,6 +107,14 @@ c:\kizuna-works.jp\
 │   │   ├── lookup-suggest-action-01.png    # ルックアップサジェストプラグイン 動作画面スクショ① — レコード画面のヒントバナー表示状態（入力前）
 │   │   ├── lookup-suggest-action-02.png    # ルックアップサジェストプラグイン 動作画面スクショ② — 「株式」入力中に8件の候補が会社名・電話番号付きで表示
 │   │   ├── lookup-suggest-action-03.png    # ルックアップサジェストプラグイン 動作画面スクショ③ — 電話番号「03」で検索し電話番号始まりの3社がヒット（追加検索フィールドの活用例）
+│   │   ├── quick-search-icon.png           # クイックサーチプラグイン アイコン（200×200）
+│   │   ├── quick-search-banner.png         # クイックサーチプラグイン バナー（1200×675・OGP/グリッド共用）
+│   │   ├── quick-search-action-01.png      # クイックサーチプラグイン 動作画面スクショ① — 検索バー全景（プレースホルダー表示）
+│   │   ├── quick-search-action-02.png      # クイックサーチプラグイン 動作画面スクショ② — AND モードで複数キーワード検索
+│   │   ├── quick-search-action-03.png      # クイックサーチプラグイン 動作画面スクショ③ — OR モードで横断検索
+│   │   ├── quick-search-config-01.png      # クイックサーチプラグイン 設定画面スクショ① — 検索対象フィールドのチップ式選択
+│   │   ├── quick-search-config-02.png      # クイックサーチプラグイン 設定画面スクショ② — 表示ビュー・プレースホルダー設定
+│   │   ├── quick-search-config-03.png      # クイックサーチプラグイン 設定画面スクショ③ — ボタンカラー設定 + プレビュー
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
@@ -136,7 +146,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-conditional-numbering-v1.1.0.zip         # 条件分岐自動採番プラグイン配布ファイル（手動配置）
 │   │   ├── kw-field-styler-v1.1.0.zip                  # フィールドスタイラープラグイン配布ファイル（手動配置）
 │   │   ├── kw-form-deco-v1.0.0.zip                     # FormDecoプラグイン配布ファイル（手動配置）
-│   │   └── kw-lookup-suggest-v1.0.0.zip                # ルックアップサジェストプラグイン配布ファイル（手動配置）
+│   │   ├── kw-lookup-suggest-v1.0.0.zip                # ルックアップサジェストプラグイン配布ファイル（手動配置）
+│   │   └── kw-quick-search-v1.0.0.zip                  # クイックサーチプラグイン配布ファイル（手動配置）
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）
