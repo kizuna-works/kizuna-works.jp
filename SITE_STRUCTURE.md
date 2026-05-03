@@ -78,7 +78,8 @@ c:\kizuna-works.jp\
 │   │       ├── kintone-2026-update.md               # 「2026年最新版 kintoneの注目アップデート＆AI活用術」記事
 │   │       ├── kintone-cyouhyou-plugin-hikaku.md    # 「kintone帳票出力プラグイン徹底比較」記事
 │   │       ├── kintone-2026-04-update.md            # 「2026年4月最新 kintoneアップデート総まとめ」記事
-│   │       └── kintone-design-plugin-osusume.md     # 「kintone デザイン変更プラグイン特集」記事
+│   │       ├── kintone-design-plugin-osusume.md     # 「kintone デザイン変更プラグイン特集」記事
+│   │       └── kintone-kensaku-plugin-hikaku.md     # 「kintoneの検索・絞り込みを改善するプラグイン比較【2026年版】」記事
 │   └── styles/
 │       └── global.css          # グローバルCSS（最小リセット・スティッキーフッター用）
 │
@@ -140,7 +141,8 @@ c:\kizuna-works.jp\
 │   │       ├── kintone-design-plugin-osusume.png        # 「kintone デザイン変更プラグイン特集」記事 OGP・サムネイル
 │   │       ├── kintone-design-plugin-osusume-before-after.png # 同記事 フィールドスタイラー導入前後の比較画像
 │   │       ├── kintone-design-plugin-osusume-color-rule.png   # 同記事 60:30:10配色ルール図解
-│   │       └── kintone-design-plugin-osusume-install.png      # 同記事 フィールドスタイラー設定画面スクショ
+│   │       ├── kintone-design-plugin-osusume-install.png      # 同記事 フィールドスタイラー設定画面スクショ
+│   │       └── kintone-kensaku-plugin-hikaku.png        # 「kintone検索・絞り込みプラグイン比較」記事 OGP・サムネイル
 │   ├── downloads/
 │   │   ├── .gitkeep                                    # ディレクトリをGit管理するための空ファイル
 │   │   ├── kw-conditional-numbering-v1.1.0.zip         # 条件分岐自動採番プラグイン配布ファイル（手動配置）
