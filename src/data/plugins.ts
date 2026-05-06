@@ -110,6 +110,22 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
   },
+  {
+    id: 'kw-file-icon-marker',
+    name: '添付ファイルアイコン表示',
+    formName: '添付ファイルアイコン表示プラグイン',
+    subtitle: 'kintone プラグイン',
+    slug: 'file-icon-marker',
+    description:
+      'kintone一覧画面で、添付ファイルの有無・種別・件数をアイコンで可視化。PDF/Excel/画像など28種類の拡張子別アイコンと件数バッジで、詳細を開かずにひと目で把握できます。',
+    image: '/images/file-icon-marker-banner.png',
+    imageAlt:
+      '添付ファイルアイコン表示プラグイン — 一覧画面に拡張子別アイコンと件数バッジを表示し、添付ファイルの有無と種類をひと目で判別',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({

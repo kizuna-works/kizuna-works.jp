@@ -66,8 +66,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # FormDecoプラグイン製品ページ（/plugins/form-deco/）
 │   │   │   ├── lookup-suggest/
 │   │   │   │   └── index.astro # ルックアップサジェストプラグイン製品ページ（/plugins/lookup-suggest/）
-│   │   │   └── quick-search/
-│   │   │       └── index.astro # クイックサーチプラグイン製品ページ（/plugins/quick-search/）
+│   │   │   ├── quick-search/
+│   │   │   │   └── index.astro # クイックサーチプラグイン製品ページ（/plugins/quick-search/）
+│   │   │   └── file-icon-marker/
+│   │   │       └── index.astro # 添付ファイルアイコン表示プラグイン製品ページ（/plugins/file-icon-marker/）
 │   │   └── tools/
 │   │       └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   ├── content/
@@ -116,6 +118,16 @@ c:\kizuna-works.jp\
 │   │   ├── quick-search-config-01.png      # クイックサーチプラグイン 設定画面スクショ① — 検索対象フィールドのチップ式選択
 │   │   ├── quick-search-config-02.png      # クイックサーチプラグイン 設定画面スクショ② — 表示ビュー・プレースホルダー設定
 │   │   ├── quick-search-config-03.png      # クイックサーチプラグイン 設定画面スクショ③ — ボタンカラー設定 + プレビュー
+│   │   ├── file-icon-marker-icon.png       # 添付ファイルアイコン表示プラグイン アイコン（200×200）
+│   │   ├── file-icon-marker-banner.png     # 添付ファイルアイコン表示プラグイン バナー（1200×675・OGP/グリッド共用）
+│   │   ├── file-icon-marker-before.png     # 添付ファイルアイコン表示プラグイン 導入前スクショ — 標準一覧画面では添付有無不可視
+│   │   ├── file-icon-marker-after-01.png   # 添付ファイルアイコン表示プラグイン 動作画面スクショ① — 拡張子別アイコン+件数バッジ表示
+│   │   ├── file-icon-marker-after-02.png   # 添付ファイルアイコン表示プラグイン 動作画面スクショ② — hoverツールチップでファイル名表示
+│   │   ├── file-icon-marker-config-01.png  # 添付ファイルアイコン表示プラグイン 設定画面スクショ① — 基本設定（対象フィールド・位置・種別判定・件数バッジ）
+│   │   ├── file-icon-marker-config-02.png  # 添付ファイルアイコン表示プラグイン 設定画面スクショ② — ツールチップ配色（背景色・文字色・ライブプレビュー）
+│   │   ├── file-icon-marker-config-03.png  # 添付ファイルアイコン表示プラグイン 設定画面スクショ③ — アイコンマッピング設定（28種プリセット先頭）
+│   │   ├── file-icon-marker-config-04.png  # 添付ファイルアイコン表示プラグイン 設定画面スクショ④ — アイコンマッピング設定（画像/動画/音声/コード系）
+│   │   ├── file-icon-marker-config-05.png  # 添付ファイルアイコン表示プラグイン 設定画面スクショ⑤ — アイコンマッピング末尾＋既定行＋行追加/既定値に戻すボタン
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
@@ -149,7 +161,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-styler-v1.1.0.zip                  # フィールドスタイラープラグイン配布ファイル（手動配置）
 │   │   ├── kw-form-deco-v1.0.0.zip                     # FormDecoプラグイン配布ファイル（手動配置）
 │   │   ├── kw-lookup-suggest-v1.0.0.zip                # ルックアップサジェストプラグイン配布ファイル（手動配置）
-│   │   └── kw-quick-search-v1.0.0.zip                  # クイックサーチプラグイン配布ファイル（手動配置）
+│   │   ├── kw-quick-search-v1.0.0.zip                  # クイックサーチプラグイン配布ファイル（手動配置）
+│   │   └── kw-file-icon-marker-v1.0.0.zip              # 添付ファイルアイコン表示プラグイン配布ファイル（手動配置）
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）
