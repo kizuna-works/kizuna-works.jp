@@ -573,8 +573,70 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
       margin: 0;
     }
 
+    /* Related Blog Posts */
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
+      .related-posts-grid {
+        grid-template-columns: 1fr;
+      }
       .hero {
         padding: 60px 5%;
       }
@@ -893,6 +955,46 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
         <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
         <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
       </ul>
+    </section>
+
+    <!-- Related Blog Posts Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">関連ブログ記事</h2>
+        <p class="section-subtitle">kintone とプラグインの活用情報をブログで発信中</p>
+        <div class="related-posts-grid">
+          <a href="/blog/kintone-design-plugin-osusume/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/blog/kintone-design-plugin-osusume.png" alt="kintoneデザイン変更プラグイン特集と設定のコツ" loading="lazy" width="1200" height="630">
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">kintoneのデザイン変更プラグイン特集と設定のコツ</h3>
+              <p class="related-post-desc">kintoneのデザイン変更プラグインを徹底解説。FormDecoを含む主要ツールを比較。</p>
+              <span class="related-post-link">記事を読む →</span>
+            </div>
+          </a>
+          <a href="/blog/kintone-teichaku-shinai-riyu/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/blog/kintone-teichaku-shinai-riyu.png" alt="kintoneが定着しない本当の理由｜管理者が見落としがちな7つの原因" loading="lazy" width="1200" height="630">
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">kintoneが定着しない本当の理由｜管理者が見落としがちな7つの原因</h3>
+              <p class="related-post-desc">kintoneが定着しない7つの原因と改善のヒントを解説。フォームの見やすさが定着の鍵です。</p>
+              <span class="related-post-link">記事を読む →</span>
+            </div>
+          </a>
+          <a href="/blog/kintone-2026-update/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/blog/kintone-2026-update.png" alt="2026年最新版 kintoneの注目アップデート＆AI活用術" loading="lazy" width="1200" height="630">
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">【2026年最新版】kintoneの注目アップデート＆AI活用術</h3>
+              <p class="related-post-desc">2026年3月のkintone大型アップデートとAI活用、人気プラグインを徹底解説。</p>
+              <span class="related-post-link">記事を読む →</span>
+            </div>
+          </a>
+        </div>
+      </div>
     </section>
 
     <!-- Contact CTA -->
