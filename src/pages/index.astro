@@ -368,12 +368,15 @@ const pluginPosts = allPosts
       background: #F0F4F8;
       border-radius: 10px;
       border-left: 4px solid #2E8B2E;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+      text-decoration: none;
+      color: inherit;
     }
 
     .problem-item:hover {
       transform: translateX(4px);
       box-shadow: 0 4px 14px rgba(27, 58, 107, 0.08);
+      background: #E6EDF5;
     }
 
     .problem-mark {
@@ -1173,15 +1176,15 @@ const pluginPosts = allPosts
       <h2 class="section-title">こんなことで困っていませんか？</h2>
       <p class="section-subtitle">kintone 標準機能では届かない「あとちょっと」を、KIZUNA Works のプラグインが解決します。</p>
       <div class="problems-grid">
-        <div class="problem-item">
+        <a href="/blog/kintone-teichaku-shinai-riyu/" class="problem-item">
           <span class="problem-mark">✓</span>
           <p class="problem-text"><strong>kintone を導入したのに現場に定着しない</strong> — 入力項目が多すぎる・画面が見づらい等の壁に困っている</p>
-        </div>
+        </a>
         {pluginsNewestFirst.map((p) => (
-          <div class="problem-item">
+          <a href={`/plugins/${p.slug}/`} class="problem-item">
             <span class="problem-mark">✓</span>
             <p class="problem-text"><strong>{p.problemTitle}</strong> — {p.problemDesc}</p>
-          </div>
+          </a>
         ))}
       </div>
       <p class="problems-cta">これらの課題はすべて、<strong>無料の kintone プラグイン</strong>で解決できます。</p>
