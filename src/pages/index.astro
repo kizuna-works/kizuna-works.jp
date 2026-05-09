@@ -195,15 +195,122 @@ const recentPosts = (await getCollection('blog'))
     .hero-subtitle {
       font-size: 1.2rem;
       font-weight: 500;
-      margin-bottom: 40px;
+      margin-bottom: 32px;
       opacity: 0.9;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .hero-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .hero-stat-icon {
+      font-size: 1.1rem;
+    }
+
+    .hero-stat-num {
+      color: #98e598;
+      font-weight: 800;
+      font-size: 1rem;
     }
 
     .hero-actions {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 16px;
       flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .hero-actions .btn-primary {
+      padding: 18px 40px;
+      font-size: 1.15rem;
+    }
+
+    .hero-secondary-link {
+      color: #fff;
+      font-size: 0.95rem;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+
+    .hero-secondary-link:hover {
+      opacity: 1;
+      color: #98e598;
+    }
+
+    /* =========================================
+       Strengths Section (Why KIZUNA Works)
+    ========================================= */
+    .strengths {
+      background: linear-gradient(180deg, #F0F4F8 0%, #FFFFFF 100%);
+    }
+
+    .strengths-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .strength-card {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 40px 28px;
+      text-align: center;
+      box-shadow: 0 4px 18px rgba(27, 58, 107, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-bottom: 4px solid #2E8B2E;
+    }
+
+    .strength-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(27, 58, 107, 0.15);
+    }
+
+    .strength-icon {
+      font-size: 2.6rem;
+      margin-bottom: 14px;
+      display: block;
+      line-height: 1;
+    }
+
+    .strength-title {
+      color: #1B3A6B;
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .strength-desc {
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.85;
+    }
+
+    .strength-desc strong {
+      color: #1B3A6B;
     }
 
     /* =========================================
@@ -493,10 +600,29 @@ const recentPosts = (await getCollection('blog'))
         padding: 80px 15px;
       }
       .hero-title {
-        font-size: 2rem;
+        font-size: 1.85rem;
       }
       .hero-subtitle {
+        font-size: 0.95rem;
+      }
+      .hero-stats {
+        gap: 8px;
+        margin-bottom: 28px;
+      }
+      .hero-stat {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+      }
+      .hero-actions .btn-primary {
+        padding: 14px 28px;
         font-size: 1rem;
+      }
+      .strengths-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      .strength-card {
+        padding: 28px 22px;
       }
       .container {
         padding: 60px 15px;
@@ -526,11 +652,42 @@ const recentPosts = (await getCollection('blog'))
   <main>
   <section class="hero">
     <div class="hero-inner">
-      <h1 class="hero-title">つながりで、仕事をもっとスマートに</h1>
-      <p class="hero-subtitle">KIZUNA Worksは、業務効率化ツール・kintoneプラグイン・無料Webアプリを提供します</p>
+      <h1 class="hero-title">kintoneと業務を、もっと自由にする。</h1>
+      <p class="hero-subtitle">完全無料の kintone プラグインとブラウザ完結型 Web ツールを多数公開中。<br>インストール不要・ノーコードで、すぐに使える。</p>
+      <div class="hero-stats">
+        <span class="hero-stat"><span class="hero-stat-icon">🧩</span><span class="hero-stat-num">6</span> kintoneプラグイン公開中</span>
+        <span class="hero-stat"><span class="hero-stat-icon">🛠</span><span class="hero-stat-num">6</span> 無料Webツール公開中</span>
+        <span class="hero-stat"><span class="hero-stat-icon">📝</span><span class="hero-stat-num">7</span> 現場ノウハウ記事</span>
+      </div>
       <div class="hero-actions">
-        <a href="/tools/" class="btn btn-primary">無料ツールを使う</a>
-        <a href="/plugins/" class="btn btn-outline">kintoneプラグインを見る</a>
+        <a href="/plugins/" class="btn btn-primary">kintoneプラグインを無料で見る →</a>
+      </div>
+      <div class="hero-actions" style="margin-top: 16px;">
+        <a href="/tools/" class="hero-secondary-link">無料Webツールを見る</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why KIZUNA Works (Strengths) -->
+  <section class="strengths">
+    <div class="container">
+      <h2 class="section-title">KIZUNA Works が選ばれる理由</h2>
+      <div class="strengths-grid">
+        <div class="strength-card">
+          <span class="strength-icon">💚</span>
+          <h3 class="strength-title">完全無料・利用期限なし</h3>
+          <p class="strength-desc">基本機能はすべて<strong>永久無料</strong>。利用期限もなくいつまでも使えます。気に入ったらサポーターとして開発を応援してください。</p>
+        </div>
+        <div class="strength-card">
+          <span class="strength-icon">🎯</span>
+          <h3 class="strength-title">ノーコードで完結</h3>
+          <p class="strength-desc">設定はすべてプラグイン管理画面から。<strong>JavaScript の知識は一切不要</strong>。kintone 管理者ならすぐに使い始められます。</p>
+        </div>
+        <div class="strength-card">
+          <span class="strength-icon">🧠</span>
+          <h3 class="strength-title">現場目線の設計</h3>
+          <p class="strength-desc">kintone 運用支援で得た知見を凝縮。<strong>「あとちょっと」の不便</strong>を解消する、現場が本当に欲しい機能を提供します。</p>
+        </div>
       </div>
     </div>
   </section>
