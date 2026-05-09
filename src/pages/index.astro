@@ -314,6 +314,284 @@ const recentPosts = (await getCollection('blog'))
     }
 
     /* =========================================
+       Problems Section (こんなことで困っていませんか？)
+    ========================================= */
+    .problems {
+      background: #FFFFFF;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #555;
+      font-size: 1rem;
+      margin: -32px auto 40px;
+      max-width: 700px;
+      line-height: 1.7;
+    }
+
+    .problems-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      max-width: 1000px;
+      margin: 0 auto 40px;
+    }
+
+    .problem-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 20px 24px;
+      background: #F0F4F8;
+      border-radius: 10px;
+      border-left: 4px solid #2E8B2E;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .problem-item:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 14px rgba(27, 58, 107, 0.08);
+    }
+
+    .problem-mark {
+      flex-shrink: 0;
+      font-size: 1.3rem;
+      color: #2E8B2E;
+      font-weight: 900;
+      margin-top: 2px;
+    }
+
+    .problem-text {
+      color: #333;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .problem-text strong {
+      color: #1B3A6B;
+    }
+
+    .problems-cta {
+      text-align: center;
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 28px;
+    }
+
+    .problems-cta strong {
+      color: #1B3A6B;
+    }
+
+    /* =========================================
+       Plugins Grid (3-column compact cards)
+    ========================================= */
+    .plugins-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+      margin-bottom: 40px;
+    }
+
+    .plugin-card-compact {
+      background: #FFFFFF;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+
+    .plugin-card-compact:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .plugin-card-thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #F0F4F8;
+      overflow: hidden;
+    }
+
+    .plugin-card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .plugin-card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .plugin-card-badge.new {
+      background: #e74c3c;
+    }
+
+    .plugin-card-badge.free {
+      background: #2E8B2E;
+    }
+
+    .plugin-card-body {
+      padding: 18px 20px 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .plugin-card-body h3 {
+      color: #1B3A6B;
+      font-size: 1.08rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .plugin-card-body p {
+      color: #555;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .plugin-card-link {
+      color: #2E8B2E;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    /* =========================================
+       Tools Mini Grid (compact / おまけ)
+    ========================================= */
+    .tools-section-compact {
+      padding: 60px 20px;
+    }
+
+    .tools-section-compact .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+
+    .tools-section-compact .section-title::after {
+      width: 40px;
+      height: 3px;
+    }
+
+    .tools-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      max-width: 900px;
+      margin: 0 auto 24px;
+    }
+
+    .tool-mini-card {
+      background: #FFFFFF;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 18px 12px;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+
+    .tool-mini-card:hover {
+      border-color: #2E8B2E;
+      box-shadow: 0 4px 12px rgba(46, 139, 46, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .tool-mini-icon {
+      font-size: 1.6rem;
+      display: block;
+      margin-bottom: 6px;
+      line-height: 1;
+    }
+
+    .tool-mini-name {
+      color: #1B3A6B;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .tool-mini-desc {
+      color: #666;
+      font-size: 0.7rem;
+      line-height: 1.4;
+      display: block;
+    }
+
+    /* =========================================
+       Stats Section (数字で見る KIZUNA Works)
+    ========================================= */
+    .stats {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: #FFFFFF;
+      padding: 70px 20px;
+    }
+
+    .stats .section-title {
+      color: #FFFFFF;
+    }
+
+    .stats .section-title::after {
+      background: #98e598;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 22px 14px;
+    }
+
+    .stat-num {
+      font-size: 3.4rem;
+      font-weight: 900;
+      color: #98e598;
+      line-height: 1;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      color: #FFFFFF;
+      font-size: 0.95rem;
+      font-weight: 600;
+      opacity: 0.95;
+    }
+
+    /* Section CTA helper */
+    .section-cta-center {
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* =========================================
        Services Section (3 Cards)
     ========================================= */
     .grid-3 {
@@ -624,6 +902,29 @@ const recentPosts = (await getCollection('blog'))
       .strength-card {
         padding: 28px 22px;
       }
+      .problems-grid {
+        grid-template-columns: 1fr;
+      }
+      .plugins-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      .tools-mini-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .tool-mini-icon {
+        font-size: 1.4rem;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .stat-num {
+        font-size: 2.6rem;
+      }
+      .stat-item {
+        padding: 14px 10px;
+      }
       .container {
         padding: 60px 15px;
       }
@@ -692,230 +993,187 @@ const recentPosts = (await getCollection('blog'))
     </div>
   </section>
 
-  <section class="services bg-white">
+  <!-- Problem Statement (こんなことで困っていませんか？) -->
+  <section class="problems bg-white">
     <div class="container">
-      <h2 class="section-title">提供サービス</h2>
-      <div class="grid-3">
-        <div class="service-card">
-          <div class="service-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-          </div>
-          <h3>無料HTMLツール</h3>
-          <p>ブラウザで完結する便利なWebツールを無料で公開しています。インストール不要ですぐに使えます。</p>
-          <a href="/tools/" class="service-link">無料Webツール一覧へ</a>
+      <h2 class="section-title">こんなことで困っていませんか？</h2>
+      <p class="section-subtitle">kintone 標準機能では届かない「あとちょっと」を、KIZUNA Works のプラグインが解決します。</p>
+      <div class="problems-grid">
+        <div class="problem-item">
+          <span class="problem-mark">✓</span>
+          <p class="problem-text"><strong>kintone を導入したのに現場に定着しない</strong> — 入力項目が多すぎる・画面が見づらい等の壁に困っている</p>
         </div>
-        <div class="service-card">
-          <div class="service-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.439 7.85c-.049.322-.059.648-.029.975.322.05.64.048.976-.017a2.122 2.122 0 0 1 2.453 1.547 2.119 2.119 0 0 1-1.381 2.559 2.1 2.1 0 0 1-1.89-.25 2.122 2.122 0 0 1-.84-1.62c-.03-.327.06-.653.03-.98-.327-.04-.653-.05-.98.03a2.115 2.115 0 0 1-2.584 1.341 2.118 2.118 0 0 1-1.463-2.512 2.12 2.12 0 0 1-2.658 1.523c.319.066.64.08.966.037.03-.314.04-.627-.02-.937a2.123 2.123 0 0 1-1.57-2.43 2.12 2.12 0 0 1-2.55 1.39 2.122 2.122 0 0 1-1.636-.822 2.115 2.115 0 0 1-.03 2.76z"></path><path d="M4.561 16.15c.049-.322.059-.648.029-.975-.322-.05-.64-.048-.976.017a2.122 2.122 0 0 1-2.453-1.547 2.119 2.119 0 0 1 1.381-2.559 2.1 2.1 0 0 1 1.89.25 2.122 2.122 0 0 1 .84 1.62c.03.327-.06.653-.03.98.327.04.653.05.98-.03a2.115 2.115 0 0 1 2.584-1.341 2.118 2.118 0 0 1 1.463 2.512 2.12 2.12 0 0 1-2.658 1.523c-.319-.066-.64-.08-.966-.037-.03.314-.04.627.02.937a2.123 2.123 0 0 1 1.57 2.43 2.12 2.12 0 0 1-2.55 1.39 2.122 2.122 0 0 1-1.636-.822 2.115 2.115 0 0 1 .03-2.76z"></path></svg>
-          </div>
-          <h3>kintoneプラグイン</h3>
-          <p>kintoneの機能を拡張し、日々の業務をさらに効率化するための高品質なプラグインを提供します。</p>
-          <a href="/plugins/" class="service-link">kintoneプラグイン一覧へ</a>
+        <div class="problem-item">
+          <span class="problem-mark">✓</span>
+          <p class="problem-text"><strong>フィールドの色分けや条件付き書式</strong>を JavaScript なしでノーコードに実現したい</p>
         </div>
-        <div class="service-card">
-          <div class="service-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
-          </div>
-          <h3>ブログ・コラム</h3>
-          <p>ツールの活用方法や、システム導入・業務改善に役立つノウハウを発信しています。</p>
-          <a href="/blog/" class="service-link">ブログ・コラム一覧へ</a>
+        <div class="problem-item">
+          <span class="problem-mark">✓</span>
+          <p class="problem-text"><strong>添付ファイルの中身が一覧で分からない</strong> — 詳細画面を毎回開いて確認している</p>
         </div>
+        <div class="problem-item">
+          <span class="problem-mark">✓</span>
+          <p class="problem-text"><strong>複数フィールドを横断検索したい</strong> — 標準の絞り込みパネルでは操作が面倒</p>
+        </div>
+        <div class="problem-item">
+          <span class="problem-mark">✓</span>
+          <p class="problem-text"><strong>採番ルールを条件で自動切替</strong>したい・CSVインポート後の一括採番にも対応したい</p>
+        </div>
+        <div class="problem-item">
+          <span class="problem-mark">✓</span>
+          <p class="problem-text"><strong>ルックアップ入力を高速化</strong>したい — 入力中に候補表示でクリック数を減らしたい</p>
+        </div>
+      </div>
+      <p class="problems-cta">これらの課題はすべて、<strong>無料の kintone プラグイン</strong>で解決できます。</p>
+      <div class="section-cta-center">
+        <a href="/plugins/" class="btn btn-primary">プラグインで解決する →</a>
       </div>
     </div>
   </section>
 
-  <section class="tools bg-light">
-    <div class="container">
-      <h2 class="section-title">無料ツール</h2>
-      <div class="feature-card">
-        <div class="feature-image feature-image--dark">
-          <img src="/images/stamp-maker-preview.png" alt="inkan（電子印鑑メーカー）- ブラウザで使える無料の電子印鑑作成ツール" width="949" height="813" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-        </div>
-        <div class="feature-content">
-          <h3>inkan（電子印鑑メーカー）</h3>
-          <p>ブラウザ上で簡単に、背景が透過された高品質な電子印鑑（認印・データ印）を作成できる完全無料のWebアプリです。書類のペーパーレス化をサポートします。</p>
-          <div>
-            <a href="/tools/stamp-maker.html" class="btn btn-primary">電子印鑑メーカーを無料で使う</a>
-          </div>
-        </div>
-      </div>
-      <div class="feature-card reverse">
-        <div class="feature-image feature-image--light">
-          <img src="/images/natsuin-preview.png" alt="Natsuin（PDF捺印ツール）- PDFに電子印鑑・署名を配置できる無料ツール" width="2848" height="1504" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-        </div>
-        <div class="feature-content">
-          <h3>Natsuin（PDF捺印ツール）</h3>
-          <p>PDFファイルに電子印鑑・角印・署名を配置して捺印済みPDFを出力できる完全無料のWebツールです。日本語・英語署名にも対応。ファイルはブラウザ内で処理されます。</p>
-          <div>
-            <a href="/tools/natsuin.html" class="btn btn-primary">PDF捺印ツールを無料で使う</a>
-          </div>
-        </div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-image feature-image--light">
-          <img src="/images/musubi-preview.png" alt="Musubi（PDF結合・分割ツール）- PDFを結合・分割・並び替え・回転できる無料ツール" width="893" height="779" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-        </div>
-        <div class="feature-content">
-          <h3>Musubi（PDF結合・分割ツール）</h3>
-          <p>PDFファイルを結合・分割・並び替え・回転できる完全無料のWebツールです。ドラッグ＆ドロップで直感的に操作でき、ファイルはブラウザ内で処理されます。インストール・登録不要。</p>
-          <div>
-            <a href="/tools/musubi.html" class="btn btn-primary">PDF結合・分割ツールを無料で使う</a>
-          </div>
-        </div>
-      </div>
-      <div class="feature-card reverse">
-        <div class="feature-image feature-image--dark">
-          <svg width="100" height="100" viewBox="0 0 72 72" fill="none" aria-hidden="true">
-            <rect x="2" y="2" width="24" height="24" rx="3" fill="none" stroke="#c8a872" stroke-width="2.5"/>
-            <rect x="8" y="8" width="12" height="12" fill="#c8a872"/>
-            <rect x="46" y="2" width="24" height="24" rx="3" fill="none" stroke="#c8a872" stroke-width="2.5"/>
-            <rect x="52" y="8" width="12" height="12" fill="#c8a872"/>
-            <rect x="2" y="46" width="24" height="24" rx="3" fill="none" stroke="#c8a872" stroke-width="2.5"/>
-            <rect x="8" y="52" width="12" height="12" fill="#c8a872"/>
-            <rect x="30" y="2" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="36" y="2" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="42" y="2" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="30" y="8" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="36" y="8" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="30" y="14" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="42" y="14" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="30" y="20" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="36" y="20" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="42" y="20" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="46" y="30" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="52" y="30" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="58" y="30" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="64" y="30" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="46" y="36" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="52" y="36" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="58" y="36" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="64" y="36" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="46" y="42" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="52" y="42" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="64" y="42" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="46" y="48" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="52" y="48" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="58" y="48" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="64" y="48" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="2" y="30" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="8" y="30" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="14" y="30" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="20" y="30" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="30" y="30" width="10" height="10" fill="#c8a872" opacity="0.6"/>
-          </svg>
-          <span style="color: #c8a872; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em;">Tsumugi</span>
-        </div>
-        <div class="feature-content">
-          <h3>Tsumugi（QRコードジェネレーター）</h3>
-          <p>URLやテキストからQRコードをブラウザ上で即座に生成できる完全無料のWebツールです。インストール・登録不要で、生成したQRコードはそのままダウンロードできます。</p>
-          <div>
-            <a href="/tools/KizunaTsumugi.html" class="btn btn-primary">QRコードジェネレーターを無料で使う</a>
-          </div>
-        </div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-image feature-image--dark">
-          <svg width="100" height="100" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-            <rect x="4" y="10" width="56" height="44" rx="4" fill="#23252c" stroke="#c8a872" stroke-width="2.5"/>
-            <rect x="10" y="18" width="20" height="14" rx="2" fill="#c8a872" opacity="0.3"/>
-            <line x1="34" y1="22" x2="54" y2="22" stroke="#c8a872" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
-            <line x1="34" y1="28" x2="54" y2="28" stroke="#c8a872" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
-            <rect x="10" y="38" width="44" height="10" rx="2" fill="#c8a872" opacity="0.85"/>
-            <line x1="14" y1="43" x2="50" y2="43" stroke="#1a1b20" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
-          </svg>
-          <span style="color: #c8a872; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em;">Masuku</span>
-        </div>
-        <div class="feature-content">
-          <h3>Masuku（画像・PDFマスキングツール）</h3>
-          <p>画像やPDFファイルの個人情報・機密情報をブラウザ上でマスキング（黒塗り）できる完全無料のWebツールです。ファイルはブラウザ内で処理され、サーバーにはアップロードされません。インストール・登録不要。</p>
-          <div>
-            <a href="/tools/masuku.html" class="btn btn-primary">マスキングツールを無料で使う</a>
-          </div>
-        </div>
-      </div>
-      <div class="section-cta">
-        <a href="/tools/" class="btn btn-primary">無料Webツールをすべて見る</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="plugins bg-white">
+  <!-- Plugins Showcase (3-column compact grid) -->
+  <section class="plugins bg-light">
     <div class="container">
       <h2 class="section-title">kintoneプラグイン</h2>
-      <div class="feature-card">
-        <div class="feature-image feature-image--light">
-          <img src="/images/field-styler-after.png" alt="フィールドスタイラー — kintoneフィールドの背景色・文字色・条件付きスタイル等を自由にカスタマイズ" width="1920" height="960" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-        </div>
-        <div class="feature-content">
-          <h3>フィールドスタイラー</h3>
-          <p>kintoneフィールドの背景色・文字色・フォント・条件付きスタイルなど、全10機能をノーコードで設定できる kintone 拡張プラグインです。基本機能は完全無料でご利用いただけます。</p>
-          <div>
-            <a href="/plugins/field-styler/" class="btn btn-primary">無料でダウンロード</a>
+      <p class="section-subtitle">すべて<strong>完全無料</strong>で配布中。気に入ったらサポーターとして開発を応援してください。</p>
+      <div class="plugins-grid">
+        <a href="/plugins/file-icon-marker/" class="plugin-card-compact">
+          <div class="plugin-card-thumb">
+            <img src="/images/file-icon-marker-banner.png" alt="添付ファイルアイコン表示プラグイン" loading="lazy" width="1200" height="675">
+            <span class="plugin-card-badge new">NEW</span>
           </div>
-        </div>
-      </div>
-      <div class="feature-card reverse">
-        <div class="feature-image feature-image--dark">
-          <img src="/images/conditional-numbering-icon.png" alt="条件分岐自動採番プラグイン — フィールドの条件に応じて採番ルールを自動切替" width="400" height="400" style="position:relative; width:260px; height:260px; object-fit:contain; border-radius:24px; box-shadow:0 8px 24px rgba(0,0,0,0.4);">
-        </div>
-        <div class="feature-content">
-          <h3>条件分岐自動採番</h3>
-          <p>部署・担当者・ステータスなどの条件に応じて採番ルールを自動切替。CSVインポート後の一括採番にも対応した、kintone専用の自動採番プラグインです。完全無料で配布中。</p>
-          <div>
-            <a href="/plugins/kw-conditional-numbering/" class="btn btn-primary">無料でダウンロード</a>
+          <div class="plugin-card-body">
+            <h3>添付ファイルアイコン表示</h3>
+            <p>一覧画面で添付ファイルの有無・種別・件数をアイコンで可視化。28種の拡張子別アイコン＋件数バッジ。</p>
+            <span class="plugin-card-link">無料で見る →</span>
           </div>
-        </div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-image feature-image--light">
-          <img src="/images/form-deco-banner.png" alt="FormDecoプラグイン — kintoneレコード詳細画面の罫線とスペースフィールドの装飾をノーコードでカスタマイズ" width="1200" height="675" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-        </div>
-        <div class="feature-content">
-          <h3>FormDeco</h3>
-          <p>kintoneレコード詳細画面の罫線（区切り線）と、スペースフィールドの背景・テキスト・画像をノーコードでカスタマイズ。フォームの見た目を整えて業務アプリの視認性をぐっと向上させます。基本機能は完全無料でご利用いただけます。</p>
-          <div>
-            <a href="/plugins/form-deco/" class="btn btn-primary">無料でダウンロード</a>
+        </a>
+        <a href="/plugins/quick-search/" class="plugin-card-compact">
+          <div class="plugin-card-thumb">
+            <img src="/images/quick-search-banner.png" alt="クイックサーチプラグイン" loading="lazy" width="1200" height="675">
+            <span class="plugin-card-badge free">FREE</span>
           </div>
-        </div>
-      </div>
-      <div class="feature-card reverse">
-        <div class="feature-image feature-image--light">
-          <img src="/images/lookup-suggest-banner.png" alt="ルックアップサジェストプラグイン — 入力中に候補リストを表示し、画面遷移なしで取得完結" width="1200" height="675" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-        </div>
-        <div class="feature-content">
-          <h3>ルックアップサジェスト</h3>
-          <p>kintoneのルックアップフィールドへ入力するとリアルタイムで候補が直下に表示され、画面遷移なしでルックアップ取得を完結。複数ルックアップ・追加表示フィールドにも対応した、入力作業を高速化するプラグインです。完全無料で配布中。</p>
-          <div>
-            <a href="/plugins/lookup-suggest/" class="btn btn-primary">無料でダウンロード</a>
+          <div class="plugin-card-body">
+            <h3>クイックサーチ</h3>
+            <p>一覧画面にインライン検索バーを設置。AND/OR切替・複数キーワード対応で横断検索を高速化。</p>
+            <span class="plugin-card-link">無料で見る →</span>
           </div>
-        </div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-image feature-image--light">
-          <img src="/images/quick-search-banner.png" alt="クイックサーチプラグイン — kintone一覧画面のフィルター/ソートアイコン横にインライン検索バーを設置し、AND/OR切替・複数キーワードでレコードを素早く絞り込み" width="1200" height="675" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-        </div>
-        <div class="feature-content">
-          <h3>クイックサーチ</h3>
-          <p>kintone一覧画面のフィルター/ソートアイコン横にインライン検索バーを追加。AND/OR切替・スペース区切りの複数キーワード・テキスト系/選択肢系フィールドの横断検索に対応した、レコード絞り込みを高速化するプラグインです。完全無料で配布中。</p>
-          <div>
-            <a href="/plugins/quick-search/" class="btn btn-primary">無料でダウンロード</a>
+        </a>
+        <a href="/plugins/lookup-suggest/" class="plugin-card-compact">
+          <div class="plugin-card-thumb">
+            <img src="/images/lookup-suggest-banner.png" alt="ルックアップサジェストプラグイン" loading="lazy" width="1200" height="675">
+            <span class="plugin-card-badge free">FREE</span>
           </div>
-        </div>
-      </div>
-      <div class="feature-card reverse">
-        <div class="feature-image feature-image--light">
-          <img src="/images/file-icon-marker-banner.png" alt="添付ファイルアイコン表示プラグイン — kintone一覧画面で添付ファイルの有無・種別・件数をアイコンと件数バッジで可視化" width="1200" height="675" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-        </div>
-        <div class="feature-content">
-          <h3>添付ファイルアイコン表示</h3>
-          <p>kintone一覧画面で添付ファイルの有無・種別・件数をアイコンで可視化。PDF/Excel/画像など28種の拡張子別アイコンと件数バッジ、hoverツールチップでファイル名表示まで対応した、レコード横断把握を高速化するプラグインです。完全無料で配布中。</p>
-          <div>
-            <a href="/plugins/file-icon-marker/" class="btn btn-primary">無料でダウンロード</a>
+          <div class="plugin-card-body">
+            <h3>ルックアップサジェスト</h3>
+            <p>ルックアップフィールドへの入力中に候補を直下表示。画面遷移なしで取得まで完結。</p>
+            <span class="plugin-card-link">無料で見る →</span>
           </div>
-        </div>
+        </a>
+        <a href="/plugins/form-deco/" class="plugin-card-compact">
+          <div class="plugin-card-thumb">
+            <img src="/images/form-deco-banner.png" alt="FormDecoプラグイン" loading="lazy" width="1200" height="675">
+            <span class="plugin-card-badge free">FREE</span>
+          </div>
+          <div class="plugin-card-body">
+            <h3>FormDeco</h3>
+            <p>レコード詳細画面の罫線とスペースフィールドの装飾をノーコードでカスタマイズ。</p>
+            <span class="plugin-card-link">無料で見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/kw-conditional-numbering/" class="plugin-card-compact">
+          <div class="plugin-card-thumb">
+            <img src="/images/conditional-numbering-banner.png" alt="条件分岐自動採番プラグイン" loading="lazy" width="1200" height="675">
+            <span class="plugin-card-badge free">FREE</span>
+          </div>
+          <div class="plugin-card-body">
+            <h3>条件分岐自動採番</h3>
+            <p>部署・担当者・ステータス等の条件に応じて採番ルールを自動切替。CSV一括採番にも対応。</p>
+            <span class="plugin-card-link">無料で見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/field-styler/" class="plugin-card-compact">
+          <div class="plugin-card-thumb">
+            <img src="/images/field-styler-after.png" alt="フィールドスタイラー" loading="lazy" width="1920" height="960">
+            <span class="plugin-card-badge free">FREE</span>
+          </div>
+          <div class="plugin-card-body">
+            <h3>フィールドスタイラー</h3>
+            <p>背景色・文字色・条件付きスタイルなど10機能をノーコード設定。kintoneの視認性を大幅向上。</p>
+            <span class="plugin-card-link">無料で見る →</span>
+          </div>
+        </a>
       </div>
-      <div class="section-cta">
-        <a href="/plugins/" class="btn btn-primary">kintoneプラグインをすべて見る</a>
+      <div class="section-cta-center">
+        <a href="/plugins/" class="btn btn-primary">kintoneプラグインをすべて見る →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Free Web Tools (compact / おまけ) -->
+  <section class="bg-white tools-section-compact">
+    <div class="container" style="padding-top:0; padding-bottom:0;">
+      <h2 class="section-title">無料Webツール</h2>
+      <p class="section-subtitle">プラグインのおまけとして、ブラウザで完結する便利な無料ツールも公開しています。インストール・登録不要です。</p>
+      <div class="tools-mini-grid">
+        <a href="/tools/stamp-maker.html" class="tool-mini-card">
+          <span class="tool-mini-icon">🔴</span>
+          <span class="tool-mini-name">inkan</span>
+          <span class="tool-mini-desc">電子印鑑メーカー</span>
+        </a>
+        <a href="/tools/natsuin.html" class="tool-mini-card">
+          <span class="tool-mini-icon">📄</span>
+          <span class="tool-mini-name">Natsuin</span>
+          <span class="tool-mini-desc">PDF捺印ツール</span>
+        </a>
+        <a href="/tools/musubi.html" class="tool-mini-card">
+          <span class="tool-mini-icon">🔗</span>
+          <span class="tool-mini-name">Musubi</span>
+          <span class="tool-mini-desc">PDF結合・分割</span>
+        </a>
+        <a href="/tools/KizunaTsumugi.html" class="tool-mini-card">
+          <span class="tool-mini-icon">📱</span>
+          <span class="tool-mini-name">Tsumugi</span>
+          <span class="tool-mini-desc">QRコード生成</span>
+        </a>
+        <a href="/tools/masuku.html" class="tool-mini-card">
+          <span class="tool-mini-icon">⬛</span>
+          <span class="tool-mini-name">Masuku</span>
+          <span class="tool-mini-desc">画像/PDFマスキング</span>
+        </a>
+        <a href="/tools/Shuku.html" class="tool-mini-card">
+          <span class="tool-mini-icon">📦</span>
+          <span class="tool-mini-name">Shuku</span>
+          <span class="tool-mini-desc">画像圧縮ツール</span>
+        </a>
+      </div>
+      <div class="section-cta-center" style="margin-top:24px;">
+        <a href="/tools/" class="hero-secondary-link" style="color:#1B3A6B;">無料Webツール一覧へ →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats (数字で見る KIZUNA Works) -->
+  <section class="stats">
+    <div class="container" style="padding-top:0; padding-bottom:0;">
+      <h2 class="section-title">数字で見る KIZUNA Works</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-num">6</div>
+          <div class="stat-label">kintoneプラグイン</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">6</div>
+          <div class="stat-label">無料Webツール</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">7</div>
+          <div class="stat-label">ブログ記事</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">365<span style="font-size:1.4rem;">日</span></div>
+          <div class="stat-label">いつでも無料</div>
+        </div>
       </div>
     </div>
   </section>
