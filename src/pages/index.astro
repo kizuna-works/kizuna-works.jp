@@ -3,8 +3,25 @@ import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import BlogCard from '../components/BlogCard.astro';
 
-const recentPosts = (await getCollection('blog'))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+const allPosts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// 新着: latest 3 by pubDate
+const recentPosts = allPosts.slice(0, 3);
+
+// 人気: hand-curated for visitors looking to compare/decide
+const popularSlugs = [
+  'kintone-kensaku-plugin-hikaku',
+  'kintone-design-plugin-osusume',
+  'kintone-teichaku-shinai-riyu',
+];
+const popularPosts = popularSlugs
+  .map((slug) => allPosts.find((p) => p.id === slug))
+  .filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+// プラグイン解説: posts tagged "プラグイン"
+const pluginPosts = allPosts
+  .filter((p) => Array.isArray(p.data.tags) && p.data.tags.includes('プラグイン'))
   .slice(0, 3);
 ---
 
@@ -592,6 +609,135 @@ const recentPosts = (await getCollection('blog'))
     }
 
     /* =========================================
+       Blog Tabs
+    ========================================= */
+    .blog-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .blog-tab {
+      padding: 10px 22px;
+      background: #FFFFFF;
+      border: 2px solid #e2e8f0;
+      border-radius: 24px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .blog-tab:hover {
+      border-color: #2E8B2E;
+      color: #1B3A6B;
+    }
+
+    .blog-tab.is-active {
+      background: #1B3A6B;
+      border-color: #1B3A6B;
+      color: #FFFFFF;
+    }
+
+    .blog-panel {
+      display: none;
+    }
+
+    .blog-panel.is-active {
+      display: block;
+    }
+
+    /* =========================================
+       Note Compact Section
+    ========================================= */
+    .note-compact {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 36px 32px;
+      margin: 48px auto 0;
+      max-width: 720px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      border-left: 5px solid #41c9b4;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .note-compact-icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      background: #41c9b4;
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+    }
+
+    .note-compact-body {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .note-compact-body h3 {
+      color: #1B3A6B;
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .note-compact-body p {
+      color: #555;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .note-compact-actions {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .note-compact-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 20px;
+      border-radius: 24px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .note-compact-btn.btn-note {
+      background: #41c9b4;
+      color: #FFFFFF;
+    }
+
+    .note-compact-btn.btn-note:hover {
+      background: #2cae9b;
+    }
+
+    .note-compact-btn.btn-x {
+      background: #1B3A6B;
+      color: #FFFFFF;
+    }
+
+    .note-compact-btn.btn-x:hover {
+      background: #0d2147;
+    }
+
+    /* =========================================
        Services Section (3 Cards)
     ========================================= */
     .grid-3 {
@@ -925,6 +1071,24 @@ const recentPosts = (await getCollection('blog'))
       .stat-item {
         padding: 14px 10px;
       }
+      .blog-tabs {
+        gap: 6px;
+      }
+      .blog-tab {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+      }
+      .note-compact {
+        padding: 24px 22px;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        gap: 16px;
+      }
+      .note-compact-actions {
+        flex-direction: row;
+        justify-content: center;
+      }
       .container {
         padding: 60px 15px;
       }
@@ -1181,101 +1345,102 @@ const recentPosts = (await getCollection('blog'))
   <section class="blog bg-light">
     <div class="container text-center">
       <h2 class="section-title">ブログ・コラム</h2>
-      {recentPosts.length > 0 ? (
-        <div class="blog-grid">
-          {recentPosts.map((post) => (
-            <BlogCard
-              href={`/blog/${post.id}/`}
-              title={post.data.title}
-              date={post.data.pubDate}
-              ogImage={post.data.ogImage}
-              description={post.data.description}
-            />
-          ))}
-        </div>
-      ) : (
-        <p class="no-posts">記事を準備中です。</p>
-      )}
 
-      <h2 class="section-title section-title-note">note 記事</h2>
-      <div class="blog-grid" id="home-note-articles">
-        <div class="note-loading" id="home-note-loading">
-          <div class="note-spinner"></div>
-          <p>読み込み中...</p>
-        </div>
+      <div class="blog-tabs" role="tablist">
+        <button class="blog-tab is-active" data-tab="recent" role="tab" aria-selected="true">新着</button>
+        <button class="blog-tab" data-tab="popular" role="tab" aria-selected="false">人気</button>
+        <button class="blog-tab" data-tab="plugin" role="tab" aria-selected="false">プラグイン解説</button>
       </div>
 
-      <a href="/blog/" class="btn btn-primary">ブログ・コラム一覧へ</a>
+      <div class="blog-panel is-active" data-panel="recent">
+        {recentPosts.length > 0 ? (
+          <div class="blog-grid">
+            {recentPosts.map((post) => (
+              <BlogCard
+                href={`/blog/${post.id}/`}
+                title={post.data.title}
+                date={post.data.pubDate}
+                ogImage={post.data.ogImage}
+                description={post.data.description}
+              />
+            ))}
+          </div>
+        ) : (
+          <p class="no-posts">記事を準備中です。</p>
+        )}
+      </div>
+
+      <div class="blog-panel" data-panel="popular">
+        {popularPosts.length > 0 ? (
+          <div class="blog-grid">
+            {popularPosts.map((post) => (
+              <BlogCard
+                href={`/blog/${post.id}/`}
+                title={post.data.title}
+                date={post.data.pubDate}
+                ogImage={post.data.ogImage}
+                description={post.data.description}
+              />
+            ))}
+          </div>
+        ) : (
+          <p class="no-posts">記事を準備中です。</p>
+        )}
+      </div>
+
+      <div class="blog-panel" data-panel="plugin">
+        {pluginPosts.length > 0 ? (
+          <div class="blog-grid">
+            {pluginPosts.map((post) => (
+              <BlogCard
+                href={`/blog/${post.id}/`}
+                title={post.data.title}
+                date={post.data.pubDate}
+                ogImage={post.data.ogImage}
+                description={post.data.description}
+              />
+            ))}
+          </div>
+        ) : (
+          <p class="no-posts">記事を準備中です。</p>
+        )}
+      </div>
+
+      <a href="/blog/" class="btn btn-primary" style="margin-top: 32px;">ブログ・コラム一覧へ</a>
+
+      <!-- note compact card -->
+      <div class="note-compact">
+        <div class="note-compact-icon">n</div>
+        <div class="note-compact-body">
+          <h3>note でも発信中</h3>
+          <p>kintone 活用のヒントや業務効率化の Tips を、note と X（@KIZUNA_works_DX）でも発信しています。</p>
+        </div>
+        <div class="note-compact-actions">
+          <a href="https://note.com/kizuna_works/" target="_blank" rel="noopener noreferrer" class="note-compact-btn btn-note">note を見る →</a>
+          <a href="https://twitter.com/KIZUNA_works_DX" target="_blank" rel="noopener noreferrer" class="note-compact-btn btn-x">X をフォロー</a>
+        </div>
+      </div>
     </div>
   </section>
   </main>
 
   <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
-      const API_ENDPOINT = '/api/note-feed.json';
-      const MAX_ITEMS = 3;
-      const container = document.getElementById('home-note-articles');
-      const loading = document.getElementById('home-note-loading');
-      if (!container || !loading) return;
-
-      const formatDate = (dateString) => {
-        if (!dateString) return '';
-        const date = new Date(dateString.replace(/-/g, '/'));
-        if (isNaN(date.getTime())) return dateString.split(' ')[0].replace(/-/g, '.');
-        const y = date.getFullYear();
-        const m = String(date.getMonth() + 1).padStart(2, '0');
-        const d = String(date.getDate()).padStart(2, '0');
-        return `${y}.${m}.${d}`;
-      };
-
-      const stripHtml = (html) => {
-        if (!html) return '';
-        const tmp = document.createElement('div');
-        tmp.innerHTML = html;
-        return tmp.textContent || tmp.innerText || '';
-      };
-
-      const escapeHtml = (s) => s
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-
-      fetch(API_ENDPOINT)
-        .then((res) => {
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          return res.json();
-        })
-        .then((data) => {
-          loading.remove();
-          if (data.status === 'ok' && Array.isArray(data.items) && data.items.length > 0) {
-            data.items.slice(0, MAX_ITEMS).forEach((item) => {
-              const excerpt = stripHtml(item.description || '').substring(0, 80) + '...';
-              const card = document.createElement('a');
-              card.href = item.link;
-              card.target = '_blank';
-              card.rel = 'noopener noreferrer';
-              card.className = 'blog-card home-note-card';
-              card.innerHTML = `
-                <div class="blog-card-body">
-                  <p class="blog-card-date"><span class="home-note-badge">note</span> ${formatDate(item.pubDate)}</p>
-                  <h3 class="blog-card-title">${escapeHtml(item.title || '')}</h3>
-                  <p class="blog-card-excerpt">${escapeHtml(excerpt)}</p>
-                  <span class="blog-card-btn">noteで読む</span>
-                </div>
-              `;
-              container.appendChild(card);
-            });
-          } else {
-            container.innerHTML = '<p class="no-posts" style="grid-column:1/-1;">現在note記事はありません</p>';
-          }
-        })
-        .catch((err) => {
-          console.error('note RSS fetch error:', err);
-          if (loading.parentNode) loading.remove();
-          container.innerHTML = '<p class="no-posts" style="grid-column:1/-1;">note記事の取得に失敗しました</p>';
+      // Blog tab switcher
+      const tabs = document.querySelectorAll('.blog-tab');
+      const panels = document.querySelectorAll('.blog-panel');
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const target = tab.getAttribute('data-tab');
+          tabs.forEach((t) => {
+            t.classList.toggle('is-active', t === tab);
+            t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+          });
+          panels.forEach((p) => {
+            p.classList.toggle('is-active', p.getAttribute('data-panel') === target);
+          });
         });
+      });
     });
   </script>
 </Layout>
