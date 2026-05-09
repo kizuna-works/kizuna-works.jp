@@ -27,6 +27,18 @@ export interface Plugin {
   status: PluginStatus;
   /** Numeric price in JPY for the free badge row. Omit for coming-soon. */
   price?: number;
+  /**
+   * Short, punchy description for the homepage compact showcase card.
+   * Keep to ~50–80 Japanese characters; avoid SEO keyword stuffing.
+   */
+  cardDescription: string;
+  /**
+   * Problem statement title shown in bold on the homepage 課題リスト.
+   * Phrase as the user's pain (not the solution).
+   */
+  problemTitle: string;
+  /** Problem detail rendered after the em dash on the same item. */
+  problemDesc: string;
 }
 
 export const plugins: Plugin[] = [
@@ -45,6 +57,10 @@ export const plugins: Plugin[] = [
     imageHeight: 960,
     status: 'available',
     price: 0,
+    cardDescription:
+      '背景色・文字色・条件付きスタイルなど10機能をノーコード設定。kintoneの視認性を大幅向上。',
+    problemTitle: 'フィールドの色分けや条件付き書式',
+    problemDesc: 'JavaScript なしでノーコードに実現したい',
   },
   {
     id: 'kw-conditional-numbering',
@@ -61,6 +77,10 @@ export const plugins: Plugin[] = [
     imageHeight: 675,
     status: 'available',
     price: 0,
+    cardDescription:
+      '部署・担当者・ステータス等の条件に応じて採番ルールを自動切替。CSV一括採番にも対応。',
+    problemTitle: '採番ルールを条件で自動切替',
+    problemDesc: 'CSVインポート後の一括採番にも対応したい',
   },
   {
     id: 'kw-form-deco',
@@ -77,6 +97,10 @@ export const plugins: Plugin[] = [
     imageHeight: 675,
     status: 'available',
     price: 0,
+    cardDescription:
+      'レコード詳細画面の罫線とスペースフィールドの装飾をノーコードでカスタマイズ。',
+    problemTitle: 'レコード詳細画面の見た目を整えたい',
+    problemDesc: '罫線やスペース要素を JavaScript なしで装飾したい',
   },
   {
     id: 'kw-lookup-suggest',
@@ -93,6 +117,10 @@ export const plugins: Plugin[] = [
     imageHeight: 675,
     status: 'available',
     price: 0,
+    cardDescription:
+      'ルックアップフィールドへの入力中に候補を直下表示。画面遷移なしで取得まで完結。',
+    problemTitle: 'ルックアップ入力を高速化',
+    problemDesc: '入力中に候補表示でクリック数を減らしたい',
   },
   {
     id: 'kw-quick-search',
@@ -109,6 +137,10 @@ export const plugins: Plugin[] = [
     imageHeight: 675,
     status: 'available',
     price: 0,
+    cardDescription:
+      '一覧画面にインライン検索バーを設置。AND/OR切替・複数キーワード対応で横断検索を高速化。',
+    problemTitle: '複数フィールドを横断検索',
+    problemDesc: '標準の絞り込みパネルでは操作が面倒',
   },
   {
     id: 'kw-file-icon-marker',
@@ -125,6 +157,10 @@ export const plugins: Plugin[] = [
     imageHeight: 675,
     status: 'available',
     price: 0,
+    cardDescription:
+      '一覧画面で添付ファイルの有無・種別・件数をアイコンで可視化。28種の拡張子別アイコン＋件数バッジ。',
+    problemTitle: '添付ファイルの中身が一覧で分からない',
+    problemDesc: '詳細画面を毎回開いて確認している',
   },
   {
     id: 'kw-quick-side-view',
@@ -141,6 +177,10 @@ export const plugins: Plugin[] = [
     imageHeight: 675,
     status: 'available',
     price: 0,
+    cardDescription:
+      '一覧で行クリック→右側サイドバーで最大5件のレコードを並列表示・編集。詳細遷移なしで比較・並行編集。',
+    problemTitle: '詳細画面と一覧の往復が多い',
+    problemDesc: '内容確認のたびに開いて戻るのが面倒・複数レコードの比較もしづらい',
   },
 ];
 

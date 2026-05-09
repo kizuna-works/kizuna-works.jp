@@ -4,6 +4,11 @@ import { getCollection } from 'astro:content';
 import BlogCard from '../components/BlogCard.astro';
 import { plugins } from '../data/plugins';
 
+// Newest first — for problems list and the homepage compact showcase.
+const pluginsNewestFirst = [...plugins].reverse();
+// Showcase grid: latest 6 plugins (newest first).
+const showcasePlugins = pluginsNewestFirst.slice(0, 6);
+
 const allPosts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
@@ -1172,26 +1177,12 @@ const pluginPosts = allPosts
           <span class="problem-mark">✓</span>
           <p class="problem-text"><strong>kintone を導入したのに現場に定着しない</strong> — 入力項目が多すぎる・画面が見づらい等の壁に困っている</p>
         </div>
-        <div class="problem-item">
-          <span class="problem-mark">✓</span>
-          <p class="problem-text"><strong>フィールドの色分けや条件付き書式</strong>を JavaScript なしでノーコードに実現したい</p>
-        </div>
-        <div class="problem-item">
-          <span class="problem-mark">✓</span>
-          <p class="problem-text"><strong>添付ファイルの中身が一覧で分からない</strong> — 詳細画面を毎回開いて確認している</p>
-        </div>
-        <div class="problem-item">
-          <span class="problem-mark">✓</span>
-          <p class="problem-text"><strong>複数フィールドを横断検索したい</strong> — 標準の絞り込みパネルでは操作が面倒</p>
-        </div>
-        <div class="problem-item">
-          <span class="problem-mark">✓</span>
-          <p class="problem-text"><strong>採番ルールを条件で自動切替</strong>したい・CSVインポート後の一括採番にも対応したい</p>
-        </div>
-        <div class="problem-item">
-          <span class="problem-mark">✓</span>
-          <p class="problem-text"><strong>ルックアップ入力を高速化</strong>したい — 入力中に候補表示でクリック数を減らしたい</p>
-        </div>
+        {pluginsNewestFirst.map((p) => (
+          <div class="problem-item">
+            <span class="problem-mark">✓</span>
+            <p class="problem-text"><strong>{p.problemTitle}</strong> — {p.problemDesc}</p>
+          </div>
+        ))}
       </div>
       <p class="problems-cta">これらの課題はすべて、<strong>無料の kintone プラグイン</strong>で解決できます。</p>
       <div class="section-cta-center">
@@ -1206,83 +1197,19 @@ const pluginPosts = allPosts
       <h2 class="section-title">kintoneプラグイン</h2>
       <p class="section-subtitle">すべて<strong>完全無料</strong>で配布中。気に入ったらサポーターとして開発を応援してください。</p>
       <div class="plugins-grid">
-        <a href="/plugins/quick-side-view/" class="plugin-card-compact">
-          <div class="plugin-card-thumb">
-            <img src="/images/quick-side-view-banner.png" alt="クイックサイドビュープラグイン" loading="lazy" width="1200" height="675">
-            <span class="plugin-card-badge new">NEW</span>
-          </div>
-          <div class="plugin-card-body">
-            <h3>クイックサイドビュー</h3>
-            <p>一覧で行クリック→右側サイドバーで最大5件のレコードを並列表示・編集。詳細遷移なしで比較・並行編集。</p>
-            <span class="plugin-card-link">無料で見る →</span>
-          </div>
-        </a>
-        <a href="/plugins/file-icon-marker/" class="plugin-card-compact">
-          <div class="plugin-card-thumb">
-            <img src="/images/file-icon-marker-banner.png" alt="添付ファイルアイコン表示プラグイン" loading="lazy" width="1200" height="675">
-            <span class="plugin-card-badge free">FREE</span>
-          </div>
-          <div class="plugin-card-body">
-            <h3>添付ファイルアイコン表示</h3>
-            <p>一覧画面で添付ファイルの有無・種別・件数をアイコンで可視化。28種の拡張子別アイコン＋件数バッジ。</p>
-            <span class="plugin-card-link">無料で見る →</span>
-          </div>
-        </a>
-        <a href="/plugins/quick-search/" class="plugin-card-compact">
-          <div class="plugin-card-thumb">
-            <img src="/images/quick-search-banner.png" alt="クイックサーチプラグイン" loading="lazy" width="1200" height="675">
-            <span class="plugin-card-badge free">FREE</span>
-          </div>
-          <div class="plugin-card-body">
-            <h3>クイックサーチ</h3>
-            <p>一覧画面にインライン検索バーを設置。AND/OR切替・複数キーワード対応で横断検索を高速化。</p>
-            <span class="plugin-card-link">無料で見る →</span>
-          </div>
-        </a>
-        <a href="/plugins/lookup-suggest/" class="plugin-card-compact">
-          <div class="plugin-card-thumb">
-            <img src="/images/lookup-suggest-banner.png" alt="ルックアップサジェストプラグイン" loading="lazy" width="1200" height="675">
-            <span class="plugin-card-badge free">FREE</span>
-          </div>
-          <div class="plugin-card-body">
-            <h3>ルックアップサジェスト</h3>
-            <p>ルックアップフィールドへの入力中に候補を直下表示。画面遷移なしで取得まで完結。</p>
-            <span class="plugin-card-link">無料で見る →</span>
-          </div>
-        </a>
-        <a href="/plugins/form-deco/" class="plugin-card-compact">
-          <div class="plugin-card-thumb">
-            <img src="/images/form-deco-banner.png" alt="FormDecoプラグイン" loading="lazy" width="1200" height="675">
-            <span class="plugin-card-badge free">FREE</span>
-          </div>
-          <div class="plugin-card-body">
-            <h3>FormDeco</h3>
-            <p>レコード詳細画面の罫線とスペースフィールドの装飾をノーコードでカスタマイズ。</p>
-            <span class="plugin-card-link">無料で見る →</span>
-          </div>
-        </a>
-        <a href="/plugins/kw-conditional-numbering/" class="plugin-card-compact">
-          <div class="plugin-card-thumb">
-            <img src="/images/conditional-numbering-banner.png" alt="条件分岐自動採番プラグイン" loading="lazy" width="1200" height="675">
-            <span class="plugin-card-badge free">FREE</span>
-          </div>
-          <div class="plugin-card-body">
-            <h3>条件分岐自動採番</h3>
-            <p>部署・担当者・ステータス等の条件に応じて採番ルールを自動切替。CSV一括採番にも対応。</p>
-            <span class="plugin-card-link">無料で見る →</span>
-          </div>
-        </a>
-        <a href="/plugins/field-styler/" class="plugin-card-compact">
-          <div class="plugin-card-thumb">
-            <img src="/images/field-styler-after.png" alt="フィールドスタイラー" loading="lazy" width="1920" height="960">
-            <span class="plugin-card-badge free">FREE</span>
-          </div>
-          <div class="plugin-card-body">
-            <h3>フィールドスタイラー</h3>
-            <p>背景色・文字色・条件付きスタイルなど10機能をノーコード設定。kintoneの視認性を大幅向上。</p>
-            <span class="plugin-card-link">無料で見る →</span>
-          </div>
-        </a>
+        {showcasePlugins.map((p, i) => (
+          <a href={`/plugins/${p.slug}/`} class="plugin-card-compact">
+            <div class="plugin-card-thumb">
+              <img src={p.image} alt={p.imageAlt} loading="lazy" width={p.imageWidth} height={p.imageHeight} />
+              <span class={`plugin-card-badge ${i === 0 ? 'new' : 'free'}`}>{i === 0 ? 'NEW' : 'FREE'}</span>
+            </div>
+            <div class="plugin-card-body">
+              <h3>{p.name}</h3>
+              <p>{p.cardDescription}</p>
+              <span class="plugin-card-link">無料で見る →</span>
+            </div>
+          </a>
+        ))}
       </div>
       <div class="section-cta-center">
         <a href="/plugins/" class="btn btn-primary">kintoneプラグインをすべて見る →</a>
