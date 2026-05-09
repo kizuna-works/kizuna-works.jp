@@ -126,6 +126,22 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
   },
+  {
+    id: 'kw-quick-side-view',
+    name: 'クイックサイドビュー',
+    formName: 'クイックサイドビュープラグイン',
+    subtitle: 'kintone プラグイン',
+    slug: 'quick-side-view',
+    description:
+      'kintone一覧画面で行をクリックするとサイドバーが開き、最大5件のレコードを並べて閲覧・編集。詳細画面に遷移せずに比較・並行編集ができます。',
+    image: '/images/quick-side-view-banner.png',
+    imageAlt:
+      'クイックサイドビュープラグイン — 一覧画面で行をクリックすると右側サイドバーが開き、最大5件のレコードを並べて閲覧・編集',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({

@@ -1,0 +1,1160 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+---
+
+<Layout
+  title="クイックサイドビュー - 無料 kintoneプラグイン | KIZUNA Works"
+  description="kintone一覧画面で行をクリックするとサイドバーが開き、最大5件のレコードを並べて閲覧・編集できる無料プラグイン。詳細画面に遷移せず、ビューを維持したまま比較・並行編集が可能。kintone プラグイン 無料配布中。"
+  ogTitle="クイックサイドビュー - 無料 kintoneプラグイン | KIZUNA Works"
+  ogDescription="kintone一覧画面で行をクリックするとサイドバーが開き、最大5件のレコードを並べて閲覧・編集できる無料プラグイン。詳細画面に遷移せず、ビューを維持したまま比較・並行編集が可能。kintone プラグイン 無料配布中。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/quick-side-view/"
+  ogImage="https://kizuna-works.jp/images/quick-side-view-banner.png"
+  canonical="https://kizuna-works.jp/plugins/quick-side-view/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/quick-side-view/",
+          "url": "https://kizuna-works.jp/plugins/quick-side-view/",
+          "name": "クイックサイドビュー - 無料 kintoneプラグイン | KIZUNA Works",
+          "description": "kintone一覧画面で行をクリックするとサイドバーが開き、最大5件のレコードを並べて閲覧・編集できる無料プラグイン。詳細画面に遷移せず、ビューを維持したまま比較・並行編集が可能。kintone プラグイン 無料配布中。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/quick-side-view-banner.png",
+            "width": 1200,
+            "height": 675
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "クイックサイドビュー", "item": "https://kizuna-works.jp/plugins/quick-side-view/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "クイックサイドビュー kintone プラグイン",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "url": "https://kizuna-works.jp/plugins/quick-side-view/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-side-view-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/quick-side-view-banner.png",
+          "screenshot": [
+            "https://kizuna-works.jp/images/quick-side-view-before.png",
+            "https://kizuna-works.jp/images/quick-side-view-action-01.png",
+            "https://kizuna-works.jp/images/quick-side-view-action-02.png",
+            "https://kizuna-works.jp/images/quick-side-view-action-03.png",
+            "https://kizuna-works.jp/images/quick-side-view-config-01.png",
+            "https://kizuna-works.jp/images/quick-side-view-config-02.png"
+          ],
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone一覧画面で行をクリックするとサイドバーが開き、最大5件のレコードを並べて閲覧・編集できる無料プラグイン。kintone プラグイン 無料配布中。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "行クリックでサイドバーを開いて閲覧・編集",
+            "最大5レコードを横並び/縦積みで同時表示",
+            "個別保存・全件一括保存",
+            "他ユーザーの更新を自動検知（30秒間隔）",
+            "未保存時の閉じる確認ダイアログ",
+            "サイドバー幅のドラッグ調整",
+            "表示フィールド・編集可否のフィールド単位制御",
+            "パネル見出しに使うフィールドの指定"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    /* Fade-in Animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    /* Section Wrapper */
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    /* Problem Cards */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    /* Before/After Compare */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    .compare-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      padding: 28px 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .compare-card.before {
+      border-top: 5px solid #cbd5e0;
+    }
+
+    .compare-card.after {
+      border-top: 5px solid var(--color-green);
+    }
+
+    .compare-card-title {
+      color: var(--color-navy);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .compare-image {
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 6px;
+      display: block;
+    }
+
+    .compare-caption {
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 12px;
+      line-height: 1.7;
+    }
+
+    /* Feature List */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    /* Steps */
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    /* Notes */
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 24px 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .faq-icon {
+      font-size: 20px;
+      color: var(--color-navy);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.is-open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+
+    .faq-answer-inner {
+      padding-bottom: 24px;
+      color: var(--color-text-light);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .faq-answer-inner a {
+      color: var(--color-navy);
+      text-decoration: underline;
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    /* Bottom CTA */
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .bottom-cta-links {
+      margin-top: 24px;
+      font-size: 14px;
+    }
+
+    .bottom-cta-links a {
+      text-decoration: underline;
+    }
+
+    .bottom-cta-links a:hover {
+      color: #d1d5db;
+    }
+
+    /* Screenshots Section */
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .screenshot-item {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .screenshot-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+
+    .screenshot-thumb img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+
+    .screenshot-caption {
+      padding: 16px 20px;
+    }
+
+    .screenshot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .screenshot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Related Plugins */
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .related-posts-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding: 60px 5%;
+      }
+      .hero-title {
+        font-size: 28px;
+      }
+      .hero-copy {
+        font-size: 15px;
+      }
+      .hero-icon {
+        width: 140px;
+        height: 140px;
+      }
+      .section-wrapper {
+        padding: 60px 5%;
+      }
+      .problem-grid {
+        grid-template-columns: 1fr;
+      }
+      .compare-grid {
+        grid-template-columns: 1fr;
+      }
+      .bottom-cta-title {
+        font-size: 22px;
+      }
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/quick-side-view-icon.png"
+        alt="クイックサイドビュープラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">クイックサイドビュー kintone プラグイン</h1>
+      <p class="hero-copy">kintone 一覧画面で行をクリックすると右側にサイドバーが開き、最大 5 件のレコードを並べて閲覧・編集。詳細画面に遷移せず、ビューを維持したまま比較・並行編集ができる kintone プラグインです。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">kintone 標準の「一覧 → 詳細 → 戻る」の往復、複数レコード比較の煩雑さ、ちょっとした修正の手間を解消</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🔁</span>
+            <h3 class="problem-title">一覧 ⇔ 詳細の往復が多い</h3>
+            <p class="problem-desc">レコード内容を確認するたびに詳細画面を開いて一覧に戻る、を繰り返すとビューの絞り込み・スクロール位置がリセットされ、流れが途切れる。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🆚</span>
+            <h3 class="problem-title">複数レコードの比較がしにくい</h3>
+            <p class="problem-desc">複数レコードを並べて見比べたい時、kintone 標準では別タブを何枚も開く必要があり、画面の整頓と切替に時間がかかる。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">✏️</span>
+            <h3 class="problem-title">少しの修正で詳細を開くのが面倒</h3>
+            <p class="problem-desc">ステータスやメモなど 1 項目だけ書き換えたいのに、編集画面まで進んで保存して戻る、を全レコードで繰り返すと操作回数が膨らむ。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Before/After Comparison Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">導入前と導入後</h2>
+      <p class="section-subtitle">同じレコード一覧でも、サイドバーの「即座に閲覧・編集できる」体験で業務スピードが大きく変わります</p>
+      <div class="compare-grid">
+        <div class="compare-card before">
+          <h3 class="compare-card-title">導入前</h3>
+          <img
+            src="/images/quick-side-view-before.png"
+            alt="クイックサイドビュープラグイン 導入前 — kintone標準のレコード一覧画面。レコード内容を確認するには行クリックで詳細画面に遷移する必要がある"
+            class="compare-image"
+            loading="lazy"
+          />
+          <p class="compare-caption">標準の一覧画面では、レコード内容を確認するたびに<strong>詳細画面に遷移して一覧に戻る</strong>を繰り返す必要があり、絞り込み・スクロール位置がリセットされて流れが途切れます。複数レコードを比較したい時は別タブを何枚も開く必要も。</p>
+        </div>
+        <div class="compare-card after">
+          <h3 class="compare-card-title">導入後</h3>
+          <img
+            src="/images/quick-side-view-action-01.png"
+            alt="クイックサイドビュープラグイン 導入後 — 行クリックで右側にサイドバーが開き、レコード内容を一覧維持のまま閲覧・編集できる状態"
+            class="compare-image"
+            loading="lazy"
+          />
+          <p class="compare-caption">行クリックで<strong>右側にサイドバーが開き</strong>、一覧を維持したままレコード内容を閲覧・編集できます。詳細画面への遷移は不要、ビューの絞り込み・スクロール位置もそのまま。最大 5 件まで並べて比較・並行編集も可能。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">主な機能</h2>
+      <ul class="feature-list">
+        <li><span><strong>行クリックでサイドバー表示</strong> — 一覧画面で行をクリックすると画面右側にサイドバーが開き、対象レコードのフィールドが表示されます。詳細画面への遷移は不要です。</span></li>
+        <li><span><strong>最大 5 レコード並列表示</strong> — 複数行をクリックするとパネルとして横に並びます。6 件目をクリックすると最も古いパネルを自動で閉じて新しいレコードを追加。</span></li>
+        <li><span><strong>横並び / 縦積み レイアウト切替</strong> — 比較メインなら横並び、編集メインなら縦積み。アプリの用途に合わせて選択可能。</span></li>
+        <li><span><strong>インライン編集 + 個別保存 / 全件一括保存</strong> — 編集可フィールドはサイドバー内で直接編集。各パネルの「保存」ボタンと、上部「全て保存」ボタンに対応。</span></li>
+        <li><span><strong>フィールド単位で表示・編集を制御</strong> — 設定画面で各フィールドに「表示する／しない」「読取専用／編集可」を指定。並び順はドラッグで変更可能。</span></li>
+        <li><span><strong>パネル見出しのカスタマイズ</strong> — 任意のフィールドをパネル見出しに使用可能（会社名・件名など）。見出しクリックで別タブ詳細画面へ。</span></li>
+        <li><span><strong>他ユーザー更新の自動検知</strong> — 開いているレコードが他で編集されると 30 秒以内にバナー表示。「再読み込み」で最新化できます。</span></li>
+        <li><span><strong>未保存時の閉じる確認</strong> — 編集中のパネルを閉じる・離脱する際は確認ダイアログで作業内容を保護。</span></li>
+        <li><span><strong>サイドバー幅のドラッグ調整</strong> — サイドバー左端をドラッグして幅を調整。設定はブラウザに保存され次回も同じ幅で開きます。</span></li>
+      </ul>
+    </section>
+
+    <!-- Action Screenshots Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">動作画面イメージ</h2>
+        <p class="section-subtitle">レコード一覧画面で実際にどう見えるか</p>
+        <div class="screenshots-grid">
+          <div class="screenshot-item">
+            <div class="screenshot-thumb">
+              <img
+                src="/images/quick-side-view-action-01.png"
+                alt="クイックサイドビュープラグイン — 一覧画面で行をクリックすると右側にサイドバーが開き、対象レコードのフィールドが表示されている全景"
+                loading="lazy"
+              />
+            </div>
+            <div class="screenshot-caption">
+              <strong>① 行クリックでサイドバー表示</strong>
+              <p>一覧画面で行をクリックすると、画面右側にサイドバーが開いて該当レコードのフィールドが表示されます。詳細画面への遷移は不要で、ビューの絞り込み・スクロール位置はそのまま維持。</p>
+            </div>
+          </div>
+          <div class="screenshot-item">
+            <div class="screenshot-thumb">
+              <img
+                src="/images/quick-side-view-action-02.png"
+                alt="クイックサイドビュープラグイン — 2件のレコードを横並びレイアウトでサイドバーに表示し比較している状態"
+                loading="lazy"
+              />
+            </div>
+            <div class="screenshot-caption">
+              <strong>② 横並びレイアウトで比較</strong>
+              <p>複数行をクリックすると、横並びレイアウトでは最大 5 件までパネルが横方向に均等幅で並びます。フィールド数が少なくレコード比較がメインの場面に最適。サイドバー上部に開閉数（n / 最大）が表示されます。</p>
+            </div>
+          </div>
+          <div class="screenshot-item">
+            <div class="screenshot-thumb">
+              <img
+                src="/images/quick-side-view-action-03.png"
+                alt="クイックサイドビュープラグイン — 2件のレコードを縦積みレイアウトでサイドバーに表示している状態"
+                loading="lazy"
+              />
+            </div>
+            <div class="screenshot-caption">
+              <strong>③ 縦積みレイアウトで編集</strong>
+              <p>縦積みレイアウトはパネルが上下に積まれ、各レコードのフィールドを横幅いっぱいに表示。フィールド数が多く、編集メインの場面に最適です。設定画面で横並びと縦積みをワンクリックで切替できます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Config Screenshots Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">設定画面イメージ</h2>
+      <p class="section-subtitle">プログラミング知識不要・ノーコードで完結</p>
+      <div class="screenshots-grid">
+        <div class="screenshot-item">
+          <div class="screenshot-thumb">
+            <img
+              src="/images/quick-side-view-config-01.png"
+              alt="クイックサイドビュープラグイン 設定画面 — レイアウト（横並び/縦積み）・パネル見出しに使うフィールド・最大パネル数の上部設定セクション"
+              loading="lazy"
+            />
+          </div>
+          <div class="screenshot-caption">
+            <strong>① レイアウト・タイトル・最大パネル数</strong>
+            <p>サイドバーを横並びにするか縦積みにするか、パネル見出しに使うフィールド、同時に開ける最大パネル数（1〜5）をラジオ・セレクトで設定。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <div class="screenshot-thumb">
+            <img
+              src="/images/quick-side-view-config-02.png"
+              alt="クイックサイドビュープラグイン 設定画面 — フィールド一覧テーブル。各フィールドに表示チェック・読取専用/編集可ラジオ・ドラッグハンドルが並び、表示 ON のフィールドが上に自動集約。USER_SELECT 型のアクション担当者は「読取専用」が自動選択されている"
+              loading="lazy"
+            />
+          </div>
+          <div class="screenshot-caption">
+            <strong>② フィールドの表示・編集設定</strong>
+            <p>アプリのフィールドが一覧で並び、各フィールドに「表示する／しない」「読取専用／編集可」を指定できます。ドラッグハンドルで並び順を変更可能。表示 ON のフィールドは自動で上に集約され、ユーザー選択型などシステム的に編集できない型は「編集可」が自動で disabled になります。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">インストール手順</h2>
+        <p class="section-subtitle">5ステップで導入完了。プログラミング知識は不要です。</p>
+        <ol class="steps-list">
+          <li>「プランについて」セクションのダウンロードボタンから <code>plugin.zip</code> をダウンロード</li>
+          <li>kintone の<strong>システム管理 → プラグイン</strong>を開く</li>
+          <li>「読み込む」ボタンから <code>plugin.zip</code> をアップロード</li>
+          <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>でプラグインを追加</li>
+          <li>プラグインの設定画面で表示フィールドとレイアウトを設定して保存 → アプリを更新</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">プランについて</h2>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">基本プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥0</span>
+            <span class="unit">/ 完全無料</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ 利用期限なし・いつまでも無料</li>
+            <li>✅ 設定画面に控えめな広告エリア表示あり</li>
+          </ul>
+          <a href="/downloads/kw-quick-side-view-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">開発を応援</span>
+          <h3 class="plan-name">年間サポーター</h3>
+          <div class="plan-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+            <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            <li>✅ サポーターの声を優先して開発に反映</li>
+          </ul>
+          <a href="/plugins/supporter/?plugin=kw-quick-side-view" class="btn-primary">サポーターになる →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">よくある質問</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              本当に無料で使えますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい、サイドバー表示・最大5件並列表示・インライン編集・他者更新検知など、すべての機能を無料でご利用いただけます。利用期限もなく、ずっとお使いいただけます。設定画面に控えめな広告エリアが表示されますが、プラグインの動作には影響しません。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              年間サポーターライセンスとは何ですか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                KIZUNA Works のプラグイン開発を応援していただける方向けの年間ライセンス（年額 ¥3,300・税込）です。広告エリアの非表示、プラグイン作成リクエスト・改善要望の送付、サポーターの声を優先反映などの特典があります。詳しくは <a href="/plugins/supporter/?plugin=kw-quick-side-view">サポーターライセンスのご案内</a> をご覧ください。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              レコード詳細画面に遷移したいときは？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                サイドバーのパネル見出しをクリックすると、別タブで詳細画面が開きます。一覧画面の行頭にある詳細リンクアイコン（kintone 標準）はそのまま動作するので、これまで通りに詳細画面へ進むこともできます。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              添付ファイル・サブテーブルも編集できますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                v1 では添付ファイル・サブテーブル・関連レコード・カテゴリー・ステータスは対象外です。これらを操作する場合はパネル見出しから別タブで詳細画面を開いてご利用ください。今後のバージョンアップで対応予定です。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              他のユーザーが同じレコードを編集していたら？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                30 秒間隔でリビジョンをポーリングしており、他で更新されたことを検知するとパネル上部に通知バナーが表示されます。「再読み込み」で最新内容に更新できます（未保存の編集がある場合は確認ダイアログが出ます）。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              どのkintone環境で利用できますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                kintoneのデスクトップ版（一覧画面・LIST 形式）で利用可能です。スタンダードコース・ワイドコースのkintone環境であれば、ドメインを問わずご利用いただけます。カレンダー・カスタマイズビュー・モバイル版は v1 では対応していません。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              設定にプログラミングの知識は必要ですか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                いいえ、プラグインの設定画面からすべての機能をノーコードで設定できます。チェックボックス・ラジオボタン・ドラッグ並び替えで直感的に操作可能です。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome 最新版での確認を推奨します。</li>
+        <li>v1.0.0 では添付ファイル・サブテーブル・関連レコード・カテゴリー・ステータスは編集対象外です。ユーザー選択・組織選択・グループ選択・日時は読取表示のみとなります。</li>
+        <li>レコード一覧画面（LIST 形式）のみ対応しています。カレンダー・カスタマイズビュー・モバイル版では動作しません。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">同じく無料で配布中の kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/quick-search/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/quick-search-banner.png" alt="クイックサーチプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">クイックサーチ</h3>
+            <p class="related-post-desc">一覧画面にインライン検索バー。AND/OR切替で横断検索を高速化。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/file-icon-marker/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/file-icon-marker-banner.png" alt="添付ファイルアイコン表示プラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">添付ファイルアイコン表示</h3>
+            <p class="related-post-desc">一覧画面で添付ファイルの有無・種別・件数をアイコンで可視化。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/lookup-suggest/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/lookup-suggest-banner.png" alt="ルックアップサジェストプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">ルックアップサジェスト</h3>
+            <p class="related-post-desc">ルックアップへの入力中に候補を直下表示。画面遷移なしで取得完結。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+      <p class="bottom-cta-links">info@kizuna-works.jp までお気軽にどうぞ</p>
+    </section>
+
+    <SupporterCTA pluginId="kw-quick-side-view" />
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          gtag('event', 'file_download', {
+            file_name: 'kw-quick-side-view-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: '無料でダウンロード',
+            link_url: '/downloads/kw-quick-side-view-v1.0.0.zip'
+          });
+        });
+      }
+    });
+  </script>
+</Layout>
