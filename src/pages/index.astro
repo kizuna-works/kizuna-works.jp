@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import BlogCard from '../components/BlogCard.astro';
+import { plugins } from '../data/plugins';
 
 const allPosts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -1120,9 +1121,9 @@ const pluginPosts = allPosts
       <h1 class="hero-title">kintoneと業務を、もっと自由にする。</h1>
       <p class="hero-subtitle">完全無料の kintone プラグインとブラウザ完結型 Web ツールを多数公開中。<br>インストール不要・ノーコードで、すぐに使える。</p>
       <div class="hero-stats">
-        <span class="hero-stat"><span class="hero-stat-icon">🧩</span><span class="hero-stat-num">6</span> kintoneプラグイン公開中</span>
+        <span class="hero-stat"><span class="hero-stat-icon">🧩</span><span class="hero-stat-num">{plugins.length}</span> kintoneプラグイン公開中</span>
         <span class="hero-stat"><span class="hero-stat-icon">🛠</span><span class="hero-stat-num">6</span> 無料Webツール公開中</span>
-        <span class="hero-stat"><span class="hero-stat-icon">📝</span><span class="hero-stat-num">7</span> 現場ノウハウ記事</span>
+        <span class="hero-stat"><span class="hero-stat-icon">📝</span><span class="hero-stat-num">{allPosts.length}</span> 現場ノウハウ記事</span>
       </div>
       <div class="hero-actions">
         <a href="/plugins/" class="btn btn-primary">kintoneプラグインを無料で見る →</a>
@@ -1201,10 +1202,21 @@ const pluginPosts = allPosts
       <h2 class="section-title">kintoneプラグイン</h2>
       <p class="section-subtitle">すべて<strong>完全無料</strong>で配布中。気に入ったらサポーターとして開発を応援してください。</p>
       <div class="plugins-grid">
+        <a href="/plugins/quick-side-view/" class="plugin-card-compact">
+          <div class="plugin-card-thumb">
+            <img src="/images/quick-side-view-banner.png" alt="クイックサイドビュープラグイン" loading="lazy" width="1200" height="675">
+            <span class="plugin-card-badge new">NEW</span>
+          </div>
+          <div class="plugin-card-body">
+            <h3>クイックサイドビュー</h3>
+            <p>一覧で行クリック→右側サイドバーで最大5件のレコードを並列表示・編集。詳細遷移なしで比較・並行編集。</p>
+            <span class="plugin-card-link">無料で見る →</span>
+          </div>
+        </a>
         <a href="/plugins/file-icon-marker/" class="plugin-card-compact">
           <div class="plugin-card-thumb">
             <img src="/images/file-icon-marker-banner.png" alt="添付ファイルアイコン表示プラグイン" loading="lazy" width="1200" height="675">
-            <span class="plugin-card-badge new">NEW</span>
+            <span class="plugin-card-badge free">FREE</span>
           </div>
           <div class="plugin-card-body">
             <h3>添付ファイルアイコン表示</h3>
@@ -1323,7 +1335,7 @@ const pluginPosts = allPosts
       <h2 class="section-title">数字で見る KIZUNA Works</h2>
       <div class="stats-grid">
         <div class="stat-item">
-          <div class="stat-num">6</div>
+          <div class="stat-num">{plugins.length}</div>
           <div class="stat-label">kintoneプラグイン</div>
         </div>
         <div class="stat-item">
@@ -1331,7 +1343,7 @@ const pluginPosts = allPosts
           <div class="stat-label">無料Webツール</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">7</div>
+          <div class="stat-num">{allPosts.length}</div>
           <div class="stat-label">ブログ記事</div>
         </div>
         <div class="stat-item">
