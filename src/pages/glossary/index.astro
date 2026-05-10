@@ -1,0 +1,497 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import {
+  glossary,
+  categoryLabels,
+  getGojuonRow,
+  rowOrder,
+  type TermCategory,
+  type Term,
+} from '../../data/glossary';
+import { plugins } from '../../data/plugins';
+import { getCollection } from 'astro:content';
+
+// Sort terms by reading then group by 五十音 row
+const sortedTerms = [...glossary].sort((a, b) =>
+  a.reading.localeCompare(b.reading, 'ja'),
+);
+
+const grouped: Record<string, Term[]> = {};
+for (const t of sortedTerms) {
+  const row = getGojuonRow(t.reading);
+  if (!grouped[row]) grouped[row] = [];
+  grouped[row].push(t);
+}
+
+// Lookup maps for cross-linking
+const pluginsBySlug = new Map(plugins.map((p) => [p.slug, p]));
+const termsById = new Map(glossary.map((t) => [t.id, t]));
+
+const blogPosts = await getCollection('blog');
+const blogById = new Map(blogPosts.map((b) => [b.id, b]));
+
+const categories = (Object.entries(categoryLabels) as [TermCategory, string][]).map(
+  ([value, label]) => ({ value, label }),
+);
+
+// DefinedTermSet JSON-LD
+const definedTermSet = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  '@id': 'https://kizuna-works.jp/glossary/',
+  name: 'kintone 用語集',
+  description:
+    'kintone を理解するために押さえておきたい基本用語からフィールド・API・カスタマイズ・運用まで網羅した用語集',
+  url: 'https://kizuna-works.jp/glossary/',
+  inLanguage: 'ja',
+  hasDefinedTerm: sortedTerms.map((t) => ({
+    '@type': 'DefinedTerm',
+    '@id': `https://kizuna-works.jp/glossary/#${t.id}`,
+    name: t.term,
+    description: t.definition,
+    inDefinedTermSet: 'https://kizuna-works.jp/glossary/',
+  })),
+};
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+    { '@type': 'ListItem', position: 2, name: 'kintone 用語集', item: 'https://kizuna-works.jp/glossary/' },
+  ],
+};
+---
+
+<Layout
+  title="kintone 用語集｜基本からAPI・カスタマイズまで網羅 | KIZUNA Works"
+  description="kintone を理解するために押さえておきたい基本用語・フィールド・機能・運用・API・カスタマイズ・周辺コミュニティの30以上のキーワードを五十音順とカテゴリで整理。アプリ・レコード・ルックアップ・サブテーブル・プロセス管理など実務でよく出る用語を初心者にもわかりやすく解説。"
+  ogTitle="kintone 用語集｜基本からAPI・カスタマイズまで網羅 | KIZUNA Works"
+  ogDescription="kintone を理解するために押さえておきたい基本用語・フィールド・機能・運用・API・カスタマイズ・周辺コミュニティの30以上のキーワードを五十音順とカテゴリで整理。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/glossary/"
+  canonical="https://kizuna-works.jp/glossary/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(definedTermSet)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    .glossary-hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.92) 0%, rgba(42,82,152,0.85) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: #FFFFFF;
+      padding: 80px 5% 60px;
+      text-align: center;
+    }
+
+    .glossary-hero-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .glossary-hero-desc {
+      font-size: 1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
+      opacity: 0.95;
+    }
+
+    .glossary-controls {
+      background-color: #F0F4F8;
+      padding: 28px 5%;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .glossary-controls-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .glossary-search-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .glossary-search {
+      flex: 1;
+      min-width: 240px;
+      padding: 12px 16px;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      background-color: #FFFFFF;
+    }
+
+    .glossary-search:focus {
+      outline: 2px solid #2E8B2E;
+      outline-offset: 1px;
+      border-color: #2E8B2E;
+    }
+
+    .glossary-count {
+      color: #1B3A6B;
+      font-weight: 700;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    .glossary-categories {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .glossary-cat-btn {
+      background-color: #FFFFFF;
+      border: 1.5px solid #cbd5e0;
+      color: #1B3A6B;
+      padding: 6px 14px;
+      border-radius: 18px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .glossary-cat-btn:hover {
+      border-color: #2E8B2E;
+      color: #2E8B2E;
+    }
+
+    .glossary-cat-btn.is-active {
+      background-color: #1B3A6B;
+      color: #FFFFFF;
+      border-color: #1B3A6B;
+    }
+
+    .glossary-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 5% 80px;
+    }
+
+    .glossary-row {
+      margin-bottom: 48px;
+    }
+
+    .glossary-row-title {
+      color: #1B3A6B;
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 3px solid #2E8B2E;
+      display: inline-block;
+    }
+
+    .glossary-terms {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .glossary-term {
+      background-color: #F8FAFC;
+      border-radius: 12px;
+      padding: 22px 24px;
+      border-left: 4px solid #2E8B2E;
+      scroll-margin-top: 200px;
+    }
+
+    .glossary-term-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .glossary-term-name {
+      color: #1B3A6B;
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    .glossary-term-reading {
+      color: #64748b;
+      font-size: 0.78rem;
+    }
+
+    .glossary-term-cat {
+      background-color: #1B3A6B;
+      color: #FFFFFF;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 10px;
+      margin-left: auto;
+    }
+
+    .glossary-term-def {
+      color: #333333;
+      font-size: 0.94rem;
+      line-height: 1.8;
+      margin: 0 0 12px;
+    }
+
+    .glossary-term-def code {
+      background-color: #E2E8F0;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+
+    .glossary-term-rel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+      align-items: center;
+      font-size: 0.82rem;
+      color: #64748b;
+      margin-top: 8px;
+    }
+
+    .glossary-term-rel-label {
+      font-weight: 700;
+      color: #1B3A6B;
+    }
+
+    .glossary-term-rel a {
+      color: #2E8B2E;
+      text-decoration: underline;
+    }
+
+    .glossary-term-rel a:hover {
+      color: #1B3A6B;
+    }
+
+    .glossary-empty {
+      text-align: center;
+      color: #64748b;
+      padding: 60px 20px;
+      display: none;
+    }
+
+    .glossary-empty.is-visible {
+      display: block;
+    }
+
+    .glossary-back-cta {
+      max-width: 1100px;
+      margin: 40px auto 0;
+      padding: 24px 5%;
+      background-color: #F0F4F8;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .glossary-back-cta a {
+      color: #1B3A6B;
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .glossary-hero { padding: 50px 5% 40px; }
+      .glossary-hero-title { font-size: 1.6rem; }
+      .glossary-hero-desc { font-size: 0.92rem; }
+      .glossary-terms { grid-template-columns: 1fr; gap: 14px; }
+      .glossary-term { padding: 18px 18px; }
+      .glossary-row-title { font-size: 1.4rem; }
+      .glossary-controls { padding: 20px 5%; }
+      .glossary-cat-btn { font-size: 0.8rem; padding: 5px 11px; }
+    }
+  </style>
+
+  <main>
+    <section class="glossary-hero">
+      <h1 class="glossary-hero-title">kintone 用語集</h1>
+      <p class="glossary-hero-desc">
+        kintone を理解するために押さえておきたい基本用語からフィールド・機能・運用・API・カスタマイズまで、{glossary.length} のキーワードを五十音順とカテゴリで整理しました。
+      </p>
+    </section>
+
+    <section class="glossary-controls" aria-label="検索とカテゴリ絞り込み">
+      <div class="glossary-controls-inner">
+        <div class="glossary-search-row">
+          <input
+            type="search"
+            class="glossary-search"
+            id="glossary-search"
+            placeholder="用語名・読み・説明文から検索..."
+            aria-label="用語を検索"
+          />
+          <span class="glossary-count" id="glossary-count">{glossary.length} 件</span>
+        </div>
+        <div class="glossary-categories" role="group" aria-label="カテゴリ絞り込み">
+          <button type="button" class="glossary-cat-btn is-active" data-category="all">すべて</button>
+          {categories.map((c) => (
+            <button type="button" class="glossary-cat-btn" data-category={c.value}>{c.label}</button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <div class="glossary-content">
+      {rowOrder.map((row) => {
+        const terms = grouped[row];
+        if (!terms || terms.length === 0) return null;
+        return (
+          <section class="glossary-row" data-row={row}>
+            <h2 class="glossary-row-title">{row}</h2>
+            <div class="glossary-terms">
+              {terms.map((t) => (
+                <article
+                  class="glossary-term"
+                  id={t.id}
+                  data-category={t.category}
+                  data-search={`${t.term} ${t.reading} ${t.definition}`.toLowerCase()}
+                >
+                  <header class="glossary-term-header">
+                    <h3 class="glossary-term-name">{t.term}</h3>
+                    <span class="glossary-term-reading">（{t.reading}）</span>
+                    <span class="glossary-term-cat">{categoryLabels[t.category]}</span>
+                  </header>
+                  <p class="glossary-term-def" set:html={t.definition.replace(/`([^`]+)`/g, '<code>$1</code>')} />
+                  {(t.relatedTerms?.length || t.relatedPlugins?.length || t.relatedBlog?.length) && (
+                    <div class="glossary-term-rel">
+                      {t.relatedTerms && t.relatedTerms.length > 0 && (
+                        <>
+                          <span class="glossary-term-rel-label">関連用語：</span>
+                          {t.relatedTerms.map((rid, i) => {
+                            const rt = termsById.get(rid);
+                            if (!rt) return null;
+                            return (
+                              <>
+                                <a href={`#${rid}`}>{rt.term}</a>
+                                {i < (t.relatedTerms?.length ?? 0) - 1 && <span>・</span>}
+                              </>
+                            );
+                          })}
+                        </>
+                      )}
+                      {t.relatedPlugins && t.relatedPlugins.length > 0 && (
+                        <>
+                          <span class="glossary-term-rel-label">関連プラグイン：</span>
+                          {t.relatedPlugins.map((slug, i) => {
+                            const p = pluginsBySlug.get(slug);
+                            if (!p) return null;
+                            return (
+                              <>
+                                <a href={`/plugins/${slug}/`}>{p.name}</a>
+                                {i < (t.relatedPlugins?.length ?? 0) - 1 && <span>・</span>}
+                              </>
+                            );
+                          })}
+                        </>
+                      )}
+                      {t.relatedBlog && t.relatedBlog.length > 0 && (
+                        <>
+                          <span class="glossary-term-rel-label">関連記事：</span>
+                          {t.relatedBlog.map((id, i) => {
+                            const b = blogById.get(id);
+                            if (!b) return null;
+                            return (
+                              <>
+                                <a href={`/blog/${id}/`}>{b.data.title}</a>
+                                {i < (t.relatedBlog?.length ?? 0) - 1 && <span>・</span>}
+                              </>
+                            );
+                          })}
+                        </>
+                      )}
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+          </section>
+        );
+      })}
+
+      <p class="glossary-empty" id="glossary-empty">
+        該当する用語が見つかりませんでした。検索キーワードを変えるか、カテゴリを「すべて」に戻してください。
+      </p>
+
+      <div class="glossary-back-cta">
+        <p>気になるプラグインや記事もチェックしてみてください。</p>
+        <p>
+          <a href="/plugins/">kintoneプラグイン一覧 →</a>
+          <a href="/blog/">ブログ一覧 →</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var searchInput = document.getElementById('glossary-search');
+      var countLabel = document.getElementById('glossary-count');
+      var emptyMsg = document.getElementById('glossary-empty');
+      var catButtons = document.querySelectorAll('.glossary-cat-btn');
+      var terms = document.querySelectorAll('.glossary-term');
+      var rows = document.querySelectorAll('.glossary-row');
+      var totalCount = terms.length;
+      var activeCategory = 'all';
+      var query = '';
+
+      function applyFilter() {
+        var visible = 0;
+        terms.forEach(function (el) {
+          var cat = el.getAttribute('data-category') || '';
+          var hay = el.getAttribute('data-search') || '';
+          var matchCat = activeCategory === 'all' || cat === activeCategory;
+          var matchQ = query === '' || hay.indexOf(query) !== -1;
+          var show = matchCat && matchQ;
+          el.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+
+        rows.forEach(function (row) {
+          var hasVisible = row.querySelector('.glossary-term:not([style*="display: none"])');
+          row.style.display = hasVisible ? '' : 'none';
+        });
+
+        if (countLabel) {
+          countLabel.textContent = visible + ' / ' + totalCount + ' 件';
+        }
+        if (emptyMsg) {
+          if (visible === 0) emptyMsg.classList.add('is-visible');
+          else emptyMsg.classList.remove('is-visible');
+        }
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', function () {
+          query = searchInput.value.trim().toLowerCase();
+          applyFilter();
+        });
+      }
+
+      catButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          catButtons.forEach(function (b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+          activeCategory = btn.getAttribute('data-category') || 'all';
+          applyFilter();
+        });
+      });
+    })();
+  </script>
+</Layout>

@@ -40,7 +40,8 @@ c:\kizuna-works.jp\
 │   │   ├── SupporterCTA.astro  # サポーターライセンス案内ページへの誘導カード（pluginIdでURL自動付与）
 │   │   └── SupporterForm.astro # サポーターライセンス申込フォーム（URL ?plugin=<id> で自動選択対応）
 │   ├── data/                   # ビルド時参照される TS データ
-│   │   └── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）
+│   │   ├── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）
+│   │   └── glossary.ts         # kintone 用語集の単一情報源（/glossary/ ページと DefinedTermSet JSON-LD を生成）
 │   ├── layouts/                # 共通レイアウトコンポーネント
 │   │   ├── Layout.astro        # 全ページ共通レイアウト（GA4・AdSense・Noto Sans JP・ヘッダー・フッター）
 │   │   └── BlogPost.astro      # ブログ記事専用レイアウト
@@ -73,8 +74,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 添付ファイルアイコン表示プラグイン製品ページ（/plugins/file-icon-marker/）
 │   │   │   └── quick-side-view/
 │   │   │       └── index.astro # クイックサイドビュープラグイン製品ページ（/plugins/quick-side-view/）
-│   │   └── tools/
-│   │       └── index.astro     # 無料ツール一覧ページ（/tools/）
+│   │   ├── tools/
+│   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
+│   │   └── glossary/
+│   │       └── index.astro     # kintone 用語集（/glossary/）— カテゴリ・五十音順、JSで検索/絞り込み、DefinedTermSet JSON-LD 付き
 │   ├── content/
 │   │   ├── config.ts           # コンテンツコレクションのスキーマ定義（blog コレクション）
 │   │   └── blog/               # ブログ記事 Markdown/MDX ファイル置き場
