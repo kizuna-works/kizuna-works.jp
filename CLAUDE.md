@@ -428,7 +428,9 @@ staticHTMLファイルのため、Layout.astro は使用しない。以下を `<
     <nav class="site-header-nav">
       <a href="/tools/" class="site-nav-btn">無料ツール</a>
       <a href="/plugins/" class="site-nav-btn">プラグイン</a>
+      <a href="/extensions/" class="site-nav-btn">拡張機能</a>
       <a href="/blog/" class="site-nav-btn">ブログ</a>
+      <a href="/glossary/" class="site-nav-btn">用語集</a>
       <a href="/contact/" class="site-nav-btn">お問い合わせ</a>
     </nav>
   </div>
