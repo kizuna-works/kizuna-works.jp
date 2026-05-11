@@ -4,7 +4,7 @@ description: "kintoneのフィールドをノーコードでカスタマイズ�
 pubDate: 2026-05-11
 author: "KIZUNA Works"
 tags: ["kintone", "プラグイン", "Field Styler", "フィールドスタイラー", "カスタマイズ", "ノーコード", "業務効率化"]
-ogImage: "/images/field-styler-after.png"
+ogImage: "/images/blog/kintone-field-styler-plugin-guide.png"
 ---
 
 本記事は、kintoneプラグイン開発・カスタマイズ支援の実務経験を持つ筆者が、Field Styler の公式情報と実際の運用知見をもとに整理しています。
