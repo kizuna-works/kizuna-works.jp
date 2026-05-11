@@ -570,6 +570,111 @@ const pluginPosts = allPosts
     }
 
     /* =========================================
+       Extensions Mini Grid (compact / 開発者向け)
+    ========================================= */
+    .extensions-section-compact {
+      padding: 60px 20px;
+    }
+
+    .extensions-section-compact .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+
+    .extensions-section-compact .section-title::after {
+      width: 40px;
+      height: 3px;
+    }
+
+    .extensions-section-compact .section-subtitle {
+      margin-top: 8px;
+    }
+
+    .extensions-mini-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      max-width: 700px;
+      margin: 0 auto 24px;
+    }
+
+    .extension-mini-card {
+      background: #FFFFFF;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px 24px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+
+    .extension-mini-card:hover {
+      border-color: #2E8B2E;
+      box-shadow: 0 6px 18px rgba(46, 139, 46, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .extension-mini-iconbox {
+      flex-shrink: 0;
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+    }
+
+    .extension-mini-iconbox img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .extension-mini-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .extension-mini-name {
+      color: #1B3A6B;
+      font-size: 1.05rem;
+      font-weight: 700;
+      display: block;
+    }
+
+    .extension-mini-desc {
+      color: #4a5568;
+      font-size: 0.85rem;
+      line-height: 1.55;
+      display: block;
+    }
+
+    .extension-mini-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
+    .extension-mini-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 12px;
+      background-color: #e6f4e6;
+      color: #2E8B2E;
+    }
+
+    /* =========================================
        Stats Section (数字で見る KIZUNA Works)
     ========================================= */
     .stats {
@@ -1074,6 +1179,20 @@ const pluginPosts = allPosts
       .tool-mini-icon {
         font-size: 1.4rem;
       }
+      .extension-mini-card {
+        padding: 16px 18px;
+        gap: 14px;
+      }
+      .extension-mini-iconbox {
+        width: 52px;
+        height: 52px;
+      }
+      .extension-mini-name {
+        font-size: 0.95rem;
+      }
+      .extension-mini-desc {
+        font-size: 0.8rem;
+      }
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
@@ -1263,6 +1382,32 @@ const pluginPosts = allPosts
     </div>
   </section>
 
+  <!-- Chrome Extensions (compact / 開発者向け) -->
+  <section class="bg-light extensions-section-compact">
+    <div class="container" style="padding-top:0; padding-bottom:0;">
+      <h2 class="section-title">Chrome 拡張機能</h2>
+      <p class="section-subtitle">kintone カスタマイズ開発・API 連携・運用管理を爆速化する開発者向けの無料 Chrome 拡張機能。</p>
+      <div class="extensions-mini-grid">
+        <a href="/extensions/kw-field-viewer-for-kintone/" class="extension-mini-card">
+          <div class="extension-mini-iconbox">
+            <img src="/images/extensions/kw-field-viewer-icon.png" alt="KW Field Viewer for kintone アイコン" width="64" height="64" loading="lazy">
+          </div>
+          <div class="extension-mini-body">
+            <span class="extension-mini-name">KW Field Viewer for kintone</span>
+            <span class="extension-mini-desc">フィールドコードをページ上にオーバーレイ表示。CSV/JSON/Markdown/HTML 出力対応。</span>
+            <span class="extension-mini-tags">
+              <span class="extension-mini-tag">完全無料</span>
+              <span class="extension-mini-tag">開発者向け</span>
+            </span>
+          </div>
+        </a>
+      </div>
+      <div class="section-cta-center" style="margin-top:24px;">
+        <a href="/extensions/" class="hero-secondary-link" style="color:#1B3A6B;">Chrome 拡張機能一覧へ →</a>
+      </div>
+    </div>
+  </section>
+
   <!-- Stats (数字で見る KIZUNA Works) -->
   <section class="stats">
     <div class="container" style="padding-top:0; padding-bottom:0;">
@@ -1277,12 +1422,12 @@ const pluginPosts = allPosts
           <div class="stat-label">無料Webツール</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">{allPosts.length}</div>
-          <div class="stat-label">ブログ記事</div>
+          <div class="stat-num">1</div>
+          <div class="stat-label">Chrome 拡張機能</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">365<span style="font-size:1.4rem;">日</span></div>
-          <div class="stat-label">いつでも無料</div>
+          <div class="stat-num">{allPosts.length}</div>
+          <div class="stat-label">ブログ記事</div>
         </div>
       </div>
     </div>
