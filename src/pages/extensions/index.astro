@@ -174,19 +174,22 @@ import Layout from '../../layouts/Layout.astro';
     }
 
     .ext-image-wrapper {
-      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-bottom: 1px solid #e2e8f0;
     }
 
     .ext-image-wrapper img {
-      width: 110px;
-      height: 110px;
-      border-radius: 18px;
-      background-color: #FFFFFF;
-      padding: 10px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .ext-card:hover .ext-image-wrapper img {
+      transform: scale(1.04);
     }
 
     .ext-content {
@@ -281,7 +284,7 @@ import Layout from '../../layouts/Layout.astro';
       <div class="ext-grid">
         <article class="ext-card">
           <div class="ext-image-wrapper">
-            <img src="/images/extensions/kw-field-viewer-icon.png" alt="KW Field Viewer for kintone アイコン" width="110" height="110" onerror="this.src='/images/favicon.png'">
+            <img src="/images/extensions/kw-field-viewer-banner.png" alt="KW Field Viewer for kintone のバナー画像" width="1200" height="675" loading="lazy">
           </div>
           <div class="ext-content">
             <div class="ext-tags">
