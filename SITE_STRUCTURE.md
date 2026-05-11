@@ -76,6 +76,12 @@ c:\kizuna-works.jp\
 │   │   │       └── index.astro # クイックサイドビュープラグイン製品ページ（/plugins/quick-side-view/）
 │   │   ├── tools/
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
+│   │   ├── extensions/
+│   │   │   ├── index.astro     # Chrome 拡張機能一覧ページ（/extensions/）
+│   │   │   └── kw-field-viewer-for-kintone/
+│   │   │       ├── index.astro          # KW Field Viewer for kintone ランディングページ（/extensions/kw-field-viewer-for-kintone/）
+│   │   │       └── privacy/
+│   │   │           └── index.astro      # KW Field Viewer for kintone プライバシーポリシー（/extensions/kw-field-viewer-for-kintone/privacy/）
 │   │   └── glossary/
 │   │       └── index.astro     # kintone 用語集（/glossary/）— カテゴリ・五十音順、JSで検索/絞り込み、DefinedTermSet JSON-LD 付き
 │   ├── content/
@@ -238,6 +244,10 @@ inkan（電子印鑑メーカー）のスタンドアロン HTML アプリ。
 kintone プラグイン「フィールドスタイラー」の製品ページ。  
 販売開始時に Stripe Payment Link を追加する。
 
+### `src/pages/extensions/`
+KIZUNA Works が公開する Chrome 拡張機能のページ群。
+拡張機能の本体ソースは `C:\kizuna-works.jp\SECRET\Chrome_extension_workspace\` 内で管理し、リリース ZIP は `SECRET\Chrome_extension_release\` に配置する（Git 管理外）。
+
 ### `astro.config.mjs`
 `site: 'https://kizuna-works.jp'` が設定されており、サイトマップ・canonical URL の生成に使用される。
 
@@ -251,6 +261,8 @@ kintone プラグイン「フィールドスタイラー」の製品ページ。
 | `public/images/ogp.png` | OGP画像の更新 | 中 |
 | `src/pages/plugins/<新プラグイン>/index.astro` | 新規プラグイン製品ページ | 新プラグイン追加時 |
 | `src/pages/tools/<新ツール>/index.astro` | 新規ツールページ（必要な場合） | 新ツール追加時 |
+| `src/pages/extensions/<新拡張機能>/index.astro` | 新規 Chrome 拡張機能のランディングページ | 新拡張機能追加時 |
+| `src/pages/extensions/<新拡張機能>/privacy/index.astro` | 新規 Chrome 拡張機能のプライバシーポリシー（Chrome Web Store 公開には必須） | 新拡張機能追加時 |
 
 ### 新規ファイル追加時のチェックリスト
 
@@ -266,3 +278,11 @@ kintone プラグイン「フィールドスタイラー」の製品ページ。
 **新規ツールを追加する場合：**
 1. `src/pages/tools/index.astro` のグリッドに追加
 2. `src/pages/tools/index.astro` の JSON-LD `ItemList` を更新
+
+**新規 Chrome 拡張機能を追加する場合：**
+1. 拡張機能本体は `SECRET\Chrome_extension_workspace\<拡張機能名>\` 内で開発
+2. リリース ZIP は `SECRET\Chrome_extension_release\<拡張機能名>-v<バージョン>.zip` に配置
+3. `src/pages/extensions/<拡張機能名>/index.astro` を作成（ランディングページ）
+4. `src/pages/extensions/<拡張機能名>/privacy/index.astro` を作成（プライバシーポリシー・**Chrome Web Store 公開には必須**）
+5. `src/pages/extensions/index.astro` のグリッドと JSON-LD `ItemList` を更新
+6. Chrome Web Store の `homepage_url` に上記ランディングページ URL を指定

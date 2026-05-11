@@ -1,0 +1,298 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Chrome拡張機能一覧 - kintone開発を爆速化 | KIZUNA Works"
+  description="KIZUNA Works が公開する Chrome 拡張機能の一覧。kintone のカスタマイズ開発・API 連携開発・運用管理を効率化する無料の開発者向けツールを順次公開中です。"
+  ogTitle="Chrome拡張機能一覧 - kintone開発を爆速化 | KIZUNA Works"
+  ogDescription="KIZUNA Works が公開する Chrome 拡張機能の一覧。kintone のカスタマイズ開発・API 連携開発・運用管理を効率化する無料の開発者向けツール。"
+  ogUrl="https://kizuna-works.jp/extensions/"
+  canonical="https://kizuna-works.jp/extensions/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/extensions/",
+          "url": "https://kizuna-works.jp/extensions/",
+          "name": "Chrome拡張機能一覧 | KIZUNA Works",
+          "description": "KIZUNA Works が公開する Chrome 拡張機能の一覧。kintone 開発を効率化する開発者向けツール。"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "Chrome拡張機能", "item": "https://kizuna-works.jp/extensions/" }
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "KW Field Viewer for kintone",
+                "url": "https://kizuna-works.jp/extensions/kw-field-viewer-for-kintone/",
+                "applicationCategory": "DeveloperApplication",
+                "operatingSystem": "Chrome",
+                "offers": {
+                  "@type": "Offer",
+                  "price": "0",
+                  "priceCurrency": "JPY"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body {
+      background-color: #f4f7f6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.92) 0%, rgba(42,82,152,0.88) 100%);
+      color: #FFFFFF;
+      padding: 80px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #1B3A6B 0%, #2E8B2E 100%);
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      font-weight: 500;
+      opacity: 0.95;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .intro-section {
+      padding: 60px 20px 40px;
+      background-color: #f4f7f6;
+    }
+
+    .intro-card {
+      background-color: #FFFFFF;
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 16px;
+      padding: 40px 50px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    .intro-card h2 {
+      color: #1B3A6B;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+
+    .intro-card h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 3px;
+      background-color: #2E8B2E;
+      border-radius: 2px;
+    }
+
+    .intro-card p {
+      color: #4a5568;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .ext-grid-section {
+      padding: 0 20px 80px;
+      background-color: #f4f7f6;
+      flex: 1;
+    }
+
+    .ext-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .ext-card {
+      background-color: #FFFFFF;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-top: 4px solid transparent;
+    }
+
+    .ext-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(27, 58, 107, 0.12);
+      border-top-color: #2E8B2E;
+    }
+
+    .ext-image-wrapper {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ext-image-wrapper img {
+      width: 110px;
+      height: 110px;
+      border-radius: 18px;
+      background-color: #FFFFFF;
+      padding: 10px;
+    }
+
+    .ext-content {
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .ext-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .ext-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background-color: #f1f5f9;
+      color: #64748b;
+    }
+
+    .ext-tag.highlight {
+      background-color: #e6f4e6;
+      color: #2E8B2E;
+    }
+
+    .ext-tag.coming {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+
+    .ext-content h3 {
+      font-size: 1.4rem;
+      color: #1B3A6B;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .ext-content p {
+      color: #4a5568;
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+      flex: 1;
+    }
+
+    .ext-btn {
+      display: inline-block;
+      text-align: center;
+      background-color: #2E8B2E;
+      color: #FFFFFF;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .ext-btn:hover {
+      background-color: #1B3A6B;
+      color: #FFFFFF;
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 60px 20px; }
+      .hero h1 { font-size: 1.8rem; }
+      .intro-section { padding: 40px 15px 30px; }
+      .intro-card { padding: 30px 20px; }
+      .intro-card h2 { font-size: 1.4rem; }
+      .ext-grid-section { padding: 0 15px 60px; }
+      .ext-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+    <section class="hero">
+      <h1>Chrome 拡張機能</h1>
+      <p>kintone の開発・運用を効率化する無料の Chrome 拡張機能を公開しています</p>
+    </section>
+
+    <section class="intro-section">
+      <div class="intro-card">
+        <h2>開発者向けツール</h2>
+        <p>KIZUNA Works が提供する Chrome 拡張機能は、kintone のカスタマイズ開発・API 連携開発・運用管理の現場で本当に使えるツールを目指しています。すべて Manifest V3 対応で、ユーザーの業務データは一切外部送信しません。</p>
+      </div>
+    </section>
+
+    <section class="ext-grid-section">
+      <div class="ext-grid">
+        <article class="ext-card">
+          <div class="ext-image-wrapper">
+            <img src="/images/extensions/kw-field-viewer-icon.png" alt="KW Field Viewer for kintone アイコン" width="110" height="110" onerror="this.src='/images/favicon.png'">
+          </div>
+          <div class="ext-content">
+            <div class="ext-tags">
+              <span class="ext-tag highlight">完全無料</span>
+              <span class="ext-tag">kintone</span>
+              <span class="ext-tag coming">公開準備中</span>
+            </div>
+            <h3>KW Field Viewer for kintone</h3>
+            <p>kintone アプリのフィールドコード・フィールドタイプを画面上にオーバーレイ表示する Chrome 拡張機能。CSV / JSON / Markdown / HTML 形式でのエクスポートにも対応。</p>
+            <a href="/extensions/kw-field-viewer-for-kintone/" class="ext-btn">詳細を見る</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+</Layout>
