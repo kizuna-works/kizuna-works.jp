@@ -342,6 +342,143 @@ import Layout from '../../../layouts/Layout.astro';
       font-size: 16px;
     }
 
+    /* Before/After Comparison */
+    .ba-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .ba-item {
+      position: relative;
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .ba-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.14);
+    }
+
+    .ba-label {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      z-index: 1;
+      letter-spacing: 0.04em;
+    }
+
+    .ba-label-before { background-color: #94a3b8; }
+    .ba-label-after { background-color: var(--color-green); }
+
+    .ba-image-wrap {
+      background-color: #fafafa;
+      padding: 12px;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+
+    .ba-image-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .ba-caption {
+      padding: 16px 20px;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .ba-caption strong {
+      color: var(--color-navy);
+      display: block;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    /* Screenshot Gallery */
+    .gallery-row {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: flex-start;
+    }
+
+    .gallery-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.14);
+    }
+
+    .gallery-image-wrap {
+      background-color: #fafafa;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+    }
+
+    .gallery-image-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .gallery-image-wrap--narrow img {
+      max-width: 300px;
+    }
+
+    .gallery-content {
+      padding: 20px 24px 24px;
+    }
+
+    .gallery-title {
+      color: var(--color-navy);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .gallery-desc {
+      color: var(--color-text-light);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    /* Step with screenshot */
+    .step-img {
+      display: inline-block;
+      vertical-align: middle;
+      max-height: 32px;
+      border-radius: 4px;
+      margin: 0 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
     /* Privacy Box */
     .privacy-box {
       background-color: #f0fdf4;
@@ -448,6 +585,8 @@ import Layout from '../../../layouts/Layout.astro';
       .section-title { font-size: 24px; }
       .usecase-grid { grid-template-columns: 1fr; }
       .features-grid { grid-template-columns: 1fr; }
+      .ba-container { grid-template-columns: 1fr; gap: 24px; }
+      .gallery-row { grid-template-columns: 1fr; gap: 24px; }
       .bottom-cta-title { font-size: 22px; }
     }
   </style>
@@ -474,6 +613,35 @@ import Layout from '../../../layouts/Layout.astro';
         CSV / JSON / Markdown / HTML 形式でのエクスポートにも対応。
       </p>
       <a href="#" class="btn-disabled" aria-disabled="true">Chrome Web Store で近日公開</a>
+    </section>
+
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">拡張機能 ON / OFF の違い</h2>
+        <p class="section-subtitle">アイコンをワンクリックするだけで、kintone のフォーム画面が「フィールドコード表示モード」に切り替わります。</p>
+        <div class="ba-container">
+          <div class="ba-item">
+            <span class="ba-label ba-label-before">Before</span>
+            <div class="ba-image-wrap">
+              <img src="/images/extensions/kw-field-viewer/01-overlay-off-before.png" alt="拡張機能OFF時のkintone画面 - フィールドコードが見えない通常表示" width="867" height="537" loading="lazy">
+            </div>
+            <p class="ba-caption">
+              <strong>OFF：通常のkintone画面</strong>
+              フィールドコードを確認するにはアプリ設定画面を開く必要があります
+            </p>
+          </div>
+          <div class="ba-item">
+            <span class="ba-label ba-label-after">After</span>
+            <div class="ba-image-wrap">
+              <img src="/images/extensions/kw-field-viewer/01-overlay-on-after.png" alt="拡張機能ON時のkintone画面 - 各フィールド名の下に青いバッジでフィールドコードがオーバーレイ表示" width="878" height="419" loading="lazy">
+            </div>
+            <p class="ba-caption">
+              <strong>ON：フィールドコードがその場で見える</strong>
+              各フィールドラベル直下に青いバッジで表示。クリックでコピーも可能
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="section-wrapper fade-in">
@@ -541,22 +709,48 @@ import Layout from '../../../layouts/Layout.astro';
     </section>
 
     <section class="section-wrapper fade-in">
-      <h2 class="section-title">使い方</h2>
-      <p class="section-subtitle">インストール後、kintone のアプリ画面を開いてアイコンをクリックするだけ。</p>
-      <ol class="steps-list">
-        <li>Chrome Web Store から「KW Field Viewer for kintone」をインストール</li>
-        <li>kintone のアプリ画面（一覧／詳細／編集のいずれか）を開く</li>
-        <li>ブラウザ右上の拡張機能アイコンをクリック → ページ上にフィールドコードのバッジが表示されます</li>
-        <li>バッジをクリックすると、そのフィールドのフィールドコードがクリップボードにコピーされます</li>
-        <li>もう一度アイコンをクリックすると OFF。右クリックで CSV / JSON / Markdown / HTML エクスポートも可能</li>
-      </ol>
+      <h2 class="section-title">実際の操作画面</h2>
+      <p class="section-subtitle">アイコン右クリックでエクスポートメニューを開き、4種類の形式でフィールド情報を保存できます。</p>
+      <div class="gallery-row">
+        <div class="gallery-card">
+          <div class="gallery-image-wrap gallery-image-wrap--narrow">
+            <img src="/images/extensions/kw-field-viewer/02-context-menu-export.png" alt="拡張機能アイコンを右クリックしたときに表示されるコンテキストメニュー。全フィールドコードをコピー、CSV/JSON/Markdown/HTML でダウンロードの選択肢が並んでいる" width="390" height="677" loading="lazy">
+          </div>
+          <div class="gallery-content">
+            <h3 class="gallery-title">📋 アイコン右クリックでエクスポート</h3>
+            <p class="gallery-desc">全フィールドコードの一括コピー、CSV・JSON・Markdown・HTML 形式でのダウンロードがワンクリックで完了。kintone カスタマイズ・API 連携・ドキュメント化、それぞれの用途に最適な形式を選べます。</p>
+          </div>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-image-wrap">
+            <img src="/images/extensions/kw-field-viewer/03-html-export-result.png" alt="HTMLエクスポート結果の画面。アプリ名・アプリID・出力日時とともに、フィールド名・フィールドコード・タイプ・選択肢が表形式で一覧表示されている" width="1885" height="817" loading="lazy">
+          </div>
+          <div class="gallery-content">
+            <h3 class="gallery-title">📄 HTML 出力 - クリックでコピー可能な一覧表</h3>
+            <p class="gallery-desc">HTML エクスポートを開くと、フィールド名・フィールドコード・タイプ・選択肢を表形式で一覧表示。各セルをクリックすると値をクリップボードにコピーできるインタラクティブな仕上がり。Wiki やドキュメントにも貼り付けやすい構造です。</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="section-bg">
       <div class="section-wrapper fade-in">
-        <h2 class="section-title">プライバシー・セキュリティ</h2>
-        <p class="section-subtitle">業務データを扱う拡張機能だからこそ、何を取得し何を取得しないかを明示します。</p>
-        <div class="privacy-box">
+        <h2 class="section-title">使い方</h2>
+        <p class="section-subtitle">インストール後、kintone のアプリ画面を開いてアイコンをクリックするだけ。</p>
+        <ol class="steps-list">
+          <li>Chrome Web Store から「KW Field Viewer for kintone」をインストール</li>
+          <li>kintone のアプリ画面（一覧／詳細／編集のいずれか）を開く</li>
+          <li>ブラウザ右上の拡張機能アイコン<img src="/images/extensions/kw-field-viewer/00-toolbar-pinned-icon.png" alt="ブラウザツールバー上の拡張機能アイコン" class="step-img" width="153" height="59" loading="lazy">をクリック → ページ上にフィールドコードのバッジが表示されます</li>
+          <li>バッジをクリックすると、そのフィールドのフィールドコードがクリップボードにコピーされます</li>
+          <li>もう一度アイコンをクリックすると OFF。右クリックで CSV / JSON / Markdown / HTML エクスポートも可能</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">プライバシー・セキュリティ</h2>
+      <p class="section-subtitle">業務データを扱う拡張機能だからこそ、何を取得し何を取得しないかを明示します。</p>
+      <div class="privacy-box">
           <h3>✅ 取得しないもの</h3>
           <ul>
             <li>kintone のレコード値（業務データ）</li>
@@ -569,13 +763,13 @@ import Layout from '../../../layouts/Layout.astro';
             <li>アプリ名・アプリ ID・ドメイン名（表示およびエクスポートファイル名に使用）</li>
           </ul>
         </div>
-        <p style="text-align: center; margin-top: 32px;">
-          <a href="/extensions/kw-field-viewer-for-kintone/privacy/" style="color: var(--color-green); font-weight: 700;">→ プライバシーポリシーの詳細を見る</a>
-        </p>
-      </div>
+      <p style="text-align: center; margin-top: 32px;">
+        <a href="/extensions/kw-field-viewer-for-kintone/privacy/" style="color: var(--color-green); font-weight: 700;">→ プライバシーポリシーの詳細を見る</a>
+      </p>
     </section>
 
-    <section class="section-wrapper fade-in">
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
       <h2 class="section-title-left">動作環境</h2>
       <ul class="notes-list">
         <li>Google Chrome 最新版（Manifest V3 対応版）。Microsoft Edge / Brave / Arc 等の Chromium ベースブラウザでも動作します。</li>
@@ -584,6 +778,7 @@ import Layout from '../../../layouts/Layout.astro';
         <li>本拡張機能は KIZUNA Works が独自に開発・提供するものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
         <li>kintone はサイボウズ株式会社の登録商標です。</li>
       </ul>
+      </div>
     </section>
 
     <section class="bottom-cta fade-in">
