@@ -1,0 +1,263 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="寄付ありがとうございます | KIZUNA Works"
+  description="KIZUNA Worksへの寄付ありがとうございます。いただいたご支援は、無料Webツールや Chrome 拡張機能の新機能開発・サーバー維持費に大切に使わせていただきます。"
+  ogTitle="寄付ありがとうございます | KIZUNA Works"
+  ogDescription="KIZUNA Worksへの寄付ありがとうございます。いただいたご支援は、新機能開発やサーバー維持費に使わせていただきます。"
+  ogUrl="https://kizuna-works.jp/thanks/"
+  canonical="https://kizuna-works.jp/thanks/"
+  noindex={true}
+>
+  <style is:global>
+    body { background-color: #f4f7f6; }
+
+    .thanks-hero {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: #FFFFFF;
+      padding: 80px 20px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .thanks-hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #1B3A6B 0%, #2E8B2E 100%);
+    }
+
+    .thanks-icon-circle {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 28px;
+      background: rgba(46, 139, 46, 0.18);
+      border: 3px solid #2E8B2E;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      line-height: 1;
+      animation: thanksPulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes thanksPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46,139,46,0.4); }
+      50% { transform: scale(1.04); box-shadow: 0 0 0 18px rgba(46,139,46,0); }
+    }
+
+    .thanks-hero h1 {
+      font-size: 2.4rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .thanks-hero-lead {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      max-width: 640px;
+      margin: 0 auto;
+      opacity: 0.95;
+    }
+
+    .thanks-container {
+      max-width: 760px;
+      margin: -50px auto 60px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .thanks-card {
+      background: #FFFFFF;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      padding: 48px 56px;
+    }
+
+    .thanks-section + .thanks-section {
+      margin-top: 36px;
+      padding-top: 32px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .thanks-section h2 {
+      color: #1B3A6B;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      padding-left: 14px;
+      border-left: 4px solid #2E8B2E;
+    }
+
+    .thanks-section p {
+      color: #333333;
+      font-size: 15px;
+      line-height: 1.85;
+      margin-bottom: 10px;
+    }
+
+    .thanks-section ul {
+      margin: 8px 0 0 24px;
+      padding: 0;
+    }
+
+    .thanks-section li {
+      color: #333333;
+      font-size: 15px;
+      line-height: 1.85;
+      margin-bottom: 6px;
+    }
+
+    .thanks-cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 36px;
+    }
+
+    .thanks-btn-primary {
+      display: inline-block;
+      background: #2E8B2E;
+      color: #FFFFFF;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 28px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .thanks-btn-primary:hover {
+      background: #1B3A6B;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(46,139,46,0.25);
+    }
+
+    .thanks-btn-secondary {
+      display: inline-block;
+      background: #FFFFFF;
+      color: #1B3A6B;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 28px;
+      border: 1.5px solid #1B3A6B;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .thanks-btn-secondary:hover {
+      background: #1B3A6B;
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    .thanks-social {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #000000;
+      color: #FFFFFF;
+      padding: 12px 22px;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .thanks-social:hover {
+      background: #333333;
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    .thanks-receipt-note {
+      background: #f0fdf4;
+      border-left: 4px solid #2E8B2E;
+      padding: 14px 18px;
+      border-radius: 4px;
+      color: #333333;
+      font-size: 13.5px;
+      line-height: 1.75;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .thanks-hero { padding: 60px 20px 80px; }
+      .thanks-hero h1 { font-size: 1.7rem; }
+      .thanks-hero-lead { font-size: 0.98rem; }
+      .thanks-card { padding: 32px 24px; }
+      .thanks-section h2 { font-size: 1.05rem; }
+      .thanks-cta-row { flex-direction: column; }
+      .thanks-cta-row a { width: 100%; text-align: center; }
+    }
+  </style>
+
+  <main>
+    <section class="thanks-hero">
+      <div class="thanks-icon-circle" aria-hidden="true">💚</div>
+      <h1>ご支援ありがとうございます</h1>
+      <p class="thanks-hero-lead">
+        KIZUNA Works への寄付、心から感謝いたします。<br>
+        いただいたご支援は、ツール開発と運営費に大切に使わせていただきます。
+      </p>
+    </section>
+
+    <div class="thanks-container">
+      <div class="thanks-card">
+
+        <section class="thanks-section">
+          <h2>いただいた寄付の使い道</h2>
+          <p>皆さまからのご支援は、以下の用途に活用させていただきます。</p>
+          <ul>
+            <li>無料 Web ツール・Chrome 拡張機能の<strong>新機能開発</strong></li>
+            <li>サーバー・ドメイン・CDN 等の<strong>運営インフラ維持費</strong></li>
+            <li>外部 API・ライブラリ等の<strong>ライセンス・更新費用</strong></li>
+            <li>サイト・ツールの<strong>品質改善・セキュリティ対応</strong></li>
+          </ul>
+        </section>
+
+        <section class="thanks-section">
+          <h2>決済について</h2>
+          <p>本ページが表示されている場合、Square にてご寄付の決済が完了しています。決済完了メールは Square から送信されます。</p>
+          <div class="thanks-receipt-note">
+            <strong>📧 決済完了メールが届かない場合：</strong>
+            迷惑メールフォルダをご確認のうえ、見当たらない場合は <a href="/contact/">お問い合わせフォーム</a> よりご連絡ください。決済情報の照合をお手伝いします。
+          </div>
+        </section>
+
+        <section class="thanks-section">
+          <h2>これからもよろしくお願いします</h2>
+          <p>皆さまに「使ってよかった」と思っていただける kintone プラグイン・無料ツール・Chrome 拡張機能を、これからも作り続けます。最新情報は X（旧 Twitter）でお知らせしています。</p>
+          <div style="text-align:center; margin-top: 20px;">
+            <a href="https://twitter.com/KIZUNA_works_DX" target="_blank" rel="noopener noreferrer" class="thanks-social">
+              <span aria-hidden="true">𝕏</span> @KIZUNA_works_DX をフォローする
+            </a>
+          </div>
+        </section>
+
+        <section class="thanks-section">
+          <h2>他のツール・拡張機能もご利用ください</h2>
+          <p>引き続き KIZUNA Works のサービスをお楽しみください。</p>
+        </section>
+
+        <div class="thanks-cta-row">
+          <a href="/" class="thanks-btn-primary">ホームに戻る</a>
+          <a href="/tools/" class="thanks-btn-secondary">無料ツール一覧</a>
+          <a href="/extensions/" class="thanks-btn-secondary">Chrome 拡張機能</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</Layout>
