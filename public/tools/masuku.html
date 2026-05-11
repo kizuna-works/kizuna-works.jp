@@ -231,6 +231,19 @@ input[type=range]::-webkit-slider-thumb {
 .zoom-ctrl button:hover { border-color: var(--accent); color: var(--accent); }
 .zoom-val { font-size: 11px; color: var(--text2); min-width: 38px; text-align: center; }
 .tb-sep { width: 1px; height: 24px; background: var(--border); }
+.filename-badge {
+  margin-left: auto;
+  padding: 4px 12px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-size: 11.5px;
+  color: var(--text2);
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 /* ===== CANVAS AREA ===== */
 .canvas-area {
@@ -499,6 +512,7 @@ input[type=range]::-webkit-slider-thumb {
       </div>
       <div class="tb-sep"></div>
       <button class="tool-btn" onclick="undoMask()" id="tb_undo" style="flex-direction:row;gap:4px;padding:5px 8px;font-size:11.5px;" disabled>↩ Undo</button>
+      <span class="filename-badge" id="filenameBadge" style="display:none;" title="現在編集中のファイル名"></span>
     </div>
 
     <!-- ウェルカム -->
@@ -737,8 +751,11 @@ window.resetAll = function() {
 window.handleFileChange = async function(file) {
   if (!file) return;
   state.originalFileName = file.name.replace(/\.[^.]+$/, '');
-  document.getElementById('filenameBadge').textContent = file.name;
-  document.getElementById('filenameBadge').style.display = '';
+  const badge = document.getElementById('filenameBadge');
+  if (badge) {
+    badge.textContent = file.name;
+    badge.style.display = '';
+  }
   const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
   try {
     if (isPdf) {
