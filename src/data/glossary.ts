@@ -2,7 +2,7 @@
 // Add an entry here and the page, search, filter, and DefinedTermSet JSON-LD
 // all pick it up automatically.
 
-export type TermCategory = 'basic' | 'field' | 'feature' | 'operation' | 'api' | 'community';
+export type TermCategory = 'basic' | 'field' | 'layout' | 'feature' | 'operation' | 'api' | 'community';
 
 export interface Term {
   /** URL-safe stable id used for anchor links (#<id>). */
@@ -25,6 +25,7 @@ export interface Term {
 export const categoryLabels: Record<TermCategory, string> = {
   basic: '基本',
   field: 'フィールド',
+  layout: 'レイアウト要素',
   feature: '機能',
   operation: '運用',
   api: 'API・カスタマイズ',
@@ -434,6 +435,41 @@ export const glossary: Term[] = [
     category: 'field',
     definition: 'プロセス管理で現在対応中のユーザーを表すフィールド。ステータスの遷移時に作業者が変更される設定にできる。複数の作業者を割り当てたり、OR／AND 条件で対応者を絞り込んだりが可能。',
     relatedTerms: ['status', 'process-management'],
+  },
+  // ----- レイアウト要素 -----
+  {
+    id: 'spacer',
+    term: 'スペース要素',
+    reading: 'すぺーすようそ',
+    category: 'layout',
+    definition: 'フォーム編集画面でドラッグして配置できるレイアウト要素（スペースフィールドとも呼ぶ）。値は持たないが「要素ID」を設定することで、JavaScript カスタマイズやプラグインから差し込み対象として参照できる。ルックアップサジェストのようにスペース上に独自 UI を描画するプラグインで頻繁に利用される。',
+    relatedTerms: ['field', 'label-element', 'hr-line'],
+    relatedPlugins: ['lookup-suggest', 'form-deco'],
+  },
+  {
+    id: 'label-element',
+    term: 'ラベル',
+    reading: 'らべる',
+    category: 'layout',
+    definition: 'フォームに表示する固定テキストのレイアウト要素。「セクションの説明」「注意書き」など、レコードのデータとは独立した説明文を画面上に表示する。値を持たないため、レコードに保存されることはない。',
+    relatedTerms: ['spacer', 'hr-line'],
+  },
+  {
+    id: 'hr-line',
+    term: '罫線',
+    reading: 'けいせん',
+    category: 'layout',
+    definition: 'フォーム上の区切り線を表すレイアウト要素。フィールド間にセクションの境界線を引いて視覚的にグループ化する目的で使う。値を持たない。標準では細い灰色の横線だが、装飾プラグインでスタイルを変更できる。',
+    relatedTerms: ['spacer', 'group-element'],
+    relatedPlugins: ['form-deco'],
+  },
+  {
+    id: 'group-element',
+    term: 'グループ要素',
+    reading: 'ぐるーぷようそ',
+    category: 'layout',
+    definition: '複数のフィールドをまとめて折りたたみ可能なグループにできるレイアウト要素。長いフォームを「基本情報」「詳細情報」のようにセクションに分けて開閉できる。値を持たない（「グループ選択」フィールドとは別物なので注意）。',
+    relatedTerms: ['group-select', 'hr-line', 'label-element'],
   },
   {
     id: 'kintone-hive',
