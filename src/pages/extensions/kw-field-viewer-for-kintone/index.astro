@@ -543,6 +543,67 @@ import Layout from '../../../layouts/Layout.astro';
       border-left: 5px solid var(--color-green);
     }
 
+    /* Donation Banner */
+    .donation-banner {
+      background: #ffffff;
+      padding: 36px 5%;
+      border-top: 1px solid #e2e8f0;
+    }
+    .donation-banner-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .donation-banner-icon {
+      font-size: 42px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .donation-banner-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .donation-banner-title {
+      display: block;
+      color: #1B3A6B;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+    .donation-banner-desc {
+      color: #4a5568;
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .donation-banner-btn {
+      flex-shrink: 0;
+      display: inline-block;
+      background: #2E8B2E;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 13px 28px;
+      border-radius: 24px;
+      text-decoration: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .donation-banner-btn:hover {
+      background: #1B3A6B;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(46, 139, 46, 0.25);
+    }
+    @media (max-width: 640px) {
+      .donation-banner { padding: 28px 5%; }
+      .donation-banner-inner { flex-direction: column; text-align: center; gap: 16px; }
+      .donation-banner-icon { font-size: 36px; }
+    }
+
     /* Bottom CTA */
     .bottom-cta {
       background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
@@ -780,6 +841,17 @@ import Layout from '../../../layouts/Layout.astro';
         <li>本拡張機能は KIZUNA Works が独自に開発・提供するものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
         <li>kintone はサイボウズ株式会社の登録商標です。</li>
       </ul>
+      </div>
+    </section>
+
+    <section class="donation-banner fade-in">
+      <div class="donation-banner-inner">
+        <span class="donation-banner-icon" aria-hidden="true">💚</span>
+        <div class="donation-banner-text">
+          <strong class="donation-banner-title">この拡張機能が役に立ったら、開発を応援してください</strong>
+          <p class="donation-banner-desc">いただいた寄付は新機能開発・サーバー維持費に使われます（Squareの安全な決済リンクを利用）</p>
+        </div>
+        <a href="https://square.link/u/RkZ5QNKA" class="donation-banner-btn" target="_blank" rel="noopener noreferrer">寄付で応援する</a>
       </div>
     </section>
 
