@@ -65,7 +65,13 @@ import Layout from '../../../layouts/Layout.astro';
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
-            "url": "https://kizuna-works.jp"
+            "url": "https://kizuna-works.jp",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://kizuna-works.jp/images/logo.png",
+              "width": 677,
+              "height": 369
+            }
           },
           "featureList": [
             "フィールドコードをページ上にオーバーレイ表示",
@@ -553,6 +559,59 @@ import Layout from '../../../layouts/Layout.astro';
       border-left: 5px solid var(--color-green);
     }
 
+    /* Related Links */
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .related-card {
+      display: block;
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 24px 22px;
+      border-left: 4px solid var(--color-green);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .related-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+    }
+
+    .related-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-green);
+      background-color: #e6f4e6;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .related-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+
+    .related-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .related-grid { grid-template-columns: 1fr; }
+    }
+
     /* Donation Banner */
     .donation-banner {
       background: #ffffff;
@@ -851,6 +910,28 @@ import Layout from '../../../layouts/Layout.astro';
         <li>本拡張機能は KIZUNA Works が独自に開発・提供するものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
         <li>kintone はサイボウズ株式会社の登録商標です。</li>
       </ul>
+      </div>
+    </section>
+
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連情報</h2>
+      <p class="section-subtitle">kintone のカスタマイズ・運用効率化に役立つ KIZUNA Works のコンテンツです。</p>
+      <div class="related-grid">
+        <a href="/plugins/" class="related-card">
+          <span class="related-label">プラグイン</span>
+          <div class="related-title">kintone プラグイン一覧</div>
+          <p class="related-desc">フィールドスタイラー・条件分岐自動採番・クイックサーチなど、現場の業務効率化を支援する kintone プラグインを公開中。</p>
+        </a>
+        <a href="/blog/kintone-design-plugin-osusume/" class="related-card">
+          <span class="related-label">ブログ</span>
+          <div class="related-title">kintone デザイン変更プラグイン特集</div>
+          <p class="related-desc">フィールドの装飾・配色ルール・導入前後の比較など、kintone の見た目を改善するためのプラグイン解説記事。</p>
+        </a>
+        <a href="/blog/kintone-field-styler-plugin-guide/" class="related-card">
+          <span class="related-label">ブログ</span>
+          <div class="related-title">Field Styler プラグインの全機能解説</div>
+          <p class="related-desc">フィールドコードを活用して条件分岐スタイルを適用するプラグイン Field Styler の全 10 機能を実例付きで紹介。</p>
+        </a>
       </div>
     </section>
 
