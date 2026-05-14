@@ -45,7 +45,9 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
           "url": "https://kizuna-works.jp/plugins/field-styler/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-field-styler-v1.1.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-field-styler-v1.2.0.zip",
+          "softwareVersion": "1.2.0",
+          "releaseNotes": "v1.2.0（2026-05-14）: 日付フィールドの条件付きスタイルで「TODAY」キーワードに対応。本日／本日より前／本日以降などの動的判定が可能になりました。日付フィールドの大小比較バグも修正。",
           "offers": {
             "@type": "Offer",
             "name": "基本プラン（無料）",
@@ -664,6 +666,122 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
       font-weight: 700;
     }
 
+    /* Update Notice Section */
+    .update-section {
+      background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
+      border-top: 4px solid var(--color-green);
+      padding: 48px 5%;
+    }
+
+    .update-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .update-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .update-tag {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .update-version {
+      display: inline-block;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .update-date {
+      color: var(--color-text-light);
+      font-size: 14px;
+    }
+
+    .update-title {
+      color: var(--color-navy);
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .update-summary {
+      color: var(--color-text);
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .update-examples {
+      background-color: var(--color-white);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .update-examples h4 {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .update-examples ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .update-examples li {
+      padding: 8px 0;
+      font-size: 14px;
+      color: var(--color-text);
+      line-height: 1.7;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+
+    .update-examples li:last-child {
+      border-bottom: none;
+    }
+
+    .update-examples code {
+      background-color: #F0F4F8;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--color-navy);
+      font-family: 'Courier New', monospace;
+    }
+
+    .update-fix {
+      background-color: rgba(46,139,46,0.08);
+      border-left: 4px solid var(--color-green);
+      padding: 14px 18px;
+      border-radius: 4px;
+      font-size: 14px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .update-fix strong {
+      color: var(--color-green);
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .related-posts-grid {
@@ -710,10 +828,41 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.1.0</span>
+        <span class="hero-version">v1.2.0</span>
       </div>
       <h1 class="hero-title">フィールドスタイラー kintone プラグイン</h1>
       <p class="hero-copy">kintoneのフィールドを自由にカスタマイズ。背景色・フォント・文字色・条件付きスタイルなど、全10機能をノーコードで設定。基本機能は完全無料でご利用いただけます。</p>
+    </section>
+
+    <!-- Update Notice -->
+    <section class="update-section fade-in">
+      <div class="update-inner">
+        <div class="update-header">
+          <span class="update-tag">NEW</span>
+          <span class="update-version">v1.2.0</span>
+          <span class="update-date">2026年5月14日リリース</span>
+        </div>
+        <h2 class="update-title">日付フィールドで「本日かどうか」を自動判定できるようになりました</h2>
+        <p class="update-summary">
+          条件付きスタイルの比較値に <strong><code>TODAY</code></strong> と入力するだけで、画面を開いた当日の日付が自動的に判定対象になります。<br>
+          毎日設定を書き換える必要なく、<strong>「期限切れタスクを赤く」「本日の予定を黄色で強調」「未来の予定を緑で表示」</strong>といった動的な色分けが実現できます。
+        </p>
+
+        <div class="update-examples">
+          <h4>💡 こんな使い方ができるようになりました</h4>
+          <ul>
+            <li>📅 演算子 <code>=</code> 値 <code>TODAY</code> → <strong>本日の日付だけ</strong>背景色が変わる（タスク管理アプリの「今日やること」強調に最適）</li>
+            <li>⚠️ 演算子 <code>&lt;</code> 値 <code>TODAY</code> → <strong>本日より前（過去）の日付</strong>を灰色や赤に（期限切れタスクの可視化）</li>
+            <li>🟢 演算子 <code>&gt;</code> 値 <code>TODAY</code> → <strong>本日より後（未来）の日付</strong>を緑に（予定・未着手タスクの判別）</li>
+            <li>🟡 演算子 <code>&lt;=</code> 値 <code>TODAY</code> → <strong>本日以前（本日含む）</strong>を黄色に（要対応リスト）</li>
+            <li>🔵 演算子 <code>&gt;=</code> 値 <code>TODAY</code> → <strong>本日以降（本日含む）</strong>を青に（今後のスケジュール）</li>
+          </ul>
+        </div>
+
+        <div class="update-fix">
+          <strong>🔧 あわせて不具合修正：</strong>v1.1.0 までは日付フィールドの大小比較（<code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code>）が正しく動作しないケースがありました。v1.2.0 ではこの問題を修正し、<code>2026-12-31</code> のような固定日付でも正確に判定できるようになっています。
+        </div>
+      </div>
     </section>
 
     <section class="section-wrapper fade-in">
@@ -869,7 +1018,7 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-field-styler-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-field-styler-v1.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード（v1.2.0）</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
