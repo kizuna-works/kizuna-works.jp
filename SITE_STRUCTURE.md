@@ -86,8 +86,10 @@ c:\kizuna-works.jp\
 │   │   │       ├── index.astro          # KW App Exporter for kintone ランディングページ（/extensions/kw-app-exporter-for-kintone/）
 │   │   │       └── privacy/
 │   │   │           └── index.astro      # KW App Exporter for kintone プライバシーポリシー（/extensions/kw-app-exporter-for-kintone/privacy/）
-│   │   └── glossary/
-│   │       └── index.astro     # kintone 用語集（/glossary/）— カテゴリ・五十音順、JSで検索/絞り込み、DefinedTermSet JSON-LD 付き
+│   │   ├── glossary/
+│   │   │   └── index.astro     # kintone 用語集（/glossary/）— カテゴリ・五十音順、JSで検索/絞り込み、DefinedTermSet JSON-LD 付き
+│   │   └── sitemap/
+│   │       └── index.astro     # サイトマップ（/sitemap/）— 全ページ一覧。plugins.ts と blog コレクションから自動生成、フッターからリンク
 │   ├── content/
 │   │   ├── config.ts           # コンテンツコレクションのスキーマ定義（blog コレクション）
 │   │   └── blog/               # ブログ記事 Markdown/MDX ファイル置き場

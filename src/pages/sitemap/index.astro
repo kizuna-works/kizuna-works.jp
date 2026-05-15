@@ -1,0 +1,349 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { plugins } from '../../data/plugins';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const tools = [
+  { name: 'inkan（電子印鑑メーカー）', url: '/tools/stamp-maker.html' },
+  { name: 'Natsuin（PDF電子印鑑・署名ツール）', url: '/tools/natsuin.html' },
+  { name: 'Musubi（PDF結合・分割ツール）', url: '/tools/musubi.html' },
+  { name: 'Tsumugi（QRコードジェネレーター）', url: '/tools/KizunaTsumugi.html' },
+  { name: 'Masuku（画像・PDFマスキングツール）', url: '/tools/masuku.html' },
+  { name: 'Shuku（画像変換・圧縮・リサイズツール）', url: '/tools/Shuku.html' },
+];
+
+const extensions = [
+  {
+    name: 'KW Field Viewer for kintone',
+    slug: 'kw-field-viewer-for-kintone',
+    description: 'kintoneフィールドコードを画面上にオーバーレイ表示する Chrome 拡張機能',
+  },
+  {
+    name: 'KW App Exporter for kintone',
+    slug: 'kw-app-exporter-for-kintone',
+    description: 'kintoneアプリの設定情報を HTML/JSON/Excel/Markdown 形式で一括エクスポート',
+  },
+];
+
+const dateFmt = (d: Date) =>
+  `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+---
+
+<Layout
+  title="サイトマップ - 全ページ一覧 | KIZUNA Works"
+  description="KIZUNA Works が公開する kintone プラグイン・Chrome 拡張機能・無料 Web ツール・ブログ記事・用語集・各種ポリシーの全ページを一覧で確認できるサイトマップ。お探しのページへ素早くアクセスできます。"
+  ogTitle="サイトマップ - 全ページ一覧 | KIZUNA Works"
+  ogDescription="KIZUNA Works の全ページを一覧で確認できるサイトマップ。kintone プラグイン・Chrome 拡張機能・無料 Web ツール・ブログ記事を素早く検索。"
+  ogUrl="https://kizuna-works.jp/sitemap/"
+  canonical="https://kizuna-works.jp/sitemap/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/sitemap/",
+          "url": "https://kizuna-works.jp/sitemap/",
+          "name": "サイトマップ | KIZUNA Works",
+          "description": "KIZUNA Works の全ページ一覧。",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "サイトマップ", "item": "https://kizuna-works.jp/sitemap/" }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #f4f7f6; }
+
+    .sitemap-hero {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: #FFFFFF;
+      padding: 60px 5% 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sitemap-hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #1B3A6B 0%, #2E8B2E 100%);
+    }
+
+    .sitemap-hero h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin: 0 0 12px;
+    }
+
+    .sitemap-hero p {
+      font-size: 1rem;
+      opacity: 0.92;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .sitemap-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 5% 80px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .sm-card {
+      background-color: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 28px 32px 24px;
+      border-top: 4px solid #2E8B2E;
+      min-width: 0;
+    }
+
+    .sm-card.wide {
+      grid-column: 1 / -1;
+    }
+
+    .sm-card h2 {
+      color: #1B3A6B;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sm-card .sm-h2-count {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #64748b;
+      background: #f1f5f9;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+
+    .sm-card .sm-h2-desc {
+      color: #64748b;
+      font-size: 0.85rem;
+      margin: 0 0 18px;
+      line-height: 1.6;
+    }
+
+    .sm-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sm-list li {
+      padding: 8px 0;
+      border-bottom: 1px dashed #e2e8f0;
+      line-height: 1.6;
+    }
+
+    .sm-list li:last-child { border-bottom: none; }
+
+    .sm-list a {
+      color: #1B3A6B;
+      font-weight: 500;
+      font-size: 0.95rem;
+      display: inline-block;
+      transition: color 0.15s;
+    }
+
+    .sm-list a:hover {
+      color: #2E8B2E;
+      text-decoration: underline;
+    }
+
+    .sm-list .sm-sub {
+      display: block;
+      color: #64748b;
+      font-size: 0.78rem;
+      margin-top: 2px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .sm-list .sm-date {
+      display: inline-block;
+      color: #94a3b8;
+      font-size: 0.75rem;
+      margin-left: 8px;
+      font-weight: 400;
+    }
+
+    .sm-list .sm-nested {
+      list-style: none;
+      padding: 6px 0 0 16px;
+      margin: 4px 0 0;
+      border-left: 2px solid #e2e8f0;
+    }
+
+    .sm-list .sm-nested li {
+      padding: 4px 0 4px 8px;
+      border-bottom: none;
+    }
+
+    .sm-list .sm-nested a {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    .sm-list .sm-nested a:hover {
+      color: #2E8B2E;
+    }
+
+    .sm-xml-note {
+      max-width: 1100px;
+      margin: 0 auto 60px;
+      padding: 0 5%;
+      font-size: 0.85rem;
+      color: #64748b;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .sm-xml-note a {
+      color: #2E8B2E;
+      font-weight: 600;
+    }
+
+    .sm-xml-note a:hover {
+      color: #1B3A6B;
+    }
+
+    @media (max-width: 768px) {
+      .sitemap-hero { padding: 50px 5% 40px; }
+      .sitemap-hero h1 { font-size: 1.7rem; }
+      .sitemap-wrap {
+        grid-template-columns: 1fr;
+        padding: 40px 5% 60px;
+        gap: 20px;
+      }
+      .sm-card { padding: 24px 22px 20px; }
+      .sm-card h2 { font-size: 1.05rem; }
+    }
+  </style>
+
+  <main>
+    <section class="sitemap-hero">
+      <h1>サイトマップ</h1>
+      <p>KIZUNA Works が公開する全ページの一覧です。お探しのコンテンツへ素早くアクセスできます。</p>
+    </section>
+
+    <div class="sitemap-wrap">
+      <section class="sm-card">
+        <h2>メインメニュー</h2>
+        <p class="sm-h2-desc">主要カテゴリへの入口です。</p>
+        <ul class="sm-list">
+          <li><a href="/">トップページ</a></li>
+          <li><a href="/plugins/">kintone プラグイン一覧</a></li>
+          <li><a href="/extensions/">Chrome 拡張機能一覧</a></li>
+          <li><a href="/tools/">無料 Web ツール一覧</a></li>
+          <li><a href="/blog/">ブログ</a></li>
+          <li><a href="/glossary/">kintone 用語集</a></li>
+          <li><a href="/contact/">お問い合わせ</a></li>
+        </ul>
+      </section>
+
+      <section class="sm-card">
+        <h2>kintone プラグイン <span class="sm-h2-count">{plugins.length} 件</span></h2>
+        <p class="sm-h2-desc">業務効率化を支援する kintone プラグインの製品ページ。</p>
+        <ul class="sm-list">
+          {plugins.map(p => (
+            <li>
+              <a href={`/plugins/${p.slug}/`}>{p.name}</a>
+              <span class="sm-sub">{p.cardDescription}</span>
+            </li>
+          ))}
+          <li>
+            <a href="/plugins/supporter/">年間サポーターライセンス</a>
+            <span class="sm-sub">全プラグイン使い放題＋優先サポート</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="sm-card">
+        <h2>Chrome 拡張機能 <span class="sm-h2-count">{extensions.length} 件</span></h2>
+        <p class="sm-h2-desc">kintone の開発・運用を効率化する Chrome 拡張機能。</p>
+        <ul class="sm-list">
+          {extensions.map(e => (
+            <li>
+              <a href={`/extensions/${e.slug}/`}>{e.name}</a>
+              <span class="sm-sub">{e.description}</span>
+              <ul class="sm-nested">
+                <li><a href={`/extensions/${e.slug}/privacy/`}>プライバシーポリシー</a></li>
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="sm-card">
+        <h2>無料 Web ツール <span class="sm-h2-count">{tools.length} 件</span></h2>
+        <p class="sm-h2-desc">インストール不要・ブラウザ完結型の業務ツール。</p>
+        <ul class="sm-list">
+          {tools.map(t => (
+            <li><a href={t.url}>{t.name}</a></li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="sm-card wide">
+        <h2>ブログ記事 <span class="sm-h2-count">{posts.length} 件</span></h2>
+        <p class="sm-h2-desc">kintone アップデート情報・プラグイン解説・カスタマイズ実例。</p>
+        <ul class="sm-list">
+          {posts.map(post => (
+            <li>
+              <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+              <span class="sm-date">{dateFmt(post.data.pubDate)}</span>
+              <span class="sm-sub">{post.data.description}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="sm-card wide">
+        <h2>その他のページ</h2>
+        <p class="sm-h2-desc">法的ページ・運営情報・各種ポリシー。</p>
+        <ul class="sm-list">
+          <li><a href="/privacy/">プライバシーポリシー</a></li>
+          <li><a href="/terms/">利用規約</a></li>
+          <li><a href="/tokushoho/">特定商取引法に基づく表記</a></li>
+          <li><a href="/refund/">返金ポリシー</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <p class="sm-xml-note">
+      検索エンジン向けの XML サイトマップは <a href="/sitemap-index.xml">/sitemap-index.xml</a> で配信しています。
+    </p>
+  </main>
+</Layout>
