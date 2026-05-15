@@ -1,0 +1,999 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+
+<Layout
+  title="KW App Exporter for kintone - アプリ設定エクスポートChrome拡張機能 | KIZUNA Works"
+  description="kintoneアプリの設定情報（フィールド構成・レイアウト・一覧・権限・プロセス管理）をHTML/JSON/Excel/Markdown形式で一括エクスポートできる無料Chrome拡張機能。アプリの引き継ぎ・ドキュメント化・差分比較を効率化する管理者向けツール。"
+  ogTitle="KW App Exporter for kintone - アプリ設定エクスポートChrome拡張機能 | KIZUNA Works"
+  ogDescription="kintoneアプリの設定情報をHTML/JSON/Excel/Markdown形式で一括エクスポート。アプリ引き継ぎ・ドキュメント化・差分比較を効率化する無料Chrome拡張機能。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/extensions/kw-app-exporter-for-kintone/"
+  ogImage="https://kizuna-works.jp/images/extensions/kw-app-exporter-banner.png"
+  canonical="https://kizuna-works.jp/extensions/kw-app-exporter-for-kintone/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/extensions/kw-app-exporter-for-kintone/",
+          "url": "https://kizuna-works.jp/extensions/kw-app-exporter-for-kintone/",
+          "name": "KW App Exporter for kintone - Chrome拡張機能 | KIZUNA Works",
+          "description": "kintoneアプリの設定情報をHTML/JSON/Excel/Markdown形式で一括エクスポートできる無料Chrome拡張機能。",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "Chrome拡張機能", "item": "https://kizuna-works.jp/extensions/" },
+            { "@type": "ListItem", "position": 3, "name": "KW App Exporter for kintone", "item": "https://kizuna-works.jp/extensions/kw-app-exporter-for-kintone/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "KW App Exporter for kintone",
+          "description": "kintoneアプリの設定情報（フィールド構成・レイアウト・一覧・権限・プロセス管理）をHTML/JSON/Excel/Markdown形式で一括エクスポートできるChrome拡張機能。",
+          "applicationCategory": "DeveloperApplication",
+          "applicationSubCategory": "BrowserExtension",
+          "operatingSystem": "Chrome",
+          "url": "https://kizuna-works.jp/extensions/kw-app-exporter-for-kintone/",
+          "image": "https://kizuna-works.jp/images/extensions/kw-app-exporter-banner.png",
+          "screenshot": [
+            "https://kizuna-works.jp/images/extensions/kw-app-exporter/01-popup.png",
+            "https://kizuna-works.jp/images/extensions/kw-app-exporter/02-html-export.png",
+            "https://kizuna-works.jp/images/extensions/kw-app-exporter/03-excel-export.png",
+            "https://kizuna-works.jp/images/extensions/kw-app-exporter/04-markdown-export.png"
+          ],
+          "softwareVersion": "1.0.0",
+          "inLanguage": "ja",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/PreOrder",
+            "description": "完全無料。Chrome Web Store にて近日公開予定。"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://kizuna-works.jp/images/logo.png",
+              "width": 677,
+              "height": 369
+            }
+          },
+          "featureList": [
+            "アプリ設定情報を8カテゴリ一括取得（フィールド・レイアウト・一覧・権限・プロセス）",
+            "HTML / JSON / Excel / Markdown の4形式で出力",
+            "権限不足の項目は自動スキップして他項目を出力",
+            "ポップアップから出力対象と形式を選んでワンクリック実行",
+            "選択状態は次回起動時に復元",
+            "ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray: #999999;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(27,58,107,0.82) 0%, rgba(42,82,152,0.78) 100%),
+        url('/images/extensions-bg.webp') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 128px;
+      height: 128px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      background-color: #FFFFFF;
+      padding: 12px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-badge.coming-soon { background-color: #f59e0b; }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      opacity: 0.95;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .btn-disabled {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: not-allowed;
+      border: 2px dashed rgba(255,255,255,0.4);
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg { background-color: var(--color-bg); }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 16px;
+      margin-bottom: 48px;
+    }
+
+    .usecase-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .usecase-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 28px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .usecase-icon { font-size: 36px; flex-shrink: 0; }
+
+    .usecase-title {
+      color: var(--color-navy);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .usecase-desc {
+      color: var(--color-text-light);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 28px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .feature-num {
+      display: inline-block;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 36px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .feature-title {
+      font-size: 18px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .format-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .gallery-row {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: flex-start;
+    }
+
+    .gallery-row.equal {
+      grid-template-columns: 1fr 1fr;
+      margin-top: 32px;
+    }
+
+    .gallery-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.14);
+    }
+
+    .gallery-image-wrap {
+      background-color: #fafafa;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+    }
+
+    .gallery-image-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .gallery-image-wrap--narrow img {
+      max-width: 280px;
+    }
+
+    .gallery-content {
+      padding: 20px 24px 24px;
+    }
+
+    .gallery-title {
+      color: var(--color-navy);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .gallery-desc {
+      color: var(--color-text-light);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .step-img {
+      display: inline-block;
+      vertical-align: middle;
+      max-height: 32px;
+      border-radius: 4px;
+      margin: 0 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
+    .format-card {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 18px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border-top: 4px solid var(--color-green);
+    }
+
+    .format-label {
+      color: var(--color-navy);
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .format-desc {
+      color: var(--color-text-light);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child { border-bottom: none; }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .target-table {
+      width: 100%;
+      max-width: 880px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(27,58,107,0.08);
+      font-size: 13px;
+    }
+
+    .target-table th {
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      padding: 12px 14px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .target-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--color-gray-light);
+      vertical-align: top;
+    }
+
+    .target-table tbody tr:last-child td { border-bottom: none; }
+
+    .target-table code {
+      background: #eef2ff;
+      color: var(--color-navy);
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-family: 'Consolas', monospace;
+    }
+
+    .target-table .tag-admin {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    .target-table .tag-anyone {
+      display: inline-block;
+      background: #d1fae5;
+      color: #065f46;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    .privacy-box {
+      background-color: #f0fdf4;
+      border-left: 5px solid var(--color-green);
+      padding: 24px 28px;
+      border-radius: 8px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .privacy-box h3 {
+      color: var(--color-navy);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .privacy-box ul {
+      margin: 0 0 0 24px;
+      padding: 0;
+    }
+
+    .privacy-box li {
+      color: var(--color-text);
+      font-size: 14px;
+      line-height: 1.85;
+      margin-bottom: 4px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .related-card {
+      display: block;
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 24px 22px;
+      border-left: 4px solid var(--color-green);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .related-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+    }
+
+    .related-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-green);
+      background-color: #e6f4e6;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .related-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+
+    .related-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .donation-banner {
+      background: #ffffff;
+      padding: 36px 5%;
+      border-top: 1px solid #e2e8f0;
+    }
+    .donation-banner-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .donation-banner-icon {
+      font-size: 42px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .donation-banner-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .donation-banner-title {
+      display: block;
+      color: #1B3A6B;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+    .donation-banner-desc {
+      color: #4a5568;
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .donation-banner-btn {
+      flex-shrink: 0;
+      display: inline-block;
+      background: #2E8B2E;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 13px 28px;
+      border-radius: 24px;
+      text-decoration: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .donation-banner-btn:hover {
+      background: #1B3A6B;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(46, 139, 46, 0.25);
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-subtitle { font-size: 16px; }
+      .hero-copy { font-size: 15px; }
+      .section-wrapper { padding: 60px 5%; }
+      .section-title { font-size: 24px; }
+      .usecase-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .format-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-row, .gallery-row.equal { grid-template-columns: 1fr; gap: 24px; }
+      .related-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .target-table { font-size: 12px; }
+      .target-table th, .target-table td { padding: 8px; }
+    }
+    @media (max-width: 640px) {
+      .donation-banner { padding: 28px 5%; }
+      .donation-banner-inner { flex-direction: column; text-align: center; gap: 16px; }
+      .donation-banner-icon { font-size: 36px; }
+    }
+  </style>
+
+  <main>
+    <section class="hero fade-in">
+      <img
+        src="/images/extensions/kw-app-exporter-icon.png"
+        alt="KW App Exporter for kintone アイコン"
+        class="hero-icon"
+        width="128"
+        height="128"
+        onerror="this.onerror=null;this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge coming-soon">Chrome Web Store 近日公開</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">KW App Exporter for kintone</h1>
+      <p class="hero-subtitle">kintone アプリの「設定情報そのもの」を、ワンクリックでエクスポート。</p>
+      <p class="hero-copy">
+        フィールド構成・レイアウト・一覧・権限・プロセス管理など、kintone アプリの設定情報を
+        HTML / JSON / Excel / Markdown 形式で一括書き出し。<br>
+        アプリの引き継ぎ・ドキュメント化・差分比較を、画面遷移なしで完結させる管理者向けツール。
+      </p>
+      <a href="#" class="btn-disabled" aria-disabled="true">Chrome Web Store で近日公開</a>
+    </section>
+
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな悩みを解決</h2>
+        <p class="section-subtitle">kintone 管理・開発・運用の現場で繰り返し発生する「設定情報の書き出し作業」を、ワンクリックで完了します。</p>
+        <div class="usecase-grid">
+          <div class="usecase-card">
+            <div class="usecase-icon">📄</div>
+            <div>
+              <h3 class="usecase-title">アプリ仕様書・引き継ぎ資料の作成</h3>
+              <p class="usecase-desc">フィールド一覧・一覧設定・権限・プロセス管理を、Markdown / HTML / Excel で出力。仕様書や引き継ぎ書のひな型として即活用できます。</p>
+            </div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-icon">🔄</div>
+            <div>
+              <h3 class="usecase-title">本番・開発環境の差分比較</h3>
+              <p class="usecase-desc">同じアプリを両環境で JSON エクスポートし、テキスト差分ツールで比較。設定漏れ・反映漏れを一目で発見できます。</p>
+            </div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-icon">💾</div>
+            <div>
+              <h3 class="usecase-title">設定バックアップ</h3>
+              <p class="usecase-desc">アプリ設定を JSON でバックアップ。誤操作や仕様変更前の状態を、後から確認・参照できる状態で保管できます。</p>
+            </div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-icon">📊</div>
+            <div>
+              <h3 class="usecase-title">権限・プロセスの可視化</h3>
+              <p class="usecase-desc">複数アプリに散らばった権限設定・プロセス管理を Excel で一覧化し、運用ルール監査・棚卸しの効率化に。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">主な機能</h2>
+      <p class="section-subtitle">8 種類の設定情報 × 4 種類の出力形式で、用途に最適なエクスポートを実現します。</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-num">1</span>
+          <h3 class="feature-title">ワンクリックでポップアップから実行</h3>
+          <p class="feature-desc">拡張機能アイコンをクリックするとポップアップが開き、現在のアプリ名と ID を自動表示。出力したい項目と形式を選んで「エクスポート実行」を押すだけ。</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-num">2</span>
+          <h3 class="feature-title">8 種類の設定情報を一括取得</h3>
+          <p class="feature-desc">アプリ基本情報・フィールド構成・レイアウト・一覧設定・プロセス管理・アプリ／フィールド／レコードの各アクセス権限を、選択した分だけまとめて取得します。</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-num">3</span>
+          <h3 class="feature-title">権限不足の項目は自動スキップ</h3>
+          <p class="feature-desc">アプリ管理者でない場合に取得できない項目は自動スキップし、取得できた項目のみで出力。エクスポートファイル内に「⚠️ 権限なし」を明示します。</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-num">4</span>
+          <h3 class="feature-title">選択状態を次回起動時に復元</h3>
+          <p class="feature-desc">チェックボックスの状態・出力形式の選択は <code>chrome.storage.local</code> に保存され、次回ポップアップを開いたときに自動復元されます。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">4 種類の出力形式</h2>
+        <p class="section-subtitle">用途に応じて最適な形式を選択できます。</p>
+        <div class="format-grid">
+          <div class="format-card">
+            <div class="format-label">📄 HTML</div>
+            <p class="format-desc">タブ切替・印刷対応のスタンドアロンファイル。社内 Wiki・メール添付に最適。</p>
+          </div>
+          <div class="format-card">
+            <div class="format-label">🔧 JSON</div>
+            <p class="format-desc">完全な構造化データ。バックアップ・差分比較・自動化処理に最適。</p>
+          </div>
+          <div class="format-card">
+            <div class="format-label">📊 Excel</div>
+            <p class="format-desc">項目ごとにシート分割。台帳管理・非エンジニアへの共有に最適。</p>
+          </div>
+          <div class="format-card">
+            <div class="format-label">📝 Markdown</div>
+            <p class="format-desc">表形式の整形済テキスト。Notion・GitHub・社内ドキュメントへの貼り付けに最適。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">実際の操作画面</h2>
+      <p class="section-subtitle">ポップアップから 1 クリックで実行し、用途に応じた形式でファイルが手元に届きます。</p>
+      <div class="gallery-row">
+        <div class="gallery-card">
+          <div class="gallery-image-wrap gallery-image-wrap--narrow">
+            <img src="/images/extensions/kw-app-exporter/01-popup.png" alt="拡張機能アイコンをクリックして開いたポップアップ画面。アプリ名・ID と8項目のチェックリスト、出力形式（HTML/JSON/Excel/Markdown）の選択欄、エクスポート実行ボタンが配置されている" width="421" height="816" loading="lazy">
+          </div>
+          <div class="gallery-content">
+            <h3 class="gallery-title">📌 ポップアップから 1 クリック実行</h3>
+            <p class="gallery-desc">アイコンをクリックするとアプリ名・ID が自動表示。出力したい項目と形式を選んで「エクスポート実行」を押すだけ。選択状態は次回ポップアップを開いたときに自動復元されます。</p>
+          </div>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-image-wrap">
+            <img src="/images/extensions/kw-app-exporter/02-html-export.png" alt="HTML エクスポート結果の画面。ヘッダーにアプリ名・ID・出力日時、その下にタブUI（アプリ基本情報・フィールド構成・レイアウト・一覧設定・プロセス管理・各アクセス権限）、選択中のフィールド構成タブにはフィールドコード・名称・タイプ・必須・ユニーク・選択肢の一覧テーブルが表示されている" width="1482" height="781" loading="lazy">
+          </div>
+          <div class="gallery-content">
+            <h3 class="gallery-title">📄 HTML 出力 - タブ切替で 8 カテゴリを 1 ファイルに</h3>
+            <p class="gallery-desc">アプリ基本情報・フィールド構成・レイアウト・一覧設定・プロセス管理・各アクセス権限を、タブ切替で確認できるスタンドアロン HTML として出力。各セルをクリックでクリップボードにコピー可能。印刷にも対応しているため、そのまま仕様書として共有できます。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-row equal">
+        <div class="gallery-card">
+          <div class="gallery-image-wrap">
+            <img src="/images/extensions/kw-app-exporter/03-excel-export.png" alt="Excel で開いたエクスポート結果。1行目にヘッダー、2行目以降にフィールドコード・フィールド名・タイプ・タイプ（日本語）・必須・ユニーク・選択肢の列。下部のシートタブに「アプリ情報・基本情報・フィールド構成・レイアウト・一覧設定・プロセス管理・アプリ...」が並んでいる" width="1603" height="644" loading="lazy">
+          </div>
+          <div class="gallery-content">
+            <h3 class="gallery-title">📊 Excel 出力 - シート分割で台帳化</h3>
+            <p class="gallery-desc">項目ごとにシートを分割した xlsx ファイルとして出力。非エンジニアへの共有、台帳管理、棚卸し作業に最適です。依存ライブラリなしで動作するため、追加インストールも不要。</p>
+          </div>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-image-wrap">
+            <img src="/images/extensions/kw-app-exporter/04-markdown-export.png" alt="VSCode で開いた Markdown ファイル。kintone アプリ設定エクスポートの見出しの下に、フィールド構成のテーブルが Markdown 形式で記述されている。フィールドコードはバッククォートで囲まれ、必須・ユニーク列にはチェックマークが表示" width="1244" height="846" loading="lazy">
+          </div>
+          <div class="gallery-content">
+            <h3 class="gallery-title">📝 Markdown 出力 - Notion・GitHub へ即貼付</h3>
+            <p class="gallery-desc">表形式の整形済 Markdown を出力。Notion・GitHub・社内 Wiki にそのまま貼り付けられます。VSCode のプレビューや GitHub の Markdown ビューアでも綺麗にレンダリングされる構造です。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">エクスポート対象</h2>
+      <p class="section-subtitle">下表の 8 カテゴリから、必要な項目だけを選んで出力できます。</p>
+      <table class="target-table">
+        <thead>
+          <tr>
+            <th>カテゴリ</th>
+            <th>取得元 API</th>
+            <th>必要権限</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>アプリ基本情報</td><td><code>app.json</code></td><td><span class="tag-anyone">一般ユーザー可</span></td></tr>
+          <tr><td>フィールド構成</td><td><code>app/form/fields.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
+          <tr><td>レイアウト</td><td><code>app/form/layout.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
+          <tr><td>一覧設定</td><td><code>app/views.json</code></td><td><span class="tag-anyone">一般ユーザー可</span></td></tr>
+          <tr><td>プロセス管理</td><td><code>app/status.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
+          <tr><td>アプリアクセス権限</td><td><code>app/acl.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
+          <tr><td>フィールドアクセス権限</td><td><code>field/acl.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
+          <tr><td>レコードアクセス権限</td><td><code>record/acl.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">使い方</h2>
+        <p class="section-subtitle">インストール後、kintone のアプリ画面を開いてアイコンをクリックするだけ。</p>
+        <ol class="steps-list">
+          <li>Chrome Web Store から「KW App Exporter for kintone」をインストール（近日公開予定）</li>
+          <li>kintone のアプリ画面（一覧／詳細／編集のいずれか）を開く</li>
+          <li>ブラウザ右上の拡張機能アイコン<img src="/images/extensions/kw-app-exporter/00-toolbar-pinned-icon.png" alt="Chromeツールバーに固定された拡張機能アイコン" class="step-img" width="170" height="68" loading="lazy">をクリック → ポップアップが開き、現在のアプリ名と ID が自動表示されます</li>
+          <li>エクスポート対象（8項目）と出力形式（HTML / JSON / Excel / Markdown）を選択</li>
+          <li>「エクスポート実行」をクリック → 選択した形式でファイルがダウンロードされます</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">プライバシー・セキュリティ</h2>
+      <p class="section-subtitle">アプリ設定を扱う拡張機能だからこそ、何を取得し何を取得しないかを明示します。</p>
+      <div class="privacy-box">
+        <h3>✅ 取得しないもの</h3>
+        <ul>
+          <li>kintone のレコード値（業務データ）</li>
+          <li>ユーザーの個人情報・認証情報</li>
+          <li>Cookie・閲覧履歴・トラッキング情報</li>
+        </ul>
+        <h3 style="margin-top: 20px;">📥 取得するもの（ブラウザ内処理のみ・外部送信なし）</h3>
+        <ul>
+          <li>アプリの設定情報（フィールド定義・レイアウト・一覧・権限・プロセス）</li>
+          <li>アプリ名・アプリ ID・ドメイン名（表示およびエクスポートファイル名に使用）</li>
+        </ul>
+      </div>
+      <p style="text-align: center; margin-top: 32px;">
+        <a href="/extensions/kw-app-exporter-for-kintone/privacy/" style="color: var(--color-green); font-weight: 700;">→ プライバシーポリシーの詳細を見る</a>
+      </p>
+    </section>
+
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">動作環境</h2>
+        <ul class="notes-list">
+          <li>Google Chrome 最新版（Manifest V3 対応版）。Microsoft Edge / Brave / Arc 等の Chromium ベースブラウザでも動作します。</li>
+          <li>対応サービス: kintone（<code>*.cybozu.com</code> / <code>*.kintone.com</code>）。ゲストスペース対応。</li>
+          <li>kintone アプリへのアクセス権限を持つアカウントでログインしている必要があります。</li>
+          <li>フィールド構成・レイアウト・権限・プロセス管理の取得には「アプリ管理者」権限が必要です。権限不足の項目は自動スキップされます。</li>
+          <li>本拡張機能は KIZUNA Works が独自に開発・提供するものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+          <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連情報</h2>
+      <p class="section-subtitle">kintone のカスタマイズ・運用効率化に役立つ KIZUNA Works のコンテンツです。</p>
+      <div class="related-grid">
+        <a href="/extensions/kw-field-viewer-for-kintone/" class="related-card">
+          <span class="related-label">拡張機能</span>
+          <div class="related-title">KW Field Viewer for kintone</div>
+          <p class="related-desc">フィールドコードを画面上にオーバーレイ表示する Chrome 拡張機能。アプリ設定画面を開かずに開発できる、開発者向け姉妹ツール。</p>
+        </a>
+        <a href="/plugins/" class="related-card">
+          <span class="related-label">プラグイン</span>
+          <div class="related-title">kintone プラグイン一覧</div>
+          <p class="related-desc">フィールドスタイラー・条件分岐自動採番・クイックサーチなど、現場の業務効率化を支援する kintone プラグインを公開中。</p>
+        </a>
+        <a href="/blog/" class="related-card">
+          <span class="related-label">ブログ</span>
+          <div class="related-title">kintone 関連ブログ</div>
+          <p class="related-desc">kintone のアップデート情報・プラグイン比較・カスタマイズ実例など、運用担当者・開発者向けの情報を発信中。</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="donation-banner fade-in">
+      <div class="donation-banner-inner">
+        <span class="donation-banner-icon" aria-hidden="true">💚</span>
+        <div class="donation-banner-text">
+          <strong class="donation-banner-title">この拡張機能が役に立ったら、開発を応援してください</strong>
+          <p class="donation-banner-desc">いただいた寄付は新機能開発・サーバー維持費に使われます（Squareの安全な決済リンクを利用）</p>
+        </div>
+        <a href="https://square.link/u/RkZ5QNKA" class="donation-banner-btn" target="_blank" rel="noopener noreferrer">寄付で応援する</a>
+      </div>
+    </section>
+
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">機能リクエストや不具合報告など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { root: null, rootMargin: '0px', threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    });
+  </script>
+</Layout>

@@ -78,10 +78,14 @@ c:\kizuna-works.jp\
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   │   ├── extensions/
 │   │   │   ├── index.astro     # Chrome 拡張機能一覧ページ（/extensions/）
-│   │   │   └── kw-field-viewer-for-kintone/
-│   │   │       ├── index.astro          # KW Field Viewer for kintone ランディングページ（/extensions/kw-field-viewer-for-kintone/）
+│   │   │   ├── kw-field-viewer-for-kintone/
+│   │   │   │   ├── index.astro          # KW Field Viewer for kintone ランディングページ（/extensions/kw-field-viewer-for-kintone/）
+│   │   │   │   └── privacy/
+│   │   │   │       └── index.astro      # KW Field Viewer for kintone プライバシーポリシー（/extensions/kw-field-viewer-for-kintone/privacy/）
+│   │   │   └── kw-app-exporter-for-kintone/
+│   │   │       ├── index.astro          # KW App Exporter for kintone ランディングページ（/extensions/kw-app-exporter-for-kintone/）
 │   │   │       └── privacy/
-│   │   │           └── index.astro      # KW Field Viewer for kintone プライバシーポリシー（/extensions/kw-field-viewer-for-kintone/privacy/）
+│   │   │           └── index.astro      # KW App Exporter for kintone プライバシーポリシー（/extensions/kw-app-exporter-for-kintone/privacy/）
 │   │   └── glossary/
 │   │       └── index.astro     # kintone 用語集（/glossary/）— カテゴリ・五十音順、JSで検索/絞り込み、DefinedTermSet JSON-LD 付き
 │   ├── content/
