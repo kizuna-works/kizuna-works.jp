@@ -1,0 +1,1121 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+---
+
+<Layout
+  title="レコードロック - 無料 kintoneプラグイン | KIZUNA Works"
+  description="kintoneレコードを条件で自動ロックして編集を制限する無料プラグイン。ステータス・日付・特定フィールド値などの複数条件（AND/OR）と除外ユーザー設定で、受注後・承認後のレコードを保護できます。完全無料のkintoneプラグイン、kintone プラグイン 無料配布中。"
+  ogTitle="レコードロック - 無料 kintoneプラグイン | KIZUNA Works"
+  ogDescription="kintoneレコードを条件で自動ロックして編集を制限する無料プラグイン。ステータス・日付・特定フィールド値などの複数条件（AND/OR）と除外ユーザー設定で、受注後・承認後のレコードを保護できます。完全無料のkintoneプラグイン、kintone プラグイン 無料配布中。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/record-lock/"
+  ogImage="https://kizuna-works.jp/images/record-lock-banner.png"
+  canonical="https://kizuna-works.jp/plugins/record-lock/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/record-lock/",
+          "url": "https://kizuna-works.jp/plugins/record-lock/",
+          "name": "レコードロック - 無料 kintoneプラグイン | KIZUNA Works",
+          "description": "kintoneレコードを条件で自動ロックして編集を制限する無料プラグイン。ステータス・日付・特定フィールド値などの複数条件（AND/OR）と除外ユーザー設定で、受注後・承認後のレコードを保護できます。完全無料のkintoneプラグイン、kintone プラグイン 無料配布中。",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "レコードロック", "item": "https://kizuna-works.jp/plugins/record-lock/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "レコードロック kintone プラグイン",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "url": "https://kizuna-works.jp/plugins/record-lock/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-record-lock-v1.0.0.zip",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintoneレコードを条件で自動ロックして編集を制限する無料プラグイン。複数条件（AND/OR）・除外ユーザー設定・フィールド単位ロックに対応。kintone プラグイン 無料配布中。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "条件を満たすレコードの自動ロック",
+            "複数条件（AND/OR）の組み合わせ",
+            "レコード全体ロック／フィールド単位ロックの切替",
+            "除外ユーザー・グループ・組織の設定",
+            "ステータス・日付（Today系演算子）・ユーザー選択など多様なフィールドに対応",
+            "詳細画面バナー・一覧画面アイコンでロック状態を可視化"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    /* Fade-in Animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    /* Section Wrapper */
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    /* Problem Cards */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    /* Feature List */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    /* Steps */
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    /* Notes */
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 24px 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .faq-icon {
+      font-size: 20px;
+      color: var(--color-navy);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.is-open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+
+    .faq-answer-inner {
+      padding-bottom: 24px;
+      color: var(--color-text-light);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .faq-answer-inner a {
+      color: var(--color-navy);
+      text-decoration: underline;
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    /* Bottom CTA */
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .bottom-cta-links {
+      margin-top: 24px;
+      font-size: 14px;
+    }
+
+    .bottom-cta-links a {
+      text-decoration: underline;
+    }
+
+    .bottom-cta-links a:hover {
+      color: #d1d5db;
+    }
+
+    /* Screenshots Grid */
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .screenshot-item {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .screenshot-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+
+    .screenshot-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+
+    .screenshot-caption {
+      padding: 16px 20px;
+    }
+
+    .screenshot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .screenshot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .ba-label {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    .ba-label.before {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+    .ba-label.after {
+      background-color: #dcfce7;
+      color: #166534;
+    }
+
+    /* Related Plugins */
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .related-posts-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding: 60px 5%;
+      }
+      .hero-title {
+        font-size: 28px;
+      }
+      .hero-copy {
+        font-size: 15px;
+      }
+      .hero-icon {
+        width: 140px;
+        height: 140px;
+      }
+      .section-wrapper {
+        padding: 60px 5%;
+      }
+      .problem-grid {
+        grid-template-columns: 1fr;
+      }
+      .bottom-cta-title {
+        font-size: 22px;
+      }
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/record-lock-icon.png"
+        alt="レコードロックプラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">レコードロック kintone プラグイン</h1>
+      <p class="hero-copy">受注後・承認後・期限切れなどの条件を満たすレコードを自動的にロックし、編集を制限。除外ユーザー設定で管理者だけ編集可能にできる、kintone のレコード保護プラグインです。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">確定したレコードが誤って編集される、運用ルールが守られない、を解決します</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🔒</span>
+            <h3 class="problem-title">受注後の編集を防げない</h3>
+            <p class="problem-desc">ステータスが「受注済」になったレコードを誤って書き換えられて、金額や条件が消えてしまう</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">👥</span>
+            <h3 class="problem-title">担当者を限定できない</h3>
+            <p class="problem-desc">承認後のレコードは管理者だけが編集できるようにしたいが、kintone 標準ではアクセス権が粗い</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📅</span>
+            <h3 class="problem-title">期限切れレコードを保護</h3>
+            <p class="problem-desc">期日を過ぎた案件・古いレコードを書き換え不可にして、履歴として残したい</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">主な機能</h2>
+      <ul class="feature-list">
+        <li><span><strong>条件で自動ロック</strong> — 文字列・数値・日付・ステータス・ユーザー選択など、kintoneの多様なフィールド種別を条件にできます。日付フィールドは「今日より前」「今日から30日後」など Today 系演算子に対応。</span></li>
+        <li><span><strong>複数条件の AND / OR 結合</strong> — 「ステータス＝受注済 かつ 受注日＜今日」のような複雑な条件も設定可能。</span></li>
+        <li><span><strong>ロック範囲の切替</strong> — レコード全体をロック（保存・削除も不可）、または特定フィールドだけをロックの2モードから選択できます。</span></li>
+        <li><span><strong>除外ユーザー・グループ・組織</strong> — ロック条件を満たしていても、ホワイトリスト設定で管理者など特定のユーザー／グループ／組織は編集可能。</span></li>
+        <li><span><strong>視覚的なロック表示</strong> — レコード詳細画面の上部にバナー、レコード一覧画面の行背景色変更と🔒アイコンでロック状態をひと目で識別。色やメッセージは設定からカスタマイズできます。</span></li>
+      </ul>
+    </section>
+
+    <!-- Action / Before-After Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">実際の動作</h2>
+        <p class="section-subtitle">プラグイン適用前後の一覧画面と、ロックされたレコードの詳細画面</p>
+        <div class="screenshots-grid">
+          <div class="screenshot-item">
+            <img
+              src="/images/blog/record-lock-index-before.png"
+              alt="プラグイン適用前のkintone一覧画面 — どのレコードがロック対象か視覚的に分からない状態"
+              width="1280"
+              height="400"
+              loading="lazy"
+            />
+            <div class="screenshot-caption">
+              <span class="ba-label before">BEFORE</span>
+              <strong style="display:inline;">一覧画面（適用前）</strong>
+              <p style="margin-top:8px;">どのレコードがロック対象かが視覚的に分からず、誤編集のリスクが残ります。</p>
+            </div>
+          </div>
+          <div class="screenshot-item">
+            <img
+              src="/images/blog/record-lock-index-after.png"
+              alt="レコードロックプラグイン適用後のkintone一覧画面 — ロック対象行に🔒バッジと背景色がついて一目で識別可能"
+              width="1280"
+              height="400"
+              loading="lazy"
+            />
+            <div class="screenshot-caption">
+              <span class="ba-label after">AFTER</span>
+              <strong style="display:inline;">一覧画面（適用後）</strong>
+              <p style="margin-top:8px;">条件を満たすレコードに🔒バッジと背景色を表示。ロック中であることが一目で識別できます。</p>
+            </div>
+          </div>
+          <div class="screenshot-item">
+            <img
+              src="/images/blog/record-lock-detail-banner.png"
+              alt="レコードロックプラグイン — レコード詳細画面の上部にロックバナーが表示され、すべての入力フィールドが編集不可になっている状態"
+              width="900"
+              height="700"
+              loading="lazy"
+            />
+            <div class="screenshot-caption">
+              <span class="ba-label after">AFTER</span>
+              <strong style="display:inline;">詳細画面（適用後）</strong>
+              <p style="margin-top:8px;">画面上部にロックバナーを表示し、すべての入力フィールドを編集不可化。誤った書き換えを防止します。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings Screenshots Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">設定画面イメージ</h2>
+      <p style="color:var(--color-text-light);font-size:15px;margin-bottom:32px;">条件・除外ユーザー・表示方法をすべて画面操作で設定できます。プログラミング知識は不要です。</p>
+      <div class="screenshots-grid">
+        <div class="screenshot-item">
+          <img
+            src="/images/blog/record-lock-setting-conditions.png"
+            alt="レコードロックプラグイン 設定画面 — ロック条件設定。複数のフィールド条件をAND/ORで組み合わせて自動ロックの条件を定義できる。"
+            width="1200"
+            height="500"
+            loading="lazy"
+          />
+          <div class="screenshot-caption">
+            <strong>① ロック条件 / ② ロック対象</strong>
+            <p>フィールド・演算子・値を選んで条件を追加。複数条件は AND/OR で組み合わせ可能。日付は「今日より前」などの動的演算子に対応。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <img
+            src="/images/blog/record-lock-setting-exclude.png"
+            alt="レコードロックプラグイン 設定画面 — 除外ユーザー・グループ・組織設定。dual-listピッカーで候補と除外を視覚的に管理。"
+            width="1200"
+            height="700"
+            loading="lazy"
+          />
+          <div class="screenshot-caption">
+            <strong>③ 除外ユーザー・グループ</strong>
+            <p>候補リスト（左）からクリックで除外リスト（右）に追加。ユーザー・グループ・組織を独立して管理できます。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <img
+            src="/images/blog/record-lock-setting-display.png"
+            alt="レコードロックプラグイン 設定画面 — ロック中の表示設定。バナーメッセージ・色・一覧アイコンをカスタマイズできる。"
+            width="1200"
+            height="500"
+            loading="lazy"
+          />
+          <div class="screenshot-caption">
+            <strong>④ ロック中の表示設定</strong>
+            <p>バナーメッセージ・背景色・文字色を自由にカスタマイズ。行背景色とロックアイコンは独立して ON/OFF できます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">活用シーン</h2>
+        <p class="section-subtitle">こんな運用にお使いいただけます</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">💼</span>
+            <h3 class="problem-title">商談・案件管理</h3>
+            <p class="problem-desc">ステータス「受注」「失注」に変わったら金額・契約条件をロック。管理者のみ修正可能。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📑</span>
+            <h3 class="problem-title">稟議・承認ワークフロー</h3>
+            <p class="problem-desc">承認済みレコードを編集不可に。承認後の改変による履歴の改ざんを防ぎます。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📊</span>
+            <h3 class="problem-title">期限管理・履歴保存</h3>
+            <p class="problem-desc">期日を過ぎた案件は自動ロック。アーカイブ的に保存し、後から書き換えられないようにできます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">インストール手順</h2>
+      <ol class="steps-list">
+        <li>「プランについて」セクションのダウンロードボタンから ZIP ファイルをダウンロード</li>
+        <li>kintone の<strong>システム管理 → プラグイン</strong>を開く</li>
+        <li>「読み込む」ボタンから ZIP ファイルをアップロード</li>
+        <li>ロックしたいアプリの<strong>アプリ設定 → プラグイン</strong>でプラグインを追加</li>
+        <li>プラグインの設定画面で①ロック条件、②ロック対象、③除外ユーザー、④表示設定を設定して保存 → <strong>アプリを更新</strong></li>
+      </ol>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能（条件ロック・除外設定・表示カスタマイズ）が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ レコード一覧に控えめな広告バナー表示あり</li>
+            </ul>
+            <a href="/downloads/kw-record-lock-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-record-lock" class="btn-primary">サポーターになる →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">よくある質問</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            本当に無料で使えますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、条件ロック・除外ユーザー設定・表示カスタマイズなど、すべての機能を無料でご利用いただけます。利用期限もなく、ずっとお使いいただけます。一覧画面に控えめな広告バナーが表示されますが、プラグインの動作には影響しません。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            ロック条件にステータスフィールドを使えますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、kintone のプロセス管理を有効化しているアプリではステータスを条件として選択できます。プロセス管理が無効のアプリでは、ステータスは条件候補に表示されません。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            管理者だけ編集できるようにできますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、設定画面の「③ 除外ユーザー・グループ・組織」で、管理者ユーザーや管理者グループを追加することで、ロック条件を満たしていてもこれらのユーザーは引き続き編集可能になります。候補リストから選んで追加するだけのシンプルな操作です。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            一部のフィールドだけロックできますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、「② ロック対象」で「フィールド指定」を選び、ロックしたいフィールドをチェックボックスで複数選択できます。コメント欄など、ロック中でも入力可能にしたいフィールドを残せます。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            年間サポーターライセンスとは何ですか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              KIZUNA Works のプラグイン開発を応援していただける方向けの年間ライセンス（年額 ¥3,300・税込）です。広告エリアの非表示、プラグイン作成リクエスト・改善要望の送付、サポーターの声を優先反映などの特典があります。詳しくは <a href="/plugins/supporter/?plugin=kw-record-lock">サポーターライセンスのご案内</a> をご覧ください。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            どのkintone環境で利用できますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              kintone のデスクトップ版で利用可能です。スタンダードコース・ワイドコースのkintone環境であれば、ドメインを問わずご利用いただけます。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            設定にプログラミングの知識は必要ですか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              いいえ、プラグインの設定画面からすべての機能をノーコードで設定できます。ドロップダウン・チェックボックス・カラーピッカーで直感的に操作可能です。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">注意事項</h2>
+        <ul class="notes-list">
+          <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+          <li>kintone はサイボウズ株式会社の登録商標です。</li>
+          <li>動作は Google Chrome 最新版での確認を推奨します。</li>
+          <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+          <li>ロック機能はクライアントサイド JavaScript で動作するため、kintone REST API を直接呼び出した場合のレコード更新はブロックできません。完全な編集禁止が必要な場合は kintone のアクセス権設定と併用してください。</li>
+          <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">同じく無料で配布中の kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/kw-conditional-numbering/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/conditional-numbering-banner.png" alt="条件分岐自動採番プラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">条件分岐自動採番</h3>
+            <p class="related-post-desc">レコード保存時に条件分岐で自動採番。CSVインポート後の一括採番にも対応。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/field-styler/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/field-styler-after.png" alt="フィールドスタイラー" loading="lazy" width="1920" height="960">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">フィールドスタイラー</h3>
+            <p class="related-post-desc">背景色・文字色・条件付きスタイルなど10機能をノーコード設定。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/quick-side-view/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/quick-side-view-banner.png" alt="クイックサイドビュー" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">クイックサイドビュー</h3>
+            <p class="related-post-desc">一覧から行クリックでサイドバー表示。最大5件を並列に閲覧・編集。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <SupporterCTA pluginId="kw-record-lock" />
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-record-lock-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-record-lock-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

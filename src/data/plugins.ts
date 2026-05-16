@@ -182,6 +182,26 @@ export const plugins: Plugin[] = [
     problemTitle: '詳細画面と一覧の往復が多い',
     problemDesc: '内容確認のたびに開いて戻るのが面倒・複数レコードの比較もしづらい',
   },
+  {
+    id: 'kw-record-lock',
+    name: 'レコードロック',
+    formName: 'レコードロックプラグイン',
+    subtitle: 'kintone プラグイン',
+    slug: 'record-lock',
+    description:
+      'kintoneレコードを条件で自動ロックして編集を制限。ステータス・日付・フィールド値などの複数条件（AND/OR）と除外ユーザー設定で、特定の人だけが編集できる運用を実現します。',
+    image: '/images/record-lock-banner.png',
+    imageAlt:
+      'レコードロックプラグイン — 条件を満たすkintoneレコードを自動ロックして編集を制限',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '条件を満たすレコードを自動ロック。ステータス・期日切れ・特定値などで編集制限。管理者は除外設定で編集可能。',
+    problemTitle: '受注済みレコードの編集を防ぎたい',
+    problemDesc: 'ステータスや日付などの条件で自動ロック、管理者のみ編集できるようにしたい',
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({

@@ -72,8 +72,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # クイックサーチプラグイン製品ページ（/plugins/quick-search/）
 │   │   │   ├── file-icon-marker/
 │   │   │   │   └── index.astro # 添付ファイルアイコン表示プラグイン製品ページ（/plugins/file-icon-marker/）
-│   │   │   └── quick-side-view/
-│   │   │       └── index.astro # クイックサイドビュープラグイン製品ページ（/plugins/quick-side-view/）
+│   │   │   ├── quick-side-view/
+│   │   │   │   └── index.astro # クイックサイドビュープラグイン製品ページ（/plugins/quick-side-view/）
+│   │   │   └── record-lock/
+│   │   │       └── index.astro # レコードロックプラグイン製品ページ（/plugins/record-lock/）
 │   │   ├── tools/
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   │   ├── extensions/
@@ -192,7 +194,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-suggest-v1.0.0.zip                # ルックアップサジェストプラグイン配布ファイル（手動配置）
 │   │   ├── kw-quick-search-v1.0.0.zip                  # クイックサーチプラグイン配布ファイル（手動配置）
 │   │   ├── kw-file-icon-marker-v1.0.0.zip              # 添付ファイルアイコン表示プラグイン配布ファイル（手動配置）
-│   │   └── kw-quick-side-view-v1.0.0.zip               # クイックサイドビュープラグイン配布ファイル（手動配置）
+│   │   ├── kw-quick-side-view-v1.0.0.zip               # クイックサイドビュープラグイン配布ファイル（手動配置）
+│   │   └── kw-record-lock-v1.0.0.zip                   # レコードロックプラグイン配布ファイル（手動配置）
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）
