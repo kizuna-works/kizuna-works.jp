@@ -5,6 +5,7 @@ interface Props {
   /**
    * When provided, the form is locked to this single plugin and shows a fixed
    * display instead of the select dropdown. Useful on individual plugin pages.
+   * Also implies planType = 'individual'.
    */
   pluginId?: string;
 }
@@ -20,7 +21,28 @@ if (pluginId && !fixedPlugin) {
 <section class="sf-section">
   <div class="sf-inner">
     <div class="sf-card">
-      <form id="sf-form" class="sf-form" novalidate>
+      <form id="sf-form" class="sf-form" novalidate data-locked-plugin={fixedPlugin ? 'true' : 'false'}>
+        {!fixedPlugin && (
+          <div class="sf-group">
+            <label class="sf-label">
+              プラン<span class="sf-required">必須</span>
+            </label>
+            <div class="sf-radio-row" role="radiogroup" aria-label="プラン">
+              <label class="sf-radio">
+                <input type="radio" name="planType" value="individual" checked />
+                <span>年間サポーター</span>
+              </label>
+              <label class="sf-radio">
+                <input type="radio" name="planType" value="all" />
+                <span>プレミアム年間サポーター</span>
+              </label>
+            </div>
+            <p class="sf-help">
+              年間サポーター：1プラグイン対象・年額¥3,300（税込）／ プレミアム年間サポーター：販売中の全プラグインが対象・年額¥16,500（税込）。5プラグイン以上ご利用ならプレミアムがお得です。
+            </p>
+          </div>
+        )}
+
         <div class="sf-group">
           <label class="sf-label">
             申込種別<span class="sf-required">必須</span>
@@ -71,7 +93,7 @@ if (pluginId && !fixedPlugin) {
           <p class="sf-error" data-error-for="email"></p>
         </div>
 
-        <div class="sf-group">
+        <div class="sf-group" id="sf-group-pluginName">
           <label for="sf-pluginName" class="sf-label">
             プラグイン名<span class="sf-required">必須</span>
           </label>
@@ -88,6 +110,9 @@ if (pluginId && !fixedPlugin) {
               ))}
             </select>
           )}
+          <p class="sf-help" id="sf-help-allPlan" hidden>
+            プレミアム年間サポーターは販売中の全プラグインが対象のため、プラグイン名の選択は不要です。
+          </p>
           <p class="sf-error" data-error-for="pluginName"></p>
         </div>
 
@@ -323,29 +348,61 @@ if (pluginId && !fixedPlugin) {
     const form = document.getElementById('sf-form');
     if (!form) return;
 
+    const isLockedPlugin = form.dataset.lockedPlugin === 'true';
+    const pluginGroup = document.getElementById('sf-group-pluginName');
+    const pluginHelp = document.getElementById('sf-help-allPlan');
+    const pluginSelect = form.querySelector('select[name="pluginName"]');
+
+    // Show/hide plugin name field depending on the selected plan.
+    const applyPlanVisibility = () => {
+      if (isLockedPlugin) return; // plugin is fixed → no plan radio exists
+      const planChecked = form.querySelector('input[name="planType"]:checked');
+      const isAll = planChecked && planChecked.value === 'all';
+      if (pluginGroup) {
+        // Hide label / select but keep error slot tidy.
+        const labelEl = pluginGroup.querySelector('label.sf-label');
+        if (labelEl) labelEl.hidden = isAll;
+        if (pluginSelect) {
+          pluginSelect.hidden = isAll;
+          if (isAll) pluginSelect.value = '';
+        }
+        if (pluginHelp) pluginHelp.hidden = !isAll;
+      }
+    };
+
     // Pre-fill from URL query params:
-    //   ?plugin=<id>  : pre-select plugin (when in select mode)
+    //   ?plugin=<id>  : pre-select plugin (when in select mode) + force individual plan
     //   ?mode=renew   : switch the applicationType radio to 「更新申込」
+    //   ?plan=all     : pre-select 全プラグイン plan
     try {
       const params = new URLSearchParams(window.location.search);
       const pluginParam = params.get('plugin');
-      if (pluginParam) {
-        const select = form.querySelector('select[name="pluginName"]');
-        if (select) {
-          const opt = Array.from(select.options).find(
-            (o) => o.dataset.pluginId === pluginParam,
-          );
-          if (opt) select.value = opt.value;
-        }
+      if (pluginParam && pluginSelect) {
+        const opt = Array.from(pluginSelect.options).find(
+          (o) => o.dataset.pluginId === pluginParam,
+        );
+        if (opt) pluginSelect.value = opt.value;
+        const indivRadio = form.querySelector('input[name="planType"][value="individual"]');
+        if (indivRadio) indivRadio.checked = true;
       }
       const modeParam = params.get('mode');
       if (modeParam === 'renew') {
         const renewRadio = form.querySelector('input[name="applicationType"][value="renew"]');
         if (renewRadio) renewRadio.checked = true;
       }
+      const planParam = params.get('plan');
+      if (planParam === 'all') {
+        const allRadio = form.querySelector('input[name="planType"][value="all"]');
+        if (allRadio) allRadio.checked = true;
+      }
     } catch (_) {
       /* ignore URL parsing errors */
     }
+
+    applyPlanVisibility();
+    form.querySelectorAll('input[name="planType"]').forEach((el) => {
+      el.addEventListener('change', applyPlanVisibility);
+    });
 
     const submitBtn = document.getElementById('sf-submit');
     const successMsg = document.getElementById('sf-success');
@@ -382,7 +439,8 @@ if (pluginId && !fixedPlugin) {
         setError('email', '正しいメールアドレスの形式で入力してください');
         ok = false;
       }
-      if (!data.pluginName) {
+      // pluginName is only required for the individual plan
+      if (data.planType !== 'all' && !data.pluginName) {
         setError('pluginName', 'プラグイン名を選択してください');
         ok = false;
       }
@@ -399,13 +457,17 @@ if (pluginId && !fixedPlugin) {
       errorMsg.hidden = true;
 
       const checkedType = form.querySelector('input[name="applicationType"]:checked');
+      const checkedPlan = form.querySelector('input[name="planType"]:checked');
+      // When pluginId prop is set the plan radio is not rendered → default 'individual'.
+      const planType = checkedPlan ? checkedPlan.value : 'individual';
       const data = {
         companyName: form.companyName.value,
         domain: form.domain.value,
         email: form.email.value,
-        pluginName: form.pluginName.value,
+        pluginName: planType === 'all' ? '' : form.pluginName.value,
         paymentMethod: form.paymentMethod.value,
         applicationType: checkedType ? checkedType.value : 'new',
+        planType: planType,
       };
 
       if (!validate(data)) return;

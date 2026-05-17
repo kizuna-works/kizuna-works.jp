@@ -5,9 +5,9 @@ import SupporterForm from '../../../components/SupporterForm.astro';
 
 <Layout
   title="ちょこっとプラグイン 年間サポーターライセンス申込 | KIZUNA Works"
-  description="KIZUNA Works「ちょこっとプラグイン」の年間サポーターライセンスお申込みページ。1プラグインあたり年額¥3,000（税抜）で、プラグイン内の広告非表示・プラグイン作成リクエスト・既存プラグインへの改善要望の送付・優先サポートをご利用いただけます。"
+  description="KIZUNA Works「ちょこっとプラグイン」の年間サポーターライセンスお申込みページ。年間サポーターは1プラグイン年額¥3,000（税抜）、プレミアム年間サポーターは全プラグイン対象で年額¥15,000（税抜）。広告非表示・リクエスト機能・優先サポート付き。"
   ogTitle="ちょこっとプラグイン 年間サポーターライセンス申込 | KIZUNA Works"
-  ogDescription="KIZUNA Works「ちょこっとプラグイン」の年間サポーターライセンスお申込みページ。1プラグインあたり年額¥3,000（税抜）で、プラグイン内の広告非表示・プラグイン作成リクエスト・既存プラグインへの改善要望の送付・優先サポートをご利用いただけます。"
+  ogDescription="KIZUNA Works「ちょこっとプラグイン」の年間サポーターライセンスお申込みページ。年間サポーターは1プラグイン年額¥3,000（税抜）、プレミアム年間サポーターは全プラグイン対象で年額¥15,000（税抜）。広告非表示・リクエスト機能・優先サポート付き。"
   ogUrl="https://kizuna-works.jp/plugins/supporter/"
   ogType="website"
   canonical="https://kizuna-works.jp/plugins/supporter/"
@@ -22,7 +22,7 @@ import SupporterForm from '../../../components/SupporterForm.astro';
           "@id": "https://kizuna-works.jp/plugins/supporter/",
           "url": "https://kizuna-works.jp/plugins/supporter/",
           "name": "ちょこっとプラグイン 年間サポーターライセンス申込 | KIZUNA Works",
-          "description": "KIZUNA Works「ちょこっとプラグイン」の年間サポーターライセンスお申込みページ。1プラグインあたり年額¥3,000（税抜）。",
+          "description": "KIZUNA Works「ちょこっとプラグイン」の年間サポーターライセンスお申込みページ。年間サポーター¥3,000/年（税抜）／プレミアム年間サポーター¥15,000/年（税抜）。",
           "isPartOf": {
             "@type": "WebSite",
             "name": "KIZUNA Works",
@@ -33,7 +33,7 @@ import SupporterForm from '../../../components/SupporterForm.astro';
           "@type": "Service",
           "@id": "https://kizuna-works.jp/plugins/supporter/#service",
           "name": "ちょこっとプラグイン 年間サポーターライセンス",
-          "description": "KIZUNA Works「ちょこっとプラグイン」の年間サポーター向けライセンス。プラグイン内の広告非表示、プラグイン作成リクエスト、既存プラグインへの改善要望の送付、優先サポートなどの特典を提供。",
+          "description": "KIZUNA Works「ちょこっとプラグイン」の年間サポーター向けライセンス。プラグイン内の広告非表示、プラグイン作成リクエスト、既存プラグインへの改善要望の送付、優先サポートなどの特典を提供。年間サポーターとプレミアム年間サポーターの2種類をご用意。",
           "serviceType": "SoftwareLicense",
           "provider": {
             "@type": "Organization",
@@ -41,22 +41,40 @@ import SupporterForm from '../../../components/SupporterForm.astro';
             "url": "https://kizuna-works.jp/"
           },
           "areaServed": "JP",
-          "offers": {
-            "@type": "Offer",
-            "name": "個別サポーターライセンス（1プラグイン・年額）",
-            "price": "3000",
-            "priceCurrency": "JPY",
-            "url": "https://kizuna-works.jp/plugins/supporter/",
-            "availability": "https://schema.org/InStock",
-            "priceSpecification": {
-              "@type": "UnitPriceSpecification",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "年間サポーターライセンス（1プラグイン・年額）",
               "price": "3000",
               "priceCurrency": "JPY",
-              "billingDuration": "P1Y",
-              "unitText": "year",
-              "valueAddedTaxIncluded": false
+              "url": "https://kizuna-works.jp/plugins/supporter/",
+              "availability": "https://schema.org/InStock",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "3000",
+                "priceCurrency": "JPY",
+                "billingDuration": "P1Y",
+                "unitText": "year",
+                "valueAddedTaxIncluded": false
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "プレミアム年間サポーターライセンス（販売中の全プラグイン対象・年額）",
+              "price": "15000",
+              "priceCurrency": "JPY",
+              "url": "https://kizuna-works.jp/plugins/supporter/?plan=all",
+              "availability": "https://schema.org/InStock",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "15000",
+                "priceCurrency": "JPY",
+                "billingDuration": "P1Y",
+                "unitText": "year",
+                "valueAddedTaxIncluded": false
+              }
             }
-          }
+          ]
         },
         {
           "@type": "BreadcrumbList",
@@ -182,129 +200,180 @@ import SupporterForm from '../../../components/SupporterForm.astro';
       margin: 0 0 20px;
     }
 
-    /* Plan comparison table */
-    .plan-table-wrapper {
-      background-color: var(--color-white);
-      border-radius: 12px;
-      box-shadow: var(--shadow-card);
-      overflow: hidden;
+    /* Plan cards (3-up layout) */
+    .plan-cards-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 5% 0;
     }
 
-    .plan-table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;
+    .plan-cards-heading {
+      font-size: 1.6rem;
+      color: var(--color-navy);
+      margin: 0 0 12px;
+      padding-left: 14px;
+      border-left: 5px solid var(--color-green);
+      line-height: 1.4;
     }
 
-    .plan-table thead th {
-      padding: 18px 16px;
+    .plan-cards-desc {
       font-size: 1rem;
-      font-weight: 700;
-      text-align: center;
-      background-color: var(--color-navy);
-      color: var(--color-white);
-      border-right: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .plan-table thead th:first-child {
-      width: 35%;
-      background-color: #14305a;
-    }
-
-    .plan-table thead th:last-child {
-      border-right: none;
-      background-color: var(--color-green);
-    }
-
-    .plan-table tbody th,
-    .plan-table tbody td {
-      padding: 16px;
-      font-size: 0.95rem;
-      border-top: 1px solid #e2e8f0;
-      vertical-align: middle;
-    }
-
-    .plan-table tbody th {
-      background-color: #F0F4F8;
-      color: var(--color-navy);
-      font-weight: 700;
-      text-align: left;
-    }
-
-    .plan-table tbody td {
-      text-align: center;
+      line-height: 1.8;
       color: var(--color-text-main);
+      margin: 0 0 32px;
     }
 
-    .plan-table tbody td.cell-supporter {
-      background-color: #f4faf4;
+    .plan-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .plan-card {
+      background-color: var(--color-white);
+      border-radius: 14px;
+      padding: 36px 24px 28px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .plan-card.is-premium {
+      border: 2px solid var(--color-green);
+      background-color: #fafff8;
+    }
+
+    .plan-card-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+
+    .plan-card-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-navy);
+      margin: 0 0 14px;
+      line-height: 1.4;
+    }
+
+    .plan-card-price {
+      margin-bottom: 4px;
+    }
+
+    .plan-card-price .amount {
+      font-size: 2.1rem;
       font-weight: 700;
       color: var(--color-navy);
     }
 
-    .plan-table tbody td.cell-price-supporter {
-      font-weight: 700;
-      color: var(--color-navy);
+    .plan-card-price .unit {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-left: 4px;
+      font-weight: 500;
     }
 
-    .plan-table tbody td .check {
+    .plan-card-sub {
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+      margin: 0 0 22px;
+      min-height: 1.2em;
+    }
+
+    .plan-card-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 26px;
+      text-align: left;
+      flex: 1;
+    }
+
+    .plan-card-features li {
+      position: relative;
+      padding: 9px 0 9px 26px;
+      font-size: 0.92rem;
+      color: var(--color-text-main);
+      line-height: 1.55;
+      border-top: 1px solid #eef2f6;
+    }
+
+    .plan-card-features li:first-child {
+      border-top: none;
+    }
+
+    .plan-card-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 4px;
+      top: 9px;
       color: var(--color-green);
       font-weight: 700;
     }
 
-    .plan-table tbody td .cross {
+    .plan-card-features li.is-cross {
+      color: var(--color-text-muted);
+    }
+
+    .plan-card-features li.is-cross::before {
+      content: '−';
       color: #94a3b8;
     }
 
-    /* Mobile: stack the table */
-    @media (max-width: 640px) {
-      .plan-table thead {
-        display: none;
-      }
+    .plan-card-cta {
+      display: block;
+      padding: 13px 16px;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
 
-      .plan-table,
-      .plan-table tbody,
-      .plan-table tr,
-      .plan-table th,
-      .plan-table td {
-        display: block;
-        width: 100%;
-        box-sizing: border-box;
-      }
+    .plan-card-cta:hover {
+      background-color: var(--color-navy);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    }
 
-      .plan-table tr {
-        padding: 18px 16px;
-        border-top: 1px solid #e2e8f0;
-      }
+    .plan-card.is-free .plan-card-cta {
+      background-color: var(--color-navy);
+    }
 
-      .plan-table tr:first-child {
-        border-top: none;
-      }
+    .plan-card.is-free .plan-card-cta:hover {
+      background-color: var(--color-green);
+    }
 
-      .plan-table tbody th {
-        background: none;
-        padding: 0 0 12px;
-        font-size: 1rem;
-        text-align: left;
-        border-top: none;
+    @media (max-width: 900px) {
+      .plan-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
       }
-
-      .plan-table tbody td {
-        text-align: left;
-        padding: 8px 0 8px 16px;
-        border-top: none;
-        position: relative;
+      .plan-cards-section {
+        padding: 40px 5% 0;
       }
-
-      .plan-table tbody td::before {
-        content: attr(data-label) '：';
-        font-weight: 700;
-        color: var(--color-text-muted);
-        margin-right: 8px;
-      }
-
-      .plan-table tbody td.cell-supporter {
-        background: none;
+      .plan-cards-heading {
+        font-size: 1.35rem;
       }
     }
 
@@ -410,56 +479,76 @@ import SupporterForm from '../../../components/SupporterForm.astro';
     </section>
     <div class="hero-gradient-line"></div>
 
-    <section class="content-section">
-      <h2>プランについて</h2>
-      <div class="plan-table-wrapper">
-        <table class="plan-table">
-          <thead>
-            <tr>
-              <th scope="col">項目</th>
-              <th scope="col">無料プラン</th>
-              <th scope="col">年間サポーター</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">基本機能</th>
-              <td data-label="無料プラン"><span class="check">利用可</span></td>
-              <td class="cell-supporter" data-label="年間サポーター"><span class="check">利用可</span></td>
-            </tr>
-            <tr>
-              <th scope="row">広告表示</th>
-              <td data-label="無料プラン">あり</td>
-              <td class="cell-supporter" data-label="年間サポーター">なし</td>
-            </tr>
-            <tr>
-              <th scope="row">プラグインリクエスト</th>
-              <td data-label="無料プラン"><span class="cross">不可</span></td>
-              <td class="cell-supporter" data-label="年間サポーター"><span class="check">可</span></td>
-            </tr>
-            <tr>
-              <th scope="row">改善要望の送付</th>
-              <td data-label="無料プラン"><span class="cross">不可</span></td>
-              <td class="cell-supporter" data-label="年間サポーター"><span class="check">可</span></td>
-            </tr>
-            <tr>
-              <th scope="row">料金</th>
-              <td data-label="無料プラン">無料</td>
-              <td class="cell-price-supporter" data-label="年間サポーター">1プラグインあたり<br />年額¥3,000（税抜）</td>
-            </tr>
-          </tbody>
-        </table>
+    <section class="plan-cards-section">
+      <h2 class="plan-cards-heading">プランを選ぶ</h2>
+      <p class="plan-cards-desc">
+        ご利用のプラグイン数に応じて、3 つのプランからお選びいただけます。<br />
+        <strong>5 プラグイン以上ご利用ならプレミアム年間サポーターがお得</strong>です。
+      </p>
+      <div class="plan-cards-grid">
+        <article class="plan-card is-free">
+          <h3 class="plan-card-name">無料プラン</h3>
+          <div class="plan-card-price">
+            <span class="amount">¥0</span>
+            <span class="unit">完全無料</span>
+          </div>
+          <div class="plan-card-sub">利用期限なし・いつまでも無料</div>
+          <ul class="plan-card-features">
+            <li>全プラグインの全機能が利用可能</li>
+            <li>設定画面に控えめな広告エリア表示あり</li>
+            <li class="is-cross">プラグイン作成リクエストは不可</li>
+            <li class="is-cross">改善要望の送付は不可</li>
+          </ul>
+          <a href="/plugins/" class="plan-card-cta">プラグイン一覧を見る →</a>
+        </article>
+
+        <article class="plan-card is-individual">
+          <h3 class="plan-card-name">年間サポーター</h3>
+          <div class="plan-card-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/ 年（税込）</span>
+          </div>
+          <div class="plan-card-sub">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-card-features">
+            <li>選択した <strong>1 プラグイン</strong>が対象</li>
+            <li>対象プラグインの広告エリアが非表示</li>
+            <li>プラグイン作成リクエスト・改善要望の送付</li>
+            <li>サポーターの声を優先反映</li>
+          </ul>
+          <a href="#sf-form" class="plan-card-cta" data-select-plan="individual">年間サポーターに申し込む →</a>
+        </article>
+
+        <article class="plan-card is-premium">
+          <span class="plan-card-badge">5プラグイン以上ならお得</span>
+          <h3 class="plan-card-name">プレミアム年間サポーター</h3>
+          <div class="plan-card-price">
+            <span class="amount">¥16,500</span>
+            <span class="unit">/ 年（税込）</span>
+          </div>
+          <div class="plan-card-sub">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+          <ul class="plan-card-features">
+            <li>販売中の<strong>全プラグイン</strong>が対象</li>
+            <li><strong>契約期間中にリリースされる新プラグイン</strong>も追加料金なしで対象</li>
+            <li>全プラグインの広告エリアが非表示</li>
+            <li>プラグイン作成リクエスト・改善要望の送付</li>
+            <li>サポーターの声を優先反映</li>
+            <li>HP サポーター一覧に貴社ロゴ掲載（任意）</li>
+          </ul>
+          <a href="#sf-form" class="plan-card-cta" data-select-plan="all">プレミアム年間サポーターに申し込む →</a>
+        </article>
       </div>
     </section>
 
     <section class="content-section">
       <h2>サポーターの特典</h2>
       <ul class="perks-list">
-        <li>プラグイン内の広告エリアが非表示になります</li>
+        <li>プラグイン内の広告エリアが非表示になります（年間サポーターはそのプラグインのみ／プレミアム年間サポーターは販売中の全プラグインが対象）</li>
         <li>設定画面から無料ツール・プラグインへのリンクを利用できます</li>
         <li>プラグイン作成リクエストフォームをご利用いただけます</li>
         <li>既存プラグインへの改善要望をお送りいただけます</li>
         <li>サポーターの声を優先してプラグイン開発を進めます</li>
+        <li><strong>プレミアム年間サポーター限定：</strong>契約期間中にリリースされる新しいちょこっとプラグインシリーズも追加料金なしでご利用いただけます</li>
+        <li><strong>プレミアム年間サポーター限定：</strong>本ページ下部のサポーター一覧に貴社ロゴ・サイトリンクを掲載いたします（任意・ご希望の場合のみ）</li>
       </ul>
     </section>
 
@@ -480,7 +569,22 @@ import SupporterForm from '../../../components/SupporterForm.astro';
         <li>ライセンスは登録ドメイン1つに対して有効です</li>
         <li>第三者への譲渡・転売は禁止しております</li>
         <li>お支払い確認後、3営業日以内にライセンスを発行いたします</li>
+        <li>プレミアム年間サポーターはご契約時点で販売中の全プラグインが対象です。ご契約期間中に新規リリースされたプラグインは追加料金なしで対象に含まれます</li>
       </ul>
     </section>
   </main>
+
+  <script is:inline>
+    // Plan-card CTA buttons set the form's planType radio before the anchor scroll lands on the form.
+    document.querySelectorAll('[data-select-plan]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var plan = btn.getAttribute('data-select-plan');
+        var radio = document.querySelector('input[name="planType"][value="' + plan + '"]');
+        if (radio && !radio.checked) {
+          radio.checked = true;
+          radio.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+    });
+  </script>
 </Layout>
