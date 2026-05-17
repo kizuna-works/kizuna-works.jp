@@ -299,9 +299,24 @@ grep -E "blog-prose table|blog-prose img|min-width:0|overflow-x:clip" dist/blog/
 
 ---
 
-## ページ追加・更新時のSEOチェックリスト
+## ページ追加・更新時のSEO + LLMO（AI検索）チェックリスト
 
-> **重要：** 無料ツール・ブログ・プラグインのページを追加・更新する際は、コミット前に必ずこのチェックリストを実行すること。指示がない場合でも自動的に適用すること。
+> **重要：** 無料ツール・ブログ・プラグインのページを追加・更新する際は、コミット前に必ず **SEO 対策と LLMO 対策の両方を同時に**実行すること。指示がない場合でも自動的に適用すること（2026-05-17 ユーザー指示）。
+
+### 【LLMO 共通必須項目】全ページに適用
+
+ChatGPT / Perplexity / Google AI Overviews / Claude などの生成 AI に引用・参照されるための施策。SEO チェックリスト（下記）と**同時に**確認すること。
+
+- [ ] **結論ファースト**：hero または本文冒頭で「これは何か」を 40〜60 字の定義文（"X は kintone の Y を Z できる プラグイン です" 型）で明示
+- [ ] **ファクト密度**：本文中に具体的な数値・統計・固有名詞・出典 URL を含める（特にブログ記事）
+- [ ] **構造化データに `dateModified` 追加**：SoftwareApplication / Service / Article 等の JSON-LD に `"dateModified": "YYYY-MM-DD"` を含める（コンテンツ更新時は値を更新）
+- [ ] **エンティティ明示**：自社ブランド名（KIZUNA Works）・プラグイン名・ツール名を本文中で繰り返し使用
+- [ ] **FAQ がある場合は `FAQPage` を追加**：本文内容と完全一致させること（Google ガイドライン）
+- [ ] **手順説明がある場合は `HowTo` を追加**
+- [ ] **新ページの場合は `public/llms.txt` を更新**：該当カテゴリにエントリ追加
+- [ ] **SSR テキスト確認**：本文が静的 HTML に含まれていること（client-side fetch 任せにしない）
+
+> AI クローラー（GPTBot / ClaudeBot / PerplexityBot / OAI-SearchBot / Google-Extended 等）の許可は `public/robots.txt` で全許可済み。新規ページでブロックしないこと。
 
 ---
 
@@ -398,6 +413,7 @@ staticHTMLファイルのため、Layout.astro は使用しない。以下を `<
       "url": "https://kizuna-works.jp/tools/tool-name.html",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "WebBrowser",
+      "dateModified": "YYYY-MM-DD",
       "description": "...",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
     }
@@ -476,6 +492,7 @@ staticHTMLファイルのため、Layout.astro は使用しない。以下を `<
       "url": "https://kizuna-works.jp/plugins/plugin-name/",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "kintone",
+      "dateModified": "YYYY-MM-DD",
       "description": "...",
       "offers": [
         { "@type": "Offer", "name": "月額プラン", "price": "1000", "priceCurrency": "JPY", "billingIncrement": "P1M" },
