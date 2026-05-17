@@ -1,0 +1,1048 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+---
+
+<Layout
+  title="フィールドコメント - 無料 kintoneプラグイン | KIZUNA Works"
+  description="kintoneのフィールド名横にヘルプアイコン or 常時表示コメントを追加する無料プラグイン。アイコン+ホバー / アイコン+クリック / アイコンなし常時表示の3モードで入力ルールや業務ルールを担当者に伝達。完全無料のkintoneプラグイン、kintone プラグイン 無料配布中。"
+  ogTitle="フィールドコメント - 無料 kintoneプラグイン | KIZUNA Works"
+  ogDescription="kintoneのフィールド名横にヘルプアイコン or 常時表示コメントを追加する無料プラグイン。3モード（ホバー/クリック/常時）でルールを担当者に伝達。完全無料のkintoneプラグイン、kintone プラグイン 無料配布中。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/field-comment/"
+  ogImage="https://kizuna-works.jp/images/field-comment-banner.png"
+  canonical="https://kizuna-works.jp/plugins/field-comment/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/field-comment/",
+          "url": "https://kizuna-works.jp/plugins/field-comment/",
+          "name": "フィールドコメント - 無料 kintoneプラグイン | KIZUNA Works",
+          "description": "kintoneのフィールド名横にヘルプアイコン or 常時表示コメントを追加する無料プラグイン。3モード（ホバー/クリック/常時）で入力ルールや業務ルールを担当者に伝達。",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "フィールドコメント", "item": "https://kizuna-works.jp/plugins/field-comment/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "フィールドコメント kintone プラグイン",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "dateModified": "2026-05-17",
+          "url": "https://kizuna-works.jp/plugins/field-comment/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-field-comment-v1.0.0.zip",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintoneのフィールド名横にヘルプアイコン or 常時表示コメントを追加する無料プラグイン。3モード対応で入力ルール・業務ルールを担当者に伝達。kintone プラグイン 無料配布中。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "アイコンあり＋ホバー表示",
+            "アイコンあり＋クリック表示",
+            "アイコンなし常時表示",
+            "アイコンプリセット5種",
+            "フィールド単位の表示制御",
+            "詳細・編集画面の選択",
+            "コメントの背景色・文字色・フォントサイズ調整"
+          ],
+          "screenshot": [
+            "https://kizuna-works.jp/images/field-comment-before.png",
+            "https://kizuna-works.jp/images/field-comment-after-01.png",
+            "https://kizuna-works.jp/images/field-comment-after-02.png",
+            "https://kizuna-works.jp/images/field-comment-config-01.png"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+    .hero-copy {
+      font-size: 17px;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-bg { background-color: var(--color-bg); }
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    /* Before/After Compare */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .compare-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      padding: 28px 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .compare-card.before { border-top: 5px solid #cbd5e0; }
+    .compare-card.after { border-top: 5px solid var(--color-green); }
+    .compare-card-title {
+      color: var(--color-navy);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+    .compare-image {
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 6px;
+      display: block;
+    }
+    .compare-caption {
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 12px;
+      line-height: 1.7;
+    }
+
+    /* Screenshots grid */
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+    .screenshot-item {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .screenshot-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .screenshot-thumb {
+      background-color: #f8fafc;
+      padding: 16px;
+      border-bottom: 1px solid var(--color-gray-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 220px;
+    }
+    .screenshot-thumb img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-caption {
+      padding: 18px 20px 20px;
+      flex: 1;
+    }
+    .screenshot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .screenshot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Problem Cards */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .problem-icon { font-size: 44px; display: block; margin-bottom: 16px; }
+    .problem-title { font-size: 17px; color: var(--color-navy); font-weight: 700; margin-bottom: 12px; }
+    .problem-desc { font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+
+    /* Feature list */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+    .feature-list li strong { color: var(--color-navy); }
+
+    /* Mode cards (3 display modes) */
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .mode-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 28px 24px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .mode-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .mode-card-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .mode-card-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+      margin: 0 0 16px;
+    }
+    .mode-card-uses {
+      font-size: 13px;
+      color: var(--color-text-light);
+      background: #f8fafc;
+      border-left: 3px solid var(--color-green);
+      padding: 10px 14px;
+      border-radius: 4px;
+      line-height: 1.7;
+    }
+
+    /* Preset table */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .preset-card {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .preset-icon {
+      flex-shrink: 0;
+      font-size: 26px;
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    .preset-name { color: var(--color-navy); font-weight: 700; font-size: 14px; margin: 0 0 4px; }
+    .preset-use { color: var(--color-text-light); font-size: 12px; margin: 0; line-height: 1.5; }
+
+    /* Steps */
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+    .steps-list li:last-child { border-bottom: none; }
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    /* Notes */
+    .notes-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
+    .notes-list li { padding-left: 20px; position: relative; font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+    .notes-list li::before { content: '※'; position: absolute; left: 0; color: #94a3b8; }
+
+    /* FAQ */
+    .faq-list { max-width: 800px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--color-gray-light); }
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 24px 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .faq-icon { font-size: 20px; color: var(--color-navy); transition: transform 0.3s; }
+    .faq-item.is-open .faq-icon { transform: rotate(45deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+    .faq-answer-inner { padding-bottom: 24px; color: var(--color-text-light); font-size: 15px; line-height: 1.7; }
+    .faq-answer-inner a { color: var(--color-navy); text-decoration: underline; }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .pricing-card.recommended { border: 2px solid var(--color-green); }
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .plan-name { font-size: 20px; color: var(--color-navy); font-weight: 700; text-align: center; margin-bottom: 24px; }
+    .plan-price { text-align: center; margin-bottom: 24px; }
+    .plan-price .amount { font-size: 40px; font-weight: 900; color: var(--color-navy); }
+    .plan-price .unit { font-size: 14px; color: var(--color-text-light); }
+    .plan-discount { text-align: center; color: var(--color-green); font-weight: 700; font-size: 14px; margin-bottom: 24px; }
+    .plan-features { list-style: none; padding: 0; margin-bottom: 32px; flex-grow: 1; }
+    .plan-features li { margin-bottom: 12px; font-size: 15px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; }
+    .pricing-card .btn-primary { display: block; text-align: center; }
+
+    /* Bottom CTA */
+    .bottom-cta { background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%); color: var(--color-white); text-align: center; padding: 60px 5%; }
+    .bottom-cta-title { font-size: 28px; font-weight: 700; margin-bottom: 16px; }
+    .bottom-cta-desc { font-size: 16px; margin-bottom: 32px; opacity: 0.9; }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background-color: #36a336; transform: translateY(-2px); }
+
+    /* Related plugins */
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.15); }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .related-post-content { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+    .related-post-title { color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.5; }
+    .related-post-desc { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0 0 12px; flex-grow: 1; }
+    .related-post-link { color: var(--color-green); font-size: 13px; font-weight: 700; }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .mode-grid { grid-template-columns: 1fr; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/field-comment-icon.png"
+        alt="フィールドコメントプラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">フィールドコメント kintone プラグイン</h1>
+      <p class="hero-copy">kintoneのフィールド名横にヘルプアイコン or 常時表示コメントを追加。「アイコン＋ホバー」「アイコン＋クリック」「アイコンなし常時表示」の3モードで、入力ルールや業務ルールを担当者にひと目で伝えられます。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">フィールド名だけでは伝わらない入力ルールを、その場で伝える</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">❓</span>
+            <h3 class="problem-title">入力ルールが伝わらない</h3>
+            <p class="problem-desc">フィールド名だけだと「何を入れればいいか」が担当者に伝わらない</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📋</span>
+            <h3 class="problem-title">マニュアルが読まれない</h3>
+            <p class="problem-desc">別ドキュメントで運用ルールを案内しても結局見られない</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">⚠️</span>
+            <h3 class="problem-title">必須・注意事項を強調したい</h3>
+            <p class="problem-desc">特定のフィールドだけ「必ず入力」「ルックアップから取得」と注意喚起したい</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Display Modes -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">3つの表示モード</h2>
+      <p style="color: var(--color-text-light); font-size: 15px; line-height: 1.8; margin-bottom: 32px;">フィールドごとに表示方法を3つから選べます。場所はすべて「フィールド名の右」に固定。</p>
+      <div class="mode-grid">
+        <div class="mode-card">
+          <h3 class="mode-card-title">📝 アイコンなし<br />（常時表示）</h3>
+          <p class="mode-card-desc">フィールド名の右にコメントテキストを直接表示。マウス操作不要で常に見える。</p>
+          <p class="mode-card-uses">短い注意文・常に見せたいルールに最適</p>
+        </div>
+        <div class="mode-card">
+          <h3 class="mode-card-title">🛈 アイコンあり<br />→ ホバー表示</h3>
+          <p class="mode-card-desc">ラベル右に小さなアイコンを配置。マウスを乗せたときだけポップアップでコメント表示。</p>
+          <p class="mode-card-uses">画面をすっきり保ちつつヘルプを用意したい時</p>
+        </div>
+        <div class="mode-card">
+          <h3 class="mode-card-title">🛈 アイコンあり<br />→ クリック表示</h3>
+          <p class="mode-card-desc">アイコンをクリックすると開閉するポップアップ。長文の説明や読みたい時だけ開きたい用途に。</p>
+          <p class="mode-card-uses">業務マニュアル・複数行の説明を埋め込みたい時</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">主な機能</h2>
+        <ul class="feature-list">
+          <li><span><strong>3モードの表示方法</strong> — アイコンなし常時表示／アイコン+ホバー／アイコン+クリック をフィールド単位で切替。</span></li>
+          <li><span><strong>アイコンプリセット5種</strong> — 「⚠注意」「ℹヘルプ」「✓確認」「▲警告」「■補足」をワンクリックで一括適用（形状・マーク・色・背景色まで）。</span></li>
+          <li><span><strong>アイコンの自由カスタマイズ</strong> — 図形（○△□）・マーク（！？✓）・図形の色・マークの色をカラーピッカーで調整可能。</span></li>
+          <li><span><strong>対象画面の選択</strong> — フィールドごとに「詳細のみ」「編集のみ」「両方」を指定。編集時だけ注意喚起する運用も可能。</span></li>
+          <li><span><strong>複数フィールド対応</strong> — 1つのプラグイン設定で複数フィールドのコメントを管理。フィールド単位で有効/無効も切替。</span></li>
+          <li><span><strong>リアルタイムプレビュー</strong> — 設定画面でコメントの見た目を即時プレビュー。文字色・背景色・フォントサイズの変更も即反映。</span></li>
+          <li><span><strong>XSS対策済み</strong> — コメントテキストはエスケープ処理しDOMに挿入。HTMLタグは文字列として表示されます。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Before/After Comparison Section -->
+    <section class="section-wrapper fade-in">
+      <div>
+        <h2 class="section-title">導入前と導入後</h2>
+        <p class="section-subtitle">フィールド名だけだった画面に、ヘルプアイコンや常時表示コメントを追加して「伝わる」画面に</p>
+        <div class="compare-grid">
+          <div class="compare-card before">
+            <h3 class="compare-card-title">導入前</h3>
+            <img
+              src="/images/field-comment-before.png"
+              alt="フィールドコメントプラグイン 導入前 — kintone標準のレコード詳細画面でフィールド名と入力欄だけが並び、入力ルールや業務ルールが画面上に表示されていない状態"
+              class="compare-image"
+              width="583"
+              height="266"
+              loading="lazy"
+            />
+            <p class="compare-caption">フィールド名と入力欄だけでは、<strong>「何を入れればいいか」「どこから取得すればいいか」</strong>が担当者に伝わりません。マニュアルを別途用意しても結局見られないことが多いです。</p>
+          </div>
+          <div class="compare-card after">
+            <h3 class="compare-card-title">導入後</h3>
+            <img
+              src="/images/field-comment-after-01.png"
+              alt="フィールドコメントプラグイン 導入後 — 案件名にヘルプアイコン、会社名にコメントテキストが表示され、入力ルールがフィールドごとに伝わる状態"
+              class="compare-image"
+              width="601"
+              height="250"
+              loading="lazy"
+            />
+            <p class="compare-caption">フィールドごとに<strong>ヘルプアイコン</strong>や<strong>常時表示コメント</strong>を追加。「必ず入力」「ルックアップから取得」など、入力ルールがその場で伝わります。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action Screenshots Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">動作画面イメージ</h2>
+        <p class="section-subtitle">3つの表示モードを実際の画面で確認</p>
+        <div class="screenshots-grid">
+          <div class="screenshot-item">
+            <div class="screenshot-thumb">
+              <img
+                src="/images/field-comment-after-01.png"
+                alt="フィールドコメントプラグイン 動作画面 — 案件名フィールドの右にチェックマークアイコン、会社名フィールドの右に「ルックアップから取得して下さい」のコメントが常時表示されている"
+                width="601"
+                height="250"
+                loading="lazy"
+              />
+            </div>
+            <div class="screenshot-caption">
+              <strong>① アイコン表示モード ＋ 常時表示モード</strong>
+              <p>案件名にはヘルプアイコン（hover/clickでポップアップ）、会社名には「ルックアップから取得して下さい」のテキストを常時表示。1アプリ内でフィールドごとに最適なモードを選べます。</p>
+            </div>
+          </div>
+          <div class="screenshot-item">
+            <div class="screenshot-thumb">
+              <img
+                src="/images/field-comment-after-02.png"
+                alt="フィールドコメントプラグイン 動作画面 — 案件名のヘルプアイコンにマウスを乗せ、「必ず入力して下さい」のポップアップがアイコン上部に表示されている"
+                width="592"
+                height="252"
+                loading="lazy"
+              />
+            </div>
+            <div class="screenshot-caption">
+              <strong>② ホバーポップアップ</strong>
+              <p>ヘルプアイコンにマウスを乗せると、コメントがアイコンの上に即座にポップアップ表示。クリックモードの場合は同じUIをクリックで開閉します。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Presets Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">用途別プリセット</h2>
+      <p class="section-subtitle">1クリックで形状・マーク・色・背景色まで一括適用</p>
+      <div class="preset-grid">
+        <div class="preset-card">
+          <span class="preset-icon" style="background:#FEF2F2;color:#E11D48;">⚠</span>
+          <div>
+            <p class="preset-name">注意 / 必須</p>
+            <p class="preset-use">必須入力・要注意</p>
+          </div>
+        </div>
+        <div class="preset-card">
+          <span class="preset-icon" style="background:#EFF6FF;color:#2563EB;">ℹ</span>
+          <div>
+            <p class="preset-name">ヘルプ / 説明</p>
+            <p class="preset-use">入力ガイド・補足説明</p>
+          </div>
+        </div>
+        <div class="preset-card">
+          <span class="preset-icon" style="background:#ECFDF5;color:#059669;">✓</span>
+          <div>
+            <p class="preset-name">確認 / OK</p>
+            <p class="preset-use">確認済・完了</p>
+          </div>
+        </div>
+        <div class="preset-card">
+          <span class="preset-icon" style="background:#FFFBEB;color:#F59E0B;">▲</span>
+          <div>
+            <p class="preset-name">警告</p>
+            <p class="preset-use">警告・注意喚起</p>
+          </div>
+        </div>
+        <div class="preset-card">
+          <span class="preset-icon" style="background:#F1F5F9;color:#64748B;">■</span>
+          <div>
+            <p class="preset-name">補足情報</p>
+            <p class="preset-use">補足・参考情報</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Config Screenshots Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">設定画面イメージ</h2>
+      <p class="section-subtitle">プログラミング知識不要・ノーコードで完結。リアルタイムプレビューで仕上がりを確認しながら設定</p>
+      <div class="screenshots-grid" style="grid-template-columns: minmax(0, 1fr); max-width: 900px; margin: 0 auto;">
+        <div class="screenshot-item">
+          <div class="screenshot-thumb">
+            <img
+              src="/images/field-comment-config-01.png"
+              alt="フィールドコメントプラグイン 設定画面 — フィールド選択・対象画面・表示方法3択・コメントテキスト・色・フォントサイズ・5種プリセット・アイコン図形/マーク・カラーピッカー・プレビューを1カードで設定"
+              width="809"
+              height="771"
+              loading="lazy"
+            />
+          </div>
+          <div class="screenshot-caption">
+            <strong>カード形式の設定UI</strong>
+            <p>1フィールド＝1カードで設定。対象画面（詳細/編集/両方）、表示方法（アイコンなし常時/アイコン+ホバー/アイコン+クリック）、コメントテキスト、色・フォント、5種のプリセット、アイコンカスタマイズ、リアルタイムプレビューまでが1画面で完結します。「＋ フィールドを追加する」で複数フィールド分の設定を縦積みで管理できます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">インストール手順</h2>
+        <p class="section-subtitle">5ステップで導入完了。プログラミング知識は不要です。</p>
+        <ol class="steps-list">
+          <li>「プランについて」セクションのダウンロードボタンから <code>plugin.zip</code> をダウンロード</li>
+          <li>kintone の<strong>システム管理 → プラグイン</strong>を開く</li>
+          <li>「読み込む」ボタンから <code>plugin.zip</code> をアップロード</li>
+          <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>でプラグインを追加</li>
+          <li>プラグインの設定画面でフィールド・表示方法・コメントを設定して保存 → <strong>アプリを更新</strong></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">プランについて</h2>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">基本プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥0</span>
+            <span class="unit">/ 完全無料</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全機能（3モード・プリセット・カスタマイズ）が利用可能</li>
+            <li>✅ 利用期限なし・いつまでも無料</li>
+            <li>✅ 設定画面に控えめな広告エリア表示あり</li>
+          </ul>
+          <a href="/downloads/kw-field-comment-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">開発を応援</span>
+          <h3 class="plan-name">年間サポーター</h3>
+          <div class="plan-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-features">
+            <li>✅ 全機能（3モード・プリセット・カスタマイズ）が利用可能</li>
+            <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+            <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            <li>✅ サポーターの声を優先して開発に反映</li>
+          </ul>
+          <a href="/plugins/supporter/?plugin=kw-field-comment" class="btn-primary">サポーターになる →</a>
+          <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+            ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">よくある質問</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              本当に無料で使えますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい、3つの表示モード・5種類のプリセット・アイコンカスタマイズなど、すべての機能を無料でご利用いただけます。利用期限もなく、ずっとお使いいただけます。設定画面に控えめな広告エリアが表示されますが、プラグインの動作には影響しません。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              年間サポーターライセンスとは何ですか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                KIZUNA Works のプラグイン開発を応援していただける方向けの年間ライセンス（年額 ¥3,300・税込）です。広告エリアの非表示、プラグイン作成リクエスト・改善要望の送付、サポーターの声を優先反映などの特典があります。詳しくは <a href="/plugins/supporter/?plugin=kw-field-comment">サポーターライセンスのご案内</a> をご覧ください。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              コメントを表示する位置は変えられますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                v1.0.0 時点では「フィールド名の右」固定です。表示方法（アイコンの有無・トリガー）はフィールドごとに変更できます。フィールド名の右に統一することで、レイアウト崩れや視認性の問題を回避しています。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              詳細画面と編集画面で別の表示にできますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい、フィールド単位で「詳細のみ」「編集のみ」「両方」から選べます。たとえば「編集時だけ注意喚起を出したい」「閲覧時だけ補足情報を表示したい」といった使い分けが可能です。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              コメントテキストに改行を入れられますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい、設定画面のテキストエリアで Enter キーを押すと改行が反映されます。改行・空白はそのまま表示されます。HTMLタグはセキュリティ上の理由で文字列として表示されます。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              どのフィールドタイプに使えますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                通常のフィールド（文字列・数値・日付・ドロップダウン・チェックボックス・ルックアップなど）に対応しています。ラベル・罫線・スペース・テーブル・レコード番号・作成者など、ラベルが無い or システムフィールドは対象外です。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              どのkintone環境で利用できますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                kintoneのデスクトップ版で利用可能です。スタンダードコース・ワイドコースのkintone環境であれば、ドメインを問わずご利用いただけます。モバイル版は v1.0.0 時点では非対応です。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              設定にプログラミングの知識は必要ですか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                いいえ、プラグインの設定画面からすべての機能をノーコードで設定できます。「＋ フィールドを追加する」ボタンでカードを追加し、フィールドを選んで表示方法とコメントを入力するだけです。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome 最新版での確認を推奨します。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+        <li>v1.0.0 時点では モバイル kintone は非対応です。</li>
+      </ul>
+    </section>
+
+    <!-- Related Plugins Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">関連プラグイン</h2>
+        <p class="section-subtitle">同じく無料で配布中の kintone プラグイン</p>
+        <div class="related-posts-grid">
+          <a href="/plugins/field-styler/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/field-styler-after.png" alt="フィールドスタイラー" loading="lazy" width="1920" height="960">
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">フィールドスタイラー</h3>
+              <p class="related-post-desc">背景色・文字色・条件付きスタイルなど10機能をノーコード設定。</p>
+              <span class="related-post-link">プラグインを見る →</span>
+            </div>
+          </a>
+          <a href="/plugins/form-deco/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/form-deco-banner.png" alt="FormDecoプラグイン" loading="lazy" width="1200" height="675">
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">FormDeco</h3>
+              <p class="related-post-desc">レコード詳細画面の罫線とスペースフィールドの装飾をノーコードで。</p>
+              <span class="related-post-link">プラグインを見る →</span>
+            </div>
+          </a>
+          <a href="/plugins/lookup-suggest/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/lookup-suggest-banner.png" alt="ルックアップサジェストプラグイン" loading="lazy" width="1200" height="675">
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">ルックアップサジェスト</h3>
+              <p class="related-post-desc">ルックアップへの入力中に候補を直下表示。画面遷移なしで取得完結。</p>
+              <span class="related-post-link">プラグインを見る →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <SupporterCTA pluginId="kw-field-comment" />
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          gtag('event', 'file_download', {
+            file_name: 'kw-field-comment-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: '無料でダウンロード',
+            link_url: '/downloads/kw-field-comment-v1.0.0.zip'
+          });
+        });
+      }
+    });
+  </script>
+</Layout>

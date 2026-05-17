@@ -202,6 +202,26 @@ export const plugins: Plugin[] = [
     problemTitle: '受注済みレコードの編集を防ぎたい',
     problemDesc: 'ステータスや日付などの条件で自動ロック、管理者のみ編集できるようにしたい',
   },
+  {
+    id: 'kw-field-comment',
+    name: 'フィールドコメント',
+    formName: 'フィールドコメントプラグイン',
+    subtitle: 'kintone プラグイン',
+    slug: 'field-comment',
+    description:
+      'kintoneのフィールド名横にヘルプアイコンや常時表示コメントを追加。「アイコン＋ホバー」「アイコン＋クリック」「アイコンなし常時表示」の3モードで、入力ルールや業務ルールを担当者にひと目で伝えられます。',
+    image: '/images/field-comment-banner.png',
+    imageAlt:
+      'フィールドコメントプラグイン — kintoneのフィールド名横にヘルプアイコンや常時表示コメントを追加。ホバー・クリック・常時表示の3モード対応',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      'フィールド名横にヘルプアイコンや常時表示コメントを追加。3モード（ホバー/クリック/常時）でルールを担当者に伝達。',
+    problemTitle: 'フィールドに入力ルールを表示したい',
+    problemDesc: 'フォーム上のラベルだけでは伝わらないヘルプや注意書きを簡単に出したい',
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({

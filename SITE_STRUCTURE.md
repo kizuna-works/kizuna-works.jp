@@ -74,8 +74,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 添付ファイルアイコン表示プラグイン製品ページ（/plugins/file-icon-marker/）
 │   │   │   ├── quick-side-view/
 │   │   │   │   └── index.astro # クイックサイドビュープラグイン製品ページ（/plugins/quick-side-view/）
-│   │   │   └── record-lock/
-│   │   │       └── index.astro # レコードロックプラグイン製品ページ（/plugins/record-lock/）
+│   │   │   ├── record-lock/
+│   │   │   │   └── index.astro # レコードロックプラグイン製品ページ（/plugins/record-lock/）
+│   │   │   └── field-comment/
+│   │   │       └── index.astro # フィールドコメントプラグイン製品ページ（/plugins/field-comment/）
 │   │   ├── tools/
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   │   ├── extensions/
@@ -157,6 +159,12 @@ c:\kizuna-works.jp\
 │   │   ├── quick-side-view-action-03.png   # クイックサイドビュープラグイン 動作画面スクショ③ — 2件のレコードを縦積みレイアウトで開いている状態（カスタマーサクセス管理アプリ提案 + 販売管理システムリプレース提案）
 │   │   ├── quick-side-view-config-01.png   # クイックサイドビュープラグイン 設定画面スクショ① — レイアウト（横並び/縦積み）・最大同時表示パネル数（1〜5）・パネルタイトル用フィールド の上部 3 セクション
 │   │   ├── quick-side-view-config-02.png   # クイックサイドビュープラグイン 設定画面スクショ② — 表示・編集フィールド設定テーブル（ドラッグハンドル/表示チェック/読取専用・編集可ラジオ・USER_SELECT が「読取専用」固定の例・表示 ON のフィールドが自動で上に集約されている状態）
+│   │   ├── field-comment-icon.png          # フィールドコメントプラグイン アイコン（200×200・ヒーロー画像用）
+│   │   ├── field-comment-banner.png        # フィールドコメントプラグイン バナー（1200×675・OGP/グリッド共用）
+│   │   ├── field-comment-before.png        # フィールドコメントプラグイン 導入前スクショ — 案件情報セクション（案件名・会社名）フィールドにコメント表示なし
+│   │   ├── field-comment-after-01.png      # フィールドコメントプラグイン 動作画面スクショ① — 案件名にチェックアイコン（hover/click用）と会社名に常時コメント表示の組み合わせ
+│   │   ├── field-comment-after-02.png      # フィールドコメントプラグイン 動作画面スクショ② — 案件名のアイコンにマウスを乗せてポップアップ「必ず入力して下さい」が開いた状態（hoverモード）
+│   │   ├── field-comment-config-01.png     # フィールドコメントプラグイン 設定画面スクショ① — カード形式の設定UI全体（対象フィールド/対象画面/表示方法3択/コメントテキスト/背景色・文字色・フォントサイズ/プリセット5種/アイコン図形・マーク/図形色・マーク色/プレビュー）
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
@@ -195,7 +203,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-search-v1.0.0.zip                  # クイックサーチプラグイン配布ファイル（手動配置）
 │   │   ├── kw-file-icon-marker-v1.0.0.zip              # 添付ファイルアイコン表示プラグイン配布ファイル（手動配置）
 │   │   ├── kw-quick-side-view-v1.0.0.zip               # クイックサイドビュープラグイン配布ファイル（手動配置）
-│   │   └── kw-record-lock-v1.0.0.zip                   # レコードロックプラグイン配布ファイル（手動配置）
+│   │   ├── kw-record-lock-v1.0.0.zip                   # レコードロックプラグイン配布ファイル（手動配置）
+│   │   └── kw-field-comment-v1.0.0.zip                 # フィールドコメントプラグイン配布ファイル（手動配置）
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）
