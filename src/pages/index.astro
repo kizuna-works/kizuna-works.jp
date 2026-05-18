@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import BlogCard from '../components/BlogCard.astro';
 import { plugins } from '../data/plugins';
+import { extensions } from '../data/extensions';
 
 // Newest first — for problems list and the homepage compact showcase.
 const pluginsNewestFirst = [...plugins].reverse();
@@ -1386,7 +1387,7 @@ const pluginPosts = allPosts
       <div class="hero-stats">
         <span class="hero-stat"><span class="hero-stat-icon">🧩</span><span class="hero-stat-num">{plugins.length}</span> kintoneプラグイン</span>
         <span class="hero-stat"><span class="hero-stat-icon">🛠</span><span class="hero-stat-num">6</span> 無料Webツール</span>
-        <span class="hero-stat"><span class="hero-stat-icon">🌐</span><span class="hero-stat-num">1</span> Chrome 拡張機能</span>
+        <span class="hero-stat"><span class="hero-stat-icon">🌐</span><span class="hero-stat-num">{extensions.length}</span> Chrome 拡張機能</span>
         <span class="hero-stat"><span class="hero-stat-icon">📝</span><span class="hero-stat-num">{allPosts.length}</span> 現場ノウハウ記事</span>
       </div>
       <div class="hero-actions">
@@ -1559,20 +1560,22 @@ const pluginPosts = allPosts
       <h2 class="section-title">Chrome 拡張機能</h2>
       <p class="section-subtitle">kintone カスタマイズ開発・API 連携・運用管理を爆速化する開発者向けの無料 Chrome 拡張機能。</p>
       <div class="extensions-mini-grid">
-        <a href="/extensions/kw-field-viewer-for-kintone/" class="extension-mini-card">
-          <div class="extension-mini-iconbox">
-            <img src="/images/extensions/kw-field-viewer-icon.png" alt="KW Field Viewer for kintone アイコン" width="64" height="64" loading="lazy">
-          </div>
-          <div class="extension-mini-body">
-            <span class="extension-mini-name">KW Field Viewer for kintone</span>
-            <span class="extension-mini-desc">フィールドコードをページ上にオーバーレイ表示。CSV/JSON/Markdown/HTML 出力対応。</span>
-            <span class="extension-mini-tags">
-              <span class="extension-mini-tag">完全無料</span>
-              <span class="extension-mini-tag">開発者向け</span>
-              <span class="extension-mini-tag">公開中</span>
-            </span>
-          </div>
-        </a>
+        {extensions.map((ext) => (
+          <a href={`/extensions/${ext.slug}/`} class="extension-mini-card">
+            <div class="extension-mini-iconbox">
+              <img src={ext.iconImage} alt={ext.iconAlt} width="64" height="64" loading="lazy" />
+            </div>
+            <div class="extension-mini-body">
+              <span class="extension-mini-name">{ext.name}</span>
+              <span class="extension-mini-desc">{ext.shortDescription}</span>
+              <span class="extension-mini-tags">
+                <span class="extension-mini-tag">完全無料</span>
+                <span class="extension-mini-tag">開発者向け</span>
+                <span class="extension-mini-tag">公開中</span>
+              </span>
+            </div>
+          </a>
+        ))}
       </div>
       <div class="section-cta-center" style="margin-top:24px;">
         <a href="/extensions/" class="hero-secondary-link" style="color:#1B3A6B;">Chrome 拡張機能一覧へ →</a>
@@ -1594,7 +1597,7 @@ const pluginPosts = allPosts
           <div class="stat-label">無料Webツール</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">1</div>
+          <div class="stat-num">{extensions.length}</div>
           <div class="stat-label">Chrome 拡張機能</div>
         </div>
         <div class="stat-item">

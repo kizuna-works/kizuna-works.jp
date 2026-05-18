@@ -1,5 +1,50 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { extensions } from '../../data/extensions';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': 'https://kizuna-works.jp/extensions/',
+      url: 'https://kizuna-works.jp/extensions/',
+      name: 'kintone 用 Chrome 拡張機能 一覧 | KIZUNA Works',
+      description:
+        'KIZUNA Works が公開する kintone 用 Chrome 拡張機能の一覧。フィールドコード表示・JavaScript カスタマイズ支援・REST API 連携を効率化する無料の開発者向けツール。',
+      isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: 'https://kizuna-works.jp/' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+        { '@type': 'ListItem', position: 2, name: 'Chrome拡張機能', item: 'https://kizuna-works.jp/extensions/' },
+      ],
+    },
+    {
+      '@type': 'ItemList',
+      itemListElement: extensions.map((ext, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'SoftwareApplication',
+          name: ext.name,
+          url: `https://kizuna-works.jp/extensions/${ext.slug}/`,
+          applicationCategory: 'DeveloperApplication',
+          operatingSystem: 'Chrome',
+          downloadUrl: ext.chromeWebStoreUrl,
+          installUrl: ext.chromeWebStoreUrl,
+          offers: {
+            '@type': 'Offer',
+            price: '0',
+            priceCurrency: 'JPY',
+            availability: 'https://schema.org/InStock',
+          },
+        },
+      })),
+    },
+  ],
+};
 ---
 
 <Layout
@@ -12,75 +57,7 @@ import Layout from '../../layouts/Layout.astro';
   canonical="https://kizuna-works.jp/extensions/"
 >
   <Fragment slot="head">
-    <script is:inline type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebPage",
-          "@id": "https://kizuna-works.jp/extensions/",
-          "url": "https://kizuna-works.jp/extensions/",
-          "name": "kintone 用 Chrome 拡張機能 一覧 | KIZUNA Works",
-          "description": "KIZUNA Works が公開する kintone 用 Chrome 拡張機能の一覧。フィールドコード表示・JavaScript カスタマイズ支援・REST API 連携を効率化する無料の開発者向けツール。",
-          "isPartOf": {
-            "@type": "WebSite",
-            "name": "KIZUNA Works",
-            "url": "https://kizuna-works.jp/"
-          }
-        },
-        {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
-            { "@type": "ListItem", "position": 2, "name": "Chrome拡張機能", "item": "https://kizuna-works.jp/extensions/" }
-          ]
-        },
-        {
-          "@type": "ItemList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "item": {
-                "@type": "SoftwareApplication",
-                "name": "KW Field Viewer for kintone",
-                "url": "https://kizuna-works.jp/extensions/kw-field-viewer-for-kintone/",
-                "applicationCategory": "DeveloperApplication",
-                "operatingSystem": "Chrome",
-                "downloadUrl": "https://chromewebstore.google.com/detail/kw-field-viewer-for-kinto/fcnbfaedmhllphnbpmngfblfogdjcfaj",
-                "installUrl": "https://chromewebstore.google.com/detail/kw-field-viewer-for-kinto/fcnbfaedmhllphnbpmngfblfogdjcfaj",
-                "offers": {
-                  "@type": "Offer",
-                  "price": "0",
-                  "priceCurrency": "JPY",
-                  "availability": "https://schema.org/InStock"
-                }
-              }
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "item": {
-                "@type": "SoftwareApplication",
-                "name": "KW App Exporter for kintone",
-                "url": "https://kizuna-works.jp/extensions/kw-app-exporter-for-kintone/",
-                "applicationCategory": "DeveloperApplication",
-                "operatingSystem": "Chrome",
-                "downloadUrl": "https://chromewebstore.google.com/detail/kw-app-exporter-for-kinto/kojeebklgjlejjpfadmaaobdmbmjcfld",
-                "installUrl": "https://chromewebstore.google.com/detail/kw-app-exporter-for-kinto/kojeebklgjlejjpfadmaaobdmbmjcfld",
-                "offers": {
-                  "@type": "Offer",
-                  "price": "0",
-                  "priceCurrency": "JPY",
-                  "availability": "https://schema.org/InStock"
-                }
-              }
-            }
-          ]
-        }
-      ]
-    }
-    </script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </Fragment>
 
   <style is:global>
@@ -371,37 +348,23 @@ import Layout from '../../layouts/Layout.astro';
 
     <section class="ext-grid-section">
       <div class="ext-grid">
-        <article class="ext-card">
-          <div class="ext-image-wrapper">
-            <img src="/images/extensions/kw-field-viewer-banner.png" alt="KW Field Viewer for kintone のバナー画像" width="1200" height="675" loading="lazy">
-          </div>
-          <div class="ext-content">
-            <div class="ext-tags">
-              <span class="ext-tag highlight">完全無料</span>
-              <span class="ext-tag">kintone</span>
-              <span class="ext-tag highlight">公開中</span>
+        {extensions.map((ext) => (
+          <article class="ext-card">
+            <div class="ext-image-wrapper">
+              <img src={ext.bannerImage} alt={ext.bannerAlt} width="1200" height="675" loading="lazy" />
             </div>
-            <h3>KW Field Viewer for kintone</h3>
-            <p>kintone アプリのフィールドコード・フィールドタイプを画面上にオーバーレイ表示する Chrome 拡張機能。CSV / JSON / Markdown / HTML 形式でのエクスポートにも対応。</p>
-            <a href="/extensions/kw-field-viewer-for-kintone/" class="ext-btn">詳細を見る</a>
-          </div>
-        </article>
-
-        <article class="ext-card">
-          <div class="ext-image-wrapper">
-            <img src="/images/extensions/kw-app-exporter-banner.png" alt="KW App Exporter for kintone のバナー画像" width="1200" height="675" loading="lazy">
-          </div>
-          <div class="ext-content">
-            <div class="ext-tags">
-              <span class="ext-tag highlight">完全無料</span>
-              <span class="ext-tag">kintone</span>
-              <span class="ext-tag highlight">公開中</span>
+            <div class="ext-content">
+              <div class="ext-tags">
+                <span class="ext-tag highlight">完全無料</span>
+                <span class="ext-tag">kintone</span>
+                <span class="ext-tag highlight">公開中</span>
+              </div>
+              <h3>{ext.name}</h3>
+              <p>{ext.description}</p>
+              <a href={`/extensions/${ext.slug}/`} class="ext-btn">詳細を見る</a>
             </div>
-            <h3>KW App Exporter for kintone</h3>
-            <p>kintone アプリの設定情報（フィールド構成・レイアウト・一覧・権限・プロセス管理）を HTML / JSON / Excel / Markdown 形式で一括エクスポートできる Chrome 拡張機能。アプリ引き継ぎ・差分比較を効率化。</p>
-            <a href="/extensions/kw-app-exporter-for-kintone/" class="ext-btn">詳細を見る</a>
-          </div>
-        </article>
+          </article>
+        ))}
       </div>
     </section>
 
