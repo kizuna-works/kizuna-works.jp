@@ -117,9 +117,9 @@ const {
         <a href="/plugins/supporter/" class="site-nav-btn">サポーター</a>
         <a href="/contact/" class="site-nav-btn">お問い合わせ</a>
         <div class="site-nav-dropdown">
-          <button type="button" class="site-nav-more" aria-expanded="false" aria-haspopup="true" aria-controls="site-nav-submenu">
+          <a href="#" class="site-nav-btn site-nav-more" role="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-nav-submenu">
             もっと見る<span class="site-nav-arrow" aria-hidden="true">▾</span>
-          </button>
+          </a>
           <ul id="site-nav-submenu" class="site-nav-submenu" role="menu">
             <li role="none"><a href="/tools/" class="site-nav-sub" role="menuitem">無料ツール</a></li>
             <li role="none"><a href="/blog/" class="site-nav-sub" role="menuitem">ブログ</a></li>
@@ -160,6 +160,7 @@ const {
       const dropdown = moreBtn.parentElement;
 
       moreBtn.addEventListener('click', function(e) {
+        e.preventDefault();
         e.stopPropagation();
         const expanded = moreBtn.getAttribute('aria-expanded') === 'true';
         moreBtn.setAttribute('aria-expanded', String(!expanded));
@@ -249,25 +250,9 @@ const {
     position: relative;
   }
   .site-nav-more {
-    background: none;
-    border: none;
-    font-family: inherit;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #1B3A6B;
-    padding: 8px 6px;
-    cursor: pointer;
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    transition: color 0.2s ease;
-  }
-  .site-nav-more:hover,
-  .site-nav-more:focus {
-    color: #2E8B2E;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    outline: none;
   }
   .site-nav-arrow {
     font-size: 0.7em;
