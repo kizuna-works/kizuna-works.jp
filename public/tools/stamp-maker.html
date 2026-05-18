@@ -160,6 +160,17 @@ input[type=date].inp{color-scheme:dark}
 .site-header-nav{display:flex;gap:10px;flex-wrap:wrap;}
 .site-nav-btn{display:inline-block;background-color:#1B3A6B;color:#FFFFFF !important;font-size:0.95rem;font-weight:500;padding:8px 16px;border-radius:20px;text-decoration:none;transition:all 0.3s ease;}
 .site-nav-btn:hover{background-color:#2E8B2E;transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+.site-nav-dropdown{position:relative;}
+.site-nav-more{border:none;font-family:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:4px;line-height:1.2;}
+.site-nav-arrow{font-size:.7em;transition:transform .2s ease;}
+.site-nav-more[aria-expanded="true"] .site-nav-arrow{transform:rotate(180deg);}
+.site-nav-submenu{position:absolute;top:calc(100% + 8px);right:0;min-width:180px;background:#FFFFFF;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 10px 24px rgba(27,58,107,.18);padding:8px 0;list-style:none;margin:0;opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .18s ease,visibility .18s ease,transform .18s ease;z-index:150;}
+.site-nav-dropdown:focus-within .site-nav-submenu,.site-nav-more[aria-expanded="true"] + .site-nav-submenu{opacity:1;visibility:visible;transform:translateY(0);}
+@media (hover:hover){.site-nav-dropdown:hover .site-nav-submenu{opacity:1;visibility:visible;transform:translateY(0);}}
+.site-nav-sub{display:block;padding:10px 18px;color:#1B3A6B;font-weight:500;font-size:.92rem;text-decoration:none;transition:background .15s ease,color .15s ease;}
+.site-nav-sub:hover,.site-nav-sub:focus{background:#F0F4F8;color:#2E8B2E;outline:none;}
+.site-nav-cta{background-color:#2E8B2E !important;}
+.site-nav-cta:hover{background-color:#1B3A6B !important;}
 /* Site Footer */
 .site-footer{background-color:#1B3A6B;color:#FFFFFF;padding:60px 5% 30px;}
 .site-footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:40px;margin-bottom:30px;}
@@ -226,13 +237,20 @@ input[type=date].inp{color-scheme:dark}
         </a>
         <nav class="site-header-nav">
             <a href="/news/" class="site-nav-btn">お知らせ</a>
-            <a href="/tools/" class="site-nav-btn">無料ツール</a>
             <a href="/plugins/" class="site-nav-btn">プラグイン</a>
-            <a href="/plugins/supporter/" class="site-nav-btn">サポーター</a>
             <a href="/extensions/" class="site-nav-btn">拡張機能</a>
-            <a href="/blog/" class="site-nav-btn">ブログ</a>
-            <a href="/glossary/" class="site-nav-btn">用語集</a>
-            <a href="/contact/" class="site-nav-btn">お問い合わせ</a>
+            <a href="/plugins/supporter/" class="site-nav-btn">サポーター</a>
+            <div class="site-nav-dropdown">
+                <button type="button" class="site-nav-btn site-nav-more" aria-expanded="false" aria-haspopup="true" aria-controls="site-nav-submenu">
+                    もっと見る<span class="site-nav-arrow" aria-hidden="true">▾</span>
+                </button>
+                <ul id="site-nav-submenu" class="site-nav-submenu" role="menu">
+                    <li role="none"><a href="/tools/" class="site-nav-sub" role="menuitem">無料ツール</a></li>
+                    <li role="none"><a href="/blog/" class="site-nav-sub" role="menuitem">ブログ</a></li>
+                    <li role="none"><a href="/glossary/" class="site-nav-sub" role="menuitem">用語集</a></li>
+                </ul>
+            </div>
+            <a href="/contact/" class="site-nav-btn site-nav-cta">お問い合わせ</a>
         </nav>
     </div>
 </header>
@@ -651,6 +669,29 @@ input[type=date].inp{color-scheme:dark}
       draw();
     }
   };
+})();
+</script>
+<script>
+(function(){
+  var moreBtn = document.querySelector('.site-nav-more');
+  if(!moreBtn) return;
+  var dropdown = moreBtn.parentElement;
+  moreBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var expanded = moreBtn.getAttribute('aria-expanded') === 'true';
+    moreBtn.setAttribute('aria-expanded', String(!expanded));
+  });
+  document.addEventListener('click', function(e){
+    if(!dropdown.contains(e.target)){
+      moreBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && moreBtn.getAttribute('aria-expanded') === 'true'){
+      moreBtn.setAttribute('aria-expanded', 'false');
+      moreBtn.focus();
+    }
+  });
 })();
 </script>
 </body>
