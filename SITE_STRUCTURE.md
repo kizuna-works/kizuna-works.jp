@@ -56,6 +56,10 @@ c:\kizuna-works.jp\
 │   │   ├── blog/
 │   │   │   ├── index.astro     # ブログ一覧ページ（/blog/）― note.com RSS + コンテンツコレクション
 │   │   │   └── [...slug].astro # ブログ記事動的ルート（/blog/[記事スラッグ]/）
+│   │   ├── news/
+│   │   │   ├── index.astro     # お知らせ一覧ページ（/news/）― 新着リリース・障害情報・サイト更新
+│   │   │   ├── [...slug].astro # お知らせ個別ページ動的ルート（externalUrl 未指定エントリのみ生成）
+│   │   │   └── rss.xml.ts      # お知らせ RSS フィード（/news/rss.xml）
 │   │   ├── plugins/
 │   │   │   ├── index.astro     # プラグイン一覧ページ（/plugins/）
 │   │   │   ├── supporter/
@@ -95,7 +99,8 @@ c:\kizuna-works.jp\
 │   │   └── sitemap/
 │   │       └── index.astro     # サイトマップ（/sitemap/）— 全ページ一覧。plugins.ts と blog コレクションから自動生成、フッターからリンク
 │   ├── content/
-│   │   ├── config.ts           # コンテンツコレクションのスキーマ定義（blog コレクション）
+│   │   ├── config.ts           # コンテンツコレクションのスキーマ定義（blog / news コレクション）
+│   │   ├── news/               # お知らせエントリ Markdown 置き場（category: release/update/incident/notice）
 │   │   └── blog/               # ブログ記事 Markdown/MDX ファイル置き場
 │   │       ├── kintone-teichaku-shinai-riyu.md      # 「kintoneが定着しない本当の理由」記事
 │   │       ├── conditional-numbering-plugin.md      # 「条件分岐自動採番プラグインの機能と設定ガイド」記事
@@ -288,15 +293,29 @@ KIZUNA Works が公開する Chrome 拡張機能のページ群。
 **ブログ記事を追加する場合：**
 1. `src/content/blog/` に Markdown ファイルを作成
 2. 必要なフロントマター（`title`, `description`, `pubDate`）を記載
+3. **`src/content/news/` にも `category: release` のお知らせエントリを追加**（同じコミットに含める）
+
+**お知らせ（トピックス）を追加する場合：
+1. `src/content/news/` に Markdown ファイルを作成（スラッグ = ファイル名、日付なし）
+2. フロントマター: `title` / `description` / `pubDate` / `category`（`release` | `update` | `incident` | `notice`） / `externalUrl`（任意）
+3. `externalUrl` を指定すると一覧から外部リンクへ飛ぶ（個別ページは生成されない）
+4. `externalUrl` 未指定の場合は本文を Markdown で記述し、`/news/<slug>/` で個別ページが自動生成される
+5. トップページの「お知らせ」セクションに最新 3 件が自動表示され、`/news/rss.xml` にも自動反映される
 
 **新規プラグインを追加する場合：**
 1. `src/pages/plugins/<プラグイン名>/index.astro` を作成
 2. `src/pages/plugins/index.astro` のグリッドに追加
 3. `src/pages/plugins/index.astro` の JSON-LD `ItemList` を更新
+4. **`src/content/news/` に `category: release` のお知らせエントリを追加**（同じコミットに含める）
+
+**既存プラグイン/ツール/拡張機能のバージョンアップ・機能追加を行う場合：**
+1. 該当ページのバージョン表記・dateModified・配布 ZIP を更新
+2. **`src/content/news/` に `category: update` のお知らせエントリを追加**（同じコミットに含める）
 
 **新規ツールを追加する場合：**
 1. `src/pages/tools/index.astro` のグリッドに追加
 2. `src/pages/tools/index.astro` の JSON-LD `ItemList` を更新
+3. **`src/content/news/` に `category: release` のお知らせエントリを追加**（同じコミットに含める）
 
 **新規 Chrome 拡張機能を追加する場合：**
 1. 拡張機能本体は `SECRET\Chrome_extension_workspace\<拡張機能名>\` 内で開発
@@ -305,3 +324,4 @@ KIZUNA Works が公開する Chrome 拡張機能のページ群。
 4. `src/pages/extensions/<拡張機能名>/privacy/index.astro` を作成（プライバシーポリシー・**Chrome Web Store 公開には必須**）
 5. `src/pages/extensions/index.astro` のグリッドと JSON-LD `ItemList` を更新
 6. Chrome Web Store の `homepage_url` に上記ランディングページ URL を指定
+7. **`src/content/news/` に `category: release` のお知らせエントリを追加**（同じコミットに含める）

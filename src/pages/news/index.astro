@@ -1,0 +1,247 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const allNews = (await getCollection('news')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const categoryLabels: Record<string, string> = {
+  release: '新着リリース',
+  update: 'アップデート',
+  incident: '障害情報',
+  notice: 'お知らせ',
+};
+
+const fmt = (d: Date) =>
+  `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+
+const itemListElements = allNews.map((n, i) => ({
+  '@type': 'ListItem',
+  position: i + 1,
+  url: n.data.externalUrl ?? `https://kizuna-works.jp/news/${n.id}/`,
+  name: n.data.title,
+}));
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': 'https://kizuna-works.jp/news/',
+      url: 'https://kizuna-works.jp/news/',
+      name: 'お知らせ・新着情報 | KIZUNA Works',
+      description:
+        'KIZUNA Worksの新着リリース・サイトアップデート・kintone関連の障害情報など、最新お知らせ一覧。',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+        { '@type': 'ListItem', position: 2, name: 'お知らせ', item: 'https://kizuna-works.jp/news/' },
+      ],
+    },
+    {
+      '@type': 'ItemList',
+      name: 'KIZUNA Works お知らせ一覧',
+      itemListElement: itemListElements,
+    },
+  ],
+};
+---
+
+<Layout
+  title="お知らせ・新着情報 | KIZUNA Works"
+  description="KIZUNA Worksの新着リリース・サイトアップデート・kintone関連の障害情報など、最新のお知らせ一覧。kintoneプラグイン・無料Webツール・Chrome拡張機能の公開情報をいち早くお届けします。"
+  ogUrl="https://kizuna-works.jp/news/"
+  canonical="https://kizuna-works.jp/news/"
+>
+  <Fragment slot="head">
+    <link rel="alternate" type="application/rss+xml" title="KIZUNA Works お知らせ RSS" href="/news/rss.xml" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+
+    .news-hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.85) 0%, rgba(42,82,152,0.8) 100%);
+      color: #fff;
+      padding: 80px 5% 60px;
+      text-align: center;
+    }
+    .news-hero h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 0.04em;
+    }
+    .news-hero p {
+      font-size: 1rem;
+      max-width: 640px;
+      margin: 0 auto;
+      opacity: 0.95;
+      line-height: 1.7;
+    }
+    .news-hero-rss {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 18px;
+      padding: 6px 16px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 20px;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .news-hero-rss:hover { background: rgba(255,255,255,0.28); color: #fff; }
+
+    .news-container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 60px 20px 80px;
+    }
+
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .news-item {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(27, 58, 107, 0.06);
+      padding: 20px 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-left: 4px solid #1B3A6B;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(27, 58, 107, 0.12);
+    }
+    .news-item.cat-release { border-left-color: #2E8B2E; }
+    .news-item.cat-update  { border-left-color: #1B3A6B; }
+    .news-item.cat-incident { border-left-color: #c0392b; }
+    .news-item.cat-notice  { border-left-color: #64748b; }
+
+    .news-date {
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      color: #64748b;
+      font-weight: 600;
+      min-width: 80px;
+      padding-top: 2px;
+    }
+
+    .news-badge {
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      color: #fff;
+      letter-spacing: 0.03em;
+      align-self: flex-start;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+    .badge-release { background: #2E8B2E; }
+    .badge-update  { background: #1B3A6B; }
+    .badge-incident { background: #c0392b; }
+    .badge-notice  { background: #64748b; }
+
+    .news-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .news-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #1B3A6B;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+    .news-desc {
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.6;
+    }
+    .news-external-icon {
+      display: inline-block;
+      margin-left: 4px;
+      color: #2E8B2E;
+      font-size: 0.85em;
+    }
+
+    .news-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #64748b;
+      background: #fff;
+      border-radius: 12px;
+    }
+
+    @media (max-width: 640px) {
+      .news-hero { padding: 60px 5% 50px; }
+      .news-hero h1 { font-size: 1.6rem; }
+      .news-container { padding: 40px 16px 60px; }
+      .news-item {
+        flex-wrap: wrap;
+        gap: 8px 12px;
+        padding: 16px 18px;
+      }
+      .news-date { min-width: 0; font-size: 0.8rem; }
+      .news-body { flex-basis: 100%; }
+      .news-title { font-size: 0.98rem; }
+    }
+  </style>
+
+  <main>
+    <section class="news-hero">
+      <h1>お知らせ・新着情報</h1>
+      <p>新着リリース・サイトアップデート・kintone 関連の障害情報など、KIZUNA Works からの最新お知らせをお届けします。</p>
+      <a href="/news/rss.xml" class="news-hero-rss">RSS で購読</a>
+    </section>
+
+    <div class="news-container">
+      {allNews.length === 0 ? (
+        <div class="news-empty">お知らせはまだありません。</div>
+      ) : (
+        <div class="news-list">
+          {allNews.map((n) => {
+            const isExternal = Boolean(n.data.externalUrl);
+            const href = isExternal ? n.data.externalUrl! : `/news/${n.id}/`;
+            const cat = n.data.category;
+            return (
+              <a
+                href={href}
+                class={`news-item cat-${cat}`}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
+              >
+                <span class="news-date">{fmt(n.data.pubDate)}</span>
+                <span class={`news-badge badge-${cat}`}>{categoryLabels[cat]}</span>
+                <div class="news-body">
+                  <div class="news-title">
+                    {n.data.title}
+                    {isExternal && <span class="news-external-icon" aria-label="外部リンク">↗</span>}
+                  </div>
+                  <div class="news-desc">{n.data.description}</div>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  </main>
+</Layout>

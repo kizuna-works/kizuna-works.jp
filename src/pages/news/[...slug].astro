@@ -1,0 +1,239 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const items = await getCollection('news');
+  // Only generate individual pages for entries without externalUrl
+  return items
+    .filter((item) => !item.data.externalUrl)
+    .map((item) => ({
+      params: { slug: item.id },
+      props: item,
+    }));
+}
+
+type Props = CollectionEntry<'news'>;
+
+const item = Astro.props;
+const { Content } = await render(item);
+
+const categoryLabels: Record<string, string> = {
+  release: '新着リリース',
+  update: 'アップデート',
+  incident: '障害情報',
+  notice: 'お知らせ',
+};
+
+const fmt = (d: Date) =>
+  `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+
+const pageUrl = `https://kizuna-works.jp/news/${item.id}/`;
+const cat = item.data.category;
+const pubIso = item.data.pubDate.toISOString();
+const modIso = (item.data.updatedDate ?? item.data.pubDate).toISOString();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'NewsArticle',
+      '@id': pageUrl,
+      url: pageUrl,
+      headline: item.data.title,
+      description: item.data.description,
+      datePublished: pubIso,
+      dateModified: modIso,
+      author: {
+        '@type': 'Organization',
+        name: 'KIZUNA Works',
+        url: 'https://kizuna-works.jp/',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'KIZUNA Works',
+        url: 'https://kizuna-works.jp/',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://kizuna-works.jp/images/logo.png',
+        },
+      },
+      mainEntityOfPage: pageUrl,
+      articleSection: categoryLabels[cat],
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+        { '@type': 'ListItem', position: 2, name: 'お知らせ', item: 'https://kizuna-works.jp/news/' },
+        { '@type': 'ListItem', position: 3, name: item.data.title, item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+
+<Layout
+  title={`${item.data.title} | KIZUNA Works お知らせ`}
+  description={item.data.description}
+  ogUrl={pageUrl}
+  ogType="article"
+  canonical={pageUrl}
+>
+  <Fragment slot="head">
+    <link rel="alternate" type="application/rss+xml" title="KIZUNA Works お知らせ RSS" href="/news/rss.xml" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+
+    .news-article-container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+    .news-breadcrumb {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-bottom: 20px;
+    }
+    .news-breadcrumb a { color: #1B3A6B; text-decoration: none; }
+    .news-breadcrumb a:hover { text-decoration: underline; }
+
+    .news-article {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(27, 58, 107, 0.06);
+      padding: 36px 40px 40px;
+      border-top: 5px solid #1B3A6B;
+    }
+    .news-article.cat-release { border-top-color: #2E8B2E; }
+    .news-article.cat-update  { border-top-color: #1B3A6B; }
+    .news-article.cat-incident { border-top-color: #c0392b; }
+    .news-article.cat-notice  { border-top-color: #64748b; }
+
+    .news-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .news-meta-date {
+      font-size: 0.88rem;
+      color: #64748b;
+      font-weight: 600;
+    }
+    .news-meta-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 12px;
+      color: #fff;
+      letter-spacing: 0.03em;
+    }
+    .news-meta-badge.badge-release { background: #2E8B2E; }
+    .news-meta-badge.badge-update  { background: #1B3A6B; }
+    .news-meta-badge.badge-incident { background: #c0392b; }
+    .news-meta-badge.badge-notice  { background: #64748b; }
+
+    .news-article h1 {
+      color: #1B3A6B;
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .news-body {
+      color: #333;
+      line-height: 1.85;
+      font-size: 1rem;
+    }
+    .news-body p { margin-bottom: 1em; }
+    .news-body a { color: #2E8B2E; text-decoration: underline; }
+    .news-body ul, .news-body ol { margin: 0 0 1em 1.5em; }
+    .news-body li { margin-bottom: 0.4em; }
+    .news-body img { max-width: 100%; height: auto; border-radius: 8px; margin: 1em 0; }
+    .news-body h2 {
+      color: #1B3A6B;
+      font-size: 1.25rem;
+      margin: 1.5em 0 0.7em;
+      padding-left: 12px;
+      border-left: 4px solid #2E8B2E;
+    }
+    .news-body h3 {
+      color: #1B3A6B;
+      font-size: 1.08rem;
+      margin: 1.2em 0 0.5em;
+    }
+    .news-body code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.92em;
+    }
+    .news-body pre {
+      background: #1e293b;
+      color: #f1f5f9;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+    }
+    .news-body pre code {
+      background: transparent;
+      padding: 0;
+      color: inherit;
+    }
+
+    .news-footer {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+      text-align: center;
+    }
+    .news-back-link {
+      display: inline-block;
+      padding: 10px 22px;
+      background: #1B3A6B;
+      color: #fff;
+      border-radius: 22px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .news-back-link:hover { background: #2E8B2E; color: #fff; }
+
+    @media (max-width: 640px) {
+      .news-article-container { padding: 24px 14px 60px; }
+      .news-article { padding: 24px 22px 28px; }
+      .news-article h1 { font-size: 1.3rem; }
+    }
+  </style>
+
+  <main>
+    <div class="news-article-container">
+      <div class="news-breadcrumb">
+        <a href="/">ホーム</a> &gt; <a href="/news/">お知らせ</a> &gt; <span>{item.data.title}</span>
+      </div>
+      <article class={`news-article cat-${cat}`}>
+        <div class="news-meta">
+          <span class="news-meta-date">{fmt(item.data.pubDate)}</span>
+          <span class={`news-meta-badge badge-${cat}`}>{categoryLabels[cat]}</span>
+        </div>
+        <h1>{item.data.title}</h1>
+        <div class="news-body">
+          <Content />
+        </div>
+        <div class="news-footer">
+          <a href="/news/" class="news-back-link">← お知らせ一覧へ戻る</a>
+        </div>
+      </article>
+    </div>
+  </main>
+</Layout>

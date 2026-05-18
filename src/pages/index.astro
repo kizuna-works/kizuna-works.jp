@@ -15,6 +15,19 @@ const allPosts = (await getCollection('blog'))
 // 新着: latest 3 by pubDate
 const recentPosts = allPosts.slice(0, 3);
 
+// お知らせ最新3件
+const recentNews = (await getCollection('news'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+const newsCategoryLabels: Record<string, string> = {
+  release: '新着リリース',
+  update: 'アップデート',
+  incident: '障害情報',
+  notice: 'お知らせ',
+};
+const fmtNewsDate = (d: Date) =>
+  `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+
 // 人気: hand-curated for visitors looking to compare/decide
 const popularSlugs = [
   'kintone-kensaku-plugin-hikaku',
@@ -280,6 +293,125 @@ const pluginPosts = allPosts
     .hero-secondary-link:hover {
       opacity: 1;
       color: #98e598;
+    }
+
+    /* =========================================
+       Home News Section (お知らせ)
+    ========================================= */
+    .home-news {
+      background: #FFFFFF;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .home-news-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 20px;
+    }
+    .home-news-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .home-news-title {
+      color: #1B3A6B;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+    }
+    .home-news-title-icon { font-size: 1.05rem; }
+    .home-news-more {
+      color: #2E8B2E;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .home-news-more:hover { text-decoration: underline; }
+
+    .home-news-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .home-news-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      color: inherit;
+      text-decoration: none;
+      transition: background 0.18s;
+      border-left: 3px solid #1B3A6B;
+      background: #f8fafc;
+    }
+    .home-news-item:hover { background: #eef3f9; }
+    .home-news-item.cat-release { border-left-color: #2E8B2E; }
+    .home-news-item.cat-update  { border-left-color: #1B3A6B; }
+    .home-news-item.cat-incident { border-left-color: #c0392b; }
+    .home-news-item.cat-notice  { border-left-color: #64748b; }
+
+    .home-news-date {
+      flex-shrink: 0;
+      font-size: 0.82rem;
+      color: #64748b;
+      font-weight: 600;
+      min-width: 84px;
+    }
+    .home-news-badge {
+      flex-shrink: 0;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 11px;
+      color: #fff;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+    .home-news-badge.badge-release { background: #2E8B2E; }
+    .home-news-badge.badge-update  { background: #1B3A6B; }
+    .home-news-badge.badge-incident { background: #c0392b; }
+    .home-news-badge.badge-notice  { background: #64748b; }
+    .home-news-text {
+      flex: 1;
+      min-width: 0;
+      color: #1B3A6B;
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.5;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .home-news-ext {
+      display: inline-block;
+      margin-left: 4px;
+      color: #2E8B2E;
+      font-size: 0.85em;
+    }
+
+    @media (max-width: 640px) {
+      .home-news-inner { padding: 22px 16px; }
+      .home-news-item {
+        flex-wrap: wrap;
+        gap: 8px 10px;
+        padding: 12px;
+      }
+      .home-news-date { font-size: 0.78rem; min-width: 0; }
+      .home-news-text {
+        flex-basis: 100%;
+        white-space: normal;
+        font-size: 0.9rem;
+      }
     }
 
     /* =========================================
@@ -1265,6 +1397,44 @@ const pluginPosts = allPosts
       </div>
     </div>
   </section>
+
+  {recentNews.length > 0 && (
+    <section class="home-news">
+      <div class="home-news-inner">
+        <div class="home-news-head">
+          <h2 class="home-news-title">
+            <span class="home-news-title-icon" aria-hidden="true">📣</span>
+            お知らせ
+          </h2>
+          <a href="/news/" class="home-news-more">すべて見る →</a>
+        </div>
+        <ul class="home-news-list">
+          {recentNews.map((n) => {
+            const isExternal = Boolean(n.data.externalUrl);
+            const href = isExternal ? n.data.externalUrl! : `/news/${n.id}/`;
+            const cat = n.data.category;
+            return (
+              <li>
+                <a
+                  href={href}
+                  class={`home-news-item cat-${cat}`}
+                  target={isExternal ? '_blank' : undefined}
+                  rel={isExternal ? 'noopener noreferrer' : undefined}
+                >
+                  <span class="home-news-date">{fmtNewsDate(n.data.pubDate)}</span>
+                  <span class={`home-news-badge badge-${cat}`}>{newsCategoryLabels[cat]}</span>
+                  <span class="home-news-text">
+                    {n.data.title}
+                    {isExternal && <span class="home-news-ext" aria-label="外部リンク">↗</span>}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  )}
 
   <!-- Why KIZUNA Works (Strengths) -->
   <section class="strengths">
