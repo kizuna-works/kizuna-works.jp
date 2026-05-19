@@ -44,11 +44,11 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
           "description": "kintoneのフィールドを自由にカスタマイズできる無料プラグイン。背景色・フォント・文字色・条件付きスタイルなど全10機能をノーコードで設定。kintone プラグイン 無料配布中。",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "dateModified": "2026-05-17",
+          "dateModified": "2026-05-19",
           "url": "https://kizuna-works.jp/plugins/field-styler/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-field-styler-v1.2.0.zip",
-          "softwareVersion": "1.2.0",
-          "releaseNotes": "v1.2.0（2026-05-14）: 日付フィールドの条件付きスタイルで「TODAY」キーワードに対応。本日／本日より前／本日以降などの動的判定が可能になりました。日付フィールドの大小比較バグも修正。",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-field-styler-v2.0.0.zip",
+          "softwareVersion": "2.0.0",
+          "releaseNotes": "v2.0.0（2026-05-19）: 条件付きスタイルを大幅刷新。比較元フィールドを切り替えられる「比較元セレクタ」、TODAY±N 日付演算（例: TODAY+7 で 1 週間後）、{フィールドコード}±N（例: {締切日}-1 で締切前日）に対応。案件ごとに異なる締切日基準でも、設定 1 つで自動色付けが可能に。設定画面 UI も刷新し、📎フィールド挿入・⏰TODAYプリセットの 2 ボタンで入力支援。自参照・±365 日範囲のバリデーションも追加。",
           "offers": {
             "@type": "Offer",
             "name": "基本プラン（無料）",
@@ -783,6 +783,106 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
       color: var(--color-green);
     }
 
+    /* v2.0.0 usage recipes section */
+    .update-usecases {
+      margin: 28px 0;
+    }
+    .update-usecases h4 {
+      color: var(--color-navy);
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 0 12px 0;
+    }
+    .usecase-intro {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--color-text);
+      margin: 0 0 20px 0;
+    }
+    .usecase-card {
+      background: #ffffff;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .usecase-title {
+      color: var(--color-navy);
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 8px 0;
+    }
+    .usecase-desc {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--color-text);
+      margin: 0 0 12px 0;
+    }
+    .usecase-note {
+      background: #fffbe6;
+      border-left: 3px solid #e0c060;
+      padding: 8px 12px;
+      font-size: 13px;
+      margin: 0 0 12px 0;
+      border-radius: 3px;
+    }
+    .usecase-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+    .usecase-table thead {
+      background: var(--color-bg);
+    }
+    .usecase-table th {
+      padding: 8px 10px;
+      text-align: left;
+      color: var(--color-navy);
+      font-weight: 700;
+      border-bottom: 2px solid var(--color-gray-light);
+      white-space: nowrap;
+    }
+    .usecase-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--color-gray-light);
+      vertical-align: middle;
+    }
+    .usecase-table td code {
+      background: #F0F4F8;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 12px;
+      color: var(--color-navy);
+      font-family: 'Courier New', monospace;
+    }
+    .usecase-tip {
+      background: rgba(46,139,46,0.08);
+      border-left: 4px solid var(--color-green);
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 16px 0 0 0;
+    }
+    @media (max-width: 768px) {
+      .usecase-table {
+        font-size: 12px;
+      }
+      .usecase-table th,
+      .usecase-table td {
+        padding: 6px 6px;
+      }
+      .usecase-card {
+        padding: 14px;
+        overflow-x: auto;
+      }
+      .usecase-table {
+        min-width: 480px;
+      }
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .related-posts-grid {
@@ -829,7 +929,7 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.2.0</span>
+        <span class="hero-version">v2.0.0</span>
       </div>
       <h1 class="hero-title">フィールドスタイラー kintone プラグイン</h1>
       <p class="hero-copy">フィールドスタイラーは、kintone のフィールドの背景色・フォント・文字色・条件付きスタイルなどを JavaScript なしで設定できるノーコードプラグインです。全 10 機能を基本無料でご利用いただけます。</p>
@@ -839,29 +939,122 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
     <section class="update-section fade-in">
       <div class="update-inner">
         <div class="update-header">
-          <span class="update-tag">NEW</span>
-          <span class="update-version">v1.2.0</span>
-          <span class="update-date">2026年5月14日リリース</span>
+          <span class="update-tag">MAJOR</span>
+          <span class="update-version">v2.0.0</span>
+          <span class="update-date">2026年5月19日リリース</span>
         </div>
-        <h2 class="update-title">日付フィールドで「本日かどうか」を自動判定できるようになりました</h2>
+        <h2 class="update-title">条件付きスタイルが大幅進化 — 案件ごとに違う締切日でも自動色付けが可能に</h2>
         <p class="update-summary">
-          条件付きスタイルの比較値に <strong><code>TODAY</code></strong> と入力するだけで、画面を開いた当日の日付が自動的に判定対象になります。<br>
-          毎日設定を書き換える必要なく、<strong>「期限切れタスクを赤く」「本日の予定を黄色で強調」「未来の予定を緑で表示」</strong>といった動的な色分けが実現できます。
+          v2.0.0 では条件付きスタイル機能を全面刷新。<strong>「[比較元フィールド] が [演算子] [比較値] の場合 → 色」</strong>という 3 項構造になり、別フィールドの値を基準にした条件判定や、日付の前後 N 日演算が表現できるようになりました。<br>
+          <strong>「締切日の前日にアラート」「発注日が締切日を 7 日経過したら赤く」「担当者フィールドを締切日基準で色分け」</strong>など、設定 1 つで案件ごとに違う日付にも自動対応します。
         </p>
 
         <div class="update-examples">
-          <h4>💡 こんな使い方ができるようになりました</h4>
+          <h4>🆕 v2.0.0 で追加された機能</h4>
           <ul>
-            <li>📅 演算子 <code>=</code> 値 <code>TODAY</code> → <strong>本日の日付だけ</strong>背景色が変わる（タスク管理アプリの「今日やること」強調に最適）</li>
-            <li>⚠️ 演算子 <code>&lt;</code> 値 <code>TODAY</code> → <strong>本日より前（過去）の日付</strong>を灰色や赤に（期限切れタスクの可視化）</li>
-            <li>🟢 演算子 <code>&gt;</code> 値 <code>TODAY</code> → <strong>本日より後（未来）の日付</strong>を緑に（予定・未着手タスクの判別）</li>
-            <li>🟡 演算子 <code>&lt;=</code> 値 <code>TODAY</code> → <strong>本日以前（本日含む）</strong>を黄色に（要対応リスト）</li>
-            <li>🔵 演算子 <code>&gt;=</code> 値 <code>TODAY</code> → <strong>本日以降（本日含む）</strong>を青に（今後のスケジュール）</li>
+            <li>🎯 <strong>比較元フィールドセレクタ</strong>：色を変えるフィールドと判定に使うフィールドを分離できる。「担当者を、締切日を基準に赤く」のような表現が可能</li>
+            <li>📅 <strong>TODAY±N 日付演算</strong>：<code>TODAY+7</code>（1 週間後）／<code>TODAY-3</code>（3 日前）など、当日基準の前後を比較値に指定可能</li>
+            <li>🔗 <strong>&#123;フィールド&#125;±N 演算</strong>：<code>&#123;締切日&#125;-1</code>（締切前日）／<code>&#123;受注日&#125;+30</code>（受注 30 日後）など、別フィールド値の前後を指定可能</li>
+            <li>🛠️ <strong>設定画面 UI 刷新</strong>：📎フィールド挿入ボタン・⏰TODAYプリセットボタンで、難しい記法を覚えなくても 1 クリックで挿入</li>
+            <li>🛡️ <strong>自動バリデーション</strong>：自参照（同じフィールドを左右に指定）や ±365 日超のオフセットは保存時にエラー表示で防止</li>
+            <li>🔄 <strong>連動再評価</strong>：参照先フィールドの値を変更すると、参照元フィールドの色も自動で再計算（編集・作成画面）</li>
           </ul>
         </div>
 
+        <div class="update-usecases">
+          <h4>📅 日付条件のレシピ集 — こんな使い方ができるようになりました</h4>
+          <p class="usecase-intro">日付フィールドを <strong>ターゲットフィールド</strong> に指定して、以下の条件を上から順に設定してください。<strong>条件は「上から順に評価し最初に一致したものが適用」</strong>されるため、厳しい（マッチ条件が狭い）順に並べるのがコツです。</p>
+
+          <article class="usecase-card">
+            <h5 class="usecase-title">📌 レシピ 1：タスク管理の「いつ対応すべきか」を色で分ける</h5>
+            <p class="usecase-desc">タスクの <strong>期限フィールド</strong> を、当日・3 日以内・1 週間以内・余裕ありで自動色分け。毎朝開くたびに自動で色が更新されます。</p>
+            <table class="usecase-table">
+              <thead><tr><th>順</th><th>比較元</th><th>演算子</th><th>比較値</th><th>背景色</th><th>意味</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>期限</td><td><code>&lt;</code></td><td><code>TODAY</code></td><td>🔴 赤</td><td>期限切れ（過去）</td></tr>
+                <tr><td>2</td><td>期限</td><td><code>=</code></td><td><code>TODAY</code></td><td>🟠 オレンジ</td><td>今日が期限</td></tr>
+                <tr><td>3</td><td>期限</td><td><code>&lt;=</code></td><td><code>TODAY+3</code></td><td>🟡 黄</td><td>3 日以内に期限</td></tr>
+                <tr><td>4</td><td>期限</td><td><code>&lt;=</code></td><td><code>TODAY+7</code></td><td>🟢 黄緑</td><td>1 週間以内に期限</td></tr>
+                <tr><td>5</td><td>期限</td><td><code>&gt;</code></td><td><code>TODAY+7</code></td><td>⚪ 白</td><td>余裕あり</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="usecase-card">
+            <h5 class="usecase-title">📌 レシピ 2：期限超過からの経過日数でアラート強度を変える</h5>
+            <p class="usecase-desc">放置されている案件を可視化。<strong>期限切れの度合い</strong>で色を強くして、対応漏れを未然に防止。</p>
+            <table class="usecase-table">
+              <thead><tr><th>順</th><th>比較元</th><th>演算子</th><th>比較値</th><th>背景色</th><th>意味</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>期限</td><td><code>&lt;=</code></td><td><code>TODAY-30</code></td><td>⚫ 黒</td><td>30 日以上経過（重大）</td></tr>
+                <tr><td>2</td><td>期限</td><td><code>&lt;=</code></td><td><code>TODAY-7</code></td><td>🔴 赤</td><td>7 日以上経過（要対応）</td></tr>
+                <tr><td>3</td><td>期限</td><td><code>&lt;</code></td><td><code>TODAY</code></td><td>🟠 オレンジ</td><td>1〜6 日経過（注意）</td></tr>
+                <tr><td>4</td><td>期限</td><td><code>=</code></td><td><code>TODAY</code></td><td>🟡 黄</td><td>本日が期限</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="usecase-card">
+            <h5 class="usecase-title">📌 レシピ 3：案件ごとに異なる締切日を基準に発注日を判定</h5>
+            <p class="usecase-desc">顧客マスタからルックアップした <strong>締切日</strong> と、<strong>発注日</strong> の関係を自動チェック。締切日が案件ごとに違っても、設定 1 つで全レコードに対応します。</p>
+            <table class="usecase-table">
+              <thead><tr><th>順</th><th>比較元</th><th>演算子</th><th>比較値</th><th>背景色</th><th>意味</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>発注日</td><td><code>&gt;=</code></td><td><code>&#123;締切日&#125;+7</code></td><td>🔴 赤</td><td>締切から 7 日以上経過した発注（遅延）</td></tr>
+                <tr><td>2</td><td>発注日</td><td><code>&gt;</code></td><td><code>&#123;締切日&#125;</code></td><td>🟠 オレンジ</td><td>締切後の発注（1〜6 日遅れ）</td></tr>
+                <tr><td>3</td><td>発注日</td><td><code>=</code></td><td><code>&#123;締切日&#125;</code></td><td>🟡 黄</td><td>締切ジャスト発注</td></tr>
+                <tr><td>4</td><td>発注日</td><td><code>&gt;=</code></td><td><code>&#123;締切日&#125;-3</code></td><td>🟢 黄緑</td><td>締切 3 日前以内（直前駆け込み）</td></tr>
+                <tr><td>5</td><td>発注日</td><td><code>&lt;</code></td><td><code>&#123;締切日&#125;-3</code></td><td>⚪ 白</td><td>余裕を持った発注</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="usecase-card">
+            <h5 class="usecase-title">📌 レシピ 4：「締切日前日」にアラートを出す</h5>
+            <p class="usecase-desc">締切日の前日になったらフィールドを目立たせる、シンプルな「明日が締切」アラート。</p>
+            <table class="usecase-table">
+              <thead><tr><th>順</th><th>比較元</th><th>演算子</th><th>比較値</th><th>背景色</th><th>意味</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>締切日</td><td><code>=</code></td><td><code>TODAY+1</code></td><td>🟠 オレンジ</td><td>明日が締切（前日アラート）</td></tr>
+                <tr><td>2</td><td>締切日</td><td><code>=</code></td><td><code>TODAY</code></td><td>🔴 赤</td><td>本日が締切</td></tr>
+                <tr><td>3</td><td>締切日</td><td><code>&lt;</code></td><td><code>TODAY</code></td><td>⚫ 灰</td><td>期限切れ</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="usecase-card">
+            <h5 class="usecase-title">📌 レシピ 5：受注から N 日経過した案件を強調（フォローアップ漏れ防止）</h5>
+            <p class="usecase-desc">受注後の経過日数で、フォローのタイミングを自動可視化。「30 日経ったら確認」「90 日経ったらクローズ判断」など、業務フローに合わせて設定可能。</p>
+            <table class="usecase-table">
+              <thead><tr><th>順</th><th>比較元</th><th>演算子</th><th>比較値</th><th>背景色</th><th>意味</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>受注日</td><td><code>&lt;=</code></td><td><code>TODAY-90</code></td><td>🔴 赤</td><td>90 日以上経過（クローズ判断）</td></tr>
+                <tr><td>2</td><td>受注日</td><td><code>&lt;=</code></td><td><code>TODAY-30</code></td><td>🟠 オレンジ</td><td>30 日以上経過（フォロー要）</td></tr>
+                <tr><td>3</td><td>受注日</td><td><code>&lt;=</code></td><td><code>TODAY-7</code></td><td>🟡 黄</td><td>7 日以上経過（進捗確認）</td></tr>
+                <tr><td>4</td><td>受注日</td><td><code>&gt;</code></td><td><code>TODAY-7</code></td><td>🟢 緑</td><td>受注したて</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="usecase-card">
+            <h5 class="usecase-title">📌 レシピ 6：担当者フィールドを「締切日」の状況で色分け（クロスフィールド条件）</h5>
+            <p class="usecase-desc">v2.0.0 の新機能「比較元セレクタ」を使うと、<strong>色を変えるフィールド</strong>と<strong>判定基準のフィールド</strong>を分けて指定できます。担当者カラムを締切日基準で色付けすれば、一覧画面で誰のタスクが遅れているか一目瞭然。</p>
+            <p class="usecase-note">⚙️ <strong>ターゲットフィールド：担当者</strong>　／　各条件で <strong>比較元を「締切日」</strong> に変更</p>
+            <table class="usecase-table">
+              <thead><tr><th>順</th><th>比較元</th><th>演算子</th><th>比較値</th><th>背景色</th><th>意味</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>締切日</td><td><code>&lt;</code></td><td><code>TODAY</code></td><td>🔴 赤</td><td>期限切れ案件の担当者を赤く</td></tr>
+                <tr><td>2</td><td>締切日</td><td><code>&lt;=</code></td><td><code>TODAY+3</code></td><td>🟠 オレンジ</td><td>3 日以内に締切の担当者を強調</td></tr>
+                <tr><td>3</td><td>締切日</td><td><code>&gt;</code></td><td><code>TODAY+3</code></td><td>🟢 緑</td><td>余裕がある担当者は緑</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <p class="usecase-tip">💡 <strong>ヒント：</strong> 「条件設定 → <strong>一覧にも適用</strong> トグルを ON」にすると、一覧画面でも自動色付けが効きます。レコードを開かなくても、案件の状況が一目で分かるダッシュボードのような使い方ができます。</p>
+        </div>
+
         <div class="update-fix">
-          <strong>🔧 あわせて不具合修正：</strong>v1.1.0 までは日付フィールドの大小比較（<code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code>）が正しく動作しないケースがありました。v1.2.0 ではこの問題を修正し、<code>2026-12-31</code> のような固定日付でも正確に判定できるようになっています。
+          <strong>📘 互換性：</strong>v1.2.0 以前で保存済みの設定はそのまま動作します。新しい比較元セレクタは省略時にターゲットフィールドを自動で使用するため、既存設定の手直しは不要です。
         </div>
       </div>
     </section>
@@ -1019,7 +1212,7 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-field-styler-v1.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード（v1.2.0）</a>
+          <a href="/downloads/kw-field-styler-v2.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード（v2.0.0）</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
