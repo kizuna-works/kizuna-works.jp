@@ -1,0 +1,243 @@
+---
+// インストール数 Top 3 ランキング
+// データソース：GAS の使用ドメイン台帳（pluginId 単位のユニークドメイン数）
+// 取得タイミング：ビルド時（npm run build / git push）
+// フォールバック：fetch 失敗時は plugins.ts 先頭 3 件を表示してサイトが壊れないようにする
+import { plugins, type Plugin } from '../data/plugins';
+
+const GAS_RANKING_URL =
+  'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec?action=ranking';
+const FETCH_TIMEOUT_MS = 10_000;
+
+type RankedPlugin = { pluginId: string; name: string; pageUrl: string };
+
+let topPlugins: RankedPlugin[] = [];
+let fetchFailed = false;
+
+try {
+  const controller = new AbortController();
+  const t = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  const res = await fetch(GAS_RANKING_URL, { signal: controller.signal });
+  clearTimeout(t);
+  if (res.ok) {
+    const data = await res.json();
+    if (Array.isArray(data?.topPlugins)) {
+      topPlugins = data.topPlugins.slice(0, 3);
+    }
+  }
+} catch (e) {
+  fetchFailed = true;
+  console.warn('[InstallRankingTop3] GAS fetch failed, using fallback:', e);
+}
+
+// フォールバック：ランキング取得失敗 or 件数 0 件の場合は plugins.ts 先頭 3 件
+if (topPlugins.length === 0) {
+  topPlugins = plugins
+    .filter((p) => p.status === 'available')
+    .slice(0, 3)
+    .map((p) => ({
+      pluginId: p.id,
+      name: p.name,
+      pageUrl: `https://kizuna-works.jp/plugins/${p.slug}/`,
+    }));
+}
+
+// アイコンパス解決：slug ベースが原則。kw-conditional-numbering のみ例外
+function iconPathForPlugin(p: Plugin | undefined): string {
+  if (!p) return '/images/favicon.png';
+  if (p.slug === 'kw-conditional-numbering') {
+    return '/images/conditional-numbering-icon.png';
+  }
+  return `/images/${p.slug}-icon.png`;
+}
+
+const findPluginMeta = (pluginId: string) => plugins.find((p) => p.id === pluginId);
+
+// 表示用に整形
+const ranked = topPlugins.map((rp, i) => {
+  const meta = findPluginMeta(rp.pluginId);
+  // pageUrl が GAS から正しく取れていればそちら、なければ slug から組み立て
+  const href =
+    rp.pageUrl && rp.pageUrl.startsWith('http')
+      ? rp.pageUrl
+      : meta
+        ? `/plugins/${meta.slug}/`
+        : '/plugins/';
+  return {
+    rank: i + 1,
+    medal: ['🥇', '🥈', '🥉'][i],
+    pluginId: rp.pluginId,
+    name: rp.name,
+    href,
+    iconPath: iconPathForPlugin(meta),
+    iconAlt: `${rp.name} アイコン`,
+    subtitle: meta?.subtitle ?? 'kintone プラグイン',
+  };
+});
+---
+
+<section class="ranking-section" aria-labelledby="ranking-title">
+  <div class="ranking-inner">
+    <div class="ranking-header">
+      <span class="ranking-icon" aria-hidden="true">🏆</span>
+      <h2 id="ranking-title" class="ranking-title">インストール数 Top 3</h2>
+      <p class="ranking-subtitle">実際の利用環境数で集計した人気プラグイン</p>
+    </div>
+    <div class="ranking-grid">
+      {
+        ranked.map((p) => (
+          <a href={p.href} class={`rank-card rank-${p.rank}`}>
+            <div class="rank-badge">
+              <span class="rank-medal" aria-hidden="true">
+                {p.medal}
+              </span>
+              <span class="rank-number">{p.rank}位</span>
+            </div>
+            <img
+              src={p.iconPath}
+              alt={p.iconAlt}
+              class="rank-plugin-icon"
+              width="80"
+              height="80"
+              loading="lazy"
+              onerror="this.src='/images/favicon.png';"
+            />
+            <h3 class="rank-plugin-name">{p.name}</h3>
+            <p class="rank-plugin-subtitle">{p.subtitle}</p>
+            <span class="rank-plugin-link">詳細を見る →</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .ranking-section {
+    background: linear-gradient(180deg, #f7faff 0%, #ffffff 100%);
+    padding: 56px 5%;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .ranking-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .ranking-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .ranking-icon {
+    font-size: 36px;
+    display: inline-block;
+    line-height: 1;
+  }
+  .ranking-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1b3a6b;
+    margin: 6px 0 4px 0;
+  }
+  .ranking-subtitle {
+    color: #64748b;
+    font-size: 14px;
+    margin: 0;
+  }
+  .ranking-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    align-items: stretch;
+  }
+  .rank-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 28px 18px 22px 18px;
+    text-align: center;
+    text-decoration: none;
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease,
+      border-color 0.18s ease;
+    position: relative;
+  }
+  .rank-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(27, 58, 107, 0.12);
+    border-color: #1b3a6b;
+  }
+  .rank-1 {
+    border-top: 4px solid #ffc940; /* gold */
+    background: linear-gradient(180deg, #fffaeb 0%, #ffffff 60%);
+  }
+  .rank-2 {
+    border-top: 4px solid #b0b8c1; /* silver */
+    background: linear-gradient(180deg, #f5f7fa 0%, #ffffff 60%);
+  }
+  .rank-3 {
+    border-top: 4px solid #d28b5a; /* bronze */
+    background: linear-gradient(180deg, #fbf3ec 0%, #ffffff 60%);
+  }
+  .rank-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    color: #1b3a6b;
+    margin-bottom: 12px;
+  }
+  .rank-medal {
+    font-size: 22px;
+    line-height: 1;
+  }
+  .rank-number {
+    font-size: 18px;
+    letter-spacing: 0.04em;
+  }
+  .rank-plugin-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 10px;
+  }
+  .rank-plugin-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1b3a6b;
+    margin: 0 0 4px 0;
+    line-height: 1.4;
+  }
+  .rank-plugin-subtitle {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0 0 14px 0;
+  }
+  .rank-plugin-link {
+    margin-top: auto;
+    color: #2e8b2e;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .rank-card:hover .rank-plugin-link {
+    text-decoration: underline;
+  }
+  @media (max-width: 768px) {
+    .ranking-section {
+      padding: 40px 5%;
+    }
+    .ranking-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .ranking-title {
+      font-size: 22px;
+    }
+    .rank-card {
+      padding: 22px 16px 18px 16px;
+    }
+  }
+</style>
