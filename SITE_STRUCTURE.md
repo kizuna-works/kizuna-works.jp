@@ -172,7 +172,8 @@ c:\kizuna-works.jp\
 │   │   ├── field-comment-after-01.png      # フィールドコメントプラグイン 動作画面スクショ① — 案件名にチェックアイコン（hover/click用）と会社名に常時コメント表示の組み合わせ
 │   │   ├── field-comment-after-02.png      # フィールドコメントプラグイン 動作画面スクショ② — 案件名のアイコンにマウスを乗せてポップアップ「必ず入力して下さい」が開いた状態（hoverモード）
 │   │   ├── field-comment-config-01.png     # フィールドコメントプラグイン 設定画面スクショ① — カード形式の設定UI全体（対象フィールド/対象画面/表示方法3択/コメントテキスト/背景色・文字色・フォントサイズ/プリセット5種/アイコン図形・マーク/図形色・マーク色/プレビュー）
-│   │   # theme-styler-icon.png はテストアセット（SECRET\kintone_plugin_workspace\kw-theme-styler\ 配下に保管・公開準備完了まで public へは配置しない）
+│   │   ├── theme-styler-icon.png           # テーマスタイラー for kintone プラグイン アイコン（200×200・ヒーロー画像用）
+│   │   ├── theme-styler-banner.png         # テーマスタイラー for kintone バナー（1200×675・OGP/グリッド共用）
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
@@ -213,8 +214,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-file-icon-marker-v1.0.0.zip              # 添付ファイルアイコン表示プラグイン配布ファイル（手動配置）
 │   │   ├── kw-quick-side-view-v1.0.0.zip               # クイックサイドビュープラグイン配布ファイル（手動配置）
 │   │   ├── kw-record-lock-v1.0.0.zip                   # レコードロックプラグイン配布ファイル（手動配置）
-│   │   └── kw-field-comment-v1.0.0.zip                 # フィールドコメントプラグイン配布ファイル（手動配置）
-│   │   # kw-theme-styler-v1.0.0.zip は現在未配置（公開準備中）
+│   │   ├── kw-field-comment-v1.0.0.zip                 # フィールドコメントプラグイン配布ファイル（手動配置）
+│   │   └── kw-theme-styler-v1.0.0.zip                  # テーマスタイラー for kintone プラグイン配布ファイル（手動配置）
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）
