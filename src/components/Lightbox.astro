@@ -6,6 +6,8 @@
 //   .screenshot-thumb img           (theme-styler / field-comment style)
 //   .screenshot-item > img          (conditional-numbering style)
 //   .screenshots-grid img           (catch-all for any screenshot grid)
+//   .screenshot-gallery img         (legacy field-styler screenshot gallery)
+//   .ba-item img                    (legacy field-styler Before/After block)
 //   .lightbox-image                 (explicit opt-in class)
 //
 // Excludes images inside .related-posts-grid, .plugin-card, etc. by relying
@@ -23,6 +25,8 @@
   .screenshot-thumb img,
   .screenshot-item > img,
   .screenshots-grid img,
+  .screenshot-gallery img,
+  .ba-item img,
   .lightbox-image {
     cursor: zoom-in;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -31,6 +35,8 @@
   .screenshot-thumb img:hover,
   .screenshot-item > img:hover,
   .screenshots-grid img:hover,
+  .screenshot-gallery img:hover,
+  .ba-item img:hover,
   .lightbox-image:hover {
     transform: translateY(-1px);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
@@ -108,6 +114,8 @@
       '.screenshot-thumb img',
       '.screenshot-item > img',
       '.screenshots-grid img',
+      '.screenshot-gallery img',
+      '.ba-item img',
       '.lightbox-image'
     ].join(',');
 
@@ -148,7 +156,7 @@
         // For .compare-image, the image IS the matched element.
         // For wrapper selectors like ".screenshot-thumb img", the img inside is.
         // Walk up to find a matching wrapper, then take the first img.
-        var wrapper = target.closest('.screenshot-thumb, .screenshot-item, .screenshots-grid, .lightbox-image, .compare-image');
+        var wrapper = target.closest('.screenshot-thumb, .screenshot-item, .screenshots-grid, .screenshot-gallery, .ba-item, .lightbox-image, .compare-image');
         if (wrapper) {
           img = wrapper.tagName === 'IMG'
             ? wrapper
