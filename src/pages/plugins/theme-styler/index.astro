@@ -1,0 +1,837 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+---
+
+<Layout
+  title="テーマスタイラー for kintone - 無料 kintoneプラグイン | KIZUNA Works"
+  description="kintoneアプリのテーマカラーとアプリタイトル帯を自由にカスタマイズする無料プラグイン。12種プリセット＋カラーピッカー、グラデーション背景、テキスト・リンク、最大5個のカスタムボタン（50種スタイル）対応。完全無料のkintoneプラグイン、kintone プラグイン 無料配布中。"
+  ogTitle="テーマスタイラー for kintone - 無料 kintoneプラグイン | KIZUNA Works"
+  ogDescription="kintoneアプリのテーマカラーとアプリタイトル帯をノーコードでカスタマイズ。グラデーション・テキスト・最大5個のカスタムボタン（50種スタイル）に対応した無料プラグイン。kintone プラグイン 無料配布中。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/theme-styler/"
+  ogImage="https://kizuna-works.jp/images/ogp.png"
+  canonical="https://kizuna-works.jp/plugins/theme-styler/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/theme-styler/",
+          "url": "https://kizuna-works.jp/plugins/theme-styler/",
+          "name": "テーマスタイラー for kintone - 無料 kintoneプラグイン | KIZUNA Works",
+          "description": "kintoneアプリのテーマカラーとアプリタイトル帯を自由にカスタマイズする無料プラグイン。12種プリセット＋カラーピッカー、グラデーション、最大5個のカスタムボタン（50種スタイル）対応。",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "テーマスタイラー for kintone", "item": "https://kizuna-works.jp/plugins/theme-styler/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "テーマスタイラー for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "dateModified": "2026-05-21",
+          "url": "https://kizuna-works.jp/plugins/theme-styler/",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/PreOrder",
+            "description": "現在公開準備中。リリース後は全機能を無料で利用できます。"
+          },
+          "description": "kintoneアプリのテーマカラーとアプリタイトル帯をノーコードでカスタマイズするプラグイン。12種プリセット＋カラーピッカー、グラデーション、最大5個のカスタムボタン（50種スタイル）対応。現在公開準備中。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "テーマカラー12種プリセット＋カラーピッカー",
+            "アプリタイトル帯の単色／グラデーション背景",
+            "タイトル帯にテキスト・リンクを表示",
+            "カスタムボタン最大5個まで設置",
+            "ボタンスタイル50種（立体/フラット/グラデ/アニメ/個性派）",
+            "サイズ3段階・カラーピッカー対応",
+            "ノーコードで設定完結"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      background: #FFFFFF;
+    }
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+    .hero-copy {
+      font-size: 17px;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-bg { background-color: var(--color-bg); }
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    /* Problem Cards */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .problem-icon { font-size: 44px; display: block; margin-bottom: 16px; }
+    .problem-title { font-size: 17px; color: var(--color-navy); font-weight: 700; margin-bottom: 12px; }
+    .problem-desc { font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+
+    /* Feature list */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+    .feature-list li strong { color: var(--color-navy); }
+
+    /* Preset palette */
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .palette-card {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .palette-swatch {
+      width: 100%;
+      height: 56px;
+      border-radius: 6px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .palette-name { color: var(--color-navy); font-weight: 700; font-size: 13px; margin: 0; }
+    .palette-hex { color: var(--color-text-light); font-size: 12px; margin: 0; font-family: 'Courier New', Courier, monospace; }
+
+    /* Button style category cards */
+    .style-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .style-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 24px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .style-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+    .style-card-title { color: var(--color-navy); font-size: 16px; font-weight: 700; margin: 0 0 8px; }
+    .style-card-count { color: var(--color-green); font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+    .style-card-list { list-style: none; padding: 0; margin: 0; font-size: 13px; color: var(--color-text-light); line-height: 1.8; }
+
+    /* Title-band feature cards */
+    .band-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .band-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 28px 24px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .band-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .band-card-title { color: var(--color-navy); font-size: 17px; font-weight: 700; margin: 0 0 12px; display: flex; align-items: center; gap: 10px; }
+    .band-card-desc { color: var(--color-text-light); font-size: 14px; line-height: 1.8; margin: 0; }
+
+    /* Steps */
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+    .steps-list li:last-child { border-bottom: none; }
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    /* Notes */
+    .notes-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
+    .notes-list li { padding-left: 20px; position: relative; font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+    .notes-list li::before { content: '※'; position: absolute; left: 0; color: #94a3b8; }
+
+    /* FAQ */
+    .faq-list { max-width: 800px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--color-gray-light); }
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 24px 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .faq-icon { font-size: 20px; color: var(--color-navy); transition: transform 0.3s; }
+    .faq-item.is-open .faq-icon { transform: rotate(45deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+    .faq-answer-inner { padding-bottom: 24px; color: var(--color-text-light); font-size: 15px; line-height: 1.7; }
+    .faq-answer-inner a { color: var(--color-navy); text-decoration: underline; }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .pricing-card.recommended { border: 2px solid var(--color-green); }
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .plan-name { font-size: 20px; color: var(--color-navy); font-weight: 700; text-align: center; margin-bottom: 24px; }
+    .plan-price { text-align: center; margin-bottom: 24px; }
+    .plan-price .amount { font-size: 40px; font-weight: 900; color: var(--color-navy); }
+    .plan-price .unit { font-size: 14px; color: var(--color-text-light); }
+    .plan-discount { text-align: center; color: var(--color-green); font-weight: 700; font-size: 14px; margin-bottom: 24px; }
+    .plan-features { list-style: none; padding: 0; margin-bottom: 32px; flex-grow: 1; }
+    .plan-features li { margin-bottom: 12px; font-size: 15px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; }
+    .pricing-card .btn-primary { display: block; text-align: center; }
+
+    /* Bottom CTA */
+    .bottom-cta { background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%); color: var(--color-white); text-align: center; padding: 60px 5%; }
+    .bottom-cta-title { font-size: 28px; font-weight: 700; margin-bottom: 16px; }
+    .bottom-cta-desc { font-size: 16px; margin-bottom: 32px; opacity: 0.9; }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background-color: #36a336; transform: translateY(-2px); }
+
+    /* Related plugins */
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.15); }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .related-post-content { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+    .related-post-title { color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.5; }
+    .related-post-desc { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0 0 12px; flex-grow: 1; }
+    .related-post-link { color: var(--color-green); font-size: 13px; font-weight: 700; }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .band-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/favicon.png"
+        alt="テーマスタイラープラグイン（公開準備中）"
+        class="hero-icon"
+        width="200"
+        height="200"
+      />
+      <div>
+        <span class="hero-badge" style="background-color:#F59E0B;">近日公開予定</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">テーマスタイラー for kintone</h1>
+      <p class="hero-copy">kintoneアプリのテーマカラーとアプリタイトル帯を自由にカスタマイズ。プリセット選択・カラーピッカー・グラデーション背景・テキスト・最大5個のカスタムボタン（50種スタイル）まで、ノーコードでブランドカラーに統一できます。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">標準テーマでは表現しきれないアプリのブランディングを実現</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🎨</span>
+            <h3 class="problem-title">部署別に色を分けたい</h3>
+            <p class="problem-desc">営業部は青、製造部は緑など、アプリごとにテーマカラーで識別したい</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🏢</span>
+            <h3 class="problem-title">コーポレートカラーに統一したい</h3>
+            <p class="problem-desc">標準テーマだけでは自社ブランドカラーに合わせきれない</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🔗</span>
+            <h3 class="problem-title">アプリ上部に案内・リンクを置きたい</h3>
+            <p class="problem-desc">マニュアル・関連アプリ・外部システムへの導線をタイトル帯に常設したい</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">主な機能</h2>
+      <ul class="feature-list">
+        <li><span><strong>テーマカラー2モード</strong> — プリセット12色から選ぶか、カラーピッカーで自由にカラーを指定。一覧ヘッダー・テーブルヘッダー・フィールドラベル・ページャーに適用。</span></li>
+        <li><span><strong>タイトル帯の背景カスタマイズ</strong> — 単色／グラデーション（左→右・左上→右下・上→下）を選択可能。</span></li>
+        <li><span><strong>タイトル帯にテキスト＋リンク</strong> — 任意のテキストを表示し、文字色とリンクURL（同一タブ／新規タブ）を設定。</span></li>
+        <li><span><strong>カスタムボタン最大5個</strong> — タイトル帯にリンクボタンを横並びで設置。ラベル・URL・遷移先タブをボタンごとに指定。</span></li>
+        <li><span><strong>ボタンスタイル50種</strong> — 立体／フラット／グラデ／アニメ／個性派の5カテゴリ × 10種類から選択。背景色・文字色・枠線色・サイズ（小/中/大）も個別調整。</span></li>
+        <li><span><strong>ノーコード完結</strong> — タブ式UI（テーマカラー／タイトル帯）で迷わず設定。プログラミング知識は不要です。</span></li>
+      </ul>
+    </section>
+
+    <!-- Theme Color Preset Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">テーマカラー プリセット（12色）</h2>
+        <p class="section-subtitle">標準テーマと同じ操作感で、定番カラーをワンクリック適用</p>
+        <div class="palette-grid">
+          <div class="palette-card"><span class="palette-swatch" style="background:#2563EB"></span><p class="palette-name">デフォルト青</p><p class="palette-hex">#2563EB</p></div>
+          <div class="palette-card"><span class="palette-swatch" style="background:#1B3074"></span><p class="palette-name">ネイビー</p><p class="palette-hex">#1B3074</p></div>
+          <div class="palette-card"><span class="palette-swatch" style="background:#2E8B2E"></span><p class="palette-name">グリーン</p><p class="palette-hex">#2E8B2E</p></div>
+          <div class="palette-card"><span class="palette-swatch" style="background:#0D9488"></span><p class="palette-name">ティール</p><p class="palette-hex">#0D9488</p></div>
+          <div class="palette-card"><span class="palette-swatch" style="background:#7C3AED"></span><p class="palette-name">パープル</p><p class="palette-hex">#7C3AED</p></div>
+          <div class="palette-card"><span class="palette-swatch" style="background:#DC2626"></span><p class="palette-name">レッド</p><p class="palette-hex">#DC2626</p></div>
+          <div class="palette-card"><span class="palette-swatch" style="background:#EA580C"></span><p class="palette-name">オレンジ</p><p class="palette-hex">#EA580C</p></div>
+          <div class="palette-card"><span class="palette-swatch" style="background:#DB2777"></span><p class="palette-name">ピンク</p><p class="palette-hex">#DB2777</p></div>
+          <div class="palette-card"><span class="palette-swatch" style="background:#4B5563"></span><p class="palette-name">グレー</p><p class="palette-hex">#4B5563</p></div>
+          <div class="palette-card"><span class="palette-swatch" style="background:#1F2937"></span><p class="palette-name">ダークグレー</p><p class="palette-hex">#1F2937</p></div>
+          <div class="palette-card"><span class="palette-swatch" style="background:#92400E"></span><p class="palette-name">ブラウン</p><p class="palette-hex">#92400E</p></div>
+          <div class="palette-card"><span class="palette-swatch" style="background:#0284C7"></span><p class="palette-name">シアン</p><p class="palette-hex">#0284C7</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Title Band Features -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">アプリタイトル帯のカスタマイズ</h2>
+      <p style="color: var(--color-text-light); font-size: 15px; line-height: 1.8; margin-bottom: 32px;">アプリ名の表示エリアを「背景」「テキスト」「ボタン」の3軸でデコレーション。</p>
+      <div class="band-grid">
+        <div class="band-card">
+          <h3 class="band-card-title">🎨 背景</h3>
+          <p class="band-card-desc">単色 or グラデーション（開始色・終了色・方向）から選択。コーポレートカラーや季節カラーへ自在に変更できます。</p>
+        </div>
+        <div class="band-card">
+          <h3 class="band-card-title">📝 テキスト</h3>
+          <p class="band-card-desc">任意のテキスト・文字色・リンクURL・リンク動作（同一タブ／新規タブ）を設定。お知らせやマニュアルへの導線を1行で表示できます。</p>
+        </div>
+        <div class="band-card">
+          <h3 class="band-card-title">🔘 ボタン（最大5個）</h3>
+          <p class="band-card-desc">ラベル・URL・スタイル（50種）・サイズ（小/中/大）・背景色・文字色・枠線色を個別指定。タイトル帯の右側に横並びで表示します。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Button Styles -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">ボタンスタイル 全50種</h2>
+        <p class="section-subtitle">5カテゴリ × 10スタイル。用途・好みに合わせて自由に選べます</p>
+        <div class="style-grid">
+          <div class="style-card">
+            <h3 class="style-card-title">① 立体・3D系</h3>
+            <p class="style-card-count">10種類</p>
+            <ul class="style-card-list">
+              <li>押し込み式・影付き立体・エンボス文字</li>
+              <li>浮き出し文字・斜め視点・上から視点</li>
+              <li>ポップ立体・おもちゃ風・グラデ丸み・3Dパース</li>
+            </ul>
+          </div>
+          <div class="style-card">
+            <h3 class="style-card-title">② フラット・ボーダー系</h3>
+            <p class="style-card-count">10種類</p>
+            <ul class="style-card-list">
+              <li>シンプルフラット・ボーダー囲み・角丸ボーダー</li>
+              <li>二重線・破線・両端縦ボーダー</li>
+              <li>下線のみ・上下線はさみ・左右線はさみ・片側角丸</li>
+            </ul>
+          </div>
+          <div class="style-card">
+            <h3 class="style-card-title">③ グラデーション・カラー系</h3>
+            <p class="style-card-count">10種類</p>
+            <ul class="style-card-list">
+              <li>グラデ横・グラデ斜め・グラデ＋影</li>
+              <li>ネオン風・メタリック・サンセット・オーシャン</li>
+              <li>マテリアル基本／浮き／FAB</li>
+            </ul>
+          </div>
+          <div class="style-card">
+            <h3 class="style-card-title">④ アニメーション・エフェクト系</h3>
+            <p class="style-card-count">10種類</p>
+            <ul class="style-card-list">
+              <li>スライド塗り（左／下）・矢印アニメ・枠線描画</li>
+              <li>塗り反転・拡大スケール・シャイン</li>
+              <li>アンダーライン伸び・グロー発光・ぷるぷる震え</li>
+            </ul>
+          </div>
+          <div class="style-card">
+            <h3 class="style-card-title">⑤ ユニーク・個性派</h3>
+            <p class="style-card-count">10種類</p>
+            <ul class="style-card-list">
+              <li>タグ型・リボン型・ステッチ風・スタンプ風</li>
+              <li>バッジ型・ふせん風・吹き出し型・ラベル型</li>
+              <li>ピル型・くり抜き文字</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">5ステップで導入完了。プログラミング知識は不要です。</p>
+      <ol class="steps-list">
+        <li>「プランについて」セクションのダウンロードボタンから <code>plugin.zip</code> をダウンロード</li>
+        <li>kintone の<strong>システム管理 → プラグイン</strong>を開く</li>
+        <li>「読み込む」ボタンから <code>plugin.zip</code> をアップロード</li>
+        <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>でプラグインを追加</li>
+        <li>プラグインの設定画面でテーマカラーとタイトル帯を設定して保存 → <strong>アプリを更新</strong></li>
+      </ol>
+    </section>
+
+    <!-- Pricing Section (coming soon — pricing card hidden until release) -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">現在リリース準備中です。公開までしばらくお待ちください。</p>
+        <div style="max-width: 640px; margin: 0 auto; background-color: var(--color-white); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 40px 32px; text-align: center;">
+          <p style="font-size: 16px; color: var(--color-text); line-height: 1.8; margin: 0 0 12px;">
+            <strong style="color: var(--color-navy);">テーマスタイラー v1.0.0</strong> は現在公開準備中です。<br>
+            動作確認・配布物の準備が完了次第、無料でダウンロード可能になります。
+          </p>
+          <p style="font-size: 14px; color: var(--color-text-light); line-height: 1.8; margin: 16px 0 0;">
+            公開のお知らせは <a href="/news/" style="color: var(--color-navy); text-decoration: underline;">お知らせ</a> および <a href="https://twitter.com/KIZUNA_works_DX" style="color: var(--color-navy); text-decoration: underline;">X（@KIZUNA_works_DX）</a> でご案内します。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">よくある質問</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            本当に無料で使えますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、テーマカラー変更・タイトル帯カスタマイズ・カスタムボタン設置など、すべての機能を無料でご利用いただけます。利用期限もなく、ずっとお使いいただけます。設定画面に控えめな広告エリアが表示されますが、プラグインの動作には影響しません。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            年間サポーターライセンスとは何ですか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              KIZUNA Works のプラグイン開発を応援していただける方向けの年間ライセンス（年額 ¥3,300・税込）です。広告エリアの非表示、プラグイン作成リクエスト・改善要望の送付、サポーターの声を優先反映などの特典があります。詳しくは <a href="/plugins/supporter/?plugin=kw-theme-styler">サポーターライセンスのご案内</a> をご覧ください。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            フィールドスタイラーとの違いは何ですか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              フィールドスタイラーは<strong>フィールド単位</strong>で背景色・文字色・条件付きスタイルなどを設定するプラグインです。一方、テーマスタイラーは<strong>アプリ全体</strong>のテーマカラー（一覧ヘッダー・テーブル・ラベル等）と<strong>アプリタイトル帯</strong>を装飾するプラグインです。両方を併用すると、アプリ全体の見た目を一段とブランドカラーに統一できます。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            カスタムボタンに任意のURLを設定できますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、ボタンごとに任意のURLを設定可能です。社内マニュアル・関連kintoneアプリ・外部システム（Slack・Notion・Googleドライブ等）への導線を最大5個までタイトル帯に置けます。リンク動作も「同一タブ／新規タブ」をボタン単位で選択できます。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            タイトル帯のグラデーションはどんな方向に対応していますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              「左→右」「左上→右下」「上→下」の3方向をプリセットでご用意しています。開始色と終了色をカラーピッカーで指定するだけで、CSSの linear-gradient が自動生成されます。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            設定はアプリごとに保存されますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、kintone プラグインの仕様に従い、<strong>アプリごとに独立した設定</strong>として保存されます。営業部の案件管理アプリは青系、製造部の生産管理アプリは緑系、といった使い分けが可能です。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            どのkintone環境で利用できますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              kintoneのデスクトップ版で利用可能です。スタンダードコース・ワイドコースのkintone環境であれば、ドメインを問わずご利用いただけます。モバイル版は v1.0.0 時点では非対応です。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            設定にプログラミングの知識は必要ですか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              いいえ、プラグインの設定画面からすべての機能をノーコードで設定できます。タブ式UI（テーマカラー／タイトル帯）でカラーピッカー・プルダウン・テキスト入力で直感的に操作可能です。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">注意事項</h2>
+        <ul class="notes-list">
+          <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+          <li>kintone はサイボウズ株式会社の登録商標です。</li>
+          <li>動作は Google Chrome 最新版での確認を推奨します。</li>
+          <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+          <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+          <li>v1.0.0 時点では モバイル kintone は非対応です。</li>
+          <li>kintone のアップデートにより内部DOM構造が変わると、タイトル帯のカスタマイズが正しく反映されない場合があります。その際は最新版へアップデートしてください。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">同じく無料で配布中の kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/field-styler/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/field-styler-after.png" alt="フィールドスタイラー" loading="lazy" width="1920" height="960">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">フィールドスタイラー</h3>
+            <p class="related-post-desc">フィールド単位で背景色・文字色・条件付きスタイルなど10機能をノーコード設定。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/form-deco/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/form-deco-banner.png" alt="FormDecoプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">FormDeco</h3>
+            <p class="related-post-desc">レコード詳細画面の罫線とスペースフィールドの装飾をノーコードで。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/field-comment/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/field-comment-banner.png" alt="フィールドコメントプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">フィールドコメント</h3>
+            <p class="related-post-desc">フィールド名横にヘルプアイコンや常時表示コメントを追加。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <SupporterCTA pluginId="kw-theme-styler" />
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+    });
+  </script>
+</Layout>

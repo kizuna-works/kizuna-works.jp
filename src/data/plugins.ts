@@ -44,8 +44,8 @@ export interface Plugin {
 export const plugins: Plugin[] = [
   {
     id: 'kw-field-styler',
-    name: 'フィールドスタイラー',
-    formName: 'フィールドスタイラープラグイン',
+    name: 'フィールドスタイラー for kintone',
+    formName: 'フィールドスタイラー for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'field-styler',
     description:
@@ -64,8 +64,8 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-conditional-numbering',
-    name: '条件分岐自動採番',
-    formName: '条件分岐自動採番プラグイン',
+    name: '条件分岐自動採番 for kintone',
+    formName: '条件分岐自動採番 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'kw-conditional-numbering',
     description:
@@ -84,8 +84,8 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-form-deco',
-    name: 'FormDeco',
-    formName: 'FormDecoプラグイン',
+    name: 'FormDeco for kintone',
+    formName: 'FormDeco for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'form-deco',
     description:
@@ -104,8 +104,8 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-lookup-suggest',
-    name: 'ルックアップサジェスト',
-    formName: 'ルックアップサジェストプラグイン',
+    name: 'ルックアップサジェスト for kintone',
+    formName: 'ルックアップサジェスト for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'lookup-suggest',
     description:
@@ -124,8 +124,8 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-quick-search',
-    name: 'クイックサーチ',
-    formName: 'クイックサーチプラグイン',
+    name: 'クイックサーチ for kintone',
+    formName: 'クイックサーチ for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'quick-search',
     description:
@@ -144,8 +144,8 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-file-icon-marker',
-    name: '添付ファイルアイコン表示',
-    formName: '添付ファイルアイコン表示プラグイン',
+    name: '添付ファイルアイコン表示 for kintone',
+    formName: '添付ファイルアイコン表示 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'file-icon-marker',
     description:
@@ -164,8 +164,8 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-quick-side-view',
-    name: 'クイックサイドビュー',
-    formName: 'クイックサイドビュープラグイン',
+    name: 'クイックサイドビュー for kintone',
+    formName: 'クイックサイドビュー for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'quick-side-view',
     description:
@@ -184,8 +184,8 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-record-lock',
-    name: 'レコードロック',
-    formName: 'レコードロックプラグイン',
+    name: 'レコードロック for kintone',
+    formName: 'レコードロック for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'record-lock',
     description:
@@ -204,8 +204,8 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-field-comment',
-    name: 'フィールドコメント',
-    formName: 'フィールドコメントプラグイン',
+    name: 'フィールドコメント for kintone',
+    formName: 'フィールドコメント for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'field-comment',
     description:
@@ -221,6 +221,25 @@ export const plugins: Plugin[] = [
       'フィールド名横にヘルプアイコンや常時表示コメントを追加。3モード（ホバー/クリック/常時）でルールを担当者に伝達。',
     problemTitle: 'フィールドに入力ルールを表示したい',
     problemDesc: 'フォーム上のラベルだけでは伝わらないヘルプや注意書きを簡単に出したい',
+  },
+  {
+    id: 'kw-theme-styler',
+    name: 'テーマスタイラー for kintone',
+    formName: 'テーマスタイラー for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'theme-styler',
+    description:
+      'kintoneアプリのテーマカラーとアプリタイトル帯を自由にカスタマイズ。12種のプリセット＋カラーピッカー、グラデーション背景、テキスト・リンク、最大5個のカスタムボタン（50種類のスタイル）をノーコードで設置できます。',
+    image: '/images/favicon.png',
+    imageAlt:
+      'テーマスタイラープラグイン（公開準備中）',
+    imageWidth: 200,
+    imageHeight: 200,
+    status: 'coming-soon',
+    cardDescription:
+      'kintoneアプリのテーマカラーとタイトル帯をノーコードでカスタマイズ。グラデーション・カスタムボタン50種対応。',
+    problemTitle: 'アプリの色やタイトル帯をブランドカラーに合わせたい',
+    problemDesc: '部署別・コーポレートカラーに統一し、タイトル帯にお知らせ・リンクボタンを置きたい',
   },
 ];
 
