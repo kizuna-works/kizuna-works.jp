@@ -66,7 +66,7 @@
 |---------|--------|----------|
 | Google Analytics (GA4) | 設置済み | `G-Q1B44N0922` |
 | Google AdSense | 審査中 | `ca-pub-2096869114957752` |
-| Stripe Payment Links | 決済用 | 商品ページごとに設定 |
+| Square 決済リンク | 決済用 | 商品ページごとに設定 |
 | Google Search Console | 設定済み | — |
 
 Scripts for GA4 and AdSense must use `<script is:inline>` in `Layout.astro` `<head>` to prevent Astro bundler processing.
@@ -173,9 +173,9 @@ git push
 
 | Item | Details |
 |------|---------|
-| Payment processor | Stripe Payment Links（月額0円・手数料3.6%） |
+| Payment processor | Square 決済リンク（月額0円・手数料3.6%） |
 | Sales format | 年額サブスクリプション（¥5,000/年） |
-| Sales funnel | GitHub Pages → Stripe Payment Links → 購入完了 |
+| Sales funnel | GitHub Pages → Square 決済リンク → 購入完了 |
 | Other channels | STORES・BOOTH・Mercari・coconala 併用 |
 | Products | kintoneプラグイン・GASデジタル商品・HTMLアプリ等 |
 
@@ -589,7 +589,7 @@ staticHTMLファイルのため、Layout.astro は使用しない。以下を `<
 
 ## Notes for Future Work
 
-- [ ] フィールドスタイラーの販売開始時に Stripe Payment Link を `/plugins/field-styler/` に追加する
+- [ ] フィールドスタイラーの販売開始時に Square 決済リンクを `/plugins/field-styler/` に追加する
 - [ ] ブログ記事を `src/content/blog/` に追加する（Markdown形式）
 - [ ] OGP画像（`/images/ogp.png`）を更新する
 - [ ] `stamp-maker.html` はスタンドアロンHTMLのため、Astroコンポーネントには変換しない
