@@ -242,6 +242,26 @@ export const plugins: Plugin[] = [
     problemTitle: '関連アプリ・マニュアル・外部サイトへの行き来が面倒',
     problemDesc: 'タイトル帯にテキストとボタンで最大6個のリンクを集約してワンクリック遷移できるようにしたい',
   },
+  {
+    id: 'kw-address-assist',
+    name: '住所アシスト for kintone',
+    formName: '住所アシスト for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'address-assist',
+    description:
+      '郵便番号を入れるだけで住所を自動入力し、Google マップ URL の自動生成・レコード詳細画面への地図プレビュー埋め込み・住所のワンクリックコピーまで一気通貫で行う kintone プラグイン。レコードを開いた瞬間に地図が見える「業務効率の段違いさ」が他社プラグインとの最大の差別化ポイント。一体形式・分割形式の両方対応、郵便番号の自動整形、API キー不要。',
+    image: '/images/address-assist-banner.png',
+    imageAlt:
+      '住所アシスト for kintone プラグイン — 郵便番号入力で住所自動入力＋レコード詳細画面に Google マップを直接プレビュー表示',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '郵便番号 → 住所自動入力 ＋ Google マップ URL 生成 ＋ レコード詳細画面に地図プレビュー直接表示 ＋ ワンクリックコピー。',
+    problemTitle: '住所入力と地図確認の往復が面倒',
+    problemDesc: '郵便番号入力で住所を自動入力し、レコードを開いた瞬間に地図プレビューまで一気に見たい',
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({

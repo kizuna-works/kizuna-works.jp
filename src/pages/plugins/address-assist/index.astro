@@ -1,0 +1,1108 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+---
+
+<Layout
+  title="住所アシスト for kintone - 郵便番号で住所自動入力＋レコード詳細画面に地図プレビュー | KIZUNA Works"
+  description="郵便番号を入れるだけで住所自動入力・Google マップ URL 生成・レコード詳細画面への地図プレビュー埋め込み・住所コピーまで一気通貫。レコードを開いた瞬間に地図が見える業務効率が他社プラグインとの差別化ポイント。一体形式・分割形式 両対応、API キー不要、無料配布中の kintone プラグイン。"
+  ogTitle="住所アシスト for kintone - 郵便番号で住所自動入力＋レコード詳細画面に地図プレビュー | KIZUNA Works"
+  ogDescription="郵便番号入力で住所を自動入力し、Google マップを直接レコード詳細画面に埋め込み表示。住所コピー・URL 生成も自動。レコードを開いた瞬間に地図が見える業務効率が他社プラグインとの差別化ポイント。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/address-assist/"
+  ogImage="https://kizuna-works.jp/images/address-assist-banner.png"
+  canonical="https://kizuna-works.jp/plugins/address-assist/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/address-assist/",
+          "url": "https://kizuna-works.jp/plugins/address-assist/",
+          "name": "住所アシスト for kintone - 郵便番号で住所自動入力＋レコード詳細画面に地図プレビュー | KIZUNA Works",
+          "description": "郵便番号 → 住所自動入力 ＋ Google マップ URL 自動生成 ＋ レコード詳細画面への地図プレビュー埋め込み ＋ ワンクリック住所コピー。レコードを開いた瞬間に地図が見える kintone プラグイン。",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "住所アシスト for kintone", "item": "https://kizuna-works.jp/plugins/address-assist/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "住所アシスト for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "dateModified": "2026-05-23",
+          "url": "https://kizuna-works.jp/plugins/address-assist/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-address-assist-v1.0.0.zip",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "郵便番号入力で住所を自動入力する kintone プラグイン。さらに Google マップ URL の自動生成、レコード詳細画面への地図プレビュー埋め込み、住所のワンクリックコピーまで一気通貫で提供。レコードを開いた瞬間に地図が見える業務効率が他社プラグインとの差別化ポイント。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "郵便番号 → 住所自動入力（一体形式・分割形式 両対応）",
+            "レコード詳細画面に Google マップを直接プレビュー表示（API キー不要・他社プラグインにはない差別化機能）",
+            "Google マップ URL 自動生成（住所変更にも追従）",
+            "住所のワンクリックコピー（指定フィールドのラベル横にコピーアイコン）",
+            "郵便番号の自動整形（XXX-XXXX 形式 / OFF も可）",
+            "全角・半角・ハイフン有無 すべての入力形式に対応",
+            "詳細画面 / 編集画面 / 新規追加画面 すべて対応",
+            "ノーコードで設定完結",
+            "API キー不要・追加コストなし"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      background: #FFFFFF;
+    }
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+    .hero-copy {
+      font-size: 17px;
+      max-width: 760px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.95;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-bg { background-color: var(--color-bg); }
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+      line-height: 1.8;
+    }
+
+    /* Differentiator highlight */
+    .differentiator {
+      background: linear-gradient(135deg, #fff6e0 0%, #fef3c7 100%);
+      border: 2px solid #f59e0b;
+      border-radius: 16px;
+      padding: 32px 28px;
+      max-width: 900px;
+      margin: 0 auto 32px;
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.15);
+    }
+    .differentiator-tag {
+      display: inline-block;
+      background-color: #f59e0b;
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 14px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 0.04em;
+    }
+    .differentiator-title {
+      color: #b45309;
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0 0 14px;
+      line-height: 1.5;
+    }
+    .differentiator-desc {
+      color: #78350f;
+      font-size: 15px;
+      line-height: 1.9;
+      margin: 0;
+    }
+    .differentiator-desc strong { color: #92400e; }
+
+    /* Problem Cards */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .problem-icon { font-size: 44px; display: block; margin-bottom: 16px; }
+    .problem-title { font-size: 17px; color: var(--color-navy); font-weight: 700; margin-bottom: 12px; }
+    .problem-desc { font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+
+    /* Feature list */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+    .feature-list li strong { color: var(--color-navy); }
+    .feature-list li.is-highlight {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border: 1px solid #fcd34d;
+    }
+    .feature-list li.is-highlight::before { content: '⭐'; }
+    .feature-list li.is-highlight strong { color: #b45309; }
+
+    /* Comparison table */
+    .compare-table-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      overflow-x: auto;
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      font-size: 14px;
+    }
+    .compare-table th,
+    .compare-table td {
+      padding: 14px 16px;
+      text-align: center;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .compare-table th {
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      font-weight: 700;
+    }
+    .compare-table th.compare-feature { text-align: left; }
+    .compare-table th.compare-ours {
+      background-color: var(--color-green);
+    }
+    .compare-table td.compare-feature {
+      text-align: left;
+      font-weight: 700;
+      color: var(--color-navy);
+    }
+    .compare-table td.compare-ours { background-color: #f0f9f0; font-weight: 700; color: #1f6a1f; }
+    .compare-mark-good { color: var(--color-green); font-size: 18px; }
+    .compare-mark-bad { color: #cbd5e0; font-size: 18px; }
+    .compare-mark-best { color: #f59e0b; font-size: 20px; font-weight: 900; }
+
+    /* Steps */
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+    .steps-list li:last-child { border-bottom: none; }
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    /* Notes */
+    .notes-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
+    .notes-list li { padding-left: 20px; position: relative; font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+    .notes-list li::before { content: '※'; position: absolute; left: 0; color: #94a3b8; }
+
+    /* FAQ */
+    .faq-list { max-width: 800px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--color-gray-light); }
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 24px 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .faq-icon { font-size: 20px; color: var(--color-navy); transition: transform 0.3s; }
+    .faq-item.is-open .faq-icon { transform: rotate(45deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+    .faq-answer-inner { padding-bottom: 24px; color: var(--color-text-light); font-size: 15px; line-height: 1.7; }
+    .faq-answer-inner a { color: var(--color-navy); text-decoration: underline; }
+    .faq-answer-inner code {
+      background: #f3f4f6;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-family: 'Consolas', 'Menlo', monospace;
+      font-size: 12.5px;
+      color: var(--color-navy);
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .pricing-card.recommended { border: 2px solid var(--color-green); }
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .plan-name { font-size: 20px; color: var(--color-navy); font-weight: 700; text-align: center; margin-bottom: 24px; }
+    .plan-price { text-align: center; margin-bottom: 24px; }
+    .plan-price .amount { font-size: 40px; font-weight: 900; color: var(--color-navy); }
+    .plan-price .unit { font-size: 14px; color: var(--color-text-light); }
+    .plan-discount { text-align: center; color: var(--color-green); font-weight: 700; font-size: 14px; margin-bottom: 24px; }
+    .plan-features { list-style: none; padding: 0; margin-bottom: 32px; flex-grow: 1; }
+    .plan-features li { margin-bottom: 12px; font-size: 15px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; }
+    .pricing-card .btn-primary { display: block; text-align: center; }
+
+    /* Bottom CTA */
+    .bottom-cta { background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%); color: var(--color-white); text-align: center; padding: 60px 5%; }
+    .bottom-cta-title { font-size: 28px; font-weight: 700; margin-bottom: 16px; }
+    .bottom-cta-desc { font-size: 16px; margin-bottom: 32px; opacity: 0.9; }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background-color: #36a336; transform: translateY(-2px); }
+
+    /* Related plugins */
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.15); }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .related-post-content { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+    .related-post-title { color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.5; }
+    .related-post-desc { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0 0 12px; flex-grow: 1; }
+    .related-post-link { color: var(--color-green); font-size: 13px; font-weight: 700; }
+
+    /* Showcase / hero screenshot */
+    .showcase-image-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 10px 32px rgba(0,0,0,0.12);
+      padding: 12px;
+      border: 1px solid var(--color-gray-light);
+    }
+    .showcase-image-wrap img { width: 100%; height: auto; display: block; border-radius: 8px; }
+    .showcase-caption {
+      color: var(--color-text-light);
+      font-size: 13px;
+      text-align: center;
+      margin-top: 14px;
+      line-height: 1.7;
+    }
+
+    /* Screenshots grid */
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+    .screenshot-item {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .screenshot-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .screenshot-thumb {
+      background-color: #f8fafc;
+      padding: 16px;
+      border-bottom: 1px solid var(--color-gray-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
+    }
+    .screenshot-thumb img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-caption {
+      padding: 18px 20px 20px;
+      flex: 1;
+    }
+    .screenshot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .screenshot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .compare-table { font-size: 12.5px; }
+      .compare-table th, .compare-table td { padding: 10px 8px; }
+      .differentiator { padding: 24px 20px; }
+      .differentiator-title { font-size: 18px; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/address-assist-icon.png"
+        alt="住所アシスト for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">住所アシスト for kintone</h1>
+      <p class="hero-copy">郵便番号を入れるだけで <strong>住所自動入力</strong>。さらに <strong>Google マップ URL の自動生成</strong>と、kintone のレコード詳細画面に <strong>Google マップを直接プレビュー表示</strong>するところまで一気通貫。「レコードを開いた瞬間に地図が見える」業務効率の段違いさが、他社の住所自動入力プラグインには無い決定的な差別化ポイントです。</p>
+    </section>
+
+    <!-- Differentiator Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <div class="differentiator">
+          <span class="differentiator-tag">他社にはない差別化ポイント</span>
+          <h2 class="differentiator-title">🗺 レコード詳細画面に「Google マップを直接埋め込み」</h2>
+          <p class="differentiator-desc">
+            一般的な「郵便番号 → 住所自動入力」プラグインは入力補助で終わり。本プラグインは<strong>住所の入力後、レコードを開いた瞬間に地図プレビューがそのまま表示</strong>されます。営業先・取引先・配送先の<strong>場所感が一目で把握</strong>でき、別タブで Google マップを開く手間が完全に消えます。<strong>API キー不要・追加コスト 0 円</strong>で動作するのもポイントです。
+          </p>
+        </div>
+
+        <div class="showcase-image-wrap" style="margin-top: 24px;">
+          <img
+            src="/images/address-assist-after-01.png"
+            alt="住所アシスト for kintone — レコード詳細画面に郵便番号・住所と一緒に Google マップが直接プレビュー表示される画面"
+            loading="lazy"
+          />
+          <p class="showcase-caption">レコード詳細画面の例：郵便番号と住所の下に Google マップがそのまま埋め込まれる。スペースフィールドの大きさで地図サイズを自由調整。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">こんな課題を解決します</h2>
+      <p class="section-subtitle">「郵便番号 → 住所」だけじゃない。地図確認・URL コピーの全部をワンストップで</p>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <span class="problem-icon">⌨️</span>
+          <h3 class="problem-title">住所入力の手間が多い</h3>
+          <p class="problem-desc">取引先・顧客の住所を毎回フル入力。タイプミスや表記揺れも発生しがち</p>
+        </div>
+        <div class="problem-card">
+          <span class="problem-icon">🔁</span>
+          <h3 class="problem-title">地図を見るたび別タブ移動</h3>
+          <p class="problem-desc">レコードの住所をコピーして Google マップに貼り付け。1日に何度も繰り返す</p>
+        </div>
+        <div class="problem-card">
+          <span class="problem-icon">📋</span>
+          <h3 class="problem-title">住所のコピーが面倒</h3>
+          <p class="problem-desc">分割形式（都道府県/市区町村/町名 別フィールド）だと、コピーがさらに大変</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">主な機能</h2>
+        <ul class="feature-list">
+          <li class="is-highlight"><span><strong>🗺 レコード詳細画面に Google マップ直接プレビュー</strong> — 他社プラグインにはない差別化機能。スペースフィールドに地図 iframe を埋め込み、レコードを開いた瞬間に地図が見える。<strong>API キー不要・無料</strong>。</span></li>
+          <li><span><strong>郵便番号 → 住所自動入力</strong> — 7 桁入力で zipcloud から住所を即時取得。<strong>一体形式</strong>（住所 1 フィールド）と <strong>分割形式</strong>（都道府県／市区町村／町名）の両方対応。</span></li>
+          <li><span><strong>Google マップ URL 自動生成</strong> — 住所から `https://www.google.com/maps/search/?api=1&query=...` 形式の URL を自動生成して URL フィールドにセット。番地を追記すれば URL も自動更新。</span></li>
+          <li><span><strong>住所のワンクリックコピー</strong> — レコード詳細・編集画面でラベル横のコピーアイコンをクリックすればクリップボードへ。設置先フィールドは自由に選べる。</span></li>
+          <li><span><strong>郵便番号の自動整形</strong> — 「2991142」→「299-1142」へ取得成功時に自動整形。OFF にすればハイフン無しのまま保存（運用ルールに合わせて切替可）。</span></li>
+          <li><span><strong>あらゆる入力形式に対応</strong> — ハイフン有り／無し／全角／半角 すべて正規化して受け付ける。</span></li>
+          <li><span><strong>結合住所フィールド対応（分割形式）</strong> — 都道府県＋市区町村＋町名 を自動連結したフィールドを併用可能。番地はここに手入力で追記すれば、コピー・地図 URL・地図プレビューに自動反映。</span></li>
+          <li><span><strong>API キー不要・追加コストなし</strong> — 住所取得は zipcloud（無料）、地図埋め込みは Google Maps `?output=embed`（無料）。月額追加コストゼロ。</span></li>
+          <li><span><strong>ノーコード完結</strong> — フィールド選択とチェックボックスだけで設定完了。プログラミング知識不要。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Competitive Comparison -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">他社の住所自動入力系プラグインとの比較</h2>
+      <p class="section-subtitle">住所アシスト for kintone の最大の差別化は、<strong>「レコード詳細画面に地図がそのまま表示される」</strong>こと</p>
+      <div class="compare-table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th class="compare-feature">機能</th>
+              <th>他社A<br>（住所自動入力系）</th>
+              <th>他社B<br>（住所自動入力系）</th>
+              <th class="compare-ours">住所アシスト<br>for kintone</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="compare-feature">郵便番号 → 住所自動入力（一体形式）</td>
+              <td><span class="compare-mark-good">○</span></td>
+              <td><span class="compare-mark-good">○</span></td>
+              <td class="compare-ours"><span class="compare-mark-good">○</span></td>
+            </tr>
+            <tr>
+              <td class="compare-feature">郵便番号 → 住所自動入力（分割形式）</td>
+              <td><span class="compare-mark-good">○</span></td>
+              <td><span class="compare-mark-bad">✕</span></td>
+              <td class="compare-ours"><span class="compare-mark-good">○</span></td>
+            </tr>
+            <tr>
+              <td class="compare-feature">Google マップ URL 自動生成</td>
+              <td><span class="compare-mark-bad">✕</span></td>
+              <td><span class="compare-mark-bad">✕</span></td>
+              <td class="compare-ours"><span class="compare-mark-good">○</span></td>
+            </tr>
+            <tr>
+              <td class="compare-feature">🗺 レコード詳細画面に地図プレビュー直接表示</td>
+              <td><span class="compare-mark-bad">✕</span></td>
+              <td><span class="compare-mark-bad">✕</span></td>
+              <td class="compare-ours"><span class="compare-mark-best">◎</span></td>
+            </tr>
+            <tr>
+              <td class="compare-feature">住所のワンクリックコピー</td>
+              <td><span class="compare-mark-bad">✕</span></td>
+              <td><span class="compare-mark-bad">✕</span></td>
+              <td class="compare-ours"><span class="compare-mark-good">○</span></td>
+            </tr>
+            <tr>
+              <td class="compare-feature">API キー必要</td>
+              <td>不要</td>
+              <td>不要</td>
+              <td class="compare-ours">不要</td>
+            </tr>
+            <tr>
+              <td class="compare-feature">価格</td>
+              <td>無料</td>
+              <td>無料</td>
+              <td class="compare-ours">無料</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="text-align: center; color: var(--color-text-light); font-size: 12.5px; margin-top: 14px; line-height: 1.7;">
+        ※ 表中の他社プラグインは 2026 年 5 月時点の公開機能を基に作成しています。比較対象の正確な仕様は各社の公式ページをご確認ください。
+      </p>
+    </section>
+
+    <!-- Screenshots -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">使い方イメージ</h2>
+        <p class="section-subtitle">郵便番号を入れるだけで、住所・地図 URL・地図プレビューまで一気に整う</p>
+        <div class="screenshots-grid">
+          <div class="screenshot-item">
+            <div class="screenshot-thumb">
+              <img
+                src="/images/address-assist-after-02.png"
+                alt="新規追加画面 — 郵便番号 188-0014 入力直後に都道府県・市区町村・町名・住所が自動入力され、Google マップ URL も生成された状態"
+                loading="lazy"
+              />
+            </div>
+            <div class="screenshot-caption">
+              <strong>① 郵便番号入力 → 即時自動入力</strong>
+              <p>7 桁入力した瞬間に zipcloud から住所を取得。都道府県・市区町村・町名（分割形式）と結合住所、Google マップ URL がすべて自動でセットされます。郵便番号もハイフン付きに自動整形。</p>
+            </div>
+          </div>
+          <div class="screenshot-item">
+            <div class="screenshot-thumb">
+              <img
+                src="/images/address-assist-after-03.png"
+                alt="番地追記後 — 結合住所に「5-8-2」を追記した瞬間に Google マップ URL と地図プレビューが番地込みの位置に再生成された状態"
+                loading="lazy"
+              />
+            </div>
+            <div class="screenshot-caption">
+              <strong>② 番地を追記 → URL・地図が即追従</strong>
+              <p>結合住所フィールドに番地・建物名を手入力で追記すると、Google マップ URL と地図プレビューが <strong>そのままピンポイントの位置に再生成</strong>されます。</p>
+            </div>
+          </div>
+          <div class="screenshot-item">
+            <div class="screenshot-thumb">
+              <img
+                src="/images/address-assist-after-01.png"
+                alt="レコード詳細画面 — 住所欄の下に Google マップが直接埋め込まれて表示されている状態（差別化ポイント）"
+                loading="lazy"
+              />
+            </div>
+            <div class="screenshot-caption">
+              <strong>③ レコード詳細を開けば地図が即見える ⭐</strong>
+              <p>レコード詳細画面を開いた瞬間に <strong>Google マップが直接埋め込みで表示</strong>。営業訪問先・配送先の場所感が即時に把握できます。地図サイズはスペースフィールドの大きさで自由調整。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings Screens -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">設定画面イメージ</h2>
+      <p class="section-subtitle">フィールド選択とチェックボックスだけで完了。プログラミング不要</p>
+      <div class="screenshots-grid">
+        <div class="screenshot-item">
+          <div class="screenshot-thumb">
+            <img
+              src="/images/address-assist-config-01.png"
+              alt="設定画面① 基本設定 — 郵便番号フィールド選択・住所形式（一体/分割）切替・郵便番号自動整形 ON/OFF"
+              loading="lazy"
+            />
+          </div>
+          <div class="screenshot-caption">
+            <strong>① 基本設定</strong>
+            <p>郵便番号フィールド（必須）、住所形式（一体形式／分割形式）、郵便番号の自動整形（XXX-XXXX）を選択。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <div class="screenshot-thumb">
+            <img
+              src="/images/address-assist-config-02.png"
+              alt="設定画面② 分割形式の設定 + ③ Google Maps URL 設定 — 都道府県・市区町村・町名・結合住所・URL フィールドの設定"
+              loading="lazy"
+            />
+          </div>
+          <div class="screenshot-caption">
+            <strong>② 分割形式 ＋ ③ URL 自動生成</strong>
+            <p>分割形式の各フィールドを指定。結合住所フィールドは番地の追記先となる重要フィールド。URL 自動生成 ON で マップ URL フィールドを指定。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <div class="screenshot-thumb">
+            <img
+              src="/images/address-assist-config-03.png"
+              alt="設定画面④ 住所コピーボタン設定 + ⑤ 地図プレビュー設定 — コピーボタン設置先選択・地図プレビュー表示先スペース選択"
+              loading="lazy"
+            />
+          </div>
+          <div class="screenshot-caption">
+            <strong>④ コピーボタン ＋ ⑤ 地図プレビュー</strong>
+            <p>コピーボタンの設置先フィールドを選択。地図プレビューはスペースフィールド（事前にフォーム編集で配置）を選択するだけ。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Steps -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">インストール手順</h2>
+        <p class="section-subtitle">6ステップで導入完了。プログラミング知識は不要です。</p>
+        <ol class="steps-list">
+          <li>「プランについて」セクションのダウンロードボタンから <code>kw-address-assist.zip</code> をダウンロード</li>
+          <li>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」でアップロード</li>
+          <li>使用するアプリのフォーム編集で、必要なフィールド（郵便番号／住所など）と<strong>地図表示用のスペースフィールド</strong>（要素ID 設定）を配置</li>
+          <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>でプラグインを追加</li>
+          <li>プラグインの設定画面でフィールドを割り当てて保存</li>
+          <li><strong>アプリを更新</strong> → レコード画面で動作確認</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">プランについて</h2>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">基本プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥0</span>
+            <span class="unit">/ 完全無料</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全機能（住所自動入力・URL 生成・地図プレビュー・コピー）が利用可能</li>
+            <li>✅ 利用期限なし・いつまでも無料</li>
+            <li>✅ 設定画面に控えめな広告エリア表示あり</li>
+          </ul>
+          <a href="/downloads/kw-address-assist-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">開発を応援</span>
+          <h3 class="plan-name">年間サポーター</h3>
+          <div class="plan-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-features">
+            <li>✅ 全機能（住所自動入力・URL 生成・地図プレビュー・コピー）が利用可能</li>
+            <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+            <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            <li>✅ サポーターの声を優先して開発に反映</li>
+          </ul>
+          <a href="/plugins/supporter/?plugin=kw-address-assist" class="btn-primary">サポーターになる →</a>
+          <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+            ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">よくある質問</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              他社の住所自動入力プラグインと何が違いますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                最大の違いは <strong>「レコード詳細画面に Google マップを直接プレビュー表示できる」</strong>点です。一般的な住所自動入力プラグインは「郵便番号 → 住所」の入力補助で終わりますが、本プラグインはマップ URL の自動生成・地図埋め込み・住所コピーまで一気通貫で提供します。営業先・取引先・配送先の場所感をレコードを開いた瞬間に把握できるのは、他社プラグインにはない大きな差別化ポイントです。なお、地図埋め込みに <strong>Google Maps の API キーは不要</strong>で、追加コストもかかりません。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              本当に無料で使えますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい、住所自動入力・URL 生成・地図プレビュー・コピーすべての機能を無料でご利用いただけます。利用期限もなくずっとお使いいただけます。設定画面に控えめな広告エリアが表示されますが、プラグインの動作には影響しません。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              地図表示に Google Maps API キーは必要ですか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <strong>不要です。</strong> Google Maps の埋め込み機能（<code>maps.google.com/maps?q=...&output=embed</code>）を利用しているため、API キーの取得・Google Cloud アカウントの設定・課金登録のいずれも不要です。月額の追加コストも一切かかりません。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              地図はどこに表示されますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                アプリのフォーム編集画面で配置した<strong>「スペース」フィールド</strong>の位置に表示されます。スペースに要素ID と幅・高さを設定し、プラグイン設定 ⑤ で同じ要素ID を選択するだけ。スペースを移動・リサイズするだけで地図の表示位置とサイズを自由に変えられます。詳細画面・編集画面・新規追加画面それぞれで表示の ON/OFF を選択できます。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              一体形式と分割形式、どちらを選ぶべきですか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <strong>一体形式</strong>は住所を 1 フィールドにまとめます。シンプルで管理が楽なので、住所単体での絞り込みが不要な顧客管理などに向いています。<br>
+                <strong>分割形式</strong>は都道府県／市区町村／町名を別フィールドに自動入力します。「東京都の顧客を絞り込みたい」「市区町村別に集計したい」など、フィルター・集計用途があるなら分割形式がおすすめです。番地は<strong>結合住所フィールド</strong>に手入力で追記し、コピー・地図 URL・地図プレビューに反映させます。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              郵便番号はハイフン有り・無しどちらでもいいですか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                両方対応しています。<code>2991142</code> / <code>299-1142</code> / 全角の <code>２９９-１１４２</code> でも、内部で正規化して zipcloud に問い合わせます。取得成功後はデフォルトで <code>299-1142</code> 形式に自動整形しますが、ハイフン無しで保存したい運用の場合は設定 ① でこの整形を OFF にできます。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              大口事業所個別郵便番号（例: 〒112-8575 東京ドーム）は使えますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                残念ながら<strong>対応範囲外</strong>です。本プラグインは <a href="https://zipcloud.ibsnet.co.jp/" target="_blank" rel="noopener noreferrer">zipcloud</a>（一般郵便番号データ）を利用していますが、大口事業所個別番号は日本郵便が別ファイルで配布しているデータのため zipcloud に含まれていません。これは他社の無料系プラグインも同様です。該当番号を入力した場合は画面上部にバナーで案内が出ます。手入力でご対応ください。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              番地・建物名はどう入れますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                住所フィールド（一体形式）または<strong>結合住所フィールド</strong>（分割形式）に手入力で追記します。番地・建物名を追記すると、Google マップ URL と地図プレビューが自動的に番地込みの位置に再生成されます。番地専用のフィールドを別に設ける必要はありません。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              サブテーブル内の郵便番号フィールドにも使えますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                v1.0.0 時点では<strong>サブテーブル非対応</strong>です。メインフォーム上の郵便番号フィールドにのみ動作します。将来バージョンでの対応を検討しています。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              どの kintone 環境で使えますか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                kintone のデスクトップ版で利用可能です。スタンダードコース・ワイドコース対応。モバイル版は v1.0.0 時点では非対応です。
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              年間サポーターライセンスとは何ですか？
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                KIZUNA Works のプラグイン開発を応援していただける方向けの年間ライセンス（年額 ¥3,300・税込）です。広告エリアの非表示、プラグイン作成リクエスト・改善要望の送付、サポーターの声を優先反映などの特典があります。詳しくは <a href="/plugins/supporter/?plugin=kw-address-assist">サポーターライセンスのご案内</a> をご覧ください。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>住所データの取得には <a href="https://zipcloud.ibsnet.co.jp/" target="_blank" rel="noopener noreferrer" style="color: var(--color-navy); text-decoration: underline;">zipcloud</a>（郵便番号データ配信サービス・無料）を利用しています。</li>
+        <li>地図表示には Google Maps の埋め込み機能（API キー不要）を利用しています。</li>
+        <li>大口事業所個別郵便番号は zipcloud に収録されていないため対応範囲外です。</li>
+        <li>動作は Google Chrome 最新版での確認を推奨します。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+        <li>v1.0.0 時点ではモバイル kintone は非対応です。サブテーブル内フィールドへの自動入力も非対応です。</li>
+      </ul>
+    </section>
+
+    <!-- Related Plugins -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">関連プラグイン</h2>
+        <p class="section-subtitle">同じく無料で配布中の kintone プラグイン</p>
+        <div class="related-posts-grid">
+          <a href="/plugins/lookup-suggest/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/lookup-suggest-banner.png" alt="ルックアップサジェスト" loading="lazy" width="1200" height="675">
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">ルックアップサジェスト</h3>
+              <p class="related-post-desc">ルックアップフィールドへの入力中に候補を直下表示。画面遷移なしで取得まで完結。</p>
+              <span class="related-post-link">プラグインを見る →</span>
+            </div>
+          </a>
+          <a href="/plugins/quick-search/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/quick-search-banner.png" alt="クイックサーチ" loading="lazy" width="1200" height="675">
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">クイックサーチ</h3>
+              <p class="related-post-desc">一覧画面にインライン検索バーを設置。複数キーワードで素早く絞り込み。</p>
+              <span class="related-post-link">プラグインを見る →</span>
+            </div>
+          </a>
+          <a href="/plugins/quick-side-view/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/quick-side-view-banner.png" alt="クイックサイドビュー" loading="lazy" width="1200" height="675">
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">クイックサイドビュー</h3>
+              <p class="related-post-desc">一覧で行クリック→サイドバーで最大5件のレコードを並列表示・編集。</p>
+              <span class="related-post-link">プラグインを見る →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <SupporterCTA pluginId="kw-address-assist" />
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          gtag('event', 'file_download', {
+            file_name: 'kw-address-assist-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: '無料でダウンロード',
+            link_url: '/downloads/kw-address-assist-v1.0.0.zip'
+          });
+        });
+      }
+    });
+  </script>
+</Layout>
