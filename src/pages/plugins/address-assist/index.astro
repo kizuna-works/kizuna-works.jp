@@ -477,9 +477,11 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
     .related-post-desc { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0 0 12px; flex-grow: 1; }
     .related-post-link { color: var(--color-green); font-size: 13px; font-weight: 700; }
 
-    /* Showcase / hero screenshot */
+    /* Showcase / hero screenshot — width capped at the native image size
+     * so the screenshot does not get upscaled and blurry. Click-to-enlarge
+     * via the global lightbox. */
     .showcase-image-wrap {
-      max-width: 720px;
+      max-width: 460px;
       margin: 0 auto;
       background-color: var(--color-white);
       border-radius: 12px;
@@ -494,6 +496,9 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
       text-align: center;
       margin-top: 14px;
       line-height: 1.7;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* Screenshots grid */
@@ -600,10 +605,11 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
           <img
             src="/images/address-assist-after-01.png"
             alt="住所アシスト for kintone — レコード詳細画面に郵便番号・住所と一緒に Google マップが直接プレビュー表示される画面"
+            class="lightbox-image"
             loading="lazy"
           />
-          <p class="showcase-caption">レコード詳細画面の例：郵便番号と住所の下に Google マップがそのまま埋め込まれる。スペースフィールドの大きさで地図サイズを自由調整。</p>
         </div>
+        <p class="showcase-caption">レコード詳細画面の例：郵便番号と住所の下に Google マップがそのまま埋め込まれる。スペースフィールドの大きさで地図サイズを自由調整。クリックで拡大表示。</p>
       </div>
     </section>
 
