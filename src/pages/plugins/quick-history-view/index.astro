@@ -1,0 +1,1200 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+---
+
+<Layout
+  title="クイック履歴ビュー for kintone - 変更履歴の自動記録プラグイン | KIZUNA Works"
+  description="kintone レコードの変更前後を自動で記録し、詳細画面に時系列の表形式で表示する kintone プラグイン。GAS や外部サービス不要で kintone 完結。記録対象フィールドの選択、保存件数上限、色・フォント・サイズの細かなカスタマイズに対応。"
+  ogTitle="クイック履歴ビュー for kintone - 変更履歴の自動記録プラグイン | KIZUNA Works"
+  ogDescription="kintone レコードの変更前後を自動で記録し、詳細画面に時系列の表形式で表示する kintone プラグイン。GAS や外部サービス不要で kintone 完結。記録対象フィールドの選択、保存件数上限、色・フォント・サイズの細かなカスタマイズに対応。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/quick-history-view/"
+  ogImage="https://kizuna-works.jp/images/quick-history-view-banner.png"
+  canonical="https://kizuna-works.jp/plugins/quick-history-view/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/quick-history-view/",
+          "url": "https://kizuna-works.jp/plugins/quick-history-view/",
+          "name": "クイック履歴ビュー for kintone - 変更履歴の自動記録プラグイン | KIZUNA Works",
+          "description": "kintone レコードの変更前後を自動で記録し、詳細画面に時系列の表形式で表示する kintone プラグイン。GAS や外部サービス不要で kintone 完結。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/quick-history-view-banner.png",
+            "width": 1200,
+            "height": 675
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "クイック履歴ビュー for kintone", "item": "https://kizuna-works.jp/plugins/quick-history-view/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "クイック履歴ビュー for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-05-24",
+          "url": "https://kizuna-works.jp/plugins/quick-history-view/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-history-view-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/quick-history-view-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone レコードの変更前後を自動で記録し、詳細画面に時系列の表形式で表示する kintone プラグイン。GAS や外部サービス不要で kintone 完結。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "レコード保存時にフィールド単位で変更前後を自動記録",
+            "レコード詳細画面に時系列の変更履歴テーブルを表示",
+            "新規作成時の初回スナップショット記録",
+            "履歴記録対象フィールドを設定画面で選択（除外可）",
+            "保存件数上限（5・10・20・30件）の指定",
+            "ヘッダー色・行色・文字色のカスタマイズ",
+            "10種類のフォント + 3段階の文字サイズ",
+            "プレビュー機能付き設定画面",
+            "履歴保存フィールドの自動非表示",
+            "GAS・外部サービス不要・kintone完結"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    /* Banner Showcase */
+    .banner-showcase {
+      max-width: 1000px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    .banner-showcase img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Problem Cards */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    /* Feature List */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    /* Steps */
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    /* Notes */
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 24px 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .faq-icon {
+      font-size: 20px;
+      color: var(--color-navy);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.is-open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+
+    .faq-answer-inner {
+      padding-bottom: 24px;
+      color: var(--color-text-light);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .faq-answer-inner a {
+      color: var(--color-navy);
+      text-decoration: underline;
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    /* Bottom CTA */
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    /* Related Plugins */
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot Frame (action / live screenshot) */
+    .screenshot-frame {
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Setup Steps (pre-install kintone form prep) */
+    .setup-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .setup-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+    }
+    .setup-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .setup-num {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: var(--color-navy);
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .setup-card-title {
+      color: var(--color-navy);
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.4;
+    }
+    .setup-card p {
+      color: var(--color-text);
+      font-size: 14px;
+      line-height: 1.8;
+      margin: 0 0 16px;
+    }
+    .setup-card .setup-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid var(--color-gray-light);
+      display: block;
+      margin-top: auto;
+    }
+    .setup-tip {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      padding: 10px 14px;
+      border-radius: 4px;
+      margin-top: 14px;
+      font-size: 13px;
+      color: #92400e;
+      line-height: 1.7;
+    }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .setup-grid { grid-template-columns: 1fr; gap: 24px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/quick-history-view-icon.png"
+        alt="クイック履歴ビュープラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">クイック履歴ビュー for kintone</h1>
+      <p class="hero-copy">レコード保存のたびに「いつ・誰が・どのフィールドを・何から何に変えたか」を自動で記録し、レコード詳細画面に時系列の表形式で表示する kintone プラグインです。GAS や外部サービスは不要、kintone 完結で導入できます。</p>
+    </section>
+
+    <!-- Banner Showcase -->
+    <section class="section-wrapper fade-in">
+      <div class="banner-showcase">
+        <img
+          src="/images/quick-history-view-banner.png"
+          alt="クイック履歴ビュー for kintone — レコード変更履歴を自動記録し詳細画面に時系列テーブルで表示"
+          width="1200"
+          height="675"
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">kintone 標準では追えない「誰が・いつ・何を変えたか」の変更履歴をフィールド単位で可視化</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🕵️</span>
+            <h3 class="problem-title">いつ誰が変えたか分からない</h3>
+            <p class="problem-desc">レコードの値がいつの間にか変わっている。kintone 標準の作業履歴では誰がどのフィールドをどの値に変えたかまで遡れず、確認に時間がかかる。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🛠️</span>
+            <h3 class="problem-title">変更履歴の自作が大変</h3>
+            <p class="problem-desc">JavaScript カスタマイズや GAS で履歴を実装すると、テーブル設計・差分計算・表示 UI の開発と保守に手間がかかる。エンジニア依存が発生しやすい。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🌐</span>
+            <h3 class="problem-title">外部サービスに依存したくない</h3>
+            <p class="problem-desc">監査ログ系の外部サービスや GAS 連携を入れると、サブスク費・データ持出し・連携の不具合などの懸念。kintone 内で完結させたい。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Screenshot — Plugin in action -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">レコード詳細画面での見え方</h2>
+      <p class="section-subtitle">レコード保存のたびに「いつ・誰が・どのフィールドを・何から何に変えたか」が自動で時系列に追記されます</p>
+      <div class="screenshot-frame">
+        <img
+          src="/images/quick-history-view-action-01.png"
+          alt="クイック履歴ビュー 動作画面 — レコード詳細画面の指定スペースに、日時・変更者・フィールド・変更前・変更後の5カラムで時系列に変更履歴テーブルが表示されている状態"
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">主な機能</h2>
+        <ul class="feature-list">
+          <li><span><strong>変更前後の自動記録</strong> — レコード保存時にすべての対象フィールドを比較し、差分があったものだけを履歴 JSON に追記。日時・変更者も自動付与されます。</span></li>
+          <li><span><strong>レコード詳細画面に表形式で表示</strong> — 設定したスペース要素に「日時・変更者・フィールド・変更前・変更後」の 5 カラムテーブルで時系列降順に表示。</span></li>
+          <li><span><strong>新規作成時の初回スナップショット</strong> — 新規レコードの保存時、入力済みフィールドの初期値を「変更前: 空 / 変更後: 入力値」として 1 件目に記録。</span></li>
+          <li><span><strong>同一保存の複数変更をグルーピング</strong> — 1 回の保存で複数フィールドを変えた場合は日時・変更者セルが結合表示されて見やすく整理。</span></li>
+          <li><span><strong>記録対象フィールドの選択</strong> — 左右の転送リスト UI で対象 / 除外を直感的に切替。デフォルトは全フィールド対象、メモ欄など履歴不要なものは除外側へドラッグ可能。</span></li>
+          <li><span><strong>保存件数上限を 5・10・20・30 件から選択</strong> — 上限を超えた場合は古い履歴から自動削除。kintone の文字列(複数行)上限 64,000 文字を実用上回避できます。</span></li>
+          <li><span><strong>表示デザインのカスタマイズ</strong> — ヘッダー色 / 行色（奇数・偶数）/ 文字色 を個別指定。10 種類の日本語フォントと 3 段階の文字サイズに対応。</span></li>
+          <li><span><strong>リアルタイムプレビュー付き設定画面</strong> — 色・フォントを変更するとプラグイン設定画面のプレビューに即時反映。本番反映前に見え方を確認できます。</span></li>
+          <li><span><strong>履歴保存フィールドの自動非表示</strong> — 履歴 JSON を格納するフィールドはレコード詳細・編集・新規作成画面で自動非表示。ユーザーには見えません。</span></li>
+          <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。プラグインアップロードのみで導入完了します。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Setup Section (Form-side preparation) -->
+    <section class="section-wrapper fade-in">
+        <h2 class="section-title">事前準備：フォームに 2 つの要素を配置</h2>
+        <p class="section-subtitle">プラグインを動かすには、アプリのフォームに <strong>履歴を保存する場所</strong> と <strong>履歴を表示する場所</strong> をあらかじめ用意する必要があります。kintone のフォーム編集画面で 2 つの要素を配置するだけ — どちらも 1 分で終わります。</p>
+
+        <div class="setup-grid">
+          <div class="setup-card">
+            <div class="setup-card-header">
+              <span class="setup-num">1</span>
+              <h3 class="setup-card-title">履歴を保存する「文字列(複数行)」フィールド</h3>
+            </div>
+            <p>変更履歴は <strong>JSON テキスト</strong>としてレコードに保存します。そのため、kintone の<strong>「文字列(複数行)」フィールド</strong>を 1 つ追加してください。フィールドコードは「変更履歴」など分かりやすい名前で構いません。</p>
+            <p style="margin-bottom: 8px;">このフィールドはレコードの<strong>詳細・編集・新規作成画面で自動的に非表示</strong>になるので、ユーザーには見えません。レコード一覧で JSON が並ぶこともありません。</p>
+            <img
+              src="/images/quick-history-view-setup-01.png"
+              alt="kintone フォーム編集画面で「変更履歴」という名前の文字列(複数行)フィールドを配置している様子"
+              class="setup-image"
+              loading="lazy"
+            />
+            <div class="setup-tip">
+              💡 フィールドコードは英数字でなくても OK。プラグイン設定の「履歴保存フィールド」選択肢に表示されます。
+            </div>
+          </div>
+
+          <div class="setup-card">
+            <div class="setup-card-header">
+              <span class="setup-num">2</span>
+              <h3 class="setup-card-title">履歴を表示する「スペース」要素</h3>
+            </div>
+            <p>変更履歴テーブルは、フォーム内に配置した<strong>「スペース」要素</strong>の位置に表示されます。スペース要素をドラッグで配置し、設定アイコンから<strong>「要素ID」</strong>を指定してください（例: <code>history</code>）。</p>
+            <p style="margin-bottom: 8px;">配置後は必ず<strong>「フォームを保存」</strong>をクリックします。要素ID が未指定のままだと、プラグイン側から場所を特定できず履歴が表示されません。</p>
+            <img
+              src="/images/quick-history-view-setup-02.png"
+              alt="kintone フォーム編集画面でスペース要素の設定ダイアログを開き「要素ID」に history を入力している様子"
+              class="setup-image"
+              loading="lazy"
+            />
+            <div class="setup-tip">
+              💡 スペースを置く位置 = 履歴テーブルが表示される位置。レコード上部・下部・項目間など、見やすいところに配置してください。
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">事前準備が終わったら、あとは ZIP をアップロードして設定するだけです。</p>
+      <ol class="steps-list">
+        <li>「プランについて」セクションのダウンロードボタンから <code>kw-quick-history-view-v1.0.0.zip</code> をダウンロード</li>
+        <li>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</li>
+        <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「クイック履歴ビュー」を追加</li>
+        <li>プラグイン設定画面で<strong>履歴保存フィールド</strong>と<strong>表示先スペース</strong>を選び、保存件数上限・色・フォントを調整して「保存」</li>
+        <li>kintone 右上の<strong>「アプリを更新」</strong>（デプロイ）をクリックして反映完了</li>
+      </ol>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定画面の使い方</h2>
+        <p class="section-subtitle">2 つのタブ（基本設定／表示設定）で、必要な項目だけシンプルに設定できます。プログラミング知識は不要です。</p>
+
+        <div class="config-screenshots">
+          <div class="config-shot">
+            <img
+              src="/images/quick-history-view-config-01.png"
+              alt="クイック履歴ビュー プラグイン設定画面① 基本設定タブ — 履歴保存フィールド・表示先スペース・保存件数上限の3項目を選ぶセクション"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>① 基本設定タブ（必須 3 項目）</strong>
+              <p>事前準備で配置した「履歴保存フィールド」「表示先スペース」をプルダウンから選び、保存件数上限（5・10・20・30 件）を指定します。これだけで動作開始できます。</p>
+            </div>
+          </div>
+
+          <div class="config-shot">
+            <img
+              src="/images/quick-history-view-config-02.png"
+              alt="クイック履歴ビュー プラグイン設定画面② 基本設定タブ — 履歴記録の対象フィールドを左右の転送リストで切り替える UI"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>② 対象フィールドの選択（左右リスト）</strong>
+              <p>デフォルトは全フィールド対象。履歴に残したくないフィールドは「→」ボタンまたはダブルクリックで右側「除外」に移動できます。サブテーブル・計算フィールド・システムフィールドは元から対象外です。</p>
+            </div>
+          </div>
+
+          <div class="config-shot">
+            <img
+              src="/images/quick-history-view-config-03.png"
+              alt="クイック履歴ビュー プラグイン設定画面③ 表示設定タブ — テーブルのヘッダー背景色・文字色・行背景色・データ行文字色のカラーピッカーとフォント種類・サイズの設定"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>③ 表示設定タブ（色 ＋ フォント）</strong>
+              <p>ヘッダー色・データ行色（奇数 / 偶数）・文字色を個別のカラーピッカーで指定。フォント種類（10 種）と文字サイズ（小 / 標準 / 大）も切替可能です。</p>
+            </div>
+          </div>
+
+          <div class="config-shot">
+            <img
+              src="/images/quick-history-view-config-04.png"
+              alt="クイック履歴ビュー プラグイン設定画面④ 表示設定タブのプレビュー — 現在の設定で実際の変更履歴テーブルを試し描きしている様子"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>④ ライブプレビュー</strong>
+              <p>色やフォントの設定を変更すると、サンプルデータ付きのテーブルにリアルタイムで反映されます。本番のレコード詳細画面でどう見えるかを事前に確認してから保存できます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 一覧画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-quick-history-view-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-quick-history-view" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">よくある質問</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            本当に無料で使えますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、変更履歴の自動記録・表示・カスタマイズなどすべての機能を無料でご利用いただけます。利用期限もなく、ずっとお使いいただけます。レコード一覧画面に控えめな広告エリアが表示されますが、プラグインの動作には影響しません。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            プラグイン導入前の変更履歴も取得できますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              いいえ、本プラグインは導入後の変更のみ記録します。導入前の変更履歴を遡って取得することはできません。早めの導入をおすすめします。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            監査用途で使えますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              本プラグインは「業務効率化のための変更履歴可視化ツール」として設計されており、監査用途は想定していません。履歴 JSON は文字列(複数行)フィールドに保存されるため、編集権限のあるユーザーは直接書き換え可能です。厳格な監査ログが必要な場合は別途専用ツールをご検討ください。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            どのフィールドの変更が記録されますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              文字列・数値・日付・日時・ドロップダウン・ラジオボタン・チェックボックス・複数選択・ユーザー選択・組織選択・グループ選択・添付ファイル・リンクが記録対象です。サブテーブル・関連レコード・計算フィールド・ステータス・作業者・レコード番号・作成者/更新者などのシステムフィールドは記録対象外です。設定画面で個別フィールドを除外することも可能です。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            複数ユーザーが同時に編集したらどうなりますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              本プラグインは保存時に履歴 JSON を読み書きするため、複数ユーザーが同時に同じレコードを保存すると、後に保存した側の履歴が前の保存内容を上書きするリスクがあります。同時編集が頻繁に発生する運用の場合はご注意ください。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            履歴の件数が増えても大丈夫ですか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              設定画面で保存件数上限（5・10・20・30 件）を指定します。上限を超えた場合は古い履歴から自動削除されるため、文字列(複数行)フィールドの上限（64,000 文字）に達することは実用上ありません。長文の変更が多い場合は件数上限を低めに設定するか、長文フィールドを除外することをおすすめします。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            年間サポーターライセンスとは何ですか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              KIZUNA Works のプラグイン開発を応援していただける方向けの年間ライセンス（年額 ¥3,300・税込）です。広告エリアの非表示、プラグイン作成リクエスト・改善要望の送付、サポーターの声を優先反映などの特典があります。詳しくは <a href="/plugins/supporter/?plugin=kw-quick-history-view">サポーターライセンスのご案内</a> をご覧ください。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            設定にプログラミングの知識は必要ですか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              いいえ、プラグインの設定画面からすべての機能をノーコードで設定できます。セレクト・ラジオボタン・転送リスト・カラーピッカーで直感的に操作可能です。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">注意事項</h2>
+        <ul class="notes-list">
+          <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+          <li>kintone はサイボウズ株式会社の登録商標です。</li>
+          <li>動作は Google Chrome 最新版での確認を推奨します。</li>
+          <li>v1.0.0 ではサブテーブル・関連レコードの変更は履歴対象外です。</li>
+          <li>本プラグインで記録される変更履歴は監査目的での利用を保証するものではありません。履歴保存フィールドは編集権限のあるユーザーが直接書き換え可能です。</li>
+          <li>複数ユーザーが同時に同じレコードを保存した場合、後保存が前保存の履歴を上書きする可能性があります。</li>
+          <li>モバイル版 kintone では動作しません。PC 版でのみ動作します。</li>
+          <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+          <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">同じく無料で配布中の kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/quick-side-view/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/quick-side-view-banner.png" alt="クイックサイドビュープラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">クイックサイドビュー</h3>
+            <p class="related-post-desc">一覧画面で行クリック → 右側サイドバーで最大5件を並べて閲覧・編集。詳細画面の往復を解消。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/record-lock/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/record-lock-banner.png" alt="レコードロックプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">レコードロック</h3>
+            <p class="related-post-desc">特定の条件を満たすレコードを編集禁止に。意図しない変更を未然に防止。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/field-comment/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/field-comment-banner.png" alt="フィールドコメントプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">フィールドコメント</h3>
+            <p class="related-post-desc">フィールド横にヘルプアイコン・常時コメントを追加。入力ルールを担当者に伝達。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <SupporterCTA pluginId="kw-quick-history-view" />
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-quick-history-view-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-quick-history-view-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

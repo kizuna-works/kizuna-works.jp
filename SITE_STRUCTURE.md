@@ -84,8 +84,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # フィールドコメントプラグイン製品ページ（/plugins/field-comment/）
 │   │   │   ├── theme-styler/
 │   │   │   │   └── index.astro # テーマスタイラープラグイン製品ページ（/plugins/theme-styler/）
-│   │   │   └── address-assist/
-│   │   │       └── index.astro # 住所アシストプラグイン製品ページ（/plugins/address-assist/）— 郵便番号→住所自動入力＋レコード詳細画面に Google マップ直接プレビュー（差別化）
+│   │   │   ├── address-assist/
+│   │   │   │   └── index.astro # 住所アシストプラグイン製品ページ（/plugins/address-assist/）— 郵便番号→住所自動入力＋レコード詳細画面に Google マップ直接プレビュー（差別化）
+│   │   │   └── quick-history-view/
+│   │   │       └── index.astro # クイック履歴ビュープラグイン製品ページ（/plugins/quick-history-view/）— レコード変更履歴を自動記録し詳細画面に時系列テーブル表示・kintone 完結
 │   │   ├── tools/
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   │   ├── extensions/
@@ -184,6 +186,14 @@ c:\kizuna-works.jp\
 │   │   ├── address-assist-config-01.png    # 住所アシスト 設定画面スクショ① — 基本設定（郵便番号フィールド・住所形式・郵便番号自動整形 ON/OFF）
 │   │   ├── address-assist-config-02.png    # 住所アシスト 設定画面スクショ② — 分割形式の設定（都道府県・市区町村・町名・結合住所）＋ Google Maps URL 設定
 │   │   ├── address-assist-config-03.png    # 住所アシスト 設定画面スクショ③ — 住所コピーボタン設定 ＋ 地図プレビュー設定（スペースフィールド指定）
+│   │   ├── quick-history-view-banner.png   # クイック履歴ビュー for kintone バナー（1200×675・OGP/グリッド共用）
+│   │   ├── quick-history-view-setup-01.png # クイック履歴ビュー 事前準備スクショ① — 履歴 JSON 保存用「文字列(複数行)」フィールドをフォームに配置
+│   │   ├── quick-history-view-setup-02.png # クイック履歴ビュー 事前準備スクショ② — 表示先「スペース」要素を配置し要素ID（例: history）を指定
+│   │   ├── quick-history-view-config-01.png # クイック履歴ビュー 設定画面スクショ① — 基本設定タブ（履歴保存フィールド／表示先スペース／保存件数上限）
+│   │   ├── quick-history-view-config-02.png # クイック履歴ビュー 設定画面スクショ② — 基本設定タブ 履歴記録の対象フィールド転送リスト（対象11件／除外6件）
+│   │   ├── quick-history-view-config-03.png # クイック履歴ビュー 設定画面スクショ③ — 表示設定タブ テーブルの色設定（5色）＋フォント種類・サイズ
+│   │   ├── quick-history-view-config-04.png # クイック履歴ビュー 設定画面スクショ④ — 表示設定タブ ライブプレビュー（実際の設定が反映されたサンプルテーブル）
+│   │   ├── quick-history-view-action-01.png # クイック履歴ビュー 動作画面スクショ① — レコード詳細画面に変更履歴テーブルが時系列降順で表示されている状態（締切日・確度・商談フェーズの3変更）
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
@@ -226,7 +236,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-record-lock-v1.0.0.zip                   # レコードロックプラグイン配布ファイル（手動配置）
 │   │   ├── kw-field-comment-v1.0.0.zip                 # フィールドコメントプラグイン配布ファイル（手動配置）
 │   │   ├── kw-theme-styler-v1.0.0.zip                  # テーマスタイラー for kintone プラグイン配布ファイル（手動配置）
-│   │   └── kw-address-assist-v1.0.0.zip                # 住所アシスト for kintone プラグイン配布ファイル（手動配置）
+│   │   ├── kw-address-assist-v1.0.0.zip                # 住所アシスト for kintone プラグイン配布ファイル（手動配置）
+│   │   └── kw-quick-history-view-v1.0.0.zip            # クイック履歴ビュー for kintone プラグイン配布ファイル（手動配置）
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）

@@ -262,6 +262,26 @@ export const plugins: Plugin[] = [
     problemTitle: '住所入力と地図確認の往復が面倒',
     problemDesc: '郵便番号入力で住所を自動入力し、レコードを開いた瞬間に地図プレビューまで一気に見たい',
   },
+  {
+    id: 'kw-quick-history-view',
+    name: 'クイック履歴ビュー for kintone',
+    formName: 'クイック履歴ビュー for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'quick-history-view',
+    description:
+      'レコード保存のたびに「いつ・誰が・どのフィールドを・何から何に変えたか」を自動で記録し、レコード詳細画面に表形式で時系列表示する kintone プラグイン。GAS や外部サービス不要で kintone 完結。記録対象フィールドの選択、保存件数上限（5・10・20・30件）、ヘッダー色・行色・フォント・サイズの細かなカスタマイズに対応。プラグイン管理画面でリアルタイムプレビュー可能。',
+    image: '/images/quick-history-view-banner.png',
+    imageAlt:
+      'クイック履歴ビュー for kintone プラグイン — レコードの変更前後をフィールド単位で自動記録し、詳細画面に時系列テーブルで表示',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      'レコード変更を自動でフィールド単位に記録し、詳細画面に表形式で時系列表示。GAS不要・kintone完結。',
+    problemTitle: 'いつ誰が何を変えたか分からない',
+    problemDesc: 'レコードの変更前後を自動で記録し、詳細画面で時系列の変更履歴テーブルとして見たい',
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({
