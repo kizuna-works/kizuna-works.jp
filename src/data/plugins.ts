@@ -282,6 +282,26 @@ export const plugins: Plugin[] = [
     problemTitle: 'いつ誰が何を変えたか分からない',
     problemDesc: 'レコードの変更前後を自動で記録し、詳細画面で時系列の変更履歴テーブルとして見たい',
   },
+  {
+    id: 'kw-related-record-popup',
+    name: '関連レコードポップアップ表示 for kintone',
+    formName: '関連レコードポップアップ表示 for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'related-record-popup',
+    description:
+      'レコード一覧画面の各行に表示したアイコンにホバーするだけで、関連レコード一覧をポップアップ表示する kintone プラグイン。詳細画面に遷移せず関連情報をその場で確認できます。複数の関連レコード一覧フィールドはタブで切り替え、件数が多ければ自動でページネーション。5 種類のアイコン・10 種類の淡色系背景・10 種類のアイコン色から組み合わせ可能で、行クリックで関連レコード詳細を別タブで開けます。',
+    image: '/images/related-record-popup-banner.png',
+    imageAlt:
+      '関連レコードポップアップ表示 for kintone プラグイン — 一覧画面のアイコンにホバーすると関連レコード一覧をポップアップ表示',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '一覧画面のアイコンにホバーするだけで関連レコードをポップアップ表示。タブ切替・ページネーション対応。',
+    problemTitle: '関連レコード確認のたびに詳細を開きたくない',
+    problemDesc: '一覧画面のままホバーで関連レコードを素早く確認したい',
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({

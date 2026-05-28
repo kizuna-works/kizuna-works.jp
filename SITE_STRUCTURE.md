@@ -86,8 +86,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # テーマスタイラープラグイン製品ページ（/plugins/theme-styler/）
 │   │   │   ├── address-assist/
 │   │   │   │   └── index.astro # 住所アシストプラグイン製品ページ（/plugins/address-assist/）— 郵便番号→住所自動入力＋レコード詳細画面に Google マップ直接プレビュー（差別化）
-│   │   │   └── quick-history-view/
-│   │   │       └── index.astro # クイック履歴ビュープラグイン製品ページ（/plugins/quick-history-view/）— レコード変更履歴を自動記録し詳細画面に時系列テーブル表示・kintone 完結
+│   │   │   ├── quick-history-view/
+│   │   │   │   └── index.astro # クイック履歴ビュープラグイン製品ページ（/plugins/quick-history-view/）— レコード変更履歴を自動記録し詳細画面に時系列テーブル表示・kintone 完結
+│   │   │   └── related-record-popup/
+│   │   │       └── index.astro # 関連レコードポップアップ表示プラグイン製品ページ（/plugins/related-record-popup/）— 一覧画面のアイコンにホバーで関連レコード一覧をポップアップ表示・タブ切替・ページネーション対応
 │   │   ├── tools/
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   │   ├── extensions/
@@ -195,6 +197,12 @@ c:\kizuna-works.jp\
 │   │   ├── quick-history-view-config-03.png # クイック履歴ビュー 設定画面スクショ③ — 表示設定タブ テーブルの色設定（5色）＋フォント種類・サイズ
 │   │   ├── quick-history-view-config-04.png # クイック履歴ビュー 設定画面スクショ④ — 表示設定タブ ライブプレビュー（実際の設定が反映されたサンプルテーブル）
 │   │   ├── quick-history-view-action-01.png # クイック履歴ビュー 動作画面スクショ① — レコード詳細画面に変更履歴テーブルが時系列降順で表示されている状態（締切日・確度・商談フェーズの3変更）
+│   │   ├── related-record-popup-icon.png    # 関連レコードポップアップ表示 for kintone プラグイン アイコン（200×200・ヒーロー画像用）
+│   │   ├── related-record-popup-banner.png  # 関連レコードポップアップ表示 for kintone バナー（1200×675・OGP/グリッド共用）
+│   │   ├── related-record-popup-action-01.png # 関連レコードポップアップ表示 動作画面スクショ① — レコード一覧画面で行のアイコンにホバーし、「活動履歴(3) / 関連レコード一覧(3)」タブ付きポップアップが表示された状態（活動履歴タブが選択され、対応日付・対応者・対応種別・内容・添付ファイルの5カラムで3件表示）
+│   │   ├── related-record-popup-config-01.png # 関連レコードポップアップ表示 設定画面スクショ① — 基本設定タブ上部（表示する関連レコード一覧のチェックリスト・並び替え注意書きボックス・1ページあたりの表示件数 5件/10件/20件/30件/50件 ラジオ）
+│   │   ├── related-record-popup-config-02.png # 関連レコードポップアップ表示 設定画面スクショ② — 基本設定タブ下部（トリガーアイコンの配置 2択／トリガーアイコンの種類 5タイル[矢印・リスト・プレビュー選択中・リンク・情報]／トリガーアイコンの色プリセット10色+カラーピッカー）
+│   │   ├── related-record-popup-config-03.png # 関連レコードポップアップ表示 設定画面スクショ③ — 表示設定タブ（ポップアップの背景色 淡色系10色＋カラーピッカー、文字色 4色＋カラーピッカー、ライブプレビュー：ペールシアン背景で「発注履歴(3)/クレーム(1)」タブ付きサンプルテーブル）
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
@@ -238,7 +246,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-comment-v1.0.0.zip                 # フィールドコメントプラグイン配布ファイル（手動配置）
 │   │   ├── kw-theme-styler-v1.0.0.zip                  # テーマスタイラー for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-address-assist-v1.0.0.zip                # 住所アシスト for kintone プラグイン配布ファイル（手動配置）
-│   │   └── kw-quick-history-view-v1.0.0.zip            # クイック履歴ビュー for kintone プラグイン配布ファイル（手動配置）
+│   │   ├── kw-quick-history-view-v1.0.0.zip            # クイック履歴ビュー for kintone プラグイン配布ファイル（手動配置）
+│   │   └── kw-related-record-popup-v1.0.0.zip          # 関連レコードポップアップ表示 for kintone プラグイン配布ファイル（手動配置）
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）

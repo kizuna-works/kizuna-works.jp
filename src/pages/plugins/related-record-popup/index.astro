@@ -1,0 +1,1055 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+---
+
+<Layout
+  title="関連レコードポップアップ表示 for kintone - ホバーで関連レコードを瞬時に確認 | KIZUNA Works"
+  description="kintone レコード一覧のアイコンにホバーするだけで関連レコード一覧をポップアップ表示するプラグイン。詳細画面に遷移せず確認でき、複数の関連レコード一覧はタブで切替、件数が多ければページネーションも自動表示。"
+  ogTitle="関連レコードポップアップ表示 for kintone - ホバーで関連レコードを瞬時に確認 | KIZUNA Works"
+  ogDescription="kintone レコード一覧のアイコンにホバーするだけで関連レコード一覧をポップアップ表示するプラグイン。詳細画面に遷移せず確認でき、複数の関連レコード一覧はタブで切替、件数が多ければページネーションも自動表示。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/related-record-popup/"
+  ogImage="https://kizuna-works.jp/images/related-record-popup-banner.png"
+  canonical="https://kizuna-works.jp/plugins/related-record-popup/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/related-record-popup/",
+          "url": "https://kizuna-works.jp/plugins/related-record-popup/",
+          "name": "関連レコードポップアップ表示 for kintone - ホバーで関連レコードを瞬時に確認 | KIZUNA Works",
+          "description": "kintone レコード一覧のアイコンにホバーするだけで関連レコード一覧をポップアップ表示するプラグイン。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/related-record-popup-banner.png",
+            "width": 1200,
+            "height": 675
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "関連レコードポップアップ表示 for kintone", "item": "https://kizuna-works.jp/plugins/related-record-popup/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "関連レコードポップアップ表示 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-05-29",
+          "url": "https://kizuna-works.jp/plugins/related-record-popup/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-related-record-popup-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/related-record-popup-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone レコード一覧画面の各行に表示したアイコンにホバーするだけで、関連レコード一覧をポップアップ表示する kintone プラグイン。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "レコード一覧のアイコンにホバーで関連レコード一覧をポップアップ表示",
+            "詳細画面に遷移せず関連情報をその場で確認可能",
+            "複数の関連レコード一覧フィールドをタブで切り替え",
+            "件数が多い場合は自動でページネーション（5・10・20・30・50件/ページ）",
+            "5 種類のトリガーアイコン（矢印・リスト・プレビュー・リンク・情報）から選択可能",
+            "アイコンの色を 10 種類のプリセット + カラーピッカーで指定",
+            "ポップアップの背景色を 10 種類の淡色系プリセットから選択",
+            "ヘッダー背景色は背景色から自動派生（視認性を自動最適化）",
+            "ポップアップ内の行クリックで関連レコード詳細を別タブで開く",
+            "トリガーアイコンの配置は「詳細アイコンの隣」「任意のフィールドの列」から選択",
+            "並び順・絞り込み・表示列は関連レコード一覧フィールドの kintone 標準設定に従う",
+            "リアルタイムプレビュー付き設定画面",
+            "GAS・外部サービス不要・kintone完結"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 24px 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .faq-icon {
+      font-size: 20px;
+      color: var(--color-navy);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.is-open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+
+    .faq-answer-inner {
+      padding-bottom: 24px;
+      color: var(--color-text-light);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .faq-answer-inner a {
+      color: var(--color-navy);
+      text-decoration: underline;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot Frame (live action screenshot) */
+    .screenshot-frame {
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/related-record-popup-icon.png"
+        alt="関連レコードポップアップ表示プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">関連レコードポップアップ表示 for kintone</h1>
+      <p class="hero-copy">レコード一覧画面の各行に表示したアイコンにホバーするだけで、関連レコード一覧をポップアップ表示する kintone プラグインです。詳細画面に遷移せずに関連情報をその場で確認でき、複数の関連レコード一覧はタブで切り替え、件数が多い場合は自動でページネーションされます。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">kintone の「関連レコード一覧」を確認するために詳細画面まで何度も行き来していませんか？</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🔁</span>
+            <h3 class="problem-title">詳細画面の往復が多い</h3>
+            <p class="problem-desc">関連レコードを見たいだけなのに、わざわざ詳細画面を開いて戻る作業を繰り返している。一覧上で確認できれば 1 クリック以下で済む業務が大半。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">⏱️</span>
+            <h3 class="problem-title">一覧画面に列を増やすと重い</h3>
+            <p class="problem-desc">関連情報を一覧の列で見せようとすると画面が横に伸びて視認性が落ちる。情報量を絞ると今度は確認のために詳細を開く手間が戻ってくる。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🧩</span>
+            <h3 class="problem-title">関連レコードが複数あって面倒</h3>
+            <p class="problem-desc">同じレコードに「発注履歴」「クレーム」「対応履歴」など複数の関連リストがあり、それぞれ確認するために行き来している。タブで横断確認したい。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Screenshot — Plugin in action -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">レコード一覧画面での見え方</h2>
+      <p class="section-subtitle">各行に表示したアイコンにマウスを乗せるだけで、関連レコード一覧をタブ付きポップアップで瞬時に確認できます</p>
+      <div class="screenshot-frame">
+        <img
+          src="/images/related-record-popup-action-01.png"
+          alt="関連レコードポップアップ表示プラグイン 動作画面 — レコード一覧の行にホバーすると「活動履歴(3) / 関連レコード一覧(3)」タブ付きのポップアップが開き、対応日付・対応者・対応種別・内容・添付ファイルの5カラムで関連レコードが時系列降順に表示されている状態"
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">主な機能</h2>
+        <ul class="feature-list">
+          <li><span><strong>ホバーで関連レコードをポップアップ表示</strong> — 一覧画面の各行に表示したアイコンにマウスを乗せるだけで、関連レコード一覧がその場でポップアップ表示されます。クリックや画面遷移は一切不要。</span></li>
+          <li><span><strong>複数の関連レコード一覧をタブ切替</strong> — 1 つのアプリに複数の「関連レコード一覧」フィールドがある場合、ポップアップ上部でタブを切り替えて横断的に確認できます。各タブには件数バッジを表示。</span></li>
+          <li><span><strong>件数が多い場合は自動ページネーション</strong> — 1 ページあたりの表示件数（5・10・20・30・50 件）を設定可能。それを超える件数がある場合は &lt; / &gt; ボタンでページ送りできます。</span></li>
+          <li><span><strong>5 種類のトリガーアイコンから選択</strong> — 矢印・リスト・プレビュー（目）・リンク・情報の 5 種類のアイコンを用意。アプリの雰囲気に合わせて選べます。</span></li>
+          <li><span><strong>アイコンの色も自由に変更</strong> — ネイビー・グリーン・ブルー・シアン・パープル・ピンク・レッド・オレンジ・ダークグレー・ブラックの 10 種類プリセット ＋ カラーピッカーで任意の色を指定できます。</span></li>
+          <li><span><strong>ポップアップの背景色は淡色系 10 種類</strong> — ホワイト・ライトグレー・クリーム・ペールピーチ・ペールサクラ・ペールピンク・ペールラベンダー・ペールブルー・ペールシアン・ペールミントから選択可能。文字色も別途指定できます。</span></li>
+          <li><span><strong>ヘッダー背景色は自動で最適化</strong> — ポップアップ背景色の輝度に応じて、適切なコントラストのヘッダー色を自動派生。手動調整不要で視認性を確保します。</span></li>
+          <li><span><strong>トリガーアイコンの配置を選択</strong> — 「詳細を表示アイコンの隣」か「指定したフィールドの列」の 2 択。一覧画面のレイアウトに合わせて自然な位置に置けます。</span></li>
+          <li><span><strong>行クリックで関連レコード詳細を別タブで開く</strong> — ポップアップ内の行をクリックすると、その関連レコードの詳細画面を別タブで開きます。元の一覧画面はそのまま残るので作業の中断がありません。</span></li>
+          <li><span><strong>並び順・絞り込みは kintone 設定に従う</strong> — ポップアップに表示される列・並び順・絞り込み条件は kintone の「関連レコード一覧」フィールド設定にそのまま従います。プラグイン側で上書きしないので、一覧画面と同じ見え方になります。</span></li>
+          <li><span><strong>リアルタイムプレビュー付き設定画面</strong> — 色・アイコン・件数を変更するとプラグイン設定画面のプレビューに即時反映。本番反映前に見え方を確認できます。</span></li>
+          <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。プラグインアップロードのみで導入完了します。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">設定画面の使い方</h2>
+      <p class="section-subtitle">2 つのタブ（基本設定／表示設定）で、必要な項目だけシンプルに設定できます。プログラミング知識は不要です。</p>
+
+      <div class="config-screenshots">
+        <div class="config-shot">
+          <img
+            src="/images/related-record-popup-config-01.png"
+            alt="関連レコードポップアップ表示プラグイン 設定画面① 基本設定タブ上部 — 表示する関連レコード一覧のチェックリスト（ドラッグで並び替え）と1ページあたりの表示件数ラジオ（5/10/20/30/50件）"
+            loading="lazy"
+          />
+          <div class="config-shot-caption">
+            <strong>① 基本設定タブ：関連レコード一覧の選択 + 表示件数</strong>
+            <p>アプリ内の「関連レコード一覧」フィールドをチェックボックスで選択し、ドラッグ＆ドロップで並び順（＝タブの表示順）を決定。1 ページあたりの表示件数も 5・10・20・30・50 件から選べます。</p>
+          </div>
+        </div>
+
+        <div class="config-shot">
+          <img
+            src="/images/related-record-popup-config-02.png"
+            alt="関連レコードポップアップ表示プラグイン 設定画面② 基本設定タブ下部 — トリガーアイコンの配置2択（詳細アイコンの隣／任意フィールドの列）、アイコン種類5タイル（矢印・リスト・プレビュー選択中・リンク・情報）、アイコン色プリセット10色＋カラーピッカー"
+            loading="lazy"
+          />
+          <div class="config-shot-caption">
+            <strong>② アイコンの配置・種類・色</strong>
+            <p>トリガーアイコンを「詳細アイコンの隣」「任意のフィールドの列」のどちらに置くかを選択。さらに矢印・リスト・プレビュー・リンク・情報の 5 種類から好みのアイコンを選び、色はネイビーやグリーンなど 10 色＋カラーピッカーで自由指定できます。</p>
+          </div>
+        </div>
+
+        <div class="config-shot">
+          <img
+            src="/images/related-record-popup-config-03.png"
+            alt="関連レコードポップアップ表示プラグイン 設定画面③ 表示設定タブ — ポップアップ背景色（淡色系10色＋カラーピッカー）・文字色（4色＋カラーピッカー）・ライブプレビュー（ペールシアン背景で発注履歴/クレームタブ付きサンプルテーブル）"
+            loading="lazy"
+          />
+          <div class="config-shot-caption">
+            <strong>③ 表示設定タブ：色 + ライブプレビュー</strong>
+            <p>ポップアップの背景色は淡色系 10 種類（ホワイト・クリーム・ペールミント等）から選択可能。文字色も別途指定でき、ヘッダー行の背景色は自動で最適化されます。下部のライブプレビューで実際の見え方を確認しながら調整できます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">事前にアプリのフォームに「関連レコード一覧」フィールドを 1 つ以上配置しておく必要があります（kintone 標準機能）。</p>
+      <ol class="steps-list">
+        <li>「プランについて」セクションのダウンロードボタンから <code>kw-related-record-popup-v1.0.0.zip</code> をダウンロード</li>
+        <li>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</li>
+        <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「関連レコードポップアップ表示」を追加</li>
+        <li>プラグイン設定画面で<strong>表示する関連レコード一覧</strong>を選択し、1 ページあたりの表示件数・トリガーアイコンの配置・種類・色などを設定して「保存」</li>
+        <li>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックして反映完了</li>
+      </ol>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 一覧画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-related-record-popup-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-related-record-popup" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">よくある質問</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            本当に無料で使えますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、ポップアップ表示・タブ切替・ページネーション・アイコンや色のカスタマイズなど、すべての機能を無料でご利用いただけます。利用期限もなく、ずっとお使いいただけます。レコード一覧画面に控えめな広告エリアが表示されますが、プラグインの動作には影響しません。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            「関連レコード一覧」フィールドを設定していないアプリでも使えますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              いいえ、本プラグインは kintone 標準の「関連レコード一覧」フィールドの内容をポップアップ表示するためのものです。アプリのフォームに 1 つ以上「関連レコード一覧」フィールドを配置しておく必要があります。配置・条件設定は kintone 標準機能で行います。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            表示される列や並び順は変えられますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              ポップアップに表示される<strong>列・並び順・絞り込み条件</strong>は、kintone の「関連レコード一覧」フィールド側の設定（「表示するフィールド」「表示するレコードの絞り込みと並び順」）にそのまま従います。プラグイン側で上書きはしません。並び順を「作成日時 降順」にすれば最新が上に表示されます。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            ポップアップに表示する件数は変えられますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、プラグイン設定画面で「1ページあたりの表示件数」を 5・10・20・30・50 件から選択できます。設定件数を超える関連レコードがある場合は、ポップアップ下部のページネーションボタン（&lt; / &gt;）でめくって表示します。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            関連レコードが大量にある場合のパフォーマンスは大丈夫ですか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              関連レコードはアイコンにホバーした瞬間に初めて取得されます（遅延フェッチ）。一覧画面の表示時にまとめて全件取得することはないため、一覧画面の表示速度には影響しません。一度取得した関連レコードはキャッシュされ、同じ行に再ホバーした際は瞬時に表示されます。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            モバイル版 kintone でも使えますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              本プラグインは PC 版 kintone でのみ動作します。モバイル版（スマートフォン・タブレット）では動作しません。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            ポップアップ内の行をクリックしたらどうなりますか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              ポップアップ内の関連レコードの行をクリックすると、その関連レコードの詳細画面が<strong>別タブ</strong>で開きます。元の一覧画面はそのまま残るので、作業の中断がありません。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            年間サポーターライセンスとは何ですか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              KIZUNA Works のプラグイン開発を応援していただける方向けの年間ライセンス（年額 ¥3,300・税込）です。広告エリアの非表示、プラグイン作成リクエスト・改善要望の送付、サポーターの声を優先反映などの特典があります。詳しくは <a href="/plugins/supporter/?plugin=kw-related-record-popup">サポーターライセンスのご案内</a> をご覧ください。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            設定にプログラミングの知識は必要ですか？
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              いいえ、プラグインの設定画面からすべての機能をノーコードで設定できます。チェックボックス・ラジオボタン・ドラッグ＆ドロップ・カラーピッカーで直感的に操作可能です。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">注意事項</h2>
+        <ul class="notes-list">
+          <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+          <li>kintone はサイボウズ株式会社の登録商標です。</li>
+          <li>動作は Google Chrome 最新版での確認を推奨します。</li>
+          <li>本プラグインは kintone 標準の「関連レコード一覧」フィールドが事前に設定されているアプリでのみ動作します。</li>
+          <li>サブテーブル内の関連レコードは対応していません。</li>
+          <li>ポップアップに表示される列・並び順は「関連レコード一覧」フィールド設定に従います。プラグイン側で上書きしません。</li>
+          <li>モバイル版 kintone では動作しません。PC 版でのみ動作します。</li>
+          <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+          <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">同じく無料で配布中の kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/quick-side-view/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/quick-side-view-banner.png" alt="クイックサイドビュープラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">クイックサイドビュー</h3>
+            <p class="related-post-desc">一覧画面で行クリック → 右側サイドバーで最大5件を並べて閲覧・編集。詳細画面の往復を解消。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/quick-history-view/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/quick-history-view-banner.png" alt="クイック履歴ビュープラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">クイック履歴ビュー</h3>
+            <p class="related-post-desc">レコード変更を自動でフィールド単位に記録し、詳細画面に表形式で時系列表示。GAS不要・kintone完結。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/lookup-suggest/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/lookup-suggest-banner.png" alt="ルックアップサジェストプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">ルックアップサジェスト</h3>
+            <p class="related-post-desc">ルックアップフィールドへの入力中に候補を直下表示。画面遷移なしで取得まで完結。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <SupporterCTA pluginId="kw-related-record-popup" />
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-related-record-popup-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-related-record-popup-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>
