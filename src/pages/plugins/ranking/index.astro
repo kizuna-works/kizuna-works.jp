@@ -63,13 +63,17 @@ function iconPathForPlugin(p: Plugin | undefined): string {
 
 const findPluginMeta = (pluginId: string) => plugins.find((p) => p.id === pluginId);
 
+// Display label drops the "for kintone" suffix to save horizontal space on the row.
+const shortenName = (name: string) => name.replace(/\s*for kintone\s*$/i, '').trim();
+
 const ranked = sourceList.map((rp, i) => {
   const meta = findPluginMeta(rp.pluginId);
   const href = meta ? `/plugins/${meta.slug}/` : '/plugins/';
+  const displayName = shortenName(rp.name);
   return {
     rank: i + 1,
     pluginId: rp.pluginId,
-    name: rp.name,
+    name: displayName,
     href,
     iconPath: iconPathForPlugin(meta),
     iconAlt: `${rp.name} アイコン`,
@@ -77,19 +81,23 @@ const ranked = sourceList.map((rp, i) => {
   };
 });
 
+// JSON-LD keeps the official name ("for kintone" suffix) for SEO / structured data.
 const rankedListJson = JSON.stringify(
-  ranked.map((p) => ({
-    '@type': 'ListItem',
-    position: p.rank,
-    item: {
-      '@type': 'SoftwareApplication',
-      name: p.name,
-      url: `https://kizuna-works.jp/plugins/${findPluginMeta(p.pluginId)?.slug ?? ''}/`,
-      description: p.summary,
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'kintone',
-    },
-  })),
+  ranked.map((p) => {
+    const meta = findPluginMeta(p.pluginId);
+    return {
+      '@type': 'ListItem',
+      position: p.rank,
+      item: {
+        '@type': 'SoftwareApplication',
+        name: meta?.name ?? p.name,
+        url: `https://kizuna-works.jp/plugins/${meta?.slug ?? ''}/`,
+        description: p.summary,
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'kintone',
+      },
+    };
+  }),
 );
 ---
 
