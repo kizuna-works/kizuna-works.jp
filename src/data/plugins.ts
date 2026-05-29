@@ -39,6 +39,12 @@ export interface Plugin {
   problemTitle: string;
   /** Problem detail rendered after the em dash on the same item. */
   problemDesc: string;
+  /**
+   * Public release date in ISO format (YYYY-MM-DD). Used as the tiebreaker for
+   * /plugins/ranking/ when install counts are equal — older releases rank higher.
+   * Should match the `pubDate` of the corresponding `plugin-*-release.md` news entry.
+   */
+  releaseDate?: string;
 }
 
 export const plugins: Plugin[] = [
@@ -61,6 +67,7 @@ export const plugins: Plugin[] = [
       '背景色・文字色・条件付きスタイルなど10機能をノーコード設定。kintoneの視認性を大幅向上。',
     problemTitle: 'フィールドの色分けや条件付き書式',
     problemDesc: 'JavaScript なしでノーコードに実現したい',
+    releaseDate: '2026-04-16',
   },
   {
     id: 'kw-conditional-numbering',
@@ -81,6 +88,7 @@ export const plugins: Plugin[] = [
       '部署・担当者・ステータス等の条件に応じて採番ルールを自動切替。CSV一括採番にも対応。',
     problemTitle: '採番ルールを条件で自動切替',
     problemDesc: 'CSVインポート後の一括採番にも対応したい',
+    releaseDate: '2026-04-18',
   },
   {
     id: 'kw-form-deco',
@@ -101,6 +109,7 @@ export const plugins: Plugin[] = [
       'レコード詳細画面の罫線とスペースフィールドの装飾をノーコードでカスタマイズ。',
     problemTitle: 'レコード詳細画面の見た目を整えたい',
     problemDesc: '罫線やスペース要素を JavaScript なしで装飾したい',
+    releaseDate: '2026-04-18',
   },
   {
     id: 'kw-lookup-suggest',
@@ -121,6 +130,7 @@ export const plugins: Plugin[] = [
       'ルックアップフィールドへの入力中に候補を直下表示。画面遷移なしで取得まで完結。',
     problemTitle: 'ルックアップ入力を高速化',
     problemDesc: '入力中に候補表示でクリック数を減らしたい',
+    releaseDate: '2026-04-18',
   },
   {
     id: 'kw-quick-search',
@@ -141,6 +151,7 @@ export const plugins: Plugin[] = [
       '一覧画面にインライン検索バーを設置。AND/OR切替・複数キーワード対応で横断検索を高速化。',
     problemTitle: '複数フィールドを横断検索',
     problemDesc: '標準の絞り込みパネルでは操作が面倒',
+    releaseDate: '2026-05-03',
   },
   {
     id: 'kw-file-icon-marker',
@@ -161,6 +172,7 @@ export const plugins: Plugin[] = [
       '一覧画面で添付ファイルの有無・種別・件数をアイコンで可視化。28種の拡張子別アイコン＋件数バッジ。',
     problemTitle: '添付ファイルの中身が一覧で分からない',
     problemDesc: '詳細画面を毎回開いて確認している',
+    releaseDate: '2026-05-03',
   },
   {
     id: 'kw-quick-side-view',
@@ -181,6 +193,7 @@ export const plugins: Plugin[] = [
       '一覧で行クリック→右側サイドバーで最大5件のレコードを並列表示・編集。詳細遷移なしで比較・並行編集。',
     problemTitle: '詳細画面と一覧の往復が多い',
     problemDesc: '内容確認のたびに開いて戻るのが面倒・複数レコードの比較もしづらい',
+    releaseDate: '2026-04-18',
   },
   {
     id: 'kw-record-lock',
@@ -201,6 +214,7 @@ export const plugins: Plugin[] = [
       '条件を満たすレコードを自動ロック。ステータス・期日切れ・特定値などで編集制限。管理者は除外設定で編集可能。',
     problemTitle: '受注済みレコードの編集を防ぎたい',
     problemDesc: 'ステータスや日付などの条件で自動ロック、管理者のみ編集できるようにしたい',
+    releaseDate: '2026-05-16',
   },
   {
     id: 'kw-field-comment',
@@ -221,6 +235,7 @@ export const plugins: Plugin[] = [
       'フィールド名横にヘルプアイコンや常時表示コメントを追加。3モード（ホバー/クリック/常時）でルールを担当者に伝達。',
     problemTitle: 'フィールドに入力ルールを表示したい',
     problemDesc: 'フォーム上のラベルだけでは伝わらないヘルプや注意書きを簡単に出したい',
+    releaseDate: '2026-05-18',
   },
   {
     id: 'kw-theme-styler',
@@ -241,6 +256,7 @@ export const plugins: Plugin[] = [
       'アプリ上部に関連アプリ・社内ポータル・外部サイトへのクイックリンクを集約。テーマ色も1色で統一。',
     problemTitle: '関連アプリ・マニュアル・外部サイトへの行き来が面倒',
     problemDesc: 'タイトル帯にテキストとボタンで最大6個のリンクを集約してワンクリック遷移できるようにしたい',
+    releaseDate: '2026-05-22',
   },
   {
     id: 'kw-address-assist',
@@ -261,6 +277,7 @@ export const plugins: Plugin[] = [
       '郵便番号 → 住所自動入力 ＋ Google マップ URL 生成 ＋ レコード詳細画面に地図プレビュー直接表示 ＋ ワンクリックコピー。',
     problemTitle: '住所入力と地図確認の往復が面倒',
     problemDesc: '郵便番号入力で住所を自動入力し、レコードを開いた瞬間に地図プレビューまで一気に見たい',
+    releaseDate: '2026-05-23',
   },
   {
     id: 'kw-quick-history-view',
@@ -281,6 +298,7 @@ export const plugins: Plugin[] = [
       'レコード変更を自動でフィールド単位に記録し、詳細画面に表形式で時系列表示。GAS不要・kintone完結。',
     problemTitle: 'いつ誰が何を変えたか分からない',
     problemDesc: 'レコードの変更前後を自動で記録し、詳細画面で時系列の変更履歴テーブルとして見たい',
+    releaseDate: '2026-05-24',
   },
   {
     id: 'kw-related-record-popup',
@@ -301,6 +319,7 @@ export const plugins: Plugin[] = [
       '一覧画面のアイコンにホバーするだけで関連レコードをポップアップ表示。タブ切替・ページネーション対応。',
     problemTitle: '関連レコード確認のたびに詳細を開きたくない',
     problemDesc: '一覧画面のままホバーで関連レコードを素早く確認したい',
+    releaseDate: '2026-05-29',
   },
 ];
 

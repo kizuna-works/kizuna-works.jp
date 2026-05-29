@@ -62,6 +62,8 @@ c:\kizuna-works.jp\
 │   │   │   └── rss.xml.ts      # お知らせ RSS フィード（/news/rss.xml）
 │   │   ├── plugins/
 │   │   │   ├── index.astro     # プラグイン一覧ページ（/plugins/）
+│   │   │   ├── ranking/
+│   │   │   │   └── index.astro # プラグイン ダウンロードランキング全件ページ（/plugins/ranking/）― GAS から全件取得し順位付け表示。同数時はリリース日が古い方を上位
 │   │   │   ├── supporter/
 │   │   │   │   └── index.astro # 年間サポーターライセンス案内＆申込フォーム（/plugins/supporter/）
 │   │   │   ├── field-styler/

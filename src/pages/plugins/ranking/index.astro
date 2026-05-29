@@ -1,0 +1,433 @@
+---
+// /plugins/ranking/ — kintone プラグイン ダウンロードランキング全件
+// データソース：GAS の使用ドメイン台帳（pluginId 単位のユニークドメイン数）
+// 集計方針：count 降順 → 同数時はリリース日が古い方を上位（＝新しい方を下位）→ プラグインID 昇順
+// ダウンロード数（実数）は出さない。順位のみ表示する仕様。
+import Layout from '../../../layouts/Layout.astro';
+import { plugins, type Plugin } from '../../../data/plugins';
+
+const PAGE_URL = 'https://kizuna-works.jp/plugins/ranking/';
+const GAS_RANKING_URL =
+  'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec?action=ranking&limit=all';
+const FETCH_TIMEOUT_MS = 10_000;
+const TODAY = '2026-05-29';
+
+type RankedPlugin = { pluginId: string; name: string; pageUrl: string };
+
+let rankedFromGas: RankedPlugin[] = [];
+let fetchFailed = false;
+
+try {
+  const controller = new AbortController();
+  const t = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  const res = await fetch(GAS_RANKING_URL, { signal: controller.signal });
+  clearTimeout(t);
+  if (res.ok) {
+    const data = await res.json();
+    if (Array.isArray(data?.topPlugins)) {
+      rankedFromGas = data.topPlugins;
+    }
+  } else {
+    fetchFailed = true;
+  }
+} catch (e) {
+  fetchFailed = true;
+  console.warn('[plugins/ranking] GAS fetch failed, using fallback:', e);
+}
+
+// フォールバック：plugins.ts を releaseDate 昇順（古い順）で並べる
+const availablePlugins = plugins.filter((p) => p.status === 'available');
+const fallbackList: RankedPlugin[] = [...availablePlugins]
+  .sort((a, b) => {
+    const aDate = a.releaseDate ?? '9999-99-99';
+    const bDate = b.releaseDate ?? '9999-99-99';
+    return aDate.localeCompare(bDate);
+  })
+  .map((p) => ({
+    pluginId: p.id,
+    name: p.name,
+    pageUrl: `https://kizuna-works.jp/plugins/${p.slug}/`,
+  }));
+
+const usingFallback = rankedFromGas.length === 0;
+const sourceList = usingFallback ? fallbackList : rankedFromGas;
+
+// アイコンパス解決：slug ベースが原則。kw-conditional-numbering のみ例外（InstallRankingTop3 と同じ）
+function iconPathForPlugin(p: Plugin | undefined): string {
+  if (!p) return '/images/favicon.png';
+  if (p.slug === 'kw-conditional-numbering') {
+    return '/images/conditional-numbering-icon.png';
+  }
+  return `/images/${p.slug}-icon.png`;
+}
+
+const findPluginMeta = (pluginId: string) => plugins.find((p) => p.id === pluginId);
+
+const ranked = sourceList.map((rp, i) => {
+  const meta = findPluginMeta(rp.pluginId);
+  const href = meta ? `/plugins/${meta.slug}/` : '/plugins/';
+  return {
+    rank: i + 1,
+    pluginId: rp.pluginId,
+    name: rp.name,
+    href,
+    iconPath: iconPathForPlugin(meta),
+    iconAlt: `${rp.name} アイコン`,
+    summary: meta?.cardDescription ?? meta?.description ?? '',
+  };
+});
+
+const rankedListJson = JSON.stringify(
+  ranked.map((p) => ({
+    '@type': 'ListItem',
+    position: p.rank,
+    item: {
+      '@type': 'SoftwareApplication',
+      name: p.name,
+      url: `https://kizuna-works.jp/plugins/${findPluginMeta(p.pluginId)?.slug ?? ''}/`,
+      description: p.summary,
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'kintone',
+    },
+  })),
+);
+---
+
+<Layout
+  title="kintone プラグイン ダウンロードランキング | KIZUNA Works"
+  description="KIZUNA Works が公開する kintone プラグイン全種のダウンロードランキング。実際の利用環境（ユニークドメイン）数で集計し、人気のプラグインから順番に紹介。同数時はリリース日が古いプラグインを上位として表示します。"
+  ogTitle="kintone プラグイン ダウンロードランキング | KIZUNA Works"
+  ogDescription="KIZUNA Works が公開する kintone プラグイン全種のダウンロードランキング。実際の利用環境数で集計し、人気のプラグインから順番に紹介。"
+  ogUrl={PAGE_URL}
+  ogType="website"
+  canonical={PAGE_URL}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={`{
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "${PAGE_URL}",
+          "url": "${PAGE_URL}",
+          "name": "kintone プラグイン ダウンロードランキング | KIZUNA Works",
+          "description": "KIZUNA Works が公開する kintone プラグイン全種のダウンロードランキング。実際の利用環境数（ユニークドメイン）で集計し人気順に表示。",
+          "dateModified": "${TODAY}",
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintone プラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "ダウンロードランキング", "item": "${PAGE_URL}" }
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "name": "kintone プラグイン ダウンロードランキング",
+          "itemListOrder": "https://schema.org/ItemListOrderDescending",
+          "numberOfItems": ${ranked.length},
+          "itemListElement": ${rankedListJson}
+        }
+      ]
+    }`} />
+  </Fragment>
+
+  <main>
+    <section class="ranking-hero">
+      <div class="ranking-hero-inner">
+        <span class="ranking-hero-icon" aria-hidden="true">🏆</span>
+        <h1>kintone プラグイン ダウンロードランキング</h1>
+        <p class="ranking-hero-lead">
+          KIZUNA Works が公開する kintone プラグイン全種のダウンロードランキングです。実際の利用環境（ユニークドメイン）数で集計し、人気のプラグインから順番に紹介しています。
+        </p>
+      </div>
+    </section>
+    <div class="hero-gradient-line"></div>
+
+    <section class="ranking-policy-section">
+      <div class="ranking-policy-inner">
+        <h2>集計方針</h2>
+        <ul>
+          <li><strong>実環境ベースで集計</strong>：プラグイン稼働時に送られる利用ドメインの重複を排除した「ユニークドメイン数」で順位付けしています。</li>
+          <li><strong>ダウンロード数は非表示</strong>：実数は公開せず、順位のみで掲載しています。</li>
+          <li><strong>同数時のタイブレーク</strong>：件数が同じ場合は「リリース日が古いプラグイン」を上位とし、新しいプラグインは下位に表示します。</li>
+          <li><strong>更新タイミング</strong>：このページはサイトビルド時に最新の集計結果を取得します。</li>
+        </ul>
+        {fetchFailed && (
+          <p class="ranking-fallback-note">
+            ※ 集計サーバーから順位を取得できなかったため、暫定的に「リリース順」で表示しています。
+          </p>
+        )}
+      </div>
+    </section>
+
+    <section class="ranking-list-section">
+      <div class="ranking-list-inner">
+        <ol class="ranking-list" aria-label="プラグインダウンロードランキング">
+          {ranked.map((p) => (
+            <li class={`ranking-row rank-${p.rank <= 3 ? p.rank : 'n'}`}>
+              <a href={p.href} class="ranking-row-link">
+                <span class="ranking-rank" aria-label={`第${p.rank}位`}>
+                  <span class="ranking-rank-num">{p.rank}</span>
+                  <span class="ranking-rank-suffix">位</span>
+                </span>
+                <img
+                  src={p.iconPath}
+                  alt={p.iconAlt}
+                  class="ranking-icon"
+                  width="64"
+                  height="64"
+                  loading="lazy"
+                  onerror="this.src='/images/favicon.png';"
+                />
+                <div class="ranking-body">
+                  <h3 class="ranking-name">{p.name}</h3>
+                  <p class="ranking-summary">{p.summary}</p>
+                </div>
+                <span class="ranking-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="ranking-bottom-cta">
+      <div class="ranking-bottom-cta-inner">
+        <p>各プラグインは <a href="/plugins/">プラグイン一覧</a> から、利用条件は <a href="/plugins/supporter/">年間サポーターライセンス</a> からご確認いただけます。</p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style is:global>
+  body { background-color: #F0F4F8; }
+
+  .ranking-hero {
+    background: linear-gradient(135deg, rgba(27,58,107,0.45) 0%, rgba(42,82,152,0.4) 100%),
+                url('/images/plugins-bg.webp') center center / cover no-repeat;
+    background-color: #1B3A6B;
+    padding: 80px 5%;
+    text-align: center;
+    color: #FFFFFF;
+  }
+  .ranking-hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .ranking-hero-icon {
+    font-size: 44px;
+    line-height: 1;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+  .ranking-hero h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 6px 0 14px 0;
+    letter-spacing: 0.04em;
+  }
+  .ranking-hero-lead {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    max-width: 760px;
+    margin: 0 auto;
+    font-weight: 500;
+  }
+  .hero-gradient-line {
+    height: 6px;
+    background: linear-gradient(to right, #1B3A6B, #2E8B2E);
+    width: 100%;
+    display: block;
+  }
+
+  .ranking-policy-section {
+    padding: 48px 5% 16px;
+  }
+  .ranking-policy-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    padding: 28px 32px;
+  }
+  .ranking-policy-inner h2 {
+    color: #1B3A6B;
+    font-size: 1.25rem;
+    margin: 0 0 14px 0;
+    padding-left: 12px;
+    border-left: 4px solid #2E8B2E;
+  }
+  .ranking-policy-inner ul {
+    margin: 0;
+    padding-left: 1.3em;
+    color: #333333;
+    line-height: 1.8;
+    font-size: 0.95rem;
+  }
+  .ranking-policy-inner li {
+    margin-bottom: 4px;
+  }
+  .ranking-fallback-note {
+    margin: 12px 0 0 0;
+    padding: 10px 14px;
+    background: #fff8e6;
+    border: 1px solid #f6d36a;
+    color: #6a4f00;
+    border-radius: 8px;
+    font-size: 0.88rem;
+  }
+
+  .ranking-list-section {
+    padding: 32px 5% 56px;
+  }
+  .ranking-list-inner {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .ranking-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .ranking-row {
+    background: #FFFFFF;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+  .ranking-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(27,58,107,0.10);
+    border-color: #1B3A6B;
+  }
+  .ranking-row-link {
+    display: grid;
+    grid-template-columns: 80px 64px 1fr 32px;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    text-decoration: none;
+    color: #333333;
+  }
+  .ranking-rank {
+    text-align: center;
+    color: #1B3A6B;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    line-height: 1;
+  }
+  .ranking-rank-num {
+    font-size: 2rem;
+    letter-spacing: 0.02em;
+  }
+  .ranking-rank-suffix {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 4px;
+  }
+  .rank-1 .ranking-rank-num { color: #d4a017; }
+  .rank-2 .ranking-rank-num { color: #8a96a4; }
+  .rank-3 .ranking-rank-num { color: #b97240; }
+
+  .rank-1 { background: linear-gradient(90deg, #fffaeb 0%, #ffffff 60%); border-top: 3px solid #ffc940; }
+  .rank-2 { background: linear-gradient(90deg, #f5f7fa 0%, #ffffff 60%); border-top: 3px solid #b0b8c1; }
+  .rank-3 { background: linear-gradient(90deg, #fbf3ec 0%, #ffffff 60%); border-top: 3px solid #d28b5a; }
+
+  .ranking-icon {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #ffffff;
+  }
+  .ranking-body {
+    min-width: 0;
+  }
+  .ranking-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1B3A6B;
+    margin: 0 0 4px 0;
+    line-height: 1.4;
+  }
+  .ranking-summary {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .ranking-arrow {
+    color: #2E8B2E;
+    font-size: 1.4rem;
+    font-weight: 700;
+    transition: transform 0.18s ease;
+  }
+  .ranking-row:hover .ranking-arrow {
+    transform: translateX(4px);
+  }
+
+  .ranking-bottom-cta {
+    padding: 0 5% 64px;
+  }
+  .ranking-bottom-cta-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 20px 28px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .ranking-bottom-cta-inner p {
+    margin: 0;
+    color: #333333;
+    font-size: 0.95rem;
+  }
+  .ranking-bottom-cta-inner a {
+    color: #1B3A6B;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+  .ranking-bottom-cta-inner a:hover {
+    color: #2E8B2E;
+  }
+
+  @media (max-width: 768px) {
+    .ranking-hero {
+      padding: 56px 5%;
+    }
+    .ranking-hero h1 {
+      font-size: 1.55rem;
+    }
+    .ranking-hero-lead {
+      font-size: 0.95rem;
+    }
+    .ranking-policy-inner {
+      padding: 22px 18px;
+    }
+    .ranking-row-link {
+      grid-template-columns: 56px 48px 1fr;
+      grid-template-rows: auto auto;
+      gap: 10px 12px;
+      padding: 14px;
+    }
+    .ranking-rank-num { font-size: 1.5rem; }
+    .ranking-icon { width: 48px; height: 48px; }
+    .ranking-arrow {
+      display: none;
+    }
+    .ranking-name { font-size: 1rem; }
+    .ranking-summary { font-size: 0.85rem; }
+  }
+</style>
