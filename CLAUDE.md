@@ -325,16 +325,23 @@ grep -E "blog-prose table|blog-prose img|min-width:0|overflow-x:clip" dist/blog/
 ### 投入手順
 
 1. `src/content/news/<slug>.md` を作成（スラッグは日付なし・kebab-case）
-2. frontmatter は最小：`title` / `description`（120 字程度） / `pubDate`（追加日） / `category` / `externalUrl?`
-3. `externalUrl` を指定すると個別ページは生成されず、一覧から外部リンクへ直接飛ぶ（障害情報など外部 URL が一次情報のケース向け）
-4. `externalUrl` 未指定の場合は本文 Markdown を書く。本文末尾に該当ページへの内部リンク（`[〇〇プラグインページを見る →](/plugins/〇〇/)` など）を必ず置く
-5. ビルドで `/news/index.html` `/news/<slug>/index.html`（個別ページ型のみ）`/news/rss.xml` が更新されることを確認
+2. frontmatter は最小：`title` / `description`（120 字程度） / `pubDate`（追加日） / `category` / `externalUrl?` / **`ogImage?`**
+3. **`ogImage` は必ず検討する**（SNS シェア時のサムネに直結）。対応する画像が `public/` 配下に存在すれば必ず指定する。マッピング：
+   - プラグインリリース・アップデート → `/images/<plugin-slug>-banner.png`（例：`/images/field-styler-after.png` / `/images/form-deco-banner.png`）
+   - 拡張機能リリース・アップデート → `/images/extensions/<ext-slug>-banner.png`
+   - ブログ記事公開のお知らせ → 対応ブログ記事の `ogImage` と同じ画像（`/images/blog/<slug>.png`）
+   - 無料ツールリリース → `/images/<tool>-preview.png`（存在する場合のみ）
+   - 障害情報・kintone アップデート系で対応画像がない場合は省略（サイト共通 ogp.png にフォールバック）
+4. `externalUrl` を指定すると個別ページは生成されず、一覧から外部リンクへ直接飛ぶ（障害情報など外部 URL が一次情報のケース向け）
+5. `externalUrl` 未指定の場合は本文 Markdown を書く。本文末尾に該当ページへの内部リンク（`[〇〇プラグインページを見る →](/plugins/〇〇/)` など）を必ず置く
+6. ビルドで `/news/index.html` `/news/<slug>/index.html`（個別ページ型のみ）`/news/rss.xml` が更新されることを確認
 
 ### 追加時のチェック
 
 - [ ] `pubDate` は ISO 形式の日付（`2026-05-18`）
 - [ ] `category` は `release` / `update` / `incident` / `notice` のいずれか
 - [ ] `description` は LLMO 観点で 40〜140 字、結論ファースト
+- [ ] **`ogImage` を検討した（対応画像が public/ 配下に存在すれば必ず指定）**
 - [ ] 該当コンテンツのコミットと同じコミットに含める（別コミットにしない）
 
 ---
