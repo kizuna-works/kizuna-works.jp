@@ -26,6 +26,12 @@ const news = defineCollection({
 		updatedDate: z.coerce.date().optional(),
 		category: z.enum(['release', 'update', 'incident', 'notice']),
 		externalUrl: z.string().url().optional(),
+		/**
+		 * Path under /public for the OGP image (e.g. "/images/field-styler-after.png").
+		 * Falls back to the site-wide default when omitted. Use the plugin / extension /
+		 * blog banner that the news entry refers to so SNS shares get a relevant thumb.
+		 */
+		ogImage: z.string().optional(),
 	}),
 });
 

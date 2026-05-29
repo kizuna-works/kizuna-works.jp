@@ -3,6 +3,7 @@ title: "kintone プラグイン「住所アシスト for kintone」v1.0.0 を公
 description: "郵便番号入力で住所自動入力＋Google マップ URL 生成＋レコード詳細画面に地図プレビュー直接表示＋住所コピーまで一気通貫の新プラグイン「住所アシスト for kintone」v1.0.0 を公開。レコードを開いた瞬間に地図が見える業務効率が他社プラグインとの差別化ポイント。"
 pubDate: 2026-05-23
 category: release
+ogImage: "/images/address-assist-banner.png"
 ---
 
 郵便番号を入れるだけで **住所自動入力**、さらに **Google マップ URL 自動生成**・kintone のレコード詳細画面に **Google マップを直接プレビュー表示**・**住所のワンクリックコピー** までを一気通貫で提供する新プラグイン「**住所アシスト for kintone**」v1.0.0 を公開しました。

@@ -3,6 +3,7 @@ title: "kintone プラグイン「テーマスタイラー for kintone」v1.0.0 
 description: "kintone アプリのタイトル帯に関連 kintone アプリ・社内ポータル・マニュアル・外部 Web サイトへのクイックリンク（テキスト＋最大5個のボタン）を集約できる新プラグイン「テーマスタイラー for kintone」v1.0.0 を公開しました。テーマカラー一括着色、10種フォント、50種ボタンスタイル対応。"
 pubDate: 2026-05-22
 category: release
+ogImage: "/images/theme-styler-banner.png"
 ---
 
 kintone アプリのタイトル帯に**関連 kintone アプリ・社内ポータル・マニュアル・外部 Web サイト**へのクイックリンクをまとめて配置できる新プラグイン「**テーマスタイラー for kintone**」v1.0.0 を公開しました。アプリを「業務のハブ」として使えるようにし、関連アプリやよく見る Web ページに **ワンクリック**でアクセスできます。

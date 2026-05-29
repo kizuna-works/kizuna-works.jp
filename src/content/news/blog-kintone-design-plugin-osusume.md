@@ -3,6 +3,7 @@ title: "ブログ記事「kintone デザイン変更プラグイン特集」を�
 description: "背景色・文字色・タブ表示・条件付き書式など、kintone の画面 UI を改善するおすすめのデザイン変更プラグインを徹底解説するブログ記事を公開しました。"
 pubDate: 2026-04-29
 category: release
+ogImage: "/images/blog/kintone-design-plugin-osusume.png"
 ---
 
 kintone の画面 UI を改善するおすすめのデザイン変更プラグインを徹底解説しました。背景色・文字色・タブ表示・条件付き書式など主要ツールの比較、2026 年 4 月の API アップデート最新情報、アクセシビリティに配慮した配色のコツまでわかりやすく紹介します。

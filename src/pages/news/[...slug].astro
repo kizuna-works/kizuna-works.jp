@@ -32,6 +32,9 @@ const pageUrl = `https://kizuna-works.jp/news/${item.id}/`;
 const cat = item.data.category;
 const pubIso = item.data.pubDate.toISOString();
 const modIso = (item.data.updatedDate ?? item.data.pubDate).toISOString();
+const ogImage = item.data.ogImage
+  ? `https://kizuna-works.jp${item.data.ogImage}`
+  : 'https://kizuna-works.jp/images/ogp.png';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -44,6 +47,7 @@ const jsonLd = {
       description: item.data.description,
       datePublished: pubIso,
       dateModified: modIso,
+      image: ogImage,
       author: {
         '@type': 'Organization',
         name: 'KIZUNA Works',
@@ -78,6 +82,7 @@ const jsonLd = {
   description={item.data.description}
   ogUrl={pageUrl}
   ogType="article"
+  ogImage={ogImage}
   canonical={pageUrl}
 >
   <Fragment slot="head">

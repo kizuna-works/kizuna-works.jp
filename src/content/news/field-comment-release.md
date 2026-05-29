@@ -3,6 +3,7 @@ title: "kintone プラグイン「フィールドコメント」v1.0.0 を公開
 description: "kintone のフィールド名横にヘルプアイコンや常時表示コメントを追加できる新プラグイン「フィールドコメント」v1.0.0 を公開しました。入力ルールや注意事項を担当者に伝えられます。"
 pubDate: 2026-05-18
 category: release
+ogImage: "/images/field-comment-banner.png"
 ---
 
 kintone のフィールド名横にヘルプアイコンや常時表示コメントを追加できる新プラグイン「**フィールドコメント**」v1.0.0 を公開しました。

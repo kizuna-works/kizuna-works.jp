@@ -3,6 +3,7 @@ title: "kintone プラグイン「クイック履歴ビュー for kintone」v1.0
 description: "レコード保存のたびに「いつ・誰が・どのフィールドを・何から何に変えたか」を自動記録し、レコード詳細画面に時系列の表形式で表示する kintone プラグイン「クイック履歴ビュー for kintone」v1.0.0 を公開しました。GAS や外部サービス不要、kintone 完結。"
 pubDate: 2026-05-24
 category: release
+ogImage: "/images/quick-history-view-banner.png"
 ---
 
 レコード保存のたびに**フィールド単位で変更前後の値・変更者・日時を自動記録**し、レコード詳細画面に時系列の表形式で表示する新プラグイン「**クイック履歴ビュー for kintone**」v1.0.0 を公開しました。GAS や外部サービスは不要、**kintone 内で完結**する手軽な変更履歴ソリューションです。
