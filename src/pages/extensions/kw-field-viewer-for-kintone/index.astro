@@ -54,6 +54,7 @@ import Layout from '../../../layouts/Layout.astro';
           "softwareVersion": "2.2.0",
           "inLanguage": "ja",
           "dateModified": "2026-05-29",
+          "releaseNotes": "v2.2.0（2026-05-29）: GROUP フィールド配下にあるフィールドの親子関係を、CSV / JSON / Markdown / HTML すべてのエクスポート形式に反映。CSV は「親グループ」列を追加、JSON は parentGroup プロパティを追加、Markdown はグループ配下のフィールド名に └ プレフィックスを付与、HTML はグループ配下行を左マージン＋ストライプ＋└ マークでインデント表示。フォームの階層構造を保ったままドキュメント化できるようになりました。",
           "downloadUrl": "https://chromewebstore.google.com/detail/kw-field-viewer-for-kinto/fcnbfaedmhllphnbpmngfblfogdjcfaj",
           "installUrl": "https://chromewebstore.google.com/detail/kw-field-viewer-for-kinto/fcnbfaedmhllphnbpmngfblfogdjcfaj",
           "offers": {
@@ -767,6 +768,129 @@ import Layout from '../../../layouts/Layout.astro';
       .gallery-row { grid-template-columns: 1fr; gap: 24px; }
       .bottom-cta-title { font-size: 22px; }
     }
+
+    /* Update Notice Section */
+    .update-section {
+      background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
+      border-top: 4px solid var(--color-green);
+      padding: 48px 5%;
+    }
+    .update-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .update-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .update-tag {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .update-version {
+      display: inline-block;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .update-date {
+      color: var(--color-text-light);
+      font-size: 14px;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .update-summary {
+      color: var(--color-text);
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .update-examples {
+      background-color: var(--color-white);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .update-examples h4 {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .update-examples ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .update-examples li {
+      padding: 8px 0;
+      font-size: 14px;
+      color: var(--color-text);
+      line-height: 1.7;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+    .update-examples li:last-child {
+      border-bottom: none;
+    }
+    .update-examples code {
+      background-color: #F0F4F8;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--color-navy);
+      font-family: 'Courier New', monospace;
+    }
+    .update-sample {
+      background-color: var(--color-white);
+      border-radius: 8px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .update-sample h4 {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .update-sample pre {
+      background-color: #1B3A6B;
+      color: #e2e8f0;
+      padding: 16px 18px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.7;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+    }
+    .update-sample-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin-top: 10px;
+    }
+    @media (max-width: 768px) {
+      .update-title { font-size: 18px; }
+      .update-summary { font-size: 15px; }
+      .update-examples, .update-sample { padding: 16px 18px; }
+    }
   </style>
 
   <main>
@@ -791,6 +915,44 @@ import Layout from '../../../layouts/Layout.astro';
         CSV / JSON / Markdown / HTML 形式でのエクスポートにも対応。
       </p>
       <a href="https://chromewebstore.google.com/detail/kw-field-viewer-for-kinto/fcnbfaedmhllphnbpmngfblfogdjcfaj" class="btn-primary" target="_blank" rel="noopener noreferrer">Chrome Web Store で入手する</a>
+    </section>
+
+    <!-- Update Notice -->
+    <section class="update-section fade-in">
+      <div class="update-inner">
+        <div class="update-header">
+          <span class="update-tag">UPDATE</span>
+          <span class="update-version">v2.2.0</span>
+          <span class="update-date">2026年5月29日リリース</span>
+        </div>
+        <h2 class="update-title">GROUP フィールド配下の親子関係をエクスポートに反映 — フォーム階層を保ったままドキュメント化</h2>
+        <p class="update-summary">
+          v2.2.0 では、kintone の <strong>GROUP（グループ）フィールド配下にあるフィールド</strong>が、どの GROUP に属しているかを <strong>CSV / JSON / Markdown / HTML すべてのエクスポート形式</strong>で出力できるようになりました。<br>
+          グループに分かれた複雑なフォーム構造でも、親グループ情報を含めた一覧をワンクリックで取得できます。
+        </p>
+
+        <div class="update-examples">
+          <h4>🆕 v2.2.0 で追加・変更された機能</h4>
+          <ul>
+            <li>📊 <strong>CSV エクスポート</strong>：「親グループ」列を追加。グループ配下のフィールドには所属する GROUP のフィールドコードが入る</li>
+            <li>🧩 <strong>JSON エクスポート</strong>：各フィールドオブジェクトに <code>parentGroup</code> プロパティを追加。API 連携用途でも階層情報を保持</li>
+            <li>📝 <strong>Markdown エクスポート</strong>：グループ配下のフィールド名に <code>└ </code> プレフィックスを付与し、Wiki でも階層が一目で分かる表現に</li>
+            <li>📄 <strong>HTML エクスポート</strong>：グループ配下のフィールド行を <strong>左マージン + ストライプ + └ マーク</strong>でインデント表示</li>
+          </ul>
+        </div>
+
+        <div class="update-sample">
+          <h4>📋 Markdown 出力例（v2.2.0）</h4>
+<pre>| フィールド名 | フィールドコード | タイプ | 選択肢 |
+|---|---|---|---|
+| 顧客情報 | customer_group | グループ |  |
+| └ 会社名 | `company_name` | 文字列（1行） |  |
+| └ 担当者 | `contact_person` | 文字列（1行） |  |
+| 案件詳細 | project_group | グループ |  |
+| └ 受注金額 | `order_amount` | 数値 |  |</pre>
+          <p class="update-sample-note">グループに属するフィールドは <code>└ </code> プレフィックスで視覚的に階層化されるため、Wiki やドキュメントにそのまま貼り付けても構造が崩れません。</p>
+        </div>
+      </div>
     </section>
 
     <section class="section-bg">
