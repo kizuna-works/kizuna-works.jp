@@ -1,0 +1,974 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="集計サマリーバー for kintone - 一覧ヘッダーに合計・件数を即時表示 | KIZUNA Works"
+  description="kintone レコード一覧のヘッダーに合計・平均・最大・最小・件数の集計カードを表示するプラグイン。絞り込みに連動して即時に再集計し、グラフ画面に移動せず数字を確認。表示中／全件トグル・条件付き色分け・段組みに対応。"
+  ogTitle="集計サマリーバー for kintone - 一覧ヘッダーに合計・件数を即時表示 | KIZUNA Works"
+  ogDescription="kintone レコード一覧のヘッダーに合計・平均・最大・最小・件数の集計カードを表示するプラグイン。絞り込みに連動して即時に再集計し、グラフ画面に移動せず数字を確認。表示中／全件トグル・条件付き色分け・段組みに対応。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/summary-bar/"
+  ogImage="https://kizuna-works.jp/images/summary-bar-banner.png"
+  canonical="https://kizuna-works.jp/plugins/summary-bar/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/summary-bar/",
+          "url": "https://kizuna-works.jp/plugins/summary-bar/",
+          "name": "集計サマリーバー for kintone - 一覧ヘッダーに合計・件数を即時表示 | KIZUNA Works",
+          "description": "kintone レコード一覧のヘッダーに合計・平均・件数などの集計カードを表示するプラグイン。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/summary-bar-banner.png",
+            "width": 1200,
+            "height": 675
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "集計サマリーバー for kintone", "item": "https://kizuna-works.jp/plugins/summary-bar/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "集計サマリーバー for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-05-30",
+          "url": "https://kizuna-works.jp/plugins/summary-bar/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-summary-bar-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/summary-bar-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone レコード一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示する kintone プラグイン。絞り込みに連動して即時に再集計する。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "レコード一覧ヘッダーに合計・平均・最大・最小・件数の集計カードを表示",
+            "絞り込み・ソートに連動して即時に再集計（debounce 制御）",
+            "「表示中（現在ページ）／絞り込み全件」をトグルでワンクリック切替",
+            "全件集計はページングで取得し、上限件数で API 負荷を保護",
+            "一覧ビューごとに別のカード構成を保持（1一覧あたり最大10枚）",
+            "集計値による条件付き色分け（固定値・別フィールドの同一集計値と比較）",
+            "カードごとに表示段（1〜3段）を指定して段組みレイアウト",
+            "カード配置（左寄せ・中央・右寄せ・均等フル幅）と集計値の文字寄せ",
+            "プレフィックス・サフィックス（¥ / 円 / % など）で数値を整形",
+            "淡色テーマ8種＋カードごとの個別配色上書き",
+            "カードの並べ替え（▲▼ボタン・ドラッグ）",
+            "GAS・外部サービス不要・kintone完結"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot Frame (live action screenshot) */
+    .screenshot-frame {
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair figure {
+      margin: 0;
+    }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame {
+      margin: 0;
+    }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/summary-bar-icon.png"
+        alt="集計サマリーバープラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">集計サマリーバー for kintone</h1>
+      <p class="hero-copy">レコード一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示する kintone プラグインです。絞り込みに連動して即時に再集計するので、グラフ画面に移動せず「今この一覧の数字」をひと目で把握できます。一覧ビューごとに別のカード構成を設定でき、集計値による色分けや段組みにも対応します。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">絞り込んだ結果の合計や件数を知るために、わざわざグラフ画面を開いていませんか？</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">📊</span>
+            <h3 class="problem-title">合計を見るのにグラフ画面へ移動</h3>
+            <p class="problem-desc">絞り込んだ一覧の合計金額や件数を知りたいだけなのに、グラフ画面に切り替えて集計条件を設定して…と手間がかかる。一覧の上でそのまま見たい。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🔍</span>
+            <h3 class="problem-title">絞り込むたびに数字を確認したい</h3>
+            <p class="problem-desc">担当者やステータスで絞り込むたびに、その結果の合計・件数をすぐ確認したい。絞り込みと集計が連動していないと、毎回集計し直す必要がある。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🎯</span>
+            <h3 class="problem-title">一覧ごとに見たい数字が違う</h3>
+            <p class="problem-desc">案件一覧では売上合計、在庫一覧では件数と平均…と、一覧ビューごとに見たい指標が異なる。それぞれに合わせた集計を常設したい。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Screenshot — Plugin in action (Before / After) -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">導入前と導入後</h2>
+      <p class="section-subtitle">一覧ヘッダーに集計カードが並び、絞り込みに連動して数字が即座に更新されます</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              src="/images/summary-bar-before.png"
+              alt="集計サマリーバー導入前の kintone レコード一覧画面 — ヘッダーに集計表示がなく、合計や件数を確認するにはグラフ画面に移動する必要がある状態"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>導入前：一覧に集計表示がない（合計を見るにはグラフ画面へ）</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              src="/images/summary-bar-action-01.png"
+              alt="集計サマリーバー導入後の kintone レコード一覧画面 — ヘッダーに件数・発注予定金額（合計）・発注予定金額（平均）・発注金額（合計・平均・最大）・利益率（平均）の集計カードが並び、右端に表示中／全件の切替トグルが表示された状態"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>導入後：一覧ヘッダーに合計・平均・件数などの集計カードを常設</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">主な機能</h2>
+        <ul class="feature-list">
+          <li><span><strong>一覧ヘッダーに集計カードを常設</strong> — 合計・平均・最大・最小・件数の集計カードをレコード一覧画面の上部に並べて表示。詳細画面やグラフ画面に移動せず、その場で数字を確認できます。</span></li>
+          <li><span><strong>絞り込みに連動して即時再集計</strong> — 一覧の絞り込みやソートを変えると、その結果に合わせてカードが自動で再集計されます。多重実行を抑える debounce 制御付き。</span></li>
+          <li><span><strong>「表示中／絞り込み全件」をトグル切替</strong> — バー右端のトグルで、現在ページだけの集計と、絞り込み条件に合致する全レコードの集計をワンクリックで切り替え。全件はページングで取得し、上限件数（既定 5,000 件）で API 負荷を保護します。</span></li>
+          <li><span><strong>一覧ビューごとに別のカード構成</strong> — 一覧ビューごとに、表示するカードの種類・順番・色を別々に設定可能。1 一覧あたり最大 10 枚まで並べられます。</span></li>
+          <li><span><strong>集計値による条件付き色分け</strong> — 集計値が条件（以上・以下・等しい等）に一致したカードの配色をテーマで切替。比較先は固定値のほか、別の数値フィールドの同じ集計値も指定でき、「売上合計が目標売上合計を上回ったら緑」といった表示ができます。</span></li>
+          <li><span><strong>段組みレイアウト</strong> — カードごとに「表示段（1〜3段）」を指定でき、同じ段のカードが横に並び段ごとに改行されます。カード数が多くても見やすく整理できます。</span></li>
+          <li><span><strong>配置・文字寄せ・整形</strong> — カードの配置（左寄せ・中央・右寄せ・均等フル幅）、集計値の文字寄せ（左・中央・右）、プレフィックス／サフィックス（¥ / 円 / % など）で見た目を細かく調整できます。</span></li>
+          <li><span><strong>淡色テーマ8種＋個別配色</strong> — バー全体のカード配色を淡色テーマ 8 種から選べるほか、カードごとに背景・文字・ラベル・枠線の色を個別に上書きできます。</span></li>
+          <li><span><strong>カードの並べ替え</strong> — 設定画面で ▲▼ ボタンまたはドラッグでカードの順番を変更可能。並び順がそのまま一覧上の表示順になります。</span></li>
+          <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。プラグインアップロードのみで導入完了します。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Layout variations -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">配置・段組みも自由自在</h2>
+      <p class="section-subtitle">カードの段（行）・配置・文字寄せを組み合わせて、一覧の幅やカード数に合わせて整列できます</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              src="/images/summary-bar-action-03.png"
+              alt="集計サマリーバーのカードを2段・中央寄せで表示した kintone 一覧画面 — 上段に4枚、下段に3枚の集計カードがバー中央に配置された状態"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>2段・中央寄せ</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              src="/images/summary-bar-action-04.png"
+              alt="集計サマリーバーのカードを2段・左寄せで表示した kintone 一覧画面 — 上段に4枚、下段に3枚の集計カードがバー左側に配置された状態"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>2段・左寄せ</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定画面の使い方</h2>
+        <p class="section-subtitle">「基本設定」「カード設定」の2タブで、必要な項目だけシンプルに設定できます。プログラミング知識は不要です。</p>
+
+        <div class="config-screenshots">
+          <div class="config-shot">
+            <img
+              src="/images/summary-bar-config-01.png"
+              alt="集計サマリーバー 設定画面① 基本設定タブ上部 — 対象一覧のチェックリスト、デフォルト集計範囲（表示中／絞り込み全件）のラジオ、集計範囲トグル表示のチェックボックス"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>① 基本設定：対象一覧・集計範囲・トグル</strong>
+              <p>サマリーバーを表示する一覧ビューを選択し、最初に集計する範囲（表示中／絞り込み全件）と、範囲切替トグルを表示するかどうかを設定します。</p>
+            </div>
+          </div>
+
+          <div class="config-shot">
+            <img
+              src="/images/summary-bar-config-02.png"
+              alt="集計サマリーバー 設定画面② 基本設定タブ下部 — 平均の小数桁・全件取得の上限件数、カードの配置（左寄せ／中央／右寄せ／均等フル幅）、集計値の文字位置、カードテーマ（スカイ）のプレビュー"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>② 数値表示・配置・テーマ</strong>
+              <p>平均の小数桁や全件取得の上限件数、カードの配置・集計値の文字寄せ、淡色テーマ8種をプレビューを見ながら選べます。</p>
+            </div>
+          </div>
+
+          <div class="config-shot">
+            <img
+              src="/images/summary-bar-config-03.png"
+              alt="集計サマリーバー 設定画面③ カード設定タブ — カードを設定する一覧の選択、カード1の集計方法（合計・平均・最大・最小・件数）・カードラベル・プレフィックス／サフィックス・配色上書き・表示段の設定"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>③ カード設定：集計方法・ラベル・段</strong>
+              <p>一覧ごとにカードを追加し、集計方法・対象フィールド・ラベル・プレフィックス／サフィックス・表示段（1〜3段）を設定。▲▼やドラッグで並べ替えできます。</p>
+            </div>
+          </div>
+
+          <div class="config-shot">
+            <img
+              src="/images/summary-bar-config-04.png"
+              alt="集計サマリーバー 設定画面④ 値による色分け条件 — 集計値が別フィールド（発注予定金額）の合計以上ならピーチ、より小さいならレモンに配色を切り替える条件設定"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>④ 値による条件付き色分け</strong>
+              <p>集計値が固定値や別フィールドの集計値と比べて条件に一致したとき、カードの配色をテーマで切り替え。目標達成状況をひと目で可視化できます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">集計に使う数値（または計算）フィールドと、テーブル形式の一覧ビューがあるアプリでご利用いただけます。</p>
+      <ol class="steps-list">
+        <li>「プランについて」セクションのダウンロードボタンから <code>kw-summary-bar-v1.0.0.zip</code> をダウンロード</li>
+        <li>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</li>
+        <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「集計サマリーバー」を追加</li>
+        <li>プラグイン設定画面で<strong>対象一覧</strong>を選び、「カード設定」タブで集計方法・対象フィールド・表示段などを設定して「保存」</li>
+        <li>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックして反映完了</li>
+      </ol>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 一覧画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-summary-bar-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-summary-bar" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Notes Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">注意事項</h2>
+        <ul class="notes-list">
+          <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+          <li>kintone はサイボウズ株式会社の登録商標です。</li>
+          <li>動作は Google Chrome 最新版での確認を推奨します。</li>
+          <li>本プラグインはレコード一覧画面（PC 版）でのみ動作します。詳細・編集画面では動作しません。</li>
+          <li>カレンダービュー・カスタマイズビューでは表示されません。テーブル形式の一覧ビューでのみ動作します。</li>
+          <li>合計・平均は数値／計算（数値結果）フィールド、最大・最小は数値・計算・日付・日時フィールドが対象です。文字列・選択肢系フィールドは集計対象外です（件数のみ可）。</li>
+          <li>サブテーブル内フィールドの集計には対応していません。</li>
+          <li>「絞り込み全件」集計は対象レコードを取得するため、件数が多いほど処理に時間がかかります。上限件数で保護されます。</li>
+          <li>モバイル版 kintone では動作しません。PC 版でのみ動作します。</li>
+          <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+          <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+        </ul>
+      </div>
+    </section>
+    <PluginFaqSection pluginId="kw-summary-bar" pageUrl="https://kizuna-works.jp/plugins/summary-bar/" />
+    <SupporterCTA pluginId="kw-summary-bar" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">同じく無料で配布中の kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/quick-search/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/quick-search-banner.png" alt="クイックサーチプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">クイックサーチ</h3>
+            <p class="related-post-desc">一覧画面にインライン検索バーを設置。AND/OR切替・複数キーワード対応で横断検索を高速化。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/file-icon-marker/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/file-icon-marker-banner.png" alt="添付ファイルアイコン表示プラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">添付ファイルアイコン表示</h3>
+            <p class="related-post-desc">一覧画面で添付ファイルの有無・種別・件数をアイコンで可視化。28種の拡張子別アイコン＋件数バッジ。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/related-record-popup/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/related-record-popup-banner.png" alt="関連レコードポップアップ表示プラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">関連レコードポップアップ表示</h3>
+            <p class="related-post-desc">一覧画面のアイコンにホバーするだけで関連レコードをポップアップ表示。タブ切替・ページネーション対応。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-summary-bar-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-summary-bar-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

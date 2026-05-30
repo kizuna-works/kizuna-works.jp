@@ -321,6 +321,27 @@ export const plugins: Plugin[] = [
     problemDesc: '一覧画面のままホバーで関連レコードを素早く確認したい',
     releaseDate: '2026-05-29',
   },
+  {
+    id: 'kw-summary-bar',
+    name: '集計サマリーバー for kintone',
+    formName: '集計サマリーバー for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'summary-bar',
+    description:
+      'kintone レコード一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示するプラグイン。絞り込みに連動して即時に再集計し、グラフ画面に移動せず「今この一覧の数字」をひと目で把握できます。表示中／絞り込み全件のトグル切替、一覧ビューごとの別カード構成（最大10枚）、集計値による条件付き色分け（固定値・別フィールド比較）、段組み・配置・淡色テーマ8種に対応。GAS・外部サービス不要で kintone 完結。',
+    image: '/images/summary-bar-banner.png',
+    imageAlt:
+      '集計サマリーバー for kintone プラグイン — レコード一覧のヘッダーに合計・平均・件数などの集計カードを並べて表示',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '一覧ヘッダーに合計・平均・件数などの集計カードを表示。絞り込み連動で即時再集計、条件付き色分け・段組み対応。',
+    problemTitle: '絞り込んだ一覧の合計や件数をすぐ見たい',
+    problemDesc: 'グラフ画面に移動せず、一覧の上でそのまま集計を確認したい',
+    releaseDate: '2026-05-30',
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({

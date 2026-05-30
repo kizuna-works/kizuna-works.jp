@@ -90,8 +90,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 住所アシストプラグイン製品ページ（/plugins/address-assist/）— 郵便番号→住所自動入力＋レコード詳細画面に Google マップ直接プレビュー（差別化）
 │   │   │   ├── quick-history-view/
 │   │   │   │   └── index.astro # クイック履歴ビュープラグイン製品ページ（/plugins/quick-history-view/）— レコード変更履歴を自動記録し詳細画面に時系列テーブル表示・kintone 完結
-│   │   │   └── related-record-popup/
-│   │   │       └── index.astro # 関連レコードポップアップ表示プラグイン製品ページ（/plugins/related-record-popup/）— 一覧画面のアイコンにホバーで関連レコード一覧をポップアップ表示・タブ切替・ページネーション対応
+│   │   │   ├── related-record-popup/
+│   │   │   │   └── index.astro # 関連レコードポップアップ表示プラグイン製品ページ（/plugins/related-record-popup/）— 一覧画面のアイコンにホバーで関連レコード一覧をポップアップ表示・タブ切替・ページネーション対応
+│   │   │   └── summary-bar/
+│   │   │       └── index.astro # 集計サマリーバープラグイン製品ページ（/plugins/summary-bar/）— 一覧ヘッダーに合計・平均・件数等の集計カードを表示・絞り込み連動再集計・条件付き色分け・段組み対応
 │   │   ├── tools/
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   │   ├── extensions/
@@ -205,6 +207,17 @@ c:\kizuna-works.jp\
 │   │   ├── related-record-popup-config-01.png # 関連レコードポップアップ表示 設定画面スクショ① — 基本設定タブ上部（表示する関連レコード一覧のチェックリスト・並び替え注意書きボックス・1ページあたりの表示件数 5件/10件/20件/30件/50件 ラジオ）
 │   │   ├── related-record-popup-config-02.png # 関連レコードポップアップ表示 設定画面スクショ② — 基本設定タブ下部（トリガーアイコンの配置 2択／トリガーアイコンの種類 5タイル[矢印・リスト・プレビュー選択中・リンク・情報]／トリガーアイコンの色プリセット10色+カラーピッカー）
 │   │   ├── related-record-popup-config-03.png # 関連レコードポップアップ表示 設定画面スクショ③ — 表示設定タブ（ポップアップの背景色 淡色系10色＋カラーピッカー、文字色 4色＋カラーピッカー、ライブプレビュー：ペールシアン背景で「発注履歴(3)/クレーム(1)」タブ付きサンプルテーブル）
+│   │   ├── summary-bar-icon.png            # 集計サマリーバー for kintone プラグイン アイコン（200×200・ヒーロー画像用）
+│   │   ├── summary-bar-banner.png          # 集計サマリーバー for kintone バナー（1200×675・OGP/グリッド共用）
+│   │   ├── summary-bar-before.png          # 集計サマリーバー 導入前スクショ — 一覧ヘッダーに集計表示がない状態
+│   │   ├── summary-bar-action-01.png       # 集計サマリーバー 導入後スクショ① — 一覧ヘッダーに件数・発注予定金額(合計/平均)・発注金額(合計/平均/最大)・利益率(平均)の集計カードと表示中/全件トグルを表示
+│   │   ├── summary-bar-action-02.png       # 集計サマリーバー 動作スクショ② — カードを2段で表示
+│   │   ├── summary-bar-action-03.png       # 集計サマリーバー 動作スクショ③ — 2段・中央寄せ配置
+│   │   ├── summary-bar-action-04.png       # 集計サマリーバー 動作スクショ④ — 2段・左寄せ配置
+│   │   ├── summary-bar-config-01.png       # 集計サマリーバー 設定画面スクショ① — 基本設定タブ（対象一覧・デフォルト集計範囲・集計範囲トグル表示）
+│   │   ├── summary-bar-config-02.png       # 集計サマリーバー 設定画面スクショ② — 基本設定タブ下部（数値表示・カードの配置・集計値の文字位置・カードテーマ）
+│   │   ├── summary-bar-config-03.png       # 集計サマリーバー 設定画面スクショ③ — カード設定タブ（集計方法・ラベル・プレフィックス/サフィックス・表示段）
+│   │   ├── summary-bar-config-04.png       # 集計サマリーバー 設定画面スクショ④ — 値による条件付き色分け（別フィールド比較）
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
@@ -249,7 +262,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-theme-styler-v1.0.0.zip                  # テーマスタイラー for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-address-assist-v1.0.0.zip                # 住所アシスト for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-quick-history-view-v1.0.0.zip            # クイック履歴ビュー for kintone プラグイン配布ファイル（手動配置）
-│   │   └── kw-related-record-popup-v1.0.0.zip          # 関連レコードポップアップ表示 for kintone プラグイン配布ファイル（手動配置）
+│   │   ├── kw-related-record-popup-v1.0.0.zip          # 関連レコードポップアップ表示 for kintone プラグイン配布ファイル（手動配置）
+│   │   └── kw-summary-bar-v1.0.0.zip                    # 集計サマリーバー for kintone プラグイン配布ファイル（手動配置）
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）
