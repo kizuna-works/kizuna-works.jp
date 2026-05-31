@@ -233,6 +233,7 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [【2026年最新】kintoneの見た目を劇的に改善！おすすめデザイン変更プラグイン特集](/blog/kintone-design-plugin-osusume/) — 一覧の視認性を上げて作業効率を底上げ
 - [【2026年4月最新】kintoneアップデート総まとめ](/blog/kintone-2026-04-update/) — ルックアップ強化・除外検索など最新仕様を網羅
 - [kintoneが定着しない本当の理由｜管理者が見落としがちな7つの原因](/blog/kintone-teichaku-shinai-riyu/) — 業務テンポ改善と合わせて押さえたい定着のポイント
+- [【2026年最新】kintoneルックアップを快適にするプラグイン比較](/blog/kintone-lookup-plugin-hikaku/) — 入力の手間を解消する4つのアプローチを比較。閲覧・編集の効率化とあわせて入力負担も軽減
 - [クイックサイドビュー（無料）](/plugins/quick-side-view/) — 一覧画面で行クリック→サイドバーで最大5件のレコードを並列表示・編集
 - [クイックサーチ（無料）](/plugins/quick-search/) — 一覧画面にインライン検索バーを追加するKIZUNA Works製プラグイン
 - [プラグイン一覧](/plugins/) — KIZUNA Worksが提供するすべてのkintoneプラグイン

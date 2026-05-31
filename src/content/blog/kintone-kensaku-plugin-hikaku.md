@@ -150,6 +150,7 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [【2026年4月最新】kintoneアップデート総まとめ](/blog/kintone-2026-04-update/) — ルックアップの1文字検索・除外検索など、検索周りの最新仕様を網羅
 - [【2026年最新版】kintoneの注目アップデート＆AI活用術](/blog/kintone-2026-update/) — 2026年3月の大型アップデートとAI連携トレンド
 - [kintoneが定着しない本当の理由｜管理者が見落としがちな7つの原因](/blog/kintone-teichaku-shinai-riyu/) — 検索性の改善と合わせて押さえたい定着化のポイント
+- [【2026年最新】kintoneルックアップを快適にするプラグイン比較](/blog/kintone-lookup-plugin-hikaku/) — ルックアップ入力の手間を解消する4つのアプローチを比較。検索とあわせて入力負担を軽減
 - [クイックサーチ（無料）](/plugins/quick-search/) — 一覧画面にインライン検索バーを追加するKIZUNA Works製プラグイン
 - [ルックアップサジェスト（無料）](/plugins/lookup-suggest/) — ルックアップ入力時に候補をリアルタイム表示するKIZUNA Works製プラグイン
 - [プラグイン一覧](/plugins/) — KIZUNA Worksが提供するすべてのkintoneプラグイン
