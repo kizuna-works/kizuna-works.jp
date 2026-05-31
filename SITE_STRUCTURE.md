@@ -121,7 +121,8 @@ c:\kizuna-works.jp\
 │   │       ├── kintone-2026-04-update.md            # 「2026年4月最新 kintoneアップデート総まとめ」記事
 │   │       ├── kintone-design-plugin-osusume.md     # 「kintone デザイン変更プラグイン特集」記事
 │   │       ├── kintone-kensaku-plugin-hikaku.md     # 「kintoneの検索・絞り込みを改善するプラグイン比較【2026年版】」記事
-│   │       └── kintone-quick-side-view-plugin-hikaku.md # 「kintone一覧でレコードを閲覧・編集できるプラグイン比較」記事
+│   │       ├── kintone-quick-side-view-plugin-hikaku.md # 「kintone一覧でレコードを閲覧・編集できるプラグイン比較」記事
+│   │       └── kintone-lookup-plugin-hikaku.md      # 「【2026年最新】kintoneルックアップを快適にするプラグイン比較」記事（入力サジェスト/自動取得/先更新/編集絞り込みの4アプローチ比較）
 │   └── styles/
 │       └── global.css          # グローバルCSS（最小リセット・スティッキーフッター用）
 │
@@ -245,7 +246,8 @@ c:\kizuna-works.jp\
 │   │       ├── kintone-design-plugin-osusume-color-rule.png   # 同記事 60:30:10配色ルール図解
 │   │       ├── kintone-design-plugin-osusume-install.png      # 同記事 フィールドスタイラー設定画面スクショ
 │   │       ├── kintone-kensaku-plugin-hikaku.png        # 「kintone検索・絞り込みプラグイン比較」記事 OGP・サムネイル
-│   │       └── kintone-quick-side-view-plugin-hikaku.png # 「kintone一覧でレコードを閲覧・編集できるプラグイン比較」記事 OGP・サムネイル
+│   │       ├── kintone-quick-side-view-plugin-hikaku.png # 「kintone一覧でレコードを閲覧・編集できるプラグイン比較」記事 OGP・サムネイル
+│   │       └── kintone-lookup-plugin-hikaku.png         # 「kintoneルックアップを快適にするプラグイン比較」記事 OGP・サムネイル
 │   ├── downloads/
 │   │   ├── .gitkeep                                    # ディレクトリをGit管理するための空ファイル
 │   │   ├── kw-conditional-numbering-v1.1.0.zip         # 条件分岐自動採番プラグイン配布ファイル（手動配置）
