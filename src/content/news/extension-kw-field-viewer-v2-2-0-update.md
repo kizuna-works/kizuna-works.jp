@@ -1,7 +1,7 @@
 ---
 title: "Chrome 拡張機能「KW Field Viewer for kintone」を v2.2.0 にアップデートしました"
 description: "GROUP フィールド配下の親子関係を CSV／JSON／Markdown／HTML エクスポートに反映。グループ内フィールドはインデント表示され、フォームの階層構造を保ったままドキュメント化できるようになりました。"
-pubDate: 2026-05-29
+pubDate: 2026-06-03
 category: update
 ogImage: "/images/extensions/kw-field-viewer-banner.png"
 ---
