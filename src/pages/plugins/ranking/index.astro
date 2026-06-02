@@ -10,7 +10,9 @@ const PAGE_URL = 'https://kizuna-works.jp/plugins/ranking/';
 const GAS_RANKING_URL =
   'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec?action=ranking&limit=all';
 const FETCH_TIMEOUT_MS = 10_000;
-const TODAY = '2026-05-29';
+// Build-time date (JST) so JSON-LD dateModified reflects each daily rebuild (ranking refreshes daily).
+// Add 9h to UTC before slicing — GitHub Actions runs in UTC and the daily cron fires at 21:00 UTC (06:00 JST).
+const TODAY = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
 
 type RankedPlugin = { pluginId: string; name: string; pageUrl: string };
 
