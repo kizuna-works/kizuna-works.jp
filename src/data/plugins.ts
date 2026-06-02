@@ -342,6 +342,27 @@ export const plugins: Plugin[] = [
     problemDesc: 'グラフ画面に移動せず、一覧の上でそのまま集計を確認したい',
     releaseDate: '2026-05-30',
   },
+  {
+    id: 'kw-csv-export',
+    name: 'かんたんCSV出力 for kintone',
+    formName: 'かんたんCSV出力 for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'csv-export',
+    description:
+      'kintone レコード一覧の絞り込み結果を、用途別テンプレート（出力する列・並び順・ヘッダー名・文字コード）でワンクリックCSV出力するプラグイン。「得意先提出用」「基幹システム取込用」などのフォーマットを名前付きで保存でき、クイックサーチ等の絞り込みにそのまま連動。UTF-8(BOM有/無)・Shift-JIS の文字コード選択で Excel の文字化けも防止。ファイル名は部品で組み立て、対象一覧の限定やボタン色のカスタマイズにも対応。GAS・外部サービス不要で kintone 完結。',
+    image: '/images/csv-export-banner.png',
+    imageAlt:
+      'かんたんCSV出力 for kintone プラグイン — レコード一覧の絞り込み結果を用途別テンプレートでワンクリックCSV出力',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '一覧の絞り込み結果を用途別テンプレートでワンクリックCSV出力。列・ヘッダー名・文字コードを保存、クイックサーチ連動。',
+    problemTitle: 'いつものフォーマットでCSVを書き出したい',
+    problemDesc: '毎回フィールドを選び直さず、絞り込んだ結果をテンプレートで一発出力したい',
+    releaseDate: '2026-06-03',
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({

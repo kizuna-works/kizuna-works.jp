@@ -1,0 +1,1082 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="かんたんCSV出力 for kintone - 絞り込み結果をテンプレートでワンクリック書き出し | KIZUNA Works"
+  description="kintone レコード一覧の絞り込み結果を、用途別テンプレート（列・並び順・ヘッダー名・文字コード）でワンクリックCSV出力するプラグイン。クイックサーチ等の絞り込みに連動し、Shift-JIS／UTF-8(BOM)にも対応。kintone完結・外部API不使用。"
+  ogTitle="かんたんCSV出力 for kintone - 絞り込み結果をテンプレートでワンクリック書き出し | KIZUNA Works"
+  ogDescription="kintone レコード一覧の絞り込み結果を、用途別テンプレート（列・並び順・ヘッダー名・文字コード）でワンクリックCSV出力するプラグイン。クイックサーチ等の絞り込みに連動し、Shift-JIS／UTF-8(BOM)にも対応。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/csv-export/"
+  ogImage="https://kizuna-works.jp/images/csv-export-banner.png"
+  canonical="https://kizuna-works.jp/plugins/csv-export/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/csv-export/",
+          "url": "https://kizuna-works.jp/plugins/csv-export/",
+          "name": "かんたんCSV出力 for kintone - 絞り込み結果をテンプレートでワンクリック書き出し | KIZUNA Works",
+          "description": "kintone レコード一覧の絞り込み結果を、用途別テンプレートでワンクリックCSV出力するプラグイン。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/csv-export-banner.png",
+            "width": 1200,
+            "height": 675
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "かんたんCSV出力 for kintone", "item": "https://kizuna-works.jp/plugins/csv-export/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "かんたんCSV出力 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-06-03",
+          "url": "https://kizuna-works.jp/plugins/csv-export/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-csv-export-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/csv-export-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone レコード一覧の絞り込み結果を、用途別テンプレート（列・並び順・ヘッダー名・文字コード）でワンクリックCSV出力する kintone プラグイン。クイックサーチ等の絞り込みに連動する。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "用途別テンプレート（提出用・基幹取込用など）を名前付きで保存しワンクリック出力",
+            "出力する列・並び順を自由に指定（ドラッグ／▲▼で並べ替え）",
+            "各列のヘッダー名を任意変更（空欄ならフィールド名）",
+            "同一テンプレート内で同じフィールドの重複選択を防止",
+            "絞り込み（クイックサーチ含む）に連動して出力",
+            "「表示中／絞り込み全件」を自動判定・選択（全件はページング取得）",
+            "文字コード UTF-8(BOM有/無)・Shift-JIS を選択（Excel文字化け対策）",
+            "区切り（カンマ/タブ）・改行（CRLF/LF）を選択",
+            "ファイル名を部品（アプリ名・テンプレ名・一覧名・日時・区切り・自由文字）で組み立て・ライブプレビュー",
+            "テンプレートを特定の一覧ビューに限定表示",
+            "CSV出力ボタンの色を10色プリセット＋カラーピッカーでカスタマイズ",
+            "GAS・外部サービス不要・kintone完結（Shift-JIS変換も同梱ライブラリで実施）"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .btn-disabled {
+      display: block;
+      text-align: center;
+      background-color: #cbd5e1;
+      color: #ffffff;
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: default;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot Frame (live action screenshot) */
+    .screenshot-frame {
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair figure {
+      margin: 0;
+    }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame {
+      margin: 0;
+    }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Combo (pairs-well-with) section */
+    .combo-box {
+      background: var(--color-white);
+      border: 2px solid #cde3cd;
+      border-radius: 16px;
+      padding: 36px 32px;
+      max-width: 980px;
+      margin: 0 auto;
+      box-shadow: 0 4px 16px rgba(46,139,46,0.08);
+    }
+    .combo-flow {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .combo-step {
+      flex: 1 1 200px;
+      max-width: 260px;
+      background: #f7faf7;
+      border: 1px solid #dcebdc;
+      border-radius: 12px;
+      padding: 20px 18px;
+      text-align: center;
+    }
+    .combo-step .combo-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--color-green);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .combo-step strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+    .combo-step p {
+      font-size: 13px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+      margin: 0;
+    }
+    .combo-step .combo-plugin {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-green);
+      background: #eaf5ea;
+      border-radius: 10px;
+      padding: 2px 10px;
+      margin-bottom: 10px;
+    }
+    .combo-arrow {
+      display: flex;
+      align-items: center;
+      font-size: 26px;
+      color: var(--color-green);
+      font-weight: 700;
+    }
+    .combo-cta {
+      text-align: center;
+      margin-top: 28px;
+    }
+    .combo-link {
+      display: inline-block;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .combo-link:hover { border-bottom-color: var(--color-green); }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .combo-arrow { transform: rotate(90deg); }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/csv-export-icon.png"
+        alt="かんたんCSV出力プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">かんたんCSV出力 for kintone</h1>
+      <p class="hero-copy">かんたんCSV出力 for kintone は、レコード一覧の絞り込み結果を「用途別テンプレート」（出力する列・並び順・ヘッダー名・文字コード）でワンクリック書き出しする kintone プラグインです。「得意先提出用」「基幹システム取込用」などのフォーマットを名前付きで保存でき、クイックサーチ等の絞り込みにそのまま連動。Excel の文字化け対策（Shift-JIS／UTF-8 BOM）にも対応します。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">kintone 標準の書き出しは多機能ですが、毎回の設定・文字化け・メニュー移動に手間を感じていませんか？</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🔁</span>
+            <h3 class="problem-title">毎回フィールドを選び直す</h3>
+            <p class="problem-desc">標準の書き出しは、出力するたびに列を選び直すのが手間。「いつもの並び・いつもの項目」をテンプレートとして保存しておきたい。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🈳</span>
+            <h3 class="problem-title">Excel で開くと文字化け</h3>
+            <p class="problem-desc">出力した CSV を Excel で開くと日本語が文字化けする。提出先や取込先に合わせて文字コードを選べると安心。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🏷️</span>
+            <h3 class="problem-title">ヘッダー名が提出書類に合わない</h3>
+            <p class="problem-desc">ヘッダーがフィールド名固定で、提出書類や取込フォーマットの項目名に合わない。「会社名→得意先名」のように出し分けたい。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action flow screenshots -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">絞り込んで、ワンクリックで書き出し</h2>
+      <p class="section-subtitle">一覧ツールバーの「CSV出力」ボタンから、テンプレートを選ぶだけ。今の絞り込み結果がそのまま CSV になります。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              src="/images/csv-export-action-01.png"
+              alt="かんたんCSV出力 導入後の kintone レコード一覧画面 — ツールバーに緑色の「CSV出力」ボタンが設置され、クイックサーチや絞り込みと並んで表示された状態"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>① 一覧ツールバーに「CSV出力」ボタンを設置</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              src="/images/csv-export-action-02.png"
+              alt="かんたんCSV出力 のテンプレート選択ダイアログ — 「出力に使うテンプレートを選んでください」の見出しと、テンプレートを選ぶプルダウン、キャンセル／出力ボタンが表示された状態"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>② テンプレートを選んで「出力」</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              src="/images/csv-export-action-03.png"
+              alt="かんたんCSV出力 で書き出した CSV を Excel で開いた画面 — 案件No.・案件名・会社名・確度・受注予定日・提案商品・売上の列が、テンプレートで指定した順序・ヘッダー名で出力された状態"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>③ テンプレートどおりの列・ヘッダー名で CSV を出力（文字化けなし）</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">主な機能</h2>
+        <ul class="feature-list">
+          <li><span><strong>用途別テンプレートをワンクリック出力</strong> — 「得意先提出用」「会計システム取込用」などの出力フォーマットを名前付きで保存。一覧ツールバーの「CSV出力」ボタンから選ぶだけで書き出せます。毎回フィールドを選び直す必要がありません。</span></li>
+          <li><span><strong>列・並び順・ヘッダー名を自由に設定</strong> — 出力する列とその順番を指定でき、各列のヘッダー名（1行目）を任意に変更できます（例：「会社名」→「得意先名」）。一度選んだフィールドは他の列の候補に出ないため、重複選択も防げます。</span></li>
+          <li><span><strong>絞り込み（クイックサーチ含む）に連動</strong> — 一覧の絞り込み条件・クイックサーチのキーワードにそのまま連動して出力。「表示中のレコード」か「絞り込み全件」かを自動判定し、件数が多いときだけ範囲を選べます。全件はページングで取得します。</span></li>
+          <li><span><strong>文字コード・区切り・改行を選択</strong> — テンプレートごとに UTF-8（BOM有/無）／Shift-JIS、カンマ／タブ、CRLF／LF を選択可能。Excel で開いて文字化けする問題を防げます。Shift-JIS 変換も同梱ライブラリで kintone 内完結です。</span></li>
+          <li><span><strong>ファイル名を部品で組み立て</strong> — アプリ名・テンプレート名・一覧名・日時・区切り文字（_ / -）・自由入力文字を部品として並べ替えてファイル名を作成。完成形をリアルタイムプレビューで確認できます。</span></li>
+          <li><span><strong>型に応じた値の整形</strong> — 日付・日時の書式、複数値（チェックボックス・ユーザー選択など）の区切り、ユーザー／組織の表示（表示名／ログイン名）を設定可能。添付ファイルはファイル名を出力します。</span></li>
+          <li><span><strong>対象一覧の限定・ボタン色のカスタマイズ</strong> — テンプレートを特定の一覧ビューだけに表示するよう限定でき、「CSV出力」ボタンの色は10色プリセット＋カラーピッカーで変更できます。</span></li>
+          <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。プラグインアップロードのみで導入完了します。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Pairs well with Quick Search -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">クイックサーチと合わせて使うのがおすすめ</h2>
+      <p class="section-subtitle">「すばやく絞り込む」クイックサーチと「絞り込み結果を書き出す」かんたんCSV出力。組み合わせると、欲しいデータだけを最短でCSVにできます。</p>
+      <div class="combo-box">
+        <div class="combo-flow">
+          <div class="combo-step">
+            <span class="combo-plugin">クイックサーチ</span>
+            <span class="combo-num">1</span>
+            <strong>キーワードで絞り込む</strong>
+            <p>一覧の検索バーにキーワードを入力。複数フィールドを横断してその場で絞り込みます。</p>
+          </div>
+          <div class="combo-arrow">→</div>
+          <div class="combo-step">
+            <span class="combo-plugin">かんたんCSV出力</span>
+            <span class="combo-num">2</span>
+            <strong>テンプレートを選んで出力</strong>
+            <p>「CSV出力」ボタンから用途別テンプレートを選択。今の絞り込み結果にそのまま連動します。</p>
+          </div>
+          <div class="combo-arrow">→</div>
+          <div class="combo-step">
+            <span class="combo-plugin">完成</span>
+            <span class="combo-num">3</span>
+            <strong>必要なデータだけをCSVに</strong>
+            <p>絞り込んだレコードを、指定した列・ヘッダー名・文字コードで書き出し。提出・取込用フォーマットが即完成。</p>
+          </div>
+        </div>
+        <div class="combo-cta">
+          <a href="/plugins/quick-search/" class="combo-link">クイックサーチ for kintone を見る →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定画面の使い方</h2>
+        <p class="section-subtitle">テンプレートを作り、出力する列・整形・文字コード・ファイル名を設定するだけ。プログラミング知識は不要です。</p>
+
+        <div class="config-screenshots">
+          <div class="config-shot">
+            <img
+              src="/images/csv-export-config-01.png"
+              alt="かんたんCSV出力 設定画面① テンプレート作成前 — 出力テンプレートの追加ボタン、全体設定の全件出力の上限件数、CSV出力ボタンの色を選ぶ10色プリセットとカラーピッカー"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>① 全体設定・ボタンの色</strong>
+              <p>全件出力の上限件数を設定し、一覧に表示する「CSV出力」ボタンの色を10色プリセットまたはカラーピッカーで選べます。</p>
+            </div>
+          </div>
+
+          <div class="config-shot">
+            <img
+              src="/images/csv-export-config-02.png"
+              alt="かんたんCSV出力 設定画面② テンプレート作成 — テンプレート名、対象一覧を特定の一覧ビューに限定するチェックリスト、出力する列を追加するエリア"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>② テンプレート作成・対象一覧</strong>
+              <p>テンプレート名を付け、表示する一覧ビューを限定（または全ビュー）。出力する列を追加していきます。</p>
+            </div>
+          </div>
+
+          <div class="config-shot">
+            <img
+              src="/images/csv-export-config-03.png"
+              alt="かんたんCSV出力 設定画面③ 列と整形 — 出力する列（案件名・確度・会社名・初回商談日・提案商品）と各列のヘッダー名、日付/日時の書式、複数値の区切り、文字コード・区切り文字・改行コードの設定"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>③ 列・ヘッダー名・整形・出力設定</strong>
+              <p>出力する列と順番、各列のヘッダー名、日付書式や複数値の区切り、文字コード（UTF-8/Shift-JIS）・区切り・改行を設定します。</p>
+            </div>
+          </div>
+
+          <div class="config-shot">
+            <img
+              src="/images/csv-export-config-04.png"
+              alt="かんたんCSV出力 設定画面④ ファイル名ビルダー — アプリ名・区切り・テンプレート名・日時・自由文字の部品を並べ、完成したファイル名をプレビュー表示"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>④ ファイル名ビルダー</strong>
+              <p>アプリ名・テンプレート名・一覧名・日時・区切り文字・自由文字の部品を並べ替えてファイル名を作成。完成形をプレビューで確認できます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">CSV に出力したいフィールドと、テーブル形式の一覧ビューがあるアプリでご利用いただけます。</p>
+      <ol class="steps-list">
+        <li>「プランについて」セクションのダウンロードボタンから <code>kw-csv-export-v1.0.0.zip</code> をダウンロード</li>
+        <li>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</li>
+        <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「かんたんCSV出力」を追加</li>
+        <li>プラグイン設定画面で<strong>テンプレート</strong>（出力する列・ヘッダー名・文字コード・ファイル名など）を作成して「保存」</li>
+        <li>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると、一覧ツールバーに「CSV出力」ボタンが表示されます</li>
+      </ol>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 設定画面・一覧画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-csv-export-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-csv-export" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">注意事項</h2>
+        <ul class="notes-list">
+          <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+          <li>kintone はサイボウズ株式会社の登録商標です。</li>
+          <li>動作は Google Chrome 最新版での確認を推奨します。</li>
+          <li>本プラグインはレコード一覧画面（PC 版）でのみ動作します。詳細・編集画面では動作しません。</li>
+          <li>カレンダービュー・カスタマイズビューでは動作しません。テーブル形式の一覧ビューでのみ動作します。</li>
+          <li>サブテーブル内フィールドの出力には対応していません（列の候補に表示されません）。</li>
+          <li>添付ファイルはファイル名のみを出力します。ファイルの実体は CSV に含まれません。</li>
+          <li>「絞り込み全件」出力は対象レコードを取得するため、件数が多いほど処理に時間がかかります。上限件数（既定 50,000 件）で保護されます。</li>
+          <li>モバイル版 kintone では動作しません。PC 版でのみ動作します。</li>
+          <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+          <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+        </ul>
+      </div>
+    </section>
+
+    <PluginFaqSection pluginId="kw-csv-export" pageUrl="https://kizuna-works.jp/plugins/csv-export/" />
+    <SupporterCTA pluginId="kw-csv-export" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">一覧画面をさらに便利にする kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/quick-search/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/quick-search-banner.png" alt="クイックサーチプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">クイックサーチ</h3>
+            <p class="related-post-desc">一覧画面にインライン検索バーを設置。AND/OR切替・複数キーワード対応で横断検索を高速化。CSV出力と相性抜群。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/summary-bar/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/summary-bar-banner.png" alt="集計サマリーバープラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">集計サマリーバー</h3>
+            <p class="related-post-desc">一覧ヘッダーに合計・平均・件数などの集計カードを表示。絞り込みに連動して即時に再集計。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/file-icon-marker/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/file-icon-marker-banner.png" alt="添付ファイルアイコン表示プラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">添付ファイルアイコン表示</h3>
+            <p class="related-post-desc">一覧画面で添付ファイルの有無・種別・件数をアイコンで可視化。28種の拡張子別アイコン＋件数バッジ。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-csv-export-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-csv-export-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

@@ -92,8 +92,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # クイック履歴ビュープラグイン製品ページ（/plugins/quick-history-view/）— レコード変更履歴を自動記録し詳細画面に時系列テーブル表示・kintone 完結
 │   │   │   ├── related-record-popup/
 │   │   │   │   └── index.astro # 関連レコードポップアップ表示プラグイン製品ページ（/plugins/related-record-popup/）— 一覧画面のアイコンにホバーで関連レコード一覧をポップアップ表示・タブ切替・ページネーション対応
-│   │   │   └── summary-bar/
-│   │   │       └── index.astro # 集計サマリーバープラグイン製品ページ（/plugins/summary-bar/）— 一覧ヘッダーに合計・平均・件数等の集計カードを表示・絞り込み連動再集計・条件付き色分け・段組み対応
+│   │   │   ├── summary-bar/
+│   │   │   │   └── index.astro # 集計サマリーバープラグイン製品ページ（/plugins/summary-bar/）— 一覧ヘッダーに合計・平均・件数等の集計カードを表示・絞り込み連動再集計・条件付き色分け・段組み対応
+│   │   │   └── csv-export/
+│   │   │       └── index.astro # かんたんCSV出力プラグイン製品ページ（/plugins/csv-export/）— 一覧の絞り込み結果を用途別テンプレート（列・ヘッダー名・文字コード）でワンクリックCSV出力・クイックサーチ連動・Shift-JIS/UTF-8(BOM)対応
 │   │   ├── tools/
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   │   ├── extensions/
@@ -219,6 +221,15 @@ c:\kizuna-works.jp\
 │   │   ├── summary-bar-config-02.png       # 集計サマリーバー 設定画面スクショ② — 基本設定タブ下部（数値表示・カードの配置・集計値の文字位置・カードテーマ）
 │   │   ├── summary-bar-config-03.png       # 集計サマリーバー 設定画面スクショ③ — カード設定タブ（集計方法・ラベル・プレフィックス/サフィックス・表示段）
 │   │   ├── summary-bar-config-04.png       # 集計サマリーバー 設定画面スクショ④ — 値による条件付き色分け（別フィールド比較）
+│   │   ├── csv-export-icon.png             # かんたんCSV出力 for kintone プラグイン アイコン（ヒーロー画像用）
+│   │   ├── csv-export-banner.png           # かんたんCSV出力 for kintone バナー（1200×675・OGP/グリッド/news共用）
+│   │   ├── csv-export-action-01.png        # かんたんCSV出力 動作スクショ① — 一覧ツールバーに緑の「CSV出力」ボタンを設置
+│   │   ├── csv-export-action-02.png        # かんたんCSV出力 動作スクショ② — テンプレート選択ダイアログ
+│   │   ├── csv-export-action-03.png        # かんたんCSV出力 動作スクショ③ — 出力したCSVをExcelで開いた例（文字化けなし）
+│   │   ├── csv-export-config-01.png        # かんたんCSV出力 設定画面スクショ① — テンプレート作成前（全体設定・CSV出力ボタンの色10色プリセット）
+│   │   ├── csv-export-config-02.png        # かんたんCSV出力 設定画面スクショ② — テンプレート作成（対象一覧の限定・出力する列）
+│   │   ├── csv-export-config-03.png        # かんたんCSV出力 設定画面スクショ③ — 出力する列・ヘッダー名・値の整形・文字コード/区切り/改行
+│   │   ├── csv-export-config-04.png        # かんたんCSV出力 設定画面スクショ④ — ファイル名ビルダー（部品＋ライブプレビュー）
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
@@ -265,7 +276,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-address-assist-v1.0.0.zip                # 住所アシスト for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-quick-history-view-v1.0.0.zip            # クイック履歴ビュー for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-related-record-popup-v1.0.0.zip          # 関連レコードポップアップ表示 for kintone プラグイン配布ファイル（手動配置）
-│   │   └── kw-summary-bar-v1.0.0.zip                    # 集計サマリーバー for kintone プラグイン配布ファイル（手動配置）
+│   │   ├── kw-summary-bar-v1.0.0.zip                    # 集計サマリーバー for kintone プラグイン配布ファイル（手動配置）
+│   │   └── kw-csv-export-v1.0.0.zip                     # かんたんCSV出力 for kintone プラグイン配布ファイル（手動配置）
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）

@@ -735,6 +735,93 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         gap: 32px;
       }
     }
+
+    /* Combo (pairs-well-with) section */
+    .combo-box {
+      background: #ffffff;
+      border: 2px solid #cde3cd;
+      border-radius: 16px;
+      padding: 36px 32px;
+      max-width: 980px;
+      margin: 0 auto;
+      box-shadow: 0 4px 16px rgba(46,139,46,0.08);
+    }
+    .combo-flow {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .combo-step {
+      flex: 1 1 200px;
+      max-width: 260px;
+      background: #f7faf7;
+      border: 1px solid #dcebdc;
+      border-radius: 12px;
+      padding: 20px 18px;
+      text-align: center;
+    }
+    .combo-step .combo-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--color-green);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .combo-step strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+    .combo-step p {
+      font-size: 13px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+      margin: 0;
+    }
+    .combo-step .combo-plugin {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-green);
+      background: #eaf5ea;
+      border-radius: 10px;
+      padding: 2px 10px;
+      margin-bottom: 10px;
+    }
+    .combo-arrow {
+      display: flex;
+      align-items: center;
+      font-size: 26px;
+      color: var(--color-green);
+      font-weight: 700;
+    }
+    .combo-cta {
+      text-align: center;
+      margin-top: 28px;
+    }
+    .combo-link {
+      display: inline-block;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .combo-link:hover { border-bottom-color: var(--color-green); }
+
+    @media (max-width: 768px) {
+      .combo-arrow { transform: rotate(90deg); }
+    }
   </style>
 
   <main>
@@ -796,6 +883,41 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <li><span><strong>ビュー単位で表示制御</strong> — 検索バーを表示する一覧ビューを管理画面で個別選択。一部ビューだけに出すといった運用が可能。</span></li>
         <li><span><strong>JS カスタマイズ非依存</strong> — 検索バーは sync で DOM 投入され、他の JavaScript カスタマイズの async 処理に影響されません。</span></li>
       </ul>
+    </section>
+
+    <!-- Pairs well with CSV Export -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">かんたんCSV出力と合わせて使うのがおすすめ</h2>
+        <p class="section-subtitle">「すばやく絞り込む」クイックサーチと「絞り込み結果を書き出す」かんたんCSV出力。組み合わせると、欲しいデータだけを最短でCSVにできます。</p>
+        <div class="combo-box">
+          <div class="combo-flow">
+            <div class="combo-step">
+              <span class="combo-plugin">クイックサーチ</span>
+              <span class="combo-num">1</span>
+              <strong>キーワードで絞り込む</strong>
+              <p>一覧の検索バーにキーワードを入力。複数フィールドを横断してその場で絞り込みます。</p>
+            </div>
+            <div class="combo-arrow">→</div>
+            <div class="combo-step">
+              <span class="combo-plugin">かんたんCSV出力</span>
+              <span class="combo-num">2</span>
+              <strong>テンプレートを選んで出力</strong>
+              <p>「CSV出力」ボタンから用途別テンプレートを選択。今の絞り込み結果にそのまま連動します。</p>
+            </div>
+            <div class="combo-arrow">→</div>
+            <div class="combo-step">
+              <span class="combo-plugin">完成</span>
+              <span class="combo-num">3</span>
+              <strong>必要なデータだけをCSVに</strong>
+              <p>絞り込んだレコードを、指定した列・ヘッダー名・文字コードで書き出し。提出・取込用フォーマットが即完成。</p>
+            </div>
+          </div>
+          <div class="combo-cta">
+            <a href="/plugins/csv-export/" class="combo-link">かんたんCSV出力 for kintone を見る →</a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Before/After Comparison Section -->
