@@ -1,0 +1,208 @@
+---
+// Per-plugin "安心ボックス" — a compact, verifiable summary of how the plugin
+// handles data and external communication. Drop it into a plugin detail page
+// (near the 注意事項 section). Facts come from src/data/plugin-security.ts,
+// which is backed by the source audit in
+// SECRET/kintone_plugin_release/SECURITY_AUDIT.md.
+import { getSecurityProfile } from '../data/plugin-security';
+
+interface Props {
+  pluginId: string;
+}
+
+const { pluginId } = Astro.props;
+const profile = getSecurityProfile(pluginId);
+const extraComm = profile.extraComm ?? [];
+const libs = profile.libs ?? [];
+---
+
+<section class="sb-section" aria-labelledby="sb-heading">
+  <div class="sb-card">
+    <div class="sb-head">
+      <span class="sb-shield" aria-hidden="true">🛡️</span>
+      <h2 id="sb-heading" class="sb-title">セキュリティ・データの取り扱い</h2>
+    </div>
+    <p class="sb-lead">
+      KIZUNA Works のプラグインは、お客様のデータを社外に持ち出さない設計です。気になる方はブラウザの開発者ツール（F12）で通信内容をご確認いただけます。
+    </p>
+
+    <ul class="sb-list">
+      <li class="sb-item">
+        <span class="sb-icon" aria-hidden="true">✅</span>
+        <div class="sb-body">
+          <strong>レコード等の業務データを外部に送信しません</strong>
+          <p>プラグインが扱うレコードやフィールドの値が、当社や第三者のサーバーへ送られることはありません。</p>
+        </div>
+      </li>
+
+      <li class="sb-item">
+        <span class="sb-icon" aria-hidden="true">🔑</span>
+        <div class="sb-body">
+          <strong>外部通信はライセンス認証のみ</strong>
+          <p>
+            ライセンスの確認のため、<strong>プラグイン ID と利用ドメイン名だけ</strong>を当社サーバー（Google Apps Script）へ送信します。通信は kintone のプロキシ経由で行われます。
+          </p>
+          {extraComm.length > 0 && (
+            <ul class="sb-sublist">
+              {extraComm.map((c) => (
+                <li>
+                  <strong>{c.label}：</strong>{c.detail}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </li>
+
+      <li class="sb-item">
+        <span class="sb-icon" aria-hidden="true">📦</span>
+        <div class="sb-body">
+          <strong>実行時に外部ライブラリ（CDN）を読み込みません</strong>
+          {libs.length === 0 ? (
+            <p>第三者製ライブラリは使用していません。改ざんリスクのある外部 CDN への依存はありません。</p>
+          ) : (
+            <p>
+              必要なライブラリはパッケージに同梱し、実行時に外部 CDN から読み込むことはありません。同梱ライブラリ：
+              {libs.map((l, i) => (
+                <span>{i > 0 ? '、' : ' '}<strong>{l.name} v{l.version}</strong>（{l.license}／{l.purpose}）</span>
+              ))}
+            </p>
+          )}
+        </div>
+      </li>
+
+      <li class="sb-item">
+        <span class="sb-icon" aria-hidden="true">🔒</span>
+        <div class="sb-body">
+          <strong>設定情報は kintone の暗号化領域に保存</strong>
+          <p>API キー等の秘匿情報をコードに直書きせず、設定は kintone 標準の暗号化された設定領域に保存します。</p>
+        </div>
+      </li>
+    </ul>
+
+    <a href="/security/" class="sb-link">
+      セキュリティ・データの取り扱いについて詳しく見る <span aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .sb-section {
+    background-color: #F0F4F8;
+    padding: 64px 5%;
+    display: flex;
+    justify-content: center;
+  }
+  .sb-card {
+    background: #ffffff;
+    border: 2px solid #cdd8e8;
+    border-radius: 16px;
+    max-width: 880px;
+    width: 100%;
+    padding: 40px 36px;
+    box-shadow: 0 4px 16px rgba(27, 58, 107, 0.08);
+  }
+  .sb-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .sb-shield {
+    font-size: 28px;
+    line-height: 1;
+  }
+  .sb-title {
+    color: #1B3A6B;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  .sb-lead {
+    color: #333333;
+    font-size: 0.98rem;
+    line-height: 1.8;
+    margin: 0 0 28px;
+  }
+  .sb-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .sb-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: #f7faf7;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .sb-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    line-height: 1.5;
+  }
+  .sb-body strong {
+    display: block;
+    color: #1B3A6B;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .sb-body p {
+    color: #555555;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    margin: 0;
+  }
+  .sb-body p strong {
+    display: inline;
+    color: #2E8B2E;
+    font-size: inherit;
+    margin: 0;
+  }
+  .sb-sublist {
+    margin: 10px 0 0;
+    padding-left: 18px;
+  }
+  .sb-sublist li {
+    color: #555555;
+    font-size: 0.88rem;
+    line-height: 1.75;
+    margin-bottom: 4px;
+  }
+  .sb-sublist strong {
+    display: inline;
+    color: #1B3A6B;
+    font-size: inherit;
+    margin: 0;
+  }
+  .sb-link {
+    display: inline-block;
+    color: #2E8B2E;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .sb-link:hover {
+    border-bottom-color: #2E8B2E;
+  }
+
+  @media (max-width: 768px) {
+    .sb-section {
+      padding: 48px 5%;
+    }
+    .sb-card {
+      padding: 28px 20px;
+    }
+    .sb-title {
+      font-size: 1.25rem;
+    }
+  }
+</style>

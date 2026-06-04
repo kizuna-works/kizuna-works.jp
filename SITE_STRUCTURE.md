@@ -38,10 +38,12 @@ c:\kizuna-works.jp\
 │   │   ├── BlogCard.astro      # ブログ記事カード（ホームページ・ブログ一覧で使用）
 │   │   ├── RelatedPosts.astro  # ブログ記事末尾の関連記事自動表示（タグ重複数でスコアリング・上位3件）
 │   │   ├── SupporterCTA.astro  # サポーターライセンス案内ページへの誘導カード（pluginIdでURL自動付与）
-│   │   └── SupporterForm.astro # サポーターライセンス申込フォーム（URL ?plugin=<id> で自動選択対応）
+│   │   ├── SupporterForm.astro # サポーターライセンス申込フォーム（URL ?plugin=<id> で自動選択対応）
+│   │   └── SecurityBox.astro   # プラグイン詳細ページの「安心ボックス」（外部通信・ライブラリ・秘匿情報を要約。plugin-security.ts 駆動）
 │   ├── data/                   # ビルド時参照される TS データ
 │   │   ├── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）
-│   │   └── glossary.ts         # kintone 用語集の単一情報源（/glossary/ ページと DefinedTermSet JSON-LD を生成）
+│   │   ├── glossary.ts         # kintone 用語集の単一情報源（/glossary/ ページと DefinedTermSet JSON-LD を生成）
+│   │   └── plugin-security.ts  # プラグインごとのセキュリティ事実（外部通信・同梱ライブラリ）の単一情報源。SecurityBox が参照
 │   ├── layouts/                # 共通レイアウトコンポーネント
 │   │   ├── Layout.astro        # 全ページ共通レイアウト（GA4・AdSense・Noto Sans JP・ヘッダー・フッター）
 │   │   └── BlogPost.astro      # ブログ記事専用レイアウト
@@ -52,6 +54,8 @@ c:\kizuna-works.jp\
 │   │   ├── refund.astro        # 返金ポリシー（/refund/）
 │   │   ├── terms.astro         # 利用規約（/terms/）
 │   │   ├── tokushoho.astro     # 特定商取引法に基づく表記（/tokushoho/）
+│   │   ├── security/
+│   │   │   └── index.astro     # セキュリティ・データの取り扱い（/security/）— 全プラグイン共通のセキュリティ方針・外部通信内訳・F12検証手順・FAQ。フッターからリンク
 │   │   ├── rss.xml.js          # RSSフィード生成（/rss.xml）
 │   │   ├── blog/
 │   │   │   ├── index.astro     # ブログ一覧ページ（/blog/）― note.com RSS + コンテンツコレクション

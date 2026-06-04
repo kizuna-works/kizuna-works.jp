@@ -1,0 +1,476 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const title = 'セキュリティ・データの取り扱い | KIZUNA Works の kintone プラグイン';
+const description =
+  'KIZUNA Works の kintone プラグインのセキュリティ方針。レコード等の業務データを外部に送信せず、外部通信はライセンス認証（プラグインIDとドメイン名のみ）に限定。実行時の外部CDN読み込みなし・設定はkintone暗号化領域に保存。F12で検証できます。';
+const pageUrl = 'https://kizuna-works.jp/security/';
+const updated = '2026-06-04';
+---
+
+<Layout
+  title={title}
+  description={description}
+  ogTitle={title}
+  ogDescription={description}
+  ogType="website"
+  ogUrl={pageUrl}
+  ogImage="https://kizuna-works.jp/images/ogp.png"
+  canonical={pageUrl}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/security/",
+          "url": "https://kizuna-works.jp/security/",
+          "name": "セキュリティ・データの取り扱い | KIZUNA Works の kintone プラグイン",
+          "description": "KIZUNA Works の kintone プラグインのセキュリティ方針とデータの取り扱いについて。",
+          "dateModified": "2026-06-04",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "セキュリティ・データの取り扱い", "item": "https://kizuna-works.jp/security/" }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "kintone のレコードやフィールドの値は外部に送信されますか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "送信されません。KIZUNA Works のプラグインは、お客様のレコードやフィールドの値を当社や第三者のサーバーへ送信しません。外部通信はライセンス認証（プラグインIDと利用ドメイン名のみ）に限定されています。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "プラグインはどこと通信していますか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "ライセンス確認のため、プラグインIDと利用ドメイン名だけを当社サーバー（Google Apps Script）へ kintone のプロキシ経由で送信します。住所アシスト for kintone のみ、住所変換のために入力された郵便番号を zipcloud へ送信します。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "外部のCDNからライブラリを読み込んでいますか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "読み込んでいません。必要なライブラリはプラグインのパッケージに同梱しており、実行時に外部CDNへアクセスしません。改ざんリスクのある外部依存がない設計です。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "本当に外部送信していないか自分で確認できますか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "確認できます。ブラウザの開発者ツール（F12）の「ネットワーク」タブで、プラグイン利用時の通信先と送信内容をご自身で検証いただけます。当社は検証を歓迎しています。"
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .sec-hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.92) 0%, rgba(42,82,152,0.86) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 72px 5%;
+      text-align: center;
+    }
+    .sec-hero h1 {
+      font-size: 34px;
+      font-weight: 900;
+      line-height: 1.3;
+      margin: 0 0 20px;
+    }
+    .sec-hero p {
+      font-size: 16px;
+      max-width: 760px;
+      margin: 0 auto;
+      line-height: 1.9;
+      opacity: 0.95;
+    }
+    .sec-updated {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 13px;
+      background: rgba(255,255,255,0.18);
+      padding: 4px 14px;
+      border-radius: 12px;
+    }
+
+    .sec-wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 72px 5%;
+    }
+    .sec-wrap.bg { background-color: var(--color-bg); max-width: none; }
+    .sec-wrap.bg > .sec-inner { max-width: 920px; margin: 0 auto; }
+
+    .sec-h2 {
+      color: var(--color-navy);
+      font-size: 26px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .sec-sub {
+      color: var(--color-text-light);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 32px;
+    }
+
+    .promise-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .promise-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 14px;
+      padding: 28px 22px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .promise-icon { font-size: 38px; display: block; margin-bottom: 14px; }
+    .promise-card h3 {
+      color: var(--color-navy);
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 10px;
+      line-height: 1.5;
+    }
+    .promise-card p {
+      color: var(--color-text-light);
+      font-size: 13.5px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .sec-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--color-white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      font-size: 14px;
+    }
+    .sec-table th, .sec-table td {
+      text-align: left;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--color-gray-light);
+      line-height: 1.7;
+      vertical-align: top;
+    }
+    .sec-table th {
+      background: var(--color-navy);
+      color: var(--color-white);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .sec-table tr:last-child td { border-bottom: none; }
+    .sec-table-wrap { overflow-x: auto; }
+
+    .sec-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .sec-list li {
+      background: var(--color-white);
+      border-radius: 10px;
+      padding: 18px 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 14.5px;
+      color: var(--color-text);
+      line-height: 1.8;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .sec-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 17px;
+      margin-top: 1px;
+    }
+    .sec-list strong { color: var(--color-navy); }
+
+    .verify-steps {
+      counter-reset: vstep;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .verify-steps li {
+      counter-increment: vstep;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 14.5px;
+      line-height: 1.8;
+      color: var(--color-text);
+    }
+    .verify-steps li:last-child { border-bottom: none; }
+    .verify-steps li::before {
+      content: counter(vstep);
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      background: var(--color-navy);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .sec-note {
+      font-size: 13px;
+      color: var(--color-text-light);
+      line-height: 1.8;
+      margin-top: 24px;
+    }
+
+    .sec-faq { max-width: 920px; margin: 0 auto; }
+    .sec-faq details {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      padding: 0;
+      overflow: hidden;
+    }
+    .sec-faq summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 18px 22px;
+      font-weight: 700;
+      color: var(--color-navy);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .sec-faq summary::-webkit-details-marker { display: none; }
+    .sec-faq details[open] summary { border-bottom: 1px solid var(--color-gray-light); }
+    .sec-faq .faq-a {
+      padding: 16px 22px 20px;
+      color: var(--color-text);
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    .sec-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 56px 5%;
+    }
+    .sec-cta h2 { font-size: 24px; font-weight: 700; margin: 0 0 14px; }
+    .sec-cta p { font-size: 15px; opacity: 0.92; margin: 0 0 28px; line-height: 1.8; }
+    .sec-cta a {
+      display: inline-block;
+      background: var(--color-green);
+      color: #fff;
+      padding: 14px 36px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .sec-cta a:hover { background: #36a336; transform: translateY(-2px); }
+
+    @media (max-width: 768px) {
+      .sec-hero { padding: 56px 5%; }
+      .sec-hero h1 { font-size: 25px; }
+      .sec-wrap { padding: 52px 5%; }
+      .promise-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+    <section class="sec-hero">
+      <h1>セキュリティ・データの取り扱い</h1>
+      <p>
+        KIZUNA Works の kintone プラグインは、<strong>お客様のレコードなどの業務データを外部に送信しない</strong>設計です。外部通信はライセンス認証（プラグイン ID と利用ドメイン名のみ）に限定し、実行時に外部 CDN を読み込まず、設定は kintone 標準の暗号化領域に保存します。気になる方はブラウザの開発者ツール（F12）でご自身で検証いただけます。
+      </p>
+      <span class="sec-updated">最終更新：{updated}</span>
+    </section>
+
+    <!-- 3つの約束 -->
+    <section class="sec-wrap">
+      <h2 class="sec-h2">KIZUNA Works の 3 つの約束</h2>
+      <p class="sec-sub">kintone プラグインを安心してお使いいただくために、すべてのプラグインで次の設計方針を守っています。</p>
+      <div class="promise-grid">
+        <div class="promise-card">
+          <span class="promise-icon" aria-hidden="true">🚫</span>
+          <h3>業務データを<br>外部に送信しない</h3>
+          <p>レコードやフィールドの値が当社・第三者のサーバーへ送られることはありません。</p>
+        </div>
+        <div class="promise-card">
+          <span class="promise-icon" aria-hidden="true">🔑</span>
+          <h3>外部通信は<br>ライセンス認証のみ</h3>
+          <p>送信するのはプラグイン ID と利用ドメイン名だけ。kintone のプロキシ経由で通信します。</p>
+        </div>
+        <div class="promise-card">
+          <span class="promise-icon" aria-hidden="true">📦</span>
+          <h3>外部 CDN を<br>読み込まない</h3>
+          <p>必要なライブラリは同梱。実行時に外部 CDN へアクセスしないため改ざんリスクがありません。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 外部通信の内訳 -->
+    <section class="sec-wrap bg">
+      <div class="sec-inner">
+        <h2 class="sec-h2">外部通信の内訳</h2>
+        <p class="sec-sub">プラグインが行う通信はすべて以下のとおりです。送信される内容を明記しています。</p>
+        <div class="sec-table-wrap">
+          <table class="sec-table">
+            <thead>
+              <tr>
+                <th>通信先</th>
+                <th>目的</th>
+                <th>送信する内容</th>
+                <th>対象</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>当社サーバー<br>(Google Apps Script)</td>
+                <td>ライセンス認証・初回インストール記録</td>
+                <td><strong>プラグイン ID と利用ドメイン名のみ</strong>（kintone のプロキシ経由）。レコード・フィールド値・ユーザー情報は送信しません。</td>
+                <td>全プラグイン</td>
+              </tr>
+              <tr>
+                <td>kizuna-works.jp</td>
+                <td>広告エリアのロゴ画像表示</td>
+                <td>画像の取得のみ（データ送信なし）。リンク先はすべて当社サイトです。</td>
+                <td>全プラグイン</td>
+              </tr>
+              <tr>
+                <td>zipcloud<br>(zipcloud.ibsnet.co.jp)</td>
+                <td>郵便番号から住所への変換</td>
+                <td><strong>入力された郵便番号のみ</strong>。氏名・会社名などレコードの他の値は送信しません。</td>
+                <td>住所アシスト for kintone のみ</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="sec-note">
+          ※ライセンス認証は、ライセンスの有効性を確認するためにプラグイン ID と利用ドメイン名のみを送信します。通信に失敗した場合もサポーター（有効）扱いにはせず、安全側に動作します。<br>
+          ※住所アシスト for kintone の Google マップ連携は、地図リンクの URL を組み立てるだけで、外部へのデータ送信はありません。
+        </p>
+      </div>
+    </section>
+
+    <!-- 外部ライブラリ -->
+    <section class="sec-wrap">
+      <h2 class="sec-h2">外部ライブラリの扱い</h2>
+      <p class="sec-sub">プラグインが使用するライブラリは、実行時に外部 CDN から読み込まず、すべてパッケージに同梱しています。</p>
+      <ul class="sec-list">
+        <li><span><strong>実行時の外部 CDN 依存はゼロ</strong> — 第三者の CDN が改ざんされても影響を受けない設計です。</span></li>
+        <li><span><strong>同梱する第三者ライブラリは最小限</strong> — 現在、第三者製ライブラリを同梱しているのは「かんたん CSV 出力 for kintone」の <strong>encoding-japanese v2.2.0（MIT ライセンス・文字コード変換用）</strong>のみです。その他のプラグインは第三者ライブラリを使用していません。</span></li>
+      </ul>
+    </section>
+
+    <!-- 秘匿情報・設定の保存 -->
+    <section class="sec-wrap bg">
+      <div class="sec-inner">
+        <h2 class="sec-h2">秘匿情報・設定の保存</h2>
+        <p class="sec-sub">設定情報の保存方法も、kintone の標準的な仕組みに沿って安全に取り扱います。</p>
+        <ul class="sec-list">
+          <li><span><strong>API キー等の秘匿情報をコードに直書きしません</strong> — プラグインのコード内に秘密鍵・トークン・パスワードを埋め込んでいません。</span></li>
+          <li><span><strong>設定は kintone 標準の暗号化領域に保存</strong> — プラグイン設定は kintone が提供する暗号化された設定領域（プラグイン設定 API）に保存されます。</span></li>
+          <li><span><strong>配布物に秘密鍵（ppk）を含みません</strong> — 公開・配布するパッケージにプラグインの秘密鍵ファイルは含まれていません。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 自分で確かめる方法 -->
+    <section class="sec-wrap">
+      <h2 class="sec-h2">ご自身で確認する方法</h2>
+      <p class="sec-sub">「外部に送信していない」ことは、ブラウザの開発者ツールでどなたでも検証できます。当社は検証を歓迎しています。</p>
+      <ol class="verify-steps">
+        <li>プラグインを設定したアプリの画面で <strong>F12</strong>（または右クリック→「検証」）を押して開発者ツールを開きます。</li>
+        <li><strong>「ネットワーク（Network）」タブ</strong>を選び、画面を操作（保存・一覧表示など）します。</li>
+        <li>通信先を確認します。ライセンス認証（Google Apps Script）以外に、お客様のデータが外部へ送られていないことを確認できます。</li>
+        <li><strong>「コンソール（Console）」「ソース（Sources）」タブ</strong>で、読み込まれているスクリプトに不審な外部 CDN がないこともご確認いただけます。</li>
+      </ol>
+      <p class="sec-note">※通信内容に関するご質問は <a href="/contact/" style="color:#2E8B2E;font-weight:700;">お問い合わせ</a> からお気軽にどうぞ。</p>
+    </section>
+
+    <!-- FAQ -->
+    <section class="sec-wrap bg">
+      <div class="sec-inner">
+        <h2 class="sec-h2">よくある質問</h2>
+        <div class="sec-faq">
+          <details>
+            <summary>kintone のレコードやフィールドの値は外部に送信されますか？</summary>
+            <div class="faq-a">送信されません。KIZUNA Works のプラグインは、お客様のレコードやフィールドの値を当社や第三者のサーバーへ送信しません。外部通信はライセンス認証（プラグイン ID と利用ドメイン名のみ）に限定されています。</div>
+          </details>
+          <details>
+            <summary>プラグインはどこと通信していますか？</summary>
+            <div class="faq-a">ライセンス確認のため、プラグイン ID と利用ドメイン名だけを当社サーバー（Google Apps Script）へ kintone のプロキシ経由で送信します。住所アシスト for kintone のみ、住所変換のために入力された郵便番号を zipcloud へ送信します。いずれもレコードの値は送信しません。</div>
+          </details>
+          <details>
+            <summary>外部の CDN からライブラリを読み込んでいますか？</summary>
+            <div class="faq-a">読み込んでいません。必要なライブラリはプラグインのパッケージに同梱しており、実行時に外部 CDN へアクセスしません。改ざんリスクのある外部依存がない設計です。</div>
+          </details>
+          <details>
+            <summary>本当に外部送信していないか自分で確認できますか？</summary>
+            <div class="faq-a">確認できます。ブラウザの開発者ツール（F12）の「ネットワーク」タブで、プラグイン利用時の通信先と送信内容をご自身で検証いただけます。当社は検証を歓迎しています。</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="sec-cta">
+      <h2>安心して使える kintone プラグインを</h2>
+      <p>KIZUNA Works の「ちょこっとプラグイン」シリーズは、基本機能を無料でお使いいただけます。</p>
+      <a href="/plugins/">プラグイン一覧を見る</a>
+    </section>
+  </main>
+</Layout>
