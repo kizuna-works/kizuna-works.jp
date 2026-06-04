@@ -363,6 +363,27 @@ export const plugins: Plugin[] = [
     problemDesc: '毎回フィールドを選び直さず、絞り込んだ結果をテンプレートで一発出力したい',
     releaseDate: '2026-06-03',
   },
+  {
+    id: 'kw-quick-tab',
+    name: 'クイックタブ for kintone',
+    formName: 'クイックタブ for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'quick-tab',
+    description:
+      '項目数の多い kintone のレコード詳細・作成・編集画面を、フォーム上のスペース要素を境界にタブへ自動分割して整理するプラグイン。フィールドの手動割当は不要で、スペースの位置だけで区切れます。全項目を一度に見る「すべて」タブ、保存時に未入力の必須項目があるタブを自動で開く追従機能、スクロールしてもタブバーを画面上部に固定する機能に対応。スタイル（形）20種×配色10種＋カスタムから見た目を選べます。GAS・外部サービス不要で kintone 完結。',
+    image: '/images/quick-tab-banner.png',
+    imageAlt:
+      'クイックタブ for kintone プラグイン — レコード画面のフィールドをスペース要素を境界にタブへ自動分割して整理',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      'レコード詳細/編集のフィールドをスペース境界でタブに自動整理。「すべて」タブ・必須エラー追従・スクロール固定・スタイル20種。',
+    problemTitle: '項目が多くてレコード画面のスクロールが長い',
+    problemDesc: 'フィールドを手動で割り当てず、タブでスッキリ整理して目的の項目に素早くたどり着きたい',
+    releaseDate: '2026-06-05',
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({

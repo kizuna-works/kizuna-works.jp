@@ -98,8 +98,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 関連レコードポップアップ表示プラグイン製品ページ（/plugins/related-record-popup/）— 一覧画面のアイコンにホバーで関連レコード一覧をポップアップ表示・タブ切替・ページネーション対応
 │   │   │   ├── summary-bar/
 │   │   │   │   └── index.astro # 集計サマリーバープラグイン製品ページ（/plugins/summary-bar/）— 一覧ヘッダーに合計・平均・件数等の集計カードを表示・絞り込み連動再集計・条件付き色分け・段組み対応
-│   │   │   └── csv-export/
-│   │   │       └── index.astro # かんたんCSV出力プラグイン製品ページ（/plugins/csv-export/）— 一覧の絞り込み結果を用途別テンプレート（列・ヘッダー名・文字コード）でワンクリックCSV出力・クイックサーチ連動・Shift-JIS/UTF-8(BOM)対応
+│   │   │   ├── csv-export/
+│   │   │   │   └── index.astro # かんたんCSV出力プラグイン製品ページ（/plugins/csv-export/）— 一覧の絞り込み結果を用途別テンプレート（列・ヘッダー名・文字コード）でワンクリックCSV出力・クイックサーチ連動・Shift-JIS/UTF-8(BOM)対応
+│   │   │   └── quick-tab/
+│   │   │       └── index.astro # クイックタブプラグイン製品ページ（/plugins/quick-tab/）— レコード詳細/作成/編集のフィールドをスペース要素を境界にタブ自動分割・「すべて」タブ・必須エラー追従・スクロール固定・スタイル20種×配色（スクショはクリックで拡大オーバーレイ）
 │   │   ├── tools/
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   │   ├── extensions/
@@ -234,6 +236,19 @@ c:\kizuna-works.jp\
 │   │   ├── csv-export-config-02.png        # かんたんCSV出力 設定画面スクショ② — テンプレート作成（対象一覧の限定・出力する列）
 │   │   ├── csv-export-config-03.png        # かんたんCSV出力 設定画面スクショ③ — 出力する列・ヘッダー名・値の整形・文字コード/区切り/改行
 │   │   ├── csv-export-config-04.png        # かんたんCSV出力 設定画面スクショ④ — ファイル名ビルダー（部品＋ライブプレビュー）
+│   │   ├── quick-tab-icon.png              # クイックタブ for kintone プラグイン アイコン（200×200・ヒーロー画像用）
+│   │   ├── quick-tab-banner.png            # クイックタブ for kintone バナー（1200×675・OGP/グリッド/news共用）
+│   │   ├── quick-tab-before.png            # クイックタブ 導入前スクショ — 従業員情報フォームが縦に長く並ぶ状態
+│   │   ├── quick-tab-action-01.png         # クイックタブ 動作スクショ① — タブバー設置・「すべて」タブで全項目表示
+│   │   ├── quick-tab-action-02.png         # クイックタブ 動作スクショ② — 「基本情報」タブで該当区切りのみ表示
+│   │   ├── quick-tab-action-03.png         # クイックタブ 動作スクショ③ — 「業務情報」タブへ切替
+│   │   ├── quick-tab-action-04.png         # クイックタブ 動作スクショ④ — 「給与情報」タブ（テーブルを含む区切り）
+│   │   ├── quick-tab-action-05.png         # クイックタブ 動作スクショ⑤ — 任意位置に設置・上部は共通エリア（顧客レコード例）
+│   │   ├── quick-tab-action-06.png         # クイックタブ 動作スクショ⑥ — スクロール固定でタブバーが画面上部に貼り付き
+│   │   ├── quick-tab-setup-01.png          # クイックタブ 事前準備スクショ — フォーム設定でスペースに要素IDを付与
+│   │   ├── quick-tab-config-01.png         # クイックタブ 設定画面スクショ① — タブバー設置スペース＋タブ（区間）定義
+│   │   ├── quick-tab-config-02.png         # クイックタブ 設定画面スクショ② — 「すべて」タブ・タブバーの幅/配置・スクロール固定
+│   │   ├── quick-tab-config-03.png         # クイックタブ 設定画面スクショ③ — デザイン（スタイル×配色＋プレビュー）・初期表示タブ
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
@@ -281,7 +296,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-history-view-v1.0.0.zip            # クイック履歴ビュー for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-related-record-popup-v1.0.0.zip          # 関連レコードポップアップ表示 for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-summary-bar-v1.0.0.zip                    # 集計サマリーバー for kintone プラグイン配布ファイル（手動配置）
-│   │   └── kw-csv-export-v1.0.0.zip                     # かんたんCSV出力 for kintone プラグイン配布ファイル（手動配置）
+│   │   ├── kw-csv-export-v1.0.0.zip                     # かんたんCSV出力 for kintone プラグイン配布ファイル（手動配置）
+│   │   └── kw-quick-tab-v1.0.0.zip                      # クイックタブ for kintone プラグイン配布ファイル（手動配置）
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）

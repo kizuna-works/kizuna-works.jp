@@ -1,0 +1,1036 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="クイックタブ for kintone - レコード画面をタブで自動整理するプラグイン | KIZUNA Works"
+  description="kintone のレコード詳細・作成・編集画面を、フォーム上のスペース要素を境界にタブへ自動分割して整理するプラグイン。フィールドの手動割当は不要。「すべて」タブ・必須エラー時のタブ自動追従・スクロール固定に対応し、スタイル20種×配色から選べます。kintone完結・外部API不使用。"
+  ogTitle="クイックタブ for kintone - レコード画面をタブで自動整理するプラグイン | KIZUNA Works"
+  ogDescription="kintone のレコード画面を、スペース要素を境界にタブへ自動分割。フィールドの手動割当は不要。「すべて」タブ・必須エラー追従・スクロール固定・スタイル20種に対応。kintone完結。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/quick-tab/"
+  ogImage="https://kizuna-works.jp/images/quick-tab-banner.png"
+  canonical="https://kizuna-works.jp/plugins/quick-tab/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/quick-tab/",
+          "url": "https://kizuna-works.jp/plugins/quick-tab/",
+          "name": "クイックタブ for kintone - レコード画面をタブで自動整理するプラグイン | KIZUNA Works",
+          "description": "kintone のレコード詳細・作成・編集画面を、スペース要素を境界にタブへ自動分割して整理するプラグイン。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/quick-tab-banner.png",
+            "width": 1200,
+            "height": 675
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "クイックタブ for kintone", "item": "https://kizuna-works.jp/plugins/quick-tab/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "クイックタブ for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-06-05",
+          "url": "https://kizuna-works.jp/plugins/quick-tab/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-tab-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/quick-tab-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone のレコード詳細・作成・編集画面を、フォーム上のスペース要素を境界にタブへ自動分割して整理する kintone プラグイン。フィールドの手動割当は不要。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "フォーム上のスペース要素を境界にフィールドを自動でタブ分割（手動割当不要）",
+            "タブバー設置スペース＋区切りスペースの2種で構成。最初の区切りより上は常時表示の共通エリア",
+            "全項目を一度に表示する「すべて」タブを自動追加（名前変更・表示位置の変更・ON/OFF）",
+            "保存時に非表示タブの必須未入力があれば該当タブを自動で開く",
+            "レコードを開いたときの初期表示タブを指定",
+            "スタイル（形）20種 × 配色10種 ＋ カスタム配色、文字サイズ・太字、ライブプレビュー",
+            "タブバーの幅（スペース全幅／タブ長に合わせる）・配置（左/中央/右）",
+            "スクロールしてもタブバーを画面上部に固定（コメント欄に被らないよう自動調整）",
+            "GAS・外部サービス不要・kintone完結"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot frames — sized to the image's natural width (not upscaled),
+       centered, and clickable to enlarge in the lightbox. */
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Zoomable images + lightbox overlay (small screenshots open enlarged) */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/quick-tab-icon.png"
+        alt="クイックタブ for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">クイックタブ for kintone</h1>
+      <p class="hero-copy">クイックタブ for kintone は、項目数の多いレコード詳細・作成・編集画面を、フォーム上の「スペース要素」を境界にタブへ自動分割して整理する kintone プラグインです。フィールドを1つずつ割り当てる必要はなく、スペースを置く位置だけで区切れます。全項目を見る「すべて」タブ、保存時に必須未入力のタブを自動で開く追従機能、スクロール固定にも対応。長い入力フォームを、タブでスッキリ。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">項目数の多いアプリほど、レコード画面のスクロールと目的の項目探しに時間がかかっていませんか？</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">📜</span>
+            <h3 class="problem-title">フィールドが多くスクロールが長い</h3>
+            <p class="problem-desc">顧客台帳や案件管理など項目数の多い画面は、上から下までスクロールが長く、目的の項目にたどり着くのが大変。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🗂️</span>
+            <h3 class="problem-title">情報グループの切り替えが面倒</h3>
+            <p class="problem-desc">「基本情報」「連絡先」「給与情報」などのまとまりを切り替えて見たいのに、標準では一画面に全部並んでしまう。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🧩</span>
+            <h3 class="problem-title">タブ化の設定が手間</h3>
+            <p class="problem-desc">フィールドを1つずつタブに割り当てる設定は手間。フォームのレイアウトを活かしてかんたんにタブ化したい。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Before / After -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">長いフォームが、タブでスッキリ</h2>
+      <p class="section-subtitle">スペースを境界に置くだけで、上から長く続いていたフォームがタブに整理されます。クリックで拡大表示できます。</p>
+      <div class="screenshot-pair cols-2">
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/quick-tab-before.png" alt="クイックタブ導入前の kintone レコード詳細画面 — 基本情報・業務情報などの項目が上から下まで長く並び、スクロールが必要な状態" loading="lazy" />
+          </div>
+          <figcaption>導入前：項目が縦に長く並ぶ</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/quick-tab-action-01.png" alt="クイックタブ導入後の kintone レコード詳細画面 — 上部にタブバー（すべて／基本情報／業務情報／異動情報／給与情報／交通費情報）が表示され、フォームがタブで整理された状態" loading="lazy" />
+          </div>
+          <figcaption>導入後：タブバーで整理（「すべて」タブで全項目）</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Tab switching -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">タブを切り替えて、必要な情報だけ表示</h2>
+        <p class="section-subtitle">タブをクリックすると、その区切りの項目だけが表示されます。目的のグループに素早くたどり着けます。</p>
+        <div class="screenshot-pair">
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/quick-tab-action-02.png" alt="クイックタブで「基本情報」タブを選択した状態 — 従業員番号・氏名・住所・緊急連絡先など基本情報の項目だけが表示されている" loading="lazy" />
+            </div>
+            <figcaption>「基本情報」タブ — 基本情報の項目だけ表示</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/quick-tab-action-04.png" alt="クイックタブで「給与情報」タブを選択した状態 — 人事評定履歴のテーブルや給与振込口座など給与情報の項目だけが表示されている" loading="lazy" />
+            </div>
+            <figcaption>「給与情報」タブ — テーブルを含む区切りも表示</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">主な機能</h2>
+      <ul class="feature-list">
+        <li><span><strong>スペース境界でフィールドを自動タブ分割</strong> — フォーム上に置いたスペース要素を区切りにして、その位置から次の区切りまでのフィールドを自動で1つのタブにまとめます。フィールドを1つずつ割り当てる設定は不要。フォームのレイアウトをそのまま活かしてタブ化できます。</span></li>
+        <li><span><strong>「すべて」タブで全項目を一括表示</strong> — 全フィールドを一度に表示する「すべて」タブを自動で追加できます。名前の変更・表示位置（並び）の変更・ON/OFF が可能です。</span></li>
+        <li><span><strong>共通エリア（常時表示）</strong> — タブバーより上、および最初の区切りより上に置いたフィールドは、どのタブを選んでも常に表示されます。基本項目や地図・メモなどを共通で見せたいときに便利です。</span></li>
+        <li><span><strong>必須エラー時のタブ自動追従</strong> — 保存時に、非表示タブ内の必須項目が未入力だった場合は、そのタブを自動で開いてお知らせします。タブで隠れた項目も画面上に存在するため、kintone 標準の必須チェックはそのまま有効です。</span></li>
+        <li><span><strong>初期表示タブの指定</strong> — レコードを開いたときに最初に開くタブ（「すべて」を含む）を設定できます。</span></li>
+        <li><span><strong>スタイル20種 × 配色10種＋カスタム</strong> — 角丸タブ・下線・ピル・セグメント・ボタン・塗りバー・ステップ・グラデーションなど20種の形と、10種の配色＋カスタムから選べます。文字サイズ・太字も指定でき、設定画面のライブプレビューで確認できます。</span></li>
+        <li><span><strong>幅・配置・スクロール固定</strong> — タブバーの幅（スペース全幅／タブの長さに合わせる）と配置（左/中央/右）を選択。さらにスクロールしてもタブバーを画面上部に固定でき、コメント／履歴パネルに重ならないよう自動調整します。</span></li>
+        <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。プラグインアップロードのみで導入できます。</span></li>
+      </ul>
+    </section>
+
+    <!-- Flexible placement + sticky -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設置位置は自由・スクロールしても固定できる</h2>
+        <p class="section-subtitle">タブバーはレコードの好きな位置に置けます。上の項目は共通エリアとして常時表示。スクロール固定でタブバーは隠れません。</p>
+        <div class="screenshot-pair cols-2">
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/quick-tab-action-05.png" alt="クイックタブを顧客レコードの中段に設置した例 — URL・業種・地図・メモを上部に常時表示し、その下にタブバー（すべて／請求情報／関連情報／管理情報）を配置" loading="lazy" />
+            </div>
+            <figcaption>好きな位置に設置・上部は共通エリア</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/quick-tab-action-06.png" alt="クイックタブのスクロール固定 — 画面を下にスクロールしてもタブバーが上部に固定され、その下に請求情報・関連情報・案件一覧テーブルが続く" loading="lazy" />
+            </div>
+            <figcaption>スクロールしてもタブバーが上部に固定</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">設定はかんたん</h2>
+      <p class="section-subtitle">フォームのスペースに要素IDを付けて、タブを定義しデザインを選ぶだけ。プログラミング知識は不要です。各画像はクリックで拡大できます。</p>
+
+      <div class="config-screenshots">
+        <div class="config-shot">
+          <img class="zoomable" src="/images/quick-tab-setup-01.png" alt="kintone フォーム設定の「スペースの設定」ダイアログ — 要素IDの入力欄に tab と入力している状態。クイックタブはスペースへの要素ID付与が必須" loading="lazy" />
+          <div class="config-shot-caption">
+            <strong>① 事前準備：スペースに要素IDを付ける</strong>
+            <p>フォーム設定でスペースを配置し、要素ID（例：<code>tab</code>）を付与します。タブバー用と区切り用に必要な数だけ用意します。</p>
+          </div>
+        </div>
+
+        <div class="config-shot">
+          <img class="zoomable" src="/images/quick-tab-config-01.png" alt="クイックタブ設定画面① — タブバー設置スペースの選択と、区切りスペース要素ID＋タブ名を行で定義するタブ（区間）定義" loading="lazy" />
+          <div class="config-shot-caption">
+            <strong>② タブバー設置スペース・タブ定義</strong>
+            <p>タブバーを描くスペースを選び、各タブの区切りスペースとタブ名を上から順に定義します（並べ替え・削除も可能）。</p>
+          </div>
+        </div>
+
+        <div class="config-shot">
+          <img class="zoomable" src="/images/quick-tab-config-02.png" alt="クイックタブ設定画面② — 「すべて」タブの表示・名前・表示位置、タブバーの幅（スペース全幅／タブ長に合わせる）・配置・スクロール固定の設定" loading="lazy" />
+          <div class="config-shot-caption">
+            <strong>③ 「すべて」タブ・幅・配置・固定</strong>
+            <p>全項目を表示する「すべて」タブの有無や位置、タブバーの幅・配置、スクロール固定の ON/OFF を設定します。</p>
+          </div>
+        </div>
+
+        <div class="config-shot">
+          <img class="zoomable" src="/images/quick-tab-config-03.png" alt="クイックタブ設定画面③ — デザイン（スタイル×配色＋ライブプレビュー）と初期表示タブの設定。塗りバースタイルでは文字色がグレーアウト" loading="lazy" />
+          <div class="config-shot-caption">
+            <strong>④ デザイン・初期表示タブ</strong>
+            <p>スタイル（形）と配色を選び、色・文字サイズ・太字を調整。ライブプレビューで確認しながら、初期表示タブも指定できます。</p>
+          </div>
+        </div>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">インストール手順</h2>
+        <p class="section-subtitle">レコード詳細・作成・編集画面（PC 版）でご利用いただけます。フォームにスペースを置いて要素IDを付けてからご利用ください。</p>
+        <ol class="steps-list">
+          <li>「プランについて」セクションのダウンロードボタンから <code>kw-quick-tab-v1.0.0.zip</code> をダウンロード</li>
+          <li>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</li>
+          <li>使用するアプリのフォームに<strong>スペース要素</strong>を配置し、フォーム設定で<strong>要素ID</strong>を付与（タブバー用＋区切り用）</li>
+          <li>アプリの<strong>アプリ設定 → プラグイン</strong>で「クイックタブ for kintone」を追加</li>
+          <li>プラグイン設定画面で<strong>タブバー設置スペース・タブ定義・デザイン</strong>を設定して「保存」</li>
+          <li>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると、レコード画面にタブバーが表示されます</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">プランについて</h2>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">基本プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥0</span>
+            <span class="unit">/ 完全無料</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ 利用期限なし・いつまでも無料</li>
+            <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
+          </ul>
+          <a href="/downloads/kw-quick-tab-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">開発を応援</span>
+          <h3 class="plan-name">年間サポーター</h3>
+          <div class="plan-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+            <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            <li>✅ サポーターの声を優先して開発に反映</li>
+          </ul>
+          <a href="/plugins/supporter/?plugin=kw-quick-tab" class="btn-primary">サポーターになる →</a>
+          <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+            ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">注意事項</h2>
+        <ul class="notes-list">
+          <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+          <li>kintone はサイボウズ株式会社の登録商標です。</li>
+          <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
+          <li>本プラグインはレコードの詳細・作成・編集画面（PC 版）でのみ動作します。一覧・カレンダー・カスタマイズビューでは動作しません。</li>
+          <li>タブバー・区切りに使うスペースには、フォーム設定で要素IDの付与が必要です。要素IDの無いスペースは設定画面の選択肢に表示されません。</li>
+          <li>最初の区切りより上にあるフィールドは常時表示（共通エリア）となり、タブ化されません（仕様）。</li>
+          <li>区切りスペースをサブテーブル内に置くことには対応していません（タブ内にサブテーブルを含めて表示することは可能です）。</li>
+          <li>グループフィールドは v1.0.0 では対象外です。</li>
+          <li>モバイル版 kintone では動作しません。PC 版でのみ動作します。</li>
+          <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+          <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+        </ul>
+      </div>
+    </section>
+
+    <SecurityBox pluginId="kw-quick-tab" />
+    <PluginFaqSection pluginId="kw-quick-tab" pageUrl="https://kizuna-works.jp/plugins/quick-tab/" />
+    <SupporterCTA pluginId="kw-quick-tab" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">レコード画面・フォームをさらに使いやすくする kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/form-deco/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/form-deco-banner.png" alt="FormDecoプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">FormDeco</h3>
+            <p class="related-post-desc">レコード詳細の罫線やスペース要素（テキスト・画像）を装飾。フォームを業務マニュアル的に整えられます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/field-comment/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/field-comment-banner.png" alt="フィールドコメントプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">フィールドコメント</h3>
+            <p class="related-post-desc">フィールド名横にヘルプアイコンや常時コメントを表示。入力ルールをフォーム上で伝えられます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/theme-styler/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/theme-styler-banner.png" alt="テーマスタイラープラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">テーマスタイラー</h3>
+            <p class="related-post-desc">アプリ全体のテーマカラーを一括適用し、タイトル帯に関連アプリ・外部サイトのリンクを集約できます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="qt-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('qt-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-quick-tab-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-quick-tab-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>
