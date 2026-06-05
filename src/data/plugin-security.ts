@@ -26,11 +26,30 @@ export interface BundledLib {
   purpose: string;
 }
 
+/**
+ * A library loaded at runtime from our own origin (kizuna-works.jp) with SRI.
+ * Used by plugins (e.g. kw-file-preview) that need heavy viewers loaded only on
+ * demand. This is NOT a third-party CDN dependency — it is self-hosted and
+ * integrity-pinned, and no file/business data is sent when loading it.
+ */
+export interface RuntimeLib {
+  name: string;
+  version: string;
+  license: string;
+  purpose: string;
+}
+
 export interface SecurityProfile {
   /** Extra outbound communications on top of the shared license check. */
   extraComm?: ExtraComm[];
   /** Third-party libraries bundled in the package (none for most plugins). */
   libs?: BundledLib[];
+  /**
+   * Libraries loaded at runtime from our own origin with SRI (no third-party
+   * CDN). When set, the 安心ボックス shows the honest self-hosted variant
+   * instead of the "実行時に外部ライブラリを読み込みません" claim.
+   */
+  runtimeLibs?: RuntimeLib[];
 }
 
 /**
@@ -56,6 +75,17 @@ export const securityProfiles: Record<string, SecurityProfile> = {
         license: 'MIT',
         purpose: 'CSV の文字コード変換（Shift-JIS など）。実行時に外部から読み込まず、パッケージに同梱しています。',
       },
+    ],
+  },
+  'kw-file-preview': {
+    runtimeLibs: [
+      { name: 'PDF.js', version: '3.11.174', license: 'Apache-2.0', purpose: 'PDF の描画' },
+      { name: 'ExcelJS', version: '4.4.0', license: 'MIT', purpose: 'Excel(xlsx) の読み込み・書式再現' },
+      { name: 'SheetJS (xlsx)', version: '0.18.5', license: 'Apache-2.0', purpose: 'Excel の予備表示（値のみ）' },
+      { name: 'JSZip', version: '3.10.1', license: 'MIT/GPLv3', purpose: 'xlsx 解析・グラフ抽出' },
+      { name: 'Chart.js', version: '4.4.1', license: 'MIT', purpose: 'Excel グラフの再現描画' },
+      { name: 'docx-preview', version: '0.3.5', license: 'Apache-2.0', purpose: 'Word(docx) のページ再現表示' },
+      { name: 'mammoth', version: '1.6.0', license: 'BSD-2-Clause', purpose: 'Word の予備表示' },
     ],
   },
 };

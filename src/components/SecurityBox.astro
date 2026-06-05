@@ -14,6 +14,7 @@ const { pluginId } = Astro.props;
 const profile = getSecurityProfile(pluginId);
 const extraComm = profile.extraComm ?? [];
 const libs = profile.libs ?? [];
+const runtimeLibs = profile.runtimeLibs ?? [];
 ---
 
 <section class="sb-section" aria-labelledby="sb-heading">
@@ -57,16 +58,31 @@ const libs = profile.libs ?? [];
       <li class="sb-item">
         <span class="sb-icon" aria-hidden="true">📦</span>
         <div class="sb-body">
-          <strong>実行時に外部ライブラリ（CDN）を読み込みません</strong>
-          {libs.length === 0 ? (
-            <p>第三者製ライブラリは使用していません。改ざんリスクのある外部 CDN への依存はありません。</p>
+          {runtimeLibs.length > 0 ? (
+            <>
+              <strong>表示ライブラリは当社サーバーから SRI 付きで読み込み（第三者CDN不使用）</strong>
+              <p>
+                PDF・Excel・Word の表示に使うライブラリを、プレビューを開いたときだけ<strong>当社サーバー（kizuna-works.jp）から SRI（改ざん検知ハッシュ）付きで読み込みます</strong>。改ざんリスクのある第三者 CDN は利用せず、<strong>ファイルの中身は外部に送信しません</strong>（画像・テキストはライブラリ不要で常に動作）。使用ライブラリ：
+                {runtimeLibs.map((l, i) => (
+                  <span>{i > 0 ? '、' : ' '}<strong>{l.name} v{l.version}</strong>（{l.license}／{l.purpose}）</span>
+                ))}
+              </p>
+            </>
+          ) : libs.length === 0 ? (
+            <>
+              <strong>実行時に外部ライブラリ（CDN）を読み込みません</strong>
+              <p>第三者製ライブラリは使用していません。改ざんリスクのある外部 CDN への依存はありません。</p>
+            </>
           ) : (
-            <p>
-              必要なライブラリはパッケージに同梱し、実行時に外部 CDN から読み込むことはありません。同梱ライブラリ：
-              {libs.map((l, i) => (
-                <span>{i > 0 ? '、' : ' '}<strong>{l.name} v{l.version}</strong>（{l.license}／{l.purpose}）</span>
-              ))}
-            </p>
+            <>
+              <strong>実行時に外部ライブラリ（CDN）を読み込みません</strong>
+              <p>
+                必要なライブラリはパッケージに同梱し、実行時に外部 CDN から読み込むことはありません。同梱ライブラリ：
+                {libs.map((l, i) => (
+                  <span>{i > 0 ? '、' : ' '}<strong>{l.name} v{l.version}</strong>（{l.license}／{l.purpose}）</span>
+                ))}
+              </p>
+            </>
           )}
         </div>
       </li>

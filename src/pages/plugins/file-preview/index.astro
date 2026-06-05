@@ -1,0 +1,826 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="添付ファイルプレビュー for kintone - 添付をその場で開くプラグイン | KIZUNA Works"
+  description="kintone の添付ファイル（画像・PDF・Excel・Word・テキスト）を、ダウンロードや画面遷移なしでその場のフルスクリーンモーダルでプレビューするプラグイン。一覧・詳細のファイル名クリックで起動、複数ファイルを連続閲覧。Excelは書式・グラフ、Wordはページ体裁を再現。ファイルの中身は外部送信せず kintone 完結。"
+  ogTitle="添付ファイルプレビュー for kintone - 添付をその場で開くプラグイン | KIZUNA Works"
+  ogDescription="kintone の添付（画像・PDF・Excel・Word・テキスト）をダウンロードせずその場でフルスクリーン表示。複数ファイルの連続閲覧、Excel書式/グラフ再現、文字コード自動判定。kintone完結・ファイル中身は外部送信なし。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/file-preview/"
+  ogImage="https://kizuna-works.jp/images/file-preview-banner.png"
+  canonical="https://kizuna-works.jp/plugins/file-preview/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/file-preview/",
+          "url": "https://kizuna-works.jp/plugins/file-preview/",
+          "name": "添付ファイルプレビュー for kintone - 添付をその場で開くプラグイン | KIZUNA Works",
+          "description": "kintone の添付ファイル（画像・PDF・Excel・Word・テキスト）を、ダウンロードや画面遷移なしでその場のフルスクリーンモーダルでプレビューするプラグイン。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/file-preview-banner.png",
+            "width": 1200,
+            "height": 675
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "添付ファイルプレビュー for kintone", "item": "https://kizuna-works.jp/plugins/file-preview/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "添付ファイルプレビュー for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-06-05",
+          "url": "https://kizuna-works.jp/plugins/file-preview/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-file-preview-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/file-preview-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone レコードに添付された画像・PDF・Excel・Word・テキストを、ダウンロードや画面遷移なしでその場のフルスクリーンモーダルでプレビューする kintone プラグイン。ファイルの中身は外部送信せず kintone 完結。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "一覧・詳細の添付ファイル名クリックで全画面モーダルプレビューを起動",
+            "形式別レンダリング：画像 / PDF / Excel(xlsx) / Word(docx) / テキスト",
+            "Excel は列幅・セル結合・背景色・フォント・罫線・配置を再現し、グラフも再現描画",
+            "Word はページ・フォント・表・余白を再現",
+            "テキスト/CSV は文字コードを自動判定（UTF-8 / Shift_JIS / EUC-JP）",
+            "同じ欄の複数ファイルを 前へ/次へ・サムネイル・左右キーで連続閲覧",
+            "モーダルの大きさを 大(全画面)/中/小 から選択（記憶）",
+            "大容量ファイルの確認ダイアログ、モーダルからのダウンロード",
+            "非対応形式（pptx/xls/doc/zip 等）は kintone 標準どおりダウンロード",
+            "ファイルの中身は外部送信なし・kintone完結（表示ライブラリは当社サーバーから SRI 付きで読み込み）"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    /* Supported formats grid */
+    .format-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .format-card {
+      background-color: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 12px;
+      padding: 24px 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .format-icon { font-size: 40px; display: block; margin-bottom: 12px; }
+    .format-name { font-size: 16px; color: var(--color-navy); font-weight: 700; margin-bottom: 8px; }
+    .format-desc { font-size: 13px; color: var(--color-text-light); line-height: 1.7; }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .showcase-frame {
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .showcase-frame img { width: 100%; height: auto; display: block; }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/file-preview-icon.png"
+        alt="添付ファイルプレビュー for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">添付ファイルプレビュー for kintone</h1>
+      <p class="hero-copy">添付ファイルプレビュー for kintone は、レコードに添付した画像・PDF・Excel・Word・テキストを、ダウンロードや画面遷移なしでその場のフルスクリーンモーダルで確認できる kintone プラグインです。一覧・詳細のファイル名をクリックするだけで開き、同じ欄の複数ファイルは「前へ／次へ」・サムネイル・キーボードで連続閲覧。ファイルの中身は外部に送信せず、kintone 内で完結します。</p>
+    </section>
+
+    <!-- Showcase -->
+    <section class="section-wrapper fade-in">
+      <div class="showcase-frame">
+        <img src="/images/file-preview-banner.png" alt="添付ファイルプレビュー for kintone — 添付ファイル名のクリックで PDF・Excel・Word・画像を全画面モーダルでプレビューするイメージ" width="1200" height="675" loading="lazy" />
+      </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">添付ファイルの中身を確認するために、毎回ダウンロードしたり詳細画面を開いたりしていませんか？</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">📥</span>
+            <h3 class="problem-title">中身確認のたびにダウンロード</h3>
+            <p class="problem-desc">見積書や請求書の PDF、現場写真などの中身を見るのに、いちいちダウンロードして開くのが手間。フォルダにファイルもたまっていく。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🔁</span>
+            <h3 class="problem-title">詳細画面への行き来が多い</h3>
+            <p class="problem-desc">一覧から添付の中身を確認するには、いったん詳細画面を開いて、戻って…の往復が多く時間がかかる。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🗂️</span>
+            <h3 class="problem-title">複数ファイルを1件ずつ開き直し</h3>
+            <p class="problem-desc">同じレコードに添付された複数の写真や帳票を、1件ずつ開いて閉じてを繰り返すのが面倒。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Supported formats -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">対応するファイル形式</h2>
+      <p class="section-subtitle">よく使う形式を、形式ごとに最適なかたちでその場に表示します。</p>
+      <div class="format-grid">
+        <div class="format-card">
+          <span class="format-icon" aria-hidden="true">🖼️</span>
+          <div class="format-name">画像</div>
+          <p class="format-desc">jpg / jpeg / png / gif / webp / svg / bmp をフィット表示</p>
+        </div>
+        <div class="format-card">
+          <span class="format-icon" aria-hidden="true">📕</span>
+          <div class="format-name">PDF</div>
+          <p class="format-desc">複数ページをそのまま表示（先頭50ページ）</p>
+        </div>
+        <div class="format-card">
+          <span class="format-icon" aria-hidden="true">📊</span>
+          <div class="format-name">Excel（xlsx）</div>
+          <p class="format-desc">列幅・セル結合・色・罫線・配置やグラフまで再現</p>
+        </div>
+        <div class="format-card">
+          <span class="format-icon" aria-hidden="true">📝</span>
+          <div class="format-name">Word（docx）</div>
+          <p class="format-desc">ページ・フォント・表・余白などの体裁を再現</p>
+        </div>
+        <div class="format-card">
+          <span class="format-icon" aria-hidden="true">📄</span>
+          <div class="format-name">テキスト</div>
+          <p class="format-desc">txt / csv / json / md / log。文字コード自動判定（Shift_JIS対応）</p>
+        </div>
+      </div>
+      <p class="section-subtitle" style="margin-top:32px;margin-bottom:0;">PowerPoint（pptx）・旧形式（xls・doc・ppt）・zip などは対応外で、クリックすると kintone 標準どおりダウンロードされます。</p>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">主な機能</h2>
+        <ul class="feature-list">
+          <li><span><strong>ファイル名クリックでフルスクリーンプレビュー</strong> — レコード一覧・詳細画面で、添付ファイルの「ファイル名リンク」をクリックすると、画面全体のモーダルで中身を表示します。ダウンロードも詳細画面への遷移も不要です。</span></li>
+          <li><span><strong>形式に合わせた表示</strong> — 画像はフィット表示、PDF はページ描画、Excel は列幅・セル結合・背景色・フォント・罫線・配置を再現しグラフも再現描画、Word はページ体裁を再現、テキスト/CSV は文字コードを自動判定（UTF-8 / Shift_JIS / EUC-JP）して表示します。</span></li>
+          <li><span><strong>複数ファイルの連続閲覧</strong> — 同じ添付ファイル欄に複数添付している場合、モーダル内の「前へ／次へ」・下部のサムネイル列・キーボードの左右キーで次々に閲覧できます。Esc／背景クリックで閉じられます。</span></li>
+          <li><span><strong>モーダルサイズ 大／中／小</strong> — 初期サイズを設定でき、プレビュー中もモーダル上部のボタンで切り替えられます。選んだ大きさは記憶されます（スマートフォン幅では常に全画面）。</span></li>
+          <li><span><strong>大容量ガード・ダウンロード</strong> — 設定したサイズ以上の大きいファイルは開く前に確認ダイアログを表示。モーダルから現在のファイルをそのままダウンロードもできます。</span></li>
+          <li><span><strong>非対応形式は素通し</strong> — pptx・xls・doc・zip などプレビュー対象外の形式は、プラグインが介入せず kintone 標準どおりダウンロードされます。</span></li>
+          <li><span><strong>kintone 完結・ファイルの中身は外部送信なし</strong> — ファイルは kintone から取得しブラウザ内だけで表示します。PDF・Excel・Word の表示ライブラリのみ、当社サーバー（kizuna-works.jp）から SRI（改ざん検知）付きで読み込み、改ざんリスクのある第三者 CDN は利用しません。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">レコード一覧・詳細画面（PC 版）でご利用いただけます。</p>
+      <ol class="steps-list">
+        <li>「プランについて」セクションのダウンロードボタンから <code>kw-file-preview-v1.0.0.zip</code> をダウンロード</li>
+        <li>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</li>
+        <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「添付ファイルプレビュー for kintone」を追加</li>
+        <li>プラグイン設定画面で<strong>対象フィールド・上限しきい値・対象画面・モーダルの大きさ・テーマ色</strong>を設定して「保存」</li>
+        <li>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリック</li>
+        <li>一覧・詳細画面で添付ファイルの<strong>ファイル名をクリック</strong>するとプレビューが開きます</li>
+      </ol>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-file-preview-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-file-preview" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
+        <li>本プラグインはレコードの一覧・詳細画面（PC 版）でのみ動作します。カレンダー・カスタマイズビュー、モバイル版 kintone では動作しません。</li>
+        <li>プレビューは添付ファイルの「ファイル名リンク」のクリックで起動します。画像のサムネイル（縮小画像）のクリックは kintone 標準のプレビューになります。画像も本プラグインで開きたい場合は、アプリの「設定 → 高度な設定 → 画像のサムネイル表示」をオフにしてください。</li>
+        <li>サブテーブル内の添付ファイルは v1.0.0 では対象外です。</li>
+        <li>PowerPoint（pptx）・旧形式（xls・doc・ppt）・zip などプレビュー対象外の形式は、kintone 標準どおりダウンロードされます。</li>
+        <li>PDF は表示負荷を抑えるため先頭 50 ページまで表示します（それ以降はダウンロードでご確認ください）。</li>
+        <li>Excel のグラフはシートのデータから再現描画するため、配色など細部が元の見た目と異なる場合があります。画像・図形・条件付き書式などは再現されません。Word のテキストボックス・図形・一部の高度な書式も完全には再現されない場合があります。</li>
+        <li>PDF・Excel・Word の表示には、初回にインターネット経由で当社サーバー（kizuna-works.jp）から表示ライブラリ（SRI 付き）を読み込みます。ファイルの中身は外部に送信しません。厳格なネットワーク制限・CSP のある環境ではこれらの形式が表示できない場合があります（画像・テキストはライブラリ不要で動作します）。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-file-preview" />
+    <PluginFaqSection pluginId="kw-file-preview" pageUrl="https://kizuna-works.jp/plugins/file-preview/" />
+    <SupporterCTA pluginId="kw-file-preview" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">添付ファイル・一覧画面まわりをさらに便利にする kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/file-icon-marker/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/file-icon-marker-banner.png" alt="添付ファイルアイコン表示プラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">添付ファイルアイコン表示</h3>
+            <p class="related-post-desc">一覧画面で添付ファイルの有無・種別・件数をアイコンで可視化。「アイコンで察して、クリックで開く」の補完関係です。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/csv-export/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/csv-export-banner.png" alt="かんたんCSV出力プラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">かんたんCSV出力</h3>
+            <p class="related-post-desc">一覧の絞り込み結果を用途別テンプレートでワンクリックCSV出力。文字コード選択で Excel の文字化けも防止。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/quick-side-view/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/quick-side-view-banner.png" alt="クイックサイドビュープラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">クイックサイドビュー</h3>
+            <p class="related-post-desc">一覧で行クリック→右サイドバーで最大5件を並べて閲覧・編集。詳細画面に遷移せず比較できます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-file-preview-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-file-preview-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

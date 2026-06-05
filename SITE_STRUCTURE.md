@@ -100,8 +100,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 集計サマリーバープラグイン製品ページ（/plugins/summary-bar/）— 一覧ヘッダーに合計・平均・件数等の集計カードを表示・絞り込み連動再集計・条件付き色分け・段組み対応
 │   │   │   ├── csv-export/
 │   │   │   │   └── index.astro # かんたんCSV出力プラグイン製品ページ（/plugins/csv-export/）— 一覧の絞り込み結果を用途別テンプレート（列・ヘッダー名・文字コード）でワンクリックCSV出力・クイックサーチ連動・Shift-JIS/UTF-8(BOM)対応
-│   │   │   └── quick-tab/
-│   │   │       └── index.astro # クイックタブプラグイン製品ページ（/plugins/quick-tab/）— レコード詳細/作成/編集のフィールドをスペース要素を境界にタブ自動分割・「すべて」タブ・必須エラー追従・スクロール固定・スタイル20種×配色（スクショはクリックで拡大オーバーレイ）
+│   │   │   ├── quick-tab/
+│   │   │   │   └── index.astro # クイックタブプラグイン製品ページ（/plugins/quick-tab/）— レコード詳細/作成/編集のフィールドをスペース要素を境界にタブ自動分割・「すべて」タブ・必須エラー追従・スクロール固定・スタイル20種×配色（スクショはクリックで拡大オーバーレイ）
+│   │   │   └── file-preview/
+│   │   │       └── index.astro # 添付ファイルプレビュープラグイン製品ページ（/plugins/file-preview/）— 添付の画像/PDF/Excel/Word/テキストを一覧・詳細のファイル名クリックで全画面モーダル表示・送りナビ・Excel書式/グラフ再現・文字コード自動判定。表示ライブラリは自社配信(/libs/)からSRI付き遅延読込
 │   │   ├── tools/
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   │   ├── extensions/
@@ -249,6 +251,8 @@ c:\kizuna-works.jp\
 │   │   ├── quick-tab-config-01.png         # クイックタブ 設定画面スクショ① — タブバー設置スペース＋タブ（区間）定義
 │   │   ├── quick-tab-config-02.png         # クイックタブ 設定画面スクショ② — 「すべて」タブ・タブバーの幅/配置・スクロール固定
 │   │   ├── quick-tab-config-03.png         # クイックタブ 設定画面スクショ③ — デザイン（スタイル×配色＋プレビュー）・初期表示タブ
+│   │   ├── file-preview-icon.png           # 添付ファイルプレビュー for kintone プラグイン アイコン（200×200・ヒーロー画像用）
+│   │   ├── file-preview-banner.png         # 添付ファイルプレビュー for kintone バナー（1200×675・OGP/グリッド/news/showcase共用）
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
@@ -297,7 +301,17 @@ c:\kizuna-works.jp\
 │   │   ├── kw-related-record-popup-v1.0.0.zip          # 関連レコードポップアップ表示 for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-summary-bar-v1.0.0.zip                    # 集計サマリーバー for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-csv-export-v1.0.0.zip                     # かんたんCSV出力 for kintone プラグイン配布ファイル（手動配置）
-│   │   └── kw-quick-tab-v1.0.0.zip                      # クイックタブ for kintone プラグイン配布ファイル（手動配置）
+│   │   ├── kw-quick-tab-v1.0.0.zip                      # クイックタブ for kintone プラグイン配布ファイル（手動配置）
+│   │   └── kw-file-preview-v1.0.0.zip                   # 添付ファイルプレビュー for kintone プラグイン配布ファイル（手動配置）
+│   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ（第三者CDN不使用）。現状 kw-file-preview のみ使用
+│   │   ├── README.md           # 収録ライブラリ・バージョン・ライセンス・更新手順
+│   │   ├── pdfjs/3.11.174/     # PDF.js（pdf.min.js / pdf.worker.min.js）— PDF描画
+│   │   ├── exceljs/4.4.0/      # ExcelJS（exceljs.min.js）— Excel読み込み・書式再現
+│   │   ├── xlsx/0.18.5/        # SheetJS（xlsx.full.min.js）— Excel予備表示
+│   │   ├── jszip/3.10.1/       # JSZip（jszip.min.js）— xlsx解析・グラフ抽出
+│   │   ├── chartjs/4.4.1/      # Chart.js（chart.umd.min.js）— Excelグラフ再現描画
+│   │   ├── docx-preview/0.3.5/ # docx-preview（docx-preview.min.js）— Word表示
+│   │   └── mammoth/1.6.0/      # mammoth（mammoth.browser.min.js）— Word予備表示
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）

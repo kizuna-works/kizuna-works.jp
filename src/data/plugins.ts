@@ -384,6 +384,27 @@ export const plugins: Plugin[] = [
     problemDesc: 'フィールドを手動で割り当てず、タブでスッキリ整理して目的の項目に素早くたどり着きたい',
     releaseDate: '2026-06-05',
   },
+  {
+    id: 'kw-file-preview',
+    name: '添付ファイルプレビュー for kintone',
+    formName: '添付ファイルプレビュー for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'file-preview',
+    description:
+      'kintone レコードに添付された画像・PDF・Excel・Word・テキストを、ダウンロードや画面遷移なしでその場のフルスクリーンモーダルでプレビューするプラグイン。一覧・詳細のファイル名クリックで起動し、同じ欄の複数ファイルを送りナビ・サムネイル・キーボードで連続閲覧。Excel は列幅・セル結合・色・罫線やグラフも再現、Word はページ体裁を再現します。ファイルの中身は外部送信せず kintone 完結。',
+    image: '/images/file-preview-banner.png',
+    imageAlt:
+      '添付ファイルプレビュー for kintone プラグイン — 添付ファイル名のクリックで画像・PDF・Excel・Word・テキストを全画面モーダルでプレビュー',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '添付の画像・PDF・Excel・Word・テキストを、ファイル名クリックでその場プレビュー。送りナビ・Excel書式/グラフ再現・kintone完結。',
+    problemTitle: '添付ファイルの中身を見るのにダウンロードや画面遷移が面倒',
+    problemDesc: '一覧・詳細のファイル名クリックで、その場のモーダルで素早く中身を確認したい',
+    releaseDate: '2026-06-05',
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({

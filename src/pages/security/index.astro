@@ -3,9 +3,9 @@ import Layout from '../../layouts/Layout.astro';
 
 const title = 'セキュリティ・データの取り扱い | KIZUNA Works の kintone プラグイン';
 const description =
-  'KIZUNA Works の kintone プラグインのセキュリティ方針。レコード等の業務データを外部に送信せず、外部通信はライセンス認証（プラグインIDとドメイン名のみ）に限定。実行時の外部CDN読み込みなし・設定はkintone暗号化領域に保存。F12で検証できます。';
+  'KIZUNA Works の kintone プラグインのセキュリティ方針。レコード等の業務データを外部に送信せず、外部通信はライセンス認証（プラグインIDとドメイン名のみ）に限定。第三者CDNに依存せず、設定はkintone暗号化領域に保存。F12で検証できます。';
 const pageUrl = 'https://kizuna-works.jp/security/';
-const updated = '2026-06-04';
+const updated = '2026-06-05';
 ---
 
 <Layout
@@ -29,7 +29,7 @@ const updated = '2026-06-04';
           "url": "https://kizuna-works.jp/security/",
           "name": "セキュリティ・データの取り扱い | KIZUNA Works の kintone プラグイン",
           "description": "KIZUNA Works の kintone プラグインのセキュリティ方針とデータの取り扱いについて。",
-          "dateModified": "2026-06-04",
+          "dateModified": "2026-06-05",
           "isPartOf": {
             "@type": "WebSite",
             "name": "KIZUNA Works",
@@ -59,7 +59,7 @@ const updated = '2026-06-04';
               "name": "プラグインはどこと通信していますか？",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "ライセンス確認のため、プラグインIDと利用ドメイン名だけを当社サーバー（Google Apps Script）へ kintone のプロキシ経由で送信します。住所アシスト for kintone のみ、住所変換のために入力された郵便番号を zipcloud へ送信します。"
+                "text": "ライセンス確認のため、プラグインIDと利用ドメイン名だけを当社サーバー（Google Apps Script）へ kintone のプロキシ経由で送信します。住所アシスト for kintone のみ、住所変換のために入力された郵便番号を zipcloud へ送信します。添付ファイルプレビュー for kintone は、PDF・Excel・Word の表示ライブラリを当社サーバー（kizuna-works.jp）からSRI付きで読み込みますが、ファイルの中身は送信しません。いずれもレコードの値は送信しません。"
               }
             },
             {
@@ -67,7 +67,7 @@ const updated = '2026-06-04';
               "name": "外部のCDNからライブラリを読み込んでいますか？",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "読み込んでいません。必要なライブラリはプラグインのパッケージに同梱しており、実行時に外部CDNへアクセスしません。改ざんリスクのある外部依存がない設計です。"
+                "text": "改ざんリスクのある第三者CDN（cdnjs・jsDelivr など）には依存していません。多くのプラグインは必要なライブラリをパッケージに同梱し、実行時に外部から読み込みません。添付ファイルプレビュー for kintone のみ、PDF・Excel・Word の表示ライブラリを当社サーバー（kizuna-works.jp）からSRI（改ざん検知ハッシュ）付きで、その形式を開いたときだけ読み込みます。ファイルの中身は外部に送信しません。"
               }
             },
             {
@@ -333,7 +333,7 @@ const updated = '2026-06-04';
     <section class="sec-hero">
       <h1>セキュリティ・データの取り扱い</h1>
       <p>
-        KIZUNA Works の kintone プラグインは、<strong>お客様のレコードなどの業務データを外部に送信しない</strong>設計です。外部通信はライセンス認証（プラグイン ID と利用ドメイン名のみ）に限定し、実行時に外部 CDN を読み込まず、設定は kintone 標準の暗号化領域に保存します。気になる方はブラウザの開発者ツール（F12）でご自身で検証いただけます。
+        KIZUNA Works の kintone プラグインは、<strong>お客様のレコードなどの業務データを外部に送信しない</strong>設計です。外部通信はライセンス認証（プラグイン ID と利用ドメイン名のみ）に限定し、<strong>改ざんリスクのある第三者 CDN には依存せず</strong>、設定は kintone 標準の暗号化領域に保存します。気になる方はブラウザの開発者ツール（F12）でご自身で検証いただけます。
       </p>
       <span class="sec-updated">最終更新：{updated}</span>
     </section>
@@ -355,8 +355,8 @@ const updated = '2026-06-04';
         </div>
         <div class="promise-card">
           <span class="promise-icon" aria-hidden="true">📦</span>
-          <h3>外部 CDN を<br>読み込まない</h3>
-          <p>必要なライブラリは同梱。実行時に外部 CDN へアクセスしないため改ざんリスクがありません。</p>
+          <h3>第三者 CDN に<br>依存しない</h3>
+          <p>改ざんリスクのある第三者 CDN は利用しません。表示ライブラリが必要なプラグインも、当社サーバーから SRI 付きで読み込みます。</p>
         </div>
       </div>
     </section>
@@ -408,10 +408,11 @@ const updated = '2026-06-04';
     <!-- 外部ライブラリ -->
     <section class="sec-wrap">
       <h2 class="sec-h2">外部ライブラリの扱い</h2>
-      <p class="sec-sub">プラグインが使用するライブラリは、実行時に外部 CDN から読み込まず、すべてパッケージに同梱しています。</p>
+      <p class="sec-sub">改ざんリスクのある第三者 CDN（cdnjs・jsDelivr など）には依存しません。多くのプラグインは必要なライブラリをパッケージに同梱し、実行時に外部から読み込みません。</p>
       <ul class="sec-list">
-        <li><span><strong>実行時の外部 CDN 依存はゼロ</strong> — 第三者の CDN が改ざんされても影響を受けない設計です。</span></li>
-        <li><span><strong>同梱する第三者ライブラリは最小限</strong> — 現在、第三者製ライブラリを同梱しているのは「かんたん CSV 出力 for kintone」の <strong>encoding-japanese v2.2.0（MIT ライセンス・文字コード変換用）</strong>のみです。その他のプラグインは第三者ライブラリを使用していません。</span></li>
+        <li><span><strong>第三者 CDN 依存はゼロ</strong> — 第三者の CDN が改ざんされても影響を受けない設計です。</span></li>
+        <li><span><strong>同梱する第三者ライブラリは最小限</strong> — 現在、第三者製ライブラリを同梱しているのは「かんたん CSV 出力 for kintone」の <strong>encoding-japanese v2.2.0（MIT ライセンス・文字コード変換用）</strong>のみです。</span></li>
+        <li><span><strong>「添付ファイルプレビュー for kintone」のみ表示ライブラリを当社サーバーから読み込み</strong> — PDF・Excel・Word の表示に使うライブラリ（PDF.js・ExcelJS・Chart.js・docx-preview など）を、その形式を開いたときだけ <strong>当社サーバー（kizuna-works.jp）から SRI（改ざん検知ハッシュ）付き</strong>で読み込みます。第三者 CDN は経由せず、<strong>ファイルの中身は外部に送信しません</strong>（画像・テキストはライブラリ不要で常に動作します）。</span></li>
       </ul>
     </section>
 
@@ -452,11 +453,11 @@ const updated = '2026-06-04';
           </details>
           <details>
             <summary>プラグインはどこと通信していますか？</summary>
-            <div class="faq-a">ライセンス確認のため、プラグイン ID と利用ドメイン名だけを当社サーバー（Google Apps Script）へ kintone のプロキシ経由で送信します。住所アシスト for kintone のみ、住所変換のために入力された郵便番号を zipcloud へ送信します。いずれもレコードの値は送信しません。</div>
+            <div class="faq-a">ライセンス確認のため、プラグイン ID と利用ドメイン名だけを当社サーバー（Google Apps Script）へ kintone のプロキシ経由で送信します。住所アシスト for kintone のみ、住所変換のために入力された郵便番号を zipcloud へ送信します。添付ファイルプレビュー for kintone は、PDF・Excel・Word の表示ライブラリを当社サーバー（kizuna-works.jp）から SRI 付きで読み込みますが、ファイルの中身は送信しません。いずれもレコードの値は送信しません。</div>
           </details>
           <details>
             <summary>外部の CDN からライブラリを読み込んでいますか？</summary>
-            <div class="faq-a">読み込んでいません。必要なライブラリはプラグインのパッケージに同梱しており、実行時に外部 CDN へアクセスしません。改ざんリスクのある外部依存がない設計です。</div>
+            <div class="faq-a">改ざんリスクのある第三者 CDN（cdnjs・jsDelivr など）には依存していません。多くのプラグインは必要なライブラリをパッケージに同梱し、実行時に外部から読み込みません。添付ファイルプレビュー for kintone のみ、PDF・Excel・Word の表示ライブラリを当社サーバー（kizuna-works.jp）から SRI（改ざん検知ハッシュ）付きで、その形式を開いたときだけ読み込みます。ファイルの中身は外部に送信しません。</div>
           </details>
           <details>
             <summary>本当に外部送信していないか自分で確認できますか？</summary>
