@@ -102,8 +102,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # かんたんCSV出力プラグイン製品ページ（/plugins/csv-export/）— 一覧の絞り込み結果を用途別テンプレート（列・ヘッダー名・文字コード）でワンクリックCSV出力・クイックサーチ連動・Shift-JIS/UTF-8(BOM)対応
 │   │   │   ├── quick-tab/
 │   │   │   │   └── index.astro # クイックタブプラグイン製品ページ（/plugins/quick-tab/）— レコード詳細/作成/編集のフィールドをスペース要素を境界にタブ自動分割・「すべて」タブ・必須エラー追従・スクロール固定・スタイル20種×配色（スクショはクリックで拡大オーバーレイ）
-│   │   │   └── file-preview/
-│   │   │       └── index.astro # 添付ファイルプレビュープラグイン製品ページ（/plugins/file-preview/）— 添付の画像/PDF/Excel/Word/テキストを一覧・詳細のファイル名クリックで全画面モーダル表示・送りナビ・Excel書式/グラフ再現・文字コード自動判定。表示ライブラリは自社配信(/libs/)からSRI付き遅延読込
+│   │   │   ├── file-preview/
+│   │   │   │   └── index.astro # 添付ファイルプレビュープラグイン製品ページ（/plugins/file-preview/）— 添付の画像/PDF/Excel/Word/テキストを一覧・詳細のファイル名クリックで全画面モーダル表示・送りナビ・Excel書式/グラフ再現・文字コード自動判定。表示ライブラリは自社配信(/libs/)からSRI付き遅延読込
+│   │   │   └── quick-toc/
+│   │   │       └── index.astro # クイック目次プラグイン製品ページ（/plugins/quick-toc/）— レコード詳細/編集/新規の左側にセクション目次を常時表示・項目クリックで該当セクションへジャンプ・ステータスバッジ（DropDown/Radio/プロセス管理）・配色3モード・ヘッダー追従・kintone完結（スクショはクリックで拡大オーバーレイ）
 │   │   ├── tools/
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   │   ├── extensions/

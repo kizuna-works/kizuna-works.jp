@@ -405,6 +405,27 @@ export const plugins: Plugin[] = [
     problemDesc: '一覧・詳細のファイル名クリックで、その場のモーダルで素早く中身を確認したい',
     releaseDate: '2026-06-05',
   },
+  {
+    id: 'kw-quick-toc',
+    name: 'クイック目次 for kintone',
+    formName: 'クイック目次 for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'quick-toc',
+    description:
+      'kintone のレコード詳細・編集・新規作成画面の左側に、セクション単位の目次サイドメニューを常時表示するプラグイン。項目クリックで該当セクション先頭へスムーズスクロールし、縦に長いレコードでも目的の場所へワンクリックで移動できます。セクションは label／field／group／subtable の4種別で定義（ジャンプ先を選ぶと表示名を自動反映）。目次最上部に単一選択フィールド（ドロップダウン／ラジオ／プロセス管理ステータス）の値を色分けバッジで表示でき、配色は kintone標準同期／プリセット10色／カスタムから選択。スクロール時はヘッダー直下に追従し、編集・新規画面でも動作。GAS・外部サービス不要で kintone 完結。',
+    image: '/images/quick-toc-banner.png',
+    imageAlt:
+      'クイック目次 for kintone プラグイン — レコード画面の左側にセクション目次を常時表示し、項目クリックで該当セクションへジャンプ',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      'レコード画面の左に目次を常時表示。項目クリックで該当セクションへジャンプ。ステータスバッジ・配色テーマ対応、編集・新規でも動作。kintone完結。',
+    problemTitle: '縦に長いレコードのスクロールが大変',
+    problemDesc: '左の目次から目的のセクションへワンクリックで移動したい',
+    releaseDate: '2026-06-05',
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({
