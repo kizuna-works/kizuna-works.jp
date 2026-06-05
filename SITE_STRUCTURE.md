@@ -252,7 +252,15 @@ c:\kizuna-works.jp\
 │   │   ├── quick-tab-config-02.png         # クイックタブ 設定画面スクショ② — 「すべて」タブ・タブバーの幅/配置・スクロール固定
 │   │   ├── quick-tab-config-03.png         # クイックタブ 設定画面スクショ③ — デザイン（スタイル×配色＋プレビュー）・初期表示タブ
 │   │   ├── file-preview-icon.png           # 添付ファイルプレビュー for kintone プラグイン アイコン（200×200・ヒーロー画像用）
-│   │   ├── file-preview-banner.png         # 添付ファイルプレビュー for kintone バナー（1200×675・OGP/グリッド/news/showcase共用）
+│   │   ├── file-preview-banner.png         # 添付ファイルプレビュー for kintone バナー（1200×675・OGP/グリッド/news共用）
+│   │   ├── file-preview-list.png           # 添付ファイルプレビュー 共通一覧スクショ — 添付列にファイル名リンクがある一覧
+│   │   ├── file-preview-before.png         # 添付ファイルプレビュー Before — プラグインなしでクリック→即ダウンロード
+│   │   ├── file-preview-after.png          # 添付ファイルプレビュー After — クリックで PDF を全画面モーダルプレビュー
+│   │   ├── file-preview-action-01.png      # 添付ファイルプレビュー 動作① — Word(docx)表示＋サムネイルで複数ファイル切替
+│   │   ├── file-preview-action-02.png      # 添付ファイルプレビュー 動作② — Excel(xlsx)の書式・結合・罫線を再現
+│   │   ├── file-preview-action-03.png      # 添付ファイルプレビュー 動作③ — Excelのグラフをデータから再現＋シート切替
+│   │   ├── file-preview-config-01.png      # 添付ファイルプレビュー 設定① — 対象フィールド・上限しきい値
+│   │   ├── file-preview-config-02.png      # 添付ファイルプレビュー 設定② — 対象画面・操作・モーダルサイズ・テーマ色
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット

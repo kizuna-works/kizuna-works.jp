@@ -496,6 +496,123 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     }
     .showcase-frame img { width: 100%; height: auto; display: block; }
 
+    /* Screenshot frames — sized to the image's natural width (not upscaled),
+       centered, and clickable to enlarge in the lightbox. */
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption { padding: 16px 20px; }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Zoomable images + lightbox overlay */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
     .related-posts-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -564,6 +681,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       .problem-grid { grid-template-columns: 1fr; }
       .bottom-cta-title { font-size: 22px; }
       .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
     }
   </style>
 
@@ -587,10 +706,23 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <p class="hero-copy">添付ファイルプレビュー for kintone は、レコードに添付した画像・PDF・Excel・Word・テキストを、ダウンロードや画面遷移なしでその場のフルスクリーンモーダルで確認できる kintone プラグインです。一覧・詳細のファイル名をクリックするだけで開き、同じ欄の複数ファイルは「前へ／次へ」・サムネイル・キーボードで連続閲覧。ファイルの中身は外部に送信せず、kintone 内で完結します。</p>
     </section>
 
-    <!-- Showcase -->
+    <!-- Before / After -->
     <section class="section-wrapper fade-in">
-      <div class="showcase-frame">
-        <img src="/images/file-preview-banner.png" alt="添付ファイルプレビュー for kintone — 添付ファイル名のクリックで PDF・Excel・Word・画像を全画面モーダルでプレビューするイメージ" width="1200" height="675" loading="lazy" />
+      <h2 class="section-title">ダウンロードせず、その場で開く</h2>
+      <p class="section-subtitle">プラグインなしでは添付をクリックするとすぐダウンロード。導入後はその場のモーダルで中身を確認できます。クリックで拡大表示できます。</p>
+      <div class="screenshot-pair cols-2">
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/file-preview-before.png" alt="導入前の kintone 一覧画面 — 添付ファイル名をクリックすると、ブラウザのダウンロード履歴に「契約書サンプル.pdf 完了」と表示され、すぐにダウンロードされてしまう状態" loading="lazy" />
+          </div>
+          <figcaption>導入前：クリックすると即ダウンロード</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/file-preview-after.png" alt="導入後の kintone 一覧画面 — 添付ファイル名をクリックすると、画面全体のモーダルで PDF（業務委託契約書）がその場でプレビュー表示される状態" loading="lazy" />
+          </div>
+          <figcaption>導入後：その場でフルスクリーンプレビュー</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -651,6 +783,60 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         </div>
       </div>
       <p class="section-subtitle" style="margin-top:32px;margin-bottom:0;">PowerPoint（pptx）・旧形式（xls・doc・ppt）・zip などは対応外で、クリックすると kintone 標準どおりダウンロードされます。</p>
+    </section>
+
+    <!-- Preview screenshots -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">形式に合わせて、きれいに表示</h2>
+        <p class="section-subtitle">Excel は書式やグラフ、Word はページ体裁を再現。同じ欄の複数ファイルはサムネイルで切り替えられます。各画像はクリックで拡大できます。</p>
+        <div class="screenshot-pair cols-2">
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/file-preview-action-03.png" alt="添付ファイルプレビューの Excel グラフ表示 — 月別売上・目標の棒グラフと利益推移の折れ線グラフを再現し、明細／グラフのシートタブで切り替えられるモーダル画面" loading="lazy" />
+            </div>
+            <figcaption>Excel のグラフをデータから再現（シート切替対応）</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/file-preview-action-02.png" alt="添付ファイルプレビューの Excel 表示 — 請求明細書の結合セル・背景色・罫線・数値書式を再現したモーダル画面" loading="lazy" />
+            </div>
+            <figcaption>Excel の列幅・結合・色・罫線・書式を再現</figcaption>
+          </figure>
+        </div>
+        <div class="screenshot-pair" style="margin-top:28px;">
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/file-preview-action-01.png" alt="添付ファイルプレビューの Word 表示 — サービス利用申込書のページ体裁を再現し、下部のサムネイルで複数ファイル（注文書・申込書）を切り替えられるモーダル画面" loading="lazy" />
+            </div>
+            <figcaption>Word のページ体裁を再現・サムネイルで複数ファイルを切替</figcaption>
+          </figure>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Config Screenshots -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">設定はかんたん</h2>
+      <p class="section-subtitle">プレビュー対象フィールド・上限しきい値・対象画面・モーダルの大きさ・テーマ色を選ぶだけ。プログラミング知識は不要です。各画像はクリックで拡大できます。</p>
+      <div class="config-screenshots">
+        <div class="config-shot">
+          <img class="zoomable" src="/images/file-preview-config-01.png" alt="添付ファイルプレビュー 設定画面① — プレビュー対象の添付ファイルフィールド選択（画像サムネイルOFFの案内付き）と、プレビュー上限しきい値（MB・0で無制限）" loading="lazy" />
+          <div class="config-shot-caption">
+            <strong>① 対象フィールド・上限しきい値</strong>
+            <p>プレビューを有効にする添付フィールドを選択（未選択なら全添付フィールド）。大きいファイルの確認ダイアログのしきい値も設定できます（0 で無制限）。</p>
+          </div>
+        </div>
+        <div class="config-shot">
+          <img class="zoomable" src="/images/file-preview-config-02.png" alt="添付ファイルプレビュー 設定画面② — 対象画面（詳細／一覧）、キーボード操作、モーダルの大きさ（大/中/小）、モーダルテーマ色とツールバープレビュー" loading="lazy" />
+          <div class="config-shot-caption">
+            <strong>② 対象画面・操作・デザイン</strong>
+            <p>プレビューを有効化する画面（詳細／一覧）、キーボード操作、モーダルの初期サイズ（大/中/小）、テーマ色を設定。ツールバーのプレビューで確認できます。</p>
+          </div>
+        </div>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
     </section>
 
     <!-- Features Section -->
@@ -793,6 +979,12 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <a href="/contact/" class="btn-primary">お問い合わせ</a>
     </section>
 
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="fp-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
   </main>
 
   <script is:inline>
@@ -807,6 +999,30 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       }, { threshold: 0.1 });
 
       document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('fp-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
 
       const dlBtn = document.getElementById('btn-download');
       if (dlBtn) {
