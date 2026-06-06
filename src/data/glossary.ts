@@ -41,6 +41,7 @@ export const glossary: Term[] = [
     category: 'basic',
     definition: 'kintone でデータを管理する単位。レコードとフィールドで構成され、業務（顧客管理・案件管理・問い合わせ管理など）ごとに作成する。スペース内に配置することも、独立して持つこともできる。',
     relatedTerms: ['record', 'field', 'space'],
+    relatedBlog: ['kintone-excel-iko-steps'],
   },
   {
     id: 'access-permission',
@@ -57,7 +58,8 @@ export const glossary: Term[] = [
     category: 'feature',
     definition: 'レコードを表形式で一覧表示する画面。アプリを開いたときの起点になる画面で、フィルター・ソート・絞り込みを行ってから個別レコードを開いていく。表示するフィールドや並び順は「ビュー」で制御する。',
     relatedTerms: ['detail-view', 'view'],
-    relatedPlugins: ['quick-search', 'quick-side-view', 'file-icon-marker'],
+    relatedPlugins: ['quick-search', 'quick-side-view', 'file-icon-marker', 'summary-bar', 'csv-export'],
+    relatedBlog: ['kintone-kensaku-plugin-hikaku', 'kintone-quick-side-view-plugin-hikaku'],
   },
   {
     id: 'webhook',
@@ -90,6 +92,7 @@ export const glossary: Term[] = [
     category: 'field',
     definition: '別アプリのレコードを条件指定で参照表示するフィールド。1 対多の関連表示に使う（例：顧客アプリに「過去の問い合わせ一覧」を表示）。値はコピーされず参照のみのため、参照先が更新されると表示も自動で追随する。',
     relatedTerms: ['lookup', 'subtable'],
+    relatedPlugins: ['related-record-popup'],
   },
   {
     id: 'calc',
@@ -98,6 +101,7 @@ export const glossary: Term[] = [
     category: 'field',
     definition: '他のフィールドの値から自動計算される読み取り専用フィールド。数式（例：`単価 * 数量`）を設定し、レコード保存時に再計算される。ユーザーが直接編集することはできない。',
     relatedTerms: ['number'],
+    relatedPlugins: ['summary-bar'],
   },
   {
     id: 'guest-space',
@@ -122,6 +126,7 @@ export const glossary: Term[] = [
     category: 'field',
     definition: '1 つのレコードの中に複数行のデータを持てるフィールド。見積書の明細・タスクのチェックリストなど「子要素のリスト」を表現する。サブテーブル内のフィールドは一覧の絞り込み条件にも使えるが、同じ行で複数条件を組み合わせて判定するような検索や集計には制約がある。',
     relatedTerms: ['related-records'],
+    relatedPlugins: ['quick-toc'],
   },
   {
     id: 'javascript-api',
@@ -138,7 +143,8 @@ export const glossary: Term[] = [
     category: 'feature',
     definition: '個別レコードの全フィールドを表示する画面。一覧画面から行頭のアイコンクリックで遷移する。コメント欄・プロセス管理・関連レコードの確認もこの画面で行う。',
     relatedTerms: ['list-view'],
-    relatedPlugins: ['form-deco'],
+    relatedPlugins: ['quick-toc', 'quick-tab', 'form-deco', 'field-comment'],
+    relatedBlog: ['kintone-tsukainikunai-genin', 'kintone-design-plugin-osusume'],
   },
   {
     id: 'process-management',
@@ -147,6 +153,7 @@ export const glossary: Term[] = [
     category: 'feature',
     definition: 'kintone 標準のワークフロー機能。ステータスを使った承認フローや作業フロー（未対応→対応中→完了 など）を、コーディングなしで設定できる。各ステータスに作業者・アクションボタンを定義する。',
     relatedTerms: ['status'],
+    relatedPlugins: ['quick-toc', 'record-lock'],
   },
   {
     id: 'number',
@@ -155,6 +162,7 @@ export const glossary: Term[] = [
     category: 'field',
     definition: '数値を入力するフィールド。整数と小数を扱える。集計対象やグラフ表示に使えるが、`like` 演算子は使えないため部分一致検索は不可。',
     relatedTerms: ['calc'],
+    relatedPlugins: ['summary-bar'],
   },
   {
     id: 'space',
@@ -171,6 +179,7 @@ export const glossary: Term[] = [
     category: 'field',
     definition: 'プロセス管理で使われる状態フィールド。「未対応・対応中・完了」など、ワークフローの段階を表す。プロセス管理を有効化すると自動的に追加され、通常のフィールドとは別管理。',
     relatedTerms: ['process-management', 'category'],
+    relatedPlugins: ['quick-toc', 'record-lock'],
   },
   {
     id: 'plugin',
@@ -179,6 +188,7 @@ export const glossary: Term[] = [
     category: 'api',
     definition: 'kintone アプリに機能を追加するパッケージ。zip ファイル形式で配布され、システム管理画面からインストール後、各アプリに追加して使う。設定画面で動作をノーコードで調整できるのが特徴。',
     relatedTerms: ['plugin-id', 'kizuna-chokotto'],
+    relatedBlog: ['kintone-design-plugin-osusume', 'kintone-tsukainikunai-genin'],
   },
   {
     id: 'plugin-id',
@@ -212,6 +222,7 @@ export const glossary: Term[] = [
     category: 'community',
     definition: 'プログラミングなしで業務システムを構築する開発手法。kintone は代表的なノーコード／ローコードプラットフォームで、ドラッグ＆ドロップでアプリを作成できる。本格的なカスタマイズは JavaScript／プラグインで補完する。',
     relatedTerms: ['plugin'],
+    relatedBlog: ['kintone-teichaku-shinai-riyu'],
   },
   {
     id: 'date',
@@ -237,6 +248,7 @@ export const glossary: Term[] = [
     definition: 'レコードの 1 項目。文字列・数値・日付・ルックアップなど 20 種類以上の型があり、用途に応じて選択する。フォーム編集画面でドラッグ＆ドロップ配置する。',
     relatedTerms: ['lookup', 'subtable', 'calc'],
     relatedPlugins: ['field-styler'],
+    relatedBlog: ['kintone-field-styler-plugin-guide'],
   },
   {
     id: 'portal',
@@ -270,7 +282,8 @@ export const glossary: Term[] = [
     category: 'basic',
     definition: 'アプリの 1 件のデータ。Excel で言う 1 行に相当し、複数のフィールドの値を持つ。レコード一覧画面で一覧表示し、詳細画面で個別表示する。',
     relatedTerms: ['app', 'field'],
-    relatedPlugins: ['quick-side-view'],
+    relatedPlugins: ['quick-side-view', 'quick-toc'],
+    relatedBlog: ['kintone-tsukainikunai-genin'],
   },
   {
     id: 'rich-text',
@@ -306,7 +319,7 @@ export const glossary: Term[] = [
     category: 'field',
     definition: '複数の選択肢から 1 つだけを選ぶフィールド。選択肢が 3〜5 個程度で、必ず 1 つ選ぶ必要がある項目（性別・優先度・対応区分など）に使う。`like` 演算子は使えず、`in` 演算子で絞り込む。',
     relatedTerms: ['drop-down', 'check-box'],
-    relatedPlugins: ['quick-search', 'field-styler'],
+    relatedPlugins: ['quick-search', 'field-styler', 'quick-toc'],
   },
   {
     id: 'check-box',
@@ -324,7 +337,7 @@ export const glossary: Term[] = [
     category: 'field',
     definition: '複数の選択肢から 1 つを選ぶプルダウン形式のフィールド。選択肢が多い場合や画面スペースを節約したい場合にラジオボタンよりも便利。`in` 演算子で絞り込む。',
     relatedTerms: ['radio-button', 'multi-select'],
-    relatedPlugins: ['quick-search', 'field-styler'],
+    relatedPlugins: ['quick-search', 'field-styler', 'quick-toc'],
   },
   {
     id: 'multi-select',
@@ -351,7 +364,7 @@ export const glossary: Term[] = [
     reading: 'てんぷふぁいる',
     category: 'field',
     definition: 'PDF・画像・Excel などのファイルをアップロード添付できるフィールド。1 つのフィールドに複数ファイルをまとめて持てる。一覧画面では標準ではファイルの中身が見えないため、添付の有無や種別を可視化するプラグインを併用すると便利。',
-    relatedPlugins: ['file-icon-marker'],
+    relatedPlugins: ['file-icon-marker', 'file-preview'],
   },
   {
     id: 'link',
@@ -444,7 +457,8 @@ export const glossary: Term[] = [
     category: 'layout',
     definition: 'フォーム編集画面でドラッグして配置できるレイアウト要素（スペースフィールドとも呼ぶ）。値は持たないが「要素ID」を設定することで、JavaScript カスタマイズやプラグインから差し込み対象として参照できる。ルックアップサジェストのようにスペース上に独自 UI を描画するプラグインで頻繁に利用される。',
     relatedTerms: ['field', 'label-element', 'hr-line'],
-    relatedPlugins: ['lookup-suggest', 'form-deco'],
+    relatedPlugins: ['lookup-suggest', 'form-deco', 'quick-tab'],
+    relatedBlog: ['kintone-design-plugin-osusume'],
   },
   {
     id: 'label-element',
@@ -453,6 +467,8 @@ export const glossary: Term[] = [
     category: 'layout',
     definition: 'フォームに表示する固定テキストのレイアウト要素。「セクションの説明」「注意書き」など、レコードのデータとは独立した説明文を画面上に表示する。値を持たないため、レコードに保存されることはない。',
     relatedTerms: ['spacer', 'hr-line'],
+    relatedPlugins: ['quick-toc', 'form-deco'],
+    relatedBlog: ['kintone-design-plugin-osusume'],
   },
   {
     id: 'hr-line',
@@ -470,6 +486,7 @@ export const glossary: Term[] = [
     category: 'layout',
     definition: '複数のフィールドをまとめて折りたたみ可能なグループにできるレイアウト要素。長いフォームを「基本情報」「詳細情報」のようにセクションに分けて開閉できる。値を持たない（「グループ選択」フィールドとは別物なので注意）。',
     relatedTerms: ['group-select', 'hr-line', 'label-element'],
+    relatedPlugins: ['quick-toc'],
   },
   {
     id: 'kintone-hive',
