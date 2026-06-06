@@ -18,11 +18,13 @@ const formattedUpdatedDate = updatedDate
   : null;
 
 const canonicalUrl = `https://kizuna-works.jp${Astro.url.pathname}`;
+// ogImage 未指定の記事は、タイトル＋背景から自動生成したバナー（/og/blog/<slug>.png）を使う。
+const generatedOg = `/og/blog/${slug}.png`;
 const ogImageUrl = ogImage
   ? `https://kizuna-works.jp${ogImage}`
   : heroImage
   ? `https://kizuna-works.jp${heroImage.src}`
-  : 'https://kizuna-works.jp/images/ogp.png';
+  : `https://kizuna-works.jp${generatedOg}`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -290,7 +292,11 @@ const jsonLd = {
         <div class="blog-hero-image">
           <img src={ogImage} alt={title} width="800" height="400" loading="eager" />
         </div>
-      ) : null}
+      ) : (
+        <div class="blog-hero-image">
+          <img src={generatedOg} alt={title} width="1200" height="630" loading="eager" />
+        </div>
+      )}
       <div class="blog-post-content">
         <div class="blog-post-meta">
           <time datetime={pubDate.toISOString()}>{formattedPubDate}</time>
