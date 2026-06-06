@@ -1,6 +1,6 @@
 ---
-title: "【2026年最新版】kintoneの注目アップデート＆AI活用術！検索機能の進化と業務改善のコツを徹底解説"
-description: "2026年3月のkintone大型アップデートで強化されたルックアップ検索機能、kintone AIラボの活用法、CyPN Report 2025の人気プラグインまで徹底解説。現場で即使えるDX推進のノウハウをお届けします。"
+title: "【2026年最新】kintoneアップデートまとめ｜検索強化・AI機能・新機能を徹底解説"
+description: "2026年のkintoneアップデートを総まとめ。3月の検索機能（ルックアップ・除外検索）強化、kintone AIラボの使い方、注目プラグインの動向まで実務目線で解説。最新機能のキャッチアップにどうぞ。"
 pubDate: 2026-04-20
 ogImage: "/images/blog/kintone-2026-update.png"
 tags: ["kintone", "DX推進", "AI活用", "業務改善", "プラグイン"]
