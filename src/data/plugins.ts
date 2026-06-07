@@ -426,6 +426,27 @@ export const plugins: Plugin[] = [
     problemDesc: '左の目次から目的のセクションへワンクリックで移動したい',
     releaseDate: '2026-06-05',
   },
+  {
+    id: 'kw-list-styler',
+    name: '一覧スタイラー for kintone',
+    formName: '一覧スタイラー for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'list-styler',
+    description:
+      'kintone のレコード一覧画面を見やすく整えるプラグイン。横長一覧で左端の列（案件名・会社名などのキー列）を横スクロールに追従して固定（0〜3列）し、ヘッダーも追従。行の基本スタイル（ゼブラ＝奇数/偶数の2色指定・単色・なし、文字色）、行ホバーハイライト、行番号表示に対応。さらに条件付きで行の背景色・文字色・太字を変更でき、条件の対象は文字列・数値・日付（TODAY/TODAY±N）・選択肢（ドロップダウン等）・プロセス管理ステータス。複数条件は上が優先（ドラッグで並べ替え）。行のダブルクリック／シングルクリックでレコード詳細を同じウィンドウ／別タブで開く設定も可能。設定は「設定セット」で一覧ビューごとに適用でき、フィールドスタイラーとも共存します。GAS・外部サービス不要で kintone 完結。',
+    image: '/images/list-styler-banner.png',
+    imageAlt:
+      '一覧スタイラー for kintone プラグイン — 横長のレコード一覧で左端の列を固定し、ゼブラ・行番号・条件付き行色分けで見やすく整える',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '横長一覧の左端列を固定し、ゼブラ2色・行番号・条件付き行色分け（背景/文字色/太字・TODAY/ステータス対応）で見やすく。行クリックで詳細も。kintone完結。',
+    problemTitle: '横長の一覧が見づらい',
+    problemDesc: '横スクロールでキー列が消える・行を見分けづらい・状態や期限を一目で把握したい',
+    releaseDate: '2026-06-07',
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({

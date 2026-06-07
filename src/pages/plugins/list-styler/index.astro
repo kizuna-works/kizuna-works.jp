@@ -1,0 +1,990 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="一覧スタイラー for kintone - 列固定・行の色分けで一覧を見やすく | KIZUNA Works"
+  description="kintone のレコード一覧を見やすく整えるプラグイン。横長一覧で左端の列を固定し、ゼブラ（2色指定）・行番号・行ホバー、条件付きの行の背景色／文字色／太字（日付TODAY・選択肢・ステータス対応）で見やすく。行クリックで詳細も開けます。kintone完結。"
+  ogTitle="一覧スタイラー for kintone - 列固定・行の色分けで一覧を見やすく | KIZUNA Works"
+  ogDescription="kintone のレコード一覧を見やすく整えるプラグイン。横長一覧で左端の列を固定し、ゼブラ（2色指定）・行番号・行ホバー、条件付きの行の背景色／文字色／太字（日付TODAY・選択肢・ステータス対応）で見やすく。行クリックで詳細も開けます。kintone完結。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/list-styler/"
+  ogImage="https://kizuna-works.jp/images/list-styler-banner.png"
+  canonical="https://kizuna-works.jp/plugins/list-styler/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/list-styler/",
+          "url": "https://kizuna-works.jp/plugins/list-styler/",
+          "name": "一覧スタイラー for kintone - 列固定・行の色分けで一覧を見やすく | KIZUNA Works",
+          "description": "kintone のレコード一覧を見やすく整えるプラグイン。左端の列固定、ゼブラ2色、行番号、条件付き行の色分け（背景・文字色・太字）に対応。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/list-styler-banner.png",
+            "width": 1200,
+            "height": 675
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "一覧スタイラー for kintone", "item": "https://kizuna-works.jp/plugins/list-styler/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "一覧スタイラー for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-06-07",
+          "url": "https://kizuna-works.jp/plugins/list-styler/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-list-styler-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/list-styler-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone のレコード一覧画面を見やすく整える kintone プラグイン。左端の列固定、基本の行スタイル（ゼブラ2色・単色・文字色）、行ホバー、行番号、条件付き行の色分け（背景・文字色・太字）、行クリックで詳細を開く機能を一覧ビューごとに設定できる。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "横長一覧で左端の列（0〜3列）を横スクロールに追従して固定・ヘッダーも追従",
+            "基本の行スタイル：ゼブラ（奇数/偶数の2色指定）・単色・なし、基本文字色",
+            "行ホバーハイライト",
+            "行番号の表示",
+            "条件付きで行の背景色・文字色・太字を変更",
+            "条件の対象：文字列・数値・日付（TODAY/TODAY±N）・選択肢・プロセス管理ステータス",
+            "複数条件は上が優先（ドラッグで並べ替え）",
+            "行のダブルクリック／シングルクリックでレコード詳細を開く（同じウィンドウ／別タブ）",
+            "設定セットで一覧ビューごとに別設定を適用（ビュー重複割当を防止）",
+            "フィールドスタイラーと共存可能",
+            "GAS・外部サービス不要・kintone完結"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot Frame (live action screenshot) */
+    .screenshot-frame {
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair figure {
+      margin: 0;
+    }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame {
+      margin: 0;
+    }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/list-styler-icon.png"
+        alt="一覧スタイラープラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">一覧スタイラー for kintone</h1>
+      <p class="hero-copy">kintone のレコード一覧画面を見やすく整えるプラグインです。横長の一覧で左端の列（案件名・会社名などのキー列）を横スクロールに追従して固定し、ゼブラ（縞模様）・行番号・行ホバーで視認性を向上。さらに条件に応じて行の背景色・文字色・太字を変えられるので、「失注はグレー」「期限超過は赤字」など状態をひと目で把握できます。設定は一覧ビューごとに適用でき、フィールドスタイラーとも共存します。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">項目数の多い横長の一覧、そのままでは見づらくありませんか？</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">↔️</span>
+            <h3 class="problem-title">横スクロールでキー列が消える</h3>
+            <p class="problem-desc">項目が多い一覧を右にスクロールすると、案件名や会社名などの左端の列が見えなくなり、「今どの行を見ているのか」が分からなくなる。Excel のウィンドウ枠固定のように残したい。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📑</span>
+            <h3 class="problem-title">行が詰まって見分けづらい</h3>
+            <p class="problem-desc">似たような行が並ぶと、目線が隣の行にズレてしまう。縞模様や行番号、ホバーのハイライトがあれば、行を取り違えずに読み進められる。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🎨</span>
+            <h3 class="problem-title">状態や期限を一目で把握したい</h3>
+            <p class="problem-desc">失注・受注・期限超過などを、一覧を眺めただけで判別したい。条件に応じて行の色や文字を変えられれば、重要な行をすぐに見つけられる。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Screenshot — Before / After -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">導入前と導入後</h2>
+      <p class="section-subtitle">左端の列が固定され、ゼブラや色分けで一覧がぐっと見やすくなります</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              src="/images/list-styler-before.png"
+              alt="一覧スタイラー導入前の kintone レコード一覧画面 — 列固定や装飾がなく、横長で行を見分けづらい標準状態"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>導入前：標準の一覧（横長で見づらい）</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              src="/images/list-styler-after-01.png"
+              alt="一覧スタイラー導入後の kintone レコード一覧画面 — 左端の会社名・案件名を固定し、ゼブラ（縞模様）で行を見分けやすくした状態"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>導入後：左端の列を固定＋ゼブラで見やすく</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Column fixing in action -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">横スクロールしてもキー列が残る</h2>
+        <p class="section-subtitle">左端の列（0〜3列）を横スクロールに追従して固定。ヘッダーも一緒に固定されます</p>
+        <div class="screenshot-pair">
+          <figure>
+            <div class="screenshot-frame">
+              <img
+                src="/images/list-styler-after-02.png"
+                alt="一覧スタイラーで列を固定し右へ横スクロールした kintone 一覧画面 — 左端の会社名が固定されたまま、右側の列だけがスクロールしている状態"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>横スクロール中も「会社名」が左端に固定されたまま</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">主な機能</h2>
+      <ul class="feature-list">
+        <li><span><strong>左端の列を固定（0〜3列）</strong> — 横スクロールしても案件名・会社名などのキー列が左端に残ります。その上のヘッダーも一緒に固定。チェックボックスや詳細アイコンなどの操作列は列数にカウントしません。</span></li>
+        <li><span><strong>基本の行スタイル（ゼブラ・単色・文字色）</strong> — 行背景をゼブラ（奇数行・偶数行の色をそれぞれ指定）／単色／なしから選べ、行の基本文字色も指定可能。条件に関係なく一覧全体に適用する土台のスタイルです。</span></li>
+        <li><span><strong>行ホバーハイライト</strong> — マウスを乗せた行を背景＋上下のラインでハイライト。目線のズレを防ぎます。</span></li>
+        <li><span><strong>行番号の表示</strong> — 左端に連番（1, 2, 3…）を表示し、何行目かを把握しやすくします。</span></li>
+        <li><span><strong>条件付きで行の背景色・文字色・太字を変更</strong> — フィールドの値が条件に一致した行を強調。対象は文字列・数値・日付・選択肢（ドロップダウン等）・プロセス管理ステータスに対応します。</span></li>
+        <li><span><strong>日付は TODAY が使える</strong> — 条件の値に <code>TODAY</code>（今日）・<code>TODAY+7</code>（7日後）・<code>TODAY-3</code>（3日前）を指定でき、「締切日が今日以前なら赤字・太字」のように期限超過を自動で強調できます。</span></li>
+        <li><span><strong>条件は上が優先・ドラッグで並べ替え</strong> — 複数条件に当てはまる行は、上にある条件が優先されます。ハンドルをドラッグして優先順位を入れ替えられます。</span></li>
+        <li><span><strong>行クリックでレコード詳細を開く</strong> — ダブルクリック／シングルクリックで詳細を、同じウィンドウまたは別タブで開けます（ON 時はインライン編集との両立に関する注意あり）。</span></li>
+        <li><span><strong>一覧ビューごとに設定（設定セット）</strong> — 「設定セット」で複数の一覧をまとめて設定。一度選んだ一覧は他セットの候補から除外され、重複割当を防ぎます。</span></li>
+        <li><span><strong>フィールドスタイラーと共存</strong> — セル単位で色付けするフィールドスタイラーと併用可能。同じセルではフィールドスタイラーが優先され、それ以外に行スタイルが適用されます。</span></li>
+        <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。プラグインアップロードのみで導入完了します。</span></li>
+      </ul>
+    </section>
+
+    <!-- More examples: zebra color / row numbers / conditional -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">見やすさの調整も自由自在</h2>
+        <p class="section-subtitle">ゼブラの色・行番号・条件付きの色分けで、一覧を用途に合わせて整えられます</p>
+        <div class="screenshot-pair">
+          <figure>
+            <div class="screenshot-frame">
+              <img
+                src="/images/list-styler-after-03.png"
+                alt="一覧スタイラーでゼブラ（縞模様）の色を指定した kintone 一覧画面 — 奇数行・偶数行に淡い色を交互に適用した状態"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>ゼブラ（縞模様）の色を指定</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img
+                src="/images/list-styler-after-04.png"
+                alt="一覧スタイラーで行番号を表示した kintone 一覧画面 — 左端に 1, 2, 3… の連番が表示された状態"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>行番号を表示</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img
+                src="/images/list-styler-after-05.png"
+                alt="一覧スタイラーで条件付きの行の色分けを適用した kintone 一覧画面 — フィールドの値に応じて行の背景色が変わっている状態"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>条件付きで行の背景色を変更（例：状態ごとに色分け）</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">設定画面の使い方</h2>
+      <p class="section-subtitle">「設定セット」に対象の一覧と各スタイルを設定するだけ。プログラミング知識は不要です。</p>
+
+      <div class="config-screenshots">
+        <div class="config-shot">
+          <img
+            src="/images/list-styler-config-01.png"
+            alt="一覧スタイラー 設定画面① — 設定セットの対象一覧の選択と、左から固定する列数（0〜3）の指定"
+            loading="lazy"
+          />
+          <div class="config-shot-caption">
+            <strong>① 対象の一覧・固定する列数</strong>
+            <p>設定セットに、スタイルを適用する一覧ビューを選び、左から固定する列数（0〜3）を指定します。一度選んだ一覧は他セットの候補から除外されます。</p>
+          </div>
+        </div>
+
+        <div class="config-shot">
+          <img
+            src="/images/list-styler-config-02.png"
+            alt="一覧スタイラー 設定画面② — 行の背景・文字色（ゼブラ2色／単色／なし）、行ホバー、行番号、行から詳細を開く（ダブル/シングル・同/別タブ）の設定"
+            loading="lazy"
+          />
+          <div class="config-shot-caption">
+            <strong>② 基本の行スタイル・行番号・行クリック</strong>
+            <p>行背景（ゼブラ2色／単色／なし）と基本文字色、行ホバー、行番号、行から詳細を開く操作（ダブル／シングル・同じウィンドウ／別タブ）を設定します。</p>
+          </div>
+        </div>
+
+        <div class="config-shot">
+          <img
+            src="/images/list-styler-config-03.png"
+            alt="一覧スタイラー 設定画面③ — 条件付き行の色分けのルール編集。フィールド・条件・値・背景色・文字色・太字の指定と、ドラッグによる優先順位の並べ替え"
+            loading="lazy"
+          />
+          <div class="config-shot-caption">
+            <strong>③ 条件付き行の色分け</strong>
+            <p>「フィールド・条件・値 → 背景色／文字色／太字」をルールで指定。日付は TODAY が使え、上にある条件が優先（ドラッグで並べ替え）されます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">インストール手順</h2>
+        <p class="section-subtitle">一覧形式（テーブル形式）の一覧ビューがあるアプリでご利用いただけます。</p>
+        <ol class="steps-list">
+          <li>「プランについて」セクションのダウンロードボタンから <code>kw-list-styler-v1.0.0.zip</code> をダウンロード</li>
+          <li>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</li>
+          <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「一覧スタイラー」を追加</li>
+          <li>プラグイン設定画面で<strong>設定セット</strong>を追加し、対象の一覧・固定する列数・行スタイル・条件付き色分けなどを設定して「保存」</li>
+          <li>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックして反映完了</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">プランについて</h2>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">基本プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥0</span>
+            <span class="unit">/ 完全無料</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ 利用期限なし・いつまでも無料</li>
+            <li>✅ 一覧画面に控えめな広告エリア表示あり</li>
+          </ul>
+          <a href="/downloads/kw-list-styler-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">開発を応援</span>
+          <h3 class="plan-name">年間サポーター</h3>
+          <div class="plan-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+            <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            <li>✅ サポーターの声を優先して開発に反映</li>
+          </ul>
+          <a href="/plugins/supporter/?plugin=kw-list-styler" class="btn-primary">サポーターになる →</a>
+          <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+            ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">注意事項</h2>
+        <ul class="notes-list">
+          <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+          <li>kintone はサイボウズ株式会社の登録商標です。</li>
+          <li>動作は Google Chrome 最新版での確認を推奨します。</li>
+          <li>本プラグインはレコード一覧画面（一覧形式・PC 版）でのみ動作します。詳細・編集画面では動作しません。</li>
+          <li>カレンダービュー・カスタマイズビューでは動作しません。テーブル形式（一覧形式）の一覧ビューでのみ動作します。</li>
+          <li>「行から詳細を開く」を ON にすると、一覧上でのセルのダブルクリックによるインライン編集は使えなくなります（編集は各行の鉛筆アイコンから）。編集を一覧で多用する場合は「しない」を選んでください。</li>
+          <li>固定列の細い罫線など一部の表示は、ブラウザの拡大率や高解像度（高DPI）設定により見え方がわずかに異なる場合があります。</li>
+          <li>kintone 標準の一覧 DOM 構造に依存するため、kintone 側の仕様変更により表示が変わる可能性があります（その場合はアップデートで対応します）。</li>
+          <li>モバイル版 kintone では動作しません。PC 版でのみ動作します。</li>
+          <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+          <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+        </ul>
+      </div>
+    </section>
+    <SecurityBox pluginId="kw-list-styler" />
+    <PluginFaqSection pluginId="kw-list-styler" pageUrl="https://kizuna-works.jp/plugins/list-styler/" />
+    <SupporterCTA pluginId="kw-list-styler" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">同じく無料で配布中の kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/field-styler/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/field-styler-after.png" alt="フィールドスタイラープラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">フィールドスタイラー</h3>
+            <p class="related-post-desc">フィールド単位で背景色・文字色・フォント・条件付きスタイルをノーコード設定。一覧スタイラーと併用できます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/summary-bar/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/summary-bar-banner.png" alt="集計サマリーバープラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">集計サマリーバー</h3>
+            <p class="related-post-desc">一覧ヘッダーに合計・平均・件数などの集計カードを表示。絞り込み連動で即時再集計。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/quick-search/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/quick-search-banner.png" alt="クイックサーチプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">クイックサーチ</h3>
+            <p class="related-post-desc">一覧画面にインライン検索バーを設置。AND/OR切替・複数キーワード対応で横断検索を高速化。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-list-styler-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-list-styler-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>
