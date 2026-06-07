@@ -5,6 +5,7 @@ import BlogCard from '../components/BlogCard.astro';
 import InstallRankingTop3 from '../components/InstallRankingTop3.astro';
 import { plugins } from '../data/plugins';
 import { extensions } from '../data/extensions';
+import { tools } from '../data/tools';
 
 // Newest first — for problems list and the homepage compact showcase.
 const pluginsNewestFirst = [...plugins].reverse();
@@ -1387,7 +1388,7 @@ const pluginPosts = allPosts
       <p class="hero-subtitle">完全無料の kintone プラグインとブラウザ完結型 Web ツールを多数公開中。<br>インストール不要・ノーコードで、すぐに使える。</p>
       <div class="hero-stats">
         <span class="hero-stat"><span class="hero-stat-icon">🧩</span><span class="hero-stat-num">{plugins.length}</span> kintoneプラグイン</span>
-        <span class="hero-stat"><span class="hero-stat-icon">🛠</span><span class="hero-stat-num">7</span> 無料Webツール</span>
+        <span class="hero-stat"><span class="hero-stat-icon">🛠</span><span class="hero-stat-num">{tools.length}</span> 無料Webツール</span>
         <span class="hero-stat"><span class="hero-stat-icon">🌐</span><span class="hero-stat-num">{extensions.length}</span> Chrome 拡張機能</span>
         <span class="hero-stat"><span class="hero-stat-icon">📝</span><span class="hero-stat-num">{allPosts.length}</span> 現場ノウハウ記事</span>
       </div>
@@ -1520,41 +1521,13 @@ const pluginPosts = allPosts
       <h2 class="section-title">無料Webツール</h2>
       <p class="section-subtitle">プラグインのおまけとして、ブラウザで完結する便利な無料ツールも公開しています。インストール・登録不要です。</p>
       <div class="tools-mini-grid">
-        <a href="/tools/stamp-maker.html" class="tool-mini-card">
-          <span class="tool-mini-icon">🔴</span>
-          <span class="tool-mini-name">inkan</span>
-          <span class="tool-mini-desc">電子印鑑メーカー</span>
-        </a>
-        <a href="/tools/natsuin.html" class="tool-mini-card">
-          <span class="tool-mini-icon">📄</span>
-          <span class="tool-mini-name">Natsuin</span>
-          <span class="tool-mini-desc">PDF捺印ツール</span>
-        </a>
-        <a href="/tools/musubi.html" class="tool-mini-card">
-          <span class="tool-mini-icon">🔗</span>
-          <span class="tool-mini-name">Musubi</span>
-          <span class="tool-mini-desc">PDF結合・分割</span>
-        </a>
-        <a href="/tools/KizunaTsumugi.html" class="tool-mini-card">
-          <span class="tool-mini-icon">📱</span>
-          <span class="tool-mini-name">Tsumugi</span>
-          <span class="tool-mini-desc">QRコード生成</span>
-        </a>
-        <a href="/tools/masuku.html" class="tool-mini-card">
-          <span class="tool-mini-icon">⬛</span>
-          <span class="tool-mini-name">Masuku</span>
-          <span class="tool-mini-desc">画像/PDFマスキング</span>
-        </a>
-        <a href="/tools/Shuku.html" class="tool-mini-card">
-          <span class="tool-mini-icon">📦</span>
-          <span class="tool-mini-name">Shuku</span>
-          <span class="tool-mini-desc">画像圧縮ツール</span>
-        </a>
-        <a href="/tools/Utsushi.html" class="tool-mini-card">
-          <span class="tool-mini-icon">📑</span>
-          <span class="tool-mini-name">Utsushi</span>
-          <span class="tool-mini-desc">PDF→HTML変換</span>
-        </a>
+        {tools.map((tool) => (
+          <a href={`/tools/${tool.file}`} class="tool-mini-card">
+            <span class="tool-mini-icon">{tool.miniIcon}</span>
+            <span class="tool-mini-name">{tool.shortName}</span>
+            <span class="tool-mini-desc">{tool.miniDescription}</span>
+          </a>
+        ))}
       </div>
       <div class="section-cta-center" style="margin-top:24px;">
         <a href="/tools/" class="hero-secondary-link" style="color:#1B3A6B;">無料Webツール一覧へ →</a>
@@ -1601,7 +1574,7 @@ const pluginPosts = allPosts
           <div class="stat-label">kintoneプラグイン</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">7</div>
+          <div class="stat-num">{tools.length}</div>
           <div class="stat-label">無料Webツール</div>
         </div>
         <div class="stat-item">

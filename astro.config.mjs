@@ -66,6 +66,23 @@ function buildPluginDateMap() {
 }
 const pluginDates = buildPluginDateMap();
 
+// tools.ts: extract `file: 'xxx.html'` entries → standalone tool URLs for the sitemap.
+function buildToolUrls() {
+  try {
+    const file = readFileSync(path.join(__dirname, 'src/data/tools.ts'), 'utf-8');
+    const re = /file:\s*'([^']+\.html)'/g;
+    const urls = [];
+    let m;
+    while ((m = re.exec(file)) !== null) {
+      urls.push(`https://kizuna-works.jp/tools/${m[1]}`);
+    }
+    return urls;
+  } catch {
+    return [];
+  }
+}
+const toolUrls = buildToolUrls();
+
 function resolveLastmod(url) {
   let pathname;
   try {
@@ -85,15 +102,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      customPages: [
-        'https://kizuna-works.jp/tools/stamp-maker.html',
-        'https://kizuna-works.jp/tools/natsuin.html',
-        'https://kizuna-works.jp/tools/musubi.html',
-        'https://kizuna-works.jp/tools/KizunaTsumugi.html',
-        'https://kizuna-works.jp/tools/masuku.html',
-        'https://kizuna-works.jp/tools/Shuku.html',
-        'https://kizuna-works.jp/tools/Utsushi.html',
-      ],
+      customPages: [...toolUrls],
       // Exclude supporter-only request form from sitemap (URL-only access for supporters)
       filter: (page) => !page.includes('/plugins/supporter/request/'),
       serialize(item) {
