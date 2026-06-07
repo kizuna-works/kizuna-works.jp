@@ -92,6 +92,7 @@ export default defineConfig({
         'https://kizuna-works.jp/tools/KizunaTsumugi.html',
         'https://kizuna-works.jp/tools/masuku.html',
         'https://kizuna-works.jp/tools/Shuku.html',
+        'https://kizuna-works.jp/tools/Utsushi.html',
       ],
       // Exclude supporter-only request form from sitemap (URL-only access for supporters)
       filter: (page) => !page.includes('/plugins/supporter/request/'),

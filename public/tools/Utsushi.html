@@ -1,0 +1,546 @@
+<!--
+  Utsushi (PDF to HTML reproduction tool / PDF→HTML変換ツール)
+  Upload a PDF and reproduce its appearance faithfully as a self-contained HTML file.
+  Pages are rendered to canvas with pdf.js and embedded as images. Fully client-side.
+  Version: 1.0.0
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="PDFをアップロードするだけで、見た目をそのまま忠実に再現したHTMLファイルに変換できる無料Webツール。PDFリーダー不要でブラウザで開けるWebページを生成します。インストール・登録不要、ファイルはサーバーに送信されません。">
+<link rel="canonical" href="https://kizuna-works.jp/tools/Utsushi.html">
+<meta property="og:title" content="Utsushi（PDF→HTML変換ツール）| KIZUNA Works">
+<meta property="og:description" content="PDFの見た目をそのまま忠実に再現したHTMLファイルに変換できる無料Webツール。PDFリーダー不要でブラウザで開けます。インストール・登録不要、ファイルはサーバーに送信されません。">
+<meta property="og:url" content="https://kizuna-works.jp/tools/Utsushi.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://kizuna-works.jp/images/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@KIZUNA_works_DX">
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<title>Utsushi（PDF→HTML変換ツール）| KIZUNA Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://kizuna-works.jp/tools/Utsushi.html",
+      "url": "https://kizuna-works.jp/tools/Utsushi.html",
+      "name": "Utsushi（PDF→HTML変換ツール）| KIZUNA Works",
+      "description": "PDFをアップロードするだけで、見た目をそのまま忠実に再現したHTMLファイルに変換できる無料Webツール。",
+      "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Utsushi（PDF→HTML変換ツール）",
+      "url": "https://kizuna-works.jp/tools/Utsushi.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "WebBrowser",
+      "dateModified": "2026-06-07",
+      "description": "PDFの見た目をそのまま忠実に再現したHTMLファイルに変換できる無料Webツール。各ページを画像として埋め込んだ自己完結HTMLを生成し、PDFリーダー不要でブラウザで開けます。ファイルはブラウザ内で処理されます。",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+    }
+  ]
+}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1B44N0922"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q1B44N0922');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2096869114957752" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs" type="module" integrity="sha384-fzqD3KLclV6zyTSuToNuSG370CipiqN572vfT2zti7ORKnQPaJrvsz8deY+/Tgwe" crossorigin="anonymous"></script>
+<style>
+:root{--navy:#1B3A6B;--navy-light:#2a4f8a;--green:#2E8B2E;--green-light:#3da63d;--bg:#F0F4F8;--bg-white:#fff;--text-primary:#1a1a2e;--text-secondary:#4a5568;--text-muted:#8896a6;--border:#d4dce8;--border-light:#e8edf4;--shadow-sm:0 1px 3px rgba(27,58,107,.08);--shadow-md:0 4px 12px rgba(27,58,107,.1);--shadow-lg:0 8px 32px rgba(27,58,107,.12);--radius:8px;--radius-lg:12px;--transition:.2s ease}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;display:flex;flex-direction:column;overflow-x:clip}
+img{max-width:100%;height:auto}
+
+/* Site Header */
+.site-header{background:#F0F4F8;border-bottom:3px solid #1B3A6B;padding:8px 5%;position:sticky;top:0;z-index:300;flex-shrink:0}
+.site-header-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.site-header-logo img{display:block;height:64px;width:auto}
+.site-header-nav{display:flex;gap:10px;flex-wrap:wrap}
+.site-nav-btn{display:inline-block;background-color:#1B3A6B;color:#FFFFFF !important;font-size:.95rem;font-weight:500;padding:8px 16px;border-radius:20px;text-decoration:none;transition:all .3s ease}
+.site-nav-btn:hover{background-color:#2E8B2E;transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.site-nav-dropdown{position:relative}
+.site-nav-more{display:inline-flex;align-items:center;gap:4px}
+.site-nav-arrow{font-size:.7em;transition:transform .2s ease}
+.site-nav-more[aria-expanded="true"] .site-nav-arrow{transform:rotate(180deg)}
+.site-nav-submenu{position:absolute;top:calc(100% + 8px);right:0;min-width:180px;background:#FFFFFF;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 10px 24px rgba(27,58,107,.18);padding:8px 0;list-style:none;margin:0;opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .18s ease,visibility .18s ease,transform .18s ease;z-index:150}
+.site-nav-dropdown:focus-within .site-nav-submenu,.site-nav-more[aria-expanded="true"] + .site-nav-submenu{opacity:1;visibility:visible;transform:translateY(0)}
+@media (hover:hover){.site-nav-dropdown:hover .site-nav-submenu{opacity:1;visibility:visible;transform:translateY(0)}}
+.site-nav-sub{display:block;padding:10px 18px;color:#1B3A6B;font-weight:500;font-size:.92rem;text-decoration:none;transition:background .15s ease,color .15s ease}
+.site-nav-sub:hover,.site-nav-sub:focus{background:#F0F4F8;color:#2E8B2E;outline:none}
+
+/* Main */
+main{flex:1;min-width:0;width:100%;padding:40px 20px 70px}
+.container{max-width:880px;margin:0 auto}
+.page-head{text-align:center;margin-bottom:32px}
+.page-head h2{font-size:1.9rem;color:var(--navy);font-weight:700;letter-spacing:1px;margin-bottom:12px}
+.page-head .lead{color:var(--text-secondary);font-size:1.02rem;line-height:1.8;max-width:680px;margin:0 auto}
+.badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.badge{font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:20px;background:#e6f4e6;color:var(--green)}
+.badge.sub{background:#eef2f8;color:var(--navy)}
+
+.card{background:var(--bg-white);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:28px;margin-bottom:24px}
+
+/* Drop zone */
+.dropzone{border:2.5px dashed var(--border);border-radius:var(--radius-lg);background:#fbfcfe;padding:48px 24px;text-align:center;cursor:pointer;transition:var(--transition)}
+.dropzone:hover{border-color:var(--navy-light);background:#f5f8fc}
+.dropzone.dragover{border-color:var(--green);background:#f0faf0}
+.dropzone svg{width:54px;height:54px;color:var(--navy);opacity:.55;margin-bottom:14px}
+.dropzone .dz-title{font-size:1.1rem;font-weight:600;color:var(--navy);margin-bottom:6px}
+.dropzone .dz-sub{font-size:.9rem;color:var(--text-muted)}
+.dropzone .dz-file{margin-top:14px;font-size:.92rem;color:var(--green);font-weight:600;word-break:break-all}
+
+/* Options */
+.options{margin-top:22px;display:none}
+.options.show{display:block}
+.opt-row{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:flex-start;margin-bottom:18px}
+.opt-label{font-size:.82rem;font-weight:600;color:var(--navy);min-width:96px;padding-top:8px}
+.opt-choices{display:flex;gap:8px;flex-wrap:wrap;flex:1;min-width:200px}
+.chip{position:relative;cursor:pointer}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip span{display:inline-block;padding:8px 16px;border:1.5px solid var(--border);border-radius:20px;font-size:.86rem;color:var(--text-secondary);background:var(--bg-white);transition:var(--transition)}
+.chip input:checked + span{border-color:var(--navy);background:rgba(27,58,107,.06);color:var(--navy);font-weight:600}
+.chip span:hover{border-color:var(--navy-light)}
+.quality-wrap{display:flex;align-items:center;gap:12px;flex:1;min-width:220px}
+.quality-wrap input[type=range]{flex:1;accent-color:var(--navy)}
+.quality-val{font-size:.86rem;color:var(--text-secondary);min-width:42px;text-align:right}
+.opt-note{font-size:.8rem;color:var(--text-muted);line-height:1.6;margin-top:2px}
+
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+.btn{padding:13px 26px;border:none;border-radius:30px;font-family:inherit;font-size:.98rem;font-weight:700;cursor:pointer;transition:var(--transition);display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:not(:disabled):hover{background:var(--navy)}
+.btn-ghost{background:var(--bg);color:var(--navy);border:1.5px solid var(--border)}
+.btn-ghost:not(:disabled):hover{border-color:var(--navy);background:#fff}
+
+/* Progress */
+.progress{display:none;margin-top:22px}
+.progress.show{display:block}
+.progress-bar{height:10px;background:var(--border-light);border-radius:6px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--green));transition:width .2s ease}
+.progress-text{font-size:.85rem;color:var(--text-secondary);margin-top:8px;text-align:center}
+
+/* Result */
+.result{display:none;margin-top:8px}
+.result.show{display:block}
+.result-summary{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;padding:16px 20px;background:#f0faf0;border:1px solid #cdeccd;border-radius:var(--radius);margin-bottom:18px}
+.result-summary .rs-info{font-size:.92rem;color:var(--text-secondary)}
+.result-summary .rs-info strong{color:var(--navy)}
+.preview-strip{background:#dde3ea;border-radius:var(--radius);padding:18px;max-height:520px;overflow:auto}
+.preview-strip img{display:block;margin:0 auto 14px;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.18);width:100%;max-width:620px;height:auto}
+.preview-strip img:last-child{margin-bottom:0}
+
+/* Info section */
+.info h3{font-size:1.1rem;color:var(--navy);margin:22px 0 10px;font-weight:700}
+.info h3:first-child{margin-top:0}
+.info p{color:var(--text-secondary);font-size:.92rem;line-height:1.85;margin-bottom:8px}
+.info ul{color:var(--text-secondary);font-size:.92rem;line-height:1.85;padding-left:1.3em;margin-bottom:8px}
+.info .caution{background:#fff8ed;border:1px solid #f0dcb0;border-radius:var(--radius);padding:14px 18px;font-size:.88rem;color:#8a6d3b;line-height:1.8}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:24px;font-size:.9rem;box-shadow:var(--shadow-lg);opacity:0;visibility:hidden;transition:var(--transition);z-index:500}
+.toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+
+/* Site Footer */
+.site-footer{background-color:#1B3A6B;color:#FFFFFF;padding:60px 5% 30px;flex-shrink:0}
+.site-footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:40px;margin-bottom:30px}
+.site-footer-links{display:flex;gap:30px;flex-wrap:wrap;align-items:center}
+.site-footer-links a{color:#FFFFFF;opacity:.9;font-weight:500;text-decoration:none}
+.site-footer-links a:hover{color:#2E8B2E;opacity:1}
+.site-footer-copy{text-align:center;opacity:.7;font-size:.9rem;letter-spacing:1px}
+
+@media (max-width:768px){
+  html{font-size:14px}
+  .site-header{padding:6px 4%}
+  .site-header-inner{flex-direction:column;gap:8px}
+  .site-header-logo img{height:52px}
+  .site-nav-btn{font-size:.82rem;padding:6px 12px}
+  main{padding:28px 14px 50px}
+  .card{padding:20px}
+  .page-head h2{font-size:1.5rem}
+  .opt-label{min-width:100%}
+  .site-footer-inner{flex-direction:column;text-align:center;align-items:center}
+  .site-footer-links{justify-content:center;gap:15px}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="https://kizuna-works.jp/" class="site-header-logo">
+      <img src="/images/logo.png" alt="KIZUNA Works">
+    </a>
+    <nav class="site-header-nav">
+      <a href="https://kizuna-works.jp/news/" class="site-nav-btn">お知らせ</a>
+      <a href="https://kizuna-works.jp/plugins/" class="site-nav-btn">プラグイン</a>
+      <a href="https://kizuna-works.jp/extensions/" class="site-nav-btn">拡張機能</a>
+      <a href="https://kizuna-works.jp/plugins/supporter/" class="site-nav-btn">サポーター</a>
+      <a href="https://kizuna-works.jp/contact/" class="site-nav-btn">お問い合わせ</a>
+      <div class="site-nav-dropdown">
+        <a href="#" class="site-nav-btn site-nav-more" role="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-nav-submenu">
+          もっと見る<span class="site-nav-arrow" aria-hidden="true">▾</span>
+        </a>
+        <ul id="site-nav-submenu" class="site-nav-submenu" role="menu">
+          <li role="none"><a href="https://kizuna-works.jp/tools/" class="site-nav-sub" role="menuitem">無料ツール</a></li>
+          <li role="none"><a href="https://kizuna-works.jp/blog/" class="site-nav-sub" role="menuitem">ブログ</a></li>
+          <li role="none"><a href="https://kizuna-works.jp/glossary/" class="site-nav-sub" role="menuitem">用語集</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Utsushi（PDF→HTML変換ツール）| KIZUNA Works</h1>
+
+<main>
+  <div class="container">
+    <div class="page-head">
+      <h2>Utsushi（PDF→HTML変換ツール）</h2>
+      <p class="lead">PDFをアップロードするだけで、見た目をそのまま忠実に再現したHTMLファイルに変換します。生成したHTMLはPDFリーダー不要で、どのブラウザでもそのまま開けます。ファイルはお使いのブラウザ内だけで処理され、サーバーには送信されません。</p>
+      <div class="badges">
+        <span class="badge">完全無料</span>
+        <span class="badge sub">登録不要</span>
+        <span class="badge sub">ブラウザ完結</span>
+        <span class="badge sub">サーバー送信なし</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="PDFファイルを選択またはドラッグ＆ドロップ">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="12" y1="18" x2="12" y2="12"/>
+          <polyline points="9 15 12 12 15 15"/>
+        </svg>
+        <div class="dz-title">PDFファイルをここにドラッグ＆ドロップ</div>
+        <div class="dz-sub">またはクリックしてファイルを選択</div>
+        <div class="dz-file" id="dzFile" hidden></div>
+      </div>
+      <input type="file" id="fileInput" accept="application/pdf,.pdf" hidden>
+
+      <div class="options" id="options">
+        <div class="opt-row">
+          <div class="opt-label">画質</div>
+          <div class="opt-choices" role="radiogroup" aria-label="画質">
+            <label class="chip"><input type="radio" name="scale" value="1.5"><span>標準（軽い）</span></label>
+            <label class="chip"><input type="radio" name="scale" value="2" checked><span>高画質（推奨）</span></label>
+            <label class="chip"><input type="radio" name="scale" value="3"><span>最高画質（重い）</span></label>
+          </div>
+        </div>
+        <div class="opt-row">
+          <div class="opt-label">画像形式</div>
+          <div class="opt-choices" role="radiogroup" aria-label="画像形式">
+            <label class="chip"><input type="radio" name="format" value="png" checked><span>PNG（文字くっきり）</span></label>
+            <label class="chip"><input type="radio" name="format" value="jpeg"><span>JPEG（軽い・写真向き）</span></label>
+          </div>
+        </div>
+        <div class="opt-row" id="qualityRow" hidden>
+          <div class="opt-label">JPEG品質</div>
+          <div class="quality-wrap">
+            <input type="range" id="quality" min="50" max="95" step="5" value="82">
+            <span class="quality-val" id="qualityVal">82%</span>
+          </div>
+        </div>
+        <p class="opt-note">画質を上げるほど見た目は鮮明になりますが、生成されるHTMLのファイルサイズも大きくなります。ページ数が多いPDFや写真主体のPDFはJPEGが軽くなります。</p>
+
+        <div class="actions">
+          <button class="btn btn-primary" id="convertBtn" disabled>HTMLに変換</button>
+          <button class="btn btn-ghost" id="resetBtn">別のPDFを選ぶ</button>
+        </div>
+
+        <div class="progress" id="progress">
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-text" id="progressText">準備中...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="result card" id="result">
+      <div class="result-summary">
+        <div class="rs-info">
+          変換完了：<strong id="rsPages">0</strong> ページ ／ 推定サイズ <strong id="rsSize">-</strong>
+        </div>
+        <button class="btn btn-primary" id="downloadBtn">HTMLをダウンロード</button>
+      </div>
+      <div class="preview-strip" id="previewStrip" aria-label="変換結果のプレビュー"></div>
+    </div>
+
+    <div class="card info">
+      <h3>このツールでできること</h3>
+      <p>PDFの各ページを高精細な画像として描き出し、それらを縦に並べた1枚の自己完結HTMLファイルを生成します。レイアウト・フォント・図版・色がそのまま保たれるため、見た目はPDFとほぼ同じです。生成されたHTMLは画像を内部に埋め込んでいるので、ファイル単体で完結し、PDFビューアをインストールしていない環境でもブラウザだけで閲覧できます。</p>
+      <h3>こんなときに便利</h3>
+      <ul>
+        <li>PDFをWebページとして社内ポータルやサイトに貼り付けたい</li>
+        <li>PDFリーダーを入れていない相手にも確実に見てもらいたい</li>
+        <li>資料の見た目を崩さずにHTML形式でアーカイブしておきたい</li>
+      </ul>
+      <h3>ご注意ください</h3>
+      <p class="caution">このツールは「見た目の忠実な再現」に特化しています。各ページは画像として埋め込まれるため、生成後のHTML上では文字の選択・コピー・検索はできません。文字を選択できる形式が必要な場合は、別途ご相談ください。なお、ファイルはお使いのブラウザ内だけで処理され、サーバーには一切送信されません。</p>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-brand">
+      <img src="/images/logo-white.png" alt="KIZUNA Works" style="height:48px;width:auto;margin-bottom:10px;display:block;mix-blend-mode:screen;">
+    </div>
+    <div class="site-footer-links">
+      <a href="https://kizuna-works.jp/privacy/">プライバシーポリシー</a>
+      <a href="https://kizuna-works.jp/terms/">利用規約</a>
+      <a href="https://kizuna-works.jp/tokushoho/">特定商取引法に基づく表記</a>
+      <a href="https://kizuna-works.jp/refund/">返金ポリシー</a>
+      <a href="https://kizuna-works.jp/contact/">お問い合わせ</a>
+    </div>
+  </div>
+  <div class="site-footer-copy">
+    <p>&copy; 2026 KIZUNA Works All Rights Reserved.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+const pdfjsLib = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs');
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs';
+
+const $ = (id) => document.getElementById(id);
+const dropzone = $('dropzone');
+const fileInput = $('fileInput');
+const dzFile = $('dzFile');
+const options = $('options');
+const convertBtn = $('convertBtn');
+const resetBtn = $('resetBtn');
+const qualityRow = $('qualityRow');
+const quality = $('quality');
+const qualityVal = $('qualityVal');
+const progress = $('progress');
+const progressFill = $('progressFill');
+const progressText = $('progressText');
+const result = $('result');
+const previewStrip = $('previewStrip');
+const downloadBtn = $('downloadBtn');
+const rsPages = $('rsPages');
+const rsSize = $('rsSize');
+
+const state = { pdfBytes: null, fileName: '', generatedHtml: '', baseName: 'document' };
+let toastTimer = null;
+
+function toast(msg) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
+  return (bytes / 1024 / 1024).toFixed(1) + ' MB';
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+/* ---- File intake ---- */
+dropzone.addEventListener('click', () => fileInput.click());
+dropzone.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); } });
+dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+dropzone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropzone.classList.remove('dragover');
+  const f = e.dataTransfer.files?.[0];
+  if (f) handleFile(f);
+});
+fileInput.addEventListener('change', (e) => { const f = e.target.files?.[0]; if (f) handleFile(f); });
+
+async function handleFile(file) {
+  if (file.type !== 'application/pdf' && !/\.pdf$/i.test(file.name)) {
+    toast('PDFファイルを選択してください');
+    return;
+  }
+  state.fileName = file.name;
+  state.baseName = file.name.replace(/\.pdf$/i, '') || 'document';
+  dzFile.hidden = false;
+  dzFile.textContent = '選択中: ' + file.name;
+  options.classList.add('show');
+  result.classList.remove('show');
+  convertBtn.disabled = false;
+  try {
+    state.pdfBytes = new Uint8Array(await file.arrayBuffer());
+  } catch (err) {
+    console.error(err);
+    toast('ファイルの読み込みに失敗しました');
+  }
+}
+
+/* ---- Options UI ---- */
+document.querySelectorAll('input[name="format"]').forEach((r) => {
+  r.addEventListener('change', () => { qualityRow.hidden = (getFormat() !== 'jpeg'); });
+});
+quality.addEventListener('input', () => { qualityVal.textContent = quality.value + '%'; });
+
+const getScale = () => parseFloat(document.querySelector('input[name="scale"]:checked').value);
+const getFormat = () => document.querySelector('input[name="format"]:checked').value;
+
+resetBtn.addEventListener('click', () => {
+  state.pdfBytes = null; state.generatedHtml = '';
+  fileInput.value = '';
+  dzFile.hidden = true; dzFile.textContent = '';
+  options.classList.remove('show');
+  result.classList.remove('show');
+  progress.classList.remove('show');
+  convertBtn.disabled = true;
+  previewStrip.innerHTML = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ---- Conversion ---- */
+convertBtn.addEventListener('click', convert);
+
+async function convert() {
+  if (!state.pdfBytes) return;
+  convertBtn.disabled = true;
+  resetBtn.disabled = true;
+  result.classList.remove('show');
+  previewStrip.innerHTML = '';
+  progress.classList.add('show');
+  progressFill.style.width = '0%';
+  progressText.textContent = 'PDFを解析中...';
+
+  const scale = getScale();
+  const format = getFormat();
+  const mime = format === 'jpeg' ? 'image/jpeg' : 'image/png';
+  const q = format === 'jpeg' ? parseInt(quality.value, 10) / 100 : undefined;
+
+  try {
+    const pdf = await pdfjsLib.getDocument({ data: state.pdfBytes.slice() }).promise;
+    const total = pdf.numPages;
+    const pages = [];
+
+    for (let i = 1; i <= total; i++) {
+      progressText.textContent = `ページを描画中... (${i} / ${total})`;
+      const page = await pdf.getPage(i);
+      const baseVp = page.getViewport({ scale: 1 });
+      const vp = page.getViewport({ scale });
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.floor(vp.width);
+      canvas.height = Math.floor(vp.height);
+      const ctx = canvas.getContext('2d', { alpha: false });
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+      const dataUrl = canvas.toDataURL(mime, q);
+      pages.push({ dataUrl, w: Math.round(baseVp.width), h: Math.round(baseVp.height) });
+
+      // free the canvas
+      canvas.width = canvas.height = 0;
+      progressFill.style.width = Math.round((i / total) * 100) + '%';
+      // yield to keep UI responsive
+      await new Promise((r) => setTimeout(r, 0));
+    }
+
+    progressText.textContent = 'HTMLを生成中...';
+    state.generatedHtml = buildHtml(pages, state.baseName);
+
+    // Preview
+    pages.forEach((p, idx) => {
+      const img = document.createElement('img');
+      img.src = p.dataUrl;
+      img.alt = `ページ ${idx + 1}`;
+      img.loading = 'lazy';
+      previewStrip.appendChild(img);
+    });
+
+    const sizeBytes = new Blob([state.generatedHtml]).size;
+    rsPages.textContent = total;
+    rsSize.textContent = formatBytes(sizeBytes);
+
+    progress.classList.remove('show');
+    result.classList.add('show');
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    toast('変換が完了しました');
+  } catch (err) {
+    console.error(err);
+    progress.classList.remove('show');
+    toast('変換に失敗しました。PDFが破損しているか、保護されている可能性があります。');
+  } finally {
+    convertBtn.disabled = false;
+    resetBtn.disabled = false;
+  }
+}
+
+function buildHtml(pages, baseName) {
+  const title = escapeHtml(baseName);
+  const imgs = pages.map((p, i) =>
+    `    <img class="pg" src="${p.dataUrl}" width="${p.w}" height="${p.h}" alt="ページ ${i + 1}" loading="lazy">`
+  ).join('\n');
+  return `<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${title}</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#525659;padding:24px 12px;font-family:sans-serif}
+  .doc{max-width:920px;margin:0 auto}
+  .pg{display:block;width:100%;height:auto;margin:0 auto 16px;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+  .pg:last-child{margin-bottom:0}
+  .meta{max-width:920px;margin:0 auto 16px;color:#cfd3d7;font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+  <div class="meta">Generated by KIZUNA Works Utsushi &mdash; https://kizuna-works.jp/tools/Utsushi.html</div>
+  <div class="doc">
+${imgs}
+  </div>
+</body>
+</html>`;
+}
+
+/* ---- Download ---- */
+downloadBtn.addEventListener('click', () => {
+  if (!state.generatedHtml) return;
+  const blob = new Blob([state.generatedHtml], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = state.baseName + '.html';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+
+/* ---- Mobile dropdown toggle ---- */
+const moreBtn = document.querySelector('.site-nav-more');
+if (moreBtn) {
+  moreBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const expanded = moreBtn.getAttribute('aria-expanded') === 'true';
+    moreBtn.setAttribute('aria-expanded', String(!expanded));
+  });
+}
+</script>
+</body>
+</html>
