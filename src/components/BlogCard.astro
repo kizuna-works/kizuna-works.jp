@@ -8,17 +8,20 @@ interface Props {
   date: Date;
   heroImage?: ImageMetadata;
   ogImage?: string;
+  slug?: string;
   description?: string;
 }
-const { href, title, date, heroImage, ogImage, description } = Astro.props;
+const { href, title, date, heroImage, ogImage, slug, description } = Astro.props;
 const formattedDate = date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+// Fall back to the auto-generated banner when neither heroImage nor ogImage is set.
+const cardImage = ogImage ?? (slug ? `/og/blog/${slug}.png` : undefined);
 ---
 
 <a href={href} class="blog-card">
   {heroImage ? (
     <Image src={heroImage} alt={title} class="blog-card-image" width={640} height={360} />
-  ) : ogImage ? (
-    <img src={ogImage} alt={title} class="blog-card-image" width="640" height="360" loading="lazy" />
+  ) : cardImage ? (
+    <img src={cardImage} alt={title} class="blog-card-image" width="640" height="360" loading="lazy" />
   ) : null}
   <div class="blog-card-body">
     <p class="blog-card-date">{formattedDate}</p>
