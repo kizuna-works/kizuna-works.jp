@@ -468,6 +468,27 @@ export const plugins: Plugin[] = [
     problemDesc: '項目が多くどこから入れるか迷う・必須にすると保存が止まる・入力漏れや重複に保存後まで気づけない',
     releaseDate: '2026-06-08',
   },
+  {
+    id: 'kw-conditional-form',
+    name: '条件分岐フォーム for kintone',
+    formName: '条件分岐フォーム for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'conditional-form',
+    description:
+      '区分・ステータス・入力値などの条件に応じて、フォームのフィールドを動的に出し分けする kintone プラグイン。「条件（最大5件・AND/OR）→ 動作」をルールで設定し、フィールド／グループの表示・非表示、条件成立時のみの必須化、読み取り専用、値の自動入力（TODAY 対応）、選択肢の絞り込みをノーコードで実現します。1つのルールで複数の対象に動作を適用でき、同じ項目に複数の動作が当たっても安全則（非表示＞読み取り専用＞必須）で自動解決。アプリを分けずに1つのアプリで区分別フォームを切り替えたい運用に最適です。条件で表示された項目は枠線でハイライト、動的に必須化された項目には「必須」バッジを表示。GAS・外部サービス不要で kintone 完結。',
+    image: '/images/conditional-form-banner.png',
+    imageAlt:
+      '条件分岐フォーム for kintone プラグイン — 区分・ステータス・入力値の条件でフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに切り替える動的フォーム制御',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '区分・ステータス・入力値の条件で、フィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに動的制御。1アプリで区分別フォームを実現。kintone完結。',
+    problemTitle: '1アプリで入力項目を出し分けたい',
+    problemDesc: '区分やステータスで見せる項目・必須・入れる値・選べる選択肢を変えたいが、標準ではできずアプリを分けがち',
+    releaseDate: '2026-06-09',
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({

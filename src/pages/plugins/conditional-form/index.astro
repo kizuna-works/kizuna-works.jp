@@ -1,0 +1,1089 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="条件分岐フォーム for kintone - 条件で表示/必須/自動入力を出し分け | KIZUNA Works"
+  description="区分・ステータス・入力値などの条件でフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに切り替える kintone プラグイン。条件→動作をルールで設定し、1つのアプリで区分別フォームをノーコードで実現します。kintone完結。"
+  ogTitle="条件分岐フォーム for kintone - 条件で表示/必須/自動入力を出し分け | KIZUNA Works"
+  ogDescription="区分・ステータス・入力値などの条件でフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに切り替える kintone プラグイン。条件→動作をルールで設定し、1つのアプリで区分別フォームをノーコードで実現します。kintone完結。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/conditional-form/"
+  ogImage="https://kizuna-works.jp/images/conditional-form-banner.png"
+  canonical="https://kizuna-works.jp/plugins/conditional-form/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/conditional-form/",
+          "url": "https://kizuna-works.jp/plugins/conditional-form/",
+          "name": "条件分岐フォーム for kintone - 条件で表示/必須/自動入力を出し分け | KIZUNA Works",
+          "description": "区分・ステータス・入力値などの条件でフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに切り替える kintone プラグイン。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/conditional-form-banner.png",
+            "width": 1200,
+            "height": 675
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "条件分岐フォーム for kintone", "item": "https://kizuna-works.jp/plugins/conditional-form/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "条件分岐フォーム for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-06-09",
+          "url": "https://kizuna-works.jp/plugins/conditional-form/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-form-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/conditional-form-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "区分・ステータス・入力値などの条件に応じて、フォームのフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに動的制御する kintone プラグイン。条件→動作をルールで設定し、1つのアプリで区分別フォームをノーコードで実現する。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "条件（最大5件・AND/OR）でフィールド/グループを表示・非表示に出し分け",
+            "条件成立時のみ必須化（標準は任意のフィールドを動的に必須に）",
+            "条件成立時に読み取り専用化（編集ロック）",
+            "条件成立の瞬間に値を自動セット（固定値・クリア・TODAY 対応）",
+            "条件成立時に選択肢を絞り込む（表示する選択肢を限定）",
+            "選択肢・数値・日付（TODAY±N）・プロセス管理ステータスを条件に利用",
+            "1ルールで複数の対象に動作を適用・優先順位はドラッグで変更",
+            "安全則で競合解決（非表示＞読み取り専用＞必須）",
+            "条件で表示された項目を枠線ハイライト・必須項目に必須バッジ",
+            "GAS・外部サービス不要・kintone完結"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .showcase-frame {
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .showcase-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Before/After screenshot pair */
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    /* Zoomable images + lightbox overlay */
+    .zoomable { cursor: zoom-in; }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    /* Config screenshots grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption { padding: 16px 20px; }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .screenshot-pair { grid-template-columns: 1fr; }
+      .config-screenshots { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/conditional-form-icon.png"
+        alt="条件分岐フォームプラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">条件分岐フォーム for kintone</h1>
+      <p class="hero-copy">区分・ステータス・入力値などの条件に応じて、フォームのフィールドを「表示／非表示・必須化・読み取り専用・自動入力・選択肢の絞り込み」に切り替える kintone プラグインです。「条件 → 動作」をルールで設定するだけで、1つのアプリの中に区分別の入力フォームをノーコードで作れます。入力の流れ・入力ミス・項目の取捨選択を、条件で自然に制御します。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">1つのアプリで複数の入力パターンを扱うとき、こんなことありませんか？</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🧩</span>
+            <h3 class="problem-title">区分で必要な項目が違うのに全部出ている</h3>
+            <p class="problem-desc">区分やステータスによって入力すべき項目が違うのに、常に全項目が表示されて分かりにくい。必要な項目だけを出し分けたい。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">✳️</span>
+            <h3 class="problem-title">特定条件のときだけ必須にしたい</h3>
+            <p class="problem-desc">「この区分のときだけこの項目を必須に」が標準ではできない。条件成立時だけ必須化したり、決まった値を自動で入れたい。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🗂️</span>
+            <h3 class="problem-title">アプリを分けたくない</h3>
+            <p class="problem-desc">入力パターンごとにアプリを分けると管理が増える。1つのアプリのまま、見せる項目・選べる選択肢を条件で切り替えたい。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Showcase -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">条件 → 動作 をルールで設定するだけ</h2>
+      <p class="section-subtitle">プログラミング不要。条件（最大5件・AND/OR）と、適用する動作・画面を選ぶだけです。</p>
+      <div class="showcase-frame">
+        <img
+          src="/images/conditional-form-banner.png"
+          alt="条件分岐フォーム for kintone — 区分・ステータス・入力値の条件でフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに切り替える設定イメージ"
+          width="1200" height="675" loading="lazy"
+        />
+      </div>
+    </section>
+
+    <!-- Option filtering before/after -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">例：条件で選択肢を絞り込む</h2>
+      <p class="section-subtitle">「確度」の値に応じて「商談フェーズ」で選べる選択肢を限定。入力ミスを減らします。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              class="zoomable" src="/images/conditional-form-filter-01.png"
+              alt="条件分岐フォーム — 確度100%のとき、商談フェーズのドロップダウンに全選択肢（商談予定/提案中/内示/受注/失注/保留・中止）が表示された kintone 編集画面"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>確度＝100%：商談フェーズは全選択肢を表示</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              class="zoomable" src="/images/conditional-form-filter-02.png"
+              alt="条件分岐フォーム — 確度80%のとき、商談フェーズのドロップダウンが「商談予定/提案中/内示」だけに絞り込まれた kintone 編集画面"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>確度＝80%：商談フェーズを「商談予定／提案中／内示」だけに絞り込み</figcaption>
+        </figure>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Conditional required before/after -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">例：条件で必須にする</h2>
+        <p class="section-subtitle">「確度」が100%のときだけ「受注予定日」を必須に。必須項目には赤い「必須」バッジが付きます。</p>
+        <div class="screenshot-pair">
+          <figure>
+            <div class="screenshot-frame">
+              <img
+                class="zoomable" src="/images/conditional-form-require-01.png"
+                alt="条件分岐フォーム — 確度80%のとき、受注予定日は必須ではなく「必須」バッジが付かない kintone 編集画面"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>確度＝80%：受注予定日は必須ではない（バッジなし）</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img
+                class="zoomable" src="/images/conditional-form-require-02.png"
+                alt="条件分岐フォーム — 確度100%のとき、受注予定日のラベル横に赤い「必須」バッジが付き、条件成立で必須化された kintone 編集画面"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>確度＝100%：受注予定日が必須に（赤い「必須」バッジを表示）</figcaption>
+          </figure>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Conditional auto set-value before/after -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">例：条件で値を自動セット</h2>
+      <p class="section-subtitle">「確度」が100%になった瞬間に「商談フェーズ」を「受注」へ自動入力。入力の手間とミスを減らします。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              class="zoomable" src="/images/conditional-form-setvalue-01.png"
+              alt="条件分岐フォーム — 確度80%のとき、商談フェーズは未設定（-----）のままで自動入力されない kintone 編集画面"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>確度＝80%：商談フェーズは未設定のまま（変化なし）</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              class="zoomable" src="/images/conditional-form-setvalue-02.png"
+              alt="条件分岐フォーム — 確度を100%にした瞬間、商談フェーズが自動で「受注」にセットされた kintone 編集画面"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>確度＝100%にした瞬間：商談フェーズが自動で「受注」にセット</figcaption>
+        </figure>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">主な機能</h2>
+        <ul class="feature-list">
+          <li><span><strong>表示／非表示の出し分け</strong> — 条件成立でフィールドやグループを表示・非表示。「表示する」を選んだ項目は普段は自動的に隠れ、条件を満たしたときだけ現れます（区分別フォーム）。</span></li>
+          <li><span><strong>動的な必須化</strong> — 標準では任意のフィールドを、条件成立時だけ必須に。未入力で保存しようとするとエラーになり、必須項目にはラベル横に「必須」バッジを表示します。</span></li>
+          <li><span><strong>読み取り専用（ロック）</strong> — 条件成立時に対象フィールドを入力不可に。決まった値を裏でセットしてロック表示する定番パターンにも対応します。</span></li>
+          <li><span><strong>値の自動セット</strong> — 条件が成立した瞬間に固定値をセット／空欄にクリア。日付フィールドには <strong>TODAY・TODAY+7・TODAY-3</strong> も指定できます。常時上書きはせず手入力を妨げません。</span></li>
+          <li><span><strong>選択肢の絞り込み</strong> — 条件成立時に、ドロップダウン等で「表示する選択肢」だけに限定。すでに選ばれている値はそのまま残します。</span></li>
+          <li><span><strong>豊富な条件</strong> — ドロップダウン／ラジオ／チェックボックス／複数選択／<strong>プロセス管理ステータス</strong>の値、文字列（等しい/含む/空 等）、数値の大小、日付（TODAY±N）を条件に。最大5件を AND／OR で結合できます。</span></li>
+          <li><span><strong>1ルールで複数動作・優先順位</strong> — 1つのルールで複数の対象にまとめて動作を適用。ルールはドラッグで並べ替えでき、上のルールほど優先されます。</span></li>
+          <li><span><strong>安全則で競合解決</strong> — 同じ項目に複数の動作が当たっても、「非表示 ＞ 読み取り専用 ＞ 必須」の安全則で自動解決。保存できず詰むことを防ぎます。</span></li>
+          <li><span><strong>ハイライト表示</strong> — 条件で表示された項目を左の色バー＋淡い背景でハイライト（任意・色4種）。条件で増えた項目が一目で分かります。</span></li>
+          <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は不要。条件の判定も動作の適用もブラウザ内で完結し、業務データを外部へ送信しません。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">設定画面の使い方</h2>
+      <p class="section-subtitle">「条件 → 動作 → 適用する画面」を選ぶだけ。プログラミング知識は不要です。</p>
+      <div class="config-screenshots">
+        <div class="config-shot">
+          <img
+            class="zoomable" src="/images/conditional-form-config-01.png"
+            alt="条件分岐フォーム 設定画面① — 機能の説明と、条件で表示された項目を枠線でハイライトする設定、ルール未作成の初期状態"
+            loading="lazy"
+          />
+          <div class="config-shot-caption">
+            <strong>① 設定画面の全体</strong>
+            <p>上部に機能の説明とハイライト設定。「＋ ルールを追加」からルール（条件と動作のセット）を作成します。</p>
+          </div>
+        </div>
+        <div class="config-shot">
+          <img
+            class="zoomable" src="/images/conditional-form-config-02.png"
+            alt="条件分岐フォーム 設定画面② — 条件「確度 が次と等しくない 100%」と動作「商談フェーズ の選択肢を絞り込む」、適用する画面を設定したルール"
+            loading="lazy"
+          />
+          <div class="config-shot-caption">
+            <strong>② ルールを作る</strong>
+            <p>条件（フィールド・演算子・値）と、成立時の動作（対象・動作種別）、適用する画面（新規／編集／詳細）を指定します。</p>
+          </div>
+        </div>
+        <div class="config-shot">
+          <img
+            class="zoomable" src="/images/conditional-form-config-03.png"
+            alt="条件分岐フォーム 設定画面③ — 条件を AND/OR で複数指定し、動作のプルダウンに表示する/非表示にする/必須にする/読み取り専用にする/値をセットする/選択肢を絞り込むの6種が並ぶ"
+            loading="lazy"
+          />
+          <div class="config-shot-caption">
+            <strong>③ 条件と動作を選ぶ</strong>
+            <p>条件は最大5件・AND/OR で結合。動作は「表示／非表示・必須化・読み取り専用・値をセット・選択肢を絞り込む」から選べます。</p>
+          </div>
+        </div>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">レコードの新規作成・編集・詳細画面があるアプリでご利用いただけます。</p>
+      <ol class="steps-list">
+        <li>「プランについて」セクションのダウンロードボタンから <code>kw-conditional-form-v1.0.0.zip</code> をダウンロード</li>
+        <li>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</li>
+        <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「条件分岐フォーム」を追加</li>
+        <li>プラグイン設定画面で<strong>ルール（条件 → 動作 → 適用する画面）</strong>を作成して「保存」</li>
+        <li>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックして反映完了</li>
+      </ol>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-conditional-form-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-conditional-form" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome 最新版での確認を推奨します。</li>
+        <li>レコードの新規作成・編集・詳細画面（PC 版）で動作します。必須化・読み取り専用・値の自動セット・選択肢の絞り込みは新規・編集画面でのみ有効です。</li>
+        <li>サブテーブル内のフィールドは、条件・対象とも対象外です（v1.0.0）。テーブル外の通常フィールド・グループが対象です。</li>
+        <li>「表示する」を選んだ項目は、条件を満たさない間は自動的に非表示になります（条件成立時だけ表示）。常に表示しておきたい項目はルールの対象にしないでください。</li>
+        <li>標準で必須に設定されたフィールドを条件で任意化することはできません（必須化は追加方向のみ）。</li>
+        <li>プロセス管理ステータスを条件にする場合、画面を開いた時点のステータス値で判定します（編集中のリアルタイム切替は対象外）。</li>
+        <li>モバイル版 kintone、カレンダー／カスタマイズビューでは動作しません。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-conditional-form" />
+    <PluginFaqSection pluginId="kw-conditional-form" pageUrl="https://kizuna-works.jp/plugins/conditional-form/" />
+    <SupporterCTA pluginId="kw-conditional-form" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">同じく無料で配布中の、レコード画面・入力まわりの kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/field-styler/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/field-styler-after.png" alt="フィールドスタイラープラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">フィールドスタイラー</h3>
+            <p class="related-post-desc">フィールドの背景色・文字色・条件付きスタイルをノーコードで。条件で「見た目」を変えたいときに。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/input-assist/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/input-assist-banner.png" alt="入力アシストプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">入力アシスト</h3>
+            <p class="related-post-desc">入力してほしい順に色で誘導＋未入力チェック＋重複チェック。入力の迷い・漏れを防ぎます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/quick-tab/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/quick-tab-banner.png" alt="クイックタブプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">クイックタブ</h3>
+            <p class="related-post-desc">項目の多いレコード画面をタブで自動分割。スクロールを減らして見やすく整理します。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="cf-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('cf-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-conditional-form-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-conditional-form-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>
