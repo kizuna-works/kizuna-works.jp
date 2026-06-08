@@ -524,9 +524,12 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       font-weight: 700;
     }
 
-    /* Screenshot Frame (live action screenshot) */
+    /* Screenshot frames — sized to the image's natural width (not upscaled),
+       centered, clickable to enlarge in the lightbox. */
     .screenshot-frame {
-      max-width: 980px;
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
       margin: 0 auto;
       border-radius: 12px;
       overflow: hidden;
@@ -535,7 +538,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       background: #ffffff;
     }
     .screenshot-frame img {
-      width: 100%;
+      width: auto;
+      max-width: 100%;
       height: auto;
       display: block;
     }
@@ -546,6 +550,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       max-width: 980px;
       margin: 0 auto;
     }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair.cols-3 { grid-template-columns: repeat(3, 1fr); }
     .screenshot-pair figure {
       margin: 0;
     }
@@ -556,13 +562,57 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       margin-top: 10px;
     }
     .screenshot-pair .screenshot-frame {
-      margin: 0;
+      margin: 0 auto;
+    }
+
+    /* Zoomable images + lightbox overlay (small screenshots open enlarged) */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
     }
 
     /* Config Screenshots Grid */
     .config-screenshots {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 32px;
     }
     .config-shot {
@@ -610,6 +660,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       .bottom-cta-title { font-size: 22px; }
       .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
       .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2,
+      .screenshot-pair.cols-3 { grid-template-columns: 1fr; }
     }
   </style>
 
@@ -662,11 +714,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     <section class="section-wrapper fade-in">
       <h2 class="section-title">入力してほしい順に、色でやさしく案内</h2>
       <p class="section-subtitle">現在地を強調し、値が入ると次の未入力フィールドへ自動で進みます</p>
-      <div class="screenshot-pair">
+      <div class="screenshot-pair cols-2">
         <figure>
           <div class="screenshot-frame">
             <img
-              src="/images/input-assist-after-01.png"
+              class="zoomable" src="/images/input-assist-after-01.png"
               alt="入力アシストの入力順ガイド — kintone 新規作成画面で「案件名」が現在地として強調され「入力してください」タグが付き、未入力チェック対象の「提案商品」に「未入力」タグが表示された状態"
               loading="lazy"
             />
@@ -676,7 +728,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <figure>
           <div class="screenshot-frame">
             <img
-              src="/images/input-assist-after-02.png"
+              class="zoomable" src="/images/input-assist-after-02.png"
               alt="入力アシストで案件名を入力後、現在地の強調が次の「会社名」へ自動で移動しカーソルもフォーカスされた kintone 編集画面"
               loading="lazy"
             />
@@ -684,6 +736,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           <figcaption>値が入ると現在地が次の「会社名」へ自動で前進（カーソルも移動）</figcaption>
         </figure>
       </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
     </section>
 
     <!-- Prevent omissions & duplicates -->
@@ -691,11 +744,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <div class="section-wrapper fade-in">
         <h2 class="section-title">入力漏れ・重複を保存前後で防ぐ</h2>
         <p class="section-subtitle">保存は止めずに確認、保存後も未入力を表示、入力中の重複もその場で警告</p>
-        <div class="screenshot-pair">
+        <div class="screenshot-pair cols-3">
           <figure>
             <div class="screenshot-frame">
               <img
-                src="/images/input-assist-after-03.png"
+                class="zoomable" src="/images/input-assist-after-03.png"
                 alt="入力アシストの未入力チェック — 未入力のまま保存しようとしたときに「未入力の項目があります」確認ダイアログ（未入力項目一覧と「戻って入力／このまま保存」ボタン）を表示した kintone 編集画面"
                 loading="lazy"
               />
@@ -705,7 +758,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           <figure>
             <div class="screenshot-frame">
               <img
-                src="/images/input-assist-after-04.png"
+                class="zoomable" src="/images/input-assist-after-04.png"
                 alt="入力アシストで保存後のレコード詳細画面 — 未入力の「提案商品」が警告色（オレンジ）でハイライトされ「未入力」タグが表示された状態"
                 loading="lazy"
               />
@@ -715,7 +768,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           <figure>
             <div class="screenshot-frame">
               <img
-                src="/images/input-assist-after-05.png"
+                class="zoomable" src="/images/input-assist-after-05.png"
                 alt="入力アシストの入力中の重複チェック — 「値の重複を禁止する」フィールドに既存と同じ値を入力したとき「この値は既に登録されています（重複）。保存できません。」とその場で警告した kintone 編集画面"
                 loading="lazy"
               />
@@ -723,6 +776,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <figcaption>入力中の重複チェック：保存エラーになる前にその場で警告</figcaption>
           </figure>
         </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
       </div>
     </section>
 
@@ -751,7 +805,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <div class="config-screenshots">
           <div class="config-shot">
             <img
-              src="/images/input-assist-config-01.png"
+              class="zoomable" src="/images/input-assist-config-01.png"
               alt="入力アシスト 設定画面① — 入力順ガイドの有効化と、対象フィールドを入力してほしい順にドラッグで並べ替えるリスト"
               loading="lazy"
             />
@@ -763,7 +817,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 
           <div class="config-shot">
             <img
-              src="/images/input-assist-config-02.png"
+              class="zoomable" src="/images/input-assist-config-02.png"
               alt="入力アシスト 設定画面② — 自動スクロール／自動フォーカス、未入力チェックの対象フィールドと詳細画面でも表示、入力中の重複チェックの設定"
               loading="lazy"
             />
@@ -775,7 +829,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 
           <div class="config-shot">
             <img
-              src="/images/input-assist-config-03.png"
+              class="zoomable" src="/images/input-assist-config-03.png"
               alt="入力アシスト 設定画面③ — 入力順ガイドと未入力チェックの配色をそれぞれプリセットから選択。一方で選んだ色は他方で選べず、ライブプレビューで確認できる"
               loading="lazy"
             />
@@ -785,6 +839,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             </div>
           </div>
         </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
       </div>
     </section>
 
@@ -909,6 +964,12 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <a href="/contact/" class="btn-primary">お問い合わせ</a>
     </section>
 
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ia-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
   </main>
 
   <script is:inline>
@@ -947,6 +1008,30 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           }
         });
       });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('ia-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
 
       const dlBtn = document.getElementById('btn-download');
       if (dlBtn) {
