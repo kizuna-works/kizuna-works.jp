@@ -106,8 +106,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 添付ファイルプレビュープラグイン製品ページ（/plugins/file-preview/）— 添付の画像/PDF/Excel/Word/テキストを一覧・詳細のファイル名クリックで全画面モーダル表示・送りナビ・Excel書式/グラフ再現・文字コード自動判定。表示ライブラリは自社配信(/libs/)からSRI付き遅延読込
 │   │   │   ├── quick-toc/
 │   │   │   │   └── index.astro # クイック目次プラグイン製品ページ（/plugins/quick-toc/）— レコード詳細/編集/新規の左側にセクション目次を常時表示・項目クリックで該当セクションへジャンプ・ステータスバッジ（DropDown/Radio/プロセス管理）・配色3モード・ヘッダー追従・kintone完結（スクショはクリックで拡大オーバーレイ）
-│   │   │   └── list-styler/
-│   │   │       └── index.astro # 一覧スタイラープラグイン製品ページ（/plugins/list-styler/）— 一覧の左端列固定（0〜3）＋基本行スタイル（ゼブラ2色/単色/文字色）＋行ホバー＋行番号＋条件付き行スタイル（背景/文字色/太字・日付TODAY/選択肢/ステータス・優先ドラッグ）＋行クリックで詳細を開く・設定セット方式・kintone完結。旧 kw-fixed-columns（列固定ビュー）から改称
+│   │   │   ├── list-styler/
+│   │   │   │   └── index.astro # 一覧スタイラープラグイン製品ページ（/plugins/list-styler/）— 一覧の左端列固定（0〜3）＋基本行スタイル（ゼブラ2色/単色/文字色）＋行ホバー＋行番号＋条件付き行スタイル（背景/文字色/太字・日付TODAY/選択肢/ステータス・優先ドラッグ）＋行クリックで詳細を開く・設定セット方式・kintone完結。旧 kw-fixed-columns（列固定ビュー）から改称
+│   │   │   └── input-assist/
+│   │   │       └── index.astro # 入力アシストプラグイン製品ページ（/plugins/input-assist/）— 新規作成/編集で入力順ガイド（待機/現在地/入力済みを色分け・値が入ると次へ自動前進・ラベル横にタグ・自動スクロール/フォーカス）＋未入力チェック（保存は止めず保存時に確認・詳細画面でも未入力表示）＋入力中の重複チェック（「値の重複を禁止する」フィールドを自動対象）。配色はガイド/未入力チェックで別プリセット・kintone完結
 │   │   ├── tools/
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   │   ├── extensions/
@@ -314,7 +316,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-summary-bar-v1.0.0.zip                    # 集計サマリーバー for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-csv-export-v1.0.0.zip                     # かんたんCSV出力 for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-quick-tab-v1.0.0.zip                      # クイックタブ for kintone プラグイン配布ファイル（手動配置）
-│   │   └── kw-file-preview-v1.0.0.zip                   # 添付ファイルプレビュー for kintone プラグイン配布ファイル（手動配置）
+│   │   ├── kw-file-preview-v1.0.0.zip                   # 添付ファイルプレビュー for kintone プラグイン配布ファイル（手動配置）
+│   │   └── kw-input-assist-v1.0.0.zip                   # 入力アシスト for kintone プラグイン配布ファイル（手動配置）
 │   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ（第三者CDN不使用）。現状 kw-file-preview のみ使用
 │   │   ├── README.md           # 収録ライブラリ・バージョン・ライセンス・更新手順
 │   │   ├── pdfjs/3.11.174/     # PDF.js（pdf.min.js / pdf.worker.min.js）— PDF描画

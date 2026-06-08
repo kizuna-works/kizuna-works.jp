@@ -1,0 +1,966 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="入力アシスト for kintone - 入力順ガイド・未入力チェック・重複チェック | KIZUNA Works"
+  description="kintone の新規作成・編集画面で入力してほしい順にフィールドを色で誘導するプラグイン。値が入ると次の未入力へ自動で進み、未入力チェック（保存は止めず保存時に確認）と入力中の重複チェックで入力漏れ・ミスを防ぎます。kintone完結。"
+  ogTitle="入力アシスト for kintone - 入力順ガイド・未入力チェック・重複チェック | KIZUNA Works"
+  ogDescription="kintone の新規作成・編集画面で入力してほしい順にフィールドを色で誘導するプラグイン。値が入ると次の未入力へ自動で進み、未入力チェック（保存は止めず保存時に確認）と入力中の重複チェックで入力漏れ・ミスを防ぎます。kintone完結。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/input-assist/"
+  ogImage="https://kizuna-works.jp/images/input-assist-banner.png"
+  canonical="https://kizuna-works.jp/plugins/input-assist/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/input-assist/",
+          "url": "https://kizuna-works.jp/plugins/input-assist/",
+          "name": "入力アシスト for kintone - 入力順ガイド・未入力チェック・重複チェック | KIZUNA Works",
+          "description": "kintone の新規作成・編集画面で入力してほしい順にフィールドを色で誘導し、未入力チェックと入力中の重複チェックで入力漏れ・ミスを防ぐプラグイン。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/input-assist-banner.png",
+            "width": 1200,
+            "height": 675
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "入力アシスト for kintone", "item": "https://kizuna-works.jp/plugins/input-assist/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "入力アシスト for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-06-08",
+          "url": "https://kizuna-works.jp/plugins/input-assist/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-input-assist-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/input-assist-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone の新規作成・編集画面で、入力してほしい順にフィールドを色で誘導する kintone プラグイン。値が入ると現在地が次の未入力へ自動で進み、未入力チェック（保存は止めず保存時に確認）と入力中の重複チェックで入力漏れ・ミスを防ぐ。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "入力してほしい順にフィールドを色で誘導（待機／現在地／入力済み）",
+            "値が入ると現在地が次の未入力フィールドへ自動で前進",
+            "現在地への自動スクロール・自動フォーカス（任意）",
+            "未入力チェック：保存は止めず、保存時に確認ダイアログ（未入力項目の一覧つき）",
+            "標準必須とは別物として共存（保存をブロックしない）",
+            "保存後の詳細画面でも未入力を警告色＋タグで表示",
+            "入力中の重複チェック（「値の重複を禁止する」フィールドを自動対象・同一アプリ内照会）",
+            "配色は入力順ガイドと未入力チェックで別プリセット（同じ色は選べない）",
+            "GAS・外部サービス不要・kintone完結"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot Frame (live action screenshot) */
+    .screenshot-frame {
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair figure {
+      margin: 0;
+    }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame {
+      margin: 0;
+    }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/input-assist-icon.png"
+        alt="入力アシストプラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">入力アシスト for kintone</h1>
+      <p class="hero-copy">kintone の新規作成・編集画面で、入力してほしい順にフィールドを色で誘導するプラグインです。先頭の未入力フィールドを「現在地」として強調し、値が入ると自動で次へ。さらに「未入力チェック」は保存を止めずに保存時の確認だけで入力漏れを防ぎ、「値の重複を禁止する」フィールドでは入力中に重複をその場で警告します。新人やたまに使う担当者でも迷わず、正しく入力できます。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">項目数の多い申請・受付・案件登録フォーム、入力でこんなことありませんか？</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🧭</span>
+            <h3 class="problem-title">どこから入力すればいいか分からない</h3>
+            <p class="problem-desc">項目が多く、新人やたまに使う担当者は入力の順番に迷う。入力してほしい順に「今ここ」を示して、迷わず進めるようにしたい。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🚫</span>
+            <h3 class="problem-title">必須にすると保存が止まる</h3>
+            <p class="problem-desc">標準の必須は未入力だと保存をブロックするので、「あとで埋めたい」運用に合わない。止めずに、入力漏れだけ気づかせたい。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">⚠️</span>
+            <h3 class="problem-title">入力漏れ・重複に後で気づく</h3>
+            <p class="problem-desc">保存してから入力漏れや値の重複が判明し、差し戻し・再入力に。保存前・保存時にその場で気づけるようにしたい。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Guide in action -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">入力してほしい順に、色でやさしく案内</h2>
+      <p class="section-subtitle">現在地を強調し、値が入ると次の未入力フィールドへ自動で進みます</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              src="/images/input-assist-after-01.png"
+              alt="入力アシストの入力順ガイド — kintone 新規作成画面で「案件名」が現在地として強調され「入力してください」タグが付き、未入力チェック対象の「提案商品」に「未入力」タグが表示された状態"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>入力前：先頭の「案件名」を現在地として強調（未入力チェック対象には「未入力」タグ）</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img
+              src="/images/input-assist-after-02.png"
+              alt="入力アシストで案件名を入力後、現在地の強調が次の「会社名」へ自動で移動しカーソルもフォーカスされた kintone 編集画面"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>値が入ると現在地が次の「会社名」へ自動で前進（カーソルも移動）</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Prevent omissions & duplicates -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">入力漏れ・重複を保存前後で防ぐ</h2>
+        <p class="section-subtitle">保存は止めずに確認、保存後も未入力を表示、入力中の重複もその場で警告</p>
+        <div class="screenshot-pair">
+          <figure>
+            <div class="screenshot-frame">
+              <img
+                src="/images/input-assist-after-03.png"
+                alt="入力アシストの未入力チェック — 未入力のまま保存しようとしたときに「未入力の項目があります」確認ダイアログ（未入力項目一覧と「戻って入力／このまま保存」ボタン）を表示した kintone 編集画面"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>保存時：未入力があれば確認ダイアログ（保存はブロックしない）</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img
+                src="/images/input-assist-after-04.png"
+                alt="入力アシストで保存後のレコード詳細画面 — 未入力の「提案商品」が警告色（オレンジ）でハイライトされ「未入力」タグが表示された状態"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>保存後の詳細画面でも未入力を警告色＋タグで表示</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img
+                src="/images/input-assist-after-05.png"
+                alt="入力アシストの入力中の重複チェック — 「値の重複を禁止する」フィールドに既存と同じ値を入力したとき「この値は既に登録されています（重複）。保存できません。」とその場で警告した kintone 編集画面"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>入力中の重複チェック：保存エラーになる前にその場で警告</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">主な機能</h2>
+      <ul class="feature-list">
+        <li><span><strong>入力順ガイド（色で誘導）</strong> — 指定した順にフィールドを「待機（淡）／現在地（強調＋『入力してください』タグ）／入力済み（解除）」で色分け。先頭の未入力フィールドが現在地になります。</span></li>
+        <li><span><strong>値が入ると自動で前進</strong> — 現在地のフィールドに値が入ると、強調が次の未入力フィールドへ自動で移動。ルックアップ取得や選択肢の確定にも追従します。</span></li>
+        <li><span><strong>自動スクロール・自動フォーカス</strong> — 現在地が画面外なら自動スクロール。任意で現在地フィールドへカーソルを移動（自動フォーカス）もできます。</span></li>
+        <li><span><strong>未入力チェック（保存時に確認）</strong> — 指定フィールドを警告色＋「未入力」タグで表示。未入力のまま保存しようとすると確認ダイアログ（未入力項目の一覧つき・「このまま保存／戻って入力」）を表示します。<strong>保存はブロックしません</strong>。</span></li>
+        <li><span><strong>標準必須と共存</strong> — kintone 標準の必須（保存ブロック）とは別物として共存。「あとで埋めたい」運用にもなじみます。</span></li>
+        <li><span><strong>詳細画面でも未入力を表示</strong> — 保存後のレコード詳細画面でも、未入力の対象フィールドを警告色＋「未入力」タグで表示。後から入力漏れに気づけます。</span></li>
+        <li><span><strong>入力中の重複チェック</strong> — kintone の「値の重複を禁止する」が設定されたフィールドを自動対象に、入力中に同じアプリ内の既存レコードと同じ値がないかを確認。重複していればその場で警告し、保存時の重複エラー前に気づけます。</span></li>
+        <li><span><strong>配色はガイド／チェックで別指定</strong> — 入力順ガイドと未入力チェックの色をそれぞれプリセット（ピンク系／ブルー系／緑系／オレンジ系／グレー系）またはカスタムから選択。区別のため同じ色は選べません。ライブプレビュー付き。</span></li>
+        <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は不要。重複チェックも自分の kintone アプリ内で完結し、業務データを外部へ送信しません。</span></li>
+      </ul>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定画面の使い方</h2>
+        <p class="section-subtitle">対象フィールドと色を選ぶだけ。プログラミング知識は不要です。</p>
+
+        <div class="config-screenshots">
+          <div class="config-shot">
+            <img
+              src="/images/input-assist-config-01.png"
+              alt="入力アシスト 設定画面① — 入力順ガイドの有効化と、対象フィールドを入力してほしい順にドラッグで並べ替えるリスト"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>① 入力順ガイド</strong>
+              <p>ガイドを有効にし、対象フィールドを「入力してほしい順」にドラッグで並べ替えます。自動計算・自動採番などの自動値フィールドは候補に出ません。</p>
+            </div>
+          </div>
+
+          <div class="config-shot">
+            <img
+              src="/images/input-assist-config-02.png"
+              alt="入力アシスト 設定画面② — 自動スクロール／自動フォーカス、未入力チェックの対象フィールドと詳細画面でも表示、入力中の重複チェックの設定"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>② 未入力チェック・重複チェック</strong>
+              <p>自動スクロール／フォーカス、未入力チェックの対象フィールドと「詳細画面でも表示」、入力中の重複チェック（対象は自動検出）を設定します。</p>
+            </div>
+          </div>
+
+          <div class="config-shot">
+            <img
+              src="/images/input-assist-config-03.png"
+              alt="入力アシスト 設定画面③ — 入力順ガイドと未入力チェックの配色をそれぞれプリセットから選択。一方で選んだ色は他方で選べず、ライブプレビューで確認できる"
+              loading="lazy"
+            />
+            <div class="config-shot-caption">
+              <strong>③ 配色（ガイド／チェック別）</strong>
+              <p>入力順ガイドと未入力チェックの色をそれぞれプリセット／カスタムから選択。区別のため一方で使った色は他方で選べません。プレビューで確認できます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">レコードの新規作成・編集画面があるアプリでご利用いただけます。</p>
+      <ol class="steps-list">
+        <li>「プランについて」セクションのダウンロードボタンから <code>kw-input-assist-v1.0.0.zip</code> をダウンロード</li>
+        <li>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</li>
+        <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「入力アシスト」を追加</li>
+        <li>プラグイン設定画面で<strong>入力順ガイドの対象フィールド・未入力チェックの対象・配色</strong>などを設定して「保存」</li>
+        <li>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックして反映完了</li>
+      </ol>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-input-assist-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-input-assist" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome 最新版での確認を推奨します。</li>
+        <li>入力順ガイド・未入力チェックはレコードの新規作成・編集画面（PC 版）で動作します。未入力の詳細画面表示はレコード詳細画面（PC 版）で動作します。</li>
+        <li>サブテーブル内・グループ内のフィールドは対象外です（v1.0.0）。テーブル外の通常フィールドが対象です。</li>
+        <li>「未入力チェック」は kintone 標準の必須設定（保存をブロック）とは別物です。保存は止めず確認のみ行うため、両方を併用できます。</li>
+        <li>入力中の重複チェックは、保存時の重複エラーを前倒しで気づかせる補助機能です。最終的な重複防止は kintone 標準の「値の重複を禁止する」が行います。</li>
+        <li>ルックアップ・ユーザー／組織／グループ選択は値変更の検知タイミングの都合で、現在地の前進が最大 0.5 秒ほど遅れる場合があります。</li>
+        <li>モバイル版 kintone では動作しません。PC 版でのみ動作します。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+    <SecurityBox pluginId="kw-input-assist" />
+    <PluginFaqSection pluginId="kw-input-assist" pageUrl="https://kizuna-works.jp/plugins/input-assist/" />
+    <SupporterCTA pluginId="kw-input-assist" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">同じく無料で配布中の入力支援系 kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/lookup-suggest/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/lookup-suggest-banner.png" alt="ルックアップサジェストプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">ルックアップサジェスト</h3>
+            <p class="related-post-desc">ルックアップ入力中に候補を直下に表示し、画面遷移なしで取得。入力の手間を減らします。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/address-assist/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/address-assist-banner.png" alt="住所アシストプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">住所アシスト</h3>
+            <p class="related-post-desc">郵便番号から住所を自動入力。地図プレビューやマップ URL 生成にも対応します。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/field-comment/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/field-comment-banner.png" alt="フィールドコメントプラグイン" loading="lazy" width="1200" height="675">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">フィールドコメント</h3>
+            <p class="related-post-desc">フィールド名の横にヘルプや補足コメントを表示。入力時の迷いをなくします。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-input-assist-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-input-assist-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

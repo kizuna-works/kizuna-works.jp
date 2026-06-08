@@ -447,6 +447,27 @@ export const plugins: Plugin[] = [
     problemDesc: '横スクロールでキー列が消える・行を見分けづらい・状態や期限を一目で把握したい',
     releaseDate: '2026-06-07',
   },
+  {
+    id: 'kw-input-assist',
+    name: '入力アシスト for kintone',
+    formName: '入力アシスト for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'input-assist',
+    description:
+      'kintone の新規作成・編集画面で、入力してほしい順にフィールドを色で誘導する入力アシストプラグイン。指定した順に「待機（淡）／現在地（強調＋タグ）／入力済み（解除）」を色分けし、値が入ると現在地が次の未入力フィールドへ自動で進みます（自動スクロール・自動フォーカス対応）。さらに「未入力チェック」は標準必須のように保存をブロックせず、未入力があれば保存時に確認ダイアログ（未入力項目の一覧つき）を表示し、保存後の詳細画面でも未入力を表示。加えて「値の重複を禁止する」フィールドでは入力中に既存レコードとの重複をその場で警告します。配色は入力順ガイドと未入力チェックでそれぞれプリセット（同じ色は選べない排他）。新人やたまに使う担当者の入力ミス・入力漏れ・差し戻しを減らします。GAS・外部サービス不要で kintone 完結。',
+    image: '/images/input-assist-banner.png',
+    imageAlt:
+      '入力アシスト for kintone プラグイン — 新規作成・編集画面で入力順をフィールドの色で誘導し、未入力チェックと入力中の重複チェックで入力漏れ・ミスを防ぐ',
+    imageWidth: 1200,
+    imageHeight: 675,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '入力してほしい順にフィールドを色で誘導。未入力チェック（保存は止めず確認）と入力中の重複チェックで入力漏れ・ミスを防止。kintone完結。',
+    problemTitle: '入力の順番・漏れで手戻りが起きる',
+    problemDesc: '項目が多くどこから入れるか迷う・必須にすると保存が止まる・入力漏れや重複に保存後まで気づけない',
+    releaseDate: '2026-06-08',
+  },
 ];
 
 export const pluginsItemListJsonLd = plugins.map((p, i) => ({
