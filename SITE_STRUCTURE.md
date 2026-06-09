@@ -315,7 +315,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-address-assist-v1.0.0.zip                # 住所アシスト for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-quick-history-view-v1.0.0.zip            # クイック履歴ビュー for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-related-record-popup-v1.0.0.zip          # 関連レコードポップアップ表示 for kintone プラグイン配布ファイル（手動配置）
-│   │   ├── kw-summary-bar-v1.0.0.zip                    # 集計サマリーバー for kintone プラグイン配布ファイル（手動配置）
+│   │   ├── kw-summary-bar-v1.0.0.zip                    # 集計サマリーバー for kintone プラグイン配布ファイル（旧版）
+│   │   ├── kw-summary-bar-v2.0.0.zip                    # 集計サマリーバー for kintone プラグイン配布ファイル（最新版・カードごとの絞り込み集計）
 │   │   ├── kw-csv-export-v1.0.0.zip                     # かんたんCSV出力 for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-quick-tab-v1.0.0.zip                      # クイックタブ for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-file-preview-v1.0.0.zip                   # 添付ファイルプレビュー for kintone プラグイン配布ファイル（手動配置）

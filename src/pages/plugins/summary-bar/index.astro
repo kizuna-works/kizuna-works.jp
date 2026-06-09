@@ -7,9 +7,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 
 <Layout
   title="集計サマリーバー for kintone - 一覧ヘッダーに合計・件数を即時表示 | KIZUNA Works"
-  description="kintone レコード一覧のヘッダーに合計・平均・最大・最小・件数の集計カードを表示するプラグイン。絞り込みに連動して即時に再集計し、グラフ画面に移動せず数字を確認。表示中／全件トグル・条件付き色分け・段組みに対応。"
+  description="kintone レコード一覧のヘッダーに合計・平均・最大・最小・件数の集計カードを表示するプラグイン。絞り込みに連動して即時に再集計し、グラフ画面に移動せず数字を確認。カードごとの絞り込み集計・条件付き色分け・段組みに対応。"
   ogTitle="集計サマリーバー for kintone - 一覧ヘッダーに合計・件数を即時表示 | KIZUNA Works"
-  ogDescription="kintone レコード一覧のヘッダーに合計・平均・最大・最小・件数の集計カードを表示するプラグイン。絞り込みに連動して即時に再集計し、グラフ画面に移動せず数字を確認。表示中／全件トグル・条件付き色分け・段組みに対応。"
+  ogDescription="kintone レコード一覧のヘッダーに合計・平均・最大・最小・件数の集計カードを表示するプラグイン。絞り込みに連動して即時に再集計し、グラフ画面に移動せず数字を確認。カードごとの絞り込み集計・条件付き色分け・段組みに対応。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/summary-bar/"
   ogImage="https://kizuna-works.jp/images/summary-bar-banner.png"
@@ -51,10 +51,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "集計サマリーバー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.0",
-          "dateModified": "2026-05-30",
+          "softwareVersion": "2.0.0",
+          "dateModified": "2026-06-09",
           "url": "https://kizuna-works.jp/plugins/summary-bar/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-summary-bar-v1.0.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-summary-bar-v2.0.0.zip",
           "image": "https://kizuna-works.jp/images/summary-bar-banner.png",
           "offers": {
             "@type": "Offer",
@@ -72,6 +72,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           },
           "featureList": [
             "レコード一覧ヘッダーに合計・平均・最大・最小・件数の集計カードを表示",
+            "カードごとに別フィールドの条件で集計対象を絞り込み（例：商品＝商品Aの売上だけ合計／複数条件はAND・OR）",
             "絞り込み・ソートに連動して即時に再集計（debounce 制御）",
             "「表示中（現在ページ）／絞り込み全件」をトグルでワンクリック切替",
             "全件集計はページングで取得し、上限件数で API 負荷を保護",
@@ -527,6 +528,55 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       font-weight: 700;
     }
 
+    /* Update box (version highlight) */
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 24px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+
     /* Screenshot Frame (live action screenshot) */
     .screenshot-frame {
       max-width: 980px;
@@ -613,6 +663,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       .bottom-cta-title { font-size: 22px; }
       .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
       .config-screenshots { grid-template-columns: 1fr; }
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
     }
   </style>
 
@@ -630,10 +682,29 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.0</span>
+        <span class="hero-version">v2.0.0</span>
       </div>
       <h1 class="hero-title">集計サマリーバー for kintone</h1>
-      <p class="hero-copy">レコード一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示する kintone プラグインです。絞り込みに連動して即時に再集計するので、グラフ画面に移動せず「今この一覧の数字」をひと目で把握できます。一覧ビューごとに別のカード構成を設定でき、集計値による色分けや段組みにも対応します。</p>
+      <p class="hero-copy">レコード一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示する kintone プラグインです。絞り込みに連動して即時に再集計するので、グラフ画面に移動せず「今この一覧の数字」をひと目で把握できます。一覧ビューごとに別のカード構成を設定でき、集計値による色分けや段組みに対応。<strong>v2.0.0 ではカードごとに別フィールドの条件で集計対象を絞り込めるようになり</strong>、「商品Aの売上だけ」「サービス分だけ」といった内訳をそのまま一覧上に並べられます。</p>
+    </section>
+
+    <!-- Update Info (v2.0.0) -->
+    <section class="section-wrapper fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v2.0.0：カードごとに「絞り込んで集計」できるようになりました</h2>
+        </div>
+        <p class="update-desc">カードごとに別フィールドの条件を設定して、集計対象のレコードを絞り込めるようになりました。たとえば売上の合計カードに「商品＝サービス」「商品＝商品」といった条件を付ければ、下のように<strong>売上合計・サービス売上合計・商品売上合計</strong>を一覧ヘッダーに並べて、内訳をその場で比較できます。複数条件は AND／OR で組み合わせ可能。件数カードにも使えるので「商品Aの件数」のようなカードも作れます。</p>
+        <div class="screenshot-frame">
+          <img
+            src="/images/summary-bar-filter.png"
+            alt="集計サマリーバー v2.0.0 のカードごとの絞り込み集計 — 件数100件、売上合計¥1,386,496、別フィールドで絞り込んだサービス売上合計1,343,396、商品売上合計¥43,100 の4枚の集計カードが一覧ヘッダーに並んだ状態"
+            loading="lazy"
+          />
+        </div>
+        <p class="update-note">既存ユーザーの方は、最新版（v2.0.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定や既存カードはそのまま引き継がれます。</p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -695,6 +766,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <h2 class="section-title-left">主な機能</h2>
         <ul class="feature-list">
           <li><span><strong>一覧ヘッダーに集計カードを常設</strong> — 合計・平均・最大・最小・件数の集計カードをレコード一覧画面の上部に並べて表示。詳細画面やグラフ画面に移動せず、その場で数字を確認できます。</span></li>
+          <li><span><strong>カードごとに集計対象を絞り込み（v2.0.0）</strong> — カードごとに別フィールドの条件を設定して、集計対象のレコードを絞り込めます。「商品＝商品Aの売上だけ合計」「区分＝サービスの件数だけ」といった内訳カードを並べて表示でき、複数条件は AND／OR で組み合わせ可能。対象は文字列・ドロップダウン・チェックボックス・数値・日付などで、選択肢は値をプルダウンから選ぶだけです。</span></li>
           <li><span><strong>絞り込みに連動して即時再集計</strong> — 一覧の絞り込みやソートを変えると、その結果に合わせてカードが自動で再集計されます。多重実行を抑える debounce 制御付き。</span></li>
           <li><span><strong>「表示中／絞り込み全件」をトグル切替</strong> — バー右端のトグルで、現在ページだけの集計と、絞り込み条件に合致する全レコードの集計をワンクリックで切り替え。全件はページングで取得し、上限件数（既定 5,000 件）で API 負荷を保護します。</span></li>
           <li><span><strong>一覧ビューごとに別のカード構成</strong> — 一覧ビューごとに、表示するカードの種類・順番・色を別々に設定可能。1 一覧あたり最大 10 枚まで並べられます。</span></li>
@@ -799,7 +871,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">集計に使う数値（または計算）フィールドと、テーブル形式の一覧ビューがあるアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li>「プランについて」セクションのダウンロードボタンから <code>kw-summary-bar-v1.0.0.zip</code> をダウンロード</li>
+        <li>「プランについて」セクションのダウンロードボタンから <code>kw-summary-bar-v2.0.0.zip</code> をダウンロード</li>
         <li>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</li>
         <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「集計サマリーバー」を追加</li>
         <li>プラグイン設定画面で<strong>対象一覧</strong>を選び、「カード設定」タブで集計方法・対象フィールド・表示段などを設定して「保存」</li>
@@ -824,7 +896,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-summary-bar-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-summary-bar-v2.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -861,6 +933,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           <li>本プラグインはレコード一覧画面（PC 版）でのみ動作します。詳細・編集画面では動作しません。</li>
           <li>カレンダービュー・カスタマイズビューでは表示されません。テーブル形式の一覧ビューでのみ動作します。</li>
           <li>合計・平均は数値／計算（数値結果）フィールド、最大・最小は数値・計算・日付・日時フィールドが対象です。文字列・選択肢系フィールドは集計対象外です（件数のみ可）。</li>
+          <li>カードごとの絞り込み（v2.0.0）は、文字列・ドロップダウン・ラジオボタン・チェックボックス・複数選択・数値・計算・日付・日時フィールドに対応します。ユーザー選択・組織選択・グループ選択フィールドは現在対象外です。</li>
           <li>サブテーブル内フィールドの集計には対応していません。</li>
           <li>「絞り込み全件」集計は対象レコードを取得するため、件数が多いほど処理に時間がかかります。上限件数で保護されます。</li>
           <li>モバイル版 kintone では動作しません。PC 版でのみ動作します。</li>
@@ -963,10 +1036,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-summary-bar-v1.0.0.zip',
+              file_name: 'kw-summary-bar-v2.0.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-summary-bar-v1.0.0.zip'
+              link_url: '/downloads/kw-summary-bar-v2.0.0.zip'
             });
           }
         });
