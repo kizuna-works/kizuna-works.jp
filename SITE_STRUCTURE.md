@@ -316,7 +316,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-history-view-v1.0.0.zip            # クイック履歴ビュー for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-related-record-popup-v1.0.0.zip          # 関連レコードポップアップ表示 for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-summary-bar-v1.0.0.zip                    # 集計サマリーバー for kintone プラグイン配布ファイル（旧版）
-│   │   ├── kw-summary-bar-v2.0.0.zip                    # 集計サマリーバー for kintone プラグイン配布ファイル（最新版・カードごとの絞り込み集計）
+│   │   ├── kw-summary-bar-v2.0.0.zip                    # 集計サマリーバー for kintone プラグイン配布ファイル（旧版・カードごとの絞り込み集計）
+│   │   ├── kw-summary-bar-v2.1.0.zip                    # 集計サマリーバー for kintone プラグイン配布ファイル（最新版・相対期間/ユーザー組織グループ選択の絞り込み追加）
 │   │   ├── kw-csv-export-v1.0.0.zip                     # かんたんCSV出力 for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-quick-tab-v1.0.0.zip                      # クイックタブ for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-file-preview-v1.0.0.zip                   # 添付ファイルプレビュー for kintone プラグイン配布ファイル（手動配置）
