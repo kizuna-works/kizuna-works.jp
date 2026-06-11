@@ -312,7 +312,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-record-lock-v1.0.1.zip                   # レコードロックプラグイン配布ファイル（手動配置）
 │   │   ├── kw-field-comment-v1.0.1.zip                 # フィールドコメントプラグイン配布ファイル（手動配置）
 │   │   ├── kw-theme-styler-v1.0.1.zip                  # テーマスタイラー for kintone プラグイン配布ファイル（手動配置）
-│   │   ├── kw-address-assist-v1.0.0.zip                # 住所アシスト for kintone プラグイン配布ファイル（手動配置）
+│   │   ├── kw-address-assist-v1.0.1.zip                # 住所アシスト for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-quick-history-view-v1.0.1.zip            # クイック履歴ビュー for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-related-record-popup-v1.0.1.zip          # 関連レコードポップアップ表示 for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-summary-bar-v1.0.0.zip                    # 集計サマリーバー for kintone プラグイン配布ファイル（旧版）
