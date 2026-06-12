@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" font-family="'Noto Sans JP','Hiragino Kaku Gothic ProN',Meiryo,sans-serif">
+  <!-- background -->
+  <rect width="1000" height="600" fill="#ffffff"/>
+
+  <!-- title -->
+  <text x="500" y="46" text-anchor="middle" font-size="28" font-weight="700" fill="#1B3A6B">kintone標準の採番 と 条件分岐採番のちがい</text>
+  <rect x="350" y="58" width="300" height="4" rx="2" fill="#2E8B2E"/>
+
+  <!-- ===== LEFT CARD : standard ===== -->
+  <rect x="40" y="90" width="430" height="470" rx="14" fill="#F4F6FA" stroke="#D5DCE8" stroke-width="1.5"/>
+  <rect x="40" y="90" width="430" height="56" rx="14" fill="#1B3A6B"/>
+  <rect x="40" y="120" width="430" height="26" fill="#1B3A6B"/>
+  <text x="255" y="126" text-anchor="middle" font-size="21" font-weight="700" fill="#ffffff">標準（レコード番号）</text>
+  <text x="255" y="174" text-anchor="middle" font-size="16" fill="#5A6B82">区分がちがっても、連番は「1本」だけ</text>
+
+  <!-- table head -->
+  <rect x="70" y="196" width="370" height="40" rx="8" fill="#E3E8F1"/>
+  <text x="150" y="222" text-anchor="middle" font-size="16" font-weight="700" fill="#1B3A6B">区分</text>
+  <text x="340" y="222" text-anchor="middle" font-size="16" font-weight="700" fill="#1B3A6B">採番結果</text>
+
+  <!-- rows -->
+  <g font-size="17" fill="#2B2B2B">
+    <rect x="70" y="244" width="370" height="44" rx="8" fill="#ffffff" stroke="#E3E8F1"/>
+    <text x="150" y="272" text-anchor="middle">見積</text>
+    <text x="340" y="272" text-anchor="middle" font-weight="700" fill="#1B3A6B">1</text>
+
+    <rect x="70" y="296" width="370" height="44" rx="8" fill="#ffffff" stroke="#E3E8F1"/>
+    <text x="150" y="324" text-anchor="middle">注文</text>
+    <text x="340" y="324" text-anchor="middle" font-weight="700" fill="#1B3A6B">2</text>
+
+    <rect x="70" y="348" width="370" height="44" rx="8" fill="#ffffff" stroke="#E3E8F1"/>
+    <text x="150" y="376" text-anchor="middle">見積</text>
+    <text x="340" y="376" text-anchor="middle" font-weight="700" fill="#1B3A6B">3</text>
+
+    <rect x="70" y="400" width="370" height="44" rx="8" fill="#ffffff" stroke="#E3E8F1"/>
+    <text x="150" y="428" text-anchor="middle">注文</text>
+    <text x="340" y="428" text-anchor="middle" font-weight="700" fill="#1B3A6B">4</text>
+  </g>
+
+  <!-- cons -->
+  <g font-size="14.5" fill="#B23B3B">
+    <text x="70" y="478">✕ 接頭辞・日付を付けられない</text>
+    <text x="70" y="504">✕ 区分ごとに分けられない</text>
+    <text x="70" y="530">✕ 年度・月でリセットできない</text>
+  </g>
+
+  <!-- ===== RIGHT CARD : conditional ===== -->
+  <rect x="530" y="90" width="430" height="470" rx="14" fill="#F1F8F1" stroke="#CFE6CF" stroke-width="1.5"/>
+  <rect x="530" y="90" width="430" height="56" rx="14" fill="#1A5C1A"/>
+  <rect x="530" y="120" width="430" height="26" fill="#1A5C1A"/>
+  <text x="745" y="126" text-anchor="middle" font-size="21" font-weight="700" fill="#ffffff">条件分岐 自動採番</text>
+  <text x="745" y="174" text-anchor="middle" font-size="16" fill="#3E7A3E">区分ごとに「独立した連番」を発番</text>
+
+  <!-- table head -->
+  <rect x="560" y="196" width="370" height="40" rx="8" fill="#DCEEDC"/>
+  <text x="640" y="222" text-anchor="middle" font-size="16" font-weight="700" fill="#1A5C1A">区分</text>
+  <text x="830" y="222" text-anchor="middle" font-size="16" font-weight="700" fill="#1A5C1A">採番結果</text>
+
+  <g font-size="17" fill="#2B2B2B">
+    <rect x="560" y="244" width="370" height="44" rx="8" fill="#ffffff" stroke="#DCEEDC"/>
+    <text x="640" y="272" text-anchor="middle">見積</text>
+    <text x="830" y="272" text-anchor="middle" font-weight="700" fill="#1A5C1A">EST-0001</text>
+
+    <rect x="560" y="296" width="370" height="44" rx="8" fill="#ffffff" stroke="#DCEEDC"/>
+    <text x="640" y="324" text-anchor="middle">注文</text>
+    <text x="830" y="324" text-anchor="middle" font-weight="700" fill="#1A5C1A">ORD-0001</text>
+
+    <rect x="560" y="348" width="370" height="44" rx="8" fill="#ffffff" stroke="#DCEEDC"/>
+    <text x="640" y="376" text-anchor="middle">見積</text>
+    <text x="830" y="376" text-anchor="middle" font-weight="700" fill="#1A5C1A">EST-0002</text>
+
+    <rect x="560" y="400" width="370" height="44" rx="8" fill="#ffffff" stroke="#DCEEDC"/>
+    <text x="640" y="428" text-anchor="middle">注文</text>
+    <text x="830" y="428" text-anchor="middle" font-weight="700" fill="#1A5C1A">ORD-0002</text>
+  </g>
+
+  <!-- pros -->
+  <g font-size="14.5" fill="#1A5C1A">
+    <text x="560" y="478">✓ 日付＋接頭辞＋連番を自由に組み立て</text>
+    <text x="560" y="504">✓ 区分ごとに独立カウンター</text>
+    <text x="560" y="530">✓ 年・月・日でリセット可</text>
+  </g>
+</svg>
