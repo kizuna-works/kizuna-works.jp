@@ -88,6 +88,16 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       { name: 'mammoth', version: '1.6.0', license: 'BSD-2-Clause', purpose: 'Word の予備表示' },
     ],
   },
+  'kw-sheet-edit': {
+    libs: [
+      {
+        name: 'SheetJS (xlsx, mini)',
+        version: '0.20.3',
+        license: 'Apache-2.0',
+        purpose: 'Excel(xlsx) 出力ファイルのブラウザ内生成。実行時に外部から読み込まず、パッケージに同梱しています。',
+      },
+    ],
+  },
 };
 
 /**
