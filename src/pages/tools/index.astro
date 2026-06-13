@@ -2,6 +2,24 @@
 import Layout from '../../layouts/Layout.astro';
 import { tools, toolAbsUrl } from '../../data/tools';
 
+// kintone-specific tools are surfaced as a distinct group above the generic web tools.
+const kintoneTools = tools.filter((t) => t.kintoneNative);
+const genericTools = tools.filter((t) => !t.kintoneNative);
+const toolGroups = [
+  kintoneTools.length
+    ? {
+        title: 'kintone専用ツール',
+        lead: 'kintoneユーザーのための専用ツール。kintoneの業務に直結する機能を、インストール・登録不要の完全無料で提供しています。',
+        items: kintoneTools,
+      }
+    : null,
+  {
+    title: '汎用Webツール',
+    lead: '業種を問わず使える、ブラウザ完結型の便利ツール。電子印鑑・PDF編集・QRコード作成・画像変換など、インストール・登録不要で使えます。',
+    items: genericTools,
+  },
+].filter((g): g is NonNullable<typeof g> => g !== null);
+
 // JSON-LD derived from the tools data file (ItemList stays in sync automatically).
 const toolsJsonLd = {
   '@context': 'https://schema.org',
@@ -148,9 +166,33 @@ const toolsJsonLd = {
       flex: 1;
     }
 
-    .tools-grid {
+    .tools-group {
       max-width: 1100px;
-      margin: 0 auto;
+      margin: 0 auto 50px;
+    }
+
+    .tools-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .tools-group-title {
+      color: #1B3A6B;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      padding-left: 14px;
+      border-left: 5px solid #2E8B2E;
+    }
+
+    .tools-group-lead {
+      color: #4a5568;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      margin: 0 0 22px;
+      padding-left: 14px;
+    }
+
+    .tools-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 30px;
@@ -297,32 +339,38 @@ const toolsJsonLd = {
   </section>
 
   <section class="tools-grid-section">
-    <div class="tools-grid">
-      {tools.map((tool) => (
-        <article class="tool-card">
-          {tool.image ? (
-            <div class="tool-image-wrapper">
-              <img src={tool.image} alt={tool.imageAlt} width={tool.imageWidth} height={tool.imageHeight} />
-            </div>
-          ) : (
-            <div class="tool-image-wrapper tool-image-wrapper--dark">
-              <Fragment set:html={tool.svg} />
-              <span style="color: #c8a872; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;">{tool.svgLabel}</span>
-            </div>
-          )}
-          <div class="tool-content">
-            <div class="tool-tags">
-              {tool.tags.map((tag, i) => (
-                <span class={i === 0 ? 'tool-tag highlight' : 'tool-tag'}>{tag}</span>
-              ))}
-            </div>
-            <h3>{tool.name}</h3>
-            <p>{tool.description}</p>
-            <a href={`/tools/${tool.file}`} class="tool-btn">無料で使う</a>
-          </div>
-        </article>
-      ))}
-    </div>
+    {toolGroups.map((group) => (
+      <div class="tools-group">
+        <h2 class="tools-group-title">{group.title}</h2>
+        <p class="tools-group-lead">{group.lead}</p>
+        <div class="tools-grid">
+          {group.items.map((tool) => (
+            <article class="tool-card">
+              {tool.image ? (
+                <div class="tool-image-wrapper">
+                  <img src={tool.image} alt={tool.imageAlt} width={tool.imageWidth} height={tool.imageHeight} />
+                </div>
+              ) : (
+                <div class="tool-image-wrapper tool-image-wrapper--dark">
+                  <Fragment set:html={tool.svg} />
+                  <span style="color: #c8a872; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;">{tool.svgLabel}</span>
+                </div>
+              )}
+              <div class="tool-content">
+                <div class="tool-tags">
+                  {tool.tags.map((tag, i) => (
+                    <span class={i === 0 ? 'tool-tag highlight' : 'tool-tag'}>{tag}</span>
+                  ))}
+                </div>
+                <h3>{tool.name}</h3>
+                <p>{tool.description}</p>
+                <a href={`/tools/${tool.file}`} class="tool-btn">無料で使う</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    ))}
   </section>
   </main>
 </Layout>

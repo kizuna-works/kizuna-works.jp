@@ -31,6 +31,11 @@ export interface Tool {
   svg?: string;
   /** Label shown under the SVG in the dark wrapper. */
   svgLabel?: string;
+  /**
+   * kintone-specific tool (vs. generic web tools). These get special treatment:
+   * a dedicated featured block on the home page and a separate group on the tools index.
+   */
+  kintoneNative?: boolean;
 }
 
 /** Public URL path for a tool (e.g. '/tools/Utsushi.html'). */
@@ -198,6 +203,25 @@ export const tools: Tool[] = [
             <path d="M36 34 L48 28 L48 40 Z" fill="#c8a872" opacity="0.9"/>
             <rect x="34" y="36" width="26" height="22" rx="3" fill="#c8a872" opacity="0.18" stroke="#c8a872" stroke-width="2"/>
             <text x="47" y="51" font-family="monospace" font-size="9" font-weight="700" fill="#c8a872" text-anchor="middle" opacity="0.95">&lt;/&gt;</text>
+          </svg>`,
+  },
+  {
+    file: 'Shirushi.html',
+    name: 'Shirushi（kintoneアプリアイコン作成ツール）',
+    shortName: 'Shirushi',
+    kintoneNative: true,
+    description:
+      'kintoneのアプリアイコンをブラウザ上で作成できる完全無料のWebツールです。背景・文字・アイコン・絵文字を組み合わせ、用途別プリセットからも編集できます。透過PNGで書き出せ、画像はブラウザ内で処理されサーバーに送信されません。',
+    applicationCategory: 'MultimediaApplication',
+    tags: ['完全無料', '登録不要', '透過PNG対応'],
+    miniIcon: '🎨',
+    miniDescription: 'アプリアイコン作成',
+    svgLabel: 'kintoneアプリアイコン作成',
+    svg: `<svg width="80" height="80" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <rect x="8" y="8" width="48" height="48" rx="12" fill="#c8a872" opacity="0.18" stroke="#c8a872" stroke-width="2.5"/>
+            <circle cx="32" cy="26" r="7" fill="#c8a872" opacity="0.9"/>
+            <path d="M14 50 L27 33 L35 43 L44 30 L54 50 Z" fill="#c8a872" opacity="0.55"/>
+            <path d="M46 12 l2 4.2 4.2 2 -4.2 2 -2 4.2 -2 -4.2 -4.2 -2 4.2 -2 z" fill="#c8a872"/>
           </svg>`,
   },
 ];

@@ -342,7 +342,8 @@ c:\kizuna-works.jp\
 │   │   ├── KizunaTsumugi.html  # KIZUNA Tsumugi（QRコードジェネレーター）スタンドアロンHTMLアプリ（Astro管理外）
 │   │   ├── masuku.html         # Masuku（画像・PDFマスキングツール）スタンドアロンHTMLアプリ（Astro管理外）
 │   │   ├── Shuku.html          # Shuku（画像変換・圧縮・リサイズツール）スタンドアロンHTMLアプリ（Astro管理外）
-│   │   └── Utsushi.html        # Utsushi（PDF→HTML変換ツール）スタンドアロンHTMLアプリ（Astro管理外）
+│   │   ├── Utsushi.html        # Utsushi（PDF→HTML変換ツール）スタンドアロンHTMLアプリ（Astro管理外）
+│   │   └── Shirushi.html       # Shirushi（kintoneアプリアイコン作成ツール）スタンドアロンHTMLアプリ（Astro管理外）
 │   ├── contact.html            # 旧URL（/contact.html）→ /contact/ への meta refresh リダイレクト（noindex）
 │   ├── privacy.html            # 旧URL（/privacy.html）→ /privacy/ への meta refresh リダイレクト（noindex）
 │   ├── terms.html              # 旧URL（/terms.html）→ /terms/ への meta refresh リダイレクト（noindex）

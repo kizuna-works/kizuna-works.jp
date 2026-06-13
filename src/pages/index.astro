@@ -12,6 +12,10 @@ const pluginsNewestFirst = [...plugins].reverse();
 // Showcase grid: latest 6 plugins (newest first).
 const showcasePlugins = pluginsNewestFirst.slice(0, 6);
 
+// kintone-specific tool gets a dedicated featured block; generic tools fill the compact grid.
+const featuredKintoneTool = tools.find((t) => t.kintoneNative);
+const genericTools = tools.filter((t) => !t.kintoneNative);
+
 const allPosts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
@@ -634,6 +638,77 @@ const pluginPosts = allPosts
       color: #2E8B2E;
       font-size: 0.9rem;
       font-weight: 700;
+    }
+
+    /* =========================================
+       Featured kintone tool (Shirushi)
+    ========================================= */
+    .kintool-feature {
+      padding: 64px 20px 24px;
+    }
+    .kintool-feature .section-title {
+      font-size: 1.7rem;
+      margin-bottom: 12px;
+    }
+    .kintool-card {
+      display: grid;
+      grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+      gap: 36px;
+      align-items: center;
+      max-width: 940px;
+      margin: 28px auto 0;
+      background: #f7faff;
+      border: 1px solid #e2e9f3;
+      border-radius: 18px;
+      padding: 36px;
+      box-shadow: 0 10px 30px rgba(27, 58, 107, 0.06);
+    }
+    .kintool-visual {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      justify-items: center;
+    }
+    .ktv-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 2.2rem;
+      box-shadow: 0 10px 22px rgba(27, 58, 107, 0.18);
+    }
+    .ktv-1 { background: #1B3A6B; }
+    .ktv-2 { background: linear-gradient(135deg, #2E8B2E, #1A5C1A); }
+    .ktv-3 { background: #0f766e; font-size: 1.5rem; }
+    .ktv-4 { background: linear-gradient(135deg, #6d28d9, #be185d); }
+    .kintool-lead {
+      color: #4a5568;
+      line-height: 1.9;
+      margin: 0 0 16px;
+      font-size: 1rem;
+    }
+    .kintool-points {
+      margin: 0 0 24px;
+      padding-left: 1.2em;
+    }
+    .kintool-points li {
+      color: #4a5568;
+      margin-bottom: 6px;
+      line-height: 1.7;
+    }
+    @media (max-width: 768px) {
+      .kintool-feature { padding: 48px 16px 16px; }
+      .kintool-card {
+        grid-template-columns: 1fr;
+        padding: 24px;
+        gap: 24px;
+      }
+      .kintool-visual { max-width: 260px; margin: 0 auto; }
+      .ktv-icon { width: 88px; height: 88px; }
     }
 
     /* =========================================
@@ -1515,13 +1590,40 @@ const pluginPosts = allPosts
     </div>
   </section>
 
+  {featuredKintoneTool && (
+    <!-- Featured kintone-specific tool: Shirushi (app icon maker) -->
+    <section class="bg-white kintool-feature">
+      <div class="container">
+        <h2 class="section-title">kintoneアプリのアイコンを無料で作成</h2>
+        <p class="section-subtitle">KIZUNA Works 唯一の <strong>kintone専用</strong> 無料ツール。kintoneのアプリアイコンをブラウザだけで作成できます。</p>
+        <div class="kintool-card">
+          <div class="kintool-visual" aria-hidden="true">
+            <span class="ktv-icon ktv-1">営</span>
+            <span class="ktv-icon ktv-2">📊</span>
+            <span class="ktv-icon ktv-3">在庫</span>
+            <span class="ktv-icon ktv-4">★</span>
+          </div>
+          <div class="kintool-body">
+            <p class="kintool-lead"><strong>Shirushi（kintoneアプリアイコン作成ツール）</strong>は、kintoneのアプリ一覧で見分けやすいオリジナルのアプリアイコンを、登録不要・完全無料で作れるWebツールです。勤怠・在庫・問い合わせなど<strong>用途別プリセット</strong>から選んで編集でき、背景・文字・アイコン・絵文字を組み合わせて<strong>透過PNG</strong>（250×250pxなど）で即ダウンロードできます。画像はブラウザ内で処理され、外部に送信されません。</p>
+            <ul class="kintool-points">
+              <li>用途別プリセットから1クリックで作成</li>
+              <li>背景・文字・アイコン・絵文字を自由に合成</li>
+              <li>透過PNGで即ダウンロード（登録不要・完全無料）</li>
+            </ul>
+            <a href={`/tools/${featuredKintoneTool.file}`} class="btn btn-primary">無料でkintoneアイコンを作る →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- Free Web Tools (compact / おまけ) -->
   <section class="bg-white tools-section-compact">
     <div class="container" style="padding-top:0; padding-bottom:0;">
       <h2 class="section-title">無料Webツール</h2>
       <p class="section-subtitle">プラグインのおまけとして、ブラウザで完結する便利な無料ツールも公開しています。インストール・登録不要です。</p>
       <div class="tools-mini-grid">
-        {tools.map((tool) => (
+        {genericTools.map((tool) => (
           <a href={`/tools/${tool.file}`} class="tool-mini-card">
             <span class="tool-mini-icon">{tool.miniIcon}</span>
             <span class="tool-mini-name">{tool.shortName}</span>
