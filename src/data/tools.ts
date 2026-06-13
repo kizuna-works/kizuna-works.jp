@@ -166,4 +166,20 @@ export const tools: Tool[] = [
     imageWidth: 1280,
     imageHeight: 800,
   },
+  {
+    file: 'Obi.html',
+    name: 'Obi（kintoneカバー画像作成ツール）',
+    shortName: 'Obi',
+    kintoneNative: true,
+    description:
+      'kintoneのスペース・ポータルのカバー画像をブラウザ上で作成できる完全無料のWebツールです。約30種の柄・グラデ・画像背景に文字やロゴを合成し、左端の正方形アイコンと横長カバー帯の見え方を同時にプレビューできます。画像はブラウザ内で処理されサーバーに送信されません。',
+    applicationCategory: 'MultimediaApplication',
+    tags: ['完全無料', '登録不要', 'スペース/ポータル対応'],
+    miniIcon: '🎏',
+    miniDescription: 'カバー画像作成',
+    image: '/images/obi-preview.png',
+    imageAlt: 'Obi（kintoneカバー画像作成ツール）のサムネイル画像',
+    imageWidth: 1280,
+    imageHeight: 800,
+  },
 ];
