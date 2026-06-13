@@ -3,6 +3,7 @@
 // for the given plugin. Drop this into any plugin detail page near the bottom
 // (right before SupporterCTA) to gain the FAQ rich-result eligibility.
 import { getFaqs, getFaqJsonLd } from '../data/plugin-faqs';
+import PluginRelatedLinks from './PluginRelatedLinks.astro';
 
 interface Props {
   pluginId: string;
@@ -13,6 +14,9 @@ const { pluginId, pageUrl } = Astro.props;
 const faqs = getFaqs(pluginId);
 const faqJsonLd = getFaqJsonLd(pluginId, pageUrl);
 ---
+
+<!-- Related glossary terms / blog links for every plugin page (data-driven, see component). -->
+<PluginRelatedLinks pluginId={pluginId} />
 
 {faqs.length > 0 && (
   <>

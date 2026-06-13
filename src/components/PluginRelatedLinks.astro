@@ -1,0 +1,136 @@
+---
+// Internal-link block shown on every plugin detail page (rendered via
+// PluginFaqSection). Data-driven, no per-page wiring:
+//   - Related glossary terms = glossary entries whose `relatedPlugins`
+//     include this plugin's slug (inverts the term→plugin relation).
+//   - Related blog posts = the union of those terms' `relatedBlog`.
+//   - Always links to the glossary index so every plugin page feeds the
+//     glossary a fresh internal link (and vice versa for SEO crawl/authority).
+import { plugins } from '../data/plugins';
+import { glossary } from '../data/glossary';
+import { getCollection } from 'astro:content';
+
+interface Props {
+  /** The plugin's `id` from plugins.ts (e.g. 'kw-record-lock'). */
+  pluginId: string;
+}
+const { pluginId } = Astro.props;
+
+const plugin = plugins.find((p) => p.id === pluginId);
+const slug = plugin?.slug;
+
+const relTerms = slug ? glossary.filter((t) => t.relatedPlugins?.includes(slug)) : [];
+
+const blogIds = new Set<string>();
+relTerms.forEach((t) => (t.relatedBlog ?? []).forEach((b) => blogIds.add(b)));
+const posts = await getCollection('blog');
+const relBlog = posts.filter((p) => blogIds.has(p.id));
+---
+
+<section class="plugin-related-links" aria-labelledby="plugin-related-heading">
+  <div class="plugin-related-inner">
+    <h2 id="plugin-related-heading" class="plugin-related-heading">関連用語・記事で理解を深める</h2>
+
+    {relTerms.length > 0 && (
+      <div class="plugin-related-group">
+        <span class="plugin-related-label">関連用語</span>
+        <ul class="plugin-related-list">
+          {relTerms.map((t) => (
+            <li>
+              <a href={t.hasPage ? `/glossary/${t.id}/` : `/glossary/#${t.id}`}>{t.term}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    {relBlog.length > 0 && (
+      <div class="plugin-related-group">
+        <span class="plugin-related-label">関連記事</span>
+        <ul class="plugin-related-list">
+          {relBlog.map((b) => (
+            <li><a href={`/blog/${b.id}/`}>{b.data.title}</a></li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <p class="plugin-related-more">
+      <a href="/glossary/">kintone 用語集をすべて見る →</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .plugin-related-links {
+    background: #ffffff;
+    padding: 48px 5%;
+    border-top: 1px solid #e2e8f0;
+  }
+  .plugin-related-inner {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .plugin-related-heading {
+    color: #1B3A6B;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 20px;
+  }
+  .plugin-related-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 12px;
+    margin-bottom: 14px;
+  }
+  .plugin-related-label {
+    color: #1B3A6B;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .plugin-related-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+  }
+  .plugin-related-list li {
+    margin: 0;
+  }
+  .plugin-related-list a {
+    display: inline-block;
+    background: #F0F4F8;
+    color: #1B3A6B;
+    text-decoration: none;
+    font-size: 0.88rem;
+    padding: 5px 12px;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.18s ease;
+  }
+  .plugin-related-list a:hover {
+    background: #1B3A6B;
+    color: #ffffff;
+    border-color: #1B3A6B;
+  }
+  .plugin-related-more {
+    margin: 18px 0 0;
+  }
+  .plugin-related-more a {
+    color: #2E8B2E;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .plugin-related-more a:hover {
+    color: #1B3A6B;
+  }
+
+  @media (max-width: 768px) {
+    .plugin-related-links { padding: 36px 5%; }
+    .plugin-related-heading { font-size: 1.15rem; }
+  }
+</style>

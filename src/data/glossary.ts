@@ -71,8 +71,8 @@ export const glossary: Term[] = [
     category: 'feature',
     definition: 'レコードを表形式で一覧表示する画面。アプリを開いたときの起点になる画面で、フィルター・ソート・絞り込みを行ってから個別レコードを開いていく。表示するフィールドや並び順は「ビュー」で制御する。',
     relatedTerms: ['detail-view', 'view'],
-    relatedPlugins: ['quick-search', 'quick-side-view', 'file-icon-marker', 'summary-bar', 'csv-export'],
-    relatedBlog: ['kintone-kensaku-plugin-hikaku', 'kintone-quick-side-view-plugin-hikaku'],
+    relatedPlugins: ['quick-search', 'quick-side-view', 'list-styler', 'file-icon-marker', 'summary-bar', 'csv-export'],
+    relatedBlog: ['kintone-kensaku-plugin-hikaku', 'kintone-quick-side-view-plugin-hikaku', 'kintone-list-styler-plugin-hikaku'],
     hasPage: true,
     longDescription: [
       '一覧画面は、アプリを開いたときの起点になる、レコードを表形式で並べる画面です。ビューを切り替えてフィルター・ソート・絞り込みを行い、目的のレコードを見つけて詳細画面へ進みます。どのフィールドをどの順番で表示するかは「ビュー」の設定で制御します。',
