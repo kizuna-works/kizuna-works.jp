@@ -229,6 +229,16 @@ const breadcrumb = {
       margin: 0;
     }
 
+    .glossary-term-name a {
+      color: #1B3A6B;
+      text-decoration: none;
+      border-bottom: 2px solid #2E8B2E;
+    }
+
+    .glossary-term-name a:hover {
+      color: #2E8B2E;
+    }
+
     .glossary-term-reading {
       color: #64748b;
       font-size: 0.78rem;
@@ -425,7 +435,9 @@ const breadcrumb = {
                   data-search={`${t.term} ${t.reading} ${t.definition}`.toLowerCase()}
                 >
                   <header class="glossary-term-header">
-                    <h3 class="glossary-term-name">{t.term}</h3>
+                    <h3 class="glossary-term-name">
+                      {t.hasPage ? <a href={`/glossary/${t.id}/`}>{t.term}</a> : t.term}
+                    </h3>
                     <span class="glossary-term-reading">（{t.reading}）</span>
                     <span class="glossary-term-cat">{categoryLabels[t.category]}</span>
                   </header>
