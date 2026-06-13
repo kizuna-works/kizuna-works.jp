@@ -216,12 +216,9 @@ export const tools: Tool[] = [
     tags: ['完全無料', '登録不要', '透過PNG対応'],
     miniIcon: '🎨',
     miniDescription: 'アプリアイコン作成',
-    svgLabel: 'kintoneアプリアイコン作成',
-    svg: `<svg width="80" height="80" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-            <rect x="8" y="8" width="48" height="48" rx="12" fill="#c8a872" opacity="0.18" stroke="#c8a872" stroke-width="2.5"/>
-            <circle cx="32" cy="26" r="7" fill="#c8a872" opacity="0.9"/>
-            <path d="M14 50 L27 33 L35 43 L44 30 L54 50 Z" fill="#c8a872" opacity="0.55"/>
-            <path d="M46 12 l2 4.2 4.2 2 -4.2 2 -2 4.2 -2 -4.2 -4.2 -2 4.2 -2 z" fill="#c8a872"/>
-          </svg>`,
+    image: '/images/shirushi-preview.png',
+    imageAlt: 'Shirushi（kintoneアプリアイコン作成ツール）のサムネイル画像',
+    imageWidth: 1280,
+    imageHeight: 800,
   },
 ];
