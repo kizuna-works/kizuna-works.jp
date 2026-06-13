@@ -219,9 +219,16 @@ img{max-width:100%}
 input[type=text],select{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
 input[type=range]{width:100%;accent-color:var(--green)}
 input[type=color]{width:46px;height:38px;padding:2px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer}
+/* Clearer custom-color affordance: looks like a button with a label */
+.color-pick{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:10px;padding:6px 13px 6px 6px;background:#fff;cursor:pointer;font-size:13px;font-weight:700;color:var(--ink);white-space:nowrap}
+.color-pick:hover{border-color:#c8d6ee;background:#f8fbff}
+.color-pick input[type=color]{width:36px;height:30px;border-radius:7px}
 .hint{font-size:12px;color:var(--muted);margin:6px 0 0}
 .swatches{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
 .sw{width:26px;height:26px;border-radius:7px;border:1px solid rgba(0,0,0,.12);cursor:pointer}
+/* Background-color swatches: fixed 12 columns = 2 rows of 12, responsive (chips fill cells) */
+#bgSwatches{display:grid;grid-template-columns:repeat(12,1fr);gap:6px;max-width:430px}
+#bgSwatches .sw{width:100%;height:auto;aspect-ratio:1/1}
 .sw[aria-pressed="true"]{outline:3px solid #9cc1ff;outline-offset:1px}
 .checkline{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--ink)}
 .checkline input{width:18px;height:18px;accent-color:var(--green)}
@@ -393,7 +400,13 @@ details p{color:var(--muted);font-size:14px;margin:9px 0 2px}
       <div data-bgpanel="solid">
         <div class="field">
           <label>背景色</label>
-          <div class="row"><input type="color" id="bgColor" value="#1B3A6B"><span class="hint">右のスウォッチからも選べます</span></div>
+          <div class="row">
+            <label class="color-pick" title="クリックして色を選択">
+              <input type="color" id="bgColor" value="#1B3A6B">
+              <span>色を自由に選ぶ</span>
+            </label>
+            <span class="hint">下のスウォッチからも選べます</span>
+          </div>
           <div class="swatches" id="bgSwatches"></div>
         </div>
       </div>
@@ -896,7 +909,10 @@ var FONT_GROUPS=[
 ];
 var DEFAULT_FONT=FONT_GROUPS[0].items[0].v;
 
-var BG_SWATCHES=["#1B3A6B","#2E8B2E","#1A5C1A","#0f766e","#b91c1c","#c2410c","#a16207","#6d28d9","#be185d","#334155","#0ea5e9","#ffffff"];
+var BG_SWATCHES=[
+  "#1B3A6B","#2563eb","#0ea5e9","#0891b2","#0f766e","#2E8B2E","#16a34a","#65a30d","#ca8a04","#d97706","#ea580c","#dc2626",
+  "#be185d","#db2777","#9333ea","#6d28d9","#4f46e5","#1A5C1A","#7c2d12","#334155","#64748b","#0f172a","#111111","#ffffff"
+];
 var GRAD_PRESETS=[["#1B3A6B","#2E8B2E"],["#0ea5e9","#1B3A6B"],["#2E8B2E","#a3e635"],["#6d28d9","#be185d"],["#f59e0b","#b91c1c"],["#334155","#0f172a"]];
 
 /* ===================== Rendering ===================== */
