@@ -56,9 +56,9 @@ export const tools: Tool[] = [
     miniIcon: '🔴',
     miniDescription: '電子印鑑メーカー',
     image: '/images/stamp-maker-preview.png',
-    imageAlt: 'inkan（電子印鑑メーカー）のプレビュー画像',
-    imageWidth: 949,
-    imageHeight: 813,
+    imageAlt: 'inkan（電子印鑑メーカー）のサムネイル画像',
+    imageWidth: 1280,
+    imageHeight: 800,
   },
   {
     file: 'natsuin.html',
@@ -71,9 +71,9 @@ export const tools: Tool[] = [
     miniIcon: '📄',
     miniDescription: 'PDF捺印ツール',
     image: '/images/natsuin-preview.png',
-    imageAlt: 'Natsuin（PDF捺印ツール）- PDFに電子印鑑・署名を配置できる無料ツール',
-    imageWidth: 2848,
-    imageHeight: 1504,
+    imageAlt: 'Natsuin（PDF捺印ツール）のサムネイル画像',
+    imageWidth: 1280,
+    imageHeight: 800,
   },
   {
     file: 'musubi.html',
@@ -86,8 +86,8 @@ export const tools: Tool[] = [
     miniIcon: '🔗',
     miniDescription: 'PDF結合・分割',
     image: '/images/musubi-preview.png',
-    imageAlt: 'Musubi（PDF結合・分割ツール）- PDFを結合・分割・並び替え・回転できる無料ツール',
-    imageWidth: 1200,
+    imageAlt: 'Musubi（PDF結合・分割ツール）のサムネイル画像',
+    imageWidth: 1280,
     imageHeight: 800,
   },
   {
@@ -100,45 +100,10 @@ export const tools: Tool[] = [
     tags: ['完全無料', '登録不要', 'QRコード生成'],
     miniIcon: '📱',
     miniDescription: 'QRコード生成',
-    svgLabel: 'QRコードジェネレーター',
-    svg: `<svg width="80" height="80" viewBox="0 0 72 72" fill="none" aria-hidden="true">
-            <rect x="2" y="2" width="24" height="24" rx="3" fill="none" stroke="#c8a872" stroke-width="2.5"/>
-            <rect x="8" y="8" width="12" height="12" fill="#c8a872"/>
-            <rect x="46" y="2" width="24" height="24" rx="3" fill="none" stroke="#c8a872" stroke-width="2.5"/>
-            <rect x="52" y="8" width="12" height="12" fill="#c8a872"/>
-            <rect x="2" y="46" width="24" height="24" rx="3" fill="none" stroke="#c8a872" stroke-width="2.5"/>
-            <rect x="8" y="52" width="12" height="12" fill="#c8a872"/>
-            <rect x="30" y="2" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="36" y="2" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="42" y="2" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="30" y="8" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="36" y="8" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="30" y="14" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="42" y="14" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="30" y="20" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="36" y="20" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="42" y="20" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="46" y="30" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="52" y="30" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="58" y="30" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="64" y="30" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="46" y="36" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="52" y="36" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="58" y="36" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="64" y="36" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="46" y="42" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="52" y="42" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="64" y="42" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="46" y="48" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="52" y="48" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="58" y="48" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="64" y="48" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="2" y="30" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="8" y="30" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="14" y="30" width="4" height="4" fill="#c8a872" opacity="0.8"/>
-            <rect x="20" y="30" width="4" height="4" fill="#c8a872" opacity="0.4"/>
-            <rect x="30" y="30" width="10" height="10" fill="#c8a872" opacity="0.6"/>
-          </svg>`,
+    image: '/images/tsumugi-preview.png',
+    imageAlt: 'Tsumugi（QRコードジェネレーター）のサムネイル画像',
+    imageWidth: 1280,
+    imageHeight: 800,
   },
   {
     file: 'masuku.html',
@@ -150,15 +115,10 @@ export const tools: Tool[] = [
     tags: ['完全無料', '登録不要', 'マスキング'],
     miniIcon: '⬛',
     miniDescription: '画像/PDFマスキング',
-    svgLabel: 'マスキングツール',
-    svg: `<svg width="80" height="80" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-            <rect x="4" y="10" width="56" height="44" rx="4" fill="#23252c" stroke="#c8a872" stroke-width="2.5"/>
-            <rect x="10" y="18" width="20" height="14" rx="2" fill="#c8a872" opacity="0.3"/>
-            <line x1="34" y1="22" x2="54" y2="22" stroke="#c8a872" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
-            <line x1="34" y1="28" x2="54" y2="28" stroke="#c8a872" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
-            <rect x="10" y="38" width="44" height="10" rx="2" fill="#c8a872" opacity="0.85"/>
-            <line x1="14" y1="43" x2="50" y2="43" stroke="#1a1b20" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
-          </svg>`,
+    image: '/images/masuku-preview.png',
+    imageAlt: 'Masuku（画像・PDFマスキングツール）のサムネイル画像',
+    imageWidth: 1280,
+    imageHeight: 800,
   },
   {
     file: 'Shuku.html',
@@ -170,18 +130,10 @@ export const tools: Tool[] = [
     tags: ['完全無料', '登録不要', '画像変換'],
     miniIcon: '📦',
     miniDescription: '画像圧縮ツール',
-    svgLabel: '画像変換・圧縮・リサイズ',
-    svg: `<svg width="80" height="80" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-            <rect x="6" y="6" width="28" height="28" rx="3" fill="#c8a872" opacity="0.25" stroke="#c8a872" stroke-width="1.5"/>
-            <rect x="6" y="6" width="28" height="28" rx="3" fill="none" stroke="#c8a872" stroke-width="1.5"/>
-            <rect x="10" y="10" width="20" height="14" rx="1.5" fill="#c8a872" opacity="0.5"/>
-            <circle cx="13" cy="14" r="2" fill="#c8a872" opacity="0.8"/>
-            <path d="M10 24l6-5 5 4 4-3 5 4" stroke="#c8a872" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.8"/>
-            <path d="M40 20 L58 20 M40 28 L54 28" stroke="#c8a872" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-            <path d="M44 34 L60 34 L60 58 L44 58 Z" fill="#c8a872" opacity="0.15" stroke="#c8a872" stroke-width="1.5"/>
-            <path d="M48 46 L52 42 L56 46" stroke="#c8a872" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            <path d="M52 42 L52 52" stroke="#c8a872" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>`,
+    image: '/images/shuku-preview.png',
+    imageAlt: 'Shuku（画像変換・圧縮・リサイズツール）のサムネイル画像',
+    imageWidth: 1280,
+    imageHeight: 800,
   },
   {
     file: 'Utsushi.html',
@@ -193,17 +145,10 @@ export const tools: Tool[] = [
     tags: ['完全無料', '登録不要', 'PDF→HTML'],
     miniIcon: '📑',
     miniDescription: 'PDF→HTML変換',
-    svgLabel: 'PDF→HTML変換',
-    svg: `<svg width="80" height="80" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-            <rect x="10" y="6" width="30" height="40" rx="3" fill="#23252c" stroke="#c8a872" stroke-width="2.5"/>
-            <path d="M32 6 L40 6 L40 14 Z" fill="#c8a872" opacity="0.35"/>
-            <line x1="15" y1="16" x2="31" y2="16" stroke="#c8a872" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
-            <line x1="15" y1="22" x2="35" y2="22" stroke="#c8a872" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
-            <line x1="15" y1="28" x2="33" y2="28" stroke="#c8a872" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
-            <path d="M36 34 L48 28 L48 40 Z" fill="#c8a872" opacity="0.9"/>
-            <rect x="34" y="36" width="26" height="22" rx="3" fill="#c8a872" opacity="0.18" stroke="#c8a872" stroke-width="2"/>
-            <text x="47" y="51" font-family="monospace" font-size="9" font-weight="700" fill="#c8a872" text-anchor="middle" opacity="0.95">&lt;/&gt;</text>
-          </svg>`,
+    image: '/images/utsushi-preview.png',
+    imageAlt: 'Utsushi（PDF→HTML変換ツール）のサムネイル画像',
+    imageWidth: 1280,
+    imageHeight: 800,
   },
   {
     file: 'Shirushi.html',
