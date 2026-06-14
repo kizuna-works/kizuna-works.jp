@@ -282,6 +282,19 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     .lightbox-close:hover { background: rgba(255,255,255,0.25); }
     .zoom-hint { text-align: center; color: var(--color-text-light); font-size: 12px; margin-top: 10px; }
 
+    /* Small supplementary screenshots (e.g. the auto-generated storage app). */
+    .supp-note {
+      max-width: 820px; margin: 40px auto 0; padding: 20px 24px;
+      background: var(--color-white); border: 1px solid var(--color-gray-light);
+      border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .supp-note h3 { color: var(--color-navy); font-size: 15px; font-weight: 700; margin: 0 0 6px; }
+    .supp-note p { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0 0 16px; }
+    .supp-shots { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 20px; }
+    .supp-shots figure { margin: 0; max-width: 340px; }
+    .supp-shots .screenshot-frame { box-shadow: 0 4px 14px rgba(0,0,0,0.10); }
+    .supp-shots figcaption { text-align: center; color: var(--color-text-light); font-size: 12px; margin-top: 8px; }
+
     @media (max-width: 768px) {
       .related-posts-grid { grid-template-columns: 1fr; }
       .hero { padding: 60px 5%; }
@@ -472,6 +485,26 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         </div>
       </div>
       <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+
+      <!-- Supplementary: the auto-generated storage app -->
+      <div class="supp-note">
+        <h3>補足：付箋データの保管アプリは自動で作られます</h3>
+        <p>「付箋保管アプリを自動作成」を押すと、同じスペース内に下記のような保管アプリ（フィールド・アクセス権・アイコンを自動構成）が生成され、付箋はここに kintone レコードとして保存されます。普段はこのアプリを直接操作する必要はありません。</p>
+        <div class="supp-shots">
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/sticky-board-storage-02.png" alt="kintone のアプリ一覧に自動生成された「付箋ボード保管庫」アプリが表示されている画面" loading="lazy" />
+            </div>
+            <figcaption>自動生成された保管アプリ（アプリ一覧）</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/sticky-board-storage-01.png" alt="付箋ボード保管庫アプリのレコード一覧 — 親アプリID・親レコードID・カテゴリ・本文・位置・公開区分・状態などのフィールドが自動作成されている" loading="lazy" />
+            </div>
+            <figcaption>付箋データのフィールドも自動作成（クリックで拡大）</figcaption>
+          </figure>
+        </div>
+      </div>
     </section>
 
     <!-- Install Steps Section -->
