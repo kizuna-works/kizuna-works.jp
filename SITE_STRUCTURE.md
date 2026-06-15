@@ -49,6 +49,7 @@ c:\kizuna-works.jp\
 │   │   └── BlogPost.astro      # ブログ記事専用レイアウト
 │   ├── pages/                  # ページファイル（URLに対応）
 │   │   ├── index.astro         # トップページ（/）
+│   │   ├── about.astro         # 運営者情報ページ（/about/）― KIZUNA Works の事業紹介（kintone・Google Workspace・AIによるDX/業務効率化/自動化支援）・支援領域・提供コンテンツ・運営方針・お問い合わせ。フッターからリンク（AdSense E-E-A-T / 信頼性向上用）
 │   │   ├── contact.astro       # お問い合わせページ（/contact/）― Google Forms リンク
 │   │   ├── privacy.astro       # プライバシーポリシー（/privacy/）
 │   │   ├── refund.astro        # 返金ポリシー（/refund/）

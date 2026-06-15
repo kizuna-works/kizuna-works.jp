@@ -1,0 +1,362 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="KIZUNA Works について | kintone・Google Workspace・AIでDXを支援"
+  description="KIZUNA Works は、kintone・Google Workspace・AI を活用して、企業や現場のDX化・業務効率化・自動化を支援するサービスです。プラグインや無料Webツールの提供に加え、ブログ・用語集での情報発信を通じて業務改善をサポートします。運営方針やお問い合わせ先をまとめています。"
+  ogTitle="KIZUNA Works について | kintone・Google Workspace・AIでDXを支援"
+  ogDescription="KIZUNA Works は kintone・Google Workspace・AI を活用して、DX化・業務効率化・自動化を支援するサービスです。運営方針・提供コンテンツ・お問い合わせ先をまとめています。"
+  ogUrl="https://kizuna-works.jp/about/"
+  canonical="https://kizuna-works.jp/about/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "@id": "https://kizuna-works.jp/about/",
+      "url": "https://kizuna-works.jp/about/",
+      "name": "KIZUNA Works について | kintone・Google Workspace・AIでDXを支援",
+      "description": "KIZUNA Works は、kintone・Google Workspace・AI を活用して、企業や現場のDX化・業務効率化・自動化を支援するサービスです。プラグイン・無料Webツールの提供やブログ・用語集での情報発信を通じて業務改善をサポートします。",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "KIZUNA Works",
+        "url": "https://kizuna-works.jp/"
+      },
+      "about": {
+        "@type": "Organization",
+        "@id": "https://kizuna-works.jp/#organization"
+      },
+      "mainEntity": {
+        "@type": "Organization",
+        "@id": "https://kizuna-works.jp/#organization",
+        "name": "KIZUNA Works",
+        "url": "https://kizuna-works.jp/",
+        "email": "info@kizuna-works.jp",
+        "sameAs": ["https://twitter.com/KIZUNA_works_DX"],
+        "knowsAbout": ["kintone", "kintone プラグイン", "Google Workspace", "生成AI", "DX", "業務効率化", "業務自動化", "ノーコード"]
+      }
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #f4f7f6; }
+
+    .about-main a {
+      color: #2E8B2E;
+    }
+    .about-main a:hover {
+      color: #1B3A6B;
+    }
+
+    .about-main {
+      max-width: 880px;
+      margin: 50px auto;
+      padding: 0 20px;
+      flex: 1;
+    }
+
+    .about-card {
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 50px 60px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #1B3A6B, #2E8B2E);
+    }
+
+    .about-title {
+      text-align: center;
+      color: #1B3A6B;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      padding-bottom: 15px;
+      position: relative;
+    }
+
+    .about-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background-color: #2E8B2E;
+      border-radius: 2px;
+    }
+
+    .about-lead {
+      text-align: center;
+      color: #4a5568;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      margin: 0 auto 45px;
+      max-width: 680px;
+    }
+
+    .about-section {
+      margin-bottom: 42px;
+    }
+
+    .about-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-section h2 {
+      font-size: 1.3rem;
+      color: #1B3A6B;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding: 10px 15px;
+      background: linear-gradient(90deg, rgba(46,139,46,0.08) 0%, rgba(255,255,255,0) 100%);
+      border-left: 5px solid #2E8B2E;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .about-section p {
+      margin-bottom: 15px;
+      color: #4a5568;
+      line-height: 1.9;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    .about-grid-item {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+
+    .about-grid-item h3 {
+      font-size: 1.05rem;
+      color: #1B3A6B;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+
+    .about-grid-item p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #4a5568;
+      line-height: 1.8;
+    }
+
+    .about-policy {
+      list-style: none;
+      margin: 10px 0 0;
+      padding: 0;
+    }
+
+    .about-policy li {
+      position: relative;
+      padding: 12px 16px 12px 44px;
+      margin-bottom: 12px;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      color: #4a5568;
+      line-height: 1.8;
+    }
+
+    .about-policy li::before {
+      content: '✓';
+      position: absolute;
+      left: 16px;
+      top: 12px;
+      color: #2E8B2E;
+      font-weight: 700;
+    }
+
+    .about-policy strong {
+      color: #1B3A6B;
+    }
+
+    .about-contact {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .about-contact a {
+      font-weight: 700;
+    }
+
+    .about-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .about-links a {
+      display: inline-block;
+      background-color: #1B3A6B;
+      color: #FFFFFF;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 10px 18px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .about-links a:hover {
+      background-color: #2E8B2E;
+      color: #FFFFFF;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 768px) {
+      .about-main {
+        margin: 30px auto;
+      }
+      .about-card {
+        padding: 30px 20px;
+        border-radius: 12px;
+      }
+      .about-title {
+        font-size: 1.6rem;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      .about-section h2 {
+        font-size: 1.15rem;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+
+  <main class="about-main">
+    <article class="about-card">
+      <h1 class="about-title">KIZUNA Works について</h1>
+      <p class="about-lead">
+        KIZUNA Works は、<strong>kintone・Google Workspace・AI</strong> を活用して、
+        企業や現場の <strong>DX化・業務効率化・自動化</strong> を支援しています。
+        「現場の手間を、ちょっとずつ減らす」をテーマに、特定のツールにとらわれず、
+        その業務に本当に合った仕組みづくりをお手伝いします。
+      </p>
+
+      <section class="about-section">
+        <h2>支援していること</h2>
+        <p>KIZUNA Works は、ひとつのツールに縛られず、目の前の業務に最適な手段を組み合わせて課題を解決します。</p>
+        <div class="about-grid">
+          <div class="about-grid-item">
+            <h3>kintone 活用支援</h3>
+            <p>アプリ設計から定着まで、kintone を「使える仕組み」にする支援。標準機能で足りない部分は自社プラグインで補います。</p>
+          </div>
+          <div class="about-grid-item">
+            <h3>Google Workspace 活用</h3>
+            <p>スプレッドシート・GAS・各種連携を使い、メールや手作業に頼っていた業務を仕組み化・自動化します。</p>
+          </div>
+          <div class="about-grid-item">
+            <h3>AI 活用・自動化</h3>
+            <p>生成AIや自動化ツールを業務に取り入れ、資料作成・問い合わせ対応・データ整理などの手間を減らします。</p>
+          </div>
+          <div class="about-grid-item">
+            <h3>DX・業務改善の伴走</h3>
+            <p>現状の課題整理から最適なツール選定・運用まで、現場目線で無理のないDX化・業務効率化を一緒に進めます。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section">
+        <h2>提供しているもの</h2>
+        <p>支援活動から生まれた知見を、誰でも使えるプロダクト・コンテンツとして公開しています。</p>
+        <div class="about-grid">
+          <div class="about-grid-item">
+            <h3>kintone プラグイン</h3>
+            <p>採番・検索・集計・入力支援・画面装飾など、kintone の「あと一歩」を補う多数のプラグインを開発・提供しています。</p>
+          </div>
+          <div class="about-grid-item">
+            <h3>無料Webツール</h3>
+            <p>電子印鑑・PDF編集・QRコード作成など、登録不要・ブラウザだけで使える無料ツールを公開しています。</p>
+          </div>
+          <div class="about-grid-item">
+            <h3>ブログ</h3>
+            <p>kintone やDX・業務効率化の活用法、アップデート情報、プラグイン比較など、実務に役立つ解説記事を発信しています。</p>
+          </div>
+          <div class="about-grid-item">
+            <h3>Chrome 拡張機能</h3>
+            <p>項目情報の確認やアプリ設定の書き出しなど、kintone の日々の作業を助けるChrome拡張機能をChromeウェブストアで公開しています。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section">
+        <h2>現場目線での業務改善</h2>
+        <p>
+          KIZUNA Works の支援やプロダクトは、実際に業務を回すなかで見つけた
+          「もう少しこうだったら」という課題から生まれています。
+          流行りの手段をそのまま当てはめるのではなく、その現場に合うかどうかを大切にし、
+          必要十分な形に落とし込むことを心がけています。
+        </p>
+        <p>
+          ブログや用語集も、机上の知識ではなく実務で得た知見をもとに執筆しており、
+          DX や業務効率化をこれから始める方から、定着に悩む担当者まで、幅広く役立つ情報を目指しています。
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2>大切にしていること</h2>
+        <ul class="about-policy">
+          <li><strong>セキュリティを最優先</strong>：プラグインは外部の第三者サーバーに依存せず、必要なライブラリは自社配信するなど、安心して使える設計にこだわっています。</li>
+          <li><strong>登録不要で気軽に</strong>：無料Webツールは会員登録もインストールも不要。ブラウザだけでその場で使えます。</li>
+          <li><strong>現場で本当に役立つ機能だけ</strong>：多機能さよりも、実務の手間が確実に減ることを重視して開発しています。</li>
+          <li><strong>分かりやすい情報発信</strong>：専門用語をかみくだき、はじめての方でも理解できる説明を心がけています。</li>
+        </ul>
+        <p style="margin-top:18px;">
+          各プラグインの外部通信やライブラリの扱いについては、<a href="/security/">セキュリティ・データの取り扱い</a>ページで詳しく公開しています。
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2>お問い合わせ</h2>
+        <p>サービスやプラグインに関するご質問・ご要望は、お気軽にご連絡ください。</p>
+        <div class="about-contact">
+          <p style="margin-bottom:10px;">メール：<a href="mailto:info@kizuna-works.jp">info@kizuna-works.jp</a></p>
+          <p style="margin-bottom:10px;">お問い合わせフォーム：<a href="/contact/">/contact/</a></p>
+          <p style="margin:0;">X（旧Twitter）：<a href="https://twitter.com/KIZUNA_works_DX" target="_blank" rel="noopener noreferrer">@KIZUNA_works_DX</a></p>
+        </div>
+        <p style="margin-top:15px; font-size:0.92rem;">
+          取引に関する法定表記は<a href="/tokushoho/">特定商取引法に基づく表記</a>を、個人情報の取り扱いは<a href="/privacy/">プライバシーポリシー</a>をご確認ください。
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2>関連ページ</h2>
+        <div class="about-links">
+          <a href="/plugins/">プラグイン一覧</a>
+          <a href="/tools/">無料ツール一覧</a>
+          <a href="/blog/">ブログ</a>
+          <a href="/glossary/">用語集</a>
+          <a href="/security/">セキュリティ</a>
+          <a href="/contact/">お問い合わせ</a>
+        </div>
+      </section>
+    </article>
+  </main>
+</Layout>
