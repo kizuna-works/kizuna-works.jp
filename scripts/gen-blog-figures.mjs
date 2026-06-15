@@ -99,6 +99,20 @@ const FIGURES = [
     w: 1000, h: 164,
     el: flow(['kintone一覧で絞り込み', 'CSVで書き出し', 'Excel帳票に反映', 'PDFで保存']),
   },
+  {
+    name: 'kintone-2026-06-update-overview',
+    w: 1000, h: 330,
+    el: overviewMethods([
+      { n: 'AI', name: 'kintone AI 正式提供', desc: '検索AI・アプリ作成AIなど6機能を正式リリース。今回の目玉。', cost: '目玉' },
+      { n: '検', name: '検索の強化', desc: 'OR検索が追加。全体検索のREST APIも試行可能に。', cost: '新機能' },
+      { n: 'API', name: '開発者向け拡張', desc: 'レコード削除イベントを追加。モバイル基盤も刷新。', cost: 'API' },
+    ]),
+  },
+  {
+    name: 'kintone-2026-06-update-ai-flow',
+    w: 1000, h: 164,
+    el: flow(['管理者が歯車→kintone AI管理', '機能全体を有効化', '使う機能を選択', 'ユーザーが利用開始']),
+  },
 ];
 
 const only = process.argv[2];
