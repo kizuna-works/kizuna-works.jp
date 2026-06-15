@@ -12,8 +12,9 @@ const pluginsNewestFirst = [...plugins].reverse();
 // Showcase grid: latest 6 plugins (newest first).
 const showcasePlugins = pluginsNewestFirst.slice(0, 6);
 
-// kintone-specific tool gets a dedicated featured block; generic tools fill the compact grid.
-const featuredKintoneTool = tools.find((t) => t.kintoneNative);
+// kintone-specific tools get a dedicated featured block; generic tools fill the compact grid.
+const featuredKintoneTool = tools.find((t) => t.file === 'Shirushi.html');
+const obiTool = tools.find((t) => t.file === 'Obi.html');
 const genericTools = tools.filter((t) => !t.kintoneNative);
 
 const allPosts = (await getCollection('blog'))
@@ -708,6 +709,51 @@ const pluginPosts = allPosts
       margin-bottom: 6px;
       line-height: 1.7;
     }
+    /* Obi cover-image visual: stacked horizontal cover bands with a left square icon */
+    .obi-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+    }
+    .obi-band {
+      display: flex;
+      align-items: center;
+      height: 58px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(27, 58, 107, 0.16);
+    }
+    .obi-band-icon {
+      flex-shrink: 0;
+      width: 58px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.92);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #1B3A6B;
+    }
+    .obi-band-label {
+      flex: 1;
+      padding: 0 14px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .obi-band-1 { background: linear-gradient(135deg, #1B3A6B, #2a5298); }
+    .obi-band-2 { background: linear-gradient(135deg, #2E8B2E, #1A5C1A); }
+    .obi-band-3 {
+      background: repeating-linear-gradient(45deg, #0f766e, #0f766e 14px, #0d655e 14px, #0d655e 28px);
+    }
+
     @media (max-width: 768px) {
       .kintool-feature { padding: 48px 16px 16px; }
       .kintool-card {
@@ -717,6 +763,7 @@ const pluginPosts = allPosts
       }
       .kintool-visual { max-width: 260px; margin: 0 auto; }
       .ktv-icon { width: 88px; height: 88px; }
+      .obi-visual { max-width: 360px; margin: 0 auto; }
     }
 
     /* =========================================
@@ -1619,6 +1666,32 @@ const pluginPosts = allPosts
               <li>透過PNGで即ダウンロード（登録不要・完全無料）</li>
             </ul>
             <a href={`/tools/${featuredKintoneTool.file}`} class="btn btn-primary">無料でkintoneアイコンを作る →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {obiTool && (
+    <!-- Featured kintone-specific tool: Obi (cover image maker) -->
+    <section class="bg-white kintool-feature">
+      <div class="container" style="padding-top:0;">
+        <h2 class="section-title">kintoneのカバー画像を無料で作成</h2>
+        <p class="section-subtitle">Shirushi に続く <strong>kintone専用</strong> 無料ツール。<br>スペース・ポータルのカバー画像をブラウザだけで作成できます。</p>
+        <div class="kintool-card">
+          <div class="obi-visual" aria-hidden="true">
+            <span class="obi-band obi-band-1"><span class="obi-band-icon">営</span><span class="obi-band-label">営業部スペース</span></span>
+            <span class="obi-band obi-band-2"><span class="obi-band-icon">📊</span><span class="obi-band-label">案件管理ポータル</span></span>
+            <span class="obi-band obi-band-3"><span class="obi-band-icon">在</span><span class="obi-band-label">在庫管理スペース</span></span>
+          </div>
+          <div class="kintool-body">
+            <p class="kintool-lead"><strong>Obi（kintoneカバー画像作成ツール）</strong>は、kintoneのスペース・ポータルのカバー画像を、登録不要・完全無料で作れるWebツールです。約30種の<strong>柄・グラデ・画像背景</strong>に文字やロゴを合成でき、左端の<strong>正方形アイコン</strong>と横長カバー帯の見え方を同時にプレビューしながら調整できます。画像はブラウザ内で処理され、外部に送信されません。</p>
+            <ul class="kintool-points">
+              <li>約30種の柄・グラデ・画像背景から選んで作成</li>
+              <li>正方形アイコンと横長カバーを同時プレビュー</li>
+              <li>PNGで即ダウンロード（登録不要・完全無料）</li>
+            </ul>
+            <a href={`/tools/${obiTool.file}`} class="btn btn-primary">無料でkintoneカバー画像を作る →</a>
           </div>
         </div>
       </div>
