@@ -151,6 +151,21 @@ export const tools: Tool[] = [
     imageHeight: 800,
   },
   {
+    file: 'Tsukuroi.html',
+    name: 'Tsukuroi（AI物体除去ツール）',
+    shortName: 'Tsukuroi',
+    description:
+      '画像内の人物・看板・電線などの不要物を、消したい場所を塗るだけでAIが周囲となじませて消去できる完全無料のWebツールです。AI処理を含めすべてブラウザ内で完結し、画像はサーバーにアップロードされません。',
+    applicationCategory: 'MultimediaApplication',
+    tags: ['完全無料', '登録不要', 'AI物体除去'],
+    miniIcon: '🪄',
+    miniDescription: 'AI物体除去',
+    image: '/images/tsukuroi-preview.png',
+    imageAlt: 'Tsukuroi（AI物体除去ツール）のサムネイル画像',
+    imageWidth: 1280,
+    imageHeight: 800,
+  },
+  {
     file: 'Shirushi.html',
     name: 'Shirushi（kintoneアプリアイコン作成ツール）',
     shortName: 'Shirushi',

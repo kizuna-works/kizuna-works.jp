@@ -23,6 +23,7 @@ const news = defineCollection({
     updatedDate: z.coerce.date().optional(),
     category: z.enum(['release', 'update', 'incident', 'notice']),
     externalUrl: z.string().url().optional(),
+    ogImage: z.string().optional(),
   }),
 });
 

@@ -1,0 +1,986 @@
+<!--
+  Tsukuroi (AI object removal tool / AI物体除去ツール)
+  Select unwanted objects with brush or rectangle, then remove them with on-device
+  AI inpainting (MI-GAN, onnxruntime-web, WebGPU with WASM fallback). Fully client-side:
+  the image is never uploaded; only the model is downloaded once and cached.
+  Version: 1.0.0
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="画像内の人物・看板・電線などの不要物を、消したい場所を塗るだけでAIが周囲となじませて消去できる無料Webツール。インストール・登録・アップロード不要。すべてブラウザ内で処理され、画像はサーバーに送信されません。">
+<link rel="canonical" href="https://kizuna-works.jp/tools/Tsukuroi.html">
+<meta property="og:title" content="Tsukuroi（AI物体除去ツール）| KIZUNA Works">
+<meta property="og:description" content="画像内の人物・看板・電線などの不要物を、消したい場所を塗るだけでAIが周囲となじませて消去できる無料Webツール。アップロード不要・ブラウザ完結で、画像はサーバーに送信されません。">
+<meta property="og:url" content="https://kizuna-works.jp/tools/Tsukuroi.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://kizuna-works.jp/images/tsukuroi-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="800">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@KIZUNA_works_DX">
+<meta name="twitter:image" content="https://kizuna-works.jp/images/tsukuroi-preview.png">
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<title>Tsukuroi（AI物体除去ツール）- 写り込み・不要物をブラウザで消去 | KIZUNA Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://kizuna-works.jp/tools/Tsukuroi.html",
+      "url": "https://kizuna-works.jp/tools/Tsukuroi.html",
+      "name": "Tsukuroi（AI物体除去ツール）| KIZUNA Works",
+      "description": "画像内の不要物を塗るだけでAIが周囲となじませて消去できる無料Webツール。ブラウザ完結で画像はサーバーに送信されません。",
+      "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Tsukuroi（AI物体除去ツール）",
+      "url": "https://kizuna-works.jp/tools/Tsukuroi.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "WebBrowser",
+      "dateModified": "2026-06-15",
+      "description": "画像内の人物・看板・電線などの不要物を、ブラシまたは矩形で指定しAI（MI-GAN）で周囲となじませて消去できる無料Webツール。すべてブラウザ内で処理され、画像はサーバーに送信されません。",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "画像はサーバーにアップロードされますか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "いいえ。画像の読み込み・編集・AI補完・書き出しはすべてお使いのブラウザ内で完結します。画像がサーバーに送信されることはありません。初回のみAIモデル（約27MB）をダウンロードし、以降はキャッシュから読み込むためオフラインでも動作します。" }
+        },
+        {
+          "@type": "Question",
+          "name": "料金や登録は必要ですか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "完全無料で、アカウント登録やインストールは不要です。ブラウザでページを開くだけで利用できます。" }
+        },
+        {
+          "@type": "Question",
+          "name": "どんなものを消せますか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "写真に写り込んだ通行人・看板・電線・影などの不要物を消せます。ブラシで不定形のもの、矩形で箱状のものを選択できます。巨大な物体や顔・文字・規則的な模様は不自然になりやすいため、小さく分けて複数回処理すると高品質になります。" }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1B44N0922"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q1B44N0922');
+</script>
+<!-- NOTE: This tool intentionally omits AdSense. The AI model (MI-GAN) is trained on the
+     Places2 dataset, which is licensed for non-commercial / research-educational use only.
+     To stay aligned with that condition, this page is kept ad-free and limited to personal,
+     non-commercial use (see the usage notice in the page body). -->
+<style>
+:root{--navy:#1B3A6B;--navy-light:#2a4f8a;--green:#2E8B2E;--green-light:#3da63d;--bg:#F0F4F8;--bg-white:#fff;--text-primary:#1a1a2e;--text-secondary:#4a5568;--text-muted:#8896a6;--border:#d4dce8;--border-light:#e8edf4;--shadow-sm:0 1px 3px rgba(27,58,107,.08);--shadow-md:0 4px 12px rgba(27,58,107,.1);--shadow-lg:0 8px 32px rgba(27,58,107,.12);--radius:8px;--radius-lg:12px;--transition:.2s ease}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;display:flex;flex-direction:column;overflow-x:clip}
+img{max-width:100%;height:auto}
+
+/* Site Header */
+.site-header{background:#F0F4F8;border-bottom:3px solid #1B3A6B;padding:8px 5%;position:sticky;top:0;z-index:300;flex-shrink:0}
+.site-header-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.site-header-logo img{display:block;height:64px;width:auto}
+.site-header-nav{display:flex;gap:10px;flex-wrap:wrap}
+.site-nav-btn{display:inline-block;background-color:#1B3A6B;color:#FFFFFF !important;font-size:.95rem;font-weight:500;padding:8px 16px;border-radius:20px;text-decoration:none;transition:all .3s ease}
+.site-nav-btn:hover{background-color:#2E8B2E;transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.site-nav-dropdown{position:relative}
+.site-nav-more{display:inline-flex;align-items:center;gap:4px}
+.site-nav-arrow{font-size:.7em;transition:transform .2s ease}
+.site-nav-more[aria-expanded="true"] .site-nav-arrow{transform:rotate(180deg)}
+.site-nav-submenu{position:absolute;top:calc(100% + 8px);right:0;min-width:180px;background:#FFFFFF;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 10px 24px rgba(27,58,107,.18);padding:8px 0;list-style:none;margin:0;opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .18s ease,visibility .18s ease,transform .18s ease;z-index:150}
+.site-nav-dropdown:focus-within .site-nav-submenu,.site-nav-more[aria-expanded="true"] + .site-nav-submenu{opacity:1;visibility:visible;transform:translateY(0)}
+@media (hover:hover){.site-nav-dropdown:hover .site-nav-submenu{opacity:1;visibility:visible;transform:translateY(0)}}
+.site-nav-sub{display:block;padding:10px 18px;color:#1B3A6B;font-weight:500;font-size:.92rem;text-decoration:none;transition:background .15s ease,color .15s ease}
+.site-nav-sub:hover,.site-nav-sub:focus{background:#F0F4F8;color:#2E8B2E;outline:none}
+
+/* Main */
+main{flex:1;min-width:0;width:100%;padding:40px 20px 70px}
+.container{max-width:960px;margin:0 auto}
+.page-head{text-align:center;margin-bottom:28px}
+.page-head h2{font-size:1.9rem;color:var(--navy);font-weight:700;letter-spacing:1px;margin-bottom:12px}
+.page-head .lead{color:var(--text-secondary);font-size:1.02rem;line-height:1.8;max-width:720px;margin:0 auto}
+.badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.badge{font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:20px;background:#e6f4e6;color:var(--green)}
+.badge.sub{background:#eef2f8;color:var(--navy)}
+
+.card{background:var(--bg-white);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:28px;margin-bottom:24px}
+
+/* Drop zone */
+.dropzone{border:2.5px dashed var(--border);border-radius:var(--radius-lg);background:#fbfcfe;padding:48px 24px;text-align:center;cursor:pointer;transition:var(--transition)}
+.dropzone:hover{border-color:var(--navy-light);background:#f5f8fc}
+.dropzone.dragover{border-color:var(--green);background:#f0faf0}
+.dropzone svg{width:54px;height:54px;color:var(--navy);opacity:.55;margin-bottom:14px}
+.dropzone .dz-title{font-size:1.1rem;font-weight:600;color:var(--navy);margin-bottom:6px}
+.dropzone .dz-sub{font-size:.9rem;color:var(--text-muted)}
+.dz-priv{margin-top:16px;font-size:.82rem;color:var(--green);font-weight:600}
+
+/* Editor */
+.editor[hidden]{display:none}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-light);user-select:none}
+.tgroup{display:flex;align-items:center;gap:8px}
+.tgroup.brush-only.hide{display:none}
+.tlabel{font-size:.78rem;font-weight:700;color:var(--navy)}
+.tval{font-size:.82rem;color:var(--text-secondary);min-width:38px;text-align:center}
+.seg{display:inline-flex;border:1.5px solid var(--border);border-radius:20px;overflow:hidden}
+.seg-btn{font-family:inherit;font-size:.84rem;font-weight:600;color:var(--text-secondary);background:var(--bg-white);border:none;padding:7px 14px;cursor:pointer;transition:var(--transition)}
+.seg-btn + .seg-btn{border-left:1.5px solid var(--border)}
+.seg-btn.active{background:var(--navy);color:#fff}
+.tbtn{font-family:inherit;font-size:.9rem;font-weight:600;color:var(--navy);background:var(--bg);border:1.5px solid var(--border);border-radius:8px;min-width:38px;height:36px;padding:0 10px;cursor:pointer;transition:var(--transition)}
+.tbtn:hover:not(:disabled){border-color:var(--navy);background:#fff}
+.tbtn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tbtn:disabled{opacity:.4;cursor:not-allowed}
+.toolbar input[type=range]{accent-color:var(--navy);width:120px}
+
+.editor-hint{font-size:.84rem;color:var(--text-secondary);line-height:1.7;margin:0 0 12px;padding:10px 14px;background:#f5f8fc;border:1px solid var(--border-light);border-radius:var(--radius)}
+.editor-hint strong{color:#d63a3a}
+
+/* Stage / canvas */
+.stage{position:relative;background:repeating-conic-gradient(#eef2f7 0% 25%,#ffffff 0% 50%) 50%/22px 22px;border:1px solid var(--border);border-radius:var(--radius);overflow:auto;max-height:min(70vh,640px)}
+.stage canvas{display:block;margin:0 auto;touch-action:none;cursor:crosshair}
+.brush-cursor{position:absolute;border:2px solid rgba(255,45,45,.9);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);box-shadow:0 0 0 1px rgba(255,255,255,.8);display:none;z-index:5}
+
+.run-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:18px}
+.btn{padding:13px 24px;border:none;border-radius:30px;font-family:inherit;font-size:.96rem;font-weight:700;cursor:pointer;transition:var(--transition);display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:not(:disabled):hover{background:var(--navy)}
+.btn-ghost{background:var(--bg);color:var(--navy);border:1.5px solid var(--border)}
+.btn-ghost:not(:disabled):hover{border-color:var(--navy);background:#fff}
+.dl-wrap{display:flex;align-items:center;gap:8px}
+.chip-sm{position:relative;cursor:pointer}
+.chip-sm input{position:absolute;opacity:0;pointer-events:none}
+.chip-sm span{display:inline-block;padding:7px 12px;border:1.5px solid var(--border);border-radius:18px;font-size:.82rem;color:var(--text-secondary);background:var(--bg-white);transition:var(--transition)}
+.chip-sm input:checked + span{border-color:var(--navy);background:rgba(27,58,107,.06);color:var(--navy);font-weight:700}
+
+/* Status + Progress */
+.status{margin-top:14px;font-size:.9rem;color:var(--navy);font-weight:600;text-align:center;background:#eef4ff;border:1px solid #d6e2f5;border-radius:var(--radius);padding:10px 14px;display:flex;align-items:center;justify-content:center;gap:10px}
+.status[hidden]{display:none}
+.spinner{width:16px;height:16px;border:2.5px solid rgba(27,58,107,.25);border-top-color:var(--navy);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.progress{display:none;margin-top:14px}
+.progress.show{display:block}
+.progress-bar{height:10px;background:var(--border-light);border-radius:6px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--green));transition:width .2s ease}
+.progress-fill.indet{width:40% !important;animation:indet 1.2s ease-in-out infinite}
+@keyframes indet{0%{margin-left:-40%}100%{margin-left:100%}}
+.progress-text{font-size:.84rem;color:var(--text-secondary);margin-top:8px;text-align:center}
+
+/* Info section */
+.info h3{font-size:1.1rem;color:var(--navy);margin:22px 0 10px;font-weight:700}
+.info h3:first-child{margin-top:0}
+.info p{color:var(--text-secondary);font-size:.92rem;line-height:1.85;margin-bottom:8px}
+.info ul{color:var(--text-secondary);font-size:.92rem;line-height:1.85;padding-left:1.3em;margin-bottom:8px}
+.info .caution{background:#fff8ed;border:1px solid #f0dcb0;border-radius:var(--radius);padding:14px 18px;font-size:.88rem;color:#8a6d3b;line-height:1.8}
+.faq-q{font-weight:700;color:var(--navy);margin:16px 0 4px;font-size:.96rem}
+.faq-a{color:var(--text-secondary);font-size:.92rem;line-height:1.85}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:24px;font-size:.9rem;box-shadow:var(--shadow-lg);opacity:0;visibility:hidden;transition:var(--transition);z-index:500;max-width:90vw;text-align:center}
+.toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+
+/* Site Footer */
+.site-footer{background-color:#1B3A6B;color:#FFFFFF;padding:60px 5% 30px;flex-shrink:0}
+.site-footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:40px;margin-bottom:30px}
+.site-footer-links{display:flex;gap:30px;flex-wrap:wrap;align-items:center}
+.site-footer-links a{color:#FFFFFF;opacity:.9;font-weight:500;text-decoration:none}
+.site-footer-links a:hover{color:#2E8B2E;opacity:1}
+.site-footer-copy{text-align:center;opacity:.7;font-size:.9rem;letter-spacing:1px}
+
+@media (max-width:768px){
+  html{font-size:14px}
+  .site-header{padding:6px 4%}
+  .site-header-inner{flex-direction:column;gap:8px}
+  .site-header-logo img{height:52px}
+  .site-nav-btn{font-size:.82rem;padding:6px 12px}
+  main{padding:28px 14px 50px}
+  .card{padding:18px}
+  .page-head h2{font-size:1.5rem}
+  .toolbar{gap:10px 12px}
+  .toolbar input[type=range]{width:90px}
+  .run-row .btn{flex:1 1 auto}
+  .site-footer-inner{flex-direction:column;text-align:center;align-items:center}
+  .site-footer-links{justify-content:center;gap:15px}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="https://kizuna-works.jp/" class="site-header-logo">
+      <img src="/images/logo.png" alt="KIZUNA Works">
+    </a>
+    <nav class="site-header-nav">
+      <a href="https://kizuna-works.jp/news/" class="site-nav-btn">お知らせ</a>
+      <a href="https://kizuna-works.jp/plugins/" class="site-nav-btn">プラグイン</a>
+      <a href="https://kizuna-works.jp/extensions/" class="site-nav-btn">拡張機能</a>
+      <a href="https://kizuna-works.jp/plugins/supporter/" class="site-nav-btn">サポーター</a>
+      <a href="https://kizuna-works.jp/contact/" class="site-nav-btn">お問い合わせ</a>
+      <div class="site-nav-dropdown">
+        <a href="#" class="site-nav-btn site-nav-more" role="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-nav-submenu">
+          もっと見る<span class="site-nav-arrow" aria-hidden="true">▾</span>
+        </a>
+        <ul id="site-nav-submenu" class="site-nav-submenu" role="menu">
+          <li role="none"><a href="https://kizuna-works.jp/tools/" class="site-nav-sub" role="menuitem">無料ツール</a></li>
+          <li role="none"><a href="https://kizuna-works.jp/blog/" class="site-nav-sub" role="menuitem">ブログ</a></li>
+          <li role="none"><a href="https://kizuna-works.jp/glossary/" class="site-nav-sub" role="menuitem">用語集</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Tsukuroi（AI物体除去ツール）- 写り込み・不要物をブラウザで消去 | KIZUNA Works</h1>
+
+<main>
+  <div class="container">
+    <div class="page-head">
+      <h2>Tsukuroi（AI物体除去ツール）</h2>
+      <p class="lead">Tsukuroi（繕い）は、写真に写り込んだ人物・看板・電線などの不要物を、消したい場所を塗るだけでAI（MI-GAN）が周囲となじませて消去できる、ブラウザ完結の無料Webツールです。画像はお使いのブラウザ内だけで処理され、サーバーには一切アップロードされません。</p>
+      <div class="badges">
+        <span class="badge">完全無料</span>
+        <span class="badge sub">登録不要</span>
+        <span class="badge sub">AI物体除去</span>
+        <span class="badge sub">アップロードなし</span>
+      </div>
+      <p style="margin-top:12px;font-size:.82rem;color:var(--text-muted)">※ 利用するAIモデルの学習データの条件により、個人・非商用でのご利用に限らせていただきます。</p>
+    </div>
+
+    <div class="card" id="uploadCard">
+      <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="画像ファイルを選択またはドラッグ＆ドロップ">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <div class="dz-title">画像をここにドラッグ＆ドロップ</div>
+        <div class="dz-sub">またはクリックしてファイルを選択（JPEG / PNG / WebP）</div>
+        <div class="dz-priv">すべてブラウザ内で処理 ／ 画像はサーバーに送信されません</div>
+      </div>
+      <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,.png,.jpg,.jpeg,.webp" hidden>
+    </div>
+
+    <div class="editor card" id="editor" hidden>
+      <div class="toolbar">
+        <div class="tgroup">
+          <span class="tlabel">モード</span>
+          <div class="seg" role="radiogroup" aria-label="選択モード">
+            <button type="button" class="seg-btn active" data-mode="brush" aria-pressed="true">ブラシ</button>
+            <button type="button" class="seg-btn" data-mode="rect" aria-pressed="false">矩形</button>
+          </div>
+        </div>
+        <div class="tgroup">
+          <span class="tlabel">範囲</span>
+          <div class="seg" role="radiogroup" aria-label="選択範囲の操作">
+            <button type="button" class="seg-btn active" data-paint="add" aria-pressed="true">範囲を追加</button>
+            <button type="button" class="seg-btn" data-paint="erase" aria-pressed="false">範囲を削除</button>
+          </div>
+        </div>
+        <div class="tgroup brush-only" id="brushGroup">
+          <span class="tlabel">太さ</span>
+          <input type="range" id="brush" min="6" max="90" step="1" value="36" aria-label="ブラシの太さ">
+          <span class="tval" id="brushVal">36</span>
+        </div>
+        <div class="tgroup">
+          <button type="button" class="tbtn" id="undoBtn" title="元に戻す" aria-label="元に戻す" disabled>↶</button>
+          <button type="button" class="tbtn" id="redoBtn" title="やり直す" aria-label="やり直す" disabled>↷</button>
+          <button type="button" class="tbtn" id="clearBtn" title="マスクを全消去">全消去</button>
+        </div>
+        <div class="tgroup">
+          <span class="tlabel">表示</span>
+          <button type="button" class="tbtn" id="zoomOut" aria-label="縮小">−</button>
+          <span class="tval" id="zoomVal">100%</span>
+          <button type="button" class="tbtn" id="zoomIn" aria-label="拡大">＋</button>
+          <button type="button" class="tbtn" id="zoomFit">全体</button>
+          <button type="button" class="tbtn" id="panBtn" title="ドラッグで画像を移動（Spaceキー押下中・中クリックでも可）" aria-pressed="false">✋ 移動</button>
+        </div>
+      </div>
+
+      <p class="editor-hint">※ 消したい場所を<strong>赤く塗って</strong>選び、［AI補完を実行］で消します。「範囲を削除」は塗りすぎた赤い選択を取り消す操作です（画像そのものは消えません）。</p>
+
+      <div class="stage" id="stage">
+        <canvas id="view"></canvas>
+        <div class="brush-cursor" id="brushCursor"></div>
+      </div>
+
+      <div class="run-row">
+        <button type="button" class="btn btn-primary" id="runBtn" disabled>AI補完を実行</button>
+        <button type="button" class="btn btn-ghost" id="compareBtn" disabled>押している間：補完前</button>
+        <div class="dl-wrap">
+          <label class="chip-sm"><input type="radio" name="dlfmt" value="png" checked><span>PNG</span></label>
+          <label class="chip-sm"><input type="radio" name="dlfmt" value="jpeg"><span>JPEG</span></label>
+          <button type="button" class="btn btn-ghost" id="downloadBtn" disabled>ダウンロード</button>
+        </div>
+        <button type="button" class="btn btn-ghost" id="changeBtn">別の画像</button>
+      </div>
+
+      <div class="status" id="status" hidden><span class="spinner"></span><span id="statusText"></span></div>
+      <div class="progress" id="progress">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText"></div>
+      </div>
+    </div>
+
+    <div class="card info">
+      <h3>このツールでできること</h3>
+      <p>写真に写り込んだ通行人・看板・電線・影などの不要なオブジェクトを、消したい場所をブラシで塗るか矩形で囲むだけで、AI（MI-GAN）が周囲の背景を推測して自然に補完しながら消去します。ブラシは人物や電線などの不定形なもの、矩形は看板や箱・窓などの直線的なものに向いています。納得いくまで追加で塗って繰り返し補完できます。</p>
+      <h3>使い方</h3>
+      <ul>
+        <li>画像を読み込み、「ブラシ」または「矩形」で消したい場所を赤く選択します</li>
+        <li>「追加 / 消しゴム」で選択範囲を微調整します（矩形でざっくり→ブラシで角を整えると効率的）</li>
+        <li>「AI補完を実行」を押すと、選択した範囲が周囲となじむように消えます</li>
+        <li>「押している間：補完前」で補完前後を見比べ、よければ「ダウンロード」で保存します</li>
+      </ul>
+      <h3>プライバシーについて</h3>
+      <p class="caution">画像の読み込み・編集・AI補完・書き出しは、すべてお使いのブラウザ内だけで完結します。画像がサーバーに送信されることは一切ありません。AIモデル（約27MB）は初回のみダウンロードしてブラウザにキャッシュし、2回目以降はオフラインでも動作します。</p>
+      <h3>きれいに消すコツ・制約</h3>
+      <ul>
+        <li>広い範囲を一度に消すより、小さめに分けて複数回処理するほうが高品質になります</li>
+        <li>顔・文字・建物の窓枠など規則的な模様や巨大な物体は不自然になりやすい傾向があります</li>
+        <li>WebGPU対応ブラウザ（最新のChrome / Edge）では高速に、非対応環境ではやや低速に動作します</li>
+      </ul>
+      <h3>よくある質問</h3>
+      <div class="faq-q">Q. 画像はサーバーにアップロードされますか？</div>
+      <p class="faq-a">いいえ。画像の読み込み・編集・AI補完・書き出しはすべてお使いのブラウザ内で完結します。画像がサーバーに送信されることはありません。初回のみAIモデル（約27MB）をダウンロードし、以降はキャッシュから読み込むためオフラインでも動作します。</p>
+      <div class="faq-q">Q. 料金や登録は必要ですか？</div>
+      <p class="faq-a">完全無料で、アカウント登録やインストールは不要です。ブラウザでページを開くだけで利用できます。</p>
+      <div class="faq-q">Q. どんなものを消せますか？</div>
+      <p class="faq-a">写真に写り込んだ通行人・看板・電線・影などの不要物を消せます。ブラシで不定形のもの、矩形で箱状のものを選択できます。巨大な物体や顔・文字・規則的な模様は不自然になりやすいため、小さく分けて複数回処理すると高品質になります。</p>
+      <div class="faq-q">Q. 加工した画像を商用利用できますか？</div>
+      <p class="faq-a">本ツールは<strong>個人利用・非商用利用</strong>を対象としています。利用しているAIモデルの学習データ（Places2）が研究・教育・非商用目的での利用に限定されているため、出力画像の商用利用はお控えください。商用でのご利用をご希望の場合は、別途<a href="/contact/" style="color:var(--green);font-weight:600">お問い合わせ</a>ください。</p>
+      <h3>ご利用について（ライセンス・利用範囲）</h3>
+      <p class="caution">本ツールは<strong>個人・非商用目的</strong>でご利用ください。AI補完には、画像インペインティングモデル「MI-GAN」（Picsart-AI-Research, MIT License。学習データ: Places2）を使用しています。Places2 データセットは研究・教育・非商用目的での利用に限定されているため、本ツールおよびその出力の商用利用はお控えください。なお、入力した画像はお使いのブラウザ内だけで処理され、サーバーには一切送信されません。</p>
+      <p style="margin-top:18px;font-size:.92rem;color:var(--text-secondary)">画像のリサイズ・圧縮・変換は <a href="/tools/Shuku.html" style="color:var(--green);font-weight:600">Shuku（画像変換ツール）</a>、機密情報の黒塗りは <a href="/tools/masuku.html" style="color:var(--green);font-weight:600">Masuku（マスキングツール）</a> もあわせてご利用ください。他の無料ツールは <a href="/tools/" style="color:var(--green);font-weight:600">無料Webツール一覧</a> からどうぞ。</p>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-brand">
+      <img src="/images/logo-white.png" alt="KIZUNA Works" style="height:48px;width:auto;margin-bottom:10px;display:block;mix-blend-mode:screen;">
+    </div>
+    <div class="site-footer-links">
+      <a href="https://kizuna-works.jp/privacy/">プライバシーポリシー</a>
+      <a href="https://kizuna-works.jp/terms/">利用規約</a>
+      <a href="https://kizuna-works.jp/tokushoho/">特定商取引法に基づく表記</a>
+      <a href="https://kizuna-works.jp/refund/">返金ポリシー</a>
+      <a href="https://kizuna-works.jp/contact/">お問い合わせ</a>
+    </div>
+  </div>
+  <div class="site-footer-copy">
+    <p>&copy; 2026 KIZUNA Works All Rights Reserved.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<!-- onnxruntime-web (WebGPU + WASM). Update SRI hash if the version changes. -->
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/ort.webgpu.min.js" integrity="sha384-/tsMe803n88h9cNDnqByBHNVgqEP5mXc4EkCnDuMYvbxsppJzvS6i3ub8BbOxUxO" crossorigin="anonymous"></script>
+<script>
+(function () {
+  'use strict';
+
+  // ---- Config ----
+  var ORT_VER = '1.19.2';
+  var MODEL_URL = 'https://huggingface.co/andraniksargsyan/migan/resolve/main/migan_pipeline_v2.onnx';
+  var MODEL_CACHE = 'tsukuroi-model-v1';
+  var MAX_DIM = 2048; // longest side cap for working/processing resolution
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  // ---- DOM refs ----
+  var dropzone = $('dropzone'), fileInput = $('fileInput'), uploadCard = $('uploadCard');
+  var editor = $('editor'), stage = $('stage'), view = $('view');
+  var brushCursor = $('brushCursor');
+  var brushRange = $('brush'), brushVal = $('brushVal'), brushGroup = $('brushGroup');
+  var undoBtn = $('undoBtn'), redoBtn = $('redoBtn'), clearBtn = $('clearBtn');
+  var zoomOut = $('zoomOut'), zoomIn = $('zoomIn'), zoomFit = $('zoomFit'), zoomVal = $('zoomVal'), panBtn = $('panBtn');
+  var runBtn = $('runBtn'), compareBtn = $('compareBtn'), downloadBtn = $('downloadBtn'), changeBtn = $('changeBtn');
+  var statusBox = $('status'), statusText = $('statusText');
+  var progress = $('progress'), progressFill = $('progressFill'), progressText = $('progressText');
+
+  var vctx = view.getContext('2d');
+
+  // ---- Offscreen canvases (native resolution) ----
+  function mk() { return document.createElement('canvas'); }
+  var baseCanvas = mk(), baseCtx = baseCanvas.getContext('2d', { willReadFrequently: true });
+  var maskCanvas = mk(), maskCtx = maskCanvas.getContext('2d', { willReadFrequently: true });
+  var prevCanvas = mk(), prevCtx = prevCanvas.getContext('2d');
+  var overlay = mk(), octx = overlay.getContext('2d');  // red mask overlay, built at DISPLAY resolution (cheap)
+
+  // ---- State ----
+  var natW = 0, natH = 0;
+  var fitScale = 1, displayScale = 1;
+  var mode = 'brush', paint = 'add', brushSize = 36;
+  var showingPrev = false, hasInpainted = false, processing = false;
+  var maskInk = false;            // whether the mask currently has any painted pixels
+  var renderScheduled = false;    // rAF coalescing flag for render()
+  var session = null;
+  var ort = window.ort || null;
+
+  // drawing
+  var drawing = false, lastX = 0, lastY = 0, dragRect = null;
+  var pointers = new Map(), pinch = null;
+  // panning (drag to move when zoomed)
+  var panMode = false, panning = false, spaceHeld = false, panStart = null;
+
+  // history (mask snapshots as compact 1-byte-per-pixel alpha buffers)
+  var history = [], histIdx = -1;
+
+  var toastTimer = null;
+  function toast(msg) {
+    var t = $('toast'); t.textContent = msg; t.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.classList.remove('show'); }, 3200);
+  }
+  function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
+  function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
+
+  // ---- File intake ----
+  dropzone.addEventListener('click', function () { fileInput.click(); });
+  dropzone.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); } });
+  dropzone.addEventListener('dragover', function (e) { e.preventDefault(); dropzone.classList.add('dragover'); });
+  dropzone.addEventListener('dragleave', function () { dropzone.classList.remove('dragover'); });
+  dropzone.addEventListener('drop', function (e) {
+    e.preventDefault(); dropzone.classList.remove('dragover');
+    var f = e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) handleFile(f);
+  });
+  fileInput.addEventListener('change', function (e) { var f = e.target.files && e.target.files[0]; if (f) handleFile(f); });
+
+  function handleFile(file) {
+    var ok = /^image\/(png|jpeg|webp)$/.test(file.type) || /\.(png|jpe?g|webp)$/i.test(file.name);
+    if (!ok) { toast('対応形式はJPEG / PNG / WebPです'); return; }
+    var url = URL.createObjectURL(file);
+    var img = new Image();
+    img.onload = function () {
+      URL.revokeObjectURL(url);
+      var w = img.naturalWidth, h = img.naturalHeight;
+      if (!w || !h) { toast('画像を読み込めませんでした'); return; }
+      var scale = Math.min(1, MAX_DIM / Math.max(w, h));
+      natW = Math.max(1, Math.round(w * scale));
+      natH = Math.max(1, Math.round(h * scale));
+      baseCanvas.width = natW; baseCanvas.height = natH;
+      baseCtx.clearRect(0, 0, natW, natH);
+      baseCtx.drawImage(img, 0, 0, natW, natH);
+      maskCanvas.width = natW; maskCanvas.height = natH; maskCtx.clearRect(0, 0, natW, natH);
+      prevCanvas.width = natW; prevCanvas.height = natH;
+      if (scale < 1) toast('大きな画像のため、処理サイズを ' + natW + '×' + natH + ' に調整しました');
+      hasInpainted = false; showingPrev = false; maskInk = false;
+      history = []; histIdx = -1; pushHistory();
+      uploadCard.hidden = true; editor.hidden = false;
+      requestAnimationFrame(function () { computeFit(); render(); updateButtons(); });
+    };
+    img.onerror = function () { URL.revokeObjectURL(url); toast('画像を読み込めませんでした'); };
+    img.src = url;
+  }
+
+  // ---- View / rendering ----
+  function computeFit() {
+    var cw = stage.clientWidth || 800;
+    var ch = Math.min(window.innerHeight * 0.7, 640);
+    fitScale = clamp(Math.min(cw / natW, ch / natH), 0.05, 2);
+    displayScale = fitScale;
+    updateZoomLabel();
+  }
+
+  function normRect(r) {
+    var x = Math.min(r.x0, r.x1), y = Math.min(r.y0, r.y1);
+    return { x: x, y: y, w: Math.abs(r.x1 - r.x0), h: Math.abs(r.y1 - r.y0) };
+  }
+
+  // Coalesce repeated render requests (e.g. during a brush stroke) into one per animation frame.
+  function scheduleRender() {
+    if (renderScheduled) return;
+    renderScheduled = true;
+    requestAnimationFrame(function () { renderScheduled = false; render(); });
+  }
+
+  function render() {
+    var dw = Math.max(1, Math.round(natW * displayScale));
+    var dh = Math.max(1, Math.round(natH * displayScale));
+    if (view.width !== dw) view.width = dw;
+    if (view.height !== dh) view.height = dh;
+    view.style.width = dw + 'px';
+    view.style.height = dh + 'px';
+    vctx.imageSmoothingEnabled = true; vctx.imageSmoothingQuality = 'high';
+    vctx.clearRect(0, 0, dw, dh);
+    vctx.drawImage(showingPrev ? prevCanvas : baseCanvas, 0, 0, dw, dh);
+    if (!showingPrev) {
+      // Build the red mask overlay at DISPLAY resolution (a few hundred K px) instead of
+      // rebuilding a full native-resolution tint canvas every frame. Big perf win on large images.
+      if (maskInk) {
+        if (overlay.width !== dw) overlay.width = dw;
+        if (overlay.height !== dh) overlay.height = dh;
+        octx.globalCompositeOperation = 'source-over';
+        octx.clearRect(0, 0, dw, dh);
+        octx.fillStyle = '#ff2d2d';
+        octx.fillRect(0, 0, dw, dh);
+        octx.globalCompositeOperation = 'destination-in';
+        octx.imageSmoothingEnabled = false;
+        octx.drawImage(maskCanvas, 0, 0, natW, natH, 0, 0, dw, dh);
+        octx.globalCompositeOperation = 'source-over';
+        vctx.globalAlpha = 0.5;
+        vctx.drawImage(overlay, 0, 0);
+        vctx.globalAlpha = 1;
+      }
+      if (dragRect) {
+        var r = normRect(dragRect);
+        vctx.save();
+        vctx.fillStyle = 'rgba(255,45,45,0.32)';
+        vctx.fillRect(r.x * displayScale, r.y * displayScale, r.w * displayScale, r.h * displayScale);
+        vctx.strokeStyle = '#ff2d2d'; vctx.lineWidth = 2; vctx.setLineDash([6, 4]);
+        vctx.strokeRect(r.x * displayScale, r.y * displayScale, r.w * displayScale, r.h * displayScale);
+        vctx.restore();
+      }
+    }
+  }
+
+  function evToNative(e) {
+    var rect = view.getBoundingClientRect();
+    var sx = view.width / rect.width, sy = view.height / rect.height;
+    return {
+      x: (e.clientX - rect.left) * sx / displayScale,
+      y: (e.clientY - rect.top) * sy / displayScale
+    };
+  }
+
+  // ---- Mask drawing ----
+  function stampCircle(nx, ny) {
+    var r = Math.max(0.5, (brushSize / 2) / displayScale);
+    maskCtx.globalCompositeOperation = (paint === 'erase') ? 'destination-out' : 'source-over';
+    maskCtx.fillStyle = '#ffffff';
+    maskCtx.beginPath(); maskCtx.arc(nx, ny, r, 0, Math.PI * 2); maskCtx.fill();
+    maskCtx.globalCompositeOperation = 'source-over';
+    if (paint !== 'erase') maskInk = true;
+  }
+  function strokeLine(x0, y0, x1, y1) {
+    var r = Math.max(0.5, (brushSize / 2) / displayScale);
+    var d = Math.hypot(x1 - x0, y1 - y0);
+    var step = Math.max(1, r * 0.4);
+    var n = Math.ceil(d / step);
+    for (var i = 0; i <= n; i++) { var t = n ? i / n : 0; stampCircle(x0 + (x1 - x0) * t, y0 + (y1 - y0) * t); }
+  }
+  function fillRectNative(r) {
+    maskCtx.globalCompositeOperation = (paint === 'erase') ? 'destination-out' : 'source-over';
+    maskCtx.fillStyle = '#ffffff';
+    maskCtx.fillRect(r.x, r.y, r.w, r.h);
+    maskCtx.globalCompositeOperation = 'source-over';
+    if (paint !== 'erase') maskInk = true;
+  }
+
+  // ---- Pointer handling (draw + pinch zoom) ----
+  function onDown(e) {
+    if (processing) return;
+    if (view.setPointerCapture) { try { view.setPointerCapture(e.pointerId); } catch (err) {} }
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size >= 2) { drawing = false; dragRect = null; panning = false; startPinch(); render(); return; }
+    // pan instead of draw when pan mode / space held / middle-button
+    if (panMode || spaceHeld || e.button === 1) {
+      e.preventDefault();
+      panning = true; brushCursor.style.display = 'none';
+      panStart = { x: e.clientX, y: e.clientY, sl: stage.scrollLeft, st: stage.scrollTop };
+      updateCursor();
+      return;
+    }
+    e.preventDefault();
+    var p = evToNative(e);
+    drawing = true;
+    if (mode === 'brush') { lastX = p.x; lastY = p.y; stampCircle(p.x, p.y); scheduleRender(); }
+    else { dragRect = { x0: p.x, y0: p.y, x1: p.x, y1: p.y }; scheduleRender(); }
+  }
+  function onMove(e) {
+    if (pointers.has(e.pointerId)) pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (panning) {
+      stage.scrollLeft = panStart.sl - (e.clientX - panStart.x);
+      stage.scrollTop = panStart.st - (e.clientY - panStart.y);
+      return;
+    }
+    if (mode === 'brush' && !panMode && !spaceHeld) updateBrushCursor(e); else brushCursor.style.display = 'none';
+    if (pinch && pointers.size >= 2) { doPinch(); return; }
+    if (!drawing) return;
+    var p = evToNative(e);
+    if (mode === 'brush') { strokeLine(lastX, lastY, p.x, p.y); lastX = p.x; lastY = p.y; scheduleRender(); }
+    else if (dragRect) { dragRect.x1 = p.x; dragRect.y1 = p.y; scheduleRender(); }
+  }
+  function onUp(e) {
+    var wasDrawing = drawing;
+    pointers.delete(e.pointerId);
+    if (pointers.size < 2) pinch = null;
+    if (panning && pointers.size === 0) { panning = false; updateCursor(); }
+    if (wasDrawing && pointers.size === 0) {
+      drawing = false;
+      if (mode === 'rect' && dragRect) {
+        var r = normRect(dragRect); dragRect = null;
+        if (r.w > 1 && r.h > 1) fillRectNative(r);
+        render();
+      }
+      pushHistory(); updateButtons();
+    }
+  }
+  view.addEventListener('pointerdown', onDown);
+  window.addEventListener('pointermove', onMove);
+  window.addEventListener('pointerup', onUp);
+  window.addEventListener('pointercancel', onUp);
+
+  function startPinch() {
+    var pts = Array.from(pointers.values());
+    pinch = { d: dist(pts[0], pts[1]), startScale: displayScale, cx: (pts[0].x + pts[1].x) / 2, cy: (pts[0].y + pts[1].y) / 2 };
+  }
+  function doPinch() {
+    var pts = Array.from(pointers.values()); if (pts.length < 2) return;
+    var d = dist(pts[0], pts[1]);
+    var cx = (pts[0].x + pts[1].x) / 2, cy = (pts[0].y + pts[1].y) / 2;
+    setScale(pinch.startScale * (d / pinch.d), cx, cy);
+    stage.scrollLeft -= (cx - pinch.cx); stage.scrollTop -= (cy - pinch.cy);
+    pinch.cx = cx; pinch.cy = cy;
+  }
+
+  // ---- Brush cursor ----
+  function updateBrushCursor(e) {
+    if (mode !== 'brush' || processing) { brushCursor.style.display = 'none'; return; }
+    var sr = stage.getBoundingClientRect();
+    var inside = e.clientX >= sr.left && e.clientX <= sr.right && e.clientY >= sr.top && e.clientY <= sr.bottom;
+    if (!inside) { brushCursor.style.display = 'none'; return; }
+    brushCursor.style.display = 'block';
+    brushCursor.style.width = brushSize + 'px';
+    brushCursor.style.height = brushSize + 'px';
+    brushCursor.style.left = (e.clientX - sr.left + stage.scrollLeft) + 'px';
+    brushCursor.style.top = (e.clientY - sr.top + stage.scrollTop) + 'px';
+  }
+  stage.addEventListener('pointerleave', function () { brushCursor.style.display = 'none'; });
+
+  // ---- Zoom ----
+  function setScale(ns, ax, ay) {
+    ns = clamp(ns, 0.08, 8);
+    var rect = stage.getBoundingClientRect();
+    var ox = (ax != null ? ax - rect.left : rect.width / 2) + stage.scrollLeft;
+    var oy = (ay != null ? ay - rect.top : rect.height / 2) + stage.scrollTop;
+    var nx = ox / displayScale, ny = oy / displayScale;
+    displayScale = ns;
+    render();
+    stage.scrollLeft = nx * displayScale - (ax != null ? ax - rect.left : rect.width / 2);
+    stage.scrollTop = ny * displayScale - (ay != null ? ay - rect.top : rect.height / 2);
+    updateZoomLabel();
+  }
+  function updateZoomLabel() { zoomVal.textContent = Math.round((displayScale / fitScale) * 100) + '%'; }
+  zoomIn.addEventListener('click', function () { setScale(displayScale * 1.25); });
+  zoomOut.addEventListener('click', function () { setScale(displayScale * 0.8); });
+  zoomFit.addEventListener('click', function () { computeFit(); render(); stage.scrollTo(0, 0); });
+  stage.addEventListener('wheel', function (e) {
+    if (!natW) return;
+    e.preventDefault();
+    setScale(displayScale * (e.deltaY < 0 ? 1.1 : 0.9), e.clientX, e.clientY);
+  }, { passive: false });
+
+  // ---- History ----
+  // Snapshots store a compact 1-byte-per-pixel alpha buffer (read once per stroke end),
+  // avoiding the expensive PNG encoding (toDataURL) that previously hitched after every stroke.
+  function snapshotMask() {
+    var n = natW * natH, a = new Uint8Array(n), ink = false;
+    try {
+      var d = maskCtx.getImageData(0, 0, natW, natH).data;
+      for (var i = 0, p = 3; i < n; i++, p += 4) { var v = d[p]; a[i] = v; if (v > 10) ink = true; }
+    } catch (err) {}
+    return { alpha: a, ink: ink };
+  }
+  function pushHistory() {
+    history = history.slice(0, histIdx + 1);
+    var snap = snapshotMask();
+    history.push(snap);
+    if (history.length > 20) history.shift();
+    histIdx = history.length - 1;
+    maskInk = snap.ink;
+    updateButtons();
+  }
+  function restoreHistory() {
+    var snap = history[histIdx];
+    var n = natW * natH;
+    var img = maskCtx.createImageData(natW, natH);
+    var d = img.data;
+    for (var i = 0, p = 0; i < n; i++, p += 4) { var v = snap.alpha[i]; if (v > 0) { d[p] = 255; d[p + 1] = 255; d[p + 2] = 255; d[p + 3] = v; } }
+    maskCtx.putImageData(img, 0, 0);
+    maskInk = snap.ink;
+    render(); updateButtons();
+  }
+  undoBtn.addEventListener('click', function () { if (histIdx > 0) { histIdx--; restoreHistory(); } });
+  redoBtn.addEventListener('click', function () { if (histIdx < history.length - 1) { histIdx++; restoreHistory(); } });
+  clearBtn.addEventListener('click', function () { maskCtx.clearRect(0, 0, natW, natH); maskInk = false; render(); pushHistory(); });
+
+  // ---- Mode / paint / brush controls ----
+  function setPanMode(on) {
+    panMode = on;
+    panBtn.classList.toggle('active', on);
+    panBtn.setAttribute('aria-pressed', String(on));
+    if (on) brushCursor.style.display = 'none';
+    updateCursor();
+  }
+  function updateCursor() {
+    if (panMode || spaceHeld) { view.style.cursor = panning ? 'grabbing' : 'grab'; brushCursor.style.display = 'none'; }
+    else if (mode === 'brush') { view.style.cursor = 'none'; }
+    else { view.style.cursor = 'crosshair'; }
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-mode]'), function (btn) {
+    btn.addEventListener('click', function () {
+      mode = btn.getAttribute('data-mode');
+      document.querySelectorAll('[data-mode]').forEach(function (b) {
+        var on = b === btn; b.classList.toggle('active', on); b.setAttribute('aria-pressed', String(on));
+      });
+      brushGroup.classList.toggle('hide', mode !== 'brush');
+      setPanMode(false);
+      if (mode !== 'brush') brushCursor.style.display = 'none';
+    });
+  });
+  panBtn.addEventListener('click', function () { setPanMode(!panMode); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && !editor.hidden && !/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) {
+      e.preventDefault();
+      if (!spaceHeld) { spaceHeld = true; updateCursor(); }
+    }
+  });
+  window.addEventListener('keyup', function (e) { if (e.code === 'Space') { spaceHeld = false; updateCursor(); } });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-paint]'), function (btn) {
+    btn.addEventListener('click', function () {
+      paint = btn.getAttribute('data-paint');
+      document.querySelectorAll('[data-paint]').forEach(function (b) {
+        var on = b === btn; b.classList.toggle('active', on); b.setAttribute('aria-pressed', String(on));
+      });
+    });
+  });
+  brushRange.addEventListener('input', function () { brushSize = parseInt(brushRange.value, 10); brushVal.textContent = brushRange.value; });
+  view.style.cursor = 'none';
+
+  // ---- Buttons enable/disable ----
+  function updateButtons() {
+    undoBtn.disabled = histIdx <= 0;
+    redoBtn.disabled = histIdx >= history.length - 1;
+    runBtn.disabled = processing || !maskInk;
+    compareBtn.disabled = processing || !hasInpainted;
+    downloadBtn.disabled = processing || !hasInpainted;
+  }
+  function lockUI(on) {
+    processing = on;
+    [undoBtn, redoBtn, clearBtn, zoomIn, zoomOut, zoomFit, panBtn, changeBtn, brushRange].forEach(function (el) { el.disabled = on; });
+    document.querySelectorAll('[data-mode],[data-paint]').forEach(function (b) { b.disabled = on; });
+    if (!on) updateButtons();
+  }
+
+  // ---- Status / progress ----
+  function setStatus(msg) {
+    if (msg) { statusText.textContent = msg; statusBox.hidden = false; }
+    else statusBox.hidden = true;
+  }
+  function showProgress(on) { progress.classList.toggle('show', !!on); if (!on) { progressFill.classList.remove('indet'); progressFill.style.width = '0%'; progressText.textContent = ''; } }
+  function setProgress(pct, text) {
+    if (pct < 0) { progressFill.classList.add('indet'); }
+    else { progressFill.classList.remove('indet'); progressFill.style.width = clamp(pct, 0, 100) + '%'; }
+    if (text != null) progressText.textContent = text;
+  }
+
+  // ---- Model loading (Cache API + progress) ----
+  function fmtMB(n) { return (n / 1048576).toFixed(0); }
+  function loadModelBuffer() {
+    return (async function () {
+      try {
+        if ('caches' in window) {
+          var cache = await caches.open(MODEL_CACHE);
+          var hit = await cache.match(MODEL_URL);
+          if (hit) { setProgress(100, 'キャッシュからモデルを読み込み中…'); return await hit.arrayBuffer(); }
+        }
+      } catch (e) { console.warn('cache match failed', e); }
+
+      var net = await fetch(MODEL_URL, { mode: 'cors' });
+      if (!net.ok) throw new Error('model fetch ' + net.status);
+      var total = parseInt(net.headers.get('Content-Length') || '0', 10);
+      var chunks = [], recv = 0;
+      if (net.body && net.body.getReader) {
+        var reader = net.body.getReader();
+        while (true) {
+          var r = await reader.read();
+          if (r.done) break;
+          chunks.push(r.value); recv += r.value.length;
+          if (total) setProgress(Math.round(recv / total * 100), '初回のみAIモデルをダウンロード中… ' + fmtMB(recv) + ' / ' + fmtMB(total) + ' MB');
+          else setProgress(-1, '初回のみAIモデルをダウンロード中… ' + fmtMB(recv) + ' MB');
+        }
+      } else {
+        var ab0 = await net.arrayBuffer(); chunks.push(new Uint8Array(ab0)); recv = ab0.byteLength;
+      }
+      var blob = new Blob(chunks, { type: 'application/octet-stream' });
+      var ab = await blob.arrayBuffer();
+      try {
+        if ('caches' in window) {
+          var c2 = await caches.open(MODEL_CACHE);
+          await c2.put(MODEL_URL, new Response(blob, { headers: { 'Content-Type': 'application/octet-stream', 'Content-Length': String(blob.size) } }));
+        }
+      } catch (e) { console.warn('cache put failed', e); }
+      return ab;
+    })();
+  }
+
+  function ensureModel() {
+    return (async function () {
+      if (session) return;
+      if (!ort) ort = window.ort;
+      if (!ort) throw new Error('onnxruntime-web の読み込みに失敗しました');
+      try { ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@' + ORT_VER + '/dist/'; } catch (e) {}
+      setStatus('初回のみAIモデルを準備しています…');
+      showProgress(true); setProgress(0, '初回のみAIモデルを準備しています…');
+      var buf = await loadModelBuffer();
+      setProgress(100, 'モデルを初期化中…');
+      var eps = (typeof navigator !== 'undefined' && navigator.gpu) ? ['webgpu', 'wasm'] : ['wasm'];
+      try {
+        session = await ort.InferenceSession.create(buf, { executionProviders: eps });
+      } catch (e) {
+        console.warn('EP init failed, falling back to wasm', e);
+        session = await ort.InferenceSession.create(buf, { executionProviders: ['wasm'] });
+      }
+      showProgress(false);
+      if (!(navigator && navigator.gpu)) toast('お使いの環境ではWebGPUが使えないため、処理に時間がかかる場合があります');
+    })();
+  }
+
+  // ---- Inference ----
+  runBtn.addEventListener('click', function () { runInpaint(); });
+
+  function runInpaint() {
+    if (processing || !natW) return;
+    var N = natW * natH;
+    var mi;
+    try { mi = maskCtx.getImageData(0, 0, natW, natH).data; } catch (e) { toast('処理に失敗しました'); return; }
+    var mask = new Uint8Array(N), count = 0;
+    for (var i = 0, p = 3; i < N; i++, p += 4) {
+      if (mi[p] > 10) { mask[i] = 0; count++; } else { mask[i] = 255; }
+    }
+    if (count === 0) { toast('消したい場所をブラシまたは矩形で選択してください'); return; }
+
+    lockUI(true); showingPrev = false; render();
+    (async function () {
+      try {
+        await ensureModel();
+        if (count / N > 0.25) toast('範囲が広いほど不自然になりがちです。小さく分けて複数回がおすすめです');
+        setStatus('AIが繕っています…');
+        await new Promise(function (r) { setTimeout(r, 30); });
+
+        var id = baseCtx.getImageData(0, 0, natW, natH).data;
+        var img = new Uint8Array(3 * N);
+        for (var k = 0, q = 0; k < N; k++, q += 4) { img[k] = id[q]; img[N + k] = id[q + 1]; img[2 * N + k] = id[q + 2]; }
+        var imageTensor = new ort.Tensor('uint8', img, [1, 3, natH, natW]);
+        var maskTensor = new ort.Tensor('uint8', mask, [1, 1, natH, natW]);
+
+        var inNames = session.inputNames || ['image', 'mask'];
+        var feeds = {};
+        feeds[inNames.indexOf('image') >= 0 ? 'image' : inNames[0]] = imageTensor;
+        feeds[inNames.indexOf('mask') >= 0 ? 'mask' : inNames[1]] = maskTensor;
+
+        var out = await session.run(feeds);
+        var outNames = session.outputNames || ['result'];
+        var outName = outNames.indexOf('result') >= 0 ? 'result' : outNames[0];
+        var res = out[outName];
+        var oh = res.dims[2], ow = res.dims[3], rdata = res.data, M = ow * oh;
+        var rgba = new Uint8ClampedArray(M * 4);
+        for (var j = 0, w = 0; j < M; j++, w += 4) { rgba[w] = rdata[j]; rgba[w + 1] = rdata[M + j]; rgba[w + 2] = rdata[2 * M + j]; rgba[w + 3] = 255; }
+
+        prevCanvas.width = natW; prevCanvas.height = natH; prevCtx.clearRect(0, 0, natW, natH); prevCtx.drawImage(baseCanvas, 0, 0);
+        var resultData = new ImageData(rgba, ow, oh);
+        if (ow === natW && oh === natH) {
+          baseCtx.putImageData(resultData, 0, 0);
+        } else {
+          var tmp = mk(); tmp.width = ow; tmp.height = oh; tmp.getContext('2d').putImageData(resultData, 0, 0);
+          baseCtx.clearRect(0, 0, natW, natH); baseCtx.drawImage(tmp, 0, 0, natW, natH);
+        }
+
+        maskCtx.clearRect(0, 0, natW, natH); maskInk = false;
+        history = []; histIdx = -1; pushHistory();
+        hasInpainted = true;
+        render();
+        toast('繕いました。続けて消す場合は再度選択してください');
+      } catch (err) {
+        console.error(err);
+        toast('処理に失敗しました。範囲を小さくして再度お試しください');
+        showProgress(false);
+      } finally {
+        setStatus(''); lockUI(false); updateButtons();
+      }
+    })();
+  }
+
+  // ---- Before/After compare (hold) ----
+  function showPrev(on) { if (!hasInpainted || processing) return; showingPrev = on; render(); }
+  ['pointerdown'].forEach(function (ev) { compareBtn.addEventListener(ev, function (e) { e.preventDefault(); showPrev(true); }); });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (ev) { compareBtn.addEventListener(ev, function () { showPrev(false); }); });
+
+  // ---- Download ----
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function tsName() {
+    var d = new Date();
+    return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '_' + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds());
+  }
+  downloadBtn.addEventListener('click', function () {
+    if (!hasInpainted) return;
+    var fmtEl = document.querySelector('input[name="dlfmt"]:checked');
+    var fmt = fmtEl ? fmtEl.value : 'png';
+    var mime = fmt === 'jpeg' ? 'image/jpeg' : 'image/png';
+    var ext = fmt === 'jpeg' ? 'jpg' : 'png';
+    var done = function (blob) {
+      if (!blob) { toast('保存に失敗しました'); return; }
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a'); a.href = url; a.download = 'tsukuroi_' + tsName() + '.' + ext;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    };
+    if (fmt === 'jpeg') {
+      // flatten onto white for JPEG (no alpha)
+      var c = mk(); c.width = natW; c.height = natH; var cx = c.getContext('2d');
+      cx.fillStyle = '#ffffff'; cx.fillRect(0, 0, natW, natH); cx.drawImage(baseCanvas, 0, 0);
+      c.toBlob(done, mime, 0.92);
+    } else {
+      baseCanvas.toBlob(done, mime);
+    }
+  });
+
+  // ---- Change image / reset ----
+  changeBtn.addEventListener('click', function () {
+    if (processing) return;
+    fileInput.value = '';
+    editor.hidden = true; uploadCard.hidden = false;
+    showProgress(false); setStatus('');
+    natW = natH = 0; hasInpainted = false; showingPrev = false;
+    history = []; histIdx = -1;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ---- Resize handling ----
+  var resizeTimer = null;
+  window.addEventListener('resize', function () {
+    if (!natW || editor.hidden) return;
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () { computeFit(); render(); }, 150);
+  });
+
+  // ---- Mobile dropdown toggle ----
+  var moreBtn = document.querySelector('.site-nav-more');
+  if (moreBtn) {
+    moreBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var expanded = moreBtn.getAttribute('aria-expanded') === 'true';
+      moreBtn.setAttribute('aria-expanded', String(!expanded));
+    });
+  }
+})();
+</script>
+</body>
+</html>

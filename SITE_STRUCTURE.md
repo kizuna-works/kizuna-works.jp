@@ -346,6 +346,7 @@ c:\kizuna-works.jp\
 │   │   ├── masuku.html         # Masuku（画像・PDFマスキングツール）スタンドアロンHTMLアプリ（Astro管理外）
 │   │   ├── Shuku.html          # Shuku（画像変換・圧縮・リサイズツール）スタンドアロンHTMLアプリ（Astro管理外）
 │   │   ├── Utsushi.html        # Utsushi（PDF→HTML変換ツール）スタンドアロンHTMLアプリ（Astro管理外）
+│   │   ├── Tsukuroi.html       # Tsukuroi（AI物体除去ツール／MI-GAN・onnxruntime-web・ブラウザ完結）スタンドアロンHTMLアプリ（Astro管理外）
 │   │   ├── Shirushi.html       # Shirushi（kintoneアプリアイコン作成ツール）スタンドアロンHTMLアプリ（Astro管理外）
 │   │   └── Obi.html            # Obi（kintoneカバー画像作成ツール）スタンドアロンHTMLアプリ（Astro管理外）
 │   ├── contact.html            # 旧URL（/contact.html）→ /contact/ への meta refresh リダイレクト（noindex）
