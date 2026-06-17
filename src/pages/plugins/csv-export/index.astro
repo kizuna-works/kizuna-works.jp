@@ -590,6 +590,55 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       line-height: 1.7;
       margin: 18px 0 0;
     }
+    /* Smaller, centered screenshot inside the update box */
+    .update-shot {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .update-shot .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin: 10px 0 0;
+    }
+
+    /* Zoomable images + lightbox overlay */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
 
     /* Screenshot Frame (live action screenshot) */
     .screenshot-frame {
@@ -794,14 +843,18 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           <h2 class="update-title">v1.1.0：テンプレートに「絞り込み条件」を保存できるようになりました（日付の相対期間に対応）</h2>
         </div>
         <p class="update-desc">出力テンプレートごとに<strong>絞り込み条件（最大10件・AND）</strong>を保存できるようになりました。実行時は、これまでどおり画面の絞り込み（クイックサーチ含む）に連動しつつ、<strong>それに加えてテンプレートの条件を満たすレコードだけ</strong>を書き出します。日付・日時フィールドは固定日のほか、<strong>本日・今月・本年・今週・先月・翌年などの相対期間</strong>や「<strong>本日からの相対期間（±n 日／週／月／年）</strong>」を指定できます。下の例のように「<strong>受注予定日＝今月</strong>」「<strong>確度＝100% または 80%</strong>」を組み合わせれば、<strong>「今月ぶん・高確度の案件だけ」をワンクリック</strong>で書き出せます。文字列・数値・選択肢・ユーザー／組織なども条件にできます。</p>
-        <div class="screenshot-frame">
-          <img
-            src="/images/csv-export-config-05.png"
-            alt="かんたんCSV出力 v1.1.0 の絞り込み条件設定画面 — 受注予定日が「今月」、確度が「100%」「80%」のいずれかに一致、という2つの条件をANDで指定した状態。日付フィールドの値に本日・今月・本年などの相対期間を選べる"
-            loading="lazy"
-          />
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <img
+              class="zoomable"
+              src="/images/csv-export-config-05.png"
+              alt="かんたんCSV出力 v1.1.0 の絞り込み条件設定画面 — 受注予定日が「今月」、確度が「100%」「80%」のいずれかに一致、という2つの条件をANDで指定した状態。日付フィールドの値に本日・今月・本年などの相対期間を選べる"
+              loading="lazy"
+            />
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </div>
-        <p class="update-note">おまけの改善として、商品コード・レシートNo・「1-56」のような値が Excel で指数表記や日付に化けるのを自動で防ぐ「Excelの自動変換を防ぐ」機能も追加しました（既定ON・金額など通常の数値はそのまま数値で出力）。既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定や既存テンプレートはそのまま引き継がれます。</p>
+        <p class="update-note">もう一つの改善として、「<strong>Excelの自動変換を防ぐ</strong>」オプションを追加しました。これまで、桁数の多い番号や記号を含むコード類は、出力した CSV を Excel で開くと指数表記（例：1.23E+12）や日付に変換されてしまうことがありました。本オプションを有効にすると、こうした値を文字列として正しく保持します（既定ON。金額などの数値は数値のまま出力されるため、Excel での集計にもそのまま使えます）。<br>既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定や既存テンプレートはそのまま引き継がれます。</p>
       </div>
     </section>
 
@@ -1103,6 +1156,12 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <a href="/contact/" class="btn-primary">お問い合わせ</a>
     </section>
 
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="cx-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
   </main>
 
   <script is:inline>
@@ -1141,6 +1200,30 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           }
         });
       });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('cx-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
 
       const dlBtn = document.getElementById('btn-download');
       if (dlBtn) {
