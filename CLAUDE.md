@@ -346,6 +346,21 @@ grep -E "blog-prose table|blog-prose img|min-width:0|overflow-x:clip" dist/blog/
 
 ---
 
+## プラグイン／ツール／拡張のアップデート公開時は「個別ページにもアップデート情報」を追加
+
+> **重要：** kintone プラグイン等のバージョンアップ・機能追加を公開するときは、`/news/` へのお知らせ追加（上記ルール）**だけでなく、該当の個別ページ（`src/pages/plugins/<slug>/index.astro` 等）にもアップデート情報を必ず追加**すること（2026-05-17 の SEO/LLMO ルール・2026-06-17 ユーザー指示で恒久化）。お知らせ一覧は流れていくため、製品ページに来た見込み客へ「最近こう良くなった」を直接伝える。
+
+### 個別ページのアップデート情報の作り方（summary-bar / csv-export 方式に統一）
+
+- hero（タイトル）直下に `<section>` で **UPDATE ハイライトボックス**を置く：`.update-box`（緑の左ボーダー）＋ `.update-tag`「UPDATE」＋ `.update-title`（`vX.Y.Z：…` 見出し）＋ `.update-desc`（説明）＋スクショ＋ `.update-note`（補足・上書きアップロード手順）。CSS は summary-bar / csv-export に実装済みなので流用する。
+- 主役の新機能を前面に。副次的な改善も本文で触れるが、**「おまけ」等のカジュアルな表現は避け、課題提示型で書く**。検証アプリ固有のフィールド名（商品コード等）は使わず汎用語にする。
+- スクショは **`.update-shot`（max-width 640px・中央寄せ）＋ `img.zoomable`** でライトボックス拡大に対応（`#<prefix>-lightbox` の暗転オーバーレイ＋×＋背景クリック/Escで閉じる。conditional-form 等と同方式）。画像下に「画像をクリックすると拡大表示します」。
+- 画像は `public/images/<slug>-config-0N.png` など連番で追加し、**SITE_STRUCTURE.md にも追記**。
+- hero の `softwareVersion` / `dateModified` / `downloadUrl` / hero-version / DLボタン / GA計測の版表記、`<head>` JSON-LD、「主な機能」「featureList」も更新する。
+- 配布 zip ファイル名を据え置く場合は、kintone 再アップロード用に **manifest の version 整数だけ繰り上げる**（ファイル名・表示バージョンは変えない運用も可）。
+
+---
+
 ## ページ追加・更新時のSEO + LLMO（AI検索）チェックリスト
 
 > **重要：** 無料ツール・ブログ・プラグインのページを追加・更新する際は、コミット前に必ず **SEO 対策と LLMO 対策の両方を同時に**実行すること。指示がない場合でも自動的に適用すること（2026-05-17 ユーザー指示）。
