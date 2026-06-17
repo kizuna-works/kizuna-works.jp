@@ -252,6 +252,7 @@ c:\kizuna-works.jp\
 │   │   ├── csv-export-config-02.png        # かんたんCSV出力 設定画面スクショ② — テンプレート作成（対象一覧の限定・出力する列）
 │   │   ├── csv-export-config-03.png        # かんたんCSV出力 設定画面スクショ③ — 出力する列・ヘッダー名・値の整形・文字コード/区切り/改行
 │   │   ├── csv-export-config-04.png        # かんたんCSV出力 設定画面スクショ④ — ファイル名ビルダー（部品＋ライブプレビュー）
+│   │   ├── csv-export-config-05.png        # かんたんCSV出力 設定画面スクショ⑤ — 絞り込み条件（v1.1.0・受注予定日=今月／確度=100%・80%のAND・日付の相対期間）
 │   │   ├── quick-tab-icon.png              # クイックタブ for kintone プラグイン アイコン（200×200・ヒーロー画像用）
 │   │   ├── quick-tab-banner.png            # クイックタブ for kintone バナー（1200×675・OGP/グリッド/news共用）
 │   │   ├── quick-tab-before.png            # クイックタブ 導入前スクショ — 従業員情報フォームが縦に長く並ぶ状態
