@@ -51,10 +51,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "かんたんCSV出力 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.1",
-          "dateModified": "2026-06-11",
+          "softwareVersion": "1.1.0",
+          "dateModified": "2026-06-17",
           "url": "https://kizuna-works.jp/plugins/csv-export/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-csv-export-v1.0.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-csv-export-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/csv-export-banner.png",
           "offers": {
             "@type": "Offer",
@@ -76,8 +76,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "各列のヘッダー名を任意変更（空欄ならフィールド名）",
             "同一テンプレート内で同じフィールドの重複選択を防止",
             "絞り込み（クイックサーチ含む）に連動して出力",
+            "テンプレートごとに絞り込み条件を保存（画面の絞り込みにANDで連結）",
+            "日付・日時の条件は本日・今月・本年などの相対期間も指定可",
             "「表示中／絞り込み全件」を自動判定・選択（全件はページング取得）",
             "文字コード UTF-8(BOM有/無)・Shift-JIS を選択（Excel文字化け対策）",
+            "Excelの自動変換防止：コード・型番の指数表記/日付化を文字列保護",
             "区切り（カンマ/タブ）・改行（CRLF/LF）を選択",
             "ファイル名を部品（アプリ名・テンプレ名・一覧名・日時・区切り・自由文字）で組み立て・ライブプレビュー",
             "テンプレートを特定の一覧ビューに限定表示",
@@ -726,7 +729,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.1</span>
+        <span class="hero-version">v1.1.0</span>
       </div>
       <h1 class="hero-title">かんたんCSV出力 for kintone</h1>
       <p class="hero-copy">かんたんCSV出力 for kintone は、レコード一覧の絞り込み結果を「用途別テンプレート」（出力する列・並び順・ヘッダー名・文字コード）でワンクリック書き出しする kintone プラグインです。「得意先提出用」「基幹システム取込用」などのフォーマットを名前付きで保存でき、クイックサーチ等の絞り込みにそのまま連動。Excel の文字化け対策（Shift-JIS／UTF-8 BOM）にも対応します。</p>
@@ -803,7 +806,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           <li><span><strong>用途別テンプレートをワンクリック出力</strong> — 「得意先提出用」「会計システム取込用」などの出力フォーマットを名前付きで保存。一覧ツールバーの「CSV出力」ボタンから選ぶだけで書き出せます。毎回フィールドを選び直す必要がありません。</span></li>
           <li><span><strong>列・並び順・ヘッダー名を自由に設定</strong> — 出力する列とその順番を指定でき、各列のヘッダー名（1行目）を任意に変更できます（例：「会社名」→「得意先名」）。一度選んだフィールドは他の列の候補に出ないため、重複選択も防げます。</span></li>
           <li><span><strong>絞り込み（クイックサーチ含む）に連動</strong> — 一覧の絞り込み条件・クイックサーチのキーワードにそのまま連動して出力。「表示中のレコード」か「絞り込み全件」かを自動判定し、件数が多いときだけ範囲を選べます。全件はページングで取得します。</span></li>
+          <li><span><strong>テンプレートごとの絞り込み条件（v1.1.0）</strong> — テンプレートに条件（最大10件・AND）を保存でき、画面の絞り込みに重ねて出力します。日付・日時は「本日」「今月」「本年」などの相対期間や「本日からの相対期間（±n 日/週/月/年）」も指定でき、「今月ぶんだけ」「本年ぶんだけ」をワンクリックで書き出せます。</span></li>
           <li><span><strong>文字コード・区切り・改行を選択</strong> — テンプレートごとに UTF-8（BOM有/無）／Shift-JIS、カンマ／タブ、CRLF／LF を選択可能。Excel で開いて文字化けする問題を防げます。Shift-JIS 変換も同梱ライブラリで kintone 内完結です。</span></li>
+          <li><span><strong>Excelの自動変換を防ぐ（v1.1.0）</strong> — 商品コード・レシートNo・「1-56」のような値が Excel で指数表記や日付に化けるのを、必要な値だけ文字列として出力して防ぎます（テンプレート単位でON/OFF・既定ON）。金額など通常の数値はそのまま数値で出力されます。</span></li>
           <li><span><strong>ファイル名を部品で組み立て</strong> — アプリ名・テンプレート名・一覧名・日時・区切り文字（_ / -）・自由入力文字を部品として並べ替えてファイル名を作成。完成形をリアルタイムプレビューで確認できます。</span></li>
           <li><span><strong>型に応じた値の整形</strong> — 日付・日時の書式、複数値（チェックボックス・ユーザー選択など）の区切り、ユーザー／組織の表示（表示名／ログイン名）を設定可能。添付ファイルはファイル名を出力します。</span></li>
           <li><span><strong>対象一覧の限定・ボタン色のカスタマイズ</strong> — テンプレートを特定の一覧ビューだけに表示するよう限定でき、「CSV出力」ボタンの色は10色プリセット＋カラーピッカーで変更できます。</span></li>
@@ -908,7 +913,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">CSV に出力したいフィールドと、テーブル形式の一覧ビューがあるアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li>「プランについて」セクションのダウンロードボタンから <code>kw-csv-export-v1.0.1.zip</code> をダウンロード</li>
+        <li>「プランについて」セクションのダウンロードボタンから <code>kw-csv-export-v1.1.0.zip</code> をダウンロード</li>
         <li>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</li>
         <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「かんたんCSV出力」を追加</li>
         <li>プラグイン設定画面で<strong>テンプレート</strong>（出力する列・ヘッダー名・文字コード・ファイル名など）を作成して「保存」</li>
@@ -933,7 +938,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 設定画面・一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-csv-export-v1.0.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-csv-export-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -1071,10 +1076,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-csv-export-v1.0.1.zip',
+              file_name: 'kw-csv-export-v1.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-csv-export-v1.0.1.zip'
+              link_url: '/downloads/kw-csv-export-v1.1.0.zip'
             });
           }
         });
