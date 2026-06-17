@@ -542,6 +542,55 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       font-weight: 700;
     }
 
+    /* Update box (version highlight) */
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 24px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+
     /* Screenshot Frame (live action screenshot) */
     .screenshot-frame {
       max-width: 980px;
@@ -712,6 +761,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
       .config-screenshots { grid-template-columns: 1fr; }
       .combo-arrow { transform: rotate(90deg); }
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
     }
   </style>
 
@@ -732,7 +783,26 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <span class="hero-version">v1.1.0</span>
       </div>
       <h1 class="hero-title">かんたんCSV出力 for kintone</h1>
-      <p class="hero-copy">かんたんCSV出力 for kintone は、レコード一覧の絞り込み結果を「用途別テンプレート」（出力する列・並び順・ヘッダー名・文字コード）でワンクリック書き出しする kintone プラグインです。「得意先提出用」「基幹システム取込用」などのフォーマットを名前付きで保存でき、クイックサーチ等の絞り込みにそのまま連動。Excel の文字化け対策（Shift-JIS／UTF-8 BOM）にも対応します。</p>
+      <p class="hero-copy">かんたんCSV出力 for kintone は、レコード一覧の絞り込み結果を「用途別テンプレート」（出力する列・並び順・ヘッダー名・文字コード）でワンクリック書き出しする kintone プラグインです。「得意先提出用」「基幹システム取込用」などのフォーマットを名前付きで保存でき、クイックサーチ等の絞り込みにそのまま連動。Excel の文字化け対策（Shift-JIS／UTF-8 BOM）にも対応します。<strong>v1.1.0 では、テンプレートごとに絞り込み条件（日付の「本日・今月・本年」などの相対期間に対応）を保存できるようになりました。</strong></p>
+    </section>
+
+    <!-- Update Info (v1.1.0) -->
+    <section class="section-wrapper fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.1.0：テンプレートに「絞り込み条件」を保存できるようになりました（日付の相対期間に対応）</h2>
+        </div>
+        <p class="update-desc">出力テンプレートごとに<strong>絞り込み条件（最大10件・AND）</strong>を保存できるようになりました。実行時は、これまでどおり画面の絞り込み（クイックサーチ含む）に連動しつつ、<strong>それに加えてテンプレートの条件を満たすレコードだけ</strong>を書き出します。日付・日時フィールドは固定日のほか、<strong>本日・今月・本年・今週・先月・翌年などの相対期間</strong>や「<strong>本日からの相対期間（±n 日／週／月／年）</strong>」を指定できます。下の例のように「<strong>受注予定日＝今月</strong>」「<strong>確度＝100% または 80%</strong>」を組み合わせれば、<strong>「今月ぶん・高確度の案件だけ」をワンクリック</strong>で書き出せます。文字列・数値・選択肢・ユーザー／組織なども条件にできます。</p>
+        <div class="screenshot-frame">
+          <img
+            src="/images/csv-export-config-05.png"
+            alt="かんたんCSV出力 v1.1.0 の絞り込み条件設定画面 — 受注予定日が「今月」、確度が「100%」「80%」のいずれかに一致、という2つの条件をANDで指定した状態。日付フィールドの値に本日・今月・本年などの相対期間を選べる"
+            loading="lazy"
+          />
+        </div>
+        <p class="update-note">おまけの改善として、商品コード・レシートNo・「1-56」のような値が Excel で指数表記や日付に化けるのを自動で防ぐ「Excelの自動変換を防ぐ」機能も追加しました（既定ON・金額など通常の数値はそのまま数値で出力）。既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定や既存テンプレートはそのまま引き継がれます。</p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -905,17 +975,6 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             </div>
           </div>
 
-          <div class="config-shot">
-            <img
-              src="/images/csv-export-config-05.png"
-              alt="かんたんCSV出力 設定画面⑤ 絞り込み条件（v1.1.0）— 受注予定日が「今月」、確度が「100%」「80%」のいずれかに一致、という2つの条件をANDで指定した状態。日付フィールドの値に本日・今月・本年などの相対期間を選べる"
-              loading="lazy"
-            />
-            <div class="config-shot-caption">
-              <strong>⑤ 絞り込み条件（v1.1.0）</strong>
-              <p>テンプレートに条件（最大10件・AND）を保存できます。日付・日時は「本日」「今月」「本年」などの相対期間も選べ、「今月ぶん・確度100%/80%だけ」をワンクリックで書き出せます。画面の絞り込み（クイックサーチ含む）にも自動で連動します。</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
