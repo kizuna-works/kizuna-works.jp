@@ -45,9 +45,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "住所アシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "dateModified": "2026-06-11",
+          "softwareVersion": "1.0.2",
+          "dateModified": "2026-06-19",
           "url": "https://kizuna-works.jp/plugins/address-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-address-assist-v1.0.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-address-assist-v1.0.2.zip",
           "offers": {
             "@type": "Offer",
             "name": "基本プラン（無料）",
@@ -555,9 +556,61 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       margin: 0;
     }
 
+    /* Update box (version highlight) */
+    .update-section { padding: 48px 5% 8px; }
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+
     @media (max-width: 768px) {
       .related-posts-grid { grid-template-columns: 1fr; }
       .hero { padding: 60px 5%; }
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
       .hero-title { font-size: 28px; }
       .hero-copy { font-size: 15px; }
       .hero-icon { width: 140px; height: 140px; }
@@ -586,10 +639,22 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.1</span>
+        <span class="hero-version">v1.0.2</span>
       </div>
       <h1 class="hero-title">住所アシスト for kintone</h1>
       <p class="hero-copy">郵便番号を入れるだけで <strong>住所自動入力</strong>。さらに <strong>Google マップ URL の自動生成</strong>と、kintone のレコード詳細画面に <strong>Google マップを直接プレビュー表示</strong>するところまで一気通貫。「レコードを開いた瞬間に地図が見える」業務効率の段違いさが、他社の住所自動入力プラグインには無い決定的な差別化ポイントです。</p>
+    </section>
+
+    <!-- Update Section -->
+    <section class="update-section fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.0.2：ゲストスペース内のアプリに対応しました</h2>
+        </div>
+        <p class="update-desc">社外の方とやり取りする <strong>ゲストスペース内のアプリ</strong>でも、本プラグインをご利用いただけるようになりました。これまではゲストスペースで <strong>設定画面のフィールド選択</strong>や <strong>地図プレビュー</strong>が正しく動作しないことがありましたが、フォーム情報を取得する内部の通信をゲストスペース用の経路に対応させ、<strong>設定・動作ともに行える</strong>ようにしました。郵便番号からの住所自動入力・Google マップ URL 生成・地図プレビュー・住所コピーが、ゲストスペースでも従来どおり動作します。</p>
+        <p class="update-note">通常スペースでの使い方・挙動はこれまでと変わりません。既存ユーザーの方は、最新版（v1.0.2）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定の再登録は不要です。</p>
+      </div>
     </section>
 
     <!-- Differentiator Section -->
@@ -849,7 +914,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-address-assist-v1.0.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-address-assist-v1.0.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -887,7 +952,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <li>動作は Google Chrome 最新版での確認を推奨します。</li>
         <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
         <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
-        <li>v1.0.0 時点ではモバイル kintone は非対応です。サブテーブル内フィールドへの自動入力も非対応です。</li>
+        <li>モバイル kintone は非対応です。サブテーブル内フィールドへの自動入力も非対応です。</li>
+        <li>ゲストスペース内のアプリに対応しています（v1.0.2〜）。</li>
       </ul>
     </section>
     <SecurityBox pluginId="kw-address-assist" />
@@ -982,10 +1048,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           gtag('event', 'file_download', {
-            file_name: 'kw-address-assist-v1.0.1.zip',
+            file_name: 'kw-address-assist-v1.0.2.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-address-assist-v1.0.1.zip'
+            link_url: '/downloads/kw-address-assist-v1.0.2.zip'
           });
         });
       }
