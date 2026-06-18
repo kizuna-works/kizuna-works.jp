@@ -312,10 +312,10 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-styler-v1.2.0.zip                  # フィールドスタイラープラグイン配布ファイル v1.2.0（旧版・互換のため残置）
 │   │   ├── kw-field-styler-v2.0.0.zip                  # フィールドスタイラープラグイン配布ファイル v2.0.0（最新・ダウンロードボタンの参照先）
 │   │   ├── kw-form-deco-v1.0.1.zip                     # FormDecoプラグイン配布ファイル（手動配置）
-│   │   ├── kw-lookup-suggest-v1.0.1.zip                # ルックアップサジェストプラグイン配布ファイル（手動配置）
-│   │   ├── kw-quick-search-v1.0.0.zip                  # クイックサーチプラグイン配布ファイル（手動配置）
+│   │   ├── kw-lookup-suggest-v1.0.2.zip                # ルックアップサジェストプラグイン配布ファイル（手動配置）
+│   │   ├──  kw-quick-search-v1.1.2.zip                  # クイックサーチプラグイン配布ファイル（手動配置）
 │   │   ├── kw-file-icon-marker-v1.0.1.zip              # 添付ファイルアイコン表示プラグイン配布ファイル（手動配置）
-│   │   ├── kw-quick-side-view-v1.0.1.zip               # クイックサイドビュープラグイン配布ファイル（手動配置）
+│   │   ├── kw-quick-side-view-v1.0.2.zip               # クイックサイドビュープラグイン配布ファイル（手動配置）
 │   │   ├── kw-record-lock-v1.0.1.zip                   # レコードロックプラグイン配布ファイル（手動配置）
 │   │   ├── kw-field-comment-v1.0.1.zip                 # フィールドコメントプラグイン配布ファイル（手動配置）
 │   │   ├── kw-theme-styler-v1.0.1.zip                  # テーマスタイラー for kintone プラグイン配布ファイル（手動配置）
@@ -328,7 +328,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-csv-export-v1.0.1.zip                     # かんたんCSV出力 for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-quick-tab-v1.0.1.zip                      # クイックタブ for kintone プラグイン配布ファイル（手動配置）
 │   │   ├── kw-file-preview-v1.0.1.zip                   # 添付ファイルプレビュー for kintone プラグイン配布ファイル（手動配置）
-│   │   └── kw-input-assist-v1.0.1.zip                   # 入力アシスト for kintone プラグイン配布ファイル（手動配置）
+│   │   └── kw-input-assist-v1.0.2.zip                   # 入力アシスト for kintone プラグイン配布ファイル（手動配置）
 │   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ（第三者CDN不使用）。現状 kw-file-preview のみ使用
 │   │   ├── README.md           # 収録ライブラリ・バージョン・ライセンス・更新手順
 │   │   ├── pdfjs/3.11.174/     # PDF.js（pdf.min.js / pdf.worker.min.js）— PDF描画
