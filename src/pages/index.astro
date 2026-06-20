@@ -612,6 +612,15 @@ const pluginPosts = allPosts
       background: #2E8B2E;
     }
 
+    .plugin-card-badge.premium {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2E8B2E 100%);
+    }
+
+    /* Premium plugins use a designed banner (1200×630) — show it fully without cropping */
+    .plugin-card-thumb.is-premium {
+      aspect-ratio: 1200 / 630;
+    }
+
     .plugin-card-body {
       padding: 18px 20px 22px;
       flex: 1;
@@ -1627,9 +1636,13 @@ const pluginPosts = allPosts
       <div class="plugins-grid">
         {showcasePlugins.map((p, i) => (
           <a href={`/plugins/${p.slug}/`} class="plugin-card-compact">
-            <div class="plugin-card-thumb">
+            <div class={`plugin-card-thumb${p.tier === 'premium' ? ' is-premium' : ''}`}>
               <img src={p.image} alt={p.imageAlt} loading="lazy" width={p.imageWidth} height={p.imageHeight} />
-              <span class={`plugin-card-badge ${i === 0 ? 'new' : 'free'}`}>{i === 0 ? 'NEW' : 'FREE'}</span>
+              {p.tier === 'premium' ? (
+                <span class="plugin-card-badge premium">👑 PREMIUM</span>
+              ) : (
+                <span class={`plugin-card-badge ${i === 0 ? 'new' : 'free'}`}>{i === 0 ? 'NEW' : 'FREE'}</span>
+              )}
             </div>
             <div class="plugin-card-body">
               <h3>{p.name}</h3>
