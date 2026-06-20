@@ -570,6 +570,13 @@ export const premiumPlugins: Plugin[] = [
   },
 ];
 
+/**
+ * 全プラグイン（ちょこっと＋プレミアム）。トップページのショーケース・件数、
+ * ランキングのアイコン/説明の引き当てなど「全部まとめて」扱う箇所で使う。
+ * 個別販売の選択肢（サポーター個別プラン）など、ちょこっと限定の箇所は `plugins` を使う。
+ */
+export const allPlugins: Plugin[] = [...plugins, ...premiumPlugins];
+
 export const pluginsItemListJsonLd = [...plugins, ...premiumPlugins].map((p, i) => ({
   '@type': 'ListItem',
   position: i + 1,
