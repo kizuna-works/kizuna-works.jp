@@ -1,0 +1,563 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+---
+
+<Layout
+  title="帳票デザイナー for kintone - 手持ちのPDFをそのまま帳票に | KIZUNA Works"
+  description="お手持ちの PDF（請求書・見積書・納品書）を背景に、kintone のデータをドラッグ配置して帳票化する kintone プラグイン。1件印刷・一覧まとめ印刷・集計表紙・PDF自動保存に対応。プレミアム年間サポーター向けのプレミアムプラグイン。kintone完結。"
+  ogTitle="帳票デザイナー for kintone - 手持ちのPDFをそのまま帳票に | KIZUNA Works"
+  ogDescription="お手持ちの PDF を背景に kintone のデータをドラッグ配置して帳票化。1件印刷・一覧まとめ印刷・集計表紙・PDF自動保存に対応するプレミアムプラグイン。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/report-designer/"
+  ogImage="https://kizuna-works.jp/images/report-designer-banner.png"
+  canonical="https://kizuna-works.jp/plugins/report-designer/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/report-designer/",
+          "url": "https://kizuna-works.jp/plugins/report-designer/",
+          "name": "帳票デザイナー for kintone - 手持ちのPDFをそのまま帳票に | KIZUNA Works",
+          "description": "お手持ちの PDF を背景に kintone のデータをドラッグ配置して帳票化する kintone プラグイン。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/report-designer-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "帳票デザイナー for kintone", "item": "https://kizuna-works.jp/plugins/report-designer/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "帳票デザイナー for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-06-20",
+          "url": "https://kizuna-works.jp/plugins/report-designer/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-report-designer-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/report-designer-banner.png",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "基本プラン（無料）",
+              "price": "0",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "基本機能を無料でご利用いただけます（テンプレート1件・1件印刷など）。"
+            },
+            {
+              "@type": "Offer",
+              "name": "プレミアム年間サポーター（全プラグイン込み）",
+              "price": "16500",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、本プラグインと販売中の全プラグインの全機能を利用できます。単品販売はありません。"
+            }
+          ],
+          "description": "お手持ちの PDF を背景に kintone のレコード値・サブテーブル明細・固定テキスト・画像をドラッグ配置して帳票化する kintone プラグイン。1件印刷・一覧まとめ印刷・集計表紙・PDF自動保存に対応。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "手持ちの PDF を背景に取り込みドラッグで項目配置",
+            "フィールド値・固定テキスト・画像（ロゴ・印影）・サブテーブル明細を配置",
+            "サブテーブル明細はデータ件数ぶん自動繰り返し＋あふれたら自動改ページ",
+            "要素ごとの表示ページ指定（合計や印影は最終ページのみ等）",
+            "PDFファイル名トークン（テンプレ名・日付・レコード番号・フィールド値）",
+            "発行日・支払期限の自動入力（＋N日・月末・翌月末などで自動計算）",
+            "印刷ボタンの表示条件（ステータス等で出し分け）",
+            "レコード詳細から1件印刷・一覧から最大100件まとめ印刷",
+            "まとめ印刷の先頭に集計表紙（件数・合計）を付加",
+            "印刷した PDF を添付フィールドへ自動保存",
+            "テンプレートは自動生成の保管アプリに保存・PDF生成はブラウザ内で完結"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "印刷ボタンが表示されません。", "acceptedAnswer": { "@type": "Answer", "text": "設定変更後はアプリ設定画面で「アプリを更新」を実行してください。テンプレの表示条件に合うレコードか、ボタンを表示する一覧（ビュー）の指定もご確認ください。まとめ印刷はプレミアム限定です。" } },
+            { "@type": "Question", "name": "追加・修正した内容が印刷に反映されません。", "acceptedAnswer": { "@type": "Answer", "text": "レコードを保存してから印刷してください。印刷時は最新のレコード内容を取得します。" } },
+            { "@type": "Question", "name": "明細が途中で切れてしまいます。", "acceptedAnswer": { "@type": "Answer", "text": "明細設定の「自動改ページ」を ON にしてください。あふれた明細が同じ背景の次ページへ続きます。" } },
+            { "@type": "Question", "name": "合計が2ページ目にも出てしまいます。", "acceptedAnswer": { "@type": "Answer", "text": "合計要素の「表示ページ」を「最終ページのみ」に設定してください。" } },
+            { "@type": "Question", "name": "ゲストスペースのアプリでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、ゲストスペース内のアプリでも利用できます。" } },
+            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと、本プラグインと販売中の全プラグインを利用できます。" } }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .rd-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .rd-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .rd-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .rd-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 5px 14px; border-radius: 20px;
+    }
+    .rd-hero-version {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 5px 12px; border-radius: 20px;
+    }
+    .rd-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .rd-hero .rd-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .rd-hero .rd-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 720px; line-height: 1.8; }
+    .rd-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    .rd-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .rd-section { padding: 56px 0; }
+    .rd-section.alt { background: #fff; }
+    .rd-section.alt .rd-wrap { }
+    .rd-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .rd-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+    }
+    .rd-lead strong { color: var(--color-navy); }
+
+    .rd-outputs { display: flex; flex-wrap: wrap; gap: 36px; justify-content: center; }
+    .rd-output { flex: 0 1 300px; }
+    .rd-output figure { margin: 0; }
+    .rd-output img {
+      width: 100%; max-width: 300px; height: auto; display: block; margin: 0 auto;
+      border: 1px solid #e2e8f0; border-radius: 8px;
+      box-shadow: var(--shadow-card); background: #fff;
+    }
+    .rd-output figcaption { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin-top: 8px; }
+
+    /* Constrain tall A4 document thumbnails inside feature blocks */
+    .rd-doc-thumb { max-width: 300px; height: auto; display: block; margin: 0 auto; }
+
+    .rd-feature { display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .rd-feature:last-child { margin-bottom: 0; }
+    .rd-feature.reverse { grid-template-columns: 1fr 1.1fr; }
+    .rd-feature.reverse .rd-feature-text { order: 2; }
+    .rd-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; }
+    .rd-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .rd-feature p { font-size: 1rem; line-height: 1.8; margin: 0; }
+
+    .rd-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .rd-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .rd-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .rd-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .rd-tablewrap { overflow-x: auto; }
+    table.rd-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); }
+    table.rd-compare th, table.rd-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.rd-compare thead th { background: var(--color-navy); color: #fff; }
+    table.rd-compare td.c, table.rd-compare th.c { text-align: center; }
+    table.rd-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    /* Plan cards (基本プラン / プレミアム年間サポーター) */
+    .rd-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .rd-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .rd-plan-card.recommended { border: 2px solid var(--color-green); }
+    .rd-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .rd-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .rd-plan-price { margin-bottom: 6px; }
+    .rd-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .rd-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .rd-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .rd-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .rd-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .rd-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .rd-plan-card.recommended .rd-plan-cta { background: var(--color-green); }
+    .rd-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .rd-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .rd-steps { counter-reset: step; list-style: none; padding: 0; margin: 0; }
+    .rd-steps li { position: relative; padding: 0 0 18px 52px; }
+    .rd-steps li::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; left: 0; top: 0; width: 34px; height: 34px;
+      background: var(--color-green); color: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-weight: 700;
+    }
+    .rd-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+    .rd-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .rd-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    /* Setup guide accordion */
+    details.rd-guide { border: 2px solid var(--color-navy); border-radius: 14px; overflow: hidden; background: #fff; }
+    details.rd-guide > summary {
+      cursor: pointer; list-style: none; padding: 18px 22px; background: var(--color-navy); color: #fff;
+      font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 10px;
+    }
+    details.rd-guide > summary::-webkit-details-marker { display: none; }
+    details.rd-guide > summary .rd-chev { margin-left: auto; transition: transform .2s; }
+    details.rd-guide[open] > summary .rd-chev { transform: rotate(180deg); }
+    .rd-guide-body { padding: 16px 18px 20px; }
+    details.rd-step { border: 1px solid #e2e8f0; border-radius: 10px; margin: 10px 0; background: #fff; overflow: hidden; }
+    details.rd-step > summary { cursor: pointer; list-style: none; padding: 13px 16px; font-weight: 700; color: var(--color-navy); display: flex; align-items: center; gap: 10px; background: #f8fafc; }
+    details.rd-step > summary::-webkit-details-marker { display: none; }
+    details.rd-step > summary:hover { background: #eef3f9; }
+    details.rd-step[open] > summary { border-bottom: 1px solid #e2e8f0; }
+    details.rd-step > summary .rd-chev { margin-left: auto; color: var(--color-text-muted); font-size: .8rem; transition: transform .2s; }
+    details.rd-step[open] > summary .rd-chev { transform: rotate(180deg); }
+    .rd-step-no { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; background: var(--color-green); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: .85rem; font-weight: 700; }
+    .rd-step-body { padding: 8px 18px 16px; }
+    .rd-step-body h4 { color: var(--color-navy); font-size: .98rem; margin: 16px 0 4px; border-left: 4px solid var(--color-green); padding-left: 8px; }
+    .rd-step-body ul, .rd-step-body ol { margin: 6px 0 10px; padding-left: 1.4em; }
+    .rd-step-body li { margin: 3px 0; line-height: 1.7; }
+    .rd-step-body code { background: #eef2f7; padding: 1px 6px; border-radius: 5px; font-size: .88em; color: var(--color-navy); }
+    .rd-step-fig { margin: 12px 0; }
+    .rd-step-fig img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; }
+    .rd-step-fig figcaption { font-size: .82rem; color: var(--color-text-muted); margin-top: 6px; }
+
+    /* CTA */
+    .rd-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .rd-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .rd-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .rd-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .rd-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+    .rd-cta-note { font-size: 0.85rem; opacity: 0.85; margin-top: 16px; }
+
+    @media (max-width: 768px) {
+      .rd-hero h1 { font-size: 1.6rem; }
+      .rd-outputs { grid-template-columns: 1fr; }
+      .rd-feature, .rd-feature.reverse { grid-template-columns: 1fr; }
+      .rd-feature.reverse .rd-feature-text { order: 0; }
+      .rd-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="rd-hero">
+      <img class="rd-hero-icon" src="/images/report-designer-icon.png" alt="帳票デザイナー for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="rd-hero-badges">
+        <span class="rd-badge-premium">👑 PREMIUM PLUGIN</span>
+        <span class="rd-hero-version">v1.0.0</span>
+      </div>
+      <h1>帳票デザイナー for kintone</h1>
+      <p class="rd-tagline">お手持ちの PDF が、そのまま帳票になる。</p>
+      <p class="rd-sub">請求書・見積書・納品書などの PDF を背景に取り込み、その上に kintone のデータをドラッグで配置。1 件ずつも、一覧からまとめても印刷・PDF 保存できます。</p>
+    </section>
+    <div class="rd-hero-gradient-line"></div>
+
+    <!-- 定義（結論ファースト） -->
+    <section class="rd-section">
+      <div class="rd-wrap">
+        <p class="rd-lead">
+          <strong>帳票デザイナー for kintone</strong> は、お手持ちの PDF（請求書・見積書・納品書など）を背景に取り込み、その上に kintone の<strong>レコード値・サブテーブル明細・固定テキスト・画像（ロゴ・印影）</strong>をドラッグで配置して帳票化する kintone プラグインです。専用の作図ツールを覚えることなく、見慣れた自社書式へ kintone のデータを流し込んで印刷・PDF 保存できます。レコード詳細から 1 件、レコード一覧から絞り込み結果を最大 100 件まとめて出力でき、印刷した PDF はレコードの添付フィールドへ自動保存も可能。<strong>「プレミアムプラグイン」シリーズの第 1 弾</strong>です。
+        </p>
+      </div>
+    </section>
+
+    <!-- 完成イメージ -->
+    <section class="rd-section alt">
+      <div class="rd-wrap">
+        <h2 class="rd-h2">完成イメージ</h2>
+        <div class="rd-outputs">
+          <div class="rd-output">
+            <figure>
+              <img src="/images/report-designer-output-01.png" alt="帳票デザイナーで作成した見積書のサンプル出力（ダミーデータ）" width="1240" height="1754" loading="lazy" />
+              <figcaption>見積書テンプレートの出力例</figcaption>
+            </figure>
+          </div>
+          <div class="rd-output">
+            <figure>
+              <img src="/images/report-designer-output-02.png" alt="帳票デザイナーで作成した請求書のサンプル出力（ダミーデータ）" width="1240" height="1754" loading="lazy" />
+              <figcaption>請求書テンプレートの出力例</figcaption>
+            </figure>
+          </div>
+        </div>
+        <p style="text-align:center;color:var(--color-text-muted);font-size:0.9rem;margin-top:14px;">※ 上記はダミーデータによるサンプルです。</p>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="rd-section">
+      <div class="rd-wrap">
+        <h2 class="rd-h2">主な機能</h2>
+
+        <div class="rd-feature">
+          <div class="rd-feature-text">
+            <h3>手持ちの PDF にドラッグで項目を配置</h3>
+            <p>PDF を背景に取り込み、その上に kintone の項目をドラッグで重ねるだけ。フィールド値・固定テキスト・画像（ロゴ・印影）・サブテーブル明細を配置でき、位置やサイズは mm 単位の数値でも調整できます。グリッド吸着・整列・複製にも対応。</p>
+          </div>
+          <img src="/images/report-designer-config-02.png" alt="帳票デザイナーのテンプレート編集画面 — 背景PDFの上に項目をドラッグ配置" width="880" height="580" loading="lazy" />
+        </div>
+
+        <div class="rd-feature reverse">
+          <div class="rd-feature-text">
+            <h3>明細は自動繰り返し＋自動改ページ</h3>
+            <p>サブテーブルの明細はデータの行数ぶん自動で繰り返され、1 ページに入りきらないときは同じ背景の次ページへ自動で続きます。合計や印影は「最終ページのみ」に出すなど、要素ごとに表示するページを指定できます。</p>
+          </div>
+          <img class="rd-doc-thumb" src="/images/report-designer-output-01.png" alt="明細が自動で繰り返し配置された帳票の例" width="1240" height="1754" loading="lazy" />
+        </div>
+
+        <div class="rd-grid-feats" style="margin-top:8px;">
+          <div class="rd-feat-card">
+            <h3>1 件印刷・まとめ印刷</h3>
+            <p>レコード詳細から 1 件印刷。レコード一覧では絞り込み結果を最大 100 件まとめて連続印刷でき、先頭に集計表紙（件数・合計）を付けられます。</p>
+          </div>
+          <div class="rd-feat-card">
+            <h3>PDF を添付フィールドへ自動保存</h3>
+            <p>印刷時に生成した帳票 PDF をレコードの添付ファイルフィールドへ自動保存。保存先は帳票ごとに指定でき、ファイル名も差し込みトークンで自由に組み立てられます。</p>
+          </div>
+          <div class="rd-feat-card">
+            <h3>日付の自動入力</h3>
+            <p>発行日・支払期限を印刷時に入力してレコードへ保存。支払期限は「＋N 日」「月末」「翌月末」などで自動計算できます。</p>
+          </div>
+          <div class="rd-feat-card">
+            <h3>印刷ボタンの表示条件</h3>
+            <p>ステータスやフィールド値などの条件（複数条件 AND/OR）に合うレコードだけに印刷ボタンを表示。帳票の出し分けが可能です。</p>
+          </div>
+          <div class="rd-feat-card">
+            <h3>集計表紙</h3>
+            <p>まとめ印刷の先頭に、件数や合計金額を載せた表紙ページを付加。見積書・請求書ごとに別々の表紙を指定できます。</p>
+          </div>
+          <div class="rd-feat-card">
+            <h3>kintone 完結</h3>
+            <p>テンプレートは自動生成の保管アプリに保存。PDF 生成はブラウザ内で完結し、業務データを外部へ送信しません。ゲストスペースにも対応。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 設定ガイド（アコーディオン） -->
+    <section class="rd-section alt">
+      <div class="rd-wrap">
+        <h2 class="rd-h2">設定ガイド</h2>
+        <p style="margin:-12px 0 22px;color:var(--color-text-main);line-height:1.8;">設定項目が多いため、下のボタンから順を追って確認できます。各見出しをクリックすると詳細が開きます。</p>
+
+        <details class="rd-guide">
+          <summary>📖 設定ガイドを開く<span class="rd-chev">▼</span></summary>
+          <div class="rd-guide-body">
+
+            <details class="rd-step" open>
+              <summary><span class="rd-step-no">0</span>全体の流れ<span class="rd-chev">▼</span></summary>
+              <div class="rd-step-body">
+                <p>設定は 4 ステップです。テンプレートを作ってから、印刷の動作を整えます。</p>
+                <ol>
+                  <li><strong>STEP1 保管アプリ</strong>：テンプレートの保存先アプリをワンクリック自動生成</li>
+                  <li><strong>STEP2 帳票テンプレート</strong>：背景 PDF を読み込み項目を配置</li>
+                  <li><strong>STEP3 集計表紙</strong>（任意）：まとめ印刷の表紙を作成</li>
+                  <li><strong>STEP4 PDF 自動保存</strong>（任意）：保存する/しない・上書き/追加</li>
+                </ol>
+                <div class="rd-note"><strong>最重要：</strong>設定を変えたら、最後に必ず「設定を保存」→ アプリ設定画面で「アプリを更新」を実行してください。kintone はプラグイン設定の変更を、アプリ更新ではじめてレコード画面に反映します。</div>
+                <div class="rd-step-fig"><img src="/images/report-designer-config-01.png" alt="帳票デザイナーの設定画面全体（STEP1〜4）" loading="lazy" /><figcaption>設定画面の全体（STEP1〜4）。上から順に進めます。</figcaption></div>
+              </div>
+            </details>
+
+            <details class="rd-step">
+              <summary><span class="rd-step-no">1</span>保管アプリを用意する<span class="rd-chev">▼</span></summary>
+              <div class="rd-step-body">
+                <p>テンプレート（背景 PDF・配置情報）を保存する専用アプリです。STEP1 の「保管アプリを自動生成」を押すと、アプリ作成・項目追加・反映まで自動で進みます。既存の保管アプリがあれば ID を入力して再利用できます。通常は最初に 1 回だけ実行します。</p>
+              </div>
+            </details>
+
+            <details class="rd-step">
+              <summary><span class="rd-step-no">2</span>帳票テンプレートを作る<span class="rd-chev">▼</span></summary>
+              <div class="rd-step-body">
+                <p>「＋ 新規テンプレート」でエディタを開き、背景 PDF を読み込んで項目を配置します。</p>
+                <h4>要素を配置する</h4>
+                <ul>
+                  <li><strong>＋ フィールド値</strong>：kintone の項目の値（顧客名・金額など）</li>
+                  <li><strong>＋ 固定テキスト</strong>：常に同じ文言（「御中」など）</li>
+                  <li><strong>＋ 画像（ロゴ・印影）</strong>：会社ロゴや角印。透過 PNG なら背景が透明のまま</li>
+                  <li><strong>＋ サブテーブル</strong>：明細の 1 行ぶんを配置（印刷時にデータ行数ぶん自動繰り返し）</li>
+                </ul>
+                <div class="rd-step-fig"><img src="/images/report-designer-config-02.png" alt="テンプレート編集画面 — 背景PDFの上に項目と明細表を配置" loading="lazy" /><figcaption>背景 PDF の上に項目（〔　〕）や明細を配置し、右の「要素を追加」から増やします。</figcaption></div>
+                <h4>明細・表示ページ</h4>
+                <ul>
+                  <li>見出し行・列幅・列間隔・行ピッチを設定。行の配置は「均等繰り返し」「手動（罫線に合わせる）」</li>
+                  <li><strong>自動改ページ</strong>：明細があふれたら同じ背景の次ページへ継続</li>
+                  <li><strong>表示ページ</strong>：要素を「すべて／最終ページのみ／先頭ページのみ」に出し分け（合計は最終ページのみが便利）</li>
+                </ul>
+                <h4>テンプレ個別の詳細設定（任意）</h4>
+                <ul>
+                  <li>PDF ファイル名トークン（<code>&#123;&#123;template&#125;&#125;</code>・<code>&#123;&#123;date&#125;&#125;</code>・<code>&#123;&#123;recordId&#125;&#125;</code>・<code>&#123;&#123;field:コード&#125;&#125;</code>）</li>
+                  <li>日付の自動入力／印刷ボタンの表示条件／PDF の保存先／集計表紙</li>
+                </ul>
+              </div>
+            </details>
+
+            <details class="rd-step">
+              <summary><span class="rd-step-no">3</span>集計表紙を作る（任意）<span class="rd-chev">▼</span></summary>
+              <div class="rd-step-body">
+                <p>まとめ印刷の先頭に付く集計ページ（合計金額・件数など）です。STEP2 で新規テンプレートの<strong>種別を「まとめ（集計表紙）」</strong>にし、「＋ 件数」「＋ 合計」要素を配置します。各帳票テンプレの「集計表紙」でこの表紙を選びます。表紙は出力の先頭に付くだけで、レコードには保存されません。</p>
+              </div>
+            </details>
+
+            <details class="rd-step">
+              <summary><span class="rd-step-no">4</span>PDF 自動保存・まとめ印刷ボタン（任意）<span class="rd-chev">▼</span></summary>
+              <div class="rd-step-body">
+                <p>STEP4 で印刷した PDF を添付フィールドへ「保存する/しない」「上書き/追加」を設定します（全帳票共通。保存先フィールドは帳票ごとに STEP2 で指定）。また STEP2 のチェックで「レコード一覧に『まとめ印刷』ボタンを表示する」を切り替えられ、表示する一覧（ビュー）も指定できます。</p>
+              </div>
+            </details>
+
+            <details class="rd-step">
+              <summary><span class="rd-step-no">5</span>印刷の使い方<span class="rd-chev">▼</span></summary>
+              <div class="rd-step-body">
+                <h4>1 件だけ印刷（レコード詳細画面）</h4>
+                <p>詳細画面上部の「帳票」バーでテンプレートを選び、🖨 印刷を押します。常に最新のレコード内容で生成されます。</p>
+                <div class="rd-step-fig"><img src="/images/report-designer-action-01.png" alt="レコード詳細画面の帳票バー（テンプレ選択＋印刷ボタン）" loading="lazy" /><figcaption>レコード詳細：「帳票」バーでテンプレを選んで印刷します。</figcaption></div>
+                <h4>まとめて印刷（レコード一覧画面）</h4>
+                <p>一覧で絞り込み、まとめ印刷を押すと、絞り込み中のレコード（最大 100 件）をまとめて出力します。集計表紙を設定していれば先頭に付きます。</p>
+                <div class="rd-step-fig"><img src="/images/report-designer-action-02.png" alt="レコード一覧画面の帳票まとめ印刷バー" loading="lazy" /><figcaption>レコード一覧：「絞り込み中のレコードを印刷」でまとめて出力します。</figcaption></div>
+              </div>
+            </details>
+
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- プランについて -->
+    <section class="rd-section">
+      <div class="rd-wrap">
+        <h2 class="rd-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">基本機能は無料でご利用いただけます。複数テンプレート・まとめ印刷・集計表紙などの全機能は、<strong>プレミアム年間サポーター</strong>で解放されます（単品販売はありません）。</p>
+
+        <div class="rd-plan-grid">
+          <div class="rd-plan-card">
+            <h3 class="rd-plan-name">基本プラン</h3>
+            <div class="rd-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="rd-plan-features">
+              <li>✅ テンプレート 1 件・レコード詳細から 1 件印刷</li>
+              <li>✅ 画像（ロゴ・印影）配置・明細の自動改ページ・PDF 自動保存・表示条件・日付自動入力</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 一覧画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-report-designer-v1.0.0.zip" download class="rd-plan-cta" id="btn-download">無料でダウンロード</a>
+          </div>
+
+          <div class="rd-plan-card recommended">
+            <span class="rd-plan-badge">👑 全機能を解放</span>
+            <h3 class="rd-plan-name">プレミアム年間サポーター</h3>
+            <div class="rd-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="rd-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="rd-plan-features">
+              <li>✅ テンプレート無制限・まとめ印刷・集計表紙・複数ページ・200dpi</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ 販売中の<strong>全プラグイン</strong>も対象（契約中の新プラグインも追加料金なし）</li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="rd-plan-cta">プレミアム年間サポーターを申し込む →</a>
+          </div>
+        </div>
+
+        <h3 class="rd-plan-compare-head">機能の詳細比較</h3>
+        <div class="rd-tablewrap">
+          <table class="rd-compare">
+            <thead>
+              <tr><th>機能</th><th class="c">基本プラン（無料）</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>テンプレート数</td><td class="c">1 件</td><td class="c">無制限</td></tr>
+              <tr><td>1 件印刷（詳細画面）</td><td class="c">◯</td><td class="c">◯</td></tr>
+              <tr><td>まとめて印刷（一覧で複数件）</td><td class="c">—</td><td class="c">◯</td></tr>
+              <tr><td>集計表紙</td><td class="c">—</td><td class="c">◯</td></tr>
+              <tr><td>複数ページのテンプレート</td><td class="c">1 ページ目のみ</td><td class="c">全ページ</td></tr>
+              <tr><td>出力解像度</td><td class="c">150dpi</td><td class="c">150 / 200dpi</td></tr>
+              <tr><td>一覧画面の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="color:var(--color-text-muted);font-size:0.92rem;margin-top:14px;">画像（ロゴ・印影）配置・明細の自動改ページ・PDF 自動保存・表示条件・日付自動入力は、どちらのプランでもご利用いただけます。</p>
+      </div>
+    </section>
+
+    <!-- インストール手順 -->
+    <section class="rd-section alt">
+      <div class="rd-wrap">
+        <h2 class="rd-h2">インストール手順</h2>
+        <ol class="rd-steps">
+          <li>システム管理者で kintone にログインし、<strong>歯車アイコン → kintone システム管理 → プラグイン</strong> を開きます。</li>
+          <li><strong>「読み込む」</strong>をクリックして、プラグイン zip をアップロードします。</li>
+          <li>帳票を出したいアプリで <strong>アプリの設定 → プラグイン → 「+ プラグインを追加」</strong> から帳票デザイナーを追加します。</li>
+          <li>プラグイン一覧の<strong>歯車アイコン</strong>から設定画面を開き、上記「設定ガイド」に沿ってテンプレートを作成します。</li>
+          <li>設定後は<strong>「設定を保存」→「アプリを更新」</strong>を実行してレコード画面に反映します。</li>
+        </ol>
+        <div class="rd-note">PDF 自動保存を使う場合は、保存先の添付ファイルフィールドをアプリに用意してください。ゲストスペース内のアプリでも利用できます。</div>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="rd-section">
+      <div class="rd-wrap">
+        <h2 class="rd-h2">ご利用にあたっての注意</h2>
+        <div class="rd-cautions">
+          <ul>
+            <li>対応画面は PC 版です（設定・レコード詳細・レコード一覧）。</li>
+            <li>設定変更後は「アプリを更新」をしないとレコード画面に反映されません。</li>
+            <li>画像（ロゴ・印影）は固定画像が対象です。レコードごとに変わる添付画像の差し込みには対応していません。画像はテンプレートに埋め込んで保存するため、ロゴ・印影は小さめの画像をご利用ください。</li>
+            <li>PDF 自動保存にはレコードの編集権限が必要です。添付ファイルフィールドが無いアプリでは保存できません。まとめ印刷で自動保存する場合は一度に 20 件までを推奨します。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- セキュリティ -->
+    <section class="rd-section alt">
+      <div class="rd-wrap">
+        <SecurityBox pluginId="kw-report-designer" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="rd-cta">
+      <h2>プレミアム年間サポーターで使ってみる</h2>
+      <p>帳票デザイナーをはじめ、販売中の全プラグインをご利用いただけます。年額 ¥16,500（税込）。30 日間の無料お試しもあります。</p>
+      <a class="rd-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを申し込む →</a>
+    </section>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var dl = document.getElementById('btn-download');
+      if (dl && typeof gtag === 'function') {
+        dl.addEventListener('click', function () {
+          gtag('event', 'file_download', {
+            file_name: 'kw-report-designer-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: '無料でダウンロードして試す',
+            link_url: '/downloads/kw-report-designer-v1.0.0.zip'
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

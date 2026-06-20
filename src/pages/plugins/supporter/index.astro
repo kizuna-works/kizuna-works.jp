@@ -1,7 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import SupporterForm from '../../../components/SupporterForm.astro';
-import { plugins } from '../../../data/plugins';
+import { plugins, premiumPlugins } from '../../../data/plugins';
 ---
 
 <Layout
@@ -506,6 +506,17 @@ import { plugins } from '../../../data/plugins';
     }
 
     /* Supported plugins list (internal links) */
+    .supported-subhead {
+      font-size: 1.05rem;
+      color: var(--color-navy, #1B3A6B);
+      margin: 28px 0 14px;
+      padding-left: 12px;
+      border-left: 4px solid var(--color-green, #2E8B2E);
+    }
+    .supported-subhead:first-of-type {
+      margin-top: 8px;
+    }
+
     .supported-plugins-list {
       list-style: none;
       padding: 0;
@@ -713,6 +724,7 @@ import { plugins } from '../../../data/plugins';
           <div class="plan-card-sub">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
           <ul class="plan-card-features">
             <li>販売中の<strong>全プラグイン</strong>が対象</li>
+            <li><strong>プレミアム限定プラグイン</strong>（帳票デザイナー など）も利用可能</li>
             <li><strong>契約期間中にリリースされる新プラグイン</strong>も追加料金なしで対象</li>
             <li>全プラグインの広告エリアが非表示</li>
             <li>プラグイン作成リクエスト・改善要望の送付</li>
@@ -725,11 +737,29 @@ import { plugins } from '../../../data/plugins';
     </section>
 
     <section class="content-section">
-      <h2>サポート対象のちょこっとプラグイン</h2>
+      <h2>サポート対象のプラグイン</h2>
       <p class="section-desc">
-        KIZUNA Works が提供する kintone プラグイン「ちょこっとプラグイン」シリーズ全 {plugins.length} 種類がサポーター対象です。<br />
-        プレミアム年間サポーターなら以下のすべてを広告非表示でご利用いただけます。
+        KIZUNA Works が提供する kintone プラグイン「ちょこっとプラグイン」シリーズ全 {plugins.length} 種類に加え、<strong>プレミアムプラグイン</strong>もサポーター対象です。<br />
+        プレミアム年間サポーターなら、以下のすべてを広告非表示でご利用いただけます。
       </p>
+
+      {premiumPlugins.length > 0 && (
+        <>
+          <h3 class="supported-subhead">プレミアムプラグイン（プレミアム年間サポーター限定）</h3>
+          <ul class="supported-plugins-list">
+            {premiumPlugins.map((p) => (
+              <li>
+                <a href={`/plugins/${p.slug}/`}>
+                  <span class="supported-plugin-name">👑 {p.name}</span>
+                  <span class="supported-plugin-desc">{p.cardDescription}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      <h3 class="supported-subhead">ちょこっとプラグイン（全 {plugins.length} 種類）</h3>
       <ul class="supported-plugins-list">
         {plugins.map((p) => (
           <li>

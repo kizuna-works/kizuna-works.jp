@@ -25,7 +25,15 @@ export interface Plugin {
   imageWidth: number;
   imageHeight: number;
   status: PluginStatus;
-  /** Numeric price in JPY for the free badge row. Omit for coming-soon. */
+  /**
+   * Distribution tier. 'standard' (default) = 無料の「ちょこっとプラグイン」。
+   * 'premium' = プレミアムプラグイン（単品販売なし／プレミアム年間サポーターに含む）。
+   * Premium plugins live in the separate `premiumPlugins` array so existing
+   * consumers of `plugins` (homepage showcase, supporter individual select, etc.)
+   * are unaffected.
+   */
+  tier?: 'standard' | 'premium';
+  /** Numeric price in JPY for the free badge row. Omit for coming-soon / premium. */
   price?: number;
   /**
    * Short, punchy description for the homepage compact showcase card.
@@ -533,7 +541,36 @@ export const plugins: Plugin[] = [
   },
 ];
 
-export const pluginsItemListJsonLd = plugins.map((p, i) => ({
+/**
+ * プレミアムプラグイン（単品販売なし／プレミアム年間サポーターに含む）。
+ * `plugins`（無料のちょこっとプラグイン）とは分離して管理し、プラグイン一覧ページの
+ * 「プレミアムプラグイン」セクションでのみ表示する。今後ここに追加していく。
+ */
+export const premiumPlugins: Plugin[] = [
+  {
+    id: 'kw-report-designer',
+    name: '帳票デザイナー for kintone',
+    formName: '帳票デザイナー for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'report-designer',
+    description:
+      'お手持ちの PDF（請求書・見積書・納品書など）を背景に取り込み、その上に kintone のレコード値・サブテーブル明細・固定テキスト・画像（ロゴ・印影）をドラッグで配置して帳票化する kintone プラグイン。テンプレートごとに背景 PDF・要素配置・PDF ファイル名・発行日/支払期限の自動入力・印刷ボタンの表示条件・PDF の保存先・集計表紙を設定でき、サブテーブル明細はデータ件数ぶん自動繰り返し＋自動改ページ（合計や印影は最終ページのみ等、要素ごとに表示ページを指定可）。レコード詳細から 1 件印刷、レコード一覧から絞り込み結果を最大 100 件まとめ印刷でき、印刷した PDF を添付フィールドへ自動保存できます。テンプレートは自動生成の保管アプリに保存し、PDF 生成はブラウザ内で完結（表示ライブラリは自社サーバーから SRI 付きで読み込み・第三者 CDN 不使用）。',
+    image: '/images/report-designer-banner.png',
+    imageAlt:
+      '帳票デザイナー for kintone プラグイン — 手持ちの PDF を背景に kintone のデータをドラッグ配置して請求書・見積書などの帳票を印刷・PDF 保存',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      '手持ちの PDF を背景に kintone のデータをドラッグ配置して帳票化。1 件印刷・一覧まとめ印刷・集計表紙・PDF 自動保存に対応。kintone 完結。',
+    problemTitle: '既存の PDF 帳票に kintone のデータを流し込みたい',
+    problemDesc: '請求書・見積書を作り直さず、1 件ずつ・一覧から複数まとめて印刷／PDF 保存したい',
+    releaseDate: '2026-06-20',
+  },
+];
+
+export const pluginsItemListJsonLd = [...plugins, ...premiumPlugins].map((p, i) => ({
   '@type': 'ListItem',
   position: i + 1,
   item: {

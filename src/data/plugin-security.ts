@@ -8,7 +8,7 @@
 // kintone's encrypted config area. Plugins that talk to an extra endpoint or
 // bundle a third-party library declare it here as an override.
 
-import { plugins } from './plugins';
+import { plugins, premiumPlugins } from './plugins';
 
 /** An external communication beyond the common license check. */
 export interface ExtraComm {
@@ -98,6 +98,13 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-report-designer': {
+    runtimeLibs: [
+      { name: 'PDF.js', version: '3.11.174', license: 'Apache-2.0', purpose: '設定画面での背景 PDF の読み込み・画像化' },
+      { name: 'html2canvas', version: '1.4.1', license: 'MIT', purpose: 'PDF 自動保存時に帳票をブラウザ内で画像化' },
+      { name: 'pdf-lib', version: '1.17.1', license: 'MIT', purpose: 'PDF 自動保存時に PDF ファイルをブラウザ内で生成' },
+    ],
+  },
 };
 
 /**
@@ -105,7 +112,8 @@ export const securityProfiles: Record<string, SecurityProfile> = {
  * canonical plugin list. Throws on an unknown ID so a typo fails the build.
  */
 export function getSecurityProfile(pluginId: string): SecurityProfile {
-  if (!plugins.some((p) => p.id === pluginId)) {
+  const known = [...plugins, ...premiumPlugins].some((p) => p.id === pluginId);
+  if (!known) {
     throw new Error(`getSecurityProfile: unknown pluginId "${pluginId}"`);
   }
   return securityProfiles[pluginId] ?? {};

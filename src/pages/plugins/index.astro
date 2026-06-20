@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import SupporterCTA from '../../components/SupporterCTA.astro';
-import { plugins, pluginsItemListJsonLd } from '../../data/plugins';
+import { plugins, premiumPlugins, pluginsItemListJsonLd } from '../../data/plugins';
 
 const itemListJson = JSON.stringify(pluginsItemListJsonLd);
 ---
@@ -327,6 +327,90 @@ const itemListJson = JSON.stringify(pluginsItemListJsonLd);
       font-size: 1rem;
     }
 
+    /* Premium plugins section */
+    .premium-section {
+      padding-bottom: 24px;
+    }
+
+    .section-title.premium-title {
+      border-left-color: #c9a227;
+    }
+
+    .premium-intro {
+      margin: -24px 0 36px;
+      padding-left: 21px;
+      color: var(--color-text-main);
+      font-size: 1.02rem;
+      line-height: 1.8;
+    }
+
+    .premium-intro strong {
+      color: var(--color-navy);
+    }
+
+    .plugin-card.premium {
+      position: relative;
+      border: 1px solid #e7d9a8;
+    }
+
+    .premium-badge-overlay {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      background: linear-gradient(135deg, #1B3A6B 0%, #2E8B2E 100%);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 5px 12px;
+      border-radius: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .badge-premium {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2E8B2E 100%);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .badge-free-tier {
+      background-color: #e8f0e8;
+      color: var(--color-green);
+      border: 1px solid #cfe3cf;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* Premium card uses a designed banner (1200×630) — show it fully without cropping */
+    .plugin-card.premium .plugin-card-image {
+      aspect-ratio: 1200 / 630;
+    }
+
+    .premium-plan-note {
+      color: var(--color-navy);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .premium-divider {
+      height: 1px;
+      background: #e2e8f0;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
     .plugin-button {
       display: block;
       text-align: center;
@@ -373,6 +457,7 @@ const itemListJson = JSON.stringify(pluginsItemListJsonLd);
       <div class="intro-card">
         <h2>KIZUNA Works プラグインの特長</h2>
         <p>「ちょこっとプラグイン」は、現場の「あとちょっとこうなれば」という声から生まれた kintone 拡張プラグインシリーズです。プログラミング知識は不要。基本機能は完全無料です。</p>
+        <p>さらに、より高度な業務に応える「<strong>プレミアムプラグイン</strong>」シリーズもご用意しています。プレミアムプラグインも基本機能は無料でお試しいただけ、<strong>プレミアム年間サポーター</strong>に加入すると全機能が解放されます。今後もラインナップを拡充していきます。</p>
         <p class="intro-question">あなたの現場にも、「あとちょっと」はありませんか？</p>
         <p>年間サポーターになっていただけると、プラグイン作成リクエストや既存プラグインへの改善要望をお送りいただけます。サポーターの声をひとつひとつ形にしながら、現場との絆を広げていきたいと思っています。</p>
         <div class="intro-cta">
@@ -382,6 +467,46 @@ const itemListJson = JSON.stringify(pluginsItemListJsonLd);
         </div>
       </div>
     </section>
+
+    {premiumPlugins.length > 0 && (
+      <section class="section-container premium-section">
+        <h2 class="section-title premium-title">プレミアムプラグイン</h2>
+        <p class="premium-intro">
+          より高度な業務に応える kintone プラグインです。<strong>プレミアム年間サポーター</strong>（年額 ¥16,500 税込）にご加入いただくと、ここにあるプレミアムプラグインと販売中の全プラグインをご利用いただけます。今後もラインナップを拡充していきます。
+        </p>
+        <div class="plugins-grid">
+          {premiumPlugins.map((plugin) => (
+            <a href={`/plugins/${plugin.slug}/`} class="plugin-card premium">
+              <img
+                src={plugin.image}
+                alt={plugin.imageAlt}
+                class="plugin-card-image"
+                width={plugin.imageWidth}
+                height={plugin.imageHeight}
+                loading="lazy"
+              />
+              <div class="plugin-card-content">
+                <h3 class="plugin-title">{plugin.name}</h3>
+                <span class="plugin-subtitle">{plugin.subtitle}</span>
+                <p class="plugin-desc">{plugin.description}</p>
+                <div class="plugin-meta">
+                  {plugin.status === 'available' ? (
+                    <span class="badge-premium">👑 プレミアム</span>
+                  ) : (
+                    <span class="badge-coming-soon">準備中</span>
+                  )}
+                  <span class="badge-free-tier">無料プランあり</span>
+                </div>
+                <div class="plugin-pricing-row">
+                  <span class="premium-plan-note">プレミアム年間サポーターに含む</span>
+                </div>
+                <span class="plugin-button">詳しく見る &rarr;</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
 
     <section class="section-container">
       <h2 class="section-title">ちょこっとプラグイン一覧</h2>
