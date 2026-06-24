@@ -223,6 +223,8 @@ c:\kizuna-works.jp\
 │   │   ├── address-assist-config-01.png    # 住所アシスト 設定画面スクショ① — 基本設定（郵便番号フィールド・住所形式・郵便番号自動整形 ON/OFF）
 │   │   ├── address-assist-config-02.png    # 住所アシスト 設定画面スクショ② — 分割形式の設定（都道府県・市区町村・町名・結合住所）＋ Google Maps URL 設定
 │   │   ├── address-assist-config-03.png    # 住所アシスト 設定画面スクショ③ — 住所コピーボタン設定 ＋ 地図プレビュー設定（スペースフィールド指定）
+│   │   ├── address-assist-subtable-01.png  # 住所アシスト v1.1.0 スクショ — 配送先管理アプリの編集画面でサブテーブル各行の郵便番号→住所が自動入力された状態（製品ページ UPDATEボックス用）
+│   │   ├── address-assist-subtable-02.png  # 住所アシスト v1.1.0 スクショ — 設定画面で「対象」にサブテーブルを選択した状態（製品ページ UPDATEボックス用）
 │   │   ├── quick-history-view-icon.png     # クイック履歴ビュー for kintone プラグイン アイコン（ヒーロー画像用・kintone プラグイン本体と同じアイコン）
 │   │   ├── quick-history-view-banner.png   # クイック履歴ビュー for kintone バナー（1200×675・OGP/グリッド共用）
 │   │   ├── quick-history-view-setup-01.png # クイック履歴ビュー 事前準備スクショ① — 履歴 JSON 保存用「文字列(複数行)」フィールドをフォームに配置
@@ -336,6 +338,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-record-lock-v1.0.2.zip                   # レコードロック for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-field-comment-v1.0.2.zip                 # フィールドコメント for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-theme-styler-v1.0.1.zip                  # テーマスタイラー for kintone 配布ファイル（手動配置）
+│   │   ├── kw-address-assist-v1.1.0.zip                # 住所アシスト for kintone 配布ファイル（手動配置・v1.1.0 でサブテーブル対応）
 │   │   ├── kw-address-assist-v1.0.2.zip                # 住所アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-quick-history-view-v1.0.2.zip            # クイック履歴ビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-related-record-popup-v1.0.2.zip          # 関連レコードポップアップ表示 for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）

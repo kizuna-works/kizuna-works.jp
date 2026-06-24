@@ -45,10 +45,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "住所アシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.2",
-          "dateModified": "2026-06-19",
+          "softwareVersion": "1.1.0",
+          "dateModified": "2026-06-24",
           "url": "https://kizuna-works.jp/plugins/address-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-address-assist-v1.0.2.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-address-assist-v1.1.0.zip",
           "offers": {
             "@type": "Offer",
             "name": "基本プラン（無料）",
@@ -65,6 +65,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           },
           "featureList": [
             "郵便番号 → 住所自動入力（一体形式・分割形式 両対応）",
+            "サブテーブル（明細）の行ごとに郵便番号 → 住所を自動入力（v1.1.0）",
             "レコード詳細画面に Google マップを直接プレビュー表示（API キー不要・他社プラグインにはない差別化機能）",
             "Google マップ URL 自動生成（住所変更にも追従）",
             "住所のワンクリックコピー（指定フィールドのラベル横にコピーアイコン）",
@@ -605,6 +606,72 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       line-height: 1.7;
       margin: 18px 0 0;
     }
+    /* Update box screenshots */
+    .update-shots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 22px auto 0;
+      max-width: 900px;
+    }
+    .update-shot-item {
+      background: #f8fafc;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .update-shot-item img { width: 100%; height: auto; display: block; border-radius: 6px; }
+    .update-shot-cap {
+      color: var(--color-text-light);
+      font-size: 12.5px;
+      text-align: center;
+      margin: 10px 0 0;
+      line-height: 1.6;
+    }
+    .update-zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin: 14px 0 0;
+    }
+
+    /* Zoomable images + lightbox overlay */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
 
     @media (max-width: 768px) {
       .related-posts-grid { grid-template-columns: 1fr; }
@@ -639,7 +706,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.2</span>
+        <span class="hero-version">v1.1.0</span>
       </div>
       <h1 class="hero-title">住所アシスト for kintone</h1>
       <p class="hero-copy">郵便番号を入れるだけで <strong>住所自動入力</strong>。さらに <strong>Google マップ URL の自動生成</strong>と、kintone のレコード詳細画面に <strong>Google マップを直接プレビュー表示</strong>するところまで一気通貫。「レコードを開いた瞬間に地図が見える」業務効率の段違いさが、他社の住所自動入力プラグインには無い決定的な差別化ポイントです。</p>
@@ -650,10 +717,31 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.0.2：ゲストスペース内のアプリに対応しました</h2>
+          <h2 class="update-title">v1.1.0：サブテーブル（明細）の行ごとに郵便番号→住所の自動入力に対応しました</h2>
         </div>
-        <p class="update-desc">社外の方とやり取りする <strong>ゲストスペース内のアプリ</strong>でも、本プラグインをご利用いただけるようになりました。これまではゲストスペースで <strong>設定画面のフィールド選択</strong>や <strong>地図プレビュー</strong>が正しく動作しないことがありましたが、フォーム情報を取得する内部の通信をゲストスペース用の経路に対応させ、<strong>設定・動作ともに行える</strong>ようにしました。郵便番号からの住所自動入力・Google マップ URL 生成・地図プレビュー・住所コピーが、ゲストスペースでも従来どおり動作します。</p>
-        <p class="update-note">通常スペースでの使い方・挙動はこれまでと変わりません。既存ユーザーの方は、最新版（v1.0.2）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定の再登録は不要です。</p>
+        <p class="update-desc">これまで住所の自動入力は通常フィールド（テーブル外）のみが対象でしたが、v1.1.0 から <strong>サブテーブル（明細）の行ごと</strong>に郵便番号→住所を自動入力できるようになりました。設定画面に「<strong>対象</strong>」セレクタを追加し、対象のサブテーブルを選ぶだけで、明細の <strong>各行の郵便番号を入力すると、その行の住所だけが自動で埋まります</strong>（他の行は書き換わりません）。<strong>1 レコードに複数の配送先・拠点・物件</strong>を明細で持つアプリで、住所入力の手間を一気に減らせます。一体形式・分割形式の両方に対応し、郵便番号の自動整形も行単位で動作します。</p>
+        <div class="update-shots">
+          <div class="update-shot-item">
+            <img
+              class="zoomable"
+              src="/images/address-assist-subtable-01.png"
+              alt="住所アシスト for kintone v1.1.0 — 配送先管理アプリの編集画面。サブテーブル「配送先」の各行で郵便番号を入力すると、同じ行の住所が自動入力されている（本社倉庫・大阪支店・福岡営業所・名古屋倉庫・札幌支店の5拠点）"
+              loading="lazy"
+            />
+            <p class="update-shot-cap">明細の行ごとに郵便番号→住所が自動入力（複数の配送先をまとめて入力）</p>
+          </div>
+          <div class="update-shot-item">
+            <img
+              class="zoomable"
+              src="/images/address-assist-subtable-02.png"
+              alt="住所アシスト for kintone v1.1.0 の設定画面 — 「対象」セレクタでサブテーブル『配送先』を選択し、サブテーブル内の郵便番号フィールド・住所フィールドを指定している状態"
+              loading="lazy"
+            />
+            <p class="update-shot-cap">設定画面の「対象」でサブテーブルを選ぶだけ。ノーコードで完結</p>
+          </div>
+        </div>
+        <p class="update-zoom-hint">画像をクリックすると拡大表示します</p>
+        <p class="update-note">サブテーブルでは地図プレビュー・コピーボタンは対象外です（1 レコード単位の機能のため）。通常フィールドでの使い方・挙動はこれまでと変わりません。既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定の再登録は不要です。</p>
       </div>
     </section>
 
@@ -914,7 +1002,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-address-assist-v1.0.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-address-assist-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -952,7 +1040,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <li>動作は Google Chrome 最新版での確認を推奨します。</li>
         <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
         <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
-        <li>モバイル kintone は非対応です。サブテーブル内フィールドへの自動入力も非対応です。</li>
+        <li>モバイル kintone は非対応です。</li>
+        <li>サブテーブル（明細）の行ごとの住所自動入力に対応しています（v1.1.0〜）。サブテーブルでは地図プレビュー・コピーボタンは対象外です。</li>
         <li>ゲストスペース内のアプリに対応しています（v1.0.2〜）。</li>
       </ul>
     </section>
@@ -1007,6 +1096,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <a href="/contact/" class="btn-primary">お問い合わせ</a>
     </section>
 
+    <!-- Lightbox overlay for zoomable screenshots -->
+    <div class="lightbox" id="address-assist-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
 
   </main>
 
@@ -1048,11 +1142,35 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           gtag('event', 'file_download', {
-            file_name: 'kw-address-assist-v1.0.2.zip',
+            file_name: 'kw-address-assist-v1.1.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-address-assist-v1.0.2.zip'
+            link_url: '/downloads/kw-address-assist-v1.1.0.zip'
           });
+        });
+      }
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('address-assist-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
         });
       }
     });
