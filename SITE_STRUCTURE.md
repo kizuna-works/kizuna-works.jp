@@ -178,6 +178,9 @@ c:\kizuna-works.jp\
 │   │   ├── lookup-suggest-action-01.png    # ルックアップサジェストプラグイン 動作画面スクショ① — レコード画面のヒントバナー表示状態（入力前）
 │   │   ├── lookup-suggest-action-02.png    # ルックアップサジェストプラグイン 動作画面スクショ② — 「株式」入力中に8件の候補が会社名・電話番号付きで表示
 │   │   ├── lookup-suggest-action-03.png    # ルックアップサジェストプラグイン 動作画面スクショ③ — 電話番号「03」で検索し電話番号始まりの3社がヒット（追加検索フィールドの活用例）
+│   │   ├── lookup-suggest-subtable-01.png  # ルックアップサジェスト v2.0.0 — 見積明細サブテーブルで商品コード一部「BP」入力→フローティング候補表示
+│   │   ├── lookup-suggest-subtable-02.png  # ルックアップサジェスト v2.0.0 — 候補選択でその行に商品名・規格・単価が自動コピー（取得完了）＋次行でメーカー名「三菱」検索
+│   │   ├── lookup-suggest-subtable-03.png  # ルックアップサジェスト v2.0.0 — メーカー名「コクヨ」で横断検索しコクヨ製5商品を候補表示（コード不要）
 │   │   ├── quick-search-icon.png           # クイックサーチプラグイン アイコン（200×200）
 │   │   ├── quick-search-banner.png         # クイックサーチプラグイン バナー（1200×675・OGP/グリッド共用）
 │   │   ├── quick-search-action-01.png      # クイックサーチプラグイン 動作画面スクショ① — 検索バー全景（プレースホルダー表示）
@@ -322,7 +325,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-styler-v2.1.2.zip                  # フィールドスタイラー for kintone 配布ファイル（手動配置・最新版が参照先）
 │   │   ├── kw-conditional-numbering-v1.1.2.zip         # 条件分岐自動採番 for kintone 配布ファイル（手動配置）
 │   │   ├── kw-form-deco-v1.0.2.zip                     # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-lookup-suggest-v1.0.2.zip                # ルックアップサジェスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-lookup-suggest-v1.0.2.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置）
+│   │   ├── kw-lookup-suggest-v2.0.0.zip                # ルックアップサジェスト for kintone 配布ファイル（最新・手動配置・v2.0.0 でサブテーブル内ルックアップ対応）
 │   │   ├── kw-quick-side-view-v1.0.2.zip               # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-quick-search-v1.1.2.zip                  # クイックサーチ for kintone 配布ファイル（手動配置・v1.1.2 でゲストスペース対応）
 │   │   ├── kw-file-icon-marker-v1.0.2.zip              # 添付ファイルアイコン表示 for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
