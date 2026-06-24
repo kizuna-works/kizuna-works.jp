@@ -43,14 +43,18 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         {
           "@type": "SoftwareApplication",
           "name": "フィールドスタイラー for kintone",
-          "description": "kintoneのフィールドを自由にカスタマイズできる無料プラグイン。背景色・フォント・文字色・条件付きスタイルなど全10機能をノーコードで設定。kintone プラグイン 無料配布中。",
+          "description": "kintoneのフィールドを自由にカスタマイズできる無料プラグイン。背景色・フォント・文字色・条件付きスタイルなど全10機能をノーコードで設定。v2.2.0でサブテーブル（明細表）内フィールドにも対応（行ごとの条件付き色分け）。kintone プラグイン 無料配布中。",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "dateModified": "2026-06-19",
+          "dateModified": "2026-06-24",
           "url": "https://kizuna-works.jp/plugins/field-styler/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-field-styler-v2.1.2.zip",
-          "softwareVersion": "2.1.2",
-          "releaseNotes": "v2.1.0（2026-06-02）: 条件付きスタイルの設定数を最大 5 件から最大 10 件に拡張。さらに条件ごとに太字のオン/オフ（変更しない・太字にする・太字を解除）を指定できるようになり、「特定の条件のときだけ文字を太く（または通常に）する」表示が可能に。v2.0.0 以前の保存設定はそのまま動作します。",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-field-styler-v2.2.0.zip",
+          "softwareVersion": "2.2.0",
+          "releaseNotes": "v2.2.0（2026-06-24）: サブテーブル（テーブル）内フィールドのスタイル（背景色・フォント・文字色・太字・フォントサイズ）と条件付きスタイルに対応。明細表の各列を行ごとに条件で色分けでき、ステータス別の色分けや金額・納期の強調がノーコードで可能に。詳細・作成・編集画面で動作（一覧はサブテーブル非展開のため対象外）。通常フィールドの設定はそのまま引き継がれます。",
+          "screenshot": [
+            "https://kizuna-works.jp/images/field-styler-subtable-01.png",
+            "https://kizuna-works.jp/images/field-styler-subtable-02.png"
+          ],
           "offers": {
             "@type": "Offer",
             "name": "基本プラン（無料）",
@@ -74,7 +78,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "フォントサイズ変更",
             "コピー機能",
             "入力文字種制限（9種類）",
-            "プレースホルダー"
+            "プレースホルダー",
+            "サブテーブル内フィールドのスタイル・条件付き色分け（行ごと）"
           ]
         }
       ]
@@ -771,6 +776,70 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       font-family: 'Courier New', monospace;
     }
 
+    /* Update screenshots + lightbox (v2.2.0) */
+    .update-shot {
+      max-width: 760px;
+      margin: 20px auto 0;
+    }
+    .update-shot + .update-shot { margin-top: 22px; }
+    .update-shot .shot-label {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 13px;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+    .update-shot .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin: 10px 0 0;
+    }
+    .zoomable { cursor: zoom-in; }
+    .screenshot-frame {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+    }
+    .screenshot-frame img { width: 100%; height: auto; display: block; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
     .update-fix {
       background-color: rgba(46,139,46,0.08);
       border-left: 4px solid var(--color-green);
@@ -931,7 +1000,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.1.2</span>
+        <span class="hero-version">v2.2.0</span>
       </div>
       <h1 class="hero-title">フィールドスタイラー for kintone</h1>
       <p class="hero-copy">フィールドスタイラーは、kintone のフィールドの背景色・フォント・文字色・条件付きスタイルなどを JavaScript なしで設定できるノーコードプラグインです。全 10 機能を基本無料でご利用いただけます。</p>
@@ -942,25 +1011,51 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <div class="update-inner">
         <div class="update-header">
           <span class="update-tag">NEW</span>
-          <span class="update-version">v2.1.0</span>
-          <span class="update-date">2026年6月2日リリース</span>
+          <span class="update-version">v2.2.0</span>
+          <span class="update-date">2026年6月24日リリース</span>
         </div>
-        <h2 class="update-title">条件ごとに太字を切替 ＆ 条件を最大10件まで設定可能に</h2>
+        <h2 class="update-title">サブテーブル（テーブル）内のフィールドにも対応しました</h2>
         <p class="update-summary">
-          v2.1.0 では条件付きスタイルを強化しました。<strong>条件ごとに「太字にする／太字を解除する」を個別に指定</strong>できるようになり、背景色・文字色だけでなく文字の太さでも状態を表現できます。<br>
-          さらに<strong>1 フィールドあたりの条件設定数を最大 5 件から最大 10 件へ拡張</strong>。多段階の色分けや、より細かい業務ルールにも対応します。
+          これまで対象外だった<strong>サブテーブル（明細表）内のフィールド</strong>にも、背景色・フォント・文字色・太字・フォントサイズと<strong>条件付きスタイル</strong>を適用できるようになりました。<br>
+          条件付きは<strong>行ごと</strong>に判定されるので、見積・受注の明細表で「<strong>金額が一定以上の行を強調</strong>」「<strong>ステータス別に色分け</strong>」「<strong>納期が過ぎた行を赤く</strong>」といった、表の状態をひと目で把握できる色分けがノーコードで実現します。
         </p>
 
+        <div class="update-shot">
+          <p class="shot-label">▼ 明細サブテーブルを条件で色分け（ステータス別・期限切れ・高額行を強調）</p>
+          <div class="screenshot-frame">
+            <img
+              class="zoomable"
+              src="/images/field-styler-subtable-01.png"
+              alt="受注明細サブテーブルにフィールドスタイラーを適用した例。状態列が完了→緑・対応中→黄・遅延→赤・未着手→グレーに色分けされ、納期が過ぎた行は赤背景、金額が5万円以上の行は赤の太字で強調されている"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="update-shot">
+          <p class="shot-label">▼ 設定はノーコード：サブテーブルの列を選び、条件と色を指定するだけ</p>
+          <div class="screenshot-frame">
+            <img
+              class="zoomable"
+              src="/images/field-styler-subtable-02.png"
+              alt="フィールドスタイラーの設定画面。サブテーブル列「【テーブル: 明細】状態」に対し、完了・対応中・遅延・未着手の各値に背景色・文字色・太字を条件として設定している"
+              loading="lazy"
+            />
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+
         <div class="update-examples">
-          <h4>🆕 v2.1.0 で追加された機能</h4>
+          <h4>🆕 v2.2.0 のポイント</h4>
           <ul>
-            <li>🅱️ <strong>条件ごとの太字オン/オフ（3 状態）</strong>：各条件で「<strong>変更しない／太字にする／太字を解除</strong>」を選択可能。「期限切れのときだけ太字で強調」「基本は太字、特定の条件のときだけ通常表示に戻す」といった指定ができます</li>
-            <li>🔢 <strong>条件設定数を最大 10 件に拡張</strong>：従来の最大 5 件から倍増。多段階のステータス色分けや、複雑な業務ルールも 1 フィールドで表現できます</li>
+            <li>📊 <strong>サブテーブル内フィールドに対応</strong>：背景色・フォント・文字色・太字・フォントサイズ＋条件付きスタイルを、明細表の各列に設定できます（詳細・作成・編集画面で動作）</li>
+            <li>🚦 <strong>行ごとの条件付き色分け</strong>：同じ行の値（または上位のフィールド）で判定し、行単位で背景色・文字色・太字を切替。ステータス色分け・期限超過の強調などに最適</li>
+            <li>🛠️ <strong>設定はこれまで同様ノーコード</strong>：フィールド選択にサブテーブルの列が「【テーブル: 〇〇】列名」で表示され、選ぶだけ。スペースフィールドの配置などは不要です</li>
           </ul>
         </div>
 
         <div class="update-fix">
-          <strong>📘 互換性：</strong>v2.0.0 以前で保存済みの設定はそのまま動作します。太字を指定していない条件は従来どおりフィールド全体の太字設定を維持するため、既存設定の手直しは不要です。詳しい使い方は下記「条件付きスタイルの使い方」をご覧ください。
+          <strong>📘 互換性：</strong>これまでの通常フィールド（テーブル外）の設定・挙動はそのまま引き継がれます。最新版（v2.2.0）をダウンロードし、kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。<br>
+          ※ 一覧画面はサブテーブルを展開しないため、サブテーブル列のスタイルは詳細・作成・編集画面で適用されます。計算（CALC）フィールドは対象外です。
         </div>
       </div>
     </section>
@@ -1242,7 +1337,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-field-styler-v2.1.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード（v2.1.0）</a>
+          <a href="/downloads/kw-field-styler-v2.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード（v2.2.0）</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -1366,6 +1461,12 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <a href="/contact/" class="btn-primary">お問い合わせ</a>
     </section>
 
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="fs-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
   </main>
 
   <script is:inline>
@@ -1414,6 +1515,30 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           }
         });
       });
+
+      /* Lightbox: click any .zoomable screenshot to view it enlarged. */
+      const lightbox = document.getElementById('fs-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
     });
   </script>
 </Layout>

@@ -293,6 +293,8 @@ c:\kizuna-works.jp\
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
+│   │   ├── field-styler-subtable-01.png    # フィールドスタイラー v2.2.0 — 受注明細サブテーブルを条件で色分け（ステータス別・期限切れ・高額行強調）
+│   │   ├── field-styler-subtable-02.png    # フィールドスタイラー v2.2.0 — サブテーブル列の条件付き設定画面（ノーコード）
 │   │   ├── field-styler-bg.png / field-styler-bg.webp # フィールドスタイラーページ 背景
 │   │   ├── field-styler-config-list.png    # フィールドスタイラー 設定一覧画面
 │   │   ├── field-styler-config-detail.png  # フィールドスタイラー 設定詳細画面
@@ -322,7 +324,8 @@ c:\kizuna-works.jp\
 │   │       └── kintone-lookup-plugin-hikaku.png         # 「kintoneルックアップを快適にするプラグイン比較」記事 OGP・サムネイル
 │   ├── downloads/
 │   │   ├── .gitkeep                                    # ディレクトリをGit管理するための空ファイル
-│   │   ├── kw-field-styler-v2.1.2.zip                  # フィールドスタイラー for kintone 配布ファイル（手動配置・最新版が参照先）
+│   │   ├── kw-field-styler-v2.1.2.zip                  # フィールドスタイラー for kintone 配布ファイル（旧版・手動配置）
+│   │   ├── kw-field-styler-v2.2.0.zip                  # フィールドスタイラー for kintone 配布ファイル（最新・手動配置・v2.2.0 でサブテーブル対応）
 │   │   ├── kw-conditional-numbering-v1.1.2.zip         # 条件分岐自動採番 for kintone 配布ファイル（手動配置）
 │   │   ├── kw-form-deco-v1.0.2.zip                     # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-lookup-suggest-v1.0.2.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置）
