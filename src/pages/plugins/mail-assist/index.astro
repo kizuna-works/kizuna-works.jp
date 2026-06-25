@@ -1,0 +1,668 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="メールアシスト for kintone - レコードからワンクリックでメール作成 | KIZUNA Works"
+  description="kintone のレコードの値を差し込んで件名・本文・宛先を組み立て、ワンクリックでメーラー（既定メーラー/Gmail/Outlook.com/Yahoo!）を起動するプラグイン。詳細から個別に、一覧の絞り込み結果から BCC 一斉に送信。条件でテンプレートを出し分け、送信履歴も記録。外部サーバー不要で kintone 完結。"
+  ogTitle="メールアシスト for kintone - レコードからワンクリックでメール作成 | KIZUNA Works"
+  ogDescription="kintone のレコード値を差し込んで件名・本文・宛先を組み立て、ワンクリックでメーラー（既定/Gmail/Outlook.com/Yahoo!）を起動。詳細＝個別／一覧＝BCC一斉。条件でテンプレ出し分け・送信履歴も記録。外部サーバー不要・kintone完結。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/mail-assist/"
+  ogImage="https://kizuna-works.jp/images/mail-assist-banner.png"
+  canonical="https://kizuna-works.jp/plugins/mail-assist/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/mail-assist/",
+          "url": "https://kizuna-works.jp/plugins/mail-assist/",
+          "name": "メールアシスト for kintone - レコードからワンクリックでメール作成 | KIZUNA Works",
+          "description": "kintone のレコードの値を差し込んで件名・本文・宛先を組み立て、ワンクリックでメーラーを起動するプラグイン。詳細から個別に、一覧の絞り込み結果から BCC 一斉に送信。条件でテンプレートを出し分け、送信履歴も記録。kintone完結。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/mail-assist-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "メールアシスト for kintone", "item": "https://kizuna-works.jp/plugins/mail-assist/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "メールアシスト for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-06-26",
+          "url": "https://kizuna-works.jp/plugins/mail-assist/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-mail-assist-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/mail-assist-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone のレコードの値を差し込んで件名・本文・宛先を組み立て、ワンクリックでお使いのメーラー（既定メーラー/Gmail/Outlook.com/Yahoo!）を起動する kintone プラグイン。レコード詳細から個別に、一覧の絞り込み結果から BCC で一斉に送信でき、テンプレートごとの表示・送信条件、送信履歴の保管アプリ記録に対応。実送信はメーラーに委ね、外部サーバー・APIキー・GAS 不要で kintone 完結。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "レコード値を差し込んで件名・本文・宛先を自動組み立て（{フィールドコード}）",
+            "ワンクリックで既定メーラー/Gmail/Outlook.com/Yahoo!を起動",
+            "詳細画面から個別送信、一覧の絞り込み結果からBCC一斉送信",
+            "宛先は文字列・リンク・ユーザー選択フィールド＋直接入力に対応",
+            "テンプレートごとの表示・送信条件（最大5件・AND/OR）で出し分け",
+            "メーラーは利用者が都度選択／管理者が固定を選択可",
+            "送信履歴（起動ログ）を保管アプリに記録し詳細画面に表示",
+            "テンプレート・送信履歴の保管アプリをワンクリック自動生成",
+            "外部サーバー・APIキー・GAS不要・kintone完結"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible { opacity: 1; transform: translateY(0); }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+    .hero-icon {
+      width: 200px; height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .hero-title { font-size: 40px; font-weight: 900; line-height: 1.2; margin-bottom: 24px; }
+    .hero-copy { font-size: 17px; max-width: 720px; margin: 0 auto 40px; line-height: 1.8; opacity: 0.92; }
+
+    .section-wrapper { padding: 80px 5%; max-width: 1100px; margin: 0 auto; }
+    .section-bg { background-color: var(--color-bg); }
+    .section-title { text-align: center; color: var(--color-navy); font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+    .section-title-left {
+      color: var(--color-navy); font-size: 24px; font-weight: 700; margin-bottom: 32px;
+      padding-left: 16px; border-left: 5px solid var(--color-green);
+    }
+    .section-subtitle { text-align: center; color: var(--color-text-light); font-size: 15px; margin-bottom: 48px; }
+
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .problem-card {
+      background-color: var(--color-white); border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 32px 24px; text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .problem-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .problem-icon { font-size: 44px; display: block; margin-bottom: 16px; }
+    .problem-title { font-size: 17px; color: var(--color-navy); font-weight: 700; margin-bottom: 12px; }
+    .problem-desc { font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+
+    .feature-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+    .feature-list li {
+      background-color: var(--color-white); border-radius: 10px; padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06); font-size: 15px; color: var(--color-text);
+      line-height: 1.7; display: flex; gap: 12px; align-items: flex-start;
+    }
+    .feature-list li::before { content: '✅'; flex-shrink: 0; font-size: 18px; margin-top: 1px; }
+    .feature-list li strong { color: var(--color-navy); }
+
+    .steps-list {
+      list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0;
+      counter-reset: step-counter; max-width: 700px; margin: 0 auto;
+    }
+    .steps-list li {
+      counter-increment: step-counter; display: flex; gap: 20px; align-items: flex-start;
+      padding: 24px 0; border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px; color: var(--color-text); line-height: 1.7;
+    }
+    .steps-list li:last-child { border-bottom: none; }
+    .steps-list li::before {
+      content: counter(step-counter); flex-shrink: 0; width: 36px; height: 36px;
+      background-color: var(--color-navy); color: var(--color-white); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px;
+    }
+
+    .notes-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
+    .notes-list li { padding-left: 20px; position: relative; font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+    .notes-list li::before { content: '※'; position: absolute; left: 0; color: #94a3b8; }
+
+    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; max-width: 900px; margin: 0 auto; }
+    .pricing-card {
+      background-color: var(--color-white); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px; position: relative; display: flex; flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .pricing-card.recommended { border: 2px solid var(--color-green); }
+    .recommended-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background-color: var(--color-green); color: var(--color-white);
+      padding: 4px 16px; border-radius: 20px; font-size: 14px; font-weight: 700;
+    }
+    .plan-name { font-size: 20px; color: var(--color-navy); font-weight: 700; text-align: center; margin-bottom: 24px; }
+    .plan-price { text-align: center; margin-bottom: 24px; }
+    .plan-price .amount { font-size: 40px; font-weight: 900; color: var(--color-navy); }
+    .plan-price .unit { font-size: 14px; color: var(--color-text-light); }
+    .plan-discount { text-align: center; color: var(--color-green); font-weight: 700; font-size: 14px; margin-bottom: 24px; }
+    .plan-features { list-style: none; padding: 0; margin-bottom: 32px; flex-grow: 1; }
+    .plan-features li { margin-bottom: 12px; font-size: 15px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; }
+    .pricing-card .btn-primary { display: block; text-align: center; }
+
+    .bottom-cta { background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%); color: var(--color-white); text-align: center; padding: 60px 5%; }
+    .bottom-cta-title { font-size: 28px; font-weight: 700; margin-bottom: 16px; }
+    .bottom-cta-desc { font-size: 16px; margin-bottom: 32px; opacity: 0.9; }
+
+    .btn-primary {
+      display: inline-block; background-color: var(--color-green); color: var(--color-white);
+      padding: 16px 40px; border-radius: 30px; font-size: 18px; font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s; text-decoration: none;
+    }
+    .btn-primary:hover { background-color: #36a336; transform: translateY(-2px); }
+
+    .related-posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .related-post-card {
+      background-color: var(--color-white); border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s;
+      display: flex; flex-direction: column; text-decoration: none; color: inherit;
+    }
+    .related-post-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.15); }
+    .related-post-thumb { width: 100%; aspect-ratio: 1200 / 630; overflow: hidden; background-color: #f8fafc; }
+    .related-post-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .related-post-content { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+    .related-post-title { color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.5; }
+    .related-post-desc { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0 0 12px; flex-grow: 1; }
+    .related-post-link { color: var(--color-green); font-size: 13px; font-weight: 700; }
+
+    .screenshot-frame {
+      width: -moz-fit-content; width: fit-content; max-width: min(100%, 640px); margin: 0 auto;
+      border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light); background: #ffffff;
+    }
+    .screenshot-frame img { width: auto; max-width: 100%; height: auto; display: block; }
+    .screenshot-pair { display: grid; grid-template-columns: 1fr; gap: 28px; max-width: 980px; margin: 0 auto; }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption { text-align: center; color: var(--color-text-light); font-size: 13px; margin-top: 10px; }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    .config-screenshots { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
+    .config-shot {
+      background: #ffffff; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.15); }
+    .config-shot img { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--color-gray-light); }
+    .config-shot-caption { padding: 16px 20px; }
+    .config-shot-caption strong { display: block; color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .config-shot-caption p { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0; }
+
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none;
+      align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close {
+      position: absolute; top: 14px; right: 22px; width: 44px; height: 44px;
+      background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px;
+      line-height: 1; border-radius: 50%; cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint { text-align: center; color: var(--color-text-light); font-size: 12px; margin-top: 10px; }
+
+    .supp-note {
+      max-width: 820px; margin: 40px auto 0; padding: 20px 24px;
+      background: var(--color-white); border: 1px solid var(--color-gray-light);
+      border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .supp-note h3 { color: var(--color-navy); font-size: 15px; font-weight: 700; margin: 0 0 6px; }
+    .supp-note p { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0 0 16px; }
+    .supp-shots { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 20px; }
+    .supp-shots figure { margin: 0; max-width: 360px; }
+    .supp-shots .screenshot-frame { box-shadow: 0 4px 14px rgba(0,0,0,0.10); }
+    .supp-shots figcaption { text-align: center; color: var(--color-text-light); font-size: 12px; margin-top: 8px; }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2,
+      .screenshot-pair.cols-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/mail-assist-icon.png"
+        alt="メールアシスト for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">メールアシスト for kintone</h1>
+      <p class="hero-copy">メールアシスト for kintone は、kintone のレコードの値（会社名・担当者名・メールアドレスなど）を差し込んで件名・本文・宛先を自動で組み立て、ワンクリックでお使いのメーラー（既定メーラー / Gmail / Outlook.com / Yahoo!）を起動する kintone プラグインです。レコード詳細から 1 件ずつ、一覧の絞り込み結果から BCC で一斉に。コピペと定型文の打ち直しから解放します。実際の送信はお使いのメーラーが行うので、外部サーバー・APIキー・GAS は不要で kintone 内で完結します。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">kintone のレコードを見ながら、宛先や定型文をメーラーに毎回コピペしていませんか？その手間と転記ミスをなくします。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">📋</span>
+            <h3 class="problem-title">宛先・本文を毎回コピペ</h3>
+            <p class="problem-desc">レコードの会社名・担当者名・メールアドレスをメーラーに貼り直し、定型文を打ち直している。転記ミスも起きやすい。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📨</span>
+            <h3 class="problem-title">同じ案内を全員に送るのが手間</h3>
+            <p class="problem-desc">同じ条件のレコード全員へ同じ案内を送るのに、1 件ずつアドレスを集めて BCC に貼り付けている。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🗂️</span>
+            <h3 class="problem-title">いつ誰に送ったか残らない</h3>
+            <p class="problem-desc">どのレコードに、いつ、どのメールを出したかの記録が残らず、対応状況が追えない。文面も人によってばらつく。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Showcase: usage flow -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">レコードからワンクリックでメール作成</h2>
+      <p class="section-subtitle">「メール作成」を押す → テンプレートとメーラーを選ぶ → お使いのメーラーがレコード値入りで起動。画像はクリックで拡大できます。</p>
+      <div class="screenshot-pair cols-2">
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/mail-assist-action-02.png" alt="メールアシスト — kintone レコード詳細で「メール作成」を押し、使えるテンプレートを選択するモーダル" loading="lazy" />
+          </div>
+          <figcaption>① テンプレートを選ぶ（条件に合うものだけ表示）</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/mail-assist-action-03.png" alt="メールアシスト — 既定メーラー / Gmail / Outlook.com / Yahoo! からメーラーを選ぶモーダル" loading="lazy" />
+          </div>
+          <figcaption>② メーラーを選ぶ（管理者が固定も可）</figcaption>
+        </figure>
+      </div>
+      <div class="screenshot-pair" style="margin-top:28px;">
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/mail-assist-action-04.png" alt="メールアシスト — 既定メーラー（Outlook）が起動し、宛先・件名・本文にレコード値が差し込まれた状態" loading="lazy" />
+          </div>
+          <figcaption>③ お使いのメーラーが、宛先・件名・本文入りで起動（差し込み済み）</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Conditions / history -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">条件で出し分け、履歴も残す</h2>
+        <p class="section-subtitle">テンプレートごとに表示条件を設定すれば、レコードの状態に合うメールだけを候補に。送信履歴は詳細画面に時系列で表示できます。</p>
+        <div class="screenshot-pair cols-2">
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/mail-assist-config-03.png" alt="メールアシスト テンプレート編集 — 表示・送信条件（すべて満たす/いずれか満たす）でフィールド・演算子・値を指定する画面" loading="lazy" />
+            </div>
+            <figcaption>テンプレートごとの表示・送信条件（最大5件・AND/OR）</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/mail-assist-action-01.png" alt="メールアシスト — レコード詳細画面の上部に、そのレコードのメール送信履歴（日時・種別・テンプレート・件名・宛先・メーラー）を時系列テーブルで表示" loading="lazy" />
+            </div>
+            <figcaption>詳細画面に送信履歴（起動ログ）を時系列表示</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">主な機能</h2>
+      <ul class="feature-list">
+        <li><span><strong>差し込みテンプレート</strong> — 件名・本文に <code>&#123;フィールドコード&#125;</code> を書くだけで、レコードの値（会社名・担当者名・金額など）に自動置換。設定画面の「フィールド挿入」ボタンでコードを覚えずに差し込めます。</span></li>
+        <li><span><strong>個別送信（詳細画面）</strong> — レコード詳細で「メール作成」を押すと、使えるテンプレートを選び、宛先・件名・本文入りでメーラーを起動します。</span></li>
+        <li><span><strong>一斉送信（一覧画面）</strong> — 一覧の絞り込み結果（クイックサーチ連動）の宛先を BCC に集約して 1 通で起動。件数が多い場合は 1 通あたりの上限で自動分割します。</span></li>
+        <li><span><strong>宛先の自動取得＋直接入力</strong> — 宛先(To)は文字列・リンク（メール）・ユーザー選択フィールドから取得（ユーザー選択は cybozu.com 共通管理の email を権限不要で解決）。To/CC/BCC は固定アドレスの直接入力も併用できます。</span></li>
+        <li><span><strong>表示・送信条件</strong> — テンプレートごとに条件（フィールド・演算子・値／最大 5 件・AND/OR）を設定。詳細画面では条件に合うレコードのときだけボタン／候補に出し、一斉送信では条件に合うレコードだけを宛先に含めます。</span></li>
+        <li><span><strong>メーラーの選択／固定</strong> — 起動するメーラーを「利用者が都度選択（既定メーラー/Gmail/Outlook.com/Yahoo!）」か「管理者が固定」かで運用できます。</span></li>
+        <li><span><strong>送信履歴（起動ログ）</strong> — メーラー起動後に「送信を記録する」を押すと、日時・種別・テンプレート・件名・宛先・メーラーを保管アプリに記録し、詳細画面に時系列表示します（任意ON）。</span></li>
+        <li><span><strong>保管アプリのワンクリック自動生成</strong> — テンプレート（20個超）・送信履歴の保管アプリを、設定画面から同じスペース内に自動生成（フィールド・アクセス権・アイコンまで自動構成）。</span></li>
+        <li><span><strong>kintone 完結・外部 API 不使用</strong> — 実際の送信はお使いのメーラーが行うため、外部メール送信サーバー・APIキー・GAS は不要。メールの内容を自社・第三者サーバーへ送ることはありません。</span></li>
+      </ul>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定はかんたん</h2>
+        <p class="section-subtitle">テンプレート・条件・宛先・メーラーの起動方法をフォームから設定するだけ。プログラミング知識は不要です。各画像はクリックで拡大できます。</p>
+
+        <div class="config-screenshots">
+          <div class="config-shot">
+            <img class="zoomable" src="/images/mail-assist-config-01.png" alt="メールアシスト 設定画面 テンプレートタブ — 複数のテンプレートを一覧表示し、条件付きには「条件あり」バッジが付く画面" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>① テンプレート一覧</strong>
+              <p>件名・本文・宛先・条件を持つテンプレートを追加・編集・複製・並べ替え。条件付きには「条件あり」バッジが付きます。</p>
+            </div>
+          </div>
+          <div class="config-shot">
+            <img class="zoomable" src="/images/mail-assist-config-02.png" alt="メールアシスト テンプレート編集 — 対象画面（個別/一斉/両方）・宛先(To)フィールド・直接入力・CC/BCC を設定する画面" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>② 対象画面・宛先の設定</strong>
+              <p>対象画面（個別／一斉／両方）と宛先(To)を設定。フィールドと直接入力（CC/BCC含む）を併用できます。</p>
+            </div>
+          </div>
+          <div class="config-shot">
+            <img class="zoomable" src="/images/mail-assist-config-03.png" alt="メールアシスト テンプレート編集 — 表示・送信条件（すべて満たす/いずれか満たす）でフィールド・演算子・値を指定する画面" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>③ 表示・送信条件</strong>
+              <p>フィールド・演算子・値の条件を最大5件、AND/OR で設定。レコードの状態でテンプレートを出し分けます。</p>
+            </div>
+          </div>
+          <div class="config-shot">
+            <img class="zoomable" src="/images/mail-assist-config-04.png" alt="メールアシスト 設定画面 送信履歴タブ — 送信履歴を記録するON・詳細画面に表示ON・送信履歴保管アプリが作成済みの画面" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>④ 送信履歴の記録</strong>
+              <p>記録をONにすると送信履歴保管アプリを自動生成。詳細画面にそのレコードの履歴を表示できます。</p>
+            </div>
+          </div>
+          <div class="config-shot">
+            <img class="zoomable" src="/images/mail-assist-config-05.png" alt="メールアシスト 設定画面 一斉送信・表示タブ — 1通あたり最大宛先件数・メーラーの起動方法（都度選択/固定）・ボタンの色・ボタン設置位置の設定" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>⑤ 一斉送信・メーラー・表示</strong>
+              <p>1通あたり最大宛先件数、メーラーの起動方法（都度選択／固定）、ボタンの色・設置位置を設定します。</p>
+            </div>
+          </div>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+
+        <!-- Supplementary: the auto-generated storage apps -->
+        <div class="supp-note">
+          <h3>補足：テンプレート・送信履歴の保管アプリは自動で作られます</h3>
+          <p>テンプレートが20個を超えたとき、または送信履歴を記録するときに、同じスペース内へ下記のような保管アプリ（フィールド・アクセス権・アイコンを自動構成）がワンクリックで生成されます。普段はこのアプリを直接操作する必要はありません。</p>
+          <div class="supp-shots">
+            <figure>
+              <div class="screenshot-frame">
+                <img class="zoomable" src="/images/mail-assist-storage-01.png" alt="自動生成された「メールアシスト テンプレート保管」アプリのレコード一覧 — テンプレ名・対象画面・宛先・条件などのフィールドが自動作成されている" loading="lazy" />
+              </div>
+              <figcaption>テンプレート保管アプリ（自動生成）</figcaption>
+            </figure>
+            <figure>
+              <div class="screenshot-frame">
+                <img class="zoomable" src="/images/mail-assist-storage-02.png" alt="自動生成された「メールアシスト 送信履歴」アプリのレコード一覧 — 起動日時・送信種別・件名・宛先・メーラーなどのフィールドが自動作成されている" loading="lazy" />
+              </div>
+              <figcaption>送信履歴保管アプリ（自動生成）</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">レコード詳細（個別送信）・レコード一覧（一斉送信）（PC 版）でご利用いただけます。</p>
+      <ol class="steps-list">
+        <li>「プランについて」セクションのダウンロードボタンから <code>kw-mail-assist-v1.0.0.zip</code> をダウンロード</li>
+        <li>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</li>
+        <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「メールアシスト for kintone」を追加</li>
+        <li>プラグイン設定画面で<strong>テンプレート</strong>（件名・本文・宛先・条件）を作成。必要に応じて送信履歴の記録をONにして保管アプリを生成し「保存」（保管アプリの自動生成にはアプリ作成権限が必要です）</li>
+        <li>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると、レコード詳細・一覧でメール作成ボタンが使えるようになります</li>
+      </ol>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 設定画面・一覧画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-mail-assist-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-mail-assist" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。レコード詳細（個別）・レコード一覧（一斉）（PC 版）で動作し、モバイル版では動作しません。</li>
+        <li><strong>本プラグインは実際のメール送信を行いません。</strong>お使いのメーラー（メール作成画面）を起動するまでが役割で、送信・開封・到達は記録・保証できません。送信履歴は「メーラーを起動した記録（起動ログ）」です。</li>
+        <li>Web メーラー（Outlook.com／Yahoo!）では、Web 側の仕様で CC/BCC が反映されないことがあります（確実に使えるのは既定メーラー(mailto) と Gmail です）。本文はプレーンテキストで、改行は保持されます。</li>
+        <li>宛先のユーザー選択は cybozu.com 共通管理のメールアドレスを使用します（未登録のユーザーはスキップ）。ゲストスペースではユーザー選択方式は利用できません（文字列・リンク・直接入力をご利用ください）。</li>
+        <li>テンプレート・送信履歴の保管アプリの自動生成には、ログインユーザーのアプリ作成権限が必要です。テンプレートのプラグイン内保存→保管アプリへの移行は元に戻せません。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-mail-assist" />
+    <PluginFaqSection pluginId="kw-mail-assist" pageUrl="https://kizuna-works.jp/plugins/mail-assist/" />
+    <SupporterCTA pluginId="kw-mail-assist" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">関連プラグイン</h2>
+        <p class="section-subtitle">レコードや一覧をさらに使いやすくする kintone プラグイン</p>
+        <div class="related-posts-grid">
+          <a href="/plugins/csv-export/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/csv-export-banner.png" alt="かんたんCSV出力 for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">かんたんCSV出力 for kintone</h3>
+              <p class="related-post-desc">一覧の絞り込み結果を用途別テンプレートでワンクリックCSV出力。メールアシストと同じく、一覧の絞り込み結果に対してまとめてアクションするプラグインです。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+          <a href="/plugins/conditional-form/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/conditional-form-banner.png" alt="条件分岐フォーム for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">条件分岐フォーム for kintone</h3>
+              <p class="related-post-desc">区分・ステータス等の条件でフィールドの表示/必須/自動入力を切替。メールアシストの「表示・送信条件」と同じ発想で、入力フォームを条件制御します。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+          <a href="/plugins/quick-history-view/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/quick-history-view-banner.png" alt="クイック履歴ビュー for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">クイック履歴ビュー for kintone</h3>
+              <p class="related-post-desc">レコードの変更履歴を詳細画面に時系列テーブルで表示。メールアシストの送信履歴表示と同じく、詳細画面で経緯を追えるプラグインです。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ma-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const lightbox = document.getElementById('ma-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-mail-assist-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-mail-assist-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>
