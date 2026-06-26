@@ -263,6 +263,7 @@ c:\kizuna-works.jp\
 │   │   ├── csv-export-config-03.png        # かんたんCSV出力 設定画面スクショ③ — 出力する列・ヘッダー名・値の整形・文字コード/区切り/改行
 │   │   ├── csv-export-config-04.png        # かんたんCSV出力 設定画面スクショ④ — ファイル名ビルダー（部品＋ライブプレビュー）
 │   │   ├── csv-export-config-05.png        # かんたんCSV出力 設定画面スクショ⑤ — 絞り込み条件（v1.1.0・受注予定日=今月／確度=100%・80%のAND・日付の相対期間）
+│   │   ├── csv-export-config-06.png/.webp  # かんたんCSV出力 設定画面スクショ⑥ — サブテーブル明細の行展開設定（v1.2.0・明細列＋親列・明細展開オプション・必須の先頭区切り記号「*」）
 │   │   ├── quick-tab-icon.png              # クイックタブ for kintone プラグイン アイコン（200×200・ヒーロー画像用）
 │   │   ├── quick-tab-banner.png            # クイックタブ for kintone バナー（1200×675・OGP/グリッド/news共用）
 │   │   ├── quick-tab-before.png            # クイックタブ 導入前スクショ — 従業員情報フォームが縦に長く並ぶ状態
@@ -346,6 +347,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-related-record-popup-v1.0.2.zip          # 関連レコードポップアップ表示 for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-summary-bar-v2.1.1.zip                   # 集計サマリーバー for kintone 配布ファイル（手動配置・v2.1.1 でゲストスペース対応）
 │   │   ├── kw-csv-export-v1.1.1.zip                    # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.1.1 でゲストスペース対応）
+│   │   ├── kw-csv-export-v1.2.0.zip                    # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.2.0 サブテーブル展開＋区切り記号列）
 │   │   ├── kw-quick-tab-v1.0.2.zip                     # クイックタブ for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-file-preview-v1.0.2.zip                  # 添付ファイルプレビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-quick-toc-v1.0.2.zip                     # クイック目次 for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）

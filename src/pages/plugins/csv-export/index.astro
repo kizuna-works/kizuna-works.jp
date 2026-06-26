@@ -51,10 +51,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "かんたんCSV出力 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.1.1",
-          "dateModified": "2026-06-19",
+          "softwareVersion": "1.2.0",
+          "dateModified": "2026-06-26",
           "url": "https://kizuna-works.jp/plugins/csv-export/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-csv-export-v1.1.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-csv-export-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/csv-export-banner.png",
           "offers": {
             "@type": "Offer",
@@ -71,6 +71,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "url": "https://kizuna-works.jp"
           },
           "featureList": [
+            "サブテーブル（明細）展開：明細内フィールドを列に選ぶと1明細行＝1CSV行に展開し親項目を各行に繰り返す",
+            "明細展開時はkintone標準形式の先頭区切り記号列（既定「*」）を必ず付与し、出力CSVをそのまま再取込できる",
             "用途別テンプレート（提出用・基幹取込用など）を名前付きで保存しワンクリック出力",
             "出力する列・並び順を自由に指定（ドラッグ／▲▼で並べ替え）",
             "各列のヘッダー名を任意変更（空欄ならフィールド名）",
@@ -829,10 +831,38 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.1.1</span>
+        <span class="hero-version">v1.2.0</span>
       </div>
       <h1 class="hero-title">かんたんCSV出力 for kintone</h1>
-      <p class="hero-copy">かんたんCSV出力 for kintone は、レコード一覧の絞り込み結果を「用途別テンプレート」（出力する列・並び順・ヘッダー名・文字コード）でワンクリック書き出しする kintone プラグインです。「得意先提出用」「基幹システム取込用」などのフォーマットを名前付きで保存でき、クイックサーチ等の絞り込みにそのまま連動。Excel の文字化け対策（Shift-JIS／UTF-8 BOM）にも対応します。<strong>v1.1.0 では、テンプレートごとに絞り込み条件（日付の「本日・今月・本年」などの相対期間に対応）を保存できるようになりました。</strong></p>
+      <p class="hero-copy">かんたんCSV出力 for kintone は、レコード一覧の絞り込み結果を「用途別テンプレート」（出力する列・並び順・ヘッダー名・文字コード）でワンクリック書き出しする kintone プラグインです。「得意先提出用」「基幹システム取込用」などのフォーマットを名前付きで保存でき、クイックサーチ等の絞り込みにそのまま連動。Excel の文字化け対策（Shift-JIS／UTF-8 BOM）にも対応します。<strong>v1.2.0 では、サブテーブル（明細）の行展開に対応しました。明細内のフィールドを列に選ぶと「1明細行＝1行」で書き出し、kintone 標準と同じ先頭の区切り記号「*」列も付くので、出力した CSV をそのまま kintone に取り込み直せます。</strong></p>
+    </section>
+
+    <!-- Update Info (v1.2.0) -->
+    <section class="section-wrapper fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.2.0：サブテーブル（明細）の行展開に対応しました（kintone標準形式の区切り記号列つき）</h2>
+        </div>
+        <p class="update-desc">出力する列に<strong>サブテーブル（明細）内のフィールド</strong>を選べるようになりました。明細列を含めると、kintone 標準のレコード書き出しと同じく<strong>1明細行＝1CSV行に展開</strong>し、会社名・日付などの<strong>親項目の値は明細の各行に繰り返して</strong>出力します。さらに、明細を展開するときは<strong>先頭に区切り記号の列（既定「*」）を必ず付与</strong>し、各レコードの先頭行だけに記号、明細の継続行は空欄にします。これによりレコードの区切りが明確になり、<strong>出力した CSV をそのまま kintone に取り込み直せます</strong>。1テンプレートにつき展開できる明細は1つまで。「明細が空のレコードも1行出力する」かどうかも選べます。</p>
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <picture>
+              <source srcset="/images/csv-export-config-06.webp" type="image/webp" />
+              <img
+                class="zoomable"
+                src="/images/csv-export-config-06.png"
+                alt="かんたんCSV出力 v1.2.0 の明細展開設定画面 — 出力する列に会社名・受注日（親項目）と、商品名・数量・金額（サブテーブル明細）を並べた状態。下部の「明細展開」設定で『明細が空のレコードも1行出力する』のオン／オフと、必須の『先頭の区切り記号（既定 *）』を設定できる"
+                loading="lazy"
+                width="1196"
+                height="720"
+              />
+            </picture>
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-note">明細の各フィールドは、これまでのトップレベル項目と同じく型に応じて整形して出力します（計算フィールドの結果も出力されます）。先頭の区切り記号は kintone への再取込互換のため既定の「*」のままを推奨します。<br>既存ユーザーの方は、最新版（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定や既存テンプレートはそのまま引き継がれます（明細列を使わないテンプレートの動作は変わりません）。</p>
+      </div>
     </section>
 
     <!-- Update Info (v1.1.0) -->
@@ -926,6 +956,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <div class="section-wrapper fade-in">
         <h2 class="section-title-left">主な機能</h2>
         <ul class="feature-list">
+          <li><span><strong>サブテーブル（明細）の行展開（v1.2.0）</strong> — 明細内のフィールドを列に選ぶと「1明細行＝1CSV行」に展開し、会社名・日付などの親項目を各行に繰り返して出力します。請求明細・配送先一覧・作業項目などの「親＋明細」をフラットなCSVに書き出せます（1テンプレートにつき明細は1つまで／明細が空のレコードの出力可否も選択可）。</span></li>
+          <li><span><strong>kintone標準形式の区切り記号列（v1.2.0）</strong> — 明細を展開するときは、kintone 標準のCSV書き出しと同じく先頭に区切り記号の列（既定「*」）を必ず付与します。各レコードの先頭行だけに記号、明細の継続行は空欄になるので、<strong>出力した CSV をそのまま kintone に取り込み直せます</strong>。</span></li>
           <li><span><strong>用途別テンプレートをワンクリック出力</strong> — 「得意先提出用」「会計システム取込用」などの出力フォーマットを名前付きで保存。一覧ツールバーの「CSV出力」ボタンから選ぶだけで書き出せます。毎回フィールドを選び直す必要がありません。</span></li>
           <li><span><strong>列・並び順・ヘッダー名を自由に設定</strong> — 出力する列とその順番を指定でき、各列のヘッダー名（1行目）を任意に変更できます（例：「会社名」→「得意先名」）。一度選んだフィールドは他の列の候補に出ないため、重複選択も防げます。</span></li>
           <li><span><strong>絞り込み（クイックサーチ含む）に連動</strong> — 一覧の絞り込み条件・クイックサーチのキーワードにそのまま連動して出力。「表示中のレコード」か「絞り込み全件」かを自動判定し、件数が多いときだけ範囲を選べます。全件はページングで取得します。</span></li>
@@ -1037,7 +1069,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">CSV に出力したいフィールドと、テーブル形式の一覧ビューがあるアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li>「プランについて」セクションのダウンロードボタンから <code>kw-csv-export-v1.1.1.zip</code> をダウンロード</li>
+        <li>「プランについて」セクションのダウンロードボタンから <code>kw-csv-export-v1.2.0.zip</code> をダウンロード</li>
         <li>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</li>
         <li>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「かんたんCSV出力」を追加</li>
         <li>プラグイン設定画面で<strong>テンプレート</strong>（出力する列・ヘッダー名・文字コード・ファイル名など）を作成して「保存」</li>
@@ -1062,7 +1094,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 設定画面・一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-csv-export-v1.1.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-csv-export-v1.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -1230,10 +1262,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-csv-export-v1.1.1.zip',
+              file_name: 'kw-csv-export-v1.2.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-csv-export-v1.1.1.zip'
+              link_url: '/downloads/kw-csv-export-v1.2.0.zip'
             });
           }
         });
