@@ -84,7 +84,129 @@ function flow(steps) {
   };
 }
 
+// 図3：縦5行の早見図（番号バッジ＋名称＋一言＋費用チップ）
+function overview5(rows) {
+  const row = (r) => ({
+    type: 'div',
+    props: {
+      style: { display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px', background: C.cardBg, border: `1px solid ${C.border}`, borderRadius: 14, padding: '18px 22px' },
+      children: [
+        { type: 'div', props: { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: 44, height: 44, borderRadius: 999, background: r.paid ? C.green : C.navy, color: C.white, fontSize: 22, fontWeight: 700 }, children: r.n } },
+        {
+          type: 'div',
+          props: {
+            style: { display: 'flex', flexDirection: 'column', flex: 1, gap: '4px' },
+            children: [
+              { type: 'div', props: { style: { display: 'flex', fontSize: 23, fontWeight: 700, color: C.navy }, children: r.name } },
+              { type: 'div', props: { style: { display: 'flex', fontSize: 17, fontWeight: 400, color: C.gray, lineHeight: 1.5 }, children: r.desc } },
+            ],
+          },
+        },
+        { type: 'div', props: { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: 150, background: r.paid ? C.navy : C.green, color: C.white, fontSize: 18, fontWeight: 700, padding: '8px 16px', borderRadius: 999 }, children: r.tag } },
+      ],
+    },
+  });
+  return {
+    type: 'div',
+    props: {
+      style: { width: 1000, height: 596, display: 'flex', flexDirection: 'column', gap: '14px', padding: '36px', background: C.white, fontFamily: 'Noto Sans JP' },
+      children: rows.map(row),
+    },
+  };
+}
+
+// 図4：2枚パネルの対比（社内○ / 社外×）
+function contrastPanel(left, right) {
+  const panel = (p, ok) => ({
+    type: 'div',
+    props: {
+      style: { display: 'flex', flexDirection: 'column', flex: 1, gap: '14px', background: C.cardBg, border: `2px solid ${ok ? C.green : '#d9627a'}`, borderRadius: 16, padding: '28px 26px' },
+      children: [
+        {
+          type: 'div',
+          props: {
+            style: { display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '14px' },
+            children: [
+              { type: 'div', props: { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: 52, height: 52, borderRadius: 999, background: ok ? C.green : '#d9627a', color: C.white, fontSize: 22, fontWeight: 700 }, children: ok ? 'OK' : 'NG' } },
+              { type: 'div', props: { style: { display: 'flex', fontSize: 24, fontWeight: 700, color: C.navy }, children: p.title } },
+            ],
+          },
+        },
+        { type: 'div', props: { style: { display: 'flex', fontSize: 19, fontWeight: 400, color: C.gray, lineHeight: 1.6 }, children: p.desc } },
+      ],
+    },
+  });
+  return {
+    type: 'div',
+    props: {
+      style: { width: 1000, height: 300, display: 'flex', flexDirection: 'row', gap: '24px', padding: '36px', background: C.white, fontFamily: 'Noto Sans JP' },
+      children: [panel(left, true), panel(right, false)],
+    },
+  };
+}
+
+// 図5：横フロー＋下部キャプション（色指定可）
+function flowCaptioned(steps, color, caption) {
+  const box = (label) => ({
+    type: 'div',
+    props: {
+      style: { display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flex: 1, height: 96, background: color, color: C.white, borderRadius: 14, padding: '0 14px', fontSize: 19, fontWeight: 700, lineHeight: 1.4 },
+      children: label,
+    },
+  });
+  const arrow = () => ({ type: 'div', props: { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, color, fontSize: 40, fontWeight: 700, paddingBottom: '4px' }, children: '>' } });
+  const rowChildren = [];
+  steps.forEach((s, i) => { rowChildren.push(box(s)); if (i < steps.length - 1) rowChildren.push(arrow()); });
+  return {
+    type: 'div',
+    props: {
+      style: { width: 1000, height: 210, display: 'flex', flexDirection: 'column', gap: '18px', padding: '32px 36px', background: C.white, fontFamily: 'Noto Sans JP' },
+      children: [
+        { type: 'div', props: { style: { display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '6px' }, children: rowChildren } },
+        { type: 'div', props: { style: { display: 'flex', alignItems: 'center', gap: '12px' }, children: [
+          { type: 'div', props: { style: { display: 'flex', width: 10, height: 26, background: color, borderRadius: 3 } } },
+          { type: 'div', props: { style: { display: 'flex', fontSize: 18, fontWeight: 700, color: C.ink }, children: caption } },
+        ] } },
+      ],
+    },
+  };
+}
+
 const FIGURES = [
+  {
+    name: 'kintone-mail-soushin-hikaku-overview',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: '標準の通知メール', desc: '社内ユーザーへ更新・期限を自動通知。外部宛には送れない。', tag: '無料', paid: false },
+      { n: '2', name: 'メーラー起動方式', desc: 'レコードからお使いのメーラーを開く。1通ずつ・少人数一斉に。', tag: '無料', paid: false },
+      { n: '3', name: 'サーバー直送（kMailer）', desc: '配信サーバーから直接送信。大量配信・自動/予約に強い。', tag: '月18,000円〜', paid: true },
+      { n: '4', name: 'メール共有（メールワイズ）', desc: '受信メールをチームで共有・対応。問い合わせ管理向け。', tag: '月600円/人〜', paid: true },
+      { n: '5', name: '自作（開発）', desc: 'JS＋外部API/GASで独自送信。自由だが開発・保守コスト。', tag: '開発要', paid: true },
+    ]),
+  },
+  {
+    name: 'kintone-mail-soushin-hikaku-standard',
+    w: 1000, h: 300,
+    el: contrastPanel(
+      { title: '社内のkintoneユーザー', desc: '条件通知・リマインダーで、更新や期限を自動でメール通知できる。' },
+      { title: '社外の取引先・顧客', desc: '標準の通知メールでは、レコードを差し込んだ本文を外部宛に送れない。' }
+    ),
+  },
+  {
+    name: 'kintone-mail-soushin-hikaku-server',
+    w: 1000, h: 210,
+    el: flowCaptioned(['kintoneのレコード', 'kMailer配信サーバー', '大量・自動で送信'], C.navy, '人を介さず、配信サーバーが直接メールを送信する'),
+  },
+  {
+    name: 'kintone-mail-soushin-hikaku-mailwise',
+    w: 1000, h: 210,
+    el: flowCaptioned(['取引先からの受信', 'チームで共有・担当', '差し込んで返信'], C.green, '受信を含む双方向のやり取りを、チームで共有して管理する'),
+  },
+  {
+    name: 'kintone-mail-soushin-hikaku-jisaku',
+    w: 1000, h: 210,
+    el: flowCaptioned(['JSカスタマイズ', '外部送信API・GAS', 'メール送信'], C.navy, '自由度は最も高いが、開発と保守のコストが継続的にかかる'),
+  },
   {
     name: 'kintone-cyouhyou-pdf-output-overview',
     w: 1000, h: 330,
