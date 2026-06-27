@@ -586,6 +586,28 @@ export const plugins: Plugin[] = [
     problemDesc: '宛先・会社名・担当者名をメーラーにコピペし、定型文を打ち直している・同じ案内を全員に送るのが手間',
     releaseDate: '2026-06-26',
   },
+  {
+    id: 'kw-comment-control',
+    name: 'コメントコントロール for kintone',
+    formName: 'コメントコントロール for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'comment-control',
+    category: '一覧',
+    description:
+      'レコード詳細・編集でコメント／変更履歴サイドバーを閉じた状態で開いて画面を広く使い、一覧では各レコードのコメント件数を色分けバッジで表示するプラグイン。自分宛メンションは強調色で見逃しを防ぎ、バッジのホバーでコメントを全文プレビュー（ページ送り対応）できます。',
+    image: '/images/comment-control-banner.png',
+    imageAlt:
+      'コメントコントロール for kintone プラグイン — 詳細・編集でコメントサイドバーを閉じて開き、一覧ではコメント件数バッジを色分け。自分宛メンションを強調し、ホバーでコメントを全文プレビュー',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '詳細・編集でコメント欄を閉じて開き画面を広く。一覧は件数バッジを色分けし、自分宛メンションを強調＋ホバーで全文プレビュー。ページ送り対応・kintone完結。',
+    problemTitle: 'コメント欄が毎回開いて画面が狭い・自分宛の見落としが起きる',
+    problemDesc: '詳細を開くたびコメント欄が場所を取り、一覧ではどれにコメントが付いているか・自分宛があるか分からず毎回開いて確認している',
+    releaseDate: '2026-06-27',
+  },
 ];
 
 /**
