@@ -1,0 +1,491 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import { recipes, widgetTypeLabels } from '../../../data/recipes';
+
+// Pick a few representative recipes to showcase in the "設定レシピ集" teaser.
+const teaserIds = ['bar-office-sales', 'donut-category-share', 'line-monthly-trend', 'crosstab-office-category', 'heatmap-winrate', 'card-win-rate'];
+const teaser = teaserIds
+  .map((id) => recipes.find((r) => r.id === id))
+  .filter((r): r is NonNullable<typeof r> => Boolean(r));
+---
+
+<Layout
+  title="ダッシュボード for kintone - 見たい数字を1枚に集約 | KIZUNA Works"
+  description="グラフ・数値カード・クロス集計表を1枚に集約し、レコード一覧のカスタマイズビューに常設の集計ダッシュボードを描画する kintone プラグイン。期間セレクタで全ウィジェット連動再集計、アプリ横断集計・ポータル常設・集計キャッシュに対応するプレミアムプラグイン。kintone完結。"
+  ogTitle="ダッシュボード for kintone - 見たい数字を1枚に集約 | KIZUNA Works"
+  ogDescription="グラフ・数値カード・クロス集計表を1枚に集約。期間連動再集計・アプリ横断集計・ポータル常設・集計キャッシュに対応するプレミアムプラグイン。kintone完結。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/dashboard/"
+  ogImage="https://kizuna-works.jp/images/dashboard-banner.png"
+  canonical="https://kizuna-works.jp/plugins/dashboard/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/dashboard/",
+          "url": "https://kizuna-works.jp/plugins/dashboard/",
+          "name": "ダッシュボード for kintone - 見たい数字を1枚に集約 | KIZUNA Works",
+          "description": "グラフ・数値カード・クロス集計表を1枚に集約し、レコード一覧のカスタマイズビューに常設の集計ダッシュボードを描画する kintone プラグイン。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/dashboard-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "ダッシュボード for kintone", "item": "https://kizuna-works.jp/plugins/dashboard/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "ダッシュボード for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-06-27",
+          "url": "https://kizuna-works.jp/plugins/dashboard/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-dashboard-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/dashboard-banner.png",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "基本プラン（無料）",
+              "price": "0",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "基本機能を無料でご利用いただけます（データソース1つ・ウィジェット数制限あり）。"
+            },
+            {
+              "@type": "Offer",
+              "name": "プレミアム年間サポーター（全プラグイン込み）",
+              "price": "16500",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、本プラグインと販売中の全プラグインの全機能を利用できます。単品販売はありません。"
+            }
+          ],
+          "description": "グラフ・数値カード・クロス集計表を1枚に集約し、レコード一覧のカスタマイズビューに常設の集計ダッシュボードを描画する kintone プラグイン。期間連動再集計・アプリ横断集計・ポータル常設・集計キャッシュに対応。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "グラフ（縦棒・横棒・折れ線・エリア・円・ドーナツ・レーダー・積み上げ各種・複合・割合%）",
+            "数値カード（合計・件数・平均などの単一値／割合%／★評価）",
+            "クロス集計表・ヒートマップ（行×列のピボット集計・濃淡/閾値カラー）",
+            "12列グリッドに複数ウィジェットを自由配置",
+            "期間セレクタで全ウィジェットを連動再集計",
+            "ウィジェットクリックで対象レコードへドリルダウン",
+            "アプリ横断集計（複数アプリのデータソースを1ボードに集約・プレミアム）",
+            "ポータルへの iframe 埋め込みコードを自動生成（プレミアム）",
+            "集計キャッシュで大規模データを高速描画（プレミアム）",
+            "設定画面のライブプレビュー（ボード全体・カード個別）",
+            "グラフは自社配信のChart.jsをSRI付きで読込・集計はブラウザ内完結で外部送信なし"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "ダッシュボードが表示されません。", "acceptedAnswer": { "@type": "Answer", "text": "対象アプリに「カスタマイズ」表示形式のビューがあり、そのビューがボードに割り当てられているか、設定後にアプリを更新（デプロイ）したかをご確認ください。" } },
+            { "@type": "Question", "name": "数値や棒グラフが一瞬出ないことがあります。", "acceptedAnswer": { "@type": "Answer", "text": "データ取得中は「集計中…」を表示します。件数が多い場合は読み込みに数秒かかります。集計キャッシュのご利用で高速化できます。" } },
+            { "@type": "Question", "name": "複数のアプリの数字を1枚で見られますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。アプリ横断集計（プレミアム）で、複数アプリのデータソースを1つのボードに集約できます。" } },
+            { "@type": "Question", "name": "外部にデータが送られませんか？", "acceptedAnswer": { "@type": "Answer", "text": "集計はすべてブラウザ内で行い、業務データを外部へ送信しません。グラフ描画用の Chart.js は自社サーバーから SRI 付きで読み込み、第三者 CDN は使用しません。" } },
+            { "@type": "Question", "name": "ゲストスペースのアプリでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、ゲストスペース内のアプリでも利用できます。" } },
+            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと、本プラグインと販売中の全プラグインを利用できます。" } }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .dbp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .dbp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .dbp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .dbp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 5px 14px; border-radius: 20px;
+    }
+    .dbp-hero-version {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 5px 12px; border-radius: 20px;
+    }
+    .dbp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .dbp-hero .dbp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .dbp-hero .dbp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 720px; line-height: 1.8; }
+    .dbp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    .dbp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .dbp-section { padding: 56px 0; }
+    .dbp-section.alt { background: #fff; }
+    .dbp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .dbp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+    }
+    .dbp-lead strong { color: var(--color-navy); }
+
+    .dbp-shot-full { margin: 0; }
+    .dbp-shot-full img {
+      width: 100%; height: auto; display: block; border: 1px solid #e2e8f0;
+      border-radius: 12px; box-shadow: var(--shadow-card); background: #fff;
+    }
+    .dbp-shot-full figcaption { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin-top: 12px; }
+
+    .dbp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .dbp-feature:last-child { margin-bottom: 0; }
+    .dbp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .dbp-feature.reverse .dbp-feature-text { order: 2; }
+    .dbp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; }
+    .dbp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .dbp-feature p { font-size: 1rem; line-height: 1.8; margin: 0; }
+
+    .dbp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .dbp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .dbp-feat-card .dbp-tag-premium { display: inline-block; background: #fdf0d5; color: #b9770e; font-size: 0.72rem; font-weight: 700; padding: 2px 9px; border-radius: 9px; margin-bottom: 8px; }
+    .dbp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .dbp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    /* Recipe teaser */
+    .dbp-recipe-cta { background: linear-gradient(135deg, #eef3fb 0%, #eaf6ea 130%); border: 1px solid #dbe6f3; border-radius: 16px; padding: 32px; }
+    .dbp-recipe-cta-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+    .dbp-recipe-cta h3 { font-size: 1.3rem; color: var(--color-navy); margin: 0; }
+    .dbp-recipe-cta p { font-size: 1rem; line-height: 1.8; color: var(--color-text-main); margin: 0 0 20px; }
+    .dbp-recipe-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 22px; }
+    .dbp-recipe-thumb { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; }
+    .dbp-recipe-thumb img { width: 100%; height: 132px; object-fit: cover; object-position: center top; display: block; background: #F0F4F8; }
+    .dbp-recipe-thumb span { display: block; font-size: 0.78rem; color: var(--color-text-muted); padding: 7px 10px; }
+    .dbp-recipe-btn { display: inline-block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 13px 28px; border-radius: 8px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .dbp-recipe-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(27,58,107,0.22); }
+
+    .dbp-tablewrap { overflow-x: auto; }
+    table.dbp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); }
+    table.dbp-compare th, table.dbp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.dbp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.dbp-compare td.c, table.dbp-compare th.c { text-align: center; }
+    table.dbp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .dbp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .dbp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .dbp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .dbp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .dbp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .dbp-plan-price { margin-bottom: 6px; }
+    .dbp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .dbp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .dbp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .dbp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .dbp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .dbp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .dbp-plan-card.recommended .dbp-plan-cta { background: var(--color-green); }
+    .dbp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .dbp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .dbp-steps { counter-reset: step; list-style: none; padding: 0; margin: 0; }
+    .dbp-steps li { position: relative; padding: 0 0 18px 52px; line-height: 1.8; }
+    .dbp-steps li::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; left: 0; top: 0; width: 34px; height: 34px;
+      background: var(--color-green); color: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-weight: 700;
+    }
+    .dbp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+    .dbp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .dbp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .dbp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .dbp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .dbp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .dbp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .dbp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    @media (max-width: 768px) {
+      .dbp-hero h1 { font-size: 1.6rem; }
+      .dbp-feature, .dbp-feature.reverse { grid-template-columns: 1fr; }
+      .dbp-feature.reverse .dbp-feature-text { order: 0; }
+      .dbp-plan-grid { grid-template-columns: 1fr; }
+      .dbp-h2 { font-size: 1.4rem; }
+      .dbp-recipe-thumbs { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="dbp-hero">
+      <img class="dbp-hero-icon" src="/images/dashboard-icon.png" alt="ダッシュボード for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="dbp-hero-badges">
+        <span class="dbp-badge-premium">👑 PREMIUM PLUGIN</span>
+        <span class="dbp-hero-version">v1.0.0</span>
+      </div>
+      <h1>ダッシュボード for kintone</h1>
+      <p class="dbp-tagline">見たい数字を、1枚に。</p>
+      <p class="dbp-sub">グラフ・数値カード・クロス集計表を1つのボードに集約。レコード一覧のカスタマイズビューに、業務の数字を一望できる集計ダッシュボードを常設します。</p>
+    </section>
+    <div class="dbp-hero-gradient-line"></div>
+
+    <!-- 定義（結論ファースト） -->
+    <section class="dbp-section">
+      <div class="dbp-wrap">
+        <p class="dbp-lead">
+          <strong>ダッシュボード for kintone</strong> は、複数の<strong>グラフ・数値カード・クロス集計表</strong>を1枚のボードに自由配置し、レコード一覧の<strong>カスタマイズビュー</strong>に常設の集計ダッシュボードを描画する kintone プラグインです。標準グラフのように1画面1グラフではなく、見たい指標を並べて一望できます。上部の<strong>期間セレクタで全ウィジェットを連動再集計</strong>でき、<strong>複数アプリ横断の集計・ポータルへの常時表示・大規模データ向けの集計キャッシュ</strong>にも対応。集計はすべてブラウザ内で完結し、業務データを外部へ送信しません。<strong>「プレミアムプラグイン」シリーズの第 2 弾</strong>です。
+        </p>
+      </div>
+    </section>
+
+    <!-- 完成イメージ -->
+    <section class="dbp-section alt">
+      <div class="dbp-wrap">
+        <h2 class="dbp-h2">完成イメージ</h2>
+        <figure class="dbp-shot-full">
+          <picture>
+            <source srcset="/images/dashboard-overview.webp" type="image/webp" />
+            <img src="/images/dashboard-overview.png" alt="ダッシュボード for kintone の表示例 — 受注金額・受注件数・受注率・平均評価の数値カードと、営業所別・担当者別の棒グラフ、月別推移、カテゴリ構成比、営業所×カテゴリのクロス集計表を1枚に集約した営業ダッシュボード" width="1914" height="1675" loading="lazy" />
+          </picture>
+          <figcaption>① 数値カード・グラフ・クロス集計表を1枚に集約した「成績ダッシュボード」の例（ダミーデータ）</figcaption>
+        </figure>
+        <figure class="dbp-shot-full" style="margin-top:36px;">
+          <picture>
+            <source srcset="/images/dashboard-overview-yojitsu.webp" type="image/webp" />
+            <img src="/images/dashboard-overview-yojitsu.png" alt="ダッシュボード for kintone のアプリ横断集計の例 — 実績アプリと予算アプリのデータを集約し、営業所別・地域別・カテゴリ別の実績vs予算の棒グラフ、総実績・総予算カード、実績／予算のクロス集計表、月別の予算達成率ヒートマップを1枚に表示した予実管理ダッシュボード" width="1891" height="2035" loading="lazy" />
+          </picture>
+          <figcaption>② <strong>アプリ横断集計</strong>の例：実績アプリと予算アプリのデータを1枚に集約した「予実管理ダッシュボード」。営業所別・地域別の実績 vs 予算、月別の予算達成率ヒートマップまで（ダミーデータ・プレミアム）</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="dbp-section">
+      <div class="dbp-wrap">
+        <h2 class="dbp-h2">主な機能</h2>
+
+        <div class="dbp-feature">
+          <div class="dbp-feature-text">
+            <h3>グラフ・数値カード・クロス集計を1枚に</h3>
+            <p>縦棒・横棒・折れ線・エリア・円・ドーナツ・レーダー・積み上げ各種・複合グラフ、合計／件数／平均／割合（%）／★評価の数値カード、行×列のクロス集計表・ヒートマップ。12 列グリッドに必要なウィジェットを自由に配置できます。</p>
+          </div>
+          <picture>
+            <source srcset="/images/dashboard/recipes/bar-office-sales.webp" type="image/webp" />
+            <img src="/images/dashboard/recipes/bar-office-sales.png" alt="営業所別 受注金額の縦棒グラフ（多色）" width="1120" height="640" loading="lazy" />
+          </picture>
+        </div>
+
+        <div class="dbp-feature reverse">
+          <div class="dbp-feature-text">
+            <h3>期間を変えると、全部が連動して再集計</h3>
+            <p>ボード上部の期間セレクタ（今月・今四半期・今期・直近30日・カスタム範囲など）を切り替えると、ボード上のすべてのウィジェットが同じ期間で一斉に再集計されます。期間ごとにグラフを作り直す必要はありません。日付の分類は時系列順に自動整列します。</p>
+          </div>
+          <picture>
+            <source srcset="/images/dashboard/recipes/line-monthly-trend.webp" type="image/webp" />
+            <img src="/images/dashboard/recipes/line-monthly-trend.png" alt="月別 受注金額の推移を表す折れ線グラフ" width="1120" height="640" loading="lazy" />
+          </picture>
+        </div>
+
+        <div class="dbp-grid-feats" style="margin-top:8px;">
+          <div class="dbp-feat-card">
+            <span class="dbp-tag-premium">プレミアム</span>
+            <h3>アプリ横断集計</h3>
+            <p>実績アプリ・予算アプリ・案件アプリなど、複数のアプリのデータソースを1つのボードに集約。予実対比のように別アプリの数字を1枚で比較できます。</p>
+          </div>
+          <div class="dbp-feat-card">
+            <span class="dbp-tag-premium">プレミアム</span>
+            <h3>ポータルに常時表示</h3>
+            <p>作ったダッシュボードを、スペースのポータル（お知らせ）に iframe で埋め込むコードを自動生成。全社員が毎朝同じダッシュボードを見られます。</p>
+          </div>
+          <div class="dbp-feat-card">
+            <span class="dbp-tag-premium">プレミアム</span>
+            <h3>集計キャッシュ（大規模対応）</h3>
+            <p>数千〜数万件規模では、集計済みの値を保管アプリに保存して読み込む集計キャッシュで高速描画。保管アプリはワンクリックで自動生成されます。</p>
+          </div>
+          <div class="dbp-feat-card">
+            <h3>ドリルダウン</h3>
+            <p>ウィジェットをクリックすると、その集計の対象レコードの一覧へ遷移。気になった数字の中身をすぐ確認できます。</p>
+          </div>
+          <div class="dbp-feat-card">
+            <h3>配色・ライブプレビュー</h3>
+            <p>ボード既定／プリセット／カスタム多色、クロス集計のヒートマップ濃淡・閾値カラーに対応。設定画面ではボード全体・カード個別を実データでプレビューできます。</p>
+          </div>
+          <div class="dbp-feat-card">
+            <h3>kintone 完結</h3>
+            <p>集計はすべてブラウザ内で完結し、業務データを外部へ送信しません。グラフ描画用の Chart.js は自社サーバーから SRI 付きで読込（第三者 CDN 不使用）。ゲストスペースにも対応。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 設定レシピ集への導線 -->
+    <section class="dbp-section alt">
+      <div class="dbp-wrap">
+        <div class="dbp-recipe-cta">
+          <div class="dbp-recipe-cta-head">
+            <h3>作りたいグラフから逆引き：設定レシピ集</h3>
+          </div>
+          <p>「営業所別の売上を縦棒で」「受注率を%カードで」「営業所×カテゴリのクロス集計」など、よくある業務シーン別に <strong>目的 → 設定手順 → 完成イメージ</strong> で解説しています。作りたいウィジェットの作り方がすぐ分かります。</p>
+          <div class="dbp-recipe-thumbs">
+            {teaser.map((r) => (
+              <a class="dbp-recipe-thumb" href={`/plugins/dashboard/recipes/#${r.id}`}>
+                <picture>
+                  <source srcset={`/images/dashboard/recipes/${r.id}.webp`} type="image/webp" />
+                  <img src={`/images/dashboard/recipes/${r.id}.png`} alt={`${r.title}（${widgetTypeLabels[r.widgetType]}）`} loading="lazy" width="400" height="132" />
+                </picture>
+                <span>{r.title}</span>
+              </a>
+            ))}
+          </div>
+          <a class="dbp-recipe-btn" href="/plugins/dashboard/recipes/">設定レシピ集を見る →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- プランについて -->
+    <section class="dbp-section">
+      <div class="dbp-wrap">
+        <h2 class="dbp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">基本機能は無料でご利用いただけます。アプリ横断集計・ポータル埋め込み・集計キャッシュ・ウィジェット無制限などの全機能は、<strong>プレミアム年間サポーター</strong>で解放されます（単品販売はありません）。</p>
+
+        <div class="dbp-plan-grid">
+          <div class="dbp-plan-card">
+            <h3 class="dbp-plan-name">基本プラン</h3>
+            <div class="dbp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="dbp-plan-features">
+              <li>✅ データソース1つ・1アプリの集計ダッシュボード</li>
+              <li>✅ グラフ・数値カード・クロス集計・期間連動再集計・ドリルダウン</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 一覧画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-dashboard-v1.0.0.zip" download class="dbp-plan-cta" id="btn-download">無料でダウンロード</a>
+          </div>
+
+          <div class="dbp-plan-card recommended">
+            <span class="dbp-plan-badge">👑 全機能を解放</span>
+            <h3 class="dbp-plan-name">プレミアム年間サポーター</h3>
+            <div class="dbp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="dbp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="dbp-plan-features">
+              <li>✅ データソース無制限・ウィジェット無制限</li>
+              <li>✅ アプリ横断集計・ポータル埋め込み・集計キャッシュを解放</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ 販売中の<strong>全プラグイン</strong>も対象（契約期間中に新しく公開されるプラグインも追加料金なし）</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="dbp-plan-cta">プレミアム年間サポーターを申し込む →</a>
+          </div>
+        </div>
+
+        <h3 class="dbp-plan-compare-head">機能の詳細比較</h3>
+        <div class="dbp-tablewrap">
+          <table class="dbp-compare">
+            <thead>
+              <tr><th>機能</th><th class="c">基本プラン（無料）</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>データソース数</td><td class="c">1</td><td class="c">無制限</td></tr>
+              <tr><td>ウィジェット数</td><td class="c">制限あり</td><td class="c">無制限</td></tr>
+              <tr><td>グラフ・数値カード・クロス集計</td><td class="c">◯</td><td class="c">◯</td></tr>
+              <tr><td>期間連動再集計・ドリルダウン・ライブプレビュー</td><td class="c">◯</td><td class="c">◯</td></tr>
+              <tr><td>アプリ横断集計</td><td class="c">—</td><td class="c">◯</td></tr>
+              <tr><td>ポータル iframe 埋め込み</td><td class="c">—</td><td class="c">◯</td></tr>
+              <tr><td>集計キャッシュ（大規模対応）</td><td class="c">—</td><td class="c">◯</td></tr>
+              <tr><td>一覧画面の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- インストール手順 -->
+    <section class="dbp-section alt">
+      <div class="dbp-wrap">
+        <h2 class="dbp-h2">インストール手順</h2>
+        <ol class="dbp-steps">
+          <li>システム管理者で kintone にログインし、<strong>歯車アイコン → kintone システム管理 → プラグイン</strong> を開きます。</li>
+          <li><strong>「読み込む」</strong>をクリックして、プラグイン zip をアップロードします。</li>
+          <li>ダッシュボードを表示したいアプリで <strong>アプリの設定 → プラグイン → 「+ プラグインを追加」</strong> からダッシュボードを追加します。</li>
+          <li>アプリに<strong>カスタマイズ表示形式のビュー</strong>を1つ作成します（ダッシュボードはこのビューに描画されます）。</li>
+          <li>プラグイン一覧の<strong>歯車アイコン</strong>から設定画面を開き、ボードを作成して上記ビューに割り当てます。</li>
+          <li>設定後は<strong>「設定を保存」→「アプリを更新」</strong>を実行してレコード画面に反映します。</li>
+        </ol>
+        <div class="dbp-note">設定方法に迷ったら、ウィジェット種別ごとの<a href="/plugins/dashboard/recipes/">設定レシピ集</a>もご覧ください。ゲストスペース内のアプリでも利用できます。</div>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="dbp-section">
+      <div class="dbp-wrap">
+        <h2 class="dbp-h2">ご利用にあたっての注意</h2>
+        <div class="dbp-cautions">
+          <ul>
+            <li>ダッシュボードは<strong>レコード一覧のカスタマイズビュー（PC版）</strong>に描画されます。標準の一覧・モバイルには対応しません。</li>
+            <li>設定変更後は「アプリを更新」をしないとレコード画面に反映されません。</li>
+            <li>ライブ取得は件数が多いほど時間がかかります。上限件数ガード（既定 5,000 件・変更可）を超える場合は、期間や絞り込みで件数を抑えるか、集計キャッシュ（プレミアム）のご利用をおすすめします。</li>
+            <li>割合・クロス集計の分子／分母は同一データソース内で計算します。`like` など kintone REST API の制約に従います。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- セキュリティ -->
+    <section class="dbp-section alt">
+      <div class="dbp-wrap">
+        <SecurityBox pluginId="kw-dashboard" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="dbp-cta">
+      <h2>プレミアム年間サポーターで使ってみる</h2>
+      <p>ダッシュボードをはじめ、販売中の全プラグインをご利用いただけます。年額 ¥16,500（税込）。30 日間の無料お試しもあります。</p>
+      <a class="dbp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを申し込む →</a>
+    </section>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var dl = document.getElementById('btn-download');
+      if (dl && typeof gtag === 'function') {
+        dl.addEventListener('click', function () {
+          gtag('event', 'file_download', {
+            file_name: 'kw-dashboard-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: '無料でダウンロード',
+            link_url: '/downloads/kw-dashboard-v1.0.0.zip'
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

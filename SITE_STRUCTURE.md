@@ -121,8 +121,12 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # コメントコントロールプラグイン製品ページ（/plugins/comment-control/）— 詳細・編集でコメント／変更履歴サイドバーを閉じた状態で開く（常に閉じる／条件付き開閉＝コメントあり・自分宛のみ・チラつき防止）。一覧はkintone標準のコメント件数バッジを自分宛だけアクセント色に色分け＋ホバーで新しい順ツールチップ全文表示（10件超はページ送り・自分宛行ハイライト・アイコン右側表示）。自分宛アクセント色プリセット8色＋ピック・ツールチップ配色テーマ（ダーク/ライト/ネイビー/カスタム）。スクショはライトボックスで拡大・kintone完結
 │   │   │   ├── mail-assist/
 │   │   │   │   └── index.astro # メールアシストプラグイン製品ページ（/plugins/mail-assist/）— レコード値を差し込んで件名・本文・宛先を組み立て、ワンクリックでメーラー（既定メーラー/Gmail/Outlook（個人・法人 Microsoft 365）/Yahoo!）を起動。詳細＝個別／一覧＝絞り込み結果をBCC一斉（最大宛先件数で分割）。宛先は文字列/リンク/ユーザー選択＋直接入力。テンプレごとの表示・送信条件（最大5件AND/OR）で出し分け、メーラーは都度選択/管理者固定。送信履歴を保管アプリに記録＋詳細画面表示。テンプレ・履歴の保管アプリを同一スペースに自動生成。実送信はメーラー委譲で外部サーバー不要・kintone完結。スクショはライトボックスで拡大
-│   │   │   └── report-designer/
-│   │   │       └── index.astro # 【プレミアムプラグイン】帳票デザイナー製品ページ（/plugins/report-designer/）— 手持ちPDFを背景に kintone データ（フィールド/固定テキスト/画像（ロゴ・印影）/サブテーブル明細）をドラッグ配置して帳票化。自動繰り返し＋自動改ページ＋要素ごとの表示ページ／日付自動入力・表示条件・PDF保存先・集計表紙／1件印刷＋一覧まとめ印刷（最大100件）＋PDF自動保存。設定ガイドをアコーディオン組込。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。kintone完結
+│   │   │   ├── report-designer/
+│   │   │   │   └── index.astro # 【プレミアムプラグイン】帳票デザイナー製品ページ（/plugins/report-designer/）— 手持ちPDFを背景に kintone データ（フィールド/固定テキスト/画像（ロゴ・印影）/サブテーブル明細）をドラッグ配置して帳票化。自動繰り返し＋自動改ページ＋要素ごとの表示ページ／日付自動入力・表示条件・PDF保存先・集計表紙／1件印刷＋一覧まとめ印刷（最大100件）＋PDF自動保存。設定ガイドをアコーディオン組込。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。kintone完結
+│   │   │   └── dashboard/
+│   │   │       ├── index.astro # 【プレミアムプラグイン】ダッシュボード製品ページ（/plugins/dashboard/）— グラフ/数値カード/クロス集計表を1枚に集約し一覧のカスタマイズビューに常設の集計ダッシュボードを描画。期間連動再集計・ドリルダウン・配色・ライブプレビュー／有償＝アプリ横断集計・ポータルiframe埋め込み・集計キャッシュ。設定レシピ集への導線あり。単品販売なし＝プレミアム年間サポーターに含む。kintone完結（グラフはChart.js自社配信/SRI）
+│   │   │       └── recipes/
+│   │   │           └── index.astro # ダッシュボード設定レシピ集（/plugins/dashboard/recipes/）— ウィジェット種別ごとに「目的→設定手順→完成イメージ」を掲載。アコーディオン＋種別/目的タグ/検索フィルタ。データは src/data/recipes.ts、画像は /images/dashboard/recipes/。第1バッチ22レシピ（順次拡張）
 │   │   ├── tools/
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   │   ├── extensions/
@@ -297,6 +301,11 @@ c:\kizuna-works.jp\
 │   │   ├── report-designer-config-02.png   # 帳票デザイナー テンプレート編集画面（背景PDFに項目配置）
 │   │   ├── report-designer-action-01.png   # 帳票デザイナー 動作① レコード詳細の帳票バー（1件印刷）
 │   │   ├── report-designer-action-02.png   # 帳票デザイナー 動作② レコード一覧のまとめ印刷バー
+│   │   ├── dashboard-banner.png            # ダッシュボード for kintone 見出しバナー（OGP/グリッド共用・1200×630）
+│   │   ├── dashboard-icon.png              # ダッシュボード for kintone アイコン
+│   │   ├── dashboard-overview.png/.webp    # ダッシュボード 完成イメージ①（成績ダッシュボードの全景・製品ページ）
+│   │   ├── dashboard-overview-yojitsu.png/.webp # ダッシュボード 完成イメージ②（アプリ横断集計＝予実管理ダッシュボードの全景・製品ページ）
+│   │   ├── dashboard/recipes/<id>.png/.webp # ダッシュボード設定レシピ集の完成イメージ（種別ごと・第1バッチ22対）
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
@@ -359,7 +368,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-sheet-edit-v1.0.1.zip                    # シート編集 for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-sticky-board-v1.0.1.zip                  # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-mail-assist-v1.0.1.zip                   # メールアシスト for kintone 配布ファイル（手動配置・v1.0.1＝法人Outlook対応）
-│   │   └── kw-comment-control-v1.0.1.zip               # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.1＝閉じたコメント欄を手動で開けない不具合を修正）
+│   │   ├── kw-comment-control-v1.0.1.zip               # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.1＝閉じたコメント欄を手動で開けない不具合を修正）
+│   │   └── kw-dashboard-v1.0.0.zip                      # ダッシュボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第2弾・無料/プレミアム共通zip）
 │   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ（第三者CDN不使用）。現状 kw-file-preview のみ使用
 │   │   ├── README.md           # 収録ライブラリ・バージョン・ライセンス・更新手順
 │   │   ├── pdfjs/3.11.174/     # PDF.js（pdf.min.js / pdf.worker.min.js）— PDF描画

@@ -105,6 +105,11 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       { name: 'pdf-lib', version: '1.17.1', license: 'MIT', purpose: 'PDF 自動保存時に PDF ファイルをブラウザ内で生成' },
     ],
   },
+  'kw-dashboard': {
+    runtimeLibs: [
+      { name: 'Chart.js', version: '4.4.1', license: 'MIT', purpose: 'グラフ（棒・折れ線・円・レーダー等）の描画。グラフを表示するときだけ読み込みます' },
+    ],
+  },
 };
 
 /**

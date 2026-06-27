@@ -1,0 +1,322 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import {
+  recipes,
+  groupLabels,
+  widgetTypeLabels,
+  recipeTags,
+  type RecipeGroup,
+} from '../../../../data/recipes';
+
+const groupOrder: RecipeGroup[] = ['card', 'graph', 'crosstab', 'portal'];
+
+const grouped = groupOrder.map((g) => ({
+  group: g,
+  label: groupLabels[g],
+  items: recipes.filter((r) => r.group === g),
+}));
+
+const PAGE_URL = 'https://kizuna-works.jp/plugins/dashboard/recipes/';
+
+// JSON-LD: WebPage + each recipe as HowTo
+const howtos = recipes.map((r) => ({
+  '@type': 'HowTo',
+  name: r.title,
+  description: r.goal,
+  step: r.steps.map((s, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    text: s,
+  })),
+}));
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': PAGE_URL,
+      url: PAGE_URL,
+      name: 'ダッシュボード for kintone 設定レシピ集 | KIZUNA Works',
+      description:
+        'kintone ダッシュボードプラグインの設定レシピ集。数値カード・グラフ・クロス集計表の各ウィジェットを、よくある業務シーン別に「目的→設定手順→完成イメージ」で解説します。',
+      inLanguage: 'ja',
+      dateModified: '2026-06-27',
+      isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: 'https://kizuna-works.jp/' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+        { '@type': 'ListItem', position: 2, name: 'kintoneプラグイン', item: 'https://kizuna-works.jp/plugins/' },
+        { '@type': 'ListItem', position: 3, name: 'ダッシュボード for kintone', item: 'https://kizuna-works.jp/plugins/dashboard/' },
+        { '@type': 'ListItem', position: 4, name: '設定レシピ集', item: PAGE_URL },
+      ],
+    },
+    ...howtos,
+  ],
+};
+
+const desc =
+  'kintone ダッシュボードプラグインの設定レシピ集。数値カード・割合・★評価・縦棒/横棒/折れ線/円/ドーナツ/レーダー/積み上げ/複合グラフ・クロス集計・ヒートマップを、売上分析や進捗管理などの業務シーン別に「目的→設定手順→完成イメージ」で解説します。';
+---
+
+<Layout
+  title="ダッシュボード設定レシピ集｜kintoneを業務シーン別に可視化 | KIZUNA Works"
+  description={desc}
+  ogTitle="ダッシュボード設定レシピ集｜kintoneを業務シーン別に可視化 | KIZUNA Works"
+  ogDescription={desc}
+  ogType="website"
+  ogUrl={PAGE_URL}
+  canonical={PAGE_URL}
+  ogImage="https://kizuna-works.jp/images/dashboard-banner.png"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    .rcp-hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.92) 0%, rgba(42,82,152,0.85) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: #FFFFFF;
+      padding: 76px 5% 56px;
+      text-align: center;
+    }
+    .rcp-hero-title { font-size: 2.1rem; font-weight: 900; margin-bottom: 14px; }
+    .rcp-hero-desc { font-size: 1rem; max-width: 760px; margin: 0 auto; line-height: 1.85; opacity: 0.95; }
+    .rcp-hero-crumb { font-size: 0.82rem; opacity: 0.85; margin-bottom: 18px; }
+    .rcp-hero-crumb a { color: #fff; text-decoration: underline; }
+
+    .rcp-controls {
+      background-color: #F0F4F8;
+      padding: 22px 5%;
+      position: sticky; top: 0; z-index: 50;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .rcp-controls-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+    .rcp-search-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .rcp-search {
+      flex: 1; min-width: 240px; padding: 12px 16px;
+      border: 1px solid #cbd5e0; border-radius: 8px; font-size: 1rem; font-family: inherit; background: #fff;
+    }
+    .rcp-search:focus { outline: 2px solid #2E8B2E; outline-offset: 1px; border-color: #2E8B2E; }
+    .rcp-count { color: #1B3A6B; font-weight: 700; font-size: 0.95rem; white-space: nowrap; }
+    .rcp-filters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .rcp-filter-label { font-size: 0.78rem; font-weight: 700; color: #64748b; margin-right: 2px; }
+    .rcp-chip {
+      background: #fff; border: 1.5px solid #cbd5e0; color: #1B3A6B;
+      padding: 6px 14px; border-radius: 18px; font-size: 0.82rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; font-family: inherit;
+    }
+    .rcp-chip:hover { border-color: #2E8B2E; color: #2E8B2E; }
+    .rcp-chip.is-active { background: #1B3A6B; color: #fff; border-color: #1B3A6B; }
+    .rcp-chip.tag.is-active { background: #2E8B2E; border-color: #2E8B2E; }
+
+    .rcp-content { max-width: 1100px; margin: 0 auto; padding: 40px 5% 60px; }
+    .rcp-group { margin-bottom: 44px; }
+    .rcp-group-title {
+      color: #1B3A6B; font-size: 1.7rem; font-weight: 800; margin-bottom: 18px;
+      padding-bottom: 8px; border-bottom: 3px solid #2E8B2E; display: inline-block;
+    }
+    .rcp-list { display: flex; flex-direction: column; gap: 14px; }
+
+    .rcp-item {
+      background: #F8FAFC; border: 1px solid #e2e8f0; border-left: 4px solid #2E8B2E;
+      border-radius: 12px; overflow: hidden;
+    }
+    .rcp-item[open] { box-shadow: 0 6px 20px rgba(27,58,107,0.10); }
+    .rcp-summary {
+      list-style: none; cursor: pointer; padding: 18px 22px;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .rcp-summary::-webkit-details-marker { display: none; }
+    .rcp-type {
+      background: #1B3A6B; color: #fff; font-size: 0.68rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 10px; white-space: nowrap;
+    }
+    .rcp-title { color: #1B3A6B; font-size: 1.1rem; font-weight: 800; margin: 0; flex: 1; min-width: 0; }
+    .rcp-toggle { color: #2E8B2E; font-size: 0.82rem; font-weight: 700; white-space: nowrap; }
+    .rcp-item[open] .rcp-toggle-open { display: none; }
+    .rcp-item:not([open]) .rcp-toggle-close { display: none; }
+
+    .rcp-body { padding: 0 22px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+    .rcp-goal { color: #333; font-size: 0.95rem; line-height: 1.8; margin: 0 0 16px; }
+    .rcp-steps-label, .rcp-image-label {
+      color: #1B3A6B; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.03em;
+      margin: 0 0 8px; display: block;
+    }
+    .rcp-steps { margin: 0; padding-left: 1.3em; }
+    .rcp-steps li { color: #333; font-size: 0.9rem; line-height: 1.7; margin-bottom: 6px; }
+    .rcp-tags { margin-top: 14px; display: flex; gap: 6px; flex-wrap: wrap; }
+    .rcp-tagchip { background: #E8F0E8; color: #2E8B2E; font-size: 0.72rem; font-weight: 700; padding: 2px 9px; border-radius: 9px; }
+    .rcp-shot { margin: 0; }
+    .rcp-shot img {
+      width: 100%; height: auto; border-radius: 10px; border: 1px solid #e2e8f0;
+      background: #F0F4F8; display: block;
+    }
+    .rcp-shot figcaption { color: #94a3b8; font-size: 0.74rem; margin-top: 6px; text-align: center; }
+
+    .rcp-empty { text-align: center; color: #64748b; padding: 60px 20px; display: none; }
+    .rcp-empty.is-visible { display: block; }
+
+    .rcp-cta { max-width: 1100px; margin: 0 auto; padding: 28px 5% 70px; text-align: center; }
+    .rcp-cta a { color: #1B3A6B; font-weight: 700; margin: 0 10px; }
+
+    @media (max-width: 768px) {
+      .rcp-hero { padding: 48px 5% 36px; }
+      .rcp-hero-title { font-size: 1.5rem; }
+      .rcp-hero-desc { font-size: 0.9rem; }
+      .rcp-body { grid-template-columns: 1fr; gap: 14px; }
+      .rcp-group-title { font-size: 1.35rem; }
+      .rcp-summary { padding: 15px 16px; }
+      .rcp-title { font-size: 1rem; }
+      .rcp-body { padding: 0 16px 18px; }
+    }
+  </style>
+
+  <main>
+    <section class="rcp-hero">
+      <p class="rcp-hero-crumb">
+        <a href="/">ホーム</a> ／ <a href="/plugins/">kintoneプラグイン</a> ／ <a href="/plugins/dashboard/">ダッシュボード</a> ／ 設定レシピ集
+      </p>
+      <h1 class="rcp-hero-title">ダッシュボード for kintone 設定レシピ集</h1>
+      <p class="rcp-hero-desc">
+        数値カード・グラフ・クロス集計表の各ウィジェットを、よくある業務シーン別に「目的 → 設定手順 → 完成イメージ」で解説します。
+        作りたいグラフから逆引きで、設定方法をすぐ確認できます。
+      </p>
+    </section>
+
+    <section class="rcp-controls" aria-label="レシピの絞り込み">
+      <div class="rcp-controls-inner">
+        <div class="rcp-search-row">
+          <input type="search" class="rcp-search" id="rcp-search" placeholder="やりたいこと・グラフ名で検索..." aria-label="レシピを検索" />
+          <span class="rcp-count" id="rcp-count">{recipes.length} 件</span>
+        </div>
+        <div class="rcp-filters" role="group" aria-label="種別で絞り込み">
+          <span class="rcp-filter-label">種別</span>
+          <button type="button" class="rcp-chip group is-active" data-group="all">すべて</button>
+          {groupOrder.map((g) => (
+            <button type="button" class="rcp-chip group" data-group={g}>{groupLabels[g]}</button>
+          ))}
+        </div>
+        <div class="rcp-filters" role="group" aria-label="目的で絞り込み">
+          <span class="rcp-filter-label">目的</span>
+          <button type="button" class="rcp-chip tag is-active" data-tag="all">すべて</button>
+          {recipeTags.map((t) => (
+            <button type="button" class="rcp-chip tag" data-tag={t}>{t}</button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <div class="rcp-content">
+      {grouped.map((g) => (
+        <section class="rcp-group" data-group={g.group}>
+          <h2 class="rcp-group-title">{g.label}</h2>
+          <div class="rcp-list">
+            {g.items.map((r) => (
+              <details
+                class="rcp-item"
+                data-group={r.group}
+                data-tags={r.tags.join(' ')}
+                data-search={`${r.title} ${r.goal} ${widgetTypeLabels[r.widgetType]} ${r.tags.join(' ')}`.toLowerCase()}
+              >
+                <summary class="rcp-summary">
+                  <span class="rcp-type">{widgetTypeLabels[r.widgetType]}</span>
+                  <h3 class="rcp-title">{r.title}</h3>
+                  <span class="rcp-toggle"><span class="rcp-toggle-open">設定を見る ＋</span><span class="rcp-toggle-close">閉じる −</span></span>
+                </summary>
+                <div class="rcp-body">
+                  <div class="rcp-detail">
+                    <p class="rcp-goal">{r.goal}</p>
+                    <span class="rcp-steps-label">設定手順</span>
+                    <ol class="rcp-steps">
+                      {r.steps.map((s) => <li>{s}</li>)}
+                    </ol>
+                    <div class="rcp-tags">
+                      {r.tags.map((t) => <span class="rcp-tagchip">{t}</span>)}
+                    </div>
+                  </div>
+                  <figure class="rcp-shot">
+                    <span class="rcp-image-label">完成イメージ</span>
+                    <picture>
+                      <source srcset={`/images/dashboard/recipes/${r.id}.webp`} type="image/webp" />
+                      <img src={`/images/dashboard/recipes/${r.id}.png`} alt={`${r.title}（${widgetTypeLabels[r.widgetType]}）の完成イメージ`} loading="lazy" width="760" height="420" />
+                    </picture>
+                  </figure>
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <p class="rcp-empty" id="rcp-empty">該当するレシピが見つかりませんでした。検索や絞り込みを変えてみてください。</p>
+    </div>
+
+    <div class="rcp-cta">
+      <p>
+        <a href="/plugins/">kintoneプラグイン一覧 →</a>
+        <a href="/blog/">ブログ一覧 →</a>
+      </p>
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var search = document.getElementById('rcp-search');
+      var count = document.getElementById('rcp-count');
+      var empty = document.getElementById('rcp-empty');
+      var groupBtns = document.querySelectorAll('.rcp-chip.group');
+      var tagBtns = document.querySelectorAll('.rcp-chip.tag');
+      var items = document.querySelectorAll('.rcp-item');
+      var groups = document.querySelectorAll('.rcp-group');
+      var total = items.length;
+      var activeGroup = 'all';
+      var activeTag = 'all';
+      var query = '';
+
+      function apply() {
+        var visible = 0;
+        items.forEach(function (el) {
+          var g = el.getAttribute('data-group') || '';
+          var tags = (el.getAttribute('data-tags') || '').split(' ');
+          var hay = el.getAttribute('data-search') || '';
+          var okG = activeGroup === 'all' || g === activeGroup;
+          var okT = activeTag === 'all' || tags.indexOf(activeTag) !== -1;
+          var okQ = query === '' || hay.indexOf(query) !== -1;
+          var show = okG && okT && okQ;
+          el.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        groups.forEach(function (gr) {
+          var has = gr.querySelector('.rcp-item:not([style*="display: none"])');
+          gr.style.display = has ? '' : 'none';
+        });
+        if (count) count.textContent = visible + ' / ' + total + ' 件';
+        if (empty) { if (visible === 0) empty.classList.add('is-visible'); else empty.classList.remove('is-visible'); }
+      }
+
+      if (search) search.addEventListener('input', function () { query = search.value.trim().toLowerCase(); apply(); });
+      groupBtns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          groupBtns.forEach(function (x) { x.classList.remove('is-active'); });
+          b.classList.add('is-active');
+          activeGroup = b.getAttribute('data-group') || 'all';
+          apply();
+        });
+      });
+      tagBtns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          tagBtns.forEach(function (x) { x.classList.remove('is-active'); });
+          b.classList.add('is-active');
+          activeTag = b.getAttribute('data-tag') || 'all';
+          apply();
+        });
+      });
+    })();
+  </script>
+</Layout>

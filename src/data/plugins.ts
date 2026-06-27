@@ -638,6 +638,28 @@ export const premiumPlugins: Plugin[] = [
     problemDesc: '請求書・見積書を作り直さず、1 件ずつ・一覧から複数まとめて印刷／PDF 保存したい',
     releaseDate: '2026-06-20',
   },
+  {
+    id: 'kw-dashboard',
+    name: 'ダッシュボード for kintone',
+    formName: 'ダッシュボード for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'dashboard',
+    category: '一覧',
+    description:
+      'グラフ・数値カード・クロス集計表を1枚に集約し、一覧のカスタマイズビューに常設の集計ダッシュボードを描画。期間セレクタで全ウィジェットを連動再集計し、アプリ横断集計・ポータル常設・集計キャッシュに対応します。kintone 完結で外部送信しません。',
+    image: '/images/dashboard-banner.png',
+    imageAlt:
+      'ダッシュボード for kintone プラグイン — レコード一覧のカスタマイズビューにグラフ・数値カード・クロス集計表を1枚に集約した集計ダッシュボード',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      'グラフ・数値カード・クロス集計を1枚に集約。期間連動再集計・アプリ横断・ポータル常設・集計キャッシュに対応。kintone 完結。',
+    problemTitle: '見たい数字が複数画面に散らばっている',
+    problemDesc: '標準グラフは1グラフ1画面。複数指標・複数アプリの数字を1枚で一望し、ポータルに常設したい',
+    releaseDate: '2026-06-27',
+  },
 ];
 
 /**
