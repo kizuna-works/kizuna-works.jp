@@ -1,0 +1,615 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="ユーザーオートフィル for kintone - 組織・役職の自動転記／プロフィールカード／承認捺印 | KIZUNA Works"
+  description="kintone のユーザー選択フィールドで選んだ人（新規作成時は自分）の組織・グループ・役職・メール・社員番号を対応フィールドへ自動転記するプラグイン。組織・グループは選択値でセット。プロフィールカードや承認欄の捺印表示もでき、外部サーバー不要で kintone 完結。"
+  ogTitle="ユーザーオートフィル for kintone - 組織・役職の自動転記／プロフィールカード／承認捺印 | KIZUNA Works"
+  ogDescription="kintone のユーザー選択で選んだ人の組織・役職・社員番号などを自動転記（組織/グループは選択値）。プロフィールカードや承認欄の捺印表示も。外部サーバー不要・kintone完結。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/user-autofill/"
+  ogImage="https://kizuna-works.jp/images/user-autofill-banner.png"
+  canonical="https://kizuna-works.jp/plugins/user-autofill/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/user-autofill/",
+          "url": "https://kizuna-works.jp/plugins/user-autofill/",
+          "name": "ユーザーオートフィル for kintone - 組織・役職の自動転記／プロフィールカード／承認捺印 | KIZUNA Works",
+          "description": "kintone のユーザー選択フィールドで選んだ人（新規作成時は自分）の組織・グループ・役職・メール・社員番号を対応フィールドへ自動転記するプラグイン。組織・グループは選択値でセット。プロフィールカードや承認欄の捺印表示もでき、外部サーバー不要で kintone 完結。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/user-autofill-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "ユーザーオートフィル for kintone", "item": "https://kizuna-works.jp/plugins/user-autofill/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "ユーザーオートフィル for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-06-29",
+          "url": "https://kizuna-works.jp/plugins/user-autofill/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-user-autofill-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/user-autofill-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone のユーザー選択フィールドで選ばれた人（新規作成時はログインユーザー自身）の組織・グループ・役職・メール・電話・社員番号・カスタマイズ項目を、対応するフィールドへ自動転記する kintone プラグイン。優先する組織は組織選択フィールド、所属グループはグループ選択フィールドへ選択値としてセットします。さらにユーザー情報をフォーム上のスペースに、プロフィールカード、または申請者・承認者などの承認欄（姓の捺印）として表示できます。取得は kintone の JavaScript API を優先して行い、外部サーバー・APIキー不要で kintone 内で完結します。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "ユーザー選択フィールドで選んだ人の属性を各フィールドへ自動転記",
+            "新規作成時にログインユーザー（自分）を自動セットして転記",
+            "優先する組織・所属グループを組織選択／グループ選択フィールドへ選択値でセット",
+            "役職・メール・電話・社員番号・ふりがな・生年月日・入社日・カスタム項目に対応",
+            "上書きポリシー（空のときのみ／常に上書き）をマッピングごとに選択",
+            "ユーザー情報をスペースにプロフィールカードとして表示（複数フィールド対応）",
+            "承認欄の捺印モード（申請者・承認者などのフィールド名＋姓の朱印・決裁欄）",
+            "プロフィールカードの配色プリセット／カスタム・フォント・画像形状",
+            "転記とユーザー情報表示はそれぞれ独立して利用可能",
+            "外部サーバー・APIキー不要・kintone完結"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible { opacity: 1; transform: translateY(0); }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+    .hero-icon {
+      width: 200px; height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .hero-title { font-size: 40px; font-weight: 900; line-height: 1.2; margin-bottom: 24px; }
+    .hero-copy { font-size: 17px; max-width: 720px; margin: 0 auto 40px; line-height: 1.8; opacity: 0.92; }
+
+    .section-wrapper { padding: 80px 5%; max-width: 1100px; margin: 0 auto; }
+    .section-bg { background-color: var(--color-bg); }
+    .section-title { text-align: center; color: var(--color-navy); font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+    .section-title-left {
+      color: var(--color-navy); font-size: 24px; font-weight: 700; margin-bottom: 32px;
+      padding-left: 16px; border-left: 5px solid var(--color-green);
+    }
+    .section-subtitle { text-align: center; color: var(--color-text-light); font-size: 15px; margin-bottom: 48px; }
+
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .problem-card {
+      background-color: var(--color-white); border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 32px 24px; text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .problem-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .problem-icon { font-size: 44px; display: block; margin-bottom: 16px; }
+    .problem-title { font-size: 17px; color: var(--color-navy); font-weight: 700; margin-bottom: 12px; }
+    .problem-desc { font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+
+    .feature-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+    .feature-list li {
+      background-color: var(--color-white); border-radius: 10px; padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06); font-size: 15px; color: var(--color-text);
+      line-height: 1.7; display: flex; gap: 12px; align-items: flex-start;
+    }
+    .feature-list li::before { content: '✅'; flex-shrink: 0; font-size: 18px; margin-top: 1px; }
+    .feature-list li strong { color: var(--color-navy); }
+
+    .steps-list {
+      list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0;
+      counter-reset: step-counter; max-width: 700px; margin: 0 auto;
+    }
+    .steps-list li {
+      counter-increment: step-counter; display: flex; gap: 20px; align-items: flex-start;
+      padding: 24px 0; border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px; color: var(--color-text); line-height: 1.7;
+    }
+    .steps-list li:last-child { border-bottom: none; }
+    .steps-list li::before {
+      content: counter(step-counter); flex-shrink: 0; width: 36px; height: 36px;
+      background-color: var(--color-navy); color: var(--color-white); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px;
+    }
+
+    .notes-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
+    .notes-list li { padding-left: 20px; position: relative; font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+    .notes-list li::before { content: '※'; position: absolute; left: 0; color: #94a3b8; }
+
+    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; max-width: 900px; margin: 0 auto; }
+    .pricing-card {
+      background-color: var(--color-white); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px; position: relative; display: flex; flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .pricing-card.recommended { border: 2px solid var(--color-green); }
+    .recommended-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background-color: var(--color-green); color: var(--color-white);
+      padding: 4px 16px; border-radius: 20px; font-size: 14px; font-weight: 700;
+    }
+    .plan-name { font-size: 20px; color: var(--color-navy); font-weight: 700; text-align: center; margin-bottom: 24px; }
+    .plan-price { text-align: center; margin-bottom: 24px; }
+    .plan-price .amount { font-size: 40px; font-weight: 900; color: var(--color-navy); }
+    .plan-price .unit { font-size: 14px; color: var(--color-text-light); }
+    .plan-discount { text-align: center; color: var(--color-green); font-weight: 700; font-size: 14px; margin-bottom: 24px; }
+    .plan-features { list-style: none; padding: 0; margin-bottom: 32px; flex-grow: 1; }
+    .plan-features li { margin-bottom: 12px; font-size: 15px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; }
+    .pricing-card .btn-primary { display: block; text-align: center; }
+
+    .bottom-cta { background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%); color: var(--color-white); text-align: center; padding: 60px 5%; }
+    .bottom-cta-title { font-size: 28px; font-weight: 700; margin-bottom: 16px; }
+    .bottom-cta-desc { font-size: 16px; margin-bottom: 32px; opacity: 0.9; }
+
+    .btn-primary {
+      display: inline-block; background-color: var(--color-green); color: var(--color-white);
+      padding: 16px 40px; border-radius: 30px; font-size: 18px; font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s; text-decoration: none;
+    }
+    .btn-primary:hover { background-color: #36a336; transform: translateY(-2px); }
+
+    .related-posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .related-post-card {
+      background-color: var(--color-white); border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s;
+      display: flex; flex-direction: column; text-decoration: none; color: inherit;
+    }
+    .related-post-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.15); }
+    .related-post-thumb { width: 100%; aspect-ratio: 1200 / 630; overflow: hidden; background-color: #f8fafc; }
+    .related-post-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .related-post-content { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+    .related-post-title { color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.5; }
+    .related-post-desc { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0 0 12px; flex-grow: 1; }
+    .related-post-link { color: var(--color-green); font-size: 13px; font-weight: 700; }
+
+    .screenshot-frame {
+      width: -moz-fit-content; width: fit-content; max-width: min(100%, 640px); margin: 0 auto;
+      border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light); background: #ffffff;
+    }
+    .screenshot-frame img { width: auto; max-width: 100%; height: auto; display: block; }
+    .screenshot-pair { display: grid; grid-template-columns: 1fr; gap: 28px; max-width: 980px; margin: 0 auto; }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption { text-align: center; color: var(--color-text-light); font-size: 13px; margin-top: 10px; }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    .config-screenshots { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
+    .config-shot {
+      background: #ffffff; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.15); }
+    .config-shot img { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--color-gray-light); }
+    .config-shot-caption { padding: 16px 20px; }
+    .config-shot-caption strong { display: block; color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .config-shot-caption p { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0; }
+
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none;
+      align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close {
+      position: absolute; top: 14px; right: 22px; width: 44px; height: 44px;
+      background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px;
+      line-height: 1; border-radius: 50%; cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint { text-align: center; color: var(--color-text-light); font-size: 12px; margin-top: 10px; }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2,
+      .screenshot-pair.cols-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/user-autofill-icon.png"
+        alt="ユーザーオートフィル for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">ユーザーオートフィル for kintone</h1>
+      <p class="hero-copy">ユーザーオートフィル for kintone は、ユーザー選択フィールドで選んだ人（新規作成時は<strong>自分</strong>）の<strong>組織・グループ・役職・メール・社員番号</strong>などを、対応するフィールドへ<strong>自動転記</strong>する kintone プラグインです。組織・グループは<strong>組織選択／グループ選択フィールドへ選択値</strong>としてセットするので、集計・絞り込みにそのまま使えます。さらにユーザー情報を、フォーム上のスペースに<strong>プロフィールカード</strong>や<strong>承認欄の捺印</strong>として表示できます。外部サーバー・APIキー不要で kintone 内で完結します。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">担当者を選ぶたびに部署・連絡先を手で調べて入力したり、組織を文字列で持って表記がばらついたり、承認欄を手書きで運用していませんか。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">⌨️</span>
+            <h3 class="problem-title">部署・連絡先を毎回手入力</h3>
+            <p class="problem-desc">日報・申請書で「報告者＝自分」「所属＝自分の部署」を毎回調べて入力。担当者を選ぶたびにメール・社員番号も探している。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🗂️</span>
+            <h3 class="problem-title">組織が文字列で集計できない</h3>
+            <p class="problem-desc">部署を文字列で入力すると表記ゆれが起き、組織選択フィールドのように集計・絞り込みに使えない。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🖋️</span>
+            <h3 class="problem-title">承認欄を手書き・誰の所属か不明</h3>
+            <p class="problem-desc">申請書の承認欄を手書きやハンコで運用。一覧や詳細では担当者・承認者の所属や顔がひと目で分からない。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Showcase: transcription -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">選ぶだけで、部署・役職・社員番号が自動で埋まる</h2>
+      <p class="section-subtitle">ユーザー選択フィールドで人を選ぶ（新規作成時は自分が自動セット）と、その人の登録情報が対応フィールドへ自動転記されます。組織は組織選択フィールドへ選択値でセット。画像はクリックで拡大できます。</p>
+      <figure>
+        <div class="screenshot-frame">
+          <img class="zoomable" src="/images/user-autofill-org-transcription.png" alt="ユーザーオートフィル — 申請者に鈴木 花子を選ぶと、申請部署＝営業二課・役職＝係長・社員番号＝999888 が自動で入力された購買申請レコード" loading="lazy" />
+        </div>
+        <p class="zoom-hint">申請者を選ぶと、申請部署（組織選択）・役職・社員番号が自動入力されます</p>
+      </figure>
+    </section>
+
+    <!-- Showcase: card + stamp -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">ユーザー情報をスペースに表示（カード／捺印）</h2>
+        <p class="section-subtitle">選ばれた人の情報を、フォーム上のスペースにプロフィールカードや承認欄の捺印として表示できます。転記とは独立してON/OFFできます。</p>
+        <div class="screenshot-pair cols-2">
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/user-autofill-profile-card.png" alt="ユーザーオートフィル プロフィールカード — 申請者のプロフィール画像＋氏名・所属（営業部 営業二課）・役職・社員番号をカード表示" loading="lazy" />
+            </div>
+            <figcaption>プロフィールカード：画像＋氏名・所属（親階層）・役職・社員番号</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/user-autofill-stamp.png" alt="ユーザーオートフィル 捺印モード — 申請者・承認者・最終承認者の決裁欄に、鈴木・絆・佐藤の姓を朱色の縦書き印で表示" loading="lazy" />
+            </div>
+            <figcaption>捺印モード：申請者・承認者などの承認欄に姓の朱印（決裁欄）</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">主な機能</h2>
+      <ul class="feature-list">
+        <li><span><strong>属性の自動転記</strong> — ユーザー選択フィールドで選んだ人の組織・役職・メール・電話・社員番号・ふりがな・生年月日・入社日・カスタマイズ項目を、対応フィールドへ自動でセットします。</span></li>
+        <li><span><strong>組織・グループは選択値でセット</strong> — 優先する組織は「組織選択」、所属グループは「グループ選択」フィールドへ選択値として入れるので、文字列のような表記ゆれがなく集計・絞り込みに使えます（除外グループ指定可）。</span></li>
+        <li><span><strong>新規作成時に自分を自動セット</strong> — 新規作成画面で起点フィールドが空なら、ログインユーザー（自分）を自動セットして転記。日報・申請書の入力がぐっと楽になります。</span></li>
+        <li><span><strong>上書きポリシー</strong> — マッピングごとに「空のときのみ（既存入力を尊重）」「常に上書き（最新値で塗り替え）」を選べます。値が取れない項目は既存値を消しません。</span></li>
+        <li><span><strong>プロフィールカード表示</strong> — ユーザー選択フィールドごとに（担当者→スペース1、確認者→スペース2…）画像＋氏名・所属（営業部 営業一課のような親階層）・役職・社員番号などのカードを表示。配色プリセット／カスタム・フォント・画像の形状も設定できます。</span></li>
+        <li><span><strong>捺印（承認欄）モード</strong> — 1つのスペースに、申請者・一次承認者・最終承認者・回覧者などのフィールド名を横並びの見出しにし、その下に各ユーザーの姓を朱色の印として表示。罫線の決裁欄で、漢字の姓は縦書きになります。</span></li>
+        <li><span><strong>ライブプレビュー</strong> — 設定画面で、カード／捺印の見た目（配色・形状・項目）をその場で確認しながら設定できます。</span></li>
+        <li><span><strong>転記と表示は独立</strong> — 設定は「転記設定」「ユーザー情報表示」の2タブに分かれ、どちらか一方だけでも、両方でも利用できます。</span></li>
+        <li><span><strong>kintone 完結・外部送信なし</strong> — 取得は kintone の JavaScript API を優先し、業務データを外部へ送信しません。APIキー・外部サーバー不要です。</span></li>
+      </ul>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定はかんたん</h2>
+        <p class="section-subtitle">「転記設定」と「ユーザー情報表示」の2タブで、フォームから設定するだけ。プログラミング知識は不要です。各画像はクリックで拡大できます。</p>
+
+        <div class="config-screenshots">
+          <div class="config-shot">
+            <img class="zoomable" src="/images/user-autofill-config-01.png" alt="ユーザーオートフィル 設定画面 — 転記設定／ユーザー情報表示の2タブと、起点ユーザー選択フィールドを選ぶ① 基本設定" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>① 基本設定（転記設定タブ）</strong>
+              <p>転記の起点となるユーザー選択フィールドを選び、新規作成時の自分自動セットなどを設定します。</p>
+            </div>
+          </div>
+          <div class="config-shot">
+            <img class="zoomable" src="/images/user-autofill-config-02.png" alt="ユーザーオートフィル 設定画面 — 属性とセット先フィールド・上書きルールを行ごとに設定する② 転記マッピング表" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>② 転記マッピング</strong>
+              <p>どの属性をどのフィールドへ、どんな上書きルールで入れるかを行ごとに設定。属性に応じてセット先の型が絞られます。</p>
+            </div>
+          </div>
+          <div class="config-shot">
+            <img class="zoomable" src="/images/user-autofill-config-04.png" alt="ユーザーオートフィル 設定画面 — プロフィールカードモードの表示項目とライブプレビュー" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>③ プロフィールカード設定</strong>
+              <p>表示するカード（フィールド→スペース）・表示項目・配色・フォント・形状を設定。ライブプレビューで確認できます。</p>
+            </div>
+          </div>
+          <div class="config-shot">
+            <img class="zoomable" src="/images/user-autofill-config-03.png" alt="ユーザーオートフィル 設定画面 — 捺印モードの表示先スペースと捺印する欄（申請者・承認者・最終承認者）の設定" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>④ 捺印モード設定</strong>
+              <p>表示モードを「捺印」にし、表示先スペースと承認フローの欄（申請者・承認者など）を並べます。印の形状・色も選べます。</p>
+            </div>
+          </div>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">レコード詳細・編集・新規作成（PC 版）でご利用いただけます。</p>
+      <ol class="steps-list">
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-user-autofill-v1.0.0.zip</code> をダウンロード</span></li>
+        <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+        <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「ユーザーオートフィル for kintone」を追加</span></li>
+        <li><span>プラグイン設定画面で、<strong>「転記設定」</strong>（起点ユーザー選択フィールド・転記マッピング）や<strong>「ユーザー情報表示」</strong>（カード／捺印）を設定して「保存」</span></li>
+        <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると、レコード画面に反映されます</span></li>
+      </ol>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 設定画面・一覧画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-user-autofill-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-user-autofill" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。レコード詳細・編集・新規作成（PC 版）で動作し、モバイル版では動作しません。</li>
+        <li>転記・表示される情報は cybozu.com 共通管理に登録されたユーザー情報が元です。役職・組織・メール・社員番号などが空欄の場合は、共通管理側で未登録の可能性があります。</li>
+        <li>カスタマイズ項目は、共通管理で項目を追加後に各ユーザーの情報を保存し直すと取得できるようになります。</li>
+        <li>ゲストユーザーは組織・グループ取得 API の制限により対象外です。サブテーブル内のユーザー選択（行ごとの転記）は v1.0.0 時点では非対応です。</li>
+        <li>ユーザー選択フィールドに複数人を指定した場合は、先頭の 1 名が対象になります。</li>
+        <li>プロフィールカード・捺印の表示先は<strong>スペースフィールド</strong>です。フォーム編集で事前に配置し、要素IDを設定してください。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-user-autofill" />
+    <PluginFaqSection pluginId="kw-user-autofill" pageUrl="https://kizuna-works.jp/plugins/user-autofill/" />
+    <SupporterCTA pluginId="kw-user-autofill" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">関連プラグイン</h2>
+        <p class="section-subtitle">入力の手間を減らす kintone プラグイン</p>
+        <div class="related-posts-grid">
+          <a href="/plugins/address-assist/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/address-assist-banner.png" alt="住所アシスト for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">住所アシスト for kintone</h3>
+              <p class="related-post-desc">郵便番号を入れるだけで住所を自動入力。ユーザーオートフィルと同じく、入力の手間を減らす自動入力プラグインです。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+          <a href="/plugins/input-assist/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/input-assist-banner.png" alt="入力アシスト for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">入力アシスト for kintone</h3>
+              <p class="related-post-desc">入力順ガイド・未入力チェック・重複チェックで入力ミスを防止。ユーザーオートフィルと合わせて入力業務を効率化できます。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+          <a href="/plugins/mail-assist/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/mail-assist-banner.png" alt="メールアシスト for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">メールアシスト for kintone</h3>
+              <p class="related-post-desc">レコード値を差し込んでワンクリックでメーラーを起動。ユーザー選択フィールドを宛先に使えるなど、ユーザー情報の活用が得意なプラグインです。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ua-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const lightbox = document.getElementById('ua-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-user-autofill-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-user-autofill-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

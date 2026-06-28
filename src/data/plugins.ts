@@ -608,6 +608,28 @@ export const plugins: Plugin[] = [
     problemDesc: '詳細を開くたびコメント欄が場所を取り、一覧ではどれにコメントが付いているか・自分宛があるか分からず毎回開いて確認している',
     releaseDate: '2026-06-27',
   },
+  {
+    id: 'kw-user-autofill',
+    name: 'ユーザーオートフィル for kintone',
+    formName: 'ユーザーオートフィル for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'user-autofill',
+    category: '入力支援',
+    description:
+      'ユーザー選択フィールドで選んだ人（新規作成時は自分）の組織・グループ・役職・メール・社員番号などを対応フィールドへ自動転記するプラグイン。組織・グループは組織選択／グループ選択フィールドへ選択値でセット。さらにユーザー情報をスペースにプロフィールカード／承認欄の捺印として表示でき、すべて kintone 内で完結します。',
+    image: '/images/user-autofill-banner.png',
+    imageAlt:
+      'ユーザーオートフィル for kintone プラグイン — ユーザー選択で選んだ人の組織・役職・社員番号などを自動転記し、プロフィールカードや承認欄の捺印として表示',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      'ユーザー選択で選んだ人の組織・役職・社員番号などを自動転記（組織/グループは選択値セット）。プロフィールカードや承認欄の捺印表示も。kintone完結。',
+    problemTitle: '担当者の部署・連絡先を毎回手入力・承認欄を手書きしている',
+    problemDesc: '日報や申請で報告者＝自分の部署・役職・連絡先を毎回調べて入力し、組織は文字列でばらつき、承認欄は手書きやハンコで運用している',
+    releaseDate: '2026-06-29',
+  },
 ];
 
 /**
