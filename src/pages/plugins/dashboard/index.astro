@@ -52,10 +52,10 @@ const teaser = teaserIds
           "name": "ダッシュボード for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.1",
+          "softwareVersion": "1.1.0",
           "dateModified": "2026-06-29",
           "url": "https://kizuna-works.jp/plugins/dashboard/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-dashboard-v1.0.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-dashboard-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/dashboard-banner.png",
           "offers": [
             {
@@ -237,8 +237,45 @@ const teaser = teaserIds
     .dbp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
     .dbp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
 
+    /* Update box (version highlight) */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 24px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    .update-shot { max-width: 720px; margin: 0 auto; }
+    .update-shot img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; }
+    .update-shot .zoom-hint { text-align: center; color: var(--color-text-muted); font-size: 12px; margin: 10px 0 0; }
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+      display: none; align-items: center; justify-content: center;
+      z-index: 1000; padding: 24px; cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close {
+      position: absolute; top: 14px; right: 22px; width: 44px; height: 44px;
+      background: rgba(255,255,255,0.12); border: none; color: #fff;
+      font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
     @media (max-width: 768px) {
       .dbp-hero h1 { font-size: 1.6rem; }
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
       .dbp-feature, .dbp-feature.reverse { grid-template-columns: 1fr; }
       .dbp-feature.reverse .dbp-feature-text { order: 0; }
       .dbp-plan-grid { grid-template-columns: 1fr; }
@@ -253,13 +290,41 @@ const teaser = teaserIds
       <img class="dbp-hero-icon" src="/images/dashboard-icon.png" alt="ダッシュボード for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="dbp-hero-badges">
         <span class="dbp-badge-premium">👑 PREMIUM PLUGIN</span>
-        <span class="dbp-hero-version">v1.0.1</span>
+        <span class="dbp-hero-version">v1.1.0</span>
       </div>
       <h1>ダッシュボード for kintone</h1>
       <p class="dbp-tagline">見たい数字を、1枚に。</p>
       <p class="dbp-sub">グラフ・数値カード・クロス集計表を1つのボードに集約。レコード一覧のカスタマイズビューに、業務の数字を一望できる集計ダッシュボードを常設します。</p>
     </section>
     <div class="dbp-hero-gradient-line"></div>
+
+    <!-- Update Info (v1.1.0) -->
+    <section class="dbp-section">
+      <div class="dbp-wrap">
+        <div class="update-box">
+          <div class="update-head">
+            <span class="update-tag">UPDATE</span>
+            <h2 class="update-title">v1.1.0：ポータルの設定に「ライブビュー構成」を実装しました（別々のボードのグラフを横並び配置）</h2>
+          </div>
+          <p class="update-desc">ポータル埋め込み（STEP4）を<strong>「ポータルレイアウト構成」</strong>に刷新しました。<strong>別々のボードのグラフ・数値カードをパネルとして追加</strong>し、12 列グリッド上で<strong>ドラッグで移動・サイズ変更</strong>しながら<strong>横並びに自由配置</strong>できます。構成エリアは<strong>実データのグラフをライブ描画</strong>するので、ポータルに出す前に仕上がりをそのまま確認できます。iframe の高さは<strong>パネル配置から自動算出</strong>（手動指定も可）。生成された JavaScript を <strong>cybozu.com 共通管理の「JavaScript / CSS でカスタマイズ」に登録するだけ</strong>で、全社ポータルやスペースのトップに複数ボードのダッシュボードを常時表示できます（<strong>お知らせの編集は不要</strong>）。</p>
+          <div class="update-shot">
+            <picture>
+              <source srcset="/images/dashboard-portal-layout.webp" type="image/webp" />
+              <img
+                class="zoomable"
+                src="/images/dashboard-portal-layout.png"
+                alt="ダッシュボード for kintone v1.1.0 のポータルレイアウト構成画面 — STEP4「ポータルに埋め込む」で、成績ダッシュボードの「営業所別 受注金額」グラフと「地域別 受注金額」グラフを2枚のパネルとして横並びに配置し、実データの棒グラフをライブ描画している。上部に埋め込み先（ポータル全社トップ）・パネル追加・高さ自動の設定が並ぶ"
+                loading="lazy"
+                width="1100"
+                height="634"
+              />
+            </picture>
+            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+          </div>
+          <p class="update-note">別々のボードは同じアプリの別ビューとして扱われ、各パネルは該当ボードのグラフ／カードを単体で表示します。横並びにするには、同じ行に合計 12 列以内でパネルを並べてください（例：6 列＋6 列）。<br>既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+        </div>
+      </div>
+    </section>
 
     <!-- 定義（結論ファースト） -->
     <section class="dbp-section">
@@ -327,7 +392,7 @@ const teaser = teaserIds
           <div class="dbp-feat-card">
             <span class="dbp-tag-premium">プレミアム</span>
             <h3>ポータルに常時表示</h3>
-            <p>作ったダッシュボードを、スペースのトップや全社ポータルに常時表示する JavaScript を自動生成。登録するだけ（お知らせ編集は不要）で、全社員が毎朝同じダッシュボードを見られます。</p>
+            <p>別々のボードのグラフをパネルとして横並びに配置し、スペースのトップや全社ポータルに常時表示する JavaScript を自動生成。構成はライブビューでドラッグ調整でき、登録するだけ（お知らせ編集は不要）で全社員が毎朝同じダッシュボードを見られます。</p>
           </div>
           <div class="dbp-feat-card">
             <span class="dbp-tag-premium">プレミアム</span>
@@ -390,7 +455,7 @@ const teaser = teaserIds
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-dashboard-v1.0.1.zip" download class="dbp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-dashboard-v1.1.0.zip" download class="dbp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="dbp-plan-card recommended">
@@ -473,18 +538,46 @@ const teaser = teaserIds
       <p>ダッシュボードをはじめ、販売中の全プラグインをご利用いただけます。年額 ¥16,500（税込）。30 日間の無料お試しもあります。</p>
       <a class="dbp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを申し込む →</a>
     </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="db-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
   </main>
 
   <script is:inline>
     (function () {
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      var lightbox = document.getElementById('db-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
       var dl = document.getElementById('btn-download');
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-dashboard-v1.0.1.zip',
+            file_name: 'kw-dashboard-v1.1.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-dashboard-v1.0.1.zip'
+            link_url: '/downloads/kw-dashboard-v1.1.0.zip'
           });
         });
       }
