@@ -199,6 +199,8 @@ c:\kizuna-works.jp\
 │   │   ├── quick-search-config-01.png      # クイックサーチプラグイン 設定画面スクショ① — 検索対象フィールドのチップ式選択
 │   │   ├── quick-search-config-02.png      # クイックサーチプラグイン 設定画面スクショ② — 表示ビュー・プレースホルダー設定
 │   │   ├── quick-search-config-03.png      # クイックサーチプラグイン 設定画面スクショ③ — ボタンカラー設定 + プレビュー
+│   │   ├── quick-search-period-filter.png  # クイックサーチ v1.2.0 スクショ — 一覧の「期間▾」ドロップダウン（対象フィールド選択＋プリセット＋範囲指定・製品ページUPDATEボックス用）
+│   │   ├── quick-search-period-config.png  # クイックサーチ v1.2.0 スクショ — 設定画面の期間フィルタ設定（製品ページUPDATEボックス用）
 │   │   ├── file-icon-marker-icon.png       # 添付ファイルアイコン表示プラグイン アイコン（200×200）
 │   │   ├── file-icon-marker-banner.png     # 添付ファイルアイコン表示プラグイン バナー（1200×675・OGP/グリッド共用）
 │   │   ├── file-icon-marker-before.png     # 添付ファイルアイコン表示プラグイン 導入前スクショ — 標準一覧画面では添付有無不可視
@@ -359,6 +361,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-suggest-v2.0.0.zip                # ルックアップサジェスト for kintone 配布ファイル（最新・手動配置・v2.0.0 でサブテーブル内ルックアップ対応）
 │   │   ├── kw-quick-side-view-v1.0.2.zip               # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-quick-search-v1.1.2.zip                  # クイックサーチ for kintone 配布ファイル（手動配置・v1.1.2 でゲストスペース対応）
+│   │   ├── kw-quick-search-v1.2.0.zip                  # クイックサーチ for kintone 配布ファイル（手動配置・v1.2.0＝期間フィルタ追加）
 │   │   ├── kw-file-icon-marker-v1.0.2.zip              # 添付ファイルアイコン表示 for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-record-lock-v1.0.2.zip                   # レコードロック for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-field-comment-v1.0.2.zip                 # フィールドコメント for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
