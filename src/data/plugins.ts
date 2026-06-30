@@ -93,7 +93,7 @@ export const plugins: Plugin[] = [
     imageAlt:
       '条件分岐自動採番プラグイン — フィールドの条件に応じて採番ルールを自動切替',
     imageWidth: 1200,
-    imageHeight: 675,
+    imageHeight: 630,
     status: 'available',
     price: 0,
     cardDescription:
