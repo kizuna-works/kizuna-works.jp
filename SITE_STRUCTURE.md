@@ -357,7 +357,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-styler-v2.1.2.zip                  # フィールドスタイラー for kintone 配布ファイル（旧版・手動配置）
 │   │   ├── kw-field-styler-v2.3.0.zip                  # フィールドスタイラー for kintone 配布ファイル（最新・手動配置・v2.3.0 で条件付きスタイルの色を任意指定可）
 │   │   ├── kw-field-styler-v2.2.0.zip                  # フィールドスタイラー for kintone 配布ファイル（v2.2.0 でサブテーブル対応）
-│   │   ├── kw-conditional-numbering-v1.1.2.zip         # 条件分岐自動採番 for kintone 配布ファイル（手動配置）
+│   │   ├── kw-conditional-numbering-v2.0.0.zip         # 条件分岐自動採番 for kintone 配布ファイル（最新・手動配置・v2.0.0 複数フィールド採番）
+│   │   ├── kw-conditional-numbering-v1.1.2.zip         # 条件分岐自動採番 for kintone 配布ファイル（旧版）
 │   │   ├── kw-form-deco-v1.0.2.zip                     # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-lookup-suggest-v1.0.2.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置）
 │   │   ├── kw-lookup-suggest-v2.0.0.zip                # ルックアップサジェスト for kintone 配布ファイル（最新・手動配置・v2.0.0 でサブテーブル内ルックアップ対応）

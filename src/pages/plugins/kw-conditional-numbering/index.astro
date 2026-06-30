@@ -45,9 +45,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "条件分岐自動採番 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "dateModified": "2026-06-19",
+          "dateModified": "2026-07-01",
+          "softwareVersion": "2.0.0",
+          "releaseNotes": "v2.0.0（2026-07-01）: 複数フィールド採番に対応。1つのアプリで最大3つの文字列フィールドに、フィールドごとに異なる採番ルール（区切り・フォーマット・条件分岐・連番リセット）を設定できるようになりました。例えば案件番号は部署ごとに接頭辞と連番を分け、請求番号は条件なしの全社通し番号、といった使い分けを同じレコードの保存時に同時採番できます。設定画面はフィールド別のアコーディオン。既存の単一フィールド設定は自動移行されます。",
           "url": "https://kizuna-works.jp/plugins/kw-conditional-numbering/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-numbering-v1.1.2.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-numbering-v2.0.0.zip",
           "offers": {
             "@type": "Offer",
             "name": "基本プラン（無料）",
@@ -63,6 +65,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "url": "https://kizuna-works.jp"
           },
           "featureList": [
+            "複数フィールド採番（1アプリ最大3フィールド・フィールドごとに採番ルール）",
             "18種類のフォーマット対応",
             "条件分岐採番",
             "条件ごとの連番独立管理",
@@ -707,6 +710,33 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         gap: 32px;
       }
     }
+
+    /* Update box (v2.0.0) */
+    .update-section { max-width: 980px; margin: 32px auto 0; padding: 0 20px; }
+    .update-box {
+      background: #f6fff6;
+      border: 1px solid #bfe6bf;
+      border-left: 5px solid var(--color-green);
+      border-radius: 10px;
+      padding: 24px 26px;
+    }
+    .update-tag {
+      display: inline-block; background: var(--color-green); color: #fff;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: .04em;
+      padding: 3px 10px; border-radius: 4px; margin-right: 10px;
+    }
+    .update-date { color: var(--color-text-light); font-size: 0.85rem; }
+    .update-title { font-size: 1.2rem; color: var(--color-navy); font-weight: 700; margin: 12px 0 10px; }
+    .update-desc { color: var(--color-text); line-height: 1.85; margin: 0 0 16px; }
+    .update-table-wrap { overflow-x: auto; }
+    .update-eg {
+      border-collapse: collapse; width: 100%; min-width: 460px;
+      background: #fff; font-size: 0.92rem;
+    }
+    .update-eg th, .update-eg td { border: 1px solid #d6e4d6; padding: 9px 12px; text-align: left; }
+    .update-eg thead th { background: var(--color-navy); color: #fff; font-weight: 700; }
+    .update-eg code { background: #eef4ff; color: var(--color-navy); padding: 1px 7px; border-radius: 4px; font-weight: 700; }
+    .update-note { color: var(--color-text-light); font-size: 0.86rem; margin: 14px 0 0; line-height: 1.7; }
   </style>
 
   <main>
@@ -723,10 +753,39 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.1.2</span>
+        <span class="hero-version">v2.0.0</span>
       </div>
       <h1 class="hero-title">条件分岐自動採番 for kintone</h1>
       <p class="hero-copy">組織・担当者・ステータスなど、フィールドの条件に応じて採番ルールを自動切替。CSVインポート後の一括採番にも対応した、kintone専用の自動採番プラグインです。</p>
+    </section>
+
+    <!-- Update Notice (v2.0.0) -->
+    <section class="update-section fade-in">
+      <div class="update-box">
+        <div>
+          <span class="update-tag">UPDATE</span>
+          <span class="update-date">v2.0.0（2026年7月1日）</span>
+        </div>
+        <h2 class="update-title">複数フィールド採番に対応しました</h2>
+        <p class="update-desc">
+          1つのアプリで<strong>最大3つの文字列フィールド</strong>に、それぞれ<strong>別の採番ルール</strong>（区切り・フォーマット・条件分岐・連番リセット）を設定できるようになりました。<br>
+          たとえば「<strong>案件番号は部署ごとに接頭辞と連番を分ける</strong>」一方で、「<strong>請求番号は条件なしの全社通し番号</strong>」にする、といった使い分けが、同じレコードの保存時に<strong>同時採番</strong>で実現します。
+        </p>
+        <div class="update-table-wrap">
+          <table class="update-eg">
+            <thead>
+              <tr><th>部署</th><th>案件番号（部署ごとに独立カウンタ）</th><th>請求番号（条件なし・全社通し番号）</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>営業一課</td><td><code>A-2604-001</code></td><td><code>26-INV-001</code></td></tr>
+              <tr><td>営業二課</td><td><code>B-2604-001</code></td><td><code>26-INV-002</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="update-note">
+          案件番号は部署で接頭辞（A／B）と連番を分け、請求番号は部署に関係なく会社全体で連番。設定画面はフィールド別のアコーディオンで、フィールドを追加して個別にルールを組むだけ。これまでの単一フィールド設定はそのまま自動で引き継がれます。
+        </p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -873,7 +932,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-conditional-numbering-v1.1.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-conditional-numbering-v2.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード（v2.0.0）</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -1044,10 +1103,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           gtag('event', 'file_download', {
-            file_name: 'kw-conditional-numbering-v1.1.2.zip',
+            file_name: 'kw-conditional-numbering-v2.0.0.zip',
             file_extension: 'zip',
             link_text: 'ダウンロード（無料）',
-            link_url: '/downloads/kw-conditional-numbering-v1.1.2.zip'
+            link_url: '/downloads/kw-conditional-numbering-v2.0.0.zip'
           });
         });
       }
