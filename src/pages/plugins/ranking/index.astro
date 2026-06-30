@@ -9,7 +9,14 @@ import { allPlugins as plugins, type Plugin } from '../../../data/plugins';
 const PAGE_URL = 'https://kizuna-works.jp/plugins/ranking/';
 const GAS_RANKING_URL =
   'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec?action=ranking&limit=all';
-const FETCH_TIMEOUT_MS = 10_000;
+// Build-time fetch is not user-facing, so allow generous time for GAS cold starts.
+// The endpoint redirects (script.google.com -> script.googleusercontent.com) and the
+// ranking computation can take several seconds when cold; 10s was too tight and caused
+// flaky fallback to release order on CI builds. Retry a few times as well: the first
+// (cold) hit warms GAS so a retry usually succeeds quickly.
+const FETCH_TIMEOUT_MS = 25_000;
+const FETCH_MAX_ATTEMPTS = 3;
+const FETCH_RETRY_DELAY_MS = 1_500;
 // Build-time date (JST) so JSON-LD dateModified reflects each daily rebuild (ranking refreshes daily).
 // Add 9h to UTC before slicing — GitHub Actions runs in UTC and the daily cron fires at 21:00 UTC (06:00 JST).
 const TODAY = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
@@ -19,22 +26,29 @@ type RankedPlugin = { pluginId: string; name: string; pageUrl: string };
 let rankedFromGas: RankedPlugin[] = [];
 let fetchFailed = false;
 
-try {
-  const controller = new AbortController();
-  const t = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
-  const res = await fetch(GAS_RANKING_URL, { signal: controller.signal });
-  clearTimeout(t);
-  if (res.ok) {
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+for (let attempt = 1; attempt <= FETCH_MAX_ATTEMPTS; attempt++) {
+  try {
+    const controller = new AbortController();
+    const t = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+    const res = await fetch(GAS_RANKING_URL, { signal: controller.signal });
+    clearTimeout(t);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    if (Array.isArray(data?.topPlugins)) {
-      rankedFromGas = data.topPlugins;
-    }
-  } else {
+    if (!Array.isArray(data?.topPlugins)) throw new Error('topPlugins missing or not an array');
+    rankedFromGas = data.topPlugins;
+    fetchFailed = false;
+    break;
+  } catch (e) {
     fetchFailed = true;
+    console.warn(`[plugins/ranking] GAS fetch attempt ${attempt}/${FETCH_MAX_ATTEMPTS} failed:`, e);
+    if (attempt < FETCH_MAX_ATTEMPTS) await sleep(FETCH_RETRY_DELAY_MS);
   }
-} catch (e) {
-  fetchFailed = true;
-  console.warn('[plugins/ranking] GAS fetch failed, using fallback:', e);
+}
+
+if (fetchFailed) {
+  console.warn('[plugins/ranking] all GAS fetch attempts failed, using release-order fallback');
 }
 
 // フォールバック：plugins.ts を releaseDate 昇順（古い順）で並べる
