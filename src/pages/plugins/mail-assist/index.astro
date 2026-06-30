@@ -51,10 +51,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "メールアシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.1",
-          "dateModified": "2026-06-26",
+          "softwareVersion": "1.1.0",
+          "dateModified": "2026-06-30",
           "url": "https://kizuna-works.jp/plugins/mail-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-mail-assist-v1.0.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-mail-assist-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/mail-assist-banner.png",
           "offers": {
             "@type": "Offer",
@@ -76,6 +76,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "詳細画面から個別送信、一覧の絞り込み結果からBCC一斉送信",
             "宛先は文字列・リンク・ユーザー選択フィールド＋直接入力に対応",
             "テンプレートごとの表示・送信条件（最大5件・AND/OR）で出し分け",
+            "1つの条件で複数値をOR判定する演算子（いずれかに一致／いずれかを含む等）に対応",
             "メーラーは利用者が都度選択／管理者が固定を選択可",
             "送信履歴（起動ログ）を保管アプリに記録し詳細画面に表示",
             "テンプレート・送信履歴の保管アプリをワンクリック自動生成",
@@ -291,7 +292,38 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     .supp-shots .screenshot-frame { box-shadow: 0 4px 14px rgba(0,0,0,0.10); }
     .supp-shots figcaption { text-align: center; color: var(--color-text-light); font-size: 12px; margin-top: 8px; }
 
+    /* Update box (version highlight) */
+    .update-box {
+      max-width: 980px; margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light); border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text); font-size: 15px; line-height: 1.8; margin: 0; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-example {
+      max-width: 720px; margin: 20px auto 0; padding: 16px 20px;
+      background: var(--color-bg); border-radius: 10px;
+      font-size: 14px; color: var(--color-text); line-height: 1.9;
+    }
+    .update-example strong { color: var(--color-navy); }
+    .update-example code {
+      background: #fff; border: 1px solid var(--color-gray-light); border-radius: 5px;
+      padding: 2px 7px; font-size: 13px;
+    }
+    .update-note { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+
     @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
       .related-posts-grid { grid-template-columns: 1fr; }
       .hero { padding: 60px 5%; }
       .hero-title { font-size: 28px; }
@@ -321,10 +353,28 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.1</span>
+        <span class="hero-version">v1.1.0</span>
       </div>
       <h1 class="hero-title">メールアシスト for kintone</h1>
-      <p class="hero-copy">メールアシスト for kintone は、kintone のレコードの値（会社名・担当者名・メールアドレスなど）を差し込んで件名・本文・宛先を自動で組み立て、ワンクリックでお使いのメーラー（既定メーラー / Gmail / Outlook（個人・法人）/ Yahoo!）を起動する kintone プラグインです。レコード詳細から 1 件ずつ、一覧の絞り込み結果から BCC で一斉に。コピペと定型文の打ち直しから解放します。実際の送信はお使いのメーラーが行うので、外部サーバー・APIキー・GAS は不要で kintone 内で完結します。</p>
+      <p class="hero-copy">メールアシスト for kintone は、kintone のレコードの値（会社名・担当者名・メールアドレスなど）を差し込んで件名・本文・宛先を自動で組み立て、ワンクリックでお使いのメーラー（既定メーラー / Gmail / Outlook（個人・法人）/ Yahoo!）を起動する kintone プラグインです。レコード詳細から 1 件ずつ、一覧の絞り込み結果から BCC で一斉に。コピペと定型文の打ち直しから解放します。実際の送信はお使いのメーラーが行うので、外部サーバー・APIキー・GAS は不要で kintone 内で完結します。<strong>v1.1.0 では、1つの条件で複数の値を OR 判定できる演算子（いずれかに一致／いずれかを含む等）を追加し、「（A または B）かつ 他の条件」を1つのテンプレートで表現できるようになりました。</strong></p>
+    </section>
+
+    <!-- Update Info (v1.1.0) -->
+    <section class="section-wrapper fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.1.0：1つの条件で「いずれか」を判定できる演算子を追加しました</h2>
+        </div>
+        <p class="update-desc">表示・送信条件の演算子に <strong>「いずれかに一致」「いずれにも一致しない」「いずれかを含む」「いずれも含まない」</strong> の4つを追加しました。値を<strong>カンマ区切りで複数指定</strong>すると、その1行の中でいずれか1つに一致（含む）すれば条件が成立します（行内 OR）。AND／OR の結合はテンプレート単位で1つのため、これまで <strong>「（A または B）かつ 他の条件」</strong> のような組み合わせは表現できませんでしたが、行内 OR を使えば1つのテンプレートで設定できます。あわせてテンプレート編集画面の横幅を広げ、条件の設定を見やすくしました。</p>
+        <p class="update-example">
+          設定例：<strong>ステータスが「ピックアップ」または「完了」のとき</strong>だけ、ほかの条件（例：担当部署＝営業）も満たすレコードに表示<br>
+          条件1：<code>ステータス</code> → <strong>いずれかに一致</strong> → <code>ピックアップ,完了</code><br>
+          条件2：<code>担当部署</code> → <strong>＝</strong> → <code>営業</code><br>
+          結合：<strong>すべて満たす（AND）</strong>
+        </p>
+        <p class="update-note">既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定や既存テンプレートはそのまま引き継がれ、従来の演算子（＝／含む など）の動作は変わりません。</p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -490,7 +540,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコード詳細（個別送信）・レコード一覧（一斉送信）（PC 版）でご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-mail-assist-v1.0.1.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-mail-assist-v1.1.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「メールアシスト for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>テンプレート</strong>（件名・本文・宛先・条件）を作成。必要に応じて送信履歴の記録をONにして保管アプリを生成し「保存」（保管アプリの自動生成にはアプリ作成権限が必要です）</span></li>
@@ -515,7 +565,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 設定画面・一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-mail-assist-v1.0.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-mail-assist-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -657,10 +707,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-mail-assist-v1.0.1.zip',
+              file_name: 'kw-mail-assist-v1.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-mail-assist-v1.0.1.zip'
+              link_url: '/downloads/kw-mail-assist-v1.1.0.zip'
             });
           }
         });
