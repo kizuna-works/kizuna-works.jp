@@ -682,6 +682,28 @@ export const premiumPlugins: Plugin[] = [
     problemDesc: '標準グラフは1グラフ1画面。複数指標・複数アプリの数字を1枚で一望し、ポータルに常設したい',
     releaseDate: '2026-06-27',
   },
+  {
+    id: 'kw-attribute-filter',
+    name: '属性制御フィルター for kintone',
+    formName: '属性制御フィルター for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'attribute-filter',
+    category: '入力支援',
+    description:
+      'ユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・他フィールドの値・プロセス管理のステータスに応じて自動で絞り込むプラグイン。申請先や承認者の部署外への誤選択を防ぎ、キーワードサジェストで素早く選べます。サブテーブルにも対応。',
+    image: '/images/attribute-filter-banner.png',
+    imageAlt:
+      '属性制御フィルター for kintone プラグイン — ユーザー選択・組織選択・グループ選択の候補を役職や所属・申請種別などの条件で自動的に絞り込み、誤選択を防ぐ',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      'ユーザー・組織・グループ選択の候補を、役職や申請種別などの条件で自動的に絞り込み。部署外への誤選択を防ぎ、キーワードで素早く選択。kintone 完結。',
+    problemTitle: '担当者や申請先を、部署外まで含めた全員から選ばせたくない',
+    problemDesc: '申請先組織や承認者を、役職・所属・申請種別に応じた候補だけに絞り、誤選択を防ぎたい',
+    releaseDate: '2026-07-01',
+  },
 ];
 
 /**

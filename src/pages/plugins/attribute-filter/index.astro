@@ -1,0 +1,531 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+---
+
+<Layout
+  title="属性制御フィルター for kintone｜ユーザー・組織・グループ選択の候補を絞り込み | KIZUNA Works"
+  description="kintone のユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・申請種別などの条件で自動的に絞り込むプラグイン。申請先や承認者の部署外への誤選択を防ぎ、キーワードサジェストで素早く選べます。kintone完結のプレミアムプラグイン。"
+  ogTitle="属性制御フィルター for kintone｜ユーザー・組織・グループ選択の候補を絞り込み | KIZUNA Works"
+  ogDescription="kintone のユーザー・組織・グループ選択の候補を、役職・所属・申請種別などの条件で自動的に絞り込むプラグイン。部署外への誤選択を防ぎ、キーワードで素早く選べるプレミアムプラグイン。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/attribute-filter/"
+  ogImage="https://kizuna-works.jp/images/attribute-filter-banner.png"
+  canonical="https://kizuna-works.jp/plugins/attribute-filter/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/attribute-filter/",
+          "url": "https://kizuna-works.jp/plugins/attribute-filter/",
+          "name": "属性制御フィルター for kintone｜ユーザー・組織・グループ選択の候補を絞り込み | KIZUNA Works",
+          "description": "kintone のユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・申請種別などの条件で自動的に絞り込むプラグイン。部署外への誤選択を防ぎ、キーワードサジェストで素早く選べる。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/attribute-filter-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "属性制御フィルター for kintone", "item": "https://kizuna-works.jp/plugins/attribute-filter/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "属性制御フィルター for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-07-01",
+          "url": "https://kizuna-works.jp/plugins/attribute-filter/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-attribute-filter-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/attribute-filter-banner.png",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "無料プラン",
+              "price": "0",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "1つのフィールドに全機能を無料でご利用いただけます（利用期限なし）。"
+            },
+            {
+              "@type": "Offer",
+              "name": "プレミアム年間サポーター（全プラグイン込み）",
+              "price": "16500",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、複数フィールドへの適用・広告非表示を含む全機能と、販売中の全プラグインを利用できます。単品販売はありません。"
+            }
+          ],
+          "description": "ユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・他フィールドの値・プロセス管理のステータスに応じて自動で絞り込む kintone プラグイン。部署外への誤選択を防ぎ、キーワードサジェストで素早く選べる。サブテーブルにも対応。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "ユーザー選択・組織選択・グループ選択フィールドの候補を条件で自動絞り込み",
+            "表示する候補プリセット（自分と同じ所属組織／グループ・指定した組織／グループ／役職／ユーザー）",
+            "親組織・子組織を含める階層指定",
+            "適用条件（常に／プロセス管理のステータス／他フィールドの値：数値の以上・以下・範囲、日付、選択肢の複数一致）",
+            "フィールドごとに複数ルールを合算（OR）",
+            "キーワードサジェスト（文字入力または標準ボタンでフィールド直下にフローティング表示）",
+            "サブテーブル内のユーザー／組織／グループ選択フィールドにも対応",
+            "候補データ保管アプリをワンクリック生成・kintone 完結で外部送信なし"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "kintoneで担当者や申請先の候補を絞り込めますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。属性制御フィルター for kintone は、ユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・他フィールドの値・プロセス管理のステータスに応じて自動で絞り込むプラグインです。申請先や承認者を、部署外の人まで含めた全員から選ばせずに済みます。" } },
+            { "@type": "Question", "name": "kintone標準の機能と何が違いますか？", "acceptedAnswer": { "@type": "Answer", "text": "kintone標準のユーザー選択・組織選択は、常に全ユーザー・全組織が候補になります。本プラグインは、役職が課長の人だけ・申請種別が「情報システム依頼」ならシステム開発部だけ、のように条件に応じて候補を絞り込み、誤選択を防ぎます。" } },
+            { "@type": "Question", "name": "役職で承認者を絞り込めますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。「指定した役職のユーザー」を候補にできます。たとえば部内承認者は課長、最終承認者は部長、のように役職で候補を限定できます。役職の一覧はキャッシュ更新時に自動で収集されます。" } },
+            { "@type": "Question", "name": "候補が表示されません。", "acceptedAnswer": { "@type": "Answer", "text": "設定画面の「② キャッシュ」タブで保管アプリを作成し「候補データを更新」を実行したか、対象フィールドのルールが正しいかをご確認ください。組織変更・入退社の反映には候補データの再更新が必要です。" } },
+            { "@type": "Question", "name": "サブテーブル内のフィールドでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。サブテーブル内のユーザー選択・組織選択・グループ選択フィールドにも対応し、同じ行の値を条件に使えます。" } },
+            { "@type": "Question", "name": "外部にデータが送られませんか？", "acceptedAnswer": { "@type": "Answer", "text": "業務データを外部へ送信しません。組織・役職などの情報は自ドメインの共通管理APIから取得し、候補データは貴社のkintone環境内の保管アプリにのみ保存します。外部通信はライセンス認証（プラグインIDとドメイン名）のみです。" } },
+            { "@type": "Question", "name": "ゲストスペースのアプリでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、ゲストスペース内のアプリでも利用できます。" } },
+            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで1フィールドに全機能をお試しいただけます。複数フィールドへの適用・広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。" } }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 5px 14px; border-radius: 20px;
+    }
+    .afp-hero-version {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 5px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 720px; line-height: 1.8; }
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    /* Before / After */
+    .afp-ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+    .afp-ba-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-ba-card.after { border: 2px solid var(--color-green); }
+    .afp-ba-label { font-weight: 700; padding: 12px 18px; font-size: 0.98rem; }
+    .afp-ba-card.before .afp-ba-label { background: #eef2f7; color: var(--color-text-muted); }
+    .afp-ba-card.after .afp-ba-label { background: #eaf6ea; color: var(--color-green); }
+    .afp-ba-card img { width: 100%; height: auto; display: block; background: #F0F4F8; border-top: 1px solid #e2e8f0; }
+    .afp-ba-desc { font-size: 0.92rem; line-height: 1.7; color: var(--color-text-main); padding: 14px 18px 18px; }
+    .afp-ba-arrow { text-align: center; font-size: 0.95rem; color: var(--color-text-muted); margin: 20px 0 0; }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    /* Config screenshots */
+    .afp-config-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .afp-config-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-config-item img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-config-item span { display: block; font-size: 0.88rem; color: var(--color-text-main); padding: 12px 14px; line-height: 1.6; }
+    .afp-config-item span strong { color: var(--color-navy); }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-steps { counter-reset: step; list-style: none; padding: 0; margin: 0; }
+    .afp-steps li { position: relative; padding: 0 0 18px 52px; line-height: 1.8; }
+    .afp-steps li::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; left: 0; top: 0; width: 34px; height: 34px;
+      background: var(--color-green); color: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-weight: 700;
+    }
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+      display: none; align-items: center; justify-content: center;
+      z-index: 1000; padding: 24px; cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close {
+      position: absolute; top: 14px; right: 22px; width: 44px; height: 44px;
+      background: rgba(255,255,255,0.12); border: none; color: #fff;
+      font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-ba-grid { grid-template-columns: 1fr; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+      .afp-config-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/attribute-filter-icon.png" alt="属性制御フィルター for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium">👑 PREMIUM PLUGIN</span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1>属性制御フィルター for kintone</h1>
+      <p class="afp-tagline">選ぶ人を、間違えさせない。</p>
+      <p class="afp-sub">ユーザー選択・組織選択・グループ選択の候補を、役職・所属・申請種別などの条件で自動的に絞り込み。申請先や承認者の「部署外の人を選んでしまう」ミスを、選択の段階で防ぎます。</p>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 定義（結論ファースト） -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <p class="afp-lead">
+          <strong>属性制御フィルター for kintone</strong> は、<strong>ユーザー選択・組織選択・グループ選択</strong>フィールドの候補を、<strong>役職・所属組織・他フィールドの値・プロセス管理のステータス</strong>に応じて自動で絞り込む kintone プラグインです。標準では常に全ユーザー・全組織が候補になりますが、「承認者は課長だけ」「申請種別が情報システム依頼なら申請先はシステム開発部だけ」のように、<strong>条件に合った候補だけ</strong>をフィールド直下にサジェスト表示。部署外への誤選択を防ぎ、キーワードで素早く選べます。<strong>サブテーブルにも対応</strong>し、業務データは外部に送信しません。「プレミアムプラグイン」シリーズの一つです。
+        </p>
+      </div>
+    </section>
+
+    <!-- Before / After -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">標準 と 絞り込み の違い</h2>
+        <div class="afp-ba-grid">
+          <div class="afp-ba-card before">
+            <div class="afp-ba-label">BEFORE ― kintone 標準</div>
+            <picture>
+              <source srcset="/images/attribute-filter-before-user.webp" type="image/webp" />
+              <img src="/images/attribute-filter-before-user.png" alt="kintone 標準のユーザー選択 — 部内承認者の入力欄に文字を入れると、役職に関係なく全ユーザー（KIZUNA Works・絆 太郎・鈴木 花子・佐藤 次郎）が候補に表示される" width="855" height="315" loading="lazy" />
+            </picture>
+            <p class="afp-ba-desc">役職や所属に関係なく<strong>全ユーザーが候補</strong>。承認権限のない人や他部署の人まで並び、選び間違えやすい。</p>
+          </div>
+          <div class="afp-ba-card after">
+            <div class="afp-ba-label">AFTER ― 属性制御フィルター</div>
+            <picture>
+              <source srcset="/images/attribute-filter-after-user.webp" type="image/webp" />
+              <img src="/images/attribute-filter-after-user.png" alt="属性制御フィルター適用後 — 部内承認者の候補が役職「課長」に絞り込まれ、絆 太郎（営業一課）だけがフィールド直下にフローティング表示される" width="855" height="240" loading="lazy" />
+            </picture>
+            <p class="afp-ba-desc">「部内承認者は<strong>課長だけ</strong>」のように<strong>役職で候補を限定</strong>。該当者だけがフィールド直下に表示され、迷わず選べる。</p>
+          </div>
+        </div>
+        <p class="afp-ba-arrow">同じフィールドでも、ルールを設定するだけで候補が「全員」から「条件に合う人だけ」に変わります。</p>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+
+        <div class="afp-feature">
+          <div class="afp-feature-text">
+            <h3>申請種別で「申請先組織」が自動的に決まる</h3>
+            <p>他フィールドの値を条件にできます。たとえば申請種別が「情報システム依頼」なら申請先組織はシステム開発部、「経費精算」なら経理部、のように、選んだ内容に応じて候補の組織を出し分け。入力する人は毎回どの部署か迷わずに済みます。</p>
+          </div>
+          <picture>
+            <source srcset="/images/attribute-filter-after-org.webp" type="image/webp" />
+            <img class="zoomable" src="/images/attribute-filter-after-org.png" alt="申請種別が情報システム依頼のとき、申請先組織の候補がシステム開発部だけに絞り込まれてフローティング表示される" width="995" height="358" loading="lazy" />
+          </picture>
+        </div>
+
+        <div class="afp-feature reverse">
+          <div class="afp-feature-text">
+            <h3>役職・所属・グループで候補を限定</h3>
+            <p>表示する候補は用途に合わせて選べます。ユーザー選択なら「自分と同じ所属組織のメンバー」「指定した役職のユーザー」「指定した組織／グループのメンバー」「指定したユーザー」。組織選択・グループ選択も同様に、自分の所属や指定した組織・グループに絞り込めます。組織は親組織・子組織を含めるかも選択できます。</p>
+          </div>
+          <picture>
+            <source srcset="/images/attribute-filter-config-user.webp" type="image/webp" />
+            <img class="zoomable" src="/images/attribute-filter-config-user.png" alt="設定画面 — 部内承認者フィールドの候補ルールで「指定した役職のユーザー」を選び、対象の役職に「課長」をチェックしている" width="1165" height="735" loading="lazy" />
+          </picture>
+        </div>
+
+        <div class="afp-grid-feats" style="margin-top:8px;">
+          <div class="afp-feat-card">
+            <h3>キーワードサジェスト</h3>
+            <p>フィールドに文字を入力するか、標準の選択ボタンを押すと、条件に合った候補がフィールド直下にフローティング表示されます。クリックするだけで値がセットされます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>柔軟な適用条件</h3>
+            <p>ルールは「常に適用」のほか、プロセス管理のステータスや他フィールドの値で出し分け可能。数値は以上・以下・範囲、日付は以降・以前・範囲、選択肢は複数一致で条件指定できます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>複数ルールの合算（OR）</h3>
+            <p>1つのフィールドに複数のルールを設定でき、合致した候補を合算して表示。どのルールにも一致しないときは全候補表示（安全側）か候補ゼロかを選べます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>サブテーブル対応</h3>
+            <p>サブテーブル内のユーザー選択・組織選択・グループ選択フィールドにも対応。同じ行の値を条件に使えるので、明細行ごとに担当者候補を切り替えられます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>標準の選択画面も残せる</h3>
+            <p>候補パネルに「標準の選択画面を開く」リンクを表示できます。絞り込みで足りないケースに備え、いつでも通常の選択画面へ切り替えられます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>kintone 完結</h3>
+            <p>組織・役職などの情報は自ドメインの共通管理APIから取得し、候補データは貴社のkintone環境内の保管アプリにのみ保存。業務データを外部へ送信しません。ゲストスペースにも対応。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 設定画面 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定はフィールドごとにルールを作るだけ</h2>
+        <p style="margin:-12px 0 26px;line-height:1.8;">対象フィールドを ON にし、「表示する候補」と「適用条件」を選ぶだけ。ユーザー・組織・グループそれぞれに合わせた条件を、画面上のチェックボックスで直感的に設定できます。</p>
+        <div class="afp-config-grid">
+          <div class="afp-config-item">
+            <picture>
+              <source srcset="/images/attribute-filter-config-org.webp" type="image/webp" />
+              <img class="zoomable" src="/images/attribute-filter-config-org.png" alt="組織選択フィールドの設定 — 指定した組織を親子ツリーから選び、適用条件を申請種別（フィールドの値）にしている" width="1165" height="735" loading="lazy" />
+            </picture>
+            <span><strong>組織条件</strong>：申請先組織を、親子ツリーから選んだ組織＋申請種別の条件で出し分け</span>
+          </div>
+          <div class="afp-config-item">
+            <picture>
+              <source srcset="/images/attribute-filter-config-user.webp" type="image/webp" />
+              <img class="zoomable" src="/images/attribute-filter-config-user.png" alt="ユーザー選択フィールドの設定 — 指定した役職のユーザーを選び、対象の役職に課長をチェックしている" width="1165" height="735" loading="lazy" />
+            </picture>
+            <span><strong>ユーザー条件</strong>：承認者を「指定した役職のユーザー（課長）」に限定</span>
+          </div>
+          <div class="afp-config-item">
+            <picture>
+              <source srcset="/images/attribute-filter-config-group.webp" type="image/webp" />
+              <img class="zoomable" src="/images/attribute-filter-config-group.png" alt="グループ選択フィールドの設定 — 指定したグループを選び、対象のグループにManager・AssistantManagerをチェックしている" width="1165" height="735" loading="lazy" />
+            </picture>
+            <span><strong>グループ条件</strong>：回覧グループを、指定したグループだけに限定</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- プランについて -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料プランでも<strong>1つのフィールドに全機能</strong>をお試しいただけます。複数フィールドへの適用と広告非表示は、<strong>プレミアム年間サポーター</strong>で解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ 1つのフィールドに全機能を適用</li>
+              <li>✅ 役職・所属・条件による絞り込み・サジェストをすべて利用可</li>
+              <li>✅ ルール数は無制限・利用期限なし</li>
+              <li>✅ 設定画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-attribute-filter-v1.0.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+          </div>
+
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>複数フィールド</strong>に無制限で適用</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ 役職・所属・条件による絞り込み・サブテーブル対応など全機能</li>
+              <li>✅ 販売中の<strong>全プラグイン</strong>も対象（契約期間中に新しく公開されるプラグインも追加料金なし）</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta">プレミアム年間サポーターを申し込む →</a>
+          </div>
+        </div>
+
+        <h3 class="afp-plan-compare-head">機能の詳細比較</h3>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>機能</th><th class="c">無料プラン</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>絞り込みを適用できるフィールド数</td><td class="c">1</td><td class="c">無制限</td></tr>
+              <tr><td>1フィールドあたりのルール数</td><td class="c">無制限</td><td class="c">無制限</td></tr>
+              <tr><td>役職・所属・組織・グループ・条件による絞り込み</td><td class="c">◯</td><td class="c">◯</td></tr>
+              <tr><td>親子階層・適用条件（ステータス／フィールド値）</td><td class="c">◯</td><td class="c">◯</td></tr>
+              <tr><td>サブテーブル対応</td><td class="c">◯</td><td class="c">◯</td></tr>
+              <tr><td>設定画面の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- インストール手順 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="afp-steps">
+          <li>システム管理者で kintone にログインし、<strong>歯車アイコン → kintone システム管理 → プラグイン</strong> を開きます。</li>
+          <li><strong>「読み込む」</strong>をクリックして、プラグイン zip をアップロードします。</li>
+          <li>絞り込みたいアプリで <strong>アプリの設定 → プラグイン → 「+ プラグインを追加」</strong> から属性制御フィルターを追加します。</li>
+          <li>プラグイン一覧の<strong>歯車アイコン</strong>から設定画面を開き、<strong>「② キャッシュ」タブ</strong>で「保管アプリを作成」→「候補データを更新」を実行します。</li>
+          <li><strong>「① フィールド設定」タブ</strong>で対象フィールドを ON にし、「候補ルール」を設定します。</li>
+          <li>設定後は<strong>「保存」→「アプリを更新」</strong>を実行してレコード画面に反映します。</li>
+        </ol>
+        <div class="afp-note">組織変更・入退社があったときは、設定画面の「候補データを更新」を再実行してください。ゲストスペース内のアプリでも利用できます。</div>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ご利用にあたっての注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li>絞り込みは<strong>レコードの新規作成・編集画面（PC版）</strong>で動作します。カレンダー・カスタマイズビュー・モバイルには対応しません。</li>
+            <li>候補は保管アプリのキャッシュを参照します。<strong>組織変更・入退社の反映には「候補データを更新」の実行が必要</strong>です（自動では最新化されません）。</li>
+            <li>役職機能を利用していない環境では、役職による絞り込み条件は空になります。</li>
+            <li>保管アプリを削除・改変すると候補が表示されなくなります。大規模組織では初回の候補データ更新に時間がかかることがあります。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- セキュリティ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-attribute-filter" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>プレミアム年間サポーターで使ってみる</h2>
+      <p>属性制御フィルターをはじめ、販売中の全プラグインをご利用いただけます。年額 ¥16,500（税込）。まずは無料プランでお試しいただけます（利用期限なし）。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを申し込む →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="af-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('af-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      var dl = document.getElementById('btn-download');
+      if (dl && typeof gtag === 'function') {
+        dl.addEventListener('click', function () {
+          gtag('event', 'file_download', {
+            file_name: 'kw-attribute-filter-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: '無料でダウンロード',
+            link_url: '/downloads/kw-attribute-filter-v1.0.0.zip'
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

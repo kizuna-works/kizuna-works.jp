@@ -125,10 +125,12 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # ユーザーオートフィルプラグイン製品ページ（/plugins/user-autofill/）— ユーザー選択で選んだ人（新規時は自分）の組織・グループ・役職・メール・社員番号等を対応フィールドへ自動転記（組織/グループは選択値セット・除外グループ・上書きポリシー）。＋ユーザー情報をスペースに表示＝プロフィールカード（フィールドごと複数・画像/所属親階層/配色/フォント/形状）と捺印モード（申請者・承認者等のフィールド名を横並び＋姓を朱印の決裁欄・漢字縦書き）。転記と表示は2タブで独立。取得はJS API優先でkintone完結。スクショはライトボックスで拡大
 │   │   │   ├── report-designer/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】帳票デザイナー製品ページ（/plugins/report-designer/）— 手持ちPDFを背景に kintone データ（フィールド/固定テキスト/画像（ロゴ・印影）/サブテーブル明細）をドラッグ配置して帳票化。自動繰り返し＋自動改ページ＋要素ごとの表示ページ／日付自動入力・表示条件・PDF保存先・集計表紙／1件印刷＋一覧まとめ印刷（最大100件）＋PDF自動保存。設定ガイドをアコーディオン組込。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。kintone完結
-│   │   │   └── dashboard/
-│   │   │       ├── index.astro # 【プレミアムプラグイン】ダッシュボード製品ページ（/plugins/dashboard/）— グラフ/数値カード/クロス集計表を1枚に集約し一覧のカスタマイズビューに常設の集計ダッシュボードを描画。期間連動再集計・ドリルダウン・配色・ライブプレビュー／有償＝アプリ横断集計・ポータルiframe埋め込み・集計キャッシュ。設定レシピ集への導線あり。単品販売なし＝プレミアム年間サポーターに含む。kintone完結（グラフはChart.js自社配信/SRI）
-│   │   │       └── recipes/
-│   │   │           └── index.astro # ダッシュボード設定レシピ集（/plugins/dashboard/recipes/）— ウィジェット種別ごとに「目的→設定手順→完成イメージ」を掲載。アコーディオン＋種別/目的タグ/検索フィルタ。データは src/data/recipes.ts、画像は /images/dashboard/recipes/。第1バッチ22レシピ（順次拡張）
+│   │   │   ├── dashboard/
+│   │   │   │   ├── index.astro # 【プレミアムプラグイン】ダッシュボード製品ページ（/plugins/dashboard/）— グラフ/数値カード/クロス集計表を1枚に集約し一覧のカスタマイズビューに常設の集計ダッシュボードを描画。期間連動再集計・ドリルダウン・配色・ライブプレビュー／有償＝アプリ横断集計・ポータルiframe埋め込み・集計キャッシュ。設定レシピ集への導線あり。単品販売なし＝プレミアム年間サポーターに含む。kintone完結（グラフはChart.js自社配信/SRI）
+│   │   │   │   └── recipes/
+│   │   │   │       └── index.astro # ダッシュボード設定レシピ集（/plugins/dashboard/recipes/）— ウィジェット種別ごとに「目的→設定手順→完成イメージ」を掲載。アコーディオン＋種別/目的タグ/検索フィルタ。データは src/data/recipes.ts、画像は /images/dashboard/recipes/。第1バッチ22レシピ（順次拡張）
+│   │   │   └── attribute-filter/
+│   │   │       └── index.astro # 【プレミアムプラグイン】属性制御フィルター製品ページ（/plugins/attribute-filter/）— ユーザー/組織/グループ選択の候補を役職・所属・他フィールド値・ステータスで自動絞り込み。標準表示 vs 絞り込みのBefore/After、設定画面（組織/ユーザー/グループ条件）スクショ、主な機能、無料/プレミアム比較、インストール手順、SecurityBox。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。スクショはライトボックスで拡大。kintone完結・ゲスト対応
 │   │   ├── tools/
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   │   ├── extensions/
@@ -319,6 +321,15 @@ c:\kizuna-works.jp\
 │   │   ├── dashboard-overview-yojitsu.png/.webp # ダッシュボード 完成イメージ②（アプリ横断集計＝予実管理ダッシュボードの全景・製品ページ）
 │   │   ├── dashboard-portal-layout.png/.webp # ダッシュボード v1.1.0 ポータルレイアウト構成画面（製品ページUPDATEボックス・お知らせOGP・1100×634）
 │   │   ├── dashboard/recipes/<id>.png/.webp # ダッシュボード設定レシピ集の完成イメージ（種別ごと・第1バッチ22対）
+│   │   ├── attribute-filter-banner.png      # 属性制御フィルター for kintone 見出しバナー（OGP/グリッド共用・1200×630）
+│   │   ├── attribute-filter-icon.png        # 属性制御フィルター for kintone アイコン（hero・200×200）
+│   │   ├── attribute-filter-before-user.png/.webp # Before：標準ユーザー選択で全員が候補に出る（製品ページBefore/After）
+│   │   ├── attribute-filter-after-user.png/.webp  # After：役職「課長」に絞り込まれた候補（製品ページBefore/After）
+│   │   ├── attribute-filter-before-org.png/.webp  # Before：標準の組織選択ダイアログ（全組織）
+│   │   ├── attribute-filter-after-org.png/.webp   # After：申請種別で申請先組織がシステム開発部だけに絞られる
+│   │   ├── attribute-filter-config-org.png/.webp  # 設定画面：組織条件（親子ツリー＋申請種別条件）
+│   │   ├── attribute-filter-config-user.png/.webp # 設定画面：ユーザー条件（指定した役職＝課長）
+│   │   ├── attribute-filter-config-group.png/.webp # 設定画面：グループ条件（指定したグループ）
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
@@ -389,6 +400,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-mail-assist-v1.1.0.zip                   # メールアシスト for kintone 配布ファイル（手動配置・v1.1.0＝表示条件に複数値OR演算子追加・編集画面幅拡大）
 │   │   ├── kw-comment-control-v1.0.1.zip               # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.1＝閉じたコメント欄を手動で開けない不具合を修正）
 │   │   ├── kw-dashboard-v1.1.0.zip                      # ダッシュボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第2弾・無料/プレミアム共通zip・v1.1.0=ポータルレイアウト構成）
+│   │   ├── kw-attribute-filter-v1.0.0.zip               # 属性制御フィルター for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=1フィールド全機能）
 │   │   └── kw-user-autofill-v1.0.0.zip                  # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.0＝属性自動転記＋プロフィールカード／捺印モード）
 │   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ（第三者CDN不使用）。現状 kw-file-preview のみ使用
 │   │   ├── README.md           # 収録ライブラリ・バージョン・ライセンス・更新手順
