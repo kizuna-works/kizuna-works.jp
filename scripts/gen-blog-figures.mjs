@@ -235,6 +235,30 @@ const FIGURES = [
     w: 1000, h: 164,
     el: flow(['管理者が歯車→kintone AI管理', '機能全体を有効化', '使う機能を選択', 'ユーザーが利用開始']),
   },
+  {
+    name: 'kintone-muryou-plugin-osusume-map',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: '一覧画面', desc: '検索・集計・列固定・一覧編集など。毎日眺める画面を見やすく速く。', tag: '無料8種', paid: false },
+      { n: '2', name: 'レコード画面', desc: 'タブ整理・目次・変更履歴・付箋メモなど。長い詳細画面を快適に。', tag: '無料6種', paid: false },
+      { n: '3', name: '入力支援', desc: '自動入力・条件分岐・サジェストなど。入力ミスと手戻りを防ぐ。', tag: '無料7種', paid: false },
+      { n: '4', name: '装飾', desc: '背景色・罫線・テーマ統一。画面を整えて「使いにくい」を解消。', tag: '無料3種', paid: false },
+      { n: '5', name: '出力・連携', desc: 'CSV出力・メール作成。kintoneの外へデータや連絡をスムーズに。', tag: '無料2種', paid: false },
+    ]),
+  },
+  {
+    name: 'kintone-muryou-plugin-osusume-contrast',
+    w: 1000, h: 300,
+    el: contrastPanel(
+      { title: 'kintone標準で十分なこと', desc: 'アプリ作成・一覧やグラフ表示・プロセス管理・通知など、業務の土台は標準機能で完結します。' },
+      { title: 'あと一歩が欲しくなること', desc: '横スクロールでキー列が消える。添付の中身が一覧で見えない。入力順がバラバラ。毎日の小さなストレスが積もります。' }
+    ),
+  },
+  {
+    name: 'kintone-muryou-plugin-osusume-flow',
+    w: 1000, h: 210,
+    el: flowCaptioned(['困っている画面を1つ決める', '無料プラグインで試す', '効果を確認して横展開'], C.green, '無料だから、小さく試して効いた所だけ広げられる'),
+  },
 ];
 
 const only = process.argv[2];

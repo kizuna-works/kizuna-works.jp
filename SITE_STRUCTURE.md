@@ -159,6 +159,7 @@ c:\kizuna-works.jp\
 │   │       ├── kintone-cyouhyou-sonomama.md         # 「kintoneの帳票を今の書式のまま出力する方法」記事（背景PDF方式の帳票化how-to）
 │   │       ├── kintone-2026-04-update.md            # 「2026年4月最新 kintoneアップデート総まとめ」記事
 │   │       ├── kintone-design-plugin-osusume.md     # 「kintone デザイン変更プラグイン特集」記事
+│   │       ├── kintone-muryou-plugin-osusume.md     # 「kintone無料プラグイン特集｜おすすめと選び方をカテゴリ別に解説」記事（5カテゴリ別・無料他社比較・クリック目次）
 │   │       ├── kintone-kensaku-plugin-hikaku.md     # 「kintoneの検索・絞り込みを改善するプラグイン比較【2026年版】」記事
 │   │       ├── kintone-quick-side-view-plugin-hikaku.md # 「kintone一覧でレコードを閲覧・編集できるプラグイン比較」記事
 │   │       └── kintone-lookup-plugin-hikaku.md      # 「【2026年最新】kintoneルックアップを快適にするプラグイン比較」記事（入力サジェスト/自動取得/先更新/編集絞り込みの4アプローチ比較）
@@ -342,6 +343,7 @@ c:\kizuna-works.jp\
 │   │   ├── field-styler-config-detail.png  # フィールドスタイラー 設定詳細画面
 │   │   └── blog/                           # ブログ記事用画像
 │   │       ├── kintone-teichaku-shinai-riyu.png         # 「kintoneが定着しない」記事 OGP・サムネイル
+│   │       ├── kintone-muryou-plugin-osusume.png        # 「kintone無料プラグイン特集」記事 OGP・ヘッダー画像（Gemini生成・1200×630px）
 │   │       ├── kintone-shortcut-keys.png                # kintoneショートカットキー一覧画像
 │   │       ├── conditional-numbering-plugin.png         # 採番プラグイン記事 OGP・サムネイル（1200×630px）
 │   │       ├── conditional-numbering-setting-format.png # 採番プラグイン フォーマット設定画面スクショ

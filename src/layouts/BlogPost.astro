@@ -18,6 +18,13 @@ const formattedUpdatedDate = updatedDate
   : null;
 
 const canonicalUrl = `https://kizuna-works.jp${Astro.url.pathname}`;
+// Split the H1 on the fullwidth pipe into a main line + subtitle (｜ is our title/subtitle separator).
+const [titleMain, ...titleRest] = title.split('｜');
+const titleSub = titleRest.join('｜');
+// Pull a leading 【...】 label out of the main line into an eyebrow badge.
+const eyebrowMatch = titleMain.match(/^[【\[]([^】\]]+)[】\]]\s*/);
+const titleEyebrow = eyebrowMatch ? eyebrowMatch[1].trim() : null;
+const titleMainText = eyebrowMatch ? titleMain.slice(eyebrowMatch[0].length) : titleMain;
 // ogImage 未指定の記事は、タイトル＋背景から自動生成したバナー（/og/blog/<slug>.png）を使う。
 const generatedOg = `/og/blog/${slug}.png`;
 const ogImageUrl = ogImage
@@ -66,7 +73,7 @@ const jsonLd = {
     body { background-color: #F0F4F8; }
 
     .blog-post-wrapper {
-      max-width: 1000px;
+      max-width: 1160px;
       margin: 50px auto;
       padding: 0 20px 80px;
     }
@@ -115,14 +122,42 @@ const jsonLd = {
       margin-left: 10px;
     }
 
+    /* Title block: brand two-tone (navy -> green) gradient band, top of the heading family */
     .blog-post-title {
       color: #1B3A6B;
       font-size: 2rem;
       font-weight: 700;
       line-height: 1.3;
-      margin-bottom: 30px;
-      padding-bottom: 20px;
-      border-bottom: 2px solid #e2e8f0;
+      margin-bottom: 34px;
+      padding: 26px 32px;
+      border-left: 8px solid #2E8B2E;
+      border-radius: 0 14px 14px 0;
+      background: linear-gradient(90deg, #e2eaf6 0%, #e8f1ec 55%, #eaf6ea 100%);
+    }
+
+    .blog-post-eyebrow {
+      display: inline-block;
+      background: #2E8B2E;
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 5px 15px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
+    .blog-post-title-main {
+      display: block;
+    }
+
+    .blog-post-title-sub {
+      display: block;
+      margin-top: 0.4em;
+      font-size: 1em;
+      font-weight: 700;
+      line-height: 1.35;
+      color: #1B3A6B;
     }
 
     .blog-prose {
@@ -130,24 +165,126 @@ const jsonLd = {
       line-height: 1.9;
     }
 
+    /* Chapter heading: navy gradient band (matches sub-heading, one step up) */
     .blog-prose h2 {
       color: #1B3A6B;
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      margin: 2em 0 1em;
-      padding-left: 14px;
-      border-left: 4px solid #2E8B2E;
+      line-height: 1.4;
+      margin: 2.8em 0 1em;
+      padding: 14px 22px;
+      border-left: 6px solid #2E8B2E;
+      border-radius: 0 10px 10px 0;
+      background: linear-gradient(90deg, #e2eaf6 0%, #eef3fa 50%, rgba(238, 243, 250, 0) 100%);
+      scroll-margin-top: 90px;
     }
 
+    /* Sub-section heading: soft green gradient band for at-a-glance visibility */
     .blog-prose h3 {
       color: #1B3A6B;
-      font-size: 1.2rem;
+      font-size: 1.12rem;
       font-weight: 700;
-      margin: 1.5em 0 0.8em;
+      margin: 1.8em 0 0.9em;
+      padding: 11px 16px;
+      border-left: 4px solid #2E8B2E;
+      border-radius: 0 8px 8px 0;
+      background: linear-gradient(90deg, #e7f2e8 0%, #f1f8f2 45%, rgba(241, 248, 242, 0) 100%);
+      scroll-margin-top: 90px;
+    }
+
+    /* Clickable table of contents (mirrors the on-brand category map figure) */
+    .blog-prose .blog-toc {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 1.5em 0;
+    }
+
+    .blog-prose a.blog-toc-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #f4f7fb;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+    }
+
+    .blog-prose a.blog-toc-item:hover {
+      background: #eef3fb;
+      border-color: #2E8B2E;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+      color: inherit;
+    }
+
+    .blog-toc-num {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: #1B3A6B;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .blog-toc-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-toc-title {
+      color: #1B3A6B;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .blog-toc-desc {
+      color: #5a6b82;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-top: 2px;
+    }
+
+    .blog-toc-tag {
+      flex-shrink: 0;
+      background: #2E8B2E;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 520px) {
+      .blog-toc-desc {
+        display: none;
+      }
+      .blog-prose a.blog-toc-item {
+        gap: 12px;
+        padding: 12px 14px;
+      }
     }
 
     .blog-prose p {
       margin-bottom: 1.2em;
+    }
+
+    /* Lead paragraph: slightly larger to open the article */
+    .blog-prose > p:first-of-type {
+      font-size: 1.075rem;
+      line-height: 1.95;
+      color: #334155;
     }
 
     .blog-prose a {
@@ -278,6 +415,7 @@ const jsonLd = {
       }
       .blog-post-title {
         font-size: 1.5rem;
+        padding: 18px 18px;
       }
     }
   </style>
@@ -304,7 +442,11 @@ const jsonLd = {
             <span class="updated">（更新: {formattedUpdatedDate}）</span>
           )}
         </div>
-        <h1 class="blog-post-title">{title}</h1>
+        <h1 class="blog-post-title">
+          {titleEyebrow && <span class="blog-post-eyebrow">{titleEyebrow}</span>}
+          <span class="blog-post-title-main">{titleMainText}</span>
+          {titleSub && <span class="blog-post-title-sub">{titleSub}</span>}
+        </h1>
         <div class="blog-prose">
           <slot />
         </div>
