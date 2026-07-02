@@ -51,10 +51,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "シート編集 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.1.0",
-          "dateModified": "2026-06-29",
+          "softwareVersion": "1.2.0",
+          "dateModified": "2026-07-02",
           "url": "https://kizuna-works.jp/plugins/sheet-edit/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-sheet-edit-v1.1.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-sheet-edit-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/sheet-edit-banner.png",
           "offers": {
             "@type": "Offer",
@@ -82,6 +82,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "列ヘッダーからの型別フィルタ（選択肢の複数選択・数値の範囲・部分一致）・複数列の同時絞り込み・並べ替え",
             "カラーテーマ・タブ形状のカスタマイズ",
             "表示列そのままの Excel(xlsx) 出力（絞り込み後の全件・ライブラリ同梱）",
+            "番号列クリックでレコード詳細画面を別タブ表示（設定でオン/オフ・既定オフ・ゲストスペース対応）",
             "GAS・外部サービス不要・kintone完結"
           ]
         }
@@ -678,6 +679,22 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       font-size: 12px;
       margin: 14px 0 0;
     }
+    .update-shot {
+      max-width: 640px;
+      margin: 22px auto 0;
+      background: #f8fafc;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .update-shot img { width: 100%; height: auto; display: block; border-radius: 6px; }
+    .update-shot-cap {
+      color: var(--color-text-light);
+      font-size: 12.5px;
+      text-align: center;
+      margin: 10px 0 0;
+      line-height: 1.6;
+    }
 
     /* Zoomable images + lightbox overlay */
     .zoomable { cursor: zoom-in; }
@@ -747,7 +764,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.1.0</span>
+        <span class="hero-version">v1.2.0</span>
       </div>
       <h1 class="hero-title">シート編集 for kintone</h1>
       <p class="hero-copy">kintone のレコード一覧（カスタマイズビュー）を、Excel のような表計算グリッドに置き換えるプラグインです。詳細画面を開かずに、一覧の上で表示中フィールドをその場で直接編集・保存。型に合わせたセル編集、範囲選択での一括編集、コピー＆ペースト、縦オートフィル、元に戻す/やり直しに対応し、Excel 感覚で複数レコードをテンポよく更新できます。列ヘッダーからの絞り込み・並べ替え、表示そのままの Excel 出力まで一覧上で完結。GAS・外部サービス不要で kintone 完結です。</p>
@@ -758,31 +775,20 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.1.0：サブテーブル（明細）の行展開・その場編集に対応しました</h2>
+          <h2 class="update-title">v1.2.0：一覧の番号をクリックして、そのレコードの詳細画面を別タブで開けます</h2>
         </div>
-        <p class="update-desc">これまで編集できるのは通常フィールド（テーブル外）だけでしたが、v1.1.0 から <strong>サブテーブル（明細）の各行をグリッドに展開して、その場で直接編集・保存</strong>できるようになりました。1 レコードに複数明細を持つアプリ（受発注・請求・作業日報など）でも、詳細画面を開かずに <strong>明細の値を一覧上でまとめて更新</strong>できます。保存は <strong>変更した行・項目だけを安全に反映</strong>し、同じレコードの他の明細行・他フィールドは書き換えません。設定画面で対象のサブテーブルを 1 つ選ぶだけのノーコード設定です。<br />さらに、<strong>サブテーブル以外（明細外）のセルを「縦に結合して表示」するか「先頭行だけ表示して下を空欄にする」かを設定で選べます</strong>。1 レコードが何行に展開されても、案件名や顧客名などの共通項目を見やすい形で表示できます。</p>
-        <div class="update-shots">
-          <div class="update-shot-item">
-            <img
-              class="zoomable"
-              src="/images/sheet-edit-subtable-merge.png"
-              alt="シート編集 for kintone v1.1.0 — サブテーブル「明細」を行展開したグリッド。商品名・数量・単価が明細の行ごとに表示され、案件名・顧客名・金額など明細外のセルは縦に結合されて1セルで表示されている（結合モード）"
-              loading="lazy"
-            />
-            <p class="update-shot-cap">結合モード：明細外のセル（案件名・顧客名・金額）を縦に結合して表示</p>
-          </div>
-          <div class="update-shot-item">
-            <img
-              class="zoomable"
-              src="/images/sheet-edit-subtable-blank.png"
-              alt="シート編集 for kintone v1.1.0 — 同じグリッドの空欄モード。明細外のセルは各レコードの先頭行だけに値が表示され、2行目以降は空欄になっている"
-              loading="lazy"
-            />
-            <p class="update-shot-cap">空欄モード：明細外のセルは先頭行のみ表示・下は空欄</p>
-          </div>
+        <p class="update-desc">表計算グリッドで一覧を編集していると、<strong>特定のレコードだけ標準の詳細画面でじっくり確認・操作したい</strong>場面があります。v1.2.0 では、一番左の <strong>番号列をクリックすると、そのレコードの詳細画面を別タブで開ける</strong>ようになりました。<strong>Ctrl+クリック・マウス中クリック・右クリックの「新しいタブで開く」</strong>にも対応しています。別タブで開くので、<strong>編集中のグリッドはそのまま残り</strong>、詳細を見ながら一覧の作業を続けられます。<br />この動作は設定画面の <strong>チェックボックスでオン／オフを切り替え</strong>られます。<strong>既定はオフ</strong>で、オフのときは番号はこれまでどおりの表示のみ（挙動は変わりません）。ゲストスペース内のアプリでも正しいレコードの詳細を開けます。</p>
+        <div class="update-shot">
+          <img
+            class="zoomable"
+            src="/images/sheet-edit-config-04.png"
+            alt="シート編集 for kintone v1.2.0 の設定画面 — 「レコード番号クリックで詳細を開く」のチェックボックスがオンになっており、一番左の番号列をクリックすると詳細画面を別タブで開く旨の説明が表示されている"
+            loading="lazy"
+          />
+          <p class="update-shot-cap">設定画面のチェックボックスでオン／オフを切り替え（既定はオフ）</p>
         </div>
         <p class="update-zoom-hint">画像をクリックすると拡大表示します</p>
-        <p class="update-note">1 ビューにつき展開できるサブテーブルは 1 つです。サブテーブル列はヘッダーからの並べ替え・絞り込みの対象外です。行の追加・削除は kintone 標準操作をご利用ください（本プラグインは既存行の値編集に特化）。既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。通常フィールドのみの使い方・挙動はこれまでと変わりません。</p>
+        <p class="update-note">開いた番号列はグリッドのセル選択・編集には影響しません（番号列は編集対象外）。詳細画面は常に別タブで開きます。既存ユーザーの方は、最新版（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定を変更しなければ（既定オフ）、これまでの使い方・挙動はそのままです。</p>
       </div>
     </section>
 
@@ -969,7 +975,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">レコード一覧の「カスタマイズ形式」ビューを使うアプリでご利用いただけます。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-sheet-edit-v1.1.0.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-sheet-edit-v1.2.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「シート編集」を追加</span></li>
           <li><span><strong>アプリ設定 → 一覧</strong>で対象の一覧を<strong>「カスタマイズ」形式</strong>にし、HTML 欄に <code>&lt;div class="kw-sheet-edit-root"&gt;&lt;/div&gt;</code> を貼り付けて保存（プラグイン設定画面のコピーボタンが使えます）</span></li>
@@ -995,7 +1001,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-sheet-edit-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-sheet-edit-v1.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -1139,10 +1145,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-sheet-edit-v1.1.0.zip',
+              file_name: 'kw-sheet-edit-v1.2.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-sheet-edit-v1.1.0.zip'
+              link_url: '/downloads/kw-sheet-edit-v1.2.0.zip'
             });
           }
         });
