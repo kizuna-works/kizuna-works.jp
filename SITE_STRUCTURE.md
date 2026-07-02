@@ -241,7 +241,7 @@ c:\kizuna-works.jp\
 │   │   ├── address-assist-subtable-02.png  # 住所アシスト v1.1.0 スクショ — 設定画面で「対象」にサブテーブルを選択した状態（製品ページ UPDATEボックス用）
 │   │   ├── sheet-edit-subtable-merge.png   # シート編集 v1.1.0 スクショ — サブテーブル行展開グリッド（明細外セルを縦結合する結合モード・製品ページ UPDATEボックス用）
 │   │   ├── sheet-edit-subtable-blank.png   # シート編集 v1.1.0 スクショ — サブテーブル行展開グリッド（明細外セルを先頭行のみ表示する空欄モード・製品ページ UPDATEボックス用）
-│   │   ├── sheet-edit-config-04.png        # シート編集 v1.2.0 スクショ — 設定画面「レコード番号クリックで詳細を開く」トグル（製品ページ UPDATEボックス用）
+│   │   ├── sheet-edit-config-04.png        # シート編集 v1.2.1 スクショ — 設定画面「レコード番号クリックで詳細を開く」トグル（製品ページ UPDATEボックス用）
 │   │   ├── quick-history-view-icon.png     # クイック履歴ビュー for kintone プラグイン アイコン（ヒーロー画像用・kintone プラグイン本体と同じアイコン）
 │   │   ├── quick-history-view-banner.png   # クイック履歴ビュー for kintone バナー（1200×675・OGP/グリッド共用）
 │   │   ├── quick-history-view-setup-01.png # クイック履歴ビュー 事前準備スクショ① — 履歴 JSON 保存用「文字列(複数行)」フィールドをフォームに配置
@@ -396,7 +396,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-conditional-form-v1.0.2.zip              # 条件分岐フォーム for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-sheet-edit-v1.0.1.zip                    # シート編集 for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-sheet-edit-v1.1.0.zip                    # シート編集 for kintone 配布ファイル（手動配置・v1.1.0＝サブテーブル対応）
-│   │   ├── kw-sheet-edit-v1.2.0.zip                    # シート編集 for kintone 配布ファイル（手動配置・v1.2.0＝番号クリックで詳細を別タブ表示）
+│   │   ├── kw-sheet-edit-v1.2.1.zip                    # シート編集 for kintone 配布ファイル（手動配置・v1.2.1＝番号クリックで詳細を別タブ表示＋数値をフィールド設定どおり表示）
 │   │   ├── kw-sticky-board-v1.0.1.zip                  # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-mail-assist-v1.0.1.zip                   # メールアシスト for kintone 配布ファイル（手動配置・v1.0.1＝法人Outlook対応）
 │   │   ├── kw-mail-assist-v1.1.0.zip                   # メールアシスト for kintone 配布ファイル（手動配置・v1.1.0＝表示条件に複数値OR演算子追加・編集画面幅拡大）
