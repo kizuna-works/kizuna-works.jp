@@ -160,6 +160,7 @@ c:\kizuna-works.jp\
 │   │       ├── kintone-2026-04-update.md            # 「2026年4月最新 kintoneアップデート総まとめ」記事
 │   │       ├── kintone-design-plugin-osusume.md     # 「kintone デザイン変更プラグイン特集」記事
 │   │       ├── kintone-muryou-plugin-osusume.md     # 「kintone無料プラグイン特集｜おすすめと選び方をカテゴリ別に解説」記事（5カテゴリ別・無料他社比較・クリック目次）
+│   │       ├── kintone-category.md                  # 「kintoneカテゴリー機能｜設定・使い方と絞り込み・選択肢との違い」記事（実機スクショ3枚・比較表）
 │   │       ├── kintone-kensaku-plugin-hikaku.md     # 「kintoneの検索・絞り込みを改善するプラグイン比較【2026年版】」記事
 │   │       ├── kintone-quick-side-view-plugin-hikaku.md # 「kintone一覧でレコードを閲覧・編集できるプラグイン比較」記事
 │   │       └── kintone-lookup-plugin-hikaku.md      # 「【2026年最新】kintoneルックアップを快適にするプラグイン比較」記事（入力サジェスト/自動取得/先更新/編集絞り込みの4アプローチ比較）
@@ -344,6 +345,10 @@ c:\kizuna-works.jp\
 │   │   └── blog/                           # ブログ記事用画像
 │   │       ├── kintone-teichaku-shinai-riyu.png         # 「kintoneが定着しない」記事 OGP・サムネイル
 │   │       ├── kintone-muryou-plugin-osusume.png        # 「kintone無料プラグイン特集」記事 OGP・ヘッダー画像（Gemini生成・1200×630px）
+│   │       ├── kintone-category.png                     # 「kintoneカテゴリー機能」記事 OGP・ヘッダー画像（Gemini生成・1200×630px）
+│   │       ├── kintone-category-settings.png            # カテゴリー記事 実機スクショ：カテゴリー設定画面（階層ツリー）
+│   │       ├── kintone-category-list.png                # カテゴリー記事 実機スクショ：一覧のカテゴリーペイン（全レコード）
+│   │       ├── kintone-category-list-filter.png         # カテゴリー記事 実機スクショ：カテゴリーで絞り込んだ一覧
 │   │       ├── kintone-shortcut-keys.png                # kintoneショートカットキー一覧画像
 │   │       ├── conditional-numbering-plugin.png         # 採番プラグイン記事 OGP・サムネイル（1200×630px）
 │   │       ├── conditional-numbering-setting-format.png # 採番プラグイン フォーマット設定画面スクショ
