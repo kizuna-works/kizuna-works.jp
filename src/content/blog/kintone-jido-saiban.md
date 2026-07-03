@@ -218,7 +218,7 @@ KIZUNA Worksの「条件分岐自動採番 for kintone」プラグインを使�
 ## 関連ページ・お問い合わせ
 
 - プラグインの詳細・ダウンロード：[条件分岐自動採番 for kintone（無料）](/plugins/kw-conditional-numbering/)
-- 設定手順をもっと詳しく知りたい方：[条件分岐自動採番プラグインの機能と設定ガイド](/blog/conditional-numbering-plugin/)
+- 設定手順をもっと詳しく知りたい方：[条件分岐自動採番プラグインの使い方・設定ガイド](/blog/conditional-numbering-plugin/)
 - データ移行とあわせて：[Excelからkintoneへのデータ移行手順](/blog/kintone-excel-iko-steps/)
 - ほかのプラグインも見る：[KIZUNA Works プラグイン一覧](/plugins/)
 - 採番ルールのご相談：[お問い合わせ](/contact/)
