@@ -14,6 +14,9 @@ const blog = defineCollection({
 			ogImage: z.string().optional(),
 			author: z.string().optional(),
 			tags: z.array(z.string()).optional(),
+			// Auto table-of-contents from H2 headings. Shown by default on long posts;
+			// set false to suppress (e.g. a post with its own custom in-body TOC).
+			toc: z.boolean().optional(),
 		}),
 });
 

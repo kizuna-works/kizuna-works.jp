@@ -6,9 +6,10 @@ import type { CollectionEntry } from 'astro:content';
 import Layout from './Layout.astro';
 import RelatedPosts from '../components/RelatedPosts.astro';
 
-type Props = CollectionEntry<'blog'>['data'] & { slug: string };
+type Heading = { depth: number; slug: string; text: string };
+type Props = CollectionEntry<'blog'>['data'] & { slug: string; toc?: boolean; headings?: Heading[] };
 
-const { title, description, pubDate, updatedDate, heroImage, ogImage, author, tags, slug } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, ogImage, author, tags, slug, toc, headings = [] } = Astro.props;
 
 const formattedPubDate = pubDate.toLocaleDateString('ja-JP', {
   year: 'numeric',
@@ -31,6 +32,14 @@ const titleMainText = eyebrowMatch ? titleMain.slice(eyebrowMatch[0].length) : t
 // Serve a WebP hero when a same-named .webp exists next to the ogImage (PNG stays for og:image).
 const ogWebp = ogImage ? ogImage.replace(/\.png$/i, '.webp') : null;
 const ogWebpExists = ogWebp ? fs.existsSync(path.join(process.cwd(), 'public', ogWebp)) : false;
+// Auto-generated banner also has a WebP variant (see /og/blog/[slug].webp.ts).
+const generatedOgWebp = `/og/blog/${slug}.webp`;
+
+// Auto table-of-contents from H2 headings (skip author box / related-posts boilerplate).
+const tocItems = headings
+  .filter((h) => h.depth === 2)
+  .filter((h) => !/この記事を書いた|関連記事/.test(h.text));
+const showToc = toc !== false && tocItems.length >= 4;
 // ogImage 未指定の記事は、タイトル＋背景から自動生成したバナー（/og/blog/<slug>.png）を使う。
 const generatedOg = `/og/blog/${slug}.png`;
 const ogImageUrl = ogImage
@@ -151,6 +160,75 @@ const jsonLd = {
       padding: 5px 15px;
       border-radius: 999px;
       margin-bottom: 18px;
+    }
+
+    /* Auto table of contents (generated from H2 headings) */
+    .blog-auto-toc {
+      background: #f4f7fb;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px 24px;
+      margin: 0 0 2.4em;
+    }
+
+    .blog-auto-toc-label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 12px;
+      font-weight: 700;
+      color: #1B3A6B;
+      font-size: 1.05rem;
+    }
+
+    .blog-auto-toc-label::before {
+      content: "";
+      width: 6px;
+      height: 18px;
+      background: #2E8B2E;
+      border-radius: 3px;
+    }
+
+    .blog-auto-toc ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      counter-reset: blog-toc;
+    }
+
+    .blog-auto-toc li {
+      counter-increment: blog-toc;
+      break-inside: avoid;
+      margin: 7px 0;
+    }
+
+    .blog-auto-toc a {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      color: #1B3A6B;
+      text-decoration: none;
+      line-height: 1.6;
+    }
+
+    .blog-auto-toc a::before {
+      content: counter(blog-toc);
+      flex-shrink: 0;
+      min-width: 1.5em;
+      color: #2E8B2E;
+      font-weight: 700;
+    }
+
+    .blog-auto-toc a:hover {
+      color: #2E8B2E;
+      text-decoration: underline;
+    }
+
+    @media (min-width: 769px) {
+      .blog-auto-toc ol {
+        column-count: 2;
+        column-gap: 32px;
+      }
     }
 
     .blog-post-title-main {
@@ -445,7 +523,10 @@ const jsonLd = {
         </div>
       ) : (
         <div class="blog-hero-image">
-          <img src={generatedOg} alt={title} width="1200" height="630" loading="eager" />
+          <picture>
+            <source srcset={generatedOgWebp} type="image/webp" />
+            <img src={generatedOg} alt={title} width="1200" height="630" loading="eager" />
+          </picture>
         </div>
       )}
       <div class="blog-post-content">
@@ -460,6 +541,16 @@ const jsonLd = {
           <span class="blog-post-title-main">{titleMainText}</span>
           {titleSub && <span class="blog-post-title-sub">{titleSub}</span>}
         </h1>
+        {showToc && (
+          <nav class="blog-auto-toc" aria-label="この記事の目次">
+            <p class="blog-auto-toc-label">目次</p>
+            <ol>
+              {tocItems.map((h) => (
+                <li><a href={`#${h.slug}`}>{h.text}</a></li>
+              ))}
+            </ol>
+          </nav>
+        )}
         <div class="blog-prose">
           <slot />
         </div>
