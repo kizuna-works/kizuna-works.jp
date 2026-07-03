@@ -110,6 +110,15 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       { name: 'Chart.js', version: '4.4.1', license: 'MIT', purpose: 'グラフ（棒・折れ線・円・レーダー等）の描画。グラフを表示するときだけ読み込みます' },
     ],
   },
+  'kw-bulk-update': {
+    extraComm: [
+      {
+        label: 'ユーザー／組織／グループ候補の取得',
+        detail:
+          'ユーザー選択・組織選択・グループ選択フィールドを一括更新するときや、実行権限（グループ所属）を判定するときに、ご利用中の kintone ドメイン内の cybozu.com 共通管理API（/v1/users・/v1/organizations・/v1/groups 等）を呼び出して候補を取得します。呼び出しはすべて自ドメイン内で完結し、外部の第三者へは送信しません。レコードの取得・更新・履歴からの復元もすべて自ドメインの kintone REST API で行い、変更前後のスナップショットは同一スペース内に自動生成する保管アプリ（kintoneアプリ）に保存します。',
+      },
+    ],
+  },
 };
 
 /**

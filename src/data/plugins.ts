@@ -630,6 +630,28 @@ export const plugins: Plugin[] = [
     problemDesc: '日報や申請で報告者＝自分の部署・役職・連絡先を毎回調べて入力し、組織は文字列でばらつき、承認欄は手書きやハンコで運用している',
     releaseDate: '2026-06-29',
   },
+  {
+    id: 'kw-bulk-update',
+    name: 'かんたん一括更新 for kintone',
+    formName: 'かんたん一括更新 for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'bulk-update',
+    category: '一覧',
+    description:
+      '標準のレコード一覧で絞り込んだ結果に、フィールドを1つ選んで値を一括更新・一括クリアできるプラグイン。数値は加算・減算にも対応し、クイックサーチ等の絞り込みに連動。実行直後のUndoに加え、変更前後を保管アプリに記録して設定画面の履歴からいつでも元に戻せます。',
+    image: '/images/bulk-update-banner.png',
+    imageAlt:
+      'かんたん一括更新 for kintone プラグイン — 標準のレコード一覧で絞り込んだ結果にフィールドを1つ選んで値を一括更新・一括クリア。数値は加算・減算、実行直後のUndoと履歴からの復元に対応',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '絞り込んだ一覧の1フィールドをまとめて更新・クリア。数値は加算/減算、クイックサーチ連動・1万件超対応。Undoと履歴からの復元付き・kintone完結。',
+    problemTitle: '複数レコードの同じ項目を1件ずつ詳細画面で直している',
+    problemDesc: 'ステータス・担当者・金額などを絞り込んだ何十件にまとめて反映したいのに、1件ずつ開いて編集・保存を繰り返していて時間がかかる',
+    releaseDate: '2026-07-03',
+  },
 ];
 
 /**
