@@ -1,4 +1,6 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import Layout from './Layout.astro';
@@ -25,6 +27,10 @@ const titleSub = titleRest.join('｜');
 const eyebrowMatch = titleMain.match(/^[【\[]([^】\]]+)[】\]]\s*/);
 const titleEyebrow = eyebrowMatch ? eyebrowMatch[1].trim() : null;
 const titleMainText = eyebrowMatch ? titleMain.slice(eyebrowMatch[0].length) : titleMain;
+
+// Serve a WebP hero when a same-named .webp exists next to the ogImage (PNG stays for og:image).
+const ogWebp = ogImage ? ogImage.replace(/\.png$/i, '.webp') : null;
+const ogWebpExists = ogWebp ? fs.existsSync(path.join(process.cwd(), 'public', ogWebp)) : false;
 // ogImage 未指定の記事は、タイトル＋背景から自動生成したバナー（/og/blog/<slug>.png）を使う。
 const generatedOg = `/og/blog/${slug}.png`;
 const ogImageUrl = ogImage
@@ -428,7 +434,14 @@ const jsonLd = {
         </div>
       ) : ogImage ? (
         <div class="blog-hero-image">
-          <img src={ogImage} alt={title} width="800" height="400" loading="eager" />
+          {ogWebpExists ? (
+            <picture>
+              <source srcset={ogWebp} type="image/webp" />
+              <img src={ogImage} alt={title} width="800" height="400" loading="eager" />
+            </picture>
+          ) : (
+            <img src={ogImage} alt={title} width="800" height="400" loading="eager" />
+          )}
         </div>
       ) : (
         <div class="blog-hero-image">
