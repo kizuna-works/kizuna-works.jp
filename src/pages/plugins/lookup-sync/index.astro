@@ -1,0 +1,512 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+---
+
+<Layout
+  title="ルックアップ自動同期 for kintone｜マスター更新で参照先レコードを自動追従 | KIZUNA Works"
+  description="kintone のルックアップ元（マスター）を更新すると、その値をコピーした参照先アプリの既存レコードを自動で追従更新するプラグイン。対象は自動スキャンで検出、サブテーブル内のルックアップにも対応。既存データも一括同期できるプレミアムプラグイン。"
+  ogTitle="ルックアップ自動同期 for kintone｜マスター更新で参照先レコードを自動追従 | KIZUNA Works"
+  ogDescription="kintone のマスターを更新すると、その値をルックアップでコピーした参照先アプリの既存レコードを自動で追従更新。自動スキャン検出・サブテーブル対応・既存データの一括同期に対応するプレミアムプラグイン。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/lookup-sync/"
+  ogImage="https://kizuna-works.jp/images/lookup-sync-banner.png"
+  canonical="https://kizuna-works.jp/plugins/lookup-sync/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/lookup-sync/",
+          "url": "https://kizuna-works.jp/plugins/lookup-sync/",
+          "name": "ルックアップ自動同期 for kintone｜マスター更新で参照先レコードを自動追従 | KIZUNA Works",
+          "description": "kintone のルックアップ元（マスター）を更新すると、その値をコピーした参照先アプリの既存レコードを自動で追従更新するプラグイン。自動スキャン検出・サブテーブル対応・既存データの一括同期。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/lookup-sync-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "ルックアップ自動同期 for kintone", "item": "https://kizuna-works.jp/plugins/lookup-sync/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "ルックアップ自動同期 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-07-04",
+          "url": "https://kizuna-works.jp/plugins/lookup-sync/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-sync-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/lookup-sync-banner.png",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "無料プラン",
+              "price": "0",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "1組の参照先に全機能を無料でご利用いただけます（利用期限なし）。"
+            },
+            {
+              "@type": "Offer",
+              "name": "プレミアム年間サポーター（全プラグイン込み）",
+              "price": "16500",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、複数の参照先へのまとめて同期・広告非表示を含む全機能と、販売中の全プラグインを利用できます。単品販売はありません。"
+            }
+          ],
+          "description": "ルックアップ元（マスター）のレコードを更新すると、その値をコピーしている参照先アプリの既存レコードを自動で追従更新する kintone プラグイン。対象は自動スキャンで検出し、サブテーブル内のルックアップにも対応。導入前の既存データも一括同期できる。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "マスター保存時に、参照先アプリのルックアップコピー値を自動で追従更新",
+            "参照先アプリ・フィールドを自動スキャンで検出（フィールドマッピングも自動取得・手入力不要）",
+            "対象ごとに自動モード（保存後すぐ反映）／手動モード（確認ポップアップ）を選択",
+            "サブテーブル内のルックアップにも対応（行ごとに追従更新）",
+            "「今すぐ全件同期」で導入前の既存レコード・反映漏れを一括最新化",
+            "ルックアップキーの変更にも追従（旧キーで対象を検索して更新）",
+            "件数無制限（カーソル方式で分割取得・100件ずつ更新）",
+            "1つのマスターを複数アプリが参照／1アプリに複数ルックアップがあっても対象ごとに独立同期",
+            "kintone 完結・外部送信なし・ゲストスペース対応"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "kintoneでマスターを更新したとき、ルックアップのコピー値も更新できますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。ルックアップ自動同期 for kintone は、ルックアップ元（マスター）のレコードを更新すると、その値をコピーしている参照先アプリの既存レコードを自動で追従更新します。マスターの会社名や単価を直しても、過去にルックアップ済みの参照先レコードが古いまま残る問題を解消します。" } },
+            { "@type": "Question", "name": "どちらのアプリに追加しますか？", "acceptedAnswer": { "@type": "Answer", "text": "ルックアップ元（参照される側＝マスター）アプリに追加します。参照している側のアプリではありません。マスターのレコードを保存したときに、参照先を更新しに行く動きです。" } },
+            { "@type": "Question", "name": "対象アプリやフィールドの設定は難しいですか？", "acceptedAnswer": { "@type": "Answer", "text": "設定画面の「スキャン実行」を押すと、このマスターを参照しているルックアップフィールドをドメイン内から自動検出します。コピーするフィールド（フィールドマッピング）も各ルックアップ設定から自動で読み取るため、手入力のマッピングは不要です。" } },
+            { "@type": "Question", "name": "サブテーブル内のルックアップにも対応していますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。トップレベルのルックアップだけでなく、サブテーブル内のルックアップにも対応し、該当する行ごとにコピー値を追従更新します。" } },
+            { "@type": "Question", "name": "導入前からある既存レコードも最新化できますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。各対象の「今すぐ全件同期」を押すと、参照先アプリの既存レコードすべてのコピー値を、現在のマスターの値で一括更新します。プラグイン導入前に作られたレコードや反映漏れの修正に使えます（件数無制限・100件ずつ分割実行）。" } },
+            { "@type": "Question", "name": "レコード数が多くても大丈夫ですか？", "acceptedAnswer": { "@type": "Answer", "text": "上限はありません。カーソル方式で分割取得し、100件ずつ更新します。数百〜数千件でも動作を確認しています。" } },
+            { "@type": "Question", "name": "特定のコピー項目だけ更新できますか？", "acceptedAnswer": { "@type": "Answer", "text": "できません。kintone の仕様上、ルックアップキーを再セットするとそのルックアップに設定された全コピー項目が一括で再取得されるため、同期は常に「ルックアップ設定に従って一括」で行われます。" } },
+            { "@type": "Question", "name": "外部にデータが送られませんか？", "acceptedAnswer": { "@type": "Answer", "text": "業務データを外部へ送信しません。同期はすべて自ドメインの kintone REST API で完結します。外部通信はライセンス認証（プラグインIDとドメイン名）と更新通知の確認のみです。" } },
+            { "@type": "Question", "name": "ゲストスペースのアプリでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、ゲストスペース内のアプリでも利用できます。" } },
+            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで1組の参照先に全機能をお試しいただけます。複数の参照先へまとめて同期する機能・広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。" } }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 5px 14px; border-radius: 20px;
+    }
+    .afp-hero-version {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 5px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 720px; line-height: 1.8; }
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    /* Master / Reference linkage */
+    .afp-ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+    .afp-ba-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-ba-card.after { border: 2px solid var(--color-green); }
+    .afp-ba-label { font-weight: 700; padding: 12px 18px; font-size: 0.98rem; }
+    .afp-ba-card.before .afp-ba-label { background: #eef2f7; color: var(--color-navy); }
+    .afp-ba-card.after .afp-ba-label { background: #eaf6ea; color: var(--color-green); }
+    .afp-ba-card img { width: 100%; height: auto; display: block; background: #F0F4F8; border-top: 1px solid #e2e8f0; cursor: zoom-in; }
+    .afp-ba-desc { font-size: 0.92rem; line-height: 1.7; color: var(--color-text-main); padding: 14px 18px 18px; }
+    .afp-ba-arrow { text-align: center; font-size: 0.95rem; color: var(--color-text-muted); margin: 20px 0 0; }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    /* Single centered screenshot */
+    .afp-shot { max-width: 900px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-steps { counter-reset: step; list-style: none; padding: 0; margin: 0; }
+    .afp-steps li { position: relative; padding: 0 0 18px 52px; line-height: 1.8; }
+    .afp-steps li::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; left: 0; top: 0; width: 34px; height: 34px;
+      background: var(--color-green); color: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-weight: 700;
+    }
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+      display: none; align-items: center; justify-content: center;
+      z-index: 1000; padding: 24px; cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close {
+      position: absolute; top: 14px; right: 22px; width: 44px; height: 44px;
+      background: rgba(255,255,255,0.12); border: none; color: #fff;
+      font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-ba-grid { grid-template-columns: 1fr; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/lookup-sync-icon.png" alt="ルックアップ自動同期 for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium">👑 PREMIUM PLUGIN</span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1>ルックアップ自動同期 for kintone</h1>
+      <p class="afp-tagline">マスターを直せば、参照先も自動で最新に。</p>
+      <p class="afp-sub">ルックアップ元（マスター）のレコードを更新すると、その値をコピーした参照先アプリの既存レコードを自動で追従更新。「マスターは直したのに、コピー済みの値が古いまま」を解消します。</p>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 定義（結論ファースト） -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <p class="afp-lead">
+          <strong>ルックアップ自動同期 for kintone</strong> は、<strong>ルックアップ元（マスター）</strong>のレコードを更新すると、その値を<strong>ルックアップでコピーしている参照先アプリの既存レコード</strong>を自動で追従更新する kintone プラグインです。kintone 標準のルックアップは、取り込んだ後にマスターを直しても<strong>過去のコピー値は古いまま</strong>残ります。本プラグインは、マスターの会社名・単価などの変更を検知し、それを参照している受注・在庫・請求などのレコードを<strong>自動で最新化</strong>。対象は<strong>自動スキャンで検出</strong>し、<strong>サブテーブル内のルックアップにも対応</strong>。導入前からの既存データも<strong>「今すぐ全件同期」</strong>で一括更新でき、業務データは外部に送信しません。「プレミアムプラグイン」シリーズの一つです。
+        </p>
+      </div>
+    </section>
+
+    <!-- マスター → 参照先 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">マスターの変更が、参照先へ自動で伝わる</h2>
+        <div class="afp-ba-grid">
+          <div class="afp-ba-card before">
+            <div class="afp-ba-label">① マスター（商品マスター）</div>
+            <picture>
+              <source srcset="/images/lookup-sync-master.webp" type="image/webp" />
+              <img class="zoomable" src="/images/lookup-sync-master.png" alt="商品マスターの一覧 — 商品コード・商品名・カテゴリ・メーカー・単価を管理するマスターアプリ（120件）" width="1400" height="579" loading="lazy" />
+            </picture>
+            <p class="afp-ba-desc">商品名・カテゴリ・メーカー・単価などを管理する<strong>マスターアプリ</strong>。このレコードを更新するだけ。</p>
+          </div>
+          <div class="afp-ba-card after">
+            <div class="afp-ba-label">② 参照先（在庫管理）── コピー値が自動で最新</div>
+            <picture>
+              <source srcset="/images/lookup-sync-inventory.webp" type="image/webp" />
+              <img class="zoomable" src="/images/lookup-sync-inventory.png" alt="在庫管理の一覧 — 商品マスターをルックアップし、商品名・カテゴリ・メーカー・単価が自動で最新化された参照先アプリ（600件）" width="1400" height="579" loading="lazy" />
+            </picture>
+            <p class="afp-ba-desc">マスターをルックアップしている<strong>参照先アプリの既存レコード</strong>（600件）のコピー値が、保存操作なしで自動追従。</p>
+          </div>
+        </div>
+        <p class="afp-ba-arrow">マスターを1件直すだけで、そのマスターを参照している全レコードのコピー値が最新に更新されます。</p>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+
+        <div class="afp-feature">
+          <div class="afp-feature-text">
+            <h3>参照先は「スキャン」で自動検出</h3>
+            <p>設定画面の「スキャン実行」を押すと、ドメイン内の全アプリを走査し、このマスターを参照しているルックアップフィールドを自動検出します。コピーするフィールド（フィールドマッピング）も各ルックアップ設定から自動で読み取るため、手入力のマッピングは不要。検出された参照先を「有効」にして同期モードを選ぶだけです。</p>
+          </div>
+          <picture>
+            <source srcset="/images/lookup-sync-config.webp" type="image/webp" />
+            <img class="zoomable" src="/images/lookup-sync-config.png" alt="ルックアップ自動同期の設定画面 — スキャンで検出した在庫管理・発注管理を対象として有効化し、コピーするフィールドと同期モードを表示している" width="1400" height="952" loading="lazy" />
+          </picture>
+        </div>
+
+        <div class="afp-feature reverse">
+          <div class="afp-feature-text">
+            <h3>サブテーブル内のルックアップにも対応</h3>
+            <p>トップレベルのルックアップだけでなく、<strong>サブテーブル内のルックアップ</strong>にも対応。発注明細のように、明細行ごとに商品マスターをルックアップしているケースでも、該当する行のコピー値だけを正しく追従更新します。関係のない行や他の列の値には影響しません。</p>
+          </div>
+          <picture>
+            <source srcset="/images/lookup-sync-subtable.webp" type="image/webp" />
+            <img class="zoomable" src="/images/lookup-sync-subtable.png" alt="発注管理のレコード詳細 — 明細サブテーブルの各行が商品マスターをルックアップし、商品名・メーカー・単価が最新化されている" width="1400" height="579" loading="lazy" />
+          </picture>
+        </div>
+
+        <div class="afp-feature">
+          <div class="afp-feature-text">
+            <h3>自動・手動モードを対象ごとに選べる</h3>
+            <p>対象ごとに<strong>自動（保存後すぐ反映）</strong>か<strong>手動（確認ポップアップで選んで実行）</strong>を選択できます。自動対象は保存直後に静かに反映し、手動対象は確認ポップアップで内容を確かめてから実行。反映件数も確認できるので、影響範囲を把握しながら安全に同期できます。</p>
+          </div>
+          <picture>
+            <source srcset="/images/lookup-sync-popup.webp" type="image/webp" />
+            <img class="zoomable" src="/images/lookup-sync-popup.png" alt="同期の確認ポップアップ — 在庫管理は自動で完了5件、発注管理（サブテーブル）は手動で待機中と表示されている" width="1400" height="579" loading="lazy" />
+          </picture>
+        </div>
+
+        <div class="afp-grid-feats" style="margin-top:8px;">
+          <div class="afp-feat-card">
+            <h3>今すぐ全件同期</h3>
+            <p>導入前からある既存レコードや反映漏れも、参照先アプリの全レコードのコピー値をワンクリックで一括最新化。件数無制限で、100件ずつ分割して実行します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ルックアップキーの変更にも追従</h3>
+            <p>商品コードなどのルックアップキー自体を変更した場合も、旧キーで参照先レコードを探し、新しいキーとコピー値に更新します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>大量レコード対応</h3>
+            <p>カーソル方式で分割取得し、100件ずつ更新。数百〜数千件の参照先でも動作を確認しています。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>複数参照・複数ルックアップ</h3>
+            <p>1つのマスターを複数のアプリが参照していても、1つのアプリに複数のルックアップがあっても、対象ごとに個別検出・独立して同期します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>必要なときだけ動く</h3>
+            <p>コピー元の値が変わっていないときは同期しません。関係のないフィールドだけを変更した保存では、ポップアップも出ず余計な更新を行いません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>kintone 完結</h3>
+            <p>同期はすべて自ドメインの kintone REST API で完結。外部サーバーへ業務データを送信しません。ゲストスペース内のアプリにも対応しています。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- プランについて -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料プランでも<strong>1組の参照先に全機能</strong>をお試しいただけます。複数の参照先へまとめて同期する機能と広告非表示は、<strong>プレミアム年間サポーター</strong>で解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ 1組の参照先に全機能を適用</li>
+              <li>✅ 自動・手動モード／サブテーブル／今すぐ全件同期をすべて利用可</li>
+              <li>✅ 反映件数は無制限・利用期限なし</li>
+              <li>✅ 設定画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-lookup-sync-v1.0.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+          </div>
+
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>複数の参照先</strong>へまとめて同期（有効化数の制限なし）</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ 自動・手動・サブテーブル・全件同期など全機能</li>
+              <li>✅ 販売中の<strong>全プラグイン</strong>も対象（契約期間中に新しく公開されるプラグインも追加料金なし）</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta">プレミアム年間サポーターを申し込む →</a>
+          </div>
+        </div>
+
+        <h3 class="afp-plan-compare-head">機能の詳細比較</h3>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>機能</th><th class="c">無料プラン</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>同時に同期できる参照先の数</td><td class="c">1組</td><td class="c">無制限</td></tr>
+              <tr><td>自動・手動モード</td><td class="c">◯</td><td class="c">◯</td></tr>
+              <tr><td>サブテーブル対応</td><td class="c">◯</td><td class="c">◯</td></tr>
+              <tr><td>今すぐ全件同期・大量レコード対応</td><td class="c">◯</td><td class="c">◯</td></tr>
+              <tr><td>ルックアップキー変更の追従</td><td class="c">◯</td><td class="c">◯</td></tr>
+              <tr><td>設定画面の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- インストール手順 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="afp-steps">
+          <li>システム管理者で kintone にログインし、<strong>歯車アイコン → kintone システム管理 → プラグイン</strong> を開きます。</li>
+          <li><strong>「読み込む」</strong>をクリックして、プラグイン zip をアップロードします。</li>
+          <li><strong>ルックアップ元（マスター）アプリ</strong>で <strong>アプリの設定 → プラグイン → 「+ プラグインを追加」</strong> から本プラグインを追加します。</li>
+          <li>プラグイン一覧の<strong>歯車アイコン</strong>から設定画面を開き、<strong>「スキャン実行」</strong>で参照先を検出します。</li>
+          <li>同期したい参照先を<strong>「有効」</strong>にし、<strong>自動／手動の同期モード</strong>を選びます。</li>
+          <li><strong>「保存」→「アプリを更新」</strong>を実行して反映します。導入前の既存レコードは<strong>「今すぐ全件同期」</strong>で最新化できます。</li>
+        </ol>
+        <div class="afp-note">参照先アプリを後から追加したときは、設定画面で「スキャン実行」を再実行すると新しい参照先が検出されます（API 負荷を避けるため自動では再スキャンしません）。ゲストスペース内のアプリでも利用できます。</div>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ご利用にあたっての注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li>本プラグインは<strong>ルックアップ元（参照される側＝マスター）アプリ</strong>に追加します。参照している側のアプリではありません。</li>
+            <li><strong>コピー項目のフィールド単位でのオン／オフはできません。</strong> kintone の仕様上、ルックアップキーを再セットすると、そのルックアップに設定された全コピー項目が一括で再取得されるためです。</li>
+            <li>参照先アプリを後から追加した場合は<strong>「スキャン実行」の再実行が必要</strong>です。取り込み前の既存レコードは「今すぐ全件同期」で追従できます。</li>
+            <li>同期には、実行ユーザーに<strong>参照先アプリのレコード閲覧・編集権限</strong>が必要です。権限のないアプリはスキャン・同期の対象外になります。</li>
+            <li>同期は<strong>PC版のレコード保存時</strong>および設定画面の「今すぐ全件同期」で動作します。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- セキュリティ -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-lookup-sync" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>プレミアム年間サポーターで使ってみる</h2>
+      <p>ルックアップ自動同期をはじめ、販売中の全プラグインをご利用いただけます。年額 ¥16,500（税込）。まずは無料プランでお試しいただけます（利用期限なし）。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを申し込む →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ls-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('ls-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      var dl = document.getElementById('btn-download');
+      if (dl && typeof gtag === 'function') {
+        dl.addEventListener('click', function () {
+          gtag('event', 'file_download', {
+            file_name: 'kw-lookup-sync-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: '無料でダウンロード',
+            link_url: '/downloads/kw-lookup-sync-v1.0.0.zip'
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

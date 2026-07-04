@@ -726,6 +726,28 @@ export const premiumPlugins: Plugin[] = [
     problemDesc: '申請先組織や承認者を、役職・所属・申請種別に応じた候補だけに絞り、誤選択を防ぎたい',
     releaseDate: '2026-07-01',
   },
+  {
+    id: 'kw-lookup-sync',
+    name: 'ルックアップ自動同期 for kintone',
+    formName: 'ルックアップ自動同期 for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'lookup-sync',
+    category: '出力・連携',
+    description:
+      'ルックアップ元（マスター）のレコードを更新すると、その値をコピーしている参照先アプリの既存レコードを自動で追従更新するプラグイン。対象は自動スキャンで検出し手入力不要、サブテーブル内のルックアップにも対応。導入前の既存データも「今すぐ全件同期」で一括最新化できます。',
+    image: '/images/lookup-sync-banner.png',
+    imageAlt:
+      'ルックアップ自動同期 for kintone プラグイン — マスターのレコードを更新すると、その値をルックアップでコピーした参照先アプリの既存レコードを自動で追従更新する',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      'マスターを更新すると、その値をルックアップでコピーした参照先レコードを自動で最新化。自動スキャン検出・サブテーブル対応・既存データの一括同期。kintone 完結。',
+    problemTitle: 'マスターを直しても、コピー済みの値が古いまま',
+    problemDesc: '会社名や単価を直しても、過去にルックアップした参照先レコードは古いまま。まとめて最新化したい',
+    releaseDate: '2026-07-04',
+  },
 ];
 
 /**

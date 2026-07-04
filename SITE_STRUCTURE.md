@@ -131,8 +131,10 @@ c:\kizuna-works.jp\
 │   │   │   │   ├── index.astro # 【プレミアムプラグイン】ダッシュボード製品ページ（/plugins/dashboard/）— グラフ/数値カード/クロス集計表を1枚に集約し一覧のカスタマイズビューに常設の集計ダッシュボードを描画。期間連動再集計・ドリルダウン・配色・ライブプレビュー／有償＝アプリ横断集計・ポータルiframe埋め込み・集計キャッシュ。設定レシピ集への導線あり。単品販売なし＝プレミアム年間サポーターに含む。kintone完結（グラフはChart.js自社配信/SRI）
 │   │   │   │   └── recipes/
 │   │   │   │       └── index.astro # ダッシュボード設定レシピ集（/plugins/dashboard/recipes/）— ウィジェット種別ごとに「目的→設定手順→完成イメージ」を掲載。アコーディオン＋種別/目的タグ/検索フィルタ。データは src/data/recipes.ts、画像は /images/dashboard/recipes/。第1バッチ22レシピ（順次拡張）
-│   │   │   └── attribute-filter/
-│   │   │       └── index.astro # 【プレミアムプラグイン】属性制御フィルター製品ページ（/plugins/attribute-filter/）— ユーザー/組織/グループ選択の候補を役職・所属・他フィールド値・ステータスで自動絞り込み。標準表示 vs 絞り込みのBefore/After、設定画面（組織/ユーザー/グループ条件）スクショ、主な機能、無料/プレミアム比較、インストール手順、SecurityBox。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。スクショはライトボックスで拡大。kintone完結・ゲスト対応
+│   │   │   ├── attribute-filter/
+│   │   │   │   └── index.astro # 【プレミアムプラグイン】属性制御フィルター製品ページ（/plugins/attribute-filter/）— ユーザー/組織/グループ選択の候補を役職・所属・他フィールド値・ステータスで自動絞り込み。標準表示 vs 絞り込みのBefore/After、設定画面（組織/ユーザー/グループ条件）スクショ、主な機能、無料/プレミアム比較、インストール手順、SecurityBox。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。スクショはライトボックスで拡大。kintone完結・ゲスト対応
+│   │   │   └── lookup-sync/
+│   │   │       └── index.astro # 【プレミアムプラグイン】ルックアップ自動同期製品ページ（/plugins/lookup-sync/）— マスター更新で参照先アプリのルックアップコピー値を自動追従更新。マスター→参照先の連動（商品マスター/在庫管理）、主な機能（スキャン自動検出・サブテーブル対応・自動/手動モード・今すぐ全件同期・キー変更追従）、無料/プレミアム比較、インストール手順、SecurityBox。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。スクショはライトボックスで拡大。kintone完結・ゲスト対応
 │   │   ├── tools/
 │   │   │   └── index.astro     # 無料ツール一覧ページ（/tools/）
 │   │   ├── extensions/
@@ -335,6 +337,13 @@ c:\kizuna-works.jp\
 │   │   ├── attribute-filter-config-org.png/.webp  # 設定画面：組織条件（親子ツリー＋申請種別条件）
 │   │   ├── attribute-filter-config-user.png/.webp # 設定画面：ユーザー条件（指定した役職＝課長）
 │   │   ├── attribute-filter-config-group.png/.webp # 設定画面：グループ条件（指定したグループ）
+│   │   ├── lookup-sync-banner.png/.webp      # ルックアップ自動同期 for kintone 見出しバナー（OGP/グリッド共用・1200×630）
+│   │   ├── lookup-sync-icon.png              # ルックアップ自動同期 for kintone アイコン（hero・200×200）
+│   │   ├── lookup-sync-master.png/.webp      # マスター（商品マスター一覧・120件）製品ページ「マスター→参照先」①
+│   │   ├── lookup-sync-inventory.png/.webp   # 参照先（在庫管理一覧・600件・コピー値が自動最新）製品ページ「マスター→参照先」②
+│   │   ├── lookup-sync-config.png/.webp      # 設定画面：スキャン検出＋2対象（在庫管理/発注管理サブテーブル）＋コピー項目＋同期モード
+│   │   ├── lookup-sync-subtable.png/.webp    # 発注管理レコード詳細：明細サブテーブルのルックアップコピー値
+│   │   ├── lookup-sync-popup.png/.webp       # 同期の確認ポップアップ（自動＝完了5件／手動＝待機中）
 │   │   ├── field-styler-icon.png           # フィールドスタイラープラグイン アイコン（200×200・56×56から拡大）
 │   │   ├── field-styler-before.png         # フィールドスタイラー 導入前スクリーンショット
 │   │   ├── field-styler-after.png          # フィールドスタイラー 導入後スクリーンショット
@@ -412,6 +421,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-comment-control-v1.0.1.zip               # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.1＝閉じたコメント欄を手動で開けない不具合を修正）
 │   │   ├── kw-dashboard-v1.1.0.zip                      # ダッシュボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第2弾・無料/プレミアム共通zip・v1.1.0=ポータルレイアウト構成）
 │   │   ├── kw-attribute-filter-v1.0.0.zip               # 属性制御フィルター for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=1フィールド全機能）
+│   │   ├── kw-lookup-sync-v1.0.0.zip                     # ルックアップ自動同期 for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=参照先1組で全機能）
 │   │   └── kw-user-autofill-v1.0.0.zip                  # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.0＝属性自動転記＋プロフィールカード／捺印モード）
 │   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ（第三者CDN不使用）。現状 kw-file-preview のみ使用
 │   │   ├── README.md           # 収録ライブラリ・バージョン・ライセンス・更新手順
