@@ -226,6 +226,16 @@ import SecurityBox from '../../../components/SecurityBox.astro';
     .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
     .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
 
+    /* Related blog posts */
+    .afp-blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .afp-blog-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: var(--shadow-card); overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; }
+    .afp-blog-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.14); }
+    .afp-blog-card img { width: 100%; height: auto; display: block; aspect-ratio: 1200 / 630; object-fit: cover; background: #F0F4F8; }
+    .afp-blog-body { padding: 18px 20px 20px; }
+    .afp-blog-body h3 { font-size: 1.05rem; color: var(--color-navy); margin: 0 0 10px; line-height: 1.5; }
+    .afp-blog-body p { font-size: 0.9rem; line-height: 1.7; color: var(--color-text-main); margin: 0 0 12px; }
+    .afp-blog-link { color: var(--color-green); font-weight: 700; font-size: 0.9rem; }
+
     .zoomable { cursor: zoom-in; }
     .lightbox {
       position: fixed; inset: 0; background: rgba(0,0,0,0.85);
@@ -247,6 +257,7 @@ import SecurityBox from '../../../components/SecurityBox.astro';
       .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
       .afp-feature.reverse .afp-feature-text { order: 0; }
       .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-blog-grid { grid-template-columns: 1fr; }
       .afp-h2 { font-size: 1.4rem; }
     }
   </style>
@@ -456,6 +467,31 @@ import SecurityBox from '../../../components/SecurityBox.astro';
     <section class="afp-section">
       <div class="afp-wrap">
         <SecurityBox pluginId="kw-lookup-sync" />
+      </div>
+    </section>
+
+    <!-- 関連ブログ記事 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">関連ブログ記事</h2>
+        <div class="afp-blog-grid">
+          <a class="afp-blog-card" href="/blog/kintone-lookup-kaisetsu/">
+            <img src="/images/blog/kintone-lookup-kaisetsu.png" alt="kintoneのルックアップ機能を徹底解説｜使い方・設定方法から絞り込み・テーブル対応まで" width="1200" height="630" loading="lazy" />
+            <div class="afp-blog-body">
+              <h3>【kintone】ルックアップとは？使い方・設定方法を基本から徹底解説</h3>
+              <p>標準ルックアップの仕組み・設定手順・限界を網羅。「マスターを直しても古い値が残る」問題への本プラグインの位置づけも分かります。</p>
+              <span class="afp-blog-link">記事を読む →</span>
+            </div>
+          </a>
+          <a class="afp-blog-card" href="/blog/kintone-lookup-plugin-hikaku/">
+            <img src="/images/blog/kintone-lookup-plugin-hikaku.png" alt="kintoneルックアップを快適にするプラグイン比較" width="1200" height="630" loading="lazy" />
+            <div class="afp-blog-body">
+              <h3>【2026年最新】kintoneルックアップを快適にするプラグイン比較</h3>
+              <p>入力サジェスト・自動取得・先更新・絞り込みの4アプローチを製品ごとに比較。マスター変更を反映するアプローチも解説しています。</p>
+              <span class="afp-blog-link">記事を読む →</span>
+            </div>
+          </a>
+        </div>
       </div>
     </section>
 
