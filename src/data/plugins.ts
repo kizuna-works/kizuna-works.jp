@@ -652,6 +652,28 @@ export const plugins: Plugin[] = [
     problemDesc: 'ステータス・担当者・金額などを絞り込んだ何十件にまとめて反映したいのに、1件ずつ開いて編集・保存を繰り返していて時間がかかる',
     releaseDate: '2026-07-03',
   },
+  {
+    id: 'kw-excel-paste',
+    name: 'エクセル一括貼り付け for kintone',
+    formName: 'エクセル一括貼り付け for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'excel-paste',
+    category: '入力支援',
+    description:
+      'Excel等の表データを貼り付けるだけで一括入力できるプラグイン。作成・編集画面ではサブテーブルへ複数行をまとめて流し込み、一覧画面では貼り付けだけで複数レコードを一括作成。貼り付け前にプレビューで列とフィールドの対応を確認でき、見出し行を含めれば自動マッピング。kintone完結。',
+    image: '/images/excel-paste-banner.png',
+    imageAlt:
+      'エクセル一括貼り付け for kintone プラグイン — Excelの表データを貼り付けてサブテーブルへ複数行、一覧から複数レコードを一括入力。プレビューで列とフィールドを対応、見出し行は自動マッピング',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      'Excelの表を貼り付けるだけで一括入力。サブテーブルへ複数行、一覧から複数レコードをまとめて作成。プレビュー＋見出し自動マッピング・kintone完結。',
+    problemTitle: 'Excelの表をkintoneに1行ずつ手入力している',
+    problemDesc: '見積・注文などの明細をExcelで先に作ってからkintoneへ転記していて、サブテーブルや複数レコードの入力に毎回手間がかかる',
+    releaseDate: '2026-07-05',
+  },
 ];
 
 /**

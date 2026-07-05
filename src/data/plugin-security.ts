@@ -119,6 +119,15 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-excel-paste': {
+    extraComm: [
+      {
+        label: 'ユーザー／グループ候補の取得・実行権限の判定',
+        detail:
+          'モードB（一覧からの一括作成）で「実行できるユーザー」を「指定ユーザー・グループ」に設定した場合に、候補の取得や所属判定のため、ご利用中の kintone ドメイン内の cybozu.com 共通管理API（/v1/users・/v1/groups・/v1/group/users 等）を呼び出します。呼び出しはすべて自ドメイン内で完結し、外部の第三者へは送信しません。貼り付けたデータの解析はブラウザ内で行い、サブテーブルへの反映（JS API）とレコードの作成（kintone REST API /k/v1/records）はすべて自ドメイン内で完結します。CSV読み込み機能は使用しません。',
+      },
+    ],
+  },
 };
 
 /**

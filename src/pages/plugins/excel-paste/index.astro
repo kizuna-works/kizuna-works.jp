@@ -1,0 +1,614 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="エクセル一括貼り付け for kintone - Excelの表を貼り付けて一括入力 | KIZUNA Works"
+  description="Excel等の表データを貼り付けるだけで kintone に一括入力できるプラグイン。作成・編集画面ではサブテーブルへ複数行を流し込み、一覧画面では貼り付けだけで複数レコードを一括作成。貼り付け前にプレビューで列とフィールドの対応を確認でき、見出し行を含めれば自動マッピング。CSV不要・kintone完結。"
+  ogTitle="エクセル一括貼り付け for kintone - Excelの表を貼り付けて一括入力 | KIZUNA Works"
+  ogDescription="Excelの表データを貼り付けるだけで kintone に一括入力。サブテーブルへ複数行、一覧から複数レコードをまとめて作成。プレビュー＋見出し行の自動マッピング・CSV不要・kintone完結。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/excel-paste/"
+  ogImage="https://kizuna-works.jp/images/excel-paste-banner.png"
+  canonical="https://kizuna-works.jp/plugins/excel-paste/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/excel-paste/",
+          "url": "https://kizuna-works.jp/plugins/excel-paste/",
+          "name": "エクセル一括貼り付け for kintone - Excelの表を貼り付けて一括入力 | KIZUNA Works",
+          "description": "Excel等の表データを貼り付けるだけで kintone に一括入力できるプラグイン。作成・編集画面ではサブテーブルへ複数行を流し込み、一覧画面では貼り付けだけで複数レコードを一括作成。見出し行を含めれば自動マッピング。CSV不要・kintone完結。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/excel-paste-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "エクセル一括貼り付け for kintone", "item": "https://kizuna-works.jp/plugins/excel-paste/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "エクセル一括貼り付け for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-07-05",
+          "url": "https://kizuna-works.jp/plugins/excel-paste/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-excel-paste-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/excel-paste-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "Excel などの表データをクリップボードから貼り付けるだけで kintone に一括入力できる kintone プラグイン。レコードの作成・編集画面では対象サブテーブルへ複数行をまとめて流し込み、レコード一覧画面では「貼り付けで新規作成」ボタンから複数レコードを一括作成できます。貼り付け前にプレビューで列とフィールドの対応を確認・調整でき、Excelの見出し行を含めて貼り付けると列名で自動マッピングされます。数値・日付・選択肢などの型変換とエラー検出付き。CSVファイル不要・外部サーバー不要で kintone 内で完結します。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "Excelの表データを貼り付けて一括入力（CSV不要）",
+            "モードA：作成・編集画面のサブテーブルへ複数行を流し込み",
+            "モードB：一覧画面から複数レコードをまとめて新規作成",
+            "貼り付け前にプレビューで列とフィールドの対応を確認・調整",
+            "見出し行を含めて貼ると列名で自動マッピング",
+            "数値・日付・選択肢の型変換とエラー検出（存在しない日付も検出）",
+            "重複禁止フィールドは該当行のみ失敗・再実行が可能",
+            "1回あたりの最大件数・実行できるユーザーを制限",
+            "ボタンの形・色をカスタマイズ（ライブプレビュー）",
+            "外部サーバー・APIキー不要・kintone完結・ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible { opacity: 1; transform: translateY(0); }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+    .hero-icon {
+      width: 200px; height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .hero-title { font-size: 40px; font-weight: 900; line-height: 1.2; margin-bottom: 24px; }
+    .hero-copy { font-size: 17px; max-width: 720px; margin: 0 auto 40px; line-height: 1.8; opacity: 0.92; }
+
+    .section-wrapper { padding: 80px 5%; max-width: 1100px; margin: 0 auto; }
+    .section-bg { background-color: var(--color-bg); }
+    .section-title { text-align: center; color: var(--color-navy); font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+    .section-title-left {
+      color: var(--color-navy); font-size: 24px; font-weight: 700; margin-bottom: 32px;
+      padding-left: 16px; border-left: 5px solid var(--color-green);
+    }
+    .section-subtitle { text-align: center; color: var(--color-text-light); font-size: 15px; margin-bottom: 48px; }
+
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .problem-card {
+      background-color: var(--color-white); border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 32px 24px; text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .problem-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .problem-icon { font-size: 44px; display: block; margin-bottom: 16px; }
+    .problem-title { font-size: 17px; color: var(--color-navy); font-weight: 700; margin-bottom: 12px; }
+    .problem-desc { font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+
+    .feature-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+    .feature-list li {
+      background-color: var(--color-white); border-radius: 10px; padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06); font-size: 15px; color: var(--color-text);
+      line-height: 1.7; display: flex; gap: 12px; align-items: flex-start;
+    }
+    .feature-list li::before { content: '✅'; flex-shrink: 0; font-size: 18px; margin-top: 1px; }
+    .feature-list li strong { color: var(--color-navy); }
+
+    .steps-list {
+      list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0;
+      counter-reset: step-counter; max-width: 700px; margin: 0 auto;
+    }
+    .steps-list li {
+      counter-increment: step-counter; display: flex; gap: 20px; align-items: flex-start;
+      padding: 24px 0; border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px; color: var(--color-text); line-height: 1.7;
+    }
+    .steps-list li:last-child { border-bottom: none; }
+    .steps-list li::before {
+      content: counter(step-counter); flex-shrink: 0; width: 36px; height: 36px;
+      background-color: var(--color-navy); color: var(--color-white); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px;
+    }
+
+    .notes-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
+    .notes-list li { padding-left: 20px; position: relative; font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+    .notes-list li::before { content: '※'; position: absolute; left: 0; color: #94a3b8; }
+
+    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; max-width: 900px; margin: 0 auto; }
+    .pricing-card {
+      background-color: var(--color-white); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px; position: relative; display: flex; flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .pricing-card.recommended { border: 2px solid var(--color-green); }
+    .recommended-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background-color: var(--color-green); color: var(--color-white);
+      padding: 4px 16px; border-radius: 20px; font-size: 14px; font-weight: 700;
+    }
+    .plan-name { font-size: 20px; color: var(--color-navy); font-weight: 700; text-align: center; margin-bottom: 24px; }
+    .plan-price { text-align: center; margin-bottom: 24px; }
+    .plan-price .amount { font-size: 40px; font-weight: 900; color: var(--color-navy); }
+    .plan-price .unit { font-size: 14px; color: var(--color-text-light); }
+    .plan-discount { text-align: center; color: var(--color-green); font-weight: 700; font-size: 14px; margin-bottom: 24px; }
+    .plan-features { list-style: none; padding: 0; margin-bottom: 32px; flex-grow: 1; }
+    .plan-features li { margin-bottom: 12px; font-size: 15px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; }
+    .pricing-card .btn-primary { display: block; text-align: center; }
+
+    .bottom-cta { background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%); color: var(--color-white); text-align: center; padding: 60px 5%; }
+    .bottom-cta-title { font-size: 28px; font-weight: 700; margin-bottom: 16px; }
+    .bottom-cta-desc { font-size: 16px; margin-bottom: 32px; opacity: 0.9; }
+
+    .btn-primary {
+      display: inline-block; background-color: var(--color-green); color: var(--color-white);
+      padding: 16px 40px; border-radius: 30px; font-size: 18px; font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s; text-decoration: none;
+    }
+    .btn-primary:hover { background-color: #36a336; transform: translateY(-2px); }
+
+    .related-posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .related-post-card {
+      background-color: var(--color-white); border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s;
+      display: flex; flex-direction: column; text-decoration: none; color: inherit;
+    }
+    .related-post-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.15); }
+    .related-post-thumb { width: 100%; aspect-ratio: 1200 / 630; overflow: hidden; background-color: #f8fafc; }
+    .related-post-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .related-post-content { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+    .related-post-title { color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.5; }
+    .related-post-desc { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0 0 12px; flex-grow: 1; }
+    .related-post-link { color: var(--color-green); font-size: 13px; font-weight: 700; }
+
+    .screenshot-frame {
+      width: -moz-fit-content; width: fit-content; max-width: min(100%, 640px); margin: 0 auto;
+      border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light); background: #ffffff;
+    }
+    .screenshot-frame img { width: auto; max-width: 100%; height: auto; display: block; }
+    .screenshot-pair { display: grid; grid-template-columns: 1fr; gap: 28px; max-width: 980px; margin: 0 auto; }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption { text-align: center; color: var(--color-text-light); font-size: 13px; margin-top: 10px; }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    .config-screenshots { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
+    .config-shot {
+      background: #ffffff; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.15); }
+    .config-shot img { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--color-gray-light); }
+    .config-shot-caption { padding: 16px 20px; }
+    .config-shot-caption strong { display: block; color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .config-shot-caption p { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0; }
+
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none;
+      align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close {
+      position: absolute; top: 14px; right: 22px; width: 44px; height: 44px;
+      background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px;
+      line-height: 1; border-radius: 50%; cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint { text-align: center; color: var(--color-text-light); font-size: 12px; margin-top: 10px; }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/excel-paste-icon.png"
+        alt="エクセル一括貼り付け for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">エクセル一括貼り付け for kintone</h1>
+      <p class="hero-copy">エクセル一括貼り付け for kintone は、Excel などの表データを<strong>貼り付けるだけで一括入力</strong>できる kintone プラグインです。レコードの作成・編集画面では<strong>サブテーブルへ複数行</strong>をまとめて流し込み、レコード一覧画面では<strong>貼り付けだけで複数レコードを一括作成</strong>。貼り付け前にプレビューで列とフィールドの対応を確認でき、Excelの<strong>見出し行を含めれば自動マッピング</strong>されます。CSVファイル不要・外部サーバー不要で kintone 内で完結します。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">Excel で作った表を kintone に入れるとき、1行ずつの手入力や CSV ファイル作成は手間がかかり、列ズレも起きがちです。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">⌨️</span>
+            <h3 class="problem-title">明細を1行ずつ手入力している</h3>
+            <p class="problem-desc">見積・注文などの明細を Excel で先に作ってから、kintone のサブテーブルに1行ずつ転記していて時間がかかる。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📄</span>
+            <h3 class="problem-title">CSVインポートが面倒</h3>
+            <p class="problem-desc">複数レコードをまとめて作りたいだけなのに、CSVファイルを整えて読み込む手順がハードルになっている。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">↔️</span>
+            <h3 class="problem-title">貼り付けても列がズレる</h3>
+            <p class="problem-desc">Excelの列と kintone のフィールドの対応が毎回変わり、貼り付けても意図した項目に入らない。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Showcase: Mode A -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">サブテーブルへ、まとめて流し込み（モードA）</h2>
+      <p class="section-subtitle">レコードの作成・編集画面で、対象サブテーブルに Excel 範囲を <code>Ctrl</code>+<code>V</code>。プレビューで内容を確認してから、複数行をまとめて入力できます。画像はクリックで拡大できます。</p>
+      <div class="screenshot-pair cols-2">
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/excel-paste-modeA-paste.png" alt="エクセル一括貼り付け — 作成・編集画面のサブテーブルに Excel を貼り付けると、内容と列の対応を確認するプレビューが表示される" loading="lazy" />
+          </div>
+          <figcaption>① サブテーブルに Excel を貼り付け → プレビューで確認</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/excel-paste-modeA-result.png" alt="エクセル一括貼り付け — 反映後のサブテーブル。貼り付けた複数行がまとめて入力された状態" loading="lazy" />
+          </div>
+          <figcaption>② 複数行がまとめて入力される</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Showcase: Mode B -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">一覧から、複数レコードを一括作成（モードB）</h2>
+        <p class="section-subtitle">一覧画面の「貼り付けで新規作成」ボタンから表を貼り付けると、1行が1レコードに。見出し行を含めて貼れば列名で自動マッピングされます。</p>
+        <div class="screenshot-pair cols-2">
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/excel-paste-modeB-button.png" alt="エクセル一括貼り付け — レコード一覧のヘッダーに「貼り付けで新規作成」ボタンが表示された状態" loading="lazy" />
+            </div>
+            <figcaption>① 一覧に「貼り付けで新規作成」ボタンを表示</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/excel-paste-modeB-preview.png" alt="エクセル一括貼り付け — 貼り付けた表のプレビュー。見出し行を含めると列名でフィールドが自動マッピングされる" loading="lazy" />
+            </div>
+            <figcaption>② 貼り付け → 列を自動マッピング → まとめて作成</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">主な機能</h2>
+      <ul class="feature-list">
+        <li><span><strong>サブテーブル一括貼り付け（モードA）</strong> — 作成・編集画面の対象サブテーブルに Excel 範囲を貼り付けると、行数ぶんの行を自動で追加して流し込みます。既存行の「下に追加／全置き換え」を選べます。</span></li>
+        <li><span><strong>一覧から一括作成（モードB）</strong> — レコード一覧の「貼り付けで新規作成」ボタンから、貼り付けた表を1行=1レコードとしてまとめて作成します（CSVファイル不要）。</span></li>
+        <li><span><strong>貼り付け前プレビュー</strong> — 反映・作成の前に内容を一覧表示。各列をどのフィールドに入れるかをその場で確認・調整できます。</span></li>
+        <li><span><strong>見出し行の自動マッピング</strong> — Excelの見出し行（列名）を含めて貼り付けると、列名を kintone のフィールド名と照合して自動で割り当て。見出し行はデータに含めません（列順が違ってもOK）。</span></li>
+        <li><span><strong>型変換とエラー検出</strong> — 数値（全角・カンマを正規化）・日付/日時（存在しない日付も検出）・時刻・選択肢（一致チェック）に対応。変換できないセルは赤く表示され、実行前に気づけます。</span></li>
+        <li><span><strong>重複・必須のハンドリング</strong> — 重複禁止フィールドの重複は該当行のみ失敗し、他は作成。必須フィールドが未割り当てのときは事前に警告します。空セルは空欄で登録します。</span></li>
+        <li><span><strong>安全な運用設定（モードB）</strong> — 既定はオフ。1回あたりの最大件数、実行できるユーザー（全員／管理者のみ／指定ユーザー・グループ）を設定できます。</span></li>
+        <li><span><strong>ボタンの見た目カスタマイズ</strong> — 一覧ボタンの形（角丸／ピル型／四角）・色（プリセット＋カスタム）をライブプレビューで設定できます。</span></li>
+        <li><span><strong>kintone 完結・ゲスト対応</strong> — 貼り付けデータの解析はブラウザ内、反映・作成は自ドメインの kintone で完結。業務データを外部の第三者へ送信しません。ゲストスペースにも対応します。</span></li>
+      </ul>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定はかんたん</h2>
+        <p class="section-subtitle">対象サブテーブルや列の対応、一覧ボタンの表示・実行できるユーザーなどをフォームから設定するだけ。プログラミング知識は不要です。各画像はクリックで拡大できます。</p>
+
+        <div class="config-screenshots">
+          <div class="config-shot">
+            <img class="zoomable" src="/images/excel-paste-config-modeA.png" alt="エクセル一括貼り付け 設定画面 — モードA。対象サブテーブル・列の対応方法・既存行の扱いを設定" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>① モードA（サブテーブル貼り付け）</strong>
+              <p>貼り付け先の対象サブテーブル、列の対応方法（順番で対応／貼り付け時に指定）、既存行の扱い（追加／置き換え）を設定します。</p>
+            </div>
+          </div>
+          <div class="config-shot">
+            <img class="zoomable" src="/images/excel-paste-config-modeB.png" alt="エクセル一括貼り付け 設定画面 — モードB。一覧ボタンの有効化とご利用上の注意、ボタンの表示位置を設定" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>② モードB（一覧から一括作成）</strong>
+              <p>「貼り付けで新規作成」ボタンの表示（既定オフ）。有効にするとご利用上の注意が表示され、ボタンの表示位置を選べます。</p>
+            </div>
+          </div>
+          <div class="config-shot">
+            <img class="zoomable" src="/images/excel-paste-config-modeB2.png" alt="エクセル一括貼り付け 設定画面 — モードB。ボタンの形・色のライブプレビュー、列の対応方法、実行できるユーザーを設定" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>③ モードB：ボタンと実行権限</strong>
+              <p>ボタンの形（角丸／ピル型／四角）・色（プリセット＋カスタム）、列の対応方法、実行できるユーザー（全員／管理者のみ／指定）を設定します。</p>
+            </div>
+          </div>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">レコードの作成・編集画面（サブテーブル）と一覧画面（PC 版）でご利用いただけます。</p>
+      <ol class="steps-list">
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-excel-paste-v1.0.0.zip</code> をダウンロード</span></li>
+        <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+        <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「エクセル一括貼り付け for kintone」を追加</span></li>
+        <li><span>プラグイン設定画面で<strong>モードA</strong>（対象サブテーブル）・<strong>モードB</strong>（一覧ボタンの有効化・実行できるユーザー等）を設定して「保存」</span></li>
+        <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると、各画面で貼り付け入力が使えるようになります</span></li>
+      </ol>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 設定画面のサイドバーに控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-excel-paste-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-excel-paste" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。PC 版のレコード作成・編集画面（サブテーブル）と一覧画面で動作し、モバイル版・カレンダー／カスタマイズビューでは動作しません。ゲストスペースには対応しています。</li>
+        <li>貼り付けできるのは 文字列・数値・日付/日時/時刻・リンク・ドロップダウン・ラジオボタン・チェックボックス・複数選択 です。ユーザー選択・組織／グループ選択・添付ファイル・計算・ルックアップ・関連レコード一覧は対象外です。</li>
+        <li>モードB（一括作成）には取り消し（Undo）はありません。実行できるユーザーや1回あたりの最大件数を設定してご利用ください（既定ではモードBはオフです）。</li>
+        <li>マッピングした列の空セルは、フィールドの既定値ではなく空欄で登録されます。重複禁止フィールドの重複や必須未入力は kintone 側で拒否され、該当行のみ失敗します。</li>
+        <li>モードBの実行にはレコード追加権限・フィールド編集権限が必要です。「指定ユーザー・グループ」の候補取得・所属判定に、ご利用中のドメイン内の cybozu.com 共通管理API を使用します（自ドメイン内・第三者送信なし）。</li>
+        <li>Excel のセル内改行（引用符で囲まれた改行）を含むデータは、v1.0.0 では正しく分割できない場合があります。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-excel-paste" />
+    <PluginFaqSection pluginId="kw-excel-paste" pageUrl="https://kizuna-works.jp/plugins/excel-paste/" />
+    <SupporterCTA pluginId="kw-excel-paste" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">関連プラグイン</h2>
+        <p class="section-subtitle">データ入力・一括処理をさらに便利にする kintone プラグイン</p>
+        <div class="related-posts-grid">
+          <a href="/plugins/bulk-update/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/bulk-update-banner.png" alt="かんたん一括更新 for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">かんたん一括更新 for kintone</h3>
+              <p class="related-post-desc">既存レコードの1フィールドを絞り込み結果にまとめて更新・クリア。貼り付けで新規入力する本プラグインと、更新側で補完し合います。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+          <a href="/plugins/sheet-edit/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/sheet-edit-banner.png" alt="シート編集 for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">シート編集 for kintone</h3>
+              <p class="related-post-desc">カスタマイズビューを表計算風グリッドに置き換え、その場でセル編集・コピペ。貼り付け入力後の細かな修正に便利です。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+          <a href="/plugins/csv-export/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/csv-export-banner.png" alt="かんたんCSV出力 for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">かんたんCSV出力 for kintone</h3>
+              <p class="related-post-desc">一覧の絞り込み結果を用途別テンプレートでワンクリックCSV出力。Excelとkintoneの往復をまとめて効率化できます。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ep-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const lightbox = document.getElementById('ep-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-excel-paste-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-excel-paste-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>
