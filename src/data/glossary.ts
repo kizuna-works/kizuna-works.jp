@@ -138,6 +138,7 @@ export const glossary: Term[] = [
     definition: '別アプリのレコードを条件指定で参照表示するフィールド。1 対多の関連表示に使う（例：顧客アプリに「過去の問い合わせ一覧」を表示）。値はコピーされず参照のみのため、参照先が更新されると表示も自動で追随する。',
     relatedTerms: ['lookup', 'subtable'],
     relatedPlugins: ['related-record-popup'],
+    relatedBlog: ['kintone-related-record-list'],
     hasPage: true,
     longDescription: [
       '関連レコード一覧は、キーとなるフィールドの一致条件をもとに、別アプリのレコードを「その都度参照して表示」する仕組みです。値を自分のレコードへコピーしないため、参照先が更新されれば表示も自動で最新になります。顧客と問い合わせ、案件と対応履歴のような「1対多」の関係を可視化するのに向いています。',
