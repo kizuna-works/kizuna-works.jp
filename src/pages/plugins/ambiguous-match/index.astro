@@ -1,0 +1,578 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="あいまい照合 for kintone - 表記ゆれを吸収して重複登録を防ぐ | KIZUNA Works"
+  description="会社名・顧客名の入力中に、表記ゆれ（株式会社⇔（株）⇔㈱・全角半角・旧字体など）を吸収して似た既存レコードをその場で表示する kintone プラグイン。標準の「値の重複を禁止する」（完全一致）では気づけない二重登録を保存前に確認できます。参照項目の併記・候補クリックで別タブ表示・kintone完結。"
+  ogTitle="あいまい照合 for kintone - 表記ゆれを吸収して重複登録を防ぐ | KIZUNA Works"
+  ogDescription="会社名の入力中に表記ゆれ（株式会社⇔（株）⇔㈱等）を吸収して似た既存レコードを表示。標準の重複禁止（完全一致）では防げない二重登録に保存前に気づける kintone プラグイン。kintone完結。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/ambiguous-match/"
+  ogImage="https://kizuna-works.jp/images/ambiguous-match-banner.png"
+  canonical="https://kizuna-works.jp/plugins/ambiguous-match/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/ambiguous-match/",
+          "url": "https://kizuna-works.jp/plugins/ambiguous-match/",
+          "name": "あいまい照合 for kintone - 表記ゆれを吸収して重複登録を防ぐ | KIZUNA Works",
+          "description": "会社名・顧客名の入力中に、表記ゆれ（株式会社⇔（株）⇔㈱・全角半角・旧字体など）を吸収して似た既存レコードをその場で表示する kintone プラグイン。標準の「値の重複を禁止する」（完全一致）では気づけない二重登録を保存前に確認できます。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/ambiguous-match-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "あいまい照合 for kintone", "item": "https://kizuna-works.jp/plugins/ambiguous-match/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "あいまい照合 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-07-06",
+          "url": "https://kizuna-works.jp/plugins/ambiguous-match/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-ambiguous-match-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/ambiguous-match-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "会社名・顧客名などの入力中に、法人格の表記ゆれ（株式会社⇔㈱⇔（株））・全角半角・大文字小文字・記号・かな・長音・旧字体異体字などを吸収して、類似する既存レコードをフィールドの直下にフローティング表示する kintone プラグイン。標準の「値の重複を禁止する」（完全一致のみ）では気づけない表記ゆれ由来の二重登録を、保存前に確認できます。参照フィールドの併記、候補クリックで別タブ表示に対応。データの変更（マージ・削除）は行わず、外部サーバー不要で kintone 内で完結します。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "入力中に類似する既存レコードをフィールド直下にフローティング表示",
+            "法人格の表記ゆれ（株式会社⇔㈱⇔（株））を吸収",
+            "全角半角・大文字小文字・記号・ひらがなカタカナ・長音・旧字体異体字・地名の小書きヶを吸収",
+            "正規化ルールはフィールドごとに自由選択（不要ならすべて外せる）",
+            "類似度のしきい値をフィールドごとに設定",
+            "2文字からの部分一致でも候補表示",
+            "参照フィールド（電話番号・住所等）を候補に併記",
+            "候補クリックで該当レコードを別タブ表示",
+            "標準「値の重複を禁止する」未設定のフィールドには併用推奨アラート",
+            "保存はブロックしない（気づきのみ・データ変更なし）",
+            "外部サーバー・APIキー不要・kintone完結・ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible { opacity: 1; transform: translateY(0); }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+    .hero-icon {
+      width: 200px; height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .hero-title { font-size: 40px; font-weight: 900; line-height: 1.2; margin-bottom: 24px; }
+    .hero-copy { font-size: 17px; max-width: 720px; margin: 0 auto 40px; line-height: 1.8; opacity: 0.92; }
+
+    .section-wrapper { padding: 80px 5%; max-width: 1100px; margin: 0 auto; }
+    .section-bg { background-color: var(--color-bg); }
+    .section-title { text-align: center; color: var(--color-navy); font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+    .section-title-left {
+      color: var(--color-navy); font-size: 24px; font-weight: 700; margin-bottom: 32px;
+      padding-left: 16px; border-left: 5px solid var(--color-green);
+    }
+    .section-subtitle { text-align: center; color: var(--color-text-light); font-size: 15px; margin-bottom: 48px; }
+
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .problem-card {
+      background-color: var(--color-white); border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 32px 24px; text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .problem-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .problem-icon { font-size: 44px; display: block; margin-bottom: 16px; }
+    .problem-title { font-size: 17px; color: var(--color-navy); font-weight: 700; margin-bottom: 12px; }
+    .problem-desc { font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+
+    .feature-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+    .feature-list li {
+      background-color: var(--color-white); border-radius: 10px; padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06); font-size: 15px; color: var(--color-text);
+      line-height: 1.7; display: flex; gap: 12px; align-items: flex-start;
+    }
+    .feature-list li::before { content: '✅'; flex-shrink: 0; font-size: 18px; margin-top: 1px; }
+    .feature-list li strong { color: var(--color-navy); }
+
+    .steps-list {
+      list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0;
+      counter-reset: step-counter; max-width: 700px; margin: 0 auto;
+    }
+    .steps-list li {
+      counter-increment: step-counter; display: flex; gap: 20px; align-items: flex-start;
+      padding: 24px 0; border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px; color: var(--color-text); line-height: 1.7;
+    }
+    .steps-list li:last-child { border-bottom: none; }
+    .steps-list li::before {
+      content: counter(step-counter); flex-shrink: 0; width: 36px; height: 36px;
+      background-color: var(--color-navy); color: var(--color-white); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px;
+    }
+
+    .notes-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
+    .notes-list li { padding-left: 20px; position: relative; font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+    .notes-list li::before { content: '※'; position: absolute; left: 0; color: #94a3b8; }
+
+    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; max-width: 900px; margin: 0 auto; }
+    .pricing-card {
+      background-color: var(--color-white); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px; position: relative; display: flex; flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .pricing-card.recommended { border: 2px solid var(--color-green); }
+    .recommended-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background-color: var(--color-green); color: var(--color-white);
+      padding: 4px 16px; border-radius: 20px; font-size: 14px; font-weight: 700;
+    }
+    .plan-name { font-size: 20px; color: var(--color-navy); font-weight: 700; text-align: center; margin-bottom: 24px; }
+    .plan-price { text-align: center; margin-bottom: 24px; }
+    .plan-price .amount { font-size: 40px; font-weight: 900; color: var(--color-navy); }
+    .plan-price .unit { font-size: 14px; color: var(--color-text-light); }
+    .plan-discount { text-align: center; color: var(--color-green); font-weight: 700; font-size: 14px; margin-bottom: 24px; }
+    .plan-features { list-style: none; padding: 0; margin-bottom: 32px; flex-grow: 1; }
+    .plan-features li { margin-bottom: 12px; font-size: 15px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; }
+    .pricing-card .btn-primary { display: block; text-align: center; }
+
+    .bottom-cta { background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%); color: var(--color-white); text-align: center; padding: 60px 5%; }
+    .bottom-cta-title { font-size: 28px; font-weight: 700; margin-bottom: 16px; }
+    .bottom-cta-desc { font-size: 16px; margin-bottom: 32px; opacity: 0.9; }
+
+    .btn-primary {
+      display: inline-block; background-color: var(--color-green); color: var(--color-white);
+      padding: 16px 40px; border-radius: 30px; font-size: 18px; font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s; text-decoration: none;
+    }
+    .btn-primary:hover { background-color: #36a336; transform: translateY(-2px); }
+
+    .related-posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .related-post-card {
+      background-color: var(--color-white); border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s;
+      display: flex; flex-direction: column; text-decoration: none; color: inherit;
+    }
+    .related-post-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.15); }
+    .related-post-thumb { width: 100%; aspect-ratio: 1200 / 630; overflow: hidden; background-color: #f8fafc; }
+    .related-post-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .related-post-content { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+    .related-post-title { color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.5; }
+    .related-post-desc { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0 0 12px; flex-grow: 1; }
+    .related-post-link { color: var(--color-green); font-size: 13px; font-weight: 700; }
+
+    .screenshot-frame {
+      width: -moz-fit-content; width: fit-content; max-width: min(100%, 640px); margin: 0 auto;
+      border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light); background: #ffffff;
+    }
+    .screenshot-frame img { width: auto; max-width: 100%; height: auto; display: block; }
+    .screenshot-pair { display: grid; grid-template-columns: 1fr; gap: 28px; max-width: 980px; margin: 0 auto; }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption { text-align: center; color: var(--color-text-light); font-size: 13px; margin-top: 10px; }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    .config-screenshots { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
+    .config-shot {
+      background: #ffffff; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.15); }
+    .config-shot img { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--color-gray-light); }
+    .config-shot-caption { padding: 16px 20px; }
+    .config-shot-caption strong { display: block; color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .config-shot-caption p { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0; }
+
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none;
+      align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close {
+      position: absolute; top: 14px; right: 22px; width: 44px; height: 44px;
+      background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px;
+      line-height: 1; border-radius: 50%; cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint { text-align: center; color: var(--color-text-light); font-size: 12px; margin-top: 10px; }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/ambiguous-match-icon.png"
+        alt="あいまい照合 for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">あいまい照合 for kintone</h1>
+      <p class="hero-copy">あいまい照合 for kintone は、会社名・顧客名の入力中に<strong>表記ゆれ（株式会社⇔（株）⇔㈱ など）を吸収</strong>して、似ている既存レコードをフィールドの直下に表示する kintone プラグインです。標準の「値の重複を禁止する」（完全一致のみ）では気づけない<strong>表記ゆれ由来の二重登録</strong>を、保存前にその場で確認できます。データは変更せず（マージ・削除なし）、外部サーバー不要で kintone 内で完結します。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">同じ取引先でも、入力する人やタイミングで表記が変わり、標準の重複チェックをすり抜けて二重登録が起きがちです。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🏢</span>
+            <h3 class="problem-title">同じ会社が別表記で二重登録</h3>
+            <p class="problem-desc">「株式会社ABC」と「ABC（株）」「㈱ABC」のように、法人格や全角半角の違いで同じ取引先が別レコードとして登録されてしまう。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🚫</span>
+            <h3 class="problem-title">標準の重複禁止では防げない</h3>
+            <p class="problem-desc">kintone標準の「値の重複を禁止する」は完全一致だけ。表記が少しでも違うと別物とみなされ、二重登録を素通ししてしまう。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🔎</span>
+            <h3 class="problem-title">確認のたびに別レコードを開く</h3>
+            <p class="problem-desc">「もう登録済みかも？」と思っても、電話番号や住所を確かめるために毎回別のレコードを開いて見比べる手間がかかる。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Showcase -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">入力中に、似た会社をその場で表示</h2>
+      <p class="section-subtitle">対象フィールドに入力すると、表記ゆれを吸収して類似する既存レコードをフィールドの直下にフローティング表示。類似度・参照項目も一緒に確認でき、候補をクリックすればそのレコードを別タブで開けます。画像はクリックで拡大できます。</p>
+      <div class="screenshot-pair cols-2">
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/ambiguous-match-corp.png" alt="あいまい照合 — 「あいうえお（株）」と入力すると、法人格の表記ゆれを吸収して既存の「あいうえお株式会社」を類似度100%で表示" loading="lazy" />
+          </div>
+          <figcaption>法人格の表記ゆれを吸収（「あいうえお（株）」→「あいうえお株式会社」を検出）</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/ambiguous-match-suggest.png" alt="あいまい照合 — 会社名の入力中に、類似する既存レコードを重要度の色帯・類似度・電話番号／住所つきで一覧表示" loading="lazy" />
+          </div>
+          <figcaption>似た既存レコードを類似度・参照項目つきで一覧表示（クリックで別タブ）</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">主な機能</h2>
+        <ul class="feature-list">
+          <li><span><strong>入力中のフローティング照合</strong> — 対象の文字列（1行）フィールドに入力すると、似ている既存レコードをフィールド直下に表示します。保存はブロックせず、あくまで「その顧客、もう登録されていませんか？」という気づきを与えます。</span></li>
+          <li><span><strong>表記ゆれの吸収（正規化）</strong> — 法人格（株式会社⇔㈱⇔（株））・全角半角・大文字小文字・記号・ひらがなカタカナ・長音（ー）の有無・旧字体異体字（髙＝高・﨑＝崎・渡邊＝辺 等）・地名の小書き（霞ヶ関＝霞ケ関＝霞が関）に対応。<strong>フィールドごとに自由に選べ、不要ならすべて外せます</strong>（正規化は照合の内部比較のみに使用し、入力値・保存値は変更しません）。</span></li>
+          <li><span><strong>類似度のしきい値</strong> — 「何%以上似ていれば候補に出すか」をフィールドごとに設定。加えて、入力文字が既存値に含まれる<strong>部分一致は2文字から</strong>表示され、早い段階で気づけます。</span></li>
+          <li><span><strong>参照フィールドの併記</strong> — 候補の各行に電話番号・住所など（最大3項目）を表示専用で併記。別レコードを開かずに同一先かどうかを判断できます。</span></li>
+          <li><span><strong>候補クリックで別タブ表示</strong> — 気になる候補をクリックすると、そのレコードの詳細を別タブで開きます（入力中の画面はそのまま）。</span></li>
+          <li><span><strong>標準の重複禁止との併用をサポート</strong> — 対象フィールドに「値の重複を禁止する」が未設定のときは、設定画面で併用をおすすめする案内を表示。完全一致は標準側で確実にブロックし、表記ゆれは本プラグインで気づける二段構えになります。</span></li>
+          <li><span><strong>kintone 完結・ゲスト対応</strong> — 既存レコードの照合はすべて自ドメインの kintone 内で完結し、業務データを外部の第三者へ送信しません。データの変更（マージ・削除）も行いません。ゲストスペースにも対応します。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Config Screen -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">設定はかんたん</h2>
+      <p class="section-subtitle">照合するフィールドを選び、吸収したい表記ゆれ（正規化ルール）としきい値を決めるだけ。プログラミング知識は不要です。画像はクリックで拡大できます。</p>
+      <div class="config-screenshots">
+        <div class="config-shot">
+          <img class="zoomable" src="/images/ambiguous-match-config.png" alt="あいまい照合 設定画面 — 照合対象フィールド、吸収する表記ゆれ（正規化ルール）のチェック、類似度しきい値、参照表示フィールド、重複禁止の併用推奨アラート" loading="lazy" />
+          <div class="config-shot-caption">
+            <strong>照合フィールド・正規化ルール・しきい値を設定</strong>
+            <p>照合する文字列（1行）フィールドを追加し、吸収する表記ゆれ（全角半角・法人格・旧字体など）を選択、類似度しきい値と参照表示フィールドを設定します。標準の「値の重複を禁止する」が未設定のフィールドには、併用をおすすめする案内が表示されます。</p>
+          </div>
+        </div>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">インストール手順</h2>
+        <p class="section-subtitle">レコードの新規作成・編集画面（PC 版）でご利用いただけます。</p>
+        <ol class="steps-list">
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-ambiguous-match-v1.0.0.zip</code> をダウンロード</span></li>
+          <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+          <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「あいまい照合 for kintone」を追加</span></li>
+          <li><span>プラグイン設定画面で<strong>照合フィールド・正規化ルール・しきい値・参照表示フィールド</strong>を設定して「保存」</span></li>
+          <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると、新規作成・編集画面で照合が使えるようになります</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">プランについて</h2>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">基本プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥0</span>
+            <span class="unit">/ 完全無料</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ 利用期限なし・いつまでも無料</li>
+            <li>✅ 設定画面のサイドバーに控えめな広告エリア表示あり</li>
+          </ul>
+          <a href="/downloads/kw-ambiguous-match-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">開発を応援</span>
+          <h3 class="plan-name">年間サポーター</h3>
+          <div class="plan-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+            <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            <li>✅ サポーターの声を優先して開発に反映</li>
+          </ul>
+          <a href="/plugins/supporter/?plugin=kw-ambiguous-match" class="btn-primary">サポーターになる →</a>
+          <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+            ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">注意事項</h2>
+        <ul class="notes-list">
+          <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+          <li>kintone はサイボウズ株式会社の登録商標です。</li>
+          <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。PC 版のレコード新規作成・編集画面で動作し、モバイル版・カレンダー／カスタマイズビューでは動作しません。ゲストスペースには対応しています。</li>
+          <li>照合できるのは<strong>文字列（1行）フィールド</strong>です。サブテーブル内のフィールド・文字列（複数行）フィールドは対象外です。</li>
+          <li>本プラグインは重複の可能性を<strong>提示するだけ</strong>で、保存はブロックしません（データのマージ・削除・自動補正も行いません）。完全一致の重複を確実に防ぐには、kintone 標準の「値の重複を禁止する」との併用をおすすめします。</li>
+          <li>正規化ルール（表記ゆれの吸収）は照合の内部比較にのみ使用し、入力した値・保存されるレコードの値は変更しません。</li>
+          <li>「旧字体・異体字を統一」は社名・氏名で多い異体字（髙＝高 等）を同一視します。まれに本来別の文字を似ていると判定する場合があります（候補の提示のみで、保存はブロックしません）。</li>
+          <li>画面を開いたときに対象フィールドを限定して既存レコードを取得します。極端に大量のレコードがある場合、初回の読み込みに時間がかかることがあります。</li>
+          <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+          <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+        </ul>
+      </div>
+    </section>
+
+    <SecurityBox pluginId="kw-ambiguous-match" />
+    <PluginFaqSection pluginId="kw-ambiguous-match" pageUrl="https://kizuna-works.jp/plugins/ambiguous-match/" />
+    <SupporterCTA pluginId="kw-ambiguous-match" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">関連プラグイン</h2>
+        <p class="section-subtitle">入力・データ整合をさらに便利にする kintone プラグイン</p>
+        <div class="related-posts-grid">
+          <a href="/plugins/input-assist/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/input-assist-banner.png" alt="入力アシスト for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">入力アシスト for kintone</h3>
+              <p class="related-post-desc">入力順ガイド＋未入力チェックに加え、標準の重複禁止フィールドの重複を入力中に前もって警告。あいまい照合と入力支援で補い合います。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+          <a href="/plugins/lookup-suggest/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/lookup-suggest-banner.png" alt="ルックアップサジェスト for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">ルックアップサジェスト for kintone</h3>
+              <p class="related-post-desc">ルックアップ入力中に参照先候補をその場で表示。マスタからの正しい選択を促し、表記ゆれの発生自体を減らします。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+          <a href="/plugins/address-assist/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/address-assist-banner.png" alt="住所アシスト for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">住所アシスト for kintone</h3>
+              <p class="related-post-desc">郵便番号から住所を自動入力＋地図プレビュー。住所の表記ゆれを抑え、入力の手間も削減できます。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="am-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const lightbox = document.getElementById('am-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-ambiguous-match-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-ambiguous-match-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

@@ -674,6 +674,28 @@ export const plugins: Plugin[] = [
     problemDesc: '見積・注文などの明細をExcelで先に作ってからkintoneへ転記していて、サブテーブルや複数レコードの入力に毎回手間がかかる',
     releaseDate: '2026-07-05',
   },
+  {
+    id: 'kw-ambiguous-match',
+    name: 'あいまい照合 for kintone',
+    formName: 'あいまい照合 for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'ambiguous-match',
+    category: '入力支援',
+    description:
+      '会社名・顧客名の入力中に、表記ゆれ（株式会社⇔（株）⇔㈱・全角半角・旧字体など）を吸収して似た既存レコードをその場でフローティング表示するプラグイン。標準の「値の重複を禁止する」（完全一致）では気づけない二重登録を保存前に確認でき、参照項目の併記・候補クリックで別タブ表示にも対応。kintone完結。',
+    image: '/images/ambiguous-match-banner.png',
+    imageAlt:
+      'あいまい照合 for kintone プラグイン — 会社名の入力中に表記ゆれ（株式会社⇔（株）⇔㈱等）を吸収して類似する既存レコードをフィールド直下に表示し、二重登録を保存前に防ぐ',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '入力中に表記ゆれを吸収して似た既存レコードを表示。株式会社⇔（株）等の二重登録に保存前に気づける。kintone完結。',
+    problemTitle: '同じ取引先が別表記で二重登録される',
+    problemDesc: '「株式会社◯◯」と「◯◯（株）」のような表記ゆれで、標準の重複禁止（完全一致）では防げない重複登録が起きている',
+    releaseDate: '2026-07-06',
+  },
 ];
 
 /**
