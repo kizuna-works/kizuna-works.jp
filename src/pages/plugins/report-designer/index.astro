@@ -45,10 +45,10 @@ import SecurityBox from '../../../components/SecurityBox.astro';
           "name": "帳票デザイナー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.0",
-          "dateModified": "2026-06-20",
+          "softwareVersion": "1.0.1",
+          "dateModified": "2026-07-07",
           "url": "https://kizuna-works.jp/plugins/report-designer/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-report-designer-v1.0.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-report-designer-v1.0.1.zip",
           "image": "https://kizuna-works.jp/images/report-designer-banner.png",
           "offers": [
             {
@@ -254,7 +254,26 @@ import SecurityBox from '../../../components/SecurityBox.astro';
     .rd-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
     .rd-cta-note { font-size: 0.85rem; opacity: 0.85; margin-top: 16px; }
 
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+
     @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
       .rd-hero h1 { font-size: 1.6rem; }
       .rd-outputs { grid-template-columns: 1fr; }
       .rd-feature, .rd-feature.reverse { grid-template-columns: 1fr; }
@@ -270,13 +289,28 @@ import SecurityBox from '../../../components/SecurityBox.astro';
       <img class="rd-hero-icon" src="/images/report-designer-icon.png" alt="帳票デザイナー for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="rd-hero-badges">
         <span class="rd-badge-premium">👑 PREMIUM PLUGIN</span>
-        <span class="rd-hero-version">v1.0.0</span>
+        <span class="rd-hero-version">v1.0.1</span>
       </div>
       <h1>帳票デザイナー for kintone</h1>
       <p class="rd-tagline">お手持ちの PDF が、そのまま帳票になる。</p>
       <p class="rd-sub">請求書・見積書・納品書などの PDF を背景に取り込み、その上に kintone のデータをドラッグで配置。1 件ずつも、一覧からまとめても印刷・PDF 保存できます。</p>
     </section>
     <div class="rd-hero-gradient-line"></div>
+
+    <!-- Update Info: プレミアム認証の不具合修正 (2026-07-07) -->
+    <section class="rd-section">
+      <div class="rd-wrap">
+        <div class="update-box">
+          <div class="update-head">
+            <span class="update-tag">UPDATE</span>
+            <h2 class="update-title">v1.0.1：プレミアム認証の不具合を修正しました</h2>
+          </div>
+          <p class="update-desc">複数の KIZUNA Works プラグインを同時に導入している環境で、<strong>プレミアム年間サポーターに加入済みでも、設定画面やレコード一覧でプレミアムとして認識されず、広告エリアが表示されてしまう</strong>不具合を修正しました。プラグイン間で内部の共通プログラムが競合し、認証結果が正しく判定されない場合があったことが原因です。</p>
+          <p style="background:#fff8e6;border-left:4px solid #e0a400;border-radius:0 8px 8px 0;padding:14px 18px;margin:0 0 8px;color:#8a4b00;font-size:14px;line-height:1.9;">該当されたみなさまには、プレミアム特典を正しくご提供できず、ご不便とご心配をおかけしましたことを深くお詫び申し上げます。</p>
+          <p class="update-note">最新版（v1.0.1）を kintone システム管理 →「プラグイン」→「読み込む」から上書きアップロードしてください。プラグインIDは変わらないため、既存の設定はそのまま引き継がれます。反映後もプレミアム表示に変わらない場合は、少し時間をおいてからブラウザを再読み込みのうえ再度ご確認ください。</p>
+        </div>
+      </div>
+    </section>
 
     <!-- 定義（結論ファースト） -->
     <section class="rd-section">
@@ -464,7 +498,7 @@ import SecurityBox from '../../../components/SecurityBox.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-report-designer-v1.0.0.zip" download class="rd-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-report-designer-v1.0.1.zip" download class="rd-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="rd-plan-card recommended">
@@ -554,10 +588,10 @@ import SecurityBox from '../../../components/SecurityBox.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-report-designer-v1.0.0.zip',
+            file_name: 'kw-report-designer-v1.0.1.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロードして試す',
-            link_url: '/downloads/kw-report-designer-v1.0.0.zip'
+            link_url: '/downloads/kw-report-designer-v1.0.1.zip'
           });
         });
       }
