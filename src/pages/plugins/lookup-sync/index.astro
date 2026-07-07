@@ -297,6 +297,24 @@ import SecurityBox from '../../../components/SecurityBox.astro';
     </section>
     <div class="afp-hero-gradient-line"></div>
 
+    <!-- 重要な注意：現行仕様の制約（重複禁止でないキー対応版のリリースまで掲載） -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <div style="background:#fff8e6;border:1px solid #e7c66b;border-left:6px solid #e0a400;border-radius:10px;padding:20px 22px;color:#7a4a00;">
+          <p style="margin:0 0 10px;font-size:15px;font-weight:700;color:#8a4b00;">⚠ ご購入前に必ずご確認ください（現在の仕様）</p>
+          <p style="margin:0 0 8px;font-size:14px;line-height:1.9;">
+            現在のバージョンでは、自動同期および「今すぐ全件同期」が動作するのは、ルックアップの<strong>「コピー元のフィールド」（キー項目）に「値の重複を禁止する」が設定された一意キー</strong>（例：会社コード・商品コード・社員番号など）の場合のみです。
+          </p>
+          <p style="margin:0 0 8px;font-size:14px;line-height:1.9;">
+            <strong>「値の重複を禁止する」が設定されていないキー</strong>のルックアップでは、kintone の仕様上、同期・全件同期ともに動作しません。
+          </p>
+          <p style="margin:0;font-size:13px;line-height:1.9;color:#8a6a2a;">
+            ※ 重複禁止でないキーのルックアップにも対応する新バージョンを準備中です。対応時期は本ページでお知らせします。
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- Update Info: プレミアム認証の不具合修正 (2026-07-07) -->
     <section class="afp-section">
       <div class="afp-wrap">
@@ -489,6 +507,7 @@ import SecurityBox from '../../../components/SecurityBox.astro';
         <h2 class="afp-h2">ご利用にあたっての注意</h2>
         <div class="afp-cautions">
           <ul>
+            <li><strong>自動同期は「コピー元キーが一意キー（値の重複を禁止する設定）」のルックアップでのみ動作します。</strong>「値の重複を禁止する」が設定されていないキーでは、現在は同期・全件同期ともに動作しません。重複禁止でないキーに対応する新バージョンを準備中です。</li>
             <li>本プラグインは<strong>ルックアップ元（参照される側＝マスター）アプリ</strong>に追加します。参照している側のアプリではありません。</li>
             <li><strong>コピー項目のフィールド単位でのオン／オフはできません。</strong> kintone の仕様上、ルックアップキーを再セットすると、そのルックアップに設定された全コピー項目が一括で再取得されるためです。</li>
             <li>参照先アプリを後から追加した場合は<strong>「スキャン実行」の再実行が必要</strong>です。取り込み前の既存レコードは「今すぐ全件同期」で追従できます。</li>
