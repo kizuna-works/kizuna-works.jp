@@ -45,9 +45,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "フィールドコメント for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "dateModified": "2026-06-19",
+          "dateModified": "2026-07-09",
           "url": "https://kizuna-works.jp/plugins/field-comment/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-field-comment-v1.0.2.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-field-comment-v1.1.0.zip",
           "offers": {
             "@type": "Offer",
             "name": "基本プラン（無料）",
@@ -66,10 +66,12 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "アイコンあり＋ホバー表示",
             "アイコンあり＋クリック表示",
             "アイコンなし常時表示",
-            "アイコンプリセット5種",
+            "Lucideアイコン10種から選択",
+            "アイコンプリセット6種",
             "フィールド単位の表示制御",
-            "詳細・編集画面の選択",
-            "コメントの背景色・文字色・フォントサイズ調整"
+            "詳細・編集・新規作成画面に対応",
+            "コメントの背景色・文字色・アイコン色をカラーコード指定",
+            "フォントサイズ調整"
           ],
           "screenshot": [
             "https://kizuna-works.jp/images/field-comment-before.png",
@@ -558,6 +560,114 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       .bottom-cta-title { font-size: 22px; }
       .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
     }
+
+    /* Update info box */
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white, #fff);
+      border: 1px solid #e2e8f0;
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text, #333);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 24px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light, #64748b);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+    .update-shot {
+      max-width: 720px;
+      margin: 0 auto;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 6px 18px rgba(15,28,51,0.10);
+      background: #fff;
+    }
+    .update-shot img { width: 100%; height: auto; display: block; }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light, #64748b);
+      font-size: 12px;
+      margin: 10px 0 0;
+    }
+
+    /* Zoomable images + lightbox overlay */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 640px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
   </style>
 
   <main>
@@ -574,10 +684,33 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.2</span>
+        <span class="hero-version">v1.1.0</span>
       </div>
       <h1 class="hero-title">フィールドコメント for kintone</h1>
       <p class="hero-copy">kintoneのフィールド名横にヘルプアイコン or 常時表示コメントを追加。「アイコン＋ホバー」「アイコン＋クリック」「アイコンなし常時表示」の3モードで、入力ルールや業務ルールを担当者にひと目で伝えられます。</p>
+    </section>
+
+    <!-- Update Info (v1.1.0) -->
+    <section class="section-wrapper fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.1.0：編集・新規作成画面の表示に対応。アイコンを一新（10種）＋カラーコード入力＋設定のアコーディオン化</h2>
+        </div>
+        <p class="update-desc">これまで<strong>詳細画面のみ</strong>だったコメント表示を、<strong>編集画面・新規作成画面でも表示</strong>できるようにしました。入力する“まさにその場”で注意書きやヘルプを出せるので、入力ミスの予防に効きます（対象画面は「詳細のみ／編集のみ／両方」からフィールド単位で選択）。あわせて、アイコンを線画基調の<strong>洗練された10種類</strong>（情報・ヘルプ・注意・警告・ヒント・コメント・確認・重要・ピン・ブックマーク）に一新。色は<strong>カラーピッカーに加えて <code>#E11D48</code> のようなカラーコードの直接入力</strong>に対応し、背景色・文字色・アイコン色を自由に指定できます。さらに、フィールドごとの設定を<strong>アコーディオン形式</strong>にまとめ、「＋ フィールドを追加する」ボタンを一覧の下へ移動して、設定数が増えても見通しよく管理できるようにしました。</p>
+        <div class="update-shot">
+          <img
+            class="zoomable"
+            src="/images/field-comment-config-01.png"
+            alt="フィールドコメント v1.1.0 の設定画面 — 背景色・文字色・アイコンの色をカラーピッカーと #カラーコード入力の両方で指定でき、6種のプリセットと、情報・ヘルプ・注意・警告・ヒント・コメント・確認・重要・ピン・ブックマークの10種アイコンギャラリーから選べる"
+            width="800"
+            height="387"
+            loading="lazy"
+          />
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        <p class="update-note">既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用できます。これまでの設定（旧アイコンの図形・マーク・色）は自動で新しいアイコンへ引き継がれ、表示は保たれます。</p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -770,15 +903,16 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           <div class="screenshot-thumb">
             <img
               src="/images/field-comment-config-01.png"
-              alt="フィールドコメントプラグイン 設定画面 — フィールド選択・対象画面・表示方法3択・コメントテキスト・色・フォントサイズ・5種プリセット・アイコン図形/マーク・カラーピッカー・プレビューを1カードで設定"
-              width="809"
-              height="771"
+              alt="フィールドコメントプラグイン 設定画面 — 背景色・文字色・アイコンの色をカラーピッカーと#カラーコード入力の両方で指定。6種プリセットと、情報・ヘルプ・注意・警告・ヒント・コメント・確認・重要・ピン・ブックマークの10種アイコンギャラリーから選べる"
+              class="zoomable"
+              width="800"
+              height="387"
               loading="lazy"
             />
           </div>
           <div class="screenshot-caption">
-            <strong>カード形式の設定UI</strong>
-            <p>1フィールド＝1カードで設定。対象画面（詳細/編集/両方）、表示方法（アイコンなし常時/アイコン+ホバー/アイコン+クリック）、コメントテキスト、色・フォント、5種のプリセット、アイコンカスタマイズ、リアルタイムプレビューまでが1画面で完結します。「＋ フィールドを追加する」で複数フィールド分の設定を縦積みで管理できます。</p>
+            <strong>カード形式・アコーディオンの設定UI</strong>
+            <p>1フィールド＝1カードで設定し、各カードはアコーディオンで開閉。対象画面（詳細/編集/両方）、表示方法（アイコンなし常時/アイコン+ホバー/アイコン+クリック）、コメントテキストに加え、<strong>背景色・文字色・アイコンの色はカラーピッカーと <code>#カラーコード</code> の直接入力の両方</strong>に対応。6種のプリセット、線画基調の<strong>10種アイコンギャラリー</strong>、リアルタイムプレビューまでが1画面で完結します。「＋ フィールドを追加する」で複数フィールド分の設定を縦積みで管理できます。</p>
           </div>
         </div>
       </div>
@@ -815,7 +949,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-field-comment-v1.0.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-field-comment-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -904,6 +1038,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <a href="/contact/" class="btn-primary">お問い合わせ</a>
     </section>
 
+    <!-- Lightbox overlay for zoomable screenshots -->
+    <div class="lightbox" id="fc-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
 
   </main>
 
@@ -945,11 +1084,35 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           gtag('event', 'file_download', {
-            file_name: 'kw-field-comment-v1.0.2.zip',
+            file_name: 'kw-field-comment-v1.1.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-field-comment-v1.0.2.zip'
+            link_url: '/downloads/kw-field-comment-v1.1.0.zip'
           });
+        });
+      }
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('fc-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
         });
       }
     });

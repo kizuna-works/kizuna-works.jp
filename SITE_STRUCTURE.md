@@ -236,7 +236,7 @@ c:\kizuna-works.jp\
 │   │   ├── field-comment-before.png        # フィールドコメントプラグイン 導入前スクショ — 案件情報セクション（案件名・会社名）フィールドにコメント表示なし
 │   │   ├── field-comment-after-01.png      # フィールドコメントプラグイン 動作画面スクショ① — 案件名にチェックアイコン（hover/click用）と会社名に常時コメント表示の組み合わせ
 │   │   ├── field-comment-after-02.png      # フィールドコメントプラグイン 動作画面スクショ② — 案件名のアイコンにマウスを乗せてポップアップ「必ず入力して下さい」が開いた状態（hoverモード）
-│   │   ├── field-comment-config-01.png     # フィールドコメントプラグイン 設定画面スクショ① — カード形式の設定UI全体（対象フィールド/対象画面/表示方法3択/コメントテキスト/背景色・文字色・フォントサイズ/プリセット5種/アイコン図形・マーク/図形色・マーク色/プレビュー）
+│   │   ├── field-comment-config-01.png     # フィールドコメントプラグイン 設定画面スクショ①（v1.1.0）— 背景色/文字色/アイコンの色をカラーピッカー＋#カラーコード入力で指定、プリセット6種、10種アイコンギャラリー（情報/ヘルプ/注意/警告/ヒント/コメント/確認/重要/ピン/ブックマーク）
 │   │   ├── theme-styler-icon.png           # テーマスタイラー for kintone プラグイン アイコン（200×200・ヒーロー画像用）
 │   │   ├── theme-styler-banner.png         # テーマスタイラー for kintone バナー（1200×675・OGP/グリッド共用）
 │   │   ├── address-assist-icon.png         # 住所アシスト for kintone プラグイン アイコン（200×200・ヒーロー画像用）
@@ -407,7 +407,10 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-search-v1.2.0.zip                  # クイックサーチ for kintone 配布ファイル（手動配置・v1.2.0＝期間フィルタ追加）
 │   │   ├── kw-file-icon-marker-v1.0.2.zip              # 添付ファイルアイコン表示 for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-record-lock-v1.0.2.zip                   # レコードロック for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-field-comment-v1.0.2.zip                 # フィールドコメント for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-field-comment-v1.0.0.zip                 # フィールドコメント for kintone 配布ファイル（旧版）
+│   │   ├── kw-field-comment-v1.0.1.zip                 # フィールドコメント for kintone 配布ファイル（旧版）
+│   │   ├── kw-field-comment-v1.0.2.zip                 # フィールドコメント for kintone 配布ファイル（v1.0.2・ゲストスペース対応）
+│   │   ├── kw-field-comment-v1.1.0.zip                 # フィールドコメント for kintone 配布ファイル（手動配置・v1.1.0 編集/新規画面対応＋アイコン10種＋カラーコード入力＋設定アコーディオン化）
 │   │   ├── kw-theme-styler-v1.0.1.zip                  # テーマスタイラー for kintone 配布ファイル（手動配置）
 │   │   ├── kw-address-assist-v1.1.0.zip                # 住所アシスト for kintone 配布ファイル（手動配置・v1.1.0 でサブテーブル対応）
 │   │   ├── kw-address-assist-v1.0.2.zip                # 住所アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
