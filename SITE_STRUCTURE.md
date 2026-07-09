@@ -415,7 +415,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-address-assist-v1.1.0.zip                # 住所アシスト for kintone 配布ファイル（手動配置・v1.1.0 でサブテーブル対応）
 │   │   ├── kw-address-assist-v1.0.2.zip                # 住所アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-quick-history-view-v1.0.2.zip            # クイック履歴ビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-related-record-popup-v1.0.2.zip          # 関連レコードポップアップ表示 for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-related-record-popup-v1.0.3.zip          # 関連レコードポップアップ表示 for kintone 配布ファイル（手動配置・v1.0.3：ページ送りでポップアップが閉じる不具合の修正＋コメント系プラグインとのアイコン競合の自動回避）
 │   │   ├── kw-summary-bar-v2.1.1.zip                   # 集計サマリーバー for kintone 配布ファイル（手動配置・v2.1.1 でゲストスペース対応）
 │   │   ├── kw-csv-export-v1.1.1.zip                    # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.1.1 でゲストスペース対応）
 │   │   ├── kw-csv-export-v1.2.0.zip                    # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.2.0 サブテーブル展開＋区切り記号列）
