@@ -449,7 +449,8 @@ c:\kizuna-works.jp\
 │   │   ├── docx-preview/0.3.5/ # docx-preview（docx-preview.min.js）— Word表示
 │   │   ├── mammoth/1.6.0/      # mammoth（mammoth.browser.min.js）— Word予備表示
 │   │   ├── crypto-js/4.2.0/    # crypto-js（crypto-js.min.js）— パスワード付きOffice復号（ECMA-376 Agile：鍵導出・AES-CBC）
-│   │   └── cfb/1.2.2/          # cfb（cfb.min.js・SheetJS）— パスワード付きOfficeのCFB/OLE2複合ファイル解析
+│   │   ├── cfb/1.2.2/          # cfb（cfb.min.js・SheetJS）— パスワード付きOfficeのCFB/OLE2複合ファイル解析
+│   │   └── ssf/0.11.2/         # ssf（ssf.min.js・SheetJS）— Excel数値書式（#,##0・日付・¥・%）の適用
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）

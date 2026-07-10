@@ -22,6 +22,7 @@ kintone domain.
 | mammoth (`mammoth/`) | 1.6.0 | BSD-2-Clause | cdnjs `mammoth` |
 | crypto-js (`crypto-js/`) | 4.2.0 | MIT | cdnjs `crypto-js` |
 | cfb (`cfb/`) | 1.2.2 | Apache-2.0 | npm `cfb` (SheetJS, `dist/cfb.min.js`) |
+| ssf (`ssf/`) | 0.11.2 | Apache-2.0 | npm `ssf` (SheetJS number-format formatter) |
 
 Each library retains its original copyright and license headers within the
 minified file. These are unmodified redistributions of the published builds.
