@@ -450,7 +450,11 @@ c:\kizuna-works.jp\
 │   │   ├── mammoth/1.6.0/      # mammoth（mammoth.browser.min.js）— Word予備表示
 │   │   ├── crypto-js/4.2.0/    # crypto-js（crypto-js.min.js）— パスワード付きOffice復号（ECMA-376 Agile：鍵導出・AES-CBC）
 │   │   ├── cfb/1.2.2/          # cfb（cfb.min.js・SheetJS）— パスワード付きOfficeのCFB/OLE2複合ファイル解析
-│   │   └── ssf/0.11.2/         # ssf（ssf.min.js・SheetJS）— Excel数値書式（#,##0・日付・¥・%）の適用
+│   │   ├── ssf/0.11.2/         # ssf（ssf.min.js・SheetJS）— Excel数値書式（#,##0・日付・¥・%）の適用
+│   │   ├── react/18.3.1/       # React（react.production.min.js）— Fortune-sheet（Excel高精細表示）の実行基盤
+│   │   ├── react-dom/18.3.1/   # ReactDOM（react-dom.production.min.js）— 同上
+│   │   ├── fortune-sheet/1.0.4/ # Fortune-sheet（fortune-sheet.umd.min.js/.css）— ExcelをExcel風グリッドで高精細表示
+│   │   └── luckyexcel/1.0.1/   # LuckyExcel（luckyexcel.umd.js）— xlsx→スプレッドシートデータ変換
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）

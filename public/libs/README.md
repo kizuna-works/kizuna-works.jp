@@ -23,6 +23,10 @@ kintone domain.
 | crypto-js (`crypto-js/`) | 4.2.0 | MIT | cdnjs `crypto-js` |
 | cfb (`cfb/`) | 1.2.2 | Apache-2.0 | npm `cfb` (SheetJS, `dist/cfb.min.js`) |
 | ssf (`ssf/`) | 0.11.2 | Apache-2.0 | npm `ssf` (SheetJS number-format formatter) |
+| React (`react/`) | 18.3.1 | MIT | npm `react` (`umd/react.production.min.js`) |
+| ReactDOM (`react-dom/`) | 18.3.1 | MIT | npm `react-dom` (`umd/react-dom.production.min.js`) |
+| Fortune-sheet (`fortune-sheet/`) | 1.0.4 | MIT | npm `@fortune-sheet/react` (`dist/index.umd.min.{js,css}`) |
+| LuckyExcel (`luckyexcel/`) | 1.0.1 | MIT | npm `luckyexcel` (`dist/luckyexcel.umd.js`) |
 
 Each library retains its original copyright and license headers within the
 minified file. These are unmodified redistributions of the published builds.
