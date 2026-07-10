@@ -20,6 +20,8 @@ kintone domain.
 | Chart.js (`chartjs/`) | 4.4.1 | MIT | cdnjs `Chart.js` |
 | docx-preview (`docx-preview/`) | 0.3.5 | Apache-2.0 | jsDelivr `docx-preview` |
 | mammoth (`mammoth/`) | 1.6.0 | BSD-2-Clause | cdnjs `mammoth` |
+| crypto-js (`crypto-js/`) | 4.2.0 | MIT | cdnjs `crypto-js` |
+| cfb (`cfb/`) | 1.2.2 | Apache-2.0 | npm `cfb` (SheetJS, `dist/cfb.min.js`) |
 
 Each library retains its original copyright and license headers within the
 minified file. These are unmodified redistributions of the published builds.
