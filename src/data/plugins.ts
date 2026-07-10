@@ -418,7 +418,7 @@ export const plugins: Plugin[] = [
     slug: 'file-preview',
     category: 'レコード画面',
     description:
-      '添付された画像・PDF・Excel・Word・テキストを、ダウンロードや画面遷移なしで、その場のフルスクリーンモーダルでプレビューするプラグイン。同じ欄の複数ファイルを連続で閲覧でき、Excelの書式やグラフ、Wordのページ体裁も再現します。',
+      '添付された画像・PDF・Excel・Word・テキストを、ダウンロードや画面遷移なしで、その場のフルスクリーンモーダルでプレビューするプラグイン。同じ欄の複数ファイルを連続で閲覧でき、Excelの書式やグラフ、Wordのページ体裁も再現します。パスワード付きのPDF・Excel・Wordもブラウザ内で復号して表示でき、ExcelはExcel風グリッドの高精細表示にも切り替えられます。',
     image: '/images/file-preview-banner.png',
     imageAlt:
       '添付ファイルプレビュー for kintone プラグイン — 添付ファイル名のクリックで画像・PDF・Excel・Word・テキストを全画面モーダルでプレビュー',
@@ -427,7 +427,7 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '添付の画像・PDF・Excel・Word・テキストを、ファイル名クリックでその場プレビュー。送りナビ・Excel書式/グラフ再現・kintone完結。',
+      '添付の画像・PDF・Excel・Word・テキストを、ファイル名クリックでその場プレビュー。パスワード付きファイルの復号表示やExcel高精細表示にも対応・kintone完結。',
     problemTitle: '添付ファイルの中身を見るのにダウンロードや画面遷移が面倒',
     problemDesc: '一覧・詳細のファイル名クリックで、その場のモーダルで素早く中身を確認したい',
     releaseDate: '2026-06-05',
