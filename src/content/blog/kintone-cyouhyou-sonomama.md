@@ -36,7 +36,7 @@ kintoneにもレコードの印刷機能はあります。レコード詳細画�
 - サブテーブル（明細行）を、決まった罫線の表の中にきれいに収めたい
 - 角印（電子印鑑）を指定の位置に重ねたい
 
-標準印刷はレイアウトを自由に組めないため、こうした「取引先に出せる体裁」には届きません。まず無料の範囲で帳票化を試したい方は、標準印刷やCSV・Excelを使った方法を整理した[kintoneで帳票・PDFを出力する方法（標準・無料の手順）](/blog/kintone-cyouhyou-pdf-output/)も参考になります。
+標準印刷はレイアウトを自由に組めないため、こうした「取引先に出せる体裁」には届きません。kintoneの帳票出力全体の進め方を先に押さえたい方は、[kintone帳票出力の総合ガイド（標準の限界・無料手順・プラグイン比較）](/blog/kintone-cyouhyou-pdf-output/)も参考になります。
 
 ## 帳票化には「作り直す」と「今のを活かす」の2つの道がある
 
@@ -148,7 +148,7 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、帳票・�
 
 - [帳票デザイナー for kintone](/plugins/report-designer/) — 手持ちのPDFを背景にドラッグ配置で帳票化。無料プランあり
 - [kintone帳票出力プラグイン徹底比較](/blog/kintone-cyouhyou-plugin-hikaku/) — 他社製品も含めた機能・コスト・電帳法対応の比較
-- [kintoneで帳票・PDFを出力する方法（標準・無料の手順）](/blog/kintone-cyouhyou-pdf-output/) — 標準印刷・CSV・Excelで無料から始める手順
+- [kintone帳票出力の総合ガイド（標準の限界・無料手順・プラグイン比較）](/blog/kintone-cyouhyou-pdf-output/) — 帳票出力の全体像。標準の限界から無料の方法・プラグイン選定までを俯瞰
 - [かんたんCSV出力 for kintone](/plugins/csv-export/) — 一覧の絞り込み結果をワンクリックでCSV書き出し
 - [「Excelのほうがよかった」と言わせないkintone移行ステップ](/blog/kintone-excel-iko-steps/) — Excel帳票運用からkintoneへ無理なく移行するコツ
 
