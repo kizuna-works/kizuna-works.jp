@@ -162,6 +162,16 @@ const runtimeLibs = profile.runtimeLibs ?? [];
     flex-shrink: 0;
     line-height: 1.5;
   }
+  .sb-body {
+    /* Flex child: allow it to shrink below its content's min-width so long
+       API-path strings wrap instead of overflowing the viewport. */
+    min-width: 0;
+    flex: 1;
+  }
+  .sb-body p,
+  .sb-sublist li {
+    overflow-wrap: break-word;
+  }
   .sb-body strong {
     display: block;
     color: #1B3A6B;

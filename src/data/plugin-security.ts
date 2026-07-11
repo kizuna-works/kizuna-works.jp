@@ -152,6 +152,15 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-status-bulk-action': {
+    extraComm: [
+      {
+        label: '実行権限の判定・次の作業者候補の取得（自ドメイン内）',
+        detail:
+          '実行権限（ユーザー／組織／グループ所属）の判定や、次の作業者候補（グループ・組織のメンバー）の解決のため、ご利用中の kintone ドメイン内の cybozu.com 共通管理API（/v1/users・/v1/group/users・/v1/organization/users・/v1/user/groups・/v1/user/organizations）を呼び出します。呼び出しはすべて自ドメイン内で完結し、外部の第三者へは送信しません。プロセス管理設定の取得（/k/v1/app/status.json）、レコードの取得・ステータス変更（/k/v1/records・/k/v1/records/status.json）もすべて自ドメインの kintone REST API で行います。滞留日数の可視化を使う場合のみ、設定画面のボタン操作で対象アプリに非表示の日時フィールドを1つ追加します（そのステータスになった時刻だけを記録・外部送信なし）。',
+      },
+    ],
+  },
 };
 
 /**

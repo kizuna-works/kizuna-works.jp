@@ -696,6 +696,28 @@ export const plugins: Plugin[] = [
     problemDesc: '「株式会社◯◯」と「◯◯（株）」のような表記ゆれで、標準の重複禁止（完全一致）では防げない重複登録が起きている',
     releaseDate: '2026-07-06',
   },
+  {
+    id: 'kw-status-bulk-action',
+    name: 'ステータス一括実行 for kintone',
+    formName: 'ステータス一括実行 for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'status-bulk-action',
+    category: '一覧',
+    description:
+      'プロセス管理のステータス・作業者を、標準のレコード一覧からまとめて一括実行できるプラグイン。対象を現在ステータスごとにグループ分けしてアクションを選ぶだけで、まとめて次に進められます。次の作業者は遷移先の設定（選択／全員／作成者／フィールド指定など）に応じて自動判定。独自条件を満たさないレコードは事前に除外し、現在ステータスの滞留日数も一覧に色で可視化します。kintone完結。',
+    image: '/images/status-bulk-action-banner.png',
+    imageAlt:
+      'ステータス一括実行 for kintone プラグイン — プロセス管理のステータス・作業者を標準のレコード一覧からまとめて一括実行。現在ステータスごとにグループ分けしてアクション選択、次の作業者は自動判定、滞留日数を色で可視化',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      'プロセス管理のステータス・作業者を一覧からまとめて実行。現在ステータスごとにグループ分けしてアクション選択、作業者は自動判定、滞留日数を色で可視化。kintone完結。',
+    problemTitle: '承認待ちのステータスを1件ずつ手作業で進めている',
+    problemDesc: 'プロセス管理の承認・差し戻しを何十件も1レコードずつ開いて操作していて時間がかかる。承認待ちの放置にも気づきにくい',
+    releaseDate: '2026-07-11',
+  },
 ];
 
 /**

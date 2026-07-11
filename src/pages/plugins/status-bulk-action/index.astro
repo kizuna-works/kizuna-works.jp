@@ -1,0 +1,615 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="ステータス一括実行 for kintone - プロセス管理のステータス・作業者を一覧からまとめて実行 | KIZUNA Works"
+  description="kintone のプロセス管理のステータス・作業者を、標準のレコード一覧からまとめて一括実行できるプラグイン。現在ステータスごとにグループ分けしてアクションを選ぶだけ。次の作業者は選択・全員・作成者・フィールド指定に応じて自動判定、独自条件で対象外を除外、滞留日数を色で可視化。外部サーバー不要で kintone 完結。"
+  ogTitle="ステータス一括実行 for kintone - プロセス管理のステータス・作業者を一覧からまとめて実行 | KIZUNA Works"
+  ogDescription="kintone のプロセス管理のステータス・作業者を、標準一覧からまとめて一括実行。現在ステータスごとにグループ分けしてアクション選択、次の作業者は自動判定、独自条件で除外、滞留日数を色で可視化。kintone完結。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/status-bulk-action/"
+  ogImage="https://kizuna-works.jp/images/status-bulk-action-banner.png"
+  canonical="https://kizuna-works.jp/plugins/status-bulk-action/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/status-bulk-action/",
+          "url": "https://kizuna-works.jp/plugins/status-bulk-action/",
+          "name": "ステータス一括実行 for kintone - プロセス管理のステータス・作業者を一覧からまとめて実行 | KIZUNA Works",
+          "description": "kintone のプロセス管理のステータス・作業者を、標準のレコード一覧からまとめて一括実行できるプラグイン。現在ステータスごとにグループ分けしてアクションを選ぶだけ。次の作業者は自動判定、独自条件で対象外を除外、滞留日数を色で可視化。kintone完結。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/status-bulk-action-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "ステータス一括実行 for kintone", "item": "https://kizuna-works.jp/plugins/status-bulk-action/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "ステータス一括実行 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-07-11",
+          "url": "https://kizuna-works.jp/plugins/status-bulk-action/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-status-bulk-action-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/status-bulk-action-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone のプロセス管理のステータス・作業者を、標準のレコード一覧からまとめて一括実行できる kintone プラグイン。対象レコードを現在のステータスごとにグループ分けし、グループ単位でアクションを選んで一括実行します。次の作業者は遷移先の設定（次のユーザーから選択・全員・作成者・フォームのフィールド指定など）に応じて自動で判断。独自条件（フィールド値・サブテーブル集計値）を満たさないレコードは事前に対象外にし、現在ステータスの滞留日数を一覧に色で可視化します。カーソル方式で件数上限なく処理でき、外部サーバー・APIキー不要で kintone 内で完結します。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "プロセス管理のステータス・作業者を一覧からまとめて一括実行",
+            "現在ステータスごとにグループ分けしてアクションを選択",
+            "次の作業者を遷移先の設定に応じて自動判定（選択／全員／作成者／フィールド指定）",
+            "独自条件で対象外レコードを事前に除外し理由を表示",
+            "現在ステータスの滞留日数を一覧に色で可視化",
+            "カーソル方式で件数上限なく処理（100件バッチ）",
+            "実行できるユーザーを制限（全員／指定ユーザー・組織・グループ）",
+            "ボタンの文言・形・アイコン・色・位置をカスタマイズ",
+            "モバイル版でも一括実行に対応",
+            "外部サーバー・APIキー不要・kintone完結"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible { opacity: 1; transform: translateY(0); }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+    .hero-icon {
+      width: 200px; height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .hero-title { font-size: 40px; font-weight: 900; line-height: 1.2; margin-bottom: 24px; }
+    .hero-copy { font-size: 17px; max-width: 720px; margin: 0 auto 40px; line-height: 1.8; opacity: 0.92; }
+
+    .section-wrapper { padding: 80px 5%; max-width: 1100px; margin: 0 auto; }
+    .section-bg { background-color: var(--color-bg); }
+    .section-title { text-align: center; color: var(--color-navy); font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+    .section-title-left {
+      color: var(--color-navy); font-size: 24px; font-weight: 700; margin-bottom: 32px;
+      padding-left: 16px; border-left: 5px solid var(--color-green);
+    }
+    .section-subtitle { text-align: center; color: var(--color-text-light); font-size: 15px; margin-bottom: 48px; }
+
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .problem-card {
+      background-color: var(--color-white); border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 32px 24px; text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .problem-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .problem-icon { font-size: 44px; display: block; margin-bottom: 16px; }
+    .problem-title { font-size: 17px; color: var(--color-navy); font-weight: 700; margin-bottom: 12px; }
+    .problem-desc { font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+
+    .feature-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+    .feature-list li {
+      background-color: var(--color-white); border-radius: 10px; padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06); font-size: 15px; color: var(--color-text);
+      line-height: 1.7; display: flex; gap: 12px; align-items: flex-start;
+    }
+    .feature-list li::before { content: '✅'; flex-shrink: 0; font-size: 18px; margin-top: 1px; }
+    .feature-list li strong { color: var(--color-navy); }
+
+    .steps-list {
+      list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0;
+      counter-reset: step-counter; max-width: 700px; margin: 0 auto;
+    }
+    .steps-list li {
+      counter-increment: step-counter; display: flex; gap: 20px; align-items: flex-start;
+      padding: 24px 0; border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px; color: var(--color-text); line-height: 1.7;
+    }
+    .steps-list li:last-child { border-bottom: none; }
+    .steps-list li::before {
+      content: counter(step-counter); flex-shrink: 0; width: 36px; height: 36px;
+      background-color: var(--color-navy); color: var(--color-white); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px;
+    }
+
+    .notes-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
+    .notes-list li { padding-left: 20px; position: relative; font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+    .notes-list li::before { content: '※'; position: absolute; left: 0; color: #94a3b8; }
+
+    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; max-width: 900px; margin: 0 auto; }
+    .pricing-card {
+      background-color: var(--color-white); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px; position: relative; display: flex; flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .pricing-card.recommended { border: 2px solid var(--color-green); }
+    .recommended-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background-color: var(--color-green); color: var(--color-white);
+      padding: 4px 16px; border-radius: 20px; font-size: 14px; font-weight: 700;
+    }
+    .plan-name { font-size: 20px; color: var(--color-navy); font-weight: 700; text-align: center; margin-bottom: 24px; }
+    .plan-price { text-align: center; margin-bottom: 24px; }
+    .plan-price .amount { font-size: 40px; font-weight: 900; color: var(--color-navy); }
+    .plan-price .unit { font-size: 14px; color: var(--color-text-light); }
+    .plan-discount { text-align: center; color: var(--color-green); font-weight: 700; font-size: 14px; margin-bottom: 24px; }
+    .plan-features { list-style: none; padding: 0; margin-bottom: 32px; flex-grow: 1; }
+    .plan-features li { margin-bottom: 12px; font-size: 15px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; }
+    .pricing-card .btn-primary { display: block; text-align: center; }
+
+    .bottom-cta { background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%); color: var(--color-white); text-align: center; padding: 60px 5%; }
+    .bottom-cta-title { font-size: 28px; font-weight: 700; margin-bottom: 16px; }
+    .bottom-cta-desc { font-size: 16px; margin-bottom: 32px; opacity: 0.9; }
+
+    .btn-primary {
+      display: inline-block; background-color: var(--color-green); color: var(--color-white);
+      padding: 16px 40px; border-radius: 30px; font-size: 18px; font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s; text-decoration: none;
+    }
+    .btn-primary:hover { background-color: #36a336; transform: translateY(-2px); }
+
+    .related-posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .related-post-card {
+      background-color: var(--color-white); border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s;
+      display: flex; flex-direction: column; text-decoration: none; color: inherit;
+    }
+    .related-post-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.15); }
+    .related-post-thumb { width: 100%; aspect-ratio: 1200 / 630; overflow: hidden; background-color: #f8fafc; }
+    .related-post-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .related-post-content { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+    .related-post-title { color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.5; }
+    .related-post-desc { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0 0 12px; flex-grow: 1; }
+    .related-post-link { color: var(--color-green); font-size: 13px; font-weight: 700; }
+
+    .screenshot-frame {
+      width: -moz-fit-content; width: fit-content; max-width: min(100%, 640px); margin: 0 auto;
+      border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light); background: #ffffff;
+    }
+    .screenshot-frame img { width: auto; max-width: 100%; height: auto; display: block; }
+    .screenshot-pair { display: grid; grid-template-columns: 1fr; gap: 28px; max-width: 980px; margin: 0 auto; }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption { text-align: center; color: var(--color-text-light); font-size: 13px; margin-top: 10px; }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    .config-screenshots { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
+    .config-shot {
+      background: #ffffff; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.15); }
+    .config-shot img { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--color-gray-light); }
+    .config-shot-caption { padding: 16px 20px; }
+    .config-shot-caption strong { display: block; color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .config-shot-caption p { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0; }
+
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none;
+      align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close {
+      position: absolute; top: 14px; right: 22px; width: 44px; height: 44px;
+      background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px;
+      line-height: 1; border-radius: 50%; cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint { text-align: center; color: var(--color-text-light); font-size: 12px; margin-top: 10px; }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/status-bulk-action-icon.png"
+        alt="ステータス一括実行 for kintone プラグイン アイコン"
+        class="hero-icon afp-hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">ステータス一括実行 for kintone</h1>
+      <p class="hero-copy">ステータス一括実行 for kintone は、プロセス管理の<strong>ステータス・作業者</strong>を、標準のレコード一覧から<strong>まとめて一括実行</strong>できる kintone プラグインです。対象を<strong>現在ステータスごとにグループ分け</strong>してアクションを選ぶだけ。次の作業者は遷移先の設定に応じて<strong>自動で判断</strong>し、独自条件を満たさないレコードは<strong>事前に除外</strong>。現在ステータスの<strong>滞留日数</strong>も一覧に色で見える化します。外部サーバー不要で kintone 内で完結します。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">承認・対応フローを運用しているアプリほど、ステータスを1件ずつ進める作業は時間がかかり、放置にも気づきにくくなります。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🔁</span>
+            <h3 class="problem-title">1件ずつ承認を進めている</h3>
+            <p class="problem-desc">申請・稟議の承認や差し戻しを、レコードを1件ずつ開いてアクション実行…を何十件も繰り返していて時間がかかる。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">👤</span>
+            <h3 class="problem-title">次の担当者の割り当てが手間</h3>
+            <p class="problem-desc">ステータスを進めるたびに「次の作業者」を1件ずつ選び直すのが煩雑。誰に回すかを毎回考えるのも大変。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">⏳</span>
+            <h3 class="problem-title">承認待ちの放置に気づけない</h3>
+            <p class="problem-desc">どのレコードがどのステータスで何日止まっているか一覧では分からず、対応漏れ・承認の滞りが見えない。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Showcase 1: grouping + confirm -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">現在ステータスごとに、まとめて実行</h2>
+      <p class="section-subtitle">一覧のボタンを押すと、対象レコードが現在のステータスごとにグループ分けされます。グループ単位で実行するアクションを選ぶだけ。ステータスが混在した一覧でも、1回の操作でまとめて次に進められます。画像はクリックで拡大できます。</p>
+      <div class="screenshot-pair cols-2">
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/status-bulk-action-groups.png" alt="ステータス一括実行 — 対象30件を現在のステータス（下書き・課長承認待ち・部長承認待ちなど）ごとにグループ分けし、グループごとに実行するアクションを選ぶ画面" loading="lazy" />
+          </div>
+          <figcaption>① 現在ステータスごとにグループ分けしてアクションを選択</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/status-bulk-action-confirm.png" alt="ステータス一括実行 — 実行内容の確認画面。グループごとの遷移先・実行対象件数と、合計件数・次の作業者が表示される" loading="lazy" />
+          </div>
+          <figcaption>② 実行前に対象件数・遷移先・除外理由を確認</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Showcase 2: assignee + staleness -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">次の作業者も自動で、滞留も色で見える</h2>
+        <p class="section-subtitle">次の作業者は遷移先の設定に応じて自動判定。「次のユーザーから選択」なら候補だけに絞って選べ、「作成者」「フォームのフィールド」ならレコードごとに自動でセットします。現在ステータスの滞留日数は一覧に色で見える化されます。</p>
+        <div class="screenshot-pair cols-2">
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/status-bulk-action-assignee.png" alt="ステータス一括実行 — グループごとにアクションを選ぶと、遷移先で許可された候補だけに絞った「次の作業者」の選択欄が表示される" loading="lazy" />
+            </div>
+            <figcaption>① 次の作業者は許可された候補だけに絞って選択（自動判定）</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/status-bulk-action-list.png" alt="ステータス一括実行 — 稟議申請アプリのレコード一覧に「ステータス一括実行」ボタンと、現在ステータスの滞留日数を色分け表示する「滞留」列が追加された状態" loading="lazy" />
+            </div>
+            <figcaption>② 一覧に「滞留」列を表示し、しきい値超過を色でアラート</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">主な機能</h2>
+      <ul class="feature-list">
+        <li><span><strong>ステータス・作業者の一括実行</strong> — 対象レコードを現在のステータスごとにグループ分けし、グループ単位でアクションを選んでまとめてステータス・作業者を変更します。</span></li>
+        <li><span><strong>ステータスごとのグループ分け</strong> — 混在した一覧でも、そのステータスから実行できる登録済みアクションだけを選択肢に表示。誤操作を防ぎます。</span></li>
+        <li><span><strong>次の作業者を自動判定</strong> — 「次のユーザーから選択」なら候補（ユーザー・グループ・組織メンバー）だけに絞って選択。「全員／うち一人」「作成者」「フォームのフィールド指定」なら選ばずに自動でセットします。</span></li>
+        <li><span><strong>独自条件で対象外を除外</strong> — アクションごとに条件（数値・日付・文字列・選択肢／最大5件・AND/OR／サブテーブルの合計・平均・件数）を設定。満たさないレコードは対象外にし、除外理由を表示します。</span></li>
+        <li><span><strong>滞留日数の可視化</strong> — 現在ステータスに何日とどまっているかを一覧の「滞留」列に表示。しきい値（複数段階）を超えたセルを背景色でアラート表示します。</span></li>
+        <li><span><strong>件数上限なし</strong> — カーソル方式で分割取得し100件ずつ実行するため、大量レコードでも進捗表示付きで処理できます。</span></li>
+        <li><span><strong>実行できるユーザーの制限</strong> — 全員／指定ユーザー・組織・グループから選べます。対象外のユーザーにはボタンを表示しません。</span></li>
+        <li><span><strong>ボタンの見た目カスタマイズ</strong> — 文言・形（角丸／ピル型／四角）・アイコン・色・表示位置をライブプレビューで確認しながら設定できます。</span></li>
+        <li><span><strong>モバイル対応</strong> — モバイル版でも一括実行できます（チェック選択列・滞留列の表示は PC 版のみ）。</span></li>
+        <li><span><strong>kintone 完結</strong> — ステータス変更・作業者設定はすべて kintone 標準のプロセス管理 API で行い、業務データを外部の第三者へ送信しません。</span></li>
+      </ul>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定はかんたん</h2>
+        <p class="section-subtitle">対象アクション・実行できる条件・滞留の表示・ボタンの見た目などをフォームから設定するだけ。プログラミング知識は不要です。各画像はクリックで拡大できます。</p>
+
+        <div class="config-screenshots">
+          <div class="config-shot">
+            <img class="zoomable" src="/images/status-bulk-action-config-actions.png" alt="ステータス一括実行 設定画面 — 対象アクション（申請する・承認する・差し戻す）と、アクションごとの実行できる条件（金額 ≦ 1,000,000 など）を設定" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>① アクションと条件</strong>
+              <p>一括実行の対象にするアクションを登録し、アクションごとに「実行できる条件」を設定します。条件を満たさないレコードは自動で対象外になります。</p>
+            </div>
+          </div>
+          <div class="config-shot">
+            <img class="zoomable" src="/images/status-bulk-action-config-staleness.png" alt="ステータス一括実行 設定画面 — 滞留の可視化タブ。起算フィールドの自動追加と、しきい値（3日=黄・7日=橙・14日=赤）の配色設定" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>② 滞留の可視化</strong>
+              <p>ボタン1つで起算フィールドを自動追加。しきい値と配色を複数段階で設定でき、一覧の「滞留」列にアラート表示します。</p>
+            </div>
+          </div>
+          <div class="config-shot">
+            <img class="zoomable" src="/images/status-bulk-action-config-button.png" alt="ステータス一括実行 設定画面 — ボタンの文言・形・アイコン・色・表示位置をライブプレビュー付きでカスタマイズ" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>③ ボタンの見た目</strong>
+              <p>一覧に表示されるボタンの文言・形・アイコン・色・位置を設定。プレビューで見た目を確認できます。実行できるユーザーもここで制限します。</p>
+            </div>
+          </div>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">プロセス管理を有効にしたアプリの、標準のレコード一覧（PC 版）でご利用いただけます。</p>
+      <ol class="steps-list">
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-status-bulk-action-v1.0.0.zip</code> をダウンロード</span></li>
+        <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+        <li><span>使用するアプリ（<strong>プロセス管理が有効</strong>なアプリ）の<strong>アプリ設定 → プラグイン</strong>で「ステータス一括実行 for kintone」を追加</span></li>
+        <li><span>プラグイン設定画面で<strong>対象アクション</strong>を登録し、必要に応じて<strong>実行できる条件</strong>・<strong>滞留の可視化</strong>・<strong>ボタンの見た目</strong>を設定して「保存」</span></li>
+        <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると、レコード一覧にボタンが表示されます</span></li>
+      </ol>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ レコード一覧の設定エリアに控えめな広告表示あり</li>
+            </ul>
+            <a href="/downloads/kw-status-bulk-action-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-status-bulk-action" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。<strong>プロセス管理を有効にしたアプリ</strong>の標準のレコード一覧で動作し、カスタマイズビューでは動作しません。</li>
+        <li>チェック選択列・滞留列は PC 版のみ表示されます。モバイル版は「絞り込み結果全体」を対象に一括実行できます。</li>
+        <li>プロセス管理のアクションに実行条件（filterCond）が設定されている場合、その条件に合わないレコードは kintone 側で実行できません。</li>
+        <li>短時間に大量のステータス変更を行うと、kintone 側の反映遅延により一部が失敗することがあります（結果画面に理由を表示します。時間を置いて再実行してください）。</li>
+        <li>滞留日数は本プラグイン導入後にステータスが動いたときからの実測値です（導入前の履歴・REST API 経由の直接変更はさかのぼりません）。滞留の可視化を使う場合、対象アプリに非表示の日時フィールドが1つ追加されます。</li>
+        <li>実行権限の判定・次の作業者候補の解決に、ご利用中のドメイン内の cybozu.com 共通管理API を使用します（自ドメイン内・第三者送信なし）。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-status-bulk-action" />
+    <PluginFaqSection pluginId="kw-status-bulk-action" pageUrl="https://kizuna-works.jp/plugins/status-bulk-action/" />
+    <SupporterCTA pluginId="kw-status-bulk-action" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">関連プラグイン</h2>
+        <p class="section-subtitle">一覧・データ操作をさらに便利にする kintone プラグイン</p>
+        <div class="related-posts-grid">
+          <a href="/plugins/bulk-update/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/bulk-update-banner.png" alt="かんたん一括更新 for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">かんたん一括更新 for kintone</h3>
+              <p class="related-post-desc">絞り込んだ一覧のフィールドを1つ選んでまとめて更新・クリア。ステータス以外の項目を一括で直したいときに便利です。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+          <a href="/plugins/summary-bar/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/summary-bar-banner.png" alt="集計サマリーバー for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">集計サマリーバー for kintone</h3>
+              <p class="related-post-desc">一覧ヘッダーに合計・件数などの集計カードを表示。ステータス別の件数や金額を絞り込み連動で把握できます。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+          <a href="/plugins/list-styler/" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="/images/list-styler-banner.png" alt="一覧スタイラー for kintone" loading="lazy" />
+            </div>
+            <div class="related-post-content">
+              <h3 class="related-post-title">一覧スタイラー for kintone</h3>
+              <p class="related-post-desc">列固定・ゼブラ・条件付き行スタイルで一覧を見やすく。ステータスごとに行を色分けして状況を把握しやすくできます。</p>
+              <span class="related-post-link">詳しく見る →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="sba-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const lightbox = document.getElementById('sba-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-status-bulk-action-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-status-bulk-action-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>
