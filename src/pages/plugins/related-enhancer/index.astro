@@ -1,0 +1,612 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+---
+
+<Layout
+  title="関連レコード拡張 for kintone｜関連レコード一覧を集計・見た目・検索で強化 | KIZUNA Works"
+  description="kintone の関連レコード一覧を集計・見た目・検索/ソートでまとめて強化するプラグイン。カーソルAPIで参照先を全件取得し、合計・平均・件数の集計カードを一覧の直上に表示。非表示フィールドやサブテーブル内の集計、集計結果の書き込み保存にも対応するプレミアムプラグインです。"
+  ogTitle="関連レコード拡張 for kintone｜関連レコード一覧を集計・見た目・検索で強化 | KIZUNA Works"
+  ogDescription="kintone の関連レコード一覧を集計・見た目・検索/ソートでまとめて強化するプラグイン。合計・平均・件数の集計カードを一覧の直上に表示し、非表示フィールドやサブテーブル内の集計、集計結果の書き込み保存にも対応するプレミアムプラグインです。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/related-enhancer/"
+  ogImage="https://kizuna-works.jp/images/related-enhancer-banner.png"
+  canonical="https://kizuna-works.jp/plugins/related-enhancer/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/related-enhancer/",
+          "url": "https://kizuna-works.jp/plugins/related-enhancer/",
+          "name": "関連レコード拡張 for kintone｜関連レコード一覧を集計・見た目・検索で強化 | KIZUNA Works",
+          "description": "kintone の関連レコード一覧を集計・見た目・検索/ソートでまとめて強化するプラグイン。合計・平均・件数の集計カードを一覧の直上に表示し、非表示フィールドやサブテーブル内の集計、集計結果の書き込み保存にも対応。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/related-enhancer-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "関連レコード拡張 for kintone", "item": "https://kizuna-works.jp/plugins/related-enhancer/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "関連レコード拡張 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-07-11",
+          "url": "https://kizuna-works.jp/plugins/related-enhancer/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-related-enhancer-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/related-enhancer-banner.png",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "無料プラン",
+              "price": "0",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "有効化できる対象は関連レコード一覧1件まで。その1件で集計カード・見た目カスタマイズ・検索/ソートをお試しいただけます（利用期限なし）。"
+            },
+            {
+              "@type": "Offer",
+              "name": "プレミアム年間サポーター（全プラグイン込み）",
+              "price": "16500",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、対象数無制限・非表示フィールドの集計・サブテーブル展開集計・集計結果の書き込み保存・広告非表示を含む全機能と、販売中の全プラグインを利用できます。単品販売はありません。"
+            }
+          ],
+          "description": "kintone の関連レコード一覧を集計・見た目・検索/ソートでまとめて強化するプラグイン。カーソルAPIで参照先を表示件数に依存せず全件取得し、合計・平均・最大・最小・件数の集計カードを一覧の直上に表示。関連レコード一覧に表示していないフィールドやサブテーブル内の数値の集計、集計結果の書き込み保存にも対応する。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "参照先をカーソルAPIで全件取得し、合計/平均/最大/最小/件数の集計カードを関連レコード一覧の直上に表示",
+            "フィールド×演算子×値（最大5件・AND/OR）の条件で絞り込んだ条件別カードを複数並列表示",
+            "集計値が閾値を超えたらカード背景を警告色に変更",
+            "関連レコード一覧の「表示するフィールド」に入れていない数値/計算フィールドも集計対象に選択（プレミアム）",
+            "参照先アプリのサブテーブル内フィールドを行の絞り込み条件で絞ってから合計・平均等を算出（プレミアム）",
+            "集計値を自アプリの数値フィールドへ自動／手動で書き込み保存（プレミアム）",
+            "ゼブラ・行ホバー・フォントサイズ・列の表示/非表示・列幅固定・ヘッダー配色などの見た目カスタマイズ",
+            "一覧のインライン検索・列ヘッダークリックでのソート・列ごとの簡易フィルタ（ブラウザ内で完結）",
+            "複数の関連レコード一覧の集計カードをスペース要素にまとめて表示する横断ボード",
+            "集計・表示はすべて自ドメインの kintone REST API で完結・外部送信なし"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで1つの対象（関連レコード一覧）に集計カード・見た目カスタマイズ・検索/ソートをお試しいただけます。非表示フィールドの集計・サブテーブル展開集計・集計結果の書き込み保存と、対象数無制限は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。" } },
+            { "@type": "Question", "name": "関連レコード一覧に表示していないフィールドも集計できますか？", "acceptedAnswer": { "@type": "Answer", "text": "できます（プレミアム）。関連レコード一覧の「表示するフィールド」設定に依存せず、参照先アプリの数値/計算フィールドを集計対象として選べます。APIトークンの発行は不要で、閲覧ユーザー自身のセッション権限で自ドメインの REST API から取得します。" } },
+            { "@type": "Question", "name": "参照先のサブテーブル内の数値も集計できますか？", "acceptedAnswer": { "@type": "Answer", "text": "できます（プレミアム）。参照先アプリのサブテーブル内フィールドを集計対象に選び、行の絞り込み条件で対象の行だけに絞ってから合計・平均などを算出できます。" } },
+            { "@type": "Question", "name": "集計した値をレコードに保存できますか？", "acceptedAnswer": { "@type": "Answer", "text": "できます（プレミアム）。集計値を自アプリの数値フィールドへ、対象ごとに自動（詳細画面の表示時に差分保存）または手動（ボタン押下時）で書き込み保存できます。保存した値は一覧の絞り込み・集計・CSV出力にそのまま利用できます。" } },
+            { "@type": "Question", "name": "モバイルでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "モバイルは集計カードの閲覧のみ対応です（v1.0.0）。見た目カスタマイズ・検索/ソート・簡易フィルタは PC のレコード詳細画面での対応です。" } },
+            { "@type": "Question", "name": "外部にデータは送信されますか？", "acceptedAnswer": { "@type": "Answer", "text": "集計・表示はすべて kintone 内（同一ドメインの REST API）で完結し、業務データを外部へ送信しません。第三者 CDN や外部サーバーも使いません。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。" } }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 5px 14px; border-radius: 20px;
+    }
+    .afp-hero-version {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 5px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 720px; line-height: 1.8; }
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    /* Master / Reference linkage */
+    .afp-ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+    .afp-ba-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-ba-card.after { border: 2px solid var(--color-green); }
+    .afp-ba-label { font-weight: 700; padding: 12px 18px; font-size: 0.98rem; }
+    .afp-ba-card.before .afp-ba-label { background: #eef2f7; color: var(--color-navy); }
+    .afp-ba-card.after .afp-ba-label { background: #eaf6ea; color: var(--color-green); }
+    .afp-ba-card img { width: 100%; height: auto; display: block; background: #F0F4F8; border-top: 1px solid #e2e8f0; cursor: zoom-in; }
+    .afp-ba-desc { font-size: 0.92rem; line-height: 1.7; color: var(--color-text-main); padding: 14px 18px 18px; }
+    .afp-ba-arrow { text-align: center; font-size: 0.95rem; color: var(--color-text-muted); margin: 20px 0 0; }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    /* Single centered screenshot */
+    .afp-shot { max-width: 900px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-steps { counter-reset: step; list-style: none; padding: 0; margin: 0; }
+    .afp-steps li { position: relative; padding: 0 0 18px 52px; line-height: 1.8; }
+    .afp-steps li::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; left: 0; top: 0; width: 34px; height: 34px;
+      background: var(--color-green); color: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-weight: 700;
+    }
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    /* Related blog posts */
+    .afp-blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .afp-blog-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: var(--shadow-card); overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; }
+    .afp-blog-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.14); }
+    .afp-blog-card img { width: 100%; height: auto; display: block; aspect-ratio: 1200 / 630; object-fit: cover; background: #F0F4F8; }
+    .afp-blog-body { padding: 18px 20px 20px; }
+    .afp-blog-body h3 { font-size: 1.05rem; color: var(--color-navy); margin: 0 0 10px; line-height: 1.5; }
+    .afp-blog-body p { font-size: 0.9rem; line-height: 1.7; color: var(--color-text-main); margin: 0 0 12px; }
+    .afp-blog-link { color: var(--color-green); font-weight: 700; font-size: 0.9rem; }
+
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-cmp { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 660px; background: #fff; }
+    .afp-cmp th, .afp-cmp td { border: 1px solid #d7dee8; padding: 9px 12px; text-align: center; vertical-align: middle; }
+    .afp-cmp thead th { background: var(--color-navy); color: #fff; font-weight: 700; line-height: 1.5; }
+    .afp-cmp tbody th { background: #f2f6fb; color: #1B3A6B; text-align: left; font-weight: 600; }
+    .afp-cmp tbody tr:nth-child(even) td { background: #f8fafc; }
+    .afp-shot img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); display: block; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+    .afp-steps { counter-reset: afpstep; margin: 8px 0 4px; }
+    .afp-step { display: flex; gap: 16px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; }
+    .afp-step:first-child { border-top: none; }
+    .afp-step-num { flex-shrink: 0; counter-increment: afpstep; }
+    .afp-step-num::before { content: counter(afpstep); display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; background: var(--color-navy); color: #fff; border-radius: 50%; font-weight: 700; font-size: 17px; }
+    .afp-step-body { flex: 1; min-width: 0; }
+    .afp-step-body h4 { margin: 4px 0 6px; font-size: 15.5px; color: var(--color-navy); }
+    .afp-step-body p { margin: 0 0 10px; font-size: 14px; line-height: 1.9; color: #333; }
+    .afp-step-body .afp-shot { max-width: 720px; margin: 0; }
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+      display: none; align-items: center; justify-content: center;
+      z-index: 1000; padding: 24px; cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close {
+      position: absolute; top: 14px; right: 22px; width: 44px; height: 44px;
+      background: rgba(255,255,255,0.12); border: none; color: #fff;
+      font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-ba-grid { grid-template-columns: 1fr; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-blog-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="afp-hero">
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium">👑 PREMIUM PLUGIN</span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1>関連レコード拡張 for kintone</h1>
+      <p class="afp-tagline">関連レコード一覧を、集計して・見やすく整える。</p>
+      <p class="afp-sub">レコード詳細の関連レコード一覧に、合計・平均・件数などの集計カードを表示。見た目の調整・検索・並べ替えもまとめて強化し、「関連レコード一覧は表示するだけで集計できない」を解消します。</p>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 定義（結論ファースト） -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <p class="afp-lead">
+          <strong>関連レコード拡張 for kintone</strong> は、kintone の<strong>関連レコード一覧</strong>を<strong>集計・見た目・検索/ソート</strong>でまとめて強化するプラグインです。kintone 標準の関連レコード一覧は関係するレコードを<strong>表示するだけ</strong>で、合計・平均などの集計や、列幅の調整・検索・並べ替えができません。本プラグインは<strong>カーソルAPIで参照先を表示件数に依存せず全件取得</strong>し、合計・平均・最大・最小・件数の<strong>集計カード</strong>を関連レコード一覧の直上に表示。<strong>関連レコード一覧に表示していないフィールド</strong>や<strong>参照先のサブテーブル内</strong>の数値も集計でき、集計結果を自アプリの数値フィールドへ<strong>書き込み保存</strong>することも可能です。集計・表示はすべて自ドメインの REST API で完結し、業務データを外部に送信しません。「プレミアムプラグイン」シリーズの一つです。
+        </p>
+      </div>
+    </section>
+
+    <!-- 実際の画面 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <figure class="afp-shot">
+          <img class="zoomable" src="/images/related-enhancer-detail.png" alt="関連レコード拡張の適用画面 — 顧客の案件一覧の上に「受注見込み合計 4,610,000（閾値超で赤）」「案件件数 8」「受注済み売上 2,030,000」「平均単価 576,250」の集計カードを表示し、一覧はネイビーのヘッダー・ゼブラ表示・インライン検索/ソート付きで見やすく整えられている" width="802" height="454" loading="lazy" />
+          <figcaption class="afp-shot-cap">関連レコード一覧の直上に集計カードを表示。ヘッダー色・ゼブラ表示・インライン検索/ソートもまとめて強化（画像をクリックで拡大）</figcaption>
+        </figure>
+        <figure class="afp-shot" style="margin-top:28px;">
+          <img class="zoomable" src="/images/related-enhancer-filter.png" alt="関連レコード拡張の絞り込み結果 — 検索バーに「受注」と入力すると、8件のうち商談フェーズが受注の3件（データ移行支援・年間保守契約・生産管理システム導入）だけに絞り込まれ、右上に「3 / 8 件」と表示される。各列の見出し下には列ごとの絞り込み入力欄も並ぶ" width="1038" height="345" loading="lazy" />
+          <figcaption class="afp-shot-cap">インライン検索・列ごとの絞り込みで、関連レコード一覧をその場で絞り込み（「3 / 8 件」のように件数も表示）</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 解決したい課題 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">関連レコード一覧の「できない」を、まとめて解決</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>集計できない</h3>
+            <p>関連レコード一覧は関係するレコードを並べて表示するだけで、合計・平均・件数などの集計ができません。表示設定に入れていないフィールドや、参照先のサブテーブル内の数値は特に集計しづらいのが実情です。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>見づらい・探しにくい</h3>
+            <p>列幅の調整・検索・並べ替えができないため、関連レコードの件数が多くなると目的の行を探しにくく、横に長い一覧はそのまま見にくい状態になりがちです。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>二度手間の集計</h3>
+            <p>合計や件数を確認したいだけなのに、別アプリや Excel に転記して集計し直す――そんな二度手間が、関連レコード一覧を使う現場でくり返し発生しています。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>集計カード</h3>
+            <p>カーソルAPIで参照先を表示件数に依存せず全件取得し、合計/平均/最大/最小/件数を算出して、関連レコード一覧の直上にカード表示。フィールド×演算子×値（最大5件・AND/OR）の条件で絞り込んだ条件別カードを複数並べて比較でき、集計値が閾値を超えたら背景色を警告色に変えて知らせます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>非表示フィールドの集計 <span style="color:var(--color-green);font-size:0.8rem;">（プレミアム）</span></h3>
+            <p>関連レコード一覧の「表示するフィールド」に入れていない数値/計算フィールドも、集計対象として選べます。APIトークンの発行は不要で、閲覧ユーザー自身のセッション権限で自ドメインの REST API から取得します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>サブテーブル展開集計 <span style="color:var(--color-green);font-size:0.8rem;">（プレミアム）</span></h3>
+            <p>参照先アプリのサブテーブル内フィールドを集計対象に選び、行の絞り込み条件で対象の行だけに絞ってから合計・平均などを算出します。明細行の中の数量・金額なども集計できます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>集計結果の書き込み保存 <span style="color:var(--color-green);font-size:0.8rem;">（プレミアム）</span></h3>
+            <p>集計値を自アプリの数値フィールドへ保存します。対象ごとに自動（詳細画面の表示時に差分保存）／手動（ボタン押下時）を選べ、保存した値は一覧の絞り込み・集計・CSV出力にそのまま利用できます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>見た目カスタマイズ</h3>
+            <p>ゼブラ（2色/単色）・行ホバー・フォントサイズ・列の表示/非表示・列幅の固定（はみ出しは省略記号で表示）・ヘッダーの背景色/文字色を調整。件数が多い関連レコード一覧も見やすく整えられます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>検索/ソート/簡易フィルタ</h3>
+            <p>一覧のタイトル行にインライン検索バーを追加し、列ヘッダークリックで昇順/降順ソート（数値対応）、列ごとの簡易フィルタ（複数列AND）で絞り込めます。すべてブラウザ内で完結し、参照先へ再取得しません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>横断ボード</h3>
+            <p>フォームのスペース要素を1つ指定すると、複数の関連レコード一覧の集計カードをそこにまとめて表示できます。対象ごとに「個別表示（一覧の直上）」と「ボード表示」を切り替えられます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>kintone 完結</h3>
+            <p>集計・表示はすべて同一ドメインの REST API で完結し、業務データを外部へ送信しません。第三者 CDN・外部サーバーも不使用です。※ゲストスペースは v1.0.0 では未検証（v1.1.0 で対応を検討）。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 設定画面 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定はタブでかんたん</h2>
+        <p style="text-align:center;margin:-8px auto 30px;max-width:720px;line-height:1.8;color:var(--color-text-muted);">プラグインの設定画面はタブ構成。対象の関連レコード一覧を選び、集計カード・見た目・検索/ソート・横断ボードをノーコードで設定できます。</p>
+        <figure class="afp-shot">
+          <img class="zoomable" src="/images/related-enhancer-config-agg.png" alt="関連レコード拡張の設定画面（集計設定タブ）— 対象の関連レコード一覧「案件一覧」に集計カードを追加し、集計方法（合計）・集計対象フィールド（売上）・絞り込み条件・条件付き色分け（集計値が3,000,000を超えたら背景色を変える）を設定している" width="1297" height="482" loading="lazy" />
+          <figcaption class="afp-shot-cap">② 集計設定 — 集計方法・対象フィールド・条件・閾値による色分けを設定</figcaption>
+        </figure>
+        <figure class="afp-shot" style="margin-top:28px;">
+          <img class="zoomable" src="/images/related-enhancer-config-style.png" alt="関連レコード拡張の設定画面（見た目・検索タブ）— 行スタイル（ゼブラ）・フォントサイズ・ヘッダーの背景色/文字色・行ホバー・列の表示/非表示と列幅（スライダー指定）を設定している" width="1297" height="541" loading="lazy" />
+          <figcaption class="afp-shot-cap">④ 見た目・検索 — ゼブラ表示・ヘッダー色・列幅などを設定（検索/ソート/フィルタも同じタブ）</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- プランについて -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料プランでも<strong>1つの対象（関連レコード一覧）</strong>に、集計カード・見た目カスタマイズ・検索/ソートをお試しいただけます。<strong>対象数の無制限化</strong>と、<strong>非表示フィールドの集計・サブテーブル展開集計・集計結果の書き込み保存</strong>、広告非表示は、<strong>プレミアム年間サポーター</strong>で解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ 関連レコード一覧1件に適用</li>
+              <li>✅ 集計カード（合計/平均/件数・条件付き・色分け）</li>
+              <li>✅ 見た目カスタマイズ・検索/ソート・簡易フィルタ</li>
+              <li>✅ 利用期限なし（レコード一覧画面に控えめな広告あり）</li>
+            </ul>
+            <a href="/downloads/kw-related-enhancer-v1.0.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+          </div>
+
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>対象数は無制限</strong>（複数の関連レコード一覧を強化）</li>
+              <li>✅ <strong>非表示フィールドの集計</strong>・<strong>サブテーブル展開集計</strong></li>
+              <li>✅ <strong>集計結果の書き込み保存</strong>・プラグイン内の広告非表示</li>
+              <li>✅ 販売中の<strong>全プラグイン</strong>も対象（契約期間中に新しく公開されるプラグインも追加料金なし）</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta">プレミアム年間サポーターを申し込む →</a>
+          </div>
+        </div>
+
+        <h3 class="afp-plan-compare-head">機能の詳細比較</h3>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>機能</th><th class="c">無料プラン</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>有効化できる対象数（関連レコード一覧）</td><td class="c">1件</td><td class="c">無制限</td></tr>
+              <tr><td>集計カード（合計/平均/件数・条件付き）</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>非表示フィールドの集計</td><td class="c">✕</td><td class="c">○</td></tr>
+              <tr><td>サブテーブル展開集計</td><td class="c">✕</td><td class="c">○</td></tr>
+              <tr><td>集計結果の書き込み保存</td><td class="c">✕</td><td class="c">○</td></tr>
+              <tr><td>見た目・検索/ソート・簡易フィルタ</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>レコード一覧画面の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- インストール手順 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="afp-steps steps-list">
+          <li><span>システム管理者で kintone にログインし、<strong>歯車アイコン → kintone システム管理 → プラグイン</strong> を開き、<strong>「読み込む」</strong>からプラグイン zip をアップロードします。</span></li>
+          <li><span>関連レコード一覧を配置した<strong>対象アプリ</strong>で <strong>アプリの設定 → プラグイン → 「+ プラグインを追加」</strong> から「関連レコード拡張」を追加します。</span></li>
+          <li><span>プラグイン一覧の<strong>歯車アイコン</strong>から設定画面を開き、<strong>「① 対象管理」</strong>で強化したい関連レコード一覧フィールドを対象に追加。各タブで<strong>集計・見た目・検索</strong>などを設定します。</span></li>
+          <li><span><strong>「保存」→「アプリを更新」</strong>を実行して反映します。レコード詳細画面を開くと、関連レコード一覧の直上に集計カードが表示されます。</span></li>
+        </ol>
+        <div class="afp-note">集計は、閲覧ユーザー自身の<strong>参照先アプリの閲覧権限</strong>で自ドメインの REST API から取得します。権限のない参照先アプリは集計できません（標準の関連レコード一覧と同じ挙動です）。</div>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ご利用にあたっての注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li>本プラグインは<strong>レコード詳細画面（PC）</strong>で動作します。<strong>カレンダー・カスタマイズビュー</strong>では動作しません。</li>
+            <li><strong>モバイルは集計カードの閲覧のみ</strong>の対応です（v1.0.0）。見た目カスタマイズ・検索/ソート・簡易フィルタは PC のレコード詳細画面での対応です。</li>
+            <li>集計は<strong>閲覧ユーザー自身のセッション権限</strong>に依存します。参照先アプリの閲覧権限がないと集計できません（標準の関連レコード一覧と同じ挙動です）。APIトークンの発行は不要です。</li>
+            <li><strong>ゲストスペース</strong>内のアプリは v1.0.0 では未検証です（v1.1.0 で対応を検討しています）。</li>
+            <li>非表示フィールドの集計・サブテーブル展開集計・集計結果の書き込み保存は、<strong>プレミアム年間サポーター</strong>限定の機能です。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- セキュリティ -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-related-enhancer" />
+      </div>
+    </section>
+
+    <!-- よくある質問 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">よくある質問</h2>
+        <div class="afp-faq">
+          <details class="afp-faq-item">
+            <summary>単品で購入できますか？</summary>
+            <div class="afp-faq-answer">本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで1つの対象（関連レコード一覧）に集計カード・見た目カスタマイズ・検索/ソートをお試しいただけます。非表示フィールドの集計・サブテーブル展開集計・集計結果の書き込み保存と、対象数無制限は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>関連レコード一覧に表示していないフィールドも集計できますか？</summary>
+            <div class="afp-faq-answer">できます（プレミアム）。関連レコード一覧の「表示するフィールド」設定に依存せず、参照先アプリの数値/計算フィールドを集計対象として選べます。APIトークンの発行は不要で、閲覧ユーザー自身のセッション権限で自ドメインの REST API から取得します。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>参照先のサブテーブル内の数値も集計できますか？</summary>
+            <div class="afp-faq-answer">できます（プレミアム）。参照先アプリのサブテーブル内フィールドを集計対象に選び、行の絞り込み条件で対象の行だけに絞ってから合計・平均などを算出できます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>集計した値をレコードに保存できますか？</summary>
+            <div class="afp-faq-answer">できます（プレミアム）。集計値を自アプリの数値フィールドへ、対象ごとに自動（詳細画面の表示時に差分保存）または手動（ボタン押下時）で書き込み保存できます。保存した値は一覧の絞り込み・集計・CSV出力にそのまま利用できます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>モバイルでも使えますか？</summary>
+            <div class="afp-faq-answer">モバイルは集計カードの閲覧のみ対応です（v1.0.0）。見た目カスタマイズ・検索/ソート・簡易フィルタは PC のレコード詳細画面での対応です。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>外部にデータは送信されますか？</summary>
+            <div class="afp-faq-answer">集計・表示はすべて kintone 内（同一ドメインの REST API）で完結し、業務データを外部へ送信しません。第三者 CDN や外部サーバーも使いません。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 関連ブログ記事 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">関連ブログ記事</h2>
+        <div class="afp-blog-grid">
+          <a class="afp-blog-card" href="/blog/kintone-related-record-list/">
+            <img src="/images/blog/kintone-related-record-list.png" alt="kintoneの関連レコード一覧とは？設定方法と集計・一覧表示の限界と解決法" width="1200" height="630" loading="lazy" />
+            <div class="afp-blog-body">
+              <h3>【2026年版】kintoneの関連レコード一覧とは？設定方法と集計・一覧表示の限界と解決法</h3>
+              <p>関連レコード一覧の仕組み・設定手順に加え、「集計できない・一覧画面に出ない・CSVに含まれない」等の限界を整理。本プラグインが解決する課題の背景がわかります。</p>
+              <span class="afp-blog-link">記事を読む →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>プレミアム年間サポーターで使ってみる</h2>
+      <p>関連レコード拡張をはじめ、販売中の全プラグインをご利用いただけます。年額 ¥16,500（税込）。まずは無料プランでお試しいただけます（利用期限なし）。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを申し込む →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="re-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('re-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      var dl = document.getElementById('btn-download');
+      if (dl && typeof gtag === 'function') {
+        dl.addEventListener('click', function () {
+          gtag('event', 'file_download', {
+            file_name: 'kw-related-enhancer-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: '無料でダウンロード',
+            link_url: '/downloads/kw-related-enhancer-v1.0.0.zip'
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

@@ -792,6 +792,28 @@ export const premiumPlugins: Plugin[] = [
     problemDesc: '会社名や単価を直しても、過去にルックアップした参照先レコードは古いまま。まとめて最新化したい',
     releaseDate: '2026-07-04',
   },
+  {
+    id: 'kw-related-enhancer',
+    name: '関連レコード拡張 for kintone',
+    formName: '関連レコード拡張 for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'related-enhancer',
+    category: 'レコード画面',
+    description:
+      'レコード詳細の関連レコード一覧を、集計・見た目・検索/ソートでまとめて強化するプラグイン。カーソルAPIで参照先を全件取得し、合計・平均・件数などの集計カード（条件付き・複数条件の並列・閾値で色分け）を一覧の上に表示。非表示フィールドやサブテーブル内の展開集計、集計結果の書き込み保存にも対応します。kintone 完結で外部送信しません。',
+    image: '/images/related-enhancer-banner.png',
+    imageAlt:
+      '関連レコード拡張 for kintone プラグイン — レコード詳細の関連レコード一覧に合計・平均・件数などの集計カードを表示し、見た目・検索/ソートを強化する',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      '関連レコード一覧に合計・平均・件数の集計カードを表示。非表示フィールド・サブテーブルの集計、書き込み保存、見た目・検索/ソートに対応。kintone 完結。',
+    problemTitle: '関連レコード一覧が「見るだけ」で集計できない',
+    problemDesc: '関連レコードの合計・件数を別アプリやExcelで二度手間で出している。表示外の項目やサブテーブルも集計したい',
+    releaseDate: '2026-07-11',
+  },
 ];
 
 /**
