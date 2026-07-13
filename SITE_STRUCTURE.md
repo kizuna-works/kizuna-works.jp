@@ -39,6 +39,8 @@ c:\kizuna-works.jp\
 │   │   ├── RelatedPosts.astro  # ブログ記事末尾の関連記事自動表示（タグ重複数でスコアリング・上位3件）
 │   │   ├── SupporterCTA.astro  # サポーターライセンス案内ページへの誘導カード（pluginIdでURL自動付与）
 │   │   ├── SupporterForm.astro # サポーターライセンス申込フォーム（URL ?plugin=<id> で自動選択対応）
+│   │   ├── TrialForm.astro     # プレミアム無料体験の申込フォーム（会社名/メール/ドメインのみ・planType='trial' でGASへ送信）
+│   │   ├── TrialBanner.astro   # プレミアム無料体験LPへの誘導バナー（サポーターページ・プラグイン一覧で使用）
 │   │   └── SecurityBox.astro   # プラグイン詳細ページの「安心ボックス」（外部通信・ライブラリ・秘匿情報を要約。plugin-security.ts 駆動）
 │   ├── data/                   # ビルド時参照される TS データ
 │   │   ├── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）
@@ -71,6 +73,8 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # プラグイン ダウンロードランキング全件ページ（/plugins/ranking/）― GAS から全件取得し順位付け表示。同数時はリリース日が古い方を上位
 │   │   │   ├── supporter/
 │   │   │   │   └── index.astro # 年間サポーターライセンス案内＆申込フォーム（/plugins/supporter/）
+│   │   │   ├── premium-trial/
+│   │   │   │   └── index.astro # プレミアム年間サポーター 30日間無料体験 LP（/plugins/premium-trial/）― 全プラグイン（ちょこっと＋プレミアム）が広告なし・全機能。カード不要・自動課金なし。TrialForm＋FAQPage JSON-LD。hero背景=premium-trial-bg.webp。件数はplugins.tsから動的
 │   │   │   ├── field-styler/
 │   │   │   │   └── index.astro # フィールドスタイラー製品ページ（/plugins/field-styler/）
 │   │   │   ├── kw-conditional-numbering/

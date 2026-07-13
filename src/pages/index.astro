@@ -220,6 +220,116 @@ const pluginPosts = allPosts
       border-radius: 50%;
     }
 
+    /* =========================================
+       Premium Free Trial Campaign band
+    ========================================= */
+    .home-campaign {
+      background-color: #F0F4F8;
+      padding: 44px 20px;
+    }
+
+    .home-campaign-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: linear-gradient(120deg, #12294d 0%, #1B3A6B 38%, #226b45 78%, #2E8B2E 100%);
+      color: #FFFFFF;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-radius: 16px;
+      padding: 34px 40px;
+      box-shadow: 0 12px 30px rgba(27, 58, 107, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      flex-wrap: wrap;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .home-campaign-inner::before {
+      content: '';
+      position: absolute;
+      top: -70%;
+      right: 6%;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .home-campaign-text,
+    .home-campaign-cta {
+      position: relative;
+      z-index: 1;
+    }
+
+    .home-campaign-text {
+      flex: 1 1 520px;
+      min-width: 0;
+    }
+
+    .home-campaign-badge {
+      display: inline-block;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    .home-campaign-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin: 0 0 10px;
+      line-height: 1.5;
+      color: #FFFFFF;
+    }
+
+    .home-campaign-desc {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin: 0;
+      color: #eafaea;
+    }
+
+    .home-campaign-cta {
+      flex-shrink: 0;
+      display: inline-block;
+      background-color: #FFFFFF;
+      color: #1f6f2a;
+      font-weight: 700;
+      font-size: 1.02rem;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    }
+
+    .home-campaign-cta:hover {
+      background-color: #1B3A6B;
+      color: #FFFFFF;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+    }
+
+    @media (max-width: 768px) {
+      .home-campaign-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .home-campaign-title {
+        font-size: 1.2rem;
+      }
+      .home-campaign-cta {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
     .hero-inner {
       max-width: 800px;
       margin: 0 auto;
@@ -1538,6 +1648,20 @@ const pluginPosts = allPosts
       <div class="hero-actions" style="margin-top: 16px;">
         <a href="/tools/" class="hero-secondary-link">無料Webツールを見る</a>
       </div>
+    </div>
+  </section>
+
+  <!-- Premium Free Trial Campaign band -->
+  <section class="home-campaign">
+    <div class="home-campaign-inner">
+      <div class="home-campaign-text">
+        <span class="home-campaign-badge">30日間無料キャンペーン</span>
+        <h2 class="home-campaign-title">プレミアム年間サポーターを、30日間無料でお試し</h2>
+        <p class="home-campaign-desc">
+          ちょこっとプラグインもプレミアムプラグインも、全プラグインが広告なし・全機能でお使いいただけます。カード登録不要・自動課金なし。まずは全部使ってから決められます。
+        </p>
+      </div>
+      <a href="/plugins/premium-trial/" class="home-campaign-cta">無料体験の詳細を見る →</a>
     </div>
   </section>
 
