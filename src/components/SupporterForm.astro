@@ -128,6 +128,17 @@ if (pluginId && !fixedPlugin) {
           <p class="sf-error" data-error-for="paymentMethod"></p>
         </div>
 
+        <div class="sf-group" id="sf-group-invoiceEmail" hidden>
+          <label for="sf-invoiceEmail" class="sf-label">
+            請求書送付先メールアドレス<span class="sf-optional">任意</span>
+          </label>
+          <input type="email" id="sf-invoiceEmail" name="invoiceEmail" class="sf-input" autocomplete="email" />
+          <p class="sf-help">
+            経理ご担当など、請求書を担当者とは別のアドレスへ送りたい場合にご入力ください。ご入力いただくと、このアドレスには<strong>請求書のみ</strong>をお送りします（見積書は担当者メールアドレスにお送りします）。空欄の場合は担当者メールアドレスに見積書・請求書の両方をお送りします。
+          </p>
+          <p class="sf-error" data-error-for="invoiceEmail"></p>
+        </div>
+
         <button type="submit" id="sf-submit" class="sf-submit">申し込む</button>
         <p id="sf-waiting" class="sf-waiting" hidden>
           処理に時間がかかります（最大 30 秒ほど）。<br />
@@ -185,6 +196,17 @@ if (pluginId && !fixedPlugin) {
     margin-left: 6px;
     font-size: 0.78rem;
     background-color: #fdecea;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+    vertical-align: middle;
+  }
+
+  .sf-optional {
+    color: #64748b;
+    margin-left: 6px;
+    font-size: 0.78rem;
+    background-color: #eef2f7;
     padding: 2px 8px;
     border-radius: 10px;
     font-weight: 700;
@@ -352,6 +374,15 @@ if (pluginId && !fixedPlugin) {
     const pluginGroup = document.getElementById('sf-group-pluginName');
     const pluginHelp = document.getElementById('sf-help-allPlan');
     const pluginSelect = form.querySelector('select[name="pluginName"]');
+    const paymentSelect = form.querySelector('select[name="paymentMethod"]');
+    const invoiceGroup = document.getElementById('sf-group-invoiceEmail');
+
+    // Show the invoice-recipient email field only for bank transfer
+    // (Square payments issue a payment link and generate no documents).
+    const applyPaymentVisibility = () => {
+      const isBank = paymentSelect && paymentSelect.value === '銀行振込';
+      if (invoiceGroup) invoiceGroup.hidden = !isBank;
+    };
 
     // Show/hide plugin name field depending on the selected plan.
     const applyPlanVisibility = () => {
@@ -404,6 +435,9 @@ if (pluginId && !fixedPlugin) {
       el.addEventListener('change', applyPlanVisibility);
     });
 
+    applyPaymentVisibility();
+    if (paymentSelect) paymentSelect.addEventListener('change', applyPaymentVisibility);
+
     const submitBtn = document.getElementById('sf-submit');
     const successMsg = document.getElementById('sf-success');
     const errorMsg = document.getElementById('sf-error-msg');
@@ -439,6 +473,11 @@ if (pluginId && !fixedPlugin) {
         setError('email', '正しいメールアドレスの形式で入力してください');
         ok = false;
       }
+      // invoiceEmail is optional; validate format only when provided
+      if (data.invoiceEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.invoiceEmail)) {
+        setError('invoiceEmail', '正しいメールアドレスの形式で入力してください');
+        ok = false;
+      }
       // pluginName is only required for the individual plan
       if (data.planType !== 'all' && !data.pluginName) {
         setError('pluginName', 'プラグイン名を選択してください');
@@ -460,10 +499,13 @@ if (pluginId && !fixedPlugin) {
       const checkedPlan = form.querySelector('input[name="planType"]:checked');
       // When pluginId prop is set the plan radio is not rendered → default 'individual'.
       const planType = checkedPlan ? checkedPlan.value : 'individual';
+      const isBank = form.paymentMethod.value === '銀行振込';
       const data = {
         companyName: form.companyName.value,
         domain: form.domain.value,
         email: form.email.value,
+        // Invoice recipient is only relevant for bank transfer (documents are issued).
+        invoiceEmail: isBank && form.invoiceEmail ? form.invoiceEmail.value.trim() : '',
         pluginName: planType === 'all' ? '' : form.pluginName.value,
         paymentMethod: form.paymentMethod.value,
         applicationType: checkedType ? checkedType.value : 'new',
