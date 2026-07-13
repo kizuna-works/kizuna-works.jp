@@ -718,6 +718,28 @@ export const plugins: Plugin[] = [
     problemDesc: 'プロセス管理の承認・差し戻しを何十件も1レコードずつ開いて操作していて時間がかかる。承認待ちの放置にも気づきにくい',
     releaseDate: '2026-07-11',
   },
+  {
+    id: 'kw-accordion-tab',
+    name: 'アコーディオンタブ for kintone',
+    formName: 'アコーディオンタブ for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'accordion-tab',
+    category: 'レコード画面',
+    description:
+      'レコード詳細・作成・編集の長いフォームを、スペース要素を見出しに自動でセクション分割し、アコーディオンで開閉できるプラグイン。フィールドの割当は不要。既定で折りたたんで全体像を把握し、必要な節だけ開いて入力。見出しに未入力・入力状況バッジを表示し、スティッキー見出し・スライド開閉にも対応。kintone完結。',
+    image: '/images/accordion-tab-banner.png',
+    imageAlt:
+      'アコーディオンタブ for kintone プラグイン — 長いレコードフォームをスペース要素を見出しに自動セクション分割してアコーディオン開閉。既定で折りたたみ、必要な節だけ開いて入力。未入力・入力状況バッジ、スティッキー見出し、スライド開閉に対応',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '長いフォームをスペース見出しで折りたたみ整理。必要な節だけ開いて入力でき、未入力・入力状況バッジも表示。フィールド割当不要・kintone完結。',
+    problemTitle: 'フォームが縦に長く、目的の項目を探すのが大変',
+    problemDesc: '項目数の多いアプリで、入力・確認したい箇所までスクロールで探すのに時間がかかり、フォーム全体の把握もしにくい',
+    releaseDate: '2026-07-13',
+  },
 ];
 
 /**

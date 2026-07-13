@@ -161,6 +161,15 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-accordion-tab': {
+    extraComm: [
+      {
+        label: '見出しバッジ算出のためのフォーム情報取得（自ドメイン内・読み取りのみ）',
+        detail:
+          '見出しの「未入力の必須項目数」「入力状況」バッジを算出するために、ご利用中の kintone ドメイン内のフォーム情報API（/k/v1/app/form/fields・/k/v1/app/form/layout）を読み取ります。呼び出しはすべて自ドメイン内で完結し、外部の第三者へは送信しません。各セクションの入力状況の判定に使うレコード値は画面上の値（kintone.app.record.get）から取得し、送信は行いません。対象アプリのフォーム定義・レコードデータを変更することはありません。',
+      },
+    ],
+  },
 };
 
 /**
