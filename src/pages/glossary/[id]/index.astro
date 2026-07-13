@@ -26,7 +26,22 @@ const renderCode = (s: string) => s.replace(/`([^`]+)`/g, '<code>$1</code>');
 
 const url = `https://kizuna-works.jp/glossary/${term.id}/`;
 const pageTitle = `kintoneの${term.term}とは？意味・使い方をわかりやすく解説`;
-const metaDescription = term.definition.replace(/`/g, '').slice(0, 120);
+
+// Build a click-worthy meta description: front-load the search phrase ("kintoneの〇〇とは"),
+// answer with the definition, and cut at a sentence boundary so the snippet never ends mid-word.
+const buildMetaDescription = (t: Term): string => {
+  const lead = `kintoneの${t.term}とは？`;
+  const clean = t.definition.replace(/`/g, '').replace(/\s+/g, ' ').trim();
+  const budget = 118 - lead.length;
+  let body = clean;
+  if (body.length > budget) {
+    body = body.slice(0, budget);
+    const cut = Math.max(body.lastIndexOf('。'), body.lastIndexOf('、'));
+    body = cut > budget * 0.5 ? body.slice(0, cut + 1) : `${body}…`;
+  }
+  return `${lead}${body}`;
+};
+const metaDescription = buildMetaDescription(term);
 
 const relatedTermObjs = (term.relatedTerms ?? [])
   .map((id) => termsById.get(id))

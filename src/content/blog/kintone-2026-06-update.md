@@ -1,5 +1,5 @@
 ---
-title: "【2026年6月】kintone AI正式提供｜6機能で何ができる？OR検索・新APIも解説"
+title: "【2026年6月】kintoneアップデート総まとめ｜AIの6機能で何ができる？OR検索・新API"
 description: "2026年6月適用のkintoneアップデートを実務目線で解説。正式提供されたkintone AIの6機能（検索AI・アプリ作成AIなど）と有効化手順、OR検索、レコード削除イベントの新APIまで、管理者・開発者が今すぐ押さえるべき変更点をまとめます。"
 pubDate: 2026-06-15
 author: "KIZUNA Works"
