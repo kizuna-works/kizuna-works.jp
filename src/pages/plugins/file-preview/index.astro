@@ -51,10 +51,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "添付ファイルプレビュー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.0.0",
-          "dateModified": "2026-07-10",
+          "softwareVersion": "2.1.0",
+          "dateModified": "2026-07-14",
           "url": "https://kizuna-works.jp/plugins/file-preview/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-file-preview-v2.0.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-file-preview-v2.1.0.zip",
           "image": "https://kizuna-works.jp/images/file-preview-banner.png",
           "offers": {
             "@type": "Offer",
@@ -77,6 +77,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "Word はページ・フォント・表・余白を再現",
             "テキスト/CSV は文字コードを自動判定（UTF-8 / Shift_JIS / EUC-JP）",
             "同じ欄の複数ファイルを 前へ/次へ・サムネイル・左右キーで連続閲覧",
+            "サブテーブル（テーブル）内の添付ファイルも詳細画面でプレビュー対応（v2.1.0）",
+            "パスワード付き PDF・Excel・Word をブラウザ内で復号して表示（外部送信なし）",
+            "Excel の高精細表示（Excel風グリッド）に切替可能",
             "モーダルの大きさを 大(全画面)/中/小 から選択（記憶）",
             "大容量ファイルの確認ダイアログ、モーダルからのダウンロード",
             "非対応形式（pptx/xls/doc/zip 等）は kintone 標準どおりダウンロード",
@@ -755,7 +758,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.0.0</span>
+        <span class="hero-version">v2.1.0</span>
       </div>
       <h1 class="hero-title">添付ファイルプレビュー for kintone</h1>
       <p class="hero-copy">添付ファイルプレビュー for kintone は、レコードに添付した画像・PDF・Excel・Word・テキストを、ダウンロードや画面遷移なしでその場のフルスクリーンモーダルで確認できる kintone プラグインです。一覧・詳細のファイル名をクリックするだけで開き、同じ欄の複数ファイルは「前へ／次へ」・サムネイル・キーボードで連続閲覧。ファイルの中身は外部に送信せず、kintone 内で完結します。</p>
@@ -766,11 +769,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v2.0.0：パスワード付きファイルへの対応と、Excel の高精細表示を追加しました</h2>
+          <h2 class="update-title">v2.1.0：サブテーブル内の添付ファイルも、詳細画面でプレビューできるようになりました</h2>
         </div>
-        <p class="update-desc"><strong>① パスワード付きファイルに対応</strong>：これまで開けなかった<strong>パスワード保護された PDF・Excel・Word</strong> も、プレビュー画面でパスワードを入力すれば、その場で復号して表示できるようになりました。<strong>入力したパスワードとファイルの中身はすべてブラウザ内だけで処理し、外部（当社・第三者を含む）へ一切送信しません</strong>。PDF は標準のパスワード保護、Excel／Word は Office 2010 以降の暗号化（ECMA-376 Agile 暗号）に対応します。</p>
-        <p class="update-desc"><strong>② Excel の高精細表示</strong>：Excel プレビューのツールバーに「<strong>高精細表示</strong>」ボタンを追加しました。行列見出し・罫線・数値書式・セル結合・画像・文字の折り返しまで<strong>Excel により近いグリッド表示</strong>に切り替えられます。通常は軽快な標準表示で開き、見た目を重視したいファイルだけ高精細表示に切り替える、という使い分けができます（選んだ表示はブラウザに記憶されます）。</p>
-        <p class="update-note">既存ユーザーの方は、下の「プランについて」からダウンロードした最新版（v2.0.0）を、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用できます（設定の再登録は不要）。高精細表示は切り替えたときのみ必要な表示ライブラリを読み込みます（第三者 CDN 不使用・当社サーバーから SRI 付きで取得）。パスワード付き Excel／Word の古い暗号方式（Office 2007 相当の Standard 暗号）には未対応で、その場合はダウンロード案内を表示します。</p>
+        <p class="update-desc"><strong>サブテーブル（テーブル）内の添付ファイルフィールドに対応</strong>しました。これまではレコード直下の添付ファイルだけがプレビュー対象でしたが、v2.1.0 からは<strong>詳細画面</strong>のサブテーブル内に置いた添付ファイルも、ファイル名をクリックするだけでその場のモーダルで開けます。前へ／次へ・サムネイル・キーボード送りの対象は<strong>その行のセル内ファイル</strong>で、画像・PDF・Excel・Word・テキストの表示やパスワード復号など、既存のプレビュー機能はそのまま使えます。</p>
+        <p class="update-desc">設定画面の「プレビュー対象フィールド」には、サブテーブル内の添付ファイルフィールドが <strong>「テーブル名 ＞ 項目名」</strong> の形で表示され、レコード直下のフィールドと同じように個別に選べます（未選択なら全添付フィールドが対象）。サブテーブル内の添付を対象に含めているときは、設定画面に<strong>「詳細画面のみ対応」</strong>の案内を表示します。</p>
+        <p class="update-note">サブテーブル内の添付プレビューは<strong>詳細画面のみ</strong>の対応です（一覧画面のサブテーブル内添付は、クリックすると kintone 標準どおりダウンロードになります）。レコード直下の添付ファイルは従来どおり詳細・一覧の両方で有効です。既存ユーザーの方は、下の「プランについて」からダウンロードした最新版（v2.1.0）を、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用できます（設定の再登録は不要）。</p>
       </div>
     </section>
 
@@ -893,7 +896,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           <img class="zoomable" src="/images/file-preview-config-01.png" alt="添付ファイルプレビュー 設定画面① — プレビュー対象の添付ファイルフィールド選択（画像サムネイルOFFの案内付き）と、プレビュー上限しきい値（MB・0で無制限）" loading="lazy" />
           <div class="config-shot-caption">
             <strong>① 対象フィールド・上限しきい値</strong>
-            <p>プレビューを有効にする添付フィールドを選択（未選択なら全添付フィールド）。大きいファイルの確認ダイアログのしきい値も設定できます（0 で無制限）。</p>
+            <p>プレビューを有効にする添付フィールドを選択（未選択なら全添付フィールド）。サブテーブル内の添付ファイルは「テーブル名 ＞ 項目名」で選べます（詳細画面のみ対応）。大きいファイルの確認ダイアログのしきい値も設定できます（0 で無制限）。</p>
           </div>
         </div>
         <div class="config-shot">
@@ -928,7 +931,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコード一覧・詳細画面（PC 版）でご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-file-preview-v2.0.0.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-file-preview-v2.1.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「添付ファイルプレビュー for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>対象フィールド・上限しきい値・対象画面・モーダルの大きさ・テーマ色</strong>を設定して「保存」</span></li>
@@ -954,7 +957,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-file-preview-v2.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-file-preview-v2.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -1097,10 +1100,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-file-preview-v2.0.0.zip',
+              file_name: 'kw-file-preview-v2.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-file-preview-v2.0.0.zip'
+              link_url: '/downloads/kw-file-preview-v2.1.0.zip'
             });
           }
         });
