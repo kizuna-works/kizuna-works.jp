@@ -71,7 +71,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "url": "https://kizuna-works.jp"
           },
           "featureList": [
-            "条件（最大5件・AND/OR）でフィールド/グループを表示・非表示に出し分け",
+            "条件（最大5件・AND/OR）でフィールド/グループ/サブテーブル/関連レコード一覧を表示・非表示に出し分け",
             "条件成立時のみ必須化（標準は任意のフィールドを動的に必須に）",
             "条件成立時に読み取り専用化（編集ロック）",
             "条件成立の瞬間に値を自動セット（固定値・クリア・TODAY 対応）",
@@ -174,6 +174,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     }
     .update-date { color: var(--color-text-light); font-size: 0.85rem; }
     .update-title { font-size: 1.2rem; color: var(--color-navy); font-weight: 700; margin: 12px 0 10px; }
+    .update-subtitle { font-size: 1.02rem; color: var(--color-navy); font-weight: 700; margin: 20px 0 8px; padding-top: 16px; border-top: 1px dashed #cfe6cf; }
     .update-desc { color: var(--color-text); line-height: 1.85; margin: 0 0 16px; }
     .update-shot { max-width: 640px; margin: 0 auto; }
     .update-shot img {
@@ -751,6 +752,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           />
           <p class="update-shot-cap">画像をクリックすると拡大表示します</p>
         </div>
+        <h3 class="update-subtitle">あわせて、テーブル・関連レコード一覧の表示制御に対応</h3>
+        <p class="update-desc">
+          動作の「対象」に<strong>サブテーブル</strong>と<strong>関連レコード一覧（関連テーブル）</strong>を追加しました。条件に応じて<strong>表全体をまるごと表示／非表示</strong>できます。「区分が〇〇のときだけ明細テーブルを表示」「特定のステータスのときだけ関連レコード一覧を表示」といった出し分けが可能です。<br>
+          ※ テーブル・関連テーブルは表示／非表示のみ対応します。関連レコード一覧は新規作成画面には表示されないため、詳細・編集画面での出し分けが対象です。
+        </p>
         <p class="update-note">
           対象ユーザー・組織・グループの<strong>いずれか</strong>に一致すれば適用（未指定なら全員に適用）。組織は直接の所属で判定します。<br>
           既存の設定はそのまま引き継がれます。最新版（v2.0.0）をダウンロードし、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用できます。<br>
@@ -879,7 +885,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <h2 class="section-title-left">主な機能</h2>
         <ul class="feature-list">
           <li class="feature-hero"><span><span class="feature-hero-badge">目玉機能</span><strong>対象ユーザーで適用先を限定（v2.0.0）</strong> — ルールを<strong>特定のユーザー・組織・グループ</strong>だけに適用できます。「承認欄は承認グループにだけ表示」「金額は経理部だけ編集可・他部署は読み取り専用」など、<strong>担当者・部署ごとのフォーム出し分け</strong>を、フィールドの条件と組み合わせて（AND）ノーコードで実現。未指定なら全員に適用します。</span></li>
-          <li><span><strong>表示／非表示の出し分け</strong> — 条件成立でフィールドやグループを表示・非表示。「表示する」を選んだ項目は普段は自動的に隠れ、条件を満たしたときだけ現れます（区分別フォーム）。</span></li>
+          <li><span><strong>表示／非表示の出し分け</strong> — 条件成立でフィールド・グループに加え、<strong>サブテーブル・関連レコード一覧（テーブル全体）</strong>も表示・非表示。「表示する」を選んだ項目は普段は自動的に隠れ、条件を満たしたときだけ現れます（区分別フォーム）。</span></li>
           <li><span><strong>動的な必須化</strong> — 標準では任意のフィールドを、条件成立時だけ必須に。未入力で保存しようとするとエラーになり、必須項目にはラベル横に「必須」バッジを表示します。</span></li>
           <li><span><strong>読み取り専用（ロック）</strong> — 条件成立時に対象フィールドを入力不可に。決まった値を裏でセットしてロック表示する定番パターンにも対応します。</span></li>
           <li><span><strong>値の自動セット</strong> — 条件が成立した瞬間に固定値をセット／空欄にクリア。日付フィールドには <strong>TODAY・TODAY+7・TODAY-3</strong> も指定できます。常時上書きはせず手入力を妨げません。</span></li>
