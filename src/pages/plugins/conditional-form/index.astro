@@ -51,10 +51,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "条件分岐フォーム for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.2",
-          "dateModified": "2026-06-19",
+          "softwareVersion": "2.0.0",
+          "dateModified": "2026-07-14",
           "url": "https://kizuna-works.jp/plugins/conditional-form/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-form-v1.0.2.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-form-v2.0.0.zip",
           "image": "https://kizuna-works.jp/images/conditional-form-banner.png",
           "offers": {
             "@type": "Offer",
@@ -64,7 +64,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "区分・ステータス・入力値などの条件に応じて、フォームのフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに動的制御する kintone プラグイン。条件→動作をルールで設定し、1つのアプリで区分別フォームをノーコードで実現する。",
+          "description": "区分・ステータス・入力値などの条件に応じて、フォームのフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに動的制御する kintone プラグイン。v2.0.0 では条件に「対象ユーザー（特定のユーザー・組織・グループ）」を追加。条件→動作をルールで設定し、1つのアプリで区分別・担当者別フォームをノーコードで実現する。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -77,6 +77,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "条件成立の瞬間に値を自動セット（固定値・クリア・TODAY 対応）",
             "条件成立時に選択肢を絞り込む（表示する選択肢を限定）",
             "選択肢・数値・日付（TODAY±N）・プロセス管理ステータスを条件に利用",
+            "対象ユーザー条件（v2.0.0）：特定のユーザー・組織・グループのときだけルールを適用",
             "1ルールで複数の対象に動作を適用・優先順位はドラッグで変更",
             "安全則で競合解決（非表示＞読み取り専用＞必須）",
             "条件で表示された項目を枠線ハイライト・必須項目に必須バッジ",
@@ -156,6 +157,32 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       line-height: 1.2;
       margin-bottom: 24px;
     }
+
+    /* Update box (v2.0.0) */
+    .update-section { max-width: 980px; margin: 32px auto 0; padding: 0 20px; }
+    .update-box {
+      background: #f6fff6;
+      border: 1px solid #bfe6bf;
+      border-left: 5px solid var(--color-green);
+      border-radius: 10px;
+      padding: 24px 26px;
+    }
+    .update-tag {
+      display: inline-block; background: var(--color-green); color: #fff;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: .04em;
+      padding: 3px 10px; border-radius: 4px; margin-right: 10px;
+    }
+    .update-date { color: var(--color-text-light); font-size: 0.85rem; }
+    .update-title { font-size: 1.2rem; color: var(--color-navy); font-weight: 700; margin: 12px 0 10px; }
+    .update-desc { color: var(--color-text); line-height: 1.85; margin: 0 0 16px; }
+    .update-shot { max-width: 640px; margin: 0 auto; }
+    .update-shot img {
+      width: 100%; height: auto; display: block;
+      border: 1px solid var(--color-gray-light); border-radius: 8px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+    .update-shot-cap { text-align: center; color: var(--color-text-light); font-size: 0.8rem; margin: 8px 0 0; }
+    .update-note { color: var(--color-text-light); font-size: 0.86rem; margin: 16px 0 0; line-height: 1.7; }
 
     .hero-copy {
       font-size: 17px;
@@ -383,6 +410,32 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 
     .feature-list li strong {
       color: var(--color-navy);
+    }
+
+    /* Flagship feature (v2.0.0 target-users) — stands out at the top of the list */
+    .feature-list li.feature-hero {
+      background: linear-gradient(135deg, #f6fff6 0%, #eef4ff 100%);
+      border: 2px solid var(--color-green);
+      box-shadow: 0 6px 20px rgba(46,139,46,0.18);
+      font-size: 16px;
+      padding: 22px 26px;
+    }
+    .feature-list li.feature-hero::before {
+      content: '🎯';
+      font-size: 22px;
+    }
+    .feature-hero-badge {
+      display: inline-block;
+      background: var(--color-green);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      padding: 2px 9px;
+      border-radius: 4px;
+      margin-right: 8px;
+      vertical-align: middle;
+      transform: translateY(-1px);
     }
 
     .steps-list {
@@ -669,10 +722,41 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.2</span>
+        <span class="hero-version">v2.0.0</span>
       </div>
       <h1 class="hero-title">条件分岐フォーム for kintone</h1>
       <p class="hero-copy">区分・ステータス・入力値などの条件に応じて、フォームのフィールドを「表示／非表示・必須化・読み取り専用・自動入力・選択肢の絞り込み」に切り替える kintone プラグインです。「条件 → 動作」をルールで設定するだけで、1つのアプリの中に区分別の入力フォームをノーコードで作れます。入力の流れ・入力ミス・項目の取捨選択を、条件で自然に制御します。</p>
+    </section>
+
+    <!-- Update Notice (v2.0.0) -->
+    <section class="update-section fade-in">
+      <div class="update-box">
+        <div>
+          <span class="update-tag">UPDATE</span>
+          <span class="update-date">v2.0.0（2026年7月14日）</span>
+        </div>
+        <h2 class="update-title">「対象ユーザー」条件を追加しました（ユーザー・組織・グループ別に適用）</h2>
+        <p class="update-desc">
+          これまでの条件（区分・ステータス・入力値）に加えて、<strong>「誰が操作しているか」</strong>でルールの適用を切り替えられるようになりました。ルールごとに<strong>特定のユーザー・組織・グループ</strong>を指定でき、そのアカウントで開いたときだけ表示・必須化・読み取り専用・自動入力・選択肢の絞り込みを働かせられます。<br>
+          たとえば「<strong>承認欄は承認グループにだけ表示</strong>」「<strong>金額は経理部だけ編集可・他部署は読み取り専用</strong>」といった、担当者・部署ごとのフォーム出し分けが、フィールド条件と組み合わせて（AND）ノーコードで実現します。対象ユーザーだけを指定して、条件なしで適用することもできます。
+        </p>
+        <div class="update-shot">
+          <img
+            class="zoomable"
+            src="/images/conditional-form-config-04.png"
+            alt="条件分岐フォーム 設定画面：ルールの「対象ユーザー」でユーザー・組織・グループを選ぶUI"
+            width="1280"
+            height="360"
+            loading="lazy"
+          />
+          <p class="update-shot-cap">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-note">
+          対象ユーザー・組織・グループの<strong>いずれか</strong>に一致すれば適用（未指定なら全員に適用）。組織は直接の所属で判定します。<br>
+          既存の設定はそのまま引き継がれます。最新版（v2.0.0）をダウンロードし、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用できます。<br>
+          ※ グループ（ロール）による判定は、ゲストスペースでは kintone の仕様上ご利用いただけません（ユーザー・組織による判定は可能です）。
+        </p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -794,6 +878,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <div class="section-wrapper fade-in">
         <h2 class="section-title-left">主な機能</h2>
         <ul class="feature-list">
+          <li class="feature-hero"><span><span class="feature-hero-badge">目玉機能</span><strong>対象ユーザーで適用先を限定（v2.0.0）</strong> — ルールを<strong>特定のユーザー・組織・グループ</strong>だけに適用できます。「承認欄は承認グループにだけ表示」「金額は経理部だけ編集可・他部署は読み取り専用」など、<strong>担当者・部署ごとのフォーム出し分け</strong>を、フィールドの条件と組み合わせて（AND）ノーコードで実現。未指定なら全員に適用します。</span></li>
           <li><span><strong>表示／非表示の出し分け</strong> — 条件成立でフィールドやグループを表示・非表示。「表示する」を選んだ項目は普段は自動的に隠れ、条件を満たしたときだけ現れます（区分別フォーム）。</span></li>
           <li><span><strong>動的な必須化</strong> — 標準では任意のフィールドを、条件成立時だけ必須に。未入力で保存しようとするとエラーになり、必須項目にはラベル横に「必須」バッジを表示します。</span></li>
           <li><span><strong>読み取り専用（ロック）</strong> — 条件成立時に対象フィールドを入力不可に。決まった値を裏でセットしてロック表示する定番パターンにも対応します。</span></li>
@@ -846,6 +931,17 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <p>条件は最大5件・AND/OR で結合。動作は「表示／非表示・必須化・読み取り専用・値をセット・選択肢を絞り込む」から選べます。</p>
           </div>
         </div>
+        <div class="config-shot">
+          <img
+            class="zoomable" src="/images/conditional-form-config-04.png"
+            alt="条件分岐フォーム 設定画面④ — ルールの「対象ユーザー」でユーザー・組織・グループを選び、特定のアカウントだけにルールを適用する設定"
+            loading="lazy"
+          />
+          <div class="config-shot-caption">
+            <strong>④ 対象ユーザーを絞る（v2.0.0）</strong>
+            <p>ルールを特定のユーザー・組織・グループだけに適用できます。ユーザー・組織・グループのいずれかに一致で対象。未指定なら全員に適用します。</p>
+          </div>
+        </div>
       </div>
       <p class="zoom-hint">画像をクリックすると拡大表示します</p>
     </section>
@@ -855,7 +951,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコードの新規作成・編集・詳細画面があるアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-conditional-form-v1.0.2.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-conditional-form-v2.0.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「条件分岐フォーム」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>ルール（条件 → 動作 → 適用する画面）</strong>を作成して「保存」</span></li>
@@ -880,7 +976,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-conditional-form-v1.0.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-conditional-form-v2.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -1046,10 +1142,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-conditional-form-v1.0.2.zip',
+              file_name: 'kw-conditional-form-v2.0.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-conditional-form-v1.0.2.zip'
+              link_url: '/downloads/kw-conditional-form-v2.0.0.zip'
             });
           }
         });
