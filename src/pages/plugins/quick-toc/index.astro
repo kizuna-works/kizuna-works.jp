@@ -51,10 +51,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "クイック目次 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.2",
-          "dateModified": "2026-06-19",
+          "softwareVersion": "1.2.0",
+          "dateModified": "2026-07-15",
           "url": "https://kizuna-works.jp/plugins/quick-toc/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-toc-v1.0.2.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-toc-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/quick-toc-banner.png",
           "offers": {
             "@type": "Offer",
@@ -73,8 +73,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "featureList": [
             "レコード詳細・編集・新規作成画面の左側にセクション単位の目次サイドメニューを常時表示",
             "目次項目クリックで該当セクション先頭へスムーズスクロール（編集・新規画面でも動作）",
-            "セクションは label／field／group／subtable の4種別で自由に定義（ジャンプ先を選ぶと表示名を自動反映）",
-            "目次最上部に単一選択フィールド（ドロップダウン／ラジオ／プロセス管理ステータス）の値を色分けバッジ表示",
+            "ジャンプ先はラベル／スペース／フィールド／グループ／サブテーブルから選択（ドロップダウンで選ぶだけ）",
+            "スペースパーツを見出し化：レコード画面のスペース位置に表示名＋アクセント線の見出しを描画（大／中／小サイズ・色はテーマ追従）",
+            "目次最上部にステータスバッジ表示。ドロップダウン／ラジオ／プロセス管理ステータスは選択肢別カラー、文字列1行フィールドは値をそのまま表示＋任意で値→色ルール",
             "配色テーマ：kintone標準同期／プリセット10色／カスタム7箇所",
             "ヘッダー追従：スクロールしてもツールバー・保存ボタンの直下で停止し隠れない",
             "メニュー幅は自動拡張し本文の左余白も自動調整（被らない）",
@@ -153,6 +154,84 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       font-weight: 900;
       line-height: 1.2;
       margin-bottom: 24px;
+    }
+
+    /* UPDATE highlight box */
+    .update-section { padding: 48px 5% 8px; }
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 12px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-list {
+      margin: 0 0 8px;
+      padding-left: 0;
+      list-style: none;
+    }
+    .update-list li {
+      position: relative;
+      padding-left: 26px;
+      margin-bottom: 12px;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--color-text);
+    }
+    .update-list li::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 10px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-green);
+    }
+    .update-list strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+    @media (max-width: 600px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
     }
 
     .hero-copy {
@@ -672,10 +751,27 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.2</span>
+        <span class="hero-version">v1.2.0</span>
       </div>
       <h1 class="hero-title">クイック目次 for kintone</h1>
       <p class="hero-copy">クイック目次 for kintone は、レコード詳細・編集・新規作成画面の左側にセクション単位の「目次サイドメニュー」を常時表示する kintone プラグインです。項目をクリックすると該当セクションへワンクリックでジャンプ。縦に長いレコードでも、目的の場所へ一瞬でたどり着けます。ステータスバッジで状態を色分け表示、配色テーマも自由。長いレコードも、ワンクリックで目的の場所へ。</p>
+    </section>
+
+    <!-- UPDATE -->
+    <section class="update-section fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.2.0：スペースパーツへの対応・見出し表示・ステータスバッジの文字列1行対応・設定画面の改善</h2>
+        </div>
+        <p class="update-desc">目次のジャンプ先や見出しの作り方が広がり、設定もより使いやすくなりました。主な変更点は次の3つです。</p>
+        <ul class="update-list">
+          <li><strong>フォームの「スペース」パーツに対応し、見出しにもできるように</strong> — 目次のジャンプ先として、ラベルだけでなく<strong>スペース（要素ID付き）</strong>をドロップダウンから選べるようになりました。さらに、通常はなにも表示されないスペースの位置に、目次と同じテキストを<strong>「見出し（表示名＋アクセント線）」として描画</strong>できます。見出しの大きさは<strong>大・中・小</strong>から選べ、線の色は配色テーマに追従します。</li>
+          <li><strong>設定画面を改善</strong> — 設定画面を<strong>全幅表示</strong>にして見やすくし、セクション定義では種別を「ラベル」「スペース」に分けて選択式に。ジャンプ先も含め、画面幅やブラウザの拡大・縮小に関わらず<strong>コントロールが潰れず操作できる</strong>ようにしました。</li>
+          <li><strong>ステータスバッジが「文字列1行」フィールドに対応</strong> — これまでのドロップダウン／ラジオボタン／プロセス管理ステータスに加え、<strong>文字列1行フィールド</strong>を選べるようになりました。値をそのまま基本色で表示し（方式A）、必要に応じて<strong>「値 → 色」ルール</strong>で特定の値だけ色分けもできます（方式B・任意）。</li>
+        </ul>
+        <p class="update-note">既存ユーザーの方は、最新版（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。既存の設定はそのまま引き継がれ、これまでの目次・ステータスバッジの動作は変わりません。</p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -815,7 +911,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">レコード詳細・編集・新規作成画面（PC 版）でご利用いただけます。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-quick-toc-v1.0.2.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-quick-toc-v1.2.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「クイック目次 for kintone」を追加</span></li>
           <li><span>プラグイン設定画面で<strong>セクション</strong>（目次に並べる項目）を定義し、必要に応じて配色・ステータスバッジを設定して「保存」</span></li>
@@ -843,7 +939,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-quick-toc-v1.0.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-quick-toc-v1.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -1009,10 +1105,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-quick-toc-v1.0.2.zip',
+              file_name: 'kw-quick-toc-v1.2.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-quick-toc-v1.0.2.zip'
+              link_url: '/downloads/kw-quick-toc-v1.2.0.zip'
             });
           }
         });
