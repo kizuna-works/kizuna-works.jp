@@ -416,8 +416,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-side-view-v1.0.2.zip               # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-quick-search-v1.1.2.zip                  # クイックサーチ for kintone 配布ファイル（手動配置・v1.1.2 でゲストスペース対応）
 │   │   ├── kw-quick-search-v1.2.0.zip                  # クイックサーチ for kintone 配布ファイル（手動配置・v1.2.0＝期間フィルタ追加）
-│   │   ├── kw-file-icon-marker-v1.0.2.zip              # 添付ファイルアイコン表示 for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-record-lock-v1.0.2.zip                   # レコードロック for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-file-icon-marker-v1.0.3.zip              # 添付ファイルアイコン表示 for kintone 配布ファイル（手動配置・v1.0.3 で設定画面 全幅化/サイドバー250px/拡大縮小時の操作性改善）
+│   │   ├── kw-record-lock-v1.0.3.zip                   # レコードロック for kintone 配布ファイル（手動配置・v1.0.3 で設定画面 サイドバー250px/条件表の拡大縮小時 操作性改善）
 │   │   ├── kw-field-comment-v1.0.0.zip                 # フィールドコメント for kintone 配布ファイル（旧版）
 │   │   ├── kw-field-comment-v1.0.1.zip                 # フィールドコメント for kintone 配布ファイル（旧版）
 │   │   ├── kw-field-comment-v1.0.2.zip                 # フィールドコメント for kintone 配布ファイル（v1.0.2・ゲストスペース対応）
