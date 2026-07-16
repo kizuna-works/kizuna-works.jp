@@ -51,10 +51,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "コメントコントロール for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.1",
-          "dateModified": "2026-06-27",
+          "softwareVersion": "1.0.2",
+          "dateModified": "2026-07-16",
           "url": "https://kizuna-works.jp/plugins/comment-control/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-comment-control-v1.0.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-comment-control-v1.0.2.zip",
           "image": "https://kizuna-works.jp/images/comment-control-banner.png",
           "offers": {
             "@type": "Offer",
@@ -73,9 +73,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "featureList": [
             "詳細・編集でコメント／変更履歴サイドバーを閉じた状態で開く",
             "サイドバーは常に閉じる／条件付き開閉（コメントあり・自分宛のみ）",
-            "一覧のコメント件数バッジを色分け（kintone標準バッジを流用）",
-            "自分宛メンションのあるレコードはバッジを強調色で表示",
-            "件数バッジのホバーでコメントを新しい順に全文プレビュー",
+            "件数バッジのホバーでコメントを新しい順に全文プレビュー（コメントは表示時に取得しAPIを節約）",
+            "自分宛メンションの一覧色分けは任意（オンにしたときだけコメント取得APIを使用）",
             "コメントが10件を超えてもページ送り（前へ/次へ）で閲覧",
             "自分宛アクセント色（プリセット8色＋カラーピック）",
             "ツールチップ配色テーマ（ダーク/ライト/ネイビー/カスタム）",
@@ -143,6 +142,60 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     }
     .hero-title { font-size: 40px; font-weight: 900; line-height: 1.2; margin-bottom: 24px; }
     .hero-copy { font-size: 17px; max-width: 720px; margin: 0 auto 40px; line-height: 1.8; opacity: 0.92; }
+
+    /* Update highlight box */
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+    .update-note strong { color: var(--color-navy); }
+    @media (max-width: 640px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
 
     .section-wrapper { padding: 80px 5%; max-width: 1100px; margin: 0 auto; }
     .section-bg { background-color: var(--color-bg); }
@@ -309,10 +362,25 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.1</span>
+        <span class="hero-version">v1.0.2</span>
       </div>
       <h1 class="hero-title">コメントコントロール for kintone</h1>
-      <p class="hero-copy">コメントコントロール for kintone は、レコード詳細・編集画面でコメント／変更履歴のサイドバーを<strong>閉じた状態</strong>で開いて画面を広く使い、レコード一覧では各レコードの<strong>コメント件数を色分けバッジ</strong>で表示する kintone プラグインです。自分宛メンションがあるレコードは強調色で目立たせて見逃しを防ぎ、件数バッジにマウスを乗せれば<strong>コメントを全文プレビュー</strong>（10件超はページ送り）できます。外部サーバー・APIキー不要で kintone 内で完結します。</p>
+      <p class="hero-copy">コメントコントロール for kintone は、レコード詳細・編集画面でコメント／変更履歴のサイドバーを<strong>閉じた状態</strong>で開いて画面を広く使い、レコード一覧では各レコードのコメント件数バッジに<strong>マウスを乗せるとコメントを全文プレビュー</strong>（10件超はページ送り）できる kintone プラグインです。自分宛メンションのあるレコードを一覧で<strong>強調色に色分け</strong>する機能も任意で有効化でき、見逃しを防ぎます。外部サーバー・APIキー不要で kintone 内で完結します。</p>
+    </section>
+
+    <!-- Update highlight -->
+    <section class="section-wrapper fade-in" style="padding-top:48px; padding-bottom:0;">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.0.2：API リクエスト節約のため、一覧バッジの設定方法を変更しました</h2>
+        </div>
+        <p class="update-desc">レコード一覧を開いたときに、表示中のレコード全件のコメントを自動取得していたため、<strong>1回一覧を開くだけで表示件数と同じ回数（最大100回）のコメント取得 API</strong>を実行していました。これは kintone の API リクエスト数（1アプリ1日あたりの上限）を短時間で大きく消費するため、取得の仕組みを見直しました。<br><br>今回のアップデートで、<strong>コメントの取得は「件数バッジにマウスを乗せたとき」だけ</strong>に変わりました。<strong>一覧を開くだけでは API を消費しません。</strong>バッジのホバーでコメントを全文プレビューする機能はこれまでどおり使えます。</p>
+        <p class="update-note">
+          「自分宛メンションのあるレコードを一覧で色分けする」機能は、一覧を開いた時点でコメントを取得する必要があるため、<strong>設定画面の任意オプション（初期状態オフ）</strong>に変更しました。オンにした場合でも、<strong>コメントのあるレコードのみ・最大20件まで</strong>に取得を絞り、無駄なリクエストを抑えます。API を消費したくない場合はオフのままご利用ください（ホバーでの全文プレビューはオフでも利用できます）。<br>
+          既存ユーザーの方は、最新版（v1.0.2）をダウンロードして kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用できます。既存の設定はそのまま引き継がれます。
+        </p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -437,7 +505,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコード詳細・編集（サイドバー制御）、レコード一覧（件数バッジ・ツールチップ）（PC 版）でご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-comment-control-v1.0.1.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-comment-control-v1.0.2.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「コメントコントロール for kintone」を追加（アプリの<strong>コメント機能が有効</strong>であることをご確認ください）</span></li>
         <li><span>プラグイン設定画面で<strong>サイドバーの動作</strong>・<strong>バッジを表示する一覧</strong>・<strong>配色</strong>を設定して「保存」</span></li>
@@ -462,7 +530,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-comment-control-v1.0.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-comment-control-v1.0.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -603,10 +671,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-comment-control-v1.0.1.zip',
+              file_name: 'kw-comment-control-v1.0.2.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-comment-control-v1.0.1.zip'
+              link_url: '/downloads/kw-comment-control-v1.0.2.zip'
             });
           }
         });
