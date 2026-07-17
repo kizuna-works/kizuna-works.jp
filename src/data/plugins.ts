@@ -67,11 +67,11 @@ export const plugins: Plugin[] = [
     category: '装飾',
     description:
       '背景色・文字色・フォント・フィールド幅・条件付きスタイル・入力制御など全10機能を、JavaScriptなしのノーコードで設定できるプラグイン。一覧・詳細の視認性を高め、ステータスや金額など重要な値を条件に応じて自動で目立たせます。',
-    image: '/images/field-styler-after.png',
+    image: '/images/field-styler-banner.png',
     imageAlt:
-      'フィールドスタイラー導入後の一覧画面 — 背景色・文字色・条件付きスタイルで視認性が向上',
-    imageWidth: 1920,
-    imageHeight: 960,
+      'フィールドスタイラー for kintone バナー — kintoneのフィールドを見やすく、わかりやすく',
+    imageWidth: 1200,
+    imageHeight: 630,
     status: 'available',
     price: 0,
     cardDescription:
