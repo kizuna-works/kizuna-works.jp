@@ -41,7 +41,8 @@ c:\kizuna-works.jp\
 │   │   ├── SupporterForm.astro # サポーターライセンス申込フォーム（URL ?plugin=<id> で自動選択対応）
 │   │   ├── TrialForm.astro     # プレミアム無料体験の申込フォーム（会社名/メール/ドメインのみ・planType='trial' でGASへ送信）
 │   │   ├── TrialBanner.astro   # プレミアム無料体験LPへの誘導バナー（サポーターページ・プラグイン一覧で使用）
-│   │   └── SecurityBox.astro   # プラグイン詳細ページの「安心ボックス」（外部通信・ライブラリ・秘匿情報を要約。plugin-security.ts 駆動）
+│   │   ├── SecurityBox.astro   # プラグイン詳細ページの「安心ボックス」（外部通信・ライブラリ・秘匿情報を要約。plugin-security.ts 駆動）
+│   │   └── ShareButtons.astro  # SNS共有ボタン（X/LINE/はてブは静的intentリンク・URLコピー/OS共有シートのみJS）。全プラグイン個別ページ末尾に設置。title="〇〇 for kintone"・URLはAstro.urlから自動導出
 │   ├── data/                   # ビルド時参照される TS データ
 │   │   ├── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）
 │   │   ├── glossary.ts         # kintone 用語集の単一情報源（/glossary/ 一覧と DefinedTermSet JSON-LD を生成）。hasPage/longDescription/useCases/faq を持つ語は /glossary/<id>/ の個別ページも生成
