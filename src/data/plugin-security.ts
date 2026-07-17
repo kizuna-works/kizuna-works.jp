@@ -170,6 +170,15 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-elapsed-assist': {
+    extraComm: [
+      {
+        label: '一括再計算・管理用フィールドの追加（自ドメイン内）',
+        detail:
+          '一覧・詳細のその場再計算と保存時の書き込みは、kintone が画面に渡すデータだけで行い、追加の通信は発生しません。「一括再計算」ボタンを押したときだけ、対象レコードの取得・書き込みを自ドメインの kintone REST API（/k/v1/records の GET／PUT）で行います。カウント停止条件や最終更新日時を使う場合は、設定画面のボタン操作で対象アプリに非表示の日時フィールドを追加します（/k/v1/preview/app/form/fields・/k/v1/preview/app/deploy）。いずれもご利用中の kintone ドメイン内で完結し、外部の第三者へは送信しません。第三者CDN・外部サーバーは利用しません。',
+      },
+    ],
+  },
 };
 
 /**

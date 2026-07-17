@@ -740,6 +740,28 @@ export const plugins: Plugin[] = [
     problemDesc: '項目数の多いアプリで、入力・確認したい箇所までスクロールで探すのに時間がかかり、フォーム全体の把握もしにくい',
     releaseDate: '2026-07-13',
   },
+  {
+    id: 'kw-elapsed-assist',
+    name: '経過計算アシスト for kintone',
+    formName: '経過計算アシスト for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'elapsed-assist',
+    category: '入力支援',
+    description:
+      '基準日フィールドから経過日数・経過年数・年齢・残日数・在籍期間（◯年◯ヶ月）など9パターンを自動計算するプラグイン。一覧・詳細を開くたびに「今日」時点の値を再計算して表示し、保存時には実フィールドへ書き込むので並び替え・絞り込み・集計にも使えます。',
+    image: '/images/elapsed-assist-banner.png',
+    imageAlt:
+      '経過計算アシスト for kintone プラグイン — 基準日フィールドから経過日数・年齢・在籍期間などを自動計算し、一覧・詳細を開くたびに今日時点の値を表示、保存時に実フィールドへ書き込む',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '基準日から経過日数・年齢・在籍期間などを自動計算。開くたびに今日の値を再計算表示し、保存時に実フィールドへ書込。並び替え・集計にも使える。kintone完結。',
+    problemTitle: '経過日数や年齢が、開いた日によって古いまま',
+    problemDesc: '契約日や生年月日からの経過日数・年齢が、標準の計算では今日に追従せず古い値のまま。並び替えや集計にも使いたい',
+    releaseDate: '2026-07-17',
+  },
 ];
 
 /**

@@ -1,0 +1,1097 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="経過計算アシスト for kintone - 経過日数・年齢・在籍期間を自動計算するプラグイン | KIZUNA Works"
+  description="kintone の基準日フィールドから経過日数・経過年数・年齢・残日数・在籍期間（◯年◯ヶ月）など9パターンを自動計算するプラグイン。一覧・詳細を開くたびに「今日」時点の値を再計算表示し、保存時に実フィールドへ書き込むので並び替え・絞り込み・集計にも使えます。kintone完結・外部API不使用。"
+  ogTitle="経過計算アシスト for kintone - 経過日数・年齢・在籍期間を自動計算するプラグイン | KIZUNA Works"
+  ogDescription="基準日から経過日数・年齢・在籍期間などを自動計算。開くたびに今日の値を再計算表示し、保存時に実フィールドへ書き込み。並び替え・集計にも使える。kintone完結。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/elapsed-assist/"
+  ogImage="https://kizuna-works.jp/images/elapsed-assist-banner.png"
+  canonical="https://kizuna-works.jp/plugins/elapsed-assist/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/elapsed-assist/",
+          "url": "https://kizuna-works.jp/plugins/elapsed-assist/",
+          "name": "経過計算アシスト for kintone - 経過日数・年齢・在籍期間を自動計算するプラグイン | KIZUNA Works",
+          "description": "kintone の基準日フィールドから経過日数・経過年数・年齢・残日数・在籍期間など9パターンを自動計算し、一覧・詳細を開くたびに今日時点の値を表示、保存時に実フィールドへ書き込むプラグイン。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/elapsed-assist-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "経過計算アシスト for kintone", "item": "https://kizuna-works.jp/plugins/elapsed-assist/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "経過計算アシスト for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.2",
+          "dateModified": "2026-07-17",
+          "url": "https://kizuna-works.jp/plugins/elapsed-assist/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-elapsed-assist-v1.0.2.zip",
+          "image": "https://kizuna-works.jp/images/elapsed-assist-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone の基準日フィールドから経過日数・経過年数・年齢・残日数・在籍期間（◯年◯ヶ月）など9パターンを自動計算し、一覧・詳細を開くたびに今日時点の値を再計算して表示、保存時に実フィールドへ書き込む kintone プラグイン。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "基準日フィールドから9パターンを自動計算（経過日数・経過月数・経過年数・年齢・期間「◯年◯ヶ月」・残日数・次回記念日までの日数・稼働日ベースの日数・学年）",
+            "一覧・詳細を開くたびに「今日」時点の値を再計算して表示（レコード件数に関係なく追加API通信なし）",
+            "レコード保存時に計算値を実フィールドへ書き込み（並び替え・絞り込み・集計に利用可能）",
+            "カウント停止条件（フィールド値・日付の有無・ステータス）で条件成立時点の値に固定",
+            "一覧の一括再計算ボタンで既存レコードを今日の値へ一斉更新（最終更新日時を表示）",
+            "出力先フィールドは計算パターンの出力型（数値／文字列）に合わせて自動で絞り込み",
+            "GAS・外部サービス不要・kintone完結・ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .feature-list li code {
+      background: #eef1f4;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot frames — sized to the image's natural width (not upscaled),
+       centered, and clickable to enlarge in the lightbox. */
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Zoomable images + lightbox overlay (small screenshots open enlarged) */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .ea-example-table {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+      background: var(--color-white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 14px;
+    }
+    .ea-example-table th,
+    .ea-example-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-gray-light);
+      line-height: 1.7;
+    }
+    .ea-example-table thead th {
+      background: var(--color-navy);
+      color: var(--color-white);
+      font-weight: 700;
+      font-size: 13px;
+      border-bottom: none;
+    }
+    .ea-example-table tbody tr:last-child td { border-bottom: none; }
+    .ea-example-table tbody tr:nth-child(even) { background: #f8fafc; }
+    .ea-example-table td strong { color: var(--color-navy); }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/elapsed-assist-icon.png"
+        alt="経過計算アシスト for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.2</span>
+      </div>
+      <h1 class="hero-title">経過計算アシスト for kintone</h1>
+      <p class="hero-copy">経過計算アシスト for kintone は、基準となる日付フィールドから経過日数・経過年数・年齢・残日数・在籍期間（◯年◯ヶ月）などを自動計算する kintone プラグインです。一覧・詳細を開くたびに「今日」時点の値を再計算して表示し、保存時には実フィールドへ書き込むので、並び替え・絞り込み・集計にもそのまま使えます。標準の計算フィールドと違い、いつ開いても“今日の数字”になります。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">契約日や生年月日からの「経過日数」「年齢」、いつ見ても正しい値になっていますか？</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">📅</span>
+            <h3 class="problem-title">経過日数・年齢が古いまま</h3>
+            <p class="problem-desc">kintone 標準の計算フィールドは「今日」に自動で追従しません。レコードを開いた日によって、経過日数や年齢が古い値のまま止まってしまう。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📊</span>
+            <h3 class="problem-title">並び替え・集計に使えない</h3>
+            <p class="problem-desc">画面表示だけ最新でも、保存されている実データが古いと、一覧の並び替え・絞り込み・集計に正しく使えない。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">⏱️</span>
+            <h3 class="problem-title">対応日数を記録できない</h3>
+            <p class="problem-desc">対応が完了しても経過日数が伸び続けてしまい、「何日で対応したか」という正しい記録が残せない。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- List display -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">開くたびに、今日の数字に</h2>
+      <p class="section-subtitle">一覧・詳細を開くたびに「今日」で再計算して表示します。契約日からの経過日数も、生年月日からの年齢・在籍期間も、常に最新。クリックで拡大表示できます。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/elapsed-assist-list.png" alt="経過計算アシスト 導入後の kintone レコード一覧 — 在籍期間（◯年◯ヶ月）・年齢・誕生日までの日数が今日時点で自動計算されて各行に表示されている" loading="lazy" />
+          </div>
+          <figcaption>一覧：在籍期間・年齢・誕生日までの日数を今日基準で自動表示</figcaption>
+        </figure>
+      </div>
+      <div class="screenshot-pair cols-2" style="margin-top:28px;">
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/elapsed-assist-detail-01.png" alt="経過計算アシスト 導入後の kintone レコード詳細画面（基本情報）— 生年月日から計算した年齢（34歳）と誕生日までの日数（181）が今日時点で表示されている" loading="lazy" />
+          </div>
+          <figcaption>詳細：生年月日から年齢・誕生日までの日数を表示</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/elapsed-assist-detail-02.png" alt="経過計算アシスト 導入後の kintone レコード詳細画面 — 入社日から計算した在籍期間（12年3ヶ月）が今日時点で表示されている" loading="lazy" />
+          </div>
+          <figcaption>詳細：入社日から在籍期間「◯年◯ヶ月」を表示</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Patterns -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">9つの計算パターン</h2>
+        <p class="section-subtitle">基準日フィールドを1つ選ぶだけ。用途に合わせて計算方法を選べます。</p>
+        <ul class="feature-list">
+          <li><span><strong>経過日数・経過月数・経過年数</strong> — 契約日・登録日などからの経過を「日／月／年」で自動計算します（数値フィールドに出力）。</span></li>
+          <li><span><strong>年齢</strong> — 生年月日からの満年齢を計算します（2/29生まれは平年 2/28 で加齢。数値フィールドに出力）。</span></li>
+          <li><span><strong>期間「◯年◯ヶ月」</strong> — 在籍期間・勤続年数などを「12年3ヶ月」の形式で<strong>1つの文字列フィールドにまとめて</strong>出力します。</span></li>
+          <li><span><strong>残日数</strong> — 期限日までの残り日数を計算します（期限超過はマイナス表示。数値フィールドに出力）。</span></li>
+          <li><span><strong>次回記念日までの日数</strong> — 月日だけを使って「次の記念日まであと何日か」を計算。毎年くり返し、マイナスになりません。</span></li>
+          <li><span><strong>稼働日ベースの日数</strong> — 土日を除いた日数を計算します（祝日は非対象）。</span></li>
+          <li><span><strong>学年</strong> — 生年月日から 4/1 基準で学年（年少〜大学4年）を文字列で自動判定します。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Save / bulk -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">表示するだけでなく、データとして確定</h2>
+      <ul class="feature-list">
+        <li><span><strong>保存時に実フィールドへ書き込み</strong> — レコードを保存すると、計算値が実フィールドへ書き込まれます。だから並び替え・絞り込み・集計・CSV出力にもそのまま使えます。</span></li>
+        <li><span><strong>一括再計算ボタン</strong> — 一覧のツールバーに任意で表示できるボタンで、絞り込み結果のレコードをまとめて今日の値へ再計算・更新。既存データも一斉に最新化できます（最終更新日時を表示）。</span></li>
+        <li><span><strong>カウント停止条件</strong> — 「ステータスが完了になったら」「特定の日付が入ったら」など条件が成立した時点で値を固定します。値を<strong>いつの時点で確定するか</strong>も選べます：「停止した時点（保存日）」か、「指定した日付フィールドの日付」。後者は実際の区切り日で固定できるので、過去の日付を後から入力しても正しく記録できます（例：<strong>退社日→在籍期間</strong>、<strong>対応完了日→対応日数</strong>、<strong>解約日→契約期間</strong>）。条件解除時は「固定のまま／再カウント」を選択できます。</span></li>
+        <li><span><strong>追加のAPI通信なしで軽快</strong> — 一覧・詳細の表示は kintone が渡すデータだけで再計算するため、レコード件数に関係なく追加の通信を発生させません。</span></li>
+        <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。プラグインアップロードのみで導入できます。</span></li>
+      </ul>
+    </section>
+
+    <!-- Bulk recalc -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">既存データも、ワンクリックで一斉更新</h2>
+        <p class="section-subtitle">一覧ツールバーの「今すぐ再計算」ボタンで、絞り込み結果のレコードをまとめて今日の値へ再計算・保存。最終更新日時も表示されます。クリックで拡大表示できます。</p>
+        <div class="screenshot-pair cols-2">
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/elapsed-assist-bulk-01.png" alt="経過計算アシスト 一括再計算の確認ダイアログ — 現在の絞り込み結果のレコードを再計算し実フィールドへ書き込む前の確認画面" loading="lazy" />
+            </div>
+            <figcaption>「今すぐ再計算」を押すと確認ダイアログを表示</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/elapsed-assist-bulk-02.png" alt="経過計算アシスト 一括再計算の完了ダイアログ — 10件のレコードを再計算し、ボタン横に最終更新日時が表示された状態" loading="lazy" />
+            </div>
+            <figcaption>実行後は件数を表示し、最終更新日時も更新</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stop / freeze explanation -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">カウントを止めて、その時点で固定する</h2>
+      <p class="section-subtitle">「もう増やさず、ここまでで確定したい」に対応。条件が成立したら計算を止め、その値を固定します。退職者の在籍期間、対応にかかった日数、契約の利用期間などを“正しい値”で残せます。</p>
+      <ul class="feature-list" style="max-width:900px;margin:0 auto 32px;">
+        <li><span><strong>いつ止めるか（停止条件）</strong> — ステータス・日付フィールドの入力有無・フィールド値などの条件（最大5件・AND / OR）が成立したら、その計算を止めます。</span></li>
+        <li><span><strong>いつの値で固定するか（2通り）</strong> — ①「停止した時点（保存した日）」で固定するか、②「指定した日付フィールドの日付」で固定するかを選べます。②は<strong>実際の区切り日</strong>で固定できるので、過去の日付を後から入力しても正しい値になります。</span></li>
+        <li><span><strong>解除されたときの動き</strong> — 条件が外れたら「固定のまま」か「再カウント再開」かを選べます。</span></li>
+      </ul>
+      <div style="max-width:900px;margin:0 auto;overflow-x:auto;">
+        <table class="ea-example-table">
+          <thead>
+            <tr><th>こんなとき</th><th>止めるきっかけ（条件）</th><th>固定の終点に選ぶ日付</th><th>結果</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>退職者の<strong>在籍期間</strong></td><td>退社日が入ったら</td><td>退社日</td><td>在籍期間＝退社日 − 入社日</td></tr>
+            <tr><td>対応に<strong>かかった日数</strong></td><td>ステータスが「完了」になったら</td><td>対応完了日</td><td>経過日数＝対応完了日 − 受付日</td></tr>
+            <tr><td>契約の<strong>利用期間</strong></td><td>解約日が入ったら</td><td>解約日</td><td>契約期間＝解約日 − 契約日</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="max-width:900px;margin:16px auto 0;color:var(--color-text-light);font-size:13px;line-height:1.8;text-align:center;">
+        終点に日付フィールドを選ばない場合は、停止条件が成立して保存した「その日」で固定します（リアルタイムに退職・完了の操作をする運用向け）。
+      </p>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定はかんたん</h2>
+        <p class="section-subtitle">「基準日フィールド × 計算パターン × 出力先フィールド」を選ぶだけ。プログラミング知識は不要です。各画像はクリックで拡大できます。</p>
+
+        <div class="config-screenshots">
+          <div class="config-shot">
+            <img class="zoomable" src="/images/elapsed-assist-config-01.png" alt="経過計算アシスト 設定画面① — 基準日フィールド（生年月日）・計算パターン（年齢）・出力先フィールドを選んで計算ルールを登録する画面" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>① 計算ルール</strong>
+              <p>基準日フィールド・計算パターン・出力先フィールドを選ぶだけ。ルールは複数登録できます。</p>
+            </div>
+          </div>
+
+          <div class="config-shot">
+            <img class="zoomable" src="/images/elapsed-assist-config-02.png" alt="経過計算アシスト 設定画面② — 入社日から在籍期間を計算するルールと、カウント停止条件（退社日に値が入ったら固定）の条件ビルダー" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>② カウント停止条件</strong>
+              <p>条件が成立した時点で値を固定。ステータスや日付、フィールド値で最大5件・AND/OR で指定できます。</p>
+            </div>
+          </div>
+
+          <div class="config-shot">
+            <img class="zoomable" src="/images/elapsed-assist-config-03.png" alt="経過計算アシスト 設定画面③ — 停止条件や一括再計算で使う非表示の管理用フィールドをワンクリックで自動追加する画面" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>③ 管理用フィールドの自動追加</strong>
+              <p>停止条件・最終更新日時に使う非表示フィールドを、ボタン1つで追加・確認できます。</p>
+            </div>
+          </div>
+
+          <div class="config-shot">
+            <img class="zoomable" src="/images/elapsed-assist-config-04.png" alt="経過計算アシスト 設定画面④ — 一括再計算ボタンの文言・種類（塗り/アウトライン/ソフト/グラデ/影）・形・色・最終更新日時表示の設定" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>④ 一括再計算ボタン</strong>
+              <p>ボタンの表示・種類（塗り／アウトライン／ソフト／グラデ／影）・形・色をプレビューしながら設定します。</p>
+            </div>
+          </div>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">レコード一覧・詳細・作成・編集画面（PC 版）でご利用いただけます。</p>
+      <ol class="steps-list">
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-elapsed-assist-v1.0.2.zip</code> をダウンロード</span></li>
+        <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+        <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「経過計算アシスト for kintone」を追加</span></li>
+        <li><span>プラグイン設定画面で<strong>計算ルール</strong>（基準日 × 計算パターン × 出力先）を登録し、必要に応じて停止条件・一括再計算ボタンを設定して「保存」</span></li>
+        <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると、一覧・詳細の値が今日基準で表示されます</span></li>
+      </ol>
+      <p style="text-align:center; color:var(--color-text-light); font-size:13px; margin-top:24px; line-height:1.7;">
+        ヒント：出力先には、計算パターンの出力型に合うフィールド（数値パターン→数値フィールド／文字列パターン→文字列フィールド）をあらかじめ用意してください。停止条件・一括再計算を使う場合は、設定画面の「管理用フィールドを自動追加」から専用の非表示フィールドを追加できます。
+      </p>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-elapsed-assist-v1.0.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-elapsed-assist" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
+        <li>本プラグインはレコードの一覧・詳細・作成・編集画面（PC 版）で動作します。カスタマイズビュー・モバイル版・サブテーブル内フィールドを基準にした計算には対応していません。</li>
+        <li>基準日フィールドが未入力のレコードは計算対象外となり、実フィールドへは書き込みません。</li>
+        <li>出力先には kintone の計算（自動計算）フィールドは指定できません。数値・文字列フィールドをご利用ください。</li>
+        <li>一覧・詳細の表示は開くたびに今日の値ですが、保存済みの実データは最後に保存または一括再計算した時点の値です。並び替え・絞り込み・集計や他プラグインを今日の値で揃えるには、保存または一括再計算を行ってください。</li>
+        <li>稼働日ベースの計算は土日除外のみで、祝日は考慮しません。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-elapsed-assist" />
+    <PluginFaqSection pluginId="kw-elapsed-assist" pageUrl="https://kizuna-works.jp/plugins/elapsed-assist/" />
+    <SupporterCTA pluginId="kw-elapsed-assist" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">一覧・レコード画面をさらに使いやすくする kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/field-styler/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/field-styler-after.png" alt="フィールドスタイラー for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">フィールドスタイラー</h3>
+            <p class="related-post-desc">フィールドの背景色・文字色・条件付きスタイルを設定。経過計算アシストで確定した経過日数・残日数に応じて色分けするのに便利です。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/summary-bar/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/summary-bar-banner.png" alt="集計サマリーバー for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">集計サマリーバー</h3>
+            <p class="related-post-desc">一覧の絞り込み結果を合計・平均・件数などで集計してバー表示。書き込んだ経過日数・年齢の集計にも使えます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/list-styler/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/list-styler-banner.png" alt="一覧スタイラー for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">一覧スタイラー</h3>
+            <p class="related-post-desc">一覧の列固定や条件付き行スタイルで見やすく整理。経過日数・残日数の一覧をさらに把握しやすくできます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ea-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('ea-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-elapsed-assist-v1.0.2.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-elapsed-assist-v1.0.2.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>
