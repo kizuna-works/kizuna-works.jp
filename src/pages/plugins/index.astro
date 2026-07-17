@@ -508,14 +508,17 @@ const itemListJson = JSON.stringify(pluginsItemListJsonLd);
         <div class="plugins-grid">
           {premiumPlugins.map((plugin) => (
             <a href={`/plugins/${plugin.slug}/`} class="plugin-card premium">
-              <img
-                src={plugin.image}
-                alt={plugin.imageAlt}
-                class="plugin-card-image"
-                width={plugin.imageWidth}
-                height={plugin.imageHeight}
-                loading="lazy"
-              />
+              <picture>
+                {plugin.imageWebp && <source srcset={plugin.imageWebp} type="image/webp" />}
+                <img
+                  src={plugin.image}
+                  alt={plugin.imageAlt}
+                  class="plugin-card-image"
+                  width={plugin.imageWidth}
+                  height={plugin.imageHeight}
+                  loading="lazy"
+                />
+              </picture>
               <div class="plugin-card-content">
                 <span class="plugin-cat" data-cat={plugin.category}>{plugin.category}</span>
                 <h3 class="plugin-title">{plugin.name}</h3>
@@ -545,14 +548,17 @@ const itemListJson = JSON.stringify(pluginsItemListJsonLd);
       <div class="plugins-grid">
         {plugins.map((plugin) => (
           <a href={`/plugins/${plugin.slug}/`} class="plugin-card">
-            <img
-              src={plugin.image}
-              alt={plugin.imageAlt}
-              class="plugin-card-image"
-              width={plugin.imageWidth}
-              height={plugin.imageHeight}
-              loading="lazy"
-            />
+            <picture>
+              {plugin.imageWebp && <source srcset={plugin.imageWebp} type="image/webp" />}
+              <img
+                src={plugin.image}
+                alt={plugin.imageAlt}
+                class="plugin-card-image"
+                width={plugin.imageWidth}
+                height={plugin.imageHeight}
+                loading="lazy"
+              />
+            </picture>
             <div class="plugin-card-content">
               <span class="plugin-cat" data-cat={plugin.category}>{plugin.category}</span>
               <h3 class="plugin-title">{plugin.name}</h3>

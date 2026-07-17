@@ -23,6 +23,8 @@ export interface Plugin {
   category: '一覧' | 'レコード画面' | '入力支援' | '装飾' | '出力・連携';
   /** Card image (absolute path under /public). */
   image: string;
+  /** Optional WebP version of the card image; when set the grid serves it via <picture> (PNG stays the fallback). */
+  imageWebp?: string;
   imageAlt: string;
   imageWidth: number;
   imageHeight: number;
@@ -68,6 +70,7 @@ export const plugins: Plugin[] = [
     description:
       '背景色・文字色・フォント・フィールド幅・条件付きスタイル・入力制御など全10機能を、JavaScriptなしのノーコードで設定できるプラグイン。一覧・詳細の視認性を高め、ステータスや金額など重要な値を条件に応じて自動で目立たせます。',
     image: '/images/field-styler-banner.png',
+    imageWebp: '/images/field-styler-banner.webp',
     imageAlt:
       'フィールドスタイラー for kintone バナー — kintoneのフィールドを見やすく、わかりやすく',
     imageWidth: 1200,
