@@ -14,6 +14,14 @@ export interface Term {
   category: TermCategory;
   /** 1–3 sentences. ~100–250 Japanese characters. */
   definition: string;
+  /**
+   * Optional per-term SEO <title> for the dedicated page. Overrides the default
+   * "kintoneの<term>とは？意味・使い方をわかりやすく解説" template so high-demand
+   * pages can differentiate their SERP snippet. 30–60 chars, front-load the query.
+   */
+  seoTitle?: string;
+  /** Optional per-term meta description. Overrides the auto-built one. 120–140 chars, conclusion-first. */
+  seoDescription?: string;
   /** Related term ids in this glossary (renders as #anchor links). */
   relatedTerms?: string[];
   /** Plugin slugs from src/data/plugins.ts (renders as /plugins/<slug>/ links). */
@@ -142,6 +150,8 @@ export const glossary: Term[] = [
     reading: 'かすたまいずびゅー',
     category: 'feature',
     definition: 'HTML と JavaScript で自由に作れる一覧形式のビュー。カンバン・独自集計・ガントチャートなど標準ビューでは作れない表示を実装できるが、開発リソースが必要。',
+    seoTitle: 'kintoneのカスタマイズビューとは？できること・限界とノーコード代替',
+    seoDescription: 'kintoneのカスタマイズビューとは、HTMLとJavaScriptで一覧表示を自作できるビューのこと。カンバンやガントチャートを作れる反面の開発コストと、プラグインで代替できるケースを解説します。',
     relatedTerms: ['view'],
     relatedPlugins: ['sheet-edit'],
     relatedBlog: ['kintone-list-styler-plugin-hikaku'],
@@ -167,6 +177,8 @@ export const glossary: Term[] = [
     reading: 'かんれんれこーどいちらん',
     category: 'field',
     definition: '別アプリのレコードを条件指定で参照表示するフィールド。1 対多の関連表示に使う（例：顧客アプリに「過去の問い合わせ一覧」を表示）。値はコピーされず参照のみのため、参照先が更新されると表示も自動で追随する。',
+    seoTitle: 'kintoneの関連レコード一覧とは？ルックアップとの違いと使い分け',
+    seoDescription: 'kintoneの関連レコード一覧とは、別アプリのレコードを条件で参照表示するフィールド機能。1対多の履歴表示に向く一方、絞り込み・集計はできません。ルックアップとの違いと使い分けを解説します。',
     relatedTerms: ['lookup', 'subtable'],
     relatedPlugins: ['related-record-popup'],
     relatedBlog: ['kintone-related-record-list'],
@@ -232,6 +244,8 @@ export const glossary: Term[] = [
     reading: 'さぶてーぶる',
     category: 'field',
     definition: '1 つのレコードの中に複数行のデータを持てるフィールド。見積書の明細・タスクのチェックリストなど「子要素のリスト」を表現する。サブテーブル内のフィールドは一覧の絞り込み条件にも使えるが、同じ行で複数条件を組み合わせて判定するような検索や集計には制約がある。',
+    seoTitle: 'kintoneのサブテーブルとは？明細行の使い方と検索・集計の注意点',
+    seoDescription: 'kintoneのサブテーブルとは、1レコード内に複数行のデータを持てるフィールド。見積明細やチェックリストに便利ですが検索・集計には制約があります。関連レコード一覧との使い分けも解説します。',
     relatedTerms: ['related-records'],
     relatedPlugins: ['quick-toc'],
     hasPage: true,
@@ -414,6 +428,8 @@ export const glossary: Term[] = [
     reading: 'ふぃーるど',
     category: 'basic',
     definition: 'レコードの 1 項目。文字列・数値・日付・ルックアップなど 20 種類以上の型があり、用途に応じて選択する。フォーム編集画面でドラッグ＆ドロップ配置する。',
+    seoTitle: 'kintoneのフィールドとは？20種類以上の型と失敗しない選び方',
+    seoDescription: 'kintoneのフィールドとは、レコードを構成する入力項目のこと。文字列・数値・日付・ルックアップなど20種類以上ある型の違いと、後の検索・集計まで見据えた選び方を実務目線でわかりやすく解説します。',
     relatedTerms: ['lookup', 'subtable', 'calc'],
     relatedPlugins: ['field-styler'],
     relatedBlog: ['kintone-field-styler-plugin-guide'],
@@ -482,6 +498,8 @@ export const glossary: Term[] = [
     reading: 'るっくあっぷ',
     category: 'field',
     definition: '別のアプリのレコードを参照して値をコピーするフィールド機能。マスタアプリから商品名・顧客情報を引っ張ってきて入力の手間を減らし、データの一貫性を保つ。form/fields API では type が `SINGLE_LINE_TEXT` などとして返るが `lookup` プロパティの有無で判定できる。',
+    seoTitle: 'kintoneのルックアップとは？値のコピーの仕組みと関連レコードとの違い',
+    seoDescription: 'kintoneのルックアップとは、別アプリのマスタから値をコピーして入力を省力化するフィールド機能。取得値が自動追随しない仕組みや、関連レコード一覧との違いをわかりやすく解説します。',
     relatedTerms: ['related-records', 'field'],
     relatedPlugins: ['lookup-suggest'],
     relatedBlog: ['kintone-2026-04-update'],
@@ -621,6 +639,8 @@ export const glossary: Term[] = [
     reading: 'れこーどばんごう',
     category: 'field',
     definition: 'レコードに自動採番される一意の番号。アプリ作成時に自動的に追加されるシステムフィールドで、ユーザーが値を変更することはできない。プレフィックスや初期値などの採番ルールはアプリ設定でカスタマイズ可能。',
+    seoTitle: 'kintoneのレコード番号とは？自動採番の仕組みと区分別連番の作り方',
+    seoDescription: 'kintoneのレコード番号とは、レコード追加ごとに自動採番される一意の連番のこと。プレフィックスや開始番号の設定方法と、「区分ごとの連番」など標準では作れない採番を実現する方法まで解説します。',
     relatedTerms: ['record'],
     relatedPlugins: ['kw-conditional-numbering'],
     relatedBlog: ['kintone-jido-saiban'],

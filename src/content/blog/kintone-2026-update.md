@@ -1,6 +1,6 @@
 ---
-title: "【2026年最新版】kintoneアップデート総まとめ｜検索強化・AI・新機能で何が変わる？"
-description: "2026年のkintoneアップデートを総まとめ。ルックアップ検索の強化（部分一致・1文字検索）の設定手順、kintone AIでできること、CyPN Report上位の人気プラグイン動向まで、管理者が現場ですぐ使える変更点を一気に把握できます。"
+title: "kintone 2026年アップデート総まとめ｜検索強化・AI・新機能の変更点を月別に【随時更新】"
+description: "2026年のkintoneアップデートを月別に総まとめ。ルックアップ検索の強化（部分一致・1文字検索）の設定手順、kintone AIでできること、人気プラグイン動向まで、管理者が現場ですぐ使える変更点を一気に把握できます。"
 pubDate: 2026-04-20
 updatedDate: 2026-07-03
 ogImage: "/images/blog/kintone-2026-update.png"

@@ -25,7 +25,7 @@ const blogById = new Map(blogPosts.map((b) => [b.id, b]));
 const renderCode = (s: string) => s.replace(/`([^`]+)`/g, '<code>$1</code>');
 
 const url = `https://kizuna-works.jp/glossary/${term.id}/`;
-const pageTitle = `kintoneの${term.term}とは？意味・使い方をわかりやすく解説`;
+const pageTitle = term.seoTitle ?? `kintoneの${term.term}とは？意味・使い方をわかりやすく解説`;
 
 // Build a click-worthy meta description: front-load the search phrase ("kintoneの〇〇とは"),
 // answer with the definition, and cut at a sentence boundary so the snippet never ends mid-word.
@@ -41,7 +41,7 @@ const buildMetaDescription = (t: Term): string => {
   }
   return `${lead}${body}`;
 };
-const metaDescription = buildMetaDescription(term);
+const metaDescription = term.seoDescription ?? buildMetaDescription(term);
 
 const relatedTermObjs = (term.relatedTerms ?? [])
   .map((id) => termsById.get(id))
