@@ -259,6 +259,25 @@ const FIGURES = [
     w: 1000, h: 210,
     el: flowCaptioned(['困っている画面を1つ決める', '無料プラグインで試す', '効果を確認して横展開'], C.green, '無料だから、小さく試して効いた所だけ広げられる'),
   },
+  {
+    name: 'kintone-keisan-field-limit',
+    w: 1000, h: 210,
+    el: flowCaptioned(['4月にレコードを保存', '7月に一覧を開く', '経過日数は4月のまま'], C.navy, '計算は保存した瞬間だけ。開き直さない限り、経過日数や年齢は止まったまま'),
+  },
+  {
+    name: 'kintone-keisan-field-methods',
+    w: 1000, h: 330,
+    el: overviewMethods([
+      { n: '1', name: '標準の工夫', desc: '定期的に開いて保存し直す。手間はかかるが費用ゼロ。少件数向け。', cost: '無料' },
+      { n: '2', name: 'JavaScript', desc: '表示時に今日基準で計算。自由だが開発と保守のコストが続く。', cost: '開発要' },
+      { n: '3', name: 'プラグイン', desc: '設定だけで今日基準を自動維持。コード不要で確実に運用できる。', cost: '有料' },
+    ]),
+  },
+  {
+    name: 'kintone-keisan-field-solution',
+    w: 1000, h: 210,
+    el: flowCaptioned(['基準日フィールド', '開くたびに今日で再計算', '一覧・詳細に最新の値'], C.green, '経過計算アシストなら、開くたびに今日基準へ自動で計算し直す'),
+  },
 ];
 
 const only = process.argv[2];
