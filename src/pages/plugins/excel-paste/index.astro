@@ -51,10 +51,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "エクセル一括貼り付け for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.0",
-          "dateModified": "2026-07-05",
+          "softwareVersion": "1.1.0",
+          "dateModified": "2026-07-17",
           "url": "https://kizuna-works.jp/plugins/excel-paste/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-excel-paste-v1.0.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-excel-paste-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/excel-paste-banner.png",
           "offers": {
             "@type": "Offer",
@@ -73,6 +73,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "featureList": [
             "Excelの表データを貼り付けて一括入力（CSV不要）",
             "モードA：作成・編集画面のサブテーブルへ複数行を流し込み",
+            "複数のサブテーブルに対応（テーブルごとに設定・貼り付け先を自動判別）",
             "モードB：一覧画面から複数レコードをまとめて新規作成",
             "貼り付け前にプレビューで列とフィールドの対応を確認・調整",
             "見出し行を含めて貼ると列名で自動マッピング",
@@ -264,6 +265,29 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     .config-shot-caption strong { display: block; color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 6px; }
     .config-shot-caption p { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0; }
 
+    /* Update box (v1.1.0) */
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.05em; padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text); font-size: 15px; line-height: 1.8; margin: 0 0 24px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    .update-shot { max-width: 620px; margin: 0 auto; }
+    .update-shot .zoom-hint { text-align: center; color: var(--color-text-light); font-size: 12px; margin: 10px 0 0; }
+
     .zoomable { cursor: zoom-in; }
     .lightbox {
       position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none;
@@ -308,10 +332,38 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.0</span>
+        <span class="hero-version">v1.1.0</span>
       </div>
       <h1 class="hero-title">エクセル一括貼り付け for kintone</h1>
       <p class="hero-copy">エクセル一括貼り付け for kintone は、Excel などの表データを<strong>貼り付けるだけで一括入力</strong>できる kintone プラグインです。レコードの作成・編集画面では<strong>サブテーブルへ複数行</strong>をまとめて流し込み、レコード一覧画面では<strong>貼り付けだけで複数レコードを一括作成</strong>。貼り付け前にプレビューで列とフィールドの対応を確認でき、Excelの<strong>見出し行を含めれば自動マッピング</strong>されます。CSVファイル不要・外部サーバー不要で kintone 内で完結します。</p>
+    </section>
+
+    <!-- Update Info (v1.1.0) -->
+    <section class="section-wrapper fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.1.0：複数のサブテーブルへの貼り付けに対応しました</h2>
+        </div>
+        <p class="update-desc">1つのアプリに<strong>複数のサブテーブル</strong>を置いている場合でも、テーブルごとに貼り付け設定ができるようになりました。設定画面で<strong>「＋ 対象テーブルを追加」</strong>を押してテーブルを増やし、テーブルごとに<strong>列の対応方法（順番で対応／貼り付け時に指定）</strong>と<strong>既存行の扱い（下に追加／全て置き換え）</strong>を個別に決められます。貼り付けたときは<strong>セルのある表を自動で判別</strong>して、そのテーブルにだけ流し込みます。見積明細・付帯費用・作業明細のように役割の違う表を<strong>それぞれ別のExcelから貼り付ける</strong>運用がそのまま行えます（同じ列構成の表が複数あるときは、貼り付け先を1回だけ確認します）。</p>
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <picture>
+              <source srcset="/images/excel-paste-config-multi.webp" type="image/webp" />
+              <img
+                class="zoomable"
+                src="/images/excel-paste-config-multi.png"
+                alt="エクセル一括貼り付け v1.1.0 の設定画面 — モードA（サブテーブル貼り付け）で対象テーブル①見積明細・②付帯費用・③作業明細の3つを「テーブルごとのカード」で個別に設定。各カードで対象サブテーブル・列の対応方法・既存行の扱いを選べ、下部に「＋ 対象テーブルを追加」ボタンがある"
+                loading="lazy"
+                width="1000"
+                height="1549"
+              />
+            </picture>
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-note">貼り付け先の判別はテーブルの列見出しで行うため、内部のフィールドコードに依存せず安定して動作します。<br>既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。これまでの設定（1つのサブテーブル向けの設定）はそのまま引き継がれ、再設定は不要です。</p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -386,6 +438,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title-left">主な機能</h2>
       <ul class="feature-list">
         <li><span><strong>サブテーブル一括貼り付け（モードA）</strong> — 作成・編集画面の対象サブテーブルに Excel 範囲を貼り付けると、行数ぶんの行を自動で追加して流し込みます。既存行の「下に追加／全置き換え」を選べます。</span></li>
+        <li><span><strong>複数のサブテーブルに対応（v1.1.0）</strong> — 1つのアプリに複数のサブテーブルがあっても、テーブルごとに列の対応・既存行の扱いを個別に設定できます。貼り付け時はセルのある表を自動で判別し、そのテーブルにだけ流し込みます（同じ列構成の表が複数あるときは貼り付け先を1回確認）。見積・注文の明細に付帯費用・作業明細などを並べた運用に最適です。</span></li>
         <li><span><strong>一覧から一括作成（モードB）</strong> — レコード一覧の「貼り付けで新規作成」ボタンから、貼り付けた表を1行=1レコードとしてまとめて作成します（CSVファイル不要）。</span></li>
         <li><span><strong>貼り付け前プレビュー</strong> — 反映・作成の前に内容を一覧表示。各列をどのフィールドに入れるかをその場で確認・調整できます。</span></li>
         <li><span><strong>見出し行の自動マッピング</strong> — Excelの見出し行（列名）を含めて貼り付けると、列名を kintone のフィールド名と照合して自動で割り当て。見出し行はデータに含めません（列順が違ってもOK）。</span></li>
@@ -435,7 +488,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコードの作成・編集画面（サブテーブル）と一覧画面（PC 版）でご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-excel-paste-v1.0.0.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-excel-paste-v1.1.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「エクセル一括貼り付け for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>モードA</strong>（対象サブテーブル）・<strong>モードB</strong>（一覧ボタンの有効化・実行できるユーザー等）を設定して「保存」</span></li>
@@ -460,7 +513,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 設定画面のサイドバーに控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-excel-paste-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-excel-paste-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -496,7 +549,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <li>モードB（一括作成）には取り消し（Undo）はありません。実行できるユーザーや1回あたりの最大件数を設定してご利用ください（既定ではモードBはオフです）。</li>
         <li>マッピングした列の空セルは、フィールドの既定値ではなく空欄で登録されます。重複禁止フィールドの重複や必須未入力は kintone 側で拒否され、該当行のみ失敗します。</li>
         <li>モードBの実行にはレコード追加権限・フィールド編集権限が必要です。「指定ユーザー・グループ」の候補取得・所属判定に、ご利用中のドメイン内の cybozu.com 共通管理API を使用します（自ドメイン内・第三者送信なし）。</li>
-        <li>Excel のセル内改行（引用符で囲まれた改行）を含むデータは、v1.0.0 では正しく分割できない場合があります。</li>
+        <li>Excel のセル内改行（引用符で囲まれた改行）を含むデータは、現時点では正しく分割できない場合があります。</li>
         <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
         <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
       </ul>
@@ -601,10 +654,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-excel-paste-v1.0.0.zip',
+              file_name: 'kw-excel-paste-v1.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-excel-paste-v1.0.0.zip'
+              link_url: '/downloads/kw-excel-paste-v1.1.0.zip'
             });
           }
         });
