@@ -1,0 +1,679 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<Layout
+  title="カードボード for kintone｜一覧をカンバンに切替・D&Dでステータス変更 | KIZUNA Works"
+  description="kintone のレコード一覧を「状態カード＋詳細カード」の2段カンバンに切り替えるプラグイン。詳細カードをドラッグ&ドロップしてステータス・選択肢・文字列の値を変更でき、状態別の件数・集計を全幅で俯瞰。連動/個別モード・添付サムネイルに対応するプレミアムプラグインです。"
+  ogTitle="カードボード for kintone｜一覧をカンバンに切替・D&Dでステータス変更 | KIZUNA Works"
+  ogDescription="kintone のレコード一覧を「状態カード＋詳細カード」の2段カンバンに切り替え、ドラッグ&ドロップでステータス・選択肢・文字列の値を変更。状態別の件数・集計を俯瞰でき、連動/個別モード・添付サムネイルに対応するプレミアムプラグインです。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/card-board/"
+  ogImage="https://kizuna-works.jp/images/card-board-banner.png"
+  canonical="https://kizuna-works.jp/plugins/card-board/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/card-board/",
+          "url": "https://kizuna-works.jp/plugins/card-board/",
+          "name": "カードボード for kintone｜一覧をカンバンに切替・D&Dでステータス変更 | KIZUNA Works",
+          "description": "kintone のレコード一覧を「状態カード＋詳細カード」の2段カンバンに切り替え、ドラッグ&ドロップでステータス・選択肢・文字列の値を変更。状態別の件数・集計を俯瞰でき、連動/個別モード・添付サムネイルに対応。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/card-board-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "カードボード for kintone", "item": "https://kizuna-works.jp/plugins/card-board/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "カードボード for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-07-19",
+          "url": "https://kizuna-works.jp/plugins/card-board/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-card-board-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/card-board-banner.png",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "無料プラン",
+              "price": "0",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "1つの一覧ビューで、状態カード・詳細カード・ドラッグ&ドロップ・連動/個別モードまで全機能をお試しいただけます（利用期限なし）。"
+            },
+            {
+              "@type": "Offer",
+              "name": "プレミアム年間サポーター（全プラグイン込み）",
+              "price": "16500",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、複数ビューへの適用が無制限・広告非表示になり、販売中の全プラグインも利用できます。単品販売はありません。"
+            }
+          ],
+          "description": "kintone のレコード一覧を「状態カード（上部）＋詳細カード（下部）」の2段カンバンに切り替えるプラグイン。詳細カードを状態カードへドラッグ&ドロップしてステータス・選択肢・文字列の値を変更でき、状態別の件数・集計値を全幅で俯瞰できる。連動（カンバン）/個別（ギャラリー）モード・添付サムネイル・ライブプレビュー付き設定に対応する。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "レコード一覧を「状態カード＋詳細カード」の2段カンバンUIに切替表示",
+            "詳細カードを状態カードへドラッグ&ドロップしてステータス・選択肢・文字列の値を変更",
+            "状態カードに件数と集計値（合計/平均/最大/最小/件数）を全幅で表示",
+            "連動モード（全レーンを横並びで俯瞰）と個別モード（1状態をギャラリー表示）を切替",
+            "詳細カードに任意フィールドをドラッグで配置＋添付ファイルの画像をサムネイル表示",
+            "レーンの区切り線（縦グリッド）・初期に開く状態の指定・カードの高さ（自動/固定/可変）",
+            "対象一覧ビューの絞り込み条件・並び順がそのままカードボードに反映（集計も連動して再計算）",
+            "設定画面はライブプレビュー付き。複数の一覧ビューへ設定を保存・適用（プレミアム）",
+            "ドラッグ&ドロップはkintoneの権限・プロセス管理の遷移制約に準拠",
+            "表示・変更はすべて自ドメインの kintone REST API で完結・外部送信なし"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで1つの一覧ビューに、状態カード・詳細カード・ドラッグ&ドロップ・連動/個別モードまで全機能をお試しいただけます。複数ビューへの適用と広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。" } },
+            { "@type": "Question", "name": "一覧の絞り込みは効きますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。対象の一覧ビューに設定した絞り込み条件・並び順は、カードボードにもそのまま反映されます。絞り込んだレコードだけがカード化され、状態カードの件数・集計値も絞り込み後の内容で再計算されます。一覧上部の「絞り込む」で条件を変えると、ボードも連動して絞り込まれます。" } },
+            { "@type": "Question", "name": "どんなフィールドで状態分けできますか？", "acceptedAnswer": { "@type": "Answer", "text": "プロセス管理ステータス・ドロップダウン・ラジオボタン・文字列1行でグルーピングできます。詳細カードを状態カードへドラッグ&ドロップすると、その値へ変更できます（文字列は既定で無効・設定で有効化）。プロセス管理の場合は遷移できる状態のみにドロップでき、必要に応じて次の作業者を選ぶモーダルが表示されます。" } },
+            { "@type": "Question", "name": "カードに写真を出せますか？", "acceptedAnswer": { "@type": "Answer", "text": "添付ファイルフィールドの画像をサムネイルとして表示できます。配置（上/下/左/右）・表示方法（cover＝埋める / contain＝全体表示）・サイズ・背景色を設定できます。物件・商品・従業員名簿などを写真つきカードで一覧共有できます。" } },
+            { "@type": "Question", "name": "複数の一覧をカードボードにできますか？", "acceptedAnswer": { "@type": "Answer", "text": "プレミアム年間サポーターで、複数の一覧ビューへ無制限にカードボードを適用できます（無料プランは1ビューまで）。ビューごとにグルーピング・レイアウト・配色を個別に保存できます。" } },
+            { "@type": "Question", "name": "外部にデータは送信されますか？", "acceptedAnswer": { "@type": "Answer", "text": "レコードの取得・変更・サムネイル画像の取得はすべて kintone 内（同一ドメインの REST API）で完結し、業務データを外部へ送信しません。第三者 CDN や外部サーバーも使いません。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。" } }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 5px 14px; border-radius: 20px;
+    }
+    .afp-hero-version {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 5px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 720px; line-height: 1.8; }
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .afp-blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .afp-blog-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: var(--shadow-card); overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; }
+    .afp-blog-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.14); }
+    .afp-blog-card img { width: 100%; height: auto; display: block; aspect-ratio: 1200 / 630; object-fit: cover; background: #F0F4F8; }
+    .afp-blog-body { padding: 18px 20px 20px; }
+    .afp-blog-body h3 { font-size: 1.05rem; color: var(--color-navy); margin: 0 0 10px; line-height: 1.5; }
+    .afp-blog-body p { font-size: 0.9rem; line-height: 1.7; color: var(--color-text-main); margin: 0 0 12px; }
+    .afp-blog-link { color: var(--color-green); font-weight: 700; font-size: 0.9rem; }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    .afp-cfgstep { margin-bottom: 40px; }
+    .afp-cfgstep:last-child { margin-bottom: 0; }
+    .afp-cfgstep-head { display: flex; align-items: flex-start; gap: 14px; margin: 0 auto 16px; max-width: 960px; }
+    .afp-cfgstep-badge { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--color-navy); color: #fff; font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; }
+    .afp-cfgstep-body h3 { font-size: 1.2rem; color: var(--color-navy); margin: 4px 0 6px; }
+    .afp-cfgstep-body p { font-size: 0.98rem; line-height: 1.8; margin: 0; color: var(--color-text-main); }
+    .afp-cfgstep-body p strong { color: var(--color-navy); }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-blog-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="afp-hero">
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium">👑 PREMIUM PLUGIN</span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <img class="afp-hero-icon" src="/images/card-board-icon.png" alt="カードボード for kintone アイコン" width="200" height="200" loading="eager" />
+      <h1>カードボード for kintone</h1>
+      <p class="afp-tagline">一覧を、動かせるカードボードに。</p>
+      <p class="afp-sub">レコード一覧を「状態カード＋詳細カード」の2段カンバンに切り替え。詳細カードをドラッグ&ドロップするだけでステータスを変更でき、状態別の件数・合計を一目で俯瞰できます。「表の一覧では進捗が掴めない」を解消します。</p>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 定義（結論ファースト） -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <p class="afp-lead">
+          <strong>カードボード for kintone</strong> は、kintone のレコード一覧を<strong>「状態カード（上部）＋詳細カード（下部）」の2段カンバンUI</strong>に切り替えるプラグインです。標準の表形式一覧では状態別の件数や進捗が掴みづらく、ステータス変更も1件ずつ詳細画面で行う必要があります。本プラグインは、上部に<strong>状態カード（状態名＋件数＋集計値）</strong>を全幅で並べて分布を俯瞰し、下部の<strong>詳細カードを状態カードへドラッグ&ドロップ</strong>するだけでステータス・選択肢・文字列の値を変更できます。<strong>連動（カンバン）モード</strong>と<strong>個別（ギャラリー）モード</strong>を切り替えられ、詳細カードには任意フィールドや<strong>添付画像のサムネイル</strong>を配置可能。対象一覧の<strong>絞り込み・並び順もそのまま反映</strong>されます。表示・変更はすべて自ドメインの REST API で完結し、業務データを外部に送信しません。「プレミアムプラグイン」シリーズの一つです。
+        </p>
+      </div>
+    </section>
+
+    <!-- 実際の画面 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <figure class="afp-shot">
+          <picture>
+            <source srcset="/images/card-board-board.webp" type="image/webp" />
+            <img class="zoomable" src="/images/card-board-board.png" alt="カードボードの適用画面（営業案件管理）— 上部に「見込み 3件 金額計6,650,000円」「提案 3件」「交渉 2件」「受注 3件」「失注 1件」の状態カードを全幅で並べ、その下に各ステージの案件カード（案件名・顧客名・金額・確度・担当者）をカンバン風に列展開している" width="1400" height="640" loading="lazy" />
+          </picture>
+          <figcaption class="afp-shot-cap">営業パイプラインの例 — ステージ別に案件を俯瞰し、状態カードには金額の合計も表示（画像をクリックで拡大）</figcaption>
+        </figure>
+        <figure class="afp-shot" style="margin-top:28px;">
+          <picture>
+            <source srcset="/images/card-board-dnd.webp" type="image/webp" />
+            <img class="zoomable" src="/images/card-board-dnd.png" alt="カードボードのドラッグ&ドロップ操作 — 「提案」ステージの案件カードをつかんで「交渉」ステージへドラッグしており、移動先の状態カードが点線でハイライトされている。ドロップするとステージ（ステータス）が変わる" width="1400" height="640" loading="lazy" />
+          </picture>
+          <figcaption class="afp-shot-cap">詳細カードを状態カードへドラッグ&ドロップ → その状態へ値が変わる（プロセス管理の遷移制約に準拠）</figcaption>
+        </figure>
+        <figure class="afp-shot" style="margin-top:28px;">
+          <picture>
+            <source srcset="/images/card-board-realestate.webp" type="image/webp" />
+            <img class="zoomable" src="/images/card-board-realestate.png" alt="カードボードの適用画面（不動産管理）— 「募集中／内見予定／申込あり／成約」の状態カードに家賃計を表示し、その下に物件カード（外観写真つき・物件名・種別・最寄駅・家賃）をカンバン表示している" width="1400" height="640" loading="lazy" />
+          </picture>
+          <figcaption class="afp-shot-cap">不動産管理の例 — 募集中→内見→申込→成約のステータス管理。詳細カードには物件の外観写真をサムネイル表示</figcaption>
+        </figure>
+        <figure class="afp-shot" style="margin-top:28px;">
+          <picture>
+            <source srcset="/images/card-board-catalog.webp" type="image/webp" />
+            <img class="zoomable" src="/images/card-board-catalog.png" alt="カードボードの個別モード（商品カタログ）— 上部のカテゴリ「家電／インテリア／キッチン／ガジェット」から「家電」を選択し、その下に商品カード（商品画像・商品名・メーカー・価格・在庫）をギャラリー表示している" width="1400" height="640" loading="lazy" />
+          </picture>
+          <figcaption class="afp-shot-cap">個別モード（商品カタログの例）— カテゴリを選ぶと、その商品を画像つきギャラリーで表示</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 解決したい課題 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">表の一覧の「掴みにくい・動かしにくい」を解決</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>状態別の進捗が掴めない</h3>
+            <p>標準の表形式一覧は行を並べて表示するだけで、状態別に何件あるか・合計いくらかが一目で分かりません。案件やタスクの分布・停滞を俯瞰しづらいのが実情です。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ステータス変更が手間</h3>
+            <p>ステータスを進めるたびにレコードを開いて操作する必要があり、件数が多いと手間がかかります。ボード上でドラッグして動かせたら――という現場は少なくありません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>写真つきで見やすく共有したい</h3>
+            <p>物件・商品・メンバーなど、写真を含む一覧を見やすく共有したいのに、標準の表では窮屈で画像も確認しづらい。カード表示で視認性を上げたいニーズがあります。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2つの表示モード -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">2つの表示モードで、業務に合わせて</h2>
+        <div class="afp-feature">
+          <div class="afp-feature-media">
+            <picture>
+              <source srcset="/images/card-board-lanegrid.webp" type="image/webp" />
+              <img class="zoomable" src="/images/card-board-lanegrid.png" alt="連動（カンバン）モード — 全ステージのレーンを横並びで表示し、レーンの間に縦の区切り線を引いて列の境界を分かりやすくしている" width="1400" height="640" loading="lazy" />
+            </picture>
+          </div>
+          <div class="afp-feature-text">
+            <h3>連動モード（カンバン）</h3>
+            <p>全状態のレーンを横並びで表示し、各状態カードの真下に該当カードを縦積み。ステージを動かす業務（営業パイプライン・タスク・採用・問い合わせ対応など）に最適です。列数の指定・レーンの区切り線・状態別の集計値表示に対応。ドラッグ&ドロップで一気に前へ進められます。</p>
+          </div>
+        </div>
+        <div class="afp-feature reverse">
+          <div class="afp-feature-media">
+            <picture>
+              <source srcset="/images/card-board-individual.webp" type="image/webp" />
+              <img class="zoomable" src="/images/card-board-individual.png" alt="個別（ギャラリー）モード（不動産管理）— 上部の状態カード「募集中／内見予定／申込あり／成約」から「募集中」を選ぶと、その状態の物件を外観写真つきカード（物件名・間取り・最寄駅・家賃）で横4列のギャラリー表示する" width="1884" height="594" loading="lazy" />
+            </picture>
+          </div>
+          <div class="afp-feature-text">
+            <h3>個別モード（ギャラリー）</h3>
+            <p>状態カードを1つ選ぶと、その状態のレコードを横3〜6列のグリッドでギャラリー表示。写真つきで一覧・比較する業務（物件ギャラリー・商品カタログ・名簿など）に向いています。上の例では「募集中」の物件を外観写真つきカードで並べています。「初期に開く状態」を指定すれば、開いた瞬間に目的の状態を表示できます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>状態カード＋集計値</h3>
+            <p>グルーピング元（プロセス管理ステータス／ドロップダウン／ラジオ／文字列）の値ごとに「状態名＋件数」を全幅均等で表示。その状態に属するレコードの<strong>合計／平均／最大／最小／件数</strong>を集計して並べられます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ドラッグ&ドロップで値変更</h3>
+            <p>詳細カードを状態カードへドロップするだけで、ステータス・選択肢・文字列の値を変更。プロセス管理は遷移制約に準拠し、次の作業者の自動判定・選択モーダルにも対応。失敗時は元に戻して通知します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>連動 / 個別モード</h3>
+            <p>全レーンを俯瞰する<strong>連動（カンバン）</strong>と、1状態をギャラリー表示する<strong>個別</strong>を切替。連動はレーンの区切り線・初期に開く状態の指定、個別は列数（3〜6）の指定に対応します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>添付サムネイル</h3>
+            <p>詳細カードに添付ファイルの画像を<strong>サムネイル表示</strong>。配置（上/下/左/右）・表示方法（cover＝埋める / contain＝全体表示）・サイズ・背景色を指定でき、遅延読込＋キャッシュで軽快に表示します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ライブビュー編集</h3>
+            <p>状態カード・詳細カードに、表示したいフィールドを<strong>ドラッグで自由配置</strong>。座標・幅・文字サイズ・太字・色・フォントを調整でき、カードの高さも自動／固定／可変（カードごと）から選べます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>絞り込み・並び順に連動</h3>
+            <p>対象の一覧ビューに設定した<strong>絞り込み条件・並び順</strong>がそのままカードボードに反映されます。絞り込んだレコードだけがカード化され、状態カードの件数・集計値も絞り込み後の内容で再計算されます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ライブプレビュー設定</h3>
+            <p>設定画面は実レコードを使ったライブプレビュー付き。レイアウトや配色の変更が即座に確認できます。<strong>複数の一覧ビュー</strong>へ設定を保存・適用できます（プレミアム）。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>kintone 完結</h3>
+            <p>レコードの取得・変更・サムネイル取得はすべて同一ドメインの REST API で完結し、業務データを外部へ送信しません。第三者 CDN・外部サーバーも不使用。ゲストスペースにも対応します。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 設定画面 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定はタブで4ステップ・ライブプレビュー付き</h2>
+        <p style="text-align:center;margin:-8px auto 34px;max-width:760px;line-height:1.8;color:var(--color-text-muted);">左の「ビュー目次」でカードボードにするビューを選び、①→④のタブを順に設定するだけ。変更は左下の<strong>ライブプレビュー</strong>に即反映されるので、実際のカードを見ながら仕上げられます。設定できるビューは無料プランで1つ、プレミアムで無制限です。</p>
+
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">1</div>
+            <div class="afp-cfgstep-body">
+              <h3>基本設定 — グルーピングと表示モードを決める</h3>
+              <p>まず「どのフィールドで状態を分けるか」を選びます。<strong>グルーピング元</strong>にプロセス管理ステータス・ドロップダウン・ラジオ・文字列を指定し、<strong>表示モード</strong>を「カンバン（全レーン）」か「個別（1状態ずつギャラリー）」から選択。列数・<strong>レーンの区切り線</strong>・<strong>初期に開く状態</strong>もここで設定します。</p>
+            </div>
+          </div>
+          <figure class="afp-shot">
+            <picture>
+              <source srcset="/images/card-board-config-1.webp" type="image/webp" />
+              <img class="zoomable" src="/images/card-board-config-1.png" alt="カードボード設定①基本設定タブ — グルーピング元フィールド（ステージ）、初期表示（カード）、表示モード（カンバン/個別）、列数、レーンの区切り線を表示、初期に開く状態を設定している画面" width="1534" height="854" loading="lazy" />
+            </picture>
+            <figcaption class="afp-shot-cap">① 基本設定：グルーピング元・表示モード・列数・区切り線・初期に開く状態</figcaption>
+          </figure>
+        </div>
+
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">2</div>
+            <div class="afp-cfgstep-body">
+              <h3>状態カード — 上部のカードに何を出すか</h3>
+              <p>状態カード（レーンの見出し）に載せる「<strong>状態名・件数・集計値</strong>」を、カード上で<strong>ドラッグして配置</strong>します（グリッドに吸着）。要素をクリックすると文字サイズ・色・太字を編集。「<strong>集計値の定義</strong>」で合計・平均・最大・最小・件数を追加でき、例えば「家賃計」「金額計」のように状態ごとの合計を表示できます。</p>
+            </div>
+          </div>
+          <figure class="afp-shot">
+            <picture>
+              <source srcset="/images/card-board-config-2.webp" type="image/webp" />
+              <img class="zoomable" src="/images/card-board-config-2.png" alt="カードボード設定②状態カードタブ — 状態カードのレイアウトをライブ編集し、カード上に状態名・件数・集計値をドラッグ配置。集計値の定義で合計・金額計を追加している画面" width="1534" height="854" loading="lazy" />
+            </picture>
+            <figcaption class="afp-shot-cap">② 状態カード：状態名・件数・集計値をドラッグ配置＋集計値を定義</figcaption>
+          </figure>
+        </div>
+
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">3</div>
+            <div class="afp-cfgstep-body">
+              <h3>詳細カード — 1件ごとのカードをデザインする</h3>
+              <p>カードに載せる<strong>フィールドを追加</strong>し、ドラッグで自由配置。文字サイズ・色でメリハリをつけられます。<strong>カードの高さ</strong>（自動＝全カード均一／固定／可変）や、<strong>添付ファイルの画像をカバー表示</strong>、詳細アイコンの<strong>開き方</strong>（新規タブ/同一タブ）もここで指定します。物件・商品・名簿を写真つきカードにできます。</p>
+            </div>
+          </div>
+          <figure class="afp-shot">
+            <picture>
+              <source srcset="/images/card-board-config-3.webp" type="image/webp" />
+              <img class="zoomable" src="/images/card-board-config-3.png" alt="カードボード設定③詳細カードタブ — 詳細カードのレイアウトをライブ編集し、フィールドをドラッグ配置。カードの高さ（自動/固定/可変）・カバー画像・詳細アイコンの開き方を設定している画面" width="1534" height="854" loading="lazy" />
+            </picture>
+            <figcaption class="afp-shot-cap">③ 詳細カード：フィールドをドラッグ配置＋高さ・カバー画像・開き方</figcaption>
+          </figure>
+        </div>
+
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">4</div>
+            <div class="afp-cfgstep-body">
+              <h3>カラー — 全体の配色を整える</h3>
+              <p>状態カード・詳細カードの<strong>背景色</strong>と、<strong>状態別のアクセント色</strong>（左端バー・件数バッジ・レーンの色）を設定します。ステータスごとに色を割り当てれば、ボードを一目で見分けられます。詳細カードの背景色は状態カードに連動させることもできます。設定できたら「保存」→「アプリを更新」で反映されます。</p>
+            </div>
+          </div>
+          <figure class="afp-shot">
+            <picture>
+              <source srcset="/images/card-board-config-4.webp" type="image/webp" />
+              <img class="zoomable" src="/images/card-board-config-4.png" alt="カードボード設定④カラータブ — 状態カード・詳細カードの背景色と、状態別のアクセント色（見込み・提案・交渉・受注・失注）を色見本で設定している画面" width="1534" height="854" loading="lazy" />
+            </picture>
+            <figcaption class="afp-shot-cap">④ カラー：背景色と状態別のアクセント色を設定</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- プランについて -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料プランでも<strong>1つの一覧ビュー</strong>で、状態カード・詳細カード・ドラッグ&ドロップ・連動/個別モードまで<strong>全機能</strong>をお試しいただけます。<strong>複数ビューへの適用</strong>と広告非表示は、<strong>プレミアム年間サポーター</strong>で解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ 1つの一覧ビューに適用</li>
+              <li>✅ 状態カード＋集計値・詳細カード・D&Dで値変更</li>
+              <li>✅ 連動/個別モード・添付サムネイル・ライブ編集</li>
+              <li>✅ 利用期限なし（レコード一覧画面に控えめな広告あり）</li>
+            </ul>
+            <a href="/downloads/kw-card-board-v1.0.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+          </div>
+
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>複数の一覧ビューへの適用が無制限</strong></li>
+              <li>✅ ビューごとにグルーピング・レイアウト・配色を保存</li>
+              <li>✅ プラグイン内の<strong>広告非表示</strong></li>
+              <li>✅ 販売中の<strong>全プラグイン</strong>も対象（契約期間中に新しく公開されるプラグインも追加料金なし）</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta">プレミアム年間サポーターを申し込む →</a>
+          </div>
+        </div>
+
+        <h3 class="afp-plan-compare-head">機能の詳細比較</h3>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>機能</th><th class="c">無料プラン</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>適用できる一覧ビュー数</td><td class="c">1件</td><td class="c">無制限</td></tr>
+              <tr><td>状態カード＋集計値・詳細カード</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>D&Dでステータス/選択肢/文字列を変更</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>連動/個別モード・添付サムネイル・ライブ編集</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>レコード一覧画面の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- インストール手順 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="afp-steps steps-list">
+          <li><span>システム管理者で kintone にログインし、<strong>歯車アイコン → kintone システム管理 → プラグイン</strong> を開き、<strong>「読み込む」</strong>からプラグイン zip をアップロードします。</span></li>
+          <li><span>カードボードにしたい一覧を持つ<strong>対象アプリ</strong>で <strong>アプリの設定 → プラグイン → 「+ プラグインを追加」</strong> から「カードボード」を追加します。</span></li>
+          <li><span>プラグイン一覧の<strong>歯車アイコン</strong>から設定画面を開き、<strong>「ビュー目次」で対象ビューを選択</strong>。<strong>①基本設定</strong>でグルーピング元・表示モードを、②③でカードのレイアウトを、④で配色を設定します。</span></li>
+          <li><span><strong>「保存」→「アプリを更新」</strong>を実行して反映します。一覧画面のヘッダーで<strong>「表／カード」</strong>を切り替えるとカードボードが表示されます。</span></li>
+        </ol>
+        <div class="afp-note">ドラッグ&ドロップによる値変更は、閲覧ユーザー自身の<strong>kintone の権限</strong>と<strong>プロセス管理の遷移制約</strong>に従います。権限のない変更はできません（kintone 標準と同じ挙動です）。APIトークンの発行は不要です。</div>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ご利用にあたっての注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li>本プラグインは<strong>レコード一覧（PC）</strong>で動作します。表示切替（表／カード）で使用します。</li>
+            <li>ドラッグ&ドロップで値を変更するには、グルーピング元が<strong>プロセス管理ステータス／ドロップダウン／ラジオボタン／文字列1行</strong>のいずれかである必要があります（文字列は既定で無効・設定で有効化）。</li>
+            <li>プロセス管理ステータスでのD&Dは、対象アプリで<strong>プロセス管理が有効</strong>で、かつ<strong>遷移できる状態</strong>にのみドロップできます。</li>
+            <li>母集団は一覧の<strong>絞り込み・並び順</strong>に連動します。表示件数の上限は 5,000 件です。</li>
+            <li>標準のレコードデータ構造は変更しません（表示切替のみ。D&Dによる明示的な値変更を除く）。</li>
+            <li>複数の一覧ビューへの適用は<strong>プレミアム年間サポーター</strong>限定です（無料プランは1ビューまで）。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- セキュリティ -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-card-board" />
+        <ShareButtons title="カードボード for kintone" />
+      </div>
+    </section>
+
+    <!-- よくある質問 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">よくある質問</h2>
+        <div class="afp-faq">
+          <details class="afp-faq-item">
+            <summary>単品で購入できますか？</summary>
+            <div class="afp-faq-answer">本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで1つの一覧ビューに、状態カード・詳細カード・ドラッグ&ドロップ・連動/個別モードまで全機能をお試しいただけます。複数ビューへの適用と広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>一覧の絞り込みは効きますか？</summary>
+            <div class="afp-faq-answer">はい。対象の一覧ビューに設定した絞り込み条件・並び順は、カードボードにもそのまま反映されます。絞り込んだレコードだけがカード化され、状態カードの件数・集計値も絞り込み後の内容で再計算されます。一覧上部の「絞り込む」で条件を変えると、ボードも連動して絞り込まれます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>どんなフィールドで状態分けできますか？</summary>
+            <div class="afp-faq-answer">プロセス管理ステータス・ドロップダウン・ラジオボタン・文字列1行でグルーピングできます。詳細カードを状態カードへドラッグ&ドロップすると、その値へ変更できます（文字列は既定で無効・設定で有効化）。プロセス管理の場合は遷移できる状態のみにドロップでき、必要に応じて次の作業者を選ぶモーダルが表示されます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>カードに写真を出せますか？</summary>
+            <div class="afp-faq-answer">添付ファイルフィールドの画像をサムネイルとして表示できます。配置（上/下/左/右）・表示方法（cover＝埋める / contain＝全体表示）・サイズ・背景色を設定できます。物件・商品・従業員名簿などを写真つきカードで一覧共有できます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>複数の一覧をカードボードにできますか？</summary>
+            <div class="afp-faq-answer">プレミアム年間サポーターで、複数の一覧ビューへ無制限にカードボードを適用できます（無料プランは1ビューまで）。ビューごとにグルーピング・レイアウト・配色を個別に保存できます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>外部にデータは送信されますか？</summary>
+            <div class="afp-faq-answer">レコードの取得・変更・サムネイル画像の取得はすべて kintone 内（同一ドメインの REST API）で完結し、業務データを外部へ送信しません。第三者 CDN や外部サーバーも使いません。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 関連ブログ記事 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">関連ブログ記事</h2>
+        <div class="afp-blog-grid">
+          <a class="afp-blog-card" href="/blog/kintone-process-management/">
+            <img src="/images/blog/kintone-process-management.png" alt="kintoneプロセス管理の使い方ガイド｜設定手順・条件分岐・差し戻しまで" width="1200" height="630" loading="lazy" />
+            <div class="afp-blog-body">
+              <h3>【2026年版】kintoneプロセス管理の使い方ガイド｜設定手順・条件分岐・差し戻しまで</h3>
+              <p>ステータス・作業者・アクションの3要素と設定手順を解説。カードボードのドラッグ&ドロップは、このプロセス管理のステータス遷移にそのまま対応します。</p>
+              <span class="afp-blog-link">記事を読む →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>プレミアム年間サポーターで使ってみる</h2>
+      <p>カードボードをはじめ、販売中の全プラグインをご利用いただけます。年額 ¥16,500（税込）。まずは無料プランでお試しいただけます（利用期限なし）。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを申し込む →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="cb-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('cb-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      var dl = document.getElementById('btn-download');
+      if (dl && typeof gtag === 'function') {
+        dl.addEventListener('click', function () {
+          gtag('event', 'file_download', {
+            file_name: 'kw-card-board-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: '無料でダウンロード',
+            link_url: '/downloads/kw-card-board-v1.0.0.zip'
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

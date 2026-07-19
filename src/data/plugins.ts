@@ -883,6 +883,28 @@ export const premiumPlugins: Plugin[] = [
     problemDesc: '関連レコードの合計・件数を別アプリやExcelで二度手間で出している。表示外の項目やサブテーブルも集計したい',
     releaseDate: '2026-07-11',
   },
+  {
+    id: 'kw-card-board',
+    name: 'カードボード for kintone',
+    formName: 'カードボード for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'card-board',
+    category: '一覧',
+    description:
+      'レコード一覧を「状態カード（上部）＋詳細カード（下部）」の2段カンバンに切替表示するプラグイン。詳細カードを状態カードへドラッグ&ドロップしてステータス・選択肢・文字列の値を変更でき、状態別の件数・集計値を全幅で俯瞰。連動（カンバン）/個別（ギャラリー）モード・添付サムネイル・ライブプレビュー付き設定に対応します。kintone 完結で外部送信しません。',
+    image: '/images/card-board-banner.png',
+    imageAlt:
+      'カードボード for kintone プラグイン — レコード一覧を状態カード＋詳細カードの2段カンバンに切替え、ドラッグ&ドロップでステータスを変更し、状態別の件数・集計を俯瞰する',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      '一覧を「状態カード＋詳細カード」の2段カンバンに切替。D&Dでステータス・選択肢・文字列を変更、状態別の件数・集計を俯瞰。連動/個別モード・添付サムネ対応。kintone 完結。',
+    problemTitle: '表の一覧では状態別の進捗が掴めない',
+    problemDesc: '状態別の件数や合計が一目で分からず、ステータス変更も1件ずつ手作業。ドラッグで動かせるボードにしたい',
+    releaseDate: '2026-07-19',
+  },
 ];
 
 /**

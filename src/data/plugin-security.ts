@@ -161,6 +161,16 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+
+  'kw-card-board': {
+    extraComm: [
+      {
+        label: '次の作業者候補の取得・添付サムネイルの取得（自ドメイン内）',
+        detail:
+          'ドラッグ&ドロップでプロセス管理ステータスを変更する際、次の作業者候補（グループ・組織のメンバー）の解決のため、ご利用中の kintone ドメイン内の cybozu.com 共通管理API（/v1/user/groups・/v1/user/organizations・/v1/group/users・/v1/organization/users）を呼び出します。詳細カードのサムネイル表示のため、添付ファイル（/k/v1/file.json）を取得します。レコードの取得・値の変更（/k/v1/records・/k/v1/record・/k/v1/record/status）、プロセス管理設定の取得（/k/v1/app/status.json）もすべて自ドメインの kintone REST API で行います。呼び出しはすべて自ドメイン内で完結し、外部の第三者へは送信しません。対象アプリのフォーム定義（フィールド）は変更しません。',
+      },
+    ],
+  },
   'kw-accordion-tab': {
     extraComm: [
       {

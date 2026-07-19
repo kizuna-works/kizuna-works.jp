@@ -144,6 +144,8 @@ c:\kizuna-works.jp\
 │   │   │   │       └── index.astro # ダッシュボード設定レシピ集（/plugins/dashboard/recipes/）— ウィジェット種別ごとに「目的→設定手順→完成イメージ」を掲載。アコーディオン＋種別/目的タグ/検索フィルタ。データは src/data/recipes.ts、画像は /images/dashboard/recipes/。第1バッチ22レシピ（順次拡張）
 │   │   │   ├── attribute-filter/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】属性制御フィルター製品ページ（/plugins/attribute-filter/）— ユーザー/組織/グループ選択の候補を役職・所属・他フィールド値・ステータスで自動絞り込み。標準表示 vs 絞り込みのBefore/After、設定画面（組織/ユーザー/グループ条件）スクショ、主な機能、無料/プレミアム比較、インストール手順、SecurityBox。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。スクショはライトボックスで拡大。kintone完結・ゲスト対応
+│   │   │   ├── card-board/
+│   │   │   │   └── index.astro # 【プレミアムプラグイン】カードボード製品ページ（/plugins/card-board/）— 一覧を「状態カード＋詳細カード」の2段カンバンに切替＝D&Dでステータス/選択肢/文字列を変更・状態別の件数/集計を俯瞰・連動(カンバン)/個別(ギャラリー)モード・添付サムネ・レーン区切り線・初期に開く状態・絞り込み/並び順を反映。ヒーロー＋実画面(営業/不動産/カタログ)＋2モード＋主な機能＋設定画面＋無料/プレミアム比較(無料1ビュー)＋手順＋FAQ＋SecurityBox＋ShareButtons。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。kintone完結
 │   │   │   ├── related-enhancer/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】関連レコード拡張製品ページ（/plugins/related-enhancer/）— レコード詳細の関連レコード一覧をカーソルAPI全件取得で集計（合計/平均/件数・条件AND/OR・複数並列・閾値色分け）＋非表示フィールド集計/サブテーブル展開集計/集計結果の書き込み保存＋見た目（ゼブラ/列幅クリップ/列表示非表示/ヘッダー色）＋検索/ソート/列フィルタ＋横断ボード。無料/プレミアム比較（無料1対象・F-04/05/06はプレミアム限定）、インストール手順、FAQ、SecurityBox。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。モバイルは集計カード閲覧のみ。kintone完結
 │   │   │   ├── lookup-sync/
@@ -325,6 +327,10 @@ c:\kizuna-works.jp\
 │   │   ├── file-preview-action-03.png      # 添付ファイルプレビュー 動作③ — Excelのグラフをデータから再現＋シート切替
 │   │   ├── file-preview-config-01.png      # 添付ファイルプレビュー 設定① — 対象フィールド・上限しきい値
 │   │   ├── file-preview-config-02.png      # 添付ファイルプレビュー 設定② — 対象画面・操作・モーダルサイズ・テーマ色
+│   │   ├── card-board-banner.png           # カードボード for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）
+│   │   ├── card-board-icon.png             # カードボード for kintone アイコン（200×200・ヒーロー用）
+│   │   ├── card-board-{board,dnd,realestate,catalog,individual,lanegrid}.png / .webp # カードボード製品ページ用スクショ（実機・PNG＋WebP。individual=不動産の個別モードギャラリー）
+│   │   ├── card-board-config-{1,2,3,4}.png / .webp # カードボード設定画面スクショ（①基本設定/②状態カード/③詳細カード/④カラーのタブ別・実機・PNG＋WebP）
 │   │   ├── related-enhancer-banner.png     # 関連レコード拡張 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）
 │   │   ├── report-designer-banner.png      # 帳票デザイナー for kintone 見出しバナー（OGP/グリッド/製品ページ共用）
 │   │   ├── report-designer-icon.png        # 帳票デザイナー for kintone アイコン
@@ -455,6 +461,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-sync-v1.0.0.zip                     # ルックアップ自動同期 for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=参照先1組で全機能）
 │   │   ├── kw-lookup-sync-v2.0.2.zip                     # ルックアップ自動同期 for kintone v2.0.2 配布ファイル（重複しうるキー対応＝方式1/方式2・入力補完・PC/モバイル）
 │   │   ├── kw-lookup-sync-v2.1.1.zip                     # ルックアップ自動同期 for kintone v2.1.1 配布ファイル（全件同期を自己修復型に＝キー未設定でも名前一致で同期・前後空白正規化・要確認内訳CSV出力。最新版）
+│   │   ├── kw-card-board-v1.0.0.zip                     # カードボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第6弾・無料/プレミアム共通zip・無料=1ビューで全機能・複数ビューはプレミアム）
 │   │   ├── kw-related-enhancer-v1.0.0.zip               # 関連レコード拡張 for kintone 配布ファイル（手動配置・プレミアムプラグイン第5弾・無料/プレミアム共通zip・無料=1対象で集計/見た目/検索・F-04/05/06はプレミアム限定）
 │   │   └── kw-user-autofill-v1.0.0.zip                  # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.0＝属性自動転記＋プロフィールカード／捺印モード）
 │   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ（第三者CDN不使用）。現状 kw-file-preview のみ使用
