@@ -765,6 +765,29 @@ export const plugins: Plugin[] = [
     problemDesc: '契約日や生年月日からの経過日数・年齢が、標準の計算では今日に追従せず古い値のまま。並び替えや集計にも使いたい',
     releaseDate: '2026-07-17',
   },
+  {
+    id: 'kw-reuse-control',
+    name: 'レコード再利用コントロール for kintone',
+    formName: 'レコード再利用コントロール for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'reuse-control',
+    category: 'レコード画面',
+    description:
+      'kintone の「レコードを再利用する」で、フィールドごと・サブテーブルの列ごとに『残す（コピーする）』項目を選べるプラグイン。設定した項目だけを引き継ぎ、それ以外は再利用画面を開くと同時に自動で空欄化。ルックアップの入れ替えや、空にした表の初期値クリアにも対応します。',
+    image: '/images/reuse-control-banner.png',
+    imageWebp: '/images/reuse-control-banner.webp',
+    imageAlt:
+      'レコード再利用コントロール for kintone プラグイン — 再利用時に「残す」項目だけを引き継ぎ、それ以外を自動で空欄化。フィールド単位・サブテーブルの列単位で選べる',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '再利用で「残す」項目だけを引き継ぎ、あとは自動で空欄に。不要な項目を毎回手で消す手間をなくします。kintone完結。',
+    problemTitle: '再利用のたびに不要な項目を手で消している',
+    problemDesc: '似た案件をテンプレとして再利用したいのに、標準では全項目がコピーされ、要らない項目を毎回手作業で消している',
+    releaseDate: '2026-07-20',
+  },
 ];
 
 /**

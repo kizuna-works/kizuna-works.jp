@@ -1,0 +1,1033 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="レコード再利用コントロール for kintone - 再利用時にコピーする項目を選べるプラグイン | KIZUNA Works"
+  description="kintone の「レコードを再利用する」で、フィールドごと・サブテーブルの列ごとに『残す（コピーする）』項目を選べるプラグイン。設定した項目だけを引き継ぎ、それ以外は再利用画面を開くと同時に自動で空欄化。ルックアップの入れ替えや、空にしたサブテーブルの初期値クリアにも対応。通常の新規作成には影響しません。kintone完結・外部API不使用。"
+  ogTitle="レコード再利用コントロール for kintone - 再利用時にコピーする項目を選べるプラグイン | KIZUNA Works"
+  ogDescription="kintoneの再利用で「残す」項目だけを引き継ぎ、それ以外は自動で空欄に。再利用のたびに不要な項目を手で消す手間をなくします。kintone完結・外部API不使用。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/reuse-control/"
+  ogImage="https://kizuna-works.jp/images/reuse-control-banner.png"
+  canonical="https://kizuna-works.jp/plugins/reuse-control/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/reuse-control/",
+          "url": "https://kizuna-works.jp/plugins/reuse-control/",
+          "name": "レコード再利用コントロール for kintone - 再利用時にコピーする項目を選べるプラグイン | KIZUNA Works",
+          "description": "kintone の「レコードを再利用する」で、フィールドごと・サブテーブルの列ごとに『残す』項目を選び、それ以外を再利用画面の表示と同時に自動で空欄化するプラグイン。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/reuse-control-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "レコード再利用コントロール for kintone", "item": "https://kizuna-works.jp/plugins/reuse-control/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "レコード再利用コントロール for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-07-20",
+          "url": "https://kizuna-works.jp/plugins/reuse-control/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-reuse-control-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/reuse-control-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone の「レコードを再利用する」で、フィールドごと・サブテーブルの列ごとに『残す（コピーする）』項目を選び、それ以外を再利用画面の表示と同時に自動で空欄化する kintone プラグイン。ルックアップの入れ替えや、空にしたサブテーブルの初期値クリアにも対応。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "「残す」にチェックした項目だけを再利用時に引き継ぎ、それ以外は再利用画面の表示と同時に自動で空欄化（ホワイトリスト方式）",
+            "サブテーブルはテーブル単位で「残す／空にする」を選択、残す場合は列単位でクリアも可能",
+            "ルックアップも他項目と同様にクリア可能（再利用画面で別のキーを取得し直して保存）",
+            "「初期値もクリアする」で、空にしたサブテーブルの追加行に入る初期値（今日の日付など）も入れない",
+            "通常の新規作成（＝再利用でない追加）には一切影響しない（標準の再利用ボタン経由のときだけ動作）",
+            "GAS・外部サービス不要・kintone完結・PC／モバイル・ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .feature-list li code {
+      background: #eef1f4;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot frames — sized to the image's natural width (not upscaled),
+       centered, and clickable to enlarge in the lightbox. */
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Zoomable images + lightbox overlay (small screenshots open enlarged) */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .ea-example-table {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+      background: var(--color-white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 14px;
+    }
+    .ea-example-table th,
+    .ea-example-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-gray-light);
+      line-height: 1.7;
+    }
+    .ea-example-table thead th {
+      background: var(--color-navy);
+      color: var(--color-white);
+      font-weight: 700;
+      font-size: 13px;
+      border-bottom: none;
+    }
+    .ea-example-table tbody tr:last-child td { border-bottom: none; }
+    .ea-example-table tbody tr:nth-child(even) { background: #f8fafc; }
+    .ea-example-table td strong { color: var(--color-navy); }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/reuse-control-icon.png"
+        alt="レコード再利用コントロール for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">レコード再利用コントロール for kintone</h1>
+      <p class="hero-copy">レコード再利用コントロール for kintone は、kintone 標準の「レコードを再利用する」で、<strong>「残す（コピーする）」項目だけを引き継ぎ、それ以外を再利用画面の表示と同時に自動で空欄化</strong>する kintone プラグインです。取引先ごと・案件ごとに入力し直す項目を、再利用のたびに手で消す手間がなくなります。通常の新規作成（＝再利用でない追加）には一切影響しません。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">kintone 標準の「レコードを再利用する」は、コピーできる項目を<strong>すべて</strong>転記します。特定の項目だけを選んで引き継ぐことはできません。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🧹</span>
+            <h3 class="problem-title">不要な項目を毎回手で消す</h3>
+            <p class="problem-desc">似た案件をテンプレとして再利用したいのに、会社名・担当者・日付まで全部コピーされる。新しい取引先の分を作るたびに、要らない項目を手で消している。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📋</span>
+            <h3 class="problem-title">明細（サブテーブル）が丸ごとコピー</h3>
+            <p class="problem-desc">前の案件の活動履歴・明細行までそのまま引き継がれる。新規のたびに全行を削除して作り直すのが面倒。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🔁</span>
+            <h3 class="problem-title">ルックアップを入れ替えたい</h3>
+            <p class="problem-desc">再利用したいが、ルックアップ（参照先）は別のキーで取り直したい。標準ではコピーされた値がそのまま残ってしまう。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Before / After usage -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">使い方：コピーする項目だけを選べる</h2>
+      <p class="section-subtitle">レコード詳細の「レコードを再利用する」から追加した画面での違いです。プラグインを入れると、設定で「残す」にした項目だけを引き継ぎ、それ以外は画面を開くと同時に自動で空欄になります。各画像はクリックで拡大できます。</p>
+      <div class="screenshot-pair cols-2">
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/reuse-control-usage-before.png" alt="レコード再利用コントロール 導入前 — kintone標準の再利用画面。会社名・部署名・担当者・電話・メール、活動履歴の明細まで、前の案件の内容がすべてコピーされている" loading="lazy" />
+          </div>
+          <figcaption>Before（標準）：会社名・担当者・活動履歴まで、すべてコピーされる</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/reuse-control-usage-after.png" alt="レコード再利用コントロール 導入後 — 同じ再利用画面。製品名・単価・確度など「残す」項目だけが引き継がれ、会社名・部署名・担当者などは自動で空欄、活動履歴も空になっている" loading="lazy" />
+          </div>
+          <figcaption>After（導入後）：「残す」項目だけ引き継ぎ、あとは自動で空欄に</figcaption>
+        </figure>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Features -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">できること</h2>
+        <p class="section-subtitle">「残すものだけチェック」のシンプルな設定。プログラミング知識は不要です。</p>
+        <ul class="feature-list">
+          <li><span><strong>フィールド単位のホワイトリスト</strong> — 「残す（コピーする）」項目にチェックを付けるだけ。チェックを外した項目は、再利用画面を開くと同時に自動で空欄になります（既定はすべて OFF）。</span></li>
+          <li><span><strong>サブテーブル（表）の制御</strong> — テーブルごとに「行を残す／空にする」を選べます。残す場合は、<strong>列単位</strong>で個別にクリアも可能。明細は作り直したいが、一部の列だけ引き継ぎたい、にも対応します。</span></li>
+          <li><span><strong>ルックアップの入れ替え</strong> — ルックアップも他の項目と同じくクリアできます。クリアした場合は、再利用画面で<strong>新しいキーを取得し直して</strong>保存すれば、別の参照先に差し替えられます。</span></li>
+          <li><span><strong>初期値もクリア</strong> — 空にしたサブテーブルの追加行に入る初期値（今日の日付など）も入れずに、空のままにできます（後述）。</span></li>
+          <li><span><strong>通常の新規作成には影響しない</strong> — 動作するのは標準の「レコードを再利用する」から開いた画面のときだけ。ふつうの「追加」には一切干渉しません。</span></li>
+          <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は不要。PC 版・モバイル版・ゲストスペースに対応し、プラグインアップロードのみで導入できます。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Clear defaults -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">初期値もまとめてクリアできる</h2>
+      <p class="section-subtitle">サブテーブルを「空にする」設定にすると、kintone は追加用の空行に「今日の日付」などの初期値を入れてしまうことがあります。「初期値もクリアする」を ON にすれば、その自動で入る初期値も入れずに、きれいに空のまま再利用できます。</p>
+      <ul class="feature-list" style="max-width:900px;margin:0 auto 24px;">
+        <li><span><strong>設定は1つの全体スイッチ</strong> — 「初期値もクリアする（再利用時に自動で入る初期値を空にする）」を ON にするだけ。項目ごとの設定は不要です。</span></li>
+        <li><span><strong>空にしたサブテーブルもきれいに</strong> — 明細を空にしたとき、空行に残っていた「今日の日付」なども入らず、まっさらな状態から入力を始められます。</span></li>
+        <li><span><strong>文字・数値・日付・選択・ユーザーなどはそのまま空に</strong> — これらの項目は初期値が設定されていても、クリア対象なら空になります。</span></li>
+        <li><span>※ 初期値が設定された<strong>ラジオボタン</strong>は、kintone の仕様上どうしても空にできず、初期値が選択されたままになります（この点は設定画面にも注意書きを表示しています）。</span></li>
+      </ul>
+    </section>
+
+    <!-- Lookup swap -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">ルックアップは「別のキーで取り直す」</h2>
+        <p class="section-subtitle">再利用したいけれど、参照先（取引先マスタなど）は別のものに差し替えたい——そんなときも大丈夫です。</p>
+        <ul class="feature-list" style="max-width:900px;margin:0 auto;">
+          <li><span><strong>ルックアップもクリア対象にできます</strong> — 設定で「残す」のチェックを外せば、再利用画面でルックアップが空欄になります。</span></li>
+          <li><span><strong>新しいキーで取得し直して保存</strong> — 空になったルックアップに新しいキーを入力して［取得］すれば、別の参照先の値に差し替わります。取得値（コピー先フィールド）も新しい内容で埋まります。</span></li>
+          <li><span>※ kintone の仕様上、コピーされたルックアップを<strong>空欄のまま</strong>保存することはできません。クリアした場合は、新しいキーを取得してから保存してください（設定画面にも同じ案内を表示しています）。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定画面</h2>
+        <p class="section-subtitle">「通常フィールド」「サブテーブル（表）」「初期値の扱い」の3ブロックだけのシンプルな設定。チェックした項目が引き継がれ、外した項目は自動で空欄になります。画像はクリックで拡大できます。</p>
+        <div class="screenshot-pair">
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/reuse-control-config.png" alt="レコード再利用コントロール 設定画面 — 通常フィールドの「残すものだけチェック」一覧、サブテーブルの行/列の残す設定、初期値もクリアするトグルとラジオボタンの注意書き" loading="lazy" />
+            </div>
+            <figcaption>設定画面：残す項目にチェック／サブテーブルの行・列の制御／初期値もクリア</figcaption>
+          </figure>
+        </div>
+        <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+          <li><span><strong>通常フィールド</strong> — 「残す」項目にチェック。「すべて残す／すべてクリア」で一括切り替えもできます。レコード番号・作成者・計算・添付ファイルなど、もともと再利用でコピーされない項目は表示されません。</span></li>
+          <li><span><strong>サブテーブル（表）</strong> — 「表の行を残す」で行の維持／空にするを切り替え。残す場合は列ごとにクリアも選べます。</span></li>
+          <li><span><strong>初期値の扱い</strong> — 「初期値もクリアする」で、空にした表の空行に入る初期値（今日の日付など）も入れずに空のままにします。</span></li>
+        </ul>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">レコード追加画面（標準の「レコードを再利用する」から開いた画面）で動作します。PC 版・モバイル版に対応しています。</p>
+      <ol class="steps-list">
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-reuse-control-v1.0.0.zip</code> をダウンロード</span></li>
+        <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+        <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「レコード再利用コントロール for kintone」を追加</span></li>
+        <li><span>プラグイン設定画面で<strong>「残す」項目にチェック</strong>し、サブテーブル・初期値の扱いを必要に応じて設定して「保存」</span></li>
+        <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると設定が反映されます</span></li>
+      </ol>
+      <p style="text-align:center; color:var(--color-text-light); font-size:13px; margin-top:24px; line-height:1.7;">
+        ヒント：既定ではすべての項目が「クリア（コピーしない）」です。引き継ぎたい項目にだけチェックを付けてください。ルックアップをクリアした場合は、再利用画面で新しいキーを取得してから保存してください。
+      </p>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-reuse-control-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-reuse-control" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
+        <li>動作するのは、標準の「レコードを再利用する」から開いたレコード追加画面のときだけです。通常の新規作成や、アプリアクション経由の別アプリへのコピーは対象外です。</li>
+        <li>ルックアップをクリアした場合、kintone の仕様上、空欄のままでは保存できません。再利用画面で新しいキーを取得してから保存してください。</li>
+        <li>初期値が設定されたラジオボタンは、kintone の仕様上クリアできず、初期値が選択されたままになります（他の型は初期値があっても空になります）。</li>
+        <li>添付ファイルは kintone 標準で再利用時に非コピーのため、本プラグインの制御対象外です。カレンダー・カスタマイズビューでは動作しません。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-reuse-control" />
+    <PluginFaqSection pluginId="kw-reuse-control" pageUrl="https://kizuna-works.jp/plugins/reuse-control/" />
+    <SupporterCTA pluginId="kw-reuse-control" />
+    <ShareButtons title="レコード再利用コントロール for kintone" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">一覧・レコード画面をさらに使いやすくする kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/conditional-numbering/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/conditional-numbering-banner.png" alt="条件分岐自動採番 for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">条件分岐自動採番</h3>
+            <p class="related-post-desc">保存時に条件分岐で自動採番。再利用コントロールと併用しても、採番番号は複製されず新しい番号が自動で振られます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/excel-paste/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/excel-paste-banner.png" alt="エクセル一括貼り付け for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">エクセル一括貼り付け</h3>
+            <p class="related-post-desc">Excel の表をクリップボードから一括入力。再利用で作った雛形に、明細をまとめて流し込むのに便利です。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/bulk-update/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/bulk-update-banner.png" alt="かんたん一括更新 for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">かんたん一括更新</h3>
+            <p class="related-post-desc">一覧から複数レコードの値をまとめて更新・クリア。再利用で量産したレコードの一括メンテナンスに役立ちます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ea-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('ea-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-reuse-control-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-reuse-control-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>
