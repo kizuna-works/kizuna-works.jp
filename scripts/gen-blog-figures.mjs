@@ -278,6 +278,21 @@ const FIGURES = [
     w: 1000, h: 210,
     el: flowCaptioned(['基準日フィールド', '開くたびに今日で再計算', '一覧・詳細に最新の値'], C.green, '経過計算アシストなら、開くたびに今日基準へ自動で計算し直す'),
   },
+  {
+    name: 'kintone-record-copy-reuse-flow',
+    w: 1000, h: 164,
+    el: flow(['詳細画面を開く', 'レコードを再利用する', '値がコピーされた追加画面', '直して保存']),
+  },
+  {
+    name: 'kintone-record-copy-reuse-problem',
+    w: 1000, h: 210,
+    el: flowCaptioned(['コピーできる項目を全部転記', 'いらない項目を手で消す', '消し忘れのリスク'], C.navy, '標準の再利用は、残したい項目も入れ直す項目も区別なくコピーする'),
+  },
+  {
+    name: 'kintone-record-copy-reuse-solution',
+    w: 1000, h: 210,
+    el: flowCaptioned(['「残す」項目にチェック', '再利用画面を開く', 'チェック以外は自動で空欄'], C.green, 'レコード再利用コントロールなら、残す項目だけ引き継いで、あとは自動で空にする'),
+  },
 ];
 
 const only = process.argv[2];
