@@ -46,9 +46,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "テーマスタイラー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "dateModified": "2026-06-11",
+          "dateModified": "2026-07-22",
+          "softwareVersion": "1.1.0",
           "url": "https://kizuna-works.jp/plugins/theme-styler/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-theme-styler-v1.0.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-theme-styler-v1.1.0.zip",
           "offers": {
             "@type": "Offer",
             "name": "基本プラン（無料）",
@@ -68,9 +69,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "カスタムボタン最大5個まで設置（横並び・位置独立指定）",
             "ボタンスタイル50種（立体/フラット/グラデ/アニメ/個性派）",
             "テーマカラー12種プリセット＋カラーピッカー（タイトル帯・ヘッダー・行・罫線・フォーム背景を一括着色）",
+            "レコード詳細画面の背景色・文字色を個別指定（自動/カスタム・v1.1.0）",
+            "サブテーブルヘッダーの背景色・文字色を個別指定（自動/カスタム・v1.1.0）",
             "10種の日本語フォント（アプリ名・タイトル帯テキスト・ボタンに連動）",
             "アプリ名・ヘッダー文字色の自動/カスタム切替",
-            "ライブプレビュー機能（保存前に見た目を確認）",
+            "ライブプレビュー機能（一覧＋レコード詳細を保存前に確認・v1.1.0で刷新）",
             "ノーコードで設定完結"
           ]
         }
@@ -182,6 +185,55 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       color: var(--color-text-light);
       font-size: 15px;
       margin-bottom: 48px;
+    }
+
+    /* Update highlight box */
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 8px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
     }
 
     /* Problem Cards */
@@ -596,10 +648,23 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.1</span>
+        <span class="hero-version">v1.1.0</span>
       </div>
       <h1 class="hero-title">テーマスタイラー for kintone</h1>
       <p class="hero-copy">kintoneアプリの<strong>テーマカラーを1色で統一</strong>しつつ、タイトル帯には<strong>関連 kintone アプリ・社内ポータル・マニュアル・外部 Web サイト</strong>へのクイックリンク（テキスト＋最大5個のボタン）を集約。アプリを「業務のハブ」として使えるようにする無料プラグインです。</p>
+    </section>
+
+    <!-- Update Highlight -->
+    <section class="section-wrapper fade-in" style="padding-top:48px;padding-bottom:0;">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.1.0：設定画面の視認性を向上し、レコード詳細画面・明細ヘッダーの色を個別指定できるようになりました</h2>
+        </div>
+        <p class="update-desc">これまでテーマカラーは1色から全画面の色を自動で決めていましたが、<strong>レコード詳細・編集・作成画面の背景色／文字色</strong>と<strong>サブテーブル（明細）ヘッダーの背景色／文字色</strong>を、それぞれ「自動（テーマカラー連動）／カスタム」で<strong>個別に指定</strong>できるようになりました。色はカラーピッカーに加えて<strong>カラーコード（#RRGGBB）</strong>でも入力できます。個別指定を使わない場合は従来どおりテーマカラーから自動で決まるため、<strong>これまでの設定はそのまま引き継がれます</strong>。</p>
+        <p class="update-desc">あわせて<strong>設定画面のレイアウトを刷新</strong>。ライブプレビューを画面の左側に固定し、<strong>「一覧画面」と「レコード詳細画面」の両方</strong>を表示するようにしました。中央で設定を編集しながら、色の変化を保存前に常に確認できます。</p>
+        <p class="update-note">既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone の<strong>システム管理 → プラグイン</strong>から上書きアップロードするだけで適用できます。</p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -679,8 +744,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           <li><span><strong>ボタンスタイル50種</strong> — 立体／フラット／グラデ／アニメ／個性派の5カテゴリ × 10種類。背景色・文字色・枠線色・サイズ（小/中/大）も個別調整。</span></li>
           <li><span><strong>位置の独立指定</strong> — テキスト位置・ボタン位置を左 / 中央 / 右で<strong>独立して</strong>指定。同位置の場合は並び順も指定可能。</span></li>
           <li><span><strong>テーマカラー（12種プリセット + カラーピッカー）</strong> — 1色で<strong>タイトル帯・一覧ヘッダー・データ行・罫線・フォーム背景</strong>まで派生色を自動生成して統一着色。</span></li>
+          <li><span><strong>詳細画面・明細ヘッダーの色を個別指定（v1.1.0）</strong> — レコード詳細・編集・作成画面の<strong>背景色／文字色</strong>と<strong>サブテーブルヘッダーの背景色／文字色</strong>を「自動（テーマカラー連動）／カスタム」で個別に設定。色は<strong>カラーコード（#RRGGBB）入力</strong>にも対応。未指定なら従来どおり自動で決まります。</span></li>
           <li><span><strong>10種の日本語フォント</strong> — Noto Sans / Noto Serif / メイリオ / 游ゴシック / ヒラギノ角ゴ・明朝 / 丸ゴシック / 等幅 / 手書き風。アプリ名・タイトル帯テキスト・ボタンに連動。</span></li>
-          <li><span><strong>設定画面ライブプレビュー</strong> — mini kintone モックで保存前に見た目を確認。長い設定をスクロールしてもプレビューは上部に常時表示。</span></li>
+          <li><span><strong>設定画面ライブプレビュー（v1.1.0で刷新）</strong> — <strong>一覧画面とレコード詳細画面の両方</strong>を mini kintone モックで表示。プレビューを画面左側に固定し、中央で設定を編集しながら保存前に色の変化を常時確認できます。</span></li>
           <li><span><strong>ノーコード完結</strong> — タブ式 UI（テーマカラー／タイトル帯）で迷わず設定。プログラミング知識は不要です。</span></li>
         </ul>
       </div>
@@ -800,7 +866,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           </div>
           <div class="screenshot-caption">
             <strong>ライブプレビュー（常時表示）</strong>
-            <p>設定変更がリアルタイムで反映される mini kintone モック。スクロールしても画面上部に貼り付くので、長い設定をしながらでも見え方を常に確認できます。</p>
+            <p>設定変更がリアルタイムで反映される mini kintone モック。一覧画面とレコード詳細画面の両方を、設定を編集しながら常に見える位置に固定表示。保存前に見え方を確認できます。</p>
           </div>
         </div>
         <div class="screenshot-item">
@@ -930,7 +996,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-theme-styler-v1.0.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-theme-styler-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -1065,10 +1131,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           gtag('event', 'file_download', {
-            file_name: 'kw-theme-styler-v1.0.1.zip',
+            file_name: 'kw-theme-styler-v1.1.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-theme-styler-v1.0.1.zip'
+            link_url: '/downloads/kw-theme-styler-v1.1.0.zip'
           });
         });
       }

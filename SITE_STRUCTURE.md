@@ -431,7 +431,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-comment-v1.0.1.zip                 # フィールドコメント for kintone 配布ファイル（旧版）
 │   │   ├── kw-field-comment-v1.0.2.zip                 # フィールドコメント for kintone 配布ファイル（v1.0.2・ゲストスペース対応）
 │   │   ├── kw-field-comment-v1.1.0.zip                 # フィールドコメント for kintone 配布ファイル（手動配置・v1.1.0 編集/新規画面対応＋アイコン10種＋カラーコード入力＋設定アコーディオン化）
-│   │   ├── kw-theme-styler-v1.0.1.zip                  # テーマスタイラー for kintone 配布ファイル（手動配置）
+│   │   ├── kw-theme-styler-v1.1.0.zip                  # テーマスタイラー for kintone 配布ファイル（手動配置・v1.1.0 詳細画面/明細ヘッダーの個別カラー指定＋設定画面v2レイアウト刷新）
 │   │   ├── kw-address-assist-v1.1.0.zip                # 住所アシスト for kintone 配布ファイル（手動配置・v1.1.0 でサブテーブル対応）
 │   │   ├── kw-address-assist-v1.0.2.zip                # 住所アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-quick-history-view-v1.0.2.zip            # クイック履歴ビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
