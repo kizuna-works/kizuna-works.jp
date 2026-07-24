@@ -181,6 +181,7 @@ kintoneの関連レコード一覧について、仕組みから設定・限界�
 
 KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効率化に役立つプラグイン・無料Webツールを提供しています。関連レコードやアプリ間連携の設計、集計の仕組みづくりのご相談も承っています。
 
+- [kintoneの関連レコード一覧とは（用語集）](/glossary/related-records/) — 機能の定義・ルックアップとの違いを短くおさらい
 - [kintoneルックアップとは？使い方・設定方法を徹底解説](/blog/kintone-lookup-kaisetsu/) — 関連レコード一覧と混同しやすいルックアップを基本から解説
 - [kintoneでBIのようにデータを可視化する方法](/blog/kintone-bi-tool-dashboard/) — 集計ダッシュボードの作り方と標準グラフの限界
 - [関連レコードポップアップ表示（無料）](/plugins/related-record-popup/) — 一覧画面でホバーするだけで関連レコードを確認
