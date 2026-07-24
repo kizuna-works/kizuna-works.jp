@@ -788,6 +788,29 @@ export const plugins: Plugin[] = [
     problemDesc: '似た案件をテンプレとして再利用したいのに、標準では全項目がコピーされ、要らない項目を毎回手作業で消している',
     releaseDate: '2026-07-20',
   },
+  {
+    id: 'kw-record-recovery',
+    name: '削除レコード復元 for kintone',
+    formName: '削除レコード復元 for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'record-recovery',
+    category: 'レコード画面',
+    description:
+      '削除したレコードを内容ごと元に戻せる kintone プラグイン。削除の直前に添付ファイルまで保管アプリへ自動バックアップし、一覧画面や設定画面の履歴からワンクリックで復元できます。削除の成否に連動する二段階コミットで、バックアップだけが残る不整合を防ぎます。kintone完結。',
+    image: '/images/record-recovery-banner.png',
+    imageWebp: '/images/record-recovery-banner.webp',
+    imageAlt:
+      '削除レコード復元 for kintone プラグイン — 削除の直前に内容と添付ファイルを保管アプリへ自動バックアップし、一覧画面や設定画面の履歴からワンクリックで復元できる',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      'うっかり削除したレコードを元に戻せる。削除直前に添付ごと保管アプリへ自動バックアップし、履歴からワンクリックで復元。kintone完結。',
+    problemTitle: '誤って削除したレコードが元に戻せない',
+    problemDesc: 'kintone には削除レコードを復元する標準機能がなく、うっかり消すと内容も添付ファイルも失われてしまう',
+    releaseDate: '2026-07-24',
+  },
 ];
 
 /**

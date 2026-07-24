@@ -1,0 +1,1026 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="削除レコード復元 for kintone - 削除したレコードを元に戻すプラグイン | KIZUNA Works"
+  description="kintone で削除したレコードを内容ごと元に戻せるプラグイン。削除の直前に添付ファイルまで保管アプリへ自動バックアップし、一覧画面や設定画面の履歴からワンクリックで復元。削除の成否に連動する二段階コミットで不整合を防ぎ、保管アプリのアクセス権で他人の削除データは見せません。kintone完結・外部API不使用・ゲストスペース対応。"
+  ogTitle="削除レコード復元 for kintone - 削除したレコードを元に戻すプラグイン | KIZUNA Works"
+  ogDescription="うっかり削除したレコードを元に戻せる kintone プラグイン。削除直前に添付ごと自動バックアップし、履歴からワンクリックで復元。二段階コミットで不整合を防止。kintone完結・外部API不使用。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/record-recovery/"
+  ogImage="https://kizuna-works.jp/images/record-recovery-banner.png"
+  canonical="https://kizuna-works.jp/plugins/record-recovery/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/record-recovery/",
+          "url": "https://kizuna-works.jp/plugins/record-recovery/",
+          "name": "削除レコード復元 for kintone - 削除したレコードを元に戻すプラグイン | KIZUNA Works",
+          "description": "kintone で削除したレコードを内容（添付ファイル含む）ごと元に戻せるプラグイン。削除の直前に保管アプリへ自動バックアップし、一覧画面や設定画面の履歴からワンクリックで復元する。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/record-recovery-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "削除レコード復元 for kintone", "item": "https://kizuna-works.jp/plugins/record-recovery/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "削除レコード復元 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-07-24",
+          "url": "https://kizuna-works.jp/plugins/record-recovery/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-record-recovery-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/record-recovery-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone で削除したレコードを内容（添付ファイル含む）ごと元に戻せる kintone プラグイン。削除の直前に保管アプリへ自動バックアップし、削除の成否に連動する二段階コミットで整合性を保ちながら、一覧画面や設定画面の履歴からワンクリックで復元する。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "レコード削除の直前に内容（添付ファイル含む）を保管アプリへ自動バックアップ",
+            "削除の成否に連動する二段階コミットで、バックアップだけが残る不整合を防止",
+            "一覧画面の「削除履歴」ボタン、または設定画面の履歴タブからワンクリックで復元",
+            "保管アプリはスペース内でワンクリック自動生成・複数アプリで共有",
+            "レコード単位のアクセス権で、管理者は全件・一般ユーザーは自分の削除分だけを閲覧",
+            "保持期間／件数で古いバックアップを自動整理・GAS不要・kintone完結・ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .feature-list li code {
+      background: #eef1f4;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    /* Prominent warning callout (mobile / large record) */
+    .warn-box {
+      max-width: 900px;
+      margin: 0 auto 32px;
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      border-left: 5px solid #ea580c;
+      border-radius: 10px;
+      padding: 20px 24px;
+    }
+    .warn-box h3 {
+      color: #b45309;
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 10px;
+    }
+    .warn-box p {
+      color: #7c2d12;
+      font-size: 14px;
+      line-height: 1.8;
+      margin: 0 0 8px;
+    }
+    .warn-box p:last-child { margin-bottom: 0; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot frames — sized to the image's natural width (not upscaled),
+       centered, and clickable to enlarge in the lightbox. */
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+      cursor: zoom-in;
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Zoomable images + lightbox overlay (small screenshots open enlarged) */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/record-recovery-icon.png"
+        alt="削除レコード復元 for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">削除レコード復元 for kintone</h1>
+      <p class="hero-copy">削除レコード復元 for kintone は、kintone で<strong>削除したレコードを内容（添付ファイル含む）ごと元に戻せる</strong>プラグインです。レコード削除の直前に保管アプリへ自動バックアップし、削除の成否に連動する二段階コミットで整合性を保ちながら、一覧画面や設定画面の履歴から<strong>ワンクリックで復元</strong>できます。kintone には削除レコードを復元する標準機能がないため、うっかり削除の「もしも」に備えます。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">kintone には削除したレコードを元に戻す標準機能がありません。うっかり消すと、内容も添付ファイルも取り戻せなくなります。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🗑️</span>
+            <h3 class="problem-title">誤って削除したら元に戻せない</h3>
+            <p class="problem-desc">操作ミスで大切なレコードを削除。標準では復元手段がなく、入力し直すか、最悪あきらめるしかない。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📎</span>
+            <h3 class="problem-title">添付ファイルまで失われる</h3>
+            <p class="problem-desc">見積書や契約書などの添付も、レコードと一緒に消えてしまう。元のファイルが手元にないと取り返しがつかない。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🔐</span>
+            <h3 class="problem-title">削除履歴を誰でも見られると困る</h3>
+            <p class="problem-desc">復元の仕組みを入れても、他人の削除データまで全員に見えてしまうと情報漏えいのリスクになる。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Usage: restore flow -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">使い方：削除履歴からワンクリックで復元</h2>
+      <p class="section-subtitle">設定済みのアプリでレコードを削除すると、削除の直前に自動でバックアップされます。復元は、一覧画面の「削除履歴」ボタンから一覧を開き、戻したいレコードにチェックして復元するだけ。各画像はクリックで拡大できます。</p>
+      <div class="screenshot-pair cols-2">
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/record-recovery-list.png" alt="削除レコード復元 一覧画面 — ツールバーに「削除履歴」ボタンが表示され、削除されたレコードの履歴を開ける" loading="lazy" />
+          </div>
+          <figcaption>一覧画面の「削除履歴」ボタン（表示するユーザーは設定で限定できます）</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/record-recovery-modal.png" alt="削除レコード復元 復元モーダル — 削除されたレコードの一覧。見出しと選んだ項目のプレビュー、削除日時・削除者・添付件数を表示し、チェックして復元できる" loading="lazy" />
+          </div>
+          <figcaption>履歴から戻したいレコードを選んで「選択したレコードを復元」</figcaption>
+        </figure>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Features -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">できること</h2>
+        <p class="section-subtitle">導入はプラグインを追加して「保管アプリを自動作成」を押すだけ。プログラミングも外部サービスも不要です。</p>
+        <ul class="feature-list">
+          <li><span><strong>削除前の自動バックアップ</strong> — レコード削除の直前に、内容（設定によっては添付ファイルも）を同じスペース内の保管アプリへ自動退避します。ユーザーの特別な操作は不要です。</span></li>
+          <li><span><strong>二段階コミットで不整合を防止</strong> — 「削除の直前に退避（pending）→ 削除成功後に確定（confirmed）」の二段階方式。削除をやめた・失敗したときにバックアップだけが残る不整合が起きません。</span></li>
+          <li><span><strong>ワンクリックで復元</strong> — 一覧画面の「削除履歴」ボタン、または設定画面の「削除履歴」タブから、戻したいレコードを選んで復元。元アプリに新しいレコードとして再作成されます。</span></li>
+          <li><span><strong>保管アプリを自動生成・共有</strong> — 設定画面のボタンで保管アプリをワンクリック作成。同じスペースに既にあれば自動で再利用し、複数アプリで 1 つの保管アプリを共有できます。</span></li>
+          <li><span><strong>アクセス権でしっかり保護</strong> — レコード単位のアクセス権で、指定した「バックアップ管理者」は全件を、一般ユーザーは<strong>自分が削除した分だけ</strong>を閲覧・復元。他人の削除データは見えません。履歴ボタンの表示対象も限定できます。</span></li>
+          <li><span><strong>自動整理・kintone完結</strong> — 保持期間（10/30/60/90日）または件数（100/500/1000件）で古いバックアップを自動整理。GAS・外部サービス不要で、ゲストスペースにも対応します。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Config Screen Walkthrough -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">設定画面</h2>
+      <p class="section-subtitle">「保管アプリ」「バックアップ管理者」「削除履歴ボタンの表示」を設定するだけ。保管アプリはボタンひとつで自動生成できます。画像はクリックで拡大できます。</p>
+      <div class="config-screenshots">
+        <div class="config-shot">
+          <img class="zoomable" src="/images/record-recovery-config-01.png" alt="削除レコード復元 設定画面 — 保管アプリを自動作成するボタン、作成済みの状態表示、すべての削除履歴を閲覧・復元できるバックアップ管理者の指定" loading="lazy" />
+          <div class="config-shot-caption">
+            <strong>保管アプリ・バックアップ管理者</strong>
+            <p>「保管アプリを自動作成」でワンクリック生成。すべての削除履歴を閲覧・復元できる管理者を指定します（一般ユーザーは自分の削除分だけ）。</p>
+          </div>
+        </div>
+        <div class="config-shot">
+          <img class="zoomable" src="/images/record-recovery-config-02.png" alt="削除レコード復元 設定画面 — 一覧画面に削除履歴ボタンを表示する設定、表示を許可するユーザー／組織／グループ、ボタンの色・大きさ・配置" loading="lazy" />
+          <div class="config-shot-caption">
+            <strong>削除履歴ボタンの表示</strong>
+            <p>一覧に「削除履歴」ボタンを出すか、表示を許可する対象（ユーザー／組織／グループ）を指定。ボタンの色・大きさ・配置も選べます。</p>
+          </div>
+        </div>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Restore caveats -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">復元時に知っておきたいこと</h2>
+        <p class="section-subtitle">復元は「新しいレコードとして再作成」します。入力値は元どおり戻りますが、一部の項目は再作成時の値になります。</p>
+        <ul class="feature-list" style="max-width:900px;margin:0 auto;">
+          <li><span><strong>入力値は元どおり戻ります</strong> — 文字・数値・日付・時刻・選択・テーブル・添付ファイルなどは、削除前の内容で復元されます。</span></li>
+          <li><span><strong>必ず変わる項目</strong> — レコード番号（新規採番）、作成者・作成日時・更新者・更新日時（復元した人・日時）、ステータス・作業者（初期状態）、カテゴリー（未付与）。計算は復元後の値から再計算されます。</span></li>
+          <li><span><strong>ルックアップ</strong> — コピー済みの値は復元されますが、参照先レコードとの紐付けは再取得（再選択）が必要な場合があります。</span></li>
+        </ul>
+        <div class="warn-box" style="margin-top:32px;">
+          <h3>⚠ ご利用前に必ずご確認ください</h3>
+          <p><strong>モバイルで削除したレコードは保護されません。</strong>本プラグインは PC 版のレコード画面でのみ動作します（v1.0.0）。モバイルアプリ／スマートフォンのブラウザで削除するとバックアップされず、復元できません。復元を確実にしたい運用では、削除操作は PC 版で行ってください。</p>
+          <p><strong>データ量が非常に大きいレコードはバックアップできません。</strong>書式編集（リッチエディター）の長い本文や、行数が極端に多いテーブルを含むレコードは、バックアップの上限を超える場合があります。その際はデータを失わないよう<strong>削除自体を中止</strong>し、その旨のメッセージを表示します。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">PC 版のレコード一覧／詳細画面で動作します。保管アプリを作成するため、アプリ作成権限のあるユーザーで設定してください。</p>
+      <ol class="steps-list">
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-record-recovery-v1.0.0.zip</code> をダウンロード</span></li>
+        <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+        <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「削除レコード復元 for kintone」を追加</span></li>
+        <li><span>プラグイン設定画面で<strong>「保管アプリを自動作成」</strong>を押し、バックアップ管理者・削除履歴ボタンの表示を設定して「保存」</span></li>
+        <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると設定が反映されます</span></li>
+      </ol>
+      <p style="text-align:center; color:var(--color-text-light); font-size:13px; margin-top:24px; line-height:1.7;">
+        ヒント：保管アプリはスペース内アプリでのみ自動生成できます。複数アプリで使う場合も、同じスペースなら 1 つの保管アプリを共有します。
+      </p>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-record-recovery-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-record-recovery" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
+        <li>PC 版のみ対応です（モバイルは v1.0.0 では非対応）。モバイルで削除したレコードはバックアップされず、復元できません。</li>
+        <li>データ量が極端に大きいレコード（長いリッチエディター本文・多数のテーブル行など）はバックアップできず、その場合は削除自体を中止します。</li>
+        <li>復元は新しいレコードとしての再作成です。レコード番号・作成者・作成日時・更新者・更新日時・ステータス・作業者・カテゴリー・計算は再作成時の値になります。</li>
+        <li>カレンダー・カスタマイズビューでは「削除履歴」ボタンは表示されません。</li>
+        <li>削除を実行できるユーザーは保管アプリへの追加権限が必要なため、保管アプリをアプリ一覧から完全に隠すことはできません（中身はレコードのアクセス権で保護されます）。</li>
+        <li>保管アプリのレコードを手動で編集・削除した場合の整合性は保証対象外です。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-record-recovery" />
+    <PluginFaqSection pluginId="kw-record-recovery" pageUrl="https://kizuna-works.jp/plugins/record-recovery/" />
+    <SupporterCTA pluginId="kw-record-recovery" />
+    <ShareButtons title="削除レコード復元 for kintone" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">レコードの操作・保護をさらに便利にする kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/record-lock/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/record-lock-banner.png" alt="レコードロック for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">レコードロック</h3>
+            <p class="related-post-desc">条件を満たしたレコードの編集・削除をロック。そもそも消させない予防と、消えても戻せる復元を組み合わせられます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/reuse-control/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/reuse-control-banner.png" alt="レコード再利用コントロール for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">レコード再利用コントロール</h3>
+            <p class="related-post-desc">再利用時にコピーする項目を選べるプラグイン。復元後の再入力や、雛形からの新規作成と相性のよい組み合わせです。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/bulk-update/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/bulk-update-banner.png" alt="かんたん一括更新 for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">かんたん一括更新</h3>
+            <p class="related-post-desc">一覧から複数レコードの値をまとめて更新・クリア。Undo（元に戻す）付きで、うっかりに強い運用ができます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ea-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('ea-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-record-recovery-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-record-recovery-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>
