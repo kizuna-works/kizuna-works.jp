@@ -188,7 +188,8 @@ c:\kizuna-works.jp\
 │   │       ├── kintone-category.md                  # 「kintoneカテゴリー機能｜設定・使い方と絞り込み・選択肢との違い」記事（実機スクショ3枚・比較表）
 │   │       ├── kintone-kensaku-plugin-hikaku.md     # 「kintoneの検索・絞り込みを改善するプラグイン比較【2026年版】」記事
 │   │       ├── kintone-quick-side-view-plugin-hikaku.md # 「kintone一覧でレコードを閲覧・編集できるプラグイン比較」記事
-│   │       └── kintone-lookup-plugin-hikaku.md      # 「【2026年最新】kintoneルックアップを快適にするプラグイン比較」記事（入力サジェスト/自動取得/先更新/編集絞り込みの4アプローチ比較）
+│   │       ├── kintone-lookup-plugin-hikaku.md      # 「【2026年最新】kintoneルックアップを快適にするプラグイン比較」記事（入力サジェスト/自動取得/先更新/編集絞り込みの4アプローチ比較）
+│   │       └── kintone-backup.md                    # 「kintoneのバックアップはどうする？標準の限界とプラグイン・サービス比較」記事（標準/kBackup/削除レコード復元・図解4＋実機/プラグインスクショ・Gemini製ヒーローバナー kintone-backup.png）
 │   └── styles/
 │       └── global.css          # グローバルCSS（最小リセット・スティッキーフッター用）
 │
