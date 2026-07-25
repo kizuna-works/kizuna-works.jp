@@ -30,6 +30,14 @@ const fmt = (d: Date) =>
 
 const pageUrl = `https://kizuna-works.jp/news/${item.id}/`;
 const cat = item.data.category;
+
+// Blog announcement entries (slug prefix "blog-") only summarize an existing blog
+// article, so they compete with the article itself in search. GSC (90 days) showed
+// 26 such pages earning 259 impressions and 0 clicks while outranking the real
+// articles on high-value queries. Keep them reachable from /news/ and the RSS feed
+// for readers, but exclude them from the search index (also filtered out of the
+// sitemap in astro.config.mjs).
+const isBlogAnnouncement = item.id.startsWith('blog-');
 const pubIso = item.data.pubDate.toISOString();
 const modIso = (item.data.updatedDate ?? item.data.pubDate).toISOString();
 const ogImage = item.data.ogImage
@@ -84,6 +92,7 @@ const jsonLd = {
   ogType="article"
   ogImage={ogImage}
   canonical={pageUrl}
+  noindex={isBlogAnnouncement}
 >
   <Fragment slot="head">
     <link rel="alternate" type="application/rss+xml" title="KIZUNA Works お知らせ RSS" href="/news/rss.xml" />

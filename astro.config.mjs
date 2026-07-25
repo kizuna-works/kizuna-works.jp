@@ -103,8 +103,11 @@ export default defineConfig({
     mdx(),
     sitemap({
       customPages: [...toolUrls],
-      // Exclude supporter-only request form from sitemap (URL-only access for supporters)
-      filter: (page) => !page.includes('/plugins/supporter/request/'),
+      // Exclude from sitemap:
+      // - supporter-only request form (URL-only access for supporters)
+      // - blog announcement news pages (noindex; they duplicate the blog article)
+      filter: (page) =>
+        !page.includes('/plugins/supporter/request/') && !page.includes('/news/blog-'),
       serialize(item) {
         const lastmod = resolveLastmod(item.url);
         return lastmod ? { ...item, lastmod } : item;
