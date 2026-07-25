@@ -811,6 +811,29 @@ export const plugins: Plugin[] = [
     problemDesc: 'kintone には削除レコードを復元する標準機能がなく、うっかり消すと内容も添付ファイルも失われてしまう',
     releaseDate: '2026-07-24',
   },
+  {
+    id: 'kw-read-check',
+    name: '既読チェック for kintone',
+    formName: '既読チェック for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'read-check',
+    category: 'レコード画面',
+    description:
+      'レコードを開いた人を自動で記録できる kintone プラグイン。詳細画面を開くだけでログインユーザーを既読記録し、右サイドバーの「既読」タブ（コメント・変更履歴の並び）から誰が・いつ・何回読んだかを一覧表示。編集回数も別集計。レコード本体は汚さず保管アプリに分離、kintone完結。',
+    image: '/images/read-check-banner.png',
+    imageWebp: '/images/read-check-banner.webp',
+    imageAlt:
+      '既読チェック for kintone プラグイン — レコード詳細画面を開いた人を自動で既読記録し、右サイドバーの「既読」タブから誰が・いつ・何回読んだかを一覧表示できる',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '通達や回覧を誰が読んだか自動で記録。詳細画面を開くだけで既読を残し、サイドバーの「既読」タブで一覧表示。kintone完結。',
+    problemTitle: '誰がレコードを読んだのか分からない',
+    problemDesc: '通達や回覧レコードを作っても、標準では閲覧記録が残らず、読んだかどうかを一人ずつ聞いて回っている',
+    releaseDate: '2026-07-25',
+  },
 ];
 
 /**

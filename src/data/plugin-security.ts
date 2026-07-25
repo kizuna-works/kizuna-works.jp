@@ -189,6 +189,15 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-read-check': {
+    extraComm: [
+      {
+        label: '既読／編集ログの記録・管理者候補の取得（自ドメイン内）',
+        detail:
+          '既読・編集の記録と一覧表示は、同一スペース内に自動生成する「既読チェック管理」保管アプリ（kintoneアプリ）に対する自ドメインの kintone REST API（/k/v1/records の GET／POST／PUT）で行います。保管アプリの自動生成・不足項目の追加・アクセス権設定は preview/app 系 API（/k/v1/preview/app・/preview/app/form/fields・/preview/app/settings・/preview/app/acl・/preview/record/acl・/preview/app/deploy）で行います。設定画面の「既読ログ管理者」候補の取得のみ、ご利用中の kintone ドメイン内の cybozu.com 共通管理API（/v1/users・/v1/organizations・/v1/groups）を呼び出します。ログインユーザーの取得は kintone.getLoginUser()（通信なし）です。いずれもご利用中の kintone ドメイン内で完結し、外部の第三者へは送信しません。記録するのは「誰が・いつ・何回、閲覧／編集したか」のみで、レコードの入力値は保存しません。第三者CDN・外部サーバーは利用しません。',
+      },
+    ],
+  },
 };
 
 /**
