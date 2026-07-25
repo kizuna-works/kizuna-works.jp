@@ -191,7 +191,8 @@ c:\kizuna-works.jp\
 │   │       ├── kintone-kensaku-plugin-hikaku.md     # 「kintoneの検索・絞り込みを改善するプラグイン比較【2026年版】」記事
 │   │       ├── kintone-quick-side-view-plugin-hikaku.md # 「kintone一覧でレコードを閲覧・編集できるプラグイン比較」記事
 │   │       ├── kintone-lookup-plugin-hikaku.md      # 「【2026年最新】kintoneルックアップを快適にするプラグイン比較」記事（入力サジェスト/自動取得/先更新/編集絞り込みの4アプローチ比較）
-│   │       └── kintone-backup.md                    # 「kintoneのバックアップはどうする？標準の限界とプラグイン・サービス比較」記事（標準/kBackup/削除レコード復元・図解4＋実機/プラグインスクショ・Gemini製ヒーローバナー kintone-backup.png）
+│   │       ├── kintone-backup.md                    # 「kintoneのバックアップはどうする？標準の限界とプラグイン・サービス比較」記事（標準/kBackup/削除レコード復元・図解4＋実機/プラグインスクショ・Gemini製ヒーローバナー kintone-backup.png）
+│   │       └── kintone-henkou-rireki.md             # 「kintone変更履歴完全ガイド｜確認方法・監査ログとの違い・「誰が見たか」の残し方」記事（変更履歴/ステータスの履歴/監査ログの3種類・欠番・保存期間・非表示・CSV不可・既読チェック紹介／図解 kintone-rireki-3types.svg・Gemini製ヒーローバナー kintone-henkou-rireki.png）
 │   └── styles/
 │       └── global.css          # グローバルCSS（最小リセット・スティッキーフッター用）
 │
