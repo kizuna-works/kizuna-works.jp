@@ -9,7 +9,7 @@ import RelatedPosts from '../components/RelatedPosts.astro';
 type Heading = { depth: number; slug: string; text: string };
 type Props = CollectionEntry<'blog'>['data'] & { slug: string; toc?: boolean; headings?: Heading[] };
 
-const { title, description, pubDate, updatedDate, heroImage, ogImage, author, tags, slug, toc, headings = [] } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, ogImage, author, tags, slug, toc, noindex, headings = [] } = Astro.props;
 
 const formattedPubDate = pubDate.toLocaleDateString('ja-JP', {
   year: 'numeric',
@@ -80,6 +80,7 @@ const jsonLd = {
   ogImage={ogImageUrl}
   ogType="article"
   canonical={canonicalUrl}
+  noindex={noindex ?? false}
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>

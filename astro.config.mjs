@@ -49,6 +49,29 @@ function buildContentDateMap(dirRel) {
 const newsDates = buildContentDateMap('src/content/news');
 const blogDates = buildContentDateMap('src/content/blog');
 
+/**
+ * Blog posts whose frontmatter sets `noindex: true`. They render a robots noindex
+ * tag (see BlogPost.astro) and are dropped from the sitemap here, so the two never
+ * disagree. Reading the frontmatter keeps this list from drifting as posts change.
+ */
+function buildNoindexBlogPaths() {
+  const dir = path.join(__dirname, 'src/content/blog');
+  const paths = [];
+  for (const f of readdirSync(dir)) {
+    if (!/\.(md|mdx)$/.test(f)) continue;
+    try {
+      const m = readFileSync(path.join(dir, f), 'utf-8').match(/^---\n([\s\S]*?)\n---/);
+      if (m && /^noindex:\s*true\s*$/m.test(m[1])) {
+        paths.push(`/blog/${f.replace(/\.(md|mdx)$/, '')}/`);
+      }
+    } catch {
+      /* unreadable file: leave it in the sitemap rather than guess */
+    }
+  }
+  return paths;
+}
+const noindexBlogPaths = buildNoindexBlogPaths();
+
 // plugins.ts: extract `slug: 'xxx', ... releaseDate: 'YYYY-MM-DD'` pairs.
 function buildPluginDateMap() {
   const map = {};
@@ -106,8 +129,11 @@ export default defineConfig({
       // Exclude from sitemap:
       // - supporter-only request form (URL-only access for supporters)
       // - blog announcement news pages (noindex; they duplicate the blog article)
+      // - blog posts with `noindex: true` in frontmatter
       filter: (page) =>
-        !page.includes('/plugins/supporter/request/') && !page.includes('/news/blog-'),
+        !page.includes('/plugins/supporter/request/') &&
+        !page.includes('/news/blog-') &&
+        !noindexBlogPaths.some((p) => page.endsWith(p)),
       serialize(item) {
         const lastmod = resolveLastmod(item.url);
         return lastmod ? { ...item, lastmod } : item;

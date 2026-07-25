@@ -17,6 +17,11 @@ const blog = defineCollection({
 			// Auto table-of-contents from H2 headings. Shown by default on long posts;
 			// set false to suppress (e.g. a post with its own custom in-body TOC).
 			toc: z.boolean().optional(),
+			// Keep the post out of the search index (robots noindex + excluded from the
+			// sitemap in astro.config.mjs). For posts that exist as documentation for
+			// current users but target a phrase with no search demand, so Google would
+			// leave them "crawled - currently not indexed" anyway.
+			noindex: z.boolean().optional(),
 		}),
 });
 
