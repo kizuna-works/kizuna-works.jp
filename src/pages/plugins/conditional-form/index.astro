@@ -52,10 +52,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "条件分岐フォーム for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.0.0",
-          "dateModified": "2026-07-14",
+          "softwareVersion": "2.1.0",
+          "dateModified": "2026-07-29",
           "url": "https://kizuna-works.jp/plugins/conditional-form/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-form-v2.0.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-form-v2.1.0.zip",
           "image": "https://kizuna-works.jp/images/conditional-form-banner.png",
           "offers": {
             "@type": "Offer",
@@ -65,7 +65,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "区分・ステータス・入力値などの条件に応じて、フォームのフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに動的制御する kintone プラグイン。v2.0.0 では条件に「対象ユーザー（特定のユーザー・組織・グループ）」を追加。条件→動作をルールで設定し、1つのアプリで区分別・担当者別フォームをノーコードで実現する。",
+          "description": "区分・ステータス・入力値などの条件に応じて、フォームのフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに動的制御する kintone プラグイン。v2.1.0 では「が次のいずれかに一致する／いずれにも一致しない」で複数の値を1行で指定でき、AND/OR の誤設定（常に成立・決して成立しない条件）は警告して保存をブロックする。条件→動作をルールで設定し、1つのアプリで区分別・担当者別フォームをノーコードで実現する。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -79,6 +79,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "条件成立時に選択肢を絞り込む（表示する選択肢を限定）",
             "選択肢・数値・日付（TODAY±N）・プロセス管理ステータスを条件に利用",
             "対象ユーザー条件（v2.0.0）：特定のユーザー・組織・グループのときだけルールを適用",
+            "複数値条件（v2.1.0）：「が次のいずれかに一致する／いずれにも一致しない」で複数の値を1行で指定",
+            "AND/OR の誤設定（常に成立・決して成立しない条件）を警告し保存をブロック（v2.1.0）",
+            "設定画面のルールは折りたたみ式・閉じた状態で内容が1行で分かる（v2.1.0）",
             "1ルールで複数の対象に動作を適用・優先順位はドラッグで変更",
             "安全則で競合解決（非表示＞読み取り専用＞必須）",
             "条件で表示された項目を枠線ハイライト・必須項目に必須バッジ",
@@ -159,7 +162,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       margin-bottom: 24px;
     }
 
-    /* Update box (v2.0.0) */
+    /* Update box (latest release) */
     .update-section { max-width: 980px; margin: 32px auto 0; padding: 0 20px; }
     .update-box {
       background: #f6fff6;
@@ -724,44 +727,38 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.0.0</span>
+        <span class="hero-version">v2.1.0</span>
       </div>
       <h1 class="hero-title">条件分岐フォーム for kintone</h1>
       <p class="hero-copy">区分・ステータス・入力値などの条件に応じて、フォームのフィールドを「表示／非表示・必須化・読み取り専用・自動入力・選択肢の絞り込み」に切り替える kintone プラグインです。「条件 → 動作」をルールで設定するだけで、1つのアプリの中に区分別の入力フォームをノーコードで作れます。入力の流れ・入力ミス・項目の取捨選択を、条件で自然に制御します。</p>
     </section>
 
-    <!-- Update Notice (v2.0.0) -->
+    <!-- Update Notice (v2.1.0) -->
     <section class="update-section fade-in">
       <div class="update-box">
         <div>
           <span class="update-tag">UPDATE</span>
-          <span class="update-date">v2.0.0（2026年7月14日）</span>
+          <span class="update-date">v2.1.0（2026年7月29日）</span>
         </div>
-        <h2 class="update-title">「対象ユーザー」条件を追加しました（ユーザー・組織・グループ別に適用）</h2>
+        <h2 class="update-title">「〇〇のいずれか」「〇〇以外」を 1 行で指定できるようになりました</h2>
         <p class="update-desc">
-          これまでの条件（区分・ステータス・入力値）に加えて、<strong>「誰が操作しているか」</strong>でルールの適用を切り替えられるようになりました。ルールごとに<strong>特定のユーザー・組織・グループ</strong>を指定でき、そのアカウントで開いたときだけ表示・必須化・読み取り専用・自動入力・選択肢の絞り込みを働かせられます。<br>
-          たとえば「<strong>承認欄は承認グループにだけ表示</strong>」「<strong>金額は経理部だけ編集可・他部署は読み取り専用</strong>」といった、担当者・部署ごとのフォーム出し分けが、フィールド条件と組み合わせて（AND）ノーコードで実現します。対象ユーザーだけを指定して、条件なしで適用することもできます。
+          条件の演算子に <strong>「が次のいずれかに一致する」</strong> と <strong>「が次のいずれにも一致しない」</strong> を追加しました。ドロップダウンやラジオなどの選択肢フィールドでは<strong>チェックリストから複数の値をまとめて選べます</strong>（文字列フィールドはカンマ区切り）。<br>
+          「雇用形態が A・B・C・D・E <strong>以外</strong>のときだけ金額欄を隠す」「ステータスが 差戻し・申請中 <strong>のいずれか</strong>のときだけ備考を必須にする」といった指定が、<strong>条件 1 行</strong>で書けます。条件は最大 5 件のままですが、1 行に何個でも値を入れられるので、5 種類を超える値の指定にも対応できます。
         </p>
-        <div class="update-shot">
-          <img
-            class="zoomable"
-            src="/images/conditional-form-config-04.png"
-            alt="条件分岐フォーム 設定画面：ルールの「対象ユーザー」でユーザー・組織・グループを選ぶUI"
-            width="1280"
-            height="360"
-            loading="lazy"
-          />
-          <p class="update-shot-cap">画像をクリックすると拡大表示します</p>
-        </div>
-        <h3 class="update-subtitle">あわせて、テーブル・関連レコード一覧の表示制御に対応</h3>
+        <h3 class="update-subtitle">AND / OR の勘違いを、設定画面が止めます</h3>
         <p class="update-desc">
-          動作の「対象」に<strong>サブテーブル</strong>と<strong>関連レコード一覧（関連テーブル）</strong>を追加しました。条件に応じて<strong>表全体をまるごと表示／非表示</strong>できます。「区分が〇〇のときだけ明細テーブルを表示」「特定のステータスのときだけ関連レコード一覧を表示」といった出し分けが可能です。<br>
-          ※ テーブル・関連テーブルは表示／非表示のみ対応します。関連レコード一覧は新規作成画面には表示されないため、詳細・編集画面での出し分けが対象です。
+          同じ意味を「等しくない」の複数行 ＋ <strong>OR</strong> で書くと、<strong>どの値でも必ず条件が成立</strong>してしまいます（1 つのフィールドが同時に複数の値になることはないため）。逆に「等しい」の複数行 ＋ <strong>AND</strong> は<strong>決して成立しません</strong>。<br>
+          v2.1.0 では、この 2 つの組み合わせを設定画面が検出して<strong>その場で警告し、保存もブロック</strong>します。あわせて正しい書き方（上記の 1 行指定）を案内するので、「設定したのに全レコードで隠れてしまう」「何をしても動かない」という取り違えが起きません。
+        </p>
+        <h3 class="update-subtitle">設定画面のルールを折りたたみ式にしました</h3>
+        <p class="update-desc">
+          ルールが増えると設定画面が縦に長くなっていたため、<strong>ルールカードを開閉式</strong>にしました。閉じているときは<strong>適用画面・条件の要約・動作の件数が 1 行</strong>で並ぶので、ルール全体を一覧しながら目的のルールだけ開いて編集できます。<strong>「すべて開く／すべて閉じる」</strong>も用意しました。<br>
+          誤った条件のルールには、閉じたままでも分かるように<strong>「要確認」バッジ</strong>を表示します。
         </p>
         <p class="update-note">
-          対象ユーザー・組織・グループの<strong>いずれか</strong>に一致すれば適用（未指定なら全員に適用）。組織は直接の所属で判定します。<br>
-          既存の設定はそのまま引き継がれます。最新版（v2.0.0）をダウンロードし、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用できます。<br>
-          ※ グループ（ロール）による判定は、ゲストスペースでは kintone の仕様上ご利用いただけません（ユーザー・組織による判定は可能です）。
+          既存の設定はそのまま引き継がれます。最新版（v2.1.0）をダウンロードし、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用できます。<br>
+          ※ すでに「等しくない」の複数行 ＋ OR で保存済みのルールは、動作はそれまでと変わりません。設定画面を開くと警告が表示されるので、<strong>「が次のいずれにも一致しない」1 行にまとめる</strong>か、結合を <strong>AND</strong> に変更してください。<br>
+          ※ チェックボックス・複数選択・ユーザー／組織／グループ選択は同時に複数の値を持てるため、警告の対象外です（正しい設定として扱います）。
         </p>
       </div>
     </section>
@@ -886,6 +883,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <h2 class="section-title-left">主な機能</h2>
         <ul class="feature-list">
           <li class="feature-hero"><span><span class="feature-hero-badge">目玉機能</span><strong>対象ユーザーで適用先を限定（v2.0.0）</strong> — ルールを<strong>特定のユーザー・組織・グループ</strong>だけに適用できます。「承認欄は承認グループにだけ表示」「金額は経理部だけ編集可・他部署は読み取り専用」など、<strong>担当者・部署ごとのフォーム出し分け</strong>を、フィールドの条件と組み合わせて（AND）ノーコードで実現。未指定なら全員に適用します。</span></li>
+          <li><span><strong>複数の値をまとめて条件に（v2.1.0）</strong> — 「が次のいずれかに一致する」「が次のいずれにも一致しない」で、<strong>複数の値を条件 1 行</strong>で指定できます（選択肢フィールドはチェックリスト、文字列はカンマ区切り）。「A・B・C 以外のときだけ隠す」が 1 行で書けます。</span></li>
+          <li><span><strong>誤った条件を警告・保存ブロック（v2.1.0）</strong> — 「等しくない」複数行＋OR（常に成立）や「等しい」複数行＋AND（決して成立しない）を検出し、設定画面でその場に警告を表示して保存を止めます。意図と逆の動きになる取り違えを防ぎます。</span></li>
+          <li><span><strong>ルールは折りたたみ式（v2.1.0）</strong> — ルールカードを開閉でき、閉じた状態では適用画面・条件の要約・動作件数が1行で分かります。「すべて開く／閉じる」つき。ルールが増えても設定画面が長くなりません。</span></li>
           <li><span><strong>表示／非表示の出し分け</strong> — 条件成立でフィールド・グループに加え、<strong>サブテーブル・関連レコード一覧（テーブル全体）</strong>も表示・非表示。「表示する」を選んだ項目は普段は自動的に隠れ、条件を満たしたときだけ現れます（区分別フォーム）。</span></li>
           <li><span><strong>動的な必須化</strong> — 標準では任意のフィールドを、条件成立時だけ必須に。未入力で保存しようとするとエラーになり、必須項目にはラベル横に「必須」バッジを表示します。</span></li>
           <li><span><strong>読み取り専用（ロック）</strong> — 条件成立時に対象フィールドを入力不可に。決まった値を裏でセットしてロック表示する定番パターンにも対応します。</span></li>
@@ -958,7 +958,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコードの新規作成・編集・詳細画面があるアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-conditional-form-v2.0.0.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-conditional-form-v2.1.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「条件分岐フォーム」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>ルール（条件 → 動作 → 適用する画面）</strong>を作成して「保存」</span></li>
@@ -983,7 +983,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-conditional-form-v2.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-conditional-form-v2.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -1153,10 +1153,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-conditional-form-v2.0.0.zip',
+              file_name: 'kw-conditional-form-v2.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-conditional-form-v2.0.0.zip'
+              link_url: '/downloads/kw-conditional-form-v2.1.0.zip'
             });
           }
         });
