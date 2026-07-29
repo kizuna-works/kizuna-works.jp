@@ -743,13 +743,35 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <h2 class="update-title">「〇〇のいずれか」「〇〇以外」を 1 行で指定できるようになりました</h2>
         <p class="update-desc">
           条件の演算子に <strong>「が次のいずれかに一致する」</strong> と <strong>「が次のいずれにも一致しない」</strong> を追加しました。ドロップダウンやラジオなどの選択肢フィールドでは<strong>チェックリストから複数の値をまとめて選べます</strong>（文字列フィールドはカンマ区切り）。<br>
-          「雇用形態が A・B・C・D・E <strong>以外</strong>のときだけ金額欄を隠す」「ステータスが 差戻し・申請中 <strong>のいずれか</strong>のときだけ備考を必須にする」といった指定が、<strong>条件 1 行</strong>で書けます。条件は最大 5 件のままですが、1 行に何個でも値を入れられるので、5 種類を超える値の指定にも対応できます。
+          「確度が 100%・80%・60% <strong>以外</strong>のときだけ受注予定日を隠す」「商談フェーズが 失注・保留 <strong>のいずれか</strong>のときだけ詳細を必須にする」といった指定が、<strong>条件 1 行</strong>で書けます。条件は最大 5 件のままですが、1 行に何個でも値を入れられるので、5 種類を超える値の指定にも対応できます。
         </p>
+        <div class="update-shot">
+          <img
+            class="zoomable"
+            src="/images/conditional-form-config-05.png"
+            alt="条件分岐フォーム 設定画面：条件の演算子に「が次のいずれにも一致しない」を選び、確度の選択肢（100%・80%・60%）をチェックリストで複数選択している状態"
+            width="1277"
+            height="962"
+            loading="lazy"
+          />
+          <p class="update-shot-cap">画像をクリックすると拡大表示します</p>
+        </div>
         <h3 class="update-subtitle">AND / OR の勘違いを、設定画面が止めます</h3>
         <p class="update-desc">
           同じ意味を「等しくない」の複数行 ＋ <strong>OR</strong> で書くと、<strong>どの値でも必ず条件が成立</strong>してしまいます（1 つのフィールドが同時に複数の値になることはないため）。逆に「等しい」の複数行 ＋ <strong>AND</strong> は<strong>決して成立しません</strong>。<br>
           v2.1.0 では、この 2 つの組み合わせを設定画面が検出して<strong>その場で警告し、保存もブロック</strong>します。あわせて正しい書き方（上記の 1 行指定）を案内するので、「設定したのに全レコードで隠れてしまう」「何をしても動かない」という取り違えが起きません。
         </p>
+        <div class="update-shot">
+          <img
+            class="zoomable"
+            src="/images/conditional-form-config-06.png"
+            alt="条件分岐フォーム 設定画面：OR と「が次と等しくない」を複数行で組み合わせた条件に警告が表示され、下のルールは折りたたまれて1行サマリーで並んでいる状態"
+            width="1277"
+            height="1146"
+            loading="lazy"
+          />
+          <p class="update-shot-cap">画像をクリックすると拡大表示します</p>
+        </div>
         <h3 class="update-subtitle">設定画面のルールを折りたたみ式にしました</h3>
         <p class="update-desc">
           ルールが増えると設定画面が縦に長くなっていたため、<strong>ルールカードを開閉式</strong>にしました。閉じているときは<strong>適用画面・条件の要約・動作の件数が 1 行</strong>で並ぶので、ルール全体を一覧しながら目的のルールだけ開いて編集できます。<strong>「すべて開く／すべて閉じる」</strong>も用意しました。<br>
