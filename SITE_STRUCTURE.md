@@ -148,6 +148,8 @@ c:\kizuna-works.jp\
 │   │   │   │       └── index.astro # ダッシュボード設定レシピ集（/plugins/dashboard/recipes/）— ウィジェット種別ごとに「目的→設定手順→完成イメージ」を掲載。アコーディオン＋種別/目的タグ/検索フィルタ。データは src/data/recipes.ts、画像は /images/dashboard/recipes/。第1バッチ22レシピ（順次拡張）
 │   │   │   ├── attribute-filter/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】属性制御フィルター製品ページ（/plugins/attribute-filter/）— ユーザー/組織/グループ選択の候補を役職・所属・他フィールド値・ステータスで自動絞り込み。標準表示 vs 絞り込みのBefore/After、設定画面（組織/ユーザー/グループ条件）スクショ、主な機能、無料/プレミアム比較、インストール手順、SecurityBox。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。スクショはライトボックスで拡大。kintone完結・ゲスト対応
+│   │   │   ├── chat-notify/
+│   │   │   │   └── index.astro # 【プレミアムプラグイン】チャット通知 製品ページ（/plugins/chat-notify/）— レコードの追加/更新/削除/ステータス変更/手動送信/一括通知をきっかけに Slack・Microsoft Teams・Google Chat へ自動通知。中継サーバー不要（kintoneからWebhookへ直接POST）。最大5件の条件(AND/OR)・変更検知3モード・差し込みテンプレート・全員メンション(Slack/GoogleChatのみ)・送信履歴/失敗時ベル通知。ヒーロー＋実際に届く通知(3サービス＋一括)＋主な機能8＋設定3タブ＋手動/一括＋Webhook取得手順(Slack方法A/B・Teams・GoogleChat のアコーディオン)＋プラン＋手順＋注意＋SecurityBox＋ShareButtons＋FAQ7。単品販売なし＝プレミアム年間サポーターに含む。**PC版のみ（モバイルは通知が飛ばない）**
 │   │   │   ├── card-board/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】カードボード製品ページ（/plugins/card-board/）— 一覧を「状態カード＋詳細カード」の2段カンバンに切替＝D&Dでステータス/選択肢/文字列を変更・状態別の件数/集計を俯瞰・連動(カンバン)/個別(ギャラリー)モード・添付サムネ・レーン区切り線・初期に開く状態・絞り込み/並び順を反映。ヒーロー＋実画面(営業/不動産/カタログ)＋2モード＋主な機能＋設定画面＋無料/プレミアム比較(無料1ビュー)＋手順＋FAQ＋SecurityBox＋ShareButtons。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。kintone完結
 │   │   │   ├── related-enhancer/
@@ -350,6 +352,16 @@ c:\kizuna-works.jp\
 │   │   ├── file-preview-action-03.png      # 添付ファイルプレビュー 動作③ — Excelのグラフをデータから再現＋シート切替
 │   │   ├── file-preview-config-01.png      # 添付ファイルプレビュー 設定① — 対象フィールド・上限しきい値
 │   │   ├── file-preview-config-02.png      # 添付ファイルプレビュー 設定② — 対象画面・操作・モーダルサイズ・テーマ色
+│   │   ├── chat-notify-banner.png          # チャット通知 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp
+│   │   ├── chat-notify-icon.png            # チャット通知 for kintone アイコン（200×200・ヒーロー/ランキング用）
+│   │   ├── chat-notify-config-{01,02,03}.png # 設定画面スクショ（①送信先/②通知ルール/③共通設定・実機・右サイドバーは除外）
+│   │   ├── chat-notify-{record,index}-{01,02}.png # 詳細の「チャットへ通知」ボタン/モーダル・一覧の「チャットへ一括通知」ボタン/モーダル
+│   │   ├── chat-notify-howto-slack.png     # 設定画面に内蔵した Slack の Webhook 取得手順アコーディオン（方法A/B）
+│   │   ├── chat-notify-slack-a-{01..07}.png # Slack 方法A（api.slack.com でアプリ作成）の手順スクショ。a-07 は Webhook URL と氏名をマスク済
+│   │   ├── chat-notify-slack-b-{01..06}.png # Slack 方法B（App ディレクトリ・旧方式）の手順スクショ。b-06 は Webhook URL をマスク済
+│   │   ├── chat-notify-teams-{01..04}.png  # Teams ワークフローでの Webhook 作成手順スクショ
+│   │   ├── chat-notify-gchat-{02,03}.png   # Google Chat の Webhook 追加手順スクショ
+│   │   ├── chat-notify-{slack,teams,gchat}-msg-*.png # 各サービスに実際に届いた通知（teams-msg-01 は氏名をマスク済）
 │   │   ├── card-board-banner.png           # カードボード for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）
 │   │   ├── card-board-icon.png             # カードボード for kintone アイコン（200×200・ヒーロー用）
 │   │   ├── card-board-{board,dnd,realestate,catalog,individual,lanegrid}.png / .webp # カードボード製品ページ用スクショ（実機・PNG＋WebP。individual=不動産の個別モードギャラリー）
@@ -490,6 +502,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-sync-v2.0.2.zip                     # ルックアップ自動同期 for kintone v2.0.2 配布ファイル（重複しうるキー対応＝方式1/方式2・入力補完・PC/モバイル）
 │   │   ├── kw-lookup-sync-v2.1.1.zip                     # ルックアップ自動同期 for kintone v2.1.1 配布ファイル（全件同期を自己修復型に＝キー未設定でも名前一致で同期・前後空白正規化・要確認内訳CSV出力。最新版）
 │   │   ├── kw-card-board-v1.0.0.zip                     # カードボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第6弾・無料/プレミアム共通zip・無料=1ビューで全機能・複数ビューはプレミアム）
+│   │   ├── kw-chat-notify-v1.0.0.zip                     # チャット通知 for kintone v1.0.0 配布ファイル（プレミアム・単品販売なし）
 │   │   ├── kw-related-enhancer-v1.0.0.zip               # 関連レコード拡張 for kintone 配布ファイル（手動配置・プレミアムプラグイン第5弾・無料/プレミアム共通zip・無料=1対象で集計/見た目/検索・F-04/05/06はプレミアム限定）
 │   │   └── kw-user-autofill-v1.0.0.zip                  # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.0＝属性自動転記＋プロフィールカード／捺印モード）
 │   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ（第三者CDN不使用）。現状 kw-file-preview のみ使用

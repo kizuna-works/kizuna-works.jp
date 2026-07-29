@@ -974,6 +974,28 @@ export const premiumPlugins: Plugin[] = [
     problemDesc: '状態別の件数や合計が一目で分からず、ステータス変更も1件ずつ手作業。ドラッグで動かせるボードにしたい',
     releaseDate: '2026-07-19',
   },
+  {
+    id: 'kw-chat-notify',
+    name: 'チャット通知 for kintone',
+    formName: 'チャット通知 for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'chat-notify',
+    category: '出力・連携',
+    description:
+      'レコードの追加・更新・削除・ステータス変更・手動送信・一括通知をきっかけに、Slack / Microsoft Teams / Google Chat へ自動でメッセージを送るプラグイン。中継サーバー不要で kintone から Webhook へ直接送信します。最大5件の条件と変更検知で通知先を絞り込み、差し込みテンプレートで本文を組み立て、送信履歴と失敗時のベル通知にも対応します。',
+    image: '/images/chat-notify-banner.png',
+    imageAlt:
+      'チャット通知 for kintone プラグイン — レコードの追加・更新・ステータス変更をきっかけに Slack・Microsoft Teams・Google Chat へ自動通知',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      'レコードの追加・更新・削除・ステータス変更を Slack / Teams / Google Chat へ自動通知。中継サーバー不要、条件で絞り込み、差し込みテンプレートで本文を自由に。',
+    problemTitle: 'kintone を開くまで、更新に気づけない',
+    problemDesc: '大事なレコードが登録されても担当者が気づかず対応が遅れる。かといって全部通知すると誰も読まなくなる',
+    releaseDate: '2026-07-29',
+  },
 ];
 
 /**

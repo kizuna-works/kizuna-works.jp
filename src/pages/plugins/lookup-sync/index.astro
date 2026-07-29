@@ -2,6 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
+import TrialBanner from '../../../components/TrialBanner.astro';
 ---
 
 <Layout
@@ -139,11 +140,20 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       display: inline-flex; align-items: center; gap: 6px;
       background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
       color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
-      padding: 5px 14px; border-radius: 20px;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
     }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    /* The crown is a separate flex item with line-height:1 so it centres against
+       the label instead of sitting on the text baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
     .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
       background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
-      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 5px 12px; border-radius: 20px;
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
     }
     .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
     .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
@@ -319,7 +329,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
     <section class="afp-hero">
       <img class="afp-hero-icon" src="/images/lookup-sync-icon.png" alt="ルックアップ自動同期 for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
-        <span class="afp-badge-premium">👑 PREMIUM PLUGIN</span>
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
         <span class="afp-hero-version">v2.1.1</span>
       </div>
       <h1>ルックアップ自動同期 for kintone</h1>
@@ -624,6 +634,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             </ul>
             <a href="/plugins/supporter/?plan=all" class="afp-plan-cta">プレミアム年間サポーターを申し込む →</a>
           </div>
+        </div>
+
+        <div style="margin: 0 0 32px;">
+          <TrialBanner />
         </div>
 
         <h3 class="afp-plan-compare-head">機能の詳細比較</h3>

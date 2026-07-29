@@ -39,7 +39,31 @@ export interface RuntimeLib {
   purpose: string;
 }
 
+/**
+ * Declared when a plugin's very purpose is to send record values to a service
+ * outside kintone (e.g. kw-chat-notify posting to Slack / Teams / Google Chat).
+ *
+ * For such a plugin the two shared claims — "レコード等の業務データを外部に送信
+ * しません" and "外部通信はライセンス認証のみ" — are simply untrue, so the box
+ * must not print them. Setting this replaces both with an honest description of
+ * what leaves kintone, where it goes, and what the user controls.
+ */
+export interface OutboundData {
+  /** Headline shown in place of the "送信しません" claim. */
+  title: string;
+  /** What is sent, to where, and triggered by what. */
+  detail: string;
+  /** How the administrator limits or stops it. */
+  control: string;
+}
+
 export interface SecurityProfile {
+  /**
+   * Set only for plugins that intentionally send business data out of kintone.
+   * Replaces the default "外部に送信しません" / "外部通信はライセンス認証のみ"
+   * claims, which would otherwise be false.
+   */
+  outbound?: OutboundData;
   /** Extra outbound communications on top of the shared license check. */
   extraComm?: ExtraComm[];
   /** Third-party libraries bundled in the package (none for most plugins). */
@@ -58,6 +82,29 @@ export interface SecurityProfile {
  * no extra communication, no third-party libraries).
  */
 export const securityProfiles: Record<string, SecurityProfile> = {
+  // 唯一、業務データを意図的に社外へ出すプラグイン。共通の「外部に送信しません」
+  // は成り立たないため outbound で置き換える。
+  'kw-chat-notify': {
+    outbound: {
+      title: '設定した本文を、指定のチャットへ送信します',
+      detail:
+        'このプラグインは「kintone の内容をチャットに届ける」ことが目的のため、業務データが kintone の外に出ます。送信先は、管理者ご自身が登録した Webhook URL（Slack / Microsoft Teams / Google Chat）だけです。送られるのは、通知ルールの本文テンプレートに書いた内容（差し込んだフィールドの値・レコードURL・操作者名など）と、その送信結果です。当社のサーバーを経由せず、kintone から各サービスへ直接送信します（中継サーバーはありません）。テンプレートに書いていないフィールドは送信されません。',
+      control:
+        '何を送るかは本文テンプレートで、いつ送るかはトリガーと条件（最大5件）で管理者が決められます。ルールを無効にすれば送信は止まります。送信の成否は同じスペース内の保管アプリに記録され、失敗時は kintone のベル通知でお知らせします。',
+    },
+    extraComm: [
+      {
+        label: 'チャットサービスへの通知送信（Slack / Microsoft Teams / Google Chat）',
+        detail:
+          '管理者が登録した Webhook URL へ、通知本文を JSON で POST します。通信は kintone のプロキシ（kintone.plugin.app.proxy）を経由し、当社サーバーは介在しません。送信先・送信内容・送信条件はすべて管理者の設定次第です。',
+      },
+      {
+        label: '送信履歴の記録（自ドメイン内）',
+        detail:
+          '送信結果を記録するため、同じスペース内に自動生成した保管アプリへ kintone REST API（/k/v1/record・/k/v1/records）でレコードを追加します。エラー通知のため /k/v1/app/notifications/perRecord も更新します。いずれも自ドメイン内で完結し、外部へは送信しません。記録モードを「記録しない」にすれば記録も行いません。',
+      },
+    ],
+  },
   'kw-address-assist': {
     extraComm: [
       {

@@ -12,6 +12,10 @@ interface Props {
 
 const { pluginId } = Astro.props;
 const profile = getSecurityProfile(pluginId);
+// A plugin whose purpose is to push data out of kintone (kw-chat-notify) cannot
+// claim "業務データを外部に送信しません". When `outbound` is declared we print
+// the honest version instead of the two shared claims.
+const outbound = profile.outbound;
 const extraComm = profile.extraComm ?? [];
 const libs = profile.libs ?? [];
 const runtimeLibs = profile.runtimeLibs ?? [];
@@ -24,24 +28,37 @@ const runtimeLibs = profile.runtimeLibs ?? [];
       <h2 id="sb-heading" class="sb-title">セキュリティ・データの取り扱い</h2>
     </div>
     <p class="sb-lead">
-      KIZUNA Works のプラグインは、お客様のデータを社外に持ち出さない設計です。気になる方はブラウザの開発者ツール（F12）で通信内容をご確認いただけます。
+      {outbound
+        ? 'このプラグインは、設定した内容を外部のチャットサービスへ送信します。何が・どこへ送られるかを正確にご説明します。気になる方はブラウザの開発者ツール（F12）で通信内容をご確認いただけます。'
+        : 'KIZUNA Works のプラグインは、お客様のデータを社外に持ち出さない設計です。気になる方はブラウザの開発者ツール（F12）で通信内容をご確認いただけます。'}
     </p>
 
     <ul class="sb-list">
-      <li class="sb-item">
-        <span class="sb-icon" aria-hidden="true">✅</span>
-        <div class="sb-body">
-          <strong>レコード等の業務データを外部に送信しません</strong>
-          <p>プラグインが扱うレコードやフィールドの値が、当社や第三者のサーバーへ送られることはありません。</p>
-        </div>
-      </li>
+      {outbound ? (
+        <li class="sb-item">
+          <span class="sb-icon" aria-hidden="true">📤</span>
+          <div class="sb-body">
+            <strong>{outbound.title}</strong>
+            <p>{outbound.detail}</p>
+            <p>{outbound.control}</p>
+          </div>
+        </li>
+      ) : (
+        <li class="sb-item">
+          <span class="sb-icon" aria-hidden="true">✅</span>
+          <div class="sb-body">
+            <strong>レコード等の業務データを外部に送信しません</strong>
+            <p>プラグインが扱うレコードやフィールドの値が、当社や第三者のサーバーへ送られることはありません。</p>
+          </div>
+        </li>
+      )}
 
       <li class="sb-item">
         <span class="sb-icon" aria-hidden="true">🔑</span>
         <div class="sb-body">
-          <strong>外部通信はライセンス認証のみ</strong>
+          <strong>{outbound ? 'ライセンス認証で当社へ送るのは ID とドメイン名だけ' : '外部通信はライセンス認証のみ'}</strong>
           <p>
-            ライセンスの確認のため、<strong>プラグイン ID と利用ドメイン名だけ</strong>を当社サーバー（Google Apps Script）へ送信します。通信は kintone のプロキシ経由で行われます。
+            ライセンスの確認のため、<strong>プラグイン ID と利用ドメイン名だけ</strong>を当社サーバー（Google Apps Script）へ送信します。通信は kintone のプロキシ経由で行われます。{outbound ? '通知の本文が当社サーバーを通ることはありません。' : ''}
           </p>
           {extraComm.length > 0 && (
             <ul class="sb-sublist">

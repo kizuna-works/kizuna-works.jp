@@ -1,0 +1,788 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import TrialBanner from '../../../components/TrialBanner.astro';
+---
+
+<Layout
+  title="チャット通知 for kintone｜Slack・Teams・Google Chat へ自動通知 | KIZUNA Works"
+  description="kintone のレコード追加・更新・削除・ステータス変更をきっかけに、Slack / Microsoft Teams / Google Chat へ自動でメッセージを送るプラグイン。中継サーバー不要。条件で絞り込み、差し込みテンプレートで本文を自由に組み立てられるプレミアムプラグインです。"
+  ogTitle="チャット通知 for kintone｜Slack・Teams・Google Chat へ自動通知 | KIZUNA Works"
+  ogDescription="kintone のレコード操作をきっかけに Slack / Microsoft Teams / Google Chat へ自動通知。中継サーバー不要で、条件による絞り込み・差し込みテンプレート・送信履歴・エラー通知に対応するプレミアムプラグインです。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/chat-notify/"
+  ogImage="https://kizuna-works.jp/images/chat-notify-banner.png"
+  canonical="https://kizuna-works.jp/plugins/chat-notify/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/chat-notify/",
+          "url": "https://kizuna-works.jp/plugins/chat-notify/",
+          "name": "チャット通知 for kintone｜Slack・Teams・Google Chat へ自動通知 | KIZUNA Works",
+          "description": "kintone のレコード追加・更新・削除・ステータス変更をきっかけに、Slack / Microsoft Teams / Google Chat へ自動でメッセージを送るプラグイン。中継サーバー不要。条件で絞り込み、差し込みテンプレートで本文を組み立てられる。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/chat-notify-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "チャット通知 for kintone", "item": "https://kizuna-works.jp/plugins/chat-notify/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "チャット通知 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-07-29",
+          "url": "https://kizuna-works.jp/plugins/chat-notify/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-chat-notify-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/chat-notify-banner.png",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "無料プラン",
+              "price": "0",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "通知ルール1本まで、6種類のきっかけ・条件・差し込みテンプレート・全員メンションまで全機能をお試しいただけます（利用期限なし）。"
+            },
+            {
+              "@type": "Offer",
+              "name": "プレミアム年間サポーター（全プラグイン込み）",
+              "price": "16500",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、通知ルールが無制限・広告非表示になり、販売中の全プラグインも利用できます。単品販売はありません。"
+            }
+          ],
+          "description": "kintone のレコード追加・更新・削除・ステータス変更・手動送信・一括通知をきっかけに、Slack / Microsoft Teams / Google Chat へ自動でメッセージを送るプラグイン。中継サーバーを立てずに kintone から Webhook へ直接送信する。条件による絞り込み、変更検知、差し込みテンプレート、送信履歴と失敗時のベル通知に対応する。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "Slack（Incoming Webhooks）／Microsoft Teams（ワークフロー）／Google Chat（Webhook）へ通知",
+            "追加・更新・削除・ステータス変更・手動送信・一括通知の6種類のきっかけ",
+            "最大5件の条件をAND/ORで組み合わせて通知対象を絞り込み",
+            "変更検知（値が変わったときだけ／指定フィールドが変わったときだけ／毎回）",
+            "差し込みテンプレートでフィールド値・レコードURL・操作種別・操作者などを本文へ埋め込み",
+            "Slack と Google Chat の全員メンションに対応（濫用防止の警告つき）",
+            "一覧の絞り込み結果を1通にまとめて送る一括通知",
+            "送信履歴を同一スペースの保管アプリへ記録し、失敗時は kintone のベル通知で管理者へ連絡",
+            "URLを貼るだけでサービス種別を自動判定し、保存後はマスク表示",
+            "中継サーバー不要。kintone から Webhook へ直接送信（当社サーバーを経由しない）"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで通知ルール1本まで、6種類のきっかけ・条件・差し込みテンプレートまで全機能をお試しいただけます。ルールを複数動かすには、プレミアム年間サポーター（税込 ¥16,500/年）にご加入ください。販売中の全プラグインも利用できます。" } },
+            { "@type": "Question", "name": "中継サーバーやGASの準備は必要ですか？", "acceptedAnswer": { "@type": "Answer", "text": "不要です。kintone から各チャットサービスの Webhook へ直接送信します。当社のサーバーを経由しないため、通知の本文が第三者に渡ることはありません。ご用意いただくのは、チャット側で発行する Webhook URL だけです。" } },
+            { "@type": "Question", "name": "スマートフォンからレコードを登録しても通知されますか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。本プラグインは PC 版の kintone でのみ動作します。モバイル版ではプラグイン自体が読み込まれないため、スマートフォンからレコードを追加・更新・削除しても通知は送信されません（画面が乱れることはありません）。外回りの担当者がスマホから登録する運用では通知が届かない点にご注意ください。" } },
+            { "@type": "Question", "name": "毎回の保存で通知が飛んで、うるさくなりませんか？", "acceptedAnswer": { "@type": "Answer", "text": "既定では「値に変更があったときだけ」通知します。値を変えずに保存した場合は送信されません。さらに「指定した項目が変わったときだけ」に絞ることもできます。加えて、最大5件の条件（例：金額が100万円以上、区分がAまたはC）をAND/ORで組み合わせ、通知する対象を絞り込めます。" } },
+            { "@type": "Question", "name": "Teams でメンションはできますか？", "acceptedAnswer": { "@type": "Answer", "text": "できません。Microsoft Teams のワークフロー経由の投稿では、メンション記法が解釈されないためです。全員メンションは Slack（@channel）と Google Chat（@all）でご利用いただけます。なお、条件を設定せずに全員メンションを有効にすると保存のたびに全員へプッシュが飛ぶため、設定画面で警告を表示します。" } },
+            { "@type": "Question", "name": "送信に失敗したときは分かりますか？", "acceptedAnswer": { "@type": "Answer", "text": "同じスペース内に自動生成する保管アプリへ、送信日時・ルール名・送信先・本文・結果・エラー内容を記録します。失敗した場合は、設定した宛先へ kintone のベル通知が届きます。記録モードは「すべて記録」「エラーのみ記録」「記録しない」から選べます。保管アプリは一般ユーザーからは閲覧できません（追加のみ可）。" } },
+            { "@type": "Question", "name": "Webhook URL は安全に保管されますか？", "acceptedAnswer": { "@type": "Answer", "text": "設定画面では伏字で表示され、kintone のプラグイン設定領域に保存されます。ただし、Webhook URL は kintone のプロキシ経由で送信される都合上、アプリ管理権限を持つ方には確認できる可能性があります。「誰にも見えない」とは申し上げられません。URL が漏れた場合は、チャット側で Webhook を再発行すれば古い URL は無効になります。" } }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    /* The crown is a separate flex item with line-height:1 so it centres against
+       the label instead of sitting on the text baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 720px; line-height: 1.8; }
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    /* Keep service names from breaking mid-word ("Google" / "Chat" on separate lines) */
+    .nb { white-space: nowrap; }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+
+    .afp-msg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; align-items: start; }
+    .afp-msg-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-msg-card h3 { font-size: 1rem; color: var(--color-navy); margin: 0; padding: 12px 16px; border-bottom: 1px solid #eef2f7; background: #f8fafc; }
+    .afp-msg-card img { width: 100%; height: auto; display: block; cursor: zoom-in; background: #fff; }
+    .afp-msg-card p { font-size: 0.88rem; line-height: 1.7; color: var(--color-text-muted); margin: 0; padding: 12px 16px 14px; }
+
+    .afp-svc { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: var(--shadow-card); margin-bottom: 24px; overflow: hidden; }
+    .afp-svc > summary { cursor: pointer; list-style: none; padding: 18px 48px 18px 22px; font-weight: 700; color: var(--color-navy); font-size: 1.05rem; position: relative; }
+    .afp-svc > summary::-webkit-details-marker { display: none; }
+    .afp-svc > summary::after { content: "＋"; position: absolute; right: 22px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-svc[open] > summary::after { content: "－"; }
+    .afp-svc-body { padding: 0 22px 22px; }
+    .afp-svc-body ol { padding-left: 22px; margin: 0 0 18px; }
+    .afp-svc-body li { line-height: 1.9; margin-bottom: 6px; font-size: 0.97rem; }
+    .afp-svc-shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .afp-svc-shots figure { margin: 0; }
+    .afp-svc-shots img { width: 100%; height: auto; display: block; border: 1px solid #e2e8f0; border-radius: 8px; cursor: zoom-in; background: #fff; }
+    .afp-svc-shots figcaption { font-size: 0.82rem; color: var(--color-text-muted); margin-top: 6px; line-height: 1.6; }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 560px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .steps-list { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    .afp-cfgstep { margin-bottom: 40px; }
+    .afp-cfgstep:last-child { margin-bottom: 0; }
+    .afp-cfgstep-head { display: flex; align-items: flex-start; gap: 14px; margin: 0 auto 16px; max-width: 960px; }
+    .afp-cfgstep-badge { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--color-navy); color: #fff; font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; }
+    .afp-cfgstep-body h3 { font-size: 1.2rem; color: var(--color-navy); margin: 4px 0 6px; }
+    .afp-cfgstep-body p { font-size: 0.98rem; line-height: 1.8; margin: 0; color: var(--color-text-main); }
+    .afp-cfgstep-body p strong { color: var(--color-navy); }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/chat-notify-icon.png" alt="チャット通知 for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1>チャット通知 for kintone</h1>
+      <p class="afp-tagline">kintone の動きを、いつものチャットへ。</p>
+      <p class="afp-sub">
+        レコードの追加・更新・削除・ステータス変更をきっかけに、<strong><span class="nb">Slack</span> / <span class="nb">Microsoft Teams</span> / <span class="nb">Google Chat</span></strong> へ自動でメッセージを送ります。中継サーバーは不要。条件で絞り込み、本文も自由に組み立てられます。
+      </p>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 課題 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <p class="afp-lead">
+          kintone に大事な情報が登録されても、<strong>担当者が kintone を開くまで気づかない</strong>。ベル通知はあるものの、普段の連絡はチャットで完結している——そんな現場は少なくありません。<br /><br />
+          かといって<strong>全部のレコードを通知すると、誰も読まなくなります</strong>。Webhook 連携を自作しようにも、GAS や Lambda といった中継サーバーの用意と保守が必要でした。<br /><br />
+          このプラグインは、<strong>「必要な変化だけ」を「いつものチャット」へ</strong>届けます。中継サーバーは要りません。
+        </p>
+      </div>
+    </section>
+
+    <!-- 通知の実例 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">実際に届く通知</h2>
+        <div class="afp-msg-grid">
+          <div class="afp-msg-card">
+            <h3>Slack</h3>
+            <img class="zoomable" src="/images/chat-notify-slack-msg-01.png" alt="Slack に届いたチャット通知の例。案件管理アプリにレコードが追加され、会社名・金額・区分・期日・登録者とレコードURLが投稿されている" loading="lazy" />
+            <p>アプリ名がそのまま投稿者名になります。レコードURLはリンクになり、その場で開けます。</p>
+          </div>
+          <div class="afp-msg-card">
+            <h3>Microsoft Teams</h3>
+            <img class="zoomable" src="/images/chat-notify-teams-msg-01.png" alt="Microsoft Teams に届いたチャット通知の例。高額案件の更新として会社名・金額・担当メモ・レコードURLがカード形式で投稿されている" loading="lazy" />
+            <p>投稿者は「ワークフロー 経由の（作成者名）」と表示されます（Teams の仕様）。</p>
+          </div>
+          <div class="afp-msg-card">
+            <h3>Google Chat</h3>
+            <img class="zoomable" src="/images/chat-notify-gchat-msg-01.png" alt="Google Chat に届いたチャット通知の例。ステータスが完了になった案件について、旧ステータスから新ステータスへの変化と金額・レコードURLが投稿されている" loading="lazy" />
+            <p>ステータス変更では、変更前後の状態を本文に差し込めます。</p>
+          </div>
+          <div class="afp-msg-card">
+            <h3>一括通知（1通にまとめる）</h3>
+            <img class="zoomable" src="/images/chat-notify-slack-msg-02.png" alt="Slack に届いた一括通知の例。対象9件として、レコード番号・会社名・金額・期日の明細が1通にまとめて投稿されている" loading="lazy" />
+            <p>一覧の絞り込み結果を1通に集約。朝会前の共有や督促にそのまま使えます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>3つのチャットに対応</h3>
+            <p>Slack（Incoming Webhooks）／Microsoft Teams（ワークフロー）／Google Chat（Webhook）。URL を貼るだけでサービス種別を自動判定します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>6種類のきっかけ</h3>
+            <p>追加・更新・削除・ステータス変更・詳細画面からの手動送信・一覧からの一括通知。1つのルールに複数指定できます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>条件で絞り込む</h3>
+            <p>「金額が100万円以上」「区分がAまたはC」など最大5件を AND / OR で組み合わせ。選択肢やユーザー項目は候補から選べます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>変更検知</h3>
+            <p>値が変わっていない保存では通知しません。「指定した項目が変わったときだけ」に絞ることもできます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>差し込みテンプレート</h3>
+            <p>フィールド値に加え、レコードURL・操作種別・操作者・操作日時・旧/新ステータスを本文に埋め込めます。文字数の切り詰めも可能です。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>全員メンション</h3>
+            <p>Slack の <code>@channel</code>、Google Chat の <code>@all</code> に対応。濫用を防ぐため、条件なしで有効にすると警告します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>送信履歴とエラー通知</h3>
+            <p>送信結果を保管アプリに記録し、失敗時は kintone のベル通知で管理者へ連絡。「送ったつもりで届いていない」を防ぎます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>中継サーバー不要</h3>
+            <p>kintone から Webhook へ直接送信します。GAS や Lambda の構築・保守は不要で、通知本文が当社サーバーを通ることもありません。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 設定画面 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定は3つのタブで完結</h2>
+
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">1</div>
+            <div class="afp-cfgstep-body">
+              <h3>送信先を登録する</h3>
+              <p>チャット側で発行した <strong>Webhook URL を貼るだけ</strong>。ホスト名からサービス種別を自動判定します。保存後は伏字で表示され、テスト送信で疎通を確認できます。</p>
+            </div>
+          </div>
+          <div class="afp-shot">
+            <img class="zoomable" src="/images/chat-notify-config-01.png" alt="チャット通知 for kintone の設定画面（送信先タブ）。Slack・Google Chat・Microsoft Teams の3つの送信先が登録され、Webhook URL がマスク表示されている" loading="lazy" />
+          </div>
+          <p class="afp-shot-cap">画像をクリックすると拡大表示します</p>
+        </div>
+
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">2</div>
+            <div class="afp-cfgstep-body">
+              <h3>通知ルールを作る</h3>
+              <p>きっかけ・条件・メンション・本文を決めます。左側に<strong>本文プレビューと文字数バー</strong>が常時表示され、実際に送られる内容をその場で確認できます。</p>
+            </div>
+          </div>
+          <div class="afp-shot">
+            <img class="zoomable" src="/images/chat-notify-config-02.png" alt="チャット通知 for kintone の設定画面（通知ルールタブ）。トリガーの選択、金額が100万円以上という条件、メンション設定、本文テンプレートと左側のライブプレビューが表示されている" loading="lazy" />
+          </div>
+          <p class="afp-shot-cap">画像をクリックすると拡大表示します</p>
+        </div>
+
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">3</div>
+            <div class="afp-cfgstep-body">
+              <h3>履歴とエラー通知を設定する</h3>
+              <p>ボタンひとつで<strong>保管アプリを自動生成</strong>します。同じスペースでは1つの保管アプリを複数アプリで共有し、押しても増えません。失敗時の通知先も指定できます。</p>
+            </div>
+          </div>
+          <div class="afp-shot">
+            <img class="zoomable" src="/images/chat-notify-config-03.png" alt="チャット通知 for kintone の設定画面（共通設定タブ）。保管アプリの状態、記録モード、エラー通知の宛先、最近のエラー一覧、ボタン位置の設定が表示されている" loading="lazy" />
+          </div>
+          <p class="afp-shot-cap">画像をクリックすると拡大表示します</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 手動送信・一括通知 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">自動だけでなく、押したいときに押せる</h2>
+
+        <div class="afp-feature">
+          <div class="afp-feature-text">
+            <h3>詳細画面から手動送信</h3>
+            <p>「この案件だけ今すぐ共有したい」ときは、レコード詳細の<strong>［チャットへ通知］</strong>から送信できます。条件を満たすルールだけがモーダルに並びます。送信前に最新のレコード値を取得し直すので、内容がずれません。</p>
+          </div>
+          <img class="zoomable" src="/images/chat-notify-record-02.png" alt="レコード詳細画面の「チャットへ通知」ボタンを押したときのモーダル。送信するルールを選んで送信するボタンが表示されている" loading="lazy" />
+        </div>
+
+        <div class="afp-feature reverse">
+          <div class="afp-feature-text">
+            <h3>一覧の絞り込み結果を1通にまとめて</h3>
+            <p>一覧の<strong>［チャットへ一括通知］</strong>で、いま表示している絞り込み結果を1通にまとめて送れます。明細の上限を超えた分は「…ほか N 件」と件数だけ表示します。対象が0件のときは送信ボタンが無効になり、空の通知を送ってしまうことがありません。</p>
+          </div>
+          <img class="zoomable" src="/images/chat-notify-index-02.png" alt="一覧画面の「チャットへ一括通知」を押したときのモーダル。絞り込み結果8件を1通にまとめて通知する旨と対象ルールが表示されている" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Webhook 取得手順 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">Webhook URL の取り方（3サービス）</h2>
+        <p style="line-height:1.9; margin:0 0 24px;">
+          ご用意いただくのは Webhook URL だけです。<strong>設定画面の中にも同じ手順を載せています</strong>ので、画面を行き来せずに設定できます。
+        </p>
+
+        <div class="afp-shot" style="max-width:860px; margin-bottom:32px;">
+          <img class="zoomable" src="/images/chat-notify-howto-slack.png" alt="設定画面に組み込まれた Slack の Webhook URL 取得手順。方法Aと方法Bの2通りが番号つきで案内され、サイトを開くリンクボタンが並んでいる" loading="lazy" />
+        </div>
+        <p class="afp-shot-cap" style="margin-bottom:32px;">設定画面の中に取得手順を内蔵。リンクからそのままサイトを開けます</p>
+
+        <details class="afp-svc">
+          <summary>Slack ── 方法A：Slack API のサイトでアプリを作る（推奨）</summary>
+          <div class="afp-svc-body">
+            <ol>
+              <li><a href="https://api.slack.com/apps" target="_blank" rel="noopener noreferrer">api.slack.com/apps</a> を開き、［Create New App］→［Blank app／空白のアプリ］を選ぶ</li>
+              <li>アプリ名とワークスペースを選んで作成する（<strong>このアプリ名が Slack 上の投稿者名になります</strong>）</li>
+              <li>左メニューの［Incoming Webhooks］を開き、［Activate Incoming Webhooks］を On にする</li>
+              <li>［Add New Webhook］を押し、投稿先チャンネルを選んで許可する</li>
+              <li>発行された URL をコピーして、設定画面に貼り付ける</li>
+            </ol>
+            <div class="afp-svc-shots">
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-slack-a-02.png" alt="Slack API サイトの Create new app ダイアログ。Blank app が選択されている" loading="lazy" />
+                <figcaption>［Blank app］を選ぶ</figcaption>
+              </figure>
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-slack-a-04.png" alt="Slack API サイトの Incoming Webhooks 画面。Activate Incoming Webhooks のスイッチが On になっている" loading="lazy" />
+                <figcaption>スイッチを On にする</figcaption>
+              </figure>
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-slack-a-06.png" alt="Slack のアクセス許可画面。Webhook 用のチャンネルを選択している" loading="lazy" />
+                <figcaption>投稿先チャンネルを選ぶ</figcaption>
+              </figure>
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-slack-a-07.png" alt="Slack API サイトで発行された Webhook URL の一覧画面。URL はマスク表示している" loading="lazy" />
+                <figcaption>発行された URL をコピー</figcaption>
+              </figure>
+            </div>
+          </div>
+        </details>
+
+        <details class="afp-svc">
+          <summary>Slack ── 方法B：Slack の画面から追加する（手軽・ただし旧方式）</summary>
+          <div class="afp-svc-body">
+            <div class="afp-note">
+              Slack はこの「Incoming Webhook」を <strong>legacy custom integration（旧式の連携方法）</strong>と表示しており、将来は廃止される可能性があると案内しています。長く使う場合は方法A をおすすめします。
+            </div>
+            <ol>
+              <li>ワークスペース名 →［ツールと設定］→［アプリを管理する］を開く</li>
+              <li>「Incoming Webhook」を検索してアプリのページを開く</li>
+              <li>［Slack に追加］を押す</li>
+              <li>投稿先チャンネルを選び、［Incoming Webhook インテグレーションの追加］を押す</li>
+              <li>表示された URL を［URL をコピーする］でコピーする</li>
+            </ol>
+            <div class="afp-svc-shots">
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-slack-b-02.png" alt="Slack のワークスペースメニューからツールと設定、アプリを管理するを選ぶ画面" loading="lazy" />
+                <figcaption>［アプリを管理する］へ</figcaption>
+              </figure>
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-slack-b-04.png" alt="Slack App ディレクトリの Incoming Webhook のページ。旧式の連携方法である旨の警告が表示されている" loading="lazy" />
+                <figcaption>旧式である旨の警告が出ます</figcaption>
+              </figure>
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-slack-b-05.png" alt="Slack で投稿先チャンネルを選び、Incoming Webhook インテグレーションの追加ボタンを押す画面" loading="lazy" />
+                <figcaption>チャンネルを選んで追加</figcaption>
+              </figure>
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-slack-b-06.png" alt="Slack のインテグレーション設定画面。発行された Webhook URL はマスク表示している" loading="lazy" />
+                <figcaption>URL をコピー</figcaption>
+              </figure>
+            </div>
+          </div>
+        </details>
+
+        <details class="afp-svc">
+          <summary>Microsoft Teams ── ワークフローで作る</summary>
+          <div class="afp-svc-body">
+            <div class="afp-note">
+              旧「Office 365 コネクタ」は <strong>2026年5月に廃止</strong>されました。新しく作る場合は必ず「ワークフロー」を使ってください。
+            </div>
+            <ol>
+              <li>投稿したいチャネルの［…］→［ワークフロー］を開く</li>
+              <li>「Webhook」で検索し、<strong>［Webhook アラートをチャネルに送信する］</strong>を選ぶ（「チャットに送信する」は DM 向けなので別物です）</li>
+              <li>接続を確認して次へ進む</li>
+              <li>［チャネルが所属するチーム］と［チャネル］を選んで保存する</li>
+              <li>表示された HTTP POST URL をコピーする</li>
+            </ol>
+            <div class="afp-svc-shots">
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-teams-02.png" alt="Microsoft Teams のチャネルメニュー。ワークフローの項目が表示されている" loading="lazy" />
+                <figcaption>［…］→［ワークフロー］</figcaption>
+              </figure>
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-teams-03.png" alt="Teams のワークフローでWebhookを検索した結果。似た名前のテンプレートが4つ並んでいる" loading="lazy" />
+                <figcaption>似たテンプレートが並ぶので注意</figcaption>
+              </figure>
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-teams-04.png" alt="Teams のワークフローのパラメーター画面。チャネルが所属するチームとチャネルを選択している" loading="lazy" />
+                <figcaption>チームとチャネルを選ぶ</figcaption>
+              </figure>
+            </div>
+          </div>
+        </details>
+
+        <details class="afp-svc">
+          <summary>Google Chat ── スペースに Webhook を追加する</summary>
+          <div class="afp-svc-body">
+            <div class="afp-note">
+              Google Workspace アカウントが必要です。管理コンソールで「ユーザーに着信 Webhook の追加と使用を許可する」が<strong>組織全体で ON</strong> になっている必要があります。
+            </div>
+            <ol>
+              <li>スペース名の「˅」→［アプリと統合］を開く</li>
+              <li>左側の［Webhook］を選び、［＋ Webhook を追加］を押す</li>
+              <li>「着信 Webhook」のダイアログで名前を入力して［保存］</li>
+              <li>生成された URL をコピーする（末尾の <code>?key=…&amp;token=…</code> まで省略せず全部）</li>
+            </ol>
+            <div class="afp-svc-shots">
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-gchat-02.png" alt="Google Chat のアプリと統合画面。Webhook のメニューと Webhook を追加ボタンが表示されている" loading="lazy" />
+                <figcaption>［＋ Webhook を追加］</figcaption>
+              </figure>
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-gchat-03.png" alt="Google Chat の着信 Webhook ダイアログ。名前とアバターの URL を入力して保存する" loading="lazy" />
+                <figcaption>名前を付けて保存</figcaption>
+              </figure>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- プラン -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span></div>
+            <div class="afp-plan-discount">利用期限なし</div>
+            <ul class="afp-plan-features">
+              <li>通知ルール <strong>1本</strong>まで動作</li>
+              <li>3サービスすべてに送信できます</li>
+              <li>6種類のきっかけ・条件・変更検知</li>
+              <li>差し込みテンプレート・全員メンション</li>
+              <li>送信履歴・エラー通知</li>
+              <li>プラグイン内に広告が表示されます</li>
+            </ul>
+            <a class="afp-plan-cta" href="/downloads/kw-chat-notify-v1.0.0.zip" download>ダウンロード（v1.0.0）</a>
+          </div>
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">全プラグインが使えます</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000</div>
+            <ul class="afp-plan-features">
+              <li>通知ルールが <strong>無制限</strong></li>
+              <li>部署別・条件別に送信先を振り分けられます</li>
+              <li>広告が非表示になります</li>
+              <li>販売中の<strong>全プラグイン</strong>が使えます</li>
+              <li>優先サポート・改善要望の受付</li>
+              <li>単品販売はありません</li>
+            </ul>
+            <a class="afp-plan-cta" href="/plugins/supporter/">プレミアム年間サポーターを見る</a>
+          </div>
+        </div>
+
+        <div style="margin: 0 0 32px;">
+          <TrialBanner />
+        </div>
+
+        <h3 class="afp-plan-compare-head">無料プランでできること</h3>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>項目</th><th class="c">無料プラン</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>動作する通知ルール</td><td class="c">1本</td><td class="c"><strong>無制限</strong></td></tr>
+              <tr><td>対応サービス（Slack / Teams / Google Chat）</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>きっかけ6種類・条件・変更検知</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>差し込みテンプレート・全員メンション</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>送信履歴・エラー通知</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>プラグイン内の広告</td><td class="c">表示</td><td class="c"><strong>非表示</strong></td></tr>
+              <tr><td>他のプラグイン</td><td class="c">—</td><td class="c"><strong>全部使えます</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note">
+          無料プランでも<strong>設定は消えません</strong>。2本目以降のルールは「停止中」と表示されるだけで、プレミアム年間サポーターに加入すればそのまま全ルールが動き出します。
+        </div>
+      </div>
+    </section>
+
+    <!-- インストール手順 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="steps-list">
+          <li><span>上のボタンから <strong>kw-chat-notify-v1.0.0.zip</strong> をダウンロードします。</span></li>
+          <li><span>kintone の <strong>システム管理 → プラグイン</strong> で「読み込む」を押し、zip ファイルを選びます。</span></li>
+          <li><span>通知したいアプリの <strong>アプリの設定 → プラグイン</strong> で「チャット通知」を追加します。</span></li>
+          <li><span>「設定」を開き、<strong>① 送信先</strong> タブで Webhook URL を登録します（テスト送信で疎通を確認できます）。</span></li>
+          <li><span><strong>② 通知ルール</strong> タブで、きっかけ・条件・本文を設定します。</span></li>
+          <li><span><strong>③ 共通設定</strong> タブで「保管アプリを作成」を押します（送信の失敗に気づくために推奨）。</span></li>
+          <li><span>「保存」を押し、<strong>アプリを更新</strong>して反映します。</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ご利用にあたっての注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li><strong>PC 版の kintone でのみ動作します。</strong>モバイル版ではプラグインが読み込まれないため、<strong>スマートフォンからレコードを追加・更新・削除しても通知は送信されません</strong>（画面が乱れることはありません）。</li>
+            <li>Webhook URL は<strong>チャット側でご用意いただく必要があります</strong>。発行には、チャットサービス側の管理者権限や承認が必要な場合があります。</li>
+            <li><strong>Microsoft Teams ではメンションを使えません。</strong>ワークフロー経由の投稿ではメンション記法が解釈されないためです。</li>
+            <li>Teams では、レコードの値に <code>*</code> や <code>_</code> が含まれると斜体などに変換されて表示されることがあります。</li>
+            <li>Teams の投稿者は「<strong>ワークフロー 経由の（ワークフローを作成した方の氏名）</strong>」と表示されます。Bot 名には変更できません。</li>
+            <li>サブテーブルの値は本文に差し込めません（空欄になります）。</li>
+            <li>送信に失敗しても<strong>自動で再送はしません</strong>（重複投稿を防ぐための仕様です）。失敗は保管アプリに記録され、ベル通知でお知らせします。</li>
+            <li>同じ送信先に対する通知ルールが多い場合、追加・削除の操作では<strong>おおむね8本を超えると後続が届かない</strong>ことがあります。送信先を分けてご利用ください。</li>
+            <li>Google Chat のご利用には Google Workspace アカウントと、管理コンソールでの着信 Webhook の許可が必要です。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 安心ボックス -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-chat-notify" />
+        <ShareButtons title="チャット通知 for kintone" />
+      </div>
+    </section>
+
+    <!-- よくある質問 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">よくある質問</h2>
+        <div class="afp-faq">
+          <details class="afp-faq-item">
+            <summary>単品で購入できますか？</summary>
+            <div class="afp-faq-answer">
+              本プラグインは<strong>プレミアムプラグイン</strong>のため単品販売はありません。無料プランで通知ルール1本まで、6種類のきっかけ・条件・差し込みテンプレートまで<strong>全機能をお試しいただけます</strong>。ルールを複数動かすには、プレミアム年間サポーター（税込 ¥16,500/年）にご加入ください。販売中の全プラグインも利用できます。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>中継サーバーやGASの準備は必要ですか？</summary>
+            <div class="afp-faq-answer">
+              <strong>不要です。</strong>kintone から各チャットサービスの Webhook へ直接送信します。当社のサーバーを経由しないため、通知の本文が第三者に渡ることはありません。ご用意いただくのは、チャット側で発行する Webhook URL だけです。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>スマートフォンからレコードを登録しても通知されますか？</summary>
+            <div class="afp-faq-answer">
+              <strong>いいえ。</strong>本プラグインは PC 版の kintone でのみ動作します。モバイル版ではプラグイン自体が読み込まれないため、スマートフォンからレコードを追加・更新・削除しても通知は送信されません（画面が乱れることはありません）。外回りの担当者がスマホから登録する運用では通知が届かない点にご注意ください。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>毎回の保存で通知が飛んで、うるさくなりませんか？</summary>
+            <div class="afp-faq-answer">
+              既定では<strong>「値に変更があったときだけ」</strong>通知します。値を変えずに保存した場合は送信されません。さらに「指定した項目が変わったときだけ」に絞ることもできます。加えて、最大5件の条件（例：金額が100万円以上、区分がAまたはC）を AND / OR で組み合わせ、通知する対象を絞り込めます。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>Teams でメンションはできますか？</summary>
+            <div class="afp-faq-answer">
+              <strong>できません。</strong>Microsoft Teams のワークフロー経由の投稿では、メンション記法が解釈されないためです。全員メンションは Slack（<code>@channel</code>）と Google Chat（<code>@all</code>）でご利用いただけます。なお、条件を設定せずに全員メンションを有効にすると保存のたびに全員へプッシュが飛ぶため、設定画面で警告を表示します。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>送信に失敗したときは分かりますか？</summary>
+            <div class="afp-faq-answer">
+              同じスペース内に自動生成する<strong>保管アプリ</strong>へ、送信日時・ルール名・送信先・本文・結果・エラー内容を記録します。失敗した場合は、設定した宛先へ <strong>kintone のベル通知</strong>が届きます。記録モードは「すべて記録」「エラーのみ記録」「記録しない」から選べます。保管アプリは一般ユーザーからは閲覧できません（追加のみ可）。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>Webhook URL は安全に保管されますか？</summary>
+            <div class="afp-faq-answer">
+              設定画面では伏字で表示され、kintone のプラグイン設定領域に保存されます。ただし、Webhook URL は kintone のプロキシ経由で送信される都合上、<strong>アプリ管理権限を持つ方には確認できる可能性があります</strong>。「誰にも見えない」とは申し上げられません。URL が漏れた場合は、チャット側で Webhook を再発行すれば古い URL は無効になります。
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>プレミアム年間サポーターで使ってみる</h2>
+      <p>
+        まずは無料プランで、通知ルール1本を実際に動かしてみてください。届き方を確かめてから、部署別・条件別の振り分けが必要になったタイミングでご検討いただけます。
+      </p>
+      <a class="afp-cta-btn" href="/plugins/supporter/">プレミアム年間サポーターを見る</a>
+    </section>
+
+    <!-- ライトボックス -->
+    <div class="lightbox" id="cn-lightbox" role="dialog" aria-modal="true" aria-label="拡大画像">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var box = document.getElementById('cn-lightbox');
+      if (!box) return;
+      var img = box.querySelector('img');
+      var closeBtn = box.querySelector('.lightbox-close');
+      function open(src, alt) {
+        img.src = src;
+        img.alt = alt || '';
+        box.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        box.classList.remove('is-open');
+        img.src = '';
+        document.body.style.overflow = '';
+      }
+      document.querySelectorAll('img.zoomable').forEach(function (el) {
+        el.addEventListener('click', function () { open(el.currentSrc || el.src, el.alt); });
+      });
+      box.addEventListener('click', function (e) { if (e.target !== img) close(); });
+      closeBtn.addEventListener('click', close);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+  </script>
+</Layout>
