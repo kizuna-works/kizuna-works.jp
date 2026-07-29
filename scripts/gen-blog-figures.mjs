@@ -322,6 +322,34 @@ const FIGURES = [
     w: 1000, h: 210,
     el: flowCaptioned(['レコードを削除', '内容＋添付を自動で退避', '履歴からワンクリック復元'], C.green, '削除レコード復元なら、消した瞬間に内容と添付を退避し、あとから元の位置に戻せる'),
   },
+  {
+    name: 'kintone-tempu-file-limit',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: '1ファイル1GBまで・件数は無制限', desc: '添付できる件数に上限はない。先に当たるのはディスク容量。', tag: '公式仕様', paid: false },
+      { n: '2', name: '拡張子やサイズは制限できない', desc: '種類を問わず添付できる仕様。PDFだけに絞る設定はない。', tag: '標準では不可', paid: true },
+      { n: '3', name: '一覧では中身が分からない', desc: '画像の小さなサムネイルのみ。PDFやExcelは有無も見えない。', tag: '標準では不可', paid: true },
+      { n: '4', name: '一括ダウンロードができない', desc: '公式ヘルプが明言。1件ずつ落とすか、APIを使う。', tag: '標準では不可', paid: true },
+      { n: '5', name: 'CSV書き出しに含まれない', desc: 'エクスポート対象外。CSVを保管しても中身は残らない。', tag: '標準では不可', paid: true },
+    ]),
+  },
+  {
+    name: 'kintone-tempu-file-download',
+    w: 1000, h: 330,
+    el: overviewMethods([
+      { n: '1', name: '1件ずつ手動', desc: '詳細画面でファイル名をクリック。数件なら結局これが最短。', cost: '無料' },
+      { n: '2', name: 'cli-kintone', desc: 'サイボウズ公式のコマンドラインツール。全レコードの添付を一括取得。', cost: '無料' },
+      { n: '3', name: 'バックアップサービス', desc: '添付まで自動で継続保全。復元も含めて任せたい場合の選択肢。', cost: '有料' },
+    ]),
+  },
+  {
+    name: 'kintone-tempu-file-visible',
+    w: 1000, h: 300,
+    el: contrastPanel(
+      { title: '開かずに分かる（プラグイン併用）', desc: '一覧に拡張子アイコンと件数バッジが並び、ファイル名クリックでその場にプレビューが開く。詳細画面を開く回数が減る。' },
+      { title: '毎回開いて確認（標準のまま）', desc: '一覧に出るのは画像の小さなサムネイルだけ。PDFやExcelは詳細画面を開き、さらにダウンロードしないと中身が分からない。' }
+    ),
+  },
 ];
 
 const only = process.argv[2];

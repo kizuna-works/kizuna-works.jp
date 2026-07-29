@@ -194,7 +194,8 @@ c:\kizuna-works.jp\
 │   │       ├── kintone-quick-side-view-plugin-hikaku.md # 「kintone一覧でレコードを閲覧・編集できるプラグイン比較」記事
 │   │       ├── kintone-lookup-plugin-hikaku.md      # 「【2026年最新】kintoneルックアップを快適にするプラグイン比較」記事（入力サジェスト/自動取得/先更新/編集絞り込みの4アプローチ比較）
 │   │       ├── kintone-backup.md                    # 「kintoneのバックアップはどうする？標準の限界とプラグイン・サービス比較」記事（標準/kBackup/削除レコード復元・図解4＋実機/プラグインスクショ・Gemini製ヒーローバナー kintone-backup.png）
-│   │       └── kintone-henkou-rireki.md             # 「kintone変更履歴完全ガイド｜確認方法・監査ログとの違い・「誰が見たか」の残し方」記事（変更履歴/ステータスの履歴/監査ログの3種類・欠番・保存期間・非表示・CSV不可・既読チェック紹介／図解 kintone-rireki-3types.svg・Gemini製ヒーローバナー kintone-henkou-rireki.png）
+│   │       ├── kintone-henkou-rireki.md             # 「kintone変更履歴完全ガイド｜確認方法・監査ログとの違い・「誰が見たか」の残し方」記事（変更履歴/ステータスの履歴/監査ログの3種類・欠番・保存期間・非表示・CSV不可・既読チェック紹介／図解 kintone-rireki-3types.svg・Gemini製ヒーローバナー kintone-henkou-rireki.png）
+│   │       └── kintone-tempu-file.md                # 「kintoneの添付ファイル完全ガイド｜容量の上限・一括ダウンロード・一覧で中身を見る方法」記事（1ファイル1GB・件数無制限／契約ユーザー数×5GB／変更履歴有効だと削除しても減らない落とし穴／cli-kintone による一括DL／拡張子制限は標準不可・図解3枚 kintone-tempu-file-{limit,download,visible}.png・Gemini製ヒーローバナー kintone-tempu-file.png）
 │   └── styles/
 │       └── global.css          # グローバルCSS（最小リセット・スティッキーフッター用）
 │
