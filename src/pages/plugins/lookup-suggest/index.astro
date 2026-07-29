@@ -8,9 +8,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 
 <Layout
   title="ルックアップサジェスト for kintone - ルックアップに検索サジェストを追加 | KIZUNA Works"
-  description="kintoneのルックアップフィールドへライブサジェスト機能を追加する無料プラグイン。入力中に候補を直下表示し画面遷移なしで取得完結。電話番号・住所など複数フィールドの横断検索対応で同名顧客の取り違えも防止。kintone プラグイン 無料配布中。"
+  description="kintoneのルックアップフィールドへライブサジェスト機能を追加する無料プラグイン。入力中に候補を直下表示し画面遷移なしで取得完結。電話番号・住所など複数フィールドの横断検索に対応。v2.1.0でスマホ（モバイル版kintone）にも対応。無料配布中。"
   ogTitle="ルックアップサジェスト for kintone - ルックアップに検索サジェストを追加 | KIZUNA Works"
-  ogDescription="kintoneのルックアップフィールドへライブサジェスト機能を追加する無料プラグイン。入力中に候補を直下表示し画面遷移なしで取得完結。電話番号・住所など複数フィールドの横断検索対応で同名顧客の取り違えも防止。kintone プラグイン 無料配布中。"
+  ogDescription="kintoneのルックアップフィールドへライブサジェスト機能を追加する無料プラグイン。入力中に候補を直下表示し画面遷移なしで取得完結。電話番号・住所など複数フィールドの横断検索に対応。v2.1.0でスマホ（モバイル版kintone）にも対応。無料配布中。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/lookup-suggest/"
   ogImage="https://kizuna-works.jp/images/lookup-suggest-banner.png"
@@ -26,7 +26,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "@id": "https://kizuna-works.jp/plugins/lookup-suggest/",
           "url": "https://kizuna-works.jp/plugins/lookup-suggest/",
           "name": "ルックアップサジェスト for kintone - ルックアップに検索サジェストを追加 | KIZUNA Works",
-          "description": "kintoneのルックアップフィールドへライブサジェスト機能を追加する無料プラグイン。入力中に候補を直下表示し画面遷移なしで取得完結。電話番号・住所など複数フィールドの横断検索対応で同名顧客の取り違えも防止。kintone プラグイン 無料配布中。",
+          "description": "kintoneのルックアップフィールドへライブサジェスト機能を追加する無料プラグイン。入力中に候補を直下表示し画面遷移なしで取得完結。電話番号・住所など複数フィールドの横断検索に対応。v2.1.0でスマホ（モバイル版kintone）にも対応。無料配布中。",
           "primaryImageOfPage": {
             "@type": "ImageObject",
             "url": "https://kizuna-works.jp/images/lookup-suggest-banner.png",
@@ -52,12 +52,15 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "ルックアップサジェスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.0.0",
-          "dateModified": "2026-06-24",
+          "softwareVersion": "2.1.0",
+          "dateModified": "2026-07-29",
           "url": "https://kizuna-works.jp/plugins/lookup-suggest/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-suggest-v2.0.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-suggest-v2.1.0.zip",
           "image": "https://kizuna-works.jp/images/lookup-suggest-banner.png",
           "screenshot": [
+            "https://kizuna-works.jp/images/lookup-suggest-mobile-01.png",
+            "https://kizuna-works.jp/images/lookup-suggest-mobile-02.png",
+            "https://kizuna-works.jp/images/lookup-suggest-mobile-03.png",
             "https://kizuna-works.jp/images/lookup-suggest-subtable-01.png",
             "https://kizuna-works.jp/images/lookup-suggest-subtable-02.png",
             "https://kizuna-works.jp/images/lookup-suggest-subtable-03.png",
@@ -75,7 +78,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintoneのルックアップフィールドへの入力中に候補を表示し画面遷移なしで取得完結する無料プラグイン。v2.0.0でサブテーブル内ルックアップに対応（行ごとにフローティング表示）。複数フィールド横断検索・追加表示フィールド対応。kintone プラグイン 無料配布中。",
+          "description": "kintoneのルックアップフィールドへの入力中に候補を表示し画面遷移なしで取得完結する無料プラグイン。v2.1.0でモバイル版kintoneに対応（通常ルックアップ）。v2.0.0でサブテーブル内ルックアップに対応（行ごとにフローティング表示）。複数フィールド横断検索・追加表示フィールド対応。kintone プラグイン 無料配布中。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -240,6 +243,40 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       color: var(--color-text-light);
       font-size: 12px;
       margin: 10px 0 0;
+    }
+
+    /* Phone screenshots shown side by side at roughly handset scale.
+       Portrait shots are far taller than they are wide, so stacking them
+       full-width would make the section scroll for pages. */
+    .mobile-shots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 840px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    .mobile-shot {
+      margin: 0;
+      min-width: 0;
+    }
+    .mobile-shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .mobile-shot figcaption {
+      color: var(--color-text-light);
+      font-size: 12px;
+      line-height: 1.7;
+      margin-top: 10px;
+      text-align: left;
+    }
+    .update-box > .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin: 14px 0 0;
     }
 
     /* Zoomable images + lightbox overlay */
@@ -913,6 +950,16 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       .update-title {
         font-size: 17px;
       }
+      /* One phone shot per row on handsets: three columns would shrink each
+         screenshot below the point where its text is legible. */
+      .mobile-shots {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        max-width: 320px;
+      }
+      .mobile-shot figcaption {
+        text-align: center;
+      }
     }
   </style>
 
@@ -930,55 +977,72 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.0.0</span>
+        <span class="hero-version">v2.1.0</span>
       </div>
       <h1 class="hero-title">ルックアップサジェスト for kintone</h1>
-      <p class="hero-copy">入力中に参照先候補を直下にライブ表示し、画面遷移なしでルックアップ取得を完結。複数ルックアップ・参照先の複数フィールド横断検索に対応した、kintone のルックアップ作業を高速化するプラグインです。<strong>v2.0.0 でサブテーブル（テーブル）内のルックアップにも対応しました。</strong></p>
+      <p class="hero-copy">入力中に参照先候補を直下にライブ表示し、画面遷移なしでルックアップ取得を完結。複数ルックアップ・参照先の複数フィールド横断検索・サブテーブル内ルックアップに対応した、kintone のルックアップ作業を高速化するプラグインです。<strong>v2.1.0 でスマートフォン（モバイル版 kintone）にも対応しました。</strong></p>
     </section>
 
-    <!-- Update Info (v2.0.0) -->
+    <!-- Update Info (v2.1.0) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v2.0.0：サブテーブル（テーブル）内のルックアップに対応しました</h2>
+          <h2 class="update-title">v2.1.0：スマートフォン（モバイル版 kintone）に対応しました</h2>
         </div>
-        <p class="update-desc">これまで対象外だった<strong>サブテーブル内のルックアップフィールド</strong>でも、サジェストが使えるようになりました。見積・受注の明細行のように<strong>同じルックアップを行ごとに何度も入力する場面</strong>でこそ効果が大きい機能です。候補リストは<strong>入力中のセルの直下にフローティング表示</strong>され、選んだ候補の値がその行にセットされて、同じ行のコピー先フィールド（商品名・単価など）まで自動で反映されます。行を追加しても自動でサジェストが効きます。設定はルックアップフィールドの選択で<strong>「【テーブル: 〇〇】商品コード」</strong>を選ぶだけ。サブテーブルにはスペース要素を置く必要がありません。もちろん、<strong>参照先の複数フィールド（商品名・規格・メーカーなど）からの横断検索</strong>もサブテーブルでそのまま使えます。</p>
-        <div class="update-shot">
-          <p class="shot-label">▼ 明細行で商品コードの一部（例：BP）を入力 → 候補が入力欄の直下にフローティング表示</p>
-          <div class="screenshot-frame">
-            <img
-              class="zoomable"
-              src="/images/lookup-suggest-subtable-01.png"
-              alt="見積書の明細サブテーブルで、商品コード欄に「BP」と入力すると入力欄の直下にフローティングで候補（BP-2001/BP-2002/BP-2010）がメーカー・規格・商品名つきで表示されている画面"
-              loading="lazy"
-            />
-          </div>
+        <p class="update-desc">これまで PC 版だけだったサジェストが、<strong>スマートフォンの kintone（モバイル版）でも使えるようになりました</strong>。標準のルックアップはモバイルでも【取得】から一覧をたどる必要があり、小さな画面での往復はPC以上に負担でした。v2.1.0 では、レコードの追加・編集画面でルックアップに 2 文字以上入力すると<strong>そのまま候補が並び、タップするだけでルックアップ取得まで完結</strong>します。候補は<strong>指でタップしやすい行の高さ・読みやすい文字サイズ</strong>で表示され、画面の高さの半分を超えないよう収まります。取得と同時にキーボードが引っ込むので、コピーされた値をすぐ確認できます。<strong>参照先の複数フィールド（住所・電話番号など）からの横断検索</strong>もモバイルでそのまま使えます。設定は PC と共通で、<strong>追加の設定項目はありません</strong>。</p>
+        <div class="mobile-shots">
+          <figure class="mobile-shot">
+            <div class="screenshot-frame">
+              <picture>
+                <source srcset="/images/lookup-suggest-mobile-01.webp" type="image/webp" />
+                <img
+                  class="zoomable"
+                  src="/images/lookup-suggest-mobile-01.png"
+                  alt="スマートフォンのkintoneレコード追加画面で、顧客名のルックアップに「株式」と入力すると、会社名・住所・業種つきの候補がフィールド直下に一覧表示されている画面"
+                  width="780"
+                  height="1400"
+                  loading="lazy"
+                />
+              </picture>
+            </div>
+            <figcaption>2 文字入力すると候補が並ぶ。住所・業種も併記されるので同名の取り違えを防げる</figcaption>
+          </figure>
+          <figure class="mobile-shot">
+            <div class="screenshot-frame">
+              <picture>
+                <source srcset="/images/lookup-suggest-mobile-02.webp" type="image/webp" />
+                <img
+                  class="zoomable"
+                  src="/images/lookup-suggest-mobile-02.png"
+                  alt="スマートフォンのkintoneで顧客名のルックアップに「日本橋」と住所の一部を入力すると、その住所を持つ株式会社サイボウズ商事が候補に表示される画面。会社名を知らなくても住所で引ける"
+                  width="780"
+                  height="1400"
+                  loading="lazy"
+                />
+              </picture>
+            </div>
+            <figcaption>住所や電話番号など<strong>会社名以外のフィールドでも検索</strong>できる</figcaption>
+          </figure>
+          <figure class="mobile-shot">
+            <div class="screenshot-frame">
+              <picture>
+                <source srcset="/images/lookup-suggest-mobile-03.webp" type="image/webp" />
+                <img
+                  class="zoomable"
+                  src="/images/lookup-suggest-mobile-03.png"
+                  alt="スマートフォンのkintoneで候補をタップすると顧客名がセットされ、コピー先の顧客No.にも参照先の値が自動入力された画面。キーボードは自動で閉じている"
+                  width="780"
+                  height="1400"
+                  loading="lazy"
+                />
+              </picture>
+            </div>
+            <figcaption>タップすればコピー先（顧客No.）まで自動入力。キーボードも自動で閉じる</figcaption>
+          </figure>
         </div>
-        <div class="update-shot">
-          <p class="shot-label">▼ 候補を選ぶと、その行に商品名・規格・単価が自動入力（参照先から取得完了）</p>
-          <div class="screenshot-frame">
-            <img
-              class="zoomable"
-              src="/images/lookup-suggest-subtable-02.png"
-              alt="サブテーブルの明細行で候補(BP-2002)を選ぶと商品名・規格・単価が自動コピーされ「参照先からデータが取得されました」と表示。次の行ではメーカー名「三菱」で検索している見積明細の画面"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        <div class="update-shot">
-          <p class="shot-label">▼ 商品名・メーカー名（例：コクヨ）でも検索できる — コードを知らなくても引ける</p>
-          <div class="screenshot-frame">
-            <img
-              class="zoomable"
-              src="/images/lookup-suggest-subtable-03.png"
-              alt="明細サブテーブルでメーカー名「コクヨ」と入力すると、コクヨ製の5商品が商品コード・規格・商品名つきで候補表示される画面。複数フィールドからの横断検索でコードを知らなくても引ける"
-              loading="lazy"
-            />
-          </div>
-          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-        </div>
-        <p class="update-note">既存ユーザーの方は、最新版（v2.0.0）をダウンロードして kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用できます。これまでの通常フィールド（テーブル外）のルックアップ設定・挙動はそのまま引き継がれます。</p>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        <p class="update-note">既存ユーザーの方は、最新版（v2.1.0）をダウンロードして kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用できます。PC 版のルックアップ設定・挙動はそのまま引き継がれます。<br />※モバイルで動作するのは<strong>通常フィールドのルックアップ</strong>です。<strong>サブテーブル（テーブル）内のルックアップは PC 版のみ</strong>の対応となります。</p>
       </div>
     </section>
 
@@ -1174,7 +1238,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-lookup-suggest-v2.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-lookup-suggest-v2.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -1375,10 +1439,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           gtag('event', 'file_download', {
-            file_name: 'kw-lookup-suggest-v2.0.0.zip',
+            file_name: 'kw-lookup-suggest-v2.1.0.zip',
             file_extension: 'zip',
             link_text: 'ダウンロード（無料）',
-            link_url: '/downloads/kw-lookup-suggest-v2.0.0.zip'
+            link_url: '/downloads/kw-lookup-suggest-v2.1.0.zip'
           });
         });
       }

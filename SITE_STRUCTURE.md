@@ -224,6 +224,12 @@ c:\kizuna-works.jp\
 │   │   ├── lookup-suggest-subtable-01.png  # ルックアップサジェスト v2.0.0 — 見積明細サブテーブルで商品コード一部「BP」入力→フローティング候補表示
 │   │   ├── lookup-suggest-subtable-02.png  # ルックアップサジェスト v2.0.0 — 候補選択でその行に商品名・規格・単価が自動コピー（取得完了）＋次行でメーカー名「三菱」検索
 │   │   ├── lookup-suggest-subtable-03.png  # ルックアップサジェスト v2.0.0 — メーカー名「コクヨ」で横断検索しコクヨ製5商品を候補表示（コード不要）
+│   │   ├── lookup-suggest-mobile-01.png    # ルックアップサジェスト v2.1.0 — モバイル追加画面で「株式」入力→会社名・住所・業種付きの候補一覧（webp併置）
+│   │   ├── lookup-suggest-mobile-01.webp   # 同上 WebP 版（<picture> の source 用）
+│   │   ├── lookup-suggest-mobile-02.png    # ルックアップサジェスト v2.1.0 — モバイルで住所の一部「日本橋」から該当社を横断検索（webp併置）
+│   │   ├── lookup-suggest-mobile-02.webp   # 同上 WebP 版（<picture> の source 用）
+│   │   ├── lookup-suggest-mobile-03.png    # ルックアップサジェスト v2.1.0 — モバイルで候補タップ後、顧客名＋コピー先の顧客No.が自動入力された状態（webp併置）
+│   │   ├── lookup-suggest-mobile-03.webp   # 同上 WebP 版（<picture> の source 用）
 │   │   ├── quick-search-icon.png           # クイックサーチプラグイン アイコン（200×200）
 │   │   ├── quick-search-banner.png         # クイックサーチプラグイン バナー（1200×675・OGP/グリッド共用）
 │   │   ├── quick-search-action-01.png      # クイックサーチプラグイン 動作画面スクショ① — 検索バー全景（プレースホルダー表示）
@@ -438,7 +444,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-conditional-numbering-v1.1.2.zip         # 条件分岐自動採番 for kintone 配布ファイル（旧版）
 │   │   ├── kw-form-deco-v1.0.2.zip                     # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-lookup-suggest-v1.0.2.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置）
-│   │   ├── kw-lookup-suggest-v2.0.0.zip                # ルックアップサジェスト for kintone 配布ファイル（最新・手動配置・v2.0.0 でサブテーブル内ルックアップ対応）
+│   │   ├── kw-lookup-suggest-v2.0.0.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.0.0 でサブテーブル内ルックアップ対応）
+│   │   ├── kw-lookup-suggest-v2.1.0.zip                # ルックアップサジェスト for kintone 配布ファイル（最新・手動配置・v2.1.0 でモバイル版 kintone 対応＝通常ルックアップのみ）
 │   │   ├── kw-quick-side-view-v1.0.2.zip               # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-quick-search-v1.1.2.zip                  # クイックサーチ for kintone 配布ファイル（手動配置・v1.1.2 でゲストスペース対応）
 │   │   ├── kw-quick-search-v1.2.0.zip                  # クイックサーチ for kintone 配布ファイル（手動配置・v1.2.0＝期間フィルタ追加）
