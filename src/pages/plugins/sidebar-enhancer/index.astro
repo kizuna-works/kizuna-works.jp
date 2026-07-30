@@ -1,0 +1,784 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import TrialBanner from '../../../components/TrialBanner.astro';
+---
+
+<Layout
+  title="サイドバー拡張 for kintone｜右サイドバーにレコード追加・進捗・確認の5タブを増設 | KIZUNA Works"
+  description="kintone のレコード詳細画面の右サイドバーに独自タブを5つ増設するプラグイン。値を引き継いで他アプリへレコード追加、URLや地図を画面を離れずプレビュー、プロセス管理のステータス履歴と滞留日数、ステータス別チェックリスト、アプリガイドを常設。フォームのレイアウトは一切変えません。"
+  ogTitle="サイドバー拡張 for kintone｜右サイドバーにレコード追加・進捗・確認の5タブを増設 | KIZUNA Works"
+  ogDescription="レコード詳細画面の右サイドバー（コメント・変更履歴の隣）に、追加・リンク・進捗・確認・ガイドの5タブを増設。フォームのレイアウトを変えずに、既存アプリへ後から機能を足せるプレミアムプラグインです。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/sidebar-enhancer/"
+  ogImage="https://kizuna-works.jp/images/sidebar-enhancer-banner.png"
+  canonical="https://kizuna-works.jp/plugins/sidebar-enhancer/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/sidebar-enhancer/",
+          "url": "https://kizuna-works.jp/plugins/sidebar-enhancer/",
+          "name": "サイドバー拡張 for kintone｜右サイドバーにレコード追加・進捗・確認の5タブを増設 | KIZUNA Works",
+          "description": "kintone のレコード詳細画面の右サイドバーに独自タブを5つ増設するプラグイン。値を引き継いで他アプリへレコード追加、URLや地図を画面を離れずプレビュー、プロセス管理のステータス履歴と滞留日数、ステータス別チェックリスト、アプリガイドを常設する。フォームのレイアウトは変更しない。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/sidebar-enhancer-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "サイドバー拡張 for kintone", "item": "https://kizuna-works.jp/plugins/sidebar-enhancer/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "サイドバー拡張 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-07-30",
+          "url": "https://kizuna-works.jp/plugins/sidebar-enhancer/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-sidebar-enhancer-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/sidebar-enhancer-banner.png",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "無料プラン",
+              "price": "0",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "5つの機能のうち1つを、機能の中身を制限せずお試しいただけます（利用期限なし）。"
+            },
+            {
+              "@type": "Offer",
+              "name": "プレミアム年間サポーター（全プラグイン込み）",
+              "price": "16500",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、5機能すべてを同時に有効化でき、追加先・表示対象・テンプレートも無制限になります。単品販売はありません。"
+            }
+          ],
+          "description": "kintone のレコード詳細画面の右サイドバー（コメント・変更履歴の隣）に独自タブを増設するプラグイン。開いているレコードの値を引き継いで他アプリへ新規レコードを作成、フィールドのURLや地図を画面を離れずプレビュー、プロセス管理のステータス履歴（どのアクションで・いつ・誰が変更したか）と滞留日数の警告、ステータス別チェックリスト、アプリの入力ルールやFAQの常設表示を提供する。フォームのレイアウトは一切変更しない。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "レコード詳細画面の右サイドバーに独自タブを最大5つ増設（フォームのレイアウトは変更しない）",
+            "開いているレコードの値を引き継いで他アプリ・自アプリへ新規レコードを作成",
+            "レコード追加フォームは全フィールド型に対応し、表示する項目と並び順を選べる",
+            "引き継いだ値の固定（編集不可）と、固定値の自動セットに対応",
+            "フィールドに入っているURLをサイドバー内に埋め込み表示",
+            "Googleマップの共有URLを埋め込み形式へ自動変換して地図表示",
+            "プロセス管理のステータス履歴を縦のステッパーで表示（どのアクションで・いつ・誰が変更したか）",
+            "ステータスが最後に変わってからの経過日数をしきい値と色で段階警告",
+            "ステータス別チェックリストの消化・完了率表示・未完了ならプロセス管理のアクションを実行させない",
+            "アプリの入力ルール・運用手順・FAQをMarkdownでサイドバーに常設",
+            "kintone完結。外部サービスへ業務データを送信しない"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "既存アプリのフォームは変わってしまいますか？", "acceptedAnswer": { "@type": "Answer", "text": "変わりません。本プラグインは右サイドバー（コメント・変更履歴が並んでいる場所）にタブを追加するだけで、フォームのフィールド配置には手を加えません。そのため、すでに運用中のアプリへ後から入れても本体の見た目が崩れません。なお「進捗」タブを使う場合のみ、ステータスの変更履歴を保存する専用フィールドを2つ追加しますが、レコード画面では自動的に非表示になるため利用者の目には触れません。" } },
+            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。無料プランでは5つの機能のうち1つを、機能の中身を制限せずお試しいただけます（利用期限なし）。複数の機能を同時に使うには、プレミアム年間サポーター（税込 ¥16,500/年）にご加入ください。販売中の全プラグインも利用できます。" } },
+            { "@type": "Question", "name": "「進捗」タブはどの kintone 機能を使うものですか？プロセス管理は必須ですか？", "acceptedAnswer": { "@type": "Answer", "text": "kintone の「プロセス管理」（アプリの設定でステータスとアクションを定義する機能）を使っているアプリ向けのタブです。プロセス管理が無効なアプリでは、このタブは表示されません。表示されるのは、プロセス管理のアクションによってステータスがどう変わってきたか（どのアクションで・いつ・誰が）と、現在のステータスに何日とどまっているかです。" } },
+            { "@type": "Question", "name": "過去のステータス変更も表示されますか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。kintone にはプロセス管理のステータス変更履歴を取り出す API がないため、本プラグインはアクションが実行された時点で自分で記録します。したがって表示できるのは導入後に実行されたアクションだけです。導入前に通過したとみられるステータスは、まだ通っていない状態と区別できるようグレーの「記録なし」として表示し、凡例と注記も添えます。導入後の変更は、アクション名・日時・実行者つきで記録されます。" } },
+            { "@type": "Question", "name": "リンクタブで表示できないサイトがありますか？", "acceptedAnswer": { "@type": "Answer", "text": "あります。セキュリティ設定で他サイトへの埋め込みを禁止しているサイト（金融機関や行政サイトなどに多い）は、仕様上どのプラグインでも埋め込めません。その場合は自動的に「別タブで開く」ボタンへ切り替わるので、操作が行き止まりになることはありません。Googleマップの共有URLは、埋め込み可能な形式へ自動で書き換えてから表示します。" } },
+            { "@type": "Question", "name": "「追加」タブでサブテーブルも登録できますか？", "acceptedAnswer": { "@type": "Answer", "text": "v1.0.0 では対応していません。サブテーブル以外のフィールド型（文字列・数値・日付・選択系・ユーザー選択・ルックアップ・添付ファイルなど）はすべて登録できます。サブテーブルへの入力は、レコードを追加したあとにレコード本体で行ってください。" } },
+            { "@type": "Question", "name": "スマートフォンでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "v1.0.0 では PC 版のみの対応です。モバイル版はサイドバーの構造が異なるため、タブは表示されません（画面が乱れることはありません）。外出先での閲覧が中心の運用では、この点をご確認のうえご検討ください。" } },
+            { "@type": "Question", "name": "チェックリストの内容は、担当者が変わっても引き継げますか？", "acceptedAnswer": { "@type": "Answer", "text": "引き継げます。チェック状態はレコード本体ではなく、同じスペース内に自動生成する保管アプリへ保存し、閲覧と編集は全員に許可しています（削除だけを管理者に限定）。そのため、前の担当者が途中まで消化したチェックの続きを、別の担当者がそのまま進められます。レコードの変更履歴を汚さない設計です。" } },
+            { "@type": "Question", "name": "ほかのプラグインと同時に使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "使えます。既読チェック・コメントコントロール・クイックタブ・アコーディオンタブ・クイック目次・テーマスタイラー・住所アシストとの同時利用を実機で確認しています。とくに既読チェックとは同じサイドバーにタブが並びますが、表示順は「標準タブ → サイドバー拡張の5タブ → 既読」で固定され、どちらを先にインストールしても変わりません。タブを切り替えると相手のパネルは自動で閉じるため、内容が重なって表示されることもありません。" } },
+            { "@type": "Question", "name": "ゲストスペースでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "使えます。ゲストスペース内のアプリでも、設定画面と5つの機能すべてが動作することを確認しています。" } }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    /* The crown is a separate flex item with line-height:1 so it centres against
+       the label instead of sitting on the text baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 720px; line-height: 1.8; }
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    /* Keep service names from breaking mid-word ("Google" / "Chat" on separate lines) */
+    .nb { white-space: nowrap; }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0; }
+
+
+    /* The sidebar screenshots are narrow and tall. Left at the shared
+       .afp-feature ratio they tower over the text column and leave large gaps
+       above and below it, so cap their width and top-align the pair. */
+    .afp-feature.sbe-shot { grid-template-columns: 1.5fr 0.8fr; align-items: start; }
+    .afp-feature.sbe-shot.reverse { grid-template-columns: 0.8fr 1.5fr; }
+    .afp-feature.sbe-shot picture { max-width: 300px; margin-left: auto; margin-right: auto; }
+    /* The record-add form and the embedded page are the two tallest shots, so pull
+       them in further to keep each row close to its text height. */
+    .afp-feature.sbe-shot--tall picture { max-width: 260px; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+
+    .afp-msg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; align-items: start; }
+    .afp-msg-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-msg-card h3 { font-size: 1rem; color: var(--color-navy); margin: 0; padding: 12px 16px; border-bottom: 1px solid #eef2f7; background: #f8fafc; }
+    .afp-msg-card img { width: 100%; height: auto; display: block; cursor: zoom-in; background: #fff; }
+    .afp-msg-card p { font-size: 0.88rem; line-height: 1.7; color: var(--color-text-muted); margin: 0; padding: 12px 16px 14px; }
+
+    .afp-svc { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: var(--shadow-card); margin-bottom: 24px; overflow: hidden; }
+    .afp-svc > summary { cursor: pointer; list-style: none; padding: 18px 48px 18px 22px; font-weight: 700; color: var(--color-navy); font-size: 1.05rem; position: relative; }
+    .afp-svc > summary::-webkit-details-marker { display: none; }
+    .afp-svc > summary::after { content: "＋"; position: absolute; right: 22px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-svc[open] > summary::after { content: "－"; }
+    .afp-svc-body { padding: 0 22px 22px; }
+    .afp-svc-body ol { padding-left: 22px; margin: 0 0 18px; }
+    .afp-svc-body li { line-height: 1.9; margin-bottom: 6px; font-size: 0.97rem; }
+    .afp-svc-shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .afp-svc-shots figure { margin: 0; }
+    .afp-svc-shots img { width: 100%; height: auto; display: block; border: 1px solid #e2e8f0; border-radius: 8px; cursor: zoom-in; background: #fff; }
+    .afp-svc-shots figcaption { font-size: 0.82rem; color: var(--color-text-muted); margin-top: 6px; line-height: 1.6; }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 560px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .steps-list { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    .afp-cfgstep { margin-bottom: 40px; }
+    .afp-cfgstep:last-child { margin-bottom: 0; }
+    .afp-cfgstep-head { display: flex; align-items: flex-start; gap: 14px; margin: 0 auto 16px; max-width: 960px; }
+    .afp-cfgstep-badge { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--color-navy); color: #fff; font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; }
+    .afp-cfgstep-body h3 { font-size: 1.2rem; color: var(--color-navy); margin: 4px 0 6px; }
+    .afp-cfgstep-body p { font-size: 0.98rem; line-height: 1.8; margin: 0; color: var(--color-text-main); }
+    .afp-cfgstep-body p strong { color: var(--color-navy); }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.sbe-shot, .afp-feature.sbe-shot.reverse { grid-template-columns: 1fr; }
+      .afp-feature.sbe-shot picture { max-width: 340px; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/sidebar-enhancer-icon.png" alt="サイドバー拡張 for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1>サイドバー拡張 for kintone</h1>
+      <p class="afp-tagline">右サイドバーを、業務の作業台に。</p>
+      <p class="afp-sub">
+        <strong>フォームのレイアウトは一切変えません。</strong>レコード詳細画面の右サイドバー（コメント・変更履歴の隣）に独自タブを増設し、他アプリへのレコード追加・URLと地図のプレビュー・プロセス管理の進捗・ステータス別チェックリスト・アプリガイドの<span class="nb">5機能</span>を追加します。運用中のアプリへ、後から足せます。
+      </p>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 課題 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <p class="afp-lead">
+          関連レコードを作るために別アプリを開いて同じ値を打ち直す。訪問先の地図を見るたびに別タブへ離脱して、戻ると一覧の位置を見失う。プロセス管理でワークフローを組んでいても、「この案件がいつから同じステータスで止まっているのか」は誰にも分からない。<br />
+          どれも<strong>フォームに項目を足しても解決しません</strong>。足りないのは入力欄ではなく、<strong>レコードを開いたまま作業できる場所</strong>です。サイドバー拡張は、その場所を右サイドバーに作ります。
+        </p>
+      </div>
+    </section>
+
+    <!-- 全体像 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">フォームはそのまま。右側にタブが増えるだけ</h2>
+        <div class="afp-shot">
+          <img class="zoomable" src="/images/sidebar-enhancer-record-status.png" alt="kintone のレコード詳細画面。左側のフォームは通常どおりで、右サイドバーに追加・リンク・進捗・確認・ガイドのタブが増えている" width="1440" height="1200" loading="lazy" />
+        </div>
+        <p class="afp-shot-cap">画像をクリックすると拡大表示します（kintone 公式テンプレート「案件管理」で撮影）</p>
+        <div class="afp-note">
+          追加されるのは<strong>右サイドバーのタブだけ</strong>です。フィールドの配置・幅・グループ・タブ（標準機能）には一切手を加えないため、すでに運用しているアプリへ後から入れても本体の見た目が変わりません。
+        </div>
+      </div>
+    </section>
+
+    <!-- 5機能 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">増設できる5つのタブ</h2>
+
+        <div class="afp-feature sbe-shot sbe-shot--tall">
+          <div class="afp-feature-text">
+            <h3>追加：値を引き継いで、他アプリへレコードを追加する</h3>
+            <p>
+              開いているレコードの値を引き継いだ入力フォームがサイドバーに開きます。会社名や担当者名を打ち直す必要はありません。<strong>表示する項目と並び順は管理者が選べる</strong>ので、本当に入力させたい欄だけを出せます。固定値の自動セット、引き継いだ値の編集不可（固定）、保存後の動作（連続作成／親画面を再読み込み／別タブで開く）にも対応します。<br />
+              権限も見ています。<strong>閲覧できないアプリのボタンは出さず、書き込めない項目は入力欄から外します</strong>。権限が足りず保存できなかったときは、理由を日本語で表示します。
+            </p>
+          </div>
+          <picture>
+            <source srcset="/images/sidebar-enhancer-create.webp" type="image/webp" />
+            <img class="zoomable" src="/images/sidebar-enhancer-create.png" alt="サイドバーの追加タブ。開いているレコードから会社名・部署名・担当者名・TELが引き継がれ、顧客ランクには固定値Bが入ったレコード追加フォームが表示されている" width="432" height="741" loading="lazy" />
+          </picture>
+        </div>
+
+        <div class="afp-feature reverse sbe-shot sbe-shot--tall">
+          <div class="afp-feature-text">
+            <h3>リンク：URLと地図を、画面を離れずに見る</h3>
+            <p>
+              フィールドに入っている URL を、サイドバーの中にそのまま表示します。別タブへ移動しないので、<strong>戻ったときに一覧の位置を見失いません</strong>。Google マップの共有URLは埋め込み形式へ自動変換するため、住所から地図をそのまま確認できます。埋め込みを許可していないサイトのときは「別タブで開く」ボタンに切り替わり、操作が行き止まりになりません。
+            </p>
+          </div>
+          <picture>
+            <source srcset="/images/sidebar-enhancer-link.webp" type="image/webp" />
+            <img class="zoomable" src="/images/sidebar-enhancer-link.png" alt="サイドバーのリンクタブ。フィールドに登録したWebページがサイドバー内に埋め込み表示されている" width="432" height="620" loading="lazy" />
+          </picture>
+        </div>
+
+        <div class="afp-feature sbe-shot">
+          <div class="afp-feature-text">
+            <h3>進捗：プロセス管理のステータスが、どこまで進んで・いつから止まっているか</h3>
+            <p>
+              kintone の <strong>「プロセス管理」</strong>でワークフローを組んでいるアプリ向けのタブです。<strong>どのアクションで・いつ・誰がステータスを変更したか</strong>を上から順に並べ、あわせて<strong>ステータスが最後に変わってからの経過日数</strong>を表示します。しきい値を超えたら色で警告するので（例：3日で黄、7日で赤）、止まっている案件を探すために一覧を見比べる必要がなくなります。<br />
+              kintone にはステータスの変更履歴を取り出す API がないため、本プラグインはアクションが実行された時点で記録します。そのため<strong>導入前に通過したステータスは「記録なし」</strong>としてグレーで示し、まだ通っていないステータスと区別できるようにしています（凡例と注記つき）。
+            </p>
+          </div>
+          <picture>
+            <source srcset="/images/sidebar-enhancer-status.webp" type="image/webp" />
+            <img class="zoomable" src="/images/sidebar-enhancer-status.png" alt="サイドバーの進捗タブ。プロセス管理のステータスが縦に並び、導入前の引合はグレーの「記録なし」、見積提出は現在としてアクション名・日時・実行者と滞留4日の警告が表示されている" width="432" height="495" loading="lazy" />
+          </picture>
+        </div>
+
+        <div class="afp-feature reverse sbe-shot">
+          <div class="afp-feature-text">
+            <h3>確認：チェック漏れのまま、次に進ませない</h3>
+            <p>
+              ステータスごとの確認事項をチェックリストとして表示し、完了率を出します。プロセス管理を使っているアプリなら、<strong>チェックが残っているうちはアクションを実行できないようにして、ステータスを先に進めさせない</strong>設定にできます。確認漏れのまま話が進む事故を防げます。<br />
+              チェック状態はレコード本体ではなく専用の保管アプリに保存するため、<strong>レコードの変更履歴を汚しません</strong>。閲覧と編集は全員に許可しているので、前の担当者が途中まで消化したチェックの続きを別の担当者が進められます。
+            </p>
+          </div>
+          <picture>
+            <source srcset="/images/sidebar-enhancer-checklist.webp" type="image/webp" />
+            <img class="zoomable" src="/images/sidebar-enhancer-checklist.png" alt="サイドバーの確認タブ。見積提出前の確認として4項目のチェックリストが並び、2件消化して完了率50%と表示されている" width="432" height="430" loading="lazy" />
+          </picture>
+        </div>
+
+        <div class="afp-feature sbe-shot">
+          <div class="afp-feature-text">
+            <h3>ガイド：入力ルールを、その画面に置いておく</h3>
+            <p>
+              入力ルール・運用手順・FAQ を Markdown で書いておくと、レコード画面のサイドバーに常設されます。<strong>別ファイルのマニュアルは読まれません</strong>が、作業している画面の隣にあれば読まれます。見出し・箇条書き・番号付きリスト・太字・リンクが使えます。特定のステータスのときだけ出す、対象ユーザーを絞る、といった制御もできます。
+            </p>
+          </div>
+          <picture>
+            <source srcset="/images/sidebar-enhancer-guide.webp" type="image/webp" />
+            <img class="zoomable" src="/images/sidebar-enhancer-guide.png" alt="サイドバーのガイドタブ。入力のルール・進め方・よくある質問がMarkdownで整形されて表示されている" width="432" height="548" loading="lazy" />
+          </picture>
+        </div>
+      </div>
+    </section>
+
+    <!-- 機能カード -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>純正と同じ見た目のタブ</h3>
+            <p>kintone 標準のコメント・変更履歴と同じ列・同じ大きさのタイルを追加します。あとから付けた機能に見えません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>機能ごとにON／OFF</h3>
+            <p>5つの機能は個別に有効化できます。初期状態は全部OFF＝標準の見た目のままです。タブ名も業務の呼び方に変えられます。「進捗」タブと、「確認」タブのステータスを進めさせない設定は、プロセス管理が有効なアプリでのみ動作します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>全フィールド型に対応したレコード追加</h3>
+            <p>文字列・数値・日付・選択系・ユーザー選択・ルックアップ・添付ファイルまで登録できます（サブテーブルは対象外）。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>権限に合わせた出し分け</h3>
+            <p>閲覧できないアプリの追加ボタンは表示しません。書き込めない項目は入力欄から外し、権限で保存できなかったときは日本語で理由を表示します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>開いたときだけ描画</h3>
+            <p>タブの中身はクリックされて初めて作られます。レコードを開くだけでは通信も描画もしないため、表示が重くなりません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>kintone 完結</h3>
+            <p>外部サービスを使いません。業務データが当社や第三者のサーバーへ送られることはありません。ゲストスペースにも対応します。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 他プラグインとの併用 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ほかのプラグインと並べて使えます</h2>
+
+        <div class="afp-feature sbe-shot">
+          <div class="afp-feature-text">
+            <h3>既読チェックと並べても、順番は揺れません</h3>
+            <p>
+              「誰が読んだか」は<a href="/plugins/read-check/">既読チェック</a>、「作業台」はサイドバー拡張、という役割分担で同時に使えます。タブは<strong>標準タブ → サイドバー拡張の5タブ → 既読</strong>の順で固定され、どちらを先にインストールしても変わりません。タブを切り替えると相手のパネルは自動で閉じるため、内容が重なって表示されることもありません。
+            </p>
+          </div>
+          <picture>
+            <source srcset="/images/sidebar-enhancer-readcheck.webp" type="image/webp" />
+            <img class="zoomable" src="/images/sidebar-enhancer-readcheck.png" alt="サイドバーのタブ列に、コメント・変更履歴・サイドバー拡張の5タブ・既読チェックのタブが順番どおりに並んでいる" width="432" height="430" loading="lazy" />
+          </picture>
+        </div>
+
+        <div class="afp-feature reverse">
+          <div class="afp-feature-text">
+            <h3>住所アシストと組み合わせると、地図まで自動でつながります</h3>
+            <p>
+              <a href="/plugins/address-assist/">住所アシスト</a>は郵便番号から住所を補完し、あわせて<strong>Google マップのURLをフィールドに生成</strong>します。サイドバー拡張の「リンク」タブにそのフィールドを指定しておくと、生成されたURLを<strong>埋め込み形式へ自動変換して地図として表示</strong>します。<br />
+              つまり<strong>郵便番号を入れるだけで、レコードを開いたときにサイドバーへ地図が出る</strong>状態になります。どちらのプラグインにも設定を1つ足すだけで、手作業はありません。
+            </p>
+          </div>
+          <picture>
+            <source srcset="/images/sidebar-enhancer-address-assist.webp" type="image/webp" />
+            <img class="zoomable" src="/images/sidebar-enhancer-address-assist.png" alt="顧客リストのレコード画面。郵便番号から住所とマップURLが自動入力され、右サイドバーに該当地点の地図が表示されている" width="1440" height="1000" loading="lazy" />
+          </picture>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 設定画面 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定画面</h2>
+        <p class="afp-lead" style="margin-bottom:32px;">
+          左で有効にする機能を選び、中央で内容を設定します。左下の<strong>ライブプレビュー</strong>に、実際のサイドバー幅（約300px）での見え方がそのまま出るので、保存して確認し直す往復が要りません。
+        </p>
+
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">1</div>
+            <div class="afp-cfgstep-body">
+              <h3>追加：追加先アプリと引き継ぎを決める</h3>
+              <p>追加先アプリを選び、<strong>表示する項目・並び順・値の引き継ぎ（フィールド参照／固定値）</strong>を設定します。追加先は複数登録できます。</p>
+            </div>
+          </div>
+          <div class="afp-shot">
+            <img class="zoomable" src="/images/sidebar-enhancer-config-01.png" alt="サイドバー拡張の設定画面。左に機能一覧とライブプレビュー、中央にレコード追加の追加先アプリと項目・マッピングの設定が並んでいる" width="1555" height="2196" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">2</div>
+            <div class="afp-cfgstep-body">
+              <h3>進捗：プロセス管理の記録用フィールドを追加して、しきい値を決める</h3>
+              <p>ボタン1つでステータス変更履歴の記録用フィールドを追加します（レコード画面では自動的に非表示）。<strong>経過日数のしきい値と色</strong>を段階的に設定できます。プロセス管理が無効なアプリでは、その旨が設定画面に表示されます。</p>
+            </div>
+          </div>
+          <div class="afp-shot">
+            <img class="zoomable" src="/images/sidebar-enhancer-config-03.png" alt="進捗タブの設定画面。プロセス管理向けの説明と管理用フィールドの追加状況、経過日数のしきい値3日・7日と配色の設定が表示されている" width="1555" height="1238" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">3</div>
+            <div class="afp-cfgstep-body">
+              <h3>確認：保管アプリを作り、テンプレートを登録する</h3>
+              <p>「保管アプリを生成する」でチェック状態の保存先を自動作成します（複数アプリで共有）。ステータスごとにテンプレートを用意できます。</p>
+            </div>
+          </div>
+          <div class="afp-shot">
+            <img class="zoomable" src="/images/sidebar-enhancer-config-04.png" alt="チェックリストの設定画面。保管アプリの指定と管理者、テンプレートのチェック項目が並んでいる" width="1555" height="1733" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">4</div>
+            <div class="afp-cfgstep-body">
+              <h3>ガイド：本文を書きながら、見え方を確かめる</h3>
+              <p>Markdown で本文を書くと、左のライブプレビューに整形結果が即時に反映されます。表示条件と対象ユーザーも指定できます。</p>
+            </div>
+          </div>
+          <div class="afp-shot">
+            <img class="zoomable" src="/images/sidebar-enhancer-config-05.png" alt="アプリガイドの設定画面。Markdownの本文入力欄と、左のライブプレビューに整形結果が表示されている" width="1555" height="1257" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- プラン -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span></div>
+            <div class="afp-plan-discount">利用期限なし</div>
+            <ul class="afp-plan-features">
+              <li>5機能のうち <strong>1つ</strong>を有効化できます</li>
+              <li>選んだ機能は<strong>中身を制限しません</strong></li>
+              <li>追加先・表示対象・テンプレートは各1件</li>
+              <li>ゲストスペースにも対応</li>
+              <li>プラグイン内に広告が表示されます</li>
+            </ul>
+            <a class="afp-plan-cta" href="/downloads/kw-sidebar-enhancer-v1.0.0.zip" download id="sbe-dl">ダウンロード（v1.0.0）</a>
+          </div>
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">全プラグインが使えます</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000</div>
+            <ul class="afp-plan-features">
+              <li>5機能を <strong>すべて同時に</strong>有効化できます</li>
+              <li>追加先・表示対象・テンプレートが<strong>無制限</strong></li>
+              <li>広告が非表示になります</li>
+              <li>販売中の<strong>全プラグイン</strong>が使えます</li>
+              <li>優先サポート・改善要望の受付</li>
+              <li>単品販売はありません</li>
+            </ul>
+            <a class="afp-plan-cta" href="/plugins/supporter/">プレミアム年間サポーターを見る</a>
+          </div>
+        </div>
+
+        <div style="margin: 0 0 32px;">
+          <TrialBanner />
+        </div>
+
+        <h3 class="afp-plan-compare-head">無料プランでできること</h3>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>項目</th><th class="c">無料プラン</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>同時に有効化できる機能</td><td class="c">1つ</td><td class="c"><strong>5つすべて</strong></td></tr>
+              <tr><td>レコード追加の追加先アプリ</td><td class="c">1件</td><td class="c"><strong>無制限</strong></td></tr>
+              <tr><td>リンクの表示対象フィールド</td><td class="c">1件</td><td class="c"><strong>無制限</strong></td></tr>
+              <tr><td>チェックリストのテンプレート</td><td class="c">1件</td><td class="c"><strong>無制限</strong></td></tr>
+              <tr><td>アプリガイド</td><td class="c">制限なし</td><td class="c">制限なし</td></tr>
+              <tr><td>プラグイン内の広告</td><td class="c">表示</td><td class="c"><strong>非表示</strong></td></tr>
+              <tr><td>他のプラグイン</td><td class="c">—</td><td class="c"><strong>全部使えます</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note">
+          無料プランでも<strong>設定は消えません</strong>。期限が切れても動作対象が先頭1件に絞られるだけで、再加入すればそのまま元に戻ります。
+        </div>
+      </div>
+    </section>
+
+    <!-- インストール手順 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="steps-list">
+          <li><span>上のボタンから <strong>kw-sidebar-enhancer-v1.0.0.zip</strong> をダウンロードします。</span></li>
+          <li><span>kintone の <strong>システム管理 → プラグイン</strong> で「読み込む」を押し、zip ファイルを選びます。</span></li>
+          <li><span>使いたいアプリの <strong>アプリの設定 → プラグイン</strong> で「サイドバー拡張」を追加します。</span></li>
+          <li><span>「設定」を開き、<strong>左の一覧で使う機能を有効化</strong>します（初期状態は全部OFFです）。</span></li>
+          <li><span>機能ごとに中央で内容を設定します。「進捗」は<strong>管理用フィールドの追加</strong>、「確認」は<strong>保管アプリの生成</strong>が必要です（どちらもボタン1つ）。</span></li>
+          <li><span>「保存」を押し、<strong>アプリを更新</strong>して反映します。</span></li>
+        </ol>
+        <div class="afp-note">
+          「確認」タブを使う場合は、保管アプリを自動生成するため<strong>アプリ作成権限のあるユーザー</strong>で設定してください。すでに他のアプリで生成済みなら、そのアプリIDを指定して共有できます。
+        </div>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ご利用にあたっての注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li><strong>PC 版の kintone でのみ動作します。</strong>モバイル版はサイドバーの構造が異なるためタブが表示されません（画面が乱れることはありません）。</li>
+            <li><strong>「進捗」タブは kintone の「プロセス管理」が有効なアプリでのみ表示されます。</strong>また、ステータスの変更履歴は<strong>導入後に実行されたアクションからのみ記録されます</strong>（kintone に変更履歴を取り出す API がないためです）。導入前に通過したとみられるステータスはグレーの「記録なし」として表示します。</li>
+            <li>「進捗」タブを使う場合、ステータス変更履歴の記録用フィールドを2つ追加します。レコード画面では自動的に非表示になりますが、<strong>フォーム設定画面には表示されます</strong>（値を手で書き換えると履歴と経過日数が正しく表示されなくなります）。</li>
+            <li><strong>埋め込み表示を許可していないサイトは「リンク」タブに表示できません。</strong>サイト側の設定によるもので回避できないため、その場合は「別タブで開く」ボタンに切り替わります。</li>
+            <li>Google マップの埋め込みは Google 側の仕様変更で停止する可能性があります。その場合も別タブでの表示に切り替わります。</li>
+            <li><strong>「追加」タブはサブテーブルに対応していません</strong>（v1.0.0）。レコードを追加したあとにレコード本体で入力してください。リッチエディターは簡易的な文字入力になります。</li>
+            <li>追加先アプリに選択肢フィールドがある場合、引き継ぐ値と<strong>同じ文字列の選択肢</strong>が追加先にも必要です。</li>
+            <li>カスタマイズビュー・一覧画面では動作しません（レコード詳細画面が対象です）。</li>
+            <li>プロセス管理が有効でないアプリでは、「進捗」タブと、「確認」タブの「未完了ならアクションを実行させない」設定はご利用いただけません（チェックリストの表示・消化そのものは使えます）。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 安心ボックス -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-sidebar-enhancer" />
+        <ShareButtons title="サイドバー拡張 for kintone" />
+      </div>
+    </section>
+
+    <!-- よくある質問 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">よくある質問</h2>
+        <div class="afp-faq">
+          <details class="afp-faq-item">
+            <summary>既存アプリのフォームは変わってしまいますか？</summary>
+            <div class="afp-faq-answer">
+              <strong>変わりません。</strong>本プラグインは右サイドバー（コメント・変更履歴が並んでいる場所）にタブを追加するだけで、フォームのフィールド配置には手を加えません。そのため、すでに運用中のアプリへ後から入れても本体の見た目が崩れません。<br />
+              なお「進捗」タブを使う場合のみ、ステータスの変更履歴を保存する専用フィールドを2つ追加しますが、レコード画面では自動的に非表示になるため利用者の目には触れません。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>単品で購入できますか？</summary>
+            <div class="afp-faq-answer">
+              本プラグインはプレミアムプラグインのため<strong>単品販売はありません</strong>。無料プランでは5つの機能のうち1つを、機能の中身を制限せずお試しいただけます（利用期限なし）。複数の機能を同時に使うには、プレミアム年間サポーター（税込 ¥16,500/年）にご加入ください。販売中の全プラグインも利用できます。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>「進捗」タブはどの kintone 機能を使うものですか？プロセス管理は必須ですか？</summary>
+            <div class="afp-faq-answer">
+              kintone の<strong>「プロセス管理」</strong>（アプリの設定でステータスとアクションを定義する機能）を使っているアプリ向けのタブです。<strong>プロセス管理が無効なアプリでは、このタブは表示されません</strong>（設定画面でもその旨をお知らせします）。<br />
+              表示されるのは、プロセス管理のアクションによって<strong>ステータスがどう変わってきたか（どのアクションで・いつ・誰が）</strong>と、<strong>現在のステータスに何日とどまっているか</strong>です。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>過去のステータス変更も表示されますか？</summary>
+            <div class="afp-faq-answer">
+              いいえ。kintone には<strong>プロセス管理のステータス変更履歴を取り出す API がない</strong>ため、本プラグインはアクションが実行された時点で自分で記録します。したがって表示できるのは導入後に実行されたアクションだけです。<br />
+              導入前に通過したとみられるステータスは、まだ通っていない状態と<strong>区別できるようグレーの「記録なし」</strong>として表示し、凡例と注記も添えます。導入後の変更は、アクション名・日時・実行者つきで記録されます。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>リンクタブで表示できないサイトがありますか？</summary>
+            <div class="afp-faq-answer">
+              あります。セキュリティ設定で他サイトへの埋め込みを禁止しているサイト（金融機関や行政サイトなどに多い）は、<strong>仕様上どのプラグインでも埋め込めません</strong>。その場合は自動的に「別タブで開く」ボタンへ切り替わるので、操作が行き止まりになることはありません。<br />
+              Google マップの共有URLは、埋め込み可能な形式へ自動で書き換えてから表示します。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>「追加」タブでサブテーブルも登録できますか？</summary>
+            <div class="afp-faq-answer">
+              v1.0.0 では<strong>対応していません</strong>。サブテーブル以外のフィールド型（文字列・数値・日付・選択系・ユーザー選択・ルックアップ・添付ファイルなど）はすべて登録できます。サブテーブルへの入力は、レコードを追加したあとにレコード本体で行ってください。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>スマートフォンでも使えますか？</summary>
+            <div class="afp-faq-answer">
+              v1.0.0 では <strong>PC 版のみ</strong>の対応です。モバイル版はサイドバーの構造が異なるため、タブは表示されません（画面が乱れることはありません）。外出先での閲覧が中心の運用では、この点をご確認のうえご検討ください。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>チェックリストの内容は、担当者が変わっても引き継げますか？</summary>
+            <div class="afp-faq-answer">
+              <strong>引き継げます。</strong>チェック状態はレコード本体ではなく、同じスペース内に自動生成する保管アプリへ保存し、閲覧と編集は全員に許可しています（削除だけを管理者に限定）。そのため、前の担当者が途中まで消化したチェックの続きを、別の担当者がそのまま進められます。レコードの変更履歴を汚さない設計です。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>ほかのプラグインと同時に使えますか？</summary>
+            <div class="afp-faq-answer">
+              使えます。<strong>既読チェック・コメントコントロール・クイックタブ・アコーディオンタブ・クイック目次・テーマスタイラー・住所アシスト</strong>との同時利用を実機で確認しています。<br />
+              とくに既読チェックとは同じサイドバーにタブが並びますが、表示順は「標準タブ → サイドバー拡張の5タブ → 既読」で固定され、<strong>どちらを先にインストールしても変わりません</strong>。タブを切り替えると相手のパネルは自動で閉じるため、内容が重なって表示されることもありません。
+            </div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>ゲストスペースでも使えますか？</summary>
+            <div class="afp-faq-answer">
+              <strong>使えます。</strong>ゲストスペース内のアプリでも、設定画面と5つの機能すべてが動作することを確認しています。
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>プレミアム年間サポーターで使ってみる</h2>
+      <p>
+        まずは無料プランで、5つのうち気になる1つを実際に動かしてみてください。フォームが変わらないことを確かめてから、他の機能も並べたくなったタイミングでご検討いただけます。
+      </p>
+      <a class="afp-cta-btn" href="/plugins/supporter/">プレミアム年間サポーターを見る</a>
+    </section>
+
+    <!-- ライトボックス -->
+    <div class="lightbox" id="sbe-lightbox" role="dialog" aria-modal="true" aria-label="拡大画像">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var box = document.getElementById('sbe-lightbox');
+      if (!box) return;
+      var img = box.querySelector('img');
+      var closeBtn = box.querySelector('.lightbox-close');
+      function open(src, alt) {
+        img.src = src;
+        img.alt = alt || '';
+        box.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        box.classList.remove('is-open');
+        img.src = '';
+        document.body.style.overflow = '';
+      }
+      document.querySelectorAll('img.zoomable').forEach(function (el) {
+        el.addEventListener('click', function () { open(el.currentSrc || el.src, el.alt); });
+      });
+      box.addEventListener('click', function (e) { if (e.target !== img) close(); });
+      closeBtn.addEventListener('click', close);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+
+      var dl = document.getElementById('sbe-dl');
+      if (dl) {
+        dl.addEventListener('click', function () {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-sidebar-enhancer-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: 'ダウンロード（v1.0.0）',
+              link_url: '/downloads/kw-sidebar-enhancer-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    })();
+  </script>
+</Layout>

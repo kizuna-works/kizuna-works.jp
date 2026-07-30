@@ -236,6 +236,23 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  // The URL-preview tab renders a site the administrator chose, so the viewer's
+  // browser talks to that third party directly. That is worth stating plainly
+  // even though the plugin itself sends nothing outside kintone.
+  'kw-sidebar-enhancer': {
+    extraComm: [
+      {
+        label: '指定された URL の埋め込み表示（管理者が選んだサイトへ、閲覧者のブラウザから直接接続）',
+        detail:
+          '「リンク」タブは、管理者が指定したフィールドに入っている URL を iframe で表示します。この読み込みは閲覧者のブラウザから当該サイトへ直接行われるため、そのサイトには通常のアクセスと同じ情報（IPアドレス・リファラ等）が渡ります。当社のサーバーは経由しません。Google マップの共有URLは埋め込み形式（output=embed）へURLを書き換えてから表示しますが、書き換えはブラウザ内で行い、住所などの値を当社や第三者へ送信することはありません。表示するフィールドは管理者が指定したものだけで、機能を無効にすれば読み込みは行われません。',
+      },
+      {
+        label: 'レコードレコード追加・チェック状態の保存・ステータス一覧の取得（自ドメイン内）',
+        detail:
+          '「追加」タブの追加先スキーマ取得と登録は、自ドメインの kintone REST API（/k/v1/preview/app/form/fields・/k/v1/app/form/layout・/k/v1/record の POST・/k/v1/file の GET／POST）で行います。表示できるアプリの判定に /k/v1/apps、書き込み可否の判定に /k/v1/app/acl・/k/v1/field/acl を参照します（アプリ管理権限がない場合は取得できないため、その際は kintone 自身の判定に委ねます）。「確認」タブのチェック状態は、同一スペース内に自動生成する「チェックリスト管理」保管アプリへ /k/v1/records の GET／POST／PUT で保存し、保管アプリの生成・不足項目の追加・アクセス権設定は preview/app 系 API で行います。「進捗」タブが使うプロセス管理のステータス一覧は kintone.app.getStatus()（レコード画面）と /k/v1/preview/app/status（設定画面）から取得し、ステータスの変更履歴はレコード内の専用フィールドに保存します（外部には出しません）。設定画面のユーザー・組織・グループ候補の取得のみ、ご利用中の kintone ドメイン内の cybozu.com 共通管理API（/v1/users・/v1/organizations・/v1/groups）を呼び出します。いずれもご利用中の kintone ドメイン内で完結し、外部の第三者へは送信しません。第三者CDN・外部サーバーは利用しません。',
+      },
+    ],
+  },
   'kw-read-check': {
     extraComm: [
       {

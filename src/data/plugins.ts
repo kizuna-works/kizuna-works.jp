@@ -996,6 +996,29 @@ export const premiumPlugins: Plugin[] = [
     problemDesc: '大事なレコードが登録されても担当者が気づかず対応が遅れる。かといって全部通知すると誰も読まなくなる',
     releaseDate: '2026-07-29',
   },
+  {
+    id: 'kw-sidebar-enhancer',
+    name: 'サイドバー拡張 for kintone',
+    formName: 'サイドバー拡張 for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'sidebar-enhancer',
+    category: 'レコード画面',
+    description:
+      'レコード詳細画面の右サイドバー（コメント・変更履歴の隣）に独自タブを5つ増設できるプラグイン。値を引き継いで他アプリへレコード追加、URLや地図を画面を離れずプレビュー、プロセス管理のステータス履歴と滞留日数、ステータス別チェックリスト、アプリガイドを常設。フォームのレイアウトは一切変更しません。',
+    image: '/images/sidebar-enhancer-banner.png',
+    imageWebp: '/images/sidebar-enhancer-banner.webp',
+    imageAlt:
+      'サイドバー拡張 for kintone プラグイン — レコード詳細画面の右サイドバーにレコード追加・リンク・進捗（プロセス管理）・確認・ガイドの5タブを増設し、フォームのレイアウトは変えずに機能を追加できる',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      '右サイドバーに5つのタブを増設。他アプリへのレコード追加・URLと地図のプレビュー・プロセス管理のステータス履歴と滞留日数・チェックリスト・ガイドを、フォームを変えずに追加できます。',
+    problemTitle: 'レコードを開いたまま、次の作業ができない',
+    problemDesc: '関連レコードの登録や地図の確認で別タブへ離脱し、戻ると一覧の位置を見失う。かといってフォームに項目は増やしたくない',
+    releaseDate: '2026-07-30',
+  },
 ];
 
 /**

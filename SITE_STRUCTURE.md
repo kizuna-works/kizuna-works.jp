@@ -148,6 +148,8 @@ c:\kizuna-works.jp\
 │   │   │   │       └── index.astro # ダッシュボード設定レシピ集（/plugins/dashboard/recipes/）— ウィジェット種別ごとに「目的→設定手順→完成イメージ」を掲載。アコーディオン＋種別/目的タグ/検索フィルタ。データは src/data/recipes.ts、画像は /images/dashboard/recipes/。第1バッチ22レシピ（順次拡張）
 │   │   │   ├── attribute-filter/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】属性制御フィルター製品ページ（/plugins/attribute-filter/）— ユーザー/組織/グループ選択の候補を役職・所属・他フィールド値・ステータスで自動絞り込み。標準表示 vs 絞り込みのBefore/After、設定画面（組織/ユーザー/グループ条件）スクショ、主な機能、無料/プレミアム比較、インストール手順、SecurityBox。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。スクショはライトボックスで拡大。kintone完結・ゲスト対応
+│   │   │   ├── sidebar-enhancer/
+│   │   │   │   └── index.astro # 【プレミアムプラグイン】サイドバー拡張 製品ページ（/plugins/sidebar-enhancer/）— レコード詳細画面の右サイドバー（コメント/変更履歴の隣）に独自タブを最大5つ増設。**フォームのレイアウトは一切変更しない**ため運用中アプリへ後付け可。①起票=値を引き継いで他アプリ/自アプリへ新規レコード作成（全フィールド型・サブテーブル除く／表示項目と並び順を選択／固定値／引き継ぎ値のロック／保存後4種）②リンク=フィールドのURLをiframe表示＋Googleマップ共有URLをoutput=embedへ自動変換（拒否サイトは別タブボタンへ）③進捗=遷移履歴の縦ステッパー（実行者・日時）＋滞留日数をしきい値と色で段階警告＋導入前は「記録なし」の第3状態④確認=ステータス別チェックリストの消化/完了率/遷移ブロック（保管アプリへ分離・編集は全員可で引き継ぎ可）⑤ガイド=入力ルール/手順/FAQをMarkdownで常設。ヒーロー＋課題＋全体像＋5機能＋主な機能6＋他プラグイン併用（既読チェックのタブ順固定・住所アシスト連携で郵便番号→住所→マップURL→地図）＋設定画面4ステップ＋プラン＋手順＋注意＋SecurityBox＋ShareButtons＋FAQ9＋CTA。単品販売なし＝プレミアム年間サポーターに含む。**PC版のみ（モバイル非対応）**
 │   │   │   ├── chat-notify/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】チャット通知 製品ページ（/plugins/chat-notify/）— レコードの追加/更新/削除/ステータス変更/手動送信/一括通知をきっかけに Slack・Microsoft Teams・Google Chat へ自動通知。中継サーバー不要（kintoneからWebhookへ直接POST）。最大5件の条件(AND/OR)・変更検知3モード・差し込みテンプレート・全員メンション(Slack/GoogleChatのみ)・送信履歴/失敗時ベル通知。ヒーロー＋実際に届く通知(3サービス＋一括)＋主な機能8＋設定3タブ＋手動/一括＋Webhook取得手順(Slack方法A/B・Teams・GoogleChat のアコーディオン)＋プラン＋手順＋注意＋SecurityBox＋ShareButtons＋FAQ7。単品販売なし＝プレミアム年間サポーターに含む。**PC版のみ（モバイルは通知が飛ばない）**
 │   │   │   ├── card-board/
@@ -354,6 +356,14 @@ c:\kizuna-works.jp\
 │   │   ├── file-preview-action-03.png      # 添付ファイルプレビュー 動作③ — Excelのグラフをデータから再現＋シート切替
 │   │   ├── file-preview-config-01.png      # 添付ファイルプレビュー 設定① — 対象フィールド・上限しきい値
 │   │   ├── file-preview-config-02.png      # 添付ファイルプレビュー 設定② — 対象画面・操作・モーダルサイズ・テーマ色
+│   │   ├── sidebar-enhancer-banner.png     # サイドバー拡張 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp
+│   │   ├── sidebar-enhancer-icon.png       # サイドバー拡張 for kintone アイコン（200×200・ヒーロー/ランキング用）
+│   │   ├── sidebar-enhancer-{create,link,status,checklist,guide}.png # 5機能のサイドバータブ実機スクショ（432×854・タブ列込み）＋ 各 .webp
+│   │   ├── sidebar-enhancer-record-{status,create}.png # レコード詳細の全体像（フォームは通常どおり／右にタブが増えるだけ・1440×1200）＋ 各 .webp
+│   │   ├── sidebar-enhancer-tabstrip.png   # タブ列のみ（標準2枚＋自製5枚＋既読1枚の8タイル・60×396）＋ .webp
+│   │   ├── sidebar-enhancer-readcheck.png  # 既読チェックとの共存（既読パネルを開いた状態・タブ順が固定される様子）＋ .webp
+│   │   ├── sidebar-enhancer-address-assist.png # 住所アシスト連携（郵便番号→住所→マップURL→サイドバーに地図・1440×1000）＋ .webp
+│   │   ├── sidebar-enhancer-config-{01..05}.png # 設定画面スクショ（機能別・v2 3カラム・実機・右サイドバー広告は除外）＋ 各 .webp
 │   │   ├── chat-notify-banner.png          # チャット通知 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp
 │   │   ├── chat-notify-icon.png            # チャット通知 for kintone アイコン（200×200・ヒーロー/ランキング用）
 │   │   ├── chat-notify-config-{01,02,03}.png # 設定画面スクショ（①送信先/②通知ルール/③共通設定・実機・右サイドバーは除外）
@@ -470,6 +480,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-comment-v1.0.2.zip                 # フィールドコメント for kintone 配布ファイル（v1.0.2・ゲストスペース対応）
 │   │   ├── kw-field-comment-v1.1.0.zip                 # フィールドコメント for kintone 配布ファイル（手動配置・v1.1.0 編集/新規画面対応＋アイコン10種＋カラーコード入力＋設定アコーディオン化）
 │   │   ├── kw-field-comment-v1.1.1.zip                 # フィールドコメント for kintone 配布ファイル（手動配置・v1.1.1 フィールド名非表示フィールドのコメント誤付着を修正＋入力欄直上に表示＋ラベル改称後も追従）
+│   │   ├── kw-sidebar-enhancer-v1.0.0.zip              # サイドバー拡張 for kintone 配布ファイル（最新・手動配置・v1.0.0 初版）
 │   │   ├── kw-read-check-v1.0.1.zip                   # 既読チェック for kintone 配布ファイル（最新・手動配置・v1.0.1 で折りたたみサイドバーの展開を公式APIへ変更＋サイドバータブの表示順を宣言的に固定）
 │   │   ├── kw-read-check-v1.0.0.zip                   # 既読チェック for kintone 配布ファイル（旧版・v1.0.0 初版）
 │   │   ├── kw-record-recovery-v1.0.0.zip              # 削除レコード復元 for kintone 配布ファイル（手動配置・v1.0.0 初版）
