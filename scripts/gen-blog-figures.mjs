@@ -343,6 +343,14 @@ const FIGURES = [
     ]),
   },
   {
+    name: 'kintone-bi-tool-dashboard-subtable',
+    w: 1000, h: 300,
+    el: contrastPanel(
+      { title: '合計・平均・最大値・最小値', desc: '明細行の単位で計算される。全レコードの全行が対象。区分Aが1レコード（明細2行・数量10と20）なら、平均は30ではなく15（30÷2行）になる。' },
+      { title: 'レコード数は行数にならない', desc: '明細行が何行あってもレコードは1件として数える。明細6行あってもレコード3件なら結果は3。行数を数える集計方法は標準にない。' }
+    ),
+  },
+  {
     name: 'kintone-2026-08-update-overview',
     w: 1000, h: 596,
     el: overview5([
