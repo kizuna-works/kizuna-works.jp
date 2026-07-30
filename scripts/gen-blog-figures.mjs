@@ -343,6 +343,22 @@ const FIGURES = [
     ]),
   },
   {
+    name: 'kintone-2026-08-update-overview',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: 'API', name: 'ルックアップでchangeが発生', desc: 'confirmed / recordId が追加。クリア連動が組めるように。', tag: '開発者', paid: false },
+      { n: '状', name: '組織ごとの利用状況', desc: '利用が定着していない組織を特定できるようになる。', tag: 'システム管理者', paid: false },
+      { n: 'ポ', name: 'ポータルが10枚まで', desc: '従来3枚から拡大。部門別・案件別に作り分けできる。', tag: 'ワイドコース', paid: true },
+      { n: 'AI', name: 'スレッド要約AIがAndroidへ', desc: 'モバイルアプリで議論の要点を追える。iOSは今後。', tag: '全ユーザー', paid: false },
+      { n: '基', name: 'モバイル基盤の刷新', desc: '検索・未処理・設定画面。見た目の変更はない。', tag: 'モバイル', paid: true },
+    ]),
+  },
+  {
+    name: 'kintone-2026-08-update-lookup',
+    w: 1000, h: 210,
+    el: flowCaptioned(['取得を確定', 'クリアした', 'フォーカスが外れた'], C.green, '8月9日から、この3つのタイミングでルックアップ自身の change が発火する'),
+  },
+  {
     name: 'kintone-tempu-file-visible',
     w: 1000, h: 300,
     el: contrastPanel(
