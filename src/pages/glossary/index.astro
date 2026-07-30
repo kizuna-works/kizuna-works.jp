@@ -8,7 +8,9 @@ import {
   type TermCategory,
   type Term,
 } from '../../data/glossary';
-import { plugins } from '../../data/plugins';
+// allPlugins（通常＋プレミアム）で引く。plugins だけだと relatedPlugins に
+// プレミアムのスラッグを書いても黙って表示から落ちる。
+import { allPlugins } from '../../data/plugins';
 import { getCollection } from 'astro:content';
 
 // Sort terms by reading then group by 五十音 row
@@ -24,7 +26,7 @@ for (const t of sortedTerms) {
 }
 
 // Lookup maps for cross-linking
-const pluginsBySlug = new Map(plugins.map((p) => [p.slug, p]));
+const pluginsBySlug = new Map(allPlugins.map((p) => [p.slug, p]));
 const termsById = new Map(glossary.map((t) => [t.id, t]));
 
 const blogPosts = await getCollection('blog');

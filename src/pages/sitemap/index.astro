@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { plugins } from '../../data/plugins';
+import { plugins, premiumPlugins } from '../../data/plugins';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog')).sort(
@@ -287,6 +287,23 @@ const dateFmt = (d: Date) =>
           <li>
             <a href="/plugins/supporter/">年間サポーターライセンス</a>
             <span class="sm-sub">年間サポーター（1 プラグイン・¥3,300/年）／プレミアム年間サポーター（全プラグイン・¥16,500/年）の 2 プラン</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="sm-card">
+        <h2>プレミアムプラグイン <span class="sm-h2-count">{premiumPlugins.length} 件</span></h2>
+        <p class="sm-h2-desc">プレミアム年間サポーター向けの kintone プラグインの製品ページ。</p>
+        <ul class="sm-list">
+          {premiumPlugins.map(p => (
+            <li>
+              <a href={`/plugins/${p.slug}/`}>{p.name}</a>
+              <span class="sm-sub">{p.cardDescription}</span>
+            </li>
+          ))}
+          <li>
+            <a href="/plugins/premium-trial/">プレミアム 30 日間無料体験</a>
+            <span class="sm-sub">プレミアムプラグインを 30 日間無料で試せる体験の申込ページ</span>
           </li>
         </ul>
       </section>

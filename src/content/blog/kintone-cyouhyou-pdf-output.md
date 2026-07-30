@@ -1,6 +1,6 @@
 ---
-title: "【2026年版】kintone帳票出力・PDF出力の完全ガイド｜標準の限界と無料・プラグイン比較"
-description: "kintoneの帳票出力・PDF出力の方法を総まとめ。標準印刷でできること・kintone標準の帳票管理の限界、CSVとExcelで無料で帳票化する手順、帳票プラグインで本格運用する方法まで、ケース別の選び方を実務目線でやさしく解説します。"
+title: "【2026年版】kintone帳票出力・PDF出力の完全ガイド｜標準の限界と無料でできる方法"
+description: "kintoneの帳票出力・PDF出力の方法を総まとめ。標準印刷でできること・kintone標準の帳票管理はどこが限界か、CSVとExcelで無料で帳票化する手順、そこから先へ進む判断基準まで、ケース別の選び方を実務目線でやさしく解説します。"
 pubDate: 2026-06-06
 updatedDate: 2026-07-11
 author: "KIZUNA Works"
@@ -17,6 +17,11 @@ kintoneを使っていて「請求書や見積書を、きれいなPDFで出し�
 ![kintoneで帳票・PDFを出力する3つの方法（標準印刷でPDF・CSV＋Excelで帳票・帳票プラグイン）を費用とともに比較した図](/images/blog/kintone-cyouhyou-pdf-output-overview.png)
 
 *kintoneで帳票・PDFを出す3つの方法。まずは無料の①②で試し、足りなければ③へ。*
+
+本記事は帳票出力シリーズの**入口（全体像）**です。この先の具体的な検討は、目的に応じて次の2本に分かれます。
+
+- 製品を絞り込む段階なら → [kintone帳票出力プラグイン徹底比較](/blog/kintone-cyouhyou-plugin-hikaku/)（プリントクリエイター・レポトンなど主要製品の機能とコスト）
+- 使い慣れた書式を崩したくないなら → [帳票を“今のフォーマットのまま”出力する方法](/blog/kintone-cyouhyou-sonomama/)（手持ちのPDFを背景に使う方式）
 
 ## 標準機能でできること、できないこと
 

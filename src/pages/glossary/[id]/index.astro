@@ -5,7 +5,9 @@ import {
   categoryLabels,
   type Term,
 } from '../../../data/glossary';
-import { plugins } from '../../../data/plugins';
+// allPlugins（通常＋プレミアム）で引く。plugins だけだと relatedPlugins に
+// プレミアムのスラッグを書いても黙って表示から落ちる。
+import { allPlugins } from '../../../data/plugins';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -17,7 +19,7 @@ export async function getStaticPaths() {
 
 const { term } = Astro.props as { term: Term };
 
-const pluginsBySlug = new Map(plugins.map((p) => [p.slug, p]));
+const pluginsBySlug = new Map(allPlugins.map((p) => [p.slug, p]));
 const termsById = new Map(glossary.map((t) => [t.id, t]));
 const blogPosts = await getCollection('blog');
 const blogById = new Map(blogPosts.map((b) => [b.id, b]));
