@@ -32,21 +32,15 @@ const titleMainText = eyebrowMatch ? titleMain.slice(eyebrowMatch[0].length) : t
 // Serve a WebP hero when a same-named .webp exists next to the ogImage (PNG stays for og:image).
 const ogWebp = ogImage ? ogImage.replace(/\.png$/i, '.webp') : null;
 const ogWebpExists = ogWebp ? fs.existsSync(path.join(process.cwd(), 'public', ogWebp)) : false;
-// Auto-generated banner also has a WebP variant (see /og/blog/[slug].webp.ts).
-const generatedOgWebp = `/og/blog/${slug}.webp`;
 
 // Auto table-of-contents from H2 headings (skip author box / related-posts boilerplate).
 const tocItems = headings
   .filter((h) => h.depth === 2)
   .filter((h) => !/この記事を書いた|関連記事/.test(h.text));
 const showToc = toc !== false && tocItems.length >= 4;
-// ogImage 未指定の記事は、タイトル＋背景から自動生成したバナー（/og/blog/<slug>.png）を使う。
-const generatedOg = `/og/blog/${slug}.png`;
-const ogImageUrl = ogImage
-  ? `https://kizuna-works.jp${ogImage}`
-  : heroImage
-  ? `https://kizuna-works.jp${heroImage.src}`
-  : `https://kizuna-works.jp${generatedOg}`;
+// バナーは記事ごとに手動で用意する（自動生成は 2026-07-30 に廃止）。
+// ogImage は content.config.ts で必須なので、常に指定されている。
+const ogImageUrl = `https://kizuna-works.jp${ogImage}`;
 
 const jsonLd = {
   "@context": "https://schema.org",

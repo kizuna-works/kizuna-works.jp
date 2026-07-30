@@ -40,15 +40,15 @@ const relatedPosts = scored.slice(0, limit).map((x) => x.post);
         });
         return (
           <a href={`/blog/${post.id}/`} class="related-post-card">
+            {/* ogImage は content.config.ts で必須なので、フォールバックは不要 */}
             <img
-              src={post.data.ogImage ?? `/og/blog/${post.id}.png`}
+              src={post.data.ogImage}
               alt={post.data.title}
               class="related-post-image"
               loading="lazy"
               width="640"
               height="360"
             />
-            {/* ogImage 未指定の記事は、ビルド時に自動生成されるバナー（/og/blog/<slug>.png）にフォールバックする */}
             <div class="related-post-body">
               <p class="related-post-date">{formattedDate}</p>
               <h3 class="related-post-title">{post.data.title}</h3>
