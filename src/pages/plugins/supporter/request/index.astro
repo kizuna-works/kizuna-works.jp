@@ -169,6 +169,40 @@ import { plugins } from '../../../../data/plugins';
       min-height: 1em;
     }
 
+    .req-help {
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+      margin: 8px 0 0;
+      line-height: 1.6;
+    }
+
+    .req-help code {
+      background-color: #eef2f7;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+
+    /* Echoes the normalized domain so the applicant can verify it before submitting */
+    .req-domain-confirm {
+      margin: 8px 0 0;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      word-break: break-all;
+    }
+
+    .req-domain-confirm[data-state='ok'] {
+      background-color: #eaf6ea;
+      color: #1f6b1f;
+    }
+
+    .req-domain-confirm[data-state='warn'] {
+      background-color: #fdf3e3;
+      color: #8a5a00;
+    }
+
     .req-counter {
       font-size: 0.8rem;
       color: var(--color-text-muted);
@@ -279,9 +313,14 @@ import { plugins } from '../../../../data/plugins';
 
           <div class="req-group">
             <label for="req-domain" class="req-label">
-              ドメイン<span class="req-required">必須</span>
+              kintone ドメイン（フルドメイン）<span class="req-required">必須</span>
             </label>
             <input type="text" id="req-domain" name="domain" class="req-input" placeholder="例：abc.cybozu.com" autocomplete="off" />
+            <p class="req-help">
+              kintone にログインしたときの URL を、そのまま貼り付けてください。<code>https://</code> や <code>/k/</code> は自動で取り除かれます。<br />
+              ・サブドメインだけでは受け付けられません（例：<code>abc</code> ではなく <code>abc.cybozu.com</code>）
+            </p>
+            <p class="req-domain-confirm" id="req-domain-confirm" hidden></p>
             <p class="req-error" data-error-for="domain"></p>
           </div>
 
@@ -396,6 +435,55 @@ import { plugins } from '../../../../data/plugins';
 
       const ENDPOINT =
         'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec';
+
+      // ---- kintone domain field -----------------------------------------
+      // Applicants often type only the subdomain, paste the whole URL, or use
+      // full-width characters. Normalize on blur and echo the resolved value so
+      // they can confirm it before submitting. Submission is never blocked here.
+      const DOMAIN_BASES = ['cybozu.com', 'kintone.com', 'cybozu-dev.com', 'cybozu.cn'];
+
+      // Mirrors normalizeDomainHost() in the license GAS. Keep both in sync.
+      const normalizeDomainHost = (raw) => {
+        let h = String(raw == null ? '' : raw);
+        if (typeof h.normalize === 'function') h = h.normalize('NFKC');
+        h = h.trim().toLowerCase();
+        h = h.replace(/^[a-z]+:\/\//, '');
+        h = h.split('/')[0].split('?')[0].split('#')[0];
+        h = h.split('@').pop().split(':')[0];
+        return h.replace(/\.+$/, '');
+      };
+
+      const isFullKintoneDomain = (host) =>
+        DOMAIN_BASES.some((base) =>
+          new RegExp('^[a-z0-9][a-z0-9-]*(\\.s)?\\.' + base.replace(/\./g, '\\.') + '$').test(host)
+        );
+
+      const domainInput = document.getElementById('req-domain');
+      const domainConfirm = document.getElementById('req-domain-confirm');
+
+      const refreshDomainConfirm = () => {
+        if (!domainInput || !domainConfirm) return;
+        const host = normalizeDomainHost(domainInput.value);
+        if (host && host !== domainInput.value) domainInput.value = host;
+        if (!host) {
+          domainConfirm.hidden = true;
+          domainConfirm.removeAttribute('data-state');
+          domainConfirm.textContent = '';
+          return;
+        }
+        const valid = isFullKintoneDomain(host);
+        domainConfirm.hidden = false;
+        domainConfirm.setAttribute('data-state', valid ? 'ok' : 'warn');
+        domainConfirm.textContent = valid
+          ? '✓ このドメインでサポーター台帳と照合します： ' + host
+          : '⚠ フルドメインになっていません（現在の入力： ' + host +
+            '）。abc.cybozu.com のように .cybozu.com まで含めてご入力ください。';
+      };
+
+      if (domainInput) {
+        domainInput.addEventListener('blur', refreshDomainConfirm);
+        domainInput.addEventListener('change', refreshDomainConfirm);
+      }
 
       // 種別ラジオで対象プラグイン表示切替
       form.querySelectorAll('input[name="requestType"]').forEach(function (r) {

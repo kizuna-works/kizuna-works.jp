@@ -36,7 +36,7 @@
 
         <div class="tf-group">
           <label for="tf-domain" class="tf-label">
-            kintone ドメイン<span class="tf-required">必須</span>
+            kintone ドメイン（フルドメイン）<span class="tf-required">必須</span>
           </label>
           <input
             type="text"
@@ -47,8 +47,11 @@
             autocomplete="off"
           />
           <p class="tf-help">
-            kintone にログインしたときの URL の <code>https://</code> と <code>/k/</code> の間の部分です（例：<code>https://<strong>abc.cybozu.com</strong>/k/</code>）。<code>.cybozu.com</code> と <code>.kintone.com</code> のどちらにも対応しています。体験ライセンスはこのドメインに対して発行されます。
+            kintone にログインしたときの URL を、そのまま貼り付けてください。<code>https://</code> や <code>/k/</code> は自動で取り除かれます。<br />
+            ・サブドメインだけでは受け付けられません（例：<code>abc</code> ではなく <code>abc.cybozu.com</code>）<br />
+            ・体験ライセンスはこのドメインに対して発行されます
           </p>
+          <p class="tf-domain-confirm" id="tf-domain-confirm" hidden></p>
           <p class="tf-error" data-error-for="domain"></p>
         </div>
 
@@ -180,6 +183,26 @@
     font-size: 0.85em;
   }
 
+  /* Echoes the normalized domain so the applicant can verify it before submitting */
+  .tf-domain-confirm {
+    margin: 8px 0 0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    word-break: break-all;
+  }
+
+  .tf-domain-confirm[data-state='ok'] {
+    background-color: #eaf6ea;
+    color: #1f6b1f;
+  }
+
+  .tf-domain-confirm[data-state='warn'] {
+    background-color: #fdf3e3;
+    color: #8a5a00;
+  }
+
   .tf-agree-group {
     background-color: #f4faf4;
     border: 1px solid #cfe8cf;
@@ -289,6 +312,55 @@
     const waitingMsg = document.getElementById('tf-waiting');
     const ENDPOINT =
       'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec';
+
+    // ---- kintone domain field -------------------------------------------
+    // Applicants often type only the subdomain, paste the whole URL, or use
+    // full-width characters. Normalize on blur and echo the resolved value so
+    // they can confirm it before submitting. Submission is never blocked here.
+    const DOMAIN_BASES = ['cybozu.com', 'kintone.com', 'cybozu-dev.com', 'cybozu.cn'];
+
+    // Mirrors normalizeDomainHost() in the license GAS. Keep both in sync.
+    const normalizeDomainHost = (raw) => {
+      let h = String(raw == null ? '' : raw);
+      if (typeof h.normalize === 'function') h = h.normalize('NFKC');
+      h = h.trim().toLowerCase();
+      h = h.replace(/^[a-z]+:\/\//, '');
+      h = h.split('/')[0].split('?')[0].split('#')[0];
+      h = h.split('@').pop().split(':')[0];
+      return h.replace(/\.+$/, '');
+    };
+
+    const isFullKintoneDomain = (host) =>
+      DOMAIN_BASES.some((base) =>
+        new RegExp('^[a-z0-9][a-z0-9-]*(\\.s)?\\.' + base.replace(/\./g, '\\.') + '$').test(host)
+      );
+
+    const domainInput = document.getElementById('tf-domain');
+    const domainConfirm = document.getElementById('tf-domain-confirm');
+
+    const refreshDomainConfirm = () => {
+      if (!domainInput || !domainConfirm) return;
+      const host = normalizeDomainHost(domainInput.value);
+      if (host && host !== domainInput.value) domainInput.value = host;
+      if (!host) {
+        domainConfirm.hidden = true;
+        domainConfirm.removeAttribute('data-state');
+        domainConfirm.textContent = '';
+        return;
+      }
+      const valid = isFullKintoneDomain(host);
+      domainConfirm.hidden = false;
+      domainConfirm.setAttribute('data-state', valid ? 'ok' : 'warn');
+      domainConfirm.textContent = valid
+        ? '✓ このドメインで体験ライセンスを発行します： ' + host
+        : '⚠ フルドメインになっていません（現在の入力： ' + host +
+          '）。abc.cybozu.com のように .cybozu.com まで含めてご入力ください。';
+    };
+
+    if (domainInput) {
+      domainInput.addEventListener('blur', refreshDomainConfirm);
+      domainInput.addEventListener('change', refreshDomainConfirm);
+    }
 
     const setError = (name, msg) => {
       const el = form.querySelector('[data-error-for="' + name + '"]');

@@ -72,7 +72,7 @@ if (pluginId && !fixedPlugin) {
 
         <div class="sf-group">
           <label for="sf-domain" class="sf-label">
-            ドメイン<span class="sf-required">必須</span>
+            kintone ドメイン（フルドメイン）<span class="sf-required">必須</span>
           </label>
           <input
             type="text"
@@ -82,6 +82,11 @@ if (pluginId && !fixedPlugin) {
             placeholder="例：abc.cybozu.com"
             autocomplete="off"
           />
+          <p class="sf-help">
+            kintone にログインしたときの URL を、そのまま貼り付けてください。<code>https://</code> や <code>/k/</code> は自動で取り除かれます。<br />
+            ・サブドメインだけでは受け付けられません（例：<code>abc</code> ではなく <code>abc.cybozu.com</code>）
+          </p>
+          <p class="sf-domain-confirm" id="sf-domain-confirm" hidden></p>
           <p class="sf-error" data-error-for="domain"></p>
         </div>
 
@@ -260,6 +265,33 @@ if (pluginId && !fixedPlugin) {
     line-height: 1.6;
   }
 
+  .sf-help code {
+    background-color: #eef2f7;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 0.85em;
+  }
+
+  /* Echoes the normalized domain so the applicant can verify it before submitting */
+  .sf-domain-confirm {
+    margin: 8px 0 0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    word-break: break-all;
+  }
+
+  .sf-domain-confirm[data-state='ok'] {
+    background-color: #eaf6ea;
+    color: #1f6b1f;
+  }
+
+  .sf-domain-confirm[data-state='warn'] {
+    background-color: #fdf3e3;
+    color: #8a5a00;
+  }
+
   .sf-radio-row {
     display: flex;
     gap: 12px;
@@ -376,6 +408,55 @@ if (pluginId && !fixedPlugin) {
     const pluginSelect = form.querySelector('select[name="pluginName"]');
     const paymentSelect = form.querySelector('select[name="paymentMethod"]');
     const invoiceGroup = document.getElementById('sf-group-invoiceEmail');
+
+    // ---- kintone domain field -------------------------------------------
+    // Applicants often type only the subdomain, paste the whole URL, or use
+    // full-width characters. Normalize on blur and echo the resolved value so
+    // they can confirm it before submitting. Submission is never blocked here.
+    const DOMAIN_BASES = ['cybozu.com', 'kintone.com', 'cybozu-dev.com', 'cybozu.cn'];
+
+    // Mirrors normalizeDomainHost() in the license GAS. Keep both in sync.
+    const normalizeDomainHost = (raw) => {
+      let h = String(raw == null ? '' : raw);
+      if (typeof h.normalize === 'function') h = h.normalize('NFKC');
+      h = h.trim().toLowerCase();
+      h = h.replace(/^[a-z]+:\/\//, '');
+      h = h.split('/')[0].split('?')[0].split('#')[0];
+      h = h.split('@').pop().split(':')[0];
+      return h.replace(/\.+$/, '');
+    };
+
+    const isFullKintoneDomain = (host) =>
+      DOMAIN_BASES.some((base) =>
+        new RegExp('^[a-z0-9][a-z0-9-]*(\\.s)?\\.' + base.replace(/\./g, '\\.') + '$').test(host)
+      );
+
+    const domainInput = document.getElementById('sf-domain');
+    const domainConfirm = document.getElementById('sf-domain-confirm');
+
+    const refreshDomainConfirm = () => {
+      if (!domainInput || !domainConfirm) return;
+      const host = normalizeDomainHost(domainInput.value);
+      if (host && host !== domainInput.value) domainInput.value = host;
+      if (!host) {
+        domainConfirm.hidden = true;
+        domainConfirm.removeAttribute('data-state');
+        domainConfirm.textContent = '';
+        return;
+      }
+      const valid = isFullKintoneDomain(host);
+      domainConfirm.hidden = false;
+      domainConfirm.setAttribute('data-state', valid ? 'ok' : 'warn');
+      domainConfirm.textContent = valid
+        ? '✓ このドメインで登録します： ' + host
+        : '⚠ フルドメインになっていません（現在の入力： ' + host +
+          '）。abc.cybozu.com のように .cybozu.com まで含めてご入力ください。';
+    };
+
+    if (domainInput) {
+      domainInput.addEventListener('blur', refreshDomainConfirm);
+      domainInput.addEventListener('change', refreshDomainConfirm);
+    }
 
     // Show the invoice-recipient email field only for bank transfer
     // (Square payments issue a payment link and generate no documents).
