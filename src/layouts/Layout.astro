@@ -12,6 +12,14 @@ interface Props {
   ogImage?: string;
   canonical?: string;
   noindex?: boolean;
+  /**
+   * Path to the page's hero background image (e.g. "/images/hero-bg.webp").
+   * On pages whose hero uses a CSS background, that image is the LCP element,
+   * and the browser only discovers it after the stylesheet parses — measured at
+   * ~570ms of load delay on the homepage. Passing it here preloads it with
+   * fetchpriority=high so the request starts with the document.
+   */
+  heroBg?: string;
 }
 
 const {
@@ -24,6 +32,7 @@ const {
   ogImage = 'https://kizuna-works.jp/images/ogp.png',
   canonical,
   noindex = false,
+  heroBg,
 } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -37,6 +46,7 @@ const {
   <title>{title}</title>
   <link rel="icon" type="image/png" href="/images/favicon.png">
   {canonical && <link rel="canonical" href={canonical}>}
+  {heroBg && <link rel="preload" as="image" href={heroBg} type="image/webp" fetchpriority="high">}
 
   <meta property="og:title" content={ogTitle ?? title}>
   <meta property="og:description" content={ogDescription ?? description}>
@@ -137,7 +147,10 @@ const {
   <footer class="site-footer">
     <div class="site-footer-inner">
       <div class="site-footer-brand">
-        <img src="/images/logo-white.png" alt="KIZUNA Works" width="2816" height="1536" style="height:48px; width:auto; margin-bottom:10px; display:block; mix-blend-mode:screen;">
+        <picture>
+          <source srcset="/images/logo-white.webp" type="image/webp" />
+          <img src="/images/logo-white.png" alt="KIZUNA Works" width="264" height="144" loading="lazy" decoding="async" style="height:48px; width:auto; margin-bottom:10px; display:block; mix-blend-mode:screen;">
+        </picture>
       </div>
       <div class="site-footer-links">
         <a href="/about/">運営者情報</a>

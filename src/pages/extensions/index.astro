@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { extensions } from '../../data/extensions';
+import Picture from '../../components/Picture.astro';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -55,6 +56,7 @@ const jsonLd = {
   ogUrl="https://kizuna-works.jp/extensions/"
   ogImage="https://kizuna-works.jp/images/extensions/kw-field-viewer-banner.png"
   canonical="https://kizuna-works.jp/extensions/"
+  heroBg="/images/extensions-bg.webp"
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
@@ -351,7 +353,7 @@ const jsonLd = {
         {extensions.map((ext) => (
           <article class="ext-card">
             <div class="ext-image-wrapper">
-              <img src={ext.bannerImage} alt={ext.bannerAlt} width="1200" height="675" loading="lazy" />
+              <Picture src={ext.bannerImage} alt={ext.bannerAlt} width="1200" height="675" card />
             </div>
             <div class="ext-content">
               <div class="ext-tags">

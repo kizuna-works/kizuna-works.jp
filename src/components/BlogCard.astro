@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import Picture from './Picture.astro';
 
 interface Props {
   href: string;
@@ -22,7 +23,7 @@ const cardImage = ogImage;
   {heroImage ? (
     <Image src={heroImage} alt={title} class="blog-card-image" width={640} height={360} />
   ) : cardImage ? (
-    <img src={cardImage} alt={title} class="blog-card-image" width="640" height="360" loading="lazy" />
+    <Picture src={cardImage} alt={title} class="blog-card-image" width="640" height="360" card />
   ) : null}
   <div class="blog-card-body">
     <p class="blog-card-date">{formattedDate}</p>

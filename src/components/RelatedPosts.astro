@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import Picture from './Picture.astro';
 
 interface Props {
   currentSlug: string;
@@ -41,13 +42,13 @@ const relatedPosts = scored.slice(0, limit).map((x) => x.post);
         return (
           <a href={`/blog/${post.id}/`} class="related-post-card">
             {/* ogImage は content.config.ts で必須なので、フォールバックは不要 */}
-            <img
+            <Picture
               src={post.data.ogImage}
               alt={post.data.title}
               class="related-post-image"
-              loading="lazy"
               width="640"
               height="360"
+              card
             />
             <div class="related-post-body">
               <p class="related-post-date">{formattedDate}</p>

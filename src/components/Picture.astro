@@ -1,0 +1,78 @@
+---
+/**
+ * PNG を指定すると、同名の .webp があれば <picture> で WebP を優先配信する。
+ * 派生画像は scripts/gen-image-derivatives.mjs が作る（元の PNG はフォールバック
+ * と og:image 用にそのまま残す）。
+ *
+ * card を true にすると、カードのサムネイル用に <base>-800.webp を srcset へ足す。
+ * カードの実表示幅は 400px 前後なので、1200px の原寸を配るのは無駄になる。
+ * 大きく表示する画像（詳細ページのスクリーンショット等）では card を付けないこと。
+ *
+ * WebP が無い画像に使っても素の <img> を出すだけなので、そのまま置き換えられる。
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props {
+  src: string;
+  alt: string;
+  width?: number | string;
+  height?: number | string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  sizes?: string;
+  card?: boolean;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  class: className,
+  loading = 'lazy',
+  decoding = 'async',
+  fetchpriority,
+  sizes,
+  card = false,
+} = Astro.props;
+
+const existsInPublic = (p: string) => fs.existsSync(path.join(process.cwd(), 'public', p));
+
+const webp = src.replace(/\.png$/i, '.webp');
+const small = src.replace(/\.png$/i, '-800.webp');
+const hasWebp = src !== webp && existsInPublic(webp);
+const hasSmall = card && existsInPublic(small);
+
+const srcset = hasSmall ? `${small} 800w, ${webp} 1200w` : webp;
+const sizesAttr = sizes ?? (hasSmall ? '(max-width: 768px) 100vw, 400px' : undefined);
+---
+
+{hasWebp ? (
+  <picture>
+    <source srcset={srcset} sizes={sizesAttr} type="image/webp" />
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      class={className}
+      loading={loading}
+      decoding={decoding}
+      fetchpriority={fetchpriority}
+    />
+  </picture>
+) : (
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    class={className}
+    loading={loading}
+    decoding={decoding}
+    fetchpriority={fetchpriority}
+  />
+)}

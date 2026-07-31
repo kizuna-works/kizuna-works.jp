@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { tools, toolAbsUrl } from '../../data/tools';
+import Picture from '../../components/Picture.astro';
 
 // kintone-specific tools are surfaced as a distinct group above the generic web tools.
 const kintoneTools = tools.filter((t) => t.kintoneNative);
@@ -65,6 +66,7 @@ const toolsJsonLd = {
   ogDescription="インストール不要・登録不要のブラウザ完結型 無料Webツール一覧。電子印鑑メーカー、PDF捺印、PDF結合分割、QRコード作成、画像マスキング、画像圧縮・変換、PDF→HTML変換など、業務効率化に役立つ便利ツールを KIZUNA Works が無料で公開中です。"
   ogUrl="https://kizuna-works.jp/tools/"
   canonical="https://kizuna-works.jp/tools/"
+  heroBg="/images/tools-bg.webp"
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(toolsJsonLd)} />
@@ -348,7 +350,7 @@ const toolsJsonLd = {
             <article class="tool-card">
               {tool.image ? (
                 <div class="tool-image-wrapper">
-                  <img src={tool.image} alt={tool.imageAlt} width={tool.imageWidth} height={tool.imageHeight} />
+                  <Picture src={tool.image} alt={tool.imageAlt} width={tool.imageWidth} height={tool.imageHeight} card />
                 </div>
               ) : (
                 <div class="tool-image-wrapper tool-image-wrapper--dark">

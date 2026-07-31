@@ -31,6 +31,7 @@ c:\kizuna-works.jp\
 │   │   ├── blog-placeholder-4.jpg
 │   │   ├── blog-placeholder-5.jpg
 │   │   ├── blog-placeholder-about.jpg
+│   │   ├── logo-white-original.png # フッターロゴの原本（2816x1536）。配信用は public/images/logo-white.png を 264x144 に縮小して使う。public/ の外なのでデプロイされない
 │   │   └── fonts/              # フォントファイル（Atkinson Hyperlegible）
 │   │       ├── atkinson-bold.woff
 │   │       └── atkinson-regular.woff
@@ -42,7 +43,8 @@ c:\kizuna-works.jp\
 │   │   ├── TrialForm.astro     # プレミアム無料体験の申込フォーム（会社名/メール/ドメインのみ・planType='trial' でGASへ送信）
 │   │   ├── TrialBanner.astro   # プレミアム無料体験LPへの誘導バナー（サポーターページ・プラグイン一覧で使用）
 │   │   ├── SecurityBox.astro   # プラグイン詳細ページの「安心ボックス」（外部通信・ライブラリ・秘匿情報を要約。plugin-security.ts 駆動）
-│   │   └── ShareButtons.astro  # SNS共有ボタン（X/LINE/はてブは静的intentリンク・URLコピー/OS共有シートのみJS）。全プラグイン個別ページ末尾に設置。title="〇〇 for kintone"・URLはAstro.urlから自動導出
+│   │   ├── ShareButtons.astro  # SNS共有ボタン（X/LINE/はてブは静的intentリンク・URLコピー/OS共有シートのみJS）。全プラグイン個別ページ末尾に設置。title="〇〇 for kintone"・URLはAstro.urlから自動導出
+│   │   └── Picture.astro       # PNG指定で同名 .webp があれば <picture> で WebP を優先配信。card 指定時は <base>-800.webp を srcset に足す（カードの実表示幅は400px前後なので原寸1200pxを配らない）。WebP が無ければ素の <img> を出すだけなので置き換え安全。派生画像は scripts/gen-image-derivatives.mjs が生成
 │   ├── data/                   # ビルド時参照される TS データ
 │   │   ├── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）
 │   │   ├── glossary.ts         # kintone 用語集の単一情報源（/glossary/ 一覧と DefinedTermSet JSON-LD を生成）。hasPage/longDescription/useCases/faq を持つ語は /glossary/<id>/ の個別ページも生成

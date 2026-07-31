@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import BlogCard from '../components/BlogCard.astro';
+import Picture from '../components/Picture.astro';
 import InstallRankingTop3 from '../components/InstallRankingTop3.astro';
 import { allPlugins as plugins } from '../data/plugins';
 import { extensions } from '../data/extensions';
@@ -59,6 +60,7 @@ const pluginPosts = allPosts
   ogDescription="KIZUNA Worksの無料プラグインと無料Webツール。フィールドスタイラー・自動採番等のkintoneプラグインに加え、電子印鑑メーカー等のブラウザ完結型ツールを配布。kintone プラグイン 無料配布中。"
   ogUrl="https://kizuna-works.jp/"
   canonical="https://kizuna-works.jp/"
+  heroBg="/images/hero-bg.webp"
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json">
@@ -1769,7 +1771,7 @@ const pluginPosts = allPosts
         {showcasePlugins.map((p, i) => (
           <a href={`/plugins/${p.slug}/`} class="plugin-card-compact">
             <div class={`plugin-card-thumb${p.tier === 'premium' ? ' is-premium' : ''}`}>
-              <img src={p.image} alt={p.imageAlt} loading="lazy" width={p.imageWidth} height={p.imageHeight} />
+              <Picture src={p.image} alt={p.imageAlt} width={p.imageWidth} height={p.imageHeight} card />
               {p.tier === 'premium' ? (
                 <span class="plugin-card-badge premium">👑 PREMIUM</span>
               ) : (
@@ -1872,7 +1874,7 @@ const pluginPosts = allPosts
         {extensions.map((ext) => (
           <a href={`/extensions/${ext.slug}/`} class="extension-mini-card">
             <div class="extension-mini-iconbox">
-              <img src={ext.iconImage} alt={ext.iconAlt} width="64" height="64" loading="lazy" />
+              <Picture src={ext.iconImage} alt={ext.iconAlt} width="64" height="64" />
             </div>
             <div class="extension-mini-body">
               <span class="extension-mini-name">{ext.name}</span>
