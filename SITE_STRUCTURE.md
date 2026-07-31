@@ -480,7 +480,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-comment-v1.0.2.zip                 # フィールドコメント for kintone 配布ファイル（v1.0.2・ゲストスペース対応）
 │   │   ├── kw-field-comment-v1.1.0.zip                 # フィールドコメント for kintone 配布ファイル（手動配置・v1.1.0 編集/新規画面対応＋アイコン10種＋カラーコード入力＋設定アコーディオン化）
 │   │   ├── kw-field-comment-v1.1.1.zip                 # フィールドコメント for kintone 配布ファイル（手動配置・v1.1.1 フィールド名非表示フィールドのコメント誤付着を修正＋入力欄直上に表示＋ラベル改称後も追従）
-│   │   ├── kw-sidebar-enhancer-v1.0.0.zip              # サイドバー拡張 for kintone 配布ファイル（最新・手動配置・v1.0.0 初版）
+│   │   ├── kw-sidebar-enhancer-v1.0.2.zip              # サイドバー拡張 for kintone 配布ファイル（最新・手動配置・v1.0.2 で数値の桁区切り撤去／ラベルのHTML描画／設定画面の保存ボタン／タブ初期表示の高速化）
+│   │   ├── kw-sidebar-enhancer-v1.0.0.zip              # サイドバー拡張 for kintone 配布ファイル（旧版・v1.0.0 初版）
 │   │   ├── kw-read-check-v1.0.1.zip                   # 既読チェック for kintone 配布ファイル（最新・手動配置・v1.0.1 で折りたたみサイドバーの展開を公式APIへ変更＋サイドバータブの表示順を宣言的に固定）
 │   │   ├── kw-read-check-v1.0.0.zip                   # 既読チェック for kintone 配布ファイル（旧版・v1.0.0 初版）
 │   │   ├── kw-record-recovery-v1.0.0.zip              # 削除レコード復元 for kintone 配布ファイル（手動配置・v1.0.0 初版）

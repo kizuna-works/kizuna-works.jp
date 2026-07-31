@@ -249,7 +249,7 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       {
         label: 'レコードレコード追加・チェック状態の保存・ステータス一覧の取得（自ドメイン内）',
         detail:
-          '「追加」タブの追加先スキーマ取得と登録は、自ドメインの kintone REST API（/k/v1/preview/app/form/fields・/k/v1/app/form/layout・/k/v1/record の POST・/k/v1/file の GET／POST）で行います。表示できるアプリの判定に /k/v1/apps、書き込み可否の判定に /k/v1/app/acl・/k/v1/field/acl を参照します（アプリ管理権限がない場合は取得できないため、その際は kintone 自身の判定に委ねます）。「確認」タブのチェック状態は、同一スペース内に自動生成する「チェックリスト管理」保管アプリへ /k/v1/records の GET／POST／PUT で保存し、保管アプリの生成・不足項目の追加・アクセス権設定は preview/app 系 API で行います。「進捗」タブが使うプロセス管理のステータス一覧は kintone.app.getStatus()（レコード画面）と /k/v1/preview/app/status（設定画面）から取得し、ステータスの変更履歴はレコード内の専用フィールドに保存します（外部には出しません）。設定画面のユーザー・組織・グループ候補の取得のみ、ご利用中の kintone ドメイン内の cybozu.com 共通管理API（/v1/users・/v1/organizations・/v1/groups）を呼び出します。いずれもご利用中の kintone ドメイン内で完結し、外部の第三者へは送信しません。第三者CDN・外部サーバーは利用しません。',
+          '「追加」タブの追加先スキーマ取得と登録は、自ドメインの kintone REST API（/k/v1/preview/app/form/fields・/k/v1/app/form/layout・/k/v1/record の POST・/k/v1/file の GET／POST）で行います。表示できるアプリの判定に /k/v1/apps、書き込み可否の判定に /k/v1/app/acl・/k/v1/field/acl を参照します（アプリ管理権限がない場合は取得できないため、その際は kintone 自身の判定に委ねます）。「確認」タブのチェック状態は、同一スペース内に自動生成する「チェックリスト管理」保管アプリへ /k/v1/records の GET／POST／PUT で保存し、保管アプリの生成・不足項目の追加・アクセス権設定は preview/app 系 API で行います。「進捗」タブが使うプロセス管理のステータス一覧は kintone.app.getStatus()（レコード画面）と /k/v1/preview/app/status（設定画面）から取得し、ステータスの変更履歴はレコード内の専用フィールドに保存します（外部には出しません）。設定画面のユーザー・組織・グループ候補の取得は、ご利用中の kintone ドメイン内の cybozu.com 共通管理API（/v1/users・/v1/organizations・/v1/groups）を呼び出します。レコード画面では、実行権限や対象ユーザーに組織・グループを指定している場合にかぎり、ログインユーザー自身の所属（/v1/user/organizations・/v1/user/groups）を確認します（ユーザー指定のみ・未指定の場合は呼び出しません）。いずれもご利用中の kintone ドメイン内で完結し、外部の第三者へは送信しません。第三者CDN・外部サーバーは利用しません。',
       },
     ],
   },
