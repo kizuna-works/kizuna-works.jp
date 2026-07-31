@@ -198,7 +198,8 @@ c:\kizuna-works.jp\
 │   │       ├── kintone-backup.md                    # 「kintoneのバックアップはどうする？標準の限界とプラグイン・サービス比較」記事（標準/kBackup/削除レコード復元・図解4＋実機/プラグインスクショ・Gemini製ヒーローバナー kintone-backup.png）
 │   │       ├── kintone-henkou-rireki.md             # 「kintone変更履歴完全ガイド｜確認方法・監査ログとの違い・「誰が見たか」の残し方」記事（変更履歴/ステータスの履歴/監査ログの3種類・欠番・保存期間・非表示・CSV不可・既読チェック紹介／図解 kintone-rireki-3types.svg・Gemini製ヒーローバナー kintone-henkou-rireki.png）
 │   │       ├── kintone-2026-08-update.md            # 「kintone 2026年8月アップデート｜ルックアップのchangeイベント正式化・組織別の利用状況・ポータル10枚」記事（8/9実施・アップデートオプション不要の正式リリース／発火3タイミング・confirmed/recordId・クリア連動の実装例・既存カスタマイズは改修不要／図解2枚 kintone-2026-08-update-{overview,lookup}.png）
-│   │       └── kintone-tempu-file.md                # 「kintoneの添付ファイル完全ガイド｜容量の上限・一括ダウンロード・一覧で中身を見る方法」記事（1ファイル1GB・件数無制限／契約ユーザー数×5GB／変更履歴有効だと削除しても減らない落とし穴／cli-kintone による一括DL／拡張子制限は標準不可・図解3枚 kintone-tempu-file-{limit,download,visible}.png・Gemini製ヒーローバナー kintone-tempu-file.png）
+│   │       ├── kintone-tempu-file.md                # 「kintoneの添付ファイル完全ガイド｜容量の上限・一括ダウンロード・一覧で中身を見る方法」記事（1ファイル1GB・件数無制限／契約ユーザー数×5GB／変更履歴有効だと削除しても減らない落とし穴／cli-kintone による一括DL／拡張子制限は標準不可・図解3枚 kintone-tempu-file-{limit,download,visible}.png・Gemini製ヒーローバナー kintone-tempu-file.png）
+│   │       └── kintone-tsuuchi-settei.md            # 「kintone通知の設定ガイド｜「通知が来ない」原因と埋もれさせない仕組み」記事（5経路の全体像／3種類の条件通知の使い分け／［アプリを更新］必須／切り分けはポータル→メール／自分の操作・CSV読み込み・動作テスト環境は通知対象外／リマインダー500件・条件10件上限／件名形式は固定／チャット通知・既読チェック・ステータス一括実行を紹介・図解7枚 kintone-tsuuchi-settei-{overview,reach,triage,steps,limits,chat,measures}.png）
 │   └── styles/
 │       └── global.css          # グローバルCSS（最小リセット・スティッキーフッター用）
 │

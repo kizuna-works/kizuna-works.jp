@@ -367,6 +367,60 @@ const FIGURES = [
     el: flowCaptioned(['取得を確定', 'クリアした', 'フォーカスが外れた'], C.green, '8月9日から、この3つのタイミングでルックアップ自身の change が発火する'),
   },
   {
+    name: 'kintone-tsuuchi-settei-overview',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: 'アプリの条件通知', desc: '追加・編集・コメント・ステータス更新を条件に通知。文面は固定。', tag: 'アプリの設定', paid: false },
+      { n: '2', name: 'レコードの条件通知', desc: 'フィールドの値が条件を満たしたとき。通知文を自分で書ける。', tag: 'アプリの設定', paid: false },
+      { n: '3', name: 'リマインダーの条件通知', desc: '日付を基準に何日前・何日後で通知。期限のリマインドに。', tag: 'アプリの設定', paid: false },
+      { n: '4', name: 'コメントとメンション', desc: '@付きの書き込みで、指定した相手に自分宛として届く。', tag: 'レコード画面', paid: true },
+      { n: '5', name: 'スペースとスレッド', desc: 'フォロー中のスレッドへの投稿を知らせる。設定は不要。', tag: 'スペース', paid: true },
+    ]),
+  },
+  {
+    name: 'kintone-tsuuchi-settei-reach',
+    w: 1000, h: 300,
+    el: contrastPanel(
+      { title: '通知が届く操作', desc: '自分以外のユーザーが画面からレコードを追加・編集した。コメントを書き込んだ。プロセス管理のステータスを進めた。' },
+      { title: '通知が届かない操作', desc: '自分自身が行った操作。レコードの条件通知はExcel・CSV読み込みでは対象外。動作テスト環境での操作。いずれも公式に明記された仕様。' }
+    ),
+  },
+  {
+    name: 'kintone-tsuuchi-settei-triage',
+    w: 1000, h: 210,
+    el: flowCaptioned(['ポータルに通知は出ているか', '出ていない→アプリ側', '出ている→メール側'], C.navy, 'ポータルに届いていなければ、メール通知も届かない。まずここで切り分ける'),
+  },
+  {
+    name: 'kintone-tsuuchi-settei-steps',
+    w: 1000, h: 210,
+    el: flowCaptioned(['歯車からアプリの設定', '通知タブで種類を選ぶ', '条件と通知先を指定', 'アプリを更新'], C.green, '保存だけでは反映されない。最後の［アプリを更新］まで進めて完了'),
+  },
+  {
+    name: 'kintone-tsuuchi-settei-limits',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: '件名の形式は変えられない', desc: '［kintone］［アプリ名］…の形は固定。変えられるのは一部だけ。', tag: '標準では不可', paid: true },
+      { n: '2', name: 'kintoneを見ない人に届かない', desc: '現場や社外の関係者は、ポータルもメールも開かないことが多い。', tag: '標準では不可', paid: true },
+      { n: '3', name: '読まれたかが分からない', desc: '通知を送った側から、相手が見たかどうかを確認できない。', tag: '標準では不可', paid: true },
+      { n: '4', name: '一括登録では通知されない', desc: 'CSV・Excel読み込みでの追加や更新は、条件を満たしても対象外。', tag: '公式仕様', paid: false },
+      { n: '5', name: 'リマインダーは1回500件まで', desc: 'レコード番号が大きい順。501件以上は条件を分けて設定する。', tag: '公式仕様', paid: false },
+    ]),
+  },
+  {
+    name: 'kintone-tsuuchi-settei-chat',
+    w: 1000, h: 210,
+    el: flowCaptioned(['レコードを追加・更新', '設定した条件に合致', 'Teams・Slackへ自動投稿'], C.green, 'チャット通知なら、本文に項目を差し込んだ通知を普段使うチャットへ送れる'),
+  },
+  {
+    name: 'kintone-tsuuchi-settei-measures',
+    w: 1000, h: 330,
+    el: overviewMethods([
+      { n: '1', name: '条件を絞る', desc: '本当に見るべき通知だけに限定。まず標準設定の見直しから。', cost: '無料' },
+      { n: '2', name: 'チャットへ送る', desc: '普段開いているTeams・Slackへ。気づかれない問題を解消。', cost: '有料' },
+      { n: '3', name: '既読を可視化', desc: '誰がいつ見たかを記録。送った側から確認できる。', cost: '有料' },
+    ]),
+  },
+  {
     name: 'kintone-tempu-file-visible',
     w: 1000, h: 300,
     el: contrastPanel(
