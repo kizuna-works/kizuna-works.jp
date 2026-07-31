@@ -46,11 +46,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "条件分岐自動採番 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "dateModified": "2026-07-01",
-          "softwareVersion": "2.0.0",
-          "releaseNotes": "v2.0.0（2026-07-01）: 複数フィールド採番に対応。1つのアプリで最大3つの文字列フィールドに、フィールドごとに異なる採番ルール（区切り・フォーマット・条件分岐・連番リセット）を設定できるようになりました。例えば案件番号は部署ごとに接頭辞と連番を分け、請求番号は条件なしの全社通し番号、といった使い分けを同じレコードの保存時に同時採番できます。設定画面はフィールド別のアコーディオン。既存の単一フィールド設定は自動移行されます。",
+          "dateModified": "2026-08-01",
+          "softwareVersion": "2.1.0",
+          "releaseNotes": "v2.1.0（2026-08-01）: 重複した番号を検出して振り直せる「重複チェックと修正」機能を追加。採番フィールドの値が重複しているレコードを検出し、1件はそのまま残したまま、それ以外の連番部分だけを未使用の番号へ振り直します（日付部分・条件テキストは維持）。実行前のプレビュー表示とCSVダウンロードに対応。あわせて採番フィールドへの「値の重複を禁止する」設定を設定画面で案内し、最大番号の検出は既存レコード全件を対象として精度を高めました。設定画面は3カラム＋タブ構成に刷新しています。",
           "url": "https://kizuna-works.jp/plugins/kw-conditional-numbering/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-numbering-v2.0.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-numbering-v2.1.0.zip",
           "offers": {
             "@type": "Offer",
             "name": "基本プラン（無料）",
@@ -71,7 +71,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "条件分岐採番",
             "条件ごとの連番独立管理",
             "CSVインポート後の一括採番",
-            "連番の手動修正・リセット"
+            "連番の手動修正・リセット",
+            "重複した番号の検出と連番の振り直し（プレビュー・CSV出力付き）"
           ]
         }
       ]
@@ -738,6 +739,70 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     .update-eg thead th { background: var(--color-navy); color: #fff; font-weight: 700; }
     .update-eg code { background: #eef4ff; color: var(--color-navy); padding: 1px 7px; border-radius: 4px; font-weight: 700; }
     .update-note { color: var(--color-text-light); font-size: 0.86rem; margin: 14px 0 0; line-height: 1.7; }
+
+    /* Smaller, centered screenshot inside the update box */
+    .update-shot {
+      max-width: 640px;
+      margin: 18px auto 0;
+    }
+    .update-shot .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin: 10px 0 0;
+    }
+
+    /* Screenshot frame */
+    .screenshot-frame {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Zoomable images + lightbox overlay */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
   </style>
 
   <main>
@@ -754,37 +819,53 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.0.0</span>
+        <span class="hero-version">v2.1.0</span>
       </div>
       <h1 class="hero-title">条件分岐自動採番 for kintone</h1>
       <p class="hero-copy">組織・担当者・ステータスなど、フィールドの条件に応じて採番ルールを自動切替。CSVインポート後の一括採番にも対応した、kintone専用の自動採番プラグインです。</p>
     </section>
 
-    <!-- Update Notice (v2.0.0) -->
+    <!-- Update Notice (v2.1.0) -->
     <section class="update-section fade-in">
       <div class="update-box">
         <div>
           <span class="update-tag">UPDATE</span>
-          <span class="update-date">v2.0.0（2026年7月1日）</span>
+          <span class="update-date">v2.1.0（2026年8月1日）</span>
         </div>
-        <h2 class="update-title">複数フィールド採番に対応しました</h2>
+        <h2 class="update-title">重複した番号を検出して振り直せるようになりました</h2>
         <p class="update-desc">
-          1つのアプリで<strong>最大3つの文字列フィールド</strong>に、それぞれ<strong>別の採番ルール</strong>（区切り・フォーマット・条件分岐・連番リセット）を設定できるようになりました。<br>
-          たとえば「<strong>案件番号は部署ごとに接頭辞と連番を分ける</strong>」一方で、「<strong>請求番号は条件なしの全社通し番号</strong>」にする、といった使い分けが、同じレコードの保存時に<strong>同時採番</strong>で実現します。
+          kintone には採番専用の排他制御の仕組みがないため、<strong>複数の方がほぼ同時に保存された場合</strong>など、条件によっては同じ番号が採番されることがあります。<br>
+          v2.1.0 では、そうした重複を設定画面から検出し、<strong>重複しているレコードのうち1件はそのまま残したまま</strong>、それ以外の<strong>連番部分だけ</strong>を未使用の番号へ振り直せるようにしました。日付や条件テキストはそのまま維持されます。
         </p>
         <div class="update-table-wrap">
           <table class="update-eg">
             <thead>
-              <tr><th>部署</th><th>案件番号（部署ごとに独立カウンタ）</th><th>請求番号（条件なし・全社通し番号）</th></tr>
+              <tr><th>レコード番号</th><th>現在の番号</th><th>残す</th><th>新しい番号</th></tr>
             </thead>
             <tbody>
-              <tr><td>営業一課</td><td><code>A-2604-001</code></td><td><code>26-INV-001</code></td></tr>
-              <tr><td>営業二課</td><td><code>B-2604-001</code></td><td><code>26-INV-002</code></td></tr>
+              <tr><td>13</td><td><code>240701-A-00005</code></td><td>●</td><td>変更しません</td></tr>
+              <tr><td>56</td><td><code>240701-A-00005</code></td><td></td><td><code>240701-A-00042</code></td></tr>
             </tbody>
           </table>
         </div>
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <picture>
+              <source srcset="/images/conditional-numbering-config-01.webp" type="image/webp" />
+              <img
+                class="zoomable"
+                src="/images/conditional-numbering-config-01.png"
+                alt="条件分岐自動採番 v2.1.0 の「重複チェックと修正」設定画面 — 重複している番号・レコード番号・条件値・残すレコードの選択・新しい番号を一覧表示し、上部に「値の重複を禁止する」の設定を案内するメッセージが表示されている"
+                loading="lazy"
+                width="1536"
+                height="1295"
+              />
+            </picture>
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
         <p class="update-note">
-          案件番号は部署で接頭辞（A／B）と連番を分け、請求番号は部署に関係なく会社全体で連番。設定画面はフィールド別のアコーディオンで、フィールドを追加して個別にルールを組むだけ。これまでの単一フィールド設定はそのまま自動で引き継がれます。
+          どのレコードを残すかはグループ単位で選べます。実行前に「どのレコードがどう変わるか」のプレビューを表示し、CSV でダウンロードして記録に残せます。あわせて、採番フィールドに kintone 標準の「値の重複を禁止する」を設定することを設定画面でご案内するようにしました。この設定があれば、万一同じ番号が生成されても kintone 側で保存がブロックされ、重複したレコードが作られません。最大番号の検出は既存レコード全件を対象とするようにし、精度を高めています。既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください（設定は引き継がれます）。
         </p>
       </div>
     </section>
@@ -823,6 +904,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <li><span><strong>連番の独立管理</strong> — 条件ごとに連番を分けるか、アプリ全体で通し番号にするかを選択可能。</span></li>
         <li><span><strong>CSVインポート対応</strong> — 設定画面のボタン1つで、採番フィールドがブランクのレコードにまとめて採番。</span></li>
         <li><span><strong>連番の手動修正</strong> — 設定画面から現在値の確認・修正・リセットが可能。</span></li>
+        <li><span><strong>重複チェックと修正</strong> — 番号が重複しているレコードを検出し、1件を残して連番部分だけを未使用の番号へ振り直し。日付・条件テキストは維持され、実行前のプレビューとCSV出力に対応。</span></li>
       </ul>
     </section>
 
@@ -933,7 +1015,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-conditional-numbering-v2.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード（v2.0.0）</a>
+          <a href="/downloads/kw-conditional-numbering-v2.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード（v2.1.0）</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -1063,6 +1145,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <a href="/contact/" class="btn-primary">お問い合わせ</a>
     </section>
 
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="cn-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
 
   </main>
 
@@ -1104,11 +1191,35 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         });
       });
 
+      /* Lightbox: click any .zoomable screenshot to view it enlarged. */
+      const lightbox = document.getElementById('cn-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
       const dlBtn = document.getElementById('btn-download');
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           gtag('event', 'file_download', {
-            file_name: 'kw-conditional-numbering-v2.0.0.zip',
+            file_name: 'kw-conditional-numbering-v2.1.0.zip',
             file_extension: 'zip',
             link_text: 'ダウンロード（無料）',
             link_url: '/downloads/kw-conditional-numbering-v2.0.0.zip'

@@ -218,6 +218,8 @@ c:\kizuna-works.jp\
 │   │   ├── musubi-preview.png              # Musubi（PDF結合・分割ツール）プレビュー画像
 │   │   ├── conditional-numbering-icon.png  # 条件分岐自動採番プラグイン アイコン
 │   │   ├── conditional-numbering-banner.png # 条件分岐自動採番プラグイン バナー
+│   │   ├── conditional-numbering-config-01.png  # 条件分岐自動採番 v2.1.0「重複チェックと修正」設定画面スクショ（製品ページ UPDATE ボックス用）
+│   │   ├── conditional-numbering-config-01.webp # 同 WebP 版
 │   │   ├── form-deco-icon.png              # FormDecoプラグイン アイコン
 │   │   ├── form-deco-banner.png            # FormDecoプラグイン バナー（1200×675・OGP/グリッド共用）
 │   │   ├── lookup-suggest-icon.png         # ルックアップサジェストプラグイン アイコン
@@ -464,7 +466,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-styler-v2.1.2.zip                  # フィールドスタイラー for kintone 配布ファイル（旧版・手動配置）
 │   │   ├── kw-field-styler-v2.3.0.zip                  # フィールドスタイラー for kintone 配布ファイル（最新・手動配置・v2.3.0 で条件付きスタイルの色を任意指定可）
 │   │   ├── kw-field-styler-v2.2.0.zip                  # フィールドスタイラー for kintone 配布ファイル（v2.2.0 でサブテーブル対応）
-│   │   ├── kw-conditional-numbering-v2.0.0.zip         # 条件分岐自動採番 for kintone 配布ファイル（最新・手動配置・v2.0.0 複数フィールド採番）
+│   │   ├── kw-conditional-numbering-v2.1.0.zip         # 条件分岐自動採番 for kintone 配布ファイル（最新・手動配置・v2.1.0 重複チェックと修正／採番範囲を全件へ）
+│   │   ├── kw-conditional-numbering-v2.0.0.zip         # 条件分岐自動採番 for kintone 配布ファイル（v2.0.0 複数フィールド採番）
 │   │   ├── kw-conditional-numbering-v1.1.2.zip         # 条件分岐自動採番 for kintone 配布ファイル（旧版）
 │   │   ├── kw-form-deco-v1.0.2.zip                     # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-lookup-suggest-v1.0.2.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置）
