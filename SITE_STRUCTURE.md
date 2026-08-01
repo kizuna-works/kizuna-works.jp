@@ -99,7 +99,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── theme-styler/
 │   │   │   │   └── index.astro # テーマスタイラープラグイン製品ページ（/plugins/theme-styler/）
 │   │   │   ├── address-assist/
-│   │   │   │   └── index.astro # 住所アシストプラグイン製品ページ（/plugins/address-assist/）— 郵便番号→住所自動入力＋レコード詳細画面に Google マップ直接プレビュー（差別化）
+│   │   │   │   └── index.astro # 住所アシストプラグイン製品ページ（/plugins/address-assist/）— 郵便番号⇔住所の双方向自動入力＋住所セット（複数住所）＋レコード詳細画面に Google マップ直接プレビュー（差別化）
 │   │   │   ├── quick-history-view/
 │   │   │   │   └── index.astro # クイック履歴ビュープラグイン製品ページ（/plugins/quick-history-view/）— レコード変更履歴を自動記録し詳細画面に時系列テーブル表示・kintone 完結
 │   │   │   ├── related-record-popup/
@@ -298,6 +298,10 @@ c:\kizuna-works.jp\
 │   │   ├── address-assist-config-03.png    # 住所アシスト 設定画面スクショ③ — 住所コピーボタン設定 ＋ 地図プレビュー設定（スペースフィールド指定）
 │   │   ├── address-assist-subtable-01.png  # 住所アシスト v1.1.0 スクショ — 配送先管理アプリの編集画面でサブテーブル各行の郵便番号→住所が自動入力された状態（製品ページ UPDATEボックス用）
 │   │   ├── address-assist-subtable-02.png  # 住所アシスト v1.1.0 スクショ — 設定画面で「対象」にサブテーブルを選択した状態（製品ページ UPDATEボックス用）
+│   │   ├── address-assist-config-04.png    # 住所アシスト v1.2.0 設定画面スクショ — 左に住所セット一覧（本社／請求先）、中央に選択中セットの設定（v2レイアウト・サイドバー除外）
+│   │   ├── address-assist-reverse-01.png   # 住所アシスト v1.2.0 スクショ — 逆引きボタン押下で候補パネルが開き、大通西の2候補（丁目違い）が並んだ状態
+│   │   ├── address-assist-reverse-02.png   # 住所アシスト v1.2.0 スクショ — 1レコードに本社（東京）と請求先（大阪）の地図プレビューが2枚同時表示された状態
+│   │   ├── address-assist-sidebar-map.png  # 住所アシスト×サイドバー拡張 の組み合わせスクショ — サイドバー拡張「リンク」タブに住所アシストが生成した地図URLを表示した状態
 │   │   ├── sheet-edit-subtable-merge.png   # シート編集 v1.1.0 スクショ — サブテーブル行展開グリッド（明細外セルを縦結合する結合モード・製品ページ UPDATEボックス用）
 │   │   ├── sheet-edit-subtable-blank.png   # シート編集 v1.1.0 スクショ — サブテーブル行展開グリッド（明細外セルを先頭行のみ表示する空欄モード・製品ページ UPDATEボックス用）
 │   │   ├── sheet-edit-config-04.png        # シート編集 v1.2.1 スクショ — 設定画面「レコード番号クリックで詳細を開く」トグル（製品ページ UPDATEボックス用）
@@ -492,7 +496,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-read-check-v1.0.0.zip                   # 既読チェック for kintone 配布ファイル（旧版・v1.0.0 初版）
 │   │   ├── kw-record-recovery-v1.0.0.zip              # 削除レコード復元 for kintone 配布ファイル（手動配置・v1.0.0 初版）
 │   │   ├── kw-theme-styler-v1.1.0.zip                  # テーマスタイラー for kintone 配布ファイル（手動配置・v1.1.0 詳細画面/明細ヘッダーの個別カラー指定＋設定画面v2レイアウト刷新）
-│   │   ├── kw-address-assist-v1.1.0.zip                # 住所アシスト for kintone 配布ファイル（手動配置・v1.1.0 でサブテーブル対応）
+│   │   ├── kw-address-assist-v1.1.0.zip                # 住所アシスト for kintone 配布ファイル（旧版・v1.1.0 でサブテーブル対応）
+│   │   ├── kw-address-assist-v1.2.0.zip                # 住所アシスト for kintone 配布ファイル（最新・v1.2.0 で住所→郵便番号の逆引き＋住所セット対応）
 │   │   ├── kw-address-assist-v1.0.2.zip                # 住所アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-quick-history-view-v1.0.2.zip            # クイック履歴ビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-related-record-popup-v1.0.3.zip          # 関連レコードポップアップ表示 for kintone 配布ファイル（手動配置・v1.0.3：ページ送りでポップアップが閉じる不具合の修正＋コメント系プラグインとのアイコン競合の自動回避）
@@ -543,6 +548,13 @@ c:\kizuna-works.jp\
 │   │   ├── fortune-sheet/1.0.4/ # Fortune-sheet（fortune-sheet.umd.min.js/.css）— ExcelをExcel風グリッドで高精細表示
 │   │   └── luckyexcel/1.0.1/   # LuckyExcel（luckyexcel.umd.js）— xlsx→スプレッドシートデータ変換
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
+│   ├── zipdata/
+│   │   └── v1/                 # 住所アシスト for kintone の「住所→郵便番号」逆引き用データ（日本郵便の公開データを加工・全50ファイル約3.2MB）
+│   │                           #   01.json〜47.json＝都道府県別（市区町村でグルーピング）／index.json＝市区町村名→都道府県コード
+│   │                           #   zipidx.json＝郵便番号上3桁→都道府県コード（順方向フォールバック用）／meta.json＝出典・基準日・収録件数
+│   │                           #   ※ プラグインには同梱せず静的配信する（kintone はプラグイン内ファイルを manifest 宣言分しか配信しないため）
+│   │                           #   ※ 生成は SECRET/kintone_plugin_workspace/kw-address-assist/tools/build-zipdata.mjs
+│   │                           #   ※ v1 は「形式」のバージョン。中身は常に最新の日本郵便リリースに差し替える（プラグイン更新不要で全ユーザーに反映）
 │   ├── tools/
 │   │   ├── stamp-maker.html    # inkan（電子印鑑メーカー）スタンドアロンHTMLアプリ（Astro管理外）
 │   │   ├── natsuin.html        # Natsuin（PDF電子印鑑・署名ツール）スタンドアロンHTMLアプリ（Astro管理外）
