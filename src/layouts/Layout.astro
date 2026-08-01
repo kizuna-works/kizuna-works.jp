@@ -61,7 +61,10 @@ const {
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Variable-font range (100..900), not an explicit weight list. Listing weights makes Google
+       Fonts return static faces multiplied by 124 Japanese subsets: 459KB / 496 @font-face,
+       render-blocking for 5.7s on Slow 4G. The range returns one variable set: 115KB / 124 faces. -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
 
   <!-- Google tag (gtag.js) -->
   <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-Q1B44N0922"></script>
@@ -72,7 +75,10 @@ const {
     gtag('config', 'G-Q1B44N0922');
   </script>
 
-  <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2096869114957752" crossorigin="anonymous"></script>
+  <!-- AdSense loader intentionally removed (2026-08-02). The site has zero ad slots while the
+       account is still under review, so the loader was costing ~670KB and ~485ms of
+       main-thread time per page for nothing. Restore it together with the first real ad slot
+       once the account is approved. -->
 
   <!-- Site-wide Organization schema for E-E-A-T and AI search (GEO/AEO) -->
   <script is:inline type="application/ld+json">
