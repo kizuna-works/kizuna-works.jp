@@ -51,7 +51,7 @@ const updated = '2026-06-05';
               "name": "kintone のレコードやフィールドの値は外部に送信されますか？",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "送信されません。KIZUNA Works のプラグインは、お客様のレコードやフィールドの値を当社や第三者のサーバーへ送信しません。外部通信はライセンス認証（プラグインIDと利用ドメイン名のみ）に限定されています。"
+                "text": "原則として送信されません。お客様のレコードやフィールドの値を当社のサーバーへ送信することはなく、外部通信はライセンス認証（プラグイン ID と利用ドメイン名のみ）に限定されています。例外は 3 プラグインだけです。住所アシスト for kintone は住所変換のため入力された郵便番号のみを zipcloud へ送信します。チャット通知 for kintone は「kintone の内容をチャットに届ける」ことが目的のため、管理者が登録した Webhook 宛に通知本文を送信します。サイドバー拡張 for kintone は「リンク」タブで管理者が指定したサイトを埋め込むため、閲覧者のブラウザから当該サイトへ直接接続します。いずれも内容は「外部通信の内訳」に明記しています。"
               }
             },
             {
@@ -59,7 +59,7 @@ const updated = '2026-06-05';
               "name": "プラグインはどこと通信していますか？",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "ライセンス確認のため、プラグインIDと利用ドメイン名だけを当社サーバー（Google Apps Script）へ kintone のプロキシ経由で送信します。住所アシスト for kintone のみ、住所変換のために入力された郵便番号を zipcloud へ送信します。添付ファイルプレビュー for kintone は、PDF・Excel・Word の表示ライブラリを当社サーバー（kizuna-works.jp）からSRI付きで読み込みますが、ファイルの中身は送信しません。いずれもレコードの値は送信しません。"
+                "text": "ライセンス確認のため、プラグイン ID と利用ドメイン名だけを当社サーバー（Google Apps Script）へ kintone のプロキシ経由で送信します。住所アシスト for kintone のみ、住所変換のために入力された郵便番号を zipcloud へ送信します。チャット通知 for kintone は、管理者が登録した Webhook（Slack / Microsoft Teams / Google Chat）へ通知本文を直接送信します（当社サーバーは経由しません）。サイドバー拡張 for kintone は、「リンク」タブで管理者が指定したサイトへ閲覧者のブラウザから直接接続します。添付ファイルプレビュー for kintone は、PDF・Excel・Word の表示ライブラリを当社サーバー（kizuna-works.jp）から SRI 付きで読み込みますが、ファイルの中身は送信しません。"
               }
             },
             {
@@ -333,7 +333,7 @@ const updated = '2026-06-05';
     <section class="sec-hero">
       <h1>セキュリティ・データの取り扱い</h1>
       <p>
-        KIZUNA Works の kintone プラグインは、<strong>お客様のレコードなどの業務データを外部に送信しない</strong>設計です。外部通信はライセンス認証（プラグイン ID と利用ドメイン名のみ）に限定し、<strong>改ざんリスクのある第三者 CDN には依存せず</strong>、設定は kintone 標準の暗号化領域に保存します。気になる方はブラウザの開発者ツール（F12）でご自身で検証いただけます。
+        KIZUNA Works の kintone プラグインは、<strong>お客様のレコードなどの業務データを外部に送信しない</strong>設計です。外部通信はライセンス認証（プラグイン ID と利用ドメイン名のみ）に限定し、<strong>改ざんリスクのある第三者 CDN には依存せず</strong>、設定は kintone 標準の暗号化領域に保存します。機能上どうしても外部通信が伴う 3 プラグインについては、<strong>何がどこへ送られるかを「外部通信の内訳」に残らず明記</strong>しています。気になる方はブラウザの開発者ツール（F12）でご自身で検証いただけます。
       </p>
       <span class="sec-updated">最終更新：{updated}</span>
     </section>
@@ -359,6 +359,12 @@ const updated = '2026-06-05';
           <p>改ざんリスクのある第三者 CDN は利用しません。表示ライブラリが必要なプラグインも、当社サーバーから SRI 付きで読み込みます。</p>
         </div>
       </div>
+      <p class="sec-note">
+        ※ 次の 3 プラグインには、機能上どうしても外部への通信が伴います。内容は下記「外部通信の内訳」に明記しています。<br>
+        ・<strong>住所アシスト for kintone</strong>：住所変換のため、入力された郵便番号のみを zipcloud へ送信します。<br>
+        ・<strong>チャット通知 for kintone</strong>：「kintone の内容をチャットに届ける」ことが目的のため、管理者が登録した Webhook 宛に通知本文を送信します（当社サーバーは経由しません）。<br>
+        ・<strong>サイドバー拡張 for kintone</strong>：「リンク」タブで管理者が指定したサイトを埋め込み表示するため、閲覧者のブラウザから当該サイトへ直接接続します。
+      </p>
     </section>
 
     <!-- 外部通信の内訳 -->
@@ -394,6 +400,18 @@ const updated = '2026-06-05';
                 <td>郵便番号から住所への変換</td>
                 <td><strong>入力された郵便番号のみ</strong>。氏名・会社名などレコードの他の値は送信しません。</td>
                 <td>住所アシスト for kintone のみ</td>
+              </tr>
+              <tr>
+                <td>管理者が登録した<br>Webhook URL<br>(Slack / Microsoft Teams / Google Chat)</td>
+                <td>通知の送信</td>
+                <td><strong>通知ルールの本文テンプレートに書いた内容</strong>（差し込んだフィールドの値・レコード URL・操作者名など）。kintone のプロキシ経由で各サービスへ直接送信し、当社サーバーは経由しません。テンプレートに書いていないフィールドは送信しません。</td>
+                <td>チャット通知 for kintone のみ</td>
+              </tr>
+              <tr>
+                <td>管理者が指定した<br>URL のサイト</td>
+                <td>「リンク」タブでの埋め込み表示</td>
+                <td><strong>閲覧者のブラウザから当該サイトへ直接接続</strong>するため、通常のアクセスと同じ情報（IP アドレス・リファラ等）が渡ります。当社サーバーは経由せず、レコードの値は送信しません。機能を無効にすれば読み込みは行われません。</td>
+                <td>サイドバー拡張 for kintone のみ</td>
               </tr>
             </tbody>
           </table>
@@ -449,11 +467,11 @@ const updated = '2026-06-05';
         <div class="sec-faq">
           <details>
             <summary>kintone のレコードやフィールドの値は外部に送信されますか？</summary>
-            <div class="faq-a">送信されません。KIZUNA Works のプラグインは、お客様のレコードやフィールドの値を当社や第三者のサーバーへ送信しません。外部通信はライセンス認証（プラグイン ID と利用ドメイン名のみ）に限定されています。</div>
+            <div class="faq-a">原則として送信されません。お客様のレコードやフィールドの値を当社のサーバーへ送信することはなく、外部通信はライセンス認証（プラグイン ID と利用ドメイン名のみ）に限定されています。例外は 3 プラグインだけです。住所アシスト for kintone は住所変換のため入力された郵便番号のみを zipcloud へ送信します。チャット通知 for kintone は「kintone の内容をチャットに届ける」ことが目的のため、管理者が登録した Webhook 宛に通知本文を送信します。サイドバー拡張 for kintone は「リンク」タブで管理者が指定したサイトを埋め込むため、閲覧者のブラウザから当該サイトへ直接接続します。いずれも内容は「外部通信の内訳」に明記しています。</div>
           </details>
           <details>
             <summary>プラグインはどこと通信していますか？</summary>
-            <div class="faq-a">ライセンス確認のため、プラグイン ID と利用ドメイン名だけを当社サーバー（Google Apps Script）へ kintone のプロキシ経由で送信します。住所アシスト for kintone のみ、住所変換のために入力された郵便番号を zipcloud へ送信します。添付ファイルプレビュー for kintone は、PDF・Excel・Word の表示ライブラリを当社サーバー（kizuna-works.jp）から SRI 付きで読み込みますが、ファイルの中身は送信しません。いずれもレコードの値は送信しません。</div>
+            <div class="faq-a">ライセンス確認のため、プラグイン ID と利用ドメイン名だけを当社サーバー（Google Apps Script）へ kintone のプロキシ経由で送信します。住所アシスト for kintone のみ、住所変換のために入力された郵便番号を zipcloud へ送信します。チャット通知 for kintone は、管理者が登録した Webhook（Slack / Microsoft Teams / Google Chat）へ通知本文を直接送信します（当社サーバーは経由しません）。サイドバー拡張 for kintone は、「リンク」タブで管理者が指定したサイトへ閲覧者のブラウザから直接接続します。添付ファイルプレビュー for kintone は、PDF・Excel・Word の表示ライブラリを当社サーバー（kizuna-works.jp）から SRI 付きで読み込みますが、ファイルの中身は送信しません。</div>
           </details>
           <details>
             <summary>外部の CDN からライブラリを読み込んでいますか？</summary>

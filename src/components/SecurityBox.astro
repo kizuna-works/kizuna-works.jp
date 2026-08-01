@@ -19,6 +19,13 @@ const outbound = profile.outbound;
 const extraComm = profile.extraComm ?? [];
 const libs = profile.libs ?? [];
 const runtimeLibs = profile.runtimeLibs ?? [];
+// Split the declared communications by where they actually go. Listing them
+// together under "外部通信はライセンス認証のみ" contradicted that heading for the
+// few plugins that do reach a third party, and misrepresented the many whose
+// calls never leave the customer's own kintone domain.
+const externalComm = extraComm.filter((c) => c.scope === 'external');
+const internalComm = extraComm.filter((c) => c.scope !== 'external');
+const hasExternal = externalComm.length > 0;
 ---
 
 <section class="sb-section" aria-labelledby="sb-heading">
@@ -43,6 +50,16 @@ const runtimeLibs = profile.runtimeLibs ?? [];
             <p>{outbound.control}</p>
           </div>
         </li>
+      ) : hasExternal ? (
+        <li class="sb-item">
+          <span class="sb-icon" aria-hidden="true">✅</span>
+          <div class="sb-body">
+            <strong>業務データを外部に送信するのは、下記の機能だけです</strong>
+            <p>
+              「外部への通信」でご説明する範囲を除き、プラグインが扱うレコードやフィールドの値が、当社や第三者のサーバーへ送られることはありません。
+            </p>
+          </div>
+        </li>
       ) : (
         <li class="sb-item">
           <span class="sb-icon" aria-hidden="true">✅</span>
@@ -56,13 +73,17 @@ const runtimeLibs = profile.runtimeLibs ?? [];
       <li class="sb-item">
         <span class="sb-icon" aria-hidden="true">🔑</span>
         <div class="sb-body">
-          <strong>{outbound ? 'ライセンス認証で当社へ送るのは ID とドメイン名だけ' : '外部通信はライセンス認証のみ'}</strong>
+          <strong>{outbound
+            ? 'ライセンス認証で当社へ送るのは ID とドメイン名だけ'
+            : hasExternal
+              ? '外部への通信は、ライセンス認証と下記の機能だけ'
+              : '外部通信はライセンス認証のみ'}</strong>
           <p>
             ライセンスの確認のため、<strong>プラグイン ID と利用ドメイン名だけ</strong>を当社サーバー（Google Apps Script）へ送信します。通信は kintone のプロキシ経由で行われます。{outbound ? '通知の本文が当社サーバーを通ることはありません。' : ''}
           </p>
-          {extraComm.length > 0 && (
+          {externalComm.length > 0 && (
             <ul class="sb-sublist">
-              {extraComm.map((c) => (
+              {externalComm.map((c) => (
                 <li>
                   <strong>{c.label}：</strong>{c.detail}
                 </li>
@@ -71,6 +92,25 @@ const runtimeLibs = profile.runtimeLibs ?? [];
           )}
         </div>
       </li>
+
+      {internalComm.length > 0 && (
+        <li class="sb-item">
+          <span class="sb-icon" aria-hidden="true">🏢</span>
+          <div class="sb-body">
+            <strong>下記の処理は、お客様の kintone ドメイン内で完結します</strong>
+            <p>
+              いずれもご利用中の kintone ドメイン内の API 呼び出しだけで動作し、<strong>外部の第三者へは送信しません</strong>。
+            </p>
+            <ul class="sb-sublist">
+              {internalComm.map((c) => (
+                <li>
+                  <strong>{c.label}：</strong>{c.detail}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      )}
 
       <li class="sb-item">
         <span class="sb-icon" aria-hidden="true">📦</span>
