@@ -572,9 +572,19 @@ c:\kizuna-works.jp\
 │   ├── refund.html             # 旧URL（/refund.html）→ /refund/ への meta refresh リダイレクト（noindex）
 │   ├── tokushoho.html          # 旧URL（/tokushoho.html）→ /tokushoho/ への meta refresh リダイレクト（noindex）
 │   ├── CNAME                   # GitHub Pages カスタムドメイン設定（kizuna-works.jp）
+│   ├── llms.txt                # AI検索（ChatGPT/Perplexity/AI Overviews）向けのサイト要約。全プラグイン・拡張・ツールを1行説明付きで列挙。製品数は scripts/sync-llms-counts.mjs がビルド時に src/data/*.ts から書き換え、未掲載の製品があるとビルドを止める
 │   └── robots.txt              # 検索エンジンクローラー制御
 │
-├── dist/                       # ビルド出力ディレクトリ（npm run build の成果物、Git管理対象）
+├── scripts/                    # ビルド補助スクリプト（Node直実行・Astro管理外）
+│   ├── gen-versions.mjs        # public/downloads/*.zip から public/versions.json を生成（プラグイン設定画面のアップデート通知用）。prebuild で自動実行
+│   ├── sync-llms-counts.mjs    # public/llms.txt の製品数を src/data/*.ts から同期＋掲載漏れ/存在しない製品へのリンクを検出してビルド中断。prebuild で自動実行（手動は npm run sync:llms）
+│   ├── gen-image-derivatives.mjs # dist の HTML が参照する PNG から .webp / -800.webp を生成（Picture.astro 用）
+│   ├── gen-blog-figures.mjs    # ブログ本文の図解を satori＋sharp でコード生成（オンブランド）
+│   ├── gen-plugin-banner.mjs   # プラグインのカードバナー画像を生成
+│   ├── gen-tsukuroi-preview.mjs # Tsukuroi のプレビュー画像を生成
+│   └── generate-extension-banners.mjs # Chrome 拡張機能のバナー画像を生成
+│
+├── dist/                       # ビルド出力ディレクトリ（npm run build の成果物。.gitignore 済み＝Git管理対象外。公開は GitHub Actions がビルドして反映）
 │
 ├── .astro/                     # Astro 内部キャッシュ・型定義（自動生成、編集不要）
 ├── .claude/                    # Claude Code 設定ファイル

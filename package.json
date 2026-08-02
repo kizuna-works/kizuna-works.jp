@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "astro dev",
     "gen:versions": "node scripts/gen-versions.mjs",
-    "prebuild": "node scripts/gen-versions.mjs",
+    "sync:llms": "node scripts/sync-llms-counts.mjs",
+    "prebuild": "node scripts/gen-versions.mjs && node scripts/sync-llms-counts.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
