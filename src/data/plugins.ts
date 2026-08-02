@@ -1019,6 +1019,28 @@ export const premiumPlugins: Plugin[] = [
     problemDesc: '関連レコードの登録や地図の確認で別タブへ離脱し、戻ると一覧の位置を見失う。かといってフォームに項目は増やしたくない',
     releaseDate: '2026-07-30',
   },
+  {
+    id: 'kw-input-template',
+    name: '入力テンプレート for kintone',
+    formName: '入力テンプレート for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'input-template',
+    category: '入力支援',
+    description:
+      'あらかじめ登録した「値のセット（テンプレート）」を選ぶだけで、複数フィールドとテーブル明細をまとめて入力できるプラグイン。管理者が設定画面で作る共通テンプレートと、各ユーザーがレコード詳細画面から必要な項目だけ選んで作る個人テンプレートの2階層に対応。フォームは変更せず保管アプリへ分離するため登録数の上限もありません。',
+    image: '/images/input-template-banner.png',
+    imageAlt:
+      '入力テンプレート for kintone プラグイン — 登録した値のセットを選ぶだけで複数フィールドとテーブル明細をまとめて入力し、共通テンプレートと個人テンプレートの2階層で管理する',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      '登録した値のセットを選ぶだけで複数フィールドとテーブル明細を一括入力。管理者が配る共通テンプレートと、現場が自分で作る個人テンプレートの2階層。PC・モバイル対応。',
+    problemTitle: '毎回おなじ内容を打ち直している',
+    problemDesc: '標準の初期値は1パターンだけ。レコード再利用は元レコード探しと不要項目の消去が要り、定型の明細行も毎回手で足している',
+    releaseDate: '2026-08-02',
+  },
 ];
 
 /**

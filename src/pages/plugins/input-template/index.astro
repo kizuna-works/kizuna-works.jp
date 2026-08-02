@@ -1,0 +1,723 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import TrialBanner from '../../../components/TrialBanner.astro';
+---
+
+<Layout
+  title="入力テンプレート for kintone｜定型の入力をワンタップで一括セット | KIZUNA Works"
+  description="kintone の新規作成・編集画面で、あらかじめ登録した「値のセット（テンプレート）」を選ぶだけで複数フィールドとテーブル明細をまとめて入力できるプラグイン。管理者が配る共通テンプレートと、各ユーザーが自分で作る個人テンプレートの2階層に対応したプレミアムプラグインです。"
+  ogTitle="入力テンプレート for kintone｜定型の入力をワンタップで一括セット | KIZUNA Works"
+  ogDescription="あらかじめ登録した「値のセット」を選ぶだけで、kintone の複数フィールドとテーブル明細をまとめて入力。管理者が配る共通テンプレートと、現場が自分で増やせる個人テンプレートの2階層。PC・モバイル対応のプレミアムプラグインです。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/input-template/"
+  ogImage="https://kizuna-works.jp/images/input-template-banner.png"
+  canonical="https://kizuna-works.jp/plugins/input-template/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/input-template/",
+          "url": "https://kizuna-works.jp/plugins/input-template/",
+          "name": "入力テンプレート for kintone｜定型の入力をワンタップで一括セット | KIZUNA Works",
+          "description": "kintone の新規作成・編集画面で、登録済みの「値のセット（テンプレート）」を選ぶだけで複数フィールドとテーブル明細をまとめて入力。共通テンプレートと個人テンプレートの2階層に対応。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/input-template-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "入力テンプレート for kintone", "item": "https://kizuna-works.jp/plugins/input-template/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "入力テンプレート for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-08-02",
+          "url": "https://kizuna-works.jp/plugins/input-template/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-input-template-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/input-template-banner.png",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "無料プラン",
+              "price": "0",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "共通テンプレート5件・個人テンプレート1件まで。テーブル明細のセット・モバイル対応・表示対象の絞り込み・編集画面での適用など、機能の中身は一切制限していません（利用期限なし）。"
+            },
+            {
+              "@type": "Offer",
+              "name": "プレミアム年間サポーター（全プラグイン込み）",
+              "price": "16500",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、共通・個人ともテンプレートの登録数が無制限になり広告も非表示になります。販売中の全プラグインも利用できます。単品販売はありません。"
+            }
+          ],
+          "description": "kintone の新規作成・編集画面で、あらかじめ登録した「値のセット（テンプレート）」を選ぶだけで複数フィールドとテーブル明細をまとめて入力できるプラグイン。管理者が設定画面で作る共通テンプレートと、各ユーザーがレコード詳細画面から作る個人テンプレートの2階層に対応。テンプレート本体は対象アプリのフォームに持たず、同一スペースに自動生成する保管アプリへ分離するため、フォームは一切変更せず登録数の上限もない。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "登録した値のセットを選ぶだけで複数フィールドを一括入力",
+            "テーブル（サブテーブル）の明細行もまとめてセット",
+            "管理者が配る共通テンプレートと、各ユーザーが自分で作る個人テンプレートの2階層",
+            "レコード詳細画面から必要な項目だけ選んでテンプレート化",
+            "設定画面でフィールドの値を直接入力して共通テンプレートを作成（実データ不要）",
+            "日付・時刻・日時は「本日」「本日から◯日」「今月／翌月の初日・末日」「現在時刻」を保存でき、適用した日の値が入る",
+            "編集画面では「空欄のみ埋める／すべて上書き」「末尾に追加／既存行を置換」を選択",
+            "共通テンプレートごとに表示するユーザー・組織・グループを指定",
+            "対象アプリのフォームは一切変更せず、テンプレートは保管アプリへ分離",
+            "テンプレートボタンの設置位置を kintone標準ボタンの横／ヘッダーメニュー左／ヘッダーメニュー右 から選択",
+            "PC版・モバイル版の両方に対応（モーダルは全画面表示）",
+            "すべて自ドメインの kintone REST API で完結・業務データの外部送信なし"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。無料プランでも共通テンプレート5件・個人テンプレート1件まで、機能の中身を制限せずお使いいただけます。テーブル明細のセット・モバイル対応・表示対象の絞り込み・編集画面での適用は無料版でもすべて動作します。登録数の上限と広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。" } },
+            { "@type": "Question", "name": "kintone標準の「初期値」や「レコードを再利用する」と何が違いますか？", "acceptedAnswer": { "@type": "Answer", "text": "kintone標準の初期値はフィールドごとに1パターンしか設定できず、用途別に切り替えられません。「レコードを再利用する」は元になる既存レコードが必要で、全項目がコピーされるためその回限りの値まで入ってしまいます。本プラグインは複数フィールドとテーブル明細を「ひとまとまりの型」として何パターンでも登録でき、既存レコードがなくても新規作成画面から呼び出せます。必要な項目だけを選んでテンプレート化することもできます。" } },
+            { "@type": "Question", "name": "アプリのフォームは変更されますか？", "acceptedAnswer": { "@type": "Answer", "text": "変更されません。テンプレートの中身は対象アプリのフォームにもプラグイン設定にも保存せず、同じスペース内に自動生成する保管アプリへ分離して保存します。そのためフィールドが増えることはなく、登録できるテンプレート数にも上限がありません。保管アプリはスペース内の複数アプリで1個を共有します。" } },
+            { "@type": "Question", "name": "一般ユーザーも自分でテンプレートを作れますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。アプリの管理権限がないユーザーでも、レコード詳細画面の「テンプレートにする」から、そのレコードの値のうち必要な項目だけを選んで個人テンプレートとして保存できます。個人テンプレートは作成した本人にだけ表示され、ほかのユーザーからは見えません。管理者は設定画面から全員向けの共通テンプレートを作成します。" } },
+            { "@type": "Question", "name": "既存レコードの編集画面でも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "設定でオンにすると使えます（誤って値を上書きする事故を避けるため初期状態はオフです）。適用時は「空欄のみ埋める／すべて上書き」と、テーブルの「既存行の末尾に追加／既存行を置換」をその場で選べます。実際に失われる値がある場合だけ確認ダイアログで対象を一覧表示します。値をセットするだけで保存はしないため、内容を確認してから保存できます。" } },
+            { "@type": "Question", "name": "日付に「本日」を保存できますか？", "acceptedAnswer": { "@type": "Answer", "text": "保存できます。日付・時刻・日時のフィールドは、固定の値だけでなく「本日」「本日から◯日後（◯日前）」「今月の初日／末日」「翌月の初日／末日」「現在時刻」「現在日時」「本日の指定時刻」を選べます。テンプレートには値そのものではなく求め方を保存するので、いつ適用しても適用した日の日付が入ります。申請日・点検予定日・納期・締め日のような、毎回その日を基準にする項目に使えます。設定画面の値エディタと、レコード詳細画面の「テンプレートにする」ダイアログのどちらからでも指定でき、サブテーブルの中の日付にも使えます。" } },
+            { "@type": "Question", "name": "テンプレートにできない項目はありますか？", "acceptedAnswer": { "@type": "Answer", "text": "計算・レコード番号・作成者・更新者・作成日時・更新日時・ステータス・作業者・カテゴリーは kintone が自動で入れる項目のため対象外です。添付ファイルはファイルの実体に紐づくため再現できず対象外です。「値の重複を禁止する」設定のフィールドは適用すると必ず重複エラーになるため除外します。ルックアップは検索キーの値だけを保存し、適用後に「取得」を押すと参照先の値が入ります。除外した項目は理由つきで画面に表示されます。" } },
+            { "@type": "Question", "name": "外部にデータは送信されますか？", "acceptedAnswer": { "@type": "Answer", "text": "テンプレートの保存先は利用者ご自身の kintone 内（同一スペースの保管アプリ）で、業務データを外部へ送信しません。第三者 CDN や外部サーバーも使いません。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。" } }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    /* The crown is a separate flex item with line-height:1 so it centres against
+       the label instead of sitting on the text baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 720px; line-height: 1.8; }
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+    /* Screenshots are captured at 2x, so a shot of a 620px-wide dialog is a
+       1240px file. Displaying it across the full 960px column blows the UI up to
+       1.5x life size. Cap each figure at the width the UI really has in kintone
+       (file width / 2) so nothing is shown larger than the user will see it. */
+    .afp-shot-w580 { max-width: 580px; }
+    .afp-shot-w620 { max-width: 620px; }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .afp-blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .afp-blog-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: var(--shadow-card); overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; }
+    .afp-blog-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.14); }
+    .afp-blog-card img { width: 100%; height: auto; display: block; aspect-ratio: 1200 / 630; object-fit: cover; background: #F0F4F8; }
+    .afp-blog-body { padding: 18px 20px 20px; }
+    .afp-blog-body h3 { font-size: 1.05rem; color: var(--color-navy); margin: 0 0 10px; line-height: 1.5; }
+    .afp-blog-body p { font-size: 0.9rem; line-height: 1.7; color: var(--color-text-main); margin: 0 0 12px; }
+    .afp-blog-link { color: var(--color-green); font-weight: 700; font-size: 0.9rem; }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    .afp-cfgstep { margin-bottom: 40px; }
+    .afp-cfgstep:last-child { margin-bottom: 0; }
+    .afp-cfgstep-head { display: flex; align-items: flex-start; gap: 14px; margin: 0 auto 16px; max-width: 960px; }
+    .afp-cfgstep-badge { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--color-navy); color: #fff; font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; }
+    .afp-cfgstep-body h3 { font-size: 1.2rem; color: var(--color-navy); margin: 4px 0 6px; }
+    .afp-cfgstep-body p { font-size: 0.98rem; line-height: 1.8; margin: 0; color: var(--color-text-main); }
+    .afp-cfgstep-body p strong { color: var(--color-navy); }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-blog-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+
+    /* Before / After を横並びにする（狭い画面では縦積み） */
+    .afp-beforeafter { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; }
+    .afp-beforeafter .afp-shot { margin: 0; }
+    @media (max-width: 900px) { .afp-beforeafter { grid-template-columns: 1fr; } }
+
+    /* 縦長のスマホ画面は幅を抑えて中央に置く */
+    .afp-feature-media-phone img { max-width: 300px; margin: 0 auto; display: block; }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/input-template-icon.png" alt="入力テンプレート for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1>入力テンプレート for kintone</h1>
+      <p class="afp-tagline">いつもの入力を、ワンタップで。</p>
+      <p class="afp-sub">あらかじめ登録した「値のセット」を選ぶだけで、複数フィールドとテーブル明細をまとめて入力。管理者が配る共通テンプレートと、現場が自分で増やせる個人テンプレートの2階層で、「毎回おなじことを打っている」を終わらせます。</p>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 定義（結論ファースト） -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <p class="afp-lead">
+          <strong>入力テンプレート for kintone</strong> は、レコードの新規作成・編集画面で<strong>あらかじめ登録した「値のセット（テンプレート）」を選ぶだけで、複数フィールドとテーブル明細をまとめて入力</strong>できるプラグインです。kintone 標準の「初期値」はフィールドごとに1パターンしか持てず、「レコードを再利用する」は<strong>元になる既存レコードが必要</strong>で全項目がコピーされてしまいます。本プラグインは<strong>管理者が配る共通テンプレート</strong>と<strong>各ユーザーが自分で作る個人テンプレート</strong>の2階層を持ち、現場の担当者が自分の定型パターンを自分で増やせます。テンプレートは対象アプリのフォームに持たず<strong>同一スペースに自動生成する保管アプリへ分離</strong>するため、<strong>フォームは一切変更せず、登録数の上限もありません</strong>。「プレミアムプラグイン」シリーズの一つです。
+        </p>
+      </div>
+    </section>
+
+    <!-- 実際の画面 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">選ぶ → 適用。それだけです</h2>
+        <p style="margin:-12px 0 26px;line-height:1.8;">レコード画面に「テンプレート」ボタンが1つ増えるだけです。設置位置は<strong>kintone標準ボタンの横／ヘッダーメニュー左／ヘッダーメニュー右</strong>の3つから選べます（詳細画面では標準アイコン列の左隣に並びます）。</p>
+        <figure class="afp-shot afp-shot-w580">
+          <picture>
+            <source srcset="/images/input-template-01-button.webp" type="image/webp" />
+            <img class="zoomable" src="/images/input-template-01-button.png" alt="kintone の新規作成画面で、標準の「キャンセル」「保存」ボタンのすぐ右に紺色の「テンプレート」ボタンが並んで表示されている" width="1153" height="123" loading="lazy" />
+          </picture>
+          <figcaption class="afp-shot-cap">kintone 標準の「保存」の横に増えます<br />（位置は3つから選択・色とアイコンも変更可）</figcaption>
+        </figure>
+
+        <figure class="afp-shot afp-shot-w620">
+          <picture>
+            <source srcset="/images/input-template-02-modal.webp" type="image/webp" />
+            <img class="zoomable" src="/images/input-template-02-modal.png" alt="テンプレート選択モーダル — 「共通（3）」「個人（1）」のタブと検索欄があり、「東京本社 月次定例会議（日帰り）」「大阪支社 サポート出張（1泊2日）」「近隣客先訪問（タクシー往復）」の3つが並ぶ。選択すると下の内容プレビューに行き先・目的・地域・日当・備考と「旅費 2行」が表示される" width="1240" height="1220" loading="lazy" />
+          </picture>
+          <figcaption class="afp-shot-cap">選ぶだけ。中身はプレビューで確認してから適用できます<br />（画像をクリックで拡大）</figcaption>
+        </figure>
+
+        <div class="afp-beforeafter">
+          <figure class="afp-shot">
+            <picture>
+            <source srcset="/images/input-template-03a-before.webp" type="image/webp" />
+            <img class="zoomable" src="/images/input-template-03a-before.png" alt="テンプレート適用前の旅費精算申請フォーム — 行き先・目的が空欄、日当が0、旅費テーブルは空の行が1行だけの状態" width="1800" height="1490" loading="lazy" />
+          </picture>
+            <figcaption class="afp-shot-cap">適用前 — 毎回ここから手入力</figcaption>
+          </figure>
+          <figure class="afp-shot">
+            <picture>
+            <source srcset="/images/input-template-03b-after.webp" type="image/webp" />
+            <img class="zoomable" src="/images/input-template-03b-after.png" alt="テンプレート適用後の旅費精算申請フォーム — 地域「首都圏」・日当2,000・行き先「東京本社」・目的「月次定例会議に出席」が入り、旅費テーブルには往路と復路の新幹線2行（手段・摘要・金額14,720円・領収書チェック）が入って旅費合計29,440円が自動計算されている" width="1800" height="1490" loading="lazy" />
+          </picture>
+            <figcaption class="afp-shot-cap">適用後 — フィールドも明細行も一度に。計算フィールドもそのまま連動</figcaption>
+          </figure>
+        </div>
+        <div class="afp-note" style="margin-top:22px;">適用しても<strong>保存はしません</strong>。値がセットされた状態で画面に入るだけなので、内容を確認・修正してから保存できます。違うテンプレートを選び直すのも自由です。</div>
+      </div>
+    </section>
+
+    <!-- 課題 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">「毎回おなじことを打っている」の正体</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>初期値は1パターンしか持てない</h3>
+            <p>kintone の初期値はフィールドごとに1つだけ。部署別・案件種別別に入力パターンを切り替えることができず、結局その都度打ち直すことになります。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>再利用は「元レコード」を探すところから</h3>
+            <p>「レコードを再利用する」は似たレコードを探す手間がかかるうえ、全項目がコピーされます。その回限りの日付や金額まで入り、消す作業が増えます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>定型の明細行を毎回足している</h3>
+            <p>点検項目・標準工事の内訳・往復の交通費など、いつも同じ明細をテーブルに1行ずつ追加している——ここが一番時間を取られる部分です。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2階層 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">「全社の型」と「自分の型」を分けて持てます</h2>
+        <div class="afp-feature">
+          <div class="afp-feature-media">
+            <picture>
+            <source srcset="/images/input-template-config-03-values.webp" type="image/webp" />
+            <img class="zoomable" src="/images/input-template-config-03-values.png" alt="設定画面の共通テンプレート編集 — テンプレート名・説明・表示対象（ユーザー/組織/グループ）に続き、「値の設定」で行き先・目的・地域・日当・備考が型別の入力欄で並ぶ。期間（出発）と期間（帰着）は「本日（適用した日）」＋日ずらしで指定され、旅費テーブルの日付列も同じ指定になっている" width="2913" height="2857" loading="lazy" />
+          </picture>
+          </div>
+          <div class="afp-feature-text">
+            <h3>共通テンプレート — 管理者が配る</h3>
+            <p>設定画面でフィールドの値を<strong>直接入力</strong>して作ります。ダミーレコードを用意する必要はありません。ドロップダウンは選択肢から、数値は数値欄から、テーブルは行を足しながら——<strong>フィールドの型どおりの入力欄</strong>が出るので、あるべき初期値の組み合わせをそのまま定義できます。</p>
+            <p>テンプレートごとに<strong>表示するユーザー・組織・グループ</strong>を指定でき、部署別の型を必要な人にだけ配れます。</p>
+          </div>
+        </div>
+        <div class="afp-feature reverse">
+          <div class="afp-feature-media">
+            <picture>
+            <source srcset="/images/input-template-05-save-dialog.webp" type="image/webp" />
+            <img class="zoomable" src="/images/input-template-05-save-dialog.png" alt="レコード詳細画面の「テンプレートとして保存」ダイアログ — テンプレート名・説明・公開区分（個人/共通）を入力し、保存する項目のチェックリストに日当4000・備考・目的・経費1行・旅費3行が値つきで並び、値が入っている項目に初めからチェックが付いている" width="1240" height="1376" loading="lazy" />
+          </picture>
+          </div>
+          <div class="afp-feature-text">
+            <h3>個人テンプレート — 現場が自分で増やす</h3>
+            <p>アプリの管理権限がなくても、<strong>レコード詳細画面の「テンプレートにする」</strong>から自分用のテンプレートを作れます。いま開いているレコードの値のうち<strong>必要な項目だけ</strong>を選べるので、その回限りの値を持ち込みません（値が入っている項目に初めからチェックが付きます）。</p>
+            <p>個人テンプレートは<strong>作成した本人にだけ表示</strong>されます。ほかのユーザーからは見えないので、気兼ねなく自分の型を増やせます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>複数フィールドを一括セット</h3>
+            <p>文字列・数値・日付・時刻・日時・ドロップダウン・ラジオ・チェックボックス・複数選択・リンク・リッチエディター・ユーザー／組織／グループ選択に対応します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>テーブル明細もまとめて</h3>
+            <p>サブテーブルの複数行をテンプレートに含められます。定型の点検項目・標準工事の内訳・往復の交通費を、行ごと一度に流し込めます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>日付は「本日」で持てる</h3>
+            <p>日付・時刻・日時は固定値のほか、<strong>本日／今月の初日・末日／翌月の初日・末日／現在時刻</strong>を保存できます。「本日から◯日」の指定もでき、申請日・納期・点検予定日が毎回その日の日付で入ります。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>共通／個人の2階層</h3>
+            <p>管理者が配る共通テンプレートと、各ユーザーが自分で作る個人テンプレート。モーダルではタブで切り替えて選べます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>必要な項目だけテンプレート化</h3>
+            <p>詳細画面から作るときは、項目を1つずつ選べます。全選択・全解除もワンクリック。その回限りの値を持ち込みません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>編集画面は上書き方法を選べる</h3>
+            <p>「空欄のみ埋める／すべて上書き」「末尾に追加／既存行を置換」をその場で選択。失われる値がある場合だけ確認ダイアログを出します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>表示対象の絞り込み</h3>
+            <p>共通テンプレートごとに表示するユーザー・組織・グループを指定できます。指定しなければ全員に表示されます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>フォームは変更しません</h3>
+            <p>テンプレートは同一スペースに自動生成する保管アプリへ分離。フィールドは1つも増えず、登録数の上限もありません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>PC・モバイル両対応</h3>
+            <p>モバイルでも同じテンプレートを使えます。モーダルは全画面表示になり、外出先からでも定型入力がワンタップで済みます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 編集画面 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">既存レコードへの適用は、慎重に</h2>
+        <div class="afp-feature">
+          <div class="afp-feature-media">
+            <picture>
+            <source srcset="/images/input-template-06-edit-options.webp" type="image/webp" />
+            <img class="zoomable" src="/images/input-template-06-edit-options.png" alt="編集画面でのテンプレート選択モーダル — 個人タブに「札幌支店 立ち会い出張（1泊2日）」が表示され、内容プレビューの下に「上書きの範囲：空欄のみ埋める／すべて上書き」「テーブルの扱い：既存行の末尾に追加／既存行を置換」のラジオボタンが並んでいる" width="1240" height="1196" loading="lazy" />
+          </picture>
+          </div>
+          <div class="afp-feature-text">
+            <h3>初期状態はオフ。使うときも安全側で</h3>
+            <p>編集画面での適用は、誤って値を上書きする事故を避けるため<strong>初期状態でオフ</strong>です。設定でオンにすると、モーダルに<strong>上書きの範囲</strong>と<strong>テーブルの扱い</strong>の選択肢が加わります。</p>
+            <p>既定は<strong>「空欄のみ埋める」＋「末尾に追加」</strong>——つまり何も失われない組み合わせです。値が実際に失われる選択をしたときだけ、対象を一覧表示した確認ダイアログが出ます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- モバイル -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">モバイルでも、同じテンプレートを</h2>
+        <div class="afp-feature">
+          <div class="afp-feature-media afp-feature-media-phone">
+            <picture>
+              <source srcset="/images/input-template-07-mobile.webp" type="image/webp" />
+              <img class="zoomable" src="/images/input-template-07-mobile.png" alt="kintone モバイル版のテンプレート選択画面 — 全画面表示のモーダルに「共通（3）」「個人（1）」タブと検索欄、東京本社 月次定例会議（日帰り）などのテンプレートが並び、下部にキャンセルと適用のボタンがある" width="1170" height="2532" loading="lazy" />
+            </picture>
+          </div>
+          <div class="afp-feature-text">
+            <h3>外出先からの入力こそ、テンプレートで</h3>
+            <p>モバイル版のレコード詳細・新規作成・編集画面にも同じボタンが出ます。テンプレートは<strong>PCと共通</strong>なので、事務所で作った型をそのまま現場で使えます。</p>
+            <p>モーダルは<strong>全画面表示</strong>に切り替わり、タブ・検索・内容プレビューはPCと同じ構成。小さな画面で長いフォームを埋める負担を、いちばん減らせる場面です。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 設定 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定は「保管アプリを作成」から</h2>
+        <p style="margin:-12px 0 26px;line-height:1.8;">左に設定の目次とライブプレビュー、中央に設定。テンプレートの保存先になる保管アプリは、ボタン1つで自動生成されます（同じスペースに既にあれば、それを再利用します）。</p>
+        <figure class="afp-shot">
+          <picture>
+            <source srcset="/images/input-template-config-01-basic.webp" type="image/webp" />
+            <img class="zoomable" src="/images/input-template-config-01-basic.png" alt="入力テンプレートの設定画面（基本設定）— 左に設定目次とライブプレビュー、中央に保管アプリの状態「設定済み 入力テンプレート_KIZUNA Works（アプリID: 150）」と作成ボタン、編集画面での適用のオン／オフと上書き・テーブルの既定、ボタンの設置位置（kintone標準ボタンの横／ヘッダーメニュー左／ヘッダーメニュー右）・色・アイコンの設定が並んでいる" width="3718" height="2427" loading="lazy" />
+          </picture>
+          <figcaption class="afp-shot-cap">基本設定 — 保管アプリ・編集画面での適用・ボタンの見た目。設置位置は3つから選べ、左のライブプレビューで実際の見え方を確認できます</figcaption>
+        </figure>
+        <figure class="afp-shot" style="margin-top:28px;">
+          <picture>
+            <source srcset="/images/input-template-config-02-list.webp" type="image/webp" />
+            <img class="zoomable" src="/images/input-template-config-02-list.png" alt="入力テンプレートの設定画面（共通テンプレート一覧）— 「＋ 新しいテンプレート」ボタンの下に、東京本社 月次定例会議（日帰り）・大阪支社 サポート出張（1泊2日）・近隣客先訪問（タクシー往復）の3枚のカードが並び、各カードに項目数と並べ替え・複製・削除のボタンがある" width="3718" height="1357" loading="lazy" />
+          </picture>
+          <figcaption class="afp-shot-cap">共通テンプレートはカードで管理。並べ替え（▲▼）・複製・削除ができます</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- プランについて -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料プランでも<strong>共通テンプレート5件・個人テンプレート1件</strong>まで、<strong>機能の中身は一切制限せず</strong>お使いいただけます。テーブル明細のセット・モバイル対応・表示対象の絞り込み・編集画面での適用は、すべて無料版でも動作します。<strong>登録数の上限</strong>と広告非表示は、<strong>プレミアム年間サポーター</strong>で解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ 共通テンプレート5件・個人テンプレート1件</li>
+              <li>✅ テーブル明細のセット・モバイル対応</li>
+              <li>✅ 表示対象の絞り込み・編集画面での適用</li>
+              <li>✅ 利用期限なし（レコード一覧画面に控えめな広告あり）</li>
+            </ul>
+            <a href="/downloads/kw-input-template-v1.0.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+          </div>
+
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>共通・個人ともテンプレート登録数が無制限</strong></li>
+              <li>✅ 部署別・案件種別別に型をいくつでも用意できる</li>
+              <li>✅ プラグイン内の<strong>広告非表示</strong></li>
+              <li>✅ 販売中の<strong>全プラグイン</strong>も対象（契約期間中に新しく公開されるプラグインも追加料金なし）</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta">プレミアム年間サポーターを申し込む →</a>
+          </div>
+        </div>
+
+        <div style="margin: 0 0 32px;">
+          <TrialBanner />
+        </div>
+
+        <h3 class="afp-plan-compare-head">機能の詳細比較</h3>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>機能</th><th class="c">無料プラン</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>共通テンプレートの登録数</td><td class="c">5件</td><td class="c">無制限</td></tr>
+              <tr><td>個人テンプレートの登録数</td><td class="c">1人1件</td><td class="c">無制限</td></tr>
+              <tr><td>テーブル（サブテーブル）明細のセット</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>モバイル対応</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>表示対象（ユーザー/組織/グループ）の絞り込み</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>編集画面での適用・上書き方法の選択</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>レコード一覧画面の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note" style="margin-top:20px;">プレミアムの期限が切れても<strong>登録済みのテンプレートは削除されません</strong>。表示が共通5件・個人1件に絞られるだけで、再加入すればそのまま全件が復帰します。</div>
+      </div>
+    </section>
+
+    <!-- インストール手順 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="afp-steps steps-list">
+          <li><span>システム管理者で kintone にログインし、<strong>歯車アイコン → kintone システム管理 → プラグイン</strong> を開き、<strong>「読み込む」</strong>からプラグイン zip をアップロードします。</span></li>
+          <li><span>テンプレートを使いたい<strong>対象アプリ</strong>で <strong>アプリの設定 → プラグイン → 「+ プラグインを追加」</strong> から「入力テンプレート」を追加します。</span></li>
+          <li><span>プラグイン一覧の<strong>歯車アイコン</strong>から設定画面を開き、<strong>「保管アプリを作成」</strong>を押します。同じスペースに保管アプリが自動生成されます（既にあれば再利用します）。</span></li>
+          <li><span>左の目次から<strong>「共通テンプレート」</strong>を開き、<strong>「＋ 新しいテンプレート」</strong>で値を設定します。<strong>「保存」→「アプリを更新」</strong>で反映され、レコード画面にボタンが表示されます。</span></li>
+        </ol>
+        <div class="afp-note">保管アプリは<strong>スペース内のアプリ</strong>でのみ自動生成できます（ポータル直下のアプリでは作成できません）。同じスペースの複数アプリで1個の保管アプリを共有するため、アプリごとに作り直す必要はありません。</div>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ご利用にあたっての注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li>本プラグインは<strong>レコードの詳細・新規作成・編集画面</strong>（PC版・モバイル版）で動作します。カレンダー表示やカスタマイズビューでは動作しません。</li>
+            <li>テンプレートの保存先として、<strong>同じスペース内に保管アプリを1つ自動生成</strong>します（設定画面のボタン操作時のみ）。対象アプリのフォームは変更しません。</li>
+            <li><strong>添付ファイル</strong>はテンプレートに含められません（ファイルの実体に紐づくため再現できません）。<strong>計算・レコード番号・作成者・更新者・作成日時・更新日時・ステータス・作業者・カテゴリー</strong>は kintone が自動で入れる項目のため対象外です。</li>
+            <li><strong>「値の重複を禁止する」</strong>設定のフィールドは、適用すると必ず重複エラーになるため除外します。</li>
+            <li><strong>ルックアップ</strong>は検索キーの値だけを保存します。適用後にレコード画面で<strong>「取得」</strong>を押すと参照先の値がコピーされます（kintone の仕様）。</li>
+            <li>日付・日時は<strong>固定値のみ</strong>です。v1.0.0 では「本日」などの相対指定に対応していません。</li>
+            <li>テンプレート保存後に対象フィールドを削除・型変更した場合、その項目は<strong>スキップして適用を続行</strong>し、適用後に通知します。</li>
+            <li>推奨ブラウザは Google Chrome / Microsoft Edge（いずれも最新版）です。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- セキュリティ -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-input-template" />
+        <ShareButtons title="入力テンプレート for kintone" />
+      </div>
+    </section>
+
+    <!-- よくある質問 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">よくある質問</h2>
+        <div class="afp-faq">
+          <details class="afp-faq-item">
+            <summary>単品で購入できますか？</summary>
+            <div class="afp-faq-answer">本プラグインはプレミアムプラグインのため単品販売はありません。無料プランでも共通テンプレート5件・個人テンプレート1件まで、機能の中身を制限せずお使いいただけます。テーブル明細のセット・モバイル対応・表示対象の絞り込み・編集画面での適用は無料版でもすべて動作します。登録数の上限と広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>kintone標準の「初期値」や「レコードを再利用する」と何が違いますか？</summary>
+            <div class="afp-faq-answer">kintone標準の初期値はフィールドごとに1パターンしか設定できず、用途別に切り替えられません。「レコードを再利用する」は元になる既存レコードが必要で、全項目がコピーされるためその回限りの値まで入ってしまいます。本プラグインは複数フィールドとテーブル明細を「ひとまとまりの型」として何パターンでも登録でき、既存レコードがなくても新規作成画面から呼び出せます。必要な項目だけを選んでテンプレート化することもできます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>アプリのフォームは変更されますか？</summary>
+            <div class="afp-faq-answer">変更されません。テンプレートの中身は対象アプリのフォームにもプラグイン設定にも保存せず、同じスペース内に自動生成する保管アプリへ分離して保存します。そのためフィールドが増えることはなく、登録できるテンプレート数にも上限がありません。保管アプリはスペース内の複数アプリで1個を共有します。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>一般ユーザーも自分でテンプレートを作れますか？</summary>
+            <div class="afp-faq-answer">はい。アプリの管理権限がないユーザーでも、レコード詳細画面の「テンプレートにする」から、そのレコードの値のうち必要な項目だけを選んで個人テンプレートとして保存できます。個人テンプレートは作成した本人にだけ表示され、ほかのユーザーからは見えません。管理者は設定画面から全員向けの共通テンプレートを作成します。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>既存レコードの編集画面でも使えますか？</summary>
+            <div class="afp-faq-answer">設定でオンにすると使えます（誤って値を上書きする事故を避けるため初期状態はオフです）。適用時は「空欄のみ埋める／すべて上書き」と、テーブルの「既存行の末尾に追加／既存行を置換」をその場で選べます。実際に失われる値がある場合だけ確認ダイアログで対象を一覧表示します。値をセットするだけで保存はしないため、内容を確認してから保存できます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>日付に「本日」を保存できますか？</summary>
+            <div class="afp-faq-answer">保存できます。日付・時刻・日時のフィールドは、固定の値だけでなく「本日」「本日から◯日後（◯日前）」「今月の初日／末日」「翌月の初日／末日」「現在時刻」「現在日時」「本日の指定時刻」を選べます。テンプレートには値そのものではなく求め方を保存するので、いつ適用しても適用した日の日付が入ります。申請日・点検予定日・納期・締め日のような、毎回その日を基準にする項目に使えます。設定画面の値エディタと、レコード詳細画面の「テンプレートにする」ダイアログのどちらからでも指定でき、サブテーブルの中の日付にも使えます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>テンプレートにできない項目はありますか？</summary>
+            <div class="afp-faq-answer">計算・レコード番号・作成者・更新者・作成日時・更新日時・ステータス・作業者・カテゴリーは kintone が自動で入れる項目のため対象外です。添付ファイルはファイルの実体に紐づくため再現できず対象外です。「値の重複を禁止する」設定のフィールドは適用すると必ず重複エラーになるため除外します。ルックアップは検索キーの値だけを保存し、適用後に「取得」を押すと参照先の値が入ります。除外した項目は理由つきで画面に表示されます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>外部にデータは送信されますか？</summary>
+            <div class="afp-faq-answer">テンプレートの保存先は利用者ご自身の kintone 内（同一スペースの保管アプリ）で、業務データを外部へ送信しません。第三者 CDN や外部サーバーも使いません。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 関連ブログ記事 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">関連ブログ記事</h2>
+        <div class="afp-blog-grid">
+          <a class="afp-blog-card" href="/blog/kintone-record-copy-reuse/">
+            <img src="/images/blog/kintone-record-copy-reuse.png" alt="kintoneでレコードをコピー（再利用）する方法｜不要な項目だけ自動で空にするには" width="1200" height="630" loading="lazy" />
+            <div class="afp-blog-body">
+              <h3>kintoneでレコードをコピー（再利用）する方法｜不要な項目だけ自動で空にするには</h3>
+              <p>標準の「レコードを再利用する」でできること・できないことを整理した記事です。既存レコードを探さずに定型を呼び出したい場合は、本プラグインが向いています。</p>
+              <span class="afp-blog-link">記事を読む →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>プレミアム年間サポーターで使ってみる</h2>
+      <p>入力テンプレートをはじめ、販売中の全プラグインをご利用いただけます。年額 ¥16,500（税込）。まずは無料プランでお試しいただけます（利用期限なし）。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを申し込む →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="it-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('it-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      var dl = document.getElementById('btn-download');
+      if (dl && typeof gtag === 'function') {
+        dl.addEventListener('click', function () {
+          gtag('event', 'file_download', {
+            file_name: 'kw-input-template-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: '無料でダウンロード',
+            link_url: '/downloads/kw-input-template-v1.0.0.zip'
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

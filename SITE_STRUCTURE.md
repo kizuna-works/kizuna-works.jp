@@ -156,6 +156,8 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】チャット通知 製品ページ（/plugins/chat-notify/）— レコードの追加/更新/削除/ステータス変更/手動送信/一括通知をきっかけに Slack・Microsoft Teams・Google Chat へ自動通知。中継サーバー不要（kintoneからWebhookへ直接POST）。最大5件の条件(AND/OR)・変更検知3モード・差し込みテンプレート・全員メンション(Slack/GoogleChatのみ)・送信履歴/失敗時ベル通知。ヒーロー＋実際に届く通知(3サービス＋一括)＋主な機能8＋設定3タブ＋手動/一括＋Webhook取得手順(Slack方法A/B・Teams・GoogleChat のアコーディオン)＋プラン＋手順＋注意＋SecurityBox＋ShareButtons＋FAQ7。単品販売なし＝プレミアム年間サポーターに含む。**PC版のみ（モバイルは通知が飛ばない）**
 │   │   │   ├── card-board/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】カードボード製品ページ（/plugins/card-board/）— 一覧を「状態カード＋詳細カード」の2段カンバンに切替＝D&Dでステータス/選択肢/文字列を変更・状態別の件数/集計を俯瞰・連動(カンバン)/個別(ギャラリー)モード・添付サムネ・レーン区切り線・初期に開く状態・絞り込み/並び順を反映。ヒーロー＋実画面(営業/不動産/カタログ)＋2モード＋主な機能＋設定画面＋無料/プレミアム比較(無料1ビュー)＋手順＋FAQ＋SecurityBox＋ShareButtons。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。kintone完結
+│   │   │   ├── input-template/
+│   │   │   │   └── index.astro # 【プレミアムプラグイン】入力テンプレート製品ページ（/plugins/input-template/）— あらかじめ登録した「値のセット（テンプレート）」を選ぶだけで複数フィールド＋テーブル明細を一括入力。管理者が設定画面で値を直接定義する共通テンプレート（実データ不要・型別の入力UI・テーブルは行追加）と、各ユーザーが詳細画面の「テンプレートにする」から必要項目だけ選んで作る個人テンプレート（本人にだけ表示）の2階層。新規作成は常に上書き、編集画面は既定オフ＋「空欄のみ/すべて」「追加/置換」を選択し失われる値だけ確認ダイアログ。適用は値をセットするだけで保存しない。テンプレートは同一スペースの保管アプリへ分離＝フォーム不変・登録数上限なし。計算/添付/重複禁止/ルックアップのコピー先は理由つきで自動除外。ヒーロー＋定義＋実画面(ボタン/モーダル/適用前後)＋課題3＋2階層＋主な機能8＋編集画面＋モバイル＋設定画面＋プラン(無料は共通5件/個人1件・機能の中身は無制限)＋手順＋注意＋SecurityBox＋ShareButtons＋FAQ7＋関連ブログ＋CTA。単品販売なし＝プレミアム年間サポーターに含む。PC・モバイル対応・kintone完結
 │   │   │   ├── related-enhancer/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】関連レコード拡張製品ページ（/plugins/related-enhancer/）— レコード詳細の関連レコード一覧をカーソルAPI全件取得で集計（合計/平均/件数・条件AND/OR・複数並列・閾値色分け）＋非表示フィールド集計/サブテーブル展開集計/集計結果の書き込み保存＋見た目（ゼブラ/列幅クリップ/列表示非表示/ヘッダー色）＋検索/ソート/列フィルタ＋横断ボード。無料/プレミアム比較（無料1対象・F-04/05/06はプレミアム限定）、インストール手順、FAQ、SecurityBox。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。モバイルは集計カード閲覧のみ。kintone完結
 │   │   │   ├── lookup-sync/
@@ -366,6 +368,18 @@ c:\kizuna-works.jp\
 │   │   ├── file-preview-config-01.png      # 添付ファイルプレビュー 設定① — 対象フィールド・上限しきい値
 │   │   ├── file-preview-config-02.png      # 添付ファイルプレビュー 設定② — 対象画面・操作・モーダルサイズ・テーマ色
 │   │   ├── sidebar-enhancer-banner.png     # サイドバー拡張 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp
+│   │   ├── input-template-banner.png       # 入力テンプレート for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── input-template-icon.png         # 入力テンプレート 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
+│   │   ├── input-template-01-button.png    # 製品ページ：新規作成画面のヘッダーに出る「テンプレート」ボタン ＋ .webp
+│   │   ├── input-template-02-modal.png     # 製品ページ：テンプレート選択モーダル（共通/個人タブ・検索・内容プレビュー）＋ .webp
+│   │   ├── input-template-03a-before.png   # 製品ページ：適用前のフォーム（空欄・明細1行）＋ .webp
+│   │   ├── input-template-03b-after.png    # 製品ページ：適用後のフォーム（フィールド＋明細2行が入り計算も連動）＋ .webp
+│   │   ├── input-template-05-save-dialog.png # 製品ページ：詳細画面の「テンプレートとして保存」ダイアログ（項目チェック・公開区分）＋ .webp
+│   │   ├── input-template-06-edit-options.png # 製品ページ：編集画面の上書き範囲／テーブルの扱いの選択＋ .webp
+│   │   ├── input-template-07-mobile.png    # 製品ページ：モバイル版の全画面モーダル ＋ .webp
+│   │   ├── input-template-config-01-basic.png # 製品ページ：設定画面（基本設定・保管アプリ・ボタン／サイドバー除外）＋ .webp
+│   │   ├── input-template-config-02-list.png  # 製品ページ：設定画面（共通テンプレート一覧カード／サイドバー除外）＋ .webp
+│   │   ├── input-template-config-03-values.png # 製品ページ：設定画面（値の設定＝型別入力UI＋テーブル行エディタ／サイドバー除外）＋ .webp
 │   │   ├── sidebar-enhancer-icon.png       # サイドバー拡張 for kintone アイコン（200×200・ヒーロー/ランキング用）
 │   │   ├── sidebar-enhancer-{create,link,status,checklist,guide}.png # 5機能のサイドバータブ実機スクショ（432×854・タブ列込み）＋ 各 .webp
 │   │   ├── sidebar-enhancer-record-{status,create}.png # レコード詳細の全体像（フォームは通常どおり／右にタブが増えるだけ・1440×1200）＋ 各 .webp
@@ -530,7 +544,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-card-board-v1.0.0.zip                     # カードボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第6弾・無料/プレミアム共通zip・無料=1ビューで全機能・複数ビューはプレミアム）
 │   │   ├── kw-chat-notify-v1.0.0.zip                     # チャット通知 for kintone v1.0.0 配布ファイル（プレミアム・単品販売なし）
 │   │   ├── kw-related-enhancer-v1.0.0.zip               # 関連レコード拡張 for kintone 配布ファイル（手動配置・プレミアムプラグイン第5弾・無料/プレミアム共通zip・無料=1対象で集計/見た目/検索・F-04/05/06はプレミアム限定）
-│   │   └── kw-user-autofill-v1.0.0.zip                  # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.0＝属性自動転記＋プロフィールカード／捺印モード）
+│   │   ├── kw-user-autofill-v1.0.0.zip                  # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.0＝属性自動転記＋プロフィールカード／捺印モード）
+│   │   └── kw-input-template-v1.0.0.zip                 # 入力テンプレート for kintone v1.0.0 配布ファイル（プレミアム第9弾・単品販売なし・共通/個人2階層・動的な日付・保管アプリはスペース内で共有）
 │   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ（第三者CDN不使用）。現状 kw-file-preview のみ使用
 │   │   ├── README.md           # 収録ライブラリ・バージョン・ライセンス・更新手順
 │   │   ├── pdfjs/3.11.174/     # PDF.js（pdf.min.js / pdf.worker.min.js）— PDF描画
