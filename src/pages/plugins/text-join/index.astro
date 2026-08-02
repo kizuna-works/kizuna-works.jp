@@ -1,0 +1,1062 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+import Picture from '../../../components/Picture.astro';
+---
+
+<Layout
+  title="文字列結合 for kintone - 複数フィールドを1つの文字列に自動入力するプラグイン | KIZUNA Works"
+  description="計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども含めて、複数フィールドの値を書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。実データとして書き込むので並び替え・絞り込み・集計・ルックアップの複合キーに使えます。テーブル明細の集約結合、結合結果の重複チェック、既存レコードへの一括反映に対応。kintone完結・外部API不使用。"
+  ogTitle="文字列結合 for kintone - 複数フィールドを1つの文字列に自動入力するプラグイン | KIZUNA Works"
+  ogDescription="ドロップダウンもユーザー選択も明細行も、まとめて1つの文字列に自動入力。実データで書き込むので並び替え・絞り込み・複合キーに使えます。kintone完結・外部API不使用。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/text-join/"
+  ogImage="https://kizuna-works.jp/images/text-join-banner.png"
+  canonical="https://kizuna-works.jp/plugins/text-join/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/text-join/",
+          "url": "https://kizuna-works.jp/plugins/text-join/",
+          "name": "文字列結合 for kintone - 複数フィールドを1つの文字列に自動入力するプラグイン | KIZUNA Works",
+          "description": "複数フィールドの値を型や書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。テーブル明細の集約結合・重複チェック・既存レコードへの一括反映に対応。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/text-join-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "文字列結合 for kintone", "item": "https://kizuna-works.jp/plugins/text-join/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "文字列結合 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-08-02",
+          "url": "https://kizuna-works.jp/plugins/text-join/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-text-join-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/text-join-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども含めて、複数フィールドの値を書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。テーブル明細の集約結合、結合結果の重複チェック、既存レコードへの一括反映に対応。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "ドロップダウン・ユーザー選択・日付・チェックボックスなど、計算フィールドでは扱えない型も結合して1つの文字列フィールドへ自動入力",
+            "型ごとの書式指定（和暦・yyyyMMdd・ゼロ埋め・桁区切り・単位・表示名/コード・選択肢の並び順・改行の置換）",
+            "値が空のパーツは前置き・後置き文字ごとスキップするので「【】」のような囲み文字が空のまま残らない",
+            "テーブル（サブテーブル）の明細を「商品A×2／商品C×3…ほか1件」のように1つの文字列へ集約",
+            "保存時に同じ結合結果のレコードがないか照会し、確認ダイアログまたは保存ブロックで重複を防止",
+            "桁数ガード（末尾の切り詰め・保存ブロック）と入力中の残り文字数表示",
+            "既存レコードへの一括反映（値が変わらないレコードは更新しない）",
+            "設定画面のライブプレビューでサンプル値または実データの結合結果をその場で確認",
+            "GAS・外部サービス不要・kintone完結・PC／モバイル・ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .feature-list li code {
+      background: #eef1f4;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot frames — sized to the image's natural width (not upscaled),
+       centered, and clickable to enlarge in the lightbox. */
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Zoomable images + lightbox overlay (small screenshots open enlarged) */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .ea-example-table {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+      background: var(--color-white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 14px;
+    }
+    .ea-example-table th,
+    .ea-example-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-gray-light);
+      line-height: 1.7;
+    }
+    .ea-example-table thead th {
+      background: var(--color-navy);
+      color: var(--color-white);
+      font-weight: 700;
+      font-size: 13px;
+      border-bottom: none;
+    }
+    .ea-example-table tbody tr:last-child td { border-bottom: none; }
+    .ea-example-table tbody tr:nth-child(even) { background: #f8fafc; }
+    .ea-example-table td strong { color: var(--color-navy); }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/text-join-icon.png"
+        alt="文字列結合 for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">文字列結合 for kintone</h1>
+      <p class="hero-copy">文字列結合 for kintone は、<strong>複数のフィールドの値を、型や書式を整えたうえで 1 つの文字列フィールドへ自動入力する</strong> kintone プラグインです。計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども結合でき、書き込まれるのは<strong>実データ</strong>なので、並び替え・絞り込み・集計・CSV 出力・ルックアップの複合キーにそのまま使えます。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">kintone 標準の計算フィールド（<code>&amp;</code> による連結）には、結合できる型と設定に制限があります。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🚫</span>
+            <h3 class="problem-title">計算式で連結できない型がある</h3>
+            <p class="problem-desc">ドロップダウン・ユーザー選択・チェックボックス・文字列（複数行）は、計算フィールドの <code>&amp;</code> で連結できない。日付も書式を選べない。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🔑</span>
+            <h3 class="problem-title">複合キーが作れない</h3>
+            <p class="problem-desc">文字列フィールドを「自動計算する」にすると<strong>「値の重複を禁止する」が選べなくなる</strong>。結合した値をルックアップのキーにしたいのにできない。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📋</span>
+            <h3 class="problem-title">明細を1行にまとめられない</h3>
+            <p class="problem-desc">テーブルの明細を「商品A×2／商品C×3」のように 1 つの項目へまとめて、一覧やメール本文に出したい。標準の計算は数値の合計しかできない。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Record screen -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">入力すると、そのまま結合結果が入る</h2>
+      <p class="section-subtitle">設定したルールに従って、レコードの新規作成・編集画面で結合結果が自動的に入ります。出力先は読み取り専用になるので、手入力で結合結果とずれることがありません。画像はクリックで拡大できます。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/text-join-record-01.png" alt="文字列結合 レコード編集画面 — 会社名・商談フェーズ・受注予定日から「株式会社サイボウズ商事-【提案中】-20260912」が案件キーへ自動入力され、提案明細のテーブルからは「クラウド基盤ライセンス×12／導入支援サービス×1…ほか1件 / 担当:KIZUNA Works」が明細サマリへ入っている" width="692" height="885" />
+          </div>
+          <figcaption>会社名＋【商談フェーズ】＋受注予定日 を「案件キー」へ、テーブル明細を「明細サマリ」へ自動入力</figcaption>
+        </figure>
+      </div>
+      <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+        <li><span><strong>囲み文字が空のまま残らない</strong> — 値が空のパーツは、前置き・後置き文字ごとまるごと飛ばします。「【】」や「（）」だけが残ることも、区切り記号が連続することもありません。</span></li>
+        <li><span><strong>残り文字数がその場で見える</strong> — 桁数の上限を決めておくと、入力中に「残り 14 文字（26 / 40 文字）」のように出力先の下へ表示されます。</span></li>
+        <li><span><strong>詳細画面では計算し直さない</strong> — 保存済みの値をそのまま表示します。レコードを開くたびに値が変わることはありません。</span></li>
+      </ul>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Features -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">できること</h2>
+        <p class="section-subtitle">パーツを並べるだけ。プログラミング知識は不要です。</p>
+        <ul class="feature-list">
+          <li><span><strong>ほぼ全フィールド型を結合</strong> — 文字列・数値・日付・日時・時刻・ドロップダウン・ラジオボタン・チェックボックス・複数選択・ユーザー／組織／グループ選択・リンク・計算・レコード番号・作成者／更新者・ステータスなどをパーツとして並べられます。</span></li>
+          <li><span><strong>型ごとの書式指定</strong> — 日付は「2026年8月2日」「20260802」<strong>和暦</strong>など、数値は<strong>ゼロ埋め</strong>・桁区切り・小数桁・単位、ユーザー選択は表示名／コード／「山田太郎(t-yamada)」、選択肢は区切り記号と並び順（選択順／選択肢の定義順）を選べます。</span></li>
+          <li><span><strong>明細（テーブル）の集約結合</strong> — 行内テンプレート（例：商品名＋「×」＋数量）と行間の区切りで 1 つの文字列に。並べ替え・重複除去・最大行数・「…ほか&#123;N&#125;件」にも対応します。</span></li>
+          <li><span><strong>結合結果の重複チェック</strong> — 保存時に同じ値のレコードがないか照会し、<strong>確認して続行</strong>か<strong>保存をブロック</strong>を選べます。kintone 標準の「値の重複を禁止する」と併用できます。</span></li>
+          <li><span><strong>桁数ガード</strong> — 上限を超えたら末尾を切り詰める／保存をブロックする、を選べます。絵文字を途中で割らない数え方（コードポイント）で数えます。</span></li>
+          <li><span><strong>既存レコードへの一括反映</strong> — 導入前に登録済みのレコードや、CSV 読み込みで入れたレコードにもまとめて書き込めます。</span></li>
+          <li><span><strong>設定画面のライブプレビュー</strong> — サンプル値または実データで、保存する前に結合結果を確認できます。</span></li>
+          <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は不要。<strong>レコード画面では通信しません</strong>。PC 版・モバイル版・ゲストスペースに対応します。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Subtable aggregation -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">明細を 1 行にまとめる</h2>
+      <p class="section-subtitle">「行内テンプレート」で明細 1 行分の書き方を決め、「行間の結合」で行同士のつなぎ方を決めます。一覧の見出し列やメール本文への差し込みに使えます。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/text-join-config-02.png" alt="文字列結合 設定画面 — 明細集約パーツの設定。テーブルに提案明細を選び、行内テンプレートに商品名＋「×」＋数量を並べ、行間の区切り記号・並び順・最大行数2・超過時の表記「…ほか&#123;N&#125;件」を設定している" width="2212" height="1427" />
+          </div>
+          <figcaption>明細集約の設定：行内テンプレート（商品名×数量）＋行間の区切り・最大行数・超過時の表記</figcaption>
+        </figure>
+      </div>
+      <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+        <li><span><strong>行内テンプレート</strong> — 列と固定文字を並べて 1 行分の文字列を作ります。各列に書式・加工（トリム／全半角／切り詰め）を指定できます。</span></li>
+        <li><span><strong>行間の結合</strong> — 区切り記号（「\n」で改行も可）、並び順（明細の行順／指定した列の昇順・降順）、重複除去、最大行数と「…ほか&#123;N&#125;件」、空行スキップ。</span></li>
+      </ul>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Bulk -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">導入前のレコードにも、まとめて反映</h2>
+        <p class="section-subtitle">プラグインを入れる前に登録したレコードや、CSV 読み込みで入れたレコードは結合結果が空のままです。設定画面の「一括反映」で、既存レコードにも一度に書き込めます。</p>
+        <div class="screenshot-pair cols-2">
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/text-join-config-03.png" alt="文字列結合 設定画面の一括反映タブ — 対象ルールと対象レコード（出力先が空のレコードだけ／すべてのレコード）を選んで実行するUI。重複チェックと保存ブロックは適用されない旨の注意書きと最終実行日時を表示" width="1854" height="412" />
+            </div>
+            <figcaption>一括反映：対象ルールと対象レコードを選んで実行</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/text-join-list-01.png" alt="文字列結合 一括反映後の kintone 一覧画面 — 案件キー列に「株式会社サイボウズ商事-【提案中】-…」、明細サマリ列に「クラウド基盤ライセンス×12／…」が5件すべて埋まっている" width="1520" height="295" />
+            </div>
+            <figcaption>一括反映後：一覧の並び替え・絞り込みにそのまま使えるデータになる</figcaption>
+          </figure>
+        </div>
+        <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+          <li><span><strong>値が変わらないレコードは更新しません</strong> — 無駄な更新履歴を増やさずに済みます。</span></li>
+          <li><span><strong>対象は「出力先が空のレコードだけ」または「すべて」</strong> — 100 件ずつ処理し、失敗したものは 1 件ずつ切り分けて再実行します。完了後に成功／失敗の件数を表示します。</span></li>
+        </ul>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Config -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">設定画面</h2>
+      <p class="section-subtitle">左でルールを選び、中央でパーツを並べるだけ。結合結果は左下のライブプレビューでその場で確認できます。画像はクリックで拡大できます。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/text-join-config-01.png" alt="文字列結合 設定画面 — 左にルール目次とライブプレビュー、中央に基本設定（ルール名・出力先フィールド・共通の区切り記号）、パーツ（会社名／商談フェーズ・前置き【後置き】／受注予定日・書式20260802）、結合結果の重複チェック、桁数ガードが並んでいる" width="2212" height="1267" />
+          </div>
+          <figcaption>設定画面：ルール目次＋ライブプレビュー（左）／パーツと各種ガード（中央）</figcaption>
+        </figure>
+      </div>
+      <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+        <li><span><strong>パーツはドラッグで並べ替え</strong> — 上から順に結合されます。▲▼ ボタンでも動かせます。</span></li>
+        <li><span><strong>ルールは何本でも</strong> — 出力先フィールドごとにルールを作れます（同じフィールドを2つのルールの出力先にはできません）。</span></li>
+        <li><span><strong>設定ミスは保存時に止めます</strong> — 出力先の重複、自分の出力先をパーツに指定（自己参照）、他ルールの出力先の参照（循環）は保存できません。</span></li>
+      </ul>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">インストール手順</h2>
+        <p class="section-subtitle">レコードの新規作成・編集画面で動作します。PC 版・モバイル版に対応しています。</p>
+        <ol class="steps-list">
+          <li><span>結合結果を書き込む<strong>文字列（1行）または文字列（複数行）フィールド</strong>をアプリに用意しておく</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-text-join-v1.0.0.zip</code> をダウンロード</span></li>
+          <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+          <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「文字列結合 for kintone」を追加</span></li>
+          <li><span>プラグイン設定画面で<strong>ルールを追加</strong>し、出力先フィールドとパーツを設定して「保存」</span></li>
+          <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると設定が反映されます</span></li>
+        </ol>
+        <p style="text-align:center; color:var(--color-text-light); font-size:13px; margin-top:24px; line-height:1.7;">
+          ヒント：導入前に登録済みのレコードには、設定画面の「一括反映」タブからまとめて書き込めます。<br>
+          フィールドの選択肢・単位・ラベルを変更したときは、設定画面を開いて保存し直してください。
+        </p>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">プランについて</h2>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">基本プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥0</span>
+            <span class="unit">/ 完全無料</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ 利用期限なし・いつまでも無料</li>
+            <li>✅ 設定画面・レコード一覧に控えめな広告エリア表示あり</li>
+          </ul>
+          <a href="/downloads/kw-text-join-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">開発を応援</span>
+          <h3 class="plan-name">年間サポーター</h3>
+          <div class="plan-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+            <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            <li>✅ サポーターの声を優先して開発に反映</li>
+          </ul>
+          <a href="/plugins/supporter/?plugin=kw-text-join" class="btn-primary">サポーターになる →</a>
+          <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+            ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
+        <li>動作するのはレコードの新規作成・編集画面です。詳細画面では再計算せず、保存済みの値をそのまま表示します。</li>
+        <li>出力先に指定できるのは<strong>文字列（1行）／文字列（複数行）</strong>です。実行中は読み取り専用になり、手入力できません。</li>
+        <li>kintone の仕様上、入力中に変更を検知できるフィールドの型は決まっています。<strong>文字列（複数行）・リンク・計算・作成日時・更新日時・ステータス</strong>などをパーツに使った場合、入力中は結合結果がすぐに変わりません（保存時には必ず計算し直すため、保存される値は正しくなります）。</li>
+        <li>重複チェックは出力先が<strong>文字列（1行）</strong>のときだけ使えます（kintone の検索が複数行文字列の完全一致に対応していないため）。</li>
+        <li>一覧画面のインライン編集と CSV 読み込みではプラグインが動作しません。設定画面の「一括反映」で反映してください。</li>
+        <li>カスタマイズビュー・カレンダービューでは動作しません。添付ファイル・関連レコード一覧はパーツに使えません。</li>
+        <li>フィールドの選択肢・単位・ラベルを変更したときは、設定画面を開いて保存し直してください（表示を速くするため、これらの情報を設定保存時に取り込んでいます）。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-text-join" />
+    <PluginFaqSection pluginId="kw-text-join" pageUrl="https://kizuna-works.jp/plugins/text-join/" />
+    <SupporterCTA pluginId="kw-text-join" />
+    <ShareButtons title="文字列結合 for kintone" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">入力・キー生成まわりをさらに便利にする kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/conditional-numbering/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/conditional-numbering-banner.png" alt="条件分岐自動採番 for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">条件分岐自動採番</h3>
+            <p class="related-post-desc">保存時に条件分岐で自動採番。採番した番号を文字列結合のパーツに使えば、年度や部門を含む管理番号を組み立てられます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/lookup-sync/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/lookup-sync-banner.png" alt="ルックアップ自動同期 for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">ルックアップ自動同期</h3>
+            <p class="related-post-desc">参照元の変更をコピー先へ自動反映。文字列結合で作った複合キーをルックアップのコピー元にするときに組み合わせて使えます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/mail-assist/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/mail-assist-banner.png" alt="メールアシスト for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">メールアシスト</h3>
+            <p class="related-post-desc">レコードの値を差し込んでメールを作成。明細を1行にまとめた文字列を作っておくと、本文への流し込みがそのまま行えます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ea-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('ea-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-text-join-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-text-join-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

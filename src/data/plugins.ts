@@ -834,6 +834,29 @@ export const plugins: Plugin[] = [
     problemDesc: '通達や回覧レコードを作っても、標準では閲覧記録が残らず、読んだかどうかを一人ずつ聞いて回っている',
     releaseDate: '2026-07-25',
   },
+  {
+    id: 'kw-text-join',
+    name: '文字列結合 for kintone',
+    formName: '文字列結合 for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'text-join',
+    category: '入力支援',
+    description:
+      '計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども含めて、複数フィールドの値を書式を整えたうえで1つの文字列フィールドへ自動入力するプラグイン。テーブル明細を1行にまとめる集約結合、結合結果の重複チェック、既存レコードへの一括反映にも対応します。',
+    image: '/images/text-join-banner.png',
+    imageAlt:
+      '文字列結合 for kintone プラグイン — ドロップダウン・ユーザー選択・日付なども含めた複数フィールドの値を書式を整えて1つの文字列フィールドへ自動入力し、テーブル明細の集約や重複チェックにも対応する',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '複数フィールドの値を書式を整えて1つの文字列へ自動入力。明細の集約結合、重複チェック、既存レコードへの一括反映まで。kintone完結。',
+    problemTitle: '計算フィールドでは結合できない項目がある',
+    problemDesc:
+      'ドロップダウンやユーザー選択、日付は計算式で連結できない。自動計算にすると「値の重複を禁止する」も選べず、複合キーとして使えない',
+    releaseDate: '2026-08-02',
+  },
 ];
 
 /**
