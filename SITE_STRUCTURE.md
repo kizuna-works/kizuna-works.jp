@@ -538,7 +538,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-elapsed-assist-v1.0.2.zip                # 経過計算アシスト for kintone 配布ファイル（手動配置・v1.0.2 初版：基準日から9パターン自動計算＋その場再計算＋保存書込＋停止条件＋一括再計算）
 │   │   ├── kw-list-styler-v1.0.2.zip                   # 一覧スタイラー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-input-assist-v1.0.2.zip                  # 入力アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-input-assist-v2.0.0.zip                  # 入力アシスト for kintone 配布ファイル（手動配置・v2.0.0＝入力サジェスト追加／サブテーブル内対応）
+│   │   ├── kw-input-assist-v2.0.0.zip                  # 入力アシスト for kintone 配布ファイル（手動配置・v2.0.0＝入力サジェスト追加／サブテーブル内対応。公開後に参照アプリの一覧選択と不具合2件の修正を同じ 2.0.0 として差し替え）
 │   │   ├── kw-conditional-form-v1.0.2.zip              # 条件分岐フォーム for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-conditional-form-v2.0.0.zip              # 条件分岐フォーム for kintone 配布ファイル（手動配置・v2.0.0＝対象ユーザー条件）
 │   │   ├── kw-conditional-form-v2.1.0.zip              # 条件分岐フォーム for kintone 配布ファイル（手動配置・v2.1.0＝いずれかに一致/いずれにも一致しない演算子・AND/OR誤設定ブロック・設定画面のルール折りたたみ）
