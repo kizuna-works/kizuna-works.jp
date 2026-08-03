@@ -245,6 +245,10 @@ c:\kizuna-works.jp\
 │   │   ├── lookup-suggest-mobile-02.webp   # 同上 WebP 版（<picture> の source 用）
 │   │   ├── lookup-suggest-mobile-03.png    # ルックアップサジェスト v2.1.0 — モバイルで候補タップ後、顧客名＋コピー先の顧客No.が自動入力された状態（webp併置）
 │   │   ├── lookup-suggest-mobile-03.webp   # 同上 WebP 版（<picture> の source 用）
+│   │   ├── lookup-suggest-display-floating.png  # ルックアップサジェスト v2.2.0 — フローティング表示：候補が入力欄直下に浮き、下の項目（姓・名）に重なる状態（webp併置）
+│   │   ├── lookup-suggest-display-floating.webp # 同上 WebP 版（<picture> の source 用）
+│   │   ├── lookup-suggest-display-space.png     # ルックアップサジェスト v2.2.0 — スペース表示：スペースが縦に伸び以降の項目が下がり何も隠れない状態（floating と同一画角・webp併置）
+│   │   ├── lookup-suggest-display-space.webp    # 同上 WebP 版（<picture> の source 用）
 │   │   ├── quick-search-icon.png           # クイックサーチプラグイン アイコン（200×200）
 │   │   ├── quick-search-banner.png         # クイックサーチプラグイン バナー（1200×675・OGP/グリッド共用）
 │   │   ├── quick-search-action-01.png      # クイックサーチプラグイン 動作画面スクショ① — 検索バー全景（プレースホルダー表示）
@@ -502,7 +506,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-form-deco-v1.0.2.zip                     # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-lookup-suggest-v1.0.2.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置）
 │   │   ├── kw-lookup-suggest-v2.0.0.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.0.0 でサブテーブル内ルックアップ対応）
-│   │   ├── kw-lookup-suggest-v2.1.0.zip                # ルックアップサジェスト for kintone 配布ファイル（最新・手動配置・v2.1.0 でモバイル版 kintone 対応＝通常ルックアップのみ）
+│   │   ├── kw-lookup-suggest-v2.1.0.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.1.0 でモバイル版 kintone 対応＝通常ルックアップのみ）
+│   │   ├── kw-lookup-suggest-v2.2.1.zip                # ルックアップサジェスト for kintone 配布ファイル（最新・手動配置・v2.2.1＝候補リストの表示方法選択／複数ルックアップの不具合修正／サジェスト併記フィールドの拡充）
 │   │   ├── kw-quick-side-view-v1.0.2.zip               # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-quick-search-v1.1.2.zip                  # クイックサーチ for kintone 配布ファイル（手動配置・v1.1.2 でゲストスペース対応）
 │   │   ├── kw-quick-search-v1.2.0.zip                  # クイックサーチ for kintone 配布ファイル（手動配置・v1.2.0＝期間フィルタ追加）
