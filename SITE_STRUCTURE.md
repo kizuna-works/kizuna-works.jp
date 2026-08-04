@@ -568,6 +568,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-sheet-edit-v1.3.0.zip                    # シート編集 for kintone 配布ファイル（手動配置・v1.3.0＝「値が空」の絞り込み＋番号クリックで詳細＋数値をフィールド設定どおり表示）
 │   │   ├── kw-sheet-edit-v1.4.0.zip                    # シート編集 for kintone 配布ファイル（手動配置・v1.4.0＝組織/ユーザー/グループの絞り込みを選択式に＋設定セットの複製・アコーディオン表示）
 │   │   ├── kw-sticky-board-v1.0.1.zip                  # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
+│   │   ├── kw-sticky-board-v1.0.2.zip                  # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-mail-assist-v1.0.1.zip                   # メールアシスト for kintone 配布ファイル（手動配置・v1.0.1＝法人Outlook対応）
 │   │   ├── kw-mail-assist-v1.1.0.zip                   # メールアシスト for kintone 配布ファイル（手動配置・v1.1.0＝表示条件に複数値OR演算子追加・編集画面幅拡大）
 │   │   ├── kw-comment-control-v1.0.1.zip               # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.1＝閉じたコメント欄を手動で開けない不具合を修正）
