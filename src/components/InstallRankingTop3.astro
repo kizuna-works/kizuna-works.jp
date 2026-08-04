@@ -7,7 +7,10 @@ import { allPlugins as plugins, type Plugin } from '../data/plugins';
 
 const GAS_RANKING_URL =
   'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec?action=ranking';
-const FETCH_TIMEOUT_MS = 10_000;
+// GAS の action=ranking は使用ドメイン台帳を全読みするため実測 5〜24 秒かかる（2026-08-04）。
+// 10 秒だと頻繁にタイムアウトし、フォールバック（plugins.ts 先頭3件）が「本物のランキング」
+// として公開されてしまうため、実測の最大値を超える余裕を持たせる。
+const FETCH_TIMEOUT_MS = 40_000;
 
 type RankedPlugin = { pluginId: string; name: string; pageUrl: string };
 
