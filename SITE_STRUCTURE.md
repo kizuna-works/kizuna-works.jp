@@ -522,6 +522,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-conditional-numbering-v2.0.0.zip         # 条件分岐自動採番 for kintone 配布ファイル（v2.0.0 複数フィールド採番）
 │   │   ├── kw-conditional-numbering-v1.1.2.zip         # 条件分岐自動採番 for kintone 配布ファイル（旧版）
 │   │   ├── kw-form-deco-v1.0.2.zip                     # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-form-deco-v1.0.3.zip                     # FormDeco for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-lookup-suggest-v1.0.2.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置）
 │   │   ├── kw-lookup-suggest-v2.0.0.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.0.0 でサブテーブル内ルックアップ対応）
 │   │   ├── kw-lookup-suggest-v2.1.0.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.1.0 でモバイル版 kintone 対応＝通常ルックアップのみ）
