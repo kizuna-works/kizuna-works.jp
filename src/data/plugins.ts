@@ -377,7 +377,7 @@ export const plugins: Plugin[] = [
     slug: 'csv-export',
     category: '出力・連携',
     description:
-      '絞り込み結果を用途別テンプレート（列・並び順・ヘッダー名・文字コード）でワンクリックCSV出力。サブテーブル明細の行展開（kintone標準の「*」区切り列つき）にも対応し、Shift-JIS/UTF-8でExcelの文字化けも防ぎます。',
+      '絞り込み結果を用途別テンプレート（列・並び順・ヘッダー名・文字コード）でワンクリックCSV出力。1テンプレート最大500列・サブテーブル明細の行展開（kintone標準の「*」区切り列つき）に対応し、Shift-JIS/UTF-8でExcelの文字化けも防ぎます。',
     image: '/images/csv-export-banner.png',
     imageAlt:
       'かんたんCSV出力 for kintone プラグイン — レコード一覧の絞り込み結果を用途別テンプレートでワンクリックCSV出力',
