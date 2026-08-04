@@ -528,6 +528,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-suggest-v2.1.0.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.1.0 でモバイル版 kintone 対応＝通常ルックアップのみ）
 │   │   ├── kw-lookup-suggest-v2.2.1.zip                # ルックアップサジェスト for kintone 配布ファイル（最新・手動配置・v2.2.1＝候補リストの表示方法選択／複数ルックアップの不具合修正／サジェスト併記フィールドの拡充）
 │   │   ├── kw-quick-side-view-v1.0.2.zip               # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-quick-side-view-v1.0.3.zip               # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-quick-search-v1.1.2.zip                  # クイックサーチ for kintone 配布ファイル（手動配置・v1.1.2 でゲストスペース対応）
 │   │   ├── kw-quick-search-v1.2.0.zip                  # クイックサーチ for kintone 配布ファイル（手動配置・v1.2.0＝期間フィルタ追加）
 │   │   ├── kw-file-icon-marker-v1.0.3.zip              # 添付ファイルアイコン表示 for kintone 配布ファイル（手動配置・v1.0.3 で設定画面 全幅化/サイドバー250px/拡大縮小時の操作性改善）
