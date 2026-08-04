@@ -48,7 +48,8 @@ c:\kizuna-works.jp\
 │   ├── data/                   # ビルド時参照される TS データ
 │   │   ├── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）
 │   │   ├── glossary.ts         # kintone 用語集の単一情報源（/glossary/ 一覧と DefinedTermSet JSON-LD を生成）。hasPage/longDescription/useCases/faq を持つ語は /glossary/<id>/ の個別ページも生成
-│   │   └── plugin-security.ts  # プラグインごとのセキュリティ事実（外部通信・同梱ライブラリ）の単一情報源。SecurityBox が参照
+│   │   ├── plugin-security.ts  # プラグインごとのセキュリティ事実（外部通信・同梱ライブラリ）の単一情報源。SecurityBox が参照
+│   │   └── install-ranking.json # インストール数ランキングのスナップショット（scripts/gen-install-ranking.mjs が prebuild で更新）。トップの Top3 と /plugins/ranking/ が両方これを読む＝順位が食い違わない。**手で編集しない**
 │   ├── layouts/                # 共通レイアウトコンポーネント
 │   │   ├── Layout.astro        # 全ページ共通レイアウト（GA4・AdSense・Noto Sans JP・ヘッダー・フッター）
 │   │   └── BlogPost.astro      # ブログ記事専用レイアウト
@@ -611,6 +612,7 @@ c:\kizuna-works.jp\
 │
 ├── scripts/                    # ビルド補助スクリプト（Node直実行・Astro管理外）
 │   ├── gen-versions.mjs        # public/downloads/*.zip から public/versions.json を生成（プラグイン設定画面のアップデート通知用）。prebuild で自動実行
+│   ├── gen-install-ranking.mjs # GAS の action=ranking から src/data/install-ranking.json を生成。prebuild で自動実行（手動は npm run gen:ranking）。**成功時だけ上書き**し、失敗時は直近のスナップショットを残す（スナップショットが無い状態で失敗したらビルド中断）。以前はページ側で毎回 fetch していて、タイムアウト時に plugins.ts の並び順が「本物のランキング」として公開されていた
 │   ├── sync-llms-counts.mjs    # public/llms.txt の製品数を src/data/*.ts から同期＋掲載漏れ/存在しない製品へのリンクを検出してビルド中断。prebuild で自動実行（手動は npm run sync:llms）
 │   ├── gen-image-derivatives.mjs # dist の HTML が参照する PNG から .webp / -800.webp を生成（Picture.astro 用）
 │   ├── gen-blog-figures.mjs    # ブログ本文の図解を satori＋sharp でコード生成（オンブランド）

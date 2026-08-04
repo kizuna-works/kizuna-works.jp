@@ -1,49 +1,19 @@
 ---
 // インストール数 Top 3 ランキング
-// データソース：GAS の使用ドメイン台帳（pluginId 単位のユニークドメイン数）
-// 取得タイミング：ビルド時（npm run build / git push）
-// フォールバック：fetch 失敗時は plugins.ts 先頭 3 件を表示してサイトが壊れないようにする
+// データソース：`src/data/install-ranking.json`（GAS の使用ドメイン台帳から生成）
+// 生成タイミング：prebuild の `scripts/gen-install-ranking.mjs`
+//
+// ここでは fetch しない。以前はページ側で毎回 GAS を叩いており、タイムアウトすると
+// plugins.ts の先頭3件が「本物のランキング」として公開されていた（GitHub Actions の
+// 日次ビルドでも起こり得た）。取得はスナップショット生成に一本化し、取得できなかった
+// ときは直近の実データが残る＝架空の順位が出ない仕組みにしてある。
+// /plugins/ranking/ と同じスナップショットを読むので、順位が食い違うこともない。
 import { allPlugins as plugins, type Plugin } from '../data/plugins';
-
-const GAS_RANKING_URL =
-  'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec?action=ranking';
-// GAS の action=ranking は使用ドメイン台帳を全読みするため実測 5〜24 秒かかる（2026-08-04）。
-// 10 秒だと頻繁にタイムアウトし、フォールバック（plugins.ts 先頭3件）が「本物のランキング」
-// として公開されてしまうため、実測の最大値を超える余裕を持たせる。
-const FETCH_TIMEOUT_MS = 40_000;
+import installRanking from '../data/install-ranking.json';
 
 type RankedPlugin = { pluginId: string; name: string; pageUrl: string };
 
-let topPlugins: RankedPlugin[] = [];
-let fetchFailed = false;
-
-try {
-  const controller = new AbortController();
-  const t = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
-  const res = await fetch(GAS_RANKING_URL, { signal: controller.signal });
-  clearTimeout(t);
-  if (res.ok) {
-    const data = await res.json();
-    if (Array.isArray(data?.topPlugins)) {
-      topPlugins = data.topPlugins.slice(0, 3);
-    }
-  }
-} catch (e) {
-  fetchFailed = true;
-  console.warn('[InstallRankingTop3] GAS fetch failed, using fallback:', e);
-}
-
-// フォールバック：ランキング取得失敗 or 件数 0 件の場合は plugins.ts 先頭 3 件
-if (topPlugins.length === 0) {
-  topPlugins = plugins
-    .filter((p) => p.status === 'available')
-    .slice(0, 3)
-    .map((p) => ({
-      pluginId: p.id,
-      name: p.name,
-      pageUrl: `https://kizuna-works.jp/plugins/${p.slug}/`,
-    }));
-}
+const topPlugins: RankedPlugin[] = installRanking.ranking.slice(0, 3);
 
 // アイコンパス解決：slug ベースが原則。kw-conditional-numbering のみ例外
 function iconPathForPlugin(p: Plugin | undefined): string {
