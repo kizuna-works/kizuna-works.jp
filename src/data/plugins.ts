@@ -857,6 +857,29 @@ export const plugins: Plugin[] = [
       'ドロップダウンやユーザー選択、日付は計算式で連結できない。自動計算にすると「値の重複を禁止する」も選べず、複合キーとして使えない',
     releaseDate: '2026-08-02',
   },
+  {
+    id: 'kw-view-control',
+    name: '一覧コントロール for kintone',
+    formName: '一覧コントロール for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'view-control',
+    category: '一覧',
+    description:
+      'レコード一覧・グラフの表示／非表示を、ユーザー・組織・グループ単位で出し分けるプラグイン。増えすぎた一覧切替から関係のない一覧を隠し、対象者ごとに「最初に開く」一覧も指定できます。直リンクのガード、マトリクスプレビュー、モバイル対応。',
+    image: '/images/view-control-banner.png',
+    imageAlt:
+      '一覧コントロール for kintone プラグイン — レコード一覧とグラフの表示／非表示をユーザー・組織・グループ単位で出し分け、対象者ごとに最初に開く一覧も指定できる',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '一覧・グラフを担当者ごとに出し分け。関係のない一覧を切替から隠し、最初に開く一覧も指定。公式API制御でモバイルも対応。',
+    problemTitle: '一覧が増えすぎて目的の一覧が探せない',
+    problemDesc:
+      '部署別・担当別に一覧を作った結果、切替ドロップダウンが20件超。kintone では一覧にアクセス権を設定できず、既定の一覧もアプリに1つしか決められない',
+    releaseDate: '2026-08-04',
+  },
 ];
 
 /**

@@ -277,6 +277,15 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-view-control': {
+    extraComm: [
+      {
+        label: '所属情報・一覧定義の取得（自ドメイン内）',
+        detail:
+          'レコード一覧・グラフの表示制御は、ブラウザ内の判定だけで行います。ご利用中の kintone ドメイン内の API を呼び出すのは次の場合だけです。①対象者に組織・グループを指定している場合、ログインユーザー自身の所属を確認します（cybozu.com 共通管理API の /v1/user/organizations・/v1/user/groups）。ログインしてから最初の 1 回だけで、以降はブラウザ内（sessionStorage）に保持した情報で判定します。対象者をユーザー指定だけにしている場合は呼び出しません。②「アプリ管理者は制御対象外にする」を ON にした場合のみ、管理者かどうかの判定に /k/v1/app/acl を 1 回参照します（結果もセッション内に保持します）。③設定画面で一覧・グラフの定義（/k/v1/app/views・/k/v1/app/reports）と、対象者候補のユーザー・組織・グループ（/v1/users・/v1/organizations・/v1/groups）を取得します。レコードの値は一切読み取らず、アプリのフォーム定義（フィールドの追加・変更・削除）も行いません。表示制御は kintone 公式の JS API（showViewSelectorItems／showReportSelectorItems）で行い、一覧切替の DOM は操作しません。いずれもご利用中の kintone ドメイン内で完結し、外部の第三者へは送信しません。第三者CDN・外部サーバーは利用しません。',
+      },
+    ],
+  },
   'kw-text-join': {
     extraComm: [
       {

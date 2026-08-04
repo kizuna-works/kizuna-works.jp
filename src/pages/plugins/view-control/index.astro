@@ -1,0 +1,1138 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+import Picture from '../../../components/Picture.astro';
+---
+
+<Layout
+  title="一覧コントロール for kintone - 一覧・グラフを担当者ごとに出し分けるプラグイン | KIZUNA Works"
+  description="kintone の一覧・グラフの表示／非表示を、ユーザー・組織・グループ単位で出し分ける kintone プラグイン。増えすぎた一覧切替から関係のない一覧を隠し、最初に開く一覧も担当ごとに指定できます。公式JS APIで制御するのでDOM操作なし。PC／モバイル・ゲストスペース対応、kintone完結・外部API不使用。"
+  ogTitle="一覧コントロール for kintone - 一覧・グラフを担当者ごとに出し分けるプラグイン | KIZUNA Works"
+  ogDescription="一覧切替に並ぶ一覧・グラフを、ユーザー・組織・グループごとに出し分け。最初に開く一覧も指定できます。公式JS API制御・PC/モバイル対応・kintone完結。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/view-control/"
+  ogImage="https://kizuna-works.jp/images/view-control-banner.png"
+  canonical="https://kizuna-works.jp/plugins/view-control/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/view-control/",
+          "url": "https://kizuna-works.jp/plugins/view-control/",
+          "name": "一覧コントロール for kintone - 一覧・グラフを担当者ごとに出し分けるプラグイン | KIZUNA Works",
+          "description": "kintone の一覧・グラフの表示／非表示をユーザー・組織・グループ単位で出し分ける kintone プラグイン。最初に開く一覧の指定、直リンクのガード、マトリクスプレビューに対応。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/view-control-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "一覧コントロール for kintone", "item": "https://kizuna-works.jp/plugins/view-control/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "一覧コントロール for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-08-04",
+          "url": "https://kizuna-works.jp/plugins/view-control/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-view-control-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/view-control-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone のレコード一覧・グラフの表示／非表示を、ユーザー・組織・グループ単位で出し分ける kintone プラグイン。増えすぎた一覧切替から関係のない一覧を隠し、対象者ごとに最初に開く一覧も指定できる。公式JS APIで制御するためDOM操作を行わない。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "レコード一覧の表示／非表示をユーザー・組織・グループ単位で出し分け（対象者セットは複数登録可・並べ替え可）",
+            "グラフ（レポート）も同じ仕組みで表示対象を絞り込み",
+            "対象者セットごとに「最初に開く」一覧を指定（適用タイミングはセッション初回のみ／毎回を選択）",
+            "表示対象外の一覧・グラフへ直リンクで入られたときの案内パネル表示（表示できる一覧へのリンク付き）",
+            "どのセットにも一致しない利用者の扱いを選択（すべて表示／kintone の既定の一覧のみ／指定した一覧のみ）",
+            "アプリ管理者を制御対象外にするオプション",
+            "「一覧 × 対象者セット」のマトリクスを設定画面でライブプレビュー（誰にも表示されない一覧を警告）",
+            "設定後に削除・追加された一覧・グラフを自動検出して警告",
+            "kintone 公式JS API（showViewSelectorItems）で制御するのでDOM操作なし・kintone更新に強い",
+            "PC／モバイル両対応・ゲストスペース対応・GAS／外部サービス不要・kintone完結"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .feature-list li code {
+      background: #eef1f4;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot frames — sized to the image's natural width (not upscaled),
+       centered, and clickable to enlarge in the lightbox. */
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Zoomable images + lightbox overlay (small screenshots open enlarged) */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .ea-example-table {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+      background: var(--color-white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 14px;
+    }
+    .ea-example-table th,
+    .ea-example-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-gray-light);
+      line-height: 1.7;
+    }
+    .ea-example-table thead th {
+      background: var(--color-navy);
+      color: var(--color-white);
+      font-weight: 700;
+      font-size: 13px;
+      border-bottom: none;
+    }
+    .ea-example-table tbody tr:last-child td { border-bottom: none; }
+    .ea-example-table tbody tr:nth-child(even) { background: #f8fafc; }
+    .ea-example-table td strong { color: var(--color-navy); }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/view-control-icon.png"
+        alt="一覧コントロール for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">一覧コントロール for kintone</h1>
+      <p class="hero-copy">一覧コントロール for kintone は、<strong>レコード一覧・グラフの表示／非表示を、ユーザー・組織・グループ単位で出し分ける</strong> kintone プラグインです。増えすぎた一覧切替から関係のない一覧を隠し、<strong>最初に開く一覧</strong>も担当ごとに指定できます。制御は kintone 公式の JS API で行うため、一覧切替の DOM を書き換えません。</p>
+    </section>
+
+    <!-- Positioning notice (must appear on every surface: config screen / USAGE / HP) -->
+    <section class="section-wrapper fade-in">
+      <div style="max-width:900px;margin:0 auto;background:#FFF8E1;border:1px solid #F0C36D;border-left:5px solid #E8A33D;border-radius:10px;padding:20px 24px;">
+        <p style="margin:0 0 10px;font-weight:700;color:#8A5A00;font-size:1.04rem;">はじめにご確認ください：このプラグインは「画面の表示制御」です</p>
+        <p style="margin:0 0 12px;color:#5C4A2A;font-size:0.94rem;line-height:1.85;">
+          このプラグインは、一覧切替に並ぶ一覧・グラフを<strong>画面上で出し分ける</strong>ものです。kintone は仕様上、一覧そのものにアクセス権を設定できないため、その不足を補って「関係のない一覧を出さずに迷わせない」ことを目的としています。
+          そのため <strong>kintone のアクセス権の代わりにはなりません</strong>。次の経路では制御が働きません。
+        </p>
+        <ul style="margin:0 0 12px;padding-left:1.35em;color:#5C4A2A;font-size:0.92rem;line-height:1.9;list-style:disc outside;">
+          <li>REST API でレコードを取得する／外部連携ツールから参照する</li>
+          <li>CSV ファイルを書き出す</li>
+          <li>全体検索・アプリ内検索から探す</li>
+          <li>プラグインを無効にする／JavaScript が動かない環境で開く</li>
+          <li>一覧を隠しても、レコードそのものは開ける</li>
+        </ul>
+        <p style="margin:0;color:#5C4A2A;font-size:0.94rem;line-height:1.85;">
+          <strong>見せてはいけないデータは、kintone 標準のレコード／フィールドのアクセス権で保護してください。</strong>
+          そのうえで「見せる必要のない一覧を隠して探しやすくする」ためにこのプラグインをお使いいただくのが、いちばん効果的です。
+        </p>
+      </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">一覧は「作れば作るほど便利」ではありません。増えた分だけ、全員の切替ドロップダウンが長くなります。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">📜</span>
+            <h3 class="problem-title">一覧が増えすぎて選べない</h3>
+            <p class="problem-desc">部署ごと・担当ごとに一覧を作った結果、切替ドロップダウンが 20 件を超えた。自分に関係のない一覧まで並ぶので、目的の一覧を探すのに時間がかかり、選び間違えも起きる。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🔁</span>
+            <h3 class="problem-title">開くたびに毎回切り替えている</h3>
+            <p class="problem-desc">アプリを開くと kintone の既定の一覧が出るので、毎回「自分の担当案件」へ切り替えてから仕事を始めている。人によって見たい一覧は違うのに、既定の一覧はアプリに 1 つしか決められない。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📊</span>
+            <h3 class="problem-title">見せる必要のないグラフが並ぶ</h3>
+            <p class="problem-desc">経営層向けの推移グラフや原価入りの集計が、全員のグラフ切替に並んでしまう。一覧のアクセス権は kintone 標準では設定できないため、運用ルールの口頭周知でしのいでいる。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Before / After -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">担当者ごとに、必要な一覧だけを残す</h2>
+      <p class="section-subtitle">対象者セット（ユーザー・組織・グループの組み合わせ）ごとに「表示する一覧」を指定すると、それ以外の一覧が切替ドロップダウンから消えます。画像はクリックで拡大できます。</p>
+      <div class="screenshot-pair cols-2">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/view-control-before-01.png" alt="導入前の kintone 一覧切替ドロップダウン — 全案件・今週更新された案件・受注確定・失注案件・【個人】自分の案件・【営業一課】など10件の一覧がすべて並んでいる" width="589" height="616" />
+          </div>
+          <figcaption>導入前：全員に 10 件の一覧が並ぶ</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/view-control-after-01.png" alt="導入後の kintone 一覧切替ドロップダウン — 営業一課のメンバーには全案件・今週更新された案件・【個人】自分の案件・【営業一課】進行中案件・【営業一課】今月の受注の5件だけが表示されている" width="589" height="376" />
+          </div>
+          <figcaption>導入後：営業一課のメンバーには 5 件だけ</figcaption>
+        </figure>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+        <li><span><strong>対象は「ユーザー・組織・グループ」の組み合わせ</strong> — 組織は親子ツリーから選べて、組織ごとに「子組織を含める」を切り替えられます。1 つのセットにユーザーと組織を混ぜて指定してもかまいません。</span></li>
+        <li><span><strong>複数のセットに当てはまる人は、合算で表示される</strong> — 「営業一課」と「経営層（部長以上）」の両方に当てはまる課長には、両方で許可された一覧が並びます。どちらかで隠しても、もう一方で許可されていれば表示されます。</span></li>
+        <li><span><strong>kintone 組み込みの「（すべて）」も対象</strong> — 一覧切替に常にある「（すべて）」も、表示する／しないを選べます。</span></li>
+      </ul>
+    </section>
+
+    <!-- Reports -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">グラフも同じ仕組みで絞り込める</h2>
+        <p class="section-subtitle">レコード一覧とは別に「表示するグラフ」を指定できます。経営層向けのグラフを一般メンバーの切替から外す、という運用がそのまま作れます。</p>
+        <div class="screenshot-pair">
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/view-control-report-01.png" alt="kintone のグラフ切替ドロップダウン — アプリには4件のグラフがあるが、営業一課のメンバーには担当者別の案件金額・商談フェーズ別の件数の2件だけが表示されている" width="589" height="280" />
+            </div>
+            <figcaption>アプリに 4 件あるグラフのうち、このメンバーには 2 件だけ</figcaption>
+          </figure>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Default view -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">「最初に開く一覧」も担当ごとに変えられる</h2>
+      <p class="section-subtitle">kintone の既定の一覧はアプリに 1 つしか決められませんが、本プラグインなら対象者セットごとに指定できます。設定は「表示する一覧」のチェックリストの ★ を選ぶだけです。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/view-control-default-01.png" alt="kintone のアプリを開いた直後の画面 — URLに指定していないのに一覧切替が【個人】自分の案件になっており、自分が担当するレコードだけが表示されている" width="1728" height="592" />
+          </div>
+          <figcaption>アプリを開くと、そのまま「【個人】自分の案件」で開く</figcaption>
+        </figure>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+        <li><span><strong>適用タイミングは 2 通りから選べます</strong> — 「セッション初回のみ」（既定）なら、ログインしてそのアプリを最初に開いたときだけ適用され、あとは利用者が選んだ一覧をそのまま使えます。「毎回」なら、アプリを開くたびに指定した一覧に戻ります。</span></li>
+        <li><span><strong>ブックマークや通知リンクからの遷移では割り込みません</strong> — URL に <code>?view=</code> が付いている場合は、どちらのタイミングでも適用しません。「一覧のリンクを共有したのに違う一覧が開く」ことがありません。</span></li>
+        <li><span><strong>★ を指定しなければ、表示される一覧の一番上で開きます</strong> — 対象者セットは並べ替えられるので、迷ったら順番だけ整えておけば十分です。</span></li>
+        <li><span><strong>行き止まりを作りません</strong> — kintone の既定の一覧がその人の表示対象外だった場合は、タイミング設定にかかわらず「表示できる一覧」へ寄せます。</span></li>
+      </ul>
+    </section>
+
+    <!-- Deny guard -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">直リンクで入られたときも案内する</h2>
+        <p class="section-subtitle">表示対象外の一覧の URL を共有された・ブックマークが残っていた場合は、黙って空にせず理由を伝えて、その人が見られる一覧へ案内します。</p>
+        <div class="screenshot-pair">
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/view-control-deny-01.png" alt="表示対象外の一覧を直接開いたときの案内パネル — この一覧は表示対象ではありませんという説明と、表示できる一覧5件へのリンクが並んでいる" width="1840" height="454" />
+            </div>
+            <figcaption>レコード領域の代わりに案内パネルを表示。表示できる一覧へのリンクが並ぶ</figcaption>
+          </figure>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+          <li><span><strong>案内文は設定画面で書き換えられます</strong> — 「一覧の追加を希望する場合は情報システム課までご連絡ください」のように、自社の運用に合わせた案内を出せます。</span></li>
+          <li><span><strong>リンクは設定した表示順で並びます</strong> — 案内パネルからそのまま自分の一覧へ移動できます。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Mobile -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">モバイルでも同じ設定が効く</h2>
+      <p class="section-subtitle">設定は 1 系統だけ。PC で設定すれば、kintone モバイル（スマートフォンのブラウザ・モバイルアプリ）の一覧選択にもそのまま反映されます。「最初に開く一覧」もモバイルで適用されます。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame" style="max-width:330px;">
+            <Picture class="zoomable" src="/images/view-control-mobile-01.png" alt="kintone モバイルの一覧選択シート — 全案件・今週更新された案件・【個人】自分の案件・【営業一課】進行中案件・【営業一課】今月の受注の5件だけが並んでいる" width="1030" height="2150" />
+          </div>
+          <figcaption>モバイルの一覧選択シートも、許可された 5 件だけ</figcaption>
+        </figure>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Config screens -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定画面</h2>
+        <p class="section-subtitle">左に対象者セットの一覧とライブプレビュー、中央に設定フォーム。設定した内容が「誰にどう見えるか」を保存前に確認できます。画像はクリックで拡大できます。</p>
+        <div class="screenshot-pair">
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/view-control-config-01.png" alt="一覧コントロール for kintone の設定画面全体 — 左に対象者セットの一覧とライブプレビュー、中央に対象者セットの設定フォームが並ぶ3カラムレイアウト" width="2955" height="1824" />
+            </div>
+            <figcaption>設定画面の全体像。左の目次で編集する対象者セットを切り替える</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/view-control-config-02.png" alt="表示する一覧のチェックリスト — 一覧名の左にチェックボックス、右に「最初に開く」を選ぶ★ラジオボタンが並んでいる" width="2366" height="722" />
+            </div>
+            <figcaption>「表示する一覧」にチェック、その行の ★ で「最初に開く」を指定。設定は 1 か所で完結</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/view-control-config-03.png" alt="ライブプレビューのマトリクス — 一覧を行、対象者セットを列にして表示・非表示・最初に開くを記号で示し、誰にも表示されない一覧を警告している" width="582" height="831" />
+            </div>
+            <figcaption>「一覧 × 対象者」のマトリクスをリアルタイム表示。誰にも表示されない一覧は警告で気づける</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/view-control-config-04.png" alt="全体設定タブ — どのセットにも一致しない利用者の扱い、アプリ管理者を制御対象外にするオプション、案内メッセージ、最初に開く一覧の適用タイミングの設定項目が並んでいる" width="2366" height="1792" />
+            </div>
+            <figcaption>全体設定：未設定ユーザーの扱い・管理者の除外・案内文・「最初に開く」の適用タイミング</figcaption>
+          </figure>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">主な機能</h2>
+      <p class="section-subtitle">設定はすべてノーコード。JavaScript の記述や外部サービスの契約は必要ありません。</p>
+      <ul class="feature-list">
+        <li><span><strong>対象者セットの管理</strong> — ユーザー・組織・グループの組み合わせに名前を付けて登録します。組織は親子ツリーから選び、組織ごとに「子組織を含める」を切り替えられます。セットは ▲▼ で並べ替えできます。</span></li>
+        <li><span><strong>一覧の表示制御</strong> — セットごとに表示する一覧を指定すると、対象外の一覧が切替ドロップダウンから消えます。kintone 組み込みの「（すべて）」も指定できます。</span></li>
+        <li><span><strong>グラフの表示制御</strong> — 一覧と同じ仕組みでグラフ（レポート）を絞り込みます。一覧は見せてグラフだけ隠す、という設定も作れます。</span></li>
+        <li><span><strong>「最初に開く」一覧の出し分け</strong> — セットごとに最初に開く一覧を ★ で指定。適用タイミングは「セッション初回のみ」（既定）と「毎回」から選べます。</span></li>
+        <li><span><strong>直リンク時のガード</strong> — 表示対象外の一覧・グラフを URL で直接開かれた場合は、案内パネルと「表示できる一覧」へのリンクを表示します。案内文は自由に書き換えられます。</span></li>
+        <li><span><strong>未設定ユーザーの既定動作</strong> — どのセットにも一致しない利用者の扱いを「すべて表示」「kintone の既定の一覧のみ」「指定した一覧のみ」から選べます。段階的に適用したいときに使えます。</span></li>
+        <li><span><strong>アプリ管理者の除外</strong> — 「アプリ管理者は制御対象外にする」を ON にすると、管理者だけは常に全表示になります（既定は OFF＝管理者も制御対象）。</span></li>
+        <li><span><strong>マトリクス逆引きプレビュー</strong> — 「一覧 × 対象者セット」の対応表を設定画面に表示します。誰にも表示されない一覧や、「最初に開く」の指定と表示設定の矛盾を保存前に警告します。</span></li>
+        <li><span><strong>一覧・グラフの増減検出</strong> — 設定を保存したあとに削除された一覧・追加された一覧を検出して警告し、設定から取り除けます。</span></li>
+        <li><span><strong>所属情報のキャッシュと再取得</strong> — 組織・グループの所属はセッション中キャッシュするので、一覧を開くたびの問い合わせは発生しません。組織異動のあとは設定画面の「所属情報を再取得させる」で全利用者に反映できます。</span></li>
+        <li><span><strong>DOM を書き換えない</strong> — 制御は kintone 公式の JS API（<code>showViewSelectorItems</code> / <code>showReportSelectorItems</code>）で行います。一覧切替の HTML 構造に依存しないため、kintone のアップデートに強く、DOM 操作型のカスタマイズより他プラグインと競合しにくいです。</span></li>
+        <li><span><strong>PC／モバイル・ゲストスペース対応</strong> — 設定は 1 系統で両方に適用されます。ゲストスペースでは対象者をユーザー指定でご利用ください（kintone 側の制約で組織・グループの所属情報を取得できません）。</span></li>
+      </ul>
+    </section>
+
+    <!-- Install -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">導入方法</h2>
+        <p class="section-subtitle">ダウンロードから設定完了まで、5 ステップで終わります。</p>
+        <ol class="steps-list">
+          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-view-control-v1.0.0.zip</code> をダウンロードします</span></li>
+          <li><span>kintone の<strong>「cybozu.com 共通管理」→「プラグイン」→「読み込む」</strong>で zip ファイルをアップロードします</span></li>
+          <li><span>対象アプリの<strong>「アプリの設定」→「プラグイン」→「プラグインを追加」</strong>で「一覧コントロール」を追加します</span></li>
+          <li><span>プラグインの<strong>歯車アイコン</strong>から設定画面を開き、対象者セットを追加して「表示する一覧」にチェックを入れます。★ で「最初に開く」一覧も指定できます</span></li>
+          <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると設定が反映されます</span></li>
+        </ol>
+        <p style="text-align:center; color:var(--color-text-light); font-size:13px; margin-top:24px; line-height:1.7;">
+          ヒント：まずは「未設定ユーザーの扱い」を<strong>「すべて表示」</strong>（既定）のままにして、一部の部署だけ対象者セットを作ると影響範囲を限定して試せます。<br>
+          設定は左下のライブプレビューで「誰にどう見えるか」を確認してから保存してください。
+        </p>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">プランについて</h2>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">基本プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥0</span>
+            <span class="unit">/ 完全無料</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ 利用期限なし・いつまでも無料</li>
+            <li>✅ 設定画面・レコード一覧に控えめな広告エリア表示あり</li>
+          </ul>
+          <a href="/downloads/kw-view-control-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">開発を応援</span>
+          <h3 class="plan-name">年間サポーター</h3>
+          <div class="plan-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+            <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            <li>✅ サポーターの声を優先して開発に反映</li>
+          </ul>
+          <a href="/plugins/supporter/?plugin=kw-view-control" class="btn-primary">サポーターになる →</a>
+          <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+            ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
+        <li><strong>本プラグインは画面上の表示制御であり、kintone のアクセス権の代替ではありません。</strong>REST API でのレコード取得・CSV 書き出し・全体検索・外部連携ツールからの参照・プラグインを無効にした場合は制御されません。また一覧が消えてもレコードそのものは開けます。閲覧を制限すべきデータは、kintone 標準のレコード／フィールドのアクセス権をあわせてご設定ください。</li>
+        <li>キーボードの矢印キーで一覧切替をたどると、非表示にした一覧名まで移動できます（kintone 側の仕様で変更できません）。ただし Enter で選んでも案内パネルが表示され、レコードは表示されません。マウス操作では選択肢自体が見えません。</li>
+        <li>一覧切替の<strong>並び順は変更できません</strong>。並び順は kintone のアプリ設定（一覧の並び）に従います。本プラグインが行うのは表示／非表示の制御だけです。</li>
+        <li>ゲストスペースでは kintone 側の制約で組織・グループの所属情報を取得できません（403 になります）。対象者はユーザー指定でご利用ください。組織・グループを指定したセットが含まれる場合は、制御自体を見送って全表示にします（業務を止めないための動作です）。</li>
+        <li>組織の異動はセッションキャッシュのため、再ログインまたは設定画面の「所属情報を再取得させる」を実行したあとに反映されます。</li>
+        <li>「グラフ」ボタン自体の表示制御は行いません。ボタンは表示されたまま、切替の候補が絞られます。</li>
+        <li>クロス集計・表・定期レポートは kintone モバイル非対応のため、PC で表示を許可してもモバイルの候補には出ません（kintone の仕様）。</li>
+        <li>表示対象外の一覧を URL で直接開いた場合、一覧切替のラベルにはその一覧名がそのまま表示されます（kintone が現在の一覧名を表示するため）。理由は案内パネルでお伝えします。</li>
+        <li>一覧切替を操作する他社プラグインとは競合の可能性があります（実機での確認を推奨します）。本プラグインは kintone 公式 API 経由で動作するため、DOM 操作型のカスタマイズより競合しにくい作りです。</li>
+        <li>1 つのアプリに設定できるのは 1 設定です（その中に対象者セットを複数登録できます）。PC とモバイルで別の設定にすることはできません。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-view-control" />
+    <PluginFaqSection pluginId="kw-view-control" pageUrl="https://kizuna-works.jp/plugins/view-control/" />
+    <SupporterCTA pluginId="kw-view-control" />
+    <ShareButtons title="一覧コントロール for kintone" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">レコード一覧まわりをさらに使いやすくする kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/list-styler/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/list-styler-banner.png" alt="一覧スタイラー for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">一覧スタイラー</h3>
+            <p class="related-post-desc">列の固定・行の色分け・文字サイズなど、レコード一覧の見やすさを整えます。表示する一覧を絞ったうえで、その一覧自体を読みやすくできます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/summary-bar/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/summary-bar-banner.png" alt="絞り込み拡張 for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">絞り込み拡張</h3>
+            <p class="related-post-desc">一覧の上に絞り込みパネルと集計バーを追加。一覧の数を増やさずに条件を切り替えられるので、一覧の棚卸しと相性がよい組み合わせです。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/quick-search/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/quick-search-banner.png" alt="クイックサーチ for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">クイックサーチ</h3>
+            <p class="related-post-desc">一覧画面に検索欄と期間フィルタを追加。「探すために一覧を増やす」必要がなくなるので、一覧の数そのものを減らせます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ea-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('ea-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-view-control-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-view-control-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>
