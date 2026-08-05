@@ -525,7 +525,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-address-assist-v1.2.0.zip                          # 住所アシスト for kintone 配布ファイル（最新・v1.2.0 で住所→郵便番号の逆引き＋住所セット対応）
 │   │   ├── kw-ambiguous-match-v1.0.0.zip                         # あいまい照合 for kintone 配布ファイル（最新・手動配置）
 │   │   ├── kw-attribute-filter-v1.0.0.zip                        # 属性制御フィルター for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=1フィールド全機能）
-│   │   ├── kw-attribute-filter-v1.0.1.zip                        # 属性制御フィルター for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-attribute-filter-v1.0.1.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-attribute-filter-v1.0.2.zip                        # 属性制御フィルター for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.2 ライセンス認証の内部改修）
 │   │   ├── kw-bulk-update-v1.0.0.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-bulk-update-v1.0.1.zip                             # かんたん一括更新 for kintone 配布ファイル（最新・手動配置）
 │   │   ├── kw-card-board-v1.0.0.zip                              # カードボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第6弾・無料/プレミアム共通zip・無料=1ビューで全機能・複数ビューはプレミアム）
