@@ -551,6 +551,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-history-view-v1.0.3.zip            # クイック履歴ビュー for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-related-record-popup-v1.0.3.zip          # 関連レコードポップアップ表示 for kintone 配布ファイル（手動配置・v1.0.3：ページ送りでポップアップが閉じる不具合の修正＋コメント系プラグインとのアイコン競合の自動回避）
 │   │   ├── kw-summary-bar-v2.1.1.zip                   # 集計サマリーバー for kintone 配布ファイル（手動配置・v2.1.1 でゲストスペース対応）
+│   │   ├── kw-summary-bar-v2.1.2.zip                   # 集計サマリーバー for kintone 配布ファイル（手動配置・v2.1.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-csv-export-v1.1.1.zip                    # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.1.1 でゲストスペース対応）
 │   │   ├── kw-csv-export-v1.2.0.zip                    # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.2.0 サブテーブル展開＋区切り記号列）
 │   │   ├── kw-csv-export-v1.3.0.zip                    # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.3.0 出力列上限100→500・設定画面アコーディオン化）
