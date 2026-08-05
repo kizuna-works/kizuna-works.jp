@@ -543,7 +543,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-conditional-form-v1.0.1.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-conditional-form-v1.0.2.zip                        # 条件分岐フォーム for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-conditional-form-v2.0.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（手動配置・v2.0.0＝対象ユーザー条件）
-│   │   ├── kw-conditional-form-v2.1.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（手動配置・v2.1.0＝いずれかに一致/いずれにも一致しない演算子・AND/OR誤設定ブロック・設定画面のルール折りたたみ）
+│   │   ├── kw-conditional-form-v2.1.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・手動配置・v2.1.0＝いずれかに一致/いずれにも一致しない演算子・AND/OR誤設定ブロック・設定画面のルール折りたたみ）
+│   │   ├── kw-conditional-form-v2.1.1.zip                        # 条件分岐フォーム for kintone 配布ファイル（最新・手動配置・v2.1.1 ライセンス認証の内部改修）
 │   │   ├── kw-conditional-numbering-v1.1.0.zip                   # 条件分岐自動採番 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-conditional-numbering-v1.1.1.zip                   # 条件分岐自動採番 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-conditional-numbering-v1.1.2.zip                   # 条件分岐自動採番 for kintone 配布ファイル（旧版）
@@ -647,23 +648,27 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-toc-v1.2.0.zip                               # クイック目次 for kintone 配布ファイル（旧版・手動配置・v1.2.0 スペース対応/見出し表示/ステータスバッジ文字列1行）
 │   │   ├── kw-quick-toc-v1.2.1.zip                               # クイック目次 for kintone 配布ファイル（最新・手動配置・v1.2.1 ライセンス認証の内部改修）
 │   │   ├── kw-read-check-v1.0.0.zip                              # 既読チェック for kintone 配布ファイル（旧版・v1.0.0 初版）
-│   │   ├── kw-read-check-v1.0.1.zip                              # 既読チェック for kintone 配布ファイル（最新・手動配置・v1.0.1 で折りたたみサイドバーの展開を公式APIへ変更＋サイドバータブの表示順を宣言的に固定）
+│   │   ├── kw-read-check-v1.0.1.zip                              # 既読チェック for kintone 配布ファイル（旧版・手動配置・v1.0.1 で折りたたみサイドバーの展開を公式APIへ変更＋サイドバータブの表示順を宣言的に固定）
+│   │   ├── kw-read-check-v1.0.2.zip                              # 既読チェック for kintone 配布ファイル（最新・手動配置・v1.0.2 ライセンス認証の内部改修）
 │   │   ├── kw-record-lock-v1.0.0.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-lock-v1.0.1.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-lock-v1.0.2.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-lock-v1.0.3.zip                             # レコードロック for kintone 配布ファイル（旧版・手動配置・v1.0.3 で設定画面 サイドバー250px/条件表の拡大縮小時 操作性改善）
 │   │   ├── kw-record-lock-v1.0.4.zip                             # レコードロック for kintone 配布ファイル（最新・手動配置・v1.0.4 ライセンス認証の内部改修）
-│   │   ├── kw-record-recovery-v1.0.0.zip                         # 削除レコード復元 for kintone 配布ファイル（手動配置・v1.0.0 初版）
+│   │   ├── kw-record-recovery-v1.0.0.zip                         # 削除レコード復元 for kintone 配布ファイル（旧版・手動配置・v1.0.0 初版）
+│   │   ├── kw-record-recovery-v1.0.1.zip                         # 削除レコード復元 for kintone 配布ファイル（最新・手動配置・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-related-enhancer-v1.0.0.zip                        # 関連レコード拡張 for kintone 配布ファイル（手動配置・プレミアムプラグイン第5弾・無料/プレミアム共通zip・無料=1対象で集計/見た目/検索・F-04/05/06はプレミアム限定）
 │   │   ├── kw-related-enhancer-v1.0.1.zip                        # 関連レコード拡張 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-related-record-popup-v1.0.0.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-related-record-popup-v1.0.1.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-related-record-popup-v1.0.2.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-related-record-popup-v1.0.3.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（手動配置・v1.0.3：ページ送りでポップアップが閉じる不具合の修正＋コメント系プラグインとのアイコン競合の自動回避）
+│   │   ├── kw-related-record-popup-v1.0.3.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・手動配置・v1.0.3：ページ送りでポップアップが閉じる不具合の修正＋コメント系プラグインとのアイコン競合の自動回避）
+│   │   ├── kw-related-record-popup-v1.0.4.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（最新・手動配置・v1.0.4 ライセンス認証の内部改修）
 │   │   ├── kw-report-designer-v1.0.0.zip                         # 帳票デザイナー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-report-designer-v1.0.1.zip                         # 帳票デザイナー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-report-designer-v1.0.2.zip                         # 帳票デザイナー for kintone 配布ファイル（手動配置・プレミアムプラグイン・v1.0.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
-│   │   ├── kw-reuse-control-v1.0.0.zip                           # レコード再利用コントロール for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-reuse-control-v1.0.0.zip                           # レコード再利用コントロール for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-reuse-control-v1.0.1.zip                           # レコード再利用コントロール for kintone 配布ファイル（最新・手動配置・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-sheet-edit-v1.0.0.zip                              # シート編集 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-sheet-edit-v1.0.1.zip                              # シート編集 for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-sheet-edit-v1.1.0.zip                              # シート編集 for kintone 配布ファイル（手動配置・v1.1.0＝サブテーブル対応）
@@ -674,7 +679,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-sidebar-enhancer-v1.0.2.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・手動配置・v1.0.2 で数値の桁区切り撤去／ラベルのHTML描画／設定画面の保存ボタン／タブ初期表示の高速化）
 │   │   ├── kw-sidebar-enhancer-v1.0.3.zip                        # サイドバー拡張 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.3 ライセンス認証の内部改修）
 │   │   ├── kw-status-bulk-action-v1.0.0.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-status-bulk-action-v1.0.1.zip                      # ステータス一括実行 for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-status-bulk-action-v1.0.1.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-status-bulk-action-v1.0.2.zip                      # ステータス一括実行 for kintone 配布ファイル（最新・手動配置・v1.0.2 ライセンス認証の内部改修）
 │   │   ├── kw-sticky-board-v1.0.0.zip                            # 付箋ボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-sticky-board-v1.0.1.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-sticky-board-v1.0.2.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
