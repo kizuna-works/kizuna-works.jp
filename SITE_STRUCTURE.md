@@ -540,7 +540,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-chat-notify-v1.0.1.zip                             # チャット通知 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-comment-control-v1.0.0.zip                         # コメントコントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-comment-control-v1.0.1.zip                         # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.1＝閉じたコメント欄を手動で開けない不具合を修正）
-│   │   ├── kw-comment-control-v1.0.2.zip                         # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.2＝APIリクエスト節約。一覧バッジのコメント取得をホバー時のみに変更・自分宛メンションの一覧色分けは任意オプション化）
+│   │   ├── kw-comment-control-v1.0.2.zip                         # コメントコントロール for kintone 配布ファイル（旧版・手動配置・v1.0.2＝APIリクエスト節約。一覧バッジのコメント取得をホバー時のみに変更・自分宛メンションの一覧色分けは任意オプション化）
+│   │   ├── kw-comment-control-v1.0.3.zip                         # コメントコントロール for kintone 配布ファイル（最新・手動配置・v1.0.3 ライセンス認証の内部改修）
 │   │   ├── kw-conditional-form-v1.0.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-conditional-form-v1.0.1.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-conditional-form-v1.0.2.zip                        # 条件分岐フォーム for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
@@ -584,7 +585,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-styler-v2.1.1.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-field-styler-v2.1.2.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・手動配置）
 │   │   ├── kw-field-styler-v2.2.0.zip                            # フィールドスタイラー for kintone 配布ファイル（v2.2.0 でサブテーブル対応）
-│   │   ├── kw-field-styler-v2.3.0.zip                            # フィールドスタイラー for kintone 配布ファイル（最新・手動配置・v2.3.0 で条件付きスタイルの色を任意指定可）
+│   │   ├── kw-field-styler-v2.3.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・手動配置・v2.3.0 で条件付きスタイルの色を任意指定可）
+│   │   ├── kw-field-styler-v2.3.1.zip                            # フィールドスタイラー for kintone 配布ファイル（最新・手動配置・v2.3.1 ライセンス認証の内部改修）
 │   │   ├── kw-file-icon-marker-v1.0.0.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-icon-marker-v1.0.1.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-icon-marker-v1.0.2.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
@@ -627,7 +629,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-mail-assist-v1.0.1.zip                             # メールアシスト for kintone 配布ファイル（手動配置・v1.0.1＝法人Outlook対応）
 │   │   ├── kw-mail-assist-v1.1.0.zip                             # メールアシスト for kintone 配布ファイル（手動配置・v1.1.0＝表示条件に複数値OR演算子追加・編集画面幅拡大）
 │   │   ├── kw-mail-assist-v1.1.1.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-mail-assist-v1.1.2.zip                             # メールアシスト for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-mail-assist-v1.1.2.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-mail-assist-v1.1.3.zip                             # メールアシスト for kintone 配布ファイル（最新・手動配置・v1.1.3 ライセンス認証の内部改修）
 │   │   ├── kw-quick-history-view-v1.0.0.zip                      # クイック履歴ビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-history-view-v1.0.1.zip                      # クイック履歴ビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-history-view-v1.0.2.zip                      # クイック履歴ビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
