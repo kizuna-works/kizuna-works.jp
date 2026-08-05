@@ -1530,6 +1530,20 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           if (e.key === 'Escape') closeLightbox();
         });
       }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-field-styler-v2.3.1.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード（v2.3.1）',
+              link_url: '/downloads/kw-field-styler-v2.3.1.zip'
+            });
+          }
+        });
+      }
     });
   </script>
 </Layout>
