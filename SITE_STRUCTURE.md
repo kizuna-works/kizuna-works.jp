@@ -524,8 +524,10 @@ c:\kizuna-works.jp\
 │   │   ├── kw-address-assist-v1.0.1.zip                          # 住所アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-address-assist-v1.0.2.zip                          # 住所アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-address-assist-v1.1.0.zip                          # 住所アシスト for kintone 配布ファイル（旧版・v1.1.0 でサブテーブル対応）
-│   │   ├── kw-address-assist-v1.2.0.zip                          # 住所アシスト for kintone 配布ファイル（最新・v1.2.0 で住所→郵便番号の逆引き＋住所セット対応）
-│   │   ├── kw-ambiguous-match-v1.0.0.zip                         # あいまい照合 for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-address-assist-v1.2.0.zip                          # 住所アシスト for kintone 配布ファイル（旧版・v1.2.0 で住所→郵便番号の逆引き＋住所セット対応）
+│   │   ├── kw-address-assist-v1.2.1.zip                          # 住所アシスト for kintone 配布ファイル（最新・手動配置・v1.2.1 ライセンス認証の内部改修）
+│   │   ├── kw-ambiguous-match-v1.0.0.zip                         # あいまい照合 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-ambiguous-match-v1.0.1.zip                         # あいまい照合 for kintone 配布ファイル（最新・手動配置・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-attribute-filter-v1.0.0.zip                        # 属性制御フィルター for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=1フィールド全機能）
 │   │   ├── kw-attribute-filter-v1.0.1.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-attribute-filter-v1.0.2.zip                        # 属性制御フィルター for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.2 ライセンス認証の内部改修）
@@ -563,7 +565,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-dashboard-v1.1.1.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-dashboard-v1.1.2.zip                               # ダッシュボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.1.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-elapsed-assist-v1.0.2.zip                          # 経過計算アシスト for kintone 配布ファイル（手動配置・v1.0.2 初版：基準日から9パターン自動計算＋その場再計算＋保存書込＋停止条件＋一括再計算）
-│   │   ├── kw-elapsed-assist-v1.0.3.zip                          # 経過計算アシスト for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-elapsed-assist-v1.0.3.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-elapsed-assist-v1.0.4.zip                          # 経過計算アシスト for kintone 配布ファイル（最新・手動配置・v1.0.4 ライセンス認証の内部改修）
 │   │   ├── kw-excel-paste-v1.0.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-excel-paste-v1.1.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-excel-paste-v1.1.1.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
@@ -572,7 +575,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-comment-v1.0.1.zip                           # フィールドコメント for kintone 配布ファイル（旧版）
 │   │   ├── kw-field-comment-v1.0.2.zip                           # フィールドコメント for kintone 配布ファイル（v1.0.2・ゲストスペース対応）
 │   │   ├── kw-field-comment-v1.1.0.zip                           # フィールドコメント for kintone 配布ファイル（手動配置・v1.1.0 編集/新規画面対応＋アイコン10種＋カラーコード入力＋設定アコーディオン化）
-│   │   ├── kw-field-comment-v1.1.1.zip                           # フィールドコメント for kintone 配布ファイル（手動配置・v1.1.1 フィールド名非表示フィールドのコメント誤付着を修正＋入力欄直上に表示＋ラベル改称後も追従）
+│   │   ├── kw-field-comment-v1.1.1.zip                           # フィールドコメント for kintone 配布ファイル（旧版・手動配置・v1.1.1 フィールド名非表示フィールドのコメント誤付着を修正＋入力欄直上に表示＋ラベル改称後も追従）
+│   │   ├── kw-field-comment-v1.1.2.zip                           # フィールドコメント for kintone 配布ファイル（最新・手動配置・v1.1.2 ライセンス認証の内部改修）
 │   │   ├── kw-field-styler-v1.1.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-field-styler-v1.2.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-field-styler-v2.0.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
@@ -600,7 +604,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-input-assist-v1.0.0.zip                            # 入力アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-input-assist-v1.0.1.zip                            # 入力アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-input-assist-v1.0.2.zip                            # 入力アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-input-assist-v2.0.0.zip                            # 入力アシスト for kintone 配布ファイル（手動配置・v2.0.0＝入力サジェスト追加／サブテーブル内対応。公開後に参照アプリの一覧選択と不具合2件の修正を同じ 2.0.0 として差し替え）
+│   │   ├── kw-input-assist-v2.0.0.zip                            # 入力アシスト for kintone 配布ファイル（旧版・手動配置・v2.0.0＝入力サジェスト追加／サブテーブル内対応。公開後に参照アプリの一覧選択と不具合2件の修正を同じ 2.0.0 として差し替え）
+│   │   ├── kw-input-assist-v2.0.1.zip                            # 入力アシスト for kintone 配布ファイル（最新・手動配置・v2.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-input-template-v1.0.0.zip                          # 入力テンプレート for kintone v1.0.0 配布ファイル（プレミアム第9弾・単品販売なし・共通/個人2階層・動的な日付・保管アプリはスペース内で共有）
 │   │   ├── kw-input-template-v1.0.1.zip                          # 入力テンプレート for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-list-styler-v1.0.0.zip                             # 一覧スタイラー for kintone 配布ファイル（旧版・参考保管）
@@ -689,7 +694,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-summary-bar-v2.1.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-summary-bar-v2.1.1.zip                             # 集計サマリーバー for kintone 配布ファイル（手動配置・v2.1.1 でゲストスペース対応）
 │   │   ├── kw-summary-bar-v2.1.2.zip                             # 集計サマリーバー for kintone 配布ファイル（手動配置・v2.1.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
-│   │   ├── kw-text-join-v1.0.0.zip                               # 文字列結合 for kintone v1.0.0 配布ファイル（手動配置・ちょこっと・複数フィールドを1つの文字列へ自動入力／明細集約／重複チェック／一括反映）
+│   │   ├── kw-text-join-v1.0.0.zip                               # 文字列結合 for kintone v1.0.0 配布ファイル（旧版・手動配置・ちょこっと・複数フィールドを1つの文字列へ自動入力／明細集約／重複チェック／一括反映）
+│   │   ├── kw-text-join-v1.0.1.zip                               # 文字列結合 for kintone 配布ファイル（最新・手動配置・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-theme-styler-v1.0.0.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-theme-styler-v1.0.1.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-theme-styler-v1.1.0.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・手動配置・v1.1.0 詳細画面/明細ヘッダーの個別カラー指定＋設定画面v2レイアウト刷新）
