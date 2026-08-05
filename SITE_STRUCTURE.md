@@ -515,82 +515,161 @@ c:\kizuna-works.jp\
 │   │       └── kintone-lookup-plugin-hikaku.png         # 「kintoneルックアップを快適にするプラグイン比較」記事 OGP・サムネイル
 │   ├── downloads/
 │   │   ├── .gitkeep                                    # ディレクトリをGit管理するための空ファイル
-│   │   ├── kw-field-styler-v2.1.2.zip                  # フィールドスタイラー for kintone 配布ファイル（旧版・手動配置）
-│   │   ├── kw-field-styler-v2.3.0.zip                  # フィールドスタイラー for kintone 配布ファイル（最新・手動配置・v2.3.0 で条件付きスタイルの色を任意指定可）
-│   │   ├── kw-field-styler-v2.2.0.zip                  # フィールドスタイラー for kintone 配布ファイル（v2.2.0 でサブテーブル対応）
-│   │   ├── kw-conditional-numbering-v2.1.0.zip         # 条件分岐自動採番 for kintone 配布ファイル（最新・手動配置・v2.1.0 重複チェックと修正／採番範囲を全件へ）
-│   │   ├── kw-conditional-numbering-v2.0.0.zip         # 条件分岐自動採番 for kintone 配布ファイル（v2.0.0 複数フィールド採番）
-│   │   ├── kw-conditional-numbering-v1.1.2.zip         # 条件分岐自動採番 for kintone 配布ファイル（旧版）
-│   │   ├── kw-form-deco-v1.0.2.zip                     # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-form-deco-v1.0.3.zip                     # FormDeco for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
-│   │   ├── kw-lookup-suggest-v1.0.2.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置）
-│   │   ├── kw-lookup-suggest-v2.0.0.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.0.0 でサブテーブル内ルックアップ対応）
-│   │   ├── kw-lookup-suggest-v2.1.0.zip                # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.1.0 でモバイル版 kintone 対応＝通常ルックアップのみ）
-│   │   ├── kw-lookup-suggest-v2.2.1.zip                # ルックアップサジェスト for kintone 配布ファイル（最新・手動配置・v2.2.1＝候補リストの表示方法選択／複数ルックアップの不具合修正／サジェスト併記フィールドの拡充）
-│   │   ├── kw-quick-side-view-v1.0.2.zip               # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-quick-side-view-v1.0.3.zip               # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
-│   │   ├── kw-quick-search-v1.1.2.zip                  # クイックサーチ for kintone 配布ファイル（手動配置・v1.1.2 でゲストスペース対応）
-│   │   ├── kw-quick-search-v1.2.0.zip                  # クイックサーチ for kintone 配布ファイル（手動配置・v1.2.0＝期間フィルタ追加）
-│   │   ├── kw-file-icon-marker-v1.0.3.zip              # 添付ファイルアイコン表示 for kintone 配布ファイル（手動配置・v1.0.3 で設定画面 全幅化/サイドバー250px/拡大縮小時の操作性改善）
-│   │   ├── kw-record-lock-v1.0.3.zip                   # レコードロック for kintone 配布ファイル（手動配置・v1.0.3 で設定画面 サイドバー250px/条件表の拡大縮小時 操作性改善）
-│   │   ├── kw-field-comment-v1.0.0.zip                 # フィールドコメント for kintone 配布ファイル（旧版）
-│   │   ├── kw-field-comment-v1.0.1.zip                 # フィールドコメント for kintone 配布ファイル（旧版）
-│   │   ├── kw-field-comment-v1.0.2.zip                 # フィールドコメント for kintone 配布ファイル（v1.0.2・ゲストスペース対応）
-│   │   ├── kw-field-comment-v1.1.0.zip                 # フィールドコメント for kintone 配布ファイル（手動配置・v1.1.0 編集/新規画面対応＋アイコン10種＋カラーコード入力＋設定アコーディオン化）
-│   │   ├── kw-field-comment-v1.1.1.zip                 # フィールドコメント for kintone 配布ファイル（手動配置・v1.1.1 フィールド名非表示フィールドのコメント誤付着を修正＋入力欄直上に表示＋ラベル改称後も追従）
-│   │   ├── kw-sidebar-enhancer-v1.0.2.zip              # サイドバー拡張 for kintone 配布ファイル（最新・手動配置・v1.0.2 で数値の桁区切り撤去／ラベルのHTML描画／設定画面の保存ボタン／タブ初期表示の高速化）
-│   │   ├── kw-sidebar-enhancer-v1.0.0.zip              # サイドバー拡張 for kintone 配布ファイル（旧版・v1.0.0 初版）
-│   │   ├── kw-read-check-v1.0.1.zip                   # 既読チェック for kintone 配布ファイル（最新・手動配置・v1.0.1 で折りたたみサイドバーの展開を公式APIへ変更＋サイドバータブの表示順を宣言的に固定）
-│   │   ├── kw-read-check-v1.0.0.zip                   # 既読チェック for kintone 配布ファイル（旧版・v1.0.0 初版）
-│   │   ├── kw-record-recovery-v1.0.0.zip              # 削除レコード復元 for kintone 配布ファイル（手動配置・v1.0.0 初版）
-│   │   ├── kw-theme-styler-v1.1.0.zip                  # テーマスタイラー for kintone 配布ファイル（手動配置・v1.1.0 詳細画面/明細ヘッダーの個別カラー指定＋設定画面v2レイアウト刷新）
-│   │   ├── kw-address-assist-v1.1.0.zip                # 住所アシスト for kintone 配布ファイル（旧版・v1.1.0 でサブテーブル対応）
-│   │   ├── kw-address-assist-v1.2.0.zip                # 住所アシスト for kintone 配布ファイル（最新・v1.2.0 で住所→郵便番号の逆引き＋住所セット対応）
-│   │   ├── kw-address-assist-v1.0.2.zip                # 住所アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-quick-history-view-v1.0.2.zip            # クイック履歴ビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-quick-history-view-v1.0.3.zip            # クイック履歴ビュー for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
-│   │   ├── kw-related-record-popup-v1.0.3.zip          # 関連レコードポップアップ表示 for kintone 配布ファイル（手動配置・v1.0.3：ページ送りでポップアップが閉じる不具合の修正＋コメント系プラグインとのアイコン競合の自動回避）
-│   │   ├── kw-summary-bar-v2.1.1.zip                   # 集計サマリーバー for kintone 配布ファイル（手動配置・v2.1.1 でゲストスペース対応）
-│   │   ├── kw-summary-bar-v2.1.2.zip                   # 集計サマリーバー for kintone 配布ファイル（手動配置・v2.1.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
-│   │   ├── kw-csv-export-v1.1.1.zip                    # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.1.1 でゲストスペース対応）
-│   │   ├── kw-csv-export-v1.2.0.zip                    # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.2.0 サブテーブル展開＋区切り記号列）
-│   │   ├── kw-csv-export-v1.3.0.zip                    # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.3.0 出力列上限100→500・設定画面アコーディオン化）
-│   │   ├── kw-quick-tab-v1.0.2.zip                     # クイックタブ for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-quick-tab-v1.0.3.zip                     # クイックタブ for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
-│   │   ├── kw-file-preview-v1.0.2.zip                  # 添付ファイルプレビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-quick-toc-v1.2.0.zip                     # クイック目次 for kintone 配布ファイル（手動配置・v1.2.0 スペース対応/見出し表示/ステータスバッジ文字列1行）
-│   │   ├── kw-elapsed-assist-v1.0.2.zip                # 経過計算アシスト for kintone 配布ファイル（手動配置・v1.0.2 初版：基準日から9パターン自動計算＋その場再計算＋保存書込＋停止条件＋一括再計算）
-│   │   ├── kw-list-styler-v1.0.2.zip                   # 一覧スタイラー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-list-styler-v1.0.3.zip                   # 一覧スタイラー for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
-│   │   ├── kw-input-assist-v1.0.2.zip                  # 入力アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-input-assist-v2.0.0.zip                  # 入力アシスト for kintone 配布ファイル（手動配置・v2.0.0＝入力サジェスト追加／サブテーブル内対応。公開後に参照アプリの一覧選択と不具合2件の修正を同じ 2.0.0 として差し替え）
-│   │   ├── kw-conditional-form-v1.0.2.zip              # 条件分岐フォーム for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-conditional-form-v2.0.0.zip              # 条件分岐フォーム for kintone 配布ファイル（手動配置・v2.0.0＝対象ユーザー条件）
-│   │   ├── kw-conditional-form-v2.1.0.zip              # 条件分岐フォーム for kintone 配布ファイル（手動配置・v2.1.0＝いずれかに一致/いずれにも一致しない演算子・AND/OR誤設定ブロック・設定画面のルール折りたたみ）
-│   │   ├── kw-sheet-edit-v1.0.1.zip                    # シート編集 for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
-│   │   ├── kw-sheet-edit-v1.1.0.zip                    # シート編集 for kintone 配布ファイル（手動配置・v1.1.0＝サブテーブル対応）
-│   │   ├── kw-sheet-edit-v1.3.0.zip                    # シート編集 for kintone 配布ファイル（手動配置・v1.3.0＝「値が空」の絞り込み＋番号クリックで詳細＋数値をフィールド設定どおり表示）
-│   │   ├── kw-sheet-edit-v1.4.0.zip                    # シート編集 for kintone 配布ファイル（手動配置・v1.4.0＝組織/ユーザー/グループの絞り込みを選択式に＋設定セットの複製・アコーディオン表示）
-│   │   ├── kw-sticky-board-v1.0.1.zip                  # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
-│   │   ├── kw-sticky-board-v1.0.2.zip                  # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
-│   │   ├── kw-mail-assist-v1.0.1.zip                   # メールアシスト for kintone 配布ファイル（手動配置・v1.0.1＝法人Outlook対応）
-│   │   ├── kw-mail-assist-v1.1.0.zip                   # メールアシスト for kintone 配布ファイル（手動配置・v1.1.0＝表示条件に複数値OR演算子追加・編集画面幅拡大）
-│   │   ├── kw-comment-control-v1.0.1.zip               # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.1＝閉じたコメント欄を手動で開けない不具合を修正）
-│   │   ├── kw-comment-control-v1.0.2.zip               # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.2＝APIリクエスト節約。一覧バッジのコメント取得をホバー時のみに変更・自分宛メンションの一覧色分けは任意オプション化）
-│   │   ├── kw-dashboard-v1.1.0.zip                      # ダッシュボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第2弾・無料/プレミアム共通zip・v1.1.0=ポータルレイアウト構成）
-│   │   ├── kw-attribute-filter-v1.0.0.zip               # 属性制御フィルター for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=1フィールド全機能）
-│   │   ├── kw-report-designer-v1.0.2.zip                # 帳票デザイナー for kintone 配布ファイル（手動配置・プレミアムプラグイン・v1.0.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
-│   │   ├── kw-lookup-sync-v1.0.0.zip                     # ルックアップ自動同期 for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=参照先1組で全機能）
-│   │   ├── kw-lookup-sync-v2.0.2.zip                     # ルックアップ自動同期 for kintone v2.0.2 配布ファイル（重複しうるキー対応＝方式1/方式2・入力補完・PC/モバイル）
-│   │   ├── kw-lookup-sync-v2.1.1.zip                     # ルックアップ自動同期 for kintone v2.1.1 配布ファイル（全件同期を自己修復型に＝キー未設定でも名前一致で同期・前後空白正規化・要確認内訳CSV出力。最新版）
-│   │   ├── kw-card-board-v1.0.0.zip                     # カードボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第6弾・無料/プレミアム共通zip・無料=1ビューで全機能・複数ビューはプレミアム）
-│   │   ├── kw-chat-notify-v1.0.0.zip                     # チャット通知 for kintone v1.0.0 配布ファイル（プレミアム・単品販売なし）
-│   │   ├── kw-related-enhancer-v1.0.0.zip               # 関連レコード拡張 for kintone 配布ファイル（手動配置・プレミアムプラグイン第5弾・無料/プレミアム共通zip・無料=1対象で集計/見た目/検索・F-04/05/06はプレミアム限定）
-│   │   ├── kw-user-autofill-v1.0.0.zip                  # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.0＝属性自動転記＋プロフィールカード／捺印モード）
-│   │   ├── kw-user-autofill-v1.0.1.zip                  # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.1 ライセンス認証の内部改修＋設定画面レイアウト統一＋転記設定テーブルの潰れ対策）
-│   │   ├── kw-input-template-v1.0.0.zip                 # 入力テンプレート for kintone v1.0.0 配布ファイル（プレミアム第9弾・単品販売なし・共通/個人2階層・動的な日付・保管アプリはスペース内で共有）
-│   │   ├── kw-text-join-v1.0.0.zip                      # 文字列結合 for kintone v1.0.0 配布ファイル（手動配置・ちょこっと・複数フィールドを1つの文字列へ自動入力／明細集約／重複チェック／一括反映）
-│   │   └── kw-view-control-v1.0.0.zip                   # 一覧コントロール for kintone v1.0.0 配布ファイル（手動配置・ちょこっと・一覧/グラフの表示制御をユーザー・組織・グループ単位で出し分け／「最初に開く」一覧の指定／直リンクのガード）
+│   │   ├── kw-accordion-tab-v1.0.0.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-accordion-tab-v2.0.0.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-accordion-tab-v2.0.1.zip                           # アコーディオンタブ for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-address-assist-v1.0.0.zip                          # 住所アシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-address-assist-v1.0.1.zip                          # 住所アシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-address-assist-v1.0.2.zip                          # 住所アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-address-assist-v1.1.0.zip                          # 住所アシスト for kintone 配布ファイル（旧版・v1.1.0 でサブテーブル対応）
+│   │   ├── kw-address-assist-v1.2.0.zip                          # 住所アシスト for kintone 配布ファイル（最新・v1.2.0 で住所→郵便番号の逆引き＋住所セット対応）
+│   │   ├── kw-ambiguous-match-v1.0.0.zip                         # あいまい照合 for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-attribute-filter-v1.0.0.zip                        # 属性制御フィルター for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=1フィールド全機能）
+│   │   ├── kw-attribute-filter-v1.0.1.zip                        # 属性制御フィルター for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-bulk-update-v1.0.0.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-bulk-update-v1.0.1.zip                             # かんたん一括更新 for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-card-board-v1.0.0.zip                              # カードボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第6弾・無料/プレミアム共通zip・無料=1ビューで全機能・複数ビューはプレミアム）
+│   │   ├── kw-chat-notify-v1.0.0.zip                             # チャット通知 for kintone v1.0.0 配布ファイル（プレミアム・単品販売なし）
+│   │   ├── kw-comment-control-v1.0.0.zip                         # コメントコントロール for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-comment-control-v1.0.1.zip                         # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.1＝閉じたコメント欄を手動で開けない不具合を修正）
+│   │   ├── kw-comment-control-v1.0.2.zip                         # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.2＝APIリクエスト節約。一覧バッジのコメント取得をホバー時のみに変更・自分宛メンションの一覧色分けは任意オプション化）
+│   │   ├── kw-conditional-form-v1.0.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-conditional-form-v1.0.1.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-conditional-form-v1.0.2.zip                        # 条件分岐フォーム for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-conditional-form-v2.0.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（手動配置・v2.0.0＝対象ユーザー条件）
+│   │   ├── kw-conditional-form-v2.1.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（手動配置・v2.1.0＝いずれかに一致/いずれにも一致しない演算子・AND/OR誤設定ブロック・設定画面のルール折りたたみ）
+│   │   ├── kw-conditional-numbering-v1.1.0.zip                   # 条件分岐自動採番 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-conditional-numbering-v1.1.1.zip                   # 条件分岐自動採番 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-conditional-numbering-v1.1.2.zip                   # 条件分岐自動採番 for kintone 配布ファイル（旧版）
+│   │   ├── kw-conditional-numbering-v2.0.0.zip                   # 条件分岐自動採番 for kintone 配布ファイル（v2.0.0 複数フィールド採番）
+│   │   ├── kw-conditional-numbering-v2.1.0.zip                   # 条件分岐自動採番 for kintone 配布ファイル（最新・手動配置・v2.1.0 重複チェックと修正／採番範囲を全件へ）
+│   │   ├── kw-csv-export-v1.0.0.zip                              # かんたんCSV出力 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-csv-export-v1.0.1.zip                              # かんたんCSV出力 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-csv-export-v1.1.0.zip                              # かんたんCSV出力 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-csv-export-v1.1.1.zip                              # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.1.1 でゲストスペース対応）
+│   │   ├── kw-csv-export-v1.2.0.zip                              # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.2.0 サブテーブル展開＋区切り記号列）
+│   │   ├── kw-csv-export-v1.2.1.zip                              # かんたんCSV出力 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-csv-export-v1.3.0.zip                              # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.3.0 出力列上限100→500・設定画面アコーディオン化）
+│   │   ├── kw-dashboard-v1.1.0.zip                               # ダッシュボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第2弾・無料/プレミアム共通zip・v1.1.0=ポータルレイアウト構成）
+│   │   ├── kw-dashboard-v1.1.1.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-dashboard-v1.1.2.zip                               # ダッシュボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.1.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-elapsed-assist-v1.0.2.zip                          # 経過計算アシスト for kintone 配布ファイル（手動配置・v1.0.2 初版：基準日から9パターン自動計算＋その場再計算＋保存書込＋停止条件＋一括再計算）
+│   │   ├── kw-elapsed-assist-v1.0.3.zip                          # 経過計算アシスト for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-excel-paste-v1.0.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-excel-paste-v1.1.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-excel-paste-v1.1.1.zip                             # エクセル一括貼り付け for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-field-comment-v1.0.0.zip                           # フィールドコメント for kintone 配布ファイル（旧版）
+│   │   ├── kw-field-comment-v1.0.1.zip                           # フィールドコメント for kintone 配布ファイル（旧版）
+│   │   ├── kw-field-comment-v1.0.2.zip                           # フィールドコメント for kintone 配布ファイル（v1.0.2・ゲストスペース対応）
+│   │   ├── kw-field-comment-v1.1.0.zip                           # フィールドコメント for kintone 配布ファイル（手動配置・v1.1.0 編集/新規画面対応＋アイコン10種＋カラーコード入力＋設定アコーディオン化）
+│   │   ├── kw-field-comment-v1.1.1.zip                           # フィールドコメント for kintone 配布ファイル（手動配置・v1.1.1 フィールド名非表示フィールドのコメント誤付着を修正＋入力欄直上に表示＋ラベル改称後も追従）
+│   │   ├── kw-field-styler-v1.1.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-field-styler-v1.2.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-field-styler-v2.0.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-field-styler-v2.1.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-field-styler-v2.1.1.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-field-styler-v2.1.2.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・手動配置）
+│   │   ├── kw-field-styler-v2.2.0.zip                            # フィールドスタイラー for kintone 配布ファイル（v2.2.0 でサブテーブル対応）
+│   │   ├── kw-field-styler-v2.3.0.zip                            # フィールドスタイラー for kintone 配布ファイル（最新・手動配置・v2.3.0 で条件付きスタイルの色を任意指定可）
+│   │   ├── kw-file-icon-marker-v1.0.0.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-file-icon-marker-v1.0.1.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-file-icon-marker-v1.0.2.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-file-icon-marker-v1.0.3.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（手動配置・v1.0.3 で設定画面 全幅化/サイドバー250px/拡大縮小時の操作性改善）
+│   │   ├── kw-file-preview-v1.0.0.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-file-preview-v1.0.1.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-file-preview-v1.0.2.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-file-preview-v2.0.0.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-file-preview-v2.1.0.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-file-preview-v2.2.0.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-form-deco-v1.0.0.zip                               # FormDeco for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-form-deco-v1.0.1.zip                               # FormDeco for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-form-deco-v1.0.2.zip                               # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-form-deco-v1.0.3.zip                               # FormDeco for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-input-assist-v1.0.0.zip                            # 入力アシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-input-assist-v1.0.1.zip                            # 入力アシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-input-assist-v1.0.2.zip                            # 入力アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-input-assist-v2.0.0.zip                            # 入力アシスト for kintone 配布ファイル（手動配置・v2.0.0＝入力サジェスト追加／サブテーブル内対応。公開後に参照アプリの一覧選択と不具合2件の修正を同じ 2.0.0 として差し替え）
+│   │   ├── kw-input-template-v1.0.0.zip                          # 入力テンプレート for kintone v1.0.0 配布ファイル（プレミアム第9弾・単品販売なし・共通/個人2階層・動的な日付・保管アプリはスペース内で共有）
+│   │   ├── kw-list-styler-v1.0.0.zip                             # 一覧スタイラー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-list-styler-v1.0.1.zip                             # 一覧スタイラー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-list-styler-v1.0.2.zip                             # 一覧スタイラー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-list-styler-v1.0.3.zip                             # 一覧スタイラー for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-lookup-suggest-v1.0.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-lookup-suggest-v1.0.1.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-lookup-suggest-v1.0.2.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置）
+│   │   ├── kw-lookup-suggest-v2.0.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.0.0 でサブテーブル内ルックアップ対応）
+│   │   ├── kw-lookup-suggest-v2.1.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.1.0 でモバイル版 kintone 対応＝通常ルックアップのみ）
+│   │   ├── kw-lookup-suggest-v2.2.1.zip                          # ルックアップサジェスト for kintone 配布ファイル（最新・手動配置・v2.2.1＝候補リストの表示方法選択／複数ルックアップの不具合修正／サジェスト併記フィールドの拡充）
+│   │   ├── kw-lookup-sync-v1.0.0.zip                             # ルックアップ自動同期 for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=参照先1組で全機能）
+│   │   ├── kw-lookup-sync-v1.0.1.zip                             # ルックアップ自動同期 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-lookup-sync-v2.0.2.zip                             # ルックアップ自動同期 for kintone v2.0.2 配布ファイル（重複しうるキー対応＝方式1/方式2・入力補完・PC/モバイル）
+│   │   ├── kw-lookup-sync-v2.1.1.zip                             # ルックアップ自動同期 for kintone v2.1.1 配布ファイル（全件同期を自己修復型に＝キー未設定でも名前一致で同期・前後空白正規化・要確認内訳CSV出力。最新版）
+│   │   ├── kw-mail-assist-v1.0.1.zip                             # メールアシスト for kintone 配布ファイル（手動配置・v1.0.1＝法人Outlook対応）
+│   │   ├── kw-mail-assist-v1.1.0.zip                             # メールアシスト for kintone 配布ファイル（手動配置・v1.1.0＝表示条件に複数値OR演算子追加・編集画面幅拡大）
+│   │   ├── kw-mail-assist-v1.1.1.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-mail-assist-v1.1.2.zip                             # メールアシスト for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-quick-history-view-v1.0.0.zip                      # クイック履歴ビュー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-history-view-v1.0.1.zip                      # クイック履歴ビュー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-history-view-v1.0.2.zip                      # クイック履歴ビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-quick-history-view-v1.0.3.zip                      # クイック履歴ビュー for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-quick-search-v1.0.0.zip                            # クイックサーチ for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-search-v1.1.0.zip                            # クイックサーチ for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-search-v1.1.1.zip                            # クイックサーチ for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-search-v1.1.2.zip                            # クイックサーチ for kintone 配布ファイル（手動配置・v1.1.2 でゲストスペース対応）
+│   │   ├── kw-quick-search-v1.2.0.zip                            # クイックサーチ for kintone 配布ファイル（手動配置・v1.2.0＝期間フィルタ追加）
+│   │   ├── kw-quick-search-v1.2.2.zip                            # クイックサーチ for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-quick-side-view-v1.0.0.zip                         # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-side-view-v1.0.1.zip                         # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-side-view-v1.0.2.zip                         # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-quick-side-view-v1.0.3.zip                         # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-quick-tab-v1.0.0.zip                               # クイックタブ for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-tab-v1.0.1.zip                               # クイックタブ for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-tab-v1.0.2.zip                               # クイックタブ for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
+│   │   ├── kw-quick-tab-v1.0.3.zip                               # クイックタブ for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-quick-toc-v1.0.0.zip                               # クイック目次 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-toc-v1.0.1.zip                               # クイック目次 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-toc-v1.0.2.zip                               # クイック目次 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-toc-v1.2.0.zip                               # クイック目次 for kintone 配布ファイル（手動配置・v1.2.0 スペース対応/見出し表示/ステータスバッジ文字列1行）
+│   │   ├── kw-read-check-v1.0.0.zip                              # 既読チェック for kintone 配布ファイル（旧版・v1.0.0 初版）
+│   │   ├── kw-read-check-v1.0.1.zip                              # 既読チェック for kintone 配布ファイル（最新・手動配置・v1.0.1 で折りたたみサイドバーの展開を公式APIへ変更＋サイドバータブの表示順を宣言的に固定）
+│   │   ├── kw-record-lock-v1.0.0.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-record-lock-v1.0.1.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-record-lock-v1.0.2.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-record-lock-v1.0.3.zip                             # レコードロック for kintone 配布ファイル（手動配置・v1.0.3 で設定画面 サイドバー250px/条件表の拡大縮小時 操作性改善）
+│   │   ├── kw-record-recovery-v1.0.0.zip                         # 削除レコード復元 for kintone 配布ファイル（手動配置・v1.0.0 初版）
+│   │   ├── kw-related-enhancer-v1.0.0.zip                        # 関連レコード拡張 for kintone 配布ファイル（手動配置・プレミアムプラグイン第5弾・無料/プレミアム共通zip・無料=1対象で集計/見た目/検索・F-04/05/06はプレミアム限定）
+│   │   ├── kw-related-record-popup-v1.0.0.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-related-record-popup-v1.0.1.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-related-record-popup-v1.0.2.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-related-record-popup-v1.0.3.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（手動配置・v1.0.3：ページ送りでポップアップが閉じる不具合の修正＋コメント系プラグインとのアイコン競合の自動回避）
+│   │   ├── kw-report-designer-v1.0.0.zip                         # 帳票デザイナー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-report-designer-v1.0.1.zip                         # 帳票デザイナー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-report-designer-v1.0.2.zip                         # 帳票デザイナー for kintone 配布ファイル（手動配置・プレミアムプラグイン・v1.0.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-reuse-control-v1.0.0.zip                           # レコード再利用コントロール for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-sheet-edit-v1.0.0.zip                              # シート編集 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-sheet-edit-v1.0.1.zip                              # シート編集 for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
+│   │   ├── kw-sheet-edit-v1.1.0.zip                              # シート編集 for kintone 配布ファイル（手動配置・v1.1.0＝サブテーブル対応）
+│   │   ├── kw-sheet-edit-v1.3.0.zip                              # シート編集 for kintone 配布ファイル（手動配置・v1.3.0＝「値が空」の絞り込み＋番号クリックで詳細＋数値をフィールド設定どおり表示）
+│   │   ├── kw-sheet-edit-v1.4.0.zip                              # シート編集 for kintone 配布ファイル（手動配置・v1.4.0＝組織/ユーザー/グループの絞り込みを選択式に＋設定セットの複製・アコーディオン表示）
+│   │   ├── kw-sidebar-enhancer-v1.0.0.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・v1.0.0 初版）
+│   │   ├── kw-sidebar-enhancer-v1.0.2.zip                        # サイドバー拡張 for kintone 配布ファイル（最新・手動配置・v1.0.2 で数値の桁区切り撤去／ラベルのHTML描画／設定画面の保存ボタン／タブ初期表示の高速化）
+│   │   ├── kw-status-bulk-action-v1.0.0.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-status-bulk-action-v1.0.1.zip                      # ステータス一括実行 for kintone 配布ファイル（最新・手動配置）
+│   │   ├── kw-sticky-board-v1.0.0.zip                            # 付箋ボード for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-sticky-board-v1.0.1.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
+│   │   ├── kw-sticky-board-v1.0.2.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-summary-bar-v1.0.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-summary-bar-v2.0.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-summary-bar-v2.1.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-summary-bar-v2.1.1.zip                             # 集計サマリーバー for kintone 配布ファイル（手動配置・v2.1.1 でゲストスペース対応）
+│   │   ├── kw-summary-bar-v2.1.2.zip                             # 集計サマリーバー for kintone 配布ファイル（手動配置・v2.1.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-text-join-v1.0.0.zip                               # 文字列結合 for kintone v1.0.0 配布ファイル（手動配置・ちょこっと・複数フィールドを1つの文字列へ自動入力／明細集約／重複チェック／一括反映）
+│   │   ├── kw-theme-styler-v1.0.0.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-theme-styler-v1.0.1.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-theme-styler-v1.1.0.zip                            # テーマスタイラー for kintone 配布ファイル（手動配置・v1.1.0 詳細画面/明細ヘッダーの個別カラー指定＋設定画面v2レイアウト刷新）
+│   │   ├── kw-user-autofill-v1.0.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.0＝属性自動転記＋プロフィールカード／捺印モード）
+│   │   ├── kw-user-autofill-v1.0.1.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.1 ライセンス認証の内部改修＋設定画面レイアウト統一＋転記設定テーブルの潰れ対策）
+│   │   └── kw-view-control-v1.0.0.zip                            # 一覧コントロール for kintone v1.0.0 配布ファイル（手動配置・ちょこっと・一覧/グラフの表示制御をユーザー・組織・グループ単位で出し分け／「最初に開く」一覧の指定／直リンクのガード）
 │   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ（第三者CDN不使用）。現状 kw-file-preview のみ使用
 │   │   ├── README.md           # 収録ライブラリ・バージョン・ライセンス・更新手順
 │   │   ├── pdfjs/3.11.174/     # PDF.js（pdf.min.js / pdf.worker.min.js）— PDF描画
