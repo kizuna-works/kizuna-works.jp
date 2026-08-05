@@ -52,10 +52,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "かんたんCSV出力 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.3.0",
-          "dateModified": "2026-08-04",
+          "softwareVersion": "1.4.0",
+          "dateModified": "2026-08-05",
           "url": "https://kizuna-works.jp/plugins/csv-export/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-csv-export-v1.3.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-csv-export-v1.4.0.zip",
           "image": "https://kizuna-works.jp/images/csv-export-banner.png",
           "offers": {
             "@type": "Offer",
@@ -72,6 +72,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "url": "https://kizuna-works.jp"
           },
           "featureList": [
+            "先頭行を項目名にするかどうかをテンプレート単位で選択（既定ON・OFFでデータ行のみ出力）",
             "1テンプレートあたり最大500列まで出力可能（kintoneの1アプリのフィールド数上限と同数）",
             "設定画面はテンプレートを開閉できるアコーディオン形式。見出しに設定済みの列数・対象一覧・条件数・明細展開の有無を表示",
             "サブテーブル（明細）展開：明細内フィールドを列に選ぶと1明細行＝1CSV行に展開し親項目を各行に繰り返す",
@@ -834,53 +835,37 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.3.0</span>
+        <span class="hero-version">v1.4.0</span>
       </div>
       <h1 class="hero-title">かんたんCSV出力 for kintone</h1>
-      <p class="hero-copy">かんたんCSV出力 for kintone は、レコード一覧の絞り込み結果を「用途別テンプレート」（出力する列・並び順・ヘッダー名・文字コード）でワンクリック書き出しする kintone プラグインです。「得意先提出用」「基幹システム取込用」などのフォーマットを名前付きで保存でき、クイックサーチ等の絞り込みにそのまま連動。Excel の文字化け対策（Shift-JIS／UTF-8 BOM）にも対応します。<strong>v1.3.0 では、1 テンプレートに設定できる列を 100 列から 500 列に拡張しました。kintone の 1 アプリあたりのフィールド数上限が 500 のため、項目数の多いアプリでも「全項目を 1 回で書き出す」用途に対応できます。</strong></p>
+      <p class="hero-copy">かんたんCSV出力 for kintone は、レコード一覧の絞り込み結果を「用途別テンプレート」（出力する列・並び順・ヘッダー名・文字コード）でワンクリック書き出しする kintone プラグインです。「得意先提出用」「基幹システム取込用」などのフォーマットを名前付きで保存でき、クイックサーチ等の絞り込みにそのまま連動。Excel の文字化け対策（Shift-JIS／UTF-8 BOM）にも対応します。<strong>v1.4.0 では、kintone 標準の書き出しと同じように「先頭行を項目名にする」かどうかをテンプレートごとに選べるようにしました。オフにするとデータ行のみを出力するので、項目名の行を受け付けない基幹システム・会計ソフトへの取込用ファイルもそのまま渡せます。</strong></p>
     </section>
 
-    <!-- Update Info (v1.3.0) -->
+    <!-- Update Info (v1.4.0) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.3.0：出力できる列を 100 列 → 500 列に拡張しました（設定画面もテンプレート単位で開閉できるように）</h2>
+          <h2 class="update-title">v1.4.0：先頭行を項目名にするかどうかを選べるようにしました（データ行のみの出力に対応）</h2>
         </div>
-        <p class="update-desc">これまで 1 テンプレートに設定できる列は 100 列まででした。「kintone で集約したデータを別システムへ取り込むため、列のレイアウトを崩せない」といった用途では 100 列では足りないというご要望をいただき、<strong>上限を 500 列に引き上げました</strong>。kintone では 1 つのアプリに作成できるフィールドの数が 500 までと決められているため、<strong>項目数の多いアプリでも「必要な項目をすべて 1 回で書き出す」用途に対応できます</strong>（レコード番号・作成者・更新日時などの組み込み項目も列に選べます）。あわせて、列数が増えても設定を見失わないよう<strong>テンプレートを開閉できる形（アコーディオン）に変更</strong>し、見出しに<strong>「設定済みの列数・対象一覧・絞り込み条件の数・明細展開の有無」</strong>を表示するようにしました。開くのは 1 つずつなので、テンプレートが増えても目的の設定へすぐ移動できます。</p>
+        <p class="update-desc">これまで、書き出した CSV の 1 行目には必ず項目名（ヘッダー行）が入っていました。基幹システムや会計ソフトへの取込用ファイルでは<strong>「項目名の行が入っているとエラーになる」「取込前に 1 行目を毎回手作業で削っている」</strong>というご要望をいただき、kintone 標準のレコード書き出しと同じように<strong>「先頭行を項目名にする」のオン／オフをテンプレートごとに選べるようにしました</strong>。オフにするとデータ行のみを書き出すので、取込用ファイルをそのまま渡せます。「得意先提出用はオン・基幹取込用はオフ」といった使い分けができます。<strong>既定はオンなので、これまでお使いの設定の出力内容は変わりません。</strong></p>
         <div class="update-shot">
           <div class="screenshot-frame">
             <picture>
-              <source srcset="/images/csv-export-config-07.webp" type="image/webp" />
+              <source srcset="/images/csv-export-config-09.webp" type="image/webp" />
               <img
                 class="zoomable"
-                src="/images/csv-export-config-07.png"
-                alt="かんたんCSV出力 v1.3.0 の設定画面 — テンプレートが折りたたまれた一覧表示。「全項目出力（460 列／すべての一覧）」「明細つき多列（150 列／すべての一覧／明細展開）」「500列フル（500 列／すべての一覧／明細展開）」のように、見出しだけで設定済みの列数と対象が分かる"
+                src="/images/csv-export-config-09.png"
+                alt="かんたんCSV出力 v1.4.0 の設定画面「ファイル出力」欄 — 文字コード・区切り文字・改行コードの下に「先頭行を項目名にする」チェックボックスが追加され、オフにするとデータ行のみを出力する旨の説明が表示されている"
                 loading="lazy"
-                width="1515"
-                height="525"
+                width="1069"
+                height="330"
               />
             </picture>
           </div>
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </div>
-        <div class="update-shot">
-          <div class="screenshot-frame">
-            <picture>
-              <source srcset="/images/csv-export-config-08.webp" type="image/webp" />
-              <img
-                class="zoomable"
-                src="/images/csv-export-config-08.png"
-                alt="かんたんCSV出力 v1.3.0 の「出力する列」設定 — 1テンプレートあたり最大 500 列まで設定できる旨の説明と、列番号つきの行（フィールド選択とヘッダー名の入力欄、並べ替えの▲▼、削除ボタン）が並んだ状態。列が多いときはこの一覧内をスクロールできる"
-                loading="lazy"
-                width="1403"
-                height="600"
-              />
-            </picture>
-          </div>
-          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-        </div>
-        <p class="update-note">列数の多いテンプレートでも動作を確認しています（500 列 × 1,123 レコードの書き出しを実機で検証済み）。サブテーブル（明細）の列を含めるときは、これまでどおり先頭に区切り記号の列が付き、1 明細行＝1 CSV 行に展開されます。<br>既存ユーザーの方は、最新版（v1.3.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定や既存テンプレートはそのまま引き継がれます。</p>
+        <p class="update-note">サブテーブル（明細）の列を含むテンプレートでは、項目名の行を出さない設定にしても<strong>データ行の先頭にある区切り記号の列（既定「*」）はそのまま付きます</strong>。レコードの区切りが分からなくなるのを防ぐためです。なお、書き出した CSV を kintone へ再取込する場合は、項目名の行がないと列の対応付けを毎回手動で指定する必要があるため、オンのままのご利用をおすすめします。<br>あわせて、ライセンス認証の内部処理を改修しました（通信が一時的に失敗したときにサポーター状態を誤判定しないよう、判定不能と無効を区別して扱うようにしています）。<br>既存ユーザーの方は、最新版（v1.4.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定や既存テンプレートはそのまま引き継がれます。</p>
       </div>
     </section>
 
@@ -952,6 +937,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <div class="section-wrapper fade-in">
         <h2 class="section-title-left">主な機能</h2>
         <ul class="feature-list">
+          <li><span><strong>先頭行を項目名にするか選べる（v1.4.0）</strong> — kintone 標準のレコード書き出しと同じく、1 行目に項目名（ヘッダー行）を出力するかどうかをテンプレートごとに選べます（既定はオン）。オフにするとデータ行のみを書き出すので、<strong>項目名の行を受け付けない基幹システム・会計ソフトへの取込用ファイル</strong>でも、取込前に 1 行目を削る手間がいりません。明細を展開する場合、オフにしてもデータ行の区切り記号の列はそのまま付きます。</span></li>
           <li><span><strong>1テンプレートに最大500列（v1.3.0）</strong> — 出力する列は 1 テンプレートあたり 500 列まで設定できます。kintone の 1 アプリのフィールド数上限が 500 のため、項目数の多いアプリでも「必要な項目をすべて 1 回で書き出す」使い方に対応できます（レコード番号・作成者・更新日時などの組み込み項目も列に選べます）。別システムへの取込用に列レイアウトを固定したいケースにも使えます。</span></li>
           <li><span><strong>テンプレートを開閉できる設定画面（v1.3.0）</strong> — テンプレートはアコーディオン形式で、見出しに「設定済みの列数／対象一覧／絞り込み条件の数／明細展開の有無」を表示します。開くのは 1 つずつなので、列数やテンプレート数が増えても目的の設定へすぐ移動できます。</span></li>
           <li><span><strong>サブテーブル（明細）の行展開（v1.2.0）</strong> — 明細内のフィールドを列に選ぶと「1明細行＝1CSV行」に展開し、会社名・日付などの親項目を各行に繰り返して出力します。請求明細・配送先一覧・作業項目などの「親＋明細」をフラットなCSVに書き出せます（1テンプレートにつき明細は1つまで／明細が空のレコードの出力可否も選択可）。</span></li>
@@ -1067,7 +1053,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">CSV に出力したいフィールドと、テーブル形式の一覧ビューがあるアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-csv-export-v1.3.0.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-csv-export-v1.4.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「かんたんCSV出力」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>テンプレート</strong>（出力する列・ヘッダー名・文字コード・ファイル名など）を作成して「保存」</span></li>
@@ -1092,7 +1078,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-csv-export-v1.3.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-csv-export-v1.4.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -1261,10 +1247,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-csv-export-v1.3.0.zip',
+              file_name: 'kw-csv-export-v1.4.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-csv-export-v1.3.0.zip'
+              link_url: '/downloads/kw-csv-export-v1.4.0.zip'
             });
           }
         });
