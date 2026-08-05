@@ -47,10 +47,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "サイドバー拡張 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.0.2",
-          "dateModified": "2026-07-31",
+          "softwareVersion": "1.0.3",
+          "dateModified": "2026-08-05",
           "url": "https://kizuna-works.jp/plugins/sidebar-enhancer/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-sidebar-enhancer-v1.0.2.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-sidebar-enhancer-v1.0.3.zip",
           "image": "https://kizuna-works.jp/images/sidebar-enhancer-banner.png",
           "offers": [
             {
@@ -94,8 +94,8 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             { "@type": "Question", "name": "「進捗」タブはどの kintone 機能を使うものですか？プロセス管理は必須ですか？", "acceptedAnswer": { "@type": "Answer", "text": "kintone の「プロセス管理」（アプリの設定でステータスとアクションを定義する機能）を使っているアプリ向けのタブです。プロセス管理が無効なアプリでは、このタブは表示されません。表示されるのは、プロセス管理のアクションによってステータスがどう変わってきたか（どのアクションで・いつ・誰が）と、現在のステータスに何日とどまっているかです。" } },
             { "@type": "Question", "name": "過去のステータス変更も表示されますか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。kintone にはプロセス管理のステータス変更履歴を取り出す API がないため、本プラグインはアクションが実行された時点で自分で記録します。したがって表示できるのは導入後に実行されたアクションだけです。導入前に通過したとみられるステータスは、まだ通っていない状態と区別できるようグレーの「記録なし」として表示し、凡例と注記も添えます。導入後の変更は、アクション名・日時・実行者つきで記録されます。" } },
             { "@type": "Question", "name": "リンクタブで表示できないサイトがありますか？", "acceptedAnswer": { "@type": "Answer", "text": "あります。セキュリティ設定で他サイトへの埋め込みを禁止しているサイト（金融機関や行政サイトなどに多い）は、仕様上どのプラグインでも埋め込めません。その場合は自動的に「別タブで開く」ボタンへ切り替わるので、操作が行き止まりになることはありません。Googleマップの共有URLは、埋め込み可能な形式へ自動で書き換えてから表示します。" } },
-            { "@type": "Question", "name": "「追加」タブでサブテーブルも登録できますか？", "acceptedAnswer": { "@type": "Answer", "text": "v1.0.2 では対応していません。サブテーブル以外のフィールド型（文字列・数値・日付・選択系・ユーザー選択・ルックアップ・添付ファイルなど）はすべて登録できます。サブテーブルへの入力は、レコードを追加したあとにレコード本体で行ってください。" } },
-            { "@type": "Question", "name": "スマートフォンでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "v1.0.2 では PC 版のみの対応です。モバイル版はサイドバーの構造が異なるため、タブは表示されません（画面が乱れることはありません）。外出先での閲覧が中心の運用では、この点をご確認のうえご検討ください。" } },
+            { "@type": "Question", "name": "「追加」タブでサブテーブルも登録できますか？", "acceptedAnswer": { "@type": "Answer", "text": "現時点では対応していません。サブテーブル以外のフィールド型（文字列・数値・日付・選択系・ユーザー選択・ルックアップ・添付ファイルなど）はすべて登録できます。サブテーブルへの入力は、レコードを追加したあとにレコード本体で行ってください。" } },
+            { "@type": "Question", "name": "スマートフォンでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "現時点では PC 版のみの対応です。モバイル版はサイドバーの構造が異なるため、タブは表示されません（画面が乱れることはありません）。外出先での閲覧が中心の運用では、この点をご確認のうえご検討ください。" } },
             { "@type": "Question", "name": "チェックリストの内容は、担当者が変わっても引き継げますか？", "acceptedAnswer": { "@type": "Answer", "text": "引き継げます。チェック状態はレコード本体ではなく、同じスペース内に自動生成する保管アプリへ保存し、閲覧と編集は全員に許可しています（削除だけを管理者に限定）。そのため、前の担当者が途中まで消化したチェックの続きを、別の担当者がそのまま進められます。レコードの変更履歴を汚さない設計です。" } },
             { "@type": "Question", "name": "ほかのプラグインと同時に使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "使えます。既読チェック・コメントコントロール・クイックタブ・アコーディオンタブ・クイック目次・テーマスタイラー・住所アシストとの同時利用を実機で確認しています。とくに既読チェックとは同じサイドバーにタブが並びますが、表示順は「標準タブ → サイドバー拡張の5タブ → 既読」で固定され、どちらを先にインストールしても変わりません。タブを切り替えると相手のパネルは自動で閉じるため、内容が重なって表示されることもありません。" } },
             { "@type": "Question", "name": "ゲストスペースでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "使えます。ゲストスペース内のアプリでも、設定画面と5つの機能すべてが動作することを確認しています。" } }
@@ -305,7 +305,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <img class="afp-hero-icon" src="/images/sidebar-enhancer-icon.png" alt="サイドバー拡張 for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.0.2</span>
+        <span class="afp-hero-version">v1.0.3</span>
       </div>
       <h1>サイドバー拡張 for kintone</h1>
       <p class="afp-tagline">右サイドバーを、業務の作業台に。</p>
@@ -560,7 +560,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <li>ゲストスペースにも対応</li>
               <li>プラグイン内に広告が表示されます</li>
             </ul>
-            <a class="afp-plan-cta" href="/downloads/kw-sidebar-enhancer-v1.0.2.zip" download id="sbe-dl">ダウンロード（v1.0.2）</a>
+            <a class="afp-plan-cta" href="/downloads/kw-sidebar-enhancer-v1.0.3.zip" download id="sbe-dl">ダウンロード（v1.0.3）</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">全プラグインが使えます</span>
@@ -611,7 +611,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <div class="afp-wrap">
         <h2 class="afp-h2">インストール手順</h2>
         <ol class="steps-list">
-          <li><span>上のボタンから <strong>kw-sidebar-enhancer-v1.0.2.zip</strong> をダウンロードします。</span></li>
+          <li><span>上のボタンから <strong>kw-sidebar-enhancer-v1.0.3.zip</strong> をダウンロードします。</span></li>
           <li><span>kintone の <strong>システム管理 → プラグイン</strong> で「読み込む」を押し、zip ファイルを選びます。</span></li>
           <li><span>使いたいアプリの <strong>アプリの設定 → プラグイン</strong> で「サイドバー拡張」を追加します。</span></li>
           <li><span>「設定」を開き、<strong>左の一覧で使う機能を有効化</strong>します（初期状態は全部OFFです）。</span></li>
@@ -635,7 +635,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             <li>「進捗」タブを使う場合、ステータス変更履歴の記録用フィールドを2つ追加します。レコード画面では自動的に非表示になりますが、<strong>フォーム設定画面には表示されます</strong>（値を手で書き換えると履歴と経過日数が正しく表示されなくなります）。</li>
             <li><strong>埋め込み表示を許可していないサイトは「リンク」タブに表示できません。</strong>サイト側の設定によるもので回避できないため、その場合は「別タブで開く」ボタンに切り替わります。</li>
             <li>Google マップの埋め込みは Google 側の仕様変更で停止する可能性があります。その場合も別タブでの表示に切り替わります。</li>
-            <li><strong>「追加」タブはサブテーブルに対応していません</strong>（v1.0.2）。レコードを追加したあとにレコード本体で入力してください。リッチエディターは簡易的な文字入力になります。</li>
+            <li><strong>「追加」タブはサブテーブルに対応していません</strong>（現時点）。レコードを追加したあとにレコード本体で入力してください。リッチエディターは簡易的な文字入力になります。</li>
             <li>追加先アプリに選択肢フィールドがある場合、引き継ぐ値と<strong>同じ文字列の選択肢</strong>が追加先にも必要です。</li>
             <li>カスタマイズビュー・一覧画面では動作しません（レコード詳細画面が対象です）。</li>
             <li>プロセス管理が有効でないアプリでは、「進捗」タブと、「確認」タブの「未完了ならアクションを実行させない」設定はご利用いただけません（チェックリストの表示・消化そのものは使えます）。</li>
@@ -694,13 +694,13 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           <details class="afp-faq-item">
             <summary>「追加」タブでサブテーブルも登録できますか？</summary>
             <div class="afp-faq-answer">
-              v1.0.2 では<strong>対応していません</strong>。サブテーブル以外のフィールド型（文字列・数値・日付・選択系・ユーザー選択・ルックアップ・添付ファイルなど）はすべて登録できます。サブテーブルへの入力は、レコードを追加したあとにレコード本体で行ってください。
+              現時点では<strong>対応していません</strong>。サブテーブル以外のフィールド型（文字列・数値・日付・選択系・ユーザー選択・ルックアップ・添付ファイルなど）はすべて登録できます。サブテーブルへの入力は、レコードを追加したあとにレコード本体で行ってください。
             </div>
           </details>
           <details class="afp-faq-item">
             <summary>スマートフォンでも使えますか？</summary>
             <div class="afp-faq-answer">
-              v1.0.2 では <strong>PC 版のみ</strong>の対応です。モバイル版はサイドバーの構造が異なるため、タブは表示されません（画面が乱れることはありません）。外出先での閲覧が中心の運用では、この点をご確認のうえご検討ください。
+              現時点では <strong>PC 版のみ</strong>の対応です。モバイル版はサイドバーの構造が異なるため、タブは表示されません（画面が乱れることはありません）。外出先での閲覧が中心の運用では、この点をご確認のうえご検討ください。
             </div>
           </details>
           <details class="afp-faq-item">
@@ -771,10 +771,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         dl.addEventListener('click', function () {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-sidebar-enhancer-v1.0.2.zip',
+              file_name: 'kw-sidebar-enhancer-v1.0.3.zip',
               file_extension: 'zip',
-              link_text: 'ダウンロード（v1.0.2）',
-              link_url: '/downloads/kw-sidebar-enhancer-v1.0.2.zip'
+              link_text: 'ダウンロード（v1.0.3）',
+              link_url: '/downloads/kw-sidebar-enhancer-v1.0.3.zip'
             });
           }
         });
