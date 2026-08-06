@@ -450,6 +450,39 @@ const FIGURES = [
       { title: '一覧を削除して減らす', desc: '使っている人がいるかもしれないので消せない。「消す／残す」の二択しかなく、結局放置される。全員に同じ一覧が並び続ける。' }
     ),
   },
+  {
+    name: 'kintone-table-tsukaikata-tsukaiwake',
+    w: 1000, h: 330,
+    el: overviewMethods([
+      { n: '1', name: 'テーブル', desc: '見積の明細のように、親と一緒に保存したい可変の行。1レコードの中に持つ。', cost: '同じレコード' },
+      { n: '2', name: '別アプリ＋関連レコード', desc: '行を検索・集計・権限で分けたいとき。行を独立したレコードとして持つ。', cost: '別レコード' },
+      { n: '3', name: '普通のフィールド', desc: '行数が2〜3で増えないなら、テーブルにせず並べたほうが扱いやすい。', cost: '行数が固定' },
+    ]),
+  },
+  {
+    name: 'kintone-table-tsukaikata-dekinaikoto',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: '一覧に常に表示できない', desc: '［表示する］を押した1レコードぶんだけ開く。複数レコードは同時に見られない。', tag: '公式仕様', paid: false },
+      { n: '2', name: '行の並べ替えができない', desc: 'できるのは行の追加と削除だけ。順番を直すには消して入れ直すしかない。', tag: '標準では不可', paid: true },
+      { n: '3', name: 'テーブル内の項目でソート不可', desc: '一覧の並び替え条件にテーブル内のフィールドは指定できない。', tag: '公式仕様', paid: false },
+      { n: '4', name: '計算式はSUMとCONTAINSだけ', desc: 'テーブル外の計算式から明細を参照するとき、この2つ以外の関数は使えない。', tag: '公式仕様', paid: false },
+      { n: '5', name: '列ごとの権限が設定できない', desc: 'テーブル内のフィールドにフィールドのアクセス権は設定できない。', tag: '公式仕様', paid: false },
+    ]),
+  },
+  {
+    name: 'kintone-table-tsukaikata-sumif',
+    w: 1000, h: 300,
+    el: contrastPanel(
+      { title: '全行の合計（SUM）', desc: 'テーブルの外に計算フィールドを置き、計算式に SUM(金額) と書けば明細の全行が合計される。ここまでは標準機能だけで完結する。' },
+      { title: '条件付きの合計（SUMIF）', desc: 'kintone に SUMIF はない。テーブル内に IF(CONTAINS(区分,"請求"),金額,0) の計算列を1本足して、それを SUM する回避策が必要になる。' }
+    ),
+  },
+  {
+    name: 'kintone-table-tsukaikata-flow',
+    w: 1000, h: 210,
+    el: flowCaptioned(['テーブルにチェック列を1つ', '集計先の数値フィールド', 'プラグインで対応づけ', 'チェックした行だけ集計'], C.green, '作業用の計算列も関数式も足さずに、条件付きの合計を実データとして書き込める'),
+  },
 ];
 
 const only = process.argv[2];
