@@ -1,0 +1,1084 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+import Picture from '../../../components/Picture.astro';
+---
+
+<Layout
+  title="テーブルアシスト for kintone - 明細の行を並べ替え・選んだ行だけ集計するプラグイン | KIZUNA Works"
+  description="kintone のテーブル（サブテーブル）の行をドラッグ&ドロップで並べ替え、複製・まとめて操作できるようにし、チェックを入れた行だけを合計・平均・件数で集計して数値フィールドへ自動入力する kintone プラグイン。標準にない SUMIF を作業用の計算列なしで実現します。列見出しソート・ヘッダー固定・行番号・行数制限・既存レコードへの一括反映に対応。kintone完結・外部API不使用。"
+  ogTitle="テーブルアシスト for kintone - 明細の行を並べ替え・選んだ行だけ集計するプラグイン | KIZUNA Works"
+  ogDescription="チェックした行だけ、合計する。明細の行を並べ替え・複製・まとめて操作でき、選んだ行だけの合計・平均・件数を数値フィールドへ自動入力。作業用の計算列は不要です。kintone完結・外部API不使用。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/table-assist/"
+  ogImage="https://kizuna-works.jp/images/table-assist-banner.png"
+  canonical="https://kizuna-works.jp/plugins/table-assist/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/table-assist/",
+          "url": "https://kizuna-works.jp/plugins/table-assist/",
+          "name": "テーブルアシスト for kintone - 明細の行を並べ替え・選んだ行だけ集計するプラグイン | KIZUNA Works",
+          "description": "kintone のテーブルの行を並べ替え・複製・まとめて操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ自動入力する kintone プラグイン。既存レコードへの一括反映にも対応。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/table-assist-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "テーブルアシスト for kintone", "item": "https://kizuna-works.jp/plugins/table-assist/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "テーブルアシスト for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-08-06",
+          "url": "https://kizuna-works.jp/plugins/table-assist/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-table-assist-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/table-assist-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone のテーブル（サブテーブル）の行をドラッグ&ドロップで並べ替え、複製・まとめて操作できるようにし、チェックを入れた行だけを合計・平均・件数で集計して数値フィールドへ自動入力する kintone プラグイン。列見出しソート・ヘッダー固定・行番号・行数制限・既存レコードへの一括反映に対応。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "テーブルの行をドラッグ&ドロップと↑↓ボタンで並べ替え",
+            "行の値ごと直下に複製（1クリックで同じような明細をもう1行）",
+            "列見出しクリックで並べ替え（昇順→降順→元の順・空欄は常に末尾）",
+            "縦スクロールしても列見出しが残るヘッダー固定と、行の左端の行番号表示",
+            "チェックを入れた行だけを合計・平均・件数・最大・最小で集計し、テーブル外の数値フィールドへ自動入力",
+            "選んだ行をまとめて複製・上下移動・先頭/末尾へ・削除",
+            "チェック用の列は自動生成せず、テーブル内の既存フィールド（チェックボックス・複数選択・ドロップダウン・ラジオボタン・文字列1行）を目印に使用",
+            "導入前に登録済みのレコードにも集計値を一括反映（値が変わらないレコードは更新しない）",
+            "テーブルごとの最大行数の設定と、1アプリの複数テーブルへの対応",
+            "GAS・外部サービス不要・kintone完結・レコード画面では通信しない・ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .feature-list li code {
+      background: #eef1f4;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot frames — sized to the image's natural width (not upscaled),
+       centered, and clickable to enlarge in the lightbox. */
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Zoomable images + lightbox overlay (small screenshots open enlarged) */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .ea-example-table {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+      background: var(--color-white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 14px;
+    }
+    .ea-example-table th,
+    .ea-example-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-gray-light);
+      line-height: 1.7;
+    }
+    .ea-example-table thead th {
+      background: var(--color-navy);
+      color: var(--color-white);
+      font-weight: 700;
+      font-size: 13px;
+      border-bottom: none;
+    }
+    .ea-example-table tbody tr:last-child td { border-bottom: none; }
+    .ea-example-table tbody tr:nth-child(even) { background: #f8fafc; }
+    .ea-example-table td strong { color: var(--color-navy); }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/table-assist-icon.png"
+        alt="テーブルアシスト for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">テーブルアシスト for kintone</h1>
+      <p class="hero-copy">テーブルアシスト for kintone は、<strong>テーブル（サブテーブル）の行を並べ替え・複製・まとめて操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ書き込む</strong> kintone プラグインです。標準にない「条件付きの合計」を、<strong>作業用の計算列も関数式もなし</strong>で実現します。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">kintone のテーブルは、行の追加と削除しかできません。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🔀</span>
+            <h3 class="problem-title">行の順番を直せない</h3>
+            <p class="problem-desc">明細の並びを入れ替えたいのに、標準では並べ替えができない。順番を変えるには、一度削除して入力し直すしかない。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🧮</span>
+            <h3 class="problem-title">「選んだ行だけ」の合計が出せない</h3>
+            <p class="problem-desc">kintone に <strong>SUMIF がない</strong>。回避策は作業用の計算列を1本足して <code>IF(CONTAINS(…),金額,0)</code> を合計すること。その列は非表示にできず CSV にも出てしまう。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🖱️</span>
+            <h3 class="problem-title">1行ずつしか操作できない</h3>
+            <p class="problem-desc">不要な行が10行あれば − ボタンを10回。似た明細を足すのも1項目ずつ手入力。行数が増えるほど手作業が積み上がる。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Record screen -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">チェックした行だけ、合計する</h2>
+      <p class="section-subtitle">明細に「選択」のチェックを入れると、その行だけを集計した金額と件数がテーブルのすぐ下に出て、そのまま数値フィールドへ書き込まれます。選んだ行は色が付き、まとめて複製・移動・削除もできます。画像はクリックで拡大できます。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/table-assist-record-01.png" alt="テーブルアシスト レコード編集画面 — 見積明細の7行のうち「選択」にチェックした4行が緑色でハイライトされ、行番号・掴みハンドル・↑↓・複製ボタンが並び、テーブル下の集計カードに選択金額 762,900円・選択件数 4件が表示されている" width="1400" height="791" />
+          </div>
+          <figcaption>見積明細でチェックした 4 行だけを集計（選択金額 762,900 円／選択件数 4 件）。左端に行番号と掴みハンドル、右端に↑↓と複製ボタン</figcaption>
+        </figure>
+      </div>
+      <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+        <li><span><strong>集計結果は実データとして書き込まれます</strong> — 一覧の絞り込み・グラフ・CSV 出力・ルックアップにそのまま使えます。画面に出すだけの集計ではありません。</span></li>
+        <li><span><strong>チェック用の列を勝手に作りません</strong> — テーブルにすでにあるフィールドを「行を選ぶ目印」として指定します。だから選んだ状態もデータとして残り、あとから「どの行が対象だったか」を検証できます。</span></li>
+        <li><span><strong>選んでいないときは 0 ではなく空欄</strong> — 合計・平均・最大・最小は、1 行も選ばれていなければ空欄にします。「0 円」と「まだ選んでいない」を取り違えません（件数だけは 0 が入ります）。</span></li>
+      </ul>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Features -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">できること</h2>
+        <p class="section-subtitle">チェックを入れるだけ。プログラミング知識も、作業用の計算列も要りません。</p>
+        <ul class="feature-list">
+          <li><span><strong>行の並べ替え</strong> — 行の左端の掴みハンドル（⠿）でドラッグ&ドロップ、または各行の ↑↓ ボタンで 1 行ずつ移動できます。</span></li>
+          <li><span><strong>行の複製</strong> — ⧉ ボタンで、その行の値ごと直下にコピー。似た明細をもう 1 行足すのが 1 クリックで終わります。</span></li>
+          <li><span><strong>列見出しクリックで並べ替え</strong> — 昇順 → 降順 → <strong>元の順に戻す</strong>の 3 段階。空欄の行は昇順・降順どちらでも常に末尾に置きます。</span></li>
+          <li><span><strong>ヘッダー行の固定と行番号</strong> — 縦に長い明細でもスクロール中に列見出しが残り、行の左端には連番が出ます。</span></li>
+          <li><span><strong>選んだ行の一括操作</strong> — チェックした行を、まとめて複製・↑上へ・↓下へ・先頭へ・末尾へ・削除。並び順を保ったまま動かします。</span></li>
+          <li><span><strong>選んだ行だけの集計</strong> — 合計・平均・件数・最大・最小を、テーブル外の数値フィールドへ自動入力。1 つのテーブルに複数の集計ルールを設定できます。</span></li>
+          <li><span><strong>既存レコードへの一括反映</strong> — 導入前に登録済みのレコードや、CSV 読み込みで入れたレコードにもまとめて書き込めます。値が変わらないレコードは更新しません。</span></li>
+          <li><span><strong>行数制限</strong> — テーブルごとに最大行数を決めると、上限に達したときに ＋ ボタンと複製ボタンが押せなくなります。</span></li>
+          <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は不要。<strong>レコード画面では通信しません</strong>。ゲストスペースにも対応します。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Select field -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">「選ぶ」に使えるフィールド</h2>
+      <p class="section-subtitle">テーブルアシストは、チェック用の列を勝手に作りません。テーブルの中に<strong>すでにあるフィールド</strong>を「行を選ぶための目印」として指定します。だから選んだ状態がそのままレコードのデータとして残り、CSV 出力・一覧の絞り込み・グラフでも同じ条件が使えます。</p>
+      <div style="max-width:900px;margin:0 auto;overflow-x:auto;">
+        <table class="spec-table">
+          <thead>
+            <tr><th>フィールド</th><th>例</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>チェックボックス</strong>（おすすめ）</td><td>「選択」に ✓ が付いている行だけ集計する</td></tr>
+            <tr><td>複数選択</td><td>「請求」「至急」など複数の区分を付けた行を集計する</td></tr>
+            <tr><td>ドロップダウン</td><td>「請求区分」が <strong>請求</strong> の行だけ集計する</td></tr>
+            <tr><td>ラジオボタン</td><td>「今回発注」が <strong>する</strong> の行だけ集計する</td></tr>
+            <tr><td>文字列（1行）</td><td>「区分」に <strong>対象</strong> と入力された行だけ集計する</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+        <li><span><strong>いちばん簡単な準備</strong> — テーブルの中にチェックボックスを 1 列だけ追加し、選択肢を 1 つ（例：「選択」）作ります。数値・日付・計算・添付ファイルは目印には使えません。</span></li>
+        <li><span><strong>目印になるフィールドがまだ無くても</strong> — 行の並べ替え・複製・行番号・ヘッダー固定は<strong>そのまま使えます</strong>。集計と一括操作だけが対象外です。</span></li>
+        <li><span><strong>設定したフィールドを後から削除しても安全</strong> — 集計は自動的に止まり、レコード画面に理由が表示されます。<strong>すでに保存されている集計値が空で上書きされることはありません。</strong></span></li>
+      </ul>
+    </section>
+
+    <!-- Detail screen -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">詳細画面でも、どの行が対象か一目でわかる</h2>
+        <p class="section-subtitle">詳細画面では集計カードと選択行のハイライトを表示します（値は変わりません）。「この金額はどの明細の合計なのか」を、明細のすぐ下で確認できます。</p>
+        <div class="screenshot-pair">
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/table-assist-record-02.png" alt="テーブルアシスト レコード詳細画面 — 見積明細の4行のうち「選択」にチェックが入った3行が緑色でハイライトされ、テーブル下の集計カードに選択金額 568,000円・選択件数 3件と「選択中 3 行」のバッジが表示されている" width="1200" height="358" />
+            </div>
+            <figcaption>詳細画面：選択済みの行がハイライトされ、集計カードに選択金額と件数が並ぶ（表示のみ・レコードの値は変わりません）</figcaption>
+          </figure>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Config -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">設定画面</h2>
+      <p class="section-subtitle">アプリのテーブルが左の一覧に並びます。使うテーブルを選んで有効にし、行操作・選択・集計ルールを設定するだけです。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/table-assist-config-01.png" alt="テーブルアシスト 設定画面 — 左にテーブル目次、中央に「① テーブル設定」タブ。行の操作（ドラッグ&ドロップ・↑↓ボタン・複製・列見出しソート・ヘッダー固定・行番号・最大行数）、行の選択（選択に使うフィールド＝選択・選択済みとみなす値・ハイライト色・一括操作バー）、選んだ行だけの集計（選択金額＝合計/小計、選択件数＝件数）を設定している" width="1400" height="1199" />
+          </div>
+          <figcaption>① テーブル設定：行の操作・行の選択・集計ルールを 1 画面で設定</figcaption>
+        </figure>
+      </div>
+      <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+        <li><span><strong>テーブルごとに設定</strong> — 1 つのアプリに明細テーブルが複数あっても、それぞれ別の設定にできます。使わないテーブルには一切干渉しません。</span></li>
+        <li><span><strong>集計ルールは何本でも</strong> — 「選択金額（合計）」「選択件数（件数）」のように、1 つのテーブルに複数のルールを登録できます。</span></li>
+        <li><span><strong>誤設定は保存前に止めます</strong> — 出力先の重複、テーブル内フィールドや計算フィールドの指定、削除されたフィールドの参照などを検出して、理由を示します。</span></li>
+      </ul>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Bulk -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">導入前のレコードにも、まとめて反映</h2>
+        <p class="section-subtitle">プラグインを入れる前に登録したレコードは集計値が空のままです。設定画面の「② 一括反映」から、既存レコードへまとめて書き込めます。</p>
+        <div class="screenshot-pair">
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/table-assist-config-02.png" alt="テーブルアシスト 設定画面の「② 一括反映」タブ — 対象テーブル（見積明細）と対象ルール（選択金額・選択件数）を選び、実行できるユーザーをアプリ管理者のみ／全員／指定したユーザー・組織・グループから選択して「一括反映を実行」できる" width="1400" height="608" />
+            </div>
+            <figcaption>② 一括反映：対象テーブルとルールを選んで実行。進捗と結果（成功／スキップ／失敗）が表示されます</figcaption>
+          </figure>
+        </div>
+        <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+          <li><span><strong>すでに正しい値のレコードはスキップ</strong> — 無駄な更新履歴を残しません。</span></li>
+          <li><span><strong>何度実行しても結果は同じ</strong> — 途中で中断しても、そのまま再実行できます。</span></li>
+        </ul>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">レコードの作成・編集画面で全機能が動作します。詳細画面とモバイルは集計の表示に対応しています。</p>
+      <ol class="steps-list">
+        <li><span>テーブルの中に<strong>「行を選ぶ目印」になるフィールド</strong>（チェックボックスなど）と、テーブルの外に<strong>集計結果を書き込む数値フィールド</strong>を用意しておく</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-table-assist-v1.0.0.zip</code> をダウンロード</span></li>
+        <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+        <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「テーブルアシスト for kintone」を追加</span></li>
+        <li><span>プラグイン設定画面で対象のテーブルを<strong>有効にし</strong>、行操作・選択に使うフィールド・集計ルールを設定して「保存」</span></li>
+        <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると設定が反映されます</span></li>
+      </ol>
+      <p style="text-align:center; color:var(--color-text-light); font-size:13px; margin-top:24px; line-height:1.7;">
+        ヒント：導入前に登録済みのレコードには、設定画面の「② 一括反映」タブからまとめて書き込めます。<br>
+        テーブルの列やフィールドのラベルを変更したときは、設定画面を開いて保存し直してください。
+      </p>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 設定画面・レコード一覧に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-table-assist-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-table-assist" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
+        <li><strong>並べ替え・複製・削除は編集中の変更です。レコードを保存するまで確定しません。</strong>保存せずに画面を離れると元に戻ります。</li>
+        <li>集計結果の書き込み先に指定できるのは<strong>テーブルの外にある数値フィールド</strong>のみです。計算フィールドは kintone が自動計算するため書き込めません。</li>
+        <li>集計値が書き込まれるのは<strong>値を変更したときと保存したとき</strong>です。レコードを開いただけでは書き込みません（開いた瞬間に「編集中」の状態にしないためです）。過去のレコードは「一括反映」でまとめて反映できます。</li>
+        <li><strong>行の並べ替え・複製・一括操作はパソコン版のみ</strong>です。スマートフォンでは集計の表示と保存時の書き込みに対応します。</li>
+        <li>一覧画面・カスタマイズビュー・カレンダービューでは動作しません（kintone はテーブルを一覧に表示できないため）。</li>
+        <li>中身が空の行は複製できません（kintone が空の行を破棄するため）。空の行が必要なときは標準の ＋ ボタンで追加してください。</li>
+        <li>すべての行を削除しても、空の行が 1 行残ります（kintone の仕様で、編集画面のテーブルは 0 行にできません）。</li>
+        <li>行数制限は<strong>画面上の入力抑止</strong>です。CSV 読み込みや REST API 経由の行追加は防げません。</li>
+        <li>添付ファイルの列は並べ替えの対象外です。行を複製したときの添付ファイルは同じファイルを参照します（ファイルそのものの複製ではありません）。</li>
+        <li>計算フィールドを含む 50 行以上のテーブルで、列見出しの並べ替えや多くの行をまとめて動かす操作をすると、kintone が全行を計算し直すため十数秒かかることがあります（1 行ずつの移動や複製はすぐ終わります）。処理中は画面に案内が出ます。</li>
+        <li>テーブルの列やフィールドのラベルを変更したときは、設定画面を開いて保存し直してください（表示を速くするため、これらの情報を設定保存時に取り込んでいます）。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-table-assist" />
+    <PluginFaqSection pluginId="kw-table-assist" pageUrl="https://kizuna-works.jp/plugins/table-assist/" />
+    <SupporterCTA pluginId="kw-table-assist" />
+    <ShareButtons title="テーブルアシスト for kintone" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">明細（テーブル）まわりをさらに便利にする kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/excel-paste/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/excel-paste-banner.png" alt="エクセル一括貼り付け for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">エクセル一括貼り付け</h3>
+            <p class="related-post-desc">Excel の表をそのまま貼り付けて明細を一括入力。入れたあとの並べ替えや選んだ行の集計はテーブルアシストが引き受けます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/field-styler/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/field-styler-after.png" alt="フィールドスタイラー for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">フィールドスタイラー</h3>
+            <p class="related-post-desc">テーブルの列を条件付きで色分け。金額のしきい値超過などを目立たせたいときに、行の選択ハイライトと併用できます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/text-join/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/text-join-banner.png" alt="文字列結合 for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">文字列結合</h3>
+            <p class="related-post-desc">明細の行を「商品A×2／商品C×3」のように 1 つの文字列へ集約。金額はテーブルアシスト、内訳の文字列は文字列結合で。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ea-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('ea-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-table-assist-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-table-assist-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

@@ -880,6 +880,27 @@ export const plugins: Plugin[] = [
       '部署別・担当別に一覧を作った結果、切替ドロップダウンが20件超。kintone では一覧にアクセス権を設定できず、既定の一覧もアプリに1つしか決められない',
     releaseDate: '2026-08-04',
   },
+  {
+    id: 'kw-table-assist',
+    name: 'テーブルアシスト for kintone',
+    formName: 'テーブルアシスト for kintone',
+    slug: 'table-assist',
+    category: '入力支援',
+    description:
+      'テーブルの行をドラッグ&ドロップと↑↓ボタンで並べ替え、値ごと複製、選んだ行をまとめて移動・削除できるプラグイン。さらにチェックを入れた行だけを合計・件数で集計して数値フィールドへ自動入力します。列見出しソート・ヘッダー固定・行番号・既存レコードへの一括反映にも対応。',
+    image: '/images/table-assist-banner.png',
+    imageAlt:
+      'テーブルアシスト for kintone プラグイン — テーブルの行を並べ替え・複製・一括操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ自動入力する',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    cardDescription:
+      'チェックした行だけ、合計する。明細の行を並べ替え・複製・まとめて操作でき、選んだ行だけの合計や件数を数値フィールドへ自動入力。作業用の計算列は不要です。',
+    problemTitle: '「選んだ行だけ」の合計が出せない',
+    problemDesc:
+      'kintone に SUMIF はなく、回避策は作業用の計算列を1本足して IF(CONTAINS(…)) を合計すること。その列は非表示にできず CSV にも出る。行の並べ替えもできない',
+    releaseDate: '2026-08-06',
+  },
 ];
 
 /**

@@ -295,6 +295,15 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-table-assist': {
+    extraComm: [
+      {
+        label: '設定画面のフィールド取得・一括反映（自ドメイン内）',
+        detail:
+          'レコード画面では通信を一切行いません。行の並べ替え・複製・一括操作・集計は kintone の画面内の仕組み（record.get / record.set）だけで行い、テーブルの列構成や書き込み先の桁数・単位などの情報は、設定を保存したときに取り込んでおくためです。自ドメインの kintone REST API を使うのは次の場合だけです。①設定画面でテーブル・フィールドの一覧と並び順を取得するとき（/k/v1/preview/app/form/fields・/preview/app/form/layout）。②設定画面で「一括反映」を実行したとき、対象レコードの取得と集計値の書き込みを行うとき（/k/v1/records/cursor・/k/v1/records の PUT）。③一括反映の実行権限を判定するときと、実行できるユーザーを指定するときに、ご利用中の kintone ドメイン内の共通管理API（/v1/users・/v1/organizations・/v1/groups・/v1/group/users・/v1/organization/users）。いずれもご利用中の kintone ドメイン内で完結し、外部の第三者へは送信しません。アプリのフォーム定義（フィールドの追加・変更・削除）は一切行わず、チェック用の列を自動生成することもしません。レコードに書き込むのは、利用者の操作による「テーブルの行の並び順・行の追加（複製）・行の削除」と、設定で指定した数値フィールドへの集計値だけです。第三者CDN・外部サーバーは利用しません。',
+      },
+    ],
+  },
   'kw-read-check': {
     extraComm: [
       {
