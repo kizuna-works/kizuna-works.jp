@@ -57,6 +57,14 @@ export interface Plugin {
    * Should match the `pubDate` of the corresponding `plugin-*-release.md` news entry.
    */
   releaseDate?: string;
+  /**
+   * Plugin version whose feature set `description` / `cardDescription` (and the
+   * product page hero copy) already describe. `scripts/check-plugin-summaries.mjs`
+   * compares its major.minor with `softwareVersion` in the product page JSON-LD and
+   * reports a mismatch, so a feature-adding release cannot ship with a stale summary.
+   * Bump it (only) after rewriting the summaries. Patch releases do not need a bump.
+   */
+  summaryVersion?: string;
 }
 
 export const plugins: Plugin[] = [
@@ -68,7 +76,7 @@ export const plugins: Plugin[] = [
     slug: 'field-styler',
     category: '装飾',
     description:
-      '背景色・文字色・フォント・フィールド幅・条件付きスタイル・入力制御など全10機能を、JavaScriptなしのノーコードで設定できるプラグイン。一覧・詳細の視認性を高め、ステータスや金額など重要な値を条件に応じて自動で目立たせます。',
+      '背景色・文字色・フォント・フィールド幅・条件付きスタイル・入力制御など全10機能を、JavaScriptなしのノーコードで設定できるプラグイン。サブテーブル（明細）内のフィールドにも対応し、TODAY基準の日付やステータスなど最大10件の条件で、重要な値を自動で目立たせます。',
     image: '/images/field-styler-banner.png',
     imageWebp: '/images/field-styler-banner.webp',
     imageAlt:
@@ -78,10 +86,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '背景色・文字色・条件付きスタイルなど10機能をノーコード設定。kintoneの視認性を大幅向上。',
+      '背景色・文字色・条件付きスタイルなど10機能をノーコード設定。サブテーブル（明細）内のフィールドにも対応。',
     problemTitle: 'フィールドの色分けや条件付き書式',
     problemDesc: 'JavaScript なしでノーコードに実現したい',
     releaseDate: '2026-04-16',
+    summaryVersion: '2.3.1',
   },
   {
     id: 'kw-conditional-numbering',
@@ -91,7 +100,7 @@ export const plugins: Plugin[] = [
     slug: 'kw-conditional-numbering',
     category: '入力支援',
     description:
-      '部署・担当者・ステータスなどフィールドの値に応じて、採番ルールを自動で切り替えるプラグイン。18種類の書式や条件別の連番管理に対応し、レコード保存時はもちろん、CSVインポート後の既存レコードにも一括で採番できます。',
+      '部署・担当者・ステータスなどフィールドの値に応じて、採番ルールを自動で切り替えるプラグイン。1つのアプリで最大3フィールドを同時採番でき、18種類の書式・条件別の連番管理、CSVインポート後の一括採番、重複した番号の検出と振り直しにも対応します。',
     image: '/images/conditional-numbering-banner.png',
     imageAlt:
       '条件分岐自動採番プラグイン — フィールドの条件に応じて採番ルールを自動切替',
@@ -100,10 +109,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '部署・担当者・ステータス等の条件に応じて採番ルールを自動切替。CSV一括採番にも対応。',
+      '部署・担当者・ステータス等の条件に応じて採番ルールを自動切替。最大3フィールドの同時採番・CSV一括採番・重複番号の振り直しに対応。',
     problemTitle: '採番ルールを条件で自動切替',
     problemDesc: 'CSVインポート後の一括採番にも対応したい',
     releaseDate: '2026-04-18',
+    summaryVersion: '2.1.1',
   },
   {
     id: 'kw-form-deco',
@@ -126,6 +136,7 @@ export const plugins: Plugin[] = [
     problemTitle: 'レコード詳細画面の見た目を整えたい',
     problemDesc: '罫線やスペース要素を JavaScript なしで装飾したい',
     releaseDate: '2026-04-18',
+    summaryVersion: '1.0.3',
   },
   {
     id: 'kw-lookup-suggest',
@@ -144,10 +155,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      'ルックアップフィールドへの入力中に候補を表示。画面遷移なしで取得まで完結。フォーム編集不要で導入可・スマホ対応。',
+      'ルックアップフィールドへの入力中に候補を表示。画面遷移なしで取得まで完結。サブテーブル内・スマホ対応、フォーム編集不要で導入可。',
     problemTitle: 'ルックアップ入力を高速化',
     problemDesc: '入力中に候補表示でクリック数を減らしたい',
     releaseDate: '2026-04-18',
+    summaryVersion: '2.2.2',
   },
   {
     id: 'kw-quick-search',
@@ -166,10 +178,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '一覧画面にインライン検索バーを設置。AND/OR切替・複数キーワード対応で横断検索を高速化。',
+      '一覧画面にインライン検索バーを設置。AND/OR切替・複数キーワードの横断検索と、本日・今週・今月などの期間絞り込みに対応。',
     problemTitle: '複数フィールドを横断検索',
     problemDesc: '標準の絞り込みパネルでは操作が面倒',
     releaseDate: '2026-05-03',
+    summaryVersion: '1.2.3',
   },
   {
     id: 'kw-file-icon-marker',
@@ -192,6 +205,7 @@ export const plugins: Plugin[] = [
     problemTitle: '添付ファイルの中身が一覧で分からない',
     problemDesc: '詳細画面を毎回開いて確認している',
     releaseDate: '2026-05-03',
+    summaryVersion: '1.0.4',
   },
   {
     id: 'kw-quick-side-view',
@@ -214,6 +228,7 @@ export const plugins: Plugin[] = [
     problemTitle: '詳細画面と一覧の往復が多い',
     problemDesc: '内容確認のたびに開いて戻るのが面倒・複数レコードの比較もしづらい',
     releaseDate: '2026-04-18',
+    summaryVersion: '1.0.3',
   },
   {
     id: 'kw-record-lock',
@@ -236,6 +251,7 @@ export const plugins: Plugin[] = [
     problemTitle: '受注済みレコードの編集を防ぎたい',
     problemDesc: 'ステータスや日付などの条件で自動ロック、管理者のみ編集できるようにしたい',
     releaseDate: '2026-05-16',
+    summaryVersion: '1.0.4',
   },
   {
     id: 'kw-field-comment',
@@ -245,7 +261,7 @@ export const plugins: Plugin[] = [
     slug: 'field-comment',
     category: '入力支援',
     description:
-      'フィールド名の横にヘルプアイコンや常時表示のコメントを追加するプラグイン。アイコン＋ホバー／アイコン＋クリック／常時表示の3モードから選べ、入力ルールや業務上の注意点をその場で伝えて、入力ミスや問い合わせを減らします。',
+      'フィールド名の横にヘルプアイコンや常時表示のコメントを追加するプラグイン。アイコン＋ホバー／アイコン＋クリック／常時表示の3モードから選べ、詳細だけでなく編集・新規作成画面でも表示。入力ルールをその場で伝えて入力ミスや問い合わせを減らします。',
     image: '/images/field-comment-banner.png',
     imageAlt:
       'フィールドコメントプラグイン — kintoneのフィールド名横にヘルプアイコンや常時表示コメントを追加。ホバー・クリック・常時表示の3モード対応',
@@ -254,10 +270,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      'フィールド名横にヘルプアイコンや常時表示コメントを追加。3モード（ホバー/クリック/常時）でルールを担当者に伝達。',
+      'フィールド名横にヘルプアイコンや常時表示コメントを追加。3モード（ホバー/クリック/常時）で、編集・新規作成画面でもルールを伝達。',
     problemTitle: 'フィールドに入力ルールを表示したい',
     problemDesc: 'フォーム上のラベルだけでは伝わらないヘルプや注意書きを簡単に出したい',
     releaseDate: '2026-05-18',
+    summaryVersion: '1.1.2',
   },
   {
     id: 'kw-theme-styler',
@@ -267,7 +284,7 @@ export const plugins: Plugin[] = [
     slug: 'theme-styler',
     category: '装飾',
     description:
-      'アプリのテーマカラーをヘッダー・行・罫線・フォーム背景まで一括で着色しつつ、タイトル帯に関連アプリ・社内ポータル・マニュアル・外部サイトへのクイックリンクを集約するプラグイン。アプリを業務のハブとして使えるようにします。',
+      'アプリのテーマカラーをヘッダー・行・罫線・フォーム背景まで一括で着色し、レコード詳細画面や明細（サブテーブル）ヘッダーの色は個別指定も可能。タイトル帯には関連アプリ・社内ポータル・マニュアル・外部サイトへのクイックリンクを集約し、アプリを業務のハブにします。',
     image: '/images/theme-styler-banner.png',
     imageAlt:
       'テーマスタイラープラグイン — kintone アプリにテーマカラーと、関連アプリ・社内ポータル・外部サイトへのクイックリンクをまとめて配置',
@@ -276,10 +293,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      'アプリ上部に関連アプリ・社内ポータル・外部サイトへのクイックリンクを集約。テーマ色も1色で統一。',
+      'アプリ上部に関連アプリ・社内ポータル・外部サイトへのクイックリンクを集約。テーマ色は1色で統一、詳細画面・明細ヘッダーは個別指定も。',
     problemTitle: '関連アプリ・マニュアル・外部サイトへの行き来が面倒',
     problemDesc: 'タイトル帯にテキストとボタンで最大6個のリンクを集約してワンクリック遷移できるようにしたい',
     releaseDate: '2026-05-22',
+    summaryVersion: '1.1.1',
   },
   {
     id: 'kw-address-assist',
@@ -289,7 +307,7 @@ export const plugins: Plugin[] = [
     slug: 'address-assist',
     category: '入力支援',
     description:
-      '郵便番号を入れるだけで住所を自動入力し、Googleマップのプレビューをレコード詳細に埋め込み、住所のワンクリックコピーまで行うプラグイン。一体形式・分割形式の両方に対応しAPIキーも不要。開いた瞬間に地図が見えて業務がはかどります。',
+      '郵便番号から住所、住所から郵便番号を双方向で自動入力し、Googleマップのプレビューをレコード詳細に埋め込み、住所のワンクリックコピーまで行うプラグイン。請求先・配送先など複数の住所セットやサブテーブル（明細）の行ごとの入力にも対応します。',
     image: '/images/address-assist-banner.png',
     imageAlt:
       '住所アシスト for kintone プラグイン — 郵便番号入力で住所自動入力＋レコード詳細画面に Google マップを直接プレビュー表示',
@@ -298,10 +316,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '郵便番号 → 住所自動入力 ＋ Google マップ URL 生成 ＋ レコード詳細画面に地図プレビュー直接表示 ＋ ワンクリックコピー。',
+      '郵便番号 ⇔ 住所を双方向で自動入力 ＋ レコード詳細画面に地図プレビュー直接表示 ＋ ワンクリックコピー。複数の住所セット・サブテーブル対応。',
     problemTitle: '住所入力と地図確認の往復が面倒',
     problemDesc: '郵便番号入力で住所を自動入力し、レコードを開いた瞬間に地図プレビューまで一気に見たい',
     releaseDate: '2026-05-23',
+    summaryVersion: '1.2.1',
   },
   {
     id: 'kw-quick-history-view',
@@ -311,7 +330,7 @@ export const plugins: Plugin[] = [
     slug: 'quick-history-view',
     category: 'レコード画面',
     description:
-      'レコード保存のたびに、いつ・誰が・どのフィールドを何から何に変えたかを自動で記録し、詳細画面に時系列の表形式で表示するプラグイン。GASや外部サービスは不要で、記録対象フィールドや保存件数の上限、表示の色・サイズも設定できます。',
+      'レコード保存のたびに、いつ・誰が・どのフィールドを何から何に変えたかを自動で記録し、詳細画面に時系列の表形式で表示するプラグイン。記録対象のフィールド、1レコードあたりの保存件数の上限、表示の色・サイズも設定できます。',
     image: '/images/quick-history-view-banner.png',
     imageAlt:
       'クイック履歴ビュー for kintone プラグイン — レコードの変更前後をフィールド単位で自動記録し、詳細画面に時系列テーブルで表示',
@@ -320,10 +339,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      'レコード変更を自動でフィールド単位に記録し、詳細画面に表形式で時系列表示。GAS不要・kintone完結。',
+      'レコード変更を自動でフィールド単位に記録し、詳細画面に表形式で時系列表示。記録対象フィールドや表示の色・サイズも設定可能。',
     problemTitle: 'いつ誰が何を変えたか分からない',
     problemDesc: 'レコードの変更前後を自動で記録し、詳細画面で時系列の変更履歴テーブルとして見たい',
     releaseDate: '2026-05-24',
+    summaryVersion: '1.0.3',
   },
   {
     id: 'kw-related-record-popup',
@@ -346,6 +366,7 @@ export const plugins: Plugin[] = [
     problemTitle: '関連レコード確認のたびに詳細を開きたくない',
     problemDesc: '一覧画面のままホバーで関連レコードを素早く確認したい',
     releaseDate: '2026-05-29',
+    summaryVersion: '1.0.4',
   },
   {
     id: 'kw-summary-bar',
@@ -355,7 +376,7 @@ export const plugins: Plugin[] = [
     slug: 'summary-bar',
     category: '一覧',
     description:
-      '一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示するプラグイン。絞り込みに連動して即時に再集計し、グラフ画面に移動せず数字を確認できます。カードごとの条件集計や、集計値による条件付きの色分けにも対応。',
+      '一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示するプラグイン。絞り込みに連動して即時に再集計し、グラフ画面に移動せず数字を確認できます。カードごとの条件集計（相対期間・ユーザー／組織指定も可）や、集計値による条件付きの色分けにも対応。',
     image: '/images/summary-bar-banner.png',
     imageAlt:
       '集計サマリーバー for kintone プラグイン — レコード一覧のヘッダーに合計・平均・件数などの集計カードを並べて表示',
@@ -368,6 +389,7 @@ export const plugins: Plugin[] = [
     problemTitle: '絞り込んだ一覧の合計や件数をすぐ見たい',
     problemDesc: 'グラフ画面に移動せず、一覧の上でそのまま集計を確認したい',
     releaseDate: '2026-05-30',
+    summaryVersion: '2.2.0',
   },
   {
     id: 'kw-csv-export',
@@ -377,7 +399,7 @@ export const plugins: Plugin[] = [
     slug: 'csv-export',
     category: '出力・連携',
     description:
-      '絞り込み結果を用途別テンプレート（列・並び順・ヘッダー名・文字コード）でワンクリックCSV出力。1テンプレート最大500列・サブテーブル明細の行展開（kintone標準の「*」区切り列つき）に対応し、Shift-JIS/UTF-8でExcelの文字化けも防ぎます。',
+      '絞り込み結果を用途別テンプレート（列・並び順・ヘッダー名・文字コード・絞り込み条件）でワンクリックCSV出力。1テンプレート最大500列・サブテーブル明細の行展開に対応し、先頭行の項目名は出力の有無を選択可。Shift-JIS/UTF-8でExcelの文字化けも防ぎます。',
     image: '/images/csv-export-banner.png',
     imageAlt:
       'かんたんCSV出力 for kintone プラグイン — レコード一覧の絞り込み結果を用途別テンプレートでワンクリックCSV出力',
@@ -386,10 +408,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '一覧の絞り込み結果を用途別テンプレートでワンクリックCSV出力。列・ヘッダー名・文字コードを保存、クイックサーチ連動。',
+      '一覧の絞り込み結果を用途別テンプレートでワンクリックCSV出力。列・ヘッダー名・文字コード・絞り込み条件を保存、項目名行のオン/オフも選べます。',
     problemTitle: 'いつものフォーマットでCSVを書き出したい',
     problemDesc: '毎回フィールドを選び直さず、絞り込んだ結果をテンプレートで一発出力したい',
     releaseDate: '2026-06-03',
+    summaryVersion: '1.4.0',
   },
   {
     id: 'kw-quick-tab',
@@ -412,6 +435,7 @@ export const plugins: Plugin[] = [
     problemTitle: '項目が多くてレコード画面のスクロールが長い',
     problemDesc: 'フィールドを手動で割り当てず、タブでスッキリ整理して目的の項目に素早くたどり着きたい',
     releaseDate: '2026-06-05',
+    summaryVersion: '1.0.3',
   },
   {
     id: 'kw-file-preview',
@@ -421,7 +445,7 @@ export const plugins: Plugin[] = [
     slug: 'file-preview',
     category: 'レコード画面',
     description:
-      '添付された画像・PDF・Excel・Word・テキストを、ダウンロードや画面遷移なしで、その場のフルスクリーンモーダルでプレビューするプラグイン。同じ欄の複数ファイルを連続で閲覧でき、Excelの書式やグラフ、Wordのページ体裁も再現します。パスワード付きのPDF・Excel・Wordもブラウザ内で復号して表示でき、ExcelはExcel風グリッドの高精細表示にも切り替えられます。',
+      '添付された画像・PDF・Excel・Word・PowerPoint・テキストを、ダウンロードや画面遷移なしで、その場のフルスクリーンモーダルでプレビューするプラグイン。サブテーブル内の添付にも対応し、同じ欄の複数ファイルを連続で閲覧できます。パスワード付きのPDF・Excel・Wordもブラウザ内で復号して表示でき、ExcelはExcel風グリッドの高精細表示にも切り替えられます。',
     image: '/images/file-preview-banner.png',
     imageAlt:
       '添付ファイルプレビュー for kintone プラグイン — 添付ファイル名のクリックで画像・PDF・Excel・Word・テキストを全画面モーダルでプレビュー',
@@ -430,10 +454,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '添付の画像・PDF・Excel・Word・テキストを、ファイル名クリックでその場プレビュー。パスワード付きファイルの復号表示やExcel高精細表示にも対応・kintone完結。',
+      '添付の画像・PDF・Excel・Word・PowerPoint・テキストを、ファイル名クリックでその場プレビュー。サブテーブル内・パスワード付き・Excel高精細表示に対応。',
     problemTitle: '添付ファイルの中身を見るのにダウンロードや画面遷移が面倒',
     problemDesc: '一覧・詳細のファイル名クリックで、その場のモーダルで素早く中身を確認したい',
     releaseDate: '2026-06-05',
+    summaryVersion: '2.2.1',
   },
   {
     id: 'kw-quick-toc',
@@ -443,7 +468,7 @@ export const plugins: Plugin[] = [
     slug: 'quick-toc',
     category: 'レコード画面',
     description:
-      'レコードの詳細・編集・新規作成画面の左側に、セクション単位の目次サイドメニューを常時表示するプラグイン。項目クリックで該当セクションへワンクリックで移動でき、ステータスの色分けバッジ表示やスクロール時のヘッダー追従にも対応します。',
+      'レコードの詳細・編集・新規作成画面の左側に、セクション単位の目次サイドメニューを常時表示するプラグイン。項目クリックで該当セクションへ移動でき、フォームのスペースパーツをジャンプ先や見出しとして使える設定、ステータスの色分けバッジ、ヘッダー追従にも対応します。',
     image: '/images/quick-toc-banner.png',
     imageAlt:
       'クイック目次 for kintone プラグイン — レコード画面の左側にセクション目次を常時表示し、項目クリックで該当セクションへジャンプ',
@@ -452,10 +477,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      'レコード画面の左に目次を常時表示。項目クリックで該当セクションへジャンプ。ステータスバッジ・配色テーマ対応、編集・新規でも動作。kintone完結。',
+      'レコード画面の左に目次を常時表示。項目クリックでジャンプ、スペースパーツを見出しに、ステータスバッジ・配色テーマ対応。編集・新規でも動作。',
     problemTitle: '縦に長いレコードのスクロールが大変',
     problemDesc: '左の目次から目的のセクションへワンクリックで移動したい',
     releaseDate: '2026-06-05',
+    summaryVersion: '1.2.1',
   },
   {
     id: 'kw-list-styler',
@@ -465,7 +491,7 @@ export const plugins: Plugin[] = [
     slug: 'list-styler',
     category: '一覧',
     description:
-      '横長の一覧で左端のキー列を固定（0〜3列）し、ゼブラ・行番号・行ホバーで見やすく整えるプラグイン。さらに日付（TODAY基準）・選択肢・プロセス管理ステータスなどの条件で、行の背景色・文字色・太字を変更でき、優先順位も指定できます。',
+      'テーブル（サブテーブル）の明細を一覧の行として全レコード分まとめて表示できるプラグイン。横長の一覧では左端のキー列を固定（0〜3列）し、ゼブラ・行番号・行ホバーで見やすく整え、日付（TODAY基準）・選択肢・ステータスなどの条件で行の背景色・文字色・太字も変更できます。',
     image: '/images/list-styler-banner.png',
     imageAlt:
       '一覧スタイラー for kintone プラグイン — 横長のレコード一覧で左端の列を固定し、ゼブラ・行番号・条件付き行色分けで見やすく整える',
@@ -474,10 +500,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '横長一覧の左端列を固定し、ゼブラ2色・行番号・条件付き行色分け（背景/文字色/太字・TODAY/ステータス対応）で見やすく。行クリックで詳細も。kintone完結。',
+      'テーブルの明細を一覧の行としてまとめて表示。左端列の固定・ゼブラ2色・行番号・条件付き行色分け（TODAY/ステータス対応）で横長一覧も見やすく。',
     problemTitle: '横長の一覧が見づらい',
     problemDesc: '横スクロールでキー列が消える・行を見分けづらい・状態や期限を一目で把握したい',
     releaseDate: '2026-06-07',
+    summaryVersion: '1.1.0',
   },
   {
     id: 'kw-input-assist',
@@ -496,10 +523,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '過去の入力値やほかのアプリの値を候補表示して入力（サブテーブル内も対応）。入力順ガイド・未入力チェック・重複チェックも。kintone完結。',
+      '過去の入力値やほかのアプリの値を候補表示して入力（サブテーブル内も対応）。入力順ガイド・未入力チェック・重複チェックも。',
     problemTitle: '同じ値の打ち直しと入力漏れで手戻りが起きる',
     problemDesc: '過去に入れた値を毎回手入力して表記もばらつく・項目が多くどこから入れるか迷う・入力漏れや重複に保存後まで気づけない',
     releaseDate: '2026-06-08',
+    summaryVersion: '2.0.1',
   },
   {
     id: 'kw-conditional-form',
@@ -509,7 +537,7 @@ export const plugins: Plugin[] = [
     slug: 'conditional-form',
     category: '入力支援',
     description:
-      '区分・ステータス・入力値や対象ユーザー（組織・グループ）の条件で、フィールドの表示/非表示・必須化・読み取り専用・値の自動入力・選択肢の絞り込みを切り替え。条件→動作をルールで設定し、1アプリで区分別・担当者別フォームをノーコードで実現します。',
+      '区分・ステータス・入力値や対象ユーザー（組織・グループ）の条件で、フィールドの表示/非表示・必須化・読み取り専用・値の自動入力・選択肢の絞り込みを切り替え。サブテーブル・関連レコード一覧の表示制御や、「いずれか」「以外」の複数値条件にも対応します。',
     image: '/images/conditional-form-banner.png',
     imageAlt:
       '条件分岐フォーム for kintone プラグイン — 区分・ステータス・入力値の条件でフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに切り替える動的フォーム制御',
@@ -518,10 +546,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '区分・ステータス・入力値の条件で、フィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに動的制御。1アプリで区分別フォームを実現。kintone完結。',
+      '区分・ステータス・入力値・対象ユーザーの条件で、フィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに動的制御。1アプリで区分別・担当者別フォームを実現。',
     problemTitle: '1アプリで入力項目を出し分けたい',
     problemDesc: '区分やステータスで見せる項目・必須・入れる値・選べる選択肢を変えたいが、標準ではできずアプリを分けがち',
     releaseDate: '2026-06-09',
+    summaryVersion: '2.1.1',
   },
   {
     id: 'kw-sheet-edit',
@@ -540,10 +569,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '一覧（カスタマイズビュー）を表計算風グリッドに置き換え、その場で直接編集・保存。範囲一括編集・オートフィル・型別フィルタ・Excel出力まで一覧上で完結。kintone完結。',
+      '一覧（カスタマイズビュー）を表計算風グリッドに置き換え、その場で直接編集・保存。サブテーブル明細の展開編集・範囲一括編集・オートフィル・型別フィルタ・Excel出力まで一覧上で完結。',
     problemTitle: '一覧のまま複数レコードを直接編集したい',
     problemDesc: '1件ずつ詳細画面を開く往復が多い・Excel 感覚で一覧上のまま連続して値を更新したい',
     releaseDate: '2026-06-12',
+    summaryVersion: '1.4.1',
   },
   {
     id: 'kw-sticky-board',
@@ -562,10 +592,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      'レコード詳細にカテゴリ付き付箋を自由配置、一覧上部で未対応件数を集計表示。付箋からレコードへジャンプ・その場で対応済み。個人付箋は作成者のみ秘匿。「通知とコメントの中間」。kintone完結。',
+      'レコード詳細にカテゴリ付き付箋を自由配置、一覧上部で未対応件数を集計表示。付箋からレコードへジャンプ・その場で対応済み。個人付箋は作成者のみ秘匿。「通知とコメントの中間」。',
     problemTitle: '申し送り・気づきが埋もれず、一覧で気づきたい',
     problemDesc: 'コメントは埋もれて一覧では気づけない・どのレコードのどの未対応が残っているか俯瞰できない',
     releaseDate: '2026-06-14',
+    summaryVersion: '1.0.2',
   },
   {
     id: 'kw-mail-assist',
@@ -584,10 +615,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      'レコード値を差し込んで件名・本文・宛先を組み立て、ワンクリックでメーラー起動。詳細＝個別／一覧＝BCC一斉。条件でテンプレ出し分け・送信履歴も記録。外部サーバー不要で kintone完結。',
+      'レコード値を差し込んで件名・本文・宛先を組み立て、ワンクリックでメーラー起動。詳細＝個別／一覧＝BCC一斉。条件でテンプレ出し分け・送信履歴も記録。',
     problemTitle: 'レコードから定型メールを毎回手作業で作っている',
     problemDesc: '宛先・会社名・担当者名をメーラーにコピペし、定型文を打ち直している・同じ案内を全員に送るのが手間',
     releaseDate: '2026-06-26',
+    summaryVersion: '1.1.3',
   },
   {
     id: 'kw-comment-control',
@@ -597,7 +629,7 @@ export const plugins: Plugin[] = [
     slug: 'comment-control',
     category: '一覧',
     description:
-      'レコード詳細・編集でコメント／変更履歴サイドバーを閉じた状態で開いて画面を広く使い、一覧では各レコードのコメント件数を色分けバッジで表示するプラグイン。自分宛メンションは強調色で見逃しを防ぎ、バッジのホバーでコメントを全文プレビュー（ページ送り対応）できます。',
+      'レコード詳細・編集でコメント／変更履歴サイドバーを閉じた状態で開いて画面を広く使い、一覧では各レコードのコメント件数を色分けバッジで表示するプラグイン。バッジのホバーでコメントを全文プレビュー（ページ送り対応）でき、自分宛メンションの強調表示も任意で有効にできます。',
     image: '/images/comment-control-banner.png',
     imageAlt:
       'コメントコントロール for kintone プラグイン — 詳細・編集でコメントサイドバーを閉じて開き、一覧ではコメント件数バッジを色分け。自分宛メンションを強調し、ホバーでコメントを全文プレビュー',
@@ -606,10 +638,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '詳細・編集でコメント欄を閉じて開き画面を広く。一覧は件数バッジを色分けし、自分宛メンションを強調＋ホバーで全文プレビュー。ページ送り対応・kintone完結。',
+      '詳細・編集でコメント欄を閉じて開き画面を広く。一覧は件数バッジを色分けし、ホバーで全文プレビュー（ページ送り対応）。自分宛メンションの強調は任意設定。',
     problemTitle: 'コメント欄が毎回開いて画面が狭い・自分宛の見落としが起きる',
     problemDesc: '詳細を開くたびコメント欄が場所を取り、一覧ではどれにコメントが付いているか・自分宛があるか分からず毎回開いて確認している',
     releaseDate: '2026-06-27',
+    summaryVersion: '1.0.3',
   },
   {
     id: 'kw-user-autofill',
@@ -619,7 +652,7 @@ export const plugins: Plugin[] = [
     slug: 'user-autofill',
     category: '入力支援',
     description:
-      'ユーザー選択フィールドで選んだ人（新規作成時は自分）の組織・グループ・役職・メール・社員番号などを対応フィールドへ自動転記するプラグイン。組織・グループは組織選択／グループ選択フィールドへ選択値でセット。さらにユーザー情報をスペースにプロフィールカード／承認欄の捺印として表示でき、すべて kintone 内で完結します。',
+      'ユーザー選択フィールドで選んだ人（新規作成時は自分）の組織・グループ・役職・メール・社員番号などを対応フィールドへ自動転記するプラグイン。組織・グループは組織選択／グループ選択フィールドへ選択値でセット。さらにユーザー情報をスペースにプロフィールカード／承認欄の捺印として表示できます。',
     image: '/images/user-autofill-banner.png',
     imageAlt:
       'ユーザーオートフィル for kintone プラグイン — ユーザー選択で選んだ人の組織・役職・社員番号などを自動転記し、プロフィールカードや承認欄の捺印として表示',
@@ -628,10 +661,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      'ユーザー選択で選んだ人の組織・役職・社員番号などを自動転記（組織/グループは選択値セット）。プロフィールカードや承認欄の捺印表示も。kintone完結。',
+      'ユーザー選択で選んだ人の組織・役職・社員番号などを自動転記（組織/グループは選択値セット）。プロフィールカードや承認欄の捺印表示も。',
     problemTitle: '担当者の部署・連絡先を毎回手入力・承認欄を手書きしている',
     problemDesc: '日報や申請で報告者＝自分の部署・役職・連絡先を毎回調べて入力し、組織は文字列でばらつき、承認欄は手書きやハンコで運用している',
     releaseDate: '2026-06-29',
+    summaryVersion: '1.0.1',
   },
   {
     id: 'kw-bulk-update',
@@ -650,10 +684,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '絞り込んだ一覧の1フィールドをまとめて更新・クリア。数値は加算/減算、クイックサーチ連動・1万件超対応。Undoと履歴からの復元付き・kintone完結。',
+      '絞り込んだ一覧の1フィールドをまとめて更新・クリア。数値は加算/減算、クイックサーチ連動・1万件超対応。Undoと履歴からの復元付き。',
     problemTitle: '複数レコードの同じ項目を1件ずつ詳細画面で直している',
     problemDesc: 'ステータス・担当者・金額などを絞り込んだ何十件にまとめて反映したいのに、1件ずつ開いて編集・保存を繰り返していて時間がかかる',
     releaseDate: '2026-07-03',
+    summaryVersion: '1.0.2',
   },
   {
     id: 'kw-excel-paste',
@@ -663,7 +698,7 @@ export const plugins: Plugin[] = [
     slug: 'excel-paste',
     category: '入力支援',
     description:
-      'Excel等の表データを貼り付けるだけで一括入力できるプラグイン。作成・編集画面ではサブテーブルへ複数行をまとめて流し込み、一覧画面では貼り付けだけで複数レコードを一括作成。貼り付け前にプレビューで列とフィールドの対応を確認でき、見出し行を含めれば自動マッピング。kintone完結。',
+      'Excel等の表データを貼り付けるだけで一括入力できるプラグイン。作成・編集画面ではサブテーブルへ複数行をまとめて流し込み（複数のテーブルもテーブルごとの設定で対応）、一覧画面では貼り付けだけで複数レコードを一括作成。プレビューで列の対応を確認でき、見出し行を含めれば自動マッピング。',
     image: '/images/excel-paste-banner.png',
     imageAlt:
       'エクセル一括貼り付け for kintone プラグイン — Excelの表データを貼り付けてサブテーブルへ複数行、一覧から複数レコードを一括入力。プレビューで列とフィールドを対応、見出し行は自動マッピング',
@@ -672,10 +707,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      'Excelの表を貼り付けるだけで一括入力。サブテーブルへ複数行、一覧から複数レコードをまとめて作成。プレビュー＋見出し自動マッピング・kintone完結。',
+      'Excelの表を貼り付けるだけで一括入力。複数のサブテーブルへ複数行、一覧から複数レコードをまとめて作成。プレビュー＋見出し自動マッピング。',
     problemTitle: 'Excelの表をkintoneに1行ずつ手入力している',
     problemDesc: '見積・注文などの明細をExcelで先に作ってからkintoneへ転記していて、サブテーブルや複数レコードの入力に毎回手間がかかる',
     releaseDate: '2026-07-05',
+    summaryVersion: '1.1.2',
   },
   {
     id: 'kw-ambiguous-match',
@@ -685,7 +721,7 @@ export const plugins: Plugin[] = [
     slug: 'ambiguous-match',
     category: '入力支援',
     description:
-      '会社名・顧客名の入力中に、表記ゆれ（株式会社⇔（株）⇔㈱・全角半角・旧字体など）を吸収して似た既存レコードをその場でフローティング表示するプラグイン。標準の「値の重複を禁止する」（完全一致）では気づけない二重登録を保存前に確認でき、参照項目の併記・候補クリックで別タブ表示にも対応。kintone完結。',
+      '会社名・顧客名の入力中に、表記ゆれ（株式会社⇔（株）⇔㈱・全角半角・旧字体など）を吸収して似た既存レコードをその場でフローティング表示するプラグイン。標準の「値の重複を禁止する」（完全一致）では気づけない二重登録を保存前に確認でき、参照項目の併記・候補クリックで別タブ表示にも対応。',
     image: '/images/ambiguous-match-banner.png',
     imageAlt:
       'あいまい照合 for kintone プラグイン — 会社名の入力中に表記ゆれ（株式会社⇔（株）⇔㈱等）を吸収して類似する既存レコードをフィールド直下に表示し、二重登録を保存前に防ぐ',
@@ -694,10 +730,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '入力中に表記ゆれを吸収して似た既存レコードを表示。株式会社⇔（株）等の二重登録に保存前に気づける。kintone完結。',
+      '入力中に表記ゆれを吸収して似た既存レコードを表示。株式会社⇔（株）等の二重登録に保存前に気づける。',
     problemTitle: '同じ取引先が別表記で二重登録される',
     problemDesc: '「株式会社◯◯」と「◯◯（株）」のような表記ゆれで、標準の重複禁止（完全一致）では防げない重複登録が起きている',
     releaseDate: '2026-07-06',
+    summaryVersion: '1.0.1',
   },
   {
     id: 'kw-status-bulk-action',
@@ -707,7 +744,7 @@ export const plugins: Plugin[] = [
     slug: 'status-bulk-action',
     category: '一覧',
     description:
-      'プロセス管理のステータス・作業者を、標準のレコード一覧からまとめて一括実行できるプラグイン。対象を現在ステータスごとにグループ分けしてアクションを選ぶだけで、まとめて次に進められます。次の作業者は遷移先の設定（選択／全員／作成者／フィールド指定など）に応じて自動判定。独自条件を満たさないレコードは事前に除外し、現在ステータスの滞留日数も一覧に色で可視化します。kintone完結。',
+      'プロセス管理のステータス・作業者を、標準のレコード一覧からまとめて一括実行できるプラグイン。対象を現在ステータスごとにグループ分けしてアクションを選ぶだけで、まとめて次に進められます。次の作業者は遷移先の設定（選択／全員／作成者／フィールド指定など）に応じて自動判定。独自条件を満たさないレコードは事前に除外し、現在ステータスの滞留日数も一覧に色で可視化します。',
     image: '/images/status-bulk-action-banner.png',
     imageAlt:
       'ステータス一括実行 for kintone プラグイン — プロセス管理のステータス・作業者を標準のレコード一覧からまとめて一括実行。現在ステータスごとにグループ分けしてアクション選択、次の作業者は自動判定、滞留日数を色で可視化',
@@ -716,10 +753,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      'プロセス管理のステータス・作業者を一覧からまとめて実行。現在ステータスごとにグループ分けしてアクション選択、作業者は自動判定、滞留日数を色で可視化。kintone完結。',
+      'プロセス管理のステータス・作業者を一覧からまとめて実行。現在ステータスごとにグループ分けしてアクション選択、作業者は自動判定、滞留日数を色で可視化。',
     problemTitle: '承認待ちのステータスを1件ずつ手作業で進めている',
     problemDesc: 'プロセス管理の承認・差し戻しを何十件も1レコードずつ開いて操作していて時間がかかる。承認待ちの放置にも気づきにくい',
     releaseDate: '2026-07-11',
+    summaryVersion: '1.0.2',
   },
   {
     id: 'kw-accordion-tab',
@@ -729,7 +767,7 @@ export const plugins: Plugin[] = [
     slug: 'accordion-tab',
     category: 'レコード画面',
     description:
-      'レコードの長いフォームを、スペース要素を見出しに自動でセクション分割してアコーディオン開閉。既定で折りたたみ必要な節だけ開いて入力。未入力・入力状況バッジ、スティッキー見出しに加え、セクションごとの閲覧制限（ユーザー・組織・グループ）・パスワード表示制御にも対応。kintone完結。',
+      'レコードの長いフォームを、スペース要素を見出しに自動でセクション分割してアコーディオン開閉。既定で折りたたみ必要な節だけ開いて入力。未入力・入力状況バッジ、スティッキー見出しに加え、セクションごとの閲覧制限（ユーザー・組織・グループ）・パスワード表示制御にも対応。',
     image: '/images/accordion-tab-banner.png',
     imageAlt:
       'アコーディオンタブ for kintone プラグイン — 長いレコードフォームをスペース要素を見出しに自動セクション分割してアコーディオン開閉。既定で折りたたみ、必要な節だけ開いて入力。未入力・入力状況バッジ、スティッキー見出し、スライド開閉に対応',
@@ -738,10 +776,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '長いフォームをスペース見出しで折りたたみ整理。必要な節だけ開いて入力でき、セクションごとの閲覧制限・パスワード表示制御にも対応。kintone完結。',
+      '長いフォームをスペース見出しで折りたたみ整理。必要な節だけ開いて入力でき、セクションごとの閲覧制限・パスワード表示制御にも対応。',
     problemTitle: 'フォームが縦に長く、目的の項目を探すのが大変',
     problemDesc: '項目数の多いアプリで、入力・確認したい箇所までスクロールで探すのに時間がかかり、フォーム全体の把握もしにくい',
     releaseDate: '2026-07-13',
+    summaryVersion: '2.0.2',
   },
   {
     id: 'kw-elapsed-assist',
@@ -760,10 +799,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '基準日から経過日数・年齢・在籍期間などを自動計算。開くたびに今日の値を再計算表示し、保存時に実フィールドへ書込。並び替え・集計にも使える。kintone完結。',
+      '基準日から経過日数・年齢・在籍期間などを自動計算。開くたびに今日の値を再計算表示し、保存時に実フィールドへ書込。並び替え・集計にも使える。',
     problemTitle: '経過日数や年齢が、開いた日によって古いまま',
     problemDesc: '契約日や生年月日からの経過日数・年齢が、標準の計算では今日に追従せず古い値のまま。並び替えや集計にも使いたい',
     releaseDate: '2026-07-17',
+    summaryVersion: '1.0.4',
   },
   {
     id: 'kw-reuse-control',
@@ -783,10 +823,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '再利用で「残す」項目だけを引き継ぎ、あとは自動で空欄に。不要な項目を毎回手で消す手間をなくします。kintone完結。',
+      '再利用で「残す」項目だけを引き継ぎ、あとは自動で空欄に。不要な項目を毎回手で消す手間をなくします。',
     problemTitle: '再利用のたびに不要な項目を手で消している',
     problemDesc: '似た案件をテンプレとして再利用したいのに、標準では全項目がコピーされ、要らない項目を毎回手作業で消している',
     releaseDate: '2026-07-20',
+    summaryVersion: '1.0.1',
   },
   {
     id: 'kw-record-recovery',
@@ -796,7 +837,7 @@ export const plugins: Plugin[] = [
     slug: 'record-recovery',
     category: 'レコード画面',
     description:
-      '削除したレコードを内容ごと元に戻せる kintone プラグイン。削除の直前に添付ファイルまで保管アプリへ自動バックアップし、一覧画面や設定画面の履歴からワンクリックで復元できます。削除の成否に連動する二段階コミットで、バックアップだけが残る不整合を防ぎます。kintone完結。',
+      '削除したレコードを内容ごと元に戻せる kintone プラグイン。削除の直前に添付ファイルまで保管アプリへ自動バックアップし、一覧画面や設定画面の履歴からワンクリックで復元できます。削除の成否に連動する二段階コミットで、バックアップだけが残る不整合を防ぎます。',
     image: '/images/record-recovery-banner.png',
     imageWebp: '/images/record-recovery-banner.webp',
     imageAlt:
@@ -806,10 +847,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      'うっかり削除したレコードを元に戻せる。削除直前に添付ごと保管アプリへ自動バックアップし、履歴からワンクリックで復元。kintone完結。',
+      'うっかり削除したレコードを元に戻せる。削除直前に添付ごと保管アプリへ自動バックアップし、履歴からワンクリックで復元。',
     problemTitle: '誤って削除したレコードが元に戻せない',
     problemDesc: 'kintone には削除レコードを復元する標準機能がなく、うっかり消すと内容も添付ファイルも失われてしまう',
     releaseDate: '2026-07-24',
+    summaryVersion: '1.0.1',
   },
   {
     id: 'kw-read-check',
@@ -819,7 +861,7 @@ export const plugins: Plugin[] = [
     slug: 'read-check',
     category: 'レコード画面',
     description:
-      'レコードを開いた人を自動で記録できる kintone プラグイン。詳細画面を開くだけでログインユーザーを既読記録し、右サイドバーの「既読」タブ（コメント・変更履歴の並び）から誰が・いつ・何回読んだかを一覧表示。編集回数も別集計。レコード本体は汚さず保管アプリに分離、kintone完結。',
+      'レコードを開いた人を自動で記録できる kintone プラグイン。詳細画面を開くだけでログインユーザーを既読記録し、右サイドバーの「既読」タブ（コメント・変更履歴の並び）から誰が・いつ・何回読んだかを一覧表示。編集回数も別集計。レコード本体は汚さず保管アプリに分離。',
     image: '/images/read-check-banner.png',
     imageWebp: '/images/read-check-banner.webp',
     imageAlt:
@@ -829,10 +871,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '通達や回覧を誰が読んだか自動で記録。詳細画面を開くだけで既読を残し、サイドバーの「既読」タブで一覧表示。kintone完結。',
+      '通達や回覧を誰が読んだか自動で記録。詳細画面を開くだけで既読を残し、サイドバーの「既読」タブで一覧表示。',
     problemTitle: '誰がレコードを読んだのか分からない',
     problemDesc: '通達や回覧レコードを作っても、標準では閲覧記録が残らず、読んだかどうかを一人ずつ聞いて回っている',
     releaseDate: '2026-07-25',
+    summaryVersion: '1.0.2',
   },
   {
     id: 'kw-text-join',
@@ -851,11 +894,12 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '複数フィールドの値を書式を整えて1つの文字列へ自動入力。明細の集約結合、重複チェック、既存レコードへの一括反映まで。kintone完結。',
+      '複数フィールドの値を書式を整えて1つの文字列へ自動入力。明細の集約結合、重複チェック、既存レコードへの一括反映まで。',
     problemTitle: '計算フィールドでは結合できない項目がある',
     problemDesc:
       'ドロップダウンやユーザー選択、日付は計算式で連結できない。自動計算にすると「値の重複を禁止する」も選べず、複合キーとして使えない',
     releaseDate: '2026-08-02',
+    summaryVersion: '1.0.1',
   },
   {
     id: 'kw-view-control',
@@ -879,6 +923,7 @@ export const plugins: Plugin[] = [
     problemDesc:
       '部署別・担当別に一覧を作った結果、切替ドロップダウンが20件超。kintone では一覧にアクセス権を設定できず、既定の一覧もアプリに1つしか決められない',
     releaseDate: '2026-08-04',
+    summaryVersion: '1.0.0',
   },
   {
     id: 'kw-table-assist',
@@ -887,7 +932,7 @@ export const plugins: Plugin[] = [
     slug: 'table-assist',
     category: '入力支援',
     description:
-      'テーブルの行をドラッグ&ドロップと↑↓ボタンで並べ替え、値ごと複製、選んだ行をまとめて移動・削除できるプラグイン。さらにチェックを入れた行だけを合計・件数で集計して数値フィールドへ自動入力します。列見出しソート・ヘッダー固定・行番号・既存レコードへの一括反映にも対応。',
+      'テーブルの行をドラッグ&ドロップと↑↓ボタンで並べ替え、値ごと複製、選んだ行をまとめて移動・削除できるプラグイン。さらにチェックを入れた行だけを合計・平均・件数・最大・最小で集計して数値フィールドへ自動入力します。列見出しソート・ヘッダー固定・行番号・既存レコードへの一括反映にも対応。',
     image: '/images/table-assist-banner.png',
     imageAlt:
       'テーブルアシスト for kintone プラグイン — テーブルの行を並べ替え・複製・一括操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ自動入力する',
@@ -895,11 +940,12 @@ export const plugins: Plugin[] = [
     imageHeight: 630,
     status: 'available',
     cardDescription:
-      'チェックした行だけ、合計する。明細の行を並べ替え・複製・まとめて操作でき、選んだ行だけの合計や件数を数値フィールドへ自動入力。作業用の計算列は不要です。',
+      'チェックした行だけ、合計する。明細の行を並べ替え・複製・まとめて操作でき、選んだ行だけの合計・平均・件数を数値フィールドへ自動入力。作業用の計算列は不要です。',
     problemTitle: '「選んだ行だけ」の合計が出せない',
     problemDesc:
       'kintone に SUMIF はなく、回避策は作業用の計算列を1本足して IF(CONTAINS(…)) を合計すること。その列は非表示にできず CSV にも出る。行の並べ替えもできない',
     releaseDate: '2026-08-06',
+    summaryVersion: '1.0.0',
   },
 ];
 
@@ -926,10 +972,11 @@ export const premiumPlugins: Plugin[] = [
     status: 'available',
     tier: 'premium',
     cardDescription:
-      '手持ちの PDF を背景に kintone のデータをドラッグ配置して帳票化。1 件印刷・一覧まとめ印刷・集計表紙・PDF 自動保存に対応。kintone 完結。',
+      '手持ちの PDF を背景に kintone のデータをドラッグ配置して帳票化。1 件印刷・一覧まとめ印刷・集計表紙・PDF 自動保存に対応。',
     problemTitle: '既存の PDF 帳票に kintone のデータを流し込みたい',
     problemDesc: '請求書・見積書を作り直さず、1 件ずつ・一覧から複数まとめて印刷／PDF 保存したい',
     releaseDate: '2026-06-20',
+    summaryVersion: '1.0.2',
   },
   {
     id: 'kw-dashboard',
@@ -939,7 +986,7 @@ export const premiumPlugins: Plugin[] = [
     slug: 'dashboard',
     category: '一覧',
     description:
-      'グラフ・数値カード・クロス集計表を1枚に集約し、一覧のカスタマイズビューに常設の集計ダッシュボードを描画。期間セレクタで全ウィジェットを連動再集計し、アプリ横断集計・ポータル常設・集計キャッシュに対応します。kintone 完結で外部送信しません。',
+      'グラフ・数値カード・クロス集計表を1枚に集約し、一覧のカスタマイズビューに常設の集計ダッシュボードを描画。期間セレクタで全ウィジェットを連動再集計し、アプリ横断集計・集計キャッシュに対応。ポータルには別々のボードのグラフを横並びに配置できます。',
     image: '/images/dashboard-banner.png',
     imageAlt:
       'ダッシュボード for kintone プラグイン — レコード一覧のカスタマイズビューにグラフ・数値カード・クロス集計表を1枚に集約した集計ダッシュボード',
@@ -948,10 +995,11 @@ export const premiumPlugins: Plugin[] = [
     status: 'available',
     tier: 'premium',
     cardDescription:
-      'グラフ・数値カード・クロス集計を1枚に集約。期間連動再集計・アプリ横断・ポータル常設・集計キャッシュに対応。kintone 完結。',
+      'グラフ・数値カード・クロス集計を1枚に集約。期間連動再集計・アプリ横断・集計キャッシュ対応。ポータルには複数ボードのグラフを横並び常設。',
     problemTitle: '見たい数字が複数画面に散らばっている',
     problemDesc: '標準グラフは1グラフ1画面。複数指標・複数アプリの数字を1枚で一望し、ポータルに常設したい',
     releaseDate: '2026-06-27',
+    summaryVersion: '1.1.2',
   },
   {
     id: 'kw-attribute-filter',
@@ -970,10 +1018,11 @@ export const premiumPlugins: Plugin[] = [
     status: 'available',
     tier: 'premium',
     cardDescription:
-      'ユーザー・組織・グループ選択の候補を、役職や申請種別などの条件で自動的に絞り込み。部署外への誤選択を防ぎ、キーワードで素早く選択。kintone 完結。',
+      'ユーザー・組織・グループ選択の候補を、役職や申請種別などの条件で自動的に絞り込み。部署外への誤選択を防ぎ、キーワードで素早く選択。',
     problemTitle: '担当者や申請先を、部署外まで含めた全員から選ばせたくない',
     problemDesc: '申請先組織や承認者を、役職・所属・申請種別に応じた候補だけに絞り、誤選択を防ぎたい',
     releaseDate: '2026-07-01',
+    summaryVersion: '1.0.2',
   },
   {
     id: 'kw-lookup-sync',
@@ -983,7 +1032,7 @@ export const premiumPlugins: Plugin[] = [
     slug: 'lookup-sync',
     category: '出力・連携',
     description:
-      'ルックアップ元（マスター）のレコードを更新すると、その値をコピーしている参照先アプリの既存レコードを自動で追従更新するプラグイン。対象は自動スキャンで検出し手入力不要、サブテーブル内のルックアップにも対応。導入前の既存データも「今すぐ全件同期」で一括最新化できます。',
+      'ルックアップ元（マスター）のレコードを更新すると、その値をコピーしている参照先アプリの既存レコードを自動で追従更新するプラグイン。会社名・商品名のように重複しうるキーにも2つの同期方式で対応し、対象は自動スキャンで検出。サブテーブル内のルックアップや、既存データの「今すぐ全件同期」も可能です。',
     image: '/images/lookup-sync-banner.png',
     imageAlt:
       'ルックアップ自動同期 for kintone プラグイン — マスターのレコードを更新すると、その値をルックアップでコピーした参照先アプリの既存レコードを自動で追従更新する',
@@ -992,10 +1041,11 @@ export const premiumPlugins: Plugin[] = [
     status: 'available',
     tier: 'premium',
     cardDescription:
-      'マスターを更新すると、その値をルックアップでコピーした参照先レコードを自動で最新化。自動スキャン検出・サブテーブル対応・既存データの一括同期。kintone 完結。',
+      'マスターを更新すると、その値をルックアップでコピーした参照先レコードを自動で最新化。重複しうるキーにも2方式で対応、自動スキャン検出・サブテーブル・既存データの一括同期。',
     problemTitle: 'マスターを直しても、コピー済みの値が古いまま',
     problemDesc: '会社名や単価を直しても、過去にルックアップした参照先レコードは古いまま。まとめて最新化したい',
     releaseDate: '2026-07-04',
+    summaryVersion: '2.1.2',
   },
   {
     id: 'kw-related-enhancer',
@@ -1005,7 +1055,7 @@ export const premiumPlugins: Plugin[] = [
     slug: 'related-enhancer',
     category: 'レコード画面',
     description:
-      'レコード詳細の関連レコード一覧を、集計・見た目・検索/ソートでまとめて強化するプラグイン。カーソルAPIで参照先を全件取得し、合計・平均・件数などの集計カード（条件付き・複数条件の並列・閾値で色分け）を一覧の上に表示。非表示フィールドやサブテーブル内の展開集計、集計結果の書き込み保存にも対応します。kintone 完結で外部送信しません。',
+      'レコード詳細の関連レコード一覧を、集計・見た目・検索/ソートでまとめて強化するプラグイン。カーソルAPIで参照先を全件取得し、合計・平均・件数などの集計カード（条件付き・複数条件の並列・閾値で色分け）を一覧の上に表示。非表示フィールドやサブテーブル内の展開集計、集計結果の書き込み保存にも対応します。',
     image: '/images/related-enhancer-banner.png',
     imageAlt:
       '関連レコード拡張 for kintone プラグイン — レコード詳細の関連レコード一覧に合計・平均・件数などの集計カードを表示し、見た目・検索/ソートを強化する',
@@ -1014,10 +1064,11 @@ export const premiumPlugins: Plugin[] = [
     status: 'available',
     tier: 'premium',
     cardDescription:
-      '関連レコード一覧に合計・平均・件数の集計カードを表示。非表示フィールド・サブテーブルの集計、書き込み保存、見た目・検索/ソートに対応。kintone 完結。',
+      '関連レコード一覧に合計・平均・件数の集計カードを表示。非表示フィールド・サブテーブルの集計、書き込み保存、見た目・検索/ソートに対応。',
     problemTitle: '関連レコード一覧が「見るだけ」で集計できない',
     problemDesc: '関連レコードの合計・件数を別アプリやExcelで二度手間で出している。表示外の項目やサブテーブルも集計したい',
     releaseDate: '2026-07-11',
+    summaryVersion: '1.0.1',
   },
   {
     id: 'kw-card-board',
@@ -1027,7 +1078,7 @@ export const premiumPlugins: Plugin[] = [
     slug: 'card-board',
     category: '一覧',
     description:
-      'レコード一覧を「状態カード（上部）＋詳細カード（下部）」の2段カンバンに切替表示するプラグイン。詳細カードを状態カードへドラッグ&ドロップしてステータス・選択肢・文字列の値を変更でき、状態別の件数・集計値を全幅で俯瞰。連動（カンバン）/個別（ギャラリー）モード・添付サムネイル・ライブプレビュー付き設定に対応します。kintone 完結で外部送信しません。',
+      'レコード一覧を「状態カード（上部）＋詳細カード（下部）」の2段カンバンに切替表示するプラグイン。詳細カードを状態カードへドラッグ&ドロップしてステータス・選択肢・文字列の値を変更でき、状態別の件数・集計値を全幅で俯瞰。連動（カンバン）/個別（ギャラリー）モード・添付サムネイル・ライブプレビュー付き設定に対応します。',
     image: '/images/card-board-banner.png',
     imageAlt:
       'カードボード for kintone プラグイン — レコード一覧を状態カード＋詳細カードの2段カンバンに切替え、ドラッグ&ドロップでステータスを変更し、状態別の件数・集計を俯瞰する',
@@ -1036,10 +1087,11 @@ export const premiumPlugins: Plugin[] = [
     status: 'available',
     tier: 'premium',
     cardDescription:
-      '一覧を「状態カード＋詳細カード」の2段カンバンに切替。D&Dでステータス・選択肢・文字列を変更、状態別の件数・集計を俯瞰。連動/個別モード・添付サムネ対応。kintone 完結。',
+      '一覧を「状態カード＋詳細カード」の2段カンバンに切替。D&Dでステータス・選択肢・文字列を変更、状態別の件数・集計を俯瞰。連動/個別モード・添付サムネ対応。',
     problemTitle: '表の一覧では状態別の進捗が掴めない',
     problemDesc: '状態別の件数や合計が一目で分からず、ステータス変更も1件ずつ手作業。ドラッグで動かせるボードにしたい',
     releaseDate: '2026-07-19',
+    summaryVersion: '1.0.1',
   },
   {
     id: 'kw-chat-notify',
@@ -1062,6 +1114,7 @@ export const premiumPlugins: Plugin[] = [
     problemTitle: 'kintone を開くまで、更新に気づけない',
     problemDesc: '大事なレコードが登録されても担当者が気づかず対応が遅れる。かといって全部通知すると誰も読まなくなる',
     releaseDate: '2026-07-29',
+    summaryVersion: '1.0.1',
   },
   {
     id: 'kw-sidebar-enhancer',
@@ -1085,6 +1138,7 @@ export const premiumPlugins: Plugin[] = [
     problemTitle: 'レコードを開いたまま、次の作業ができない',
     problemDesc: '関連レコードの登録や地図の確認で別タブへ離脱し、戻ると一覧の位置を見失う。かといってフォームに項目は増やしたくない',
     releaseDate: '2026-07-30',
+    summaryVersion: '1.0.3',
   },
   {
     id: 'kw-input-template',
@@ -1107,6 +1161,7 @@ export const premiumPlugins: Plugin[] = [
     problemTitle: '毎回おなじ内容を打ち直している',
     problemDesc: '標準の初期値は1パターンだけ。レコード再利用は元レコード探しと不要項目の消去が要り、定型の明細行も毎回手で足している',
     releaseDate: '2026-08-02',
+    summaryVersion: '1.0.1',
   },
 ];
 

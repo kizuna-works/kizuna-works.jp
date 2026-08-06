@@ -766,6 +766,7 @@ c:\kizuna-works.jp\
 │   ├── gen-versions.mjs        # public/downloads/*.zip から public/versions.json を生成（プラグイン設定画面のアップデート通知用）。prebuild で自動実行
 │   ├── gen-install-ranking.mjs # GAS の action=ranking から src/data/install-ranking.json を生成。prebuild で自動実行（手動は npm run gen:ranking）。**成功時だけ上書き**し、失敗時は直近のスナップショットを残す（スナップショットが無い状態で失敗したらビルド中断）。以前はページ側で毎回 fetch していて、タイムアウト時に plugins.ts の並び順が「本物のランキング」として公開されていた
 │   ├── sync-llms-counts.mjs    # public/llms.txt の製品数を src/data/*.ts から同期＋掲載漏れ/存在しない製品へのリンクを検出してビルド中断。prebuild で自動実行（手動は npm run sync:llms）
+│   ├── check-plugin-summaries.mjs # プラグインの要約（一覧カード description / ランキング cardDescription / 製品ページ hero）が公開版に追いついているかを検査。plugins.ts の `summaryVersion` と製品ページ JSON-LD の `softwareVersion` の major.minor を比較する。prebuild では警告のみ、`npm run check:summaries` は不一致で exit 1（リリース前ゲート）
 │   ├── gen-image-derivatives.mjs # dist の HTML が参照する PNG から .webp / -800.webp を生成（Picture.astro 用）
 │   ├── gen-blog-figures.mjs    # ブログ本文の図解を satori＋sharp でコード生成（オンブランド）
 │   ├── gen-plugin-banner.mjs   # プラグインのカードバナー画像を生成
