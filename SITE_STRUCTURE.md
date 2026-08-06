@@ -706,7 +706,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-summary-bar-v2.0.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-summary-bar-v2.1.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-summary-bar-v2.1.1.zip                             # 集計サマリーバー for kintone 配布ファイル（手動配置・v2.1.1 でゲストスペース対応）
-│   │   ├── kw-summary-bar-v2.1.2.zip                             # 集計サマリーバー for kintone 配布ファイル（手動配置・v2.1.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-summary-bar-v2.1.2.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-summary-bar-v2.2.0.zip                             # 集計サマリーバー for kintone 配布ファイル（最新・v2.2.0 上限件数をカードごとの絞り込み後の件数で判定＋件数カードは件数のみ取得）
 │   │   ├── kw-text-join-v1.0.0.zip                               # 文字列結合 for kintone v1.0.0 配布ファイル（旧版・手動配置・ちょこっと・複数フィールドを1つの文字列へ自動入力／明細集約／重複チェック／一括反映）
 │   │   ├── kw-text-join-v1.0.1.zip                               # 文字列結合 for kintone 配布ファイル（最新・手動配置・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-theme-styler-v1.0.0.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・参考保管）
