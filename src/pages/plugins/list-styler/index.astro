@@ -4,6 +4,7 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <Layout
@@ -52,10 +53,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "一覧スタイラー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.3",
-          "dateModified": "2026-08-04",
+          "softwareVersion": "1.1.0",
+          "dateModified": "2026-08-06",
           "url": "https://kizuna-works.jp/plugins/list-styler/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-list-styler-v1.0.3.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-list-styler-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/list-styler-banner.png",
           "offers": {
             "@type": "Offer",
@@ -65,13 +66,18 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintone のレコード一覧画面を見やすく整える kintone プラグイン。左端の列固定、基本の行スタイル（ゼブラ2色・単色・文字色）、行ホバー、行番号、条件付き行の色分け（背景・文字色・太字）、行クリックで詳細を開く機能を一覧ビューごとに設定できる。",
+          "description": "kintone のレコード一覧画面を見やすく整える kintone プラグイン。テーブル（サブテーブル）の明細を一覧の行として全レコード分まとめて表示、左端の列固定、基本の行スタイル（ゼブラ2色・単色・文字色）、行ホバー、行番号、条件付き行の色分け（背景・文字色・太字）、行クリックで詳細を開く機能を一覧ビューごとに設定できる。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
             "url": "https://kizuna-works.jp"
           },
           "featureList": [
+            "テーブル（サブテーブル）の列を一覧の列として追加し、明細を一覧の行として表示",
+            "明細が3行あるレコードは3行分の高さになり、2行目以降はレコード側のセルが空になる",
+            "kintone標準の「表示する」と違い、全レコードの明細を同時に表示できる",
+            "追加する列の選択・1レコードあたりの最大表示行数・空テーブルの見せ方を設定可能",
+            "横スクロールは一覧の中だけで起き、上部のメニューやツールバーは動かない",
             "横長一覧で左端の列（0〜3列）を横スクロールに追従して固定・ヘッダーも追従",
             "基本の行スタイル：ゼブラ（奇数/偶数の2色指定）・単色・なし、基本文字色",
             "行ホバーハイライト",
@@ -203,7 +209,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 
     .problem-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      /* auto-fit so a 4th card does not leave an orphan on its own row */
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 24px;
     }
 
@@ -527,6 +534,109 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       font-weight: 700;
     }
 
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 24px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+    /* Smaller, centered screenshot inside the update box */
+    .update-shot {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .update-shot .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin: 10px 0 0;
+    }
+
+    /* Zoomable images + lightbox overlay */
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin: 10px 0 0;
+    }
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
     /* Screenshot Frame (live action screenshot) */
     .screenshot-frame {
       max-width: 980px;
@@ -630,10 +740,35 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.3</span>
+        <span class="hero-version">v1.1.0</span>
       </div>
       <h1 class="hero-title">一覧スタイラー for kintone</h1>
-      <p class="hero-copy">kintone のレコード一覧画面を見やすく整えるプラグインです。横長の一覧で左端の列（案件名・会社名などのキー列）を横スクロールに追従して固定し、ゼブラ（縞模様）・行番号・行ホバーで視認性を向上。さらに条件に応じて行の背景色・文字色・太字を変えられるので、「失注はグレー」「期限超過は赤字」など状態をひと目で把握できます。設定は一覧ビューごとに適用でき、フィールドスタイラーとも共存します。</p>
+      <p class="hero-copy">kintone のレコード一覧画面を見やすく整えるプラグインです。テーブル（サブテーブル）の明細を一覧の行として全レコード分まとめて表示でき、横長の一覧では左端の列（案件名・会社名などのキー列）を横スクロールに追従して固定し、ゼブラ（縞模様）・行番号・行ホバーで視認性を向上。さらに条件に応じて行の背景色・文字色・太字を変えられるので、「失注はグレー」「期限超過は赤字」など状態をひと目で把握できます。設定は一覧ビューごとに適用でき、フィールドスタイラーとも共存します。</p>
+    </section>
+
+    <!-- Update Info (v1.1.0) -->
+    <section class="section-wrapper fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.1.0：テーブルの明細を、一覧の行として全レコード分まとめて表示できるようになりました</h2>
+        </div>
+        <p class="update-desc">kintone 標準では、一覧でテーブル（サブテーブル）の中身を見るには行ごとに「表示する」を押す必要があり、<strong>同時に開けるのは1レコード分だけ</strong>です。別のレコードを開くと前のレコードは閉じてしまうため、複数レコードの明細を並べて見比べることができませんでした。</p>
+        <p class="update-desc">v1.1.0 では、<strong>テーブルの列を一覧の列として追加</strong>し、明細を<strong>一覧の行そのもの</strong>として表示します。明細が3行あるレコードは3行分の高さになり、2行目以降はレコード側のセルが空になるので、どこまでが同じレコードかがひと目で分かります。罫線はレコードの区切りを太く、明細の行の間を細くしているので、Excel の明細表のように読めます。</p>
+        <div class="screenshot-frame">
+          <Picture
+            src="/images/list-styler-table-01.png"
+            alt="一覧スタイラー v1.1.0 のテーブル展開表示 — 案件ごとの明細（商品コード・商品名・区分・数量・単価・小計）が一覧の列として追加され、明細の行数分だけレコードが縦に広がっている kintone のレコード一覧画面"
+            width="1826"
+            height="504"
+            class="zoomable"
+          />
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        <p class="update-desc">表示する列は必要なものだけを選べます。1レコードあたりの最大表示行数を決めておけば、明細が多いレコードも「…他 N 行」でまとまるので一覧が縦に伸びすぎません。<strong>数値の桁区切りや小数点以下の桁数は、フィールドの設定どおり</strong>に表示されます。</p>
+        <p class="update-desc">あわせて、<strong>横スクロールを一覧の中だけに閉じ込める</strong>ようにしました。列を追加して一覧が横に広がっても、上部のメニュー・アプリ名・ツールバーは動かず、固定した左端の列はそのまま残ります。</p>
+        <p class="update-note">既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。これまでの設定はそのまま引き継がれます。</p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -642,6 +777,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <h2 class="section-title">こんな課題を解決します</h2>
         <p class="section-subtitle">項目数の多い横長の一覧、そのままでは見づらくありませんか？</p>
         <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">📋</span>
+            <h3 class="problem-title">テーブルの中身が一覧で見比べられない</h3>
+            <p class="problem-desc">明細（サブテーブル）を確認するには行ごとに「表示する」を押すしかなく、しかも開けるのは1レコード分だけ。別のレコードを開くと前が閉じてしまい、複数レコードの明細を並べて見ることができない。</p>
+          </div>
           <div class="problem-card">
             <span class="problem-icon">↔️</span>
             <h3 class="problem-title">横スクロールでキー列が消える</h3>
@@ -713,6 +853,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     <section class="section-wrapper fade-in">
       <h2 class="section-title-left">主な機能</h2>
       <ul class="feature-list">
+        <li><span><strong>テーブルの明細を一覧の行として表示（テーブル展開表示）</strong> — テーブル（サブテーブル）の列を一覧の列として追加し、明細を一覧の行そのものとして表示します。<strong>明細が3行あるレコードは3行分の高さ</strong>になり、2行目以降はレコード側のセルが空になるので、どこまでが同じレコードかがひと目で分かります。kintone 標準の「表示する」と違い、<strong>全レコードの明細を同時に</strong>表示できます。</span></li>
+        <li><span><strong>追加する列・表示行数を選べる</strong> — 一覧に出す明細の列はチェックで選択（並び順はフォームでの列順）。1レコードあたりの最大表示行数を決めておけば、明細が多いレコードも「…他 N 行」でまとまり、一覧が縦に伸びすぎません。明細が空のレコードの見せ方も選べます。</span></li>
+        <li><span><strong>罫線でレコードの区切りが分かる</strong> — 明細の行の間は細い罫線、レコードの区切りは太い罫線で描き分けます。数値の桁区切りや小数点以下の桁数は、フィールドの設定どおりに表示されます。</span></li>
+        <li><span><strong>横スクロールは一覧の中だけ</strong> — 列を追加して一覧が横に広がっても、上部のメニュー・アプリ名・ツールバーは動きません。固定した左端の列はそのまま残ります。</span></li>
         <li><span><strong>左端の列を固定（0〜3列）</strong> — 横スクロールしても案件名・会社名などのキー列が左端に残ります。その上のヘッダーも一緒に固定。チェックボックスや詳細アイコンなどの操作列は列数にカウントしません。</span></li>
         <li><span><strong>基本の行スタイル（ゼブラ・単色・文字色）</strong> — 行背景をゼブラ（奇数行・偶数行の色をそれぞれ指定）／単色／なしから選べ、行の基本文字色も指定可能。条件に関係なく一覧全体に適用する土台のスタイルです。</span></li>
         <li><span><strong>行ホバーハイライト</strong> — マウスを乗せた行を背景＋上下のラインでハイライト。目線のズレを防ぎます。</span></li>
@@ -725,6 +869,24 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <li><span><strong>フィールドスタイラーと共存</strong> — セル単位で色付けするフィールドスタイラーと併用可能。同じセルではフィールドスタイラーが優先され、それ以外に行スタイルが適用されます。</span></li>
         <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。プラグインアップロードのみで導入完了します。</span></li>
       </ul>
+    </section>
+
+    <!-- Table expansion detail -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">テーブルの明細を、一覧の行として表示</h2>
+        <p class="section-subtitle">チェックした列が一覧に追加され、明細の行数分だけレコードが縦に広がります</p>
+        <div class="screenshot-frame">
+          <Picture
+            src="/images/list-styler-config-04.png"
+            alt="一覧スタイラーの設定画面 — テーブル展開表示の設定。対象のテーブル、一覧に追加する列のチェックボックス、1レコードあたりの最大表示行数、テーブルが空のレコードの扱い、kintone標準のテーブル列を隠すか、レコード行を強調するかを選べる"
+            width="1138"
+            height="763"
+            class="zoomable"
+          />
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
     </section>
 
     <!-- More examples: zebra color / row numbers / conditional -->
@@ -817,7 +979,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">一覧形式（テーブル形式）の一覧ビューがあるアプリでご利用いただけます。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-list-styler-v1.0.3.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-list-styler-v1.1.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「一覧スタイラー」を追加</span></li>
           <li><span>プラグイン設定画面で<strong>設定セット</strong>を追加し、対象の一覧・固定する列数・行スタイル・条件付き色分けなどを設定して「保存」</span></li>
@@ -842,7 +1004,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-list-styler-v1.0.3.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-list-styler-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -938,6 +1100,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <a href="/contact/" class="btn-primary">お問い合わせ</a>
     </section>
 
+    <div class="lightbox" id="ls-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
   </main>
 
   <script is:inline>
@@ -977,15 +1144,39 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         });
       });
 
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('ls-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
       const dlBtn = document.getElementById('btn-download');
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-list-styler-v1.0.3.zip',
+              file_name: 'kw-list-styler-v1.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-list-styler-v1.0.3.zip'
+              link_url: '/downloads/kw-list-styler-v1.1.0.zip'
             });
           }
         });
