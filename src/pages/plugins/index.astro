@@ -488,6 +488,74 @@ const freeFaqJsonLd = {
       color: var(--color-text-muted) !important;
     }
 
+    /* The long copy used to sit below the grids with anchor links pointing at it.
+       On a 23,000px page that meant a one-way trip: getting back to the products
+       took a full scroll. It opens in place instead, so there is nothing to
+       return from. Collapsed by default keeps the grid near the top. */
+    .lead-folds {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 4px 0 16px;
+    }
+
+    .lead-fold {
+      flex: 1 1 280px;
+      border: 1px solid #dbe3ec;
+      border-radius: 10px;
+      background: #f8fafc;
+    }
+
+    .lead-fold[open] {
+      /* Take the full row when open so the table has room and the sibling wraps. */
+      flex-basis: 100%;
+      background: var(--color-white);
+      border-color: #c3d0e0;
+    }
+
+    .lead-fold > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 13px 16px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-navy);
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .lead-fold > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .lead-fold > summary::after {
+      content: '＋';
+      flex-shrink: 0;
+      font-size: 0.95rem;
+      color: var(--color-green);
+    }
+
+    .lead-fold[open] > summary::after {
+      content: '−';
+    }
+
+    .lead-fold > summary:hover {
+      color: var(--color-green);
+    }
+
+    .lead-fold-body {
+      padding: 0 16px 18px;
+      border-top: 1px solid #e2e8f0;
+      margin-top: -1px;
+      padding-top: 16px;
+    }
+
+    .lead-fold-body p {
+      font-size: 0.98rem !important;
+    }
+
     .lead-anchors {
       display: flex;
       flex-wrap: wrap;
@@ -951,10 +1019,72 @@ const freeFaqJsonLd = {
       <div class="intro-card lead-card">
         <p class="lead-main">KIZUNA Works の kintone プラグインは、<strong>全 {totalCount} 製品（ちょこっと {chokottoCount} 製品・プレミアム {premiumCount} 製品）</strong>を無料で配布しています。会員登録は不要、JavaScript を書く必要もなく、<strong>利用期限はありません</strong>。</p>
         <p class="lead-sub">やりたいことのカテゴリで絞り込めます。どれから試すか迷ったら、目的別におすすめを整理した<a href="/blog/kintone-muryou-plugin-osusume/">kintone無料プラグインのおすすめ記事</a>もあわせてご覧ください。</p>
+        <div class="lead-folds">
+          <details class="lead-fold" id="free-scope">
+            <summary>無料でどこまで使えるのか</summary>
+            <div class="lead-fold-body">
+              <p>「無料」と書かれていても範囲が分かりにくいことが多いので、はっきり書いておきます。<strong>ちょこっとプラグイン {chokottoCount} 製品は、無料プランのままで全機能が使えます。</strong>試用期間やレコード件数の上限もありません。</p>
+              <div class="free-scope-wrap">
+                <table class="free-scope-table">
+                  <thead>
+                    <tr>
+                      <th>項目</th>
+                      <th>無料プラン（¥0）</th>
+                      <th>年間サポーター</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ちょこっとプラグインの機能</td>
+                      <td class="is-free">全機能が使える</td>
+                      <td>全機能が使える</td>
+                    </tr>
+                    <tr>
+                      <td>利用期限</td>
+                      <td class="is-free">なし</td>
+                      <td>1 年ごとに更新</td>
+                    </tr>
+                    <tr>
+                      <td>レコード一覧の広告エリア</td>
+                      <td>控えめに表示</td>
+                      <td>非表示</td>
+                    </tr>
+                    <tr>
+                      <td>作成リクエスト・改善要望</td>
+                      <td>—</td>
+                      <td>送れる</td>
+                    </tr>
+                    <tr>
+                      <td>プレミアムプラグインの全機能</td>
+                      <td>基本機能まで</td>
+                      <td>プレミアム年間サポーターが必要</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>年間サポーターは対象が<strong>選んだ 1 製品</strong>で、機能を解除するためのものではなく開発を支えていただくためのプランです。プレミアムプラグイン {premiumCount} 製品だけは、全機能の利用に<a href="/plugins/supporter/?plan=all">プレミアム年間サポーター</a>（年額 ¥16,500 税込・販売中の全製品が対象）が必要で、単品販売はありません。</p>
+              <p>導入手順はどの製品も共通です。kintone の<strong>システム管理 → プラグイン</strong>で ZIP ファイルを読み込み、使うアプリの<strong>アプリ設定 → プラグイン</strong>で追加して、設定画面で対象のフィールドや条件を選ぶだけ。JavaScript を書く必要はありません。</p>
+            </div>
+          </details>
+
+          <details class="lead-fold" id="about">
+            <summary>KIZUNA Works プラグインの特長</summary>
+            <div class="lead-fold-body">
+              <p>「ちょこっとプラグイン」は、現場の「あとちょっとこうなれば」という声から生まれた kintone 拡張プラグインシリーズです。プログラミング知識は不要。基本機能は完全無料です。</p>
+              <p>さらに、より高度な業務に応える「<strong>プレミアムプラグイン</strong>」シリーズもご用意しています。プレミアムプラグインも基本機能は無料でお試しいただけ、<strong>プレミアム年間サポーター</strong>に加入すると全機能が解放されます。今後もラインナップを拡充していきます。</p>
+              <p class="intro-question">あなたの現場にも、「あとちょっと」はありませんか？</p>
+              <p>年間サポーターになっていただけると、プラグイン作成リクエストや既存プラグインへの改善要望をお送りいただけます。サポーターの声をひとつひとつ形にしながら、現場との絆を広げていきたいと思っています。</p>
+              <div class="intro-cta">
+                <a href="/plugins/supporter/" class="intro-cta-button">
+                  年間サポーターについて詳しく見る <span aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+            </div>
+          </details>
+        </div>
+
         <p class="lead-anchors">
-          <a href="#free-scope">無料でどこまで使えるのか</a>
-          <a href="#about">KIZUNA Works プラグインの特長</a>
-          <a href="/plugins/ranking/">インストール数ランキング</a>
+          <a href="/plugins/ranking/">インストール数ランキングを見る</a>
         </p>
       </div>
     </section>
@@ -1103,70 +1233,6 @@ const freeFaqJsonLd = {
     <div style="margin: 0 0 20px;">
       <TrialBanner />
     </div>
-
-    <section class="intro-section" id="about">
-      <div class="intro-card">
-        <h2>KIZUNA Works プラグインの特長</h2>
-        <p>KIZUNA Works では、kintone のプラグインを<strong>全 {totalCount} 製品（ちょこっと {chokottoCount} 製品・プレミアム {premiumCount} 製品）</strong>公開しています。いずれも会員登録なしでダウンロードでき、<strong>利用期限はありません</strong>。</p>
-        <p>「ちょこっとプラグイン」は、現場の「あとちょっとこうなれば」という声から生まれた kintone 拡張プラグインシリーズです。プログラミング知識は不要。基本機能は完全無料です。</p>
-        <p>さらに、より高度な業務に応える「<strong>プレミアムプラグイン</strong>」シリーズもご用意しています。プレミアムプラグインも基本機能は無料でお試しいただけ、<strong>プレミアム年間サポーター</strong>に加入すると全機能が解放されます。今後もラインナップを拡充していきます。</p>
-        <p>どれから試すか迷ったら、目的別におすすめを整理した<a href="/blog/kintone-muryou-plugin-osusume/">kintone無料プラグインのおすすめ記事</a>もあわせてご覧ください。</p>
-        <p class="intro-question">あなたの現場にも、「あとちょっと」はありませんか？</p>
-        <p>年間サポーターになっていただけると、プラグイン作成リクエストや既存プラグインへの改善要望をお送りいただけます。サポーターの声をひとつひとつ形にしながら、現場との絆を広げていきたいと思っています。</p>
-        <div class="intro-cta">
-          <a href="/plugins/supporter/" class="intro-cta-button">
-            年間サポーターについて詳しく見る <span aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="intro-section" id="free-scope">
-      <div class="intro-card">
-        <h2>無料でどこまで使えるのか</h2>
-        <p>「無料」と書かれていても範囲が分かりにくいことが多いので、はっきり書いておきます。<strong>ちょこっとプラグイン {chokottoCount} 製品は、無料プランのままで全機能が使えます。</strong>試用期間やレコード件数の上限もありません。</p>
-        <div class="free-scope-wrap">
-          <table class="free-scope-table">
-            <thead>
-              <tr>
-                <th>項目</th>
-                <th>無料プラン（¥0）</th>
-                <th>年間サポーター</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ちょこっとプラグインの機能</td>
-                <td class="is-free">全機能が使える</td>
-                <td>全機能が使える</td>
-              </tr>
-              <tr>
-                <td>利用期限</td>
-                <td class="is-free">なし</td>
-                <td>1 年ごとに更新</td>
-              </tr>
-              <tr>
-                <td>レコード一覧の広告エリア</td>
-                <td>控えめに表示</td>
-                <td>非表示</td>
-              </tr>
-              <tr>
-                <td>作成リクエスト・改善要望</td>
-                <td>—</td>
-                <td>送れる</td>
-              </tr>
-              <tr>
-                <td>プレミアムプラグインの全機能</td>
-                <td>基本機能まで</td>
-                <td>プレミアム年間サポーターが必要</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p>年間サポーターは対象が<strong>選んだ 1 製品</strong>で、機能を解除するためのものではなく開発を支えていただくためのプランです。プレミアムプラグイン {premiumCount} 製品だけは、全機能の利用に<a href="/plugins/supporter/?plan=all">プレミアム年間サポーター</a>（年額 ¥16,500 税込・販売中の全製品が対象）が必要で、単品販売はありません。</p>
-        <p>導入手順はどの製品も共通です。kintone の<strong>システム管理 → プラグイン</strong>で ZIP ファイルを読み込み、使うアプリの<strong>アプリ設定 → プラグイン</strong>で追加して、設定画面で対象のフィールドや条件を選ぶだけ。JavaScript を書く必要はありません。</p>
-      </div>
-    </section>
 
     <SupporterCTA />
   </main>
@@ -1354,6 +1420,20 @@ const freeFaqJsonLd = {
           updateFloat(cards.filter(function (c) { return !c.hasAttribute('hidden'); }).length);
         }).observe(bar);
       }
+
+      // Inbound links to #about / #free-scope still work: the target is a closed
+      // <details>, so open it before scrolling or the anchor lands on nothing.
+      function openFromHash() {
+        var id = window.location.hash.slice(1);
+        if (!id) return;
+        var target = document.getElementById(id);
+        if (target && target.tagName === 'DETAILS') {
+          target.open = true;
+          target.scrollIntoView({ block: 'center' });
+        }
+      }
+      window.addEventListener('hashchange', openFromHash);
+      openFromHash();
 
       var fromUrl = new URLSearchParams(window.location.search).get('cat');
       if (fromUrl) {
