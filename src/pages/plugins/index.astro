@@ -319,10 +319,13 @@ const freeFaqJsonLd = {
       align-items: center;
     }
 
+    /* 3 across on desktop. The container tops out at 1200px with 5% padding, so
+       the usable width never exceeds ~1080px: 3x300 + 2x32 = 964 fits, and
+       4x300 + 3x32 = 1296 never does, which pins it to exactly 3 columns. */
     .plugins-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 40px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 32px;
     }
 
     /* The card is a plain container, not a link: the category chips inside it are
@@ -364,17 +367,21 @@ const freeFaqJsonLd = {
     }
 
     .plugin-card-content {
-      padding: 30px 24px;
+      padding: 24px 20px;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
     }
 
     .plugin-title {
-      font-size: 1.3rem;
+      font-size: 1.15rem;
       font-weight: 700;
+      line-height: 1.45;
       color: var(--color-navy);
       margin-bottom: 4px;
+      /* At 337px most product names wrap to two lines and a few do not. Reserving
+         two lines keeps the description starting at the same y across a row. */
+      min-height: 2.9em;
     }
 
     .plugin-title a {
@@ -803,16 +810,19 @@ const freeFaqJsonLd = {
     }
 
     .plugin-desc {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       line-height: 1.6;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       flex-grow: 1;
-      /* Clamp to 5 lines so every card has the same description height */
+      /* A 3-column card fits ~20 chars per line against ~30 in the old 2-column
+         layout, so the clamp goes 5 -> 7 lines to keep roughly the same amount of
+         copy visible. min-height reserves 6 lines: grid already equalises heights
+         within a row, this only stops a short final row from collapsing. */
       display: -webkit-box;
-      -webkit-line-clamp: 5;
+      -webkit-line-clamp: 7;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      min-height: 7.7em; /* 5 lines x line-height 1.6 = 8em, trimmed for box model */
+      min-height: 9.4em;
     }
 
     .plugin-meta {
