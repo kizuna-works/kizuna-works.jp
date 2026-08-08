@@ -532,6 +532,22 @@ const freeFaqJsonLd = {
       display: none;
     }
 
+    /* The summary carries an <h2> so the section keeps its place in the heading
+       outline. "無料でどこまで使えるのか" is the page's answer to the "kintone
+       プラグイン 無料" query, and demoting it to plain text lost that signal.
+       These rules strip the .intro-card h2 treatment inside the summary. */
+    .lead-fold > summary > h2 {
+      display: inline;
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+      margin: 0;
+    }
+
+    .lead-fold > summary > h2::after {
+      content: none;
+    }
+
     .lead-fold > summary::after {
       content: '＋';
       flex-shrink: 0;
@@ -556,6 +572,58 @@ const freeFaqJsonLd = {
 
     .lead-fold-body p {
       font-size: 0.98rem !important;
+    }
+
+    /* FAQ. Rendered from the same object as the FAQPage JSON-LD, so the visible
+       copy and the structured data can never drift apart — Google requires the
+       answers to be present on the page, and until now they only existed in the
+       JSON-LD. */
+    .faq-section {
+      padding-top: 0;
+    }
+
+    .faq-list {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--color-white);
+      border-radius: 10px;
+      box-shadow: var(--shadow-card);
+      padding: 24px 28px;
+      margin-bottom: 16px;
+    }
+
+    .faq-q {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--color-navy);
+      margin: 0 0 10px;
+      padding-left: 26px;
+      position: relative;
+    }
+
+    .faq-q::before {
+      content: 'Q';
+      position: absolute;
+      left: 0;
+      color: var(--color-green);
+      font-weight: 900;
+    }
+
+    .faq-a {
+      font-size: 0.98rem;
+      line-height: 1.85;
+      color: var(--color-text-main);
+      margin: 0;
+      padding-left: 26px;
+    }
+
+    @media (max-width: 640px) {
+      .faq-item {
+        padding: 20px 18px;
+      }
     }
 
     /* The campaign banner lives in the lead card so it is seen before the grid.
@@ -1012,7 +1080,7 @@ const freeFaqJsonLd = {
         <p class="lead-sub">やりたいことのカテゴリで絞り込めます。どれから試すか迷ったら、目的別におすすめを整理した<a href="/blog/kintone-muryou-plugin-osusume/">kintone無料プラグインのおすすめ記事</a>もあわせてご覧ください。</p>
         <div class="lead-folds">
           <details class="lead-fold" id="free-scope">
-            <summary>無料でどこまで使えるのか</summary>
+            <summary><h2>無料でどこまで使えるのか</h2></summary>
             <div class="lead-fold-body">
               <p>「無料」と書かれていても範囲が分かりにくいことが多いので、はっきり書いておきます。<strong>ちょこっとプラグイン {chokottoCount} 製品は、無料プランのままで全機能が使えます。</strong>試用期間やレコード件数の上限もありません。</p>
               <div class="free-scope-wrap">
@@ -1059,7 +1127,7 @@ const freeFaqJsonLd = {
           </details>
 
           <details class="lead-fold" id="about">
-            <summary>KIZUNA Works プラグインの特長</summary>
+            <summary><h2>KIZUNA Works プラグインの特長</h2></summary>
             <div class="lead-fold-body">
               <p>「ちょこっとプラグイン」は、現場の「あとちょっとこうなれば」という声から生まれた kintone 拡張プラグインシリーズです。プログラミング知識は不要。基本機能は完全無料です。</p>
               <p>さらに、より高度な業務に応える「<strong>プレミアムプラグイン</strong>」シリーズもご用意しています。プレミアムプラグインも基本機能は無料でお試しいただけ、<strong>プレミアム年間サポーター</strong>に加入すると全機能が解放されます。今後もラインナップを拡充していきます。</p>
@@ -1219,6 +1287,18 @@ const freeFaqJsonLd = {
           </div>
         ))}
       </div>
+    </section>
+
+    <section class="section-container faq-section">
+      <h2 class="section-title">kintone プラグインのよくある質問</h2>
+      <dl class="faq-list">
+        {freeFaqJsonLd.mainEntity.map((qa) => (
+          <div class="faq-item">
+            <dt class="faq-q">{qa.name}</dt>
+            <dd class="faq-a">{qa.acceptedAnswer.text}</dd>
+          </div>
+        ))}
+      </dl>
     </section>
 
     <SupporterCTA />
