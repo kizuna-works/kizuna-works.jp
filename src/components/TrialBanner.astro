@@ -1,9 +1,19 @@
 ---
 // Reusable campaign banner linking to the Premium Free Trial LP.
 // Used on the supporter page and the plugins index to drive trial signups.
+interface Props {
+  /**
+   * Drop the component's own centring and padding. Use when the banner sits
+   * inside a container that already provides them, so it fills that container
+   * instead of being inset a second time.
+   */
+  inset?: boolean;
+}
+
+const { inset = false } = Astro.props;
 ---
 
-<aside class="tb-banner">
+<aside class:list={['tb-banner', inset && 'is-inset']}>
   <a class="tb-inner" href="/plugins/premium-trial/">
     <div class="tb-text">
       <span class="tb-badge">30日間無料キャンペーン</span>
@@ -21,6 +31,11 @@
     padding: 0 5%;
   }
 
+  .tb-banner.is-inset {
+    max-width: none;
+    padding: 0;
+  }
+
   .tb-inner {
     display: flex;
     align-items: center;
@@ -32,6 +47,9 @@
     border-radius: 16px;
     padding: 24px 30px;
     text-decoration: none;
+    /* Stated rather than inherited: the banner is now also placed inside
+       centred containers, where the copy would otherwise centre itself. */
+    text-align: left;
     color: #FFFFFF;
     box-shadow: 0 10px 26px rgba(27, 58, 107, 0.18);
     transition: transform 0.25s, box-shadow 0.25s;
