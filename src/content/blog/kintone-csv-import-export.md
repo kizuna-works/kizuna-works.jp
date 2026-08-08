@@ -179,4 +179,4 @@ kintoneのCSV読み込み・書き出しの要点を振り返ります。
 
 まずは標準で試し、残った不満だけをプラグインで補う。この順番なら、コストも手間も最小限で、CSVまわりのストレスから解放されます。
 
-CSVやExcelの運用でお困りのことがあれば、[お問い合わせ](/contact/)からお気軽にご相談ください。関連する話題として、[「Excelのほうがよかった」と言わせないkintone移行ステップ](/blog/kintone-excel-iko-steps/)や、[kintoneで帳票・PDFを出力する方法](/blog/kintone-cyouhyou-pdf-output/)、そのほかの[kintone無料プラグイン特集](/blog/kintone-muryou-plugin-osusume/)もあわせてご覧ください。
+CSVやExcelの運用でお困りのことがあれば、[お問い合わせ](/contact/)からお気軽にご相談ください。関連する話題として、[「Excelのほうがよかった」と言わせないkintone移行ステップ](/blog/kintone-excel-iko-steps/)や、[kintoneで帳票・PDFを出力する方法](/blog/kintone-cyouhyou-pdf-output/)、そのほかの[kintone無料プラグインのおすすめ](/blog/kintone-muryou-plugin-osusume/)もあわせてご覧ください。
