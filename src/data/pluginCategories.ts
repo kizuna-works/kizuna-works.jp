@@ -1,6 +1,7 @@
 // Purpose-based categories shown as chips on plugin cards and used by the
-// filter bar on /plugins/. A plugin carries 1-3 of these; the first one is the
-// primary (filled chip), the rest are secondary (outlined chips).
+// filter bar on /plugins/. A plugin carries 1-3 of these. Every chip renders the
+// same way, coloured by its category — the array order records which category is
+// the plugin's main purpose but carries no visual weight.
 //
 // Rule for assigning a category: only when the plugin ships it as an
 // independent feature listed under "主な機能" on its product page. Side effects

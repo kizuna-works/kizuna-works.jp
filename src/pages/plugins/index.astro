@@ -407,8 +407,8 @@ const freeFaqJsonLd = {
       margin-bottom: 20px;
     }
 
-    /* Category chips. Sits above the stretched title link so it stays clickable,
-       and reserves two rows of height so cards with 1 and 3 chips line up. */
+    /* Category chips. Sits above the stretched title link so it stays clickable.
+       Every chip looks the same and is told apart by its category colour. */
     .plugin-cats {
       position: relative;
       z-index: 1;
@@ -435,11 +435,6 @@ const freeFaqJsonLd = {
       color: var(--cat-fg);
       /* Keeps the tap target at 32px without inflating the visual pill. */
       outline-offset: 2px;
-    }
-
-    .plugin-cat.is-sub {
-      background: transparent;
-      box-shadow: inset 0 0 0 1px currentColor;
     }
 
     .plugin-cat:hover {
@@ -1142,10 +1137,10 @@ const freeFaqJsonLd = {
               />
               <div class="plugin-card-content">
                 <div class="plugin-cats">
-                  {plugin.categories.map((cat, i) => (
+                  {plugin.categories.map((cat) => (
                     <button
                       type="button"
-                      class:list={['plugin-cat', i === 0 ? 'is-main' : 'is-sub']}
+                      class="plugin-cat"
                       data-cat={cat}
                       data-cat-slug={pluginCategoryMeta[cat].slug}
                       title={`「${cat}」のプラグインを絞り込む`}
@@ -1194,10 +1189,10 @@ const freeFaqJsonLd = {
             />
             <div class="plugin-card-content">
               <div class="plugin-cats">
-                {plugin.categories.map((cat, i) => (
+                {plugin.categories.map((cat) => (
                   <button
                     type="button"
-                    class:list={['plugin-cat', i === 0 ? 'is-main' : 'is-sub']}
+                    class="plugin-cat"
                     data-cat={cat}
                     data-cat-slug={pluginCategoryMeta[cat].slug}
                     title={`「${cat}」のプラグインを絞り込む`}

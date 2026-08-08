@@ -22,9 +22,9 @@ export interface Plugin {
   /** Short description shown on the grid card. */
   description: string;
   /**
-   * Purpose categories, 1-3 of them. The first is the primary: it renders as
-   * the filled chip on the grid card. The rest render as outlined chips.
-   * All of them are matched by the filter bar on /plugins/.
+   * Purpose categories, 1-3 of them. List the plugin's main purpose first; the
+   * order is authoring intent only, since every chip renders identically in its
+   * own category colour. All of them are matched by the filter bar on /plugins/.
    * See `pluginCategories.ts` for the list and the assignment rule.
    */
   categories: [PluginCategory, ...PluginCategory[]];

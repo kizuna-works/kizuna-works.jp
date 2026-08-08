@@ -46,7 +46,7 @@ c:\kizuna-works.jp\
 │   │   ├── ShareButtons.astro  # SNS共有ボタン（X/LINE/はてブは静的intentリンク・URLコピー/OS共有シートのみJS）。全プラグイン個別ページ末尾に設置。title="〇〇 for kintone"・URLはAstro.urlから自動導出
 │   │   └── Picture.astro       # PNG指定で同名 .webp があれば <picture> で WebP を優先配信。card 指定時は <base>-800.webp を srcset に足す（カードの実表示幅は400px前後なので原寸1200pxを配らない）。WebP が無ければ素の <img> を出すだけなので置き換え安全。派生画像は scripts/gen-image-derivatives.mjs が生成
 │   ├── data/                   # ビルド時参照される TS データ
-│   │   ├── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）。`categories` は目的カテゴリを1〜3個持つ配列で、先頭が主カテゴリ（カードの塗りチップ）
+│   │   ├── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）。`categories` は目的カテゴリを1〜3個持つ配列。先頭にそのプラグインの主目的を書くが、チップはすべて同じ体裁でカテゴリ色だけが変わる（並び順に表示上の意味は持たせていない）
 │   │   ├── pluginCategories.ts # プラグインの目的カテゴリ13種の定義（名称・URLスラッグ・一言説明・チップ列のグループ分け）。/plugins/ の絞り込みバーとカード上のタグが参照。カテゴリを増減するときは index.astro のチップ色（--cat-bg/--cat-fg）も追加する
 │   │   ├── glossary.ts         # kintone 用語集の単一情報源（/glossary/ 一覧と DefinedTermSet JSON-LD を生成）。hasPage/longDescription/useCases/faq を持つ語は /glossary/<id>/ の個別ページも生成
 │   │   ├── plugin-security.ts  # プラグインごとのセキュリティ事実（外部通信・同梱ライブラリ）の単一情報源。SecurityBox が参照
