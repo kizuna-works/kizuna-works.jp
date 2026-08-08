@@ -1,6 +1,8 @@
 // Single source of truth for kintone plugins.
 // Add a new entry here and the plugins index grid, supporter form, and JSON-LD update automatically.
 
+import type { PluginCategory } from './pluginCategories';
+
 export type PluginStatus = 'available' | 'coming-soon';
 
 export interface Plugin {
@@ -19,8 +21,13 @@ export interface Plugin {
   slug: string;
   /** Short description shown on the grid card. */
   description: string;
-  /** Functional category shown as a colored chip on the grid card. */
-  category: '一覧' | 'レコード画面' | '入力支援' | '装飾' | '出力・連携';
+  /**
+   * Purpose categories, 1-3 of them. List the plugin's main purpose first; the
+   * order is authoring intent only, since every chip renders identically in its
+   * own category colour. All of them are matched by the filter bar on /plugins/.
+   * See `pluginCategories.ts` for the list and the assignment rule.
+   */
+  categories: [PluginCategory, ...PluginCategory[]];
   /** Card image (absolute path under /public). */
   image: string;
   /** Optional WebP version of the card image; when set the grid serves it via <picture> (PNG stays the fallback). */
@@ -74,7 +81,7 @@ export const plugins: Plugin[] = [
     formName: 'フィールドスタイラー for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'field-styler',
-    category: '装飾',
+    categories: ['装飾・配色', '表示・編集制御'],
     description:
       '背景色・文字色・フォント・フィールド幅・条件付きスタイル・入力制御など全10機能を、JavaScriptなしのノーコードで設定できるプラグイン。サブテーブル（明細）内のフィールドにも対応し、TODAY基準の日付やステータスなど最大10件の条件で、重要な値を自動で目立たせます。',
     image: '/images/field-styler-banner.png',
@@ -98,7 +105,7 @@ export const plugins: Plugin[] = [
     formName: '条件分岐自動採番 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'kw-conditional-numbering',
-    category: '入力支援',
+    categories: ['自動入力', '一括処理', '入力チェック'],
     description:
       '部署・担当者・ステータスなどフィールドの値に応じて、採番ルールを自動で切り替えるプラグイン。1つのアプリで最大3フィールドを同時採番でき、18種類の書式・条件別の連番管理、CSVインポート後の一括採番、重複した番号の検出と振り直しにも対応します。',
     image: '/images/conditional-numbering-banner.png',
@@ -121,7 +128,7 @@ export const plugins: Plugin[] = [
     formName: 'FormDeco for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'form-deco',
-    category: '装飾',
+    categories: ['装飾・配色'],
     description:
       'レコード詳細画面の罫線（区切り線）スタイルと、スペースフィールドの装飾（背景色・テキスト・画像）をノーコードで設定するプラグイン。フォーム上の項目の区切りや見出しを分かりやすく整え、入力画面の見た目と使いやすさを高めます。',
     image: '/images/form-deco-banner.png',
@@ -144,7 +151,7 @@ export const plugins: Plugin[] = [
     formName: 'ルックアップサジェスト for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'lookup-suggest',
-    category: '入力支援',
+    categories: ['自動入力'],
     description:
       'ルックアップに、入力中の候補をその場で表示するライブサジェスト機能を追加するプラグイン。別画面に切り替える手間がなくなり、電話番号・住所など複数フィールドの横断検索で同名顧客の取り違えも防げます。候補は入力欄の直下にフローティング表示（フォーム編集不要）かスペースに表示かを選択可。サブテーブル内・スマホ対応。',
     image: '/images/lookup-suggest-banner.png',
@@ -167,7 +174,7 @@ export const plugins: Plugin[] = [
     formName: 'クイックサーチ for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'quick-search',
-    category: '一覧',
+    categories: ['検索・閲覧'],
     description:
       '一覧画面のフィルター/ソートアイコン横にインライン検索バーを追加するプラグイン。AND/OR切替・複数キーワードで複数フィールドを横断検索でき、本日・今週・今月などの期間ボタンや日付範囲指定での絞り込み（任意設定）にも対応します。',
     image: '/images/quick-search-banner.png',
@@ -190,7 +197,7 @@ export const plugins: Plugin[] = [
     formName: '添付ファイルアイコン表示 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'file-icon-marker',
-    category: '一覧',
+    categories: ['検索・閲覧', '一覧表示'],
     description:
       '一覧画面で添付ファイルの有無・種別・件数をアイコンで可視化するプラグイン。PDF/Excel/画像など28種類の拡張子別アイコンと件数バッジを表示し、レコード詳細を開かずに、どんなファイルが付いているかをひと目で把握できます。',
     image: '/images/file-icon-marker-banner.png',
@@ -213,7 +220,7 @@ export const plugins: Plugin[] = [
     formName: 'クイックサイドビュー for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'quick-side-view',
-    category: '一覧',
+    categories: ['検索・閲覧', '一覧表示'],
     description:
       '一覧画面で行をクリックすると右側にサイドバーが開き、レコードの詳細を表示するプラグイン。詳細画面へ遷移せず一覧のビューを保ったまま、最大5件を並べて閲覧・編集でき、レコード同士の比較や並行作業がスムーズになります。',
     image: '/images/quick-side-view-banner.png',
@@ -236,7 +243,7 @@ export const plugins: Plugin[] = [
     formName: 'レコードロック for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'record-lock',
-    category: 'レコード画面',
+    categories: ['表示・編集制御'],
     description:
       'ステータス・日付・特定フィールドの値などの複数条件（AND/OR）を満たすと、レコードを自動でロックして編集を制限するプラグイン。除外ユーザーも設定でき、承認後・受注後のレコードを後から書き換えられないように保護できます。',
     image: '/images/record-lock-banner.png',
@@ -259,7 +266,7 @@ export const plugins: Plugin[] = [
     formName: 'フィールドコメント for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'field-comment',
-    category: '入力支援',
+    categories: ['入力チェック', '画面レイアウト'],
     description:
       'フィールド名の横にヘルプアイコンや常時表示のコメントを追加するプラグイン。アイコン＋ホバー／アイコン＋クリック／常時表示の3モードから選べ、詳細だけでなく編集・新規作成画面でも表示。入力ルールをその場で伝えて入力ミスや問い合わせを減らします。',
     image: '/images/field-comment-banner.png',
@@ -282,7 +289,7 @@ export const plugins: Plugin[] = [
     formName: 'テーマスタイラー for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'theme-styler',
-    category: '装飾',
+    categories: ['装飾・配色', '一覧表示'],
     description:
       'アプリのテーマカラーをヘッダー・行・罫線・フォーム背景まで一括で着色し、レコード詳細画面や明細（サブテーブル）ヘッダーの色は個別指定も可能。タイトル帯には関連アプリ・社内ポータル・マニュアル・外部サイトへのクイックリンクを集約し、アプリを業務のハブにします。',
     image: '/images/theme-styler-banner.png',
@@ -305,7 +312,7 @@ export const plugins: Plugin[] = [
     formName: '住所アシスト for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'address-assist',
-    category: '入力支援',
+    categories: ['自動入力'],
     description:
       '郵便番号から住所、住所から郵便番号を双方向で自動入力し、Googleマップのプレビューをレコード詳細に埋め込み、住所のワンクリックコピーまで行うプラグイン。請求先・配送先など複数の住所セットやサブテーブル（明細）の行ごとの入力にも対応します。',
     image: '/images/address-assist-banner.png',
@@ -328,7 +335,7 @@ export const plugins: Plugin[] = [
     formName: 'クイック履歴ビュー for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'quick-history-view',
-    category: 'レコード画面',
+    categories: ['履歴・復元'],
     description:
       'レコード保存のたびに、いつ・誰が・どのフィールドを何から何に変えたかを自動で記録し、詳細画面に時系列の表形式で表示するプラグイン。記録対象のフィールド、1レコードあたりの保存件数の上限、表示の色・サイズも設定できます。',
     image: '/images/quick-history-view-banner.png',
@@ -351,7 +358,7 @@ export const plugins: Plugin[] = [
     formName: '関連レコードポップアップ表示 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'related-record-popup',
-    category: '一覧',
+    categories: ['検索・閲覧', '一覧表示'],
     description:
       '一覧画面の各行に置いたアイコンにホバーするだけで、関連レコード一覧をポップアップ表示するプラグイン。詳細画面へ遷移せず関連情報をその場で確認でき、複数の関連一覧はタブで切り替え、件数が多い場合は自動でページネーションされます。',
     image: '/images/related-record-popup-banner.png',
@@ -374,7 +381,7 @@ export const plugins: Plugin[] = [
     formName: '集計サマリーバー for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'summary-bar',
-    category: '一覧',
+    categories: ['集計・計算', '一覧表示'],
     description:
       '一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示するプラグイン。絞り込みに連動して即時に再集計し、グラフ画面に移動せず数字を確認できます。カードごとの条件集計（相対期間・ユーザー／組織指定も可）や、集計値による条件付きの色分けにも対応。',
     image: '/images/summary-bar-banner.png',
@@ -397,7 +404,7 @@ export const plugins: Plugin[] = [
     formName: 'かんたんCSV出力 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'csv-export',
-    category: '出力・連携',
+    categories: ['出力・帳票'],
     description:
       '絞り込み結果を用途別テンプレート（列・並び順・ヘッダー名・文字コード・絞り込み条件）でワンクリックCSV出力。1テンプレート最大500列・サブテーブル明細の行展開に対応し、先頭行の項目名は出力の有無を選択可。Shift-JIS/UTF-8でExcelの文字化けも防ぎます。',
     image: '/images/csv-export-banner.png',
@@ -420,7 +427,7 @@ export const plugins: Plugin[] = [
     formName: 'クイックタブ for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'quick-tab',
-    category: 'レコード画面',
+    categories: ['画面レイアウト'],
     description:
       '項目数の多いレコードの詳細・作成・編集画面を、フォーム上のスペース要素を境界にしてタブへ自動分割するプラグイン。フィールドの手動割当は不要で、全項目を見る「すべて」タブ、必須エラー時のタブ自動追従、タブバーの固定にも対応します。',
     image: '/images/quick-tab-banner.png',
@@ -443,7 +450,7 @@ export const plugins: Plugin[] = [
     formName: '添付ファイルプレビュー for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'file-preview',
-    category: 'レコード画面',
+    categories: ['検索・閲覧'],
     description:
       '添付された画像・PDF・Excel・Word・PowerPoint・テキストを、ダウンロードや画面遷移なしで、その場のフルスクリーンモーダルでプレビューするプラグイン。サブテーブル内の添付にも対応し、同じ欄の複数ファイルを連続で閲覧できます。パスワード付きのPDF・Excel・Wordもブラウザ内で復号して表示でき、ExcelはExcel風グリッドの高精細表示にも切り替えられます。',
     image: '/images/file-preview-banner.png',
@@ -466,7 +473,7 @@ export const plugins: Plugin[] = [
     formName: 'クイック目次 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'quick-toc',
-    category: 'レコード画面',
+    categories: ['画面レイアウト'],
     description:
       'レコードの詳細・編集・新規作成画面の左側に、セクション単位の目次サイドメニューを常時表示するプラグイン。項目クリックで該当セクションへ移動でき、フォームのスペースパーツをジャンプ先や見出しとして使える設定、ステータスの色分けバッジ、ヘッダー追従にも対応します。',
     image: '/images/quick-toc-banner.png',
@@ -489,7 +496,7 @@ export const plugins: Plugin[] = [
     formName: '一覧スタイラー for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'list-styler',
-    category: '一覧',
+    categories: ['一覧表示'],
     description:
       'テーブル（サブテーブル）の明細を一覧の行として全レコード分まとめて表示できるプラグイン。横長の一覧では左端のキー列を固定（0〜3列）し、ゼブラ・行番号・行ホバーで見やすく整え、日付（TODAY基準）・選択肢・ステータスなどの条件で行の背景色・文字色・太字も変更できます。',
     image: '/images/list-styler-banner.png',
@@ -512,7 +519,7 @@ export const plugins: Plugin[] = [
     formName: '入力アシスト for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'input-assist',
-    category: '入力支援',
+    categories: ['自動入力', '入力チェック'],
     description:
       '過去に入力した値やほかのアプリの値を候補表示して選ぶだけで入力できるプラグイン。サブテーブル内も対応し、よく使う順に並べて表示。入力順を色で誘導する入力順ガイド、保存を止めない未入力チェック、入力中の重複チェックで入力の手間とミスを減らします。',
     image: '/images/input-assist-banner.png',
@@ -535,7 +542,7 @@ export const plugins: Plugin[] = [
     formName: '条件分岐フォーム for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'conditional-form',
-    category: '入力支援',
+    categories: ['表示・編集制御', '自動入力'],
     description:
       '区分・ステータス・入力値や対象ユーザー（組織・グループ）の条件で、フィールドの表示/非表示・必須化・読み取り専用・値の自動入力・選択肢の絞り込みを切り替え。サブテーブル・関連レコード一覧の表示制御や、「いずれか」「以外」の複数値条件にも対応します。',
     image: '/images/conditional-form-banner.png',
@@ -558,7 +565,7 @@ export const plugins: Plugin[] = [
     formName: 'シート編集 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'sheet-edit',
-    category: '一覧',
+    categories: ['一括処理', '一覧表示', '出力・帳票'],
     description:
       '一覧（カスタマイズビュー）を表計算ソフトのようなグリッドに置き換え、表示中フィールドをその場で直接編集・保存できるプラグイン。サブテーブル（明細）の行展開・行ごとの編集にも対応。コピペ・範囲一括編集・オートフィル・競合検知・Excel出力まで一覧上で完結します。',
     image: '/images/sheet-edit-banner.png',
@@ -581,7 +588,7 @@ export const plugins: Plugin[] = [
     formName: '付箋ボード for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'sticky-board',
-    category: 'レコード画面',
+    categories: ['情報共有', '一覧表示'],
     description:
       'レコード詳細にカテゴリ付きの付箋メモを自由な位置で貼り付け、一覧の上部でカテゴリ別の未対応件数を集計表示するプラグイン。付箋から対象レコードへジャンプやその場で対応済みにでき、通知やコメントでは埋もれる申し送りを見える化します。',
     image: '/images/sticky-board-banner.png',
@@ -604,7 +611,7 @@ export const plugins: Plugin[] = [
     formName: 'メールアシスト for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'mail-assist',
-    category: '出力・連携',
+    categories: ['通知・メール'],
     description:
       'レコードの値（会社名・担当者名・メールアドレスなど）を差し込んで件名・本文・宛先を組み立て、ワンクリックでメーラー（既定/Gmail/Outlook/Yahoo!）を起動するプラグイン。詳細から個別に、一覧の絞り込み結果からBCCで一斉送信もできます。',
     image: '/images/mail-assist-banner.png',
@@ -627,7 +634,7 @@ export const plugins: Plugin[] = [
     formName: 'コメントコントロール for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'comment-control',
-    category: '一覧',
+    categories: ['情報共有', '一覧表示'],
     description:
       'レコード詳細・編集でコメント／変更履歴サイドバーを閉じた状態で開いて画面を広く使い、一覧では各レコードのコメント件数を色分けバッジで表示するプラグイン。バッジのホバーでコメントを全文プレビュー（ページ送り対応）でき、自分宛メンションの強調表示も任意で有効にできます。',
     image: '/images/comment-control-banner.png',
@@ -650,7 +657,7 @@ export const plugins: Plugin[] = [
     formName: 'ユーザーオートフィル for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'user-autofill',
-    category: '入力支援',
+    categories: ['自動入力'],
     description:
       'ユーザー選択フィールドで選んだ人（新規作成時は自分）の組織・グループ・役職・メール・社員番号などを対応フィールドへ自動転記するプラグイン。組織・グループは組織選択／グループ選択フィールドへ選択値でセット。さらにユーザー情報をスペースにプロフィールカード／承認欄の捺印として表示できます。',
     image: '/images/user-autofill-banner.png',
@@ -673,7 +680,7 @@ export const plugins: Plugin[] = [
     formName: 'かんたん一括更新 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'bulk-update',
-    category: '一覧',
+    categories: ['一括処理', '履歴・復元'],
     description:
       '標準のレコード一覧で絞り込んだ結果に、フィールドを1つ選んで値を一括更新・一括クリアできるプラグイン。数値は加算・減算にも対応し、クイックサーチ等の絞り込みに連動。実行直後のUndoに加え、変更前後を保管アプリに記録して設定画面の履歴からいつでも元に戻せます。',
     image: '/images/bulk-update-banner.png',
@@ -696,7 +703,7 @@ export const plugins: Plugin[] = [
     formName: 'エクセル一括貼り付け for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'excel-paste',
-    category: '入力支援',
+    categories: ['一括処理', '自動入力'],
     description:
       'Excel等の表データを貼り付けるだけで一括入力できるプラグイン。作成・編集画面ではサブテーブルへ複数行をまとめて流し込み（複数のテーブルもテーブルごとの設定で対応）、一覧画面では貼り付けだけで複数レコードを一括作成。プレビューで列の対応を確認でき、見出し行を含めれば自動マッピング。',
     image: '/images/excel-paste-banner.png',
@@ -719,7 +726,7 @@ export const plugins: Plugin[] = [
     formName: 'あいまい照合 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'ambiguous-match',
-    category: '入力支援',
+    categories: ['入力チェック'],
     description:
       '会社名・顧客名の入力中に、表記ゆれ（株式会社⇔（株）⇔㈱・全角半角・旧字体など）を吸収して似た既存レコードをその場でフローティング表示するプラグイン。標準の「値の重複を禁止する」（完全一致）では気づけない二重登録を保存前に確認でき、参照項目の併記・候補クリックで別タブ表示にも対応。',
     image: '/images/ambiguous-match-banner.png',
@@ -742,7 +749,7 @@ export const plugins: Plugin[] = [
     formName: 'ステータス一括実行 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'status-bulk-action',
-    category: '一覧',
+    categories: ['一括処理', '一覧表示'],
     description:
       'プロセス管理のステータス・作業者を、標準のレコード一覧からまとめて一括実行できるプラグイン。対象を現在ステータスごとにグループ分けしてアクションを選ぶだけで、まとめて次に進められます。次の作業者は遷移先の設定（選択／全員／作成者／フィールド指定など）に応じて自動判定。独自条件を満たさないレコードは事前に除外し、現在ステータスの滞留日数も一覧に色で可視化します。',
     image: '/images/status-bulk-action-banner.png',
@@ -765,7 +772,7 @@ export const plugins: Plugin[] = [
     formName: 'アコーディオンタブ for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'accordion-tab',
-    category: 'レコード画面',
+    categories: ['画面レイアウト', '表示・編集制御'],
     description:
       'レコードの長いフォームを、スペース要素を見出しに自動でセクション分割してアコーディオン開閉。既定で折りたたみ必要な節だけ開いて入力。未入力・入力状況バッジ、スティッキー見出しに加え、セクションごとの閲覧制限（ユーザー・組織・グループ）・パスワード表示制御にも対応。',
     image: '/images/accordion-tab-banner.png',
@@ -788,7 +795,7 @@ export const plugins: Plugin[] = [
     formName: '経過計算アシスト for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'elapsed-assist',
-    category: '入力支援',
+    categories: ['集計・計算', '自動入力'],
     description:
       '基準日フィールドから経過日数・経過年数・年齢・残日数・在籍期間（◯年◯ヶ月）など9パターンを自動計算するプラグイン。一覧・詳細を開くたびに「今日」時点の値を再計算して表示し、保存時には実フィールドへ書き込むので並び替え・絞り込み・集計にも使えます。',
     image: '/images/elapsed-assist-banner.png',
@@ -811,7 +818,7 @@ export const plugins: Plugin[] = [
     formName: 'レコード再利用コントロール for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'reuse-control',
-    category: 'レコード画面',
+    categories: ['自動入力', '表示・編集制御'],
     description:
       'kintone の「レコードを再利用する」で、フィールドごと・サブテーブルの列ごとに『残す（コピーする）』項目を選べるプラグイン。設定した項目だけを引き継ぎ、それ以外は再利用画面を開くと同時に自動で空欄化。ルックアップの入れ替えや、空にした表の初期値クリアにも対応します。',
     image: '/images/reuse-control-banner.png',
@@ -835,7 +842,7 @@ export const plugins: Plugin[] = [
     formName: '削除レコード復元 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'record-recovery',
-    category: 'レコード画面',
+    categories: ['履歴・復元'],
     description:
       '削除したレコードを内容ごと元に戻せる kintone プラグイン。削除の直前に添付ファイルまで保管アプリへ自動バックアップし、一覧画面や設定画面の履歴からワンクリックで復元できます。削除の成否に連動する二段階コミットで、バックアップだけが残る不整合を防ぎます。',
     image: '/images/record-recovery-banner.png',
@@ -859,7 +866,7 @@ export const plugins: Plugin[] = [
     formName: '既読チェック for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'read-check',
-    category: 'レコード画面',
+    categories: ['情報共有'],
     description:
       'レコードを開いた人を自動で記録できる kintone プラグイン。詳細画面を開くだけでログインユーザーを既読記録し、右サイドバーの「既読」タブ（コメント・変更履歴の並び）から誰が・いつ・何回読んだかを一覧表示。編集回数も別集計。レコード本体は汚さず保管アプリに分離。',
     image: '/images/read-check-banner.png',
@@ -883,7 +890,7 @@ export const plugins: Plugin[] = [
     formName: '文字列結合 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'text-join',
-    category: '入力支援',
+    categories: ['自動入力', '入力チェック', '一括処理'],
     description:
       '計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども含めて、複数フィールドの値を書式を整えたうえで1つの文字列フィールドへ自動入力するプラグイン。テーブル明細を1行にまとめる集約結合、結合結果の重複チェック、既存レコードへの一括反映にも対応します。',
     image: '/images/text-join-banner.png',
@@ -907,7 +914,7 @@ export const plugins: Plugin[] = [
     formName: '一覧コントロール for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'view-control',
-    category: '一覧',
+    categories: ['一覧表示', '表示・編集制御'],
     description:
       'レコード一覧・グラフの表示／非表示を、ユーザー・組織・グループ単位で出し分けるプラグイン。増えすぎた一覧切替から関係のない一覧を隠し、対象者ごとに「最初に開く」一覧も指定できます。直リンクのガード、マトリクスプレビュー、モバイル対応。',
     image: '/images/view-control-banner.png',
@@ -930,7 +937,7 @@ export const plugins: Plugin[] = [
     name: 'テーブルアシスト for kintone',
     formName: 'テーブルアシスト for kintone',
     slug: 'table-assist',
-    category: '入力支援',
+    categories: ['集計・計算'],
     description:
       'テーブルの行をドラッグ&ドロップと↑↓ボタンで並べ替え、値ごと複製、選んだ行をまとめて移動・削除できるプラグイン。さらにチェックを入れた行だけを合計・平均・件数・最大・最小で集計して数値フィールドへ自動入力します。列見出しソート・ヘッダー固定・行番号・既存レコードへの一括反映にも対応。',
     image: '/images/table-assist-banner.png',
@@ -961,7 +968,7 @@ export const premiumPlugins: Plugin[] = [
     formName: '帳票デザイナー for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'report-designer',
-    category: '出力・連携',
+    categories: ['出力・帳票'],
     description:
       'お手持ちのPDF（請求書・見積書・納品書）を背景に、レコード値・サブテーブル明細・固定テキスト・ロゴ・印影をドラッグで配置して帳票化するプラグイン。1件印刷、一覧から最大100件のまとめ印刷、印刷したPDFの添付自動保存に対応します。',
     image: '/images/report-designer-banner.png',
@@ -984,7 +991,7 @@ export const premiumPlugins: Plugin[] = [
     formName: 'ダッシュボード for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'dashboard',
-    category: '一覧',
+    categories: ['集計・計算', '一覧表示'],
     description:
       'グラフ・数値カード・クロス集計表を1枚に集約し、一覧のカスタマイズビューに常設の集計ダッシュボードを描画。期間セレクタで全ウィジェットを連動再集計し、アプリ横断集計・集計キャッシュに対応。ポータルには別々のボードのグラフを横並びに配置できます。',
     image: '/images/dashboard-banner.png',
@@ -1007,7 +1014,7 @@ export const premiumPlugins: Plugin[] = [
     formName: '属性制御フィルター for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'attribute-filter',
-    category: '入力支援',
+    categories: ['表示・編集制御'],
     description:
       'ユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・他フィールドの値・プロセス管理のステータスに応じて自動で絞り込むプラグイン。申請先や承認者の部署外への誤選択を防ぎ、キーワードサジェストで素早く選べます。サブテーブルにも対応。',
     image: '/images/attribute-filter-banner.png',
@@ -1030,7 +1037,7 @@ export const premiumPlugins: Plugin[] = [
     formName: 'ルックアップ自動同期 for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'lookup-sync',
-    category: '出力・連携',
+    categories: ['自動入力', '一括処理'],
     description:
       'ルックアップ元（マスター）のレコードを更新すると、その値をコピーしている参照先アプリの既存レコードを自動で追従更新するプラグイン。会社名・商品名のように重複しうるキーにも2つの同期方式で対応し、対象は自動スキャンで検出。サブテーブル内のルックアップや、既存データの「今すぐ全件同期」も可能です。',
     image: '/images/lookup-sync-banner.png',
@@ -1053,7 +1060,7 @@ export const premiumPlugins: Plugin[] = [
     formName: '関連レコード拡張 for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'related-enhancer',
-    category: 'レコード画面',
+    categories: ['集計・計算', '検索・閲覧'],
     description:
       'レコード詳細の関連レコード一覧を、集計・見た目・検索/ソートでまとめて強化するプラグイン。カーソルAPIで参照先を全件取得し、合計・平均・件数などの集計カード（条件付き・複数条件の並列・閾値で色分け）を一覧の上に表示。非表示フィールドやサブテーブル内の展開集計、集計結果の書き込み保存にも対応します。',
     image: '/images/related-enhancer-banner.png',
@@ -1076,7 +1083,7 @@ export const premiumPlugins: Plugin[] = [
     formName: 'カードボード for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'card-board',
-    category: '一覧',
+    categories: ['一覧表示', '集計・計算'],
     description:
       'レコード一覧を「状態カード（上部）＋詳細カード（下部）」の2段カンバンに切替表示するプラグイン。詳細カードを状態カードへドラッグ&ドロップしてステータス・選択肢・文字列の値を変更でき、状態別の件数・集計値を全幅で俯瞰。連動（カンバン）/個別（ギャラリー）モード・添付サムネイル・ライブプレビュー付き設定に対応します。',
     image: '/images/card-board-banner.png',
@@ -1099,7 +1106,7 @@ export const premiumPlugins: Plugin[] = [
     formName: 'チャット通知 for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'chat-notify',
-    category: '出力・連携',
+    categories: ['通知・メール'],
     description:
       'レコードの追加・更新・削除・ステータス変更・手動送信・一括通知をきっかけに、Slack / Microsoft Teams / Google Chat へ自動でメッセージを送るプラグイン。中継サーバー不要で kintone から Webhook へ直接送信します。最大5件の条件と変更検知で通知先を絞り込み、差し込みテンプレートで本文を組み立て、送信履歴と失敗時のベル通知にも対応します。',
     image: '/images/chat-notify-banner.png',
@@ -1122,7 +1129,7 @@ export const premiumPlugins: Plugin[] = [
     formName: 'サイドバー拡張 for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'sidebar-enhancer',
-    category: 'レコード画面',
+    categories: ['画面レイアウト'],
     description:
       'レコード詳細画面の右サイドバー（コメント・変更履歴の隣）に独自タブを5つ増設できるプラグイン。値を引き継いで他アプリへレコード追加、URLや地図を画面を離れずプレビュー、プロセス管理のステータス履歴と滞留日数、ステータス別チェックリスト、アプリガイドを常設。フォームのレイアウトは一切変更しません。',
     image: '/images/sidebar-enhancer-banner.png',
@@ -1146,7 +1153,7 @@ export const premiumPlugins: Plugin[] = [
     formName: '入力テンプレート for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'input-template',
-    category: '入力支援',
+    categories: ['自動入力'],
     description:
       'あらかじめ登録した「値のセット（テンプレート）」を選ぶだけで、複数フィールドとテーブル明細をまとめて入力できるプラグイン。管理者が設定画面で作る共通テンプレートと、各ユーザーがレコード詳細画面から必要な項目だけ選んで作る個人テンプレートの2階層に対応。フォームは変更せず保管アプリへ分離するため登録数の上限もありません。',
     image: '/images/input-template-banner.png',

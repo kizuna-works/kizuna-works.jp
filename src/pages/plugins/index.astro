@@ -4,8 +4,44 @@ import SupporterCTA from '../../components/SupporterCTA.astro';
 import TrialBanner from '../../components/TrialBanner.astro';
 import Picture from '../../components/Picture.astro';
 import { plugins, premiumPlugins, pluginsItemListJsonLd } from '../../data/plugins';
+import type { Plugin } from '../../data/plugins';
+import {
+  pluginCategoryGroups,
+  pluginCategoryMeta,
+  pluginCategories,
+} from '../../data/pluginCategories';
 
 const itemListJson = JSON.stringify(pluginsItemListJsonLd);
+
+// Chip counts span both grids: filtering hides cards in the premium and the
+// chokotto section alike, so a count that only covered one would mislead.
+const categoryCounts = new Map<string, number>();
+for (const p of [...premiumPlugins, ...plugins]) {
+  for (const c of p.categories) {
+    categoryCounts.set(c, (categoryCounts.get(c) ?? 0) + 1);
+  }
+}
+
+// Emitted as a JSON island so the filter script has the category names and
+// captions without duplicating them in JavaScript.
+const categoryClientMeta = Object.fromEntries(
+  pluginCategories.map((c) => [
+    pluginCategoryMeta[c].slug,
+    { name: c, desc: pluginCategoryMeta[c].description },
+  ])
+);
+
+/** Slug list for the card's filter matching. */
+const catSlugs = (p: Plugin) => p.categories.map((c) => pluginCategoryMeta[c].slug).join('|');
+
+/**
+ * Haystack for a future keyword search box. The input is not rendered yet, but
+ * shipping the attribute now means turning search on is a markup-only change.
+ */
+const searchText = (p: Plugin) =>
+  [p.name, p.description, p.problemTitle, p.problemDesc, ...p.categories]
+    .join(' ')
+    .toLowerCase();
 
 // Product counts are derived so the copy never drifts from the actual lineup.
 const chokottoCount = plugins.length;
@@ -283,13 +319,21 @@ const freeFaqJsonLd = {
       align-items: center;
     }
 
+    /* 3 across on desktop. The container tops out at 1200px with 5% padding, so
+       the usable width never exceeds ~1080px: 3x300 + 2x32 = 964 fits, and
+       4x300 + 3x32 = 1296 never does, which pins it to exactly 3 columns. */
     .plugins-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 40px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 32px;
     }
 
+    /* The card is a plain container, not a link: the category chips inside it are
+       buttons, and nesting interactive elements inside an <a> is invalid HTML and
+       breaks keyboard use. The title link is stretched over the card instead, so
+       clicking anywhere still opens the product page. */
     .plugin-card {
+      position: relative;
       background-color: var(--color-white);
       border-radius: 10px;
       overflow: hidden;
@@ -297,13 +341,20 @@ const freeFaqJsonLd = {
       transition: transform var(--transition-speed), box-shadow var(--transition-speed);
       display: flex;
       flex-direction: column;
-      text-decoration: none;
       color: inherit;
     }
 
     .plugin-card:hover {
       transform: translateY(-5px);
       box-shadow: var(--shadow-hover);
+    }
+
+    .plugin-card:focus-within {
+      box-shadow: var(--shadow-hover), 0 0 0 3px rgba(27, 58, 107, 0.35);
+    }
+
+    .plugin-card[hidden] {
+      display: none;
     }
 
     .plugin-card-image {
@@ -316,17 +367,38 @@ const freeFaqJsonLd = {
     }
 
     .plugin-card-content {
-      padding: 30px 24px;
+      padding: 24px 20px;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
     }
 
     .plugin-title {
-      font-size: 1.3rem;
+      font-size: 1.15rem;
       font-weight: 700;
+      line-height: 1.45;
       color: var(--color-navy);
       margin-bottom: 4px;
+      /* At 337px most product names wrap to two lines and a few do not. Reserving
+         two lines keeps the description starting at the same y across a row. */
+      min-height: 2.9em;
+    }
+
+    .plugin-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Stretched link: covers the whole card so the click target is unchanged. */
+    .plugin-title a::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .plugin-title a:focus-visible {
+      outline: none;
     }
 
     .plugin-subtitle {
@@ -335,35 +407,403 @@ const freeFaqJsonLd = {
       margin-bottom: 20px;
     }
 
-    /* Category chip — color-coded by functional area */
+    /* Category chips. Sits above the stretched title link so it stays clickable.
+       Every chip looks the same and is told apart by its category colour. */
+    .plugin-cats {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+      min-height: 34px;
+      align-content: flex-start;
+    }
+
     .plugin-cat {
-      align-self: flex-start;
+      font: inherit;
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.02em;
-      padding: 3px 11px;
+      padding: 4px 11px;
+      border: 0;
       border-radius: 999px;
-      margin-bottom: 12px;
       line-height: 1.5;
       white-space: nowrap;
+      cursor: pointer;
+      background: var(--cat-bg);
+      color: var(--cat-fg);
+      /* Keeps the tap target at 32px without inflating the visual pill. */
+      outline-offset: 2px;
     }
-    .plugin-cat[data-cat="一覧"] { background: #e8f0fb; color: #1b3a6b; }
-    .plugin-cat[data-cat="レコード画面"] { background: #e7f5e7; color: #256b25; }
-    .plugin-cat[data-cat="入力支援"] { background: #fff1e0; color: #b5651d; }
-    .plugin-cat[data-cat="装飾"] { background: #f3eafc; color: #7a3ea8; }
-    .plugin-cat[data-cat="出力・連携"] { background: #e3f6f4; color: #0f8e84; }
+
+    .plugin-cat:hover {
+      filter: brightness(0.94);
+    }
+
+    /* Hue family per filter-bar group: warm = 入力・制御, cool = 画面,
+       green/neutral = データ・運用. Foregrounds are dark enough for AA at 11px. */
+    .plugin-cat[data-cat="自動入力"],
+    .pf-chip[data-cat="自動入力"]      { --cat-bg: #fff1e0; --cat-fg: #9c530f; }
+    .plugin-cat[data-cat="入力チェック"],
+    .pf-chip[data-cat="入力チェック"]    { --cat-bg: #fdeaea; --cat-fg: #a32f2b; }
+    .plugin-cat[data-cat="表示・編集制御"],
+    .pf-chip[data-cat="表示・編集制御"]  { --cat-bg: #fdf4d9; --cat-fg: #77590a; }
+    .plugin-cat[data-cat="一括処理"],
+    .pf-chip[data-cat="一括処理"]      { --cat-bg: #fdeaf2; --cat-fg: #962f63; }
+    .plugin-cat[data-cat="一覧表示"],
+    .pf-chip[data-cat="一覧表示"]      { --cat-bg: #e8f0fb; --cat-fg: #1b3a6b; }
+    .plugin-cat[data-cat="画面レイアウト"],
+    .pf-chip[data-cat="画面レイアウト"]  { --cat-bg: #e2f1f4; --cat-fg: #0e5f6c; }
+    .plugin-cat[data-cat="装飾・配色"],
+    .pf-chip[data-cat="装飾・配色"]     { --cat-bg: #f3eafc; --cat-fg: #6b3496; }
+    .plugin-cat[data-cat="検索・閲覧"],
+    .pf-chip[data-cat="検索・閲覧"]     { --cat-bg: #eaeafa; --cat-fg: #3c368f; }
+    .plugin-cat[data-cat="集計・計算"],
+    .pf-chip[data-cat="集計・計算"]     { --cat-bg: #e7f5e7; --cat-fg: #1f5c1f; }
+    .plugin-cat[data-cat="出力・帳票"],
+    .pf-chip[data-cat="出力・帳票"]     { --cat-bg: #eff3e0; --cat-fg: #4d6612; }
+    .plugin-cat[data-cat="通知・メール"],
+    .pf-chip[data-cat="通知・メール"]    { --cat-bg: #ddf2f0; --cat-fg: #0b6f68; }
+    .plugin-cat[data-cat="情報共有"],
+    .pf-chip[data-cat="情報共有"]      { --cat-bg: #f5ece3; --cat-fg: #7a4d24; }
+    .plugin-cat[data-cat="履歴・復元"],
+    .pf-chip[data-cat="履歴・復元"]     { --cat-bg: #ecf0f4; --cat-fg: #3d4c5c; }
+
+    /* Lead block — the long "特長" copy moved below the grids, so this is all a
+       first-time visitor reads before reaching the products. */
+    .lead-section {
+      padding: 48px 5% 8px;
+    }
+
+    .lead-card {
+      max-width: 1200px;
+      padding: 28px 32px;
+    }
+
+    .lead-main {
+      font-size: 1.05rem;
+    }
+
+    .lead-sub {
+      font-size: 0.98rem !important;
+      color: var(--color-text-muted) !important;
+    }
+
+    /* The long copy used to sit below the grids with anchor links pointing at it.
+       On a 23,000px page that meant a one-way trip: getting back to the products
+       took a full scroll. It opens in place instead, so there is nothing to
+       return from. Collapsed by default keeps the grid near the top. */
+    .lead-folds {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 4px 0 16px;
+    }
+
+    .lead-fold {
+      flex: 1 1 280px;
+      border: 1px solid #dbe3ec;
+      border-radius: 10px;
+      background: #f8fafc;
+    }
+
+    .lead-fold[open] {
+      /* Take the full row when open so the table has room and the sibling wraps. */
+      flex-basis: 100%;
+      background: var(--color-white);
+      border-color: #c3d0e0;
+    }
+
+    .lead-fold > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 13px 16px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-navy);
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .lead-fold > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .lead-fold > summary::after {
+      content: '＋';
+      flex-shrink: 0;
+      font-size: 0.95rem;
+      color: var(--color-green);
+    }
+
+    .lead-fold[open] > summary::after {
+      content: '−';
+    }
+
+    .lead-fold > summary:hover {
+      color: var(--color-green);
+    }
+
+    .lead-fold-body {
+      padding: 0 16px 18px;
+      border-top: 1px solid #e2e8f0;
+      margin-top: -1px;
+      padding-top: 16px;
+    }
+
+    .lead-fold-body p {
+      font-size: 0.98rem !important;
+    }
+
+    /* The campaign banner lives in the lead card so it is seen before the grid.
+       `inset` strips the banner's own centring, letting it fill the card. */
+    .lead-campaign {
+      margin-top: 4px;
+    }
+
+    /* Filter bar */
+    .pf-bar {
+      padding: 16px 5% 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .pf-inner {
+      background: var(--color-white);
+      max-width: 1200px;
+      width: 100%;
+      padding: 22px 28px 18px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .pf-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .pf-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-navy);
+      margin: 0;
+    }
+
+    .pf-count {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+
+    .pf-group {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 10px;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+
+    .pf-group-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      padding-top: 7px;
+    }
+
+    .pf-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pf-chip {
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid #dbe3ec;
+      background: #f4f7fb;
+      color: #4a5a6b;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .pf-chip:hover {
+      border-color: #b9c7d8;
+      background: #e9eff7;
+    }
+
+    .pf-chip[aria-pressed='true'] {
+      background: var(--cat-bg);
+      color: var(--cat-fg);
+      border-color: currentColor;
+    }
+
+    .pf-chip-n {
+      margin-left: 7px;
+      font-size: 0.78em;
+      opacity: 0.7;
+    }
+
+    .pf-foot {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .pf-desc {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+
+    .pf-clear {
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--color-navy);
+      background: transparent;
+      color: var(--color-navy);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .pf-clear:hover {
+      background: var(--color-navy);
+      color: var(--color-white);
+    }
+
+    .pf-empty {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding: 0 5%;
+      text-align: center;
+      color: var(--color-text-muted);
+    }
+
+    .pf-empty-clear {
+      font: inherit;
+      font-weight: 700;
+      margin-left: 8px;
+      border: 0;
+      background: none;
+      color: var(--color-navy);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* Floating reset. Shown only while a filter is active and the bar has
+       scrolled out of view, so 47 cards of scrolling never traps the visitor. */
+    .pf-float {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px 9px 18px;
+      border-radius: 999px;
+      background: var(--color-navy);
+      color: var(--color-white);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      font-size: 0.88rem;
+      font-weight: 700;
+      /* The pill is appended to <body>, where global.css stretches direct
+         children to `width: 100%`. Shrink it back to its content. */
+      width: max-content;
+      max-width: calc(100% - 32px);
+    }
+
+    .pf-float-label {
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .pf-float-clear {
+      font: inherit;
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 0;
+      background: rgba(255, 255, 255, 0.2);
+      color: inherit;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .pf-float-clear:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    /* `display` here beats the UA rule for [hidden], so it has to be restated. */
+    .pf-float[hidden],
+    [data-plugin-section][hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 640px) {
+      .lead-card {
+        padding: 24px 20px;
+      }
+
+      .pf-inner {
+        padding: 18px 16px 14px;
+      }
+
+      /* Stack the group label above its chips: an 88px column would leave too
+         little room for the chips themselves at 375px. */
+      .pf-group {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        margin-bottom: 14px;
+      }
+
+      .pf-group-label {
+        padding-top: 0;
+      }
+
+      .pf-chip {
+        font-size: 0.78rem;
+        padding: 7px 12px;
+      }
+    }
 
     .plugin-desc {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       line-height: 1.6;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       flex-grow: 1;
-      /* Clamp to 5 lines so every card has the same description height */
+      /* A 3-column card fits ~20 chars per line against ~30 in the old 2-column
+         layout, so the clamp goes 5 -> 7 lines to keep roughly the same amount of
+         copy visible. min-height reserves 6 lines: grid already equalises heights
+         within a row, this only stops a short final row from collapsing. */
       display: -webkit-box;
-      -webkit-line-clamp: 5;
+      -webkit-line-clamp: 7;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      min-height: 7.7em; /* 5 lines x line-height 1.6 = 8em, trimmed for box model */
+      min-height: 9.4em;
     }
 
     .plugin-meta {
@@ -566,83 +1006,127 @@ const freeFaqJsonLd = {
     </section>
     <div class="hero-gradient-line"></div>
 
-    <section class="intro-section">
-      <div class="intro-card">
-        <h2>KIZUNA Works プラグインの特長</h2>
-        <p>KIZUNA Works では、kintone のプラグインを<strong>全 {totalCount} 製品（ちょこっと {chokottoCount} 製品・プレミアム {premiumCount} 製品）</strong>公開しています。いずれも会員登録なしでダウンロードでき、<strong>利用期限はありません</strong>。</p>
-        <p>「ちょこっとプラグイン」は、現場の「あとちょっとこうなれば」という声から生まれた kintone 拡張プラグインシリーズです。プログラミング知識は不要。基本機能は完全無料です。</p>
-        <p>さらに、より高度な業務に応える「<strong>プレミアムプラグイン</strong>」シリーズもご用意しています。プレミアムプラグインも基本機能は無料でお試しいただけ、<strong>プレミアム年間サポーター</strong>に加入すると全機能が解放されます。今後もラインナップを拡充していきます。</p>
-        <p>どれから試すか迷ったら、目的別におすすめを整理した<a href="/blog/kintone-muryou-plugin-osusume/">kintone無料プラグインのおすすめ記事</a>もあわせてご覧ください。</p>
-        <p class="intro-question">あなたの現場にも、「あとちょっと」はありませんか？</p>
-        <p>年間サポーターになっていただけると、プラグイン作成リクエストや既存プラグインへの改善要望をお送りいただけます。サポーターの声をひとつひとつ形にしながら、現場との絆を広げていきたいと思っています。</p>
-        <div class="intro-cta">
-          <a href="/plugins/supporter/" class="intro-cta-button">
-            年間サポーターについて詳しく見る <span aria-hidden="true">&rarr;</span>
-          </a>
+    <section class="intro-section lead-section">
+      <div class="intro-card lead-card">
+        <p class="lead-main">KIZUNA Works の kintone プラグインは、<strong>全 {totalCount} 製品（ちょこっと {chokottoCount} 製品・プレミアム {premiumCount} 製品）</strong>を無料で配布しています。会員登録は不要、JavaScript を書く必要もなく、<strong>利用期限はありません</strong>。</p>
+        <p class="lead-sub">やりたいことのカテゴリで絞り込めます。どれから試すか迷ったら、目的別におすすめを整理した<a href="/blog/kintone-muryou-plugin-osusume/">kintone無料プラグインのおすすめ記事</a>もあわせてご覧ください。</p>
+        <div class="lead-folds">
+          <details class="lead-fold" id="free-scope">
+            <summary>無料でどこまで使えるのか</summary>
+            <div class="lead-fold-body">
+              <p>「無料」と書かれていても範囲が分かりにくいことが多いので、はっきり書いておきます。<strong>ちょこっとプラグイン {chokottoCount} 製品は、無料プランのままで全機能が使えます。</strong>試用期間やレコード件数の上限もありません。</p>
+              <div class="free-scope-wrap">
+                <table class="free-scope-table">
+                  <thead>
+                    <tr>
+                      <th>項目</th>
+                      <th>無料プラン（¥0）</th>
+                      <th>年間サポーター</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ちょこっとプラグインの機能</td>
+                      <td class="is-free">全機能が使える</td>
+                      <td>全機能が使える</td>
+                    </tr>
+                    <tr>
+                      <td>利用期限</td>
+                      <td class="is-free">なし</td>
+                      <td>1 年ごとに更新</td>
+                    </tr>
+                    <tr>
+                      <td>レコード一覧の広告エリア</td>
+                      <td>控えめに表示</td>
+                      <td>非表示</td>
+                    </tr>
+                    <tr>
+                      <td>作成リクエスト・改善要望</td>
+                      <td>—</td>
+                      <td>送れる</td>
+                    </tr>
+                    <tr>
+                      <td>プレミアムプラグインの全機能</td>
+                      <td>基本機能まで</td>
+                      <td>プレミアム年間サポーターが必要</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>年間サポーターは対象が<strong>選んだ 1 製品</strong>で、機能を解除するためのものではなく開発を支えていただくためのプランです。プレミアムプラグイン {premiumCount} 製品だけは、全機能の利用に<a href="/plugins/supporter/?plan=all">プレミアム年間サポーター</a>（年額 ¥16,500 税込・販売中の全製品が対象）が必要で、単品販売はありません。</p>
+              <p>導入手順はどの製品も共通です。kintone の<strong>システム管理 → プラグイン</strong>で ZIP ファイルを読み込み、使うアプリの<strong>アプリ設定 → プラグイン</strong>で追加して、設定画面で対象のフィールドや条件を選ぶだけ。JavaScript を書く必要はありません。</p>
+            </div>
+          </details>
+
+          <details class="lead-fold" id="about">
+            <summary>KIZUNA Works プラグインの特長</summary>
+            <div class="lead-fold-body">
+              <p>「ちょこっとプラグイン」は、現場の「あとちょっとこうなれば」という声から生まれた kintone 拡張プラグインシリーズです。プログラミング知識は不要。基本機能は完全無料です。</p>
+              <p>さらに、より高度な業務に応える「<strong>プレミアムプラグイン</strong>」シリーズもご用意しています。プレミアムプラグインも基本機能は無料でお試しいただけ、<strong>プレミアム年間サポーター</strong>に加入すると全機能が解放されます。今後もラインナップを拡充していきます。</p>
+              <p class="intro-question">あなたの現場にも、「あとちょっと」はありませんか？</p>
+              <p>年間サポーターになっていただけると、プラグイン作成リクエストや既存プラグインへの改善要望をお送りいただけます。サポーターの声をひとつひとつ形にしながら、現場との絆を広げていきたいと思っています。</p>
+              <div class="intro-cta">
+                <a href="/plugins/supporter/" class="intro-cta-button">
+                  年間サポーターについて詳しく見る <span aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="lead-campaign">
+          <TrialBanner inset />
         </div>
       </div>
     </section>
 
-    <section class="intro-section">
-      <div class="intro-card">
-        <h2>無料でどこまで使えるのか</h2>
-        <p>「無料」と書かれていても範囲が分かりにくいことが多いので、はっきり書いておきます。<strong>ちょこっとプラグイン {chokottoCount} 製品は、無料プランのままで全機能が使えます。</strong>試用期間やレコード件数の上限もありません。</p>
-        <div class="free-scope-wrap">
-          <table class="free-scope-table">
-            <thead>
-              <tr>
-                <th>項目</th>
-                <th>無料プラン（¥0）</th>
-                <th>年間サポーター</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ちょこっとプラグインの機能</td>
-                <td class="is-free">全機能が使える</td>
-                <td>全機能が使える</td>
-              </tr>
-              <tr>
-                <td>利用期限</td>
-                <td class="is-free">なし</td>
-                <td>1 年ごとに更新</td>
-              </tr>
-              <tr>
-                <td>レコード一覧の広告エリア</td>
-                <td>控えめに表示</td>
-                <td>非表示</td>
-              </tr>
-              <tr>
-                <td>作成リクエスト・改善要望</td>
-                <td>—</td>
-                <td>送れる</td>
-              </tr>
-              <tr>
-                <td>プレミアムプラグインの全機能</td>
-                <td>基本機能まで</td>
-                <td>プレミアム年間サポーターが必要</td>
-              </tr>
-            </tbody>
-          </table>
+    <section class="pf-bar" id="plugin-filter" aria-label="目的から絞り込む">
+      <div class="pf-inner">
+        <div class="pf-head">
+          <h2 class="pf-title">目的から探す</h2>
+          <p class="pf-count" id="pf-count" aria-live="polite">全 {totalCount} 製品を表示中</p>
         </div>
-        <p>年間サポーターは対象が<strong>選んだ 1 製品</strong>で、機能を解除するためのものではなく開発を支えていただくためのプランです。プレミアムプラグイン {premiumCount} 製品だけは、全機能の利用に<a href="/plugins/supporter/?plan=all">プレミアム年間サポーター</a>（年額 ¥16,500 税込・販売中の全製品が対象）が必要で、単品販売はありません。</p>
-        <p>導入手順はどの製品も共通です。kintone の<strong>システム管理 → プラグイン</strong>で ZIP ファイルを読み込み、使うアプリの<strong>アプリ設定 → プラグイン</strong>で追加して、設定画面で対象のフィールドや条件を選ぶだけ。JavaScript を書く必要はありません。</p>
+        {pluginCategoryGroups.map((group) => (
+          <div class="pf-group" role="group" aria-label={group.label}>
+            <span class="pf-group-label">{group.label}</span>
+            <div class="pf-chips">
+              {group.categories.map((cat) => (
+                <button
+                  type="button"
+                  class="pf-chip"
+                  data-cat={cat}
+                  data-cat-slug={pluginCategoryMeta[cat].slug}
+                  aria-pressed="false"
+                >
+                  {cat}<span class="pf-chip-n">{categoryCounts.get(cat) ?? 0}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+        <div class="pf-foot">
+          <p class="pf-desc" id="pf-desc">カテゴリを選ぶと、そのカテゴリの製品だけを表示します。複数選べます。</p>
+          <button type="button" class="pf-clear" id="pf-clear" hidden>絞り込みを解除</button>
+        </div>
       </div>
     </section>
 
-    <div style="margin: 0 0 20px;">
-      <TrialBanner />
-    </div>
+    <p class="pf-empty" id="pf-empty" hidden>該当するプラグインがありません。<button type="button" class="pf-empty-clear">絞り込みを解除する</button></p>
 
     {premiumPlugins.length > 0 && (
-      <section class="section-container premium-section">
+      <section class="section-container premium-section" data-plugin-section>
         <h2 class="section-title premium-title">プレミアムプラグイン</h2>
         <p class="premium-intro">
           より高度な業務に応える kintone プラグインです。<strong>プレミアム年間サポーター</strong>（年額 ¥16,500 税込）にご加入いただくと、ここにあるプレミアムプラグインと販売中の全プラグインをご利用いただけます。今後もラインナップを拡充していきます。
         </p>
         <div class="plugins-grid">
           {premiumPlugins.map((plugin) => (
-            <a href={`/plugins/${plugin.slug}/`} class="plugin-card premium">
+            <div
+              class="plugin-card premium"
+              data-plugin
+              data-cat-slugs={catSlugs(plugin)}
+              data-search={searchText(plugin)}
+            >
               <Picture
                 src={plugin.image}
                 alt={plugin.imageAlt}
@@ -652,8 +1136,18 @@ const freeFaqJsonLd = {
                 card
               />
               <div class="plugin-card-content">
-                <span class="plugin-cat" data-cat={plugin.category}>{plugin.category}</span>
-                <h3 class="plugin-title">{plugin.name}</h3>
+                <div class="plugin-cats">
+                  {plugin.categories.map((cat) => (
+                    <button
+                      type="button"
+                      class="plugin-cat"
+                      data-cat={cat}
+                      data-cat-slug={pluginCategoryMeta[cat].slug}
+                      title={`「${cat}」のプラグインを絞り込む`}
+                    >{cat}</button>
+                  ))}
+                </div>
+                <h3 class="plugin-title"><a href={`/plugins/${plugin.slug}/`}>{plugin.name}</a></h3>
                 <span class="plugin-subtitle">{plugin.subtitle}</span>
                 <p class="plugin-desc">{plugin.description}</p>
                 <div class="plugin-meta">
@@ -669,17 +1163,22 @@ const freeFaqJsonLd = {
                 </div>
                 <span class="plugin-button">詳しく見る &rarr;</span>
               </div>
-            </a>
+            </div>
           ))}
         </div>
       </section>
     )}
 
-    <section class="section-container">
+    <section class="section-container" data-plugin-section>
       <h2 class="section-title">ちょこっとプラグイン一覧</h2>
       <div class="plugins-grid">
         {plugins.map((plugin) => (
-          <a href={`/plugins/${plugin.slug}/`} class="plugin-card">
+          <div
+            class="plugin-card"
+            data-plugin
+            data-cat-slugs={catSlugs(plugin)}
+            data-search={searchText(plugin)}
+          >
             <Picture
               src={plugin.image}
               alt={plugin.imageAlt}
@@ -689,8 +1188,18 @@ const freeFaqJsonLd = {
               card
             />
             <div class="plugin-card-content">
-              <span class="plugin-cat" data-cat={plugin.category}>{plugin.category}</span>
-              <h3 class="plugin-title">{plugin.name}</h3>
+              <div class="plugin-cats">
+                {plugin.categories.map((cat) => (
+                  <button
+                    type="button"
+                    class="plugin-cat"
+                    data-cat={cat}
+                    data-cat-slug={pluginCategoryMeta[cat].slug}
+                    title={`「${cat}」のプラグインを絞り込む`}
+                  >{cat}</button>
+                ))}
+              </div>
+              <h3 class="plugin-title"><a href={`/plugins/${plugin.slug}/`}>{plugin.name}</a></h3>
               <span class="plugin-subtitle">{plugin.subtitle}</span>
               <p class="plugin-desc">{plugin.description}</p>
               <div class="plugin-meta">
@@ -707,11 +1216,221 @@ const freeFaqJsonLd = {
               )}
               <span class="plugin-button">詳しく見る &rarr;</span>
             </div>
-          </a>
+          </div>
         ))}
       </div>
     </section>
 
     <SupporterCTA />
   </main>
+
+  <script is:inline type="application/json" id="pf-meta" set:html={JSON.stringify(categoryClientMeta)} />
+
+  <script is:inline>
+    (function () {
+      var bar = document.getElementById('plugin-filter');
+      var metaEl = document.getElementById('pf-meta');
+      if (!bar || !metaEl) return;
+
+      var META = JSON.parse(metaEl.textContent || '{}');
+      var chips = Array.prototype.slice.call(bar.querySelectorAll('.pf-chip'));
+      var cards = Array.prototype.slice.call(document.querySelectorAll('[data-plugin]'));
+      var sections = Array.prototype.slice.call(document.querySelectorAll('[data-plugin-section]'));
+      var countEl = document.getElementById('pf-count');
+      var descEl = document.getElementById('pf-desc');
+      var clearBtn = document.getElementById('pf-clear');
+      var emptyEl = document.getElementById('pf-empty');
+      var total = cards.length;
+      var defaultDesc = descEl ? descEl.textContent : '';
+      var selected = [];
+      var barVisible = true;
+      var floatEl = null;
+      var floatLabel = null;
+
+      function has(slug) {
+        return selected.indexOf(slug) !== -1;
+      }
+
+      function label(slug) {
+        return META[slug] ? META[slug].name : slug;
+      }
+
+      function buildFloat() {
+        floatEl = document.createElement('div');
+        floatEl.className = 'pf-float';
+        floatEl.hidden = true;
+
+        floatLabel = document.createElement('span');
+        floatLabel.className = 'pf-float-label';
+        floatLabel.setAttribute('role', 'button');
+        floatLabel.setAttribute('tabindex', '0');
+        floatLabel.addEventListener('click', scrollToBar);
+        floatLabel.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            scrollToBar();
+          }
+        });
+
+        var reset = document.createElement('button');
+        reset.type = 'button';
+        reset.className = 'pf-float-clear';
+        reset.setAttribute('aria-label', '絞り込みを解除');
+        reset.textContent = '×';
+        reset.addEventListener('click', function () {
+          selected = [];
+          apply();
+        });
+
+        floatEl.appendChild(floatLabel);
+        floatEl.appendChild(reset);
+        document.body.appendChild(floatEl);
+      }
+
+      function scrollToBar() {
+        bar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function syncUrl() {
+        var url = new URL(window.location.href);
+        if (selected.length) url.searchParams.set('cat', selected.join(','));
+        else url.searchParams.delete('cat');
+        window.history.replaceState({}, '', url.pathname + url.search + url.hash);
+      }
+
+      function apply() {
+        var visible = 0;
+
+        cards.forEach(function (card) {
+          var slugs = (card.getAttribute('data-cat-slugs') || '').split('|');
+          var show = selected.length === 0 || slugs.some(has);
+          if (show) {
+            card.removeAttribute('hidden');
+            visible++;
+          } else {
+            card.setAttribute('hidden', '');
+          }
+        });
+
+        sections.forEach(function (section) {
+          section.hidden = !section.querySelector('[data-plugin]:not([hidden])');
+        });
+
+        chips.forEach(function (chip) {
+          chip.setAttribute(
+            'aria-pressed',
+            has(chip.getAttribute('data-cat-slug')) ? 'true' : 'false'
+          );
+        });
+
+        if (countEl) {
+          countEl.textContent = selected.length
+            ? total + ' 製品中 ' + visible + ' 製品を表示中'
+            : '全 ' + total + ' 製品を表示中';
+        }
+
+        if (descEl) {
+          if (!selected.length) {
+            descEl.textContent = defaultDesc;
+          } else if (selected.length === 1) {
+            var meta = META[selected[0]];
+            descEl.textContent = meta ? meta.name + ' — ' + meta.desc : '';
+          } else {
+            // Names already contain "・", so join with "／" to stay readable.
+            descEl.textContent =
+              selected.map(label).join('／') + ' の ' + selected.length + ' カテゴリを表示中';
+          }
+        }
+
+        if (clearBtn) clearBtn.hidden = !selected.length;
+        if (emptyEl) emptyEl.hidden = visible !== 0;
+
+        syncUrl();
+        updateFloat(visible);
+      }
+
+      function updateFloat(visible) {
+        if (!floatEl) buildFloat();
+        var show = selected.length > 0 && !barVisible;
+        floatEl.hidden = !show;
+        if (show) {
+          floatLabel.textContent =
+            (selected.length === 1 ? label(selected[0]) : selected.length + ' カテゴリ') +
+            ' ' + visible + ' 件';
+        }
+      }
+
+      function toggle(slug) {
+        var i = selected.indexOf(slug);
+        if (i === -1) selected.push(slug);
+        else selected.splice(i, 1);
+        apply();
+      }
+
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          toggle(chip.getAttribute('data-cat-slug'));
+        });
+      });
+
+      // A chip on a card narrows to just that category — "more like this" — rather
+      // than adding to the current selection, then brings the bar back into view
+      // so the change is visible.
+      document.querySelectorAll('.plugin-cat').forEach(function (tag) {
+        tag.addEventListener('click', function () {
+          selected = [tag.getAttribute('data-cat-slug')];
+          apply();
+          scrollToBar();
+        });
+      });
+
+      if (clearBtn) {
+        clearBtn.addEventListener('click', function () {
+          selected = [];
+          apply();
+        });
+      }
+
+      if (emptyEl) {
+        var emptyClear = emptyEl.querySelector('.pf-empty-clear');
+        if (emptyClear) {
+          emptyClear.addEventListener('click', function () {
+            selected = [];
+            apply();
+          });
+        }
+      }
+
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          barVisible = entries[0].isIntersecting;
+          updateFloat(cards.filter(function (c) { return !c.hasAttribute('hidden'); }).length);
+        }).observe(bar);
+      }
+
+      // Inbound links to #about / #free-scope still work: the target is a closed
+      // <details>, so open it before scrolling or the anchor lands on nothing.
+      function openFromHash() {
+        var id = window.location.hash.slice(1);
+        if (!id) return;
+        var target = document.getElementById(id);
+        if (target && target.tagName === 'DETAILS') {
+          target.open = true;
+          target.scrollIntoView({ block: 'center' });
+        }
+      }
+      window.addEventListener('hashchange', openFromHash);
+      openFromHash();
+
+      var fromUrl = new URLSearchParams(window.location.search).get('cat');
+      if (fromUrl) {
+        fromUrl.split(',').forEach(function (slug) {
+          slug = slug.trim();
+          if (META[slug] && !has(slug)) selected.push(slug);
+        });
+      }
+
+      apply();
+    })();
+  </script>
 </Layout>
