@@ -84,8 +84,9 @@ function flow(steps) {
   };
 }
 
-// 図3：縦5行の早見図（番号バッジ＋名称＋一言＋費用チップ）
-function overview5(rows) {
+// 図3：縦の早見図（番号バッジ＋名称＋一言＋費用チップ）
+// 既定は5行ぶんの高さ。行数が違う図では第2引数で高さを渡す。
+function overview5(rows, h = 596) {
   const row = (r) => ({
     type: 'div',
     props: {
@@ -109,7 +110,7 @@ function overview5(rows) {
   return {
     type: 'div',
     props: {
-      style: { width: 1000, height: 596, display: 'flex', flexDirection: 'column', gap: '14px', padding: '36px', background: C.white, fontFamily: 'Noto Sans JP' },
+      style: { width: 1000, height: h, display: 'flex', flexDirection: 'column', gap: '14px', padding: '36px', background: C.white, fontFamily: 'Noto Sans JP' },
       children: rows.map(row),
     },
   };
@@ -335,12 +336,13 @@ const FIGURES = [
   },
   {
     name: 'kintone-tempu-file-download',
-    w: 1000, h: 330,
-    el: overviewMethods([
-      { n: '1', name: '1件ずつ手動', desc: '詳細画面でファイル名をクリック。数件なら結局これが最短。', cost: '無料' },
-      { n: '2', name: 'cli-kintone', desc: 'サイボウズ公式のコマンドラインツール。全レコードの添付を一括取得。', cost: '無料' },
-      { n: '3', name: 'バックアップサービス', desc: '添付まで自動で継続保全。復元も含めて任せたい場合の選択肢。', cost: '有料' },
-    ]),
+    w: 1000, h: 510,
+    el: overview5([
+      { n: '1', name: '1件ずつ手動', desc: '詳細画面でファイル名をクリック。数件なら結局これが最短。', tag: '無料', paid: false },
+      { n: '2', name: 'プラグイン（添付ファイル出力）', desc: '一覧の絞り込み結果や選んだ行を、フォルダ分けしたZIPで取得。', tag: '無料', paid: false },
+      { n: '3', name: 'cli-kintone', desc: 'サイボウズ公式のコマンドラインツール。全レコードの添付を一括取得。', tag: '無料', paid: false },
+      { n: '4', name: 'バックアップサービス', desc: '添付まで自動で継続保全。復元も含めて任せたい場合の選択肢。', tag: '有料', paid: true },
+    ], 510),
   },
   {
     name: 'kintone-bi-tool-dashboard-subtable',
