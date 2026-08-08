@@ -13,6 +13,12 @@ interface Props {
   canonical?: string;
   noindex?: boolean;
   /**
+   * Keep links crawlable while the page itself stays out of the index. Use when
+   * the page exists to hand the visitor (and the crawler) on to another page —
+   * the default `nofollow` would waste that link. Ignored unless `noindex`.
+   */
+  followLinks?: boolean;
+  /**
    * Path to the page's hero background image (e.g. "/images/hero-bg.webp").
    * On pages whose hero uses a CSS background, that image is the LCP element,
    * and the browser only discovers it after the stylesheet parses — measured at
@@ -32,6 +38,7 @@ const {
   ogImage = 'https://kizuna-works.jp/images/ogp.png',
   canonical,
   noindex = false,
+  followLinks = false,
   heroBg,
 } = Astro.props;
 ---
@@ -41,7 +48,7 @@ const {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  {noindex && <meta name="robots" content="noindex, nofollow">}
+  {noindex && <meta name="robots" content={followLinks ? "noindex, follow" : "noindex, nofollow"}>}
   <meta name="description" content={description}>
   <title>{title}</title>
   <link rel="icon" type="image/png" href="/images/favicon.png">

@@ -72,6 +72,29 @@ function buildNoindexBlogPaths() {
 }
 const noindexBlogPaths = buildNoindexBlogPaths();
 
+/**
+ * Glossary terms carrying `supersededBy` in glossary.ts. Those pages render a
+ * robots noindex tag (see glossary/[id]/index.astro) because a blog post ranks
+ * better for the same queries, so they must leave the sitemap too. Parsed from
+ * the source so the two lists cannot drift apart.
+ */
+function buildSupersededGlossaryPaths() {
+  try {
+    const src = readFileSync(path.join(__dirname, 'src/data/glossary.ts'), 'utf-8');
+    return src
+      .split(/\n  \{\n/)
+      .slice(1)
+      .filter((b) => /supersededBy: \{/.test(b))
+      .map((b) => b.match(/\n?\s*id: '([a-z0-9-]+)'/))
+      .filter(Boolean)
+      .map((m) => `/glossary/${m[1]}/`);
+  } catch {
+    /* unreadable: leave them in the sitemap rather than guess */
+    return [];
+  }
+}
+const supersededGlossaryPaths = buildSupersededGlossaryPaths();
+
 // plugins.ts: extract `slug: 'xxx', ... releaseDate: 'YYYY-MM-DD'` pairs.
 function buildPluginDateMap() {
   const map = {};
@@ -130,10 +153,12 @@ export default defineConfig({
       // - supporter-only request form (URL-only access for supporters)
       // - blog announcement news pages (noindex; they duplicate the blog article)
       // - blog posts with `noindex: true` in frontmatter
+      // - glossary terms with `supersededBy` (a blog post owns those queries)
       filter: (page) =>
         !page.includes('/plugins/supporter/request/') &&
         !page.includes('/news/blog-') &&
-        !noindexBlogPaths.some((p) => page.endsWith(p)),
+        !noindexBlogPaths.some((p) => page.endsWith(p)) &&
+        !supersededGlossaryPaths.some((p) => page.endsWith(p)),
       serialize(item) {
         const lastmod = resolveLastmod(item.url);
         return lastmod ? { ...item, lastmod } : item;

@@ -102,6 +102,8 @@ const faqLd =
   ogType="article"
   ogUrl={url}
   canonical={url}
+  noindex={Boolean(term.supersededBy)}
+  followLinks
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(definedTerm)} />
@@ -141,6 +143,14 @@ const faqLd =
     .term-lead code, .term-body code {
       background: #E2E8F0; padding: 2px 6px; border-radius: 4px; font-size: 0.88em;
     }
+
+    /* Shown when a blog post owns this topic in search. The page is noindex, so
+       this is the route on for anyone who lands here from the glossary index. */
+    .term-superseded {
+      font-size: 0.98rem; line-height: 1.85; color: #4a5a6b; background: #FFF8E7;
+      border: 1px solid #efd9a0; border-radius: 8px; padding: 14px 18px; margin: 0 0 28px;
+    }
+    .term-superseded a { color: #1B3A6B; font-weight: 700; }
 
     .term-body { color: #333; line-height: 1.95; }
     .term-body h2 {
@@ -191,6 +201,14 @@ const faqLd =
       <p class="term-reading">読み：{term.reading}</p>
 
       <p class="term-lead" set:html={renderCode(term.definition)} />
+
+      {term.supersededBy && (
+        <p class="term-superseded">
+          この用語をくわしく扱った記事があります。手順や実務での使い分けは
+          <a href={term.supersededBy.path}>{term.supersededBy.label}</a>
+          をご覧ください。
+        </p>
+      )}
 
       {term.longDescription && term.longDescription.length > 0 && (
         <div class="term-body">

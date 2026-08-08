@@ -48,7 +48,7 @@ c:\kizuna-works.jp\
 │   ├── data/                   # ビルド時参照される TS データ
 │   │   ├── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）。`categories` は目的カテゴリを1〜3個持つ配列。先頭にそのプラグインの主目的を書くが、チップはすべて同じ体裁でカテゴリ色だけが変わる（並び順に表示上の意味は持たせていない）
 │   │   ├── pluginCategories.ts # プラグインの目的カテゴリ13種の定義（名称・URLスラッグ・一言説明・チップ列のグループ分け）。/plugins/ の絞り込みバーとカード上のタグが参照。カテゴリを増減するときは index.astro のチップ色（--cat-bg/--cat-fg）も追加する
-│   │   ├── glossary.ts         # kintone 用語集の単一情報源（/glossary/ 一覧と DefinedTermSet JSON-LD を生成）。hasPage/longDescription/useCases/faq を持つ語は /glossary/<id>/ の個別ページも生成
+│   │   ├── glossary.ts         # kintone 用語集の単一情報源（/glossary/ 一覧と DefinedTermSet JSON-LD を生成）。hasPage/longDescription/useCases/faq を持つ語は /glossary/<id>/ の個別ページも生成。`supersededBy` を持つ語は個別ページを noindex＋sitemap 除外にし、同じ検索意図で上位のブログ記事へ誘導する（自社2ページで表示回数を食い合うのを防ぐ。付与は GSC で順位を確認してから）
 │   │   ├── plugin-security.ts  # プラグインごとのセキュリティ事実（外部通信・同梱ライブラリ）の単一情報源。SecurityBox が参照
 │   │   └── install-ranking.json # インストール数ランキングのスナップショット（scripts/gen-install-ranking.mjs が prebuild で更新）。トップの Top3 と /plugins/ranking/ が両方これを読む＝順位が食い違わない。**手で編集しない**
 │   ├── layouts/                # 共通レイアウトコンポーネント

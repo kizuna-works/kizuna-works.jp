@@ -35,6 +35,14 @@ export interface Term {
    * avoid thin pages.
    */
   hasPage?: boolean;
+  /**
+   * Path of the article that should own this topic in search. Set it when a blog
+   * post covers the same intent and ranks better: the glossary page then renders
+   * a noindex tag and drops out of the sitemap, so the two stop splitting
+   * impressions, while the page itself stays reachable from /glossary/ and links
+   * on to the article. Verified against GSC before setting — do not guess.
+   */
+  supersededBy?: { path: string; label: string };
   /** Extra explanatory paragraphs shown on the dedicated page (after definition). */
   longDescription?: string[];
   /** Concrete usage examples shown as a bullet list on the dedicated page. */
@@ -109,6 +117,7 @@ export const glossary: Term[] = [
   },
   {
     id: 'category',
+    supersededBy: { path: '/blog/kintone-category/', label: 'kintoneのカテゴリー機能の使い方' },
     term: 'カテゴリー',
     reading: 'かてごりー',
     category: 'feature',
@@ -175,6 +184,7 @@ export const glossary: Term[] = [
   },
   {
     id: 'related-records',
+    supersededBy: { path: '/blog/kintone-related-record-list/', label: 'kintoneの関連レコード一覧の使い方と集計' },
     term: '関連レコード一覧',
     reading: 'かんれんれこーどいちらん',
     category: 'field',
@@ -202,6 +212,7 @@ export const glossary: Term[] = [
   },
   {
     id: 'calc',
+    supersededBy: { path: '/blog/kintone-keisan-field/', label: 'kintoneの計算フィールドの使い方' },
     term: '計算フィールド',
     reading: 'けいさん',
     category: 'field',
@@ -303,6 +314,7 @@ export const glossary: Term[] = [
   },
   {
     id: 'process-management',
+    supersededBy: { path: '/blog/kintone-process-management/', label: 'kintoneのプロセス管理の設定と運用' },
     term: 'プロセス管理',
     reading: 'ぷろせすかんり',
     category: 'feature',
@@ -355,6 +367,7 @@ export const glossary: Term[] = [
   },
   {
     id: 'plugin',
+    supersededBy: { path: '/plugins/', label: 'kintone プラグイン一覧（全47製品・無料）' },
     term: 'プラグイン',
     reading: 'ぷらぐいん',
     category: 'api',
@@ -500,6 +513,7 @@ export const glossary: Term[] = [
   },
   {
     id: 'lookup',
+    supersededBy: { path: '/blog/kintone-lookup-kaisetsu/', label: 'kintoneのルックアップ徹底解説' },
     term: 'ルックアップ',
     reading: 'るっくあっぷ',
     category: 'field',
@@ -583,6 +597,7 @@ export const glossary: Term[] = [
   // ----- ファイル・リンク系 -----
   {
     id: 'file',
+    supersededBy: { path: '/blog/kintone-tempu-file/', label: 'kintoneの添付ファイルの仕様と運用' },
     term: '添付ファイル',
     reading: 'てんぷふぁいる',
     category: 'field',
