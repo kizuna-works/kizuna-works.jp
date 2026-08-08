@@ -37,6 +37,18 @@ const BANNERS = {
       ['条件で絞って', '自動通知', ''],
       ['中継サーバー', '不要', '']
     ]
+  },
+  'file-export': {
+    iconSrc: 'SECRET/kintone_plugin_workspace/kw-file-export/kw-file-export_icon_512.png',
+    iconSide: 'right',
+    catch: ['解いたら、そのまま', '使える形で。'],
+    name: '添付ファイル出力 for kintone',
+    nameSize: 45,
+    bullets: [
+      ['添付ファイルを', 'ZIPで一括', '出力'],
+      ['', 'フォルダ階層・ファイル名', 'を指定'],
+      ['事前見積り＋', '自動分割', '・中止']
+    ]
   }
 };
 
@@ -99,7 +111,7 @@ async function build(slug) {
     y += 64;
   });
   y += 22;
-  text += `<text x="${textX}" y="${y}" font-family="${FONT}" font-size="50" font-weight="900" fill="${CYAN}">${esc(cfg.name)}</text>`;
+  text += `<text x="${textX}" y="${y}" font-family="${FONT}" font-size="${cfg.nameSize || 50}" font-weight="900" fill="${CYAN}">${esc(cfg.name)}</text>`;
   y += 62;
   cfg.bullets.forEach(([a, hi, b]) => {
     text += `<text x="${textX}" y="${y}" font-family="${FONT}" font-size="33" font-weight="700" fill="#ffffff">` +

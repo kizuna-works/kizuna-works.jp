@@ -304,6 +304,26 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-file-export': {
+    runtimeLibs: [
+      { name: 'JSZip', version: '3.10.1', license: 'MIT/GPLv3', purpose: 'ZIP のブラウザ内生成（「出力を開始」を押したときだけ読み込みます）' },
+    ],
+    libs: [
+      {
+        name: 'encoding-japanese',
+        version: '2.2.0',
+        license: 'MIT',
+        purpose: 'ZIP 内のファイル名を Shift-JIS にする場合の文字コード変換。実行時に外部から読み込まず、パッケージに同梱しています。',
+      },
+    ],
+    extraComm: [
+      {
+        label: '添付ファイルの取得と出力（自ドメイン内）',
+        detail:
+          '添付ファイルの取得も ZIP の生成も、すべてご利用者のブラウザの中で行います。ファイルが kintone の外へ出ることはありません。自ドメインの kintone REST API を使うのは次の場合だけです。①出力を実行したとき、対象レコードの取得（/k/v1/records の GET）・添付ファイル本体の取得（/k/v1/file の GET・1ファイル1リクエスト・同時5本まで）・ZIP のファイル名に使うアプリ名の取得（/k/v1/app）。②実行権限を判定するときの kintone.user.getOrganizations() / getGroups()（設定が実際に使う種別だけを呼び、ユーザー指定のみなら 0 本）。③設定画面でフィールドと一覧を取得するとき（/k/v1/preview/app/form/fields・/preview/app/views）と、実行できる相手を指定するための一覧取得（/v1/users・/v1/organizations・/v1/groups）、プレビューを「実データ」にしたときの先頭3件の取得（/k/v1/records の GET）。いずれもご利用中の kintone ドメイン内で完結し、外部の第三者へは送信しません。レコードの作成・更新・削除も、アプリのフォーム定義の変更も一切行いません（ソース中の書き込み系リクエストは1か所だけで、それも X-HTTP-Method-Override: GET を付けた読み取りです）。レコード一覧を開いただけではフィールド定義 API も呼びません。',
+      },
+    ],
+  },
   'kw-read-check': {
     extraComm: [
       {

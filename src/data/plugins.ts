@@ -954,6 +954,28 @@ export const plugins: Plugin[] = [
     releaseDate: '2026-08-06',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-file-export',
+    name: '添付ファイル出力 for kintone',
+    formName: '添付ファイル出力 for kintone',
+    slug: 'file-export',
+    categories: ['出力・帳票'],
+    description:
+      'レコード一覧の絞り込み結果・表示中の行・選択した行の添付ファイルを、フォルダ階層とファイル名を指定した ZIP でまとめてダウンロードするプラグイン。種別フィルタ・事前見積り・自動分割・中止・失敗一覧に対応し、テーブル内の添付の出力や実行者の限定もできます。',
+    image: '/images/file-export-banner.png',
+    imageAlt:
+      '添付ファイル出力 for kintone プラグイン — レコード一覧の添付ファイルを、取引先別・月別などのフォルダに分けた ZIP でまとめてダウンロードする',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    cardDescription:
+      '解いたら、そのまま使える形で。添付ファイルを取引先別・月別などのフォルダに分けた ZIP で一括ダウンロード。事前見積り・自動分割・中止に対応します。',
+    problemTitle: '添付ファイルをまとめて取り出せない',
+    problemDesc:
+      'kintone に一括ダウンロードの機能はなく、レコードを開いて 1 件ずつ落とすしかない。ZIP に固めるだけの方法では、解いたあとに取引先別・月別へ振り分け直す手間が残る',
+    releaseDate: '2026-08-08',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**

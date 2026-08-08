@@ -1,0 +1,1223 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+import Picture from '../../../components/Picture.astro';
+---
+
+<Layout
+  title="添付ファイル出力 for kintone - 添付ファイルを一括ダウンロードするプラグイン | KIZUNA Works"
+  description="kintone のレコード一覧から、添付ファイルをフォルダ分けした ZIP でまとめてダウンロードできる kintone プラグイン。絞り込み結果・表示中の行・選択した行から出力でき、フォルダ階層とファイル名は部品を並べて指定。事前見積り・自動分割・中止・失敗一覧に対応し、テーブル内の添付も出力できます。"
+  ogTitle="添付ファイル出力 for kintone - 添付ファイルを一括ダウンロードするプラグイン | KIZUNA Works"
+  ogDescription="解いたら、そのまま使える形で。kintone の添付ファイルを、取引先別・月別などのフォルダに分けた ZIP でまとめてダウンロード。フォルダ階層とファイル名を指定でき、事前見積り・自動分割・中止に対応します。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/file-export/"
+  ogImage="https://kizuna-works.jp/images/file-export-banner.png"
+  canonical="https://kizuna-works.jp/plugins/file-export/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/file-export/",
+          "url": "https://kizuna-works.jp/plugins/file-export/",
+          "name": "添付ファイル出力 for kintone - 添付ファイルを一括ダウンロードするプラグイン | KIZUNA Works",
+          "description": "kintone のレコード一覧から、添付ファイルをフォルダ分けした ZIP でまとめてダウンロードできる kintone プラグイン。フォルダ階層とファイル名を指定でき、事前見積り・自動分割・中止・失敗一覧に対応します。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/file-export-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "添付ファイル出力 for kintone", "item": "https://kizuna-works.jp/plugins/file-export/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "添付ファイル出力 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-08-08",
+          "url": "https://kizuna-works.jp/plugins/file-export/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-file-export-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/file-export-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone のレコード一覧から、添付ファイルをフォルダ分けした ZIP でまとめてダウンロードできる kintone プラグイン。絞り込み結果・表示中の行・選択した行を対象にでき、フォルダ階層とファイル名は部品を並べて指定します。事前見積り・自動分割・中止・失敗一覧・テーブル内添付・実行者の限定に対応。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "レコード一覧の絞り込み結果・表示されているレコード・選択した行から添付ファイルを ZIP で一括ダウンロード",
+            "ZIP を解いたときのフォルダ階層を、レコード番号・フィールド値・フィールド名・テーブル名・行番号・日付・固定文字の部品を並べて指定",
+            "ファイル名も同じ部品で組み立て。拡張子は元のまま、同名が重なったら (2)(3) を付けて 1 件も欠落させない",
+            "値が空の部品は前後の固定文字ごと自動で飛ばし、空のフォルダを作らない",
+            "画像・PDF・Office・圧縮・動画音声・テキスト・その他の 7 区分と、拡張子の追加・除外による種別フィルタ",
+            "出力前に対象レコード数・ファイル点数・合計サイズ・分割数を見積り表示",
+            "しきい値を超えると ZIP を自動分割。フォルダが分割線をまたがないように分ける",
+            "取得中も ZIP 生成中も中止でき、中止したときは ZIP を作らない",
+            "取得に失敗したファイルは 3 回まで再試行し、それでも失敗した分は _失敗一覧.txt を同梱して出力は完遂",
+            "テーブル（サブテーブル）内の添付ファイルにも対応し、テーブル名と行番号でフォルダ分けできる",
+            "出力できる相手をユーザー・組織・グループで限定でき、権限がなければボタンも選択列も表示しない",
+            "読み取り専用。レコードもフォーム定義も変更せず、kintone のアクセス権をそのまま尊重する",
+            "添付ファイルアイコン表示 for kintone と連携し、一覧のアイコンから 1 行だけの出力ができる",
+            "kintone 完結・第三者CDN不使用・ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .feature-list li code {
+      background: #eef1f4;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot frames — sized to the image's natural width (not upscaled),
+       centered, and clickable to enlarge in the lightbox. */
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Zoomable images + lightbox overlay (small screenshots open enlarged) */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    /* Extracted-ZIP tree */
+    .zip-tree {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .zip-tree-head {
+      background: var(--color-navy);
+      color: var(--color-white);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px 18px;
+    }
+    .zip-tree pre {
+      margin: 0;
+      padding: 18px 20px;
+      font-family: 'SFMono-Regular', Consolas, 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.85;
+      color: var(--color-text);
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .zip-tree .d { color: var(--color-navy); font-weight: 700; }
+    .zip-tree .f { color: #475569; }
+
+    .arrow-note {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 14px;
+      margin: 28px auto 24px;
+      max-width: 760px;
+      line-height: 1.8;
+    }
+
+    .parts-table {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+      background: var(--color-white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 14px;
+    }
+    .parts-table th,
+    .parts-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-gray-light);
+      line-height: 1.7;
+    }
+    .parts-table thead th {
+      background: var(--color-navy);
+      color: var(--color-white);
+      font-weight: 700;
+      font-size: 13px;
+      border-bottom: none;
+    }
+    .parts-table tbody tr:last-child td { border-bottom: none; }
+    .parts-table tbody tr:nth-child(even) { background: #f8fafc; }
+    .parts-table td code {
+      background: #eef1f4;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: var(--color-navy);
+    }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/file-export-icon.png"
+        alt="添付ファイル出力 for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">添付ファイル出力 for kintone</h1>
+      <p class="hero-copy">添付ファイル出力 for kintone は、<strong>レコード一覧の添付ファイルを、フォルダ分けした ZIP でまとめてダウンロードできる</strong> kintone プラグインです。<strong>ZIP を解いたときのフォルダ階層とファイル名を自分で決められる</strong>ので、取り出したあとに並べ替える作業がなくなります。レコードもフォーム定義も変更しない<strong>読み取り専用</strong>で動作します。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">kintone には、添付ファイルをまとめてダウンロードする機能がありません。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🖱️</span>
+            <h3 class="problem-title">1 ファイルずつクリックするしかない</h3>
+            <p class="problem-desc">「添付ファイルを一括でダウンロードすることは可能ですか？」は kintone の定番の質問。標準ではレコードを開いて 1 つずつ落とすしかなく、100 件あれば 100 回のクリックになります。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🗂️</span>
+            <h3 class="problem-title">解いたあとに整理し直す手間が残る</h3>
+            <p class="problem-desc">まとめて ZIP に固めるだけの方法だと、解いた先はファイルが平らに並ぶだけ。結局そこから取引先別・月別のフォルダへ手で振り分けることになります。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📋</span>
+            <h3 class="problem-title">テーブルの中の添付が抜け落ちる</h3>
+            <p class="problem-desc">明細テーブル（サブテーブル）に添付したファイルは、対象外になりがち。どの行のファイルだったのかも分からなくなります。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- List screen -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">一覧から、そのまま出す</h2>
+      <p class="section-subtitle">レコード一覧のツールバーに「添付DL」ボタンと、左端にチェックボックス列が出ます。追加されるのはこの 2 つだけで、<strong>一覧の見た目は kintone 標準のまま</strong>です。画像はクリックで拡大できます。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/file-export-list-01.png" alt="添付ファイル出力 レコード一覧 — 契約書管理アプリのツールバーに紺色の「添付DL」ボタンと「選択中：3件」バッジが並び、表の左端にチェックボックス列が追加されて 3 行にチェックが入っている" width="1400" height="465" />
+          </div>
+          <figcaption>ツールバーの「添付DL」ボタンと、左端のチェックボックス列。選択中の件数がボタンの隣に出ます</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/file-export-list-02.png" alt="添付ファイル出力 チェックボックス列の見出しにある「▾」メニュー — 「添付があるレコードだけ選択」「このページの選択を解除」「すべての選択を解除」の 3 項目が並んでいる" width="744" height="248" />
+          </div>
+          <figcaption>列見出しの「▾」から、添付があるレコードだけをまとめて選べます。表の上に帯は作りません</figcaption>
+        </figure>
+      </div>
+      <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+        <li><span><strong>出力範囲は 3 つから選べます</strong> — <strong>絞り込み結果の全件</strong>／<strong>いま画面に出ている行</strong>／<strong>チェックした行だけ</strong>。検索や絞り込みをそのまま出力条件として使えます。</span></li>
+        <li><span><strong>ページを送っても選択は保たれます</strong> — 2 ページ目・3 ページ目で選んだ行も一緒に出力できます（絞り込みを変えると解除されます）。</span></li>
+        <li><span><strong>一覧の見た目を変えません</strong> — 足すのはツールバーのボタンとチェックボックス列だけ。表の上に操作用の帯を作らないので、表の位置が下にずれません。</span></li>
+      </ul>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- ZIP structure -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">解いたら、そのまま使える形で</h2>
+        <p class="section-subtitle">フォルダ階層とファイル名を先に決めておけるので、ZIP を解いた時点で整理が終わっています。下は「会社名 ／ 契約開始月_契約書名」で出力した実際の中身です。</p>
+        <div class="zip-tree">
+          <div class="zip-tree-head">契約書管理_取引先別 契約書_20260808.zip</div>
+          <pre><span class="d">├ 株式会社ABC商事/</span>
+<span class="d">│ ├ 2026-04_業務委託基本契約書/</span>
+<span class="f">│ │ ├ 業務委託基本契約書.pdf</span>
+<span class="f">│ │ ├ 別紙1_業務範囲.pdf</span>
+<span class="f">│ │ ├ 修正案_第5条.pdf</span>
+<span class="f">│ │ └ 捺印済スキャン.jpg</span>
+<span class="d">│ └ 2026-05_ソフトウェア保守契約書/</span>
+<span class="f">│ 　 └ ソフトウェア保守契約書.pdf</span>
+<span class="d">├ 大和テクノ株式会社/</span>
+<span class="d">│ ├ 2026-04_秘密保持契約書（NDA）/</span>
+<span class="f">│ │ └ 秘密保持契約書.pdf</span>
+<span class="d">│ └ 2026-06_個別発注書（2026年6月分）/</span>
+<span class="f">│ 　 └ 個別発注書_2026-06.pdf</span>
+<span class="d">└ 北斗システム株式会社/</span>
+<span class="d">　 └ 2026-07_システム開発請負契約書/</span>
+<span class="f">　 　 ├ システム開発請負契約書.pdf</span>
+<span class="f">　 　 └ 要件定義書_v2.docx</span></pre>
+        </div>
+        <p class="arrow-note">「修正案_第5条.pdf」と「捺印済スキャン.jpg」は、レコード本体ではなく<strong>明細テーブルの中に添付されたファイル</strong>です。テーブル内の添付も同じフォルダに、あるいは <code>&#123;テーブル名&#125;/&#123;行番号&#125;</code> で分けて出力できます。</p>
+        <ul class="feature-list" style="max-width:900px;margin:0 auto;">
+          <li><span><strong>空のフォルダを作りません</strong> — 値が空のフィールドを指定していた場合、その部品は前後の固定文字ごと自動で飛ばします。<code>//</code> のような空の階層はできません。</span></li>
+          <li><span><strong>同じ名前のファイルも 1 件も欠落しません</strong> — 名前が重なったときは後のものに <code>(2)</code> <code>(3)</code> を付けます。上書きされて消えることはありません。</span></li>
+          <li><span><strong>拡張子は元のまま</strong> — <code>.HEIC</code> は <code>.HEIC</code> のまま出ます。大文字・小文字を勝手に変えません。</span></li>
+          <li><span><strong>長すぎるパスは自動で詰めます</strong> — Windows のエクスプローラーは、名前が長すぎるファイルが 1 つでもあると ZIP 全体を開けなくなります。フォルダより先にファイル名を短くして（拡張子は残します）、確実に開ける ZIP にします。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Folder builder -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">フォルダ構成は、部品を並べて決める</h2>
+      <p class="section-subtitle">設定画面で部品をドラッグして並べるだけ。左下の「ZIP構成プレビュー」に、実際のレコードで組み立てた結果がその場で出ます。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/file-export-config-01.png" alt="添付ファイル出力 設定画面 — 左にテンプレート目次と実データの ZIP構成プレビュー（会社名／契約開始月_契約書名のフォルダ階層）、中央に対象フィールド（契約書・修正履歴＞添付ファイル）とフォルダ構成の部品（会社名・/・日付＝契約開始日・固定文字_・契約書名・/）、ファイル名（元ファイル名）が並んでいる" width="1400" height="1282" />
+          </div>
+          <figcaption>フォルダ構成は「値」「/（階層区切り）」「日付」「固定文字」などの部品を並べて定義。左下のプレビューは<strong>本番と同じ組み立て処理</strong>で描いているので、出力結果とズレません</figcaption>
+        </figure>
+      </div>
+      <div style="max-width:900px;margin:32px auto 0;overflow-x:auto;">
+        <table class="parts-table">
+          <thead>
+            <tr><th>部品</th><th>出力例</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>&#123;フィールド値&#125;</code></td><td>株式会社ABC商事（どのフィールドを使うかを選びます）</td></tr>
+            <tr><td><code>&#123;日付&#125;</code></td><td>2026-04（出力日、または日付フィールドの値。年／年月／年月日から選択）</td></tr>
+            <tr><td><code>&#123;レコード番号&#125;</code></td><td>12</td></tr>
+            <tr><td><code>&#123;フィールド名&#125;</code></td><td>契約書</td></tr>
+            <tr><td><code>&#123;テーブル名&#125;</code> <code>&#123;行番号&#125;</code></td><td>修正履歴 ／ 2（テーブル内の添付のときだけ）</td></tr>
+            <tr><td><code>&#123;元ファイル名&#125;</code></td><td>業務委託基本契約書</td></tr>
+            <tr><td>固定文字 ／ <code>/</code></td><td>自由入力 ／ ここで階層が 1 段深くなります</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+        <li><span><strong>プリセットが 3 つ</strong> — 「レコード単位」「フィールド単位」「フラット（フォルダなし）」をワンクリックで流し込めます。そこから調整するのがいちばん早い方法です。</span></li>
+        <li><span><strong>用途ごとにテンプレートを保存</strong> — 「取引先別 契約書」「PDF だけフラット」のように、複数の設定を持てます。出力時にプルダウンで選ぶだけです。</span></li>
+        <li><span><strong>一覧ごとに使えるテンプレートを限定</strong> — 「この一覧ではこのテンプレートだけ」という指定ができます。</span></li>
+      </ul>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Run flow -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">出す前に、量がわかる</h2>
+        <p class="section-subtitle">押した瞬間に数百 MB が走り出したりしません。対象の件数・点数・サイズ・分割数を確認してから開始できます。</p>
+        <div class="screenshot-pair cols-2">
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/file-export-dialog-01.png" alt="添付ファイル出力 の出力ダイアログ — テンプレート「取引先別 契約書」を選び、出力範囲として「絞り込み結果の全件」「表示されているレコード（12件）」「選択した行のみ（3件）」の 3 択、対象フィールドと種別が下に表示されている" width="552" height="516" />
+            </div>
+            <figcaption>① 範囲を選ぶ：絞り込み結果／表示中／選択した行</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/file-export-dialog-02.png" alt="添付ファイル出力 の出力内容の確認ダイアログ — 対象レコード 12 件、対象ファイル 20 点、合計サイズ 6.7 MB、分割 なし（1ファイル）と表示されている" width="576" height="329" />
+            </div>
+            <figcaption>② 見積りを見る：件数・点数・合計サイズ・分割数</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/file-export-progress-01.png" alt="添付ファイル出力 の進捗表示 — 「添付ファイルを取得しています 5 / 20」「残り約 15 秒」と、いま処理中のパス「東和不動産株式会社/2026-06_建物賃貸借契約書/物件見取り図.jpg」、下に中止ボタン" width="576" height="316" />
+            </div>
+            <figcaption>③ 進捗と中止：いま何を処理しているかまで表示</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/file-export-result-01.png" alt="添付ファイル出力 の完了ダイアログ — 成功 20 点、出力ZIP 1 ファイルと表示されている" width="552" height="261" />
+            </div>
+            <figcaption>④ 結果：成功した点数と、出力した ZIP の本数</figcaption>
+          </figure>
+        </div>
+        <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+          <li><span><strong>中止したら ZIP を渡しません</strong> — 取得中も ZIP 生成中も中止できます。中途半端な ZIP を作らないので、「途中まで入った ZIP」を誤って配ってしまう事故が起きません。</span></li>
+          <li><span><strong>大きいときは自動で分割</strong> — しきい値（既定 500MB・100〜2048MB で変更可）を超えると <code>◯◯_1of3.zip</code> のように分けます。<strong>フォルダが分割線をまたがない</strong>ので、解いたあとに結合し直す必要がありません。</span></li>
+          <li><span><strong>失敗しても最後まで完遂します</strong> — 取れなかったファイルは 3 回まで再取得し、それでも失敗した分は <code>_失敗一覧.txt</code>（レコード番号・フィールド名・ファイル名・理由）を同梱して出力を完了します。1 件の失敗で全部が無駄になりません。</span></li>
+        </ul>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">できること</h2>
+      <p class="section-subtitle">設定はプラグイン設定画面だけ。アプリのフォームには一切手を入れません。</p>
+      <ul class="feature-list">
+        <li><span><strong>絞り込み結果・表示中・選択した行から出力</strong> — 一覧の検索や絞り込みをそのまま出力条件に使えます（1 回の上限は 5,000 レコード）。</span></li>
+        <li><span><strong>フォルダ階層とファイル名を指定</strong> — 部品をドラッグで並べて組み立て。プリセット 3 種から調整するのがいちばん早い方法です。</span></li>
+        <li><span><strong>ほしい種類だけ出す</strong> — 画像／PDF／Office／圧縮／動画・音声／テキスト／その他の 7 区分に加え、拡張子の追加・除外も指定できます（判定は <strong>除外 → 追加 → 区分</strong> の順）。</span></li>
+        <li><span><strong>テーブル（サブテーブル）内の添付にも対応</strong> — <code>&#123;テーブル名&#125;</code> <code>&#123;行番号&#125;</code> で、どの行のファイルだったのかを残せます。</span></li>
+        <li><span><strong>事前見積り・自動分割・中止・失敗一覧</strong> — 大量のファイルを扱うときに必要なものを一通り備えています。</span></li>
+        <li><span><strong>出力できる人を限定</strong> — ユーザー・組織・グループで指定できます。対象外の人にはボタンも選択列も表示しません（押せないボタンを見せません）。</span></li>
+        <li><span><strong>読み取り専用</strong> — レコードの作成・更新・削除も、フォーム定義の変更も一切行いません。書き込み系の API を 1 つも使っていません。</span></li>
+        <li><span><strong>kintone のアクセス権をそのまま尊重</strong> — 閲覧できないレコード・フィールドの添付は出力されません。フィールドのアクセス権で見えないものがある場合は、確認ダイアログでお知らせします。</span></li>
+        <li><span><strong>kintone 完結・第三者CDN不使用</strong> — ファイルの取得も ZIP の作成もブラウザの中だけで行います。ZIP 生成ライブラリは<strong>自社サーバーから SRI 付きで、出力を開始したときだけ</strong>読み込みます。ゲストスペースにも対応します。</span></li>
+      </ul>
+    </section>
+
+    <!-- Integration with file-icon-marker -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">「添付ファイルアイコン表示」と連携</h2>
+        <p class="section-subtitle">同じアプリに <a href="/plugins/file-icon-marker/" style="color:var(--color-green);font-weight:700;">添付ファイルアイコン表示 for kintone</a> を入れていると、一覧のアイコンから<strong>その 1 行だけ</strong>を出力できます。相手のプラグインを改修する必要はありません。</p>
+        <div class="screenshot-pair">
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/file-export-fim-01.png" alt="添付ファイルアイコン表示との連携 — レコード一覧の契約書名の左に PDF と Office のアイコンと件数バッジが並び、マウスを乗せた行にだけダウンロードボタン（⤓）が現れている" width="1400" height="299" />
+            </div>
+            <figcaption>アイコンにマウスを乗せた行にだけ、小さなダウンロードボタン（⤓）が出ます</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/file-export-fim-02.png" alt="添付ファイルアイコン表示との連携 — ダウンロードボタンを押すと「すべて（2点）」「PDF（1点）」「Office（1点）」のメニューが開き、その行の添付を種類ごとに出力できる" width="1400" height="348" />
+            </div>
+            <figcaption>「すべて」または種類ごとに、その行の添付だけを出力できます</figcaption>
+          </figure>
+        </div>
+        <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+          <li><span><strong>一覧でファイルの中身を確認 → その場で取り出す</strong> — アイコン表示プラグインは「どんなファイルが何点あるか」を一覧で見せるプラグインです。見つけたその行を、一覧から離れずに取り出せます。</span></li>
+          <li><span><strong>使うのは「既定テンプレート」</strong> — 行ごとの出力に使う設定は、設定画面で「既定テンプレート」に指定したものです。</span></li>
+          <li><span><strong>未導入なら何も起きません</strong> — アイコン表示プラグインを入れていない場合、この連携は動かないだけで、通常の出力機能はそのまま使えます。「② 表示設定」でオフにもできます。</span></li>
+        </ul>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Config -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">設定画面</h2>
+      <p class="section-subtitle">「① テンプレート」「② 表示設定」「③ 実行権限」の 3 タブ。アプリのフォームには一切手を入れません。</p>
+      <div class="config-screenshots">
+        <div class="config-shot">
+          <Picture class="zoomable" src="/images/file-export-config-02.png" alt="添付ファイル出力 設定画面のファイル種別フィルタと出力オプション — 画像・PDF・Office・圧縮・動画音声・テキスト・その他の 7 区分のチェックボックス、追加する拡張子と除外する拡張子の入力欄、分割しきい値 500MB、ZIP内の文字コード UTF-8 / Shift-JIS の選択" width="1264" height="710" />
+          <div class="config-shot-caption">
+            <strong>ファイル種別フィルタと出力オプション</strong>
+            <p>7 区分のチェックに加えて、拡張子の追加・除外も指定できます。カードの下に「現在の設定：画像・PDF＋dwg（除外：svg）」がその場で出るので、思っていたものと違う設定のまま保存してしまうことがありません。</p>
+          </div>
+        </div>
+        <div class="config-shot">
+          <Picture class="zoomable" src="/images/file-export-config-03.png" alt="添付ファイル出力 設定画面の「③ 実行権限」タブ — 実行できるユーザーをユーザー／組織／グループのタブで選択でき、未選択なら全員が実行できる旨と、所属情報の再取得ボタンが表示されている" width="1264" height="1017" />
+          <div class="config-shot-caption">
+            <strong>③ 実行権限</strong>
+            <p>出力できる相手をユーザー・組織・グループで限定できます。すべて未選択なら、アプリを見られる全員が使えます。組織やグループの所属を変えた直後は「所属情報を再取得させる」で全利用者のキャッシュをまとめて無効にできます。</p>
+          </div>
+        </div>
+        <div class="config-shot">
+          <Picture class="zoomable" src="/images/file-export-config-04.png" alt="添付ファイル出力 設定画面の「② 表示設定」タブ — ボタンのラベル・色・配置、チェックボックス列を表示するかどうか、添付ファイルアイコン表示プラグインとの連携のオンオフを設定できる" width="1264" height="1135" />
+          <div class="config-shot-caption">
+            <strong>② 表示設定</strong>
+            <p>ボタンのラベル・色・置き場所、チェックボックス列を出すかどうか、アイコン表示プラグインとの連携のオンオフを設定します。カスタマイズビューなど選択列を出せない画面では、ボタンだけが表示されます。</p>
+          </div>
+        </div>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">インストール手順</h2>
+        <p class="section-subtitle">レコード一覧画面（パソコン版）で動作します。アプリのフォームを変更する必要はありません。</p>
+        <ol class="steps-list">
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-file-export-v1.0.0.zip</code> をダウンロード</span></li>
+          <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+          <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「添付ファイル出力 for kintone」を追加</span></li>
+          <li><span>プラグイン設定画面で<strong>「＋ 新しいテンプレート」</strong>を押し、名前と<strong>対象の添付ファイルフィールド</strong>を選んで「保存」（フォルダ構成は既定のままでも動きます）</span></li>
+          <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると、一覧に「添付DL」ボタンが表示されます</span></li>
+        </ol>
+        <p style="text-align:center; color:var(--color-text-light); font-size:13px; margin-top:24px; line-height:1.7;">
+          ヒント：対象フィールドやテーブルの構成を変更したときは、設定画面を開いて保存し直してください。<br>
+          表示を速くするため、フィールドの表示名を設定の保存時に取り込んでいます。
+        </p>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">プランについて</h2>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">基本プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥0</span>
+            <span class="unit">/ 完全無料</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ 利用期限なし・いつまでも無料</li>
+            <li>✅ 設定画面に控えめな広告エリア表示あり</li>
+          </ul>
+          <a href="/downloads/kw-file-export-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">開発を応援</span>
+          <h3 class="plan-name">年間サポーター</h3>
+          <div class="plan-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+            <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            <li>✅ サポーターの声を優先して開発に反映</li>
+          </ul>
+          <a href="/plugins/supporter/?plugin=kw-file-export" class="btn-primary">サポーターになる →</a>
+          <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+            ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">注意事項</h2>
+        <ul class="notes-list">
+          <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+          <li>kintone はサイボウズ株式会社の登録商標です。</li>
+          <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
+          <li><strong>レコード一覧（パソコン版）専用</strong>です。モバイルでは動作しません。レコード詳細画面からの出力にも対応していません。</li>
+          <li>カスタマイズビュー・カレンダービューでは選択列を表示しません（ボタンと「絞り込み結果の全件」はお使いいただけます）。</li>
+          <li>1 回の出力で対象にできるのは <strong>5,000 レコードまで</strong>です。超える場合は絞り込みを追加してください。</li>
+          <li><strong>ZIP 内のパスは自動で切り詰めます</strong>（UTF-8 で 200 バイトまで）。Windows のエクスプローラーは、長すぎる名前のファイルが 1 つでもあると ZIP 全体を開けなくなるためです。切り詰めるときはフォルダより先にファイル名を短くします（拡張子は残します）。</li>
+          <li><strong>「ZIP内の文字コード」は UTF-8 のままをおすすめします。</strong>Shift-JIS を選ぶと、Windows 11 の標準機能でもファイル名が文字化けします（ファイルの中身は壊れません）。Shift-JIS しか扱えない古い解凍ソフトを使う場合だけお選びください。</li>
+          <li>アクセス権のないレコード・フィールドの添付は出力されません。フィールドのアクセス権で閲覧できないフィールドがある場合は、確認ダイアログでお知らせします。</li>
+          <li>ゲストスペースでは組織・グループの判定ができません。実行権限を設定する場合は「ユーザー指定」をお使いください（組織・グループを指定すると、安全側に倒して誰にもボタンを表示しません）。</li>
+          <li>ZIP はブラウザの中で作ります。分割しきい値を大きくしすぎると、メモリ不足で失敗することがあります。</li>
+          <li>出力中に別の画面へ移動すると出力は中断され、ZIP は作られません（移動しようとすると確認が出ます）。</li>
+          <li>対象フィールドやテーブルの構成を変更したときは、設定画面を開いて保存し直してください（表示を速くするため、これらの情報を設定保存時に取り込んでいます）。</li>
+          <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+          <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+        </ul>
+      </div>
+    </section>
+
+    <SecurityBox pluginId="kw-file-export" />
+    <PluginFaqSection pluginId="kw-file-export" pageUrl="https://kizuna-works.jp/plugins/file-export/" />
+    <SupporterCTA pluginId="kw-file-export" />
+    <ShareButtons title="添付ファイル出力 for kintone" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">添付ファイルまわりをさらに便利にする kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/file-icon-marker/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/file-icon-marker-banner.png" alt="添付ファイルアイコン表示 for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">添付ファイルアイコン表示</h3>
+            <p class="related-post-desc">一覧でどんなファイルが何点あるかをアイコンで表示。本プラグインと連携し、アイコンからその 1 行だけを出力できます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/file-preview/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/file-preview-banner.png" alt="添付ファイルプレビュー for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">添付ファイルプレビュー</h3>
+            <p class="related-post-desc">添付ファイルをダウンロードせずにその場で表示。中身を確かめてから、本プラグインでまとめて取り出せます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/csv-export/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/csv-export-banner.png" alt="かんたんCSV出力 for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">かんたんCSV出力</h3>
+            <p class="related-post-desc">レコードの「値」を用途別テンプレートでワンクリック出力。「ファイルの実体」を出す本プラグインと合わせて使えます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ea-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('ea-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-file-export-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-file-export-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>
