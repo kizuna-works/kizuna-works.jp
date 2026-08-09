@@ -736,8 +736,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-user-autofill-v1.0.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.0＝属性自動転記＋プロフィールカード／捺印モード）
 │   │   ├── kw-user-autofill-v1.0.1.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.1 ライセンス認証の内部改修＋設定画面レイアウト統一＋転記設定テーブルの潰れ対策）
 │   │   └── kw-view-control-v1.0.0.zip                            # 一覧コントロール for kintone v1.0.0 配布ファイル（手動配置・ちょこっと・一覧/グラフの表示制御をユーザー・組織・グループ単位で出し分け／「最初に開く」一覧の指定／直リンクのガード）
-│   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ（第三者CDN不使用）。現状 kw-file-preview のみ使用
-│   │   ├── README.md           # 収録ライブラリ・バージョン・ライセンス・更新手順
+│   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ（第三者CDN不使用）。kw-file-preview / kw-sheet-edit / kw-file-export / kw-barcode-assist が使用
+│   │   ├── README.md           # 収録ライブラリ・バージョン・ライセンス・更新手順・現行SRIハッシュ
 │   │   ├── pdfjs/3.11.174/     # PDF.js（pdf.min.js / pdf.worker.min.js）— PDF描画
 │   │   ├── exceljs/4.4.0/      # ExcelJS（exceljs.min.js）— Excel読み込み・書式再現
 │   │   ├── xlsx/0.18.5/        # SheetJS（xlsx.full.min.js）— Excel予備表示
@@ -751,7 +751,9 @@ c:\kizuna-works.jp\
 │   │   ├── react/18.3.1/       # React（react.production.min.js）— Fortune-sheet（Excel高精細表示）の実行基盤
 │   │   ├── react-dom/18.3.1/   # ReactDOM（react-dom.production.min.js）— 同上
 │   │   ├── fortune-sheet/1.0.4/ # Fortune-sheet（fortune-sheet.umd.min.js/.css）— ExcelをExcel風グリッドで高精細表示
-│   │   └── luckyexcel/1.0.1/   # LuckyExcel（luckyexcel.umd.js）— xlsx→スプレッドシートデータ変換
+│   │   ├── luckyexcel/1.0.1/   # LuckyExcel（luckyexcel.umd.js）— xlsx→スプレッドシートデータ変換
+│   │   ├── zxing/0.21.3/       # ZXing for JS（index.min.js・@zxing/library UMD）— バーコード/QRの読み取り（kw-barcode-assist・スキャン時に遅延読込）
+│   │   └── bwip-js/4.11.2/     # bwip-js（bwip-js-min.js）— バーコード/QRの生成（kw-barcode-assist・コード描画時に遅延読込）
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── zipdata/
 │   │   └── v1/                 # 住所アシスト for kintone の「住所→郵便番号」逆引き用データ（日本郵便の公開データを加工・全50ファイル約3.2MB）

@@ -1,11 +1,19 @@
-# /libs/ — self-hosted preview libraries
+# /libs/ — self-hosted plugin libraries
 
 These third-party JavaScript libraries are served from kizuna-works.jp (our own
 origin) so plugins can load them at runtime **with Subresource Integrity (SRI)**
-and **without depending on a third-party CDN**. They are used only by the
-"添付ファイルプレビュー for kintone" (kw-file-preview) plugin, loaded lazily
-(only when a file of that type is first previewed). File contents handled by the
-plugin are never sent to any external server.
+and **without depending on a third-party CDN**. They are loaded lazily (only
+when the feature that needs them is first used). Data handled by the plugins is
+never sent to any external server.
+
+Consumers:
+
+| Library group | Plugin |
+|---|---|
+| pdfjs / exceljs / xlsx / jszip / chartjs / docx-preview / mammoth / crypto-js / cfb / ssf | 添付ファイルプレビュー (kw-file-preview) |
+| react / react-dom / fortune-sheet / luckyexcel | シート編集 (kw-sheet-edit) |
+| jszip | 添付ファイル出力 (kw-file-export) |
+| zxing / bwip-js | バーコードアシスト (kw-barcode-assist) |
 
 GitHub Pages serves these with `Access-Control-Allow-Origin: *`, so cross-origin
 SRI loads (`crossorigin="anonymous"` + `integrity`) work from a customer's
@@ -27,6 +35,8 @@ kintone domain.
 | ReactDOM (`react-dom/`) | 18.3.1 | MIT | npm `react-dom` (`umd/react-dom.production.min.js`) |
 | Fortune-sheet (`fortune-sheet/`) | 1.0.4 | MIT | npm `@fortune-sheet/react` (`dist/index.umd.min.{js,css}`) |
 | LuckyExcel (`luckyexcel/`) | 1.0.1 | MIT | npm `luckyexcel` (`dist/luckyexcel.umd.js`) |
+| ZXing for JS (`zxing/`) | 0.21.3 | MIT | npm `@zxing/library` (`umd/index.min.js`) |
+| bwip-js (`bwip-js/`) | 4.11.2 | MIT | npm `bwip-js` (`dist/bwip-js-min.js`) |
 
 Each library retains its original copyright and license headers within the
 minified file. These are unmodified redistributions of the published builds.
@@ -41,6 +51,15 @@ When bumping a version:
    data = open('<file>.js','rb').read()
    print('sha384-' + base64.b64encode(hashlib.sha384(data).digest()).decode())
    ```
-3. Update the URL **and** the SRI hash in the plugin's `desktop.js` `LIBS` table
-   (SECRET/kintone_plugin_workspace/kw-file-preview/src/js-src/desktop.js) and rebuild.
+3. Update the URL **and** the SRI hash in the consuming plugin and rebuild:
+   - kw-file-preview … `src/js-src/desktop.js` の `LIBS` テーブル
+   - kw-file-export … `src/js-src/desktop.js` の `JSZIP_URL` / `JSZIP_SRI`
+   - kw-barcode-assist … `src/js-src/libLoader.js` の `LIBS` テーブル
 4. Keep the old version directory until no released plugin references it.
+
+## Current SRI hashes (sha384)
+
+| File | Hash |
+|---|---|
+| `zxing/0.21.3/index.min.js` | `sha384-BzBxP10ZE72aitqj5UMmUsbKFliP/DZqA8Wq+BNNhlIJDGoEd1tpkMYXOg9+n6sB` |
+| `bwip-js/4.11.2/bwip-js-min.js` | `sha384-VbQbJ4aJ4PLsY0NaBjZInaxwnzZX4fLCh/6qwqxtAMRGEpnY11GEhgxaJNFtQvBu` |
