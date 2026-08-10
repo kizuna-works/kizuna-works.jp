@@ -32,6 +32,7 @@ c:\kizuna-works.jp\
 │   │   ├── blog-placeholder-5.jpg
 │   │   ├── blog-placeholder-about.jpg
 │   │   ├── logo-white-original.png # フッターロゴの原本（2816x1536）。配信用は public/images/logo-white.png を 264x144 に縮小して使う。public/ の外なのでデプロイされない
+│   │   ├── KIZUNA-Worksロゴデータlogo.png # ロゴマークの原本（2048x2048・白背景）。ファビコン一式の生成元＝scripts/gen-favicon.mjs。public/ の外なのでデプロイされない
 │   │   └── fonts/              # フォントファイル（Atkinson Hyperlegible）
 │   │       ├── atkinson-bold.woff
 │   │       └── atkinson-regular.woff
@@ -225,7 +226,8 @@ c:\kizuna-works.jp\
 │   ├── images/                 # サイト全体で使用する画像ファイル
 │   │   ├── logo.png                        # ヘッダー用ロゴ（カラー）
 │   │   ├── logo-white.png                  # フッター用ロゴ（白）
-│   │   ├── favicon.png                     # ファビコン
+│   │   ├── favicon.png                     # ファビコン（192x192）。Google の要件が「正方形かつ48pxの倍数」なのでこの寸法。プラグインアイコン読み込み失敗時のフォールバック画像も兼ねる
+│   │   ├── apple-touch-icon.png            # iOS ホーム画面用アイコン（180x180）
 │   │   ├── ogp.png                         # OGP（SNSシェア用）デフォルトサムネイル
 │   │   ├── hero-bg.png / hero-bg.webp      # トップページ ヒーロー背景
 │   │   ├── blog-bg.png / blog-bg.webp      # ブログページ 背景
@@ -799,6 +801,7 @@ c:\kizuna-works.jp\
 │   ├── refund.html             # 旧URL（/refund.html）→ /refund/ への meta refresh リダイレクト（noindex）
 │   ├── tokushoho.html          # 旧URL（/tokushoho.html）→ /tokushoho/ への meta refresh リダイレクト（noindex）
 │   ├── CNAME                   # GitHub Pages カスタムドメイン設定（kizuna-works.jp）
+│   ├── favicon.ico             # ルート直下のファビコン（16/32/48 のマルチサイズ ICO）。Google はここも見るので必ずブランドのマークにする（Astro テンプレートの初期アイコンが残っていて検索結果に出ていた）。scripts/gen-favicon.mjs で生成
 │   ├── llms.txt                # AI検索（ChatGPT/Perplexity/AI Overviews）向けのサイト要約。全プラグイン・拡張・ツールを1行説明付きで列挙。製品数は scripts/sync-llms-counts.mjs がビルド時に src/data/*.ts から書き換え、未掲載の製品があるとビルドを止める
 │   └── robots.txt              # 検索エンジンクローラー制御
 │
@@ -808,6 +811,7 @@ c:\kizuna-works.jp\
 │   ├── sync-llms-counts.mjs    # public/llms.txt の製品数を src/data/*.ts から同期＋掲載漏れ/存在しない製品へのリンクを検出してビルド中断。prebuild で自動実行（手動は npm run sync:llms）
 │   ├── check-plugin-summaries.mjs # プラグインの要約（一覧カード description / ランキング cardDescription / 製品ページ hero）が公開版に追いついているかを検査。plugins.ts の `summaryVersion` と製品ページ JSON-LD の `softwareVersion` の major.minor を比較する。prebuild では警告のみ、`npm run check:summaries` は不一致で exit 1（リリース前ゲート）
 │   ├── gen-image-derivatives.mjs # dist の HTML が参照する PNG から .webp / -800.webp を生成（Picture.astro 用）
+│   ├── gen-favicon.mjs         # src/assets/KIZUNA-Worksロゴデータlogo.png から public/favicon.ico（16/32/48）・public/images/favicon.png（192x192）・public/images/apple-touch-icon.png（180x180）を生成。Google 検索結果のアイコンは「正方形かつ48pxの倍数」でないと採用されず、ルートの /favicon.ico も見られるため両方を用意する。手動実行（`node scripts/gen-favicon.mjs`）
 │   ├── gen-blog-figures.mjs    # ブログ本文の図解を satori＋sharp でコード生成（オンブランド）
 │   ├── gen-plugin-banner.mjs   # プラグインのカードバナー画像を生成
 │   ├── gen-tsukuroi-preview.mjs # Tsukuroi のプレビュー画像を生成

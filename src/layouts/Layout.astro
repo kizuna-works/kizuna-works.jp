@@ -51,7 +51,12 @@ const {
   {noindex && <meta name="robots" content={followLinks ? "noindex, follow" : "noindex, nofollow"}>}
   <meta name="description" content={description}>
   <title>{title}</title>
-  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <!-- Google only accepts a square favicon sized in multiples of 48px, and also
+       crawls /favicon.ico at the root — declare both. Regenerate with
+       `node scripts/gen-favicon.mjs`. -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon.png">
+  <link rel="icon" href="/favicon.ico" sizes="48x48 32x32 16x16">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
   {canonical && <link rel="canonical" href={canonical}>}
   {heroBg && <link rel="preload" as="image" href={heroBg} type="image/webp" fetchpriority="high">}
 
