@@ -52,10 +52,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "条件分岐フォーム for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.1.1",
-          "dateModified": "2026-08-05",
+          "softwareVersion": "2.2.0",
+          "dateModified": "2026-08-10",
           "url": "https://kizuna-works.jp/plugins/conditional-form/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-form-v2.1.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-form-v2.2.0.zip",
           "image": "https://kizuna-works.jp/images/conditional-form-banner.png",
           "offers": {
             "@type": "Offer",
@@ -65,7 +65,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "区分・ステータス・入力値などの条件に応じて、フォームのフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに動的制御する kintone プラグイン。v2.1.0 では「が次のいずれかに一致する／いずれにも一致しない」で複数の値を1行で指定でき、AND/OR の誤設定（常に成立・決して成立しない条件）は警告して保存をブロックする。条件→動作をルールで設定し、1つのアプリで区分別・担当者別フォームをノーコードで実現する。",
+          "description": "区分・ステータス・入力値・ルックアップで取得した値などの条件に応じて、フォームのフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに動的制御する kintone プラグイン。v2.2.0 で 2026年8月9日の kintone アップデート（ルックアップフィールドの change イベント）に対応し、ルックアップを条件にした制御と、条件成立時の値のセット・読み取り専用が入力操作中も確実に反映される。条件→動作をルールで設定し、1つのアプリで区分別・担当者別フォームをノーコードで実現する。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -82,6 +82,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "複数値条件（v2.1.0）：「が次のいずれかに一致する／いずれにも一致しない」で複数の値を1行で指定",
             "AND/OR の誤設定（常に成立・決して成立しない条件）を警告し保存をブロック（v2.1.0）",
             "設定画面のルールは折りたたみ式・閉じた状態で内容が1行で分かる（v2.1.0）",
+            "kintone 2026年8月アップデート（ルックアップの change イベント）に対応（v2.2.0）：ルックアップを条件にした制御に対応し、取得・クリア直後の途中状態では条件を判定しない",
             "1ルールで複数の対象に動作を適用・優先順位はドラッグで変更",
             "安全則で競合解決（非表示＞読み取り専用＞必須）",
             "条件で表示された項目を枠線ハイライト・必須項目に必須バッジ",
@@ -727,10 +728,38 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.1.1</span>
+        <span class="hero-version">v2.2.0</span>
       </div>
       <h1 class="hero-title">条件分岐フォーム for kintone</h1>
-      <p class="hero-copy">区分・ステータス・入力値のほか、対象ユーザー（組織・グループ）の条件に応じて、フォームのフィールドを「表示／非表示・必須化・読み取り専用・自動入力・選択肢の絞り込み」に切り替える kintone プラグインです。サブテーブル・関連レコード一覧の表示制御にも対応。「条件 → 動作」をルールで設定するだけで、1つのアプリの中に区分別・担当者別の入力フォームをノーコードで作れます。入力の流れ・入力ミス・項目の取捨選択を、条件で自然に制御します。</p>
+      <p class="hero-copy">区分・ステータス・入力値のほか、ルックアップで取得した値や対象ユーザー（組織・グループ）の条件に応じて、フォームのフィールドを「表示／非表示・必須化・読み取り専用・自動入力・選択肢の絞り込み」に切り替える kintone プラグインです。サブテーブル・関連レコード一覧の表示制御にも対応。「条件 → 動作」をルールで設定するだけで、1つのアプリの中に区分別・担当者別の入力フォームをノーコードで作れます。入力の流れ・入力ミス・項目の取捨選択を、条件で自然に制御します。</p>
+    </section>
+
+    <!-- Update Notice (v2.2.0) -->
+    <section class="update-section fade-in">
+      <div class="update-box">
+        <div>
+          <span class="update-tag">UPDATE</span>
+          <span class="update-date">v2.2.0（2026年8月10日）</span>
+        </div>
+        <h2 class="update-title">kintone 2026年8月アップデートに対応しました</h2>
+        <p class="update-desc">
+          2026年8月9日の kintone アップデートで、<strong>ルックアップフィールドでも「フィールドの値を変更したときのイベント」が発生する</strong>ようになりました。この変更に合わせて、条件分岐フォームの動作を見直しています。
+        </p>
+        <h3 class="update-subtitle">ルックアップを条件に指定したときの動作を見直しました</h3>
+        <p class="update-desc">
+          ルックアップフィールドを条件に指定している場合に、<strong>［取得］した値がコピー先のフィールドへ反映される</strong>ようになりました。<br>
+          また、ルックアップは<strong>取得やクリアの直後に、コピー先へ値が入る前の一瞬の状態</strong>を経由します。この状態で条件が判定されないよう調整したので、<strong>コピーが終わった正しい状態で評価</strong>されます。マスタを選び直したときに、意図しない値が書き込まれることがありません。
+        </p>
+        <h3 class="update-subtitle">「値をセットする」「読み取り専用にする」が入力操作中にも確実に反映されます</h3>
+        <p class="update-desc">
+          あわせて、入力に応じて条件が成立したときの<strong>「値をセットする」</strong>と<strong>「読み取り専用にする」</strong>が、<strong>画面を操作している最中にも確実に反映される</strong>ようになりました。表示・非表示やハイライトと同じタイミングで揃って動きます。
+        </p>
+        <p class="update-note">
+          既存の設定はそのまま引き継がれます。<br>
+          ※ プラグインは自動更新されません。お手数ですが、最新版をダウンロードし、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>してください。<br>
+          ※ ルックアップを条件に使っている場合は、この版への更新をおすすめします。
+        </p>
+      </div>
     </section>
 
     <!-- Update Notice (v2.1.0) -->
@@ -980,7 +1009,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコードの新規作成・編集・詳細画面があるアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-conditional-form-v2.1.1.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-conditional-form-v2.2.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「条件分岐フォーム」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>ルール（条件 → 動作 → 適用する画面）</strong>を作成して「保存」</span></li>
@@ -1005,7 +1034,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-conditional-form-v2.1.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-conditional-form-v2.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -1175,10 +1204,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-conditional-form-v2.1.1.zip',
+              file_name: 'kw-conditional-form-v2.2.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-conditional-form-v2.1.1.zip'
+              link_url: '/downloads/kw-conditional-form-v2.2.0.zip'
             });
           }
         });
