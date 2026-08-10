@@ -9,7 +9,11 @@ import { extensions } from '../data/extensions';
 import { tools } from '../data/tools';
 
 // Newest first — for problems list and the homepage compact showcase.
-const pluginsNewestFirst = [...plugins].reverse();
+// allPlugins is [...standard, ...premium], so a plain reverse() would surface only
+// premium entries. Sort by releaseDate instead (stable: same-day ties keep data order).
+const pluginsNewestFirst = [...plugins].sort((a, b) =>
+  (b.releaseDate ?? '').localeCompare(a.releaseDate ?? '')
+);
 // Showcase grid: latest 6 plugins (newest first).
 const showcasePlugins = pluginsNewestFirst.slice(0, 6);
 
@@ -1772,10 +1776,13 @@ const pluginPosts = allPosts
           <a href={`/plugins/${p.slug}/`} class="plugin-card-compact">
             <div class={`plugin-card-thumb${p.tier === 'premium' ? ' is-premium' : ''}`}>
               <Picture src={p.image} alt={p.imageAlt} width={p.imageWidth} height={p.imageHeight} card />
-              {p.tier === 'premium' ? (
+              {/* The newest card always gets NEW, whatever its tier */}
+              {i === 0 ? (
+                <span class="plugin-card-badge new">NEW</span>
+              ) : p.tier === 'premium' ? (
                 <span class="plugin-card-badge premium">👑 PREMIUM</span>
               ) : (
-                <span class={`plugin-card-badge ${i === 0 ? 'new' : 'free'}`}>{i === 0 ? 'NEW' : 'FREE'}</span>
+                <span class="plugin-card-badge free">FREE</span>
               )}
             </div>
             <div class="plugin-card-body">
