@@ -251,6 +251,6 @@ KIZUNA Works では、本記事で紹介した課題に対応する kintone プ�
 - **アプリ横断で情報を検索したい：** [クイックサーチ](/plugins/quick-search/)（複数アプリ横断検索）
 - **添付ファイルの一覧視認性を上げたい：** [添付ファイルアイコン表示](/plugins/file-icon-marker/)（無料・拡張子別アイコン）
 
-その他のプラグインも含めた一覧は [KIZUNA Works プラグインページ](/plugins/) からご覧いただけます。
+どれから手を付けるか迷う場合は、目的ごとに無料プラグインを整理した[kintone無料プラグインのおすすめ｜やりたいこと別の選び方](/blog/kintone-muryou-plugin-osusume/)が候補選びの近道です。その他のプラグインも含めた一覧は [KIZUNA Works プラグインページ](/plugins/) からご覧いただけます。
 
 kintoneの運用に関してお困りの点がある場合は、[お問い合わせフォーム](https://forms.gle/2yFVaQmB9RppwiTE6)よりお気軽にご相談ください。

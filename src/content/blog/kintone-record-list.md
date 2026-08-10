@@ -231,6 +231,7 @@ kintoneに組み込まれている一覧で、アプリの設定には出てき�
 - [kintoneの一覧を見やすくするプラグイン比較](/blog/kintone-list-styler-plugin-hikaku/) — 列固定・色分けの実現方法
 - [kintoneの検索・絞り込みを改善するプラグイン比較](/blog/kintone-kensaku-plugin-hikaku/) — 一覧を増やさずに探す方法
 - [kintone一覧でレコードを閲覧・編集できるプラグイン比較](/blog/kintone-quick-side-view-plugin-hikaku/) — 詳細画面への往復を解消する
+- [kintone無料プラグインのおすすめ｜やりたいこと別の選び方](/blog/kintone-muryou-plugin-osusume/) — 一覧以外の用途も含め、無料で使える製品を目的別に整理
 - [kintoneカンバンプラグイン比較](/blog/kintone-kanban-board/) — 一覧をボード化して進捗管理
 - [kintoneでBIのようにデータを可視化する方法](/blog/kintone-bi-tool-dashboard/) — 一覧を跨いだ集計ダッシュボード
 - [kintoneプラグイン一覧](/plugins/) — 無料で使えるプラグインをまとめて掲載

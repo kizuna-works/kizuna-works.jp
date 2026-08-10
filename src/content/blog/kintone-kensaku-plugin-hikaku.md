@@ -152,6 +152,7 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [kintoneが定着しない本当の理由｜管理者が見落としがちな7つの原因](/blog/kintone-teichaku-shinai-riyu/) — 検索性の改善と合わせて押さえたい定着化のポイント
 - [【2026年最新】kintoneルックアップを快適にするプラグイン比較](/blog/kintone-lookup-plugin-hikaku/) — ルックアップ入力の手間を解消する4つのアプローチを比較。検索とあわせて入力負担を軽減
 - [クイックサーチ（無料）](/plugins/quick-search/) — 一覧画面にインライン検索バーを追加するKIZUNA Works製プラグイン
+- [kintone無料プラグインのおすすめ｜やりたいこと別の選び方](/blog/kintone-muryou-plugin-osusume/) — 検索以外も含め、無料で使えるプラグインを目的別に整理
 - [ルックアップサジェスト（無料）](/plugins/lookup-suggest/) — ルックアップ入力時に候補をリアルタイム表示するKIZUNA Works製プラグイン
 - [プラグイン一覧](/plugins/) — KIZUNA Worksが提供するすべてのkintoneプラグイン
 
