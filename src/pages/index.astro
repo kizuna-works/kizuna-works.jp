@@ -16,6 +16,12 @@ const pluginsNewestFirst = [...plugins].sort((a, b) =>
 );
 // Showcase grid: latest 6 plugins (newest first).
 const showcasePlugins = pluginsNewestFirst.slice(0, 6);
+// NEW badge: released within the last month (evaluated at build time).
+const NEW_BADGE_DAYS = 30;
+const newBadgeCutoff = new Date(Date.now() - NEW_BADGE_DAYS * 86400000)
+  .toISOString()
+  .slice(0, 10);
+const isNewRelease = (p: { releaseDate?: string }) => (p.releaseDate ?? '') >= newBadgeCutoff;
 
 // kintone-specific tools get a dedicated featured block; generic tools fill the compact grid.
 const featuredKintoneTool = tools.find((t) => t.file === 'Shirushi.html');
@@ -729,11 +735,14 @@ const pluginPosts = allPosts
       background: #e74c3c;
     }
 
+    /* Tier badges sit top-right: banners carry headline text at top-left,
+       and the NEW badge owns that corner when both are shown */
     .plugin-card-badge.free {
       background: #2E8B2E;
+      left: auto;
+      right: 12px;
     }
 
-    /* Premium banners carry their own headline text at top-left — keep the badge clear of it */
     .plugin-card-badge.premium {
       background: linear-gradient(135deg, #1B3A6B 0%, #2E8B2E 100%);
       left: auto;
@@ -1772,14 +1781,13 @@ const pluginPosts = allPosts
       <h2 class="section-title">kintoneプラグイン</h2>
       <p class="section-subtitle">すべて<strong>完全無料</strong>で配布中。気に入ったらサポーターとして開発を応援してください。</p>
       <div class="plugins-grid">
-        {showcasePlugins.map((p, i) => (
+        {showcasePlugins.map((p) => (
           <a href={`/plugins/${p.slug}/`} class="plugin-card-compact">
             <div class={`plugin-card-thumb${p.tier === 'premium' ? ' is-premium' : ''}`}>
               <Picture src={p.image} alt={p.imageAlt} width={p.imageWidth} height={p.imageHeight} card />
-              {/* The newest card always gets NEW, whatever its tier */}
-              {i === 0 ? (
-                <span class="plugin-card-badge new">NEW</span>
-              ) : p.tier === 'premium' ? (
+              {/* Released within the last month gets NEW (top-left), whatever its tier */}
+              {isNewRelease(p) && <span class="plugin-card-badge new">NEW</span>}
+              {p.tier === 'premium' ? (
                 <span class="plugin-card-badge premium">👑 PREMIUM</span>
               ) : (
                 <span class="plugin-card-badge free">FREE</span>
