@@ -670,7 +670,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-sync-v1.0.1.zip                             # ルックアップ自動同期 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-lookup-sync-v2.0.2.zip                             # ルックアップ自動同期 for kintone v2.0.2 配布ファイル（重複しうるキー対応＝方式1/方式2・入力補完・PC/モバイル）
 │   │   ├── kw-lookup-sync-v2.1.1.zip                             # ルックアップ自動同期 for kintone v2.1.1 配布ファイル（全件同期を自己修復型に＝キー未設定でも名前一致で同期・前後空白正規化・要確認内訳CSV出力。旧版・参考保管）
-│   │   ├── kw-lookup-sync-v2.1.2.zip                             # ルックアップ自動同期 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v2.1.2 ライセンス認証の内部改修）
+│   │   ├── kw-lookup-sync-v2.1.2.zip                             # ルックアップ自動同期 for kintone 配布ファイル（旧版・参考保管・v2.1.2 ライセンス認証の内部改修）
+│   │   ├── kw-lookup-sync-v2.2.0.zip                             # ルックアップ自動同期 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v2.2.0 クリア連動＝方式2でルックアップをクリアすると同期項目も確認のうえ空へ戻せる／子アプリJS v8）
 │   │   ├── kw-mail-assist-v1.0.1.zip                             # メールアシスト for kintone 配布ファイル（手動配置・v1.0.1＝法人Outlook対応）
 │   │   ├── kw-mail-assist-v1.1.0.zip                             # メールアシスト for kintone 配布ファイル（手動配置・v1.1.0＝表示条件に複数値OR演算子追加・編集画面幅拡大）
 │   │   ├── kw-mail-assist-v1.1.1.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
