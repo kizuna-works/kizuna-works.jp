@@ -38,6 +38,18 @@ const BANNERS = {
       ['中継サーバー', '不要', '']
     ]
   },
+  'barcode-assist': {
+    iconSrc: 'SECRET/kintone_plugin_workspace/kw-barcode-assist/kw-barcode-assist_icon_512.png',
+    iconSide: 'right',
+    catch: ['かざすだけで、', '台帳がそろう。'],
+    name: 'バーコードアシスト for kintone',
+    nameSize: 42,
+    bullets: [
+      ['スマホのカメラで', '読む・探す', ''],
+      ['予定と実績を', '照合', ''],
+      ['コード生成〜', 'A4ラベル印刷', '']
+    ]
+  },
   'file-export': {
     iconSrc: 'SECRET/kintone_plugin_workspace/kw-file-export/kw-file-export_icon_512.png',
     iconSide: 'right',

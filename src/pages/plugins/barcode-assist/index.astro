@@ -1,0 +1,746 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import TrialBanner from '../../../components/TrialBanner.astro';
+---
+
+<Layout
+  title="バーコードアシスト for kintone｜スマホのカメラで読む・探す・照合する | KIZUNA Works"
+  description="スマホやPCのカメラでバーコード・QRコードを読み取り、kintone のレコードへ入力・該当レコードを検索・予定と実績の照合まで行うプラグイン。レコードの値からコードを作って詳細画面に表示・PNG保存・添付書込・A4ラベル面付け印刷もできます。4つの機能は個別にオン／オフできるプレミアムプラグインです。"
+  ogTitle="バーコードアシスト for kintone｜スマホのカメラで読む・探す・照合する | KIZUNA Works"
+  ogDescription="カメラでバーコード・QRを読み取り、kintone のレコードへ入力／検索／予定と実績の照合。逆にレコードの値からコードを作り、A4ラベルに面付け印刷まで。ハンディターミナルも外部サービスも要りません。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/barcode-assist/"
+  ogImage="https://kizuna-works.jp/images/barcode-assist-banner.png"
+  canonical="https://kizuna-works.jp/plugins/barcode-assist/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/barcode-assist/",
+          "url": "https://kizuna-works.jp/plugins/barcode-assist/",
+          "name": "バーコードアシスト for kintone｜スマホのカメラで読む・探す・照合する | KIZUNA Works",
+          "description": "カメラでバーコード・QRコードを読み取って kintone のレコードへ入力・検索・照合し、レコードの値からコードを生成してA4ラベル印刷まで行うプラグイン。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/barcode-assist-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "バーコードアシスト for kintone", "item": "https://kizuna-works.jp/plugins/barcode-assist/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "バーコードアシスト for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-08-10",
+          "url": "https://kizuna-works.jp/plugins/barcode-assist/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-barcode-assist-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/barcode-assist-banner.png",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "無料プラン",
+              "price": "0",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "スキャン設定セット1つまで。読む・探す・照合する・出すの4機能、サブテーブル・モバイル・ゲストスペース・A4ラベル印刷まで、機能の中身は一切制限していません（利用期限なし）。"
+            },
+            {
+              "@type": "Offer",
+              "name": "プレミアム年間サポーター（全プラグイン込み）",
+              "price": "16500",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、スキャン設定セットが無制限になり広告も非表示になります。販売中の全プラグインも利用できます。単品販売はありません。"
+            }
+          ],
+          "description": "スマートフォンやPCのカメラでバーコード・QRコードを読み取り、kintone のレコードへ入力する／読み取った値でレコードを開く・絞り込む／サブテーブルの予定と実績を照合する、という3方向の入力に対応したプラグイン。逆にレコードの値からバーコード・QRコードを生成し、詳細画面への表示・PNG保存・添付フィールドへの書き込み・A4ラベル用紙への面付け印刷まで行える。読む・探す・照合する・出すの4機能はそれぞれ独立してオン／オフでき、必要な機能だけを使える。読み取りはOS内蔵のBarcodeDetector→ライブラリ→写真撮影の3段フォールバックで、端末が対応していなくても読み取れる。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "スマホ・PCのカメラでバーコード／QRコードを読み取ってレコードへ入力",
+            "同じコードを読むたびに数量を加算（サブテーブルの明細行に集計）",
+            "読み取った値でレコードを開く・一覧を絞り込む（QRにレコードURLが入っていれば直行）",
+            "サブテーブルの予定数と実績数を突き合わせ、一致・過剰・不足・予定外を色分け表示",
+            "レコードの値からバーコード／QRコードを生成して詳細画面に表示",
+            "生成したコードのPNG保存・添付フィールドへの書き込み",
+            "A4ラベル用紙への面付け印刷（列数・行数・余白をmm指定／テスト印刷つき）",
+            "使いかけのラベルシート向けに開始マスと印刷件数を指定",
+            "対応7種：QRコード／JAN・EAN-13／JAN・EAN-8／CODE128／CODE39／ITF／NW-7",
+            "読み取りは OS内蔵→ライブラリ→写真撮影の3段フォールバック",
+            "読む・探す・照合する・出すの4機能を個別にオン／オフ",
+            "PC版・モバイル版の両方に対応、ゲストスペースにも対応",
+            "業務データの外部送信なし・読み取りも生成もブラウザ内で完結"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "専用のバーコードリーダー（ハンディターミナル）は必要ですか？", "acceptedAnswer": { "@type": "Answer", "text": "必要ありません。スマートフォンやタブレットのカメラ、PCに接続したWebカメラで読み取ります。読み取り結果はその場で kintone のレコードに入るため、ハンディターミナルからのCSV取り込みのような中間作業もなくなります。なお、USB接続のバーコードリーダー（キーボード入力として動作するもの）をお使いの場合は、そのままフィールドへ入力されるため本プラグインがなくても入力できます。本プラグインはカメラで読む場面と、読んだ値をサブテーブルへ加算・照合する場面で効果を発揮します。" } },
+            { "@type": "Question", "name": "どのコードが読めますか？", "acceptedAnswer": { "@type": "Answer", "text": "QRコード／JAN・EAN-13／JAN・EAN-8／CODE128／CODE39／ITF（Interleaved 2 of 5）／NW-7（CODABAR）の7種類に対応しています。設定で使う種別だけを有効にすると、誤読が減り読み取りも速くなります。チェックデジットの検証は、規格でチェックデジットが決まっている種別（JAN/EAN-13・JAN/EAN-8・ITF-14）でのみ行います。一般のITFやNW-7はチェックデジットが規格上「任意」のため、検証すると正しいコードまで弾いてしまうからです。" } },
+            { "@type": "Question", "name": "カメラが使えない端末でも読み取れますか？", "acceptedAnswer": { "@type": "Answer", "text": "読み取りは3段構えです。まず端末のOSに内蔵された読み取り機能（BarcodeDetector）を使い、対応していなければ読み取りライブラリに切り替え、カメラ自体が使えない環境では「写真を撮って、その画像から読み取る」方式へ自動的に切り替わります。写真からの読み取りは、縮小・中央の切り出し・回転など条件を変えて複数回試します。いま何段目で動いているかは、スキャン画面の右上と設定画面の「読取テスト」で確認できます。" } },
+            { "@type": "Question", "name": "全部の機能を設定しないと使えませんか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。読む・探す・照合する・出すの4つは完全に独立していて、設定画面の「① 共通設定」にあるトグルで個別にオン／オフできます。たとえば「備品にQRラベルを貼りたいだけ」なら「出す」だけをオンにすれば動きます。オフにした機能の設定は入力する必要がなく、レコード画面にもボタンが出ません。" } },
+            { "@type": "Question", "name": "ラベルは市販のラベル用紙に印刷できますか？", "acceptedAnswer": { "@type": "Answer", "text": "できます。メーカーの型番プリセットは持たず、列数・行数・上下左右の余白・マス間隔をmmで指定する方式です（型番プリセットは仕様変更に追随できず、かえって位置がずれるため採用していません）。印刷前に「テスト印刷（枠線のみ）」で1枚出し、お手元の用紙と枠が合うことを確かめてから本番を印刷してください。ラベルをはがした使いかけのシートに刷るときは、プレビュー上で「開始マス」を指定すると手前のマスを空けて送れます。" } },
+            { "@type": "Question", "name": "印刷の対象は一覧に表示されているぶんだけですか？", "acceptedAnswer": { "@type": "Answer", "text": "一覧の絞り込み結果の全件（最大200件）が対象です。表示中のページ（1ページ目の100件など）だけではありません。並び順も一覧に見えているとおりに印刷されます。プレビュー上で「○件目から○件」と範囲を指定できるので、途中から刷り直したり、200件を分けて刷ったりもできます。" } },
+            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。無料プランでもスキャン設定セット1つまで、機能の中身を制限せずお使いいただけます。読む・探す・照合する・出すの4機能、サブテーブル対応・モバイル対応・ゲストスペース対応・A4ラベル印刷は、すべて無料版でも動作します。設定セットの数と広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。" } },
+            { "@type": "Question", "name": "読み取ったデータは外部に送信されますか？", "acceptedAnswer": { "@type": "Answer", "text": "送信しません。カメラの映像も読み取った値も、お使いのブラウザの中だけで処理して kintone のレコードへ書き込みます。コードの生成も同様にブラウザ内で行い、画像を外部サービスへ送ることはありません。読み取り・生成に使う2つのライブラリ（ZXing・bwip-js）は第三者CDNではなく当社サーバー（kizuna-works.jp）から、改ざん検知（SRI）つきで読み込みます。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。" } }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0 0 12px; }
+    .afp-feature p:last-child { margin-bottom: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+    /* Cap narrow captures at the width the UI really has, so nothing is blown up
+       larger than the user will see it in kintone. */
+    .afp-shot-w420 { max-width: 420px; }
+    .afp-shot-w640 { max-width: 640px; }
+    .afp-shot-w840 { max-width: 840px; }
+
+    .afp-shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+    @media (max-width: 900px) { .afp-shot-pair { grid-template-columns: 1fr; } }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    /* Feature block: 使い方の画面 → その設定画面、の2枚組 */
+    .afp-usecfg { margin-top: 30px; }
+    .afp-usecfg-head {
+      display: inline-block; background: var(--color-navy); color: #fff; font-weight: 700;
+      font-size: 0.85rem; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px;
+    }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/barcode-assist-icon.png" alt="バーコードアシスト for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1>バーコードアシスト for kintone</h1>
+      <p class="afp-tagline">かざすだけで、台帳がそろう。</p>
+      <p class="afp-sub">スマホやPCのカメラでバーコード・QRコードを読み取り、レコードへ入力する／該当レコードを開く／予定と実績を照合する。逆にレコードの値からコードを作り、詳細画面への表示・PNG保存・添付書込・A4ラベルへの面付け印刷まで。ハンディターミナルも外部サービスも要りません。</p>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 定義（結論ファースト） -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <p class="afp-lead">
+          <strong>バーコードアシスト for kintone</strong> は、<strong>スマートフォンやPCのカメラをそのまま入力デバイスにする</strong>プラグインです。現物のバーコード・QRコードにかざすと、<strong>レコードへ入力する（読む）／その値でレコードを開く・絞り込む（探す）／サブテーブルの予定と実績を突き合わせる（照合する）</strong>——現場で起きる3方向の入力をまかないます。逆方向として、<strong>レコードの値からコードを生成（出す）</strong>し、詳細画面への表示・PNG保存・添付フィールドへの書き込み・<strong>A4ラベル用紙への面付け印刷</strong>まで行えます。4つの機能は<strong>それぞれ独立してオン／オフ</strong>できるので、「備品にQRラベルを貼りたいだけ」でも使えます。「プレミアムプラグイン」シリーズの一つです。
+        </p>
+      </div>
+    </section>
+
+    <!-- 課題 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">「現物」と「レコード」の間で手が止まる</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>型番を目で読んで手打ちしている</h3>
+            <p>棚卸や入出庫のたびに、現物の型番を読み上げて手入力。桁が1つずれても気づけず、数え直しになります。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>現物から該当レコードを探せない</h3>
+            <p>目の前の備品がどのレコードなのか、検索窓に型番を打ち直して探している。数が多いほど時間を取られます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>予定と実際の突き合わせが目視</h3>
+            <p>「予定どおりか」を紙のリストと見比べて確認。数が合わないときに、どれが多くてどれが足りないのかを追えません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ラベル作成が二重管理</h3>
+            <p>管理番号のQRラベルを作るために Excel や別サービスへ書き出している。kintone を直したらラベルも作り直しです。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4機能は独立 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">使う機能だけ、オンにする</h2>
+        <p style="margin:-12px 0 26px;line-height:1.8;">4つの機能は完全に独立しています。<strong>設定画面の最初のタブにあるトグルで、使うものだけをオン</strong>にしてください。オフにした機能は設定を入力する必要がなく、レコード画面にもボタンが出ません。「ラベルを発行したいだけ」なら<strong>「出す」だけをオン</strong>にすれば動きます。</p>
+        <figure class="afp-shot">
+          <picture>
+            <source srcset="/images/barcode-assist-config-01.webp" type="image/webp" />
+            <img class="zoomable" src="/images/barcode-assist-config-01.png" alt="バーコードアシストの設定画面（① 共通設定）— 「使う機能を選ぶ」に読む（スキャン入力）・探す（スキャンでレコードを開く）・照合する（予定と実績の突き合わせ）・出す（コード生成・ラベル印刷）の4つのトグルが並び、読むと照合するがオン。下に有効にするコード種別のチェックボックス、読取方式（自動／カメラ映像／撮影）、音と振動、チェックデジット検証の設定がある" width="1400" height="1110" loading="lazy" />
+          </picture>
+          <figcaption class="afp-shot-cap">① 共通設定 — 4つのトグルで機能を選び、読み取るコード種別と読取方式を決めます<br />（画像をクリックすると拡大表示します）</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ① 読む -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">① 読む — かざした数だけ、明細が積み上がる</h2>
+        <div class="afp-feature">
+          <div class="afp-feature-media">
+            <picture>
+              <source srcset="/images/barcode-assist-scan-01.webp" type="image/webp" />
+              <img class="zoomable" src="/images/barcode-assist-scan-01.png" alt="スキャン中の画面 — 画面いっぱいにカメラ映像が映り、中央の緑の枠にQRコードが入っている。上部に「読取 1件 ／ 合計 1」と読取方式②の表示、下部に「✓ IT-0003 → 0 → 1（3行目）」という直前の結果と、直前を取消・完了のボタンが並ぶ" width="1400" height="796" loading="lazy" />
+            </picture>
+          </div>
+          <div class="afp-feature-text">
+            <h3>読むたびに、どこへ何が入ったかが出ます</h3>
+            <p>レコードの作成・編集画面に出る<strong>「スキャン入力」</strong>から起動します。読み取ると画面下に <strong>「値 → 変化 → 何行目」</strong> が表示されるので、入ったことをその場で確認できます。<strong>同じコードをかざし続けても二重に数えません</strong>（一度枠から外れるまで同じコードは数えません）。</p>
+            <p>入力先は<strong>単一フィールド／サブテーブルに毎回新しい行を追加／同じコードは数量を加算</strong>の3通り。ルックアップの照合キーを選ぶと、行を足したあと<strong>参照先の値も自動で取得</strong>します。読み間違えたときは<strong>「直前を取消」</strong>で1件ずつ戻せます。</p>
+            <p><strong>緑の枠に入ったコードだけを読みます。</strong>棚に並んだ隣のラベルを拾ってしまわないよう、枠の外にあるコードは無視します。</p>
+          </div>
+        </div>
+        <div class="afp-usecfg">
+          <span class="afp-usecfg-head">設定画面</span>
+          <figure class="afp-shot">
+            <picture>
+              <source srcset="/images/barcode-assist-config-02.webp" type="image/webp" />
+              <img class="zoomable" src="/images/barcode-assist-config-02.png" alt="設定画面（② 読む）— 「読む（スキャン入力）」のトグルがオンで、出力モード（単一フィールドへ入れる／サブテーブルに毎回新しい行を追加／同じコードは数量を加算）、対象サブテーブル「明細」、コード列「管理番号」、数量列、加算値の設定が並んでいる" width="1400" height="1024" loading="lazy" />
+            </picture>
+            <figcaption class="afp-shot-cap">② 読む — 入力先のサブテーブルと、コードを入れる列・数量を足す列を選ぶだけです</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ② 探す -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">② 探す — 現物にかざして、そのレコードへ</h2>
+        <div class="afp-feature reverse">
+          <div class="afp-feature-media">
+            <picture>
+              <source srcset="/images/barcode-assist-list-01.webp" type="image/webp" />
+              <img class="zoomable" src="/images/barcode-assist-list-01.png" alt="kintone のレコード一覧のツールバー — 標準のビュー切替と絞り込みアイコンの右に、水色の「スキャンで探す」ボタンと白い「ラベル印刷」ボタンが並び、下に備品マスタの一覧（管理番号 IT-0001 ノートPC ThinkPad X1 など）が表示されている" width="1400" height="299" loading="lazy" />
+            </picture>
+          </div>
+          <div class="afp-feature-text">
+            <h3>一覧のボタンから、かざすだけ</h3>
+            <p>レコード一覧に<strong>「スキャンで探す」</strong>ボタンが増えます。読み取った値で検索し、<strong>1件だけ見つかればそのレコードを開き、複数なら一覧を絞り込みます</strong>。見つからなければ、読み取った値をコピーして新規作成へ進めます。</p>
+            <p>QRコードに<strong>レコードのURL</strong>が入っている場合は、検索せずに<strong>そのレコードへ直行</strong>します。ただし<strong>自分の kintone 以外のURLは開きません</strong>（他人が作ったQRで外部サイトへ飛ばされる事故を防ぐため）。他アプリのレコードURLを許可するかどうかも選べます。</p>
+          </div>
+        </div>
+        <div class="afp-usecfg">
+          <span class="afp-usecfg-head">設定画面</span>
+          <figure class="afp-shot">
+            <picture>
+              <source srcset="/images/barcode-assist-config-03.webp" type="image/webp" />
+              <img class="zoomable" src="/images/barcode-assist-config-03.png" alt="設定画面（③ 探す）— 「探す（スキャンでレコードを開く）」のトグルがオンで、検索対象フィールドのチェックボックス（管理番号・備品名）、レコードURLの扱い（自アプリのみ／他アプリも許可）、開き方（同じタブ／別タブ）、0件のときに新規作成を提案するかの設定が並んでいる" width="1400" height="1069" loading="lazy" />
+            </picture>
+            <figcaption class="afp-shot-cap">③ 探す — 検索するフィールドと、URLをどこまで信用するかを決めます</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ③ 照合する -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">③ 照合する — 一致・過剰・不足・予定外が、その場で出る</h2>
+        <div class="afp-feature">
+          <div class="afp-feature-media">
+            <picture>
+              <source srcset="/images/barcode-assist-verify-02.webp" type="image/webp" />
+              <img class="zoomable" src="/images/barcode-assist-verify-02.png" alt="棚卸レコードの編集画面 — 上部に「スキャン入力」ボタンと、一致4件・過剰1件・不足1件・予定外1件を色分けしたサマリ帯。明細テーブルには管理番号・備品名・予定数・実際数・差分が並び、モニターは予定1に対し実際2で差分1、プロジェクターは実際0で差分−1、予定に無いラベルプリンタは実際1が入っている" width="813" height="721" loading="lazy" />
+            </picture>
+          </div>
+          <div class="afp-feature-text">
+            <h3>数が合わないときに、どれが原因かが分かる</h3>
+            <p>サブテーブルの<strong>予定数</strong>と、読み取って積み上げた<strong>実際数</strong>を突き合わせ、差分を計算して書き込みます。画面の上には<strong>一致／過剰／不足／予定外</strong>の4状態が件数つきで並ぶので、「合計は合っているのに中身がずれている」ケースも見逃しません。</p>
+            <p><strong>予定に無いコードを読んだときは行を足して「予定外」</strong>として残します。上の画面では、大阪支社の備品が本社3Fに紛れていたことが分かります。</p>
+            <p>差分があっても<strong>保存はブロックしません</strong>。現場を止めず、記録として残してから原因を追えます。</p>
+          </div>
+        </div>
+        <div class="afp-usecfg">
+          <span class="afp-usecfg-head">設定画面</span>
+          <figure class="afp-shot">
+            <picture>
+              <source srcset="/images/barcode-assist-config-04.webp" type="image/webp" />
+              <img class="zoomable" src="/images/barcode-assist-config-04.png" alt="設定画面（④ 照合する）— 「照合する（予定と実績の突き合わせ）」のトグルがオンで、予定数量列に「予定数」、実績数量列に「実際数」、差分列に「差分」を選ぶプルダウンと、一致・過剰・不足・予定外それぞれの表示色の設定が並んでいる" width="1400" height="786" loading="lazy" />
+            </picture>
+            <figcaption class="afp-shot-cap">④ 照合する — 予定・実績・差分の3列を選び、4状態の色を決めます</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ④ 出す -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">④ 出す — レコードの値から、コードを作って貼る</h2>
+        <div class="afp-feature reverse">
+          <div class="afp-feature-media">
+            <picture>
+              <source srcset="/images/barcode-assist-detail-01.webp" type="image/webp" />
+              <img class="zoomable" src="/images/barcode-assist-detail-01.png" alt="レコード詳細画面に表示されたQRコード — 白いカードの中にQRコードがあり、その下に「IT-0001 ノートPC ThinkPad X1」のキャプション、さらに下に「PNG保存」と「添付フィールドへ書き込む」のボタンが並んでいる" width="392" height="442" loading="lazy" />
+            </picture>
+          </div>
+          <div class="afp-feature-text">
+            <h3>詳細画面に出して、保存して、貼る</h3>
+            <p>フォームに置いたスペース要素へ、<strong>レコードの値から作ったコードを表示</strong>します。中身は「固定文字／フィールドの値／レコードURL」を並べて組み立てられ、<strong>値が空のパーツは前後の区切り文字ごと飛ばす</strong>ので区切りだけが残りません。</p>
+            <p><strong>PNG保存</strong>でその場にダウンロード、<strong>添付フィールドへ書き込む</strong>でレコードに保存できます（手動のボタンのみ。同名ファイルは置き換え、ほかの添付は残します）。生成元の値が変わったら<strong>注意バッジ</strong>が出ますが、勝手な上書きはしません。</p>
+          </div>
+        </div>
+
+        <h3 class="afp-plan-compare-head" style="margin-top:44px;">A4ラベル用紙へ、まとめて面付け印刷</h3>
+        <p style="margin:0 0 22px;line-height:1.8;">一覧の<strong>「ラベル印刷」</strong>から、絞り込み結果のレコードぶんのコードをA4に面付けしてプレビューします。対象は<strong>絞り込み結果の全件（最大200件）で、表示中のページだけではありません</strong>。並び順も一覧に見えているとおりです。</p>
+        <figure class="afp-shot">
+          <picture>
+            <source srcset="/images/barcode-assist-print-01.webp" type="image/webp" />
+            <img class="zoomable" src="/images/barcode-assist-print-01.png" alt="ラベル印刷プレビューの操作バー — 上部に「余白：なし」「倍率：100%」を選ぶよう促す黄色の案内、その下に対象件数と1ページの面数（24面・3列×8行）、テスト印刷・印刷する・閉じるのボタン、さらに下に開始マスと対象件数を指定する入力欄と「12件のうち 1〜12件目を、1マス目から印刷します（1ページ）」の要約が出ている" width="1400" height="209" loading="lazy" />
+          </picture>
+          <figcaption class="afp-shot-cap">プレビューの操作バー — <strong>開始マス</strong>で使いかけのシートの続きから、<strong>対象</strong>で「○件目から○件」だけを印刷できます</figcaption>
+        </figure>
+
+        <div class="afp-shot-pair" style="margin-top:24px;">
+          <figure class="afp-shot afp-shot-w640">
+            <picture>
+              <source srcset="/images/barcode-assist-print-02.webp" type="image/webp" />
+              <img class="zoomable" src="/images/barcode-assist-print-02.png" alt="面付け印刷のプレビュー — A4用紙に3列×8行のマスが取られ、上から12個のマスにQRコードと「IT-0001 / ノートPC ThinkPad X1」のようなキャプションが並んでいる" width="622" height="706" loading="lazy" />
+            </picture>
+            <figcaption class="afp-shot-cap">本番の面付け（3列×8行＝24面の設定で12件）</figcaption>
+          </figure>
+          <figure class="afp-shot afp-shot-w640">
+            <picture>
+              <source srcset="/images/barcode-assist-print-03.webp" type="image/webp" />
+              <img class="zoomable" src="/images/barcode-assist-print-03.png" alt="テスト印刷のプレビュー — A4用紙に点線の枠だけが3列×8行で並び、各マスの中央に1から24までのマス番号が入っている" width="622" height="706" loading="lazy" />
+            </picture>
+            <figcaption class="afp-shot-cap">テスト印刷（枠線のみ）— 用紙と枠が合うか確かめられます。<strong>マス番号入り</strong>なので「開始マス」を数えるのにも使えます</figcaption>
+          </figure>
+        </div>
+
+        <div class="afp-note">市販ラベル用紙の<strong>型番プリセットは持っていません</strong>（メーカーの仕様変更に追随できず、かえって位置がずれるため）。列数・行数・余白・マス間隔を<strong>mmで入力</strong>してお使いください。一度合わせれば設定として保存されます。</div>
+
+        <div class="afp-usecfg">
+          <span class="afp-usecfg-head">設定画面</span>
+          <figure class="afp-shot">
+            <picture>
+              <source srcset="/images/barcode-assist-config-05.webp" type="image/webp" />
+              <img class="zoomable" src="/images/barcode-assist-config-05.png" alt="設定画面（⑤ 出す）— 「ステップ1：どんなコードを作るか」でコード種別（QRコード）、生成する値のパーツ（レコードURL）、表示先スペース要素、キャプションに使うフィールド、表示サイズ、添付フィールドとファイル名を設定し、「ステップ2：それをA4ラベルに並べて印刷する」で列数3・行数8・余白10mm・マス間隔2mmを指定。左のライブプレビューに実際のQRコードとA4の配置イメージ（1ページ24面／1マス 約62.0×32.9mm）が出ている" width="1400" height="1356" loading="lazy" />
+            </picture>
+            <figcaption class="afp-shot-cap">⑤ 出す — 「どんなコードを作るか」と「A4にどう並べるか」の2ステップ。左に実データのプレビューが出ます</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 読み取りの3段構え -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">端末を選ばないための、3段構え</h2>
+        <p style="margin:-12px 0 26px;line-height:1.8;">「この端末では読めない」を作らないため、読み取りは3段のフォールバックにしています。<strong>ふだんは自動</strong>で、上から順に使えるものが選ばれます。</p>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>段</th><th>読み取り方法</th><th>使われる場面</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="c">①</td><td><strong>OS内蔵の読み取り</strong>（BarcodeDetector）</td><td>対応端末（Android など）。いちばん速く、電池にもやさしい</td></tr>
+              <tr><td class="c">②</td><td><strong>読み取りライブラリ</strong>（カメラ映像から解析）</td><td>①に対応していない端末・ブラウザ。iPhone やPCのWebカメラなど</td></tr>
+              <tr><td class="c">③</td><td><strong>写真を撮って、その画像から読み取る</strong></td><td>カメラの権限が下りない／映像が流れないとき。縮小・切り出し・回転を変えて複数回試します</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note">いま何段目で動いているかは、<strong>スキャン画面の右上</strong>と、設定画面の<strong>「読取テスト」</strong>（読取方式・種別・値・所要時間を表示）で確認できます。うまく読めないときは、その画面をそのままお問い合わせに添えてください。</div>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>7種類のコードに対応</h3>
+            <p>QRコード／JAN・EAN-13／JAN・EAN-8／CODE128／CODE39／ITF／NW-7。使う種別だけを有効にすると誤読が減ります。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>数量の加算とルックアップ取得</h3>
+            <p>同じコードを読むたびに数量を加算。ルックアップの照合キーを選べば、行を足したあと参照先の値も自動で入ります。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>直前を取消・まとめて取消</h3>
+            <p>読み間違えたら1件ずつ戻せます。×で閉じるときは、その回に読んだぶんをまとめて元に戻すか確認します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>枠の中だけを読む</h3>
+            <p>画面中央の緑の枠に入ったコードだけを採用します。棚に並んだ隣のラベルを拾ってしまう事故を防ぎます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>チェックデジット検証</h3>
+            <p>JAN/EAN・ITF-14 のように規格で決まっている種別だけ検証します。任意の種別を弾いてしまわないための線引きです。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>音と振動で手応えを返す</h3>
+            <p>成功と失敗で音色を変え、対応端末では振動もします。画面を見続けなくても読めたことが分かります。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>コードの中身は組み立て式</h3>
+            <p>固定文字・フィールドの値・レコードURLを並べて生成。空のパーツは前後の区切り文字ごと飛ばします。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>A4面付け印刷と範囲指定</h3>
+            <p>列数・行数・余白をmm指定。テスト印刷で位置合わせでき、使いかけのシートは開始マスを指定して続きから刷れます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>PC・モバイル両対応</h3>
+            <p>読む・探す・照合するはモバイル版でも動きます（面付け印刷と添付書込はPC版のみ）。ゲストスペースにも対応します。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- プランについて -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料プランでも<strong>スキャン設定セット1つ</strong>まで、<strong>機能の中身は一切制限せず</strong>お使いいただけます。読む・探す・照合する・出すの4機能、サブテーブル対応・モバイル対応・ゲストスペース対応・A4ラベル印刷は、すべて無料版でも動作します。<strong>設定セットの数</strong>と広告非表示は、<strong>プレミアム年間サポーター</strong>で解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ スキャン設定セット1つ</li>
+              <li>✅ 読む・探す・照合する・出すの全機能</li>
+              <li>✅ サブテーブル・モバイル・ゲストスペース対応</li>
+              <li>✅ A4ラベルの面付け印刷</li>
+              <li>✅ 利用期限なし（設定画面に控えめな広告あり）</li>
+            </ul>
+            <a href="/downloads/kw-barcode-assist-v1.0.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+          </div>
+
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>スキャン設定セットが無制限</strong></li>
+              <li>✅ 「棚卸」「入荷検品」「備品ラベル」を1つのアプリで使い分け</li>
+              <li>✅ プラグイン内の<strong>広告非表示</strong></li>
+              <li>✅ 販売中の<strong>全プラグイン</strong>も対象（契約期間中に新しく公開されるプラグインも追加料金なし）</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta">プレミアム年間サポーターを申し込む →</a>
+          </div>
+        </div>
+
+        <div style="margin: 0 0 32px;">
+          <TrialBanner />
+        </div>
+
+        <h3 class="afp-plan-compare-head">機能の詳細比較</h3>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>機能</th><th class="c">無料プラン</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>スキャン設定セットの数</td><td class="c">1つ</td><td class="c">無制限</td></tr>
+              <tr><td>読む／探す／照合する／出す</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>サブテーブルへの加算・ルックアップ取得</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>A4ラベルの面付け印刷・範囲指定</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>モバイル対応・ゲストスペース対応</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>設定画面の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note" style="margin-top:20px;">プレミアムの期限が切れても<strong>設定は消えません</strong>。動作対象が先頭の1セットに絞られるだけで、再加入すればそのまま全セットが復帰します。</div>
+      </div>
+    </section>
+
+    <!-- インストール手順 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="afp-steps steps-list">
+          <li><span>システム管理者で kintone にログインし、<strong>歯車アイコン → kintone システム管理 → プラグイン</strong> を開き、<strong>「読み込む」</strong>からプラグイン zip をアップロードします。</span></li>
+          <li><span>使いたい<strong>対象アプリ</strong>で <strong>アプリの設定 → プラグイン → 「+ プラグインを追加」</strong> から「バーコードアシスト」を追加します。</span></li>
+          <li><span>プラグイン一覧の<strong>歯車アイコン</strong>から設定画面を開き、<strong>「① 共通設定」のトグルで使う機能を選びます</strong>（使わない機能はオフのままで構いません）。</span></li>
+          <li><span>オンにした機能のタブ（<strong>② 読む／③ 探す／④ 照合する／⑤ 出す</strong>）で、対象のフィールドや列を選びます。<strong>「保存」→「アプリを更新」</strong>で反映されます。</span></li>
+          <li><span>「出す」で詳細画面にコードを表示する場合は、あらかじめ<strong>フォームにスペース要素を1つ置き、要素IDを付けて</strong>おいてください（設定画面のプルダウンで選べるようになります）。</span></li>
+        </ol>
+        <div class="afp-note">カメラを使うため、kintone は <strong>https</strong> でご利用ください（通常の cybozu.com なら条件を満たしています）。初回のスキャン時にブラウザがカメラの利用許可を求めるので、<strong>「許可」</strong>を選んでください。</div>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ご利用にあたっての注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li><strong>読む</strong>と<strong>照合する</strong>は、レコードの<strong>作成・編集画面</strong>で動作します（詳細画面には出ません）。<strong>探す</strong>は一覧・詳細画面、<strong>出す</strong>は詳細画面と一覧で動作します。</li>
+            <li><strong>面付け印刷と添付フィールドへの書き込みは PC版のみ</strong>です（印刷はPC前提のため、モバイル版では提供していません）。</li>
+            <li>面付け印刷の対象は<strong>一覧の絞り込み結果（最大200件）</strong>です。一覧のチェックボックスで選んだレコードだけを対象にすることはできません（選択状態を取得する公開APIがないため）。</li>
+            <li>印刷時は、ブラウザの印刷ダイアログで<strong>「余白：なし」「倍率：100%（実際のサイズ）」</strong>を選んでください。既定のままだと用紙に合わせて縮小され、ラベルの位置がずれます。</li>
+            <li>カメラの利用には <strong>https 接続</strong>とブラウザの<strong>カメラ許可</strong>が必要です。許可しなかった場合は「写真を撮って読み取る」方式に切り替わります（許可後に「カメラで読み取る（やり直す）」から戻せます）。</li>
+            <li>読み取り精度は、コードの<strong>印刷品質・照明・カメラの解像度</strong>に左右されます。うまく読めないときは、設定画面の「読取テスト」の結果を添えてお問い合わせください。</li>
+            <li>生成するコードには規格で決められた<strong>余白（クワイエットゾーン）</strong>を必ず付けています。印刷時に余白ごと切り落とすと読み取れなくなるためご注意ください。</li>
+            <li>本プラグインはサイボウズ社の製品ではありません。kintone はサイボウズ株式会社の登録商標です。</li>
+            <li>推奨ブラウザは Google Chrome / Microsoft Edge、モバイルは kintone モバイルアプリ（iOS / Android）です。</li>
+            <li>本プラグインの利用により生じた損害について、当社は責任を負いかねます。配布 zip に秘密鍵（ppk）は含まれません。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- セキュリティ -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-barcode-assist" />
+        <ShareButtons title="バーコードアシスト for kintone" />
+      </div>
+    </section>
+
+    <!-- よくある質問 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">よくある質問</h2>
+        <div class="afp-faq">
+          <details class="afp-faq-item">
+            <summary>専用のバーコードリーダー（ハンディターミナル）は必要ですか？</summary>
+            <div class="afp-faq-answer">必要ありません。スマートフォンやタブレットのカメラ、PCに接続したWebカメラで読み取ります。読み取り結果はその場で kintone のレコードに入るため、ハンディターミナルからのCSV取り込みのような中間作業もなくなります。なお、USB接続のバーコードリーダー（キーボード入力として動作するもの）をお使いの場合は、そのままフィールドへ入力されるため本プラグインがなくても入力できます。本プラグインは<strong>カメラで読む場面</strong>と、<strong>読んだ値をサブテーブルへ加算・照合する場面</strong>で効果を発揮します。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>どのコードが読めますか？</summary>
+            <div class="afp-faq-answer">QRコード／JAN・EAN-13／JAN・EAN-8／CODE128／CODE39／ITF（Interleaved 2 of 5）／NW-7（CODABAR）の7種類に対応しています。設定で使う種別だけを有効にすると、誤読が減り読み取りも速くなります。チェックデジットの検証は、規格でチェックデジットが決まっている種別（JAN/EAN-13・JAN/EAN-8・ITF-14）でのみ行います。一般のITFやNW-7はチェックデジットが規格上「任意」のため、検証すると正しいコードまで弾いてしまうからです。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>カメラが使えない端末でも読み取れますか？</summary>
+            <div class="afp-faq-answer">読み取りは3段構えです。まず端末のOSに内蔵された読み取り機能（BarcodeDetector）を使い、対応していなければ読み取りライブラリに切り替え、カメラ自体が使えない環境では<strong>「写真を撮って、その画像から読み取る」</strong>方式へ自動的に切り替わります。写真からの読み取りは、縮小・中央の切り出し・回転など条件を変えて複数回試します。いま何段目で動いているかは、スキャン画面の右上と設定画面の「読取テスト」で確認できます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>全部の機能を設定しないと使えませんか？</summary>
+            <div class="afp-faq-answer">いいえ。読む・探す・照合する・出すの4つは完全に独立していて、設定画面の「① 共通設定」にあるトグルで個別にオン／オフできます。たとえば「備品にQRラベルを貼りたいだけ」なら<strong>「出す」だけをオン</strong>にすれば動きます。オフにした機能の設定は入力する必要がなく、レコード画面にもボタンが出ません。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>ラベルは市販のラベル用紙に印刷できますか？</summary>
+            <div class="afp-faq-answer">できます。メーカーの型番プリセットは持たず、<strong>列数・行数・上下左右の余白・マス間隔をmmで指定</strong>する方式です（型番プリセットは仕様変更に追随できず、かえって位置がずれるため採用していません）。印刷前に「テスト印刷（枠線のみ）」で1枚出し、お手元の用紙と枠が合うことを確かめてから本番を印刷してください。ラベルをはがした<strong>使いかけのシート</strong>に刷るときは、プレビュー上で「開始マス」を指定すると手前のマスを空けて送れます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>印刷の対象は一覧に表示されているぶんだけですか？</summary>
+            <div class="afp-faq-answer"><strong>一覧の絞り込み結果の全件（最大200件）</strong>が対象です。表示中のページ（1ページ目の100件など）だけではありません。並び順も一覧に見えているとおりに印刷されます。プレビュー上で「○件目から○件」と範囲を指定できるので、途中から刷り直したり、200件を分けて刷ったりもできます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>単品で購入できますか？</summary>
+            <div class="afp-faq-answer">本プラグインはプレミアムプラグインのため単品販売はありません。無料プランでもスキャン設定セット1つまで、機能の中身を制限せずお使いいただけます。読む・探す・照合する・出すの4機能、サブテーブル対応・モバイル対応・ゲストスペース対応・A4ラベル印刷は、すべて無料版でも動作します。設定セットの数と広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>読み取ったデータは外部に送信されますか？</summary>
+            <div class="afp-faq-answer">送信しません。カメラの映像も読み取った値も、お使いのブラウザの中だけで処理して kintone のレコードへ書き込みます。コードの生成も同様にブラウザ内で行い、画像を外部サービスへ送ることはありません。読み取り・生成に使う2つのライブラリ（ZXing・bwip-js）は第三者CDNではなく<strong>当社サーバー（kizuna-works.jp）から、改ざん検知（SRI）つき</strong>で読み込みます。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>プレミアム年間サポーターで使ってみる</h2>
+      <p>バーコードアシストをはじめ、販売中の全プラグインをご利用いただけます。年額 ¥16,500（税込）。まずは無料プランでお試しいただけます（利用期限なし）。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを申し込む →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ba-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('ba-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      var dl = document.getElementById('btn-download');
+      if (dl && typeof gtag === 'function') {
+        dl.addEventListener('click', function () {
+          gtag('event', 'file_download', {
+            file_name: 'kw-barcode-assist-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: '無料でダウンロード',
+            link_url: '/downloads/kw-barcode-assist-v1.0.0.zip'
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

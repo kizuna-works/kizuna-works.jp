@@ -1192,6 +1192,30 @@ export const premiumPlugins: Plugin[] = [
     releaseDate: '2026-08-02',
     summaryVersion: '1.0.1',
   },
+  {
+    id: 'kw-barcode-assist',
+    name: 'バーコードアシスト for kintone',
+    formName: 'バーコードアシスト for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'barcode-assist',
+    categories: ['自動入力', '検索・閲覧', '出力・帳票'],
+    description:
+      'スマホやPCのカメラでバーコード・QRコードを読み取り、レコードへ入力／該当レコードを開く／予定と実績の照合まで行うプラグイン。逆にレコードの値からコードを生成して詳細画面に表示・PNG保存・添付書込・A4ラベル面付け印刷もできます。読む・探す・照合・出すの4機能は個別にオン／オフできます。',
+    image: '/images/barcode-assist-banner.png',
+    imageWebp: '/images/barcode-assist-banner.webp',
+    imageAlt:
+      'バーコードアシスト for kintone バナー — かざすだけで、台帳がそろう。スマホのカメラで読む・探す、予定と実績を照合、コード生成からA4ラベル印刷まで',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      'スマホのカメラでバーコード・QRを読み取り、レコードへ入力／検索／予定と実績の照合。値からコードを作ってA4ラベル印刷まで。4機能は個別にオン／オフ。',
+    problemTitle: '現物とレコードの突き合わせが手打ち',
+    problemDesc: '棚卸や検品で型番を目視で読んで手入力しており、桁ずれや入力漏れが起きる。ラベルの発行も別ソフトで二重管理になっている',
+    releaseDate: '2026-08-10',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**
