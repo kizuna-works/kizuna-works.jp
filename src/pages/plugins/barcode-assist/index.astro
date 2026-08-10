@@ -47,10 +47,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "バーコードアシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.0.0",
+          "softwareVersion": "1.1.0",
           "dateModified": "2026-08-10",
           "url": "https://kizuna-works.jp/plugins/barcode-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-barcode-assist-v1.0.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-barcode-assist-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/barcode-assist-banner.png",
           "offers": [
             {
@@ -70,11 +70,12 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、スキャン設定セットが無制限になり広告も非表示になります。販売中の全プラグインも利用できます。単品販売はありません。"
             }
           ],
-          "description": "スマートフォンやPCのカメラでバーコード・QRコードを読み取り、kintone のレコードへ入力する／読み取った値でレコードを開く・絞り込む／サブテーブルの予定と実績を照合する、という3方向の入力に対応したプラグイン。逆にレコードの値からバーコード・QRコードを生成し、詳細画面への表示・PNG保存・添付フィールドへの書き込み・A4ラベル用紙への面付け印刷まで行える。読む・探す・照合する・出すの4機能はそれぞれ独立してオン／オフでき、必要な機能だけを使える。読み取りはOS内蔵のBarcodeDetector→ライブラリ→写真撮影の3段フォールバックで、端末が対応していなくても読み取れる。",
+          "description": "スマートフォンやPCのカメラでバーコード・QRコードを読み取り、kintone のレコードへ入力する／読み取った値でレコードを開く・絞り込む／サブテーブルの予定と実績を照合する、という3方向の入力に対応したプラグイン。逆にレコードの値からバーコード・QRコードを生成し、詳細画面への表示・PNG保存・添付フィールドへの書き込み・A4ラベル用紙への面付け印刷まで行える。読む・探す・照合する・出すの4機能はそれぞれ独立してオン／オフでき、必要な機能だけを使える。読み取りはOS内蔵のBarcodeDetector→ライブラリ→写真撮影の3段フォールバックで、端末が対応していなくても読み取れる。v1.1.0 では、出力先がルックアップのときにマスターへ登録されていないコードを未登録コードとして警告し、参照先を引けなかった行のコピー先を空に戻す。",
           "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
           "featureList": [
             "スマホ・PCのカメラでバーコード／QRコードを読み取ってレコードへ入力",
             "同じコードを読むたびに数量を加算（サブテーブルの明細行に集計）",
+            "出力先がルックアップのとき、マスターに無いコードを読むと未登録コードとして一覧表示し、引けなかった行のコピー先は空に戻す（v1.1.0）",
             "読み取った値でレコードを開く・一覧を絞り込む（QRにレコードURLが入っていれば直行）",
             "サブテーブルの予定数と実績数を突き合わせ、一致・過剰・不足・予定外を色分け表示",
             "レコードの値からバーコード／QRコードを生成して詳細画面に表示",
@@ -151,6 +152,28 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
     .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
     .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    /* Update box (latest release) */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
 
     .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
     .afp-section { padding: 56px 0; }
@@ -274,13 +297,35 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <img class="afp-hero-icon" src="/images/barcode-assist-icon.png" alt="バーコードアシスト for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.0.0</span>
+        <span class="afp-hero-version">v1.1.0</span>
       </div>
       <h1>バーコードアシスト for kintone</h1>
       <p class="afp-tagline">かざすだけで、台帳がそろう。</p>
-      <p class="afp-sub">スマホやPCのカメラでバーコード・QRコードを読み取り、レコードへ入力する／該当レコードを開く／予定と実績を照合する。逆にレコードの値からコードを作り、詳細画面への表示・PNG保存・添付書込・A4ラベルへの面付け印刷まで。ハンディターミナルも外部サービスも要りません。</p>
+      <p class="afp-sub">スマホやPCのカメラでバーコード・QRコードを読み取り、レコードへ入力する／該当レコードを開く／予定と実績を照合する。マスターに登録されていないコードは、その場で警告します。逆にレコードの値からコードを作り、詳細画面への表示・PNG保存・添付書込・A4ラベルへの面付け印刷まで。ハンディターミナルも外部サービスも要りません。</p>
     </section>
     <div class="afp-hero-gradient-line"></div>
+
+    <!-- Update Info: v1.1.0 未登録コードの警告 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <div class="update-box">
+          <div class="update-head">
+            <span class="update-tag">UPDATE</span>
+            <h2 class="update-title">v1.1.0：マスターに無いコードを読んだとき、その場で気づけるようになりました</h2>
+          </div>
+          <p class="update-desc">
+            出力先がルックアップのとき、<strong>マスターに登録されていないコードを読み取ると、スキャンを閉じたあとに「未登録コード」として一覧表示</strong>します。2026年8月9日の kintone アップデートで、ルックアップが参照先を確定できたかどうかを正確に判定できるようになったため、取りこぼしなく拾えます。
+          </p>
+          <p class="update-desc">
+            あわせて、<strong>引けなかった行のコピー先を空にする</strong>ようにしました。kintone は参照先が見つからなくてもコピー先を前の値のまま残すため、これまでは「知らないコードなのに、直前に読んだ商品名がぶら下がった行」ができていました。読み取ったコード自体は残るので、何を読んだかは追えます。
+          </p>
+          <p class="update-note">
+            最新版を kintone システム管理 →「プラグイン」→「読み込む」から上書きアップロードしてください。プラグインIDは変わらないため既存の設定は引き継がれます。<br>
+            ※ この警告は、設定の「読む」で<strong>未登録コードを知らせる</strong>がオンのときに動きます（既定はオン）。
+          </p>
+        </div>
+      </div>
+    </section>
 
     <!-- 定義（結論ファースト） -->
     <section class="afp-section">
@@ -566,7 +611,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <li>✅ A4ラベルの面付け印刷</li>
               <li>✅ 利用期限なし（設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-barcode-assist-v1.0.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-barcode-assist-v1.1.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="afp-plan-card recommended">
@@ -734,10 +779,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-barcode-assist-v1.0.0.zip',
+            file_name: 'kw-barcode-assist-v1.1.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-barcode-assist-v1.0.0.zip'
+            link_url: '/downloads/kw-barcode-assist-v1.1.0.zip'
           });
         });
       }

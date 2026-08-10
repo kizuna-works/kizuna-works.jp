@@ -573,7 +573,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-attribute-filter-v1.0.0.zip                        # 属性制御フィルター for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=1フィールド全機能）
 │   │   ├── kw-attribute-filter-v1.0.1.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-attribute-filter-v1.0.2.zip                        # 属性制御フィルター for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.2 ライセンス認証の内部改修）
-│   │   ├── kw-barcode-assist-v1.0.0.zip                          # バーコードアシスト for kintone 配布ファイル（手動配置・初版）
+│   │   ├── kw-barcode-assist-v1.0.0.zip                          # バーコードアシスト for kintone 配布ファイル（旧版・参考保管・初版）
+│   │   ├── kw-barcode-assist-v1.1.0.zip                          # バーコードアシスト for kintone 配布ファイル（最新・手動配置・v1.1.0 未登録コード警告＝ルックアップで引けなかったコードを一覧表示し、その行のコピー先を空に戻す）
 │   │   ├── kw-bulk-update-v1.0.0.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-bulk-update-v1.0.1.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-bulk-update-v1.0.2.zip                             # かんたん一括更新 for kintone 配布ファイル（最新・手動配置・v1.0.2 ライセンス認証の内部改修）
