@@ -164,8 +164,8 @@ export const glossary: Term[] = [
     seoTitle: 'kintoneのカスタマイズビューとは？できること・限界とノーコード代替',
     seoDescription: 'kintoneのカスタマイズビューとは、HTMLとJavaScriptで一覧表示を自作できるビューのこと。カンバンやガントチャートを作れる反面の開発コストと、プラグインで代替できるケースを解説します。',
     relatedTerms: ['view'],
-    relatedPlugins: ['sheet-edit'],
-    relatedBlog: ['kintone-list-styler-plugin-hikaku'],
+    relatedPlugins: ['sheet-edit', 'dashboard'],
+    relatedBlog: ['kintone-custom-view', 'kintone-list-styler-plugin-hikaku'],
     hasPage: true,
     longDescription: [
       'カスタマイズビューは、一覧画面の表示を HTML と JavaScript で自作できる「ビュー」の一種です。標準の表・カレンダーでは表現できないカンバンボード、ガントチャート、独自レイアウトの集計表などを実装できます。アプリ設定で「カスタマイズ」を選び、表示用の HTML 要素を用意して JavaScript で描画します。',
