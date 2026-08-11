@@ -764,7 +764,7 @@ export const plugins: Plugin[] = [
     problemTitle: '承認待ちのステータスを1件ずつ手作業で進めている',
     problemDesc: 'プロセス管理の承認・差し戻しを何十件も1レコードずつ開いて操作していて時間がかかる。承認待ちの放置にも気づきにくい',
     releaseDate: '2026-07-11',
-    summaryVersion: '1.0.2',
+    summaryVersion: '1.0.3',
   },
   {
     id: 'kw-accordion-tab',

@@ -749,7 +749,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-sidebar-enhancer-v1.0.3.zip                        # サイドバー拡張 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.3 ライセンス認証の内部改修）
 │   │   ├── kw-status-bulk-action-v1.0.0.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-status-bulk-action-v1.0.1.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-status-bulk-action-v1.0.2.zip                      # ステータス一括実行 for kintone 配布ファイル（最新・手動配置・v1.0.2 ライセンス認証の内部改修）
+│   │   ├── kw-status-bulk-action-v1.0.2.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-status-bulk-action-v1.0.3.zip                      # ステータス一括実行 for kintone 配布ファイル（最新・手動配置・v1.0.3 「すべて選択」からの一括実行が失敗する不具合の修正）
 │   │   ├── kw-sticky-board-v1.0.0.zip                            # 付箋ボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-sticky-board-v1.0.1.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-sticky-board-v1.0.2.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
