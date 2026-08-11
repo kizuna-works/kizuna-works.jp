@@ -999,6 +999,29 @@ export const plugins: Plugin[] = [
     releaseDate: '2026-08-11',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-lottery-roulette',
+    name: '抽選ルーレット for kintone',
+    formName: '抽選ルーレット for kintone',
+    slug: 'lottery-roulette',
+    categories: ['自動入力', '一括処理'],
+    description:
+      '担当者・当番・区分の割り当てを、完全ランダム／順番／件数平準化／重み付きの4方式で自動決定するプラグイン。いま抱えている件数を数えて最も少ない人へ配り、メンバーごとの重みも設定可能。ルーレット演出9種類で決定の瞬間を可視化し、一覧からまとめて配布もできます。',
+    image: '/images/lottery-roulette-banner.png',
+    imageWebp: '/images/lottery-roulette-banner.webp',
+    imageAlt:
+      '抽選ルーレット for kintone プラグイン — 担当者・当番・区分の割り当てを4方式で公平に自動決定し、ルーレット演出つきで確定する',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    cardDescription:
+      'kintone に、遊び心を。担当・当番・区分を4方式で公平に自動決定。件数を数えて少ない人へ配り、演出9種類で決定の瞬間を見せられます。',
+    problemTitle: '担当者や当番を決めるのに毎回気を遣う',
+    problemDesc:
+      '手が空いている人に頼むつもりが結局いつも同じ人に偏る。順番も誰が最後だったか台帳を見ないと分からず、決め方が不透明だと納得も得にくい',
+    releaseDate: '2026-08-11',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**

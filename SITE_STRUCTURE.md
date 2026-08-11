@@ -101,6 +101,8 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # フィールドコメントプラグイン製品ページ（/plugins/field-comment/）
 │   │   │   ├── theme-styler/
 │   │   │   │   └── index.astro # テーマスタイラープラグイン製品ページ（/plugins/theme-styler/）
+│   │   │   ├── lottery-roulette/
+│   │   │   │   └── index.astro # 【ちょこっと】抽選ルーレット 製品ページ（/plugins/lottery-roulette/）— 担当者・当番・区分の割り当てを完全ランダム／順番（ラウンドロビン）／件数平準化／重み付きランダムの4方式で自動決定。出力先はユーザー選択・ドロップダウン・ラジオボタン。集計範囲（全件／未完了のみ／直近N日／カスタム条件）・メンバーごとの重み（0.1〜99）・候補は組織/グループ/ユーザーから展開。ルーレット演出9種＋なし（スキップ可・1.5/3/5秒・候補多数で自動フォールバック）。一覧からの一括配布（絞り込み全体／チェック行・100件バッチ・配分サマリー・元に戻す）、当選者へのコメント通知（宛先指定・保存完了時に送信・既定オフ）、抽選結果のフィールド記録（既定オフ）、実行できるユーザーの制限。キャッチコピー「kintone に、遊び心を。」。ヒーロー＋課題3＋レコードのボタン（3枚）＋4方式の表＋演出9種ギャラリー＋選択肢の抽選（3枚）＋一括配布（3枚）＋当選者への通知（3枚）＋設定画面5枚＋手順7＋プラン＋注意16＋SecurityBox＋FAQ10＋SupporterCTA＋ShareButtons＋関連3。PC・モバイル対応・ゲストスペース対応・「次は誰の番か」を保存しない設計
 │   │   │   ├── after-save/
 │   │   │   │   └── index.astro # 【ちょこっと】保存後ナビ 製品ページ（/plugins/after-save/）— レコードを保存した直後に開く画面を、詳細画面／レコード追加画面／レコード一覧／指定した一覧／別アプリの追加画面／固定URLの6種から指定。「新規作成後」「編集後」を独立設定でき、実行ユーザー（ユーザー・組織・グループ／子組織を含む可）とレコードの値を条件に最大10ルール×5条件（AND/OR）で遷移先を出し分け。連続登録カウンター（sessionStorage・保管アプリ不要）／保存後の確認ダイアログ／権限エラーの事前警告（保存はできるのに閲覧権限が無い対象を app/acl で検出）。ヒーロー＋課題3＋連続登録＋できること9＋遷移先6種の表＋条件で出し分け（設定と結果の2枚組）＋設定画面2枚＋確認ダイアログ＋手順6＋プラン＋注意16＋SecurityBox＋FAQ10＋SupporterCTA＋ShareButtons＋関連3。PC・モバイル対応・ゲストスペース対応・レコード画面ではRESTを呼ばない
 │   │   │   ├── address-assist/
@@ -415,6 +417,30 @@ c:\kizuna-works.jp\
 │   │   ├── file-export-config-04.png       # 添付ファイル出力 設定画面②表示設定（ボタンのラベル/色/配置・選択列・アイコン表示プラグイン連携）＋ .webp
 │   │   ├── file-export-fim-01.png          # 添付ファイル出力×添付ファイルアイコン表示 連携（hover した行にだけ ⤓ ボタンが出る）＋ .webp
 │   │   ├── file-export-fim-02.png          # 添付ファイル出力×添付ファイルアイコン表示 連携（すべて/PDF/Office の行ごと出力メニュー）＋ .webp
+│   │   ├── lottery-roulette-banner.png    # 抽選ルーレット for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── lottery-roulette-icon.png      # 抽選ルーレット アイコン（200×200・ランキング／Top3／製品ページヒーロー）
+│   │   ├── lottery-roulette-record-button.png   # 製品ページ：レコード詳細の抽選ボタン
+│   │   ├── lottery-roulette-wheel-idle.png      # 製品ページ：円盤演出の待機表示
+│   │   ├── lottery-roulette-wheel-spin.png      # 製品ページ：円盤演出の回転中
+│   │   ├── lottery-roulette-result.png          # 製品ページ：抽選結果（現在の担当件数つき）
+│   │   ├── lottery-roulette-applied.png         # 製品ページ：確定パネル（元に戻す）
+│   │   ├── lottery-roulette-record-after.png    # 製品ページ：抽選後のレコード全体
+│   │   ├── lottery-roulette-edit-toast.png      # 製品ページ：編集画面で確定した直後（保存はまだです）
+│   │   ├── lottery-roulette-notify-comment.png  # 製品ページ：当選者への通知コメント
+│   │   ├── lottery-roulette-notify-inbox.png    # 製品ページ：当選者本人の通知一覧
+│   │   ├── lottery-roulette-list.png            # 製品ページ：一覧のボタンとチェック列
+│   │   ├── lottery-roulette-bulk-scope.png      # 製品ページ：一括配布の対象選択
+│   │   ├── lottery-roulette-bulk-confirm.png    # 製品ページ：一括配布の実行確認（件数予告）
+│   │   ├── lottery-roulette-bulk-result.png     # 製品ページ：一括配布の配分サマリー
+│   │   ├── lottery-roulette-choice-spin.png     # 製品ページ：選択肢の抽選（ガチャ演出）
+│   │   ├── lottery-roulette-choice-result.png   # 製品ページ：選択肢の抽選結果
+│   │   ├── lottery-roulette-choice-list.png     # 製品ページ：選択肢が均等に振り分けられた一覧
+│   │   ├── lottery-roulette-config-rule.png     # 製品ページ：設定画面① 抽選ルール
+│   │   ├── lottery-roulette-config-members.png  # 製品ページ：設定画面② 候補メンバー
+│   │   ├── lottery-roulette-config-effect.png   # 製品ページ：設定画面③ 動作と演出
+│   │   ├── lottery-roulette-config-notify.png   # 製品ページ：設定画面④ 通知と記録
+│   │   ├── lottery-roulette-config-view.png     # 製品ページ：設定画面⑤ 表示と権限
+│   │   ├── lottery-roulette-fx-*.png            # 製品ページ：演出9種のギャラリー（wheel/capsule/cards/race/fireworks/amidakuji/spotlight/slot/countdown）
 │   │   ├── after-save-banner.png          # 保存後ナビ for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── after-save-icon.png            # 保存後ナビ 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
 │   │   ├── after-save-usage-01.png        # 保存後ナビ 保存直後の追加画面（通知「前の日報を保存しました（このセッションで3件目）」＋空の入力画面）＋ .webp
@@ -586,6 +612,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-attribute-filter-v1.0.0.zip                        # 属性制御フィルター for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=1フィールド全機能）
 │   │   ├── kw-attribute-filter-v1.0.1.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-attribute-filter-v1.0.2.zip                        # 属性制御フィルター for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.2 ライセンス認証の内部改修）
+│   │   ├── kw-lottery-roulette-v1.0.0.zip                       # 抽選ルーレット for kintone 配布プラグイン v1.0.0
 │   │   ├── kw-after-save-v1.0.0.zip                              # 保存後ナビ for kintone 配布プラグイン v1.0.0
 │   │   ├── kw-barcode-assist-v1.0.0.zip                          # バーコードアシスト for kintone 配布ファイル（旧版・参考保管・初版）
 │   │   ├── kw-barcode-assist-v1.1.0.zip                          # バーコードアシスト for kintone 配布ファイル（最新・手動配置・v1.1.0 未登録コード警告＝ルックアップで引けなかったコードを一覧表示し、その行のコピー先を空に戻す）

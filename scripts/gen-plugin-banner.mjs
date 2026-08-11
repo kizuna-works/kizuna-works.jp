@@ -50,6 +50,18 @@ const BANNERS = {
       ['コード生成〜', 'A4ラベル印刷', '']
     ]
   },
+  'lottery-roulette': {
+    iconSrc: 'SECRET/kintone_plugin_workspace/kw-lottery-roulette/kw-lottery-roulette_ticket-star_512.png',
+    iconSide: 'right',
+    catch: ['kintone に、', '遊び心を。'],
+    name: '抽選ルーレット for kintone',
+    nameSize: 42,
+    bullets: [
+      ['担当・当番・区分を', '公平に自動決定', ''],
+      ['件数を数えて', '少ない人へ', ''],
+      ['ルーレット演出', '9種類', '']
+    ]
+  },
   'file-export': {
     iconSrc: 'SECRET/kintone_plugin_workspace/kw-file-export/kw-file-export_icon_512.png',
     iconSide: 'right',

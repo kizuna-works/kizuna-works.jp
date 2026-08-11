@@ -1,0 +1,1288 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+import Picture from '../../../components/Picture.astro';
+---
+
+<Layout
+  title="抽選ルーレット for kintone - 担当者・当番を公平に自動決定するプラグイン | KIZUNA Works"
+  description="担当者・当番・区分の割り当てを、完全ランダム／順番／件数平準化／重み付きの4方式で自動決定する kintone プラグイン。いま抱えている件数を数えて最も少ない人へ配り、メンバーごとの重みも設定可能。ルーレット演出9種類で決定の瞬間を可視化し、一覧からまとめて配布もできます。"
+  ogTitle="抽選ルーレット for kintone - 担当者・当番を公平に自動決定するプラグイン | KIZUNA Works"
+  ogDescription="kintone に、遊び心を。担当者・当番・区分の割り当てを4方式で公平に自動決定。いま抱えている件数を数えて最も少ない人へ配り、ルーレット演出9種類で決定の瞬間を見せられます。一覧からまとめて配布も可能。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/lottery-roulette/"
+  ogImage="https://kizuna-works.jp/images/lottery-roulette-banner.png"
+  canonical="https://kizuna-works.jp/plugins/lottery-roulette/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/lottery-roulette/",
+          "url": "https://kizuna-works.jp/plugins/lottery-roulette/",
+          "name": "抽選ルーレット for kintone - 担当者・当番を公平に自動決定するプラグイン | KIZUNA Works",
+          "description": "kintone のレコードに担当者・当番・区分を割り当てるとき、完全ランダム／順番（ラウンドロビン）／件数平準化／重み付きランダムの4方式で自動決定する kintone プラグイン。いま抱えている件数を数えて最も少ない人へ配り、ルーレット演出つきで決定の瞬間を可視化します。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/lottery-roulette-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "抽選ルーレット for kintone", "item": "https://kizuna-works.jp/plugins/lottery-roulette/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "抽選ルーレット for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-08-11",
+          "url": "https://kizuna-works.jp/plugins/lottery-roulette/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lottery-roulette-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/lottery-roulette-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone のレコードに担当者・当番・区分を割り当てるとき、完全ランダム／順番（ラウンドロビン）／件数平準化／重み付きランダムの4方式で自動決定する kintone プラグイン。出力先はユーザー選択・ドロップダウン・ラジオボタンに対応。いま抱えている件数を集計して最も少ない人へ配り、メンバーごとの重みも設定できます。ルーレット演出9種類、一覧からの一括配布、当選者へのコメント通知つき。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "配分方式を4つから選択（完全ランダム／順番（ラウンドロビン）／件数平準化／重み付きランダム）",
+            "出力先はユーザー選択・ドロップダウン・ラジオボタンに対応（担当者だけでなく当番・区分の抽選にも使える）",
+            "いま抱えている件数を集計して最も少ない候補へ配る（集計範囲は全件・未完了のみ・直近N日・カスタム条件から選択）",
+            "メンバーごとの重み（0.1〜99）で、ベテラン3・新人1のような配分ができる",
+            "候補は組織・グループ・ユーザーから指定し、保存時に実メンバーへ展開（実行時に最新メンバーを取得するオプションあり）",
+            "ルーレット演出9種類（スロット／カウントダウン／円盤／スポットライト／あみだくじ／レース／花火／ガチャ／カードめくり）＋演出なし",
+            "演出はクリックまたは Esc でスキップ可能・長さは1.5秒／3秒／5秒から選択",
+            "一覧からの一括配布（絞り込み結果全体またはチェックした行・100件ずつ更新・件数無制限）と配分サマリー・元に戻す",
+            "当選者へのコメント通知（宛先指定で本人に kintone の通知が届く・保存が完了した時点で送信）",
+            "抽選結果を文字列フィールドへ記録（書式は自由・当選者／方式／候補数／日時／実行者を差し込み）",
+            "実行できるユーザーの制限（全員／アプリ管理者のみ／指定したユーザー・組織・グループ）",
+            "「次は誰の番か」を保存しない設計（実行のたびにレコードから数え直すので端末やユーザーで基準がぶれない）",
+            "パソコン・モバイル対応／ゲストスペース対応／kintone完結・外部API不使用"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .feature-list li code {
+      background: #eef1f4;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Screenshot frames — sized to the image's natural width (not upscaled),
+       centered, and clickable to enlarge in the lightbox. */
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    /* Config Screenshots Grid */
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Zoomable images + lightbox overlay (small screenshots open enlarged) */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    /* Effect gallery — nine roulette animations side by side */
+    .fx-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .fx-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      padding: 14px;
+      text-align: center;
+    }
+    .fx-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 10px;
+    }
+    .fx-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-navy);
+      margin: 0 0 4px;
+    }
+    .fx-desc {
+      font-size: 12px;
+      color: var(--color-text-light);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .fx-taste {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-green);
+      background: #eaf6ea;
+      border-radius: 10px;
+      padding: 2px 10px;
+      margin-bottom: 8px;
+    }
+
+    .ea-example-table {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+      background: var(--color-white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 14px;
+    }
+    .ea-example-table th,
+    .ea-example-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-gray-light);
+      line-height: 1.7;
+    }
+    .ea-example-table thead th {
+      background: var(--color-navy);
+      color: var(--color-white);
+      font-weight: 700;
+      font-size: 13px;
+      border-bottom: none;
+    }
+    .ea-example-table tbody tr:last-child td { border-bottom: none; }
+    .ea-example-table tbody tr:nth-child(even) { background: #f8fafc; }
+    .ea-example-table td strong { color: var(--color-navy); }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .fx-grid { grid-template-columns: repeat(2, 1fr); }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+
+  <main>
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/lottery-roulette-icon.png"
+        alt="抽選ルーレット for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">抽選ルーレット for kintone</h1>
+      <p class="hero-copy"><strong>kintone に、遊び心を。</strong>抽選ルーレット for kintone は、担当者・当番・区分の割り当てを <strong>4つの方式で公平に自動決定する</strong> kintone プラグインです。いま抱えている件数を数えて<strong>いちばん少ない人</strong>へ配り、決まる瞬間は<strong>ルーレット演出</strong>で見せられます。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">「誰がやる？」を決める時間と気遣いは、毎日少しずつ積み上がっています。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">😓</span>
+            <h3 class="problem-title">結局いつも同じ人に偏る</h3>
+            <p class="problem-desc">手が空いている人に頼むつもりでも、頼みやすい人・断らない人へ寄っていく。<strong>誰が何件抱えているか</strong>を一覧で数え直さないと、公平に配れているのか誰にも分からない。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🤔</span>
+            <h3 class="problem-title">順番が分からなくなる</h3>
+            <p class="problem-desc">当番や司会を順番で回しているのに、<strong>最後が誰だったか</strong>は台帳や記憶に頼っている。担当者が休んだ日にひとつ飛ぶと、その先はもう追えない。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">⚖️</span>
+            <h3 class="problem-title">決め方に納得が要る</h3>
+            <p class="problem-desc">誰かが恣意的に割り振ったように見えると、割り当てそのものが角を立てる。<strong>決め方が見えている</strong>ことは、公平さと同じくらい大事。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Usage: one click on the record -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">レコードのボタンを押すだけ</h2>
+      <p class="section-subtitle">フォームに置いたボタンを押すとルーレットが開き、「この結果で確定」でフィールドに書き込まれます。決まる瞬間が見えるので、割り当てが一方的に感じられません。画像はクリックで拡大できます。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/lottery-roulette-record-button.png" alt="kintone の問い合わせ管理アプリのレコード詳細画面 — 対応担当者フィールドのすぐ下に「担当者を抽選」ボタンが置かれている" width="1400" height="376" />
+          </div>
+          <figcaption>フォームに置いたスペースへボタンを描画。文言・色・形・アイコンは設定で変えられます</figcaption>
+        </figure>
+      </div>
+      <div class="screenshot-pair cols-2" style="margin-top:28px;">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/lottery-roulette-wheel-spin.png" alt="抽選ルーレットの円盤演出が回転している画面 — 候補3名の扇形が回り、上部に方式は件数平準化・候補3名と表示されている" width="633" height="577" />
+          </div>
+          <figcaption>「回す」で演出が再生（クリックまたは Esc でスキップ可）</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/lottery-roulette-result.png" alt="抽選ルーレットの結果画面 — 決定しましたの下に鈴木 花子と表示され、現在の担当件数は2件（最少）と添えられている" width="633" height="457" />
+          </div>
+          <figcaption>結果には「現在の担当件数（最少）」も添えるので、なぜその人なのかが分かります</figcaption>
+        </figure>
+      </div>
+      <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+        <li><span><strong>結果は演出の前に決まっています</strong> — 演出は決まった結果へ向かって止まるだけなので、スキップしても結果は変わりません。</span></li>
+        <li><span><strong>確定するまで書き込みません</strong> — 「回す」だけではレコードは変わりません。詳細画面は確定と同時に更新し、<strong>直後なら「元に戻す」で戻せます</strong>。</span></li>
+        <li><span><strong>新規作成・編集画面ではフォームに入るだけ</strong> — 保存はご自身のタイミングで。確定してもキャンセルすれば、何も残りません。</span></li>
+      </ul>
+    </section>
+
+    <!-- Four methods -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">選べる4つの決め方</h2>
+        <p class="section-subtitle">「公平」の意味は職場ごとに違います。くじ引きでよければ①、順番なら②、いま抱えている量で決めたいなら③、経験差をつけたいなら④。</p>
+        <div style="overflow-x:auto;">
+          <table class="ea-example-table">
+            <thead>
+              <tr>
+                <th style="width:22%">方式</th>
+                <th style="width:44%">決め方</th>
+                <th>向いている場面</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>① 完全ランダム</strong></td>
+                <td>候補から等確率で1つ選びます。<strong>集計しないので通信は発生しません</strong></td>
+                <td>景品・席順・ペア決めなど、履歴を考えなくてよいもの</td>
+              </tr>
+              <tr>
+                <td><strong>② 順番</strong><br>（ラウンドロビン）</td>
+                <td>最後に割り当てられたのが最も古い候補を選びます。<strong>一度も当たっていない人が最優先</strong></td>
+                <td>当番・司会・議事録係のように、一巡させたいもの</td>
+              </tr>
+              <tr>
+                <td><strong>③ 件数平準化</strong></td>
+                <td>集計範囲内の担当件数が最も少ない候補を選びます</td>
+                <td>問い合わせ・案件の割り振り。<strong>実務でいちばん効きます</strong></td>
+              </tr>
+              <tr>
+                <td><strong>④ 重み付きランダム</strong></td>
+                <td>重みを確率として抽選します（0.1〜99）</td>
+                <td>ベテラン3・新人1のように、意図した比率で配りたいとき</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+          <li><span><strong>数える範囲も選べます</strong> — 全件／未完了のみ／直近N日／カスタム条件。「完了は数に入れない」とすれば、<strong>いま抱えている件数</strong>で判断できます。</span></li>
+          <li><span><strong>重みは件数と組み合わせられます</strong> — 件数平準化に重みを併用すると「件数 ÷ 重み」で判断するので、重み3の人は3倍抱えて釣り合います。</span></li>
+          <li><span><strong>「次は誰の番か」を保存しません</strong> — 実行のたびにレコードから数え直すので、保管アプリも隠しフィールドも不要。誰がどの端末で実行しても同じ基準です。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Effects gallery -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">演出は9種類。場面に合わせて選べます</h2>
+      <p class="section-subtitle">きっちり見せたい会議では「円盤」、社内イベントなら「ガチャ」、とにかく速く決めたいなら「カウントダウン」。設定画面の「試しに回す」でレコードに書き込まずに試せます。</p>
+      <div class="fx-grid">
+        <div class="fx-card">
+          <img src="/images/lottery-roulette-fx-wheel.png" alt="円盤（ホイール）演出 — 候補名を扇形に並べた円盤が回転している" width="363" height="355" loading="lazy" />
+          <span class="fx-taste">きれい</span>
+          <p class="fx-name">円盤（ホイール）</p>
+          <p class="fx-desc">扇形の広さ＝当たりやすさ。重み設定との相性が良い看板の演出</p>
+        </div>
+        <div class="fx-card">
+          <img src="/images/lottery-roulette-fx-capsule.png" alt="ガチャ演出 — カプセル自販機からカプセルが出てくる様子" width="363" height="250" loading="lazy" />
+          <span class="fx-taste">かわいい</span>
+          <p class="fx-name">ガチャ</p>
+          <p class="fx-desc">カプセルがカタカタ回って出てきて、パカッと開きます</p>
+        </div>
+        <div class="fx-card">
+          <img src="/images/lottery-roulette-fx-cards.png" alt="カードめくり演出 — 伏せた3枚のカードがシャッフルされている" width="363" height="199" loading="lazy" />
+          <span class="fx-taste">かわいい</span>
+          <p class="fx-name">カードめくり</p>
+          <p class="fx-desc">伏せたカードをシャッフルして、当たりの1枚だけをめくります</p>
+        </div>
+        <div class="fx-card">
+          <img src="/images/lottery-roulette-fx-race.png" alt="レース演出 — 候補3名が横一線から走り出している" width="363" height="199" loading="lazy" />
+          <span class="fx-taste">きれい</span>
+          <p class="fx-name">レース</p>
+          <p class="fx-desc">候補が横一線から走り出し、当選者が1着でゴールします</p>
+        </div>
+        <div class="fx-card">
+          <img src="/images/lottery-roulette-fx-fireworks.png" alt="花火演出 — 夜空に打ち上がった花火が開いている" width="363" height="277" loading="lazy" />
+          <span class="fx-taste">きれい</span>
+          <p class="fx-name">花火</p>
+          <p class="fx-desc">打ち上がった花火が開いて、光の中に結果が現れます</p>
+        </div>
+        <div class="fx-card">
+          <img src="/images/lottery-roulette-fx-amidakuji.png" alt="あみだくじ演出 — 縦線と横線をたどる線が伸びている" width="363" height="277" loading="lazy" />
+          <span class="fx-taste">きれい</span>
+          <p class="fx-name">あみだくじ</p>
+          <p class="fx-desc">線を上からたどって着地点を決めます。道のりが目で追えます</p>
+        </div>
+        <div class="fx-card">
+          <img src="/images/lottery-roulette-fx-spotlight.png" alt="スポットライト演出 — 並んだ候補名の上を光が巡っている" width="363" height="199" loading="lazy" />
+          <span class="fx-taste">きれい</span>
+          <p class="fx-name">スポットライト</p>
+          <p class="fx-desc">候補名の上を光が巡り、減速して1つに止まります</p>
+        </div>
+        <div class="fx-card">
+          <img src="/images/lottery-roulette-fx-slot.png" alt="スロット演出 — 候補名が縦に流れて中央で止まりかけている" width="363" height="199" loading="lazy" />
+          <span class="fx-taste">シンプル</span>
+          <p class="fx-name">スロット</p>
+          <p class="fx-desc">名前が縦に流れて減速停止。候補が何名でも破綻しません</p>
+        </div>
+        <div class="fx-card">
+          <img src="/images/lottery-roulette-fx-countdown.png" alt="カウントダウン演出 — 大きな数字の2が表示されている" width="363" height="199" loading="lazy" />
+          <span class="fx-taste">シンプル</span>
+          <p class="fx-name">カウントダウン</p>
+          <p class="fx-desc">3・2・1 のあとに結果。いちばん短い演出です</p>
+        </div>
+      </div>
+      <p class="zoom-hint">候補が多すぎて扇形やレーンが読めなくなる演出は、候補数に応じて自動でスロットへ切り替わります（例：円盤は21名以上でスロット）。演出「なし」も選べます。</p>
+    </section>
+
+    <!-- Choice fields -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">担当者だけでなく、選択肢の抽選にも</h2>
+        <p class="section-subtitle">出力先はユーザー選択・ドロップダウン・ラジオボタンに対応。当番の区分、案内パターンのA案／B案／C案、席順のグループ分けなど、無作為に振り分けたいものへそのまま使えます。</p>
+        <div class="screenshot-pair cols-2">
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/lottery-roulette-choice-spin.png" alt="顧客リストアプリで案内パターンを抽選している画面 — ガチャ演出が再生され、上部に方式は件数平準化・候補3つと表示されている" width="633" height="512" />
+            </div>
+            <figcaption>ドロップダウン「案内パターン」を抽選（候補は選択肢のA案・B案・C案）</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/lottery-roulette-choice-result.png" alt="案内パターンの抽選結果画面 — C案が選ばれ、現在の件数は1件（最少）と表示されている" width="633" height="457" />
+            </div>
+            <figcaption>選択肢のときは「候補：3つ／現在の件数」と表示（人を配るときは「3名／担当件数」）</figcaption>
+          </figure>
+        </div>
+        <div class="screenshot-pair" style="margin-top:28px;">
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/lottery-roulette-choice-list.png" alt="顧客リストの一覧画面 — 案内パターンの列にA案・B案・C案がほぼ均等に並んでいる" width="1400" height="522" />
+            </div>
+            <figcaption>件数平準化で振り分けた結果。20件が A案7／B案7／C案6 にそろいます</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bulk distribution -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">溜まった未割当も、まとめて配れます</h2>
+      <p class="section-subtitle">一覧から「絞り込み結果全体」または「チェックした行」を対象に一括配布。実行前に何がどう配られるかを示し、配布後は誰に何件配ったかをグラフで確認できます。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/lottery-roulette-list.png" alt="kintone の一覧画面 — ツールバーに「まとめて抽選」ボタンがあり、行の先頭に選択用のチェック列が追加されている" width="1400" height="423" />
+          </div>
+          <figcaption>一覧にボタンと選択用のチェック列を追加（見出しの「すべて選択」つき）</figcaption>
+        </figure>
+      </div>
+      <div class="screenshot-pair cols-2" style="margin-top:28px;">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/lottery-roulette-bulk-confirm.png" alt="まとめて抽選の実行確認画面 — 抽選ルール・出力先・配分方式・候補3つ・配布する7件・除外18件が並び、当選者への通知が7件発生する予告が表示されている" width="633" height="520" />
+          </div>
+          <figcaption>実行前の確認。除外される件数（すでに値が入っている行）と通知の件数も先に示します</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/lottery-roulette-bulk-result.png" alt="まとめて抽選の結果画面 — 12件に配布しましたの下に、B案5件・C案4件・A案3件が棒グラフで表示されている" width="682" height="311" />
+          </div>
+          <figcaption>配布後は配分サマリー。直後なら「元に戻す」で配布前の値に戻せます</figcaption>
+        </figure>
+      </div>
+      <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+        <li><span><strong>件数の上限はありません</strong> — 100件ずつ更新し、進捗と中止ボタンを出します。1回の実行の中でも件数を数えながら配るので、同じ人に偏りません。</span></li>
+        <li><span><strong>すでに入っている値は守ります</strong> — 既定では未割当のレコードだけが対象です（「すべて上書き」も選べます。その場合は上書き件数を確認画面に出します）。</span></li>
+      </ul>
+    </section>
+
+    <!-- Notify the winner -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">当たった本人に、ちゃんと届く</h2>
+        <p class="section-subtitle">担当者を配っても、本人が気づかなければ動き出しません。「当選者に通知する」を有効にすると、レコードのコメントに宛先付きで投稿するので、kintone の通知が本人に届きます。</p>
+        <div class="screenshot-pair cols-2">
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/lottery-roulette-notify-comment.png" alt="レコードのコメント欄 — 宛先に鈴木 花子が指定され、抽選の結果、あなたに割り当てられました。（対応担当者の抽選）と投稿されている" width="460" height="235" />
+            </div>
+            <figcaption>コメントは宛先付き。本文は「割り当てられたこと」と「何の抽選か」だけの短い文です</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/lottery-roulette-notify-inbox.png" alt="kintone の通知一覧画面 — 自分宛に3件の通知が届き、いずれも抽選の結果、あなたに割り当てられましたという本文が並んでいる" width="1400" height="638" />
+            </div>
+            <figcaption>本人の「自分宛」通知に届きます（ベルの未読にも入ります）</figcaption>
+          </figure>
+        </div>
+        <div class="screenshot-pair" style="margin-top:28px;">
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/lottery-roulette-edit-toast.png" alt="編集画面で抽選を確定した直後の画面 — 対応担当者に佐藤 次郎が入り、右下に「保存はまだです」と書かれた通知が出ていて、コメント欄には「コメントはありません。」と表示されている" width="1400" height="338" />
+            </div>
+            <figcaption>通知は<strong>保存が完了した時点</strong>で送ります。編集画面では確定してもまだ送らず、キャンセルすれば通知も残りません</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Config screens -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">設定画面</h2>
+      <p class="section-subtitle">5つのタブに分けています。左の目次で抽選ルールを切り替え、左下のプレビューで「試しに回す」ことができます（レコードには書き込みません）。</p>
+      <div class="screenshot-pair">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/lottery-roulette-config-rule.png" alt="抽選ルーレットの設定画面①抽選ルール — ルール名・出力先フィールドの選択、配分方式4つのラジオボタン、集計範囲（未完了のみ・判定に使うフィールド・完了とみなす値）が並んでいる" width="1400" height="1005" />
+          </div>
+          <figcaption>① 抽選ルール — 出力先フィールド・配分方式・数える範囲。生成される条件式も表示します</figcaption>
+        </figure>
+      </div>
+      <div class="config-screenshots" style="margin-top:28px;">
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/lottery-roulette-config-members.png" alt="設定画面②候補メンバー — 組織の指定と展開したメンバー3名の一覧が表示され、重み・除外の列がある" width="1400" height="854" />
+          </div>
+          <figcaption>② 候補メンバー — 組織・グループ・ユーザーから指定し、保存時に実メンバーへ展開。重みと一時除外もここで</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/lottery-roulette-config-effect.png" alt="設定画面③動作と演出 — レコード単位の抽選と一括配布の有効化、演出をテイスト別に選ぶカードが並んでいる" width="1400" height="814" />
+          </div>
+          <figcaption>③ 動作と演出 — 演出をテイスト（シンプル／きれい／かわいい）で選び、長さも指定</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/lottery-roulette-config-notify.png" alt="設定画面④通知と記録 — 当選者に通知するチェックと通知の例、抽選結果を文字列フィールドに書き込むチェックが並んでいる" width="1400" height="375" />
+          </div>
+          <figcaption>④ 通知と記録 — どちらも既定はオフ。必要なときだけ有効にします</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/lottery-roulette-config-view.png" alt="設定画面⑤表示と権限 — ボタンの文言・形・アイコン・色の設定とプレビュー、表示位置、実行できるユーザーの選択が並んでいる" width="1400" height="913" />
+          </div>
+          <figcaption>⑤ 表示と権限 — ボタンの見た目と置き場所、実行できるユーザーの制限</figcaption>
+        </figure>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">レコードの詳細・追加・編集画面と、レコード一覧で動作します。パソコン・モバイルの両方に対応しています。</p>
+      <ol class="steps-list">
+        <li><span>抽選結果を書き込む<strong>フィールド</strong>（ユーザー選択・ドロップダウン・ラジオボタンのいずれか）と、ボタンを置く<strong>スペース</strong>をフォームに用意します。スペースは設定アイコンから<strong>要素ID</strong>を付けてください（例：<code>lotterySpace</code>）</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-lottery-roulette-v1.0.0.zip</code> をダウンロード</span></li>
+        <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+        <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「抽選ルーレット for kintone」を追加</span></li>
+        <li><span>設定画面の<strong>「① 抽選ルール」</strong>で出力先フィールドと配分方式を選び、<strong>「② 候補メンバー」</strong>で候補を指定して「メンバーを取得／再取得」を押します</span></li>
+        <li><span><strong>「③ 動作と演出」</strong>で演出を選び、<strong>「⑤ 表示と権限」</strong>でボタンの表示位置に手順1のスペースの要素IDを指定して「保存」をクリック</span></li>
+        <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると設定が反映されます</span></li>
+      </ol>
+      <p style="text-align:center; color:var(--color-text-light); font-size:13px; margin-top:24px; line-height:1.7;">
+        ヒント：まずは配分方式を「件数平準化」、集計範囲を「未完了のみ」にするだけで、いま手が空いている人へ配れます。<br>
+        モバイルでも使う場合は、表示位置のスペース要素の指定が必須です（モバイルのレコード画面はスペース要素だけがボタンの置き場所になります）。
+      </p>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 設定画面・レコード一覧に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-lottery-roulette-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-lottery-roulette" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
+        <li><strong>設定を保存したら、アプリを更新（デプロイ）してください。</strong>更新しないとレコード画面・一覧に反映されません。</li>
+        <li><strong>出力先に指定できるのは、ユーザー選択・ドロップダウン・ラジオボタンだけです。</strong>組織選択・グループ選択・チェックボックス・複数選択には対応していません（1つの値を確定させる用途に限っているためです）。ユーザー選択は先頭の1名を扱います。</li>
+        <li><strong>モバイルで使う場合は、ボタンを置くスペース要素の指定が必須です。</strong>モバイルのレコード画面はスペース要素だけがボタンの置き場所になるためで、未指定だとパソコン版にだけ表示されます（設定画面でもご案内します）。</li>
+        <li><strong>一覧からの一括配布とチェック列は、パソコン版のみです。</strong>モバイルの一覧は画面構造が異なるため対象外にしています（モバイルでもレコード画面の抽選は使えます）。</li>
+        <li><strong>カスタマイズビューでは動作しません。</strong>標準の一覧（表形式）とレコード画面でご利用ください。</li>
+        <li><strong>「順番」「件数平準化」ではレコードを集計します。</strong>集計上限（既定1万件・最大5万件）を超えるアプリでは、超えた分は集計に含まれません（その旨を抽選の画面に表示します）。「完全ランダム」「重み付きランダム」は集計しないため通信は発生しません。</li>
+        <li>候補は<strong>設定を保存した時点のメンバー</strong>で確定します。組織やグループの構成を変えたときは、設定画面で「メンバーを取得／再取得」を押して保存し直してください（「実行時に最新メンバーを取得する」を有効にすると毎回取得します）。</li>
+        <li>組織からいなくなったメンバーは、設定を消さずに<strong>抽選から外して表示</strong>します。意図せず候補が減っていないか、設定画面で確認できます。</li>
+        <li><strong>ゲストスペースでは、候補にユーザーの個別指定のみ使えます。</strong>kintone の仕様でゲストスペースから組織・グループを取得できないためです。あわせて、ゲストスペースのアプリは<strong>そのスペースのメンバー以外をユーザー選択フィールドに設定できません</strong>。メンバー外を候補にした場合はエラーにならず値が空になるため、書き込み後に読み直して警告します。</li>
+        <li>当選者への通知は<strong>保存が完了した時点</strong>で送ります。確定しただけで保存しなかった場合は送りません。投稿した通知は「元に戻す」では取り消せません（値だけが戻ります）。</li>
+        <li>抽選結果の記録・通知はどちらも<strong>既定でオフ</strong>です。必要なときだけ有効にしてください。</li>
+        <li>他のプラグインやJavaScriptカスタマイズが同じフィールドを書き換えている場合、後から実行されたものの値が残ります。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-lottery-roulette" />
+    <PluginFaqSection pluginId="kw-lottery-roulette" pageUrl="https://kizuna-works.jp/plugins/lottery-roulette/" />
+    <SupporterCTA pluginId="kw-lottery-roulette" />
+    <ShareButtons title="抽選ルーレット for kintone" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">割り振りと、その後の運用を助ける kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/user-autofill/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/user-autofill-banner.png" alt="ユーザーオートフィル for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">ユーザーオートフィル</h3>
+            <p class="related-post-desc">ログインしている人やその上長を、開いた瞬間に自動で入れます。「決まっている人」を入れるのはこちら、「決めるところ」から任せるなら抽選ルーレット。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/bulk-update/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/bulk-update-banner.png" alt="かんたん一括更新 for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">かんたん一括更新</h3>
+            <p class="related-post-desc">一覧から選んだレコードの項目をまとめて書き換えます。値を決め打ちで揃えるならこちら、公平に振り分けたいなら抽選ルーレット。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/summary-bar/" class="related-post-card">
+          <div class="related-post-thumb">
+            <Picture src="/images/summary-bar-banner.png" alt="集計サマリーバー for kintone プラグイン" width="1200" height="630" card />
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">集計サマリーバー</h3>
+            <p class="related-post-desc">一覧の上に件数や金額の集計を出します。配ったあとに「誰が何件抱えているか」を常に見えるようにしておくと、抽選の効果が確かめられます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ea-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('ea-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-lottery-roulette-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-lottery-roulette-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>
