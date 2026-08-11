@@ -5,12 +5,17 @@
 // to users verbatim. It went unnoticed at "全 24 種類" while the site had 43
 // plugins, which is what this script prevents.
 //
-// Two jobs:
+// Three jobs:
 //   1. Rewrite the product counts in llms.txt from plugins.ts (the numbers are
 //      derived, never hand-typed).
 //   2. Fail the build when a plugin / extension / tool exists in the data but is
 //      not linked from llms.txt (or vice versa) — a count alone is not enough,
 //      the entry itself has to be there.
+//   3. Fail the build when a plugin is listed under the wrong section heading.
+//      Being present is not enough: a free (ちょこっと) plugin sitting under
+//      「## プレミアムプラグイン」tells an AI reader it is paid-only. Four of them
+//      had drifted there unnoticed (found 2026-08-11) because new entries get
+//      appended to the end of the file rather than into their section.
 //
 // Run automatically on `npm run build` (prebuild) or manually: `npm run sync:llms`.
 
@@ -89,8 +94,79 @@ if (missing.length || stale.length) {
   process.exit(1);
 }
 
+// --- section membership: a free plugin must not sit under the premium heading ---
+// Only the product entry lines inside the two plugin sections are checked. Links
+// from elsewhere (the category index at the top, prose) are legitimate and ignored.
+const sections = [];
+after.split('\n').forEach((line, i) => {
+  const h = /^##\s+(.*\S)\s*$/.exec(line);
+  if (h) sections.push({ title: h[1], start: i });
+});
+sections.forEach((s, i) => {
+  s.end = i + 1 < sections.length ? sections[i + 1].start : Infinity;
+});
+
+const findSection = (pred, label) => {
+  const hit = sections.find((s) => pred(s.title));
+  if (!hit) {
+    throw new Error(
+      `public/llms.txt: the ${label} heading was not found — update this script if the headings were renamed.`
+    );
+  }
+  return hit;
+};
+const chokottoSection = findSection((t) => t.includes('ちょこっと'), 'ちょこっと plugins');
+const premiumSection = findSection((t) => /^プレミアムプラグイン$/.test(t), 'premium plugins');
+
+const lines = after.split('\n');
+const entryRe = /^-\s+\[[^\]]*\]\(https:\/\/kizuna-works\.jp\/plugins\/([a-z0-9-]+)\/\)/;
+/** slug -> tiers it is listed under (a slug in both sections yields two) */
+const listedIn = new Map();
+[
+  { section: chokottoSection, tier: 'chokotto' },
+  { section: premiumSection, tier: 'premium' },
+].forEach(({ section, tier }) => {
+  for (let i = section.start + 1; i < Math.min(section.end, lines.length); i++) {
+    const m = entryRe.exec(lines[i]);
+    if (!m || !knownPluginPages.has(m[1])) continue;
+    if (!listedIn.has(m[1])) listedIn.set(m[1], []);
+    listedIn.get(m[1]).push(tier);
+  }
+});
+
+const expectedTier = new Map([
+  ...chokottoSlugs.map((s) => [s, 'chokotto']),
+  ...premiumSlugs.map((s) => [s, 'premium']),
+]);
+const label = { chokotto: 'ちょこっと', premium: 'プレミアム' };
+
+const misplaced = [];
+const duplicated = [];
+for (const [slug, tiers] of listedIn) {
+  if (tiers.length > 1) {
+    duplicated.push(`/plugins/${slug}/`);
+    continue;
+  }
+  const want = expectedTier.get(slug);
+  if (want && tiers[0] !== want) {
+    misplaced.push(`/plugins/${slug}/ (${label[want]} but listed under ${label[tiers[0]]})`);
+  }
+}
+// A product with no entry in either section is already reported as `missing` above.
+
+if (misplaced.length || duplicated.length) {
+  const out = ['public/llms.txt: plugins are listed under the wrong heading:'];
+  if (misplaced.length) out.push(`  misplaced: ${misplaced.join(', ')}`);
+  if (duplicated.length) out.push(`  listed in both sections: ${duplicated.join(', ')}`);
+  out.push('  Move the entry into its own section in public/llms.txt, then rebuild.');
+  out.push('  (New entries are easy to append to the end of the file by mistake.)');
+  console.error(out.join('\n'));
+  process.exit(1);
+}
+
 console.log(
   `llms.txt: ${counts.total} plugins (${counts.chokotto} chokotto / ${counts.premium} premium), ` +
     `${extensionSlugs.length} extensions, ${toolFiles.length} tools — ` +
-    (after === before ? 'counts already up to date' : 'counts updated')
+    (after === before ? 'counts already up to date' : 'counts updated') +
+    `, sections OK`
 );
