@@ -101,6 +101,8 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # フィールドコメントプラグイン製品ページ（/plugins/field-comment/）
 │   │   │   ├── theme-styler/
 │   │   │   │   └── index.astro # テーマスタイラープラグイン製品ページ（/plugins/theme-styler/）
+│   │   │   ├── after-save/
+│   │   │   │   └── index.astro # 【ちょこっと】保存後ナビ 製品ページ（/plugins/after-save/）— レコードを保存した直後に開く画面を、詳細画面／レコード追加画面／レコード一覧／指定した一覧／別アプリの追加画面／固定URLの6種から指定。「新規作成後」「編集後」を独立設定でき、実行ユーザー（ユーザー・組織・グループ／子組織を含む可）とレコードの値を条件に最大10ルール×5条件（AND/OR）で遷移先を出し分け。連続登録カウンター（sessionStorage・保管アプリ不要）／保存後の確認ダイアログ／権限エラーの事前警告（保存はできるのに閲覧権限が無い対象を app/acl で検出）。ヒーロー＋課題3＋連続登録＋できること9＋遷移先6種の表＋条件で出し分け（設定と結果の2枚組）＋設定画面2枚＋確認ダイアログ＋手順6＋プラン＋注意16＋SecurityBox＋FAQ10＋SupporterCTA＋ShareButtons＋関連3。PC・モバイル対応・ゲストスペース対応・レコード画面ではRESTを呼ばない
 │   │   │   ├── address-assist/
 │   │   │   │   └── index.astro # 住所アシストプラグイン製品ページ（/plugins/address-assist/）— 郵便番号⇔住所の双方向自動入力＋住所セット（複数住所）＋レコード詳細画面に Google マップ直接プレビュー（差別化）
 │   │   │   ├── quick-history-view/
@@ -412,6 +414,14 @@ c:\kizuna-works.jp\
 │   │   ├── file-export-config-04.png       # 添付ファイル出力 設定画面②表示設定（ボタンのラベル/色/配置・選択列・アイコン表示プラグイン連携）＋ .webp
 │   │   ├── file-export-fim-01.png          # 添付ファイル出力×添付ファイルアイコン表示 連携（hover した行にだけ ⤓ ボタンが出る）＋ .webp
 │   │   ├── file-export-fim-02.png          # 添付ファイル出力×添付ファイルアイコン表示 連携（すべて/PDF/Office の行ごと出力メニュー）＋ .webp
+│   │   ├── after-save-banner.png          # 保存後ナビ for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── after-save-icon.png            # 保存後ナビ 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
+│   │   ├── after-save-usage-01.png        # 保存後ナビ 保存直後の追加画面（通知「前の日報を保存しました（このセッションで3件目）」＋空の入力画面）＋ .webp
+│   │   ├── after-save-usage-02.png        # 保存後ナビ 条件ルールで開いた「未達の日報」一覧（未達3件）＋ .webp
+│   │   ├── after-save-usage-03.png        # 保存後ナビ 保存後の確認ダイアログ（続けて次の日報を登録しますか？）＋ .webp
+│   │   ├── after-save-config-01.png       # 保存後ナビ 設定画面（目次3項目＋この画面で有効にする＋既定の遷移先）＋ .webp
+│   │   ├── after-save-config-02.png       # 保存後ナビ 設定画面 条件ルール2件（未達→指定した一覧／開発部→詳細画面）＋ .webp
+│   │   ├── after-save-config-03.png       # 保存後ナビ 設定画面 共通設定（連続登録カウンターの文言と表示例）＋ .webp
 │   │   ├── barcode-assist-banner.png      # バーコードアシスト for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── barcode-assist-icon.png        # バーコードアシスト 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
 │   │   ├── barcode-assist-scan-01.png     # バーコードアシスト スキャン中の画面（カメラ映像＋緑の読取枠＋読取件数＋直前の結果＋直前を取消/完了）＋ .webp
@@ -575,6 +585,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-attribute-filter-v1.0.0.zip                        # 属性制御フィルター for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=1フィールド全機能）
 │   │   ├── kw-attribute-filter-v1.0.1.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-attribute-filter-v1.0.2.zip                        # 属性制御フィルター for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.2 ライセンス認証の内部改修）
+│   │   ├── kw-after-save-v1.0.0.zip                              # 保存後ナビ for kintone 配布プラグイン v1.0.0
 │   │   ├── kw-barcode-assist-v1.0.0.zip                          # バーコードアシスト for kintone 配布ファイル（旧版・参考保管・初版）
 │   │   ├── kw-barcode-assist-v1.1.0.zip                          # バーコードアシスト for kintone 配布ファイル（最新・手動配置・v1.1.0 未登録コード警告＝ルックアップで引けなかったコードを一覧表示し、その行のコピー先を空に戻す）
 │   │   ├── kw-bulk-update-v1.0.0.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）

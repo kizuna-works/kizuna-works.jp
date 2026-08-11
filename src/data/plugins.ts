@@ -976,6 +976,29 @@ export const plugins: Plugin[] = [
     releaseDate: '2026-08-08',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-after-save',
+    name: '保存後ナビ for kintone',
+    formName: '保存後ナビ for kintone',
+    slug: 'after-save',
+    categories: ['表示・編集制御'],
+    description:
+      'レコードを保存した直後に開く画面を、詳細画面・レコード追加画面・一覧・指定した一覧・別アプリの追加画面・固定URLから指定できるプラグイン。新規作成後と編集後を別々に設定でき、実行ユーザーやレコードの値で遷移先を出し分けられます。連続登録の件数表示つき。',
+    image: '/images/after-save-banner.png',
+    imageWebp: '/images/after-save-banner.webp',
+    imageAlt:
+      '保存後ナビ for kintone プラグイン — レコードを保存した直後に開く画面を、レコード追加画面・一覧・別アプリの追加画面などから指定して切り替える',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    cardDescription:
+      '保存したら、そのまま次の入力へ。保存後に開く画面を6種から指定でき、実行ユーザーやレコードの値で行き先を出し分け。連続登録の件数も表示します。',
+    problemTitle: '保存のたびに詳細画面へ飛ばされる',
+    problemDesc:
+      '連続入力なのに毎回「戻る→追加」の2手が要る。追加権限だけのユーザーは保存できているのに詳細画面を開けずエラー画面に着き、現場からは不具合として報告される',
+    releaseDate: '2026-08-11',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**
