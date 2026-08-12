@@ -603,7 +603,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-accordion-tab-v1.0.0.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-accordion-tab-v2.0.0.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-accordion-tab-v2.0.1.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-accordion-tab-v2.0.2.zip                           # アコーディオンタブ for kintone 配布ファイル（最新・手動配置・v2.0.2 ライセンス認証の内部改修）
+│   │   ├── kw-accordion-tab-v2.0.2.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-accordion-tab-v2.0.3.zip                           # アコーディオンタブ for kintone 配布ファイル（最新・手動配置・v2.0.3 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
 │   │   ├── kw-address-assist-v1.0.0.zip                          # 住所アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-address-assist-v1.0.1.zip                          # 住所アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-address-assist-v1.0.2.zip                          # 住所アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
@@ -614,7 +615,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-ambiguous-match-v1.0.1.zip                         # あいまい照合 for kintone 配布ファイル（最新・手動配置・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-attribute-filter-v1.0.0.zip                        # 属性制御フィルター for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=1フィールド全機能）
 │   │   ├── kw-attribute-filter-v1.0.1.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-attribute-filter-v1.0.2.zip                        # 属性制御フィルター for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.2 ライセンス認証の内部改修）
+│   │   ├── kw-attribute-filter-v1.0.2.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-attribute-filter-v1.0.3.zip                        # 属性制御フィルター for kintone 配布ファイル（最新・手動配置・v1.0.3 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
 │   │   ├── kw-lottery-roulette-v1.0.0.zip                       # 抽選ルーレット for kintone 配布プラグイン v1.0.0
 │   │   ├── kw-after-save-v1.0.0.zip                              # 保存後ナビ for kintone 配布プラグイン v1.0.0
 │   │   ├── kw-barcode-assist-v1.0.0.zip                          # バーコードアシスト for kintone 配布ファイル（旧版・参考保管・初版）
@@ -629,14 +631,16 @@ c:\kizuna-works.jp\
 │   │   ├── kw-comment-control-v1.0.0.zip                         # コメントコントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-comment-control-v1.0.1.zip                         # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.1＝閉じたコメント欄を手動で開けない不具合を修正）
 │   │   ├── kw-comment-control-v1.0.2.zip                         # コメントコントロール for kintone 配布ファイル（旧版・手動配置・v1.0.2＝APIリクエスト節約。一覧バッジのコメント取得をホバー時のみに変更・自分宛メンションの一覧色分けは任意オプション化）
-│   │   ├── kw-comment-control-v1.0.3.zip                         # コメントコントロール for kintone 配布ファイル（最新・手動配置・v1.0.3 ライセンス認証の内部改修）
+│   │   ├── kw-comment-control-v1.0.3.zip                         # コメントコントロール for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-comment-control-v1.0.4.zip                         # コメントコントロール for kintone 配布ファイル（最新・手動配置・v1.0.4 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
 │   │   ├── kw-conditional-form-v1.0.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-conditional-form-v1.0.1.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-conditional-form-v1.0.2.zip                        # 条件分岐フォーム for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-conditional-form-v2.0.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（手動配置・v2.0.0＝対象ユーザー条件）
 │   │   ├── kw-conditional-form-v2.1.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・手動配置・v2.1.0＝いずれかに一致/いずれにも一致しない演算子・AND/OR誤設定ブロック・設定画面のルール折りたたみ）
 │   │   ├── kw-conditional-form-v2.1.1.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管・v2.1.1 ライセンス認証の内部改修）
-│   │   ├── kw-conditional-form-v2.2.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（最新・手動配置・v2.2.0 kintone 2026年8月アップデート対応）
+│   │   ├── kw-conditional-form-v2.2.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-conditional-form-v2.2.1.zip                        # 条件分岐フォーム for kintone 配布ファイル（最新・手動配置・v2.2.1 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
 │   │   ├── kw-conditional-numbering-v1.1.0.zip                   # 条件分岐自動採番 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-conditional-numbering-v1.1.1.zip                   # 条件分岐自動採番 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-conditional-numbering-v1.1.2.zip                   # 条件分岐自動採番 for kintone 配布ファイル（旧版）
@@ -753,7 +757,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-record-lock-v1.0.1.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-lock-v1.0.2.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-lock-v1.0.3.zip                             # レコードロック for kintone 配布ファイル（旧版・手動配置・v1.0.3 で設定画面 サイドバー250px/条件表の拡大縮小時 操作性改善）
-│   │   ├── kw-record-lock-v1.0.4.zip                             # レコードロック for kintone 配布ファイル（最新・手動配置・v1.0.4 ライセンス認証の内部改修）
+│   │   ├── kw-record-lock-v1.0.4.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-record-lock-v1.0.5.zip                             # レコードロック for kintone 配布ファイル（最新・手動配置・v1.0.5 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
 │   │   ├── kw-record-recovery-v1.0.0.zip                         # 削除レコード復元 for kintone 配布ファイル（旧版・手動配置・v1.0.0 初版）
 │   │   ├── kw-record-recovery-v1.0.1.zip                         # 削除レコード復元 for kintone 配布ファイル（最新・手動配置・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-related-enhancer-v1.0.0.zip                        # 関連レコード拡張 for kintone 配布ファイル（手動配置・プレミアムプラグイン第5弾・無料/プレミアム共通zip・無料=1対象で集計/見た目/検索・F-04/05/06はプレミアム限定）
@@ -767,7 +772,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-report-designer-v1.0.1.zip                         # 帳票デザイナー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-report-designer-v1.0.2.zip                         # 帳票デザイナー for kintone 配布ファイル（手動配置・プレミアムプラグイン・v1.0.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-reuse-control-v1.0.0.zip                           # レコード再利用コントロール for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-reuse-control-v1.0.1.zip                           # レコード再利用コントロール for kintone 配布ファイル（最新・手動配置・v1.0.1 ライセンス認証の内部改修）
+│   │   ├── kw-reuse-control-v1.0.1.zip                           # レコード再利用コントロール for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-reuse-control-v1.0.2.zip                           # レコード再利用コントロール for kintone 配布ファイル（最新・手動配置・v1.0.2 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
 │   │   ├── kw-sheet-edit-v1.0.0.zip                              # シート編集 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-sheet-edit-v1.0.1.zip                              # シート編集 for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-sheet-edit-v1.1.0.zip                              # シート編集 for kintone 配布ファイル（手動配置・v1.1.0＝サブテーブル対応）
