@@ -797,7 +797,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-theme-styler-v1.1.1.zip                            # テーマスタイラー for kintone 配布ファイル（最新・手動配置・v1.1.1 ライセンス認証の内部改修）
 │   │   ├── kw-user-autofill-v1.0.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.0＝属性自動転記＋プロフィールカード／捺印モード）
 │   │   ├── kw-user-autofill-v1.0.1.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.1 ライセンス認証の内部改修＋設定画面レイアウト統一＋転記設定テーブルの潰れ対策）
-│   │   └── kw-view-control-v1.0.0.zip                            # 一覧コントロール for kintone v1.0.0 配布ファイル（手動配置・ちょこっと・一覧/グラフの表示制御をユーザー・組織・グループ単位で出し分け／「最初に開く」一覧の指定／直リンクのガード）
+│   │   ├── kw-view-control-v1.0.0.zip                            # 一覧コントロール for kintone 配布ファイル（旧版・参考保管）
+│   │   └── kw-view-control-v1.0.1.zip                            # 一覧コントロール for kintone 配布ファイル（最新・手動配置・v1.0.1 ほかのJSカスタマイズの例外で制御が働かない不具合の修正／初期表示時のちらつき解消／同一タブのアカウント切替と組織・グループ取得失敗時の判定修正）
 │   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ（第三者CDN不使用）。kw-file-preview / kw-sheet-edit / kw-file-export / kw-barcode-assist が使用
 │   │   ├── README.md           # 収録ライブラリ・バージョン・ライセンス・更新手順・現行SRIハッシュ
 │   │   ├── pdfjs/3.11.174/     # PDF.js（pdf.min.js / pdf.worker.min.js）— PDF描画
