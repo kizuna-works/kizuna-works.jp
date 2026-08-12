@@ -79,6 +79,8 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # プラグイン ダウンロードランキング全件ページ（/plugins/ranking/）― GAS から全件取得し順位付け表示。同数時はリリース日が古い方を上位
 │   │   │   ├── supporter/
 │   │   │   │   └── index.astro # 年間サポーターライセンス案内＆申込フォーム（/plugins/supporter/）
+│   │   │   ├── update/
+│   │   │   │   └── index.astro # プラグインの更新方法・広告が消えないときの対処（/plugins/update/）― 全製品共通の更新手順ページ。①設定画面サイドバーの「新しいバージョンがあります」カードで要否を判断（スクショ=plugin-update-notice.png）②上書きアップロード3ステップ（設定は保持・アプリ再追加や再デプロイ不要・1回で全アプリ反映）③サポーター加入済みでも旧版だと広告が出る原因と対処4手順。HowTo＋FAQPage＋BreadcrumbList JSON-LD。hero背景=plugins-bg.webp。導線＝共通FAQ（全製品ページ）／/plugins/supporter/ のFAQと注意事項／/plugins/ の導入手順／お知らせ
 │   │   │   ├── premium-trial/
 │   │   │   │   └── index.astro # プレミアム年間サポーター 30日間無料体験 LP（/plugins/premium-trial/）― 全プラグイン（ちょこっと＋プレミアム）が広告なし・全機能。カード不要・自動課金なし。TrialForm＋FAQPage JSON-LD。hero背景=premium-trial-bg.webp。件数はplugins.tsから動的
 │   │   │   ├── field-styler/
@@ -239,6 +241,7 @@ c:\kizuna-works.jp\
 │   │   ├── tools-bg.png / tools-bg.webp    # ツールページ 背景
 │   │   ├── plugins-bg.png / plugins-bg.webp # プラグインページ 背景
 │   │   ├── contact-bg.png / contact-bg.webp # お問い合わせページ 背景
+│   │   ├── plugin-update-notice.png / .webp # プラグイン設定画面サイドバーの実画面（200x299）。「サポーターライセンス有効＋有効期限」と「新しいバージョン（v2.2.1）があります」の2カード。/plugins/update/ で使用（原寸表示）
 │   │   ├── stamp-maker-preview.png         # inkan（電子印鑑メーカー）プレビュー画像
 │   │   ├── natsuin-preview.png             # Natsuin（PDF捺印ツール）プレビュー画像
 │   │   ├── musubi-preview.png              # Musubi（PDF結合・分割ツール）プレビュー画像

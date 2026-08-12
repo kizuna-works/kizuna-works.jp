@@ -1,0 +1,584 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+
+const title = 'プラグインの更新方法・広告が消えないときの対処 | KIZUNA Works';
+const description =
+  'KIZUNA Works の kintone プラグインの更新方法。設定画面に「新しいバージョンがあります」と出たら最新版 ZIP を上書きアップロードするだけで完了し、アプリごとの設定は保持されます。年間サポーターなのに広告が表示される場合の対処も掲載。';
+const pageUrl = 'https://kizuna-works.jp/plugins/update/';
+const updated = '2026-08-12';
+---
+
+<Layout
+  title={title}
+  description={description}
+  ogTitle={title}
+  ogDescription={description}
+  ogType="website"
+  ogUrl={pageUrl}
+  ogImage="https://kizuna-works.jp/images/ogp.png"
+  canonical={pageUrl}
+  heroBg="/images/plugins-bg.webp"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/update/",
+          "url": "https://kizuna-works.jp/plugins/update/",
+          "name": "プラグインの更新方法・広告が消えないときの対処 | KIZUNA Works",
+          "description": "kintone プラグインの更新手順と、年間サポーター・プレミアム年間サポーターに加入しているのに広告が表示される場合の対処方法。",
+          "dateModified": "2026-08-12",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintone プラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "更新方法・広告が消えないときの対処", "item": "https://kizuna-works.jp/plugins/update/" }
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "KIZUNA Works の kintone プラグインを最新版に更新する",
+          "description": "最新版の ZIP ファイルを kintone に上書きアップロードして、プラグインを更新します。アプリごとの設定は保持されます。",
+          "totalTime": "PT3M",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "position": 1,
+              "name": "最新版をダウンロードする",
+              "text": "対象プラグインの製品ページを開き、ダウンロードボタンから最新版の ZIP ファイルを取得します。プラグイン設定画面の「最新版を入手する」ボタンからも製品ページへ移動できます。"
+            },
+            {
+              "@type": "HowToStep",
+              "position": 2,
+              "name": "kintone に上書きアップロードする",
+              "text": "kintone 右上の歯車から「kintone システム管理」を開き、「その他」の「プラグイン」を選択して「読み込む」から先ほどの ZIP ファイルを読み込みます。同じプラグインとして認識されるため、既存のものに上書きされます。"
+            },
+            {
+              "@type": "HowToStep",
+              "position": 3,
+              "name": "ブラウザを再読み込みする",
+              "text": "アップロード後、対象アプリの画面をブラウザで再読み込みします。アプリへのプラグインの再追加やアプリの再デプロイは不要です。プラグイン管理画面の「バージョン」欄が新しい番号になっていれば更新は完了です。"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "年間サポーターに加入しているのに広告が表示されます。どうすればよいですか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "まずプラグインが最新版かどうかをご確認ください。設定画面のサイドバーに「新しいバージョン（vX.Y.Z）があります」と表示されている場合は旧版です。2026 年 8 月より前のバージョンには、ライセンス確認の通信が一時的に失敗したときに「未加入」と判断してしまう問題があり、その結果として広告が表示されることがありました。最新版に更新するとこの誤判定は起こりません。更新後もその画面に広告が残っている場合はブラウザを再読み込みしてください。それでも表示され続ける場合は、ご利用ドメイン・プラグイン名・画面のスクリーンショットを添えて info@kizuna-works.jp までご連絡ください。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "更新するとアプリごとの設定は消えてしまいますか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "消えません。上書きアップロードでは同じプラグインとして更新されるため、アプリごとに保存した設定はそのまま保持されます。アプリからプラグインを「利用を解除」した場合は設定が破棄されますので、更新の際に解除は行わないでください。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "複数のアプリで使っています。アプリごとに更新作業が必要ですか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "不要です。プラグインは kintone 環境（ドメイン）単位で管理されるため、ZIP ファイルを 1 回アップロードすれば、そのプラグインを使っているすべてのアプリに反映されます。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "設定画面に「新しいバージョンがあります」が表示されません。最新版ということですか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "多くの場合は最新版です。このカードは、インストールされているバージョンが公開中の最新版より古いときだけ表示されます。ただし表示されない理由は 3 つあり、最新版である場合、バージョン情報の取得に失敗した場合、そしてこの通知機能を搭載する前の古いバージョンである場合です。通知機能は 2026 年夏の版から順次搭載したため、それより前のバージョンではカード自体が表示されません。確実に確認するには、kintone 右上の歯車から「kintone システム管理」→「プラグイン」を開き、「バージョン」欄と製品ページに記載の最新バージョンを見比べてください。バージョン欄が数字だけ（例：11）で表示されている場合は、バージョン表記を統一する前の古い版です。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "更新は必ず行う必要がありますか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "必須ではありませんが推奨します。更新には機能追加だけでなく不具合修正も含まれます。kintone プラグインは自動更新の仕組みがないため、更新は管理者による手動の上書きアップロードが必要です。"
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .upd-hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.92) 0%, rgba(42,82,152,0.86) 100%),
+                  url('/images/plugins-bg.webp') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 72px 5%;
+      text-align: center;
+    }
+    .upd-hero h1 {
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1.35;
+      margin: 0 0 20px;
+    }
+    .upd-hero p {
+      font-size: 16px;
+      max-width: 780px;
+      margin: 0 auto;
+      line-height: 1.9;
+      opacity: 0.95;
+    }
+    .upd-updated {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 13px;
+      background: rgba(255,255,255,0.18);
+      padding: 4px 14px;
+      border-radius: 12px;
+    }
+
+    .upd-wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 64px 5%;
+    }
+    .upd-wrap.bg { background-color: var(--color-bg); max-width: none; }
+    .upd-wrap.bg > .upd-inner { max-width: 920px; margin: 0 auto; }
+
+    .upd-h2 {
+      color: var(--color-navy);
+      font-size: 26px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .upd-sub {
+      color: var(--color-text-light);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 32px;
+    }
+    .upd-h3 {
+      color: var(--color-navy);
+      font-size: 18px;
+      font-weight: 700;
+      margin: 32px 0 10px;
+    }
+    .upd-p {
+      font-size: 14.5px;
+      line-height: 1.9;
+      color: var(--color-text);
+      margin: 0 0 16px;
+    }
+    .upd-p strong { color: var(--color-navy); }
+
+    /* Screenshot: shown at its natural size (200px wide crop of the config sidebar) */
+    .upd-shot {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    /* The flex item is <picture>, not <img> — without a fixed width and
+       flex-shrink:0 here the picture box collapses and max-width:100%
+       shrinks the screenshot with it. */
+    .upd-shot > picture {
+      display: block;
+      width: 260px;
+      flex-shrink: 0;
+    }
+    .upd-shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 8px;
+      background: var(--color-white);
+    }
+    .upd-shot-body { min-width: 0; }
+    .upd-shot-body p {
+      font-size: 14px;
+      line-height: 1.85;
+      color: var(--color-text);
+      margin: 0 0 12px;
+    }
+    .upd-shot-body p:last-child { margin-bottom: 0; }
+    .upd-shot-body strong { color: var(--color-navy); }
+    .upd-caption {
+      font-size: 12.5px;
+      color: var(--color-text-light);
+      margin: 10px 0 0;
+      line-height: 1.7;
+    }
+
+    .upd-steps {
+      counter-reset: ustep;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .upd-steps li {
+      counter-increment: ustep;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 14.5px;
+      line-height: 1.85;
+      color: var(--color-text);
+    }
+    .upd-steps li:last-child { border-bottom: none; }
+    .upd-steps li::before {
+      content: counter(ustep);
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      background: var(--color-navy);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .upd-steps strong { color: var(--color-navy); }
+    .upd-steps code {
+      background: var(--color-bg);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+    }
+
+    .upd-note {
+      background: var(--color-white);
+      border-left: 4px solid var(--color-green);
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin-top: 24px;
+      font-size: 14px;
+      line-height: 1.85;
+      color: var(--color-text);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .upd-note strong { color: var(--color-navy); }
+
+    .upd-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 8px;
+    }
+    .upd-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 12px;
+      padding: 22px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    .upd-card .upd-card-step {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-white);
+      background: var(--color-green);
+      border-radius: 10px;
+      padding: 2px 10px;
+      margin-bottom: 12px;
+    }
+    .upd-card h3 {
+      color: var(--color-navy);
+      font-size: 15.5px;
+      font-weight: 700;
+      margin: 0 0 10px;
+      line-height: 1.6;
+    }
+    .upd-card p {
+      font-size: 13.5px;
+      line-height: 1.8;
+      color: var(--color-text-light);
+      margin: 0;
+    }
+
+    .upd-faq { max-width: 920px; margin: 0 auto; }
+    .upd-faq details {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .upd-faq summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 18px 22px;
+      font-weight: 700;
+      color: var(--color-navy);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .upd-faq summary::-webkit-details-marker { display: none; }
+    .upd-faq details[open] summary { border-bottom: 1px solid var(--color-gray-light); }
+    .upd-faq .upd-faq-a {
+      padding: 16px 22px 20px;
+      color: var(--color-text);
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    .upd-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 56px 5%;
+    }
+    .upd-cta h2 { font-size: 24px; font-weight: 700; margin: 0 0 14px; }
+    .upd-cta p { font-size: 15px; opacity: 0.92; margin: 0 0 28px; line-height: 1.8; }
+    .upd-cta-links {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .upd-cta-links a {
+      display: inline-block;
+      background: var(--color-green);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .upd-cta-links a.ghost {
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    .upd-cta-links a:hover { background: #36a336; transform: translateY(-2px); }
+    .upd-cta-links a.ghost:hover { background: rgba(255,255,255,0.26); }
+
+    @media (max-width: 768px) {
+      .upd-hero { padding: 56px 5%; }
+      .upd-hero h1 { font-size: 24px; }
+      .upd-wrap { padding: 48px 5%; }
+      .upd-cards { grid-template-columns: 1fr; }
+      .upd-shot { flex-direction: column; align-items: center; }
+      .upd-shot > picture { width: min(260px, 100%); }
+      .upd-shot-body { width: 100%; }
+    }
+  </style>
+
+  <main>
+    <section class="upd-hero">
+      <h1>プラグインの更新方法・<br>広告が消えないときの対処</h1>
+      <p>
+        KIZUNA Works の kintone プラグインの更新は、<strong>最新版の ZIP ファイルを kintone に上書きアップロードするだけ</strong>で完了します。アプリごとの設定はそのまま保持され、アプリへの再追加や再デプロイも不要です。更新が必要かどうかは<strong>プラグインの設定画面</strong>で確認できます。年間サポーター・プレミアム年間サポーターに加入しているのに広告が表示される場合の対処も、このページにまとめています。
+      </p>
+      <span class="upd-updated">最終更新：{updated}</span>
+    </section>
+
+    <!-- 最新版の確認方法 -->
+    <section class="upd-wrap">
+      <h2 class="upd-h2">最新版が出ているかを確認する</h2>
+      <p class="upd-sub">
+        kintone のアプリ設定から対象プラグインの歯車（設定）を開くと、画面の右側（または左側）にサイドバーが表示されます。ここに<strong>「新しいバージョン（vX.Y.Z）があります」</strong>のカードが出ていれば、お使いのものは旧版です。
+      </p>
+
+      <div class="upd-shot">
+        <Picture
+          src="/images/plugin-update-notice.png"
+          alt="プラグイン設定画面のサイドバー。上に「サポーターライセンス有効」と有効期限・残り日数、下に「新しいバージョン（v2.2.1）があります」の案内カードと「最新版を入手する」ボタンが表示されている"
+          width="762"
+          height="1191"
+          class="lightbox-image"
+        />
+        <div class="upd-shot-body">
+          <p>
+            <strong>上のカード：ライセンスの状態</strong><br>
+            年間サポーター・プレミアム年間サポーターが有効なドメインでは「サポーターライセンス有効」と<strong>有効期限・残り日数</strong>が表示されます。ここが「有効」になっていれば、ライセンス認証は正しく通っています。
+          </p>
+          <p>
+            <strong>下のカード：更新のお知らせ</strong><br>
+            インストールされているバージョンが公開中の最新版より古いときだけ表示されます。<strong>「最新版を入手する」</strong>ボタンから製品ページのダウンロードへ移動できます。最新版をお使いの場合、このカードは表示されません。
+          </p>
+          <p>
+            <strong>カードもサイドバーも見当たらないときは、かなり古いバージョンです。</strong><br>
+            この更新のお知らせは 2026 年夏の版から順次搭載したものです。それより前のバージョンでは<strong>カード自体が表示されない</strong>ため、下の方法でバージョンを直接見比べてください。
+          </p>
+          <p class="upd-caption">
+            <strong>画像をクリックすると拡大表示します。</strong>画面はプラグインによって配色・並びが多少異なります。バージョン番号は表示例です。
+          </p>
+        </div>
+      </div>
+
+      <div class="upd-note">
+        <strong>いま入っているバージョンを直接確認する（カードが出ない場合はこちら）：</strong>
+        kintone 右上の歯車 →「kintone システム管理」→「プラグイン」を開くと、プラグインごとに<strong>「バージョン」欄</strong>が表示されます。製品ページ冒頭に記載の最新バージョンと見比べてください。<br>
+        バージョン欄が <code>11</code> のように<strong>数字だけ</strong>で表示されている場合は、バージョン表記を <code>1.2.3</code> 形式に統一する前の古い版です。最新版への更新をおすすめします。
+      </div>
+    </section>
+
+    <!-- 更新手順 -->
+    <section class="upd-wrap bg">
+      <div class="upd-inner">
+        <h2 class="upd-h2">更新のしかた（3ステップ）</h2>
+        <p class="upd-sub">所要時間はおよそ 1〜3 分です。kintone のシステム管理権限が必要です。</p>
+        <div class="upd-cards">
+          <div class="upd-card">
+            <span class="upd-card-step">STEP 1</span>
+            <h3>最新版をダウンロード</h3>
+            <p>製品ページのダウンロードボタンから最新版の ZIP ファイルを取得します。設定画面の「最新版を入手する」ボタンからも移動できます。</p>
+          </div>
+          <div class="upd-card">
+            <span class="upd-card-step">STEP 2</span>
+            <h3>上書きアップロード</h3>
+            <p>「kintone システム管理」→「プラグイン」→「読み込む」で ZIP を読み込みます。同じプラグインとして上書きされます。</p>
+          </div>
+          <div class="upd-card">
+            <span class="upd-card-step">STEP 3</span>
+            <h3>画面を再読み込み</h3>
+            <p>対象アプリの画面をブラウザで再読み込みします。アプリへの再追加・再デプロイは不要です。</p>
+          </div>
+        </div>
+
+        <div class="upd-note">
+          <strong>アプリごとの設定は保持されます。</strong>
+          上書きアップロードでは同じプラグインとして更新されるため、保存済みの設定はそのまま引き継がれます。ただし、アプリの設定画面からプラグインの<strong>「利用を解除」</strong>を行うと設定は破棄されます。更新の際に解除は不要ですので、行わないでください。
+        </div>
+
+        <div class="upd-note">
+          <strong>複数のアプリで使っている場合も、アップロードは 1 回だけです。</strong>
+          プラグインは kintone 環境（ドメイン）単位で管理されるため、1 回の上書きでそのプラグインを使っているすべてのアプリに反映されます。
+        </div>
+      </div>
+    </section>
+
+    <!-- 広告が表示される場合 -->
+    <section class="upd-wrap">
+      <h2 class="upd-h2">サポーターなのに広告が表示されるとき</h2>
+      <p class="upd-sub">
+        年間サポーター・プレミアム年間サポーターが有効なドメインでも、<strong>旧版のプラグインでは広告の帯が表示されることがあります</strong>。原因と対処は次のとおりです。
+      </p>
+
+      <h3 class="upd-h3">原因</h3>
+      <p class="upd-p">
+        プラグインはライセンスの状態を当社サーバー（Google Apps Script）に問い合わせて確認しています。<strong>2026 年 8 月より前のバージョン</strong>には、この問い合わせが一時的に失敗したときに「未加入」と判断してしまう問題がありました。レコード一覧を開いた直後に広告の帯が出るのは、多くの場合これが原因です。とくに<strong>1 つのアプリに当社のプラグインを複数入れている環境</strong>では、同時に問い合わせが集中して発生しやすくなります。
+      </p>
+      <p class="upd-p">
+        <strong>最新版ではこの誤判定は起こりません。</strong>通信が失敗した場合は「判定できなかった」として扱い、直前に確認できた有効状態を引き継ぐようになっています。あわせて 2026 年 8 月にサーバー側の応答も改善しました。
+      </p>
+
+      <h3 class="upd-h3">対処の手順</h3>
+      <ol class="upd-steps">
+        <li>
+          <span>
+            <strong>プラグインを最新版に更新する。</strong>設定画面のサイドバーに「新しいバージョンがあります」が出ていれば旧版です。上の「更新のしかた」の手順で上書きアップロードしてください。1 つのアプリに複数入れている場合は、<strong>入っているものすべて</strong>を更新すると確実です。
+          </span>
+        </li>
+        <li>
+          <span>
+            <strong>ブラウザを再読み込みする。</strong>更新直後は、それまでの判定結果が一時的に残っていることがあります。画面を再読み込みしてください（判定は最長 1 時間で自動的に入れ替わります）。
+          </span>
+        </li>
+        <li>
+          <span>
+            <strong>設定画面でライセンスの状態を確認する。</strong>サイドバーが「サポーターライセンス有効」で有効期限が表示されていれば、認証は正しく通っています。
+          </span>
+        </li>
+        <li>
+          <span>
+            <strong>それでも表示される場合はご連絡ください。</strong><a href="/contact/">お問い合わせフォーム</a>または info@kizuna-works.jp まで、<strong>ご利用ドメイン・プラグイン名・画面のスクリーンショット</strong>を添えてお知らせください。個別に確認いたします。
+          </span>
+        </li>
+      </ol>
+
+      <div class="upd-note">
+        <strong>ライセンスはドメイン単位です。</strong>
+        申込時にご登録いただいたドメインに対して有効になります。セキュアアクセス（<code>.s.cybozu.com</code>）の有無や、サブドメインのみのご記入も認証側で吸収していますが、<strong>登録とは別の kintone 環境</strong>でお使いの場合は認証が通りません。ドメインの追加・変更はお問い合わせください。
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="upd-wrap bg">
+      <div class="upd-inner">
+        <h2 class="upd-h2">よくある質問</h2>
+        <div class="upd-faq">
+          <details>
+            <summary>年間サポーターに加入しているのに広告が表示されます。どうすればよいですか？</summary>
+            <div class="upd-faq-a">
+              まずプラグインが最新版かどうかをご確認ください。設定画面のサイドバーに「新しいバージョン（vX.Y.Z）があります」と表示されている場合は旧版です。2026 年 8 月より前のバージョンには、ライセンス確認の通信が一時的に失敗したときに「未加入」と判断してしまう問題があり、その結果として広告が表示されることがありました。最新版に更新するとこの誤判定は起こりません。更新後もその画面に広告が残っている場合はブラウザを再読み込みしてください。それでも表示され続ける場合は、ご利用ドメイン・プラグイン名・画面のスクリーンショットを添えて info@kizuna-works.jp までご連絡ください。
+            </div>
+          </details>
+          <details>
+            <summary>更新するとアプリごとの設定は消えてしまいますか？</summary>
+            <div class="upd-faq-a">
+              消えません。上書きアップロードでは同じプラグインとして更新されるため、アプリごとに保存した設定はそのまま保持されます。アプリからプラグインを「利用を解除」した場合は設定が破棄されますので、更新の際に解除は行わないでください。
+            </div>
+          </details>
+          <details>
+            <summary>複数のアプリで使っています。アプリごとに更新作業が必要ですか？</summary>
+            <div class="upd-faq-a">
+              不要です。プラグインは kintone 環境（ドメイン）単位で管理されるため、ZIP ファイルを 1 回アップロードすれば、そのプラグインを使っているすべてのアプリに反映されます。
+            </div>
+          </details>
+          <details>
+            <summary>設定画面に「新しいバージョンがあります」が表示されません。最新版ということですか？</summary>
+            <div class="upd-faq-a">
+              多くの場合は最新版です。このカードは、インストールされているバージョンが公開中の最新版より古いときだけ表示されます。ただし表示されない理由は 3 つあり、<strong>①最新版である ②バージョン情報の取得に失敗した ③この通知機能を搭載する前の古いバージョンである</strong>のいずれかです。通知機能は 2026 年夏の版から順次搭載したため、それより前のバージョンでは<strong>カード自体が表示されません</strong>。<br />
+              確実に確認するには、kintone 右上の歯車から「kintone システム管理」→「プラグイン」を開き、「バージョン」欄と製品ページに記載の最新バージョンを見比べてください。バージョン欄が数字だけ（例：<code>11</code>）で表示されている場合は、バージョン表記を統一する前の古い版です。
+            </div>
+          </details>
+          <details>
+            <summary>更新は必ず行う必要がありますか？</summary>
+            <div class="upd-faq-a">
+              必須ではありませんが推奨します。更新には機能追加だけでなく不具合修正も含まれます。kintone プラグインは自動更新の仕組みがないため、更新は管理者による手動の上書きアップロードが必要です。
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="upd-cta">
+      <h2>最新版のダウンロードはこちらから</h2>
+      <p>各製品ページから最新版の ZIP ファイルを取得できます。ご不明な点はお気軽にお問い合わせください。</p>
+      <div class="upd-cta-links">
+        <a href="/plugins/">プラグイン一覧を見る</a>
+        <a href="/plugins/supporter/" class="ghost">年間サポーターについて</a>
+        <a href="/contact/" class="ghost">お問い合わせ</a>
+      </div>
+    </section>
+  </main>
+</Layout>

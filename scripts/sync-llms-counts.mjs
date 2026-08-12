@@ -82,7 +82,7 @@ const missing = [
 ];
 
 // Links to products that no longer exist in the data (renamed or removed slugs).
-const knownPluginPages = new Set([...pluginSlugs, 'ranking', 'supporter', 'premium-trial']);
+const knownPluginPages = new Set([...pluginSlugs, 'ranking', 'supporter', 'premium-trial', 'update']);
 const stale = [...linked.plugins].filter((s) => !knownPluginPages.has(s)).map((s) => `/plugins/${s}/`);
 
 if (missing.length || stale.length) {
