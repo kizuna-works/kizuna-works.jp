@@ -1,0 +1,940 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { allPlugins } from '../../../data/plugins';
+import type { Plugin } from '../../../data/plugins';
+import {
+  pluginCategories,
+  pluginCategoryGroups,
+  pluginCategoryMeta,
+} from '../../../data/pluginCategories';
+
+// Index of every product keyed by the pain it solves. The homepage used to list
+// all of these inline, which grew to 27 rows; it now shows nine representative
+// pains (`problemFeatured` in plugins.ts) and links here for the rest.
+//
+// Grouped by *primary* category (`categories[0]`) so each product appears
+// exactly once — grouping by every category would list the products carrying
+// two or three of them two or three times over.
+const sections = pluginCategories
+  .map((cat) => ({
+    cat,
+    meta: pluginCategoryMeta[cat],
+    rows: allPlugins.filter((p) => p.categories[0] === cat),
+  }))
+  .filter((s) => s.rows.length > 0);
+
+const totalCount = allPlugins.length;
+const categoryCount = sections.length;
+
+/** Category slugs for the chip filter, matched against every category a product carries. */
+const catSlugs = (p: Plugin) => p.categories.map((c) => pluginCategoryMeta[c].slug).join('|');
+
+/** Haystack for the keyword box. Lowercased so the query can be too (a no-op for Japanese). */
+const searchText = (p: Plugin) =>
+  [p.problemTitle, p.problemDesc, p.name, p.slug, ...p.categories].join(' ').toLowerCase();
+
+// Chip counts span every category a product carries, matching how the filter reads them.
+const categoryCounts = new Map<string, number>();
+for (const p of allPlugins) {
+  for (const c of p.categories) {
+    categoryCounts.set(c, (categoryCounts.get(c) ?? 0) + 1);
+  }
+}
+
+// Emitted as a JSON island so the filter script gets the category names and
+// captions without a second copy of them in JavaScript.
+const categoryClientMeta = Object.fromEntries(
+  pluginCategories.map((c) => [
+    pluginCategoryMeta[c].slug,
+    { name: c, desc: pluginCategoryMeta[c].description },
+  ])
+);
+
+const pageUrl = 'https://kizuna-works.jp/plugins/problems/';
+const title = `kintoneの困りごとから探す｜課題別プラグイン索引 全${totalCount}製品 | KIZUNA Works`;
+const description = `「一覧が見づらい」「入力途中で消える」「合計が出せない」など、kintone 運用でよくある困りごとから、それを解決するプラグインを引ける索引。全${totalCount}製品を${categoryCount}カテゴリの課題別に掲載し、キーワード検索でも探せます。ダウンロード無料・会員登録不要。`;
+const ogDescription = `kintone 運用のよくある困りごとから、解決するプラグインを引ける索引。全${totalCount}製品を課題別に掲載し、キーワード検索でも探せます。ダウンロード無料・会員登録不要。`;
+// The page's content is the lineup, so its freshness is the newest release date
+// rather than a hand-typed one — a hardcoded date would go stale the next time a
+// product is added and its problem statement appears here automatically.
+const updated = allPlugins
+  .map((p) => p.releaseDate ?? '')
+  .filter(Boolean)
+  .sort()
+  .pop() ?? '2026-08-14';
+---
+
+<Layout
+  title={title}
+  description={description}
+  ogTitle={title}
+  ogDescription={ogDescription}
+  ogType="website"
+  ogUrl={pageUrl}
+  canonical={pageUrl}
+  heroBg="/images/plugins-bg.webp"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': pageUrl,
+          url: pageUrl,
+          name: title,
+          description: ogDescription,
+          dateModified: updated,
+          isPartOf: {
+            '@type': 'WebSite',
+            name: 'KIZUNA Works',
+            url: 'https://kizuna-works.jp/',
+          },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: 'kintone プラグイン',
+              item: 'https://kizuna-works.jp/plugins/',
+            },
+            { '@type': 'ListItem', position: 3, name: '困りごとから探す', item: pageUrl },
+          ],
+        },
+      ],
+    })} />
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --color-gray-light: #e2e8f0;
+    }
+
+    /* Hero */
+    .pr-hero {
+      background: linear-gradient(135deg, rgba(27, 58, 107, 0.92) 0%, rgba(42, 82, 152, 0.86) 100%),
+                  url('/images/plugins-bg.webp') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 72px 5%;
+      text-align: center;
+    }
+
+    .pr-hero h1 {
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1.35;
+      margin: 0 0 20px;
+    }
+
+    .pr-hero p {
+      font-size: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.9;
+      opacity: 0.95;
+    }
+
+    .pr-gradient-line {
+      height: 4px;
+      background: linear-gradient(90deg, var(--color-navy) 0%, var(--color-green) 100%);
+    }
+
+    /* Lead */
+    .pr-lead {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 48px 5% 0;
+    }
+
+    .pr-lead-card {
+      background: var(--color-white);
+      border-radius: 14px;
+      padding: 32px 36px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .pr-lead-card p {
+      font-size: 15px;
+      line-height: 1.95;
+      color: var(--color-text-main);
+      margin: 0 0 14px;
+    }
+
+    .pr-lead-card p:last-child { margin-bottom: 0; }
+    .pr-lead-card strong { color: var(--color-navy); }
+
+    .pr-lead-card a {
+      color: var(--color-green);
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(46, 139, 46, 0.35);
+    }
+
+    .pr-lead-card a:hover { border-bottom-color: var(--color-green); }
+
+    /* Filter: keyword box + category chips */
+    .pr-filter {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 32px 5% 0;
+    }
+
+    .pr-filter-inner {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 14px;
+      padding: 24px 28px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .pr-filter-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .pr-filter-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--color-navy);
+      margin: 0;
+    }
+
+    .pr-count {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      margin: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .pr-search {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .pr-search input {
+      width: 100%;
+      box-sizing: border-box;
+      /* Floor the field so it cannot collapse when the pane is narrow or zoomed out. */
+      min-width: 180px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--color-text-main);
+      padding: 12px 44px 12px 42px;
+      border: 2px solid var(--color-gray-light);
+      border-radius: 10px;
+      background: var(--color-bg-light);
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .pr-search input:focus {
+      outline: none;
+      border-color: var(--color-green);
+      background: var(--color-white);
+    }
+
+    /* Hide the UA's own clear affordance — the page ships its own button. */
+    .pr-search input::-webkit-search-cancel-button { display: none; }
+
+    /* The placeholder carries the visible instruction, so the label is for
+       assistive tech only — `hidden` would drop it from the a11y tree too. */
+    .pr-search-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .pr-search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 15px;
+      color: var(--color-text-muted);
+      pointer-events: none;
+    }
+
+    .pr-search-clear {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 50%;
+      background: var(--color-bg-light);
+      color: var(--color-text-muted);
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .pr-search-clear:hover { background: #dde5ee; color: var(--color-navy); }
+
+    .pr-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 8px 0;
+    }
+
+    .pr-group-label {
+      flex-shrink: 0;
+      width: 76px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      padding-top: 7px;
+    }
+
+    .pr-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .pr-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--cat-fg, var(--color-navy));
+      background: var(--cat-bg, var(--color-bg-light));
+      border: 2px solid transparent;
+      border-radius: 999px;
+      padding: 6px 12px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .pr-chip[aria-pressed="true"] {
+      border-color: currentColor;
+      box-shadow: 0 2px 8px rgba(27, 58, 107, 0.14);
+    }
+
+    .pr-chip-n {
+      font-size: 11px;
+      font-weight: 800;
+      opacity: 0.7;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .pr-filter-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--color-gray-light);
+    }
+
+    .pr-desc {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .pr-clear {
+      flex-shrink: 0;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-navy);
+      background: var(--color-bg-light);
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+
+    .pr-clear:hover { background: #dde5ee; }
+
+    .pr-empty {
+      max-width: 1000px;
+      margin: 24px auto 0;
+      padding: 0 5%;
+      text-align: center;
+      font-size: 15px;
+      color: var(--color-text-main);
+      line-height: 1.9;
+    }
+
+    .pr-empty button {
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-green);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    /* Problem list */
+    .pr-body {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 5% 8px;
+    }
+
+    .pr-section {
+      /* Clear the sticky site header when an in-page anchor lands here. */
+      scroll-margin-top: 92px;
+      margin-bottom: 36px;
+    }
+
+    .pr-section-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .pr-section-head h2 {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--color-navy);
+      margin: 0;
+      padding-left: 12px;
+      border-left: 4px solid var(--color-green);
+      line-height: 1.4;
+    }
+
+    .pr-section-n {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      background: var(--color-white);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .pr-section-desc {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      line-height: 1.75;
+      margin: 0 0 14px 16px;
+    }
+
+    .pr-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .pr-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--color-white);
+      border-left: 4px solid var(--color-green);
+      border-radius: 10px;
+      padding: 16px 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+    }
+
+    .pr-row:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 14px rgba(27, 58, 107, 0.1);
+      background: #f7fafd;
+    }
+
+    .pr-mark {
+      flex-shrink: 0;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--color-green);
+      line-height: 1.5;
+    }
+
+    .pr-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .pr-problem {
+      display: block;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--color-text-main);
+    }
+
+    .pr-problem strong { color: var(--color-navy); }
+
+    .pr-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .pr-solve {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-green);
+    }
+
+    .pr-tier {
+      font-size: 10.5px;
+      font-weight: 800;
+      border-radius: 4px;
+      padding: 2px 7px;
+      letter-spacing: 0.04em;
+    }
+
+    .pr-tier.free { background: #e7f5e7; color: #1f5c1f; }
+    .pr-tier.premium { background: #fdf4d9; color: #77590a; }
+
+    .pr-cat {
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 4px;
+      padding: 2px 8px;
+      color: var(--cat-fg, var(--color-navy));
+      background: var(--cat-bg, var(--color-bg-light));
+    }
+
+    .pr-go {
+      flex-shrink: 0;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.6;
+      opacity: 0.5;
+    }
+
+    .pr-row:hover .pr-go { opacity: 1; }
+
+    /* Category hues, one family per filter-bar group: warm = 入力・制御,
+       cool = 画面, green/earth = データ・運用. Kept in step with the same map on
+       /plugins/ — update both when a category is added. */
+    .pr-chip[data-cat="自動入力"],
+    .pr-cat[data-cat="自動入力"]        { --cat-bg: #fff1e0; --cat-fg: #9c530f; }
+    .pr-chip[data-cat="入力チェック"],
+    .pr-cat[data-cat="入力チェック"]     { --cat-bg: #fdeaea; --cat-fg: #a32f2b; }
+    .pr-chip[data-cat="入力保護"],
+    .pr-cat[data-cat="入力保護"]        { --cat-bg: #e6f2ee; --cat-fg: #1f6551; }
+    .pr-chip[data-cat="表示・編集制御"],
+    .pr-cat[data-cat="表示・編集制御"]   { --cat-bg: #fdf4d9; --cat-fg: #77590a; }
+    .pr-chip[data-cat="一括処理"],
+    .pr-cat[data-cat="一括処理"]        { --cat-bg: #fdeaf2; --cat-fg: #962f63; }
+    .pr-chip[data-cat="一覧表示"],
+    .pr-cat[data-cat="一覧表示"]        { --cat-bg: #e8f0fb; --cat-fg: #1b3a6b; }
+    .pr-chip[data-cat="画面レイアウト"],
+    .pr-cat[data-cat="画面レイアウト"]   { --cat-bg: #e2f1f4; --cat-fg: #0e5f6c; }
+    .pr-chip[data-cat="装飾・配色"],
+    .pr-cat[data-cat="装飾・配色"]      { --cat-bg: #f3eafc; --cat-fg: #6b3496; }
+    .pr-chip[data-cat="検索・閲覧"],
+    .pr-cat[data-cat="検索・閲覧"]      { --cat-bg: #eaeafa; --cat-fg: #3c368f; }
+    .pr-chip[data-cat="集計・計算"],
+    .pr-cat[data-cat="集計・計算"]      { --cat-bg: #e7f5e7; --cat-fg: #1f5c1f; }
+    .pr-chip[data-cat="出力・帳票"],
+    .pr-cat[data-cat="出力・帳票"]      { --cat-bg: #eff3e0; --cat-fg: #4d6612; }
+    .pr-chip[data-cat="通知・メール"],
+    .pr-cat[data-cat="通知・メール"]     { --cat-bg: #ddf2f0; --cat-fg: #0b6f68; }
+    .pr-chip[data-cat="情報共有"],
+    .pr-cat[data-cat="情報共有"]        { --cat-bg: #f5ece3; --cat-fg: #7a4d24; }
+    .pr-chip[data-cat="履歴・復元"],
+    .pr-cat[data-cat="履歴・復元"]      { --cat-bg: #ecf0f4; --cat-fg: #3d4c5c; }
+
+    /* Footer CTA */
+    .pr-cta {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px 5% 72px;
+      text-align: center;
+    }
+
+    .pr-cta p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--color-text-main);
+      margin: 0 0 20px;
+    }
+
+    .pr-cta strong { color: var(--color-navy); }
+
+    .pr-btn {
+      display: inline-block;
+      background: var(--color-navy);
+      color: var(--color-white);
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 8px;
+      padding: 14px 32px;
+      box-shadow: 0 4px 12px rgba(27, 58, 107, 0.2);
+    }
+
+    .pr-btn:hover { background: #16305a; }
+
+    .pr-cta-sub {
+      display: block;
+      margin-top: 16px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-navy);
+      text-decoration: none;
+    }
+
+    .pr-cta-sub:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .pr-hero { padding: 52px 5%; }
+      .pr-hero h1 { font-size: 24px; }
+      .pr-hero p { font-size: 14.5px; }
+      .pr-lead { padding-top: 32px; }
+      .pr-lead-card { padding: 24px 20px; }
+      .pr-filter-inner { padding: 20px 18px; }
+      .pr-group {
+        flex-direction: column;
+        gap: 6px;
+      }
+      .pr-group-label { width: auto; padding-top: 0; }
+      .pr-body { padding-top: 28px; }
+      .pr-section { scroll-margin-top: 80px; }
+      .pr-row { padding: 14px 16px; }
+      .pr-problem { font-size: 14px; }
+      .pr-go { display: none; }
+    }
+  </style>
+
+  <main>
+    <section class="pr-hero">
+      <h1>kintone の困りごとから探す</h1>
+      <p>「一覧が見づらい」「入力途中で消えてしまう」「合計が出せない」——kintone を使っていて手が止まる場面から、それを解決するプラグインを引ける索引です。全 {totalCount} 製品を課題別に掲載しています。</p>
+    </section>
+    <div class="pr-gradient-line"></div>
+
+    <section class="pr-lead">
+      <div class="pr-lead-card">
+        <p>このページは、KIZUNA Works の kintone プラグイン全 {totalCount} 製品を<strong>「困っていること」から引くための索引</strong>です。製品名や機能名が分からなくても、目の前で起きている不便から探せます。気になった行をクリックすると、その課題を解決するプラグインの製品ページへ移動します。</p>
+        <p>下の<strong>キーワード検索</strong>に「一覧」「CSV」「重複」などを入れると、その言葉を含む困りごとだけに絞り込めます。<strong>目的カテゴリ</strong>のボタンでの絞り込みもできます（複数選択可）。見出しの下には<strong>その用途を主目的とする製品を 1 製品 1 行</strong>で載せているため、カテゴリのボタンで絞り込むと、そのカテゴリを 2 番目・3 番目に持つ製品も加わって見出しの件数より多く表示されることがあります。</p>
+        <p>製品の画面や価格を見比べたいときは<a href="/plugins/">プラグイン一覧</a>へ。<strong>どれを選べばいいか迷っている段階</strong>なら、目的ごとに自社・他社の無料プラグインを比較した<a href="/blog/kintone-muryou-plugin-osusume/">kintone無料プラグインのおすすめ｜やりたいこと別の選び方</a>から読むと候補を絞りやすくなります。</p>
+      </div>
+    </section>
+
+    <section class="pr-filter" id="pr-filter" aria-label="困りごとを絞り込む">
+      <div class="pr-filter-inner">
+        <div class="pr-filter-head">
+          <h2 class="pr-filter-title">困りごとを絞り込む</h2>
+          <p class="pr-count" id="pr-count" aria-live="polite">全 {totalCount} 件を表示中</p>
+        </div>
+
+        <div class="pr-search">
+          <span class="pr-search-icon" aria-hidden="true">🔍</span>
+          <label class="pr-search-label" for="pr-q">困りごとのキーワード</label>
+          <input
+            type="search"
+            id="pr-q"
+            placeholder="キーワードで探す（例：一覧、CSV、重複、離席、合計）"
+            autocomplete="off"
+          />
+          <button type="button" class="pr-search-clear" id="pr-q-clear" aria-label="キーワードを消す" hidden>×</button>
+        </div>
+
+        {pluginCategoryGroups.map((group) => (
+          <div class="pr-group" role="group" aria-label={group.label}>
+            <span class="pr-group-label">{group.label}</span>
+            <div class="pr-chips">
+              {group.categories.map((cat) => (
+                <button
+                  type="button"
+                  class="pr-chip"
+                  data-cat={cat}
+                  data-cat-slug={pluginCategoryMeta[cat].slug}
+                  aria-pressed="false"
+                >
+                  {cat}<span class="pr-chip-n">{categoryCounts.get(cat) ?? 0}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        <div class="pr-filter-foot">
+          <p class="pr-desc" id="pr-desc">キーワードとカテゴリは組み合わせて絞り込めます。</p>
+          <button type="button" class="pr-clear" id="pr-clear" hidden>絞り込みを解除</button>
+        </div>
+      </div>
+    </section>
+
+    <p class="pr-empty" id="pr-empty" hidden>
+      該当する困りごとが見つかりませんでした。<br />
+      <button type="button" id="pr-empty-clear">絞り込みを解除する</button>
+    </p>
+
+    <div class="pr-body">
+      {sections.map((section) => (
+        <section class="pr-section" id={section.meta.slug} data-pr-section>
+          <div class="pr-section-head">
+            <h2>{section.cat}</h2>
+            <span class="pr-section-n">{section.rows.length} 件</span>
+          </div>
+          <p class="pr-section-desc">{section.meta.description}</p>
+          <ul class="pr-list">
+            {section.rows.map((p) => (
+              <li>
+                <a
+                  href={`/plugins/${p.slug}/`}
+                  class="pr-row"
+                  data-pr-row
+                  data-cat-slugs={catSlugs(p)}
+                  data-search={searchText(p)}
+                >
+                  <span class="pr-mark" aria-hidden="true">✓</span>
+                  <span class="pr-main">
+                    <span class="pr-problem"><strong>{p.problemTitle}</strong> — {p.problemDesc}</span>
+                    <span class="pr-meta">
+                      <span class="pr-solve">{p.name}</span>
+                      {p.tier === 'premium' ? (
+                        <span class="pr-tier premium">PREMIUM</span>
+                      ) : (
+                        <span class="pr-tier free">無料</span>
+                      )}
+                      {p.categories.map((c) => (
+                        <span class="pr-cat" data-cat={c}>{c}</span>
+                      ))}
+                    </span>
+                  </span>
+                  <span class="pr-go" aria-hidden="true">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+
+    <section class="pr-cta">
+      <p>あてはまる困りごとが見つからなかった場合も、<strong>年間サポーター</strong>からプラグインの作成リクエストをお送りいただけます。製品の画面や設定方法を見比べるときは、製品カタログもあわせてご覧ください。</p>
+      <a href="/plugins/" class="pr-btn">kintone プラグイン一覧を見る →</a>
+      <a href="/contact/" class="pr-cta-sub">困りごとを相談する（お問い合わせ）→</a>
+    </section>
+  </main>
+
+  <script is:inline type="application/json" id="pr-meta" set:html={JSON.stringify(categoryClientMeta)} />
+
+  <script is:inline>
+    (function () {
+      var bar = document.getElementById('pr-filter');
+      var metaEl = document.getElementById('pr-meta');
+      if (!bar || !metaEl) return;
+
+      var META = JSON.parse(metaEl.textContent || '{}');
+      var chips = Array.prototype.slice.call(bar.querySelectorAll('.pr-chip'));
+      var rows = Array.prototype.slice.call(document.querySelectorAll('[data-pr-row]'));
+      var sections = Array.prototype.slice.call(document.querySelectorAll('[data-pr-section]'));
+      var input = document.getElementById('pr-q');
+      var inputClear = document.getElementById('pr-q-clear');
+      var countEl = document.getElementById('pr-count');
+      var descEl = document.getElementById('pr-desc');
+      var clearBtn = document.getElementById('pr-clear');
+      var emptyEl = document.getElementById('pr-empty');
+      var emptyClear = document.getElementById('pr-empty-clear');
+      var total = rows.length;
+      var defaultDesc = descEl ? descEl.textContent : '';
+      var selected = [];
+      /* `terms` is lowercased for matching; `rawQuery` keeps what was typed so a
+         shared ?q= link reads back as the visitor wrote it. */
+      var terms = [];
+      var rawQuery = '';
+
+      function has(slug) {
+        return selected.indexOf(slug) !== -1;
+      }
+
+      function label(slug) {
+        return META[slug] ? META[slug].name : slug;
+      }
+
+      /* Split on ASCII and ideographic spaces alike, then AND the terms — typing
+         "一覧 合計" should mean both words, not either. */
+      function parse(q) {
+        return q
+          .toLowerCase()
+          .split(/[\s　]+/)
+          .filter(function (t) { return t.length > 0; });
+      }
+
+      function matches(row) {
+        if (selected.length) {
+          var slugs = (row.getAttribute('data-cat-slugs') || '').split('|');
+          if (!slugs.some(has)) return false;
+        }
+        if (terms.length) {
+          var hay = row.getAttribute('data-search') || '';
+          for (var i = 0; i < terms.length; i++) {
+            if (hay.indexOf(terms[i]) === -1) return false;
+          }
+        }
+        return true;
+      }
+
+      function syncUrl() {
+        var url = new URL(window.location.href);
+        if (selected.length) url.searchParams.set('cat', selected.join(','));
+        else url.searchParams.delete('cat');
+        if (rawQuery) url.searchParams.set('q', rawQuery);
+        else url.searchParams.delete('q');
+        window.history.replaceState({}, '', url.pathname + url.search + url.hash);
+      }
+
+      function apply() {
+        var visible = 0;
+
+        rows.forEach(function (row) {
+          var show = matches(row);
+          /* The row is inside an <li>; hide that so no empty bullet space is left. */
+          var item = row.parentElement;
+          if (show) {
+            item.removeAttribute('hidden');
+            visible++;
+          } else {
+            item.setAttribute('hidden', '');
+          }
+        });
+
+        sections.forEach(function (section) {
+          var shown = section.querySelectorAll('[data-pr-row]').length
+            - section.querySelectorAll('li[hidden]').length;
+          section.hidden = shown === 0;
+          var n = section.querySelector('.pr-section-n');
+          if (n) n.textContent = shown + ' 件';
+        });
+
+        chips.forEach(function (chip) {
+          chip.setAttribute('aria-pressed', has(chip.getAttribute('data-cat-slug')) ? 'true' : 'false');
+        });
+
+        var filtering = selected.length > 0 || terms.length > 0;
+
+        if (countEl) {
+          countEl.textContent = filtering
+            ? total + ' 件中 ' + visible + ' 件を表示中'
+            : '全 ' + total + ' 件を表示中';
+        }
+
+        if (descEl) {
+          if (!filtering) {
+            descEl.textContent = defaultDesc;
+          } else if (selected.length === 1 && !terms.length) {
+            var meta = META[selected[0]];
+            descEl.textContent = meta ? meta.name + ' — ' + meta.desc : '';
+          } else {
+            var parts = [];
+            /* Category names already contain "・", so join them with "／". */
+            if (selected.length) parts.push(selected.map(label).join('／') + 'のカテゴリ');
+            if (terms.length) parts.push('「' + rawQuery + '」を含む困りごと');
+            descEl.textContent = parts.join('、かつ') + 'で絞り込み中';
+          }
+        }
+
+        if (clearBtn) clearBtn.hidden = !filtering;
+        if (inputClear) inputClear.hidden = !input || !input.value;
+        if (emptyEl) emptyEl.hidden = visible !== 0;
+
+        syncUrl();
+      }
+
+      function setQuery(value) {
+        rawQuery = value.trim();
+        terms = parse(value);
+        if (input && input.value !== value) input.value = value;
+      }
+
+      function reset() {
+        selected = [];
+        setQuery('');
+        apply();
+      }
+
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var slug = chip.getAttribute('data-cat-slug');
+          var i = selected.indexOf(slug);
+          if (i === -1) selected.push(slug);
+          else selected.splice(i, 1);
+          apply();
+        });
+      });
+
+      /* The category tags on a row are labels, not controls: the whole row is a
+         link to the product page, so making a tag do something else on click
+         would fight that. Filtering happens in the bar above only. */
+
+      if (input) {
+        /* `input` covers IME composition in Chrome and Safari, so a Japanese
+           query filters as it is typed rather than only on commit. */
+        input.addEventListener('input', function () {
+          setQuery(input.value);
+          apply();
+        });
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && input.value) {
+            setQuery('');
+            apply();
+          }
+        });
+      }
+
+      if (inputClear) {
+        inputClear.addEventListener('click', function () {
+          setQuery('');
+          apply();
+          if (input) input.focus();
+        });
+      }
+
+      if (clearBtn) clearBtn.addEventListener('click', reset);
+      if (emptyClear) emptyClear.addEventListener('click', reset);
+
+      var params = new URLSearchParams(window.location.search);
+      var fromCat = params.get('cat');
+      if (fromCat) {
+        fromCat.split(',').forEach(function (slug) {
+          slug = slug.trim();
+          if (META[slug] && !has(slug)) selected.push(slug);
+        });
+      }
+      var fromQ = params.get('q');
+      if (fromQ) setQuery(fromQ);
+
+      apply();
+    })();
+  </script>
+</Layout>

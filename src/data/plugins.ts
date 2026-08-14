@@ -63,12 +63,23 @@ export interface Plugin {
    */
   cardDescription: string;
   /**
-   * Problem statement title shown in bold on the homepage 課題リスト.
+   * Problem statement title shown in bold on the 課題リスト.
    * Phrase as the user's pain (not the solution).
    */
   problemTitle: string;
   /** Problem detail rendered after the em dash on the same item. */
   problemDesc: string;
+  /**
+   * Picks the entry for the homepage 課題セクション, which shows representative
+   * pains only — the full set for every product lives on /plugins/problems/, so
+   * that section stops growing with the lineup (it had reached 53 items / 27
+   * rows before the split).
+   *
+   * Keep it at ~9 entries, three per filter-bar group (入力・制御／画面／
+   * データ・運用) so the grid reads across all three, and prefer ちょこっと
+   * products: the section closes with 「すべて無料のプラグインで解決できます」.
+   */
+  problemFeatured?: boolean;
   /**
    * Public release date in ISO format (YYYY-MM-DD). Used as the tiebreaker for
    * /plugins/ranking/ when install counts are equal — older releases rank higher.
@@ -108,6 +119,7 @@ export const plugins: Plugin[] = [
       '背景色・文字色・条件付きスタイルなど10機能をノーコード設定。サブテーブル（明細）内のフィールドにも対応。',
     problemTitle: 'フィールドの色分けや条件付き書式',
     problemDesc: 'JavaScript なしでノーコードに実現したい',
+    problemFeatured: true,
     releaseDate: '2026-04-16',
     summaryVersion: '2.3.1',
   },
@@ -180,6 +192,7 @@ export const plugins: Plugin[] = [
       'ルックアップフィールドへの入力中に候補を表示。画面遷移なしで取得まで完結。サブテーブル内・スマホ対応、フォーム編集不要で導入可。',
     problemTitle: 'ルックアップ入力を高速化',
     problemDesc: '入力中に候補表示でクリック数を減らしたい',
+    problemFeatured: true,
     releaseDate: '2026-04-18',
     summaryVersion: '2.2.2',
   },
@@ -420,6 +433,7 @@ export const plugins: Plugin[] = [
       '一覧ヘッダーに合計・平均・件数などの集計カードを表示。絞り込み連動で即時再集計、カードごとの絞り込み集計・条件付き色分け・段組み対応。',
     problemTitle: '絞り込んだ一覧の合計や件数をすぐ見たい',
     problemDesc: 'グラフ画面に移動せず、一覧の上でそのまま集計を確認したい',
+    problemFeatured: true,
     releaseDate: '2026-05-30',
     summaryVersion: '2.2.0',
   },
@@ -444,6 +458,7 @@ export const plugins: Plugin[] = [
       '一覧の絞り込み結果を用途別テンプレートでワンクリックCSV出力。列・ヘッダー名・文字コード・絞り込み条件を保存、項目名行のオン/オフも選べます。',
     problemTitle: 'いつものフォーマットでCSVを書き出したい',
     problemDesc: '毎回フィールドを選び直さず、絞り込んだ結果をテンプレートで一発出力したい',
+    problemFeatured: true,
     releaseDate: '2026-06-03',
     summaryVersion: '1.4.0',
   },
@@ -540,6 +555,7 @@ export const plugins: Plugin[] = [
       'テーブルの明細を一覧の行としてまとめて表示。左端列の固定・ゼブラ2色・行番号・条件付き行色分け（TODAY/ステータス対応）で横長一覧も見やすく。',
     problemTitle: '横長の一覧が見づらい',
     problemDesc: '横スクロールでキー列が消える・行を見分けづらい・状態や期限を一目で把握したい',
+    problemFeatured: true,
     releaseDate: '2026-06-07',
     summaryVersion: '1.1.0',
   },
@@ -732,6 +748,7 @@ export const plugins: Plugin[] = [
       '絞り込んだ一覧の1フィールドをまとめて更新・クリア。数値は加算/減算、クイックサーチ連動・1万件超対応。Undoと履歴からの復元付き。',
     problemTitle: '複数レコードの同じ項目を1件ずつ詳細画面で直している',
     problemDesc: 'ステータス・担当者・金額などを絞り込んだ何十件にまとめて反映したいのに、1件ずつ開いて編集・保存を繰り返していて時間がかかる',
+    problemFeatured: true,
     releaseDate: '2026-07-03',
     summaryVersion: '1.0.2',
   },
@@ -828,6 +845,7 @@ export const plugins: Plugin[] = [
       '長いフォームをスペース見出しで折りたたみ整理。必要な節だけ開いて入力でき、セクションごとの閲覧制限・パスワード表示制御にも対応。',
     problemTitle: 'フォームが縦に長く、目的の項目を探すのが大変',
     problemDesc: '項目数の多いアプリで、入力・確認したい箇所までスクロールで探すのに時間がかかり、フォーム全体の把握もしにくい',
+    problemFeatured: true,
     releaseDate: '2026-07-13',
     summaryVersion: '2.0.2',
   },
@@ -902,6 +920,7 @@ export const plugins: Plugin[] = [
       'うっかり削除したレコードを元に戻せる。削除直前に添付ごと保管アプリへ自動バックアップし、履歴からワンクリックで復元。',
     problemTitle: '誤って削除したレコードが元に戻せない',
     problemDesc: 'kintone には削除レコードを復元する標準機能がなく、うっかり消すと内容も添付ファイルも失われてしまう',
+    problemFeatured: true,
     releaseDate: '2026-07-24',
     summaryVersion: '1.0.1',
   },
@@ -1095,6 +1114,7 @@ export const plugins: Plugin[] = [
     problemTitle: '入力途中で離席して、書いた内容が消える',
     problemDesc:
       '電話や来客で席を立った間にセッションが切れ、長い対応記録がまるごと消える。書き直しになるうえ、編集中のまま放置されたレコードにも気づけない',
+    problemFeatured: true,
     releaseDate: '2026-08-14',
     summaryVersion: '1.0.0',
   },

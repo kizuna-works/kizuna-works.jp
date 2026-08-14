@@ -48,7 +48,7 @@ c:\kizuna-works.jp\
 │   │   └── Picture.astro       # PNG指定で同名 .webp があれば <picture> で WebP を優先配信。card 指定時は <base>-800.webp を srcset に足す（カードの実表示幅は400px前後なので原寸1200pxを配らない）。WebP が無ければ素の <img> を出すだけなので置き換え安全。派生画像は scripts/gen-image-derivatives.mjs が生成
 │   ├── data/                   # ビルド時参照される TS データ
 │   │   ├── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）。`categories` は目的カテゴリを1〜3個持つ配列。先頭にそのプラグインの主目的を書くが、チップはすべて同じ体裁でカテゴリ色だけが変わる（並び順に表示上の意味は持たせていない）
-│   │   ├── pluginCategories.ts # プラグインの目的カテゴリ13種の定義（名称・URLスラッグ・一言説明・チップ列のグループ分け）。/plugins/ の絞り込みバーとカード上のタグが参照。カテゴリを増減するときは index.astro のチップ色（--cat-bg/--cat-fg）も追加する
+│   │   ├── pluginCategories.ts # プラグインの目的カテゴリ14種の定義（名称・URLスラッグ・一言説明・チップ列のグループ分け）。/plugins/ の絞り込みバーとカード上のタグ、/plugins/problems/ の課題索引が参照。カテゴリを増減するときは index.astro と problems/index.astro のチップ色（--cat-bg/--cat-fg）も追加する
 │   │   ├── glossary.ts         # kintone 用語集の単一情報源（/glossary/ 一覧と DefinedTermSet JSON-LD を生成）。hasPage/longDescription/useCases/faq を持つ語は /glossary/<id>/ の個別ページも生成。`supersededBy` を持つ語は個別ページを noindex＋sitemap 除外にし、同じ検索意図で上位のブログ記事へ誘導する（自社2ページで表示回数を食い合うのを防ぐ。付与は GSC で順位を確認してから）
 │   │   ├── plugin-security.ts  # プラグインごとのセキュリティ事実（外部通信・同梱ライブラリ）の単一情報源。SecurityBox が参照
 │   │   └── install-ranking.json # インストール数ランキングのスナップショット（scripts/gen-install-ranking.mjs が prebuild で更新）。トップの Top3 と /plugins/ranking/ が両方これを読む＝順位が食い違わない。**手で編集しない**
@@ -74,7 +74,9 @@ c:\kizuna-works.jp\
 │   │   │   ├── [...slug].astro # お知らせ個別ページ動的ルート（externalUrl 未指定エントリのみ生成）
 │   │   │   └── rss.xml.ts      # お知らせ RSS フィード（/news/rss.xml）
 │   │   ├── plugins/
-│   │   │   ├── index.astro     # プラグイン一覧ページ（/plugins/）― 目的カテゴリ13種の絞り込みバー（複数選択OR・`?cat=` に反映・カード上のタグをクリックしても絞れる）。カードは stretched link 構造（タグを button にするため外側の <a> をやめ、タイトルリンクを ::after でカード全体に広げている）。長文の「特長」と無料範囲の表はグリッドの下（#about / #free-scope）
+│   │   │   ├── index.astro     # プラグイン一覧ページ（/plugins/）― 目的カテゴリ14種の絞り込みバー（複数選択OR・`?cat=` に反映・カード上のタグをクリックしても絞れる）。カードは stretched link 構造（タグを button にするため外側の <a> をやめ、タイトルリンクを ::after でカード全体に広げている）。長文の「特長」と無料範囲の表はグリッドの下（#about / #free-scope）。カテゴリ数は pluginCategories.length から動的
+│   │   │   ├── problems/
+│   │   │   │   └── index.astro # kintoneの困りごとから探す（/plugins/problems/）― 全製品の problemTitle / problemDesc を主カテゴリ（categories[0]）別に並べた課題索引。1製品1行なので重複なし。キーワード検索（空白区切りAND・全角空白も分割）＋カテゴリチップ（複数選択OR）で絞り込み、`?q=` / `?cat=` に反映。トップページの「こんなことで困っていませんか？」が全件掲載で27行まで伸びていたのを、代表9件（plugins.ts の `problemFeatured`）＋このページに分割した。カテゴリ色は /plugins/ と同じ配色を複製（カテゴリ追加時は両方に足す）。hero背景=plugins-bg.webp
 │   │   │   ├── ranking/
 │   │   │   │   └── index.astro # プラグイン ダウンロードランキング全件ページ（/plugins/ranking/）― GAS から全件取得し順位付け表示。同数時はリリース日が古い方を上位
 │   │   │   ├── supporter/

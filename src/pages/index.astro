@@ -5,10 +5,22 @@ import BlogCard from '../components/BlogCard.astro';
 import Picture from '../components/Picture.astro';
 import InstallRankingTop3 from '../components/InstallRankingTop3.astro';
 import { allPlugins as plugins } from '../data/plugins';
+import { pluginCategories } from '../data/pluginCategories';
 import { extensions } from '../data/extensions';
 import { tools } from '../data/tools';
 
-// Newest first — for problems list and the homepage compact showcase.
+// 課題セクション: representative pains only, ordered by their primary category so
+// the grid reads 入力・制御 → 画面 → データ・運用 rather than by release date.
+// Listing every product had grown the section to 27 rows and one more row shipped
+// with every release — the full index now lives on /plugins/problems/.
+const catOrder = new Map(pluginCategories.map((c, i) => [c, i]));
+const featuredProblems = plugins
+  .filter((p) => p.problemFeatured)
+  .sort(
+    (a, b) => (catOrder.get(a.categories[0]) ?? 99) - (catOrder.get(b.categories[0]) ?? 99)
+  );
+
+// Newest first — for the homepage compact showcase.
 // allPlugins is [...standard, ...premium], so a plain reverse() would surface only
 // premium entries. Sort by releaseDate instead (stable: same-day ties keep data order).
 const pluginsNewestFirst = [...plugins].sort((a, b) =>
@@ -673,6 +685,21 @@ const pluginPosts = allPosts
 
     .problems-cta strong {
       color: #1B3A6B;
+    }
+
+    /* Secondary link under the primary CTA: the catalogue is the other way into
+       the lineup, for visitors who already know what they are looking for. */
+    .problems-cta-sub {
+      display: block;
+      margin-top: 14px;
+      color: #1B3A6B;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .problems-cta-sub:hover {
+      text-decoration: underline;
     }
 
     /* =========================================
@@ -1761,16 +1788,17 @@ const pluginPosts = allPosts
           <span class="problem-mark">✓</span>
           <p class="problem-text"><strong>kintone を導入したのに現場に定着しない</strong> — 入力項目が多すぎる・画面が見づらい等の壁に困っている</p>
         </a>
-        {pluginsNewestFirst.map((p) => (
+        {featuredProblems.map((p) => (
           <a href={`/plugins/${p.slug}/`} class="problem-item">
             <span class="problem-mark">✓</span>
             <p class="problem-text"><strong>{p.problemTitle}</strong> — {p.problemDesc}</p>
           </a>
         ))}
       </div>
-      <p class="problems-cta">これらの課題はすべて、<strong>無料の kintone プラグイン</strong>で解決できます。</p>
+      <p class="problems-cta">これらの課題はすべて、<strong>無料の kintone プラグイン</strong>で解決できます。ほかにも、全 {plugins.length} 製品を「困りごと」から引ける索引をご用意しています。</p>
       <div class="section-cta-center">
-        <a href="/plugins/" class="btn btn-primary">プラグインで解決する →</a>
+        <a href="/plugins/problems/" class="btn btn-primary">困りごとから探す（全{plugins.length}件）→</a>
+        <a href="/plugins/" class="problems-cta-sub">プラグイン一覧を見る →</a>
       </div>
     </div>
   </section>
