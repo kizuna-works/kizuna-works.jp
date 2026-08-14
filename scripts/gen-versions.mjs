@@ -26,6 +26,17 @@ if (ids.length !== slugs.length) {
 }
 const idToSlug = new Map(ids.map((id, i) => [id, slugs[i]]));
 
+// --- id -> kintone plugin id (32 chars, ppk-derived, static in plugins.ts) ---
+// The KW Plugin Updater extension matches installed plugins by this value.
+const pluginIds = [...pluginsTs.matchAll(/^\s+id:\s*'([^']+)',\n\s+pluginId:\s*'([a-p]{32})'/gm)];
+const idToPluginId = new Map(pluginIds.map((m) => [m[1], m[2]]));
+if (idToPluginId.size !== ids.length) {
+  console.warn(
+    `[gen-versions] pluginId missing for ${ids.length - idToPluginId.size} plugin(s) — ` +
+      'the updater extension cannot match those. See plugins.ts `pluginId`.',
+  );
+}
+
 // --- scan distributed zips for the latest version per plugin id ---
 function cmpVersion(a, b) {
   const pa = a.split('.').map(Number);
@@ -54,6 +65,8 @@ for (const [id, version] of Object.entries(latest).sort()) {
     continue;
   }
   out[id] = { version, url: `${SITE}/plugins/${slug}/` };
+  const pluginId = idToPluginId.get(id);
+  if (pluginId) out[id].pluginId = pluginId;
 }
 
 writeFileSync(join(root, 'public/versions.json'), JSON.stringify(out, null, 2) + '\n');

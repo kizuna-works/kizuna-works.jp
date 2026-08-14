@@ -8,6 +8,17 @@ export type PluginStatus = 'available' | 'coming-soon';
 export interface Plugin {
   /** Plugin ID matching GAS license master (e.g., 'field-styler'). */
   id: string;
+  /**
+   * The 32-char plugin ID kintone assigns, derived deterministically from the
+   * plugin's `private.ppk` and fixed for the life of the plugin. Emitted into
+   * `versions.json` so the KW Plugin Updater browser extension can match the
+   * plugins installed in a kintone environment against our catalogue.
+   *
+   * Held here as static data on purpose: the ppk files live in the untracked
+   * `SECRET/` directory, so deriving this at build time would fail in CI.
+   * Regenerate with the snippet in the extension's design doc (§9.1).
+   */
+  pluginId?: string;
   /** Display name shown on the grid card heading. */
   name: string;
   /**
@@ -77,6 +88,7 @@ export interface Plugin {
 export const plugins: Plugin[] = [
   {
     id: 'kw-field-styler',
+    pluginId: 'ipchbdojeajjialmgeebicbdnbfecljh',
     name: 'フィールドスタイラー for kintone',
     formName: 'フィールドスタイラー for kintone',
     subtitle: 'kintone プラグイン',
@@ -101,6 +113,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-conditional-numbering',
+    pluginId: 'fjahacomgeimpbmoaophfgmhielmfblp',
     name: '条件分岐自動採番 for kintone',
     formName: '条件分岐自動採番 for kintone',
     subtitle: 'kintone プラグイン',
@@ -124,6 +137,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-form-deco',
+    pluginId: 'mjilkibkkpekdmdoebgbnailkkphaaeo',
     name: 'FormDeco for kintone',
     formName: 'FormDeco for kintone',
     subtitle: 'kintone プラグイン',
@@ -147,6 +161,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-lookup-suggest',
+    pluginId: 'lepnkidknipkkicliackimcjphfnicaj',
     name: 'ルックアップサジェスト for kintone',
     formName: 'ルックアップサジェスト for kintone',
     subtitle: 'kintone プラグイン',
@@ -170,6 +185,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-quick-search',
+    pluginId: 'pijepbcgdjdeaidfoompdabcfnpcapnl',
     name: 'クイックサーチ for kintone',
     formName: 'クイックサーチ for kintone',
     subtitle: 'kintone プラグイン',
@@ -193,6 +209,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-file-icon-marker',
+    pluginId: 'klagkokfidjdnmkigkflfimijfjnfhja',
     name: '添付ファイルアイコン表示 for kintone',
     formName: '添付ファイルアイコン表示 for kintone',
     subtitle: 'kintone プラグイン',
@@ -216,6 +233,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-quick-side-view',
+    pluginId: 'bjbbhhmdogglkcijefmglmkdjmajlglb',
     name: 'クイックサイドビュー for kintone',
     formName: 'クイックサイドビュー for kintone',
     subtitle: 'kintone プラグイン',
@@ -239,6 +257,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-record-lock',
+    pluginId: 'maeelgojcoehjhfflbghhfkfbgkaljmb',
     name: 'レコードロック for kintone',
     formName: 'レコードロック for kintone',
     subtitle: 'kintone プラグイン',
@@ -262,6 +281,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-field-comment',
+    pluginId: 'oenlpfgidpcoicjkfpoehcamkdoijjkc',
     name: 'フィールドコメント for kintone',
     formName: 'フィールドコメント for kintone',
     subtitle: 'kintone プラグイン',
@@ -285,6 +305,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-theme-styler',
+    pluginId: 'plgngjmfdelienlgcbmmhblipieglacn',
     name: 'テーマスタイラー for kintone',
     formName: 'テーマスタイラー for kintone',
     subtitle: 'kintone プラグイン',
@@ -308,6 +329,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-address-assist',
+    pluginId: 'lipbgmdjanokobonljglfahpfgfodcop',
     name: '住所アシスト for kintone',
     formName: '住所アシスト for kintone',
     subtitle: 'kintone プラグイン',
@@ -331,6 +353,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-quick-history-view',
+    pluginId: 'dpafdongccmbjebcdndfhdeeejhhiodg',
     name: 'クイック履歴ビュー for kintone',
     formName: 'クイック履歴ビュー for kintone',
     subtitle: 'kintone プラグイン',
@@ -354,6 +377,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-related-record-popup',
+    pluginId: 'dailocfmjmnjmobgchjpefnjeaalkmdh',
     name: '関連レコードポップアップ表示 for kintone',
     formName: '関連レコードポップアップ表示 for kintone',
     subtitle: 'kintone プラグイン',
@@ -377,6 +401,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-summary-bar',
+    pluginId: 'hinppcebblkimejognfkibmkgpgnfkdc',
     name: '集計サマリーバー for kintone',
     formName: '集計サマリーバー for kintone',
     subtitle: 'kintone プラグイン',
@@ -400,6 +425,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-csv-export',
+    pluginId: 'gpaobgkbgmcminhdgobmkbagigjaniac',
     name: 'かんたんCSV出力 for kintone',
     formName: 'かんたんCSV出力 for kintone',
     subtitle: 'kintone プラグイン',
@@ -423,6 +449,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-quick-tab',
+    pluginId: 'igbhhoaagcgmedbjefcofckpgdgdjiac',
     name: 'クイックタブ for kintone',
     formName: 'クイックタブ for kintone',
     subtitle: 'kintone プラグイン',
@@ -446,6 +473,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-file-preview',
+    pluginId: 'bdlbnngfgnimdkemgabmlnngplbcegoa',
     name: '添付ファイルプレビュー for kintone',
     formName: '添付ファイルプレビュー for kintone',
     subtitle: 'kintone プラグイン',
@@ -469,6 +497,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-quick-toc',
+    pluginId: 'geilcniligalcmgbobkjebffkdgjcjmh',
     name: 'クイック目次 for kintone',
     formName: 'クイック目次 for kintone',
     subtitle: 'kintone プラグイン',
@@ -492,6 +521,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-list-styler',
+    pluginId: 'mlcnodejgponlkpfmmgpkfiagpkfhgij',
     name: '一覧スタイラー for kintone',
     formName: '一覧スタイラー for kintone',
     subtitle: 'kintone プラグイン',
@@ -515,6 +545,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-input-assist',
+    pluginId: 'gpchcdgbjjbonekcognaeieeabfndeon',
     name: '入力アシスト for kintone',
     formName: '入力アシスト for kintone',
     subtitle: 'kintone プラグイン',
@@ -538,6 +569,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-conditional-form',
+    pluginId: 'njedbadpjojklmcimokndljdeilbpepg',
     name: '条件分岐フォーム for kintone',
     formName: '条件分岐フォーム for kintone',
     subtitle: 'kintone プラグイン',
@@ -561,6 +593,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-sheet-edit',
+    pluginId: 'knamdadkimkldneeklpabmlgeehmgpde',
     name: 'シート編集 for kintone',
     formName: 'シート編集 for kintone',
     subtitle: 'kintone プラグイン',
@@ -584,6 +617,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-sticky-board',
+    pluginId: 'cmbgkloakciopfbbgnbelnkcphhbibbb',
     name: '付箋ボード for kintone',
     formName: '付箋ボード for kintone',
     subtitle: 'kintone プラグイン',
@@ -607,6 +641,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-mail-assist',
+    pluginId: 'fkdedmcmckedbglcibhckofcmkfgjfnn',
     name: 'メールアシスト for kintone',
     formName: 'メールアシスト for kintone',
     subtitle: 'kintone プラグイン',
@@ -630,6 +665,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-comment-control',
+    pluginId: 'lhgfciapegnoldcgglceadhllljckbmp',
     name: 'コメントコントロール for kintone',
     formName: 'コメントコントロール for kintone',
     subtitle: 'kintone プラグイン',
@@ -653,6 +689,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-user-autofill',
+    pluginId: 'hbehnimgcahjolboiddemedifnkhmnla',
     name: 'ユーザーオートフィル for kintone',
     formName: 'ユーザーオートフィル for kintone',
     subtitle: 'kintone プラグイン',
@@ -676,6 +713,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-bulk-update',
+    pluginId: 'fbinihdnlbcjllmcpbbgapompicbjenc',
     name: 'かんたん一括更新 for kintone',
     formName: 'かんたん一括更新 for kintone',
     subtitle: 'kintone プラグイン',
@@ -699,6 +737,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-excel-paste',
+    pluginId: 'ceoonbcoilajpkghgpimcjhfdpljldbg',
     name: 'エクセル一括貼り付け for kintone',
     formName: 'エクセル一括貼り付け for kintone',
     subtitle: 'kintone プラグイン',
@@ -722,6 +761,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-ambiguous-match',
+    pluginId: 'cibfmffpmecmpcfhijdcbngejhgohgfn',
     name: 'あいまい照合 for kintone',
     formName: 'あいまい照合 for kintone',
     subtitle: 'kintone プラグイン',
@@ -745,6 +785,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-status-bulk-action',
+    pluginId: 'blbeilamoocikkaogkjkmiodgbfejooh',
     name: 'ステータス一括実行 for kintone',
     formName: 'ステータス一括実行 for kintone',
     subtitle: 'kintone プラグイン',
@@ -768,6 +809,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-accordion-tab',
+    pluginId: 'edjjkigdcdchnodnfpepngiacodgpkea',
     name: 'アコーディオンタブ for kintone',
     formName: 'アコーディオンタブ for kintone',
     subtitle: 'kintone プラグイン',
@@ -791,6 +833,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-elapsed-assist',
+    pluginId: 'bdgmcdbdcnapokflohnhnkonchflogam',
     name: '経過計算アシスト for kintone',
     formName: '経過計算アシスト for kintone',
     subtitle: 'kintone プラグイン',
@@ -814,6 +857,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-reuse-control',
+    pluginId: 'kkceikbkapbhdldeeabdnjejenelmdig',
     name: 'レコード再利用コントロール for kintone',
     formName: 'レコード再利用コントロール for kintone',
     subtitle: 'kintone プラグイン',
@@ -838,6 +882,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-record-recovery',
+    pluginId: 'lmlcjppmjnjmedhohmldoaffiknahokl',
     name: '削除レコード復元 for kintone',
     formName: '削除レコード復元 for kintone',
     subtitle: 'kintone プラグイン',
@@ -862,6 +907,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-read-check',
+    pluginId: 'khnleckinnefnkeadfpdncnnahpdapkn',
     name: '既読チェック for kintone',
     formName: '既読チェック for kintone',
     subtitle: 'kintone プラグイン',
@@ -886,6 +932,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-text-join',
+    pluginId: 'kepofamplmoaicbelfanckelbdbobeck',
     name: '文字列結合 for kintone',
     formName: '文字列結合 for kintone',
     subtitle: 'kintone プラグイン',
@@ -910,6 +957,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-view-control',
+    pluginId: 'jdmigbhjdejldnieeagmdeibjkamkjfe',
     name: '一覧コントロール for kintone',
     formName: '一覧コントロール for kintone',
     subtitle: 'kintone プラグイン',
@@ -934,6 +982,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-table-assist',
+    pluginId: 'mjjohecgmgfgnhbmflhilolnhfjnimbk',
     name: 'テーブルアシスト for kintone',
     formName: 'テーブルアシスト for kintone',
     slug: 'table-assist',
@@ -956,6 +1005,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-file-export',
+    pluginId: 'ldngaocacpegobfboelbbpijfplidolf',
     name: '添付ファイル出力 for kintone',
     formName: '添付ファイル出力 for kintone',
     slug: 'file-export',
@@ -978,6 +1028,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-after-save',
+    pluginId: 'fklodgifdfbgampadilgcbaobdjhiben',
     name: '保存後ナビ for kintone',
     formName: '保存後ナビ for kintone',
     slug: 'after-save',
@@ -1001,6 +1052,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-lottery-roulette',
+    pluginId: 'fjobdfdhjnkpeibbeafammgpbanphhfl',
     name: '抽選ルーレット for kintone',
     formName: '抽選ルーレット for kintone',
     slug: 'lottery-roulette',
@@ -1024,6 +1076,7 @@ export const plugins: Plugin[] = [
   },
   {
     id: 'kw-autosave-assist',
+    pluginId: 'ommlnedeokgjkgicidendgplmcjfcbfm',
     name: '自動保存アシスト for kintone',
     formName: '自動保存アシスト for kintone',
     slug: 'autosave-assist',
@@ -1055,6 +1108,7 @@ export const plugins: Plugin[] = [
 export const premiumPlugins: Plugin[] = [
   {
     id: 'kw-report-designer',
+    pluginId: 'cckpmebgmbdippgiicgldindkjlhhbci',
     name: '帳票デザイナー for kintone',
     formName: '帳票デザイナー for kintone',
     subtitle: 'プレミアムプラグイン',
@@ -1078,6 +1132,7 @@ export const premiumPlugins: Plugin[] = [
   },
   {
     id: 'kw-dashboard',
+    pluginId: 'fdodfjefljonnenalifbgepbldmogoll',
     name: 'ダッシュボード for kintone',
     formName: 'ダッシュボード for kintone',
     subtitle: 'プレミアムプラグイン',
@@ -1101,6 +1156,7 @@ export const premiumPlugins: Plugin[] = [
   },
   {
     id: 'kw-attribute-filter',
+    pluginId: 'eecphkkockjmkkimmgogjgjnlgagahgl',
     name: '属性制御フィルター for kintone',
     formName: '属性制御フィルター for kintone',
     subtitle: 'プレミアムプラグイン',
@@ -1124,6 +1180,7 @@ export const premiumPlugins: Plugin[] = [
   },
   {
     id: 'kw-lookup-sync',
+    pluginId: 'ajmelgjgifcehodoklimhbalkjdndjdd',
     name: 'ルックアップ自動同期 for kintone',
     formName: 'ルックアップ自動同期 for kintone',
     subtitle: 'プレミアムプラグイン',
@@ -1147,6 +1204,7 @@ export const premiumPlugins: Plugin[] = [
   },
   {
     id: 'kw-related-enhancer',
+    pluginId: 'omdiblonbpnnkdlolocbmildpnljcocc',
     name: '関連レコード拡張 for kintone',
     formName: '関連レコード拡張 for kintone',
     subtitle: 'プレミアムプラグイン',
@@ -1170,6 +1228,7 @@ export const premiumPlugins: Plugin[] = [
   },
   {
     id: 'kw-card-board',
+    pluginId: 'haefkbnglnmpoajgkipohcdjlfkkmooa',
     name: 'カードボード for kintone',
     formName: 'カードボード for kintone',
     subtitle: 'プレミアムプラグイン',
@@ -1193,6 +1252,7 @@ export const premiumPlugins: Plugin[] = [
   },
   {
     id: 'kw-chat-notify',
+    pluginId: 'cfammdmfpjcmjlfhpofpllgkbkcihjmf',
     name: 'チャット通知 for kintone',
     formName: 'チャット通知 for kintone',
     subtitle: 'プレミアムプラグイン',
@@ -1216,6 +1276,7 @@ export const premiumPlugins: Plugin[] = [
   },
   {
     id: 'kw-sidebar-enhancer',
+    pluginId: 'fohbimdpjdledfljmghngkbimikfgnkk',
     name: 'サイドバー拡張 for kintone',
     formName: 'サイドバー拡張 for kintone',
     subtitle: 'プレミアムプラグイン',
@@ -1240,6 +1301,7 @@ export const premiumPlugins: Plugin[] = [
   },
   {
     id: 'kw-input-template',
+    pluginId: 'npnalkmflfpgbbhdlhhlcdigoojpocjg',
     name: '入力テンプレート for kintone',
     formName: '入力テンプレート for kintone',
     subtitle: 'プレミアムプラグイン',
@@ -1263,6 +1325,7 @@ export const premiumPlugins: Plugin[] = [
   },
   {
     id: 'kw-barcode-assist',
+    pluginId: 'bahfobplbiddbjfgdifnpglofgelkgep',
     name: 'バーコードアシスト for kintone',
     formName: 'バーコードアシスト for kintone',
     subtitle: 'プレミアムプラグイン',
