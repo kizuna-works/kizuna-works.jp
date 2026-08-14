@@ -1022,6 +1022,29 @@ export const plugins: Plugin[] = [
     releaseDate: '2026-08-11',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-autosave-assist',
+    name: '自動保存アシスト for kintone',
+    formName: '自動保存アシスト for kintone',
+    slug: 'autosave-assist',
+    categories: ['入力保護', '一覧表示'],
+    description:
+      'レコードの追加・編集画面を開いたまま操作が途切れた状態が続いたら、入力途中の内容を自動で保存するプラグイン。放置と判断するまでの時間は5〜60分から選べ、保存後は詳細画面へ移るかその場で編集を続けるかを指定。放置で保存されたレコードは一覧で色とバッジで見分けられます。',
+    image: '/images/autosave-assist-banner.png',
+    imageWebp: '/images/autosave-assist-banner.webp',
+    imageAlt:
+      '自動保存アシスト for kintone バナー — レコードの入力途中、離席してももう内容は消えません。放置を検知して自動で保存、一覧でひと目にわかるバッジ表示、新規作成・編集どちらにも対応',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    cardDescription:
+      '離席で入力が消える前に、自動で保存。操作が途切れて設定時間が過ぎたら保存し、放置で保存されたレコードは一覧で色とバッジで分かります。',
+    problemTitle: '入力途中で離席して、書いた内容が消える',
+    problemDesc:
+      '電話や来客で席を立った間にセッションが切れ、長い対応記録がまるごと消える。書き直しになるうえ、編集中のまま放置されたレコードにも気づけない',
+    releaseDate: '2026-08-14',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**

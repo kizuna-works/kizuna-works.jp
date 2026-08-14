@@ -10,6 +10,7 @@
 export type PluginCategory =
   | '自動入力'
   | '入力チェック'
+  | '入力保護'
   | '表示・編集制御'
   | '一括処理'
   | '一覧表示'
@@ -37,6 +38,10 @@ export const pluginCategoryMeta: Record<PluginCategory, PluginCategoryMeta> = {
   入力チェック: {
     slug: 'input-check',
     description: '表記ゆれの重複・入力漏れを見つける。入力ルールをその場で伝える',
+  },
+  入力保護: {
+    slug: 'input-protection',
+    description: '離席や放置で、入力途中の内容が消えないようにする',
   },
   '表示・編集制御': {
     slug: 'display-control',
@@ -88,7 +93,7 @@ export const pluginCategoryMeta: Record<PluginCategory, PluginCategoryMeta> = {
 export const pluginCategoryGroups: { label: string; categories: PluginCategory[] }[] = [
   {
     label: '入力・制御',
-    categories: ['自動入力', '入力チェック', '表示・編集制御', '一括処理'],
+    categories: ['自動入力', '入力チェック', '入力保護', '表示・編集制御', '一括処理'],
   },
   {
     label: '画面',
