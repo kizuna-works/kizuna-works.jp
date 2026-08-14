@@ -33,13 +33,18 @@ const jsonLd = {
           url: `https://kizuna-works.jp/extensions/${ext.slug}/`,
           applicationCategory: 'DeveloperApplication',
           operatingSystem: 'Chrome',
-          downloadUrl: ext.chromeWebStoreUrl,
-          installUrl: ext.chromeWebStoreUrl,
+          // 審査提出前のものは Web Store の URL がまだ無いので、空の値を出さない
+          ...(ext.chromeWebStoreUrl
+            ? { downloadUrl: ext.chromeWebStoreUrl, installUrl: ext.chromeWebStoreUrl }
+            : {}),
           offers: {
             '@type': 'Offer',
             price: '0',
             priceCurrency: 'JPY',
-            availability: 'https://schema.org/InStock',
+            availability:
+              ext.status === 'available'
+                ? 'https://schema.org/InStock'
+                : 'https://schema.org/PreOrder',
           },
         },
       })),
@@ -359,7 +364,7 @@ const jsonLd = {
               <div class="ext-tags">
                 <span class="ext-tag highlight">完全無料</span>
                 <span class="ext-tag">kintone</span>
-                <span class="ext-tag highlight">公開中</span>
+                <span class="ext-tag highlight">{ext.status === 'available' ? '公開中' : '公開準備中'}</span>
               </div>
               <h3>{ext.name}</h3>
               <p>{ext.description}</p>

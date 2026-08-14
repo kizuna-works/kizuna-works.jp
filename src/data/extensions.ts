@@ -25,6 +25,21 @@ export interface Extension {
 
 export const extensions: Extension[] = [
   {
+    slug: 'kw-plugin-updater-for-kintone',
+    name: 'KW Plugin Updater for kintone',
+    description:
+      'kintone に導入済みの KIZUNA Works プラグインの版を照合し、更新できるものをツールバーのバッジ・通知・プラグイン管理画面の印で知らせる Chrome 拡張機能。最新版 ZIP のダウンロードまで一直線に繋がり、未導入のおすすめ・新着プラグインも確認できます。',
+    shortDescription:
+      '導入済みプラグインの更新をバッジと通知でお知らせ。管理画面にも印が付きます。',
+    bannerImage: '/images/extensions/kw-plugin-updater-banner.png',
+    bannerAlt: 'KW Plugin Updater for kintone のバナー画像',
+    iconImage: '/images/extensions/kw-plugin-updater-icon.png',
+    iconAlt: 'KW Plugin Updater for kintone アイコン',
+    // 審査提出前のため未確定。公開後に Chrome ウェブストアの URL を入れる。
+    chromeWebStoreUrl: '',
+    status: 'coming-soon',
+  },
+  {
     slug: 'kw-field-viewer-for-kintone',
     name: 'KW Field Viewer for kintone',
     description:

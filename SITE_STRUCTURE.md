@@ -195,10 +195,14 @@ c:\kizuna-works.jp\
 │   │   │   │   ├── index.astro          # KW Field Viewer for kintone ランディングページ（/extensions/kw-field-viewer-for-kintone/）
 │   │   │   │   └── privacy/
 │   │   │   │       └── index.astro      # KW Field Viewer for kintone プライバシーポリシー（/extensions/kw-field-viewer-for-kintone/privacy/）
-│   │   │   └── kw-app-exporter-for-kintone/
-│   │   │       ├── index.astro          # KW App Exporter for kintone ランディングページ（/extensions/kw-app-exporter-for-kintone/）
+│   │   │   ├── kw-app-exporter-for-kintone/
+│   │   │   │   ├── index.astro          # KW App Exporter for kintone ランディングページ（/extensions/kw-app-exporter-for-kintone/）
+│   │   │   │   └── privacy/
+│   │   │   │       └── index.astro      # KW App Exporter for kintone プライバシーポリシー（/extensions/kw-app-exporter-for-kintone/privacy/）
+│   │   │   └── kw-plugin-updater-for-kintone/
+│   │   │       ├── index.astro          # KW Plugin Updater for kintone ランディングページ（/extensions/kw-plugin-updater-for-kintone/）— 導入済みプラグインの更新チェック。Chrome ウェブストア公開準備中
 │   │   │       └── privacy/
-│   │   │           └── index.astro      # KW App Exporter for kintone プライバシーポリシー（/extensions/kw-app-exporter-for-kintone/privacy/）
+│   │   │           └── index.astro      # KW Plugin Updater for kintone プライバシーポリシー（/extensions/kw-plugin-updater-for-kintone/privacy/）
 │   │   ├── glossary/
 │   │   │   ├── index.astro     # kintone 用語集（/glossary/）— カテゴリ・五十音順、JSで検索/絞り込み、DefinedTermSet JSON-LD 付き。hasPage の用語名は個別ページへリンク
 │   │   │   └── [id]/index.astro # 用語の個別ページ（/glossary/<id>/）— hasPage:true の語のみ生成。定義＋詳しく＋使いどころ＋FAQ＋関連リンク、DefinedTerm/FAQPage/BreadcrumbList JSON-LD 付き（長尾「kintone ○○とは」狙い）
