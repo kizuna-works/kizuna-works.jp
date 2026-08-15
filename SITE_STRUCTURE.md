@@ -202,7 +202,7 @@ c:\kizuna-works.jp\
 │   │   │   │   └── privacy/
 │   │   │   │       └── index.astro      # KW App Exporter for kintone プライバシーポリシー（/extensions/kw-app-exporter-for-kintone/privacy/）
 │   │   │   └── kw-plugin-updater-for-kintone/
-│   │   │       ├── index.astro          # KW Plugin Updater for kintone ランディングページ（/extensions/kw-plugin-updater-for-kintone/）— 導入済みプラグインの更新チェック。Chrome ウェブストア公開準備中
+│   │   │       ├── index.astro          # KW Plugin Updater for kintone ランディングページ（/extensions/kw-plugin-updater-for-kintone/）— 導入済みプラグインの更新チェック。Chrome ウェブストアで公開中
 │   │   │       └── privacy/
 │   │   │           └── index.astro      # KW Plugin Updater for kintone プライバシーポリシー（/extensions/kw-plugin-updater-for-kintone/privacy/）
 │   │   ├── glossary/

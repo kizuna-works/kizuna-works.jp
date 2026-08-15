@@ -35,9 +35,9 @@ export const extensions: Extension[] = [
     bannerAlt: 'KW Plugin Updater for kintone のバナー画像',
     iconImage: '/images/extensions/kw-plugin-updater-icon.png',
     iconAlt: 'KW Plugin Updater for kintone アイコン',
-    // 審査提出前のため未確定。公開後に Chrome ウェブストアの URL を入れる。
-    chromeWebStoreUrl: '',
-    status: 'coming-soon',
+    chromeWebStoreUrl:
+      'https://chromewebstore.google.com/detail/kw-plugin-updater-for-kin/pcmjebbhcbnfkdlfoengcllinnjfcfcj',
+    status: 'available',
   },
   {
     slug: 'kw-field-viewer-for-kintone',
