@@ -82,7 +82,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── supporter/
 │   │   │   │   └── index.astro # 年間サポーターライセンス案内＆申込フォーム（/plugins/supporter/）
 │   │   │   ├── update/
-│   │   │   │   └── index.astro # プラグインの更新方法・広告が消えないときの対処（/plugins/update/）― 全製品共通の更新手順ページ。①設定画面サイドバーの「新しいバージョンがあります」カードで要否を判断（スクショ=plugin-update-notice.png）②上書きアップロード3ステップ（設定は保持・アプリ再追加や再デプロイ不要・1回で全アプリ反映）③サポーター加入済みでも旧版だと広告が出る原因と対処4手順。HowTo＋FAQPage＋BreadcrumbList JSON-LD。hero背景=plugins-bg.webp。導線＝共通FAQ（全製品ページ）／/plugins/supporter/ のFAQと注意事項／/plugins/ の導入手順／お知らせ
+│   │   │   │   └── index.astro # プラグインの更新方法・広告が消えないときの対処（/plugins/update/）― 全製品共通の更新手順ページ。①冒頭で Chrome 拡張機能「KW Plugin Updater for kintone」を案内（更新に気づく手段・スクショ=extensions/kw-plugin-updater/01-popup-update.png・ストアと製品ページへのCTA）②設定画面サイドバーの「新しいバージョンがあります」カードで要否を判断（スクショ=plugin-update-notice.png）②上書きアップロード3ステップ（設定は保持・アプリ再追加や再デプロイ不要・1回で全アプリ反映）③サポーター加入済みでも旧版だと広告が出る原因と対処4手順。HowTo＋FAQPage＋BreadcrumbList JSON-LD。hero背景=plugins-bg.webp。導線＝共通FAQ（全製品ページ）／/plugins/supporter/ のFAQと注意事項／/plugins/ の導入手順／お知らせ
 │   │   │   ├── premium-trial/
 │   │   │   │   └── index.astro # プレミアム年間サポーター 30日間無料体験 LP（/plugins/premium-trial/）― 全プラグイン（ちょこっと＋プレミアム）が広告なし・全機能。カード不要・自動課金なし。TrialForm＋FAQPage JSON-LD。hero背景=premium-trial-bg.webp。件数はplugins.tsから動的
 │   │   │   ├── field-styler/

@@ -4,9 +4,11 @@ import Picture from '../../../components/Picture.astro';
 
 const title = 'プラグインの更新方法・広告が消えないときの対処 | KIZUNA Works';
 const description =
-  'KIZUNA Works の kintone プラグインの更新方法。設定画面に「新しいバージョンがあります」と出たら最新版 ZIP を上書きアップロードするだけで完了し、アプリごとの設定は保持されます。年間サポーターなのに広告が表示される場合の対処も掲載。';
+  'KIZUNA Works の kintone プラグインの更新方法。最新版 ZIP を上書きアップロードするだけで完了し、アプリごとの設定は保持されます。更新が出たことに気づくための無料 Chrome 拡張機能と、年間サポーターなのに広告が表示される場合の対処も掲載。';
 const pageUrl = 'https://kizuna-works.jp/plugins/update/';
-const updated = '2026-08-12';
+const updated = '2026-08-15';
+const extensionUrl =
+  'https://chromewebstore.google.com/detail/kw-plugin-updater-for-kin/pcmjebbhcbnfkdlfoengcllinnjfcfcj';
 ---
 
 <Layout
@@ -30,8 +32,8 @@ const updated = '2026-08-12';
           "@id": "https://kizuna-works.jp/plugins/update/",
           "url": "https://kizuna-works.jp/plugins/update/",
           "name": "プラグインの更新方法・広告が消えないときの対処 | KIZUNA Works",
-          "description": "kintone プラグインの更新手順と、年間サポーター・プレミアム年間サポーターに加入しているのに広告が表示される場合の対処方法。",
-          "dateModified": "2026-08-12",
+          "description": "kintone プラグインの更新手順と、更新が出たことに気づくための無料 Chrome 拡張機能、年間サポーター・プレミアム年間サポーターに加入しているのに広告が表示される場合の対処方法。",
+          "dateModified": "2026-08-15",
           "isPartOf": {
             "@type": "WebSite",
             "name": "KIZUNA Works",
@@ -75,6 +77,14 @@ const updated = '2026-08-12';
         {
           "@type": "FAQPage",
           "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "更新が出たことに自動で気づく方法はありますか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "無料の Chrome 拡張機能「KW Plugin Updater for kintone」をご利用いただけます。kintone を開くだけで導入済みの KIZUNA Works プラグインの版を照合し、古いままのものがあればツールバーのバッジと通知でお知らせします。プラグイン管理画面の該当行にも「更新あり → 最新版」のバッジが付き、最新版 ZIP はポップアップから直接ダウンロードできます。照合は端末内で行い、導入済みプラグインの一覧やドメイン名を外部に送信することはありません。詳しくは /extensions/kw-plugin-updater-for-kintone/ をご覧ください。"
+              }
+            },
             {
               "@type": "Question",
               "name": "年間サポーターに加入しているのに広告が表示されます。どうすればよいですか？",
@@ -242,6 +252,36 @@ const updated = '2026-08-12';
       line-height: 1.7;
     }
 
+    /* Chrome extension block: same two-column shot layout, tinted to read as a recommendation */
+    .upd-shot--ext {
+      border-color: #bfe3bf;
+      background: #f6fbf6;
+    }
+    .upd-ext-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .upd-ext-links a {
+      display: inline-block;
+      background: var(--color-green);
+      color: var(--color-white);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 26px;
+      border-radius: 24px;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .upd-ext-links a.ghost {
+      background: var(--color-white);
+      color: var(--color-navy);
+      border: 1px solid var(--color-gray-light);
+    }
+    .upd-ext-links a:hover { background: #36a336; transform: translateY(-2px); }
+    .upd-ext-links a.ghost:hover { background: var(--color-bg); }
+
     .upd-steps {
       counter-reset: ustep;
       list-style: none;
@@ -405,9 +445,48 @@ const updated = '2026-08-12';
     <section class="upd-hero">
       <h1>プラグインの更新方法・<br>広告が消えないときの対処</h1>
       <p>
-        KIZUNA Works の kintone プラグインの更新は、<strong>最新版の ZIP ファイルを kintone に上書きアップロードするだけ</strong>で完了します。アプリごとの設定はそのまま保持され、アプリへの再追加や再デプロイも不要です。更新が必要かどうかは<strong>プラグインの設定画面</strong>で確認できます。年間サポーター・プレミアム年間サポーターに加入しているのに広告が表示される場合の対処も、このページにまとめています。
+        KIZUNA Works の kintone プラグインの更新は、<strong>最新版の ZIP ファイルを kintone に上書きアップロードするだけ</strong>で完了します。アプリごとの設定はそのまま保持され、アプリへの再追加や再デプロイも不要です。更新が必要かどうかは<strong>プラグインの設定画面</strong>で確認できるほか、更新が出たこと自体に気づけるよう<strong>無料の Chrome 拡張機能</strong>もご用意しています。年間サポーター・プレミアム年間サポーターに加入しているのに広告が表示される場合の対処も、このページにまとめています。
       </p>
       <span class="upd-updated">最終更新：{updated}</span>
+    </section>
+
+    <!-- Chrome extension: the easiest way to notice an update -->
+    <section class="upd-wrap">
+      <h2 class="upd-h2">更新に気づく、いちばん簡単な方法</h2>
+      <p class="upd-sub">
+        kintone のプラグインは<strong>自動更新されません</strong>。更新版を公開しても、管理者が上書きアップロードするまで古い版が使われ続けます。そこで、更新が出たこと自体に気づけるよう、Chrome 拡張機能<strong>「KW Plugin Updater for kintone」を無料で公開しています</strong>。kintone を開くだけで、導入済みの KIZUNA Works プラグインの版を自動で照合します。
+      </p>
+
+      <div class="upd-shot upd-shot--ext">
+        <Picture
+          src="/images/extensions/kw-plugin-updater/01-popup-update.png"
+          alt="Chrome 拡張機能のポップアップ。古い版のままのプラグインが「現在の版 → 最新版」の形で並び、各行に最新版をダウンロードするボタンが付いている"
+          width="760"
+          height="1092"
+          class="lightbox-image"
+        />
+        <div class="upd-shot-body">
+          <p>
+            <strong>古い版のものだけが一覧に出ます。</strong><br>
+            更新できる件数がツールバーのバッジに表示され、アイコンをクリックすると「現在の版 → 最新版」の形で一覧表示されます。<strong>最新版の ZIP はその場でダウンロード</strong>できるので、製品ページを探し回る必要がありません。
+          </p>
+          <p>
+            <strong>プラグイン管理画面にも印が付きます。</strong><br>
+            実際に上書きアップロードする画面の該当行に「更新あり → 最新版」のバッジが出るため、確認と更新作業が同じ場所で完結します。アップロードすると自動で再チェックされ、印が消えます。
+          </p>
+          <p>
+            <strong>導入済みプラグインの一覧は外部に送信しません。</strong><br>
+            照合は端末内で行います。当方が取得するのは公開している最新版一覧のみで、どの環境に何が入っているか・ドメイン名・レコードの値を送信・収集することはありません。
+          </p>
+          <div class="upd-ext-links">
+            <a href={extensionUrl} target="_blank" rel="noopener noreferrer">Chrome ウェブストアで入手する（無料）</a>
+            <a href="/extensions/kw-plugin-updater-for-kintone/" class="ghost">拡張機能の詳細を見る</a>
+          </div>
+        </div>
+      </div>
+      <p class="upd-caption">
+        Google Chrome のほか、Microsoft Edge など Chromium ベースのブラウザーでもご利用いただけます。拡張機能を使わない場合は、次の方法でご確認ください。
+      </p>
     </section>
 
     <!-- 最新版の確認方法 -->
@@ -537,6 +616,12 @@ const updated = '2026-08-12';
         <h2 class="upd-h2">よくある質問</h2>
         <div class="upd-faq">
           <details>
+            <summary>更新が出たことに自動で気づく方法はありますか？</summary>
+            <div class="upd-faq-a">
+              無料の Chrome 拡張機能<a href="/extensions/kw-plugin-updater-for-kintone/">「KW Plugin Updater for kintone」</a>をご利用いただけます。kintone を開くだけで導入済みの KIZUNA Works プラグインの版を照合し、古いままのものがあればツールバーのバッジと通知でお知らせします。プラグイン管理画面の該当行にも「更新あり → 最新版」のバッジが付き、最新版 ZIP はポップアップから直接ダウンロードできます。照合は端末内で行い、導入済みプラグインの一覧やドメイン名を外部に送信することはありません。
+            </div>
+          </details>
+          <details>
             <summary>年間サポーターに加入しているのに広告が表示されます。どうすればよいですか？</summary>
             <div class="upd-faq-a">
               まずプラグインが最新版かどうかをご確認ください。設定画面のサイドバーに「新しいバージョン（vX.Y.Z）があります」と表示されている場合は旧版です。2026 年 8 月より前のバージョンには、ライセンス確認の通信が一時的に失敗したときに「未加入」と判断してしまう問題があり、その結果として広告が表示されることがありました。最新版に更新するとこの誤判定は起こりません。更新後もその画面に広告が残っている場合はブラウザを再読み込みしてください。それでも表示され続ける場合は、ご利用ドメイン・プラグイン名・画面のスクリーンショットを添えて info@kizuna-works.jp までご連絡ください。
@@ -576,6 +661,7 @@ const updated = '2026-08-12';
       <p>各製品ページから最新版の ZIP ファイルを取得できます。ご不明な点はお気軽にお問い合わせください。</p>
       <div class="upd-cta-links">
         <a href="/plugins/">プラグイン一覧を見る</a>
+        <a href="/extensions/kw-plugin-updater-for-kintone/" class="ghost">更新を知らせる拡張機能</a>
         <a href="/plugins/supporter/" class="ghost">年間サポーターについて</a>
         <a href="/contact/" class="ghost">お問い合わせ</a>
       </div>
