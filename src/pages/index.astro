@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import BlogCard from '../components/BlogCard.astro';
 import Picture from '../components/Picture.astro';
 import InstallRankingTop3 from '../components/InstallRankingTop3.astro';
+import ExtensionNotice from '../components/ExtensionNotice.astro';
 import { allPlugins as plugins } from '../data/plugins';
 import { pluginCategories } from '../data/pluginCategories';
 import { extensions } from '../data/extensions';
@@ -1835,6 +1836,13 @@ const pluginPosts = allPosts
     </div>
   </section>
 
+  <ExtensionNotice
+    tone="white"
+    gaLabel="home"
+    heading="入れたプラグイン、古いままかもしれません"
+    body="kintone のプラグインは自動更新されません。Chrome 拡張機能「KW Plugin Updater for kintone」が、導入済みのプラグインの版を照合して、更新できるものだけをお知らせします。最新版のダウンロードもその場で完了します。"
+  />
+
   {featuredKintoneTool && (
     <!-- Featured kintone-specific tool: Shirushi (app icon maker) -->
     <section class="bg-white kintool-feature">
@@ -1912,7 +1920,7 @@ const pluginPosts = allPosts
   <section class="bg-light extensions-section-compact">
     <div class="container" style="padding-top:0; padding-bottom:0;">
       <h2 class="section-title">Chrome 拡張機能</h2>
-      <p class="section-subtitle">kintone カスタマイズ開発・API 連携・運用管理を爆速化する開発者向けの無料 Chrome 拡張機能。</p>
+      <p class="section-subtitle">kintone のカスタマイズ開発から、プラグインを入れたあとの運用管理まで。開発者・管理者のための無料 Chrome 拡張機能。</p>
       <div class="extensions-mini-grid">
         {extensions.map((ext) => (
           <a href={`/extensions/${ext.slug}/`} class="extension-mini-card">
@@ -1924,7 +1932,7 @@ const pluginPosts = allPosts
               <span class="extension-mini-desc">{ext.shortDescription}</span>
               <span class="extension-mini-tags">
                 <span class="extension-mini-tag">完全無料</span>
-                <span class="extension-mini-tag">開発者向け</span>
+                <span class="extension-mini-tag">{ext.audienceTag}</span>
                 <span class="extension-mini-tag">公開中</span>
               </span>
             </div>

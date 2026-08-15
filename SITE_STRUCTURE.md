@@ -45,6 +45,7 @@ c:\kizuna-works.jp\
 │   │   ├── TrialBanner.astro   # プレミアム無料体験LPへの誘導バナー（サポーターページ・プラグイン一覧で使用）
 │   │   ├── SecurityBox.astro   # プラグイン詳細ページの「安心ボックス」（外部通信・ライブラリ・秘匿情報を要約。plugin-security.ts 駆動）
 │   │   ├── ShareButtons.astro  # SNS共有ボタン（X/LINE/はてブは静的intentリンク・URLコピー/OS共有シートのみJS）。全プラグイン個別ページ末尾に設置。title="〇〇 for kintone"・URLはAstro.urlから自動導出
+│   │   ├── ExtensionNotice.astro # Chrome拡張「KW Plugin Updater」の案内帯。トップ（プラグインセクション直後）・/plugins/（リードと絞り込みバーの間）・/plugins/ranking/（一覧直下）の3か所で使用。見出しと本文だけ props で差し替え、ストアURLは extensions.ts から取得。CTAクリックで GA4 の ext_updater_click（surface/link_kind）を送る
 │   │   └── Picture.astro       # PNG指定で同名 .webp があれば <picture> で WebP を優先配信。card 指定時は <base>-800.webp を srcset に足す（カードの実表示幅は400px前後なので原寸1200pxを配らない）。WebP が無ければ素の <img> を出すだけなので置き換え安全。派生画像は scripts/gen-image-derivatives.mjs が生成
 │   ├── data/                   # ビルド時参照される TS データ
 │   │   ├── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）。`categories` は目的カテゴリを1〜3個持つ配列。先頭にそのプラグインの主目的を書くが、チップはすべて同じ体裁でカテゴリ色だけが変わる（並び順に表示上の意味は持たせていない）

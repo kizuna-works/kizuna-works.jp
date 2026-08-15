@@ -6,6 +6,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import { allPlugins as plugins, type Plugin } from '../../../data/plugins';
 import installRanking from '../../../data/install-ranking.json';
+import ExtensionNotice from '../../../components/ExtensionNotice.astro';
 
 const PAGE_URL = 'https://kizuna-works.jp/plugins/ranking/';
 
@@ -162,6 +163,13 @@ const rankedListJson = JSON.stringify(
         </ol>
       </div>
     </section>
+
+    <ExtensionNotice
+      tone="light"
+      gaLabel="ranking"
+      heading="あなたの環境のプラグイン、最新ですか？"
+      body="kintone のプラグインは自動更新されません。Chrome 拡張機能「KW Plugin Updater for kintone」が、いま導入されているプラグインの版を照合して、古いままのものだけを一覧で表示します。最新版はその場でダウンロードできます。"
+    />
 
     <section class="ranking-bottom-cta">
       <div class="ranking-bottom-cta-inner">

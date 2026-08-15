@@ -20,6 +20,12 @@ export interface Extension {
   iconAlt: string;
   /** Chrome Web Store URL. */
   chromeWebStoreUrl: string;
+  /**
+   * Who the extension is for, shown as a tag on the home page mini card.
+   * Needed because "開発者向け" made the plugin updater — which targets the admins
+   * who install our plugins — read as irrelevant to its actual audience.
+   */
+  audienceTag: string;
   status: ExtensionStatus;
 }
 
@@ -37,6 +43,7 @@ export const extensions: Extension[] = [
     iconAlt: 'KW Plugin Updater for kintone アイコン',
     chromeWebStoreUrl:
       'https://chromewebstore.google.com/detail/kw-plugin-updater-for-kin/pcmjebbhcbnfkdlfoengcllinnjfcfcj',
+    audienceTag: 'プラグイン利用者向け',
     status: 'available',
   },
   {
@@ -52,6 +59,7 @@ export const extensions: Extension[] = [
     iconAlt: 'KW Field Viewer for kintone アイコン',
     chromeWebStoreUrl:
       'https://chromewebstore.google.com/detail/kw-field-viewer-for-kinto/fcnbfaedmhllphnbpmngfblfogdjcfaj',
+    audienceTag: '開発者向け',
     status: 'available',
   },
   {
@@ -67,6 +75,7 @@ export const extensions: Extension[] = [
     iconAlt: 'KW App Exporter for kintone アイコン',
     chromeWebStoreUrl:
       'https://chromewebstore.google.com/detail/kw-app-exporter-for-kinto/kojeebklgjlejjpfadmaaobdmbmjcfld',
+    audienceTag: '開発者・管理者向け',
     status: 'available',
   },
 ];
