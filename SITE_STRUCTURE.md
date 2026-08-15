@@ -105,6 +105,8 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # フィールドコメントプラグイン製品ページ（/plugins/field-comment/）
 │   │   │   ├── theme-styler/
 │   │   │   │   └── index.astro # テーマスタイラープラグイン製品ページ（/plugins/theme-styler/）
+│   │   │   ├── link-assist/
+│   │   │   │   └── index.astro # 【ちょこっと】リンクアシスト 製品ページ（/plugins/link-assist/）— 保存時にURLの追跡パラメータ（utm_source等7種＋独自30個まで・大小区別なし）を除去し、http/https・www有無・末尾スラッシュ・ドメイン小文字・クエリ順序の5ルールでURL正規化（個別ON/OFF・設定画面に本番と同じ処理を呼ぶライブ例）。**そろえたあとの値で kintone 標準の「値の重複を禁止する」が働く**ので表記ゆれ重複を kintone 自身が止める（重複禁止フィールドは kintone 仕様で64文字以下）。日本語URLはパス・クエリの非ASCIIだけをエンコード（二重エンコードしない・表示は日本語のまま／ドメインは変換せず警告）。表示時は文字列（1行・複数行）・リッチエディターのメールを mailto:、国内ハイフン区切りの電話を tel:、**kintone が800文字超でリンクにできないURL**をリンク化（詳細・一覧・**印刷**）。走査はDOMのテキストノードのみ＝既存リンク・装飾を壊さず二重リンクが構造的に起きない。**レコードのREST読み書きゼロ・フォーム定義を変更しない**。キャッチコピー「汚れたURLも、壊れたリンクも、まるごとキレイに。」。ヒーロー＋課題3＋Before/After（2枚）＋できること6＋重複検知（1枚＋補足3）＋リンク化（2枚＋補足3）＋通知（1枚）＋設定画面4枚＋安全性5＋手順6＋プラン＋注意11＋SecurityBox＋FAQ12＋SupporterCTA＋ShareButtons＋関連3。PC専用（モバイル非対応）・サブテーブル非対応・ゲストスペース対応
 │   │   │   ├── lottery-roulette/
 │   │   │   │   └── index.astro # 【ちょこっと】抽選ルーレット 製品ページ（/plugins/lottery-roulette/）— 担当者・当番・区分の割り当てを完全ランダム／順番（ラウンドロビン）／件数平準化／重み付きランダムの4方式で自動決定。出力先はユーザー選択・ドロップダウン・ラジオボタン。集計範囲（全件／未完了のみ／直近N日／カスタム条件）・メンバーごとの重み（0.1〜99）・候補は組織/グループ/ユーザーから展開。ルーレット演出9種＋なし（スキップ可・1.5/3/5秒・候補多数で自動フォールバック）。一覧からの一括配布（絞り込み全体／チェック行・100件バッチ・配分サマリー・元に戻す）、当選者へのコメント通知（宛先指定・保存完了時に送信・既定オフ）、抽選結果のフィールド記録（既定オフ）、実行できるユーザーの制限。キャッチコピー「kintone に、遊び心を。」。ヒーロー＋課題3＋レコードのボタン（3枚）＋4方式の表＋演出9種ギャラリー＋選択肢の抽選（3枚）＋一括配布（3枚）＋当選者への通知（3枚）＋設定画面5枚＋手順7＋プラン＋注意16＋SecurityBox＋FAQ10＋SupporterCTA＋ShareButtons＋関連3。PC・モバイル対応・ゲストスペース対応・「次は誰の番か」を保存しない設計
 │   │   │   ├── after-save/
@@ -428,6 +430,18 @@ c:\kizuna-works.jp\
 │   │   ├── file-export-config-04.png       # 添付ファイル出力 設定画面②表示設定（ボタンのラベル/色/配置・選択列・アイコン表示プラグイン連携）＋ .webp
 │   │   ├── file-export-fim-01.png          # 添付ファイル出力×添付ファイルアイコン表示 連携（hover した行にだけ ⤓ ボタンが出る）＋ .webp
 │   │   ├── file-export-fim-02.png          # 添付ファイル出力×添付ファイルアイコン表示 連携（すべて/PDF/Office の行ごと出力メニュー）＋ .webp
+│   │   ├── link-assist-banner.png         # リンクアシスト for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── link-assist-icon.png           # リンクアシスト 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
+│   │   ├── link-assist-before.png         # 製品ページ：導入前の一覧（utm付き・www付き・末尾スラッシュのURLが並ぶ）＋ .webp
+│   │   ├── link-assist-list.png           # 製品ページ：導入後の一覧（表記がそろい、メールがリンク化）＋ .webp
+│   │   ├── link-assist-detail.png         # 製品ページ：詳細画面（メール・電話がリンク／日本語URLが最後まで開ける）＋ .webp
+│   │   ├── link-assist-longurl.png        # 製品ページ：800文字超のURLがリンク化された備考欄＋ .webp
+│   │   ├── link-assist-duplicate.png      # 製品ページ：表記ゆれ重複を kintone が止めるエラー表示＋ .webp
+│   │   ├── link-assist-toast.png          # 製品ページ：保存後の通知（何を何件整えたか）＋ .webp
+│   │   ├── link-assist-config-01.png      # 製品ページ：設定①URLを整えるフィールド＋ .webp
+│   │   ├── link-assist-config-02.png      # 製品ページ：設定②除去する追跡パラメータ＋ .webp
+│   │   ├── link-assist-config-03.png      # 製品ページ：設定③URL正規化ルール（ライブ例つき）＋ .webp
+│   │   ├── link-assist-config-04.png      # 製品ページ：設定⑤リンクにするフィールド＋ .webp
 │   │   ├── lottery-roulette-banner.png    # 抽選ルーレット for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── lottery-roulette-icon.png      # 抽選ルーレット アイコン（200×200・ランキング／Top3／製品ページヒーロー）
 │   │   ├── lottery-roulette-record-button.png   # 製品ページ：レコード詳細の抽選ボタン
@@ -634,6 +648,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-attribute-filter-v1.0.1.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-attribute-filter-v1.0.2.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-attribute-filter-v1.0.3.zip                        # 属性制御フィルター for kintone 配布ファイル（最新・手動配置・v1.0.3 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
+│   │   ├── kw-link-assist-v1.0.0.zip      # リンクアシスト 配布用プラグイン zip
 │   │   ├── kw-lottery-roulette-v1.0.0.zip                       # 抽選ルーレット for kintone 配布プラグイン v1.0.0
 │   │   ├── kw-after-save-v1.0.0.zip                              # 保存後ナビ for kintone 配布プラグイン v1.0.0
 │   │   ├── kw-autosave-assist-v1.0.0.zip                         # 自動保存アシスト for kintone 配布プラグイン v1.0.0

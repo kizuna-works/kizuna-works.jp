@@ -1118,6 +1118,30 @@ export const plugins: Plugin[] = [
     releaseDate: '2026-08-14',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-link-assist',
+    pluginId: 'djaebfadlhobkdppfnbbhmanhjamghgk',
+    name: 'リンクアシスト for kintone',
+    formName: 'リンクアシスト for kintone',
+    slug: 'link-assist',
+    categories: ['入力チェック', '一覧表示'],
+    description:
+      '保存時にURLの追跡パラメータ（utm_source等）を除き、http/https・www有無・末尾スラッシュ・クエリ順序をそろえて重複登録を防ぎます。日本語URLはエンコードでリンクを機能させ、メール・電話・長いURLもリンクにします。',
+    image: '/images/link-assist-banner.png',
+    imageWebp: '/images/link-assist-banner.webp',
+    imageAlt:
+      'リンクアシスト for kintone バナー — 汚れたURLも、壊れたリンクも、まるごとキレイに。追跡パラメータ除去・URL正規化、日本語URLもちゃんとリンクに、800文字超の長いURLもリンクに',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    cardDescription:
+      '汚れたURLも、壊れたリンクも自動でキレイに。追跡パラメータを除いて表記ゆれをそろえ、日本語URL・長いURL・メール・電話をクリックできるリンクにします。',
+    problemTitle: 'URLが広告のゴミだらけで、同じページが重複登録される',
+    problemDesc:
+      '広告メールから貼ったURLに utm_source が付いたまま残り、http/https や www の違いだけで同じページが別レコードになる。日本語や長すぎるURLはクリックしても違う場所に飛ぶ',
+    releaseDate: '2026-08-15',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**
