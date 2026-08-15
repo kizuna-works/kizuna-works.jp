@@ -34,6 +34,10 @@ function iconPathForPlugin(p: Plugin | undefined): string {
 
 const findPluginMeta = (pluginId: string) => plugins.find((p) => p.id === pluginId);
 
+// Derived so the copy never drifts from the actual lineup (it read "全 47 製品" long
+// after the lineup passed 50).
+const totalCount = plugins.length;
+
 // Display label drops the "for kintone" suffix to save horizontal space on the row.
 const shortenName = (name: string) => name.replace(/\s*for kintone\s*$/i, '').trim();
 
@@ -117,9 +121,12 @@ const rankedListJson = JSON.stringify(
     <section class="ranking-hero">
       <div class="ranking-hero-inner">
         <span class="ranking-hero-icon" aria-hidden="true">🏆</span>
-        <h1>kintone プラグイン インストール数ランキング｜実際に使われている順</h1>
+        <h1>
+          <span class="ranking-hero-title-main">kintone プラグイン インストール数ランキング</span>
+          <span class="ranking-hero-title-sub">実際に使われている順</span>
+        </h1>
         <p class="ranking-hero-lead">
-          KIZUNA Works が公開する kintone プラグイン全種を、実際に導入されている環境（ユニークドメイン）の数で集計したランキングです。どれが実際に使われているかを順位で確認できます。製品の一覧や機能で選びたい場合は <a href="/plugins/">kintone プラグイン一覧（全 47 製品・無料）</a> をご覧ください。
+          KIZUNA Works が公開する kintone プラグイン全種を、実際に導入されている環境（ユニークドメイン）の数で集計したランキングです。どれが実際に使われているかを順位で確認できます。製品の一覧や機能で選びたい場合は <a href="/plugins/">kintone プラグイン一覧（全 {totalCount} 製品・無料）</a> をご覧ください。
         </p>
       </div>
     </section>
@@ -185,11 +192,27 @@ const rankedListJson = JSON.stringify(
     display: inline-block;
     margin-bottom: 8px;
   }
+  /* Two deliberate lines: the name of the ranking, then its qualifier.
+     The main line is sized to stay on one line down to tablet widths. */
   .ranking-hero h1 {
-    font-size: 2.2rem;
+    font-size: clamp(1.4rem, 2.6vw, 2rem);
     font-weight: 700;
     margin: 6px 0 14px 0;
     letter-spacing: 0.04em;
+    line-height: 1.35;
+  }
+  .ranking-hero-title-main,
+  .ranking-hero-title-sub {
+    display: block;
+    /* Break at the space only, never mid-word ("インスト / ール数" on narrow screens) */
+    word-break: keep-all;
+  }
+  .ranking-hero-title-sub {
+    font-size: 0.62em;
+    font-weight: 600;
+    margin-top: 10px;
+    letter-spacing: 0.06em;
+    opacity: 0.95;
   }
   .ranking-hero-lead {
     font-size: 1.05rem;
@@ -197,6 +220,17 @@ const rankedListJson = JSON.stringify(
     max-width: 760px;
     margin: 0 auto;
     font-weight: 500;
+  }
+  /* On the dark hero the global link color has too little contrast */
+  .ranking-hero-lead a {
+    color: #FFFFFF;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  .ranking-hero-lead a:hover {
+    color: #B7EAB7;
   }
   .hero-gradient-line {
     height: 6px;
@@ -333,7 +367,11 @@ const rankedListJson = JSON.stringify(
       padding: 56px 5%;
     }
     .ranking-hero h1 {
-      font-size: 1.55rem;
+      font-size: 1.4rem;
+    }
+    .ranking-hero-title-sub {
+      font-size: 0.68em;
+      margin-top: 8px;
     }
     .ranking-hero-lead {
       font-size: 0.95rem;
