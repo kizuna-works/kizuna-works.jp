@@ -637,7 +637,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-accordion-tab-v2.0.0.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-accordion-tab-v2.0.1.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-accordion-tab-v2.0.2.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-accordion-tab-v2.0.3.zip                           # アコーディオンタブ for kintone 配布ファイル（最新・手動配置・v2.0.3 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
+│   │   ├── kw-accordion-tab-v2.0.3.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-accordion-tab-v2.0.4.zip                           # アコーディオンタブ for kintone 配布ファイル（最新・手動配置・v2.0.4 編集画面での見出し固定位置の修正＋見出し幅をスペース設定幅に統一し初回描画のちらつきを解消）
 │   │   ├── kw-address-assist-v1.0.0.zip                          # 住所アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-address-assist-v1.0.1.zip                          # 住所アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-address-assist-v1.0.2.zip                          # 住所アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
@@ -783,7 +784,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-tab-v1.0.0.zip                               # クイックタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-tab-v1.0.1.zip                               # クイックタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-tab-v1.0.2.zip                               # クイックタブ for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-quick-tab-v1.0.3.zip                               # クイックタブ for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-quick-tab-v1.0.3.zip                               # クイックタブ for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-tab-v1.0.4.zip                               # クイックタブ for kintone 配布ファイル（最新・手動配置・v1.0.4 作成/編集画面でのタブバー固定位置の修正＋幅をスペース設定幅から決定）
 │   │   ├── kw-quick-toc-v1.0.0.zip                               # クイック目次 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-toc-v1.0.1.zip                               # クイック目次 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-toc-v1.0.2.zip                               # クイック目次 for kintone 配布ファイル（旧版・参考保管）

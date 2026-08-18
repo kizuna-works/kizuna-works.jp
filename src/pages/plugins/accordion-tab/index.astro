@@ -52,10 +52,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "アコーディオンタブ for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.0.3",
-          "dateModified": "2026-08-12",
+          "softwareVersion": "2.0.4",
+          "dateModified": "2026-08-18",
           "url": "https://kizuna-works.jp/plugins/accordion-tab/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-accordion-tab-v2.0.3.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-accordion-tab-v2.0.4.zip",
           "image": "https://kizuna-works.jp/images/accordion-tab-banner.png",
           "offers": {
             "@type": "Offer",
@@ -292,6 +292,22 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       border-left: 6px solid var(--color-green); border-radius: 12px;
       padding: 28px 32px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
     }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-list {
+      margin: 0 0 20px;
+      padding-left: 1.2em;
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+    .update-list li { margin-bottom: 10px; }
+    .update-list strong { color: var(--color-navy); }
     .update-tag {
       display: inline-block; background-color: var(--color-green); color: #fff;
       font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
@@ -339,28 +355,27 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.0.3</span>
+        <span class="hero-version">v2.0.4</span>
       </div>
       <h1 class="hero-title">アコーディオンタブ for kintone</h1>
       <p class="hero-copy">アコーディオンタブ for kintone は、縦に長い kintone のレコードフォームを、<strong>スペース要素を見出しに自動でセクション分割</strong>し、<strong>アコーディオンで開閉</strong>できる kintone プラグインです。フィールドの割当設定は不要。既定では<strong>折りたたんで全体像を把握</strong>し、必要な節だけ開いて入力・確認できます。見出しには<strong>未入力・入力状況のバッジ</strong>を表示でき、<strong>スティッキー見出し</strong>・<strong>スライド開閉</strong>にも対応。さらに<strong>セクションごとに閲覧できるユーザー・組織・グループを指定</strong>したり、<strong>パスワードで開く表示制御</strong>もできます。外部サーバー不要で kintone 内で完結します。</p>
     </section>
 
-    <!-- Update Highlight (v2.0.0) -->
+    <!-- Update Highlight (v2.0.4) -->
     <section class="update-section fade-in">
       <div class="update-box">
-        <span class="update-tag">UPDATE</span>
-        <h2 class="update-title">v2.0.0：セクションごとに「見せる相手」を選べるようになりました</h2>
-        <p class="update-desc">
-          セクション（見出し）ごとに、<strong>閲覧できるユーザー・組織・グループ</strong>を指定できるようになりました。対象外の人には見出しを<strong>ロック表示（開けない）</strong>にするか、<strong>セクションごと非表示</strong>にできます。あわせて、<strong>パスワードを入力すると開く</strong>パスワード制御も追加。1 つのアプリの中で、担当ごとに見せたい情報だけを出し分けられます（詳細・新規作成・編集画面で有効）。
-        </p>
-        <div class="screenshot-frame update-shot">
-          <img class="zoomable" src="/images/accordion-tab-access-lock.png" alt="アコーディオンタブ v2.0.0 — レコード画面のアコーディオンで、見積・請求情報のセクションにパスワード入力欄が開き、関連情報のセクションが鍵アイコンでロック表示され、閲覧制限とパスワードで開閉を制御している状態" loading="lazy" />
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v2.0.4：画面を開いた直後の見出しの描画を改善しました</h2>
         </div>
-        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-        <p class="update-note">
-          <strong>ご注意：</strong>これは画面上の<strong>簡易的な表示・開閉のコントロール</strong>であり、kintone 標準のアクセス権のような機密保護ではありません（レコードのデータ自体は API などから取得可能です）。機密情報の保護には kintone 標準の「フィールド／レコードのアクセス権」を併用してください。<br>
-          すでにご利用中の方は、最新の <code>kw-accordion-tab-v2.0.3.zip</code> を kintone の「システム管理 → プラグイン」から<strong>上書きアップロード</strong>してください（設定は引き継がれます）。
-        </p>
+        <ul class="update-list">
+          <li><strong>編集画面で見出しがレコードの外（画面最上部）に貼り付く問題を修正しました</strong> — スクロールしたときに、保存・キャンセルの帯の下へ正しく固定されます</li>
+          <li><strong>見出しの幅が画面や状況によって変わる問題を修正しました</strong> — 詳細・作成・編集のどの画面でも、フォームで設定したスペースの幅に揃います</li>
+          <li><strong>一覧からレコードを開いた直後やレコードを切り替えた直後に、見出しが一瞬短く表示される問題を解消しました</strong></li>
+        </ul>
+        <p class="update-desc">見出しの幅を、描画途中の画面を測って決める方式から、<strong>フォームで設定したスペースの幅をそのまま使う方式</strong>に変更しました。これにより、画面を開いた最初の描画から最終的な表示まで幅が変わらず、ちらつきが起きません。ウィンドウ幅やコメント欄の開閉には従来どおり追従します。</p>
+        <p class="update-note">最新版（v2.0.4）をダウンロードして、kintone の「システム管理 → プラグイン」から<strong>上書きアップロード</strong>するだけで適用できます。設定はそのまま引き継がれます。<br>
+        なお本バージョンから、見出しの幅は<strong>フォームで設定したスペースの幅</strong>に一致します。見出しを短くしたい場合は、フォーム設定でスペースの幅を調整してください。</p>
       </div>
     </section>
 
@@ -510,7 +525,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコードのフォームに<strong>スペース要素を見出しとして配置</strong>したアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-accordion-tab-v2.0.3.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-accordion-tab-v2.0.4.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>フォーム設定</strong>で、セクションの区切りにしたい位置に<strong>スペース要素</strong>を配置（幅の広いスペースを推奨）</span></li>
         <li><span>アプリの<strong>アプリ設定 → プラグイン</strong>で「アコーディオンタブ for kintone」を追加し、設定画面で<strong>見出しにするスペース</strong>・<strong>開閉の動作</strong>・<strong>デザイン</strong>を設定して「保存」</span></li>
@@ -535,7 +550,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ プラグイン設定画面に控えめな広告表示あり</li>
             </ul>
-            <a href="/downloads/kw-accordion-tab-v2.0.3.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-accordion-tab-v2.0.4.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -674,10 +689,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-accordion-tab-v2.0.3.zip',
+              file_name: 'kw-accordion-tab-v2.0.4.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-accordion-tab-v2.0.3.zip'
+              link_url: '/downloads/kw-accordion-tab-v2.0.4.zip'
             });
           }
         });

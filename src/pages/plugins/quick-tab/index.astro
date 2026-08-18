@@ -52,10 +52,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "クイックタブ for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.3",
-          "dateModified": "2026-08-04",
+          "softwareVersion": "1.0.4",
+          "dateModified": "2026-08-18",
           "url": "https://kizuna-works.jp/plugins/quick-tab/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-tab-v1.0.3.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-tab-v1.0.4.zip",
           "image": "https://kizuna-works.jp/images/quick-tab-banner.png",
           "offers": {
             "@type": "Offer",
@@ -157,6 +157,65 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       margin-bottom: 24px;
     }
 
+    .update-section {
+      padding: 40px 20px 0;
+    }
+    .update-box {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 20px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-list {
+      margin: 0 0 20px;
+      padding-left: 1.2em;
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+    .update-list li { margin-bottom: 10px; }
+    .update-list strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
     .hero-copy {
       font-size: 17px;
       max-width: 720px;
@@ -650,6 +709,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       .hero { padding: 60px 5%; }
       .hero-title { font-size: 28px; }
       .hero-copy { font-size: 15px; }
+      .update-box { padding: 22px 20px; }
+      .update-title { font-size: 17px; }
       .hero-icon { width: 140px; height: 140px; }
       .section-wrapper { padding: 60px 5%; }
       .problem-grid { grid-template-columns: 1fr; }
@@ -674,10 +735,27 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.3</span>
+        <span class="hero-version">v1.0.4</span>
       </div>
       <h1 class="hero-title">クイックタブ for kintone</h1>
       <p class="hero-copy">クイックタブ for kintone は、項目数の多いレコード詳細・作成・編集画面を、フォーム上の「スペース要素」を境界にタブへ自動分割して整理する kintone プラグインです。フィールドを1つずつ割り当てる必要はなく、スペースを置く位置だけで区切れます。全項目を見る「すべて」タブ、保存時に必須未入力のタブを自動で開く追従機能、スクロール固定にも対応。長い入力フォームを、タブでスッキリ。</p>
+    </section>
+
+    <!-- Update Highlight (v1.0.4) -->
+    <section class="update-section fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.0.4：画面を開いた直後のタブバーの描画を改善しました</h2>
+        </div>
+        <ul class="update-list">
+          <li><strong>編集画面でタブバーがレコードの外（画面最上部）に貼り付く問題を修正しました</strong> — スクロールしたときに、保存・キャンセルの帯の下へ正しく固定されます</li>
+          <li><strong>新規作成画面でも同様に、固定位置がずれる問題を修正しました</strong></li>
+          <li><strong>画面を開いた直後にタブバーの幅が一瞬変わることのないよう、描画の決め方を見直しました</strong></li>
+        </ul>
+        <p class="update-desc">タブバーの幅を、描画途中の画面を測って決める方式から、<strong>フォームで設定したスペースの幅をそのまま使う方式</strong>に変更しました。あわせて固定位置の基準を、画面ごとに実際に表示されている kintone のバー（詳細のツールバー／作成・編集の保存バー）から求めるようにしています。</p>
+        <p class="update-note">最新版（v1.0.4）をダウンロードして、kintone の「システム管理 → プラグイン」から<strong>上書きアップロード</strong>するだけで適用できます。設定はそのまま引き継がれます。</p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -831,7 +909,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">レコード詳細・作成・編集画面（PC 版）でご利用いただけます。フォームにスペースを置いて要素IDを付けてからご利用ください。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-quick-tab-v1.0.3.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-quick-tab-v1.0.4.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリのフォームに<strong>スペース要素</strong>を配置し、フォーム設定で<strong>要素ID</strong>を付与（タブバー用＋区切り用）</span></li>
           <li><span>アプリの<strong>アプリ設定 → プラグイン</strong>で「クイックタブ for kintone」を追加</span></li>
@@ -857,7 +935,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-quick-tab-v1.0.3.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-quick-tab-v1.0.4.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -1025,10 +1103,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-quick-tab-v1.0.3.zip',
+              file_name: 'kw-quick-tab-v1.0.4.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-quick-tab-v1.0.3.zip'
+              link_url: '/downloads/kw-quick-tab-v1.0.4.zip'
             });
           }
         });
