@@ -694,7 +694,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-csv-export-v1.4.0.zip                              # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.4.0 先頭行を項目名にするON/OFF・ライセンス認証v2）
 │   │   ├── kw-dashboard-v1.1.0.zip                               # ダッシュボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第2弾・無料/プレミアム共通zip・v1.1.0=ポータルレイアウト構成）
 │   │   ├── kw-dashboard-v1.1.1.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-dashboard-v1.1.2.zip                               # ダッシュボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.1.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-dashboard-v1.1.2.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-dashboard-v1.1.3.zip                               # ダッシュボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.1.3 参照アプリの候補をスペース非依存化＋設定画面の後追い反映）
 │   │   ├── kw-elapsed-assist-v1.0.2.zip                          # 経過計算アシスト for kintone 配布ファイル（手動配置・v1.0.2 初版：基準日から9パターン自動計算＋その場再計算＋保存書込＋停止条件＋一括再計算）
 │   │   ├── kw-elapsed-assist-v1.0.3.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-elapsed-assist-v1.0.4.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
