@@ -52,10 +52,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "経過計算アシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.4",
-          "dateModified": "2026-08-05",
+          "softwareVersion": "1.0.5",
+          "dateModified": "2026-08-18",
           "url": "https://kizuna-works.jp/plugins/elapsed-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-elapsed-assist-v1.0.4.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-elapsed-assist-v1.0.5.zip",
           "image": "https://kizuna-works.jp/images/elapsed-assist-banner.png",
           "offers": {
             "@type": "Offer",
@@ -155,6 +155,62 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       margin-bottom: 24px;
     }
 
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 20px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-list {
+      margin: 0 0 20px;
+      padding-left: 1.2em;
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+    .update-list li { margin-bottom: 10px; }
+    .update-list strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
     .hero-copy {
       font-size: 17px;
       max-width: 720px;
@@ -684,6 +740,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       .hero { padding: 60px 5%; }
       .hero-title { font-size: 28px; }
       .hero-copy { font-size: 15px; }
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
       .hero-icon { width: 140px; height: 140px; }
       .section-wrapper { padding: 60px 5%; }
       .problem-grid { grid-template-columns: 1fr; }
@@ -708,12 +766,28 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.4</span>
+        <span class="hero-version">v1.0.5</span>
       </div>
       <h1 class="hero-title">経過計算アシスト for kintone</h1>
       <p class="hero-copy">経過計算アシスト for kintone は、基準となる日付フィールドから経過日数・経過年数・年齢・残日数・在籍期間（◯年◯ヶ月）などを自動計算する kintone プラグインです。一覧・詳細を開くたびに「今日」時点の値を再計算して表示し、保存時には実フィールドへ書き込むので、並び替え・絞り込み・集計にもそのまま使えます。標準の計算フィールドと違い、いつ開いても“今日の数字”になります。</p>
     </section>
 
+    <!-- Update Info (v1.0.5) -->
+    <section class="section-wrapper fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.0.5：保存時の書き込みと、詳細画面の表示を改善しました</h2>
+        </div>
+        <ul class="update-list">
+          <li><strong>保存時に計算値が実フィールドへ書き込まれるようになりました</strong>（従来は保存時にエラーが表示されることがありました）</li>
+          <li><strong>詳細画面でも「今日」時点の値が表示されるようになりました</strong></li>
+          <li><strong>停止条件にプロセス管理のステータスを使ったときの判定を修正しました</strong></li>
+        </ul>
+        <p class="update-desc">あわせて、一覧・詳細に表示する数値を <strong>kintone 標準の表示形式（桁区切り・小数点以下の表示桁数・単位記号）に合わせました</strong>。また、基準日を空にして保存すると出力先も空になり、停止条件の記録用フィールドが未作成のときは設定画面でご案内するようになりました。</p>
+        <p class="update-note">最新版（v1.0.5）をダウンロードして、kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。これまでのバージョンでは保存時の書き込みが行われなかったため、既存レコードの値をそろえる場合は一覧の一括再計算をご利用ください。</p>
+      </div>
+    </section>
     <!-- Problem Section -->
     <section class="section-bg">
       <div class="section-wrapper fade-in">
@@ -892,7 +966,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコード一覧・詳細・作成・編集画面（PC 版）でご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-elapsed-assist-v1.0.4.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-elapsed-assist-v1.0.5.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「経過計算アシスト for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>計算ルール</strong>（基準日 × 計算パターン × 出力先）を登録し、必要に応じて停止条件・一括再計算ボタンを設定して「保存」</span></li>
@@ -920,7 +994,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-elapsed-assist-v1.0.4.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-elapsed-assist-v1.0.5.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -1089,10 +1163,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-elapsed-assist-v1.0.4.zip',
+              file_name: 'kw-elapsed-assist-v1.0.5.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-elapsed-assist-v1.0.4.zip'
+              link_url: '/downloads/kw-elapsed-assist-v1.0.5.zip'
             });
           }
         });

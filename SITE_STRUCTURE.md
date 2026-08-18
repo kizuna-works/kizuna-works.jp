@@ -697,7 +697,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-dashboard-v1.1.2.zip                               # ダッシュボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.1.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-elapsed-assist-v1.0.2.zip                          # 経過計算アシスト for kintone 配布ファイル（手動配置・v1.0.2 初版：基準日から9パターン自動計算＋その場再計算＋保存書込＋停止条件＋一括再計算）
 │   │   ├── kw-elapsed-assist-v1.0.3.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-elapsed-assist-v1.0.4.zip                          # 経過計算アシスト for kintone 配布ファイル（最新・手動配置・v1.0.4 ライセンス認証の内部改修）
+│   │   ├── kw-elapsed-assist-v1.0.4.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-elapsed-assist-v1.0.5.zip                          # 経過計算アシスト for kintone 配布ファイル（最新・手動配置・v1.0.5 不具合修正5件＝保存時書込／詳細画面の再計算／停止条件のステータス判定／基準日クリア時の残留値／記録用フィールド未作成の検知）
 │   │   ├── kw-excel-paste-v1.0.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-excel-paste-v1.1.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-excel-paste-v1.1.1.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）

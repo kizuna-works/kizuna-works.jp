@@ -871,7 +871,7 @@ export const plugins: Plugin[] = [
     problemTitle: '経過日数や年齢が、開いた日によって古いまま',
     problemDesc: '契約日や生年月日からの経過日数・年齢が、標準の計算では今日に追従せず古い値のまま。並び替えや集計にも使いたい',
     releaseDate: '2026-07-17',
-    summaryVersion: '1.0.4',
+    summaryVersion: '1.0.5',
   },
   {
     id: 'kw-reuse-control',
