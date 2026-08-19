@@ -731,7 +731,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-file-preview-v2.0.0.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-preview-v2.1.0.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-preview-v2.2.0.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-file-preview-v2.2.1.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（最新・手動配置・v2.2.1 ライセンス認証の内部改修）
+│   │   ├── kw-file-preview-v2.2.1.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版）
+│   │   ├── kw-file-preview-v2.2.2.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（最新・手動配置・v2.2.2 他社PDFプラグイン併用時の表示不具合を修正）
 │   │   ├── kw-form-deco-v1.0.0.zip                               # FormDeco for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-form-deco-v1.0.1.zip                               # FormDeco for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-form-deco-v1.0.2.zip                               # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
