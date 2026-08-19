@@ -1159,7 +1159,7 @@ export const premiumPlugins: Plugin[] = [
     slug: 'report-designer',
     categories: ['出力・帳票'],
     description:
-      'お手持ちのPDF（請求書・見積書・納品書）を背景に、レコード値・サブテーブル明細・固定テキスト・ロゴ・印影をドラッグで配置して帳票化するプラグイン。1件印刷、一覧から最大100件のまとめ印刷、印刷したPDFの添付自動保存に対応します。',
+      'お手持ちのPDFや白紙の用紙に、レコード値・サブテーブル明細・固定テキスト・ロゴ・印影をドラッグ配置して帳票化。1件印刷、一覧から最大100件のまとめ印刷に加え、絞り込んだ最大500件を1枚の一覧表にする一覧帳票、印刷PDFの添付自動保存に対応します。',
     image: '/images/report-designer-banner.png',
     imageAlt:
       '帳票デザイナー for kintone プラグイン — 手持ちの PDF を背景に kintone のデータをドラッグ配置して請求書・見積書などの帳票を印刷・PDF 保存',
@@ -1168,11 +1168,11 @@ export const premiumPlugins: Plugin[] = [
     status: 'available',
     tier: 'premium',
     cardDescription:
-      '手持ちの PDF を背景に kintone のデータをドラッグ配置して帳票化。1 件印刷・一覧まとめ印刷・集計表紙・PDF 自動保存に対応。',
-    problemTitle: '既存の PDF 帳票に kintone のデータを流し込みたい',
-    problemDesc: '請求書・見積書を作り直さず、1 件ずつ・一覧から複数まとめて印刷／PDF 保存したい',
+      '手持ちの PDF や白紙の用紙に kintone のデータをドラッグ配置して帳票化。1 件印刷・まとめ印刷・一覧帳票・集計表紙・PDF 自動保存に対応。',
+    problemTitle: '既存の PDF 帳票に kintone のデータを流し込みたい／一覧を表にして配りたい',
+    problemDesc: '請求書・見積書を作り直さず 1 件ずつ印刷したい。絞り込んだ一覧を売上一覧・案件一覧のような 1 枚の表にして印刷したい',
     releaseDate: '2026-06-20',
-    summaryVersion: '1.0.2',
+    summaryVersion: '1.1.0',
   },
   {
     id: 'kw-dashboard',

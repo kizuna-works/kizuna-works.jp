@@ -559,6 +559,10 @@ c:\kizuna-works.jp\
 │   │   ├── report-designer-config-02.png   # 帳票デザイナー テンプレート編集画面（背景PDFに項目配置）
 │   │   ├── report-designer-action-01.png   # 帳票デザイナー 動作① レコード詳細の帳票バー（1件印刷）
 │   │   ├── report-designer-action-02.png   # 帳票デザイナー 動作② レコード一覧のまとめ印刷バー
+│   │   ├── report-designer-output-03.png   # 帳票デザイナー 出力例③ 一覧帳票（案件一覧表・v1.1.0）
+│   │   ├── report-designer-config-03.png   # 帳票デザイナー 一覧帳票の設定（種別・対象の一覧・白紙用紙）
+│   │   ├── report-designer-config-04.png   # 帳票デザイナー 配置エディタ（全画面編集・改ページ目印・列設定）
+│   │   ├── report-designer-action-03.png   # 帳票デザイナー 動作③ 一覧から［一覧表］を選んで印刷
 │   │   ├── user-autofill-banner.png        # ユーザーオートフィル for kintone 見出しバナー（OGP/グリッド/news共用・1200×630）
 │   │   ├── user-autofill-icon.png          # ユーザーオートフィル for kintone アイコン（200×200・ヒーロー用）
 │   │   ├── user-autofill-org-transcription.png # ユーザーオートフィル 機能スクショ（申請者→申請部署/役職/社員番号の自動転記）
@@ -813,6 +817,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-report-designer-v1.0.0.zip                         # 帳票デザイナー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-report-designer-v1.0.1.zip                         # 帳票デザイナー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-report-designer-v1.0.2.zip                         # 帳票デザイナー for kintone 配布ファイル（手動配置・プレミアムプラグイン・v1.0.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-report-designer-v1.1.0.zip   # 帳票デザイナー v1.1.0（一覧帳票）
 │   │   ├── kw-reuse-control-v1.0.0.zip                           # レコード再利用コントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-reuse-control-v1.0.1.zip                           # レコード再利用コントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-reuse-control-v1.0.2.zip                           # レコード再利用コントロール for kintone 配布ファイル（最新・手動配置・v1.0.2 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
