@@ -762,7 +762,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-suggest-v2.0.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.0.0 でサブテーブル内ルックアップ対応）
 │   │   ├── kw-lookup-suggest-v2.1.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.1.0 でモバイル版 kintone 対応＝通常ルックアップのみ）
 │   │   ├── kw-lookup-suggest-v2.2.1.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.2.1＝候補リストの表示方法選択／複数ルックアップの不具合修正／サジェスト併記フィールドの拡充）
-│   │   ├── kw-lookup-suggest-v2.2.2.zip                          # ルックアップサジェスト for kintone 配布ファイル（最新・手動配置・v2.2.2 ライセンス認証の内部改修）
+│   │   ├── kw-lookup-suggest-v2.2.2.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.2.2 ライセンス認証の内部改修）
+│   │   ├── kw-lookup-suggest-v2.3.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（最新・手動配置・v2.3.0＝記号を含む品番を途中まで入力しても候補が絞り込めるよう修正／候補が多いグループはoffsetページングで最大1万件まで自動読み込み／検索リクエスト数の削減）
 │   │   ├── kw-lookup-sync-v1.0.0.zip                             # ルックアップ自動同期 for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=参照先1組で全機能）
 │   │   ├── kw-lookup-sync-v1.0.1.zip                             # ルックアップ自動同期 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-lookup-sync-v2.0.2.zip                             # ルックアップ自動同期 for kintone v2.0.2 配布ファイル（重複しうるキー対応＝方式1/方式2・入力補完・PC/モバイル）
