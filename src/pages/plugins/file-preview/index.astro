@@ -4,13 +4,14 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <Layout
   title="添付ファイルプレビュー for kintone｜画像・PDF・Excelをその場で開く無料プラグイン | KIZUNA Works"
-  description="kintone の添付ファイル（画像・PDF・Excel・Word・PowerPoint・テキスト）を、ダウンロードや画面遷移なしでその場のフルスクリーンモーダルでプレビューするプラグイン。一覧・詳細のファイル名クリックで起動、複数ファイルを連続閲覧。Excelは書式・グラフ、Wordはページ体裁を再現、PowerPointはスライド表示。ファイルの中身は外部送信せず kintone 完結。"
+  description="kintone の添付ファイル（画像・PDF・Excel・Word・PowerPoint・テキスト）を、ダウンロードや画面遷移なしでその場のフルスクリーンモーダルでプレビューするプラグイン。一覧・詳細のファイル名クリックで起動、関連レコード一覧の参照先アプリの添付にも対応。複数ファイルを連続閲覧。Excelは書式・グラフ、Wordはページ体裁を再現、PowerPointはスライド表示。ファイルの中身は外部送信せず kintone 完結。"
   ogTitle="添付ファイルプレビュー for kintone｜画像・PDF・Excelをその場で開く無料プラグイン | KIZUNA Works"
-  ogDescription="kintone の添付（画像・PDF・Excel・Word・PowerPoint・テキスト）をダウンロードせずその場でフルスクリーン表示。複数ファイルの連続閲覧、Excel書式/グラフ再現、PowerPointスライド表示。kintone完結・ファイル中身は外部送信なし。"
+  ogDescription="kintone の添付（画像・PDF・Excel・Word・PowerPoint・テキスト）をダウンロードせずその場でフルスクリーン表示。関連レコード一覧の添付にも対応。複数ファイルの連続閲覧、Excel書式/グラフ再現、PowerPointスライド表示。kintone完結・ファイル中身は外部送信なし。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/file-preview/"
   ogImage="https://kizuna-works.jp/images/file-preview-banner.png"
@@ -52,10 +53,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "添付ファイルプレビュー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.2.2",
-          "dateModified": "2026-08-19",
+          "softwareVersion": "2.3.0",
+          "dateModified": "2026-08-20",
           "url": "https://kizuna-works.jp/plugins/file-preview/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-file-preview-v2.2.2.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-file-preview-v2.3.0.zip",
           "image": "https://kizuna-works.jp/images/file-preview-banner.png",
           "offers": {
             "@type": "Offer",
@@ -65,7 +66,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintone レコードに添付された画像・PDF・Excel・Word・PowerPoint・テキストを、ダウンロードや画面遷移なしでその場のフルスクリーンモーダルでプレビューする kintone プラグイン。ファイルの中身は外部送信せず kintone 完結。",
+          "description": "kintone レコードに添付された画像・PDF・Excel・Word・PowerPoint・テキストを、ダウンロードや画面遷移なしでその場のフルスクリーンモーダルでプレビューする kintone プラグイン。サブテーブル内や関連レコード一覧に表示した参照先アプリの添付にも対応。ファイルの中身は外部送信せず kintone 完結。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -80,6 +81,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "テキスト/CSV は文字コードを自動判定（UTF-8 / Shift_JIS / EUC-JP）",
             "同じ欄の複数ファイルを 前へ/次へ・サムネイル・左右キーで連続閲覧",
             "サブテーブル（テーブル）内の添付ファイルも詳細画面でプレビュー対応（v2.1.0）",
+            "関連レコード一覧に表示した参照先アプリの添付ファイルも詳細画面でプレビュー対応（v2.3.0）",
             "パスワード付き PDF・Excel・Word をブラウザ内で復号して表示（外部送信なし）",
             "Excel の高精細表示（Excel風グリッド）に切替可能",
             "モーダルの大きさを 大(全画面)/中/小 から選択（記憶）",
@@ -630,6 +632,28 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       .update-title { font-size: 17px; }
     }
 
+    .update-shot {
+      max-width: 640px;
+      margin: 24px auto 0;
+    }
+
+    .update-shot img {
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(27, 58, 107, 0.08);
+      background: #fff;
+    }
+
+    .shot-caption {
+      margin: 10px 0 0;
+      font-size: 0.85rem;
+      color: var(--color-text-light);
+      text-align: center;
+      line-height: 1.6;
+    }
+
     /* Zoomable images + lightbox overlay */
     .zoomable { cursor: zoom-in; }
     .lightbox {
@@ -761,10 +785,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.2.2</span>
+        <span class="hero-version">v2.3.0</span>
       </div>
       <h1 class="hero-title">添付ファイルプレビュー for kintone</h1>
-      <p class="hero-copy">添付ファイルプレビュー for kintone は、レコードに添付した画像・PDF・Excel・Word・PowerPoint・テキストを、ダウンロードや画面遷移なしでその場のフルスクリーンモーダルで確認できる kintone プラグインです。一覧・詳細のファイル名をクリックするだけで開き、サブテーブル（明細）内の添付にも対応。同じ欄の複数ファイルは「前へ／次へ」・サムネイル・キーボードで連続閲覧。ファイルの中身は外部に送信せず、kintone 内で完結します。</p>
+      <p class="hero-copy">添付ファイルプレビュー for kintone は、レコードに添付した画像・PDF・Excel・Word・PowerPoint・テキストを、ダウンロードや画面遷移なしでその場のフルスクリーンモーダルで確認できる kintone プラグインです。一覧・詳細のファイル名をクリックするだけで開き、サブテーブル（明細）内の添付や、<strong>関連レコード一覧に表示した参照先アプリの添付</strong>にも対応。同じ欄の複数ファイルは「前へ／次へ」・サムネイル・キーボードで連続閲覧。ファイルの中身は外部に送信せず、kintone 内で完結します。</p>
     </section>
 
     <!-- Update highlight -->
@@ -772,11 +796,20 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v2.2.2：ほかの PDF 系プラグインと併用したときにプレビューが開けない問題を修正しました</h2>
+          <h2 class="update-title">v2.3.0：「関連レコード一覧」に表示した添付ファイルも、その場でプレビューできるようになりました</h2>
         </div>
-        <p class="update-desc">同じアプリに<strong>ほかの PDF 系プラグインを設定していると、PDF をクリックしたときに「PDF を表示できませんでした。ファイルが破損しているか、対応していない形式の可能性があります。」と表示され、プレビューが開けない</strong>ことがありました。ファイルは壊れていないのに開けない状態です。これを修正しました。</p>
-        <p class="update-desc">原因は、PDF の表示に使う部品をブラウザ上でほかのプラグインと共有してしまうことでした。本バージョンからは<strong>自分専用の部品を読み込み、ほかのプラグインの動作にも影響を与えない</strong>ようにしています。これにより、<strong>PDF を扱う同種のプラグインが同じアプリに設定されていても衝突しません</strong>。併用しているプラグインを外す必要はありません。</p>
-        <p class="update-note">既存ユーザーの方は、下の「プランについて」からダウンロードした最新版を、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用できます（設定の再登録は不要です）。PDF 以外のファイル形式の表示に変更はありません。</p>
+        <p class="update-desc">これまで、レコード詳細画面の<strong>「関連レコード一覧」に表示された参照先アプリの添付ファイル</strong>は、クリックするとダウンロードになっていました。中身を見るには参照先のレコードを開き直す必要があり、案件に紐づく見積書・工程表・議事録などを続けて確認したいときに手間がかかっていました。</p>
+        <p class="update-desc">本バージョンから、<strong>関連レコード一覧のファイル名をクリックすると、そのままフルスクリーンのモーダルで中身が開きます</strong>。参照先アプリ側にプラグインを設定する必要はありません（関連レコード一覧を置いているアプリの設定だけで動作します）。ページ送り（「次へ」）で表示した行にも自動で適用されます。</p>
+        <div class="update-shot">
+          <Picture src="/images/file-preview-reftable-01.png" alt="kintone のレコード詳細画面 — 「案件管理」レコードの関連レコード一覧「提出書類」に、参照先アプリの添付ファイル（見積書_2026-08.xlsx・工程表_2026-08.pdf・仕様書_v2.docx・打合せ議事録_0812.pdf）がファイル名リンクで並んでいる状態" width="689" height="541" class="zoomable" />
+          <p class="shot-caption">関連レコード一覧に並んだ参照先アプリの添付ファイル。ファイル名をクリックします。</p>
+        </div>
+        <div class="update-shot">
+          <Picture src="/images/file-preview-reftable-02.png" alt="添付ファイルプレビューのモーダル画面 — 関連レコード一覧から開いた PDF（工程表）が、表・工程のバー・注記までそのままの体裁で全画面表示されている状態" width="1920" height="749" class="zoomable" />
+          <p class="shot-caption">クリックするとその場で中身を表示（PDF の例）。参照先レコードを開き直す必要はありません。</p>
+        </div>
+        <p class="update-note">画像をクリックすると拡大表示します。<br>
+        設定画面の「プレビュー対象フィールド」には、関連レコード一覧の添付ファイルが<strong>「関連レコード一覧名 ＞ 項目名」</strong>で表示されます。1 つも選択していない場合は自動的に対象になります。既存ユーザーの方は、下の「プランについて」からダウンロードした最新版を、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用できます（設定の再登録は不要です）。</p>
       </div>
     </section>
 
@@ -925,6 +958,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <ul class="feature-list">
           <li><span><strong>ファイル名クリックでフルスクリーンプレビュー</strong> — レコード一覧・詳細画面で、添付ファイルの「ファイル名リンク」をクリックすると、画面全体のモーダルで中身を表示します。ダウンロードも詳細画面への遷移も不要です。</span></li>
           <li><span><strong>形式に合わせた表示</strong> — 画像はフィット表示、PDF はページ描画、Excel は列幅・セル結合・背景色・フォント・罫線・配置を再現しグラフも再現描画、Word はページ体裁を再現、テキスト/CSV は文字コードを自動判定（UTF-8 / Shift_JIS / EUC-JP）して表示します。</span></li>
+          <li><span><strong>関連レコード一覧の添付もその場で開く</strong> — 「関連レコード一覧」に表示した参照先アプリの添付ファイルも、ファイル名クリックでプレビューできます（レコード詳細画面）。参照先レコードを開き直す必要はありません。ページ送り（「次へ」）で表示した行にも自動で適用されます。参照先アプリ側にプラグインを設定する必要はありません。</span></li>
           <li><span><strong>複数ファイルの連続閲覧</strong> — 同じ添付ファイル欄に複数添付している場合、モーダル内の「前へ／次へ」・下部のサムネイル列・キーボードの左右キーで次々に閲覧できます。Esc／背景クリックで閉じられます。</span></li>
           <li><span><strong>モーダルサイズ 大／中／小</strong> — 初期サイズを設定でき、プレビュー中もモーダル上部のボタンで切り替えられます。選んだ大きさは記憶されます（スマートフォン幅では常に全画面）。</span></li>
           <li><span><strong>大容量ガード・ダウンロード</strong> — 設定したサイズ以上の大きいファイルは開く前に確認ダイアログを表示。モーダルから現在のファイルをそのままダウンロードもできます。</span></li>
@@ -939,7 +973,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコード一覧・詳細画面（PC 版）でご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-file-preview-v2.2.2.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-file-preview-v2.3.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「添付ファイルプレビュー for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>対象フィールド・上限しきい値・対象画面・モーダルの大きさ・テーマ色</strong>を設定して「保存」</span></li>
@@ -965,7 +999,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-file-preview-v2.2.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-file-preview-v2.3.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -1109,10 +1143,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-file-preview-v2.2.2.zip',
+              file_name: 'kw-file-preview-v2.3.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-file-preview-v2.2.2.zip'
+              link_url: '/downloads/kw-file-preview-v2.3.0.zip'
             });
           }
         });

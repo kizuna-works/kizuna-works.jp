@@ -127,7 +127,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── quick-tab/
 │   │   │   │   └── index.astro # クイックタブプラグイン製品ページ（/plugins/quick-tab/）— レコード詳細/作成/編集のフィールドをスペース要素を境界にタブ自動分割・「すべて」タブ・必須エラー追従・スクロール固定・スタイル20種×配色（スクショはクリックで拡大オーバーレイ）
 │   │   │   ├── file-preview/
-│   │   │   │   └── index.astro # 添付ファイルプレビュープラグイン製品ページ（/plugins/file-preview/）— 添付の画像/PDF/Excel/Word/PowerPoint/テキストを一覧・詳細のファイル名クリックで全画面モーダル表示・送りナビ・Excel書式/グラフ再現・文字コード自動判定。PowerPoint(pptx)対応(v2.2.0)。表示ライブラリは自社配信(/libs/)からSRI付き遅延読込
+│   │   │   │   └── index.astro # 添付ファイルプレビュープラグイン製品ページ（/plugins/file-preview/）— 添付の画像/PDF/Excel/Word/PowerPoint/テキストを一覧・詳細のファイル名クリックで全画面モーダル表示・送りナビ・Excel書式/グラフ再現・文字コード自動判定。PowerPoint(pptx)対応(v2.2.0)。関連レコード一覧の参照先アプリ添付にも対応(v2.3.0)。表示ライブラリは自社配信(/libs/)からSRI付き遅延読込
 │   │   │   ├── quick-toc/
 │   │   │   │   └── index.astro # クイック目次プラグイン製品ページ（/plugins/quick-toc/）— レコード詳細/編集/新規の左側にセクション目次を常時表示・項目クリックで該当セクションへジャンプ・ステータスバッジ（DropDown/Radio/プロセス管理）・配色3モード・ヘッダー追従・kintone完結（スクショはクリックで拡大オーバーレイ）
 │   │   │   ├── list-styler/
@@ -411,6 +411,8 @@ c:\kizuna-works.jp\
 │   │   ├── file-preview-action-03.png      # 添付ファイルプレビュー 動作③ — Excelのグラフをデータから再現＋シート切替
 │   │   ├── file-preview-config-01.png      # 添付ファイルプレビュー 設定① — 対象フィールド・上限しきい値
 │   │   ├── file-preview-config-02.png      # 添付ファイルプレビュー 設定② — 対象画面・操作・モーダルサイズ・テーマ色
+│   │   ├── file-preview-reftable-01.png    # 添付ファイルプレビュー v2.3.0 — 関連レコード一覧に参照先アプリの添付が並ぶレコード詳細画面
+│   │   ├── file-preview-reftable-02.png    # 添付ファイルプレビュー v2.3.0 — 関連レコード一覧から開いたPDF(工程表)の全画面プレビュー ＋ .webp
 │   │   ├── sidebar-enhancer-banner.png     # サイドバー拡張 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp
 │   │   ├── input-template-banner.png       # 入力テンプレート for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── table-assist-banner.png         # テーブルアシスト for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
