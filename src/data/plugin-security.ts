@@ -174,6 +174,22 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-pdf-edit': {
+    runtimeLibs: [
+      { name: 'PDF.js', version: '3.11.174', license: 'Apache-2.0', purpose: 'PDF の描画・ページの画像化・パスワード付き PDF のブラウザ内復号' },
+      { name: 'pdf-lib', version: '1.17.1', license: 'MIT', purpose: '編集内容を書き込んだ PDF のブラウザ内生成' },
+      { name: '@pdf-lib/fontkit', version: '1.1.1', license: 'MIT', purpose: '追記する文字の字形（アウトライン）取り出し。テキストツールを最初に押したときだけ読み込みます' },
+      { name: 'Noto Sans JP / Noto Serif JP', version: 'SIL OFL 1.1', license: 'SIL OFL 1.1', purpose: '追記する日本語の書体。設定した書体・文字セットの1本だけを読み込みます' },
+    ],
+    extraComm: [
+      {
+        label: '添付ファイルの取得と保存',
+        scope: 'internal',
+        detail:
+          'ご利用中の kintone ドメイン内の REST API だけを使います（添付ファイルの取得 GET /k/v1/file、編集後 PDF のアップロード POST /k/v1/file、レコードの更新 PUT /k/v1/record、対象フィールドの把握 GET /k/v1/app/form/fields、編集権限の判定 GET /k/v1/app/acl）。PDF の読み込み・編集・書き出しはすべてブラウザの中で行い、ファイルの中身を外部へ送ることはありません。変換サービスや OCR のような外部 API は使いません。パスワード付き PDF のパスワードは、どこにも保存せず編集画面を閉じた時点で破棄します。',
+      },
+    ],
+  },
   'kw-report-designer': {
     runtimeLibs: [
       { name: 'PDF.js', version: '3.11.174', license: 'Apache-2.0', purpose: '設定画面での背景 PDF の読み込み・画像化' },

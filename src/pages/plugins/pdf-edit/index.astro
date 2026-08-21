@@ -1,0 +1,789 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import TrialBanner from '../../../components/TrialBanner.astro';
+---
+
+<Layout
+  title="PDF編集アシスト for kintone｜添付PDFに押印・注記、そして墨消し | KIZUNA Works"
+  description="kintone に添付された PDF に、押印画像・手書き・テキスト・図形・矢印をその場で書き加えて保存できるプラグイン。白く塗るだけでは残ってしまう情報を、ページを焼き直して本当に削除する「墨消し」も備えています。ダウンロードして別ソフトで開き、また添付し直す往復がなくなります。"
+  ogTitle="PDF編集アシスト for kintone｜添付PDFに押印・注記、そして墨消し | KIZUNA Works"
+  ogDescription="添付PDFに押印・手書き・テキスト・図形・矢印をその場で書き込み、白塗りでは消えない情報は「墨消し」でページごと焼き直して物理削除。印刷して押してスキャンする往復をなくします。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/pdf-edit/"
+  ogImage="https://kizuna-works.jp/images/pdf-edit-banner.png"
+  canonical="https://kizuna-works.jp/plugins/pdf-edit/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/pdf-edit/",
+          "url": "https://kizuna-works.jp/plugins/pdf-edit/",
+          "name": "PDF編集アシスト for kintone｜添付PDFに押印・注記、そして墨消し | KIZUNA Works",
+          "description": "kintone の添付 PDF に押印・手書き・テキスト・図形・矢印を書き加えて保存し、隠したい箇所はページを焼き直して元データごと削除する「墨消し」も行えるプラグイン。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/pdf-edit-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "PDF編集アシスト for kintone", "item": "https://kizuna-works.jp/plugins/pdf-edit/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "PDF編集アシスト for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-08-21",
+          "url": "https://kizuna-works.jp/plugins/pdf-edit/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-pdf-edit-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/pdf-edit-banner.png",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "無料プラン",
+              "price": "0",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "押印画像の配置と手書きが使えます。対象フィールドの数・編集の回数・ページ数・サブテーブル・一覧画面・パスワード付きPDF・添付ファイルプレビュー連携に制限はありません（利用期限なし）。"
+            },
+            {
+              "@type": "Offer",
+              "name": "プレミアム年間サポーター（全プラグイン込み）",
+              "price": "16500",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、テキスト挿入・図形・矢印・墨消しが使えるようになり広告も非表示になります。販売中の全プラグインも利用できます。単品販売はありません。"
+            }
+          ],
+          "description": "kintone のレコードに添付された PDF を、その場で編集して保存できるプラグイン。押印画像の配置・手書き・テキスト挿入・9種類の図形・矢印に対応し、隠したい箇所は「墨消し」でそのページを焼き直して元の文字・画像をファイルから物理削除する。白い四角で覆う方法では元データがファイル内に残り、kintone の添付ファイル全文検索から露出しうるという問題に対する答えを持つ点が最大の特徴。保存は「同じフィールドに追加（原本と最新のみ／すべて残す）」と「上書き（ファイル名は元のまま）」から選べる。詳細画面のサブテーブル内添付、一覧画面からの編集、パスワード付きPDFの編集（許可制）、添付ファイルプレビュー（kw-file-preview）との連携にも対応する。PDFの読み書きはすべてブラウザ内で完結し、ファイルの中身も入力したパスワードも外部へ送信しない。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "添付ファイル名の横のペンアイコンから、PDFをその場で開いて編集",
+            "設定に登録した押印画像をクリックで配置（移動・拡大縮小・回転）",
+            "手書き（色・太さを選んで自由線）",
+            "日本語テキストの挿入（ゴシック／明朝・サイズ・色・行揃え）",
+            "図形9種類（四角・角丸四角・円・三角・ひし形・マーカー・チェック・バツ・多角形）",
+            "矢印・直線（端点ドラッグで伸縮・矢じりの向きを切替）",
+            "墨消し：指定範囲を塗り、そのページを焼き直して元の文字・画像をファイルから削除",
+            "配置したものは「選択」ツールであとから色・太さ・塗り・形を直せる",
+            "手のひらツール・Space押下・マウス中ボタンでページを移動、Ctrl＋ホイールで拡大縮小",
+            "全画面表示（設定は次回も引き継ぎ）",
+            "保存は「同じフィールドに追加」（原本と最新のみ／すべて残す）と「上書き」から選択",
+            "上書きはファイル名を変えず、保存直前に必ず確認",
+            "詳細画面のサブテーブル内添付ファイルにも対応（行の並べ替えや他の列を壊さない）",
+            "一覧画面からの編集（任意・確認ダイアログつき）",
+            "パスワード付きPDFの編集（許可制・パスワードは保存しない）",
+            "添付ファイルプレビュー（kw-file-preview）のモーダルに「編集」を追加",
+            "表示条件（ステータス・フィールド値）と実行ユーザーでアイコンを出し分け",
+            "ゲストスペース対応・PDFの読み書きはブラウザ内で完結"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "白い四角で隠すのと「墨消し」は何が違いますか？", "acceptedAnswer": { "@type": "Answer", "text": "白い図形やマーカーで覆う方法は、見た目を隠すだけで元の文字や画像はファイルの中に残ります。PDFをコピー＆ペーストしたり、テキストを抽出したりすると読めてしまい、kintone の添付ファイル全文検索や AI 検索の対象にもなります。墨消しは、指定範囲を塗ったうえでそのページ自体を画像として焼き直すため、元の描画命令・埋め込み画像・透明な文字レイヤーがファイルから消えます。引き換えに、そのページは文字の選択と検索ができなくなり、ファイルサイズも増えます。取り消せない操作なので、範囲を指定した時点で内容を明示した確認が出ます。" } },
+            { "@type": "Question", "name": "元のファイルは残りますか？", "acceptedAnswer": { "@type": "Answer", "text": "既定では残ります。保存方法が「同じフィールドに追加」のとき、原本はそのまま置いたうえで「契約書_編集済.pdf」のような名前で追加します。「原本と最新のみ」を選んでおけば、編集を何回重ねても原本＋最新の2件に保たれます（古い編集結果だけがファイル名で判別され、入れ替わります）。同じフィールドにある画像などのファイルには触りません。「上書き」を選んだ場合だけ元のファイルが失われますが、その場合はファイル名を変えずに差し替え、保存の直前に対象のファイル名を示した確認が出ます。なお墨消しを含む保存では、原本が残ると消した情報が復元できてしまうため「元のファイルを削除して保存」が既定になります。" } },
+            { "@type": "Question", "name": "PDFの中の文字を書き換えられますか？", "acceptedAnswer": { "@type": "Answer", "text": "既存の文字を別の文字に置き換えることはできません。本プラグインは上から書き加える方式です。金額や日付を直したいときは、白い図形で覆ってからテキストを重ねる、あるいは墨消しをしてからテキストを重ねる、という手順になります。元のPDFに使われている書体もそのままは使えないため、追記する文字はゴシック（Noto Sans JP）／明朝（Noto Serif JP）から選びます。" } },
+            { "@type": "Question", "name": "追記した文字は検索できますか？", "acceptedAnswer": { "@type": "Answer", "text": "挿入した文字は、字形（アウトライン）を図形として焼き込みます。そのため、生成されたPDFの中で文字として選択したり検索したりする対象にはなりません。日本語フォントをPDFに埋め込む方式は、1回の保存ごとにファイルが1〜3MB大きくなるうえ、閲覧環境によって字が表示されない事故が起きるため採用していません。アウトライン方式なら追記ぶんは数十KBで済み、どのビューアでも同じ見た目になります。元のPDFに入っていた文字は、そのまま検索できます（墨消ししたページを除く）。" } },
+            { "@type": "Question", "name": "サブテーブルの中の添付ファイルも編集できますか？", "acceptedAnswer": { "@type": "Answer", "text": "レコード詳細画面であれば編集できます。設定画面で対象フィールドを選ぶときに「明細 ＞ 添付資料（テーブル内）」のように表示されます。保存は行ごとに照合するため、行の並べ替え・他の列の値・計算フィールドを壊しません。なお一覧画面では、テーブル内の添付ファイルは編集できません（アイコンを表示しません）。" } },
+            { "@type": "Question", "name": "パスワード付きのPDFも編集できますか？", "acceptedAnswer": { "@type": "Answer", "text": "設定で許可すると編集できます（既定は許可しない設定です）。開くときにパスワードを尋ね、ブラウザの中だけで復号します。入力されたパスワードはどこにも保存せず、編集画面を閉じた時点で破棄します。ただし保存後のファイルにはパスワードを再設定できないため、全ページを画像として焼き直したうえで、保護のかかった原本を必ずフィールドに残す動きになります（保存前に画面上でも明示します）。" } },
+            { "@type": "Question", "name": "無料プランではどこまで使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "押印画像の配置と手書きが無料で使えます。他のプラグインのように「1件まで」という数量の制限は設けていないため、対象フィールドの数・編集する回数・ページ数・サブテーブル内の編集・一覧画面からの編集・パスワード付きPDF・添付ファイルプレビュー連携は、無料のままで制限なくお使いいただけます。テキスト挿入・図形・矢印・墨消しの4つがプレミアム年間サポーター（税込 ¥16,500/年）の対象です。" } },
+            { "@type": "Question", "name": "PDFの中身は外部に送信されますか？", "acceptedAnswer": { "@type": "Answer", "text": "送信しません。PDFの読み込み・編集・書き出しはすべてお使いのブラウザの中で行い、kintone の添付ファイルとして保存します。変換サービスやOCRのような外部APIは一切使いません。入力されたパスワードも外部へ出ず、保存もしません。PDFの表示と書き出しに使うライブラリ（PDF.js・pdf-lib・fontkit）と日本語書体は、第三者CDNではなく当社サーバー（kizuna-works.jp）から改ざん検知つきで読み込みます。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。" } },
+            { "@type": "Question", "name": "モバイル（kintoneアプリ）でも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "v1.0.0 では PC版のみの対応です。モバイル版ではプラグインが読み込まれないため、編集アイコンも表示されません。PDFへの書き込みは細かい位置合わせを伴うため、まずPC版で使いやすさを固めています。" } }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
+    .afp-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+    .afp-hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 26px; border-radius: 26px;
+      font-weight: 700; font-size: 1rem; text-decoration: none; line-height: 1.3;
+    }
+    .afp-hero-btn.is-primary { background: #2E8B2E; color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.22); }
+    .afp-hero-btn.is-primary:hover { background: #35a035; }
+    .afp-hero-btn.is-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.6); }
+    .afp-hero-btn.is-ghost:hover { background: rgba(255,255,255,0.24); }
+    @media (max-width: 600px) { .afp-hero-btn { width: 100%; } }
+
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    /* Update box (latest release) */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0 0 12px; }
+    .afp-feature p:last-child { margin-bottom: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+    /* Cap narrow captures at the width the UI really has, so nothing is blown up
+       larger than the user will see it in kintone. */
+    .afp-shot-w420 { max-width: 420px; }
+    .afp-shot-w640 { max-width: 640px; }
+    .afp-shot-w840 { max-width: 840px; }
+
+    .afp-shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+    @media (max-width: 900px) { .afp-shot-pair { grid-template-columns: 1fr; } }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    /* Feature block: 使い方の画面 → その設定画面、の2枚組 */
+    .afp-usecfg { margin-top: 30px; }
+    .afp-usecfg-head {
+      display: inline-block; background: var(--color-navy); color: #fff; font-weight: 700;
+      font-size: 0.85rem; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px;
+    }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/pdf-edit-icon.png" alt="PDF編集アシスト for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1>PDF編集アシスト for kintone</h1>
+      <p class="afp-tagline">印刷せず、その場で書き込む。そして、本当に消せる。</p>
+      <p class="afp-sub">添付された PDF に、押印・手書き・テキスト・図形をその場で書き加えて保存できます。白く塗るだけでは残ってしまう情報は、ページを焼き直して本当に消す<strong>墨消し</strong>で。印刷して押してスキャンする往復が、レコード画面の中で終わります。</p>
+      <div class="afp-hero-cta">
+        <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-pdf-edit-v1.0.0.zip" download>無料でダウンロード</a>
+      </div>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 課題 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">PDF だけ、いつも kintone の外へ出ていく</h2>
+        <p class="afp-lead">レコードに添付された PDF に一言書き加えたいだけなのに、ダウンロードして別のソフトで開き、保存して、また添付し直す。押印のためだけに印刷している現場もあります。作業が外に出るぶん、どれが最新なのか分からなくなります。</p>
+        <div class="afp-problems">
+          <div class="afp-problem">
+            <span class="afp-problem-no">01</span>
+            <h3>押印のために印刷している</h3>
+            <p>届いた申込書に受付印を押すため、印刷 → 押印 → スキャン → 再添付。紙とスキャナを経由するので、時間もかかれば画質も落ちます。</p>
+          </div>
+          <div class="afp-problem">
+            <span class="afp-problem-no">02</span>
+            <h3>図面の「どこ」を文字で説明している</h3>
+            <p>「左上の会議室の隣」と書いても伝わりません。図面や現場写真は、その場所を直接指し示せないと話が進みません。</p>
+          </div>
+          <div class="afp-problem">
+            <span class="afp-problem-no">03</span>
+            <h3>白く塗って隠したつもりになっている</h3>
+            <p>金額や個人情報を白い四角で覆っても、<strong>元の文字はファイルの中に残ります</strong>。コピーすれば読めてしまい、kintone の添付ファイル全文検索にも引っかかります。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 押印 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ファイル名の横のペンから、そのまま開く</h2>
+        <p class="afp-lead">添付ファイル名の右に出るペンのアイコンを押すと、その PDF が編集画面で開きます。ファイル名のリンクはこれまでどおり（ダウンロード・プレビュー）動くので、これまでの使い方は変わりません。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/pdf-edit-detail-01.png" alt="レコード詳細画面の「契約書」フィールド。添付ファイル名「業務委託契約書.pdf」の右にペンのアイコンが表示されている" width="892" height="124" class="zoomable" />
+          <figcaption class="afp-shot-cap">添付ファイル名の横にペンのアイコン。押した<strong>そのファイル</strong>が開きます</figcaption>
+        </figure>
+        <p class="afp-lead" style="margin-top:28px;">設定に登録しておいた印影をクリックすれば、ページ中央に置かれます。あとはドラッグで位置を決め、四隅をつまんで大きさを合わせるだけです。角度も変えられます。</p>
+        <figure class="afp-shot">
+          <Picture src="/images/pdf-edit-editor-01.png" alt="編集画面。業務委託契約書の1ページ目の右上に赤い「承認」の押印画像が配置され、選択されて四隅にハンドルと回転用の点が出ている。上部には選択・手のひら・画像・手書き・テキスト・図形・矢印・墨消しのツールが並ぶ" width="1400" height="816" class="zoomable" />
+          <figcaption class="afp-shot-cap">押印を置いた状態。選択したままハンドルで位置と大きさを調整できます</figcaption>
+        </figure>
+        <div class="afp-note">押印画像は<strong>プラグイン設定に登録したものだけ</strong>を使わせることもできます（パソコン内の画像選択をオフにする）。任意の印影を持ち込ませたくない運用に使えます。</div>
+      </div>
+    </section>
+
+    <!-- 赤入れ -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">図面への赤入れは、囲んで・指して・光らせる</h2>
+        <p class="afp-lead">図形は9種類（四角・角丸四角・円・三角・ひし形・マーカー・チェック・バツ・多角形）。矢印で位置を指し、マーカーで注記行を光らせれば、言葉で説明しなくても伝わります。<strong>多角形</strong>を使えば、部屋や機器の輪郭に沿って自由な範囲を囲めます。</p>
+        <figure class="afp-shot">
+          <Picture src="/images/pdf-edit-editor-02.png" alt="編集画面で事務所レイアウト図に赤入れしている様子。会議室Aが赤い四角で囲まれ、赤い矢印がそこを指し、下部の注記行が黄色いマーカーで塗られている。上部の設定帯には四角・角丸四角・円・三角・ひし形・マーカー・チェック・バツ・多角形の9種類が並ぶ" width="1400" height="816" class="zoomable" />
+          <figcaption class="afp-shot-cap">形は9種類。マーカーは半透明なので、下の文字が読めたまま強調できます</figcaption>
+        </figure>
+        <div class="afp-note">上の設定帯は<strong>「次に描くもの」</strong>を決めます。すでに置いたものを直したいときは「選択」ツールでクリック（またはどのツールでもダブルクリック）すると、色・太さ・塗り・形をあとから変えられます。作り直す必要はありません。</div>
+      </div>
+    </section>
+
+    <!-- テキスト -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">日本語の追記も、書体を選んで</h2>
+        <p class="afp-lead">ゴシック（Noto Sans JP）と明朝（Noto Serif JP）から選べます。文字サイズ・色・行揃えを指定でき、改行も入ります。人名の異体字を扱う場合は、設定で文字セットを「フル」（約16,700字）にしておけます。</p>
+        <figure class="afp-shot">
+          <Picture src="/images/pdf-edit-editor-03.png" alt="編集画面のテキストツール。押印の下に「2026年8月21日 受領／担当 山田」の2行が配置され、上部の設定帯に書体（ゴシック）・文字サイズ（14pt）・文字色・行揃え・「文字を編集」ボタンが並んでいる" width="1400" height="816" class="zoomable" />
+          <figcaption class="afp-shot-cap">置いたあとでも書体・サイズ・色・行揃えを変更できます</figcaption>
+        </figure>
+        <div class="afp-note">追記した文字は<strong>字形を図形として焼き込みます</strong>。どのビューアでも同じ見た目になり、追記ぶんのファイル増加も数十KBで収まります（そのぶん、生成後のPDFで追記文字を選択・検索することはできません）。</div>
+      </div>
+    </section>
+
+    <!-- 墨消し -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">「隠す」ではなく「消す」──墨消し</h2>
+        <p class="afp-lead">範囲を指定すると、そのページを塗ったうえで<strong>画像として焼き直します</strong>。元の描画命令・埋め込み画像・目に見えない文字レイヤーがファイルから消えるので、コピーしても抽出しても読めません。kintone の添付ファイル全文検索の対象からも外れます。</p>
+        <div class="afp-shot-pair">
+          <figure class="afp-shot">
+            <Picture src="/images/pdf-edit-redact-01.png" alt="墨消しの確認ダイアログ。「元の文字・画像はファイルから完全に削除され、復元できません」「このページは画像化され、文字の選択・検索ができなくなります」「kintone の添付ファイル全文検索の対象からも外れます」「解像度 150dpi ／ 塗り色 黒 ／ 形式 PNG（プラグイン設定）」と表示され、中止と墨消しを実行のボタンが並ぶ" width="1400" height="816" class="zoomable" />
+            <figcaption class="afp-shot-cap">実行前に、何が起きるかと設定値を必ず示します</figcaption>
+          </figure>
+          <figure class="afp-shot">
+            <Picture src="/images/pdf-edit-redact-02.png" alt="墨消し後の編集画面。契約書の第3条にあった委託料の金額の行が黒く塗りつぶされ、右上には赤い承認印が押されている" width="1400" height="816" class="zoomable" />
+            <figcaption class="afp-shot-cap">委託料の金額だけを消して、社内共有用に</figcaption>
+          </figure>
+        </div>
+        <div class="afp-cautions" style="margin-top:24px;">
+          <ul>
+            <li>解像度は <strong>96 / 150 / 200 / 300 dpi</strong>、塗り色は<strong>黒か白</strong>、形式は <strong>PNG か JPEG</strong> から選べます（既定は 150dpi・黒・PNG）。</li>
+            <li>焼き直すのは<strong>墨消しをしたページだけ</strong>です。ほかのページはそのまま複製するので、無関係なページの画質は落ちません。</li>
+            <li>墨消しは<strong>「元に戻す」の対象外</strong>です。保存時は、原本が残ると消した情報が復元できてしまうため<strong>「元のファイルを削除して保存」が既定</strong>になります。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 保存 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">保存しても、原本は消えない</h2>
+        <p class="afp-lead">既定は「同じフィールドに追加」＋「原本と最新のみ」。何回編集しても、フィールドは<strong>原本と最新の2件</strong>に保たれます。ファイルが延々と増えることも、原本が消えることもありません。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/pdf-edit-save-01.png" alt="保存後のレコード詳細画面。契約書フィールドに「3階レイアウト図.pdf」と「3階レイアウト図_編集済.pdf」の2件が並び、それぞれの右にペンのアイコンが出ている" width="892" height="186" class="zoomable" />
+          <figcaption class="afp-shot-cap">原本＋編集済の2件。編集済みのほうも、続けて編集できます</figcaption>
+        </figure>
+        <div class="afp-grid-feats" style="margin-top:28px;">
+          <div class="afp-feat-card">
+            <h3>ファイル名は自分で決める</h3>
+            <p><code>&#123;元ファイル名&#125;_編集済</code> のように指定します。入力するとその場で完成例が出ます。「上書き」を選んだ場合は<strong>元の名前のまま</strong>差し替えます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>他の人の編集を巻き込まない</h3>
+            <p>保存の直前にレコードを取り直します。別の項目を誰かが直していても、その変更を保ったまま保存します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>元に戻せない操作は必ず確認</h3>
+            <p>上書き保存は、対象のファイル名を示して保存の直前に確認します。中止すればファイルはそのままです。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 一覧・連携 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">一覧からも、プレビューからも</h2>
+        <p class="afp-lead">一覧画面を有効にすると、添付ファイル列に並んだ PDF からそのまま編集できます（既定はオフ。有効にすると、開く前に確認を挟むかどうかも選べます）。</p>
+        <figure class="afp-shot">
+          <Picture src="/images/pdf-edit-list-01.png" alt="kintone の一覧画面。契約書の列に並んだPDFのファイル名の横にそれぞれペンのアイコンが表示されている" width="1400" height="242" class="zoomable" />
+          <figcaption class="afp-shot-cap">一覧の添付ファイル列からも編集できます（テーブル内の添付は対象外）</figcaption>
+        </figure>
+        <p class="afp-lead" style="margin-top:28px;">当社の<a href="/plugins/file-preview/">添付ファイルプレビュー</a>と同じアプリに入れると、プレビュー画面に<strong>「編集」</strong>が追加されます。中身を見て、そのまま書き加えられます（プレビュー側の設定変更は不要です）。</p>
+        <figure class="afp-shot">
+          <Picture src="/images/pdf-edit-preview-01.png" alt="添付ファイルプレビューのモーダル画面。業務委託契約書が表示され、右上のツールバーに大・中・小の表示サイズと並んで「編集」ボタンとダウンロードボタンが出ている" width="1400" height="816" class="zoomable" />
+          <figcaption class="afp-shot-cap">プレビューの右上に「編集」。見ているファイルがそのまま開きます</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 設定画面 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定は5つのタブ</h2>
+        <p class="afp-lead">対象の添付ファイルフィールドを選ぶところから始めます。フォームの変更は不要で、管理用のフィールドも作りません。画像はクリックすると拡大表示します。</p>
+        <div class="afp-shot-pair">
+          <figure class="afp-shot">
+            <Picture src="/images/pdf-edit-config-01.png" alt="設定画面の「① 基本設定」タブ。対象の添付ファイルフィールドとして「契約書」と「関連資料 ＞ 添付資料（テーブル内・詳細画面のみ対応）」が選択され、編集ボタンの置き場所（ファイル名の横／レコードのヘッダー／指定したスペース）と、有効にする画面（レコード詳細・レコード一覧・一覧から編集するときに確認する）の設定が並んでいる" width="1000" height="462" class="zoomable" />
+            <figcaption class="afp-shot-cap">① 基本設定 — 対象フィールドと、ボタンの置き場所・有効にする画面</figcaption>
+          </figure>
+          <figure class="afp-shot">
+            <Picture src="/images/pdf-edit-config-02a.png" alt="設定画面の「② 保存設定」タブ前半。保存方法（同じフィールドに追加／上書き）と保持する世代（原本と最新のみ／すべて残す）、ファイル名テンプレートと「できあがるファイル名の例」が並んでいる" width="1000" height="429" class="zoomable" />
+            <figcaption class="afp-shot-cap">② 保存設定 — 保存方法・世代・ファイル名（例がその場に出ます）</figcaption>
+          </figure>
+          <figure class="afp-shot">
+            <Picture src="/images/pdf-edit-config-02b.png" alt="設定画面の「② 保存設定」タブ後半。編集を開始するファイル（毎回選ぶ／最後に添付されたPDF／最初に添付されたPDF）の設定" width="1000" height="161" class="zoomable" />
+            <figcaption class="afp-shot-cap">② 保存設定 — ヘッダーのボタンから始めたときに開くファイル</figcaption>
+          </figure>
+          <figure class="afp-shot">
+            <Picture src="/images/pdf-edit-config-03a.png" alt="設定画面の「③ 編集ツール」タブ前半。登録した押印画像「受付印」のサムネイルと使用量（使用中 10KB / 256KB）、パソコン内の画像選択を許可するかの設定" width="1000" height="506" class="zoomable" />
+            <figcaption class="afp-shot-cap">③ 編集ツール — 押印画像の登録と使用量、PC内画像の許可</figcaption>
+          </figure>
+          <figure class="afp-shot">
+            <Picture src="/images/pdf-edit-config-03b.png" alt="設定画面の「③ 編集ツール」タブ後半。テキスト挿入の既定の書体（ゴシック／明朝）と文字セット（標準 約5,000字／フル 約16,700字）、墨消しの解像度・塗り色・画像形式の設定" width="1000" height="529" class="zoomable" />
+            <figcaption class="afp-shot-cap">③ 編集ツール — 書体・文字セットと、墨消しの既定値</figcaption>
+          </figure>
+          <figure class="afp-shot">
+            <Picture src="/images/pdf-edit-config-04.png" alt="設定画面の「④ 表示条件・権限」タブ。編集アイコンを出す条件（すべての条件を満たすとき／いずれか・最大5件）、編集できるユーザー（全員／指定したユーザー・組織・グループ）、パスワード付きPDFの許可設定が並んでいる" width="1000" height="528" class="zoomable" />
+            <figcaption class="afp-shot-cap">④ 表示条件・権限 — 誰に、どのレコードで出すか</figcaption>
+          </figure>
+          <figure class="afp-shot">
+            <Picture src="/images/pdf-edit-config-05.png" alt="設定画面の「⑤ 履歴・連携」タブ。編集履歴をレコードコメントに記録するかどうかと、添付ファイルプレビューとの連携のオン／オフ" width="1000" height="421" class="zoomable" />
+            <figcaption class="afp-shot-cap">⑤ 履歴・連携 — コメントへの記録と、プレビュー連携</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>押印画像を置く</h3>
+            <p>設定に登録した印影をクリックで配置。移動・拡大縮小・回転ができます。パソコン内の画像も選べます（禁止も可）。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>手書き</h3>
+            <p>色と太さを選んで自由線。チェックを入れる、丸で囲む、といった手を止めない作業に向きます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>テキスト挿入 🔒</h3>
+            <p>ゴシック／明朝、サイズ・色・行揃え。改行も入ります。異体字を使うときは文字セットを「フル」に。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>図形9種類 🔒</h3>
+            <p>四角・角丸四角・円・三角・ひし形・マーカー・チェック・バツ・多角形。マーカーは濃さを20〜100%で選べます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>矢印・直線 🔒</h3>
+            <p>端点をドラッグして伸縮。矢じりを始点・終点のどちらに付けるかを切り替えられます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>墨消し 🔒</h3>
+            <p>ページを焼き直して元データごと削除。解像度・塗り色・形式を設定でき、実行前に必ず確認します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>あとから直せる</h3>
+            <p>置いたものは「選択」ツール（またはダブルクリック）で掴めます。色・太さ・塗り・形を変更でき、作り直し不要です。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>手のひらと拡大縮小</h3>
+            <p>手のひらツール、<strong>Space 押下中</strong>、<strong>マウス中ボタン</strong>でページを動かせます。Ctrl＋ホイールで拡大縮小。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>全画面表示</h3>
+            <p>画面いっぱいに広げて作業できます。次に開いたときも同じ状態で始まります。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>世代管理つきの保存</h3>
+            <p>追加（原本と最新のみ／すべて残す）と上書きから選択。上書きはファイル名を変えず、直前に確認します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>サブテーブル内の添付</h3>
+            <p>詳細画面のテーブル内の PDF も対象。行ごとに照合して保存するので、並べ替えや他の列を壊しません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>パスワード付きPDF</h3>
+            <p>許可制でブラウザ内で復号して編集。パスワードは保存せず、保護のかかった原本は必ず残します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>出す場所を選べる</h3>
+            <p>ファイル名の横／レコードのヘッダー／指定したスペース。一覧画面も任意で有効にできます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>誰に出すかを絞れる</h3>
+            <p>ステータスやフィールド値の条件（最大5件・AND／OR）と、ユーザー・組織・グループで出し分けます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>編集履歴をコメントに</h3>
+            <p>誰がいつどのファイルに何を書き加えたかを、レコードコメントに残せます（任意）。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ゲストスペース対応</h3>
+            <p>取引先とやり取りするゲストスペース内のアプリでも、設定画面から編集・保存まで動作します。</p>
+          </div>
+        </div>
+        <p class="afp-shot-cap" style="margin-top:18px;">🔒 はプレミアム年間サポーターの対象です。</p>
+      </div>
+    </section>
+
+    <!-- プラン -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">このプラグインは<strong>数量ではなく機能で線を引いています</strong>。他のプラグインのような「1件まで」という制限は設けていないので、無料のままでも<strong>押印と手書きは制限なく</strong>使えます。対象フィールドの数・編集回数・ページ数・サブテーブル・一覧画面・パスワード付きPDF・プレビュー連携も無料の範囲です。<strong>テキスト挿入・図形・矢印・墨消し</strong>の4つと広告非表示が、<strong>プレミアム年間サポーター</strong>で解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ 押印画像の配置（移動・拡大縮小・回転）</li>
+              <li>✅ 手書き（色・太さ）</li>
+              <li>✅ 対象フィールドの数・編集回数・ページ数の制限なし</li>
+              <li>✅ サブテーブル内の編集・一覧画面からの編集</li>
+              <li>✅ 保存方法・世代管理・ファイル名テンプレート</li>
+              <li>✅ パスワード付きPDF・添付ファイルプレビュー連携</li>
+              <li>✅ 利用期限なし（設定画面に控えめな広告あり）</li>
+            </ul>
+            <a href="/downloads/kw-pdf-edit-v1.0.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+          </div>
+
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>テキスト挿入</strong>（ゴシック／明朝・文字セット選択）</li>
+              <li>✅ <strong>図形9種類</strong>（マーカー・多角形を含む）</li>
+              <li>✅ <strong>矢印・直線</strong></li>
+              <li>✅ <strong>墨消し</strong>（解像度・塗り色・形式の設定）</li>
+              <li>✅ プラグイン内の<strong>広告非表示</strong></li>
+              <li>✅ 販売中の<strong>全プラグイン</strong>も対象（契約期間中に新しく公開されるプラグインも追加料金なし）</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta">プレミアム年間サポーターを申し込む →</a>
+          </div>
+        </div>
+
+        <div style="margin: 0 0 32px;">
+          <TrialBanner />
+        </div>
+
+        <h3 class="afp-plan-compare-head">機能の詳細比較</h3>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>機能</th><th class="c">無料プラン</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>押印画像の配置・手書き</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>テキスト挿入（ゴシック／明朝）</td><td class="c">—</td><td class="c">○</td></tr>
+              <tr><td>図形9種類・矢印・直線</td><td class="c">—</td><td class="c">○</td></tr>
+              <tr><td><strong>墨消し</strong>（元データの物理削除）</td><td class="c">—</td><td class="c">○</td></tr>
+              <tr><td>対象フィールドの数・編集回数・ページ数</td><td class="c">無制限</td><td class="c">無制限</td></tr>
+              <tr><td>サブテーブル内・一覧画面からの編集</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>保存方法・世代管理・ファイル名テンプレート</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>パスワード付きPDF・プレビュー連携・ゲストスペース</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>設定画面・編集画面の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note" style="margin-top:20px;">プレミアムの期限が切れても<strong>設定は消えません</strong>。テキスト・図形・矢印・墨消しのツールが使えなくなるだけで、押印と手書きはそのまま使えます。再加入すればすぐに戻ります。</div>
+      </div>
+    </section>
+
+    <!-- インストール手順 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="afp-steps steps-list">
+          <li><span>システム管理者で kintone にログインし、<strong>歯車アイコン → kintone システム管理 → プラグイン</strong> を開き、<strong>「読み込む」</strong>からプラグイン zip をアップロードします。</span></li>
+          <li><span>使いたい<strong>対象アプリ</strong>で <strong>アプリの設定 → プラグイン → 「+ プラグインを追加」</strong> から「PDF編集アシスト」を追加します。</span></li>
+          <li><span>プラグイン一覧の<strong>歯車アイコン</strong>から設定画面を開き、<strong>「① 基本設定」で対象の添付ファイルフィールド</strong>を1つ以上選びます。</span></li>
+          <li><span><strong>「③ 編集ツール」で押印画像を登録</strong>します（パソコン内の画像選択を許可したままにする場合は、登録しなくても構いません）。</span></li>
+          <li><span><strong>「保存」→「アプリを更新」</strong>で反映されます。レコード詳細画面を開くと、対象フィールドの PDF の横にペンのアイコンが出ます。</span></li>
+        </ol>
+        <div class="afp-note">アプリの設定を更新（デプロイ）するまでは反映されません。設定を保存しただけでアイコンが出ないときは、アプリの更新が済んでいるかご確認ください。</div>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ご利用にあたっての注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li><strong>PDF の既存の文字を書き換えることはできません。</strong>上から書き加える方式です。直したいときは、白い図形や墨消しで覆ってからテキストを重ねてください。</li>
+            <li>追記する文字の書体は<strong>ゴシック／明朝の2種類</strong>です（元の PDF で使われている書体はそのまま使えません）。追記した文字は字形を図形として焼き込むため、生成後の PDF では選択・検索の対象になりません。</li>
+            <li><strong>マーカーや白い図形は「隠す」だけ</strong>です。元の文字はファイルに残ります。確実に消すには<strong>墨消し</strong>を使ってください。</li>
+            <li><strong>墨消しをしたページは、文字の選択・検索ができなくなります</strong>（画像として焼き直すため）。ファイルサイズも増えます。取り消しはできません。</li>
+            <li>パスワード付き PDF は、保存後のファイルに<strong>パスワードを再設定できません</strong>（全ページを画像化し、保護のかかった原本を残します）。旧 Standard 暗号には対応していません。</li>
+            <li><strong>編集できるのは先頭 50 ページまで</strong>です。51 ページ目以降はそのまま複製されるので、内容が失われることはありません。</li>
+            <li><strong>PC版のみの対応</strong>です（モバイル版ではプラグインが読み込まれません）。レコードの<strong>編集・新規作成画面</strong>、カスタマイズビュー、カレンダービューでは動作しません。</li>
+            <li>一覧画面では、<strong>サブテーブル内の添付ファイルは編集できません</strong>。</li>
+            <li>編集履歴のコメントは投稿者本人が削除できます。監査に使う場合は kintone 標準の変更履歴と併用してください。</li>
+            <li>アプリからプラグインを<strong>「利用を解除」すると設定が破棄されます</strong>。一時的に止めたいだけのときは「無効にする」をお使いください。</li>
+            <li>本プラグインはサイボウズ社の製品ではありません。kintone はサイボウズ株式会社の登録商標です。</li>
+            <li>推奨ブラウザは Google Chrome / Microsoft Edge です。</li>
+            <li>本プラグインの利用により生じた損害について、当社は責任を負いかねます。配布 zip に秘密鍵（ppk）は含まれません。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- セキュリティ -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-pdf-edit" />
+        <ShareButtons title="PDF編集アシスト for kintone" />
+      </div>
+    </section>
+
+    <!-- よくある質問 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">よくある質問</h2>
+        <div class="afp-faq">
+          <details class="afp-faq-item">
+            <summary>白い四角で隠すのと「墨消し」は何が違いますか？</summary>
+            <div class="afp-faq-answer">白い図形やマーカーで覆う方法は、見た目を隠すだけで<strong>元の文字や画像はファイルの中に残ります</strong>。コピー＆ペーストやテキスト抽出で読めてしまい、kintone の添付ファイル全文検索や AI 検索の対象にもなります。墨消しは、指定範囲を塗ったうえで<strong>そのページ自体を画像として焼き直す</strong>ため、元の描画命令・埋め込み画像・透明な文字レイヤーがファイルから消えます。引き換えに、そのページは文字の選択と検索ができなくなり、ファイルサイズも増えます。取り消せない操作なので、範囲を指定した時点で内容を明示した確認が出ます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>元のファイルは残りますか？</summary>
+            <div class="afp-faq-answer">既定では残ります。「同じフィールドに追加」のとき、原本はそのまま置いたうえで <code>契約書_編集済.pdf</code> のような名前で追加します。「原本と最新のみ」を選んでおけば、編集を何回重ねても<strong>原本＋最新の2件</strong>に保たれます（古い編集結果だけがファイル名で判別され、入れ替わります）。同じフィールドにある画像などのファイルには触りません。「上書き」を選んだ場合だけ元のファイルが失われますが、<strong>ファイル名は変えずに差し替え</strong>、保存の直前に対象のファイル名を示した確認が出ます。なお墨消しを含む保存では、原本が残ると消した情報が復元できてしまうため「元のファイルを削除して保存」が既定になります。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>PDFの中の文字を書き換えられますか？</summary>
+            <div class="afp-faq-answer">既存の文字を別の文字に置き換えることはできません。本プラグインは<strong>上から書き加える</strong>方式です。金額や日付を直したいときは、白い図形で覆ってからテキストを重ねる、あるいは墨消しをしてからテキストを重ねる、という手順になります。元の PDF に使われている書体もそのままは使えないため、追記する文字はゴシック（Noto Sans JP）／明朝（Noto Serif JP）から選びます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>追記した文字は検索できますか？</summary>
+            <div class="afp-faq-answer">挿入した文字は、<strong>字形（アウトライン）を図形として焼き込みます</strong>。そのため、生成された PDF の中で文字として選択したり検索したりする対象にはなりません。日本語フォントを PDF に埋め込む方式は、1回の保存ごとにファイルが1〜3MB大きくなるうえ、閲覧環境によって字が表示されない事故が起きるため採用していません。アウトライン方式なら追記ぶんは数十KBで済み、どのビューアでも同じ見た目になります。元の PDF に入っていた文字は、そのまま検索できます（墨消ししたページを除く）。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>サブテーブルの中の添付ファイルも編集できますか？</summary>
+            <div class="afp-faq-answer">レコード詳細画面であれば編集できます。設定画面で対象フィールドを選ぶときに「明細 ＞ 添付資料（テーブル内）」のように表示されます。保存は<strong>行ごとに照合</strong>するため、行の並べ替え・他の列の値・計算フィールドを壊しません。なお一覧画面では、テーブル内の添付ファイルは編集できません（アイコンを表示しません）。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>パスワード付きのPDFも編集できますか？</summary>
+            <div class="afp-faq-answer">設定で許可すると編集できます（既定は許可しない設定です）。開くときにパスワードを尋ね、<strong>ブラウザの中だけで復号</strong>します。入力されたパスワードはどこにも保存せず、編集画面を閉じた時点で破棄します。ただし保存後のファイルにはパスワードを再設定できないため、全ページを画像として焼き直したうえで、<strong>保護のかかった原本を必ずフィールドに残す</strong>動きになります（保存前に画面上でも明示します）。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>無料プランではどこまで使えますか？</summary>
+            <div class="afp-faq-answer"><strong>押印画像の配置と手書き</strong>が無料で使えます。他のプラグインのように「1件まで」という数量の制限は設けていないため、対象フィールドの数・編集する回数・ページ数・サブテーブル内の編集・一覧画面からの編集・パスワード付きPDF・添付ファイルプレビュー連携は、無料のままで制限なくお使いいただけます。<strong>テキスト挿入・図形・矢印・墨消し</strong>の4つがプレミアム年間サポーター（税込 ¥16,500/年）の対象です。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>PDFの中身は外部に送信されますか？</summary>
+            <div class="afp-faq-answer">送信しません。PDF の読み込み・編集・書き出しはすべてお使いの<strong>ブラウザの中</strong>で行い、kintone の添付ファイルとして保存します。変換サービスや OCR のような外部 API は一切使いません。入力されたパスワードも外部へ出ず、保存もしません。PDF の表示と書き出しに使うライブラリ（PDF.js・pdf-lib・fontkit）と日本語書体は、第三者CDNではなく<strong>当社サーバー（kizuna-works.jp）から、改ざん検知（SRI）つき</strong>で読み込みます。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>モバイル（kintoneアプリ）でも使えますか？</summary>
+            <div class="afp-faq-answer">v1.0.0 では <strong>PC版のみ</strong>の対応です。モバイル版ではプラグインが読み込まれないため、編集アイコンも表示されません。PDF への書き込みは細かい位置合わせを伴うため、まず PC 版で使いやすさを固めています。</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>プレミアム年間サポーターで使ってみる</h2>
+      <p>PDF編集アシストをはじめ、販売中の全プラグインをご利用いただけます。年額 ¥16,500（税込）。押印と手書きは無料プランのままお試しいただけます（利用期限なし）。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを申し込む →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="pe-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('pe-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      // ダウンロードは ヒーローとプランカードの2か所にあるので、まとめて計測する
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: 'kw-pdf-edit-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-pdf-edit-v1.0.0.zip'
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

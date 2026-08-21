@@ -1392,6 +1392,31 @@ export const premiumPlugins: Plugin[] = [
     releaseDate: '2026-08-10',
     summaryVersion: '1.1.0',
   },
+  {
+    id: 'kw-pdf-edit',
+    pluginId: 'bipolgklpkbelnpikabehboagbopofff',
+    name: 'PDF編集アシスト for kintone',
+    formName: 'PDF編集アシスト for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'pdf-edit',
+    categories: ['出力・帳票', '情報共有', '入力保護'],
+    description:
+      '添付PDFに押印画像・手書き・テキスト・図形9種・矢印をその場で書き加えて保存。白塗りでは残る情報はページを焼き直して物理削除する墨消しつき。原本を残す世代管理、サブテーブル内・一覧からの編集、パスワード付きPDFにも対応。',
+    image: '/images/pdf-edit-banner.png',
+    imageWebp: '/images/pdf-edit-banner.webp',
+    imageAlt:
+      'PDF編集アシスト for kintone バナー — 印刷せず、その場で書き込む。そして、本当に消せる。添付PDFへの押印・手書き・テキスト・図形と、ページを焼き直す墨消し',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      '添付PDFに押印・手書き・テキスト・図形をその場で書き加えて保存。白塗りでは残る情報を、ページごと焼き直して本当に消す墨消しつき。原本は残ります。',
+    problemTitle: '添付PDFに押印や注記をするたび、kintoneの外へ出ている',
+    problemDesc: '押印のために印刷してスキャンし直している。図面の指示は文字では伝わらない。金額や個人情報を白く塗って隠したつもりでも、元の文字はファイルに残っている',
+    releaseDate: '2026-08-21',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**

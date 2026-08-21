@@ -102,6 +102,22 @@ The font is fetched once per browser and cached; a generated PDF that is 80 KB
 heavier is paid on *every* save and lands in the customer's kintone storage. So
 TTF wins. Do not "optimise" these to WOFF2.
 
+### 重要：pdf-lib の `embedFont(..., { subset: true })` に渡してはいけない
+
+これらのフォントを pdf-lib でサブセット埋め込みすると、**生成 PDF で大半の字が描画されない**。
+テキスト抽出（ToUnicode）だけは正しく返るので「目には見えないのに検索はできる」という
+分かりにくい壊れ方をする。実測（subset:false との黒画素比）は **sans 6% / serif 34%**。
+
+- 当社のサブセットに限らず、**上流の `NotoSansJP[wght].ttf` をそのまま渡しても同じ**（19%）。
+  つまりファイル側の欠陥ではなく **@pdf-lib/fontkit 1.1.1 のサブセッタが CJK を扱えない**。
+- `subset: false` なら正しく描画されるが、生成 PDF が **+0.9〜3MB** になる。
+- `fontkit` 2.x にはブラウザ向け UMD ビルドが配布されていないため、差し替えでは解決できない。
+
+`kw-pdf-edit` はこのため **フォントを埋め込まず、fontkit で字形のアウトラインを取り出して
+`drawSvgPath` で焼き込む**（追記ぶん数十KB・どのビューアでも同じ見た目）。
+これらの TTF は「PDF に埋め込む素材」ではなく「**字形を読み出す素材**」として置いてある。
+WOFF2 にしないのも、fontkit が woff2 を直接パースできないため。
+
 ### How these were built
 
 The upstream files are variable fonts (`NotoSansJP[wght].ttf` = 9.6 MB,
