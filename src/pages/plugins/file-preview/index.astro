@@ -54,7 +54,7 @@ import Picture from '../../../components/Picture.astro';
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
           "softwareVersion": "2.3.0",
-          "dateModified": "2026-08-20",
+          "dateModified": "2026-08-22",
           "url": "https://kizuna-works.jp/plugins/file-preview/",
           "downloadUrl": "https://kizuna-works.jp/downloads/kw-file-preview-v2.3.0.zip",
           "image": "https://kizuna-works.jp/images/file-preview-banner.png",
@@ -87,6 +87,7 @@ import Picture from '../../../components/Picture.astro';
             "モーダルの大きさを 大(全画面)/中/小 から選択（記憶）",
             "大容量ファイルの確認ダイアログ、モーダルからのダウンロード",
             "旧形式（xls/doc/ppt）や zip などプレビュー非対応形式は kintone 標準どおりダウンロード",
+            "PDF編集アシスト（kw-pdf-edit）を同じアプリに入れると、プレビュー画面に「編集」が追加され、見ている PDF へ押印・手書き・テキスト・図形をその場で書き加えられる（本プラグイン側の設定変更は不要）",
             "Office 文書は近似表示（フォント・レイアウトや一部要素が実際のアプリと異なる場合あり）。正確な体裁はダウンロードで確認",
             "ファイルの中身は外部送信なし・kintone完結（表示ライブラリは当社サーバーから SRI 付きで読み込み）"
           ]
@@ -928,6 +929,31 @@ import Picture from '../../../components/Picture.astro';
       </div>
     </section>
 
+    <!-- PDF編集アシスト連携 -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">見たあと、そのまま書き込む — PDF編集アシストとの連携</h2>
+      <p class="section-subtitle">
+        当社の <a href="/plugins/pdf-edit/">PDF編集アシスト</a> を同じアプリに入れると、プレビュー画面の右上に
+        <strong>「編集」</strong>が追加されます。いま見ている PDF がそのまま編集画面で開くので、
+        中身を確認してから押印や注記を入れる、という流れが一度も画面を離れずに終わります。
+      </p>
+      <div class="screenshot-pair" style="margin-top:8px;">
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/pdf-edit-preview-01.png" alt="添付ファイルプレビューのモーダル画面。業務委託契約書を表示していて、右上のツールバーに表示サイズの 大・中・小 と並んで「編集」ボタンとダウンロードボタンが出ている" loading="lazy" width="1400" height="816" />
+          </div>
+          <figcaption>プレビューの右上に「編集」。見ているファイルがそのまま開きます</figcaption>
+        </figure>
+      </div>
+      <ul class="feature-list" style="margin-top:24px;">
+        <li><span><strong>本プラグイン側の設定変更は不要です。</strong>PDF編集アシストを追加してアプリを更新すると「編集」が出ます（PDF編集アシストの設定でオフにもできます）。</span></li>
+        <li><span><strong>押した行のファイルが開きます。</strong>一覧画面で同じ名前のファイルが複数のレコードにあっても、クリックした行のものが対象になります。</span></li>
+        <li><span><strong>PDF以外には出ません。</strong>Excel・Word・画像のプレビューはこれまでどおりです。</span></li>
+        <li><span><strong>押印と手書きは無料で使えます。</strong>テキスト・図形・矢印・墨消しはプレミアム年間サポーターの対象です。</span></li>
+      </ul>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
     <!-- Config Screenshots -->
     <section class="section-wrapper fade-in">
       <h2 class="section-title">設定はかんたん</h2>
@@ -963,6 +989,7 @@ import Picture from '../../../components/Picture.astro';
           <li><span><strong>モーダルサイズ 大／中／小</strong> — 初期サイズを設定でき、プレビュー中もモーダル上部のボタンで切り替えられます。選んだ大きさは記憶されます（スマートフォン幅では常に全画面）。</span></li>
           <li><span><strong>大容量ガード・ダウンロード</strong> — 設定したサイズ以上の大きいファイルは開く前に確認ダイアログを表示。モーダルから現在のファイルをそのままダウンロードもできます。</span></li>
           <li><span><strong>非対応形式は素通し</strong> — 旧形式（xls・doc・ppt）・zip などプレビュー対象外の形式は、プラグインが介入せず kintone 標準どおりダウンロードされます。</span></li>
+          <li><span><strong>PDF編集アシストとの連携</strong> — <a href="/plugins/pdf-edit/">PDF編集アシスト</a>を同じアプリに入れると、プレビュー画面に「編集」が追加され、見ている PDF に押印・手書き・テキスト・図形をその場で書き加えられます。本プラグイン側の設定変更は不要です。</span></li>
           <li><span><strong>kintone 完結・ファイルの中身は外部送信なし</strong> — ファイルは kintone から取得しブラウザ内だけで表示します。PDF・Excel・Word の表示ライブラリのみ、当社サーバー（kizuna-works.jp）から SRI（改ざん検知）付きで読み込み、改ざんリスクのある第三者 CDN は利用しません。</span></li>
         </ul>
       </div>
@@ -1053,6 +1080,16 @@ import Picture from '../../../components/Picture.astro';
       <h2 class="section-title">関連プラグイン</h2>
       <p class="section-subtitle">添付ファイル・一覧画面まわりをさらに便利にする kintone プラグイン</p>
       <div class="related-posts-grid">
+        <a href="/plugins/pdf-edit/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/pdf-edit-banner.png" alt="PDF編集アシストプラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">PDF編集アシスト</h3>
+            <p class="related-post-desc">プレビューで見ている PDF に押印・手書き・テキスト・図形をその場で書き加えて保存。白塗りでは残る情報を消す墨消しつき。「見る」の次の一手です。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
         <a href="/plugins/file-icon-marker/" class="related-post-card">
           <div class="related-post-thumb">
             <img src="/images/file-icon-marker-banner.png" alt="添付ファイルアイコン表示プラグイン" loading="lazy" width="1200" height="675">
