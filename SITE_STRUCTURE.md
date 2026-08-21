@@ -861,7 +861,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-user-autofill-v1.0.1.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.1 ライセンス認証の内部改修＋設定画面レイアウト統一＋転記設定テーブルの潰れ対策）
 │   │   ├── kw-view-control-v1.0.0.zip                            # 一覧コントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   └── kw-view-control-v1.0.1.zip                            # 一覧コントロール for kintone 配布ファイル（最新・手動配置・v1.0.1 ほかのJSカスタマイズの例外で制御が働かない不具合の修正／初期表示時のちらつき解消／同一タブのアカウント切替と組織・グループ取得失敗時の判定修正）
-│   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ（第三者CDN不使用）。kw-file-preview / kw-sheet-edit / kw-file-export / kw-barcode-assist が使用
+│   ├── libs/                   # プラグインが実行時にSRI付きで読み込む自社配信ライブラリ・フォント（第三者CDN不使用）。kw-file-preview / kw-sheet-edit / kw-file-export / kw-barcode-assist / kw-report-designer / kw-pdf-edit が使用
 │   │   ├── README.md           # 収録ライブラリ・バージョン・ライセンス・更新手順・現行SRIハッシュ
 │   │   ├── pdfjs/3.11.174/     # PDF.js（pdf.min.js / pdf.worker.min.js）— PDF描画
 │   │   ├── exceljs/4.4.0/      # ExcelJS（exceljs.min.js）— Excel読み込み・書式再現
@@ -879,7 +879,16 @@ c:\kizuna-works.jp\
 │   │   ├── fortune-sheet/1.0.4/ # Fortune-sheet（fortune-sheet.umd.min.js/.css）— ExcelをExcel風グリッドで高精細表示
 │   │   ├── luckyexcel/1.0.1/   # LuckyExcel（luckyexcel.umd.js）— xlsx→スプレッドシートデータ変換
 │   │   ├── zxing/0.21.3/       # ZXing for JS（index.min.js・@zxing/library UMD）— バーコード/QRの読み取り（kw-barcode-assist・スキャン時に遅延読込）
-│   │   └── bwip-js/4.11.2/     # bwip-js（bwip-js-min.js）— バーコード/QRの生成（kw-barcode-assist・コード描画時に遅延読込）
+│   │   ├── bwip-js/4.11.2/     # bwip-js（bwip-js-min.js）— バーコード/QRの生成（kw-barcode-assist・コード描画時に遅延読込）
+│   │   ├── pdf-lib/1.17.1/     # pdf-lib（pdf-lib.min.js）— PDF生成・ページ複製（kw-report-designer / kw-pdf-edit・保存時に遅延読込）
+│   │   ├── html2canvas/1.4.1/  # html2canvas（html2canvas.min.js）— 帳票ページDOMの画像化（kw-report-designer）
+│   │   ├── fontkit/1.1.1/      # @pdf-lib/fontkit（fontkit.umd.min.js）— 日本語フォントのサブセット埋め込み・字形の有無判定（kw-pdf-edit・テキストツール初回使用時に遅延読込）
+│   │   └── fonts/noto-jp/1.0/  # PDF埋め込み用の日本語フォント（kw-pdf-edit・テキストツール初回使用時に選択中の1本だけ遅延読込）
+│   │                           #   noto-sans-jp-std.ttf（ゴシック標準・5,440字・1.4MB）／noto-sans-jp-full.ttf（同フル・17,083字・5.2MB）
+│   │                           #   noto-serif-jp-std.ttf（明朝標準・2.0MB）／noto-serif-jp-full.ttf（同フル・7.3MB）／OFL.txt（SIL OFL 1.1）
+│   │                           #   ※ TTFで配信する。pdf-lib の subset:true は WOFF2 では効かず、生成PDFが毎回約80KB太る（README.md 参照）
+│   │                           #   ※ 可変フォントを wght=400 で固定＋文字サブセット。name テーブルを書き換えて "Thin" 表記を解消済み
+│   │                           #   ※ fetch取得のためSRI属性が使えず、kw-pdf-edit の fontLoader.js が SHA-384 を突き合わせる。差し替え時は両方更新
 │   ├── sitemap.xml             # 旧URL互換用sitemapindex（@astrojs/sitemap生成のsitemap-0.xmlを参照）
 │   ├── zipdata/
 │   │   └── v1/                 # 住所アシスト for kintone の「住所→郵便番号」逆引き用データ（日本郵便の公開データを加工・全50ファイル約3.2MB）
