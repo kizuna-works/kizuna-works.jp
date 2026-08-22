@@ -1,0 +1,1147 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="コピーアシスト for kintone - レコードをExcel・メールへ1クリックでコピーするプラグイン | KIZUNA Works"
+  description="kintone のレコードをボタン1つでクリップボードへ書き出すプラグイン。一覧は選択行・表示中・絞り込み結果の全件を表として、詳細画面はフィールド1つ・レコード全項目・サブテーブルの明細をコピー。Excel では金額が数値・日付が日付で入り、電話番号の先頭ゼロや18桁の番号も崩れません。kintone完結・外部送信なし・ゲストスペース対応。"
+  ogTitle="コピーアシスト for kintone - レコードをExcel・メールへ1クリックでコピーするプラグイン | KIZUNA Works"
+  ogDescription="貼った先で、そのまま使える。kintone の一覧・レコード・明細をボタン1つでコピーし、Excel には金額を数値・日付を日付として渡す kintone プラグイン。先頭ゼロも18桁も崩れません。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/clip-assist/"
+  ogImage="https://kizuna-works.jp/images/clip-assist-banner.png"
+  canonical="https://kizuna-works.jp/plugins/clip-assist/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/clip-assist/",
+          "url": "https://kizuna-works.jp/plugins/clip-assist/",
+          "name": "コピーアシスト for kintone - レコードをExcel・メールへ1クリックでコピーするプラグイン | KIZUNA Works",
+          "description": "kintone のレコードの値を、貼り付け先に合った形でクリップボードへ書き出すプラグイン。一覧の選択行・表示中・絞り込み結果の全件と、詳細画面のフィールド1つ・レコード全項目・サブテーブルの明細に対応。Excel では金額は数値・日付は日付として入り、先頭ゼロや18桁の番号も崩れません。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/clip-assist-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "コピーアシスト for kintone", "item": "https://kizuna-works.jp/plugins/clip-assist/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "コピーアシスト for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-08-22",
+          "url": "https://kizuna-works.jp/plugins/clip-assist/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-clip-assist-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/clip-assist-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone のレコードの値を、貼り付け先に合った形でクリップボードへ書き出す kintone プラグイン。レコード一覧では「選択した行・表示中のレコード・絞り込み結果の全件」を、一覧に表示されている列そのままの表としてコピーする。レコード詳細画面では、フィールドにマウスを重ねて出るアイコンで値を1つだけ、ツールバーのボタンでレコードの全項目を縦（項目名×値）または横（見出し行＋値の1行）で、テーブル見出し横のボタンでサブテーブルの明細を行×列でコピーできる。同じ内容を表組みとタブ区切りテキストの2つの形で同時に書き出すため、Excel と Word には表として、メール・チャット・メモ帳にはテキストとして貼り付けられる。Excel では数値は数値・日付は日付として入るのでそのまま合計や並べ替えができ、電話番号の先頭ゼロや18桁の会員番号は文字列として保たれる。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "レコード一覧のツールバーから「選択した行」「表示中のレコード」「絞り込み結果の全件」を表としてコピー（列は一覧の表示列をそのまま使用）",
+            "レコード詳細画面でフィールドにマウスを重ねると出るアイコンから、その値だけをコピー",
+            "レコードの全項目を縦（項目名×値の2列）または横（見出し行＋値の1行）でコピー。見出し行の有無も選択可能",
+            "サブテーブルの明細を、テーブル見出し横のボタンから行×列の表としてコピー",
+            "Excel では数値は数値・日付は日付として入り、そのまま合計・並べ替えができる（電話番号の先頭ゼロ、18桁の番号は文字列として保持）",
+            "Excel・Word には表として、メール・チャット・メモ帳にはタブ区切りテキストとして貼り付く同時書き出し（形式を選ぶ操作は不要）",
+            "「絞り込み結果の全件」は実行前に件数・列数・概算サイズを表示し、取得中の中止に対応（中止・失敗時はクリップボードを書き換えない）",
+            "実行できるユーザー・組織・グループを一覧／詳細画面それぞれに指定可能。アクセス権で見えないフィールドは列ごと対象外",
+            "レコードの書き込み・フォーム定義の変更は一切行わない読み取り専用・kintone完結・ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .feature-list li code {
+      background: #eef1f4;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .warn-box {
+      max-width: 900px;
+      margin: 0 auto 32px;
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      border-left: 5px solid #ea580c;
+      border-radius: 10px;
+      padding: 20px 24px;
+    }
+    .warn-box h3 {
+      color: #b45309;
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 10px;
+    }
+    .warn-box p {
+      color: #7c2d12;
+      font-size: 14px;
+      line-height: 1.8;
+      margin: 0 0 8px;
+    }
+    .warn-box p:last-child { margin-bottom: 0; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    .ba-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 4px;
+      padding: 2px 10px;
+      margin-bottom: 10px;
+    }
+    .ba-badge.before { background: #f1f5f9; color: #64748b; }
+    .ba-badge.after { background: #e6f4ea; color: #2d6a4f; }
+
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+      cursor: zoom-in;
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption > strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+
+    /* Paste-destination cards (Excel/Word vs mail/chat) */
+    .dest-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 820px;
+      margin: 0 auto 34px;
+    }
+    .dest-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 4px solid var(--color-green);
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+    .dest-card > strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+    .dest-card p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: var(--color-text);
+    }
+    @media (max-width: 768px) {
+      .dest-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/clip-assist-icon.png"
+        alt="コピーアシスト for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">コピーアシスト for kintone</h1>
+      <p class="hero-copy">コピーアシスト for kintone は、<strong>レコードの値を、貼り付け先に合った形でクリップボードへ書き出す</strong>プラグインです。一覧では<strong>選択した行・表示中・絞り込み結果の全件</strong>を表として、詳細画面では<strong>フィールド1つ・レコードの全項目・サブテーブルの明細</strong>を、それぞれボタン1つでコピーします。Excel に貼れば<strong>金額は数値・日付は日付</strong>として入るのでそのまま合計でき、<strong>電話番号の先頭ゼロや18桁の番号も崩れません</strong>。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">kintone の値を Excel やメールへ移す手段は、いままで「CSV書き出し」か「画面をドラッグしてコピー」の二択でした。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">📥</span>
+            <h3 class="problem-title">10件のためにCSVを落としている</h3>
+            <p class="problem-desc">一覧の数件を Excel に渡したいだけなのに、書き出し→ダウンロード→開く→コピー→貼り付け。使い終わったCSVがダウンロードフォルダに溜まっていく。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🧱</span>
+            <h3 class="problem-title">画面からコピーすると1つのセルに固まる</h3>
+            <p class="problem-desc">ドラッグして貼ると、列が分かれずに1セルへ。分かれたとしても罫線や背景色ごと付いてきて、貼り付け先の書式を壊してしまう。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🔢</span>
+            <h3 class="problem-title">金額が合計できず、先頭のゼロが消える</h3>
+            <p class="problem-desc"><code>1,234,500 円</code> は文字列として入るので合計できない。<code>0120-000-000</code> の先頭ゼロは消え、18桁の会員番号は <code>1.23457E+17</code> に化ける。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- List copy -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">一覧から、必要なぶんだけ表としてコピー</h2>
+      <p class="section-subtitle">ツールバーの［コピー］と、行頭のチェックボックス。増えるのはこの2つだけで、一覧の見た目はそのままです。画像はクリックで拡大できます。</p>
+      <div class="screenshot-frame" style="max-width:1100px;margin:0 auto;">
+        <img class="zoomable" src="/images/clip-assist-list-01.png" alt="コピーアシスト 一覧画面 — kintone の案件管理アプリの一覧。ツールバーに「コピー」ボタンと「選択中：3件」の表示があり、行頭のチェックボックス列で3行が選択されている" loading="lazy" />
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+        <li><span><strong>コピーする列を設定する必要はありません</strong> — 一覧に表示されている列がそのまま出ます。表示列を変えれば、コピー結果も変わります。<strong>画面で見えているものがそのまま出る</strong>ので、結果が想像しやすくなっています。</span></li>
+        <li><span><strong>ほかのプラグインとチェックボックス列を取り合いません</strong> — すでに行頭のチェックボックス列を出しているプラグインがあれば相乗りし、列を二重に出しません。</span></li>
+        <li><span><strong>表の見た目には触れません</strong> — 追加するのはツールバーのボタンと行頭の列だけ。行の高さ・色・並びなど、kintone 標準の一覧はそのままです。</span></li>
+      </ul>
+    </section>
+
+    <!-- Excel -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">Excel に貼ると、そのまま計算できる</h2>
+        <p class="section-subtitle">上の一覧から10件をコピーして、Excel の A1 に貼り付けた状態です。合計は貼り付けたあとに <code>=SUM()</code> を1つ書いただけで、値の直しは一切していません。</p>
+        <div class="screenshot-frame" style="max-width:1100px;margin:0 auto;">
+          <img class="zoomable" src="/images/clip-assist-excel-01.png" alt="コピーアシストでコピーした kintone のレコードを Excel に貼り付けた画面 — 会社名・先方担当者・TEL・見込み時期・確度・単価・ユーザー数・小計の8列がセルに分かれて入り、TEL は 058-241-3821 のまま先頭のゼロが残り、見込み時期は日付として右寄せ、小計は数値として右寄せで入っている。下の行に =SUM(H2:H11) の合計 3114400 が表示されている" loading="lazy" />
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+          <li><span><strong>金額は数値として入ります</strong> — <code>1,234,500 円</code> のような表示のままではなく <code>1234500</code> として渡すので、貼った直後から <code>SUM</code> も並べ替えもできます。小数の桁数は kintone のフォーム設定どおりです。</span></li>
+          <li><span><strong>日付は日付として入ります</strong> — 文字列ではないので、期間での絞り込みや月ごとの集計にそのまま使えます。</span></li>
+          <li><span><strong>電話番号の先頭ゼロは消えません</strong> — <code>0120-000-000</code> はそのまま。18桁の会員番号が <code>1.23457E+17</code> に化けることもありません。文字として扱うべき値だけを文字列に固定しています。</span></li>
+          <li><span><strong>セル内の改行はセル内のまま</strong> — 複数行の文字列を貼っても、Excel が勝手に行を増やすことはありません。1つのセルの中で改行されます。</span></li>
+          <li><span><strong>罫線や色は持ち込みません</strong> — 貼り付け先の書式を壊さないよう、値と表の形だけを渡します。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">できること</h2>
+      <p class="section-subtitle">形式を選ぶ操作はありません。<strong>同じ内容を2つの形で同時に書き出している</strong>ので、貼り付けた先が都合のよい方を勝手に拾います。</p>
+      <div class="dest-grid">
+        <div class="dest-card">
+          <strong>Excel / Word に貼ると</strong>
+          <p>セルに分かれた<strong>表</strong>になります。Word でも列がそろいます（罫線は付きません）。</p>
+        </div>
+        <div class="dest-card">
+          <strong>メール / チャット / メモ帳に貼ると</strong>
+          <p><strong>タブ区切りのテキスト</strong>になります。改行は半角スペースにそろえて1行に収めます。</p>
+        </div>
+      </div>
+      <ul class="feature-list" style="max-width:900px;margin:0 auto;">
+        <li><span><strong>一覧から複数レコードを表としてコピー</strong> — 選択した行／表示中のレコード／絞り込み結果の全件から選べます。</span></li>
+        <li><span><strong>詳細画面でフィールドを1つだけコピー</strong> — 値にマウスを重ねると右端にアイコンが出ます。電話番号や住所を1つだけチャットへ貼りたいときに。</span></li>
+        <li><span><strong>レコードの全項目をコピー</strong> — <strong>縦</strong>（項目名 × 値の2列）ならメールや Word に貼って1件分のカードに、<strong>横</strong>（見出し行＋値の1行）なら Excel の一覧に1件ずつ足していけます。</span></li>
+        <li><span><strong>サブテーブルの明細をコピー</strong> — テーブルの見出し横のボタンから、その表を行 × 列でコピーします。テーブルが複数あっても、押したテーブルの内容だけが出ます。</span></li>
+        <li><span><strong>値は「貼り付け先で使える形」に整えます</strong> — チェックボックスは選択肢の定義順で <code>重要, 至急</code>、ユーザー選択は表示名、リッチエディターは文字だけ、添付ファイルはファイル名だけ。画面に見えているままではなく、貼った先で扱える形に直します。</span></li>
+        <li><span><strong>実行できる人を指定できます</strong> — 一覧と詳細画面で<strong>別々に</strong>ユーザー・組織・グループを指定できます。「一覧の一括コピーは限定するが、詳細画面の1項目は全員に許す」といった使い分けができます。</span></li>
+      </ul>
+    </section>
+
+    <!-- Detail -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">1項目でも、1レコードでも、明細まるごとでも</h2>
+        <p class="section-subtitle">詳細画面には3つの入口があります。使わないものはオフにできます。画像はクリックで拡大できます。</p>
+        <div class="screenshot-pair cols-2">
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/clip-assist-detail-01.png" alt="コピーアシスト レコード詳細画面 — ツールバーに「レコードをコピー」ボタンがあり、TEL フィールドにマウスを重ねると値の右端にコピーアイコンが表示されている" loading="lazy" />
+            </div>
+            <figcaption>マウスを重ねた項目にだけアイコンが出ます。上のボタンは全項目コピー</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/clip-assist-detail-02.png" alt="コピーアシスト サブテーブル — 活動履歴テーブルの見出しの右に「明細をコピー」ボタンが表示されている" loading="lazy" />
+            </div>
+            <figcaption>テーブルの見出し横から、その明細だけを行 × 列でコピー</figcaption>
+          </figure>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Estimate -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">範囲を選び、多いときは先に見積もってから</h2>
+      <p class="section-subtitle">［コピー］を押すと範囲を選ぶ画面が出ます。「絞り込み結果の全件」を選んだときは、取りに行く前に規模を表示します。大きすぎると感じたら、その場でやめられます。</p>
+      <div class="screenshot-pair cols-2" style="max-width:900px;margin:0 auto;">
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/clip-assist-list-02.png" alt="コピーアシスト コピー範囲の選択 — 「選択した行（3件）」「表示中のレコード（100件）」「絞り込み結果の全件」の3つから選ぶダイアログ" loading="lazy" />
+          </div>
+          <figcaption>範囲は3つから。列は一覧に表示されているものがそのまま出ます</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/clip-assist-list-03.png" alt="コピーアシスト コピーの確認ダイアログ — 対象レコード 1,200件、列数 8列、概算サイズ 約 432.4 KB と表示され、キャンセルと実行のボタンがある" loading="lazy" />
+          </div>
+          <figcaption>全件を選ぶと、件数・列数・概算サイズを先に表示します</figcaption>
+        </figure>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+        <li><span><strong>取得中はいつでも中止できます</strong> — そして<strong>中止・失敗したときはクリップボードを書き換えません</strong>。直前にコピーしていた内容がそのまま残るので、中途半端な結果を貼ってしまう事故が起きません。</span></li>
+        <li><span><strong>上限件数を決められます</strong> — 初期値は 5,000件（1,000〜50,000件で変更可）。超えるときは先頭からその件数だけをコピーし、その旨を確認画面に表示します。</span></li>
+        <li><span><strong>Excel の限界も先にお知らせします</strong> — 1シート 1,048,576行・1セル 32,767文字を超えるおそれがあるとき、コピーの前に警告します。</span></li>
+      </ul>
+    </section>
+
+    <!-- Config -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定画面</h2>
+        <p class="section-subtitle">左の目次で3つの節を切り替えます。フィールドを1つずつ選ぶ作業はありません。画像はクリックで拡大できます。</p>
+        <div class="config-screenshots">
+          <div class="config-shot">
+            <img class="zoomable" src="/images/clip-assist-config-01.png" alt="コピーアシスト 設定画面① 一覧のコピー — 一覧のコピーを有効にする・見出し行を付けるのチェックボックス、全件コピーの上限件数の入力欄、実行できる人の指定欄が並んでいる" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>① 一覧のコピー</strong>
+              <p>機能のオン/オフ、見出し行の有無、全件コピーの上限件数を決めます。<strong>実行できる人</strong>が未設定のときは、注意書きを常に表示します。</p>
+            </div>
+          </div>
+          <div class="config-shot">
+            <img class="zoomable" src="/images/clip-assist-config-02.png" alt="コピーアシスト 設定画面② 詳細画面のコピー — フィールド単位・レコード単位・明細のコピーのオンオフ、貼り付けの向き（縦／横）、見出し行の有無、設定に応じて変わる出力例が表示されている" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>② 詳細画面のコピー</strong>
+              <p>3つの入口を個別にオン/オフできます。レコード単位は<strong>縦／横</strong>と見出し行の有無を選べ、設定に応じた<strong>出力例がその場で1行で表示されます</strong>。</p>
+            </div>
+          </div>
+          <div class="config-shot">
+            <img class="zoomable" src="/images/clip-assist-config-03.png" alt="コピーアシスト 設定画面③ ボタンの見た目 — 形・種類・色の選択肢と、3つのボタンの文言入力欄、実物と同じ描き方のプレビューが並んでいる" loading="lazy" />
+            <div class="config-shot-caption">
+              <strong>③ ボタンの見た目</strong>
+              <p>形（4種）・種類（5種）・色（12色＋任意の色）とボタンの文言を決められます。<strong>文字色は背景色から自動で読みやすい方を選びます</strong>。プレビューは実物と同じ描き方です。</p>
+            </div>
+          </div>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Safety -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">やることは「読んで、クリップボードへ置く」だけ</h2>
+      <p class="section-subtitle">書き込みは一切ありません。アプリの中身が変わらないので、入れて試すのに勇気が要りません。</p>
+      <ul class="feature-list" style="max-width:900px;margin:0 auto;">
+        <li><span><strong>レコードを追加・更新・削除しません</strong> — 読み取り専用です。フォーム定義の変更・フィールドの追加も行いません。保管用のアプリを勝手に作ることもありません。</span></li>
+        <li><span><strong>コピーした内容を外部へ送りません</strong> — 値の整形もクリップボードへの書き込みも、すべてブラウザーの中で完結します。同梱している第三者ライブラリもありません。</span></li>
+        <li><span><strong>アクセス権で見えないフィールドは列ごと外します</strong> — 空欄で出すと「値が無い」と誤解されるため、列そのものを落として理由を画面に表示します。見えないレコードは kintone の標準どおり取得されません。</span></li>
+        <li><span><strong>コピーは標準の権限では止められない持ち出し経路です</strong> — kintone の「ファイル書き出し」の許可では制限できません。抑止したい場合は<strong>「実行できる人」を指定してください</strong>。設定画面にも常時この注意書きを出しています。</span></li>
+      </ul>
+    </section>
+
+    <!-- Install Steps Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">インストール手順</h2>
+      <p class="section-subtitle">PC 版のレコード一覧・詳細画面で動作します。設定にはアプリの管理権限が必要です。</p>
+      <ol class="steps-list">
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-clip-assist-v1.0.0.zip</code> をダウンロード</span></li>
+        <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+        <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「コピーアシスト for kintone」を追加</span></li>
+        <li><span>プラグイン設定画面を開き、<strong>そのまま「保存」</strong>を押します（初期設定で一覧・詳細の全機能が有効です）</span></li>
+        <li><span>必要に応じて<strong>「実行できる人」や上限件数、ボタンの見た目</strong>を調整して保存</span></li>
+        <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると設定が反映されます</span></li>
+      </ol>
+      <p style="text-align:center; color:var(--color-text-light); font-size:13px; margin-top:24px; line-height:1.7;">
+        ヒント：フィールドを追加・変更したときは、プラグインの設定を一度開いて保存し直してください。動作を速くするためにフィールドの表示名・種類・並び順を設定に保存しています。
+      </p>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">プランについて</h2>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3 class="plan-name">基本プラン</h3>
+            <div class="plan-price">
+              <span class="amount">¥0</span>
+              <span class="unit">/ 完全無料</span>
+            </div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ 利用期限なし・いつまでも無料</li>
+              <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
+            </ul>
+            <a href="/downloads/kw-clip-assist-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="pricing-card recommended">
+            <span class="recommended-badge">開発を応援</span>
+            <h3 class="plan-name">年間サポーター</h3>
+            <div class="plan-price">
+              <span class="amount">¥3,300</span>
+              <span class="unit">/年（税込）</span>
+            </div>
+            <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+            <ul class="plan-features">
+              <li>✅ 全機能が利用可能</li>
+              <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+              <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+              <li>✅ サポーターの声を優先して開発に反映</li>
+            </ul>
+            <a href="/plugins/supporter/?plugin=kw-clip-assist" class="btn-primary">サポーターになる →</a>
+            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
+        <li>PC 版でのみ動作します（モバイル版・モバイルアプリは非対応）。</li>
+        <li>一覧のコピーでは、<strong>一覧に表示されている列だけ</strong>がコピーされます。表示していないフィールドは出ません。</li>
+        <li>アクセス権で見られないフィールドは、<strong>列ごと出しません</strong>。誰かに見えて誰かに見えない列がある場合、コピー結果は人によって変わります。</li>
+        <li>同じ名前のフィールドが2つ以上あるとき、詳細画面ではフォームの並び順で見分けられますが、<strong>一覧では見分けられないため、その列は対象外</strong>になります。</li>
+        <li>フィールドを追加・変更したら、プラグインの設定を一度保存し直してください。保存し直すまで新しいフィールドは対象になりません。</li>
+        <li>関連レコード一覧・スペース・罫線・ラベルはコピーできません（値を持たないため）。</li>
+        <li>Excel は1セル 32,767文字・1シート 1,048,576行で切られます。超えるおそれがあるときは、コピー前に警告します。</li>
+        <li>Excel・Word に貼っても、罫線やセルの色は再現しません（値と表の形だけです）。Word では列はそろいますが、罫線は付きません。</li>
+        <li>他のウィンドウを触った直後にボタンを押すと、ブラウザーが表組みの書き出しを拒否することがあります。そのときはタブ区切りテキストだけがコピーされ、その旨を表示します（kintone の画面をクリックしてから押し直してください）。</li>
+        <li>コピーは kintone 標準の「ファイル書き出し」権限では制限できません。持ち出しを抑えたい場合は、設定の「実行できるユーザー」を指定してください。</li>
+        <li>ゲストスペースでは組織・グループを判定できないため、実行できる人はユーザーで指定してください（判定できない場合は安全側に倒し、実行を許可しません）。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-clip-assist" />
+    <PluginFaqSection pluginId="kw-clip-assist" pageUrl="https://kizuna-works.jp/plugins/clip-assist/" />
+    <SupporterCTA pluginId="kw-clip-assist" />
+    <ShareButtons title="コピーアシスト for kintone" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">kintone と Excel のあいだを行き来する kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/excel-paste/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/excel-paste-banner.png" alt="エクセル一括貼り付け for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">エクセル一括貼り付け</h3>
+            <p class="related-post-desc">Excel の表を kintone へ貼り付けて、まとめて登録・更新します。コピーアシストとは逆向き。持ち出しと取り込みで対になります。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/csv-export/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/csv-export-banner.png" alt="かんたんCSV出力 for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">かんたんCSV出力</h3>
+            <p class="related-post-desc">列と条件を決めてCSVファイルとして書き出します。数万件を定期的に渡す用途は、クリップボードよりこちらが向いています。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/file-export/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/file-export-banner.png" alt="添付ファイル出力 for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">添付ファイル出力</h3>
+            <p class="related-post-desc">添付ファイルをZIPで一括出力します。コピーアシストが出すのはファイル名だけなので、中身が必要なときはこちらを。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">プラグインのご質問や改善要望など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ea-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('ea-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-clip-assist-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-clip-assist-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

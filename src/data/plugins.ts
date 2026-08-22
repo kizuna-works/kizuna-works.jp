@@ -1142,6 +1142,30 @@ export const plugins: Plugin[] = [
     releaseDate: '2026-08-15',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-clip-assist',
+    pluginId: 'dogodhboieidbmobacjckikecccoanpn',
+    name: 'コピーアシスト for kintone',
+    formName: 'コピーアシスト for kintone',
+    slug: 'clip-assist',
+    categories: ['出力・帳票'],
+    description:
+      '一覧の選択行・表示中・絞り込み結果の全件と、詳細画面のフィールド1つ／レコード全項目／サブテーブルの明細を、ボタン1つでクリップボードへ。Excel には金額が数値・日付が日付で入り、電話番号の先頭ゼロや18桁の番号も崩れません。',
+    image: '/images/clip-assist-banner.png',
+    imageWebp: '/images/clip-assist-banner.webp',
+    imageAlt:
+      'コピーアシスト for kintone バナー — 貼った先に、ちょうどいい形で。一覧の複数レコードを表のままコピー、Excel に貼ればそのまま集計できる、フィールド／レコード／明細の3単位',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    cardDescription:
+      '一覧の選択行も、レコードの全項目も、明細表もボタン1つでコピー。Excel には金額が数値・日付が日付で入り、先頭ゼロも崩れません。',
+    problemTitle: 'Excel に移すためだけに、CSV書き出しをしている',
+    problemDesc:
+      '一覧の10件を Excel に渡したいだけなのに、書き出し→ダウンロード→開くの3手順。画面からドラッグしてコピーすると1つのセルに固まり、電話番号の先頭ゼロは消え、金額は文字列になって合計できない',
+    releaseDate: '2026-08-22',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**

@@ -62,6 +62,18 @@ const BANNERS = {
       ['ルーレット演出', '9種類', '']
     ]
   },
+  'clip-assist': {
+    iconSrc: 'SECRET/kintone_plugin_release/kw-clip-assist_release/kw-clip-assist_icon_512.png',
+    iconSide: 'right',
+    catch: ['貼った先に、', 'ちょうどいい形で。'],
+    name: 'コピーアシスト for kintone',
+    nameSize: 44,
+    bullets: [
+      ['一覧の複数レコードを ', '表', ' のままコピー'],
+      ['Excel に貼れば ', 'そのまま集計', ' できる'],
+      ['フィールド／レコード／明細 ', 'の3単位', '']
+    ]
+  },
   'file-export': {
     iconSrc: 'SECRET/kintone_plugin_workspace/kw-file-export/kw-file-export_icon_512.png',
     iconSide: 'right',
