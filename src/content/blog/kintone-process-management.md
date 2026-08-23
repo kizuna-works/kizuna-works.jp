@@ -167,6 +167,7 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [メールアシスト for kintone](/plugins/mail-assist/) — レコード値を差し込んだ定型メールをワンクリック送信
 - [条件分岐自動採番プラグイン](/plugins/kw-conditional-numbering/) — ステータスや部署に応じて採番ルールを自動切替（無料）
 - [kintoneが「使いにくい」と言われる原因と運用改善ガイド](/blog/kintone-tsukainikunai-genin/) — 定着しない原因と改善の勘所
+- [kintone承認フローのプラグイン比較](/blog/kintone-shonin-flow-plugin-hikaku/) — 一括承認・代理承認・承認後のロックを、他社製品と当社製品で比較
 
 👉 [お問い合わせはこちら](/contact/)  
 👉 [提供サービス一覧はこちら](/plugins/)

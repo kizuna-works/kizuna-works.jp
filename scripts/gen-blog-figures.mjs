@@ -544,6 +544,39 @@ const FIGURES = [
       { n: "5", name: "曜日・営業日は出せない", desc: "曜日を返す書式が無く、祝日も持っていないため近似しかできない。", tag: "標準では不可", paid: true },
     ]),
   },
+  {
+    name: "kintone-shonin-flow-plugin-hikaku-limits",
+    w: 1000, h: 596,
+    el: overview5([
+      { n: "1", name: "一覧からまとめて承認できない", desc: "一覧のステータスはただの文字。1件ずつ開いて押すしかない。", tag: "標準では不可", paid: true },
+      { n: "2", name: "代理承認ができない", desc: "作業者本人以外にはアクションが出ない。アプリ管理者でも押せない。", tag: "標準では不可", paid: true },
+      { n: "3", name: "段階ごとの入力チェックができない", desc: "標準の必須は常に必須。「承認に回すときだけ必須」は組めない。", tag: "標準では不可", paid: true },
+      { n: "4", name: "承認後の編集制限は組めるが手間", desc: "レコードのアクセス権の条件にステータスを指定すれば塞げる。アプリごとの保守は要る。", tag: "アクセス権で可能", paid: false },
+      { n: "5", name: "承認依頼に気づかれない", desc: "通知はkintoneを開く人にしか届かず、件名の形式も変えられない。", tag: "標準では不可", paid: true },
+    ]),
+  },
+  {
+    name: "kintone-shonin-flow-plugin-hikaku-approach",
+    w: 1000, h: 330,
+    el: overviewMethods([
+      { n: "1", name: "まとめて進める", desc: "一覧から複数レコードのステータスを一括で更新する。滞留も見える。", cost: "一括承認" },
+      { n: "2", name: "手前で止める", desc: "承認の実行前に条件を判定し、足りない項目をその場で埋めさせる。", cost: "実行時チェック" },
+      { n: "3", name: "後を固める", desc: "承認後は自動ロックし、誰がいつ何を変えたかを履歴に残す。", cost: "ロック・履歴" },
+    ]),
+  },
+  {
+    name: "kintone-shonin-flow-plugin-hikaku-contrast",
+    w: 1000, h: 300,
+    el: contrastPanel(
+      { title: "一括承認を入れたあと", desc: "一覧で対象を絞り、現在のステータスごとにアクションを選んで一度に進める。次の作業者は遷移先の設定から自動で決まる。30件でも操作は数回。" },
+      { title: "kintone標準のまま", desc: "レコードを開く→アクションを押す→一覧へ戻る、を件数ぶん繰り返す。月末に30件たまっていれば、その往復を30回する。" }
+    ),
+  },
+  {
+    name: "kintone-shonin-flow-plugin-hikaku-caution",
+    w: 1000, h: 210,
+    el: flowCaptioned(["一覧で一括実行", "REST APIでステータス更新", "詳細画面のJSは動かない", "チェックが素通りする"], C.navy, "一括実行はサーバー側の更新なので、詳細画面に仕込んだJSカスタマイズの検証は走らない"),
+  },
 ];
 
 const only = process.argv[2];
