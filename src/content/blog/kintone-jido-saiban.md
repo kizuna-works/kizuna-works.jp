@@ -264,6 +264,6 @@ KIZUNA Worksの「条件分岐自動採番 for kintone」プラグインを使�
 - プラグインの詳細・ダウンロード：[条件分岐自動採番 for kintone（無料）](/plugins/kw-conditional-numbering/)
 - 設定手順をもっと詳しく知りたい方：[条件分岐自動採番プラグインの使い方・設定ガイド](/blog/conditional-numbering-plugin/)
 - データ移行とあわせて：[Excelからkintoneへのデータ移行手順](/blog/kintone-excel-iko-steps/)
-- どのプラグインを入れるか迷ったら：[kintone無料プラグインのおすすめ｜やりたいこと別の選び方](/blog/kintone-muryou-plugin-osusume/)
+- どのプラグインを入れるか迷ったら：[kintoneプラグインのおすすめと選び方（やりたいこと別）](/blog/kintone-muryou-plugin-osusume/)
 - ほかのプラグインも見る：[KIZUNA Works プラグイン一覧](/plugins/)
 - 採番ルールのご相談：[お問い合わせ](/contact/)
