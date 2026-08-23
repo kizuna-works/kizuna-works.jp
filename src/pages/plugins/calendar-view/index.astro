@@ -1,0 +1,825 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import TrialBanner from '../../../components/TrialBanner.astro';
+---
+
+<Layout
+  title="カレンダービュー for kintone｜予定をカレンダーと担当者ごとの時間軸で見る | KIZUNA Works"
+  description="kintone のレコードの開始・終了を、カレンダー（年/月/週/日/リスト）とタイムライン（担当者・会議室ごとの時間軸）に切り替えて表示できるプラグイン。ドラッグで日程変更、空いている時間の検索、標準の編集画面でも効くダブルブッキング警告、繰り返し予定、日本の祝日を同梱。ビューのHTMLはボタン1つで自動生成します。"
+  ogTitle="カレンダービュー for kintone｜予定をカレンダーと担当者ごとの時間軸で見る | KIZUNA Works"
+  ogDescription="同じ予定を、カレンダーでも、担当者・会議室ごとの時間軸でも。ドラッグで日程変更、空き枠の検索、ダブルブッキング警告、繰り返し予定、祝日同梱。カスタマイズビューはボタン1つで作成します。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/calendar-view/"
+  ogImage="https://kizuna-works.jp/images/calendar-view-banner.png"
+  canonical="https://kizuna-works.jp/plugins/calendar-view/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/calendar-view/",
+          "url": "https://kizuna-works.jp/plugins/calendar-view/",
+          "name": "カレンダービュー for kintone｜予定をカレンダーと担当者ごとの時間軸で見る | KIZUNA Works",
+          "description": "kintone のレコードの開始・終了を、カレンダーとタイムラインの2つの表示に切り替えて見られるようにするプラグイン。空き枠の検索・ダブルブッキング警告・繰り返し予定・祝日の色分けまで kintone の中で完結する。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/calendar-view-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "カレンダービュー for kintone", "item": "https://kizuna-works.jp/plugins/calendar-view/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "カレンダービュー for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-08-22",
+          "url": "https://kizuna-works.jp/plugins/calendar-view/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-calendar-view-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/calendar-view-banner.png",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "無料プラン",
+              "price": "0",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "カレンダー表示（年・月・週・日・リスト）が使えます。ドラッグでの日程変更、区分（ラベル）での色分け、左サイドバーでの絞り込み、ダブルブッキング警告、繰り返し予定、祝日・非稼働日の色分けも無料です（利用期限なし）。設定できるビューは1件、重ねられるレイヤーは1件までです。"
+            },
+            {
+              "@type": "Offer",
+              "name": "プレミアム年間サポーター（全プラグイン込み）",
+              "price": "16500",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、タイムライン表示と「空き枠を探す」が使えるようになり、設定できるビュー数・重ねられるレイヤー数の制限もなくなります。広告も非表示になり、販売中の全プラグインも利用できます。単品販売はありません。"
+            }
+          ],
+          "description": "kintone のレコードが持つ開始・終了の日時を、カレンダー（年・月・週・日・リスト）とタイムライン（縦＝担当者・会議室・設備、横＝時間）の2つの表示に、画面上のボタンで切り替えて見られるようにするカスタマイズビュー型のプラグイン。予定はドラッグで日程を変更でき、タイムラインでは担当者と日時を同時に変更できる。空いている時間を条件から探す「空き枠を探す」、kintone 標準の追加・編集画面での保存時にも効くダブルブッキング警告、繰り返し予定の一括作成と系列単位の変更・削除、区分（ラベル）による色分け、左サイドバーでの絞り込みを備える。日本の祝日 2020〜2035年を同梱しており、会社休日は非稼働日マスタアプリで複数アプリから共有できる。カスタマイズビューの HTML は設定画面のボタンで自動生成するため、HTML を手で書く必要がない。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "カレンダー表示（年・月・週・日・リストの5粒度）",
+            "タイムライン表示（縦＝担当者・会議室・設備 × 横＝時間／1日・1か月）",
+            "画面上のボタンで2つの表示を切り替え",
+            "予定のドラッグで日程変更・端のドラッグで時間の伸縮",
+            "タイムラインでは担当者と日時を同時に変更",
+            "空き枠を探す（対象・所要時間・期間を選ぶと候補が出て、押すとその枠で登録）",
+            "ダブルブッキング警告（ビュー操作＋kintone 標準の追加・編集画面の保存時）",
+            "リソースごとに警告のみ／禁止を切り替え",
+            "その場で登録・編集できるモーダル（表示する項目は設定で選択）",
+            "区分（ラベル）で色分け・選択肢の追加や削除も設定画面から",
+            "条件で色を変える（数値の閾値・日付の超過・ステータス・選択肢）",
+            "左サイドバーで絞り込み（ミニカレンダー・ラベル・担当者や会議室）",
+            "繰り返し予定（毎日・毎週・毎月・毎年／系列単位で変更・削除）",
+            "日本の祝日 2020〜2035年を同梱・会社休日は非稼働日マスタで共有",
+            "カスタマイズビューを設定画面のボタンで自動生成（HTML 手入力なし）",
+            "サブテーブルの行・他アプリの予定を背景として重ねて表示",
+            "キーボード操作（今日・期間の移動・表示の切り替え・追加・元に戻す）",
+            "モバイル対応（カレンダー全粒度とタイムラインの1日）",
+            "ゲストスペース対応・外部サーバーへのデータ送信なし"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "カスタマイズビューの HTML を自分で書く必要はありますか？", "acceptedAnswer": { "@type": "Answer", "text": "ありません。設定画面の手順1にある「ビューを作成」を押すと、必要な HTML を含むカスタマイズビューが自動で作られ、アプリの更新まで行われます。すでに作ってあるカスタマイズビューに紐づけることもできます。設定を消してもビューは残るため、使っていないビューをまとめて削除する機能も手順1に用意しています（他社のカスタマイズビューは対象になりません）。" } },
+            { "@type": "Question", "name": "どんなアプリで使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "開始と終了に使える日付または日時のフィールドを持つアプリで使えます。会議室・車両・機材の予約、営業の商談予定、面接や来客の予定、保守点検のスケジュールなどが向いています。終了の日時が無いアプリでも、開始を選ぶと空の終了に同じフィールドが自動で入り「その日1日で完結する予定」として扱えます。文字列フィールドに入れた日付は対象外です。" } },
+            { "@type": "Question", "name": "ダブルブッキングはどこまで防げますか？", "acceptedAnswer": { "@type": "Answer", "text": "同じリソース（担当者・会議室など）で時間帯が重なる予定があると警告します。カレンダー上でのドラッグや登録だけでなく、kintone 標準の追加・編集画面での保存時にも判定するのが特徴です。動作は「使わない／警告のみ（このまま保存できる）／禁止（保存をブロックする）」から選べ、リソースごとに変えられます。たとえば会議室は禁止、担当者は警告のみという運用ができます。" } },
+            { "@type": "Question", "name": "「空き枠を探す」は何を見て候補を出しますか？", "acceptedAnswer": { "@type": "Answer", "text": "探す対象（担当者や会議室）・所要時間（15分〜8時間）・探す期間（表示中の期間／今日から2週間／今日から1か月）を選ぶと、営業時間内・非稼働日以外で、すでに入っている予定と重ならない時間を対象ごとに並べます。終日の予定はその日全体が埋まっているものとして扱います。候補を押すと、その時刻とその対象で登録モーダルが開きます。計算はブラウザの中で行うため、探すたびに外部へ問い合わせることはありません。" } },
+            { "@type": "Question", "name": "祝日は自分で登録する必要がありますか？", "acceptedAnswer": { "@type": "Answer", "text": "必要ありません。日本の祝日 2020〜2035年をプラグインに同梱しているため、何も用意しなくても色が付きます。会社休日や臨時休業も扱いたい場合は、設定画面のボタンで非稼働日マスタアプリを自動生成でき、複数のアプリから共有できます。マスタを指定したときはマスタの内容だけを見るので、マスタから消した休日が同梱データで復活することはありません。新しい年の祝日が同梱データに増えたときは、設定画面に「マスタに未登録が N 件あります」と出るのでボタン1つで追加できます。" } },
+            { "@type": "Question", "name": "無料プランではどこまで使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "カレンダー表示（年・月・週・日・リスト）が無料で使えます。ドラッグでの日程変更、区分（ラベル）での色分け、左サイドバーでの絞り込み、ダブルブッキング警告、繰り返し予定、祝日と非稼働日の色分けも無料のままお使いいただけます。プレミアム年間サポーター（税込 ¥16,500/年）の対象は、タイムライン表示・空き枠を探す・設定できるビュー数（無料は1件）・重ねられるレイヤー数（無料は1件）です。ロックされた機能は画面から消えるのではなく鍵つきで表示され、押すと案内が出ます。" } },
+            { "@type": "Question", "name": "スマートフォンでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "使えます。モバイル版ではカレンダー表示の全粒度と、タイムラインの1日表示が動きます。絞り込みのサイドバーは画面幅の都合で左ではなく引き出しとして開きます。kintone のカスタマイズビューの設定で「一覧を表示する範囲」がPC版＋モバイル版になっている必要があります。" } },
+            { "@type": "Question", "name": "予定のデータが外部に送信されることはありますか？", "acceptedAnswer": { "@type": "Answer", "text": "ありません。カレンダーとタイムラインの描画、空き枠の計算、重複の判定、絞り込みはすべてご利用の kintone とブラウザの中で完結します。描画は自前実装で、実行時に第三者のCDNやライブラリを読み込むこともありません。祝日データもプラグインに同梱しているため、外部の祝日APIを呼びません。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。" } }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
+    .afp-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+    .afp-hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 26px; border-radius: 26px;
+      font-weight: 700; font-size: 1rem; text-decoration: none; line-height: 1.3;
+    }
+    .afp-hero-btn.is-primary { background: #2E8B2E; color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.22); }
+    .afp-hero-btn.is-primary:hover { background: #35a035; }
+    .afp-hero-btn.is-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.6); }
+    .afp-hero-btn.is-ghost:hover { background: rgba(255,255,255,0.24); }
+    @media (max-width: 600px) { .afp-hero-btn { width: 100%; } }
+
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    /* Update box (latest release) */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      /* リード文自体が白いカードなので、下に余白を入れないと次のカードとくっついて見える */
+      margin: 0 0 26px;
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0 0 12px; }
+    .afp-feature p:last-child { margin-bottom: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+    /* Cap narrow captures at the width the UI really has, so nothing is blown up
+       larger than the user will see it in kintone. */
+    .afp-shot-w420 { max-width: 420px; }
+    .afp-shot-w640 { max-width: 640px; }
+    .afp-shot-w840 { max-width: 840px; }
+
+    .afp-shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+    @media (max-width: 900px) { .afp-shot-pair { grid-template-columns: 1fr; } }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    /* Feature block: 使い方の画面 → その設定画面、の2枚組 */
+    .afp-usecfg { margin-top: 30px; }
+    .afp-usecfg-head {
+      display: inline-block; background: var(--color-navy); color: #fff; font-weight: 700;
+      font-size: 0.85rem; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px;
+    }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <style is:global>
+    /* このページで足すもの */
+    /* 設定の手順見出し。既存の .afp-plan-compare-head と同じ見た目にそろえる
+       （紺の文字＋緑の縦線）。新しい体裁を持ち込まないため。 */
+    .afp-h3 {
+      font-size: 1.15rem; color: var(--color-navy); margin: 34px 0 12px;
+      padding-left: 12px; border-left: 4px solid var(--color-green);
+    }
+    .afp-h3:first-of-type { margin-top: 8px; }
+    .afp-feat-no {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--color-green); margin-bottom: 6px;
+    }
+  </style>
+
+  <main>
+    <!-- ヒーロー -->
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/calendar-view-icon.png" alt="カレンダービュー for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1>カレンダービュー for kintone</h1>
+      <p class="afp-tagline">同じ予定を、カレンダーでも、担当者ごとの時間軸でも。</p>
+      <p class="afp-sub">kintone のレコードが持つ<strong>開始・終了</strong>を、カレンダー（年・月・週・日・リスト）と<strong>タイムライン</strong>（縦＝担当者・会議室 × 横＝時間）に、画面上のボタンで切り替えて表示します。ドラッグで日程を変更でき、<strong>空いている時間</strong>も条件から探せます。ダブルブッキングの警告は kintone 標準の編集画面でも働きます。</p>
+      <div class="afp-hero-cta">
+        <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-calendar-view-v1.0.0.zip" download>無料でダウンロード</a>
+      </div>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 課題 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">予定は kintone にあるのに、予定表は別にある</h2>
+        <p class="afp-lead">日付を持つレコードは kintone に溜まっているのに、「今週なにがあるか」を見るための一覧が別にある。ホワイトボードや Excel の予定表、あるいはグループウェアのカレンダーに、同じことをもう一度書いている現場は少なくありません。</p>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">01</span>
+            <h3>一覧では前後関係が読めない</h3>
+            <p>日付順に並べても「来週は空いているのか」「この日は何件あるのか」は分かりません。日付でソートし直しては数えるという作業が残ります。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">02</span>
+            <h3>誰がいつ空いているか分からない</h3>
+            <p>会議室や担当者の空きを探すには、一覧を絞り込んでは戻る操作の繰り返し。結果として<strong>同じ部屋を二重に予約</strong>してしまいます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">03</span>
+            <h3>予定表が kintone の外にある</h3>
+            <p>カレンダーだけ別の場所にあると、二重入力になり、どちらが最新か分からなくなります。集計も kintone 側のデータとずれていきます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- カレンダー -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">レコードが、そのままカレンダーになる</h2>
+        <p class="afp-lead">アプリの「開始・終了・件名」を選ぶだけで、レコード一覧のひとつがカレンダーになります。区分（社内会議・来客・面接など）ごとに色を分けられるので、月を開いた瞬間に予定の性格が読み取れます。土日祝は自動で色が変わります。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/calendar-view-calendar-01.png" alt="会議室・打合せ予約アプリの月表示。左に区分・会議室・主催者の絞り込みサイドバー、右に1か月のカレンダー。予定は区分ごとに色分けされ、3日間の研修は1本の帯で、終日の全社キックオフは日付の上に帯で表示されている" width="1400" height="854" class="zoomable" />
+          <figcaption class="afp-shot-cap">月表示。複数日にまたがる予定は<strong>1本の帯</strong>、終日の予定は日付の上に並びます</figcaption>
+        </figure>
+        <div class="afp-note">粒度は<strong>年・月・週・日・リスト</strong>の5つ。週と日は 0:00〜24:00 を描いて縦スクロールします（営業時間の外は色を落とすだけで、隠しません。時間外の予定を見落とさないためです）。</div>
+      </div>
+    </section>
+
+    <!-- 週・日 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">週と日は、時間の重なりが見える</h2>
+        <p class="afp-lead">同じ時間に複数の予定があれば横に並びます。空いている列があるぶんまで幅を広げるので、細切れにならず件名が読めます。今日の列には現在時刻の赤い線が入ります。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/calendar-view-week-01.png" alt="週表示。8月23日から29日までの1週間で、同じ時間に重なる予定が横に並んで表示されている。終日の棚卸しは上部の終日行に表示され、時刻ごとのグリッドに予定が色分けされて配置されている" width="1400" height="798" class="zoomable" />
+          <figcaption class="afp-shot-cap">週表示。重なった予定は横並び。空いている列まで広げて件名を読めるようにします</figcaption>
+        </figure>
+        <div class="afp-shot-pair" style="margin-top:28px;">
+          <figure class="afp-shot">
+            <Picture src="/images/calendar-view-day-01.png" alt="日表示。1日の予定が時刻ごとに並び、同じ時間に重なる予定は横に分かれて表示されている" width="1400" height="598" class="zoomable" />
+            <figcaption class="afp-shot-cap">日表示。1日に集中した予定を確認する</figcaption>
+          </figure>
+          <figure class="afp-shot">
+            <Picture src="/images/calendar-view-list-01.png" alt="リスト表示。日付ごとの見出しの下に、時刻・件名・会議室・主催者が行として並んでいる" width="1400" height="545" class="zoomable" />
+            <figcaption class="afp-shot-cap">リスト表示。1か月を文字で読む（件数の多い月に）</figcaption>
+          </figure>
+        </div>
+        <figure class="afp-shot afp-shot-w640" style="margin-top:28px;">
+          <Picture src="/images/calendar-view-year-01.png" alt="年表示。12か月分の月グリッドが並び、予定がある日に点が付き、祝日と週末に色が付いている" width="1400" height="472" class="zoomable" />
+          <figcaption class="afp-shot-cap">年表示。12か月を並べて年間を俯瞰します（保守点検や年間行事の確認に）</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- タイムライン -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">同じ予定を、担当者・会議室ごとの時間軸で</h2>
+        <p class="afp-lead">画面右上のボタンで<strong>タイムライン</strong>に切り替えると、縦が担当者や会議室、横が時間になります。空き時間が空白として見えるので、「この部屋は午後なら取れる」がひと目で分かります。縦軸はドロップダウンで切り替えられます（担当者 ↔ 会議室 ↔ 車両など、最大5つまで登録可）。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/calendar-view-timeline-01.png" alt="タイムライン表示（1日）。縦にA会議室・B会議室・オンライン・大会議室が並び、横が時間軸。各部屋の予約が色付きのバーで配置され、空き時間が空白として見える" width="1400" height="359" class="zoomable" />
+          <figcaption class="afp-shot-cap">タイムライン（1日）。会議室ごとの埋まり具合と空きがそのまま見えます</figcaption>
+        </figure>
+        <p class="afp-lead" style="margin-top:28px;">1か月表示にすると、どの日が埋まっているかを俯瞰できます。バーをドラッグすれば、<strong>担当者（会議室）と日時を同時に</strong>変更できます。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/calendar-view-timeline-02.png" alt="タイムライン表示（1か月）。縦に会議室、横に1日ごとの列が並び、予約がある日にバーが表示されている" width="1400" height="369" class="zoomable" />
+          <figcaption class="afp-shot-cap">タイムライン（1か月）。月内のどの日が埋まっているかを見渡す</figcaption>
+        </figure>
+        <div class="afp-note">タイムライン表示は<strong>プレミアム年間サポーター</strong>の機能です。無料プランでもボタンは表示され、押すと内容の案内が出ます（消えてしまって気づけない、ということがないようにしています）。</div>
+      </div>
+    </section>
+
+    <!-- 空き枠 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">「来週、1時間空いている部屋」を探す</h2>
+        <p class="afp-lead">ツールバーの<strong>「空き枠」</strong>から、対象（担当者・会議室）・所要時間・探す期間を選ぶだけ。営業時間・土日祝・すでに入っている予定を避けた候補が対象ごとに並びます。<strong>枠を押すとその時間・その対象で登録画面が開く</strong>ので、探して入れるまでが1つの流れで終わります。</p>
+        <figure class="afp-shot afp-shot-w640">
+          <Picture src="/images/calendar-view-freeslot-01.png" alt="空き枠を探すモーダル。探す対象は会議室、所要時間は1時間、探す期間は表示中の期間。営業時間内だけ・非稼働日を除くのチェックが入っており、A会議室に日付と時間帯の候補ボタンが並んでいる" width="753" height="753" class="zoomable" />
+          <figcaption class="afp-shot-cap">条件は3つ選ぶだけ。候補を押せば、その時間で予定を作れます</figcaption>
+        </figure>
+        <div class="afp-note">計算は<strong>ブラウザの中で完結</strong>します（すでに取得している予定を使うので、探すたびに待たされません）。見つからないときは「所要時間を短くする」「期間を広げる」など、次にできることを案内します。この機能は<strong>プレミアム年間サポーター</strong>の対象です。</div>
+      </div>
+    </section>
+
+    <!-- 重複警告 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">二重予約は、その場で止める</h2>
+        <p class="afp-lead">同じ会議室・同じ担当者で時間が重なると警告します。ポイントは、<strong>カレンダー上の操作だけでなく kintone 標準の追加・編集画面で保存したときにも判定する</strong>ことです。カレンダーを見ずに登録した人も取り逃しません。</p>
+        <figure class="afp-shot" style="max-width:626px;">
+          <Picture src="/images/calendar-view-duplicate-01.png" alt="重複の警告。「同じ時間帯にすでに予定があります」という見出しと、重なっている予定「来客：株式会社ひなたテック 2026/08/26 10:00〜11:00」が表示されている" width="624" height="292" class="zoomable" />
+          <figcaption class="afp-shot-cap">重なっている相手を具体的に示します（この例は「禁止」設定のため保存できません）</figcaption>
+        </figure>
+        <div class="afp-note">動作は<strong>使わない／警告のみ（このまま保存できる）／禁止（保存をブロック）</strong>から選べ、<strong>リソースごと</strong>に変えられます。「会議室は禁止、担当者は警告のみ」といった運用ができます。</div>
+      </div>
+    </section>
+
+    <!-- 登録・編集 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">空いているところをクリックして、その場で登録</h2>
+        <p class="afp-lead">日付や時間帯をクリックすると、その日時が入った状態で登録モーダルが開きます。週・日表示なら縦にドラッグして時間帯を指定できます。モーダルに出す項目は設定で選べるので、よく使う項目だけの短いフォームにできます。</p>
+        <div class="afp-shot-pair">
+          <figure class="afp-shot">
+            <Picture src="/images/calendar-view-create-01.png" alt="新規登録のモーダル。クリックした12時から13時が開始日時・終了日時に入っており、件名・区分のチップ・会議室・主催者・色・参加人数の入力欄が並んでいる" width="744" height="762" class="zoomable" />
+            <figcaption class="afp-shot-cap">押した時間が入った状態で開きます</figcaption>
+          </figure>
+          <figure class="afp-shot">
+            <Picture src="/images/calendar-view-editor-01.png" alt="予定を編集するモーダル。件名「全体朝礼」、区分は社内会議が選択され、開始日時・終了日時・会議室・主催者・色・参加人数が編集できる。右上に詳細画面を開くリンク、下部に削除・キャンセル・保存のボタン" width="753" height="771" class="zoomable" />
+            <figcaption class="afp-shot-cap">予定をクリックすればその場で直せます</figcaption>
+          </figure>
+        </div>
+        <p class="afp-lead" style="margin-top:28px;">予定はドラッグで日程を動かせます。バーの下端をつまめば終了時刻を伸ばせます。保存した直後は<strong>「元に戻す」</strong>が出るので、うっかり動かしても戻せます。右クリックからは複製・削除・詳細画面も開けます。</p>
+        <figure class="afp-shot" style="max-width:305px;">
+          <Picture src="/images/calendar-view-menu-01.png" alt="予定を右クリックしたときのメニュー。編集する・詳細画面を別タブで開く・複製する・削除するが並んでいる" width="303" height="290" class="zoomable" />
+          <figcaption class="afp-shot-cap">右クリックメニュー。複製と削除もここから</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ラベルと絞り込み -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">区分で色を分け、見たいものだけ残す</h2>
+        <p class="afp-lead">アプリのドロップダウン（ラジオボタン）を<strong>ラベル</strong>として扱い、選択肢ごとに色を決められます。登録するときは色付きのチップから選ぶだけ。<strong>選択肢の追加・削除も設定画面からできる</strong>ので、フォームを編集しに行く必要はありません。</p>
+        <p class="afp-lead">左のサイドバーでは、ラベル・担当者・会議室のチェックを外すだけで表示を絞れます。行にマウスを乗せると出る<strong>「これだけ」</strong>を押せば、その1つだけを残せます。絞り込みは取得済みのデータに掛けるので待ち時間はありません。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/calendar-view-sidebar-01.png" alt="左サイドバーで主催者を鈴木花子だけに絞り込んだ状態。ほかの2人はチェックが外れてグレーになり「2件を非表示」と表示され、カレンダーには鈴木花子の予定だけが残っている" width="1400" height="835" class="zoomable" />
+          <figcaption class="afp-shot-cap">「これだけ」で1人に絞った状態。<strong>すべて表示</strong>でいつでも戻せます</figcaption>
+        </figure>
+        <div class="afp-note">色は「予定ごとに選んだ色 → 条件で変える色 → ラベル → 既定色」の順で決まります。条件は<strong>数値の閾値・日付の超過・プロセス管理のステータス・選択肢</strong>から作れるので、「期限を過ぎた予定だけ赤」といった強調もできます。</div>
+      </div>
+    </section>
+
+    <!-- 設定 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定は、上から7手順（必須は2つだけ）</h2>
+        <p class="afp-lead">左の目次を上から進めるだけの設定画面です。<strong>必須は「ビューを作る」と「データを選ぶ」の2つ</strong>で、残りは既定のままでも動きます。</p>
+
+        <h3 class="afp-h3">手順1：ビューを作る（HTMLは書きません）</h3>
+        <p class="afp-lead">「ビューを作成」を押すと、カスタマイズビューが作られてアプリの更新まで走ります。作成したあとに<strong>設定も保存しますか</strong>と聞くので、紐づけがそこで確定します。既存のカスタマイズビューを選ぶこともできます。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/calendar-view-config-01.png" alt="設定画面の手順1。左に設定の手順1〜7の目次、中央に「カスタマイズビュー」カードがあり、描画先のビューと設定の名前を選ぶ欄、ビューを削除するボタンが表示されている" width="1400" height="788" class="zoomable" />
+          <figcaption class="afp-shot-cap">手順1。ボタン1つでビューを作成。左の目次で進み方が分かります</figcaption>
+        </figure>
+
+        <h3 class="afp-h3">手順2：どのフィールドを予定にするか選ぶ</h3>
+        <p class="afp-lead">開始・終了・件名を選び、必要なら終日フラグを指定します。<strong>必須はこの3つだけ</strong>です。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/calendar-view-config-02.png" alt="設定画面の主ソースのカード。主ソースの種別（このアプリのレコード／サブテーブル行）、開始に開始日時、終了に終了日時、タイトルに件名、終日フラグに終日が選ばれている" width="1400" height="409" class="zoomable" />
+          <figcaption class="afp-shot-cap">開始・終了・件名を選ぶ（必須はここだけ）</figcaption>
+        </figure>
+        <p class="afp-lead" style="margin-top:24px;"><strong>リソース</strong>（担当者・会議室・車両・設備）は最大5つ登録でき、タイムラインの縦軸と重複警告の判定に使われます。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/calendar-view-config-03.png" alt="設定画面のリソースのカード。リソース1に会議室、リソース2に主催者が選ばれ、リソース3は使わないになっている" width="1400" height="341" class="zoomable" />
+          <figcaption class="afp-shot-cap">リソースはタイムラインの縦軸と重複警告に使われます</figcaption>
+        </figure>
+
+        <h3 class="afp-h3">手順3：使う表示を選ぶ</h3>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/calendar-view-config-08.png" alt="設定画面の使うモードのカード。用途プリセット、使うモード（カレンダー・タイムライン）のチェック、開いたときの表示を選ぶ欄" width="1400" height="287" class="zoomable" />
+          <figcaption class="afp-shot-cap">使う表示と、開いたときにどちらを出すかを決めます</figcaption>
+        </figure>
+        <div class="afp-note">このほか手順3では、既定の粒度・1日あたりの表示件数（超えた分は「他N件」）・新規登録の方式（その場のモーダル／kintone 標準の追加画面）・週の開始曜日・時刻間隔・営業時間・営業曜日を決められます。<strong>すべて既定のままでも動きます。</strong></div>
+
+        <h3 class="afp-h3">手順4：ラベル（分類）の色を決める</h3>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/calendar-view-config-04.png" alt="設定画面の手順4のラベル設定。ラベルのフィールドに区分を選び、社内会議・来客・オンライン商談・面接・研修・社内イベントの6つの選択肢に色が割り当てられている。新しいラベル名を入力して追加するボタンもある" width="1400" height="587" class="zoomable" />
+          <figcaption class="afp-shot-cap">手順4。<strong>ここから選択肢を追加・削除できます</strong>（アプリのフォームも更新されます）</figcaption>
+        </figure>
+        <div class="afp-note">同じ手順4では<strong>条件での色分け</strong>（数値の閾値・日付の超過・ステータス・選択肢）も作れます。凡例は<strong>効いているルールだけ</strong>表示します。</div>
+
+        <h3 class="afp-h3">手順7：重複警告の動作</h3>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/calendar-view-config-06.png" alt="設定画面の重複（ダブルブッキング）警告カード。使わない・警告のみ・禁止の選択と、担当者・会議室ごとに動作を変えられる欄" width="1400" height="375" class="zoomable" />
+          <figcaption class="afp-shot-cap">重複警告はリソースごとに切り替えられます</figcaption>
+        </figure>
+        <div class="afp-note">手順7ではこのほか、モーダルに出す項目・削除ボタンの有無・取得件数の上限・モバイル表示を決められます。いま使えている範囲（無料／プレミアム）も同じ画面で確認できます。</div>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>カレンダー表示</h3>
+            <p>年・月・週・日・リストの5粒度。複数日にまたがる予定は1本の帯、終日の予定は日付の上に並びます。今日の列には現在時刻の赤い線。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>タイムライン表示 🔒</h3>
+            <p>縦＝担当者・会議室・設備 × 横＝時間。1日（時刻刻み）と1か月（日刻み）。縦軸はドロップダウンで切り替え（最大5つ登録）。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ドラッグで日程変更</h3>
+            <p>予定をドラッグして移動、下端をつまんで時間を伸縮。タイムラインでは担当者と日時を同時に変更。直後は「元に戻す」で戻せます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>空き枠を探す 🔒</h3>
+            <p>対象・所要時間・期間を選ぶと、営業時間・土日祝・既存の予定を避けた候補が並びます。押すとその枠で登録できます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ダブルブッキング警告</h3>
+            <p>ビュー上の操作と、kintone 標準の追加・編集画面の保存時に判定。使わない／警告のみ／禁止をリソースごとに設定できます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>その場で登録・編集</h3>
+            <p>日付や時間帯のクリックで登録モーダル。出す項目は設定で選べます。右クリックから複製・削除・詳細画面も開けます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>区分（ラベル）で色分け</h3>
+            <p>アプリの選択肢を分類として使い、色付きチップで選ばせます。<strong>選択肢の追加・削除も設定画面から</strong>できます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>条件で色を変える</h3>
+            <p>数値の閾値・日付の超過・プロセス管理のステータス・選択肢でルールを作れます。凡例は効いているルールだけ表示します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>左サイドバーで絞り込み</h3>
+            <p>ミニカレンダー・ラベル・担当者や会議室。チェックを外すだけで隠れ、「これだけ」で1つに絞れます（通信なし）。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>繰り返し予定</h3>
+            <p>毎日・毎週・毎月・毎年をまとめて作成。この1件だけ／これ以降／すべての範囲で変更・削除できます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>祝日・非稼働日</h3>
+            <p>日本の祝日 2020〜2035年を同梱。会社休日は非稼働日マスタアプリを自動生成して複数アプリで共有できます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ビューの自動生成</h3>
+            <p>カスタマイズビューはボタン1つで作成（HTML 手入力なし）。使っていないビューのまとめ削除もできます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>重ねるレイヤー</h3>
+            <p>別アプリの予定やサブテーブルの行を、読み取り専用の背景として重ねられます（無料は1件まで）。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>キーボード操作</h3>
+            <p>今日・期間の移動・表示の切り替え・追加・元に戻す。一覧はツールバーの「?」から開けます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>モバイル対応</h3>
+            <p>カレンダーの全粒度とタイムラインの1日表示。絞り込みは引き出しとして開きます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>件数が多くても止まらない</h3>
+            <p>取得の上限（既定5,000件）を超えるときは粒度を1段階細かくして必ず描画。一覧の絞り込み条件も引き継ぎます。</p>
+          </div>
+        </div>
+        <figure class="afp-shot" style="max-width:472px;margin-top:30px;">
+          <Picture src="/images/calendar-view-keys-01.png" alt="キーボード操作の一覧モーダル。期間を動かす（j/n・k/p・t）、表示を変える（y・m・w・d・a）、予定の操作（c・z・Enter・Esc）が表で並んでいる" width="559" height="768" class="zoomable" />
+          <figcaption class="afp-shot-cap">キーの一覧はツールバーの「?」またはキーボードの <code>?</code> から</figcaption>
+        </figure>
+        <p class="afp-shot-cap" style="margin-top:18px;">🔒 はプレミアム年間サポーターの対象です。</p>
+      </div>
+    </section>
+
+    <!-- プラン -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料のままでも<strong>カレンダー表示は制限なく</strong>使えます（年・月・週・日・リストの5粒度、ドラッグでの日程変更、色分け、絞り込み、重複警告、繰り返し、祝日）。<strong>タイムライン表示</strong>と<strong>空き枠を探す</strong>、そして設定できるビュー数・重ねられるレイヤー数の上限解除が、<strong>プレミアム年間サポーター</strong>で解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ カレンダー表示（年・月・週・日・リスト）</li>
+              <li>✅ ドラッグで日程変更・時間の伸縮・元に戻す</li>
+              <li>✅ 区分（ラベル）の色分け・条件で色を変える</li>
+              <li>✅ 左サイドバーでの絞り込み</li>
+              <li>✅ ダブルブッキング警告（標準の編集画面でも判定）</li>
+              <li>✅ 繰り返し予定・祝日と非稼働日の色分け</li>
+              <li>✅ 利用期限なし（設定できるビューは1件・レイヤーは1件／設定画面に控えめな広告あり）</li>
+            </ul>
+            <a href="/downloads/kw-calendar-view-v1.0.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>タイムライン表示</strong>（担当者・会議室ごとの時間軸／1日・1か月）</li>
+              <li>✅ <strong>空き枠を探す</strong>（条件から候補を出して、その枠で登録）</li>
+              <li>✅ 設定できる<strong>ビュー数が無制限</strong>（同じアプリを別の切り口で見る）</li>
+              <li>✅ 重ねられる<strong>レイヤー数が無制限</strong></li>
+              <li>✅ プラグイン内の<strong>広告非表示</strong></li>
+              <li>✅ 販売中の<strong>全プラグイン</strong>も対象（契約期間中に新しく公開されるプラグインも追加料金なし）</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta">プレミアム年間サポーターを申し込む →</a>
+          </div>
+        </div>
+
+        <div style="margin: 0 0 32px;">
+          <TrialBanner />
+        </div>
+
+        <h3 class="afp-plan-compare-head">機能の詳細比較</h3>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>機能</th><th class="c">無料プラン</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>カレンダー表示（年・月・週・日・リスト）</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td><strong>タイムライン表示</strong>（担当者・会議室ごとの時間軸）</td><td class="c">—</td><td class="c">○</td></tr>
+              <tr><td><strong>空き枠を探す</strong></td><td class="c">—</td><td class="c">○</td></tr>
+              <tr><td>設定できるビュー数</td><td class="c">1件</td><td class="c">無制限</td></tr>
+              <tr><td>重ねられるレイヤー数</td><td class="c">1件</td><td class="c">無制限</td></tr>
+              <tr><td>ドラッグでの日程変更・時間の伸縮・元に戻す</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>区分（ラベル）の色分け・条件で色を変える・凡例</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>左サイドバーでの絞り込み</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>ダブルブッキング警告（標準の編集画面でも判定）</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>繰り返し予定・祝日同梱・非稼働日マスタ</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>モバイル対応・ゲストスペース対応</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>設定画面・カレンダー内の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note" style="margin-top:20px;">プレミアムの期限が切れても<strong>設定は消えません</strong>。カレンダー表示だけが動く状態に戻り、再加入すればすぐに元へ戻ります。ロックされた機能は画面から消えるのではなく<strong>鍵つきで表示</strong>されます。</div>
+      </div>
+    </section>
+
+    <!-- インストール手順 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="afp-steps steps-list">
+          <li><span>システム管理者で kintone にログインし、<strong>歯車アイコン → kintone システム管理 → プラグイン</strong> を開き、<strong>「読み込む」</strong>からプラグイン zip をアップロードします。</span></li>
+          <li><span>予定を入れているアプリで <strong>アプリの設定 → プラグイン → 「+ プラグインを追加」</strong> から「カレンダービュー」を追加します。</span></li>
+          <li><span>プラグイン一覧の<strong>歯車アイコン</strong>から設定画面を開き、<strong>手順1「ビューを作る」で「ビューを作成」</strong>を押します（HTML を書く必要はありません）。</span></li>
+          <li><span><strong>手順2「データを選ぶ」で開始・終了・件名</strong>を選びます。担当者や会議室を<strong>リソース</strong>に指定すると、タイムラインの縦軸と重複警告に使われます。</span></li>
+          <li><span>右上の<strong>「保存する」</strong>を押すとアプリの更新まで行われます。アプリの一覧から、作られたビュー（既定では「カレンダービュー」）を選ぶと表示されます。</span></li>
+        </ol>
+        <div class="afp-note">設定1つが、レコード一覧のカスタマイズビュー1つになります。「会議室の予約」と「担当者の予定」のように別の切り口で見たいときは、左の「＋新しい設定」で増やしてまた手順1から進めてください（複数の設定はプレミアムの対象です）。</div>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ご利用にあたっての注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li>開始・終了に使えるのは<strong>日付または日時のフィールド</strong>です。文字列フィールドに入れた日付は対象になりません。</li>
+            <li>プラグインが描画するのは<strong>カスタマイズビューの中だけ</strong>です（標準の一覧表示やレコード画面のレイアウトは変わりません）。ダブルブッキング警告のみ、標準の追加・編集画面の保存時に割り込みます。</li>
+            <li>サブテーブルの行を予定として表示する設定にした場合、<strong>行の追加・削除・複製はできません</strong>（値の変更はできます）。</li>
+            <li>ルックアップは編集モーダルでは<strong>表示のみ</strong>です（値の変更はレコード画面から行ってください）。書式付きテキスト（リッチエディター）はモーダルの編集対象に選べません。</li>
+            <li>取得件数の上限（既定 5,000 件）を超えるときは、粒度を1段階細かくして表示します。一覧の絞り込みと併用してください。</li>
+            <li><strong>フィールドのアクセス権</strong>で開始・終了の閲覧を外しているユーザーには予定を表示できません（その旨を画面に表示します）。</li>
+            <li>同じ時間に何件も予定が重なる日は、週表示では1件あたりの幅が狭くなります。日表示・タイムライン・絞り込みを併用してください。</li>
+            <li>プラグインの設定は「丸ごと保存」する仕組みのため、<strong>設定画面を2つ同時に開いて保存すると片方の変更が失われます</strong>。1つずつ保存してください。</li>
+            <li>アプリからプラグインを<strong>「利用を解除」すると設定が破棄されます</strong>。一時的に止めたいだけのときは「無効にする」をお使いください。</li>
+            <li>本プラグインはサイボウズ社の製品ではありません。kintone はサイボウズ株式会社の登録商標です。</li>
+            <li>推奨ブラウザは Google Chrome / Microsoft Edge です。</li>
+            <li>本プラグインの利用により生じた損害について、当社は責任を負いかねます。配布 zip に秘密鍵（ppk）は含まれません。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- セキュリティ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-calendar-view" />
+        <ShareButtons title="カレンダービュー for kintone" />
+      </div>
+    </section>
+
+    <!-- よくある質問 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">よくある質問</h2>
+        <div class="afp-faq">
+          <details class="afp-faq-item">
+            <summary>カスタマイズビューの HTML を自分で書く必要はありますか？</summary>
+            <div class="afp-faq-answer">ありません。設定画面の手順1にある<strong>「ビューを作成」</strong>を押すと、必要な HTML を含むカスタマイズビューが自動で作られ、アプリの更新まで行われます。すでに作ってあるカスタマイズビューに紐づけることもできます。設定を消してもビューは残るため、使っていないビューをまとめて削除する機能も手順1に用意しています（他社のカスタマイズビューは対象になりません）。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>どんなアプリで使えますか？</summary>
+            <div class="afp-faq-answer">開始と終了に使える<strong>日付または日時のフィールド</strong>を持つアプリで使えます。会議室・車両・機材の予約、営業の商談予定、面接や来客の予定、保守点検のスケジュールなどが向いています。終了の日時が無いアプリでも、開始を選ぶと空の終了に同じフィールドが自動で入り「その日1日で完結する予定」として扱えます。文字列フィールドに入れた日付は対象外です。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>ダブルブッキングはどこまで防げますか？</summary>
+            <div class="afp-faq-answer">同じリソース（担当者・会議室など）で時間帯が重なる予定があると警告します。カレンダー上でのドラッグや登録だけでなく、<strong>kintone 標準の追加・編集画面での保存時にも判定する</strong>のが特徴です。動作は「使わない／警告のみ（このまま保存できる）／禁止（保存をブロックする）」から選べ、<strong>リソースごと</strong>に変えられます。たとえば会議室は禁止、担当者は警告のみという運用ができます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>「空き枠を探す」は何を見て候補を出しますか？</summary>
+            <div class="afp-faq-answer">探す対象（担当者や会議室）・所要時間（15分〜8時間）・探す期間（表示中の期間／今日から2週間／今日から1か月）を選ぶと、<strong>営業時間内・非稼働日以外で、すでに入っている予定と重ならない時間</strong>を対象ごとに並べます。終日の予定はその日全体が埋まっているものとして扱います。候補を押すと、その時刻とその対象で登録モーダルが開きます。計算はブラウザの中で行うため、探すたびに外部へ問い合わせることはありません。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>祝日は自分で登録する必要がありますか？</summary>
+            <div class="afp-faq-answer">必要ありません。<strong>日本の祝日 2020〜2035年をプラグインに同梱</strong>しているため、何も用意しなくても色が付きます。会社休日や臨時休業も扱いたい場合は、設定画面のボタンで非稼働日マスタアプリを自動生成でき、複数のアプリから共有できます。マスタを指定したときはマスタの内容だけを見るので、マスタから消した休日が同梱データで復活することはありません。新しい年の祝日が同梱データに増えたときは、設定画面に「マスタに未登録が N 件あります」と出るのでボタン1つで追加できます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>無料プランではどこまで使えますか？</summary>
+            <div class="afp-faq-answer"><strong>カレンダー表示（年・月・週・日・リスト）</strong>が無料で使えます。ドラッグでの日程変更、区分（ラベル）での色分け、左サイドバーでの絞り込み、ダブルブッキング警告、繰り返し予定、祝日と非稼働日の色分けも無料のままお使いいただけます。プレミアム年間サポーター（税込 ¥16,500/年）の対象は、<strong>タイムライン表示・空き枠を探す・設定できるビュー数（無料は1件）・重ねられるレイヤー数（無料は1件）</strong>です。ロックされた機能は画面から消えるのではなく鍵つきで表示され、押すと案内が出ます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>スマートフォンでも使えますか？</summary>
+            <div class="afp-faq-answer">使えます。モバイル版では<strong>カレンダー表示の全粒度と、タイムラインの1日表示</strong>が動きます。絞り込みのサイドバーは画面幅の都合で左ではなく引き出しとして開きます。kintone のカスタマイズビューの設定で「一覧を表示する範囲」がPC版＋モバイル版になっている必要があります。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>予定のデータが外部に送信されることはありますか？</summary>
+            <div class="afp-faq-answer">ありません。カレンダーとタイムラインの描画、空き枠の計算、重複の判定、絞り込みはすべてご利用の kintone とブラウザの中で完結します。描画は自前実装で、<strong>実行時に第三者のCDNやライブラリを読み込むこともありません</strong>。祝日データもプラグインに同梱しているため、外部の祝日APIを呼びません。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>プレミアム年間サポーターで使ってみる</h2>
+      <p>カレンダービューをはじめ、販売中の全プラグインをご利用いただけます。年額 ¥16,500（税込）。カレンダー表示は無料プランのままお試しいただけます（利用期限なし）。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを申し込む →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="cv-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('cv-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      // ダウンロードは ヒーローとプランカードの2か所にあるので、まとめて計測する
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: 'kw-calendar-view-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-calendar-view-v1.0.0.zip'
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

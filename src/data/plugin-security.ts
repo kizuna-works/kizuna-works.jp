@@ -174,6 +174,16 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-calendar-view': {
+    extraComm: [
+      {
+        label: '予定の読み書きとビューの作成',
+        scope: 'internal',
+        detail:
+          'ご利用中の kintone ドメイン内の REST API だけを使います（表示期間のレコード取得 GET /k/v1/records/cursor、設定で選んだ項目の把握 GET /k/v1/app/form/fields、プロセス管理の有効判定 GET /k/v1/app/status、ドラッグや登録での更新 PUT/POST /k/v1/record）。カスタマイズビューの作成・削除、繰り返し用フィールドの追加、ラベルの選択肢の追加・削除は、アプリ管理者が設定画面のボタンを押したときだけ実行します（動作テスト環境の API とアプリの更新はこの経路だけで使います）。カレンダーとタイムラインの描画、空き枠の計算、重複の判定、絞り込みはすべてブラウザの中で行います。日本の祝日はプラグインに同梱しているため、外部の祝日 API を呼びません。',
+      },
+    ],
+  },
   'kw-pdf-edit': {
     runtimeLibs: [
       { name: 'PDF.js', version: '3.11.174', license: 'Apache-2.0', purpose: 'PDF の描画・ページの画像化・パスワード付き PDF のブラウザ内復号' },

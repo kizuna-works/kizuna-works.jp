@@ -1441,6 +1441,32 @@ export const premiumPlugins: Plugin[] = [
     releaseDate: '2026-08-21',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-calendar-view',
+    pluginId: 'oagclocaohgifopdddhfpamnbpdnlgim',
+    name: 'カレンダービュー for kintone',
+    formName: 'カレンダービュー for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'calendar-view',
+    categories: ['一覧表示', '検索・閲覧', '入力チェック'],
+    description:
+      'レコードの開始・終了を、カレンダー（年/月/週/日/リスト）と担当者・会議室ごとのタイムラインに切り替えて表示。ドラッグで日程変更、空いている時間の検索、標準の編集画面でも効く重複警告、繰り返し予定、祝日同梱。ビューのHTMLはボタン1つで作成します。',
+    image: '/images/calendar-view-banner.png',
+    imageWebp: '/images/calendar-view-banner.webp',
+    imageAlt:
+      'カレンダービュー for kintone バナー — 誰がいつ空いているか、探せるカレンダー。ダブルブッキングは、その場で止める。年・月・週・日・リストとタイムライン',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      '予定をカレンダーと担当者・会議室ごとの時間軸で。ドラッグで日程変更、空き時間の検索、標準の編集画面でも効く重複警告つき。',
+    problemTitle: '予定は kintone にあるのに、予定表は別の場所にある',
+    problemDesc:
+      '一覧では予定の前後関係が読めず、誰がいつ空いているかも分からない。ホワイトボードやExcelの予定表に同じことを書き写し、会議室を二重に予約してしまう',
+    releaseDate: '2026-08-22',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**
