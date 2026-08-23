@@ -514,6 +514,36 @@ const FIGURES = [
       { title: '関連レコード一覧', desc: '公式ヘルプに「集計、自動計算、アプリ内検索の操作の対象になりません」と明記。条件に合うレコードを映しているだけで、値を保持していないため。' }
     ),
   },
+  {
+    name: "kintone-nenrei-keisan-seconds",
+    w: 1000, h: 210,
+    el: flowCaptioned(["日付フィールド", "式の中では秒数", "60*60*24 で割る", "日数になる"], C.navy, "1日 = 86,400秒。日付どうしの引き算は秒で返ってくるので、割ってから使う"),
+  },
+  {
+    name: "kintone-nenrei-keisan-twostep",
+    w: 1000, h: 210,
+    el: flowCaptioned(["1段目：年・月・日を取り出す", "それぞれ別の計算フィールドへ", "2段目：その6つを参照", "誕生日判定つきの年齢"], C.green, "DATE_FORMATは式の中で計算に使えない。いったんフィールドに出してから参照する"),
+  },
+  {
+    name: "kintone-nenrei-keisan-three",
+    w: 1000, h: 330,
+    el: overviewMethods([
+      { n: "1", name: "365.2425で割る", desc: "式は1本で済む。誕生日当日だけ1歳ずれる年がある（45件中2件）。", cost: "概算" },
+      { n: "2", name: "DATE_FORMATを式に混ぜる", desc: "保存はできるが、値が空になる。計算にも比較にも使えない。", cost: "不可" },
+      { n: "3", name: "2段構えにする", desc: "年・月・日を別フィールドに出して参照。45件すべて一致した。", cost: "厳密" },
+    ]),
+  },
+  {
+    name: "kintone-nenrei-keisan-limits",
+    w: 1000, h: 596,
+    el: overview5([
+      { n: "1", name: "TODAY関数が無い", desc: "式に書くと「TODAY関数は使用できません」。NOW・YEARも同じ。", tag: "標準では不可", paid: true },
+      { n: "2", name: "計算は保存した瞬間だけ", desc: "開き直しても再計算されない。昨日の数字がそのまま残る。", tag: "公式仕様", paid: false },
+      { n: "3", name: "DATE_FORMATは式に混ぜられない", desc: "単独なら数字が出るが、引き算や比較の項にすると空になる。", tag: "実機で確認", paid: false },
+      { n: "4", name: "空の日付は1970/1/1", desc: "退職日が空のまま引き算すると −16,161日のような値になる。", tag: "実機で確認", paid: false },
+      { n: "5", name: "曜日・営業日は出せない", desc: "曜日を返す書式が無く、祝日も持っていないため近似しかできない。", tag: "標準では不可", paid: true },
+    ]),
+  },
 ];
 
 const only = process.argv[2];
