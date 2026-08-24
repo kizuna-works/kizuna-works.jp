@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import TrialBanner from '../../../components/TrialBanner.astro';
 ---
@@ -87,19 +88,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             "読む・探す・照合する・出すの4機能を個別にオン／オフ",
             "PC版・モバイル版の両方に対応、ゲストスペースにも対応",
             "業務データの外部送信なし・読み取りも生成もブラウザ内で完結"
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            { "@type": "Question", "name": "専用のバーコードリーダー（ハンディターミナル）は必要ですか？", "acceptedAnswer": { "@type": "Answer", "text": "必要ありません。スマートフォンやタブレットのカメラ、PCに接続したWebカメラで読み取ります。読み取り結果はその場で kintone のレコードに入るため、ハンディターミナルからのCSV取り込みのような中間作業もなくなります。なお、USB接続のバーコードリーダー（キーボード入力として動作するもの）をお使いの場合は、そのままフィールドへ入力されるため本プラグインがなくても入力できます。本プラグインはカメラで読む場面と、読んだ値をサブテーブルへ加算・照合する場面で効果を発揮します。" } },
-            { "@type": "Question", "name": "どのコードが読めますか？", "acceptedAnswer": { "@type": "Answer", "text": "QRコード／JAN・EAN-13／JAN・EAN-8／CODE128／CODE39／ITF（Interleaved 2 of 5）／NW-7（CODABAR）の7種類に対応しています。設定で使う種別だけを有効にすると、誤読が減り読み取りも速くなります。チェックデジットの検証は、規格でチェックデジットが決まっている種別（JAN/EAN-13・JAN/EAN-8・ITF-14）でのみ行います。一般のITFやNW-7はチェックデジットが規格上「任意」のため、検証すると正しいコードまで弾いてしまうからです。" } },
-            { "@type": "Question", "name": "カメラが使えない端末でも読み取れますか？", "acceptedAnswer": { "@type": "Answer", "text": "読み取りは3段構えです。まず端末のOSに内蔵された読み取り機能（BarcodeDetector）を使い、対応していなければ読み取りライブラリに切り替え、カメラ自体が使えない環境では「写真を撮って、その画像から読み取る」方式へ自動的に切り替わります。写真からの読み取りは、縮小・中央の切り出し・回転など条件を変えて複数回試します。いま何段目で動いているかは、スキャン画面の右上と設定画面の「読取テスト」で確認できます。" } },
-            { "@type": "Question", "name": "全部の機能を設定しないと使えませんか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。読む・探す・照合する・出すの4つは完全に独立していて、設定画面の「① 共通設定」にあるトグルで個別にオン／オフできます。たとえば「備品にQRラベルを貼りたいだけ」なら「出す」だけをオンにすれば動きます。オフにした機能の設定は入力する必要がなく、レコード画面にもボタンが出ません。" } },
-            { "@type": "Question", "name": "ラベルは市販のラベル用紙に印刷できますか？", "acceptedAnswer": { "@type": "Answer", "text": "できます。メーカーの型番プリセットは持たず、列数・行数・上下左右の余白・マス間隔をmmで指定する方式です（型番プリセットは仕様変更に追随できず、かえって位置がずれるため採用していません）。印刷前に「テスト印刷（枠線のみ）」で1枚出し、お手元の用紙と枠が合うことを確かめてから本番を印刷してください。ラベルをはがした使いかけのシートに刷るときは、プレビュー上で「開始マス」を指定すると手前のマスを空けて送れます。" } },
-            { "@type": "Question", "name": "印刷の対象は一覧に表示されているぶんだけですか？", "acceptedAnswer": { "@type": "Answer", "text": "一覧の絞り込み結果の全件（最大200件）が対象です。表示中のページ（1ページ目の100件など）だけではありません。並び順も一覧に見えているとおりに印刷されます。プレビュー上で「○件目から○件」と範囲を指定できるので、途中から刷り直したり、200件を分けて刷ったりもできます。" } },
-            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。無料プランでもスキャン設定セット1つまで、機能の中身を制限せずお使いいただけます。読む・探す・照合する・出すの4機能、サブテーブル対応・モバイル対応・ゲストスペース対応・A4ラベル印刷は、すべて無料版でも動作します。設定セットの数と広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。" } },
-            { "@type": "Question", "name": "読み取ったデータは外部に送信されますか？", "acceptedAnswer": { "@type": "Answer", "text": "送信しません。カメラの映像も読み取った値も、お使いのブラウザの中だけで処理して kintone のレコードへ書き込みます。コードの生成も同様にブラウザ内で行い、画像を外部サービスへ送ることはありません。読み取り・生成に使う2つのライブラリ（ZXing・bwip-js）は第三者CDNではなく当社サーバー（kizuna-works.jp）から、改ざん検知（SRI）つきで読み込みます。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。" } }
           ]
         }
       ]
@@ -688,6 +676,14 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         </div>
       </div>
     </section>
+    <!-- よくある質問（表示と FAQPage JSON-LD は src/data/premium-faqs.ts を共有） -->
+    <PremiumFaqSection
+      pluginId="kw-barcode-assist"
+      pageUrl="https://kizuna-works.jp/plugins/barcode-assist/"
+      headingClass="afp-h2"
+      alt
+    />
+
 
     <!-- セキュリティ -->
     <section class="afp-section">

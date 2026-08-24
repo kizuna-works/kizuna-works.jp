@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import TrialBanner from '../../../components/TrialBanner.astro';
 ---
@@ -91,22 +92,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             "まとめ印刷の先頭に集計表紙（件数・合計）を付加",
             "印刷した PDF を添付フィールドへ自動保存",
             "テンプレートは自動生成の保管アプリに保存・PDF生成はブラウザ内で完結"
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            { "@type": "Question", "name": "kintoneで請求書・見積書などの帳票をPDFで出力できますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。帳票デザイナー for kintone は、お手持ちのPDF（請求書・見積書・納品書）を背景に取り込み、その上にレコード値・サブテーブル明細・ロゴ・印影をドラッグで配置して帳票化する kintone の帳票出力プラグインです。レコード詳細から1件、一覧から最大100件のまとめ印刷・PDF出力に対応します。" } },
-            { "@type": "Question", "name": "Excelやワードで作った帳票フォーマットをそのまま使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "Excel・Wordで作成した帳票はPDFに保存してから背景として取り込めます。既存の様式を作り直さずに、その上へ kintone のデータを差し込んで印刷・PDF出力できます。" } },
-            { "@type": "Question", "name": "印刷ボタンが表示されません。", "acceptedAnswer": { "@type": "Answer", "text": "設定変更後はアプリ設定画面で「アプリを更新」を実行してください。テンプレの表示条件に合うレコードか、ボタンを表示する一覧（ビュー）の指定もご確認ください。まとめ印刷はプレミアム限定です。" } },
-            { "@type": "Question", "name": "追加・修正した内容が印刷に反映されません。", "acceptedAnswer": { "@type": "Answer", "text": "レコードを保存してから印刷してください。印刷時は最新のレコード内容を取得します。" } },
-            { "@type": "Question", "name": "明細が途中で切れてしまいます。", "acceptedAnswer": { "@type": "Answer", "text": "明細設定の「自動改ページ」を ON にしてください。あふれた明細が同じ背景の次ページへ続きます。" } },
-            { "@type": "Question", "name": "合計が2ページ目にも出てしまいます。", "acceptedAnswer": { "@type": "Answer", "text": "合計要素の「表示ページ」を「最終ページのみ」に設定してください。" } },
-            { "@type": "Question", "name": "kintoneの一覧を、売上一覧・案件一覧のような1枚の表として印刷できますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。v1.1.0 で追加した「一覧帳票」を使うと、レコード一覧で絞り込んだレコードを1行ずつ並べた1枚の表として印刷・PDF出力できます。対象は最大500件で、一覧の絞り込みと並び順がそのまま帳票の行順になります。行が入りきらないときは自動で次のページへ続き、見出し行は各ページに出力されます。" } },
-            { "@type": "Question", "name": "一覧帳票の列はどこから決まりますか？", "acceptedAnswer": { "@type": "Answer", "text": "設定で選んだ「対象の一覧」の表示項目がそのまま初期の列になります。列の追加・削除・左右の並べ替え、見出しの変更ができ、あとから「列を一覧に合わせ直す」で取り込み直すこともできます。" } },
-            { "@type": "Question", "name": "一覧帳票には背景PDFが必要ですか？", "acceptedAnswer": { "@type": "Answer", "text": "不要です。背景に「白紙（用紙を指定）」を選ぶと、用紙サイズ（A4/A3/B4/B5）と向き（縦/横）を指定して白紙に直接レイアウトできます。罫線・見出しの地色・縞模様はプラグインが描画します。手持ちのPDFを背景にすることもできます。" } },
-            { "@type": "Question", "name": "ゲストスペースのアプリでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、ゲストスペース内のアプリでも利用できます。" } },
-            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと、本プラグインと販売中の全プラグインを利用できます。" } }
           ]
         }
       ]
@@ -703,6 +688,13 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         </div>
       </div>
     </section>
+    <!-- よくある質問（表示と FAQPage JSON-LD は src/data/premium-faqs.ts を共有） -->
+    <PremiumFaqSection
+      pluginId="kw-report-designer"
+      pageUrl="https://kizuna-works.jp/plugins/report-designer/"
+      headingClass="rd-h2"
+    />
+
 
     <!-- セキュリティ -->
     <section class="rd-section alt">

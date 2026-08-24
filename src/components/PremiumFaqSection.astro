@@ -1,0 +1,152 @@
+---
+// プレミアムプラグイン製品ページの「よくある質問」。
+// 表示アコーディオンと FAQPage JSON-LD の両方を src/data/premium-faqs.ts から
+// 生成するので、構造化データと画面表示が必ず一致する（Google のガイドライン）。
+//
+// ちょこっとプラグイン用の PluginFaqSection とは分けている。あちらが使う
+// commonFaqs は「全機能を完全無料」「年間サポーターライセンス ¥3,300」という
+// 前提の文面で、プレミアム（単品販売なし・¥16,500/年に含む）では事実と違うため。
+import { getPremiumFaqs, getPremiumFaqJsonLd } from '../data/premium-faqs';
+
+interface Props {
+  pluginId: string;
+  pageUrl: string;
+  /** 見出しに使うクラス（製品ページごとに h2 のスタイル名が違うため） */
+  headingClass?: string;
+  /** セクションの背景を薄いグレーにする（前後のセクションと交互にする用） */
+  alt?: boolean;
+}
+
+const { pluginId, pageUrl, headingClass = '', alt = false } = Astro.props;
+const faqs = getPremiumFaqs(pluginId);
+const faqJsonLd = getPremiumFaqJsonLd(pluginId, pageUrl);
+---
+
+{faqs.length > 0 && (
+  <>
+    <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+
+    <section class:list={['pfaq-section', { alt }]} aria-labelledby="pfaq-heading">
+      <div class="pfaq-inner">
+        {/* 製品ページの h2 クラスがあるときはそちらに任せる（見出しの体裁がページ内で揃う）。
+            無いときだけコンポーネント側の既定スタイルを当てる。 */}
+        {headingClass
+          ? <h2 id="pfaq-heading" class={headingClass}>よくある質問</h2>
+          : <h2 id="pfaq-heading" class="pfaq-heading">よくある質問</h2>}
+        <div class="pfaq-list">
+          {faqs.map((f) => (
+            <details class="pfaq">
+              <summary>
+                <span class="pfaq-q">{f.q}</span>
+                <span class="pfaq-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="pfaq-a">{f.a}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </>
+)}
+
+<style>
+  .pfaq-section {
+    padding: 56px 5%;
+    background: #FFFFFF;
+  }
+  .pfaq-section.alt {
+    background: #F0F4F8;
+  }
+  .pfaq-inner {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  /* 見出しは各製品ページの h2 クラスを併用できるようにし、未指定でも成立させる */
+  .pfaq-heading {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #1B3A6B;
+    margin: 0 0 28px;
+    text-align: center;
+  }
+  .pfaq-list {
+    display: grid;
+    gap: 10px;
+  }
+  .pfaq {
+    background: #FFFFFF;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .pfaq-section.alt .pfaq {
+    background: #FFFFFF;
+  }
+  .pfaq[open] {
+    border-color: #1B3A6B;
+    box-shadow: 0 4px 12px rgba(27, 58, 107, 0.08);
+  }
+  .pfaq summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    color: #1B3A6B;
+    font-weight: 700;
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+  .pfaq summary::-webkit-details-marker {
+    display: none;
+  }
+  .pfaq-q {
+    flex: 1;
+  }
+  .pfaq-icon {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  .pfaq-icon::before,
+  .pfaq-icon::after {
+    content: '';
+    position: absolute;
+    background: #2E8B2E;
+    transition: transform 0.18s ease;
+  }
+  .pfaq-icon::before {
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    transform: translateY(-50%);
+  }
+  .pfaq-icon::after {
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    transform: translateX(-50%);
+  }
+  .pfaq[open] .pfaq-icon::after {
+    transform: translateX(-50%) scaleY(0);
+  }
+  .pfaq-a {
+    padding: 0 20px 18px;
+    color: #333333;
+    font-size: 0.95rem;
+    line-height: 1.9;
+  }
+
+  @media (max-width: 768px) {
+    .pfaq-section { padding: 40px 5%; }
+    .pfaq-heading { font-size: 1.4rem; margin-bottom: 20px; }
+    .pfaq summary { font-size: 0.94rem; padding: 14px 16px; }
+    .pfaq-a { padding: 0 16px 16px; font-size: 0.92rem; }
+  }
+</style>

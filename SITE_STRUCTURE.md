@@ -44,6 +44,8 @@ c:\kizuna-works.jp\
 │   │   ├── TrialForm.astro     # プレミアム無料体験の申込フォーム（会社名/メール/ドメインのみ・planType='trial' でGASへ送信）
 │   │   ├── TrialBanner.astro   # プレミアム無料体験LPへの誘導バナー（サポーターページ・プラグイン一覧で使用）
 │   │   ├── SecurityBox.astro   # プラグイン詳細ページの「安心ボックス」（外部通信・ライブラリ・秘匿情報を要約。plugin-security.ts 駆動）
+
+│   │   ├── PremiumFaqSection.astro # プレミアム製品ページの「よくある質問」（アコーディオン＋FAQPage JSON-LD を src/data/premium-faqs.ts から生成＝表示と構造化データが必ず一致）
 │   │   ├── ShareButtons.astro  # SNS共有ボタン（X/LINE/はてブは静的intentリンク・URLコピー/OS共有シートのみJS）。全プラグイン個別ページ末尾に設置。title="〇〇 for kintone"・URLはAstro.urlから自動導出
 │   │   ├── ExtensionNotice.astro # Chrome拡張「KW Plugin Updater」の案内帯。トップ（プラグインセクション直後）・/plugins/（リードと絞り込みバーの間）・/plugins/ranking/（一覧直下）の3か所で使用。見出しと本文だけ props で差し替え、ストアURLは extensions.ts から取得。CTAクリックで GA4 の ext_updater_click（surface/link_kind）を送る
 │   │   └── Picture.astro       # PNG指定で同名 .webp があれば <picture> で WebP を優先配信。card 指定時は <base>-800.webp を srcset に足す（カードの実表示幅は400px前後なので原寸1200pxを配らない）。WebP が無ければ素の <img> を出すだけなので置き換え安全。派生画像は scripts/gen-image-derivatives.mjs が生成

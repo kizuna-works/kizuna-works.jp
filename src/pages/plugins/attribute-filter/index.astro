@@ -1,82 +1,10 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import TrialBanner from '../../../components/TrialBanner.astro';
 
-// FAQ is defined once here and used for BOTH the visible accordion and the
-// FAQPage JSON-LD, so the structured data always matches what the page shows.
-// (The shared PluginFaqSection component is not used: its common questions
-// assume the free "ちょこっと" model, which is wrong for a premium plugin.)
-const pageUrl = 'https://kizuna-works.jp/plugins/attribute-filter/';
-const faqs: { q: string; a: string }[] = [
-  {
-    q: 'kintone で担当者や申請先の候補を絞り込めますか？',
-    a: 'はい。属性制御フィルター for kintone は、ユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・他フィールドの値・プロセス管理のステータスに応じて自動で絞り込むプラグインです。申請先や承認者を、部署外の人まで含めた全員から選ばせずに済みます。',
-  },
-  {
-    q: 'kintone 標準の機能と何が違いますか？',
-    a: 'kintone 標準のユーザー選択・組織選択は、常に全ユーザー・全組織が候補になります。本プラグインは、役職が課長の人だけ・申請種別が「情報システム依頼」ならシステム開発部だけ、のように条件に応じて候補を絞り込み、誤選択を防ぎます。さらに候補外の値が入っていた場合は、保存時にブロックまたは確認できます。',
-  },
-  {
-    q: '役職で承認者を絞り込めますか？',
-    a: 'はい。「指定した役職のユーザー」を候補にできます。たとえば部内承認者は課長、最終承認者は部長、のように役職で候補を限定できます。役職の一覧は候補データの更新時に自動で収集されます。',
-  },
-  {
-    q: 'キーボードだけで入力できますか？',
-    a: 'はい。↓キーで候補パネルを開き、↑↓で候補を移動して Enter で確定、Esc で閉じられます。候補が1件のときは Enter だけで入力できます。文字を入力してから絞り込むこともできます。',
-  },
-  {
-    q: '候補外の値が入るのを防げますか？',
-    a: 'はい。フィールドごとに「保存するとき＝何もしない／確認する／保存をブロックする」を設定できます。標準の選択画面・貼り付け・CSV 取り込みから入った値も対象で、一覧のインライン編集も保存時にチェックします。サブテーブルは行番号付きでエラーを表示します。ただしモバイルからの保存と REST API での更新はチェックされません（プラグインが動作しないため）。',
-  },
-  {
-    q: '条件を後から変えたとき、前の条件で選んだ値はどうなりますか？',
-    a: 'フィールドごとに「条件のフィールドが変わったとき＝何もしない／警告を表示する／候補外になった値を自動で外す」を選べます。たとえば申請種別を「経費」から「有給」に変えたときに、経費用の承認者が残ったままになるのを防げます。画面を開いた時点では自動で外さず、警告だけを表示します。',
-  },
-  {
-    q: '承認者に自分を選ばせないようにできますか？',
-    a: 'はい。候補ルールの「操作している自分を候補から除外する」を ON にすると、その人自身が候補に出なくなります。自己承認や自分への割り当てを、選択の段階で防げます。',
-  },
-  {
-    q: '候補データが古いとどうなりますか？',
-    a: '設定画面のバッジとレコード画面の候補パネルに、候補データの最終更新日と経過日数が表示され、しきい値（既定30日）を超えると注意表示になります。古い状態では、保存のブロックと値の自動クリアを行わず、確認ダイアログと警告に切り替わります。古い名簿のせいで、入社・異動したばかりの担当者を入力できなくなるのを避けるためです。この場合は設定画面で「候補データを更新」を実行してください。',
-  },
-  {
-    q: '設定した候補が正しいか、保存する前に確認できますか？',
-    a: 'はい。設定画面の左側にライブプレビューがあり、ルールごとに「誰が候補に出るか」（人数と氏名・役職）を表示します。視点ユーザーを切り替えられるので、「自分と同じ所属組織」のように利用者基準で決まるルールも、実際に使う人の見え方で確認できます。レコード画面と同じ計算を使っているため、プレビューと実際の候補はずれません。',
-  },
-  {
-    q: 'v1 から更新すると動作が変わりますか？',
-    a: '既存の設定の動作は変わりません。v2.0.0 で追加した「保存するときのチェック」と「条件のフィールドが変わったときの再確認」は、これまでの設定では「何もしない」で読み込まれます。使いたいフィールドで個別に切り替えてください。プラグインIDは変わらないため、上書きアップロードで設定はそのまま引き継がれます。',
-  },
-  {
-    q: 'サブテーブル内のフィールドでも使えますか？',
-    a: 'はい。サブテーブル内のユーザー選択・組織選択・グループ選択フィールドにも対応し、同じ行の値を条件に使えます。行ごとに担当者の候補を切り替えられます。',
-  },
-  {
-    q: '外部にデータが送られませんか？',
-    a: '業務データを外部へ送信しません。組織・役職などの情報は自ドメインの共通管理 API から取得し、候補データは貴社の kintone 環境内の保管アプリにのみ保存します。外部通信はライセンス認証（プラグインIDとドメイン名）と最新版チェックのみです。',
-  },
-  {
-    q: 'ゲストスペースのアプリでも使えますか？',
-    a: 'はい、ゲストスペース内のアプリでも利用できます。ゲストスペースでは kintone の仕様により所属情報の取得が制限されるため、候補データのキャッシュから所属を判定します。',
-  },
-  {
-    q: '単品で購入できますか？',
-    a: '本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで1フィールドに全機能をお試しいただけます。複数フィールドへの適用・広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。',
-  },
-];
-const faqJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  '@id': `${pageUrl}#faq`,
-  mainEntity: faqs.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-};
 ---
 
 <Layout
@@ -167,7 +95,6 @@ const faqJsonLd = {
       ]
     }
     </script>
-    <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
   </Fragment>
 
   <style is:global>
@@ -328,30 +255,6 @@ const faqJsonLd = {
     .update-shot.wide { max-width: 620px; }
     .update-shot.narrow { max-width: 440px; }
 
-    /* ===== FAQ accordion ===== */
-    .afp-faq-list { display: grid; gap: 10px; max-width: 980px; margin: 0 auto; }
-    .afp-faq {
-      background: var(--color-white); border: 1px solid #e2e8f0; border-radius: 10px;
-      overflow: hidden; transition: border-color .18s ease, box-shadow .18s ease;
-    }
-    .afp-faq[open] { border-color: var(--color-navy); box-shadow: 0 4px 12px rgba(27,58,107,0.08); }
-    .afp-faq summary {
-      list-style: none; cursor: pointer; padding: 16px 20px; display: flex;
-      align-items: center; justify-content: space-between; gap: 16px;
-      color: var(--color-navy); font-weight: 700; font-size: 0.98rem; line-height: 1.6;
-    }
-    .afp-faq summary::-webkit-details-marker { display: none; }
-    .afp-faq-q { flex: 1; }
-    .afp-faq-icon { position: relative; width: 16px; height: 16px; flex-shrink: 0; }
-    .afp-faq-icon::before, .afp-faq-icon::after {
-      content: ''; position: absolute; background: var(--color-green); transition: transform .18s ease;
-    }
-    .afp-faq-icon::before { top: 50%; left: 0; right: 0; height: 2px; transform: translateY(-50%); }
-    .afp-faq-icon::after { left: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(-50%); }
-    .afp-faq[open] .afp-faq-icon::after { transform: translateX(-50%) scaleY(0); }
-    .afp-faq-a {
-      padding: 0 20px 18px; color: var(--color-text-main); font-size: 0.95rem; line-height: 1.9;
-    }
     @media (max-width: 768px) {
       .update-box { padding: 24px 20px 28px; }
       .update-title { font-size: 17px; }
@@ -668,23 +571,13 @@ const faqJsonLd = {
       </div>
     </section>
 
-    <!-- よくある質問（表示と JSON-LD は frontmatter の faqs を共有） -->
-    <section class="afp-section alt" aria-labelledby="afp-faq-heading">
-      <div class="afp-wrap">
-        <h2 class="afp-h2" id="afp-faq-heading">よくある質問</h2>
-        <div class="afp-faq-list">
-          {faqs.map((f) => (
-            <details class="afp-faq">
-              <summary>
-                <span class="afp-faq-q">{f.q}</span>
-                <span class="afp-faq-icon" aria-hidden="true"></span>
-              </summary>
-              <div class="afp-faq-a">{f.a}</div>
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
+    <!-- よくある質問（表示と FAQPage JSON-LD は src/data/premium-faqs.ts を共有） -->
+    <PremiumFaqSection
+      pluginId="kw-attribute-filter"
+      pageUrl="https://kizuna-works.jp/plugins/attribute-filter/"
+      headingClass="afp-h2"
+      alt
+    />
 
     <!-- セキュリティ -->
     <section class="afp-section">

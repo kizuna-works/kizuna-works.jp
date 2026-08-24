@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import { recipes, widgetTypeLabels } from '../../../data/recipes';
 import TrialBanner from '../../../components/TrialBanner.astro';
@@ -91,19 +92,6 @@ const teaser = teaserIds
             "集計キャッシュで大規模データを高速描画（プレミアム）",
             "設定画面のライブプレビュー（ボード全体・カード個別）",
             "グラフは自社配信のChart.jsをSRI付きで読込・集計はブラウザ内完結で外部送信なし"
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            { "@type": "Question", "name": "kintoneをBIツールのようにデータ可視化に使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。ダッシュボード for kintone は、グラフ・数値カード・クロス集計表を1枚に集約してレコード一覧やポータルに常設し、kintone のデータを外部のBIツールに出さずに可視化できるプラグインです。期間連動の再集計やアプリ横断集計にも対応します。" } },
-            { "@type": "Question", "name": "標準のグラフと何が違いますか？", "acceptedAnswer": { "@type": "Answer", "text": "kintone標準のグラフは1グラフ1画面ですが、本プラグインは複数のグラフ・数値カード・クロス集計を1枚のボードに集約し、ポータルに常設したり複数アプリの数字を横断集計したりできます。" } },
-            { "@type": "Question", "name": "ダッシュボードが表示されません。", "acceptedAnswer": { "@type": "Answer", "text": "対象アプリに「カスタマイズ」表示形式のビューがあり、そのビューがボードに割り当てられているか、設定後にアプリを更新（デプロイ）したかをご確認ください。" } },
-            { "@type": "Question", "name": "数値や棒グラフが一瞬出ないことがあります。", "acceptedAnswer": { "@type": "Answer", "text": "データ取得中は「集計中…」を表示します。件数が多い場合は読み込みに数秒かかります。集計キャッシュのご利用で高速化できます。" } },
-            { "@type": "Question", "name": "複数のアプリの数字を1枚で見られますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。アプリ横断集計（プレミアム）で、複数アプリのデータソースを1つのボードに集約できます。" } },
-            { "@type": "Question", "name": "外部にデータが送られませんか？", "acceptedAnswer": { "@type": "Answer", "text": "集計はすべてブラウザ内で行い、業務データを外部へ送信しません。グラフ描画用の Chart.js は自社サーバーから SRI 付きで読み込み、第三者 CDN は使用しません。" } },
-            { "@type": "Question", "name": "ゲストスペースのアプリでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、ゲストスペース内のアプリでも利用できます。" } },
-            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと、本プラグインと販売中の全プラグインを利用できます。" } }
           ]
         }
       ]
@@ -540,6 +528,13 @@ const teaser = teaserIds
         </div>
       </div>
     </section>
+    <!-- よくある質問（表示と FAQPage JSON-LD は src/data/premium-faqs.ts を共有） -->
+    <PremiumFaqSection
+      pluginId="kw-dashboard"
+      pageUrl="https://kizuna-works.jp/plugins/dashboard/"
+      headingClass="dbp-h2"
+    />
+
 
     <!-- セキュリティ -->
     <section class="dbp-section alt">

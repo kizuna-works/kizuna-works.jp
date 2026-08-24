@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import TrialBanner from '../../../components/TrialBanner.astro';
 ---
@@ -85,25 +86,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             "参照先での入力時の自動補完（PC・モバイル両対応）",
             "ルックアップをクリアしたときに、同期で取得した項目も確認ダイアログでまとめて空に戻せる（方式2・v2.2.0）",
             "kintone 完結・外部送信なし・ゲストスペース対応"
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            { "@type": "Question", "name": "kintoneでマスターを更新したとき、ルックアップのコピー値も更新できますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。ルックアップ自動同期 for kintone は、ルックアップ元（マスター）のレコードを更新すると、その値をコピーしている参照先アプリの既存レコードを自動で追従更新します。マスターの会社名や単価を直しても、過去にルックアップ済みの参照先レコードが古いまま残る問題を解消します。" } },
-            { "@type": "Question", "name": "どちらのアプリに追加しますか？", "acceptedAnswer": { "@type": "Answer", "text": "ルックアップ元（参照される側＝マスター）アプリに追加します。参照している側のアプリではありません。マスターのレコードを保存したときに、参照先を更新しに行く動きです。" } },
-            { "@type": "Question", "name": "対象アプリやフィールドの設定は難しいですか？", "acceptedAnswer": { "@type": "Answer", "text": "設定画面の「スキャン実行」を押すと、このマスターを参照しているルックアップフィールドをドメイン内から自動検出します。コピーするフィールド（フィールドマッピング）も各ルックアップ設定から自動で読み取るため、手入力のマッピングは不要です。" } },
-            { "@type": "Question", "name": "サブテーブル内のルックアップにも対応していますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。トップレベルのルックアップだけでなく、サブテーブル内のルックアップにも対応し、該当する行ごとにコピー値を追従更新します。" } },
-            { "@type": "Question", "name": "導入前からある既存レコードも最新化できますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。各対象の「今すぐ全件同期」を押すと、参照先アプリの既存レコードすべてのコピー値を、現在のマスターの値で一括更新します。プラグイン導入前に作られたレコードや反映漏れの修正に使えます（件数無制限・100件ずつ分割実行）。" } },
-            { "@type": "Question", "name": "レコード数が多くても大丈夫ですか？", "acceptedAnswer": { "@type": "Answer", "text": "上限はありません。カーソル方式で分割取得し、100件ずつ更新します。数百〜数千件でも動作を確認しています。" } },
-            { "@type": "Question", "name": "特定のコピー項目だけ更新できますか？", "acceptedAnswer": { "@type": "Answer", "text": "できません。kintone の仕様上、ルックアップキーを再セットするとそのルックアップに設定された全コピー項目が一括で再取得されるため、同期は常に「ルックアップ設定に従って一括」で行われます。" } },
-            { "@type": "Question", "name": "外部にデータが送られませんか？", "acceptedAnswer": { "@type": "Answer", "text": "業務データを外部へ送信しません。同期はすべて自ドメインの kintone REST API で完結します。外部通信はライセンス認証（プラグインIDとドメイン名）と更新通知の確認のみです。" } },
-            { "@type": "Question", "name": "ゲストスペースのアプリでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、ゲストスペース内のアプリでも利用できます。" } },
-            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで1組の参照先に全機能をお試しいただけます。複数の参照先へまとめて同期する機能・広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。" } },
-            { "@type": "Question", "name": "「値の重複を禁止する」が設定されていないキー（会社名・商品名など）のルックアップでも同期できますか？", "acceptedAnswer": { "@type": "Answer", "text": "v2.0.2 で対応しました。重複しうるキーのルックアップでは、目的に応じて方式1（表示のみ・軽量）または方式2（デタッチして自動同期・同名でもマスターのレコード番号で正確に照合）を選べます。運用上ゆるされる場合は、コピー元キーを一意（重複禁止）にするのが最もシンプルで確実です。" } },
-            { "@type": "Question", "name": "方式1と方式2はどう違いますか？", "acceptedAnswer": { "@type": "Answer", "text": "方式1は「表示のみ（軽量）」で、アプリ構成を変えずに詳細画面でマスター更新を通知し、ワンクリックで再取得・保存します。ただし一覧・集計・CSV には自動反映されません。方式2は「デタッチして自動同期」で、コピー先をルックアップから外してプラグインが直接更新するため、保存値が実体化して一覧・集計・CSV にも反映され、入力時の自動補完（PC・モバイル）にも対応します。全ビュー・全項目で最新化したい場合は方式2をおすすめします。" } },
-            { "@type": "Question", "name": "方式2を選ぶと、参照先アプリの設定は変わりますか？元に戻せますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。方式2は同期対象のフィールドをルックアップの「他のフィールドのコピー」設定から外し（デタッチ）、照合用の不可視フィールド（マスターのレコード番号）を追加します。この初期設定を実行する管理者アカウントに、参照先アプリのアプリ管理権限が必要です。設定画面の「元に戻す（再アタッチ）」でいつでも元のコピー設定に戻せます。レコードを入力するだけの一般ユーザーには特別な権限は不要です。" } },
-            { "@type": "Question", "name": "モバイルでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "方式2の入力時の自動補完は PC・モバイルの両方に対応しています。マスター保存時の自動同期と方式1（表示のみ）は現在 PC のみの対応です。" } }
           ]
         }
       ]
@@ -704,6 +686,14 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         </div>
       </div>
     </section>
+    <!-- よくある質問（表示と FAQPage JSON-LD は src/data/premium-faqs.ts を共有） -->
+    <PremiumFaqSection
+      pluginId="kw-lookup-sync"
+      pageUrl="https://kizuna-works.jp/plugins/lookup-sync/"
+      headingClass="afp-h2"
+      alt
+    />
+
 
     <!-- セキュリティ -->
     <section class="afp-section">

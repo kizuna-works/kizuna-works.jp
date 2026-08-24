@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import TrialBanner from '../../../components/TrialBanner.astro';
 ---
@@ -84,21 +85,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             "ステータス別チェックリストの消化・完了率表示・未完了ならプロセス管理のアクションを実行させない",
             "アプリの入力ルール・運用手順・FAQをMarkdownでサイドバーに常設",
             "kintone完結。外部サービスへ業務データを送信しない"
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            { "@type": "Question", "name": "既存アプリのフォームは変わってしまいますか？", "acceptedAnswer": { "@type": "Answer", "text": "変わりません。本プラグインは右サイドバー（コメント・変更履歴が並んでいる場所）にタブを追加するだけで、フォームのフィールド配置には手を加えません。そのため、すでに運用中のアプリへ後から入れても本体の見た目が崩れません。なお「進捗」タブを使う場合のみ、ステータスの変更履歴を保存する専用フィールドを2つ追加しますが、レコード画面では自動的に非表示になるため利用者の目には触れません。" } },
-            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。無料プランでは5つの機能のうち1つを、機能の中身を制限せずお試しいただけます（利用期限なし）。複数の機能を同時に使うには、プレミアム年間サポーター（税込 ¥16,500/年）にご加入ください。販売中の全プラグインも利用できます。" } },
-            { "@type": "Question", "name": "「進捗」タブはどの kintone 機能を使うものですか？プロセス管理は必須ですか？", "acceptedAnswer": { "@type": "Answer", "text": "kintone の「プロセス管理」（アプリの設定でステータスとアクションを定義する機能）を使っているアプリ向けのタブです。プロセス管理が無効なアプリでは、このタブは表示されません。表示されるのは、プロセス管理のアクションによってステータスがどう変わってきたか（どのアクションで・いつ・誰が）と、現在のステータスに何日とどまっているかです。" } },
-            { "@type": "Question", "name": "過去のステータス変更も表示されますか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。kintone にはプロセス管理のステータス変更履歴を取り出す API がないため、本プラグインはアクションが実行された時点で自分で記録します。したがって表示できるのは導入後に実行されたアクションだけです。導入前に通過したとみられるステータスは、まだ通っていない状態と区別できるようグレーの「記録なし」として表示し、凡例と注記も添えます。導入後の変更は、アクション名・日時・実行者つきで記録されます。" } },
-            { "@type": "Question", "name": "リンクタブで表示できないサイトがありますか？", "acceptedAnswer": { "@type": "Answer", "text": "あります。セキュリティ設定で他サイトへの埋め込みを禁止しているサイト（金融機関や行政サイトなどに多い）は、仕様上どのプラグインでも埋め込めません。その場合は自動的に「別タブで開く」ボタンへ切り替わるので、操作が行き止まりになることはありません。Googleマップの共有URLは、埋め込み可能な形式へ自動で書き換えてから表示します。" } },
-            { "@type": "Question", "name": "「追加」タブでサブテーブルも登録できますか？", "acceptedAnswer": { "@type": "Answer", "text": "現時点では対応していません。サブテーブル以外のフィールド型（文字列・数値・日付・選択系・ユーザー選択・ルックアップ・添付ファイルなど）はすべて登録できます。サブテーブルへの入力は、レコードを追加したあとにレコード本体で行ってください。" } },
-            { "@type": "Question", "name": "スマートフォンでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "現時点では PC 版のみの対応です。モバイル版はサイドバーの構造が異なるため、タブは表示されません（画面が乱れることはありません）。外出先での閲覧が中心の運用では、この点をご確認のうえご検討ください。" } },
-            { "@type": "Question", "name": "チェックリストの内容は、担当者が変わっても引き継げますか？", "acceptedAnswer": { "@type": "Answer", "text": "引き継げます。チェック状態はレコード本体ではなく、同じスペース内に自動生成する保管アプリへ保存し、閲覧と編集は全員に許可しています（削除だけを管理者に限定）。そのため、前の担当者が途中まで消化したチェックの続きを、別の担当者がそのまま進められます。レコードの変更履歴を汚さない設計です。" } },
-            { "@type": "Question", "name": "ほかのプラグインと同時に使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "使えます。既読チェック・コメントコントロール・クイックタブ・アコーディオンタブ・クイック目次・テーマスタイラー・住所アシストとの同時利用を実機で確認しています。とくに既読チェックとは同じサイドバーにタブが並びますが、表示順は「標準タブ → サイドバー拡張の5タブ → 既読」で固定され、どちらを先にインストールしても変わりません。タブを切り替えると相手のパネルは自動で閉じるため、内容が重なって表示されることもありません。" } },
-            { "@type": "Question", "name": "ゲストスペースでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "使えます。ゲストスペース内のアプリでも、設定画面と5つの機能すべてが動作することを確認しています。" } }
           ]
         }
       ]
@@ -643,6 +629,13 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         </div>
       </div>
     </section>
+    <!-- よくある質問（表示と FAQPage JSON-LD は src/data/premium-faqs.ts を共有） -->
+    <PremiumFaqSection
+      pluginId="kw-sidebar-enhancer"
+      pageUrl="https://kizuna-works.jp/plugins/sidebar-enhancer/"
+      headingClass="afp-h2"
+    />
+
 
     <!-- 安心ボックス -->
     <section class="afp-section alt">

@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import TrialBanner from '../../../components/TrialBanner.astro';
 ---
@@ -83,17 +84,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             "設定画面はライブプレビュー付き。複数の一覧ビューへ設定を保存・適用（プレミアム）",
             "ドラッグ&ドロップはkintoneの権限・プロセス管理の遷移制約に準拠",
             "表示・変更はすべて自ドメインの kintone REST API で完結・外部送信なし"
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで1つの一覧ビューに、状態カード・詳細カード・ドラッグ&ドロップ・連動/個別モードまで全機能をお試しいただけます。複数ビューへの適用と広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。" } },
-            { "@type": "Question", "name": "一覧の絞り込みは効きますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。対象の一覧ビューに設定した絞り込み条件・並び順は、カードボードにもそのまま反映されます。絞り込んだレコードだけがカード化され、状態カードの件数・集計値も絞り込み後の内容で再計算されます。一覧上部の「絞り込む」で条件を変えると、ボードも連動して絞り込まれます。" } },
-            { "@type": "Question", "name": "どんなフィールドで状態分けできますか？", "acceptedAnswer": { "@type": "Answer", "text": "プロセス管理ステータス・ドロップダウン・ラジオボタン・文字列1行でグルーピングできます。詳細カードを状態カードへドラッグ&ドロップすると、その値へ変更できます（文字列は既定で無効・設定で有効化）。プロセス管理の場合は遷移できる状態のみにドロップでき、必要に応じて次の作業者を選ぶモーダルが表示されます。" } },
-            { "@type": "Question", "name": "カードに写真を出せますか？", "acceptedAnswer": { "@type": "Answer", "text": "添付ファイルフィールドの画像をサムネイルとして表示できます。配置（上/下/左/右）・表示方法（cover＝埋める / contain＝全体表示）・サイズ・背景色を設定できます。物件・商品・従業員名簿などを写真つきカードで一覧共有できます。" } },
-            { "@type": "Question", "name": "複数の一覧をカードボードにできますか？", "acceptedAnswer": { "@type": "Answer", "text": "プレミアム年間サポーターで、複数の一覧ビューへ無制限にカードボードを適用できます（無料プランは1ビューまで）。ビューごとにグルーピング・レイアウト・配色を個別に保存できます。" } },
-            { "@type": "Question", "name": "外部にデータは送信されますか？", "acceptedAnswer": { "@type": "Answer", "text": "レコードの取得・変更・サムネイル画像の取得はすべて kintone 内（同一ドメインの REST API）で完結し、業務データを外部へ送信しません。第三者 CDN や外部サーバーも使いません。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。" } }
           ]
         }
       ]
@@ -581,6 +571,14 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         </div>
       </div>
     </section>
+    <!-- よくある質問（表示と FAQPage JSON-LD は src/data/premium-faqs.ts を共有） -->
+    <PremiumFaqSection
+      pluginId="kw-card-board"
+      pageUrl="https://kizuna-works.jp/plugins/card-board/"
+      headingClass="afp-h2"
+      alt
+    />
+
 
     <!-- セキュリティ -->
     <section class="afp-section">

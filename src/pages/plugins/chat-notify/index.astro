@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import TrialBanner from '../../../components/TrialBanner.astro';
 ---
@@ -83,18 +84,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             "送信履歴を同一スペースの保管アプリへ記録し、失敗時は kintone のベル通知で管理者へ連絡",
             "URLを貼るだけでサービス種別を自動判定し、保存後はマスク表示",
             "中継サーバー不要。kintone から Webhook へ直接送信（当社サーバーを経由しない）"
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで通知ルール1本まで、6種類のきっかけ・条件・差し込みテンプレートまで全機能をお試しいただけます。ルールを複数動かすには、プレミアム年間サポーター（税込 ¥16,500/年）にご加入ください。販売中の全プラグインも利用できます。" } },
-            { "@type": "Question", "name": "中継サーバーやGASの準備は必要ですか？", "acceptedAnswer": { "@type": "Answer", "text": "不要です。kintone から各チャットサービスの Webhook へ直接送信します。当社のサーバーを経由しないため、通知の本文が第三者に渡ることはありません。ご用意いただくのは、チャット側で発行する Webhook URL だけです。" } },
-            { "@type": "Question", "name": "スマートフォンからレコードを登録しても通知されますか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。本プラグインは PC 版の kintone でのみ動作します。モバイル版ではプラグイン自体が読み込まれないため、スマートフォンからレコードを追加・更新・削除しても通知は送信されません（画面が乱れることはありません）。外回りの担当者がスマホから登録する運用では通知が届かない点にご注意ください。" } },
-            { "@type": "Question", "name": "毎回の保存で通知が飛んで、うるさくなりませんか？", "acceptedAnswer": { "@type": "Answer", "text": "既定では「値に変更があったときだけ」通知します。値を変えずに保存した場合は送信されません。さらに「指定した項目が変わったときだけ」に絞ることもできます。加えて、最大5件の条件（例：金額が100万円以上、区分がAまたはC）をAND/ORで組み合わせ、通知する対象を絞り込めます。" } },
-            { "@type": "Question", "name": "Teams でメンションはできますか？", "acceptedAnswer": { "@type": "Answer", "text": "できません。Microsoft Teams のワークフロー経由の投稿では、メンション記法が解釈されないためです。全員メンションは Slack（@channel）と Google Chat（@all）でご利用いただけます。なお、条件を設定せずに全員メンションを有効にすると保存のたびに全員へプッシュが飛ぶため、設定画面で警告を表示します。" } },
-            { "@type": "Question", "name": "送信に失敗したときは分かりますか？", "acceptedAnswer": { "@type": "Answer", "text": "同じスペース内に自動生成する保管アプリへ、送信日時・ルール名・送信先・本文・結果・エラー内容を記録します。失敗した場合は、設定した宛先へ kintone のベル通知が届きます。記録モードは「すべて記録」「エラーのみ記録」「記録しない」から選べます。保管アプリは一般ユーザーからは閲覧できません（追加のみ可）。" } },
-            { "@type": "Question", "name": "Webhook URL は安全に保管されますか？", "acceptedAnswer": { "@type": "Answer", "text": "設定画面では伏字で表示され、kintone のプラグイン設定領域に保存されます。ただし、Webhook URL は kintone のプロキシ経由で送信される都合上、アプリ管理権限を持つ方には確認できる可能性があります。「誰にも見えない」とは申し上げられません。URL が漏れた場合は、チャット側で Webhook を再発行すれば古い URL は無効になります。" } }
           ]
         }
       ]
@@ -684,6 +673,13 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         </div>
       </div>
     </section>
+    <!-- よくある質問（表示と FAQPage JSON-LD は src/data/premium-faqs.ts を共有） -->
+    <PremiumFaqSection
+      pluginId="kw-chat-notify"
+      pageUrl="https://kizuna-works.jp/plugins/chat-notify/"
+      headingClass="afp-h2"
+    />
+
 
     <!-- 安心ボックス -->
     <section class="afp-section alt">
