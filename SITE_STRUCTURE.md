@@ -167,7 +167,7 @@ c:\kizuna-works.jp\
 │   │   │   │   └── recipes/
 │   │   │   │       └── index.astro # ダッシュボード設定レシピ集（/plugins/dashboard/recipes/）— ウィジェット種別ごとに「目的→設定手順→完成イメージ」を掲載。アコーディオン＋種別/目的タグ/検索フィルタ。データは src/data/recipes.ts、画像は /images/dashboard/recipes/。第1バッチ22レシピ（順次拡張）
 │   │   │   ├── attribute-filter/
-│   │   │   │   └── index.astro # 【プレミアムプラグイン】属性制御フィルター製品ページ（/plugins/attribute-filter/）— ユーザー/組織/グループ選択の候補を役職・所属・他フィールド値・ステータスで自動絞り込み。標準表示 vs 絞り込みのBefore/After、設定画面（組織/ユーザー/グループ条件）スクショ、主な機能、無料/プレミアム比較、インストール手順、SecurityBox。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。スクショはライトボックスで拡大。kintone完結・ゲスト対応
+│   │   │   │   └── index.astro # 【プレミアムプラグイン】属性制御フィルター製品ページ（/plugins/attribute-filter/）— ユーザー/組織/グループ選択の候補を役職・所属・他フィールド値・ステータスで自動絞り込み。v2.0.0 UPDATEボックス（キーボード操作・候補外の値の保存時ブロック/確認・条件変更時の自動クリア・ライブプレビュー）、標準表示 vs 絞り込みのBefore/After、設定画面（組織/ユーザー/グループ条件）スクショ、主な機能、無料/プレミアム比較、インストール手順、**よくある質問（14問。frontmatter の faqs を表示アコーディオンと FAQPage JSON-LD で共用）**、SecurityBox。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。スクショはライトボックスで拡大。kintone完結・ゲスト対応
 │   │   │   ├── sidebar-enhancer/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】サイドバー拡張 製品ページ（/plugins/sidebar-enhancer/）— レコード詳細画面の右サイドバー（コメント/変更履歴の隣）に独自タブを最大5つ増設。**フォームのレイアウトは一切変更しない**ため運用中アプリへ後付け可。①起票=値を引き継いで他アプリ/自アプリへ新規レコード作成（全フィールド型・サブテーブル除く／表示項目と並び順を選択／固定値／引き継ぎ値のロック／保存後4種）②リンク=フィールドのURLをiframe表示＋Googleマップ共有URLをoutput=embedへ自動変換（拒否サイトは別タブボタンへ）③進捗=遷移履歴の縦ステッパー（実行者・日時）＋滞留日数をしきい値と色で段階警告＋導入前は「記録なし」の第3状態④確認=ステータス別チェックリストの消化/完了率/遷移ブロック（保管アプリへ分離・編集は全員可で引き継ぎ可）⑤ガイド=入力ルール/手順/FAQをMarkdownで常設。ヒーロー＋課題＋全体像＋5機能＋主な機能6＋他プラグイン併用（既読チェックのタブ順固定・住所アシスト連携で郵便番号→住所→マップURL→地図）＋設定画面4ステップ＋プラン＋手順＋注意＋SecurityBox＋ShareButtons＋FAQ9＋CTA。単品販売なし＝プレミアム年間サポーターに含む。**PC版のみ（モバイル非対応）**
 │   │   │   ├── chat-notify/
@@ -645,6 +645,9 @@ c:\kizuna-works.jp\
 │   │   ├── attribute-filter-after-org.png/.webp   # After：申請種別で申請先組織がシステム開発部だけに絞られる
 │   │   ├── attribute-filter-config-org.png/.webp  # 設定画面：組織条件（親子ツリー＋申請種別条件）
 │   │   ├── attribute-filter-config-user.png/.webp # 設定画面：ユーザー条件（指定した役職＝課長）
+│   │   ├── attribute-filter-update-config.png/.webp   # v2.0.0：設定画面（左に目次＋ライブプレビュー・視点ユーザー切替）
+│   │   ├── attribute-filter-update-validate.png/.webp # v2.0.0：候補外の値の扱い（保存時ブロック／条件変更時の自動クリア）
+│   │   ├── attribute-filter-update-keyboard.png/.webp # v2.0.0：候補パネルのキーボード操作（↓でハイライト・鮮度表示）
 │   │   ├── attribute-filter-config-group.png/.webp # 設定画面：グループ条件（指定したグループ）
 │   │   ├── lookup-sync-banner.png/.webp      # ルックアップ自動同期 for kintone 見出しバナー（OGP/グリッド共用・1200×630）
 │   │   ├── lookup-sync-icon.png              # ルックアップ自動同期 for kintone アイコン（hero・200×200）

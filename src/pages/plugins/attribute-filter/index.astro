@@ -3,13 +3,87 @@ import Layout from '../../../layouts/Layout.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import TrialBanner from '../../../components/TrialBanner.astro';
+
+// FAQ is defined once here and used for BOTH the visible accordion and the
+// FAQPage JSON-LD, so the structured data always matches what the page shows.
+// (The shared PluginFaqSection component is not used: its common questions
+// assume the free "ちょこっと" model, which is wrong for a premium plugin.)
+const pageUrl = 'https://kizuna-works.jp/plugins/attribute-filter/';
+const faqs: { q: string; a: string }[] = [
+  {
+    q: 'kintone で担当者や申請先の候補を絞り込めますか？',
+    a: 'はい。属性制御フィルター for kintone は、ユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・他フィールドの値・プロセス管理のステータスに応じて自動で絞り込むプラグインです。申請先や承認者を、部署外の人まで含めた全員から選ばせずに済みます。',
+  },
+  {
+    q: 'kintone 標準の機能と何が違いますか？',
+    a: 'kintone 標準のユーザー選択・組織選択は、常に全ユーザー・全組織が候補になります。本プラグインは、役職が課長の人だけ・申請種別が「情報システム依頼」ならシステム開発部だけ、のように条件に応じて候補を絞り込み、誤選択を防ぎます。さらに候補外の値が入っていた場合は、保存時にブロックまたは確認できます。',
+  },
+  {
+    q: '役職で承認者を絞り込めますか？',
+    a: 'はい。「指定した役職のユーザー」を候補にできます。たとえば部内承認者は課長、最終承認者は部長、のように役職で候補を限定できます。役職の一覧は候補データの更新時に自動で収集されます。',
+  },
+  {
+    q: 'キーボードだけで入力できますか？',
+    a: 'はい。↓キーで候補パネルを開き、↑↓で候補を移動して Enter で確定、Esc で閉じられます。候補が1件のときは Enter だけで入力できます。文字を入力してから絞り込むこともできます。',
+  },
+  {
+    q: '候補外の値が入るのを防げますか？',
+    a: 'はい。フィールドごとに「保存するとき＝何もしない／確認する／保存をブロックする」を設定できます。標準の選択画面・貼り付け・CSV 取り込みから入った値も対象で、一覧のインライン編集も保存時にチェックします。サブテーブルは行番号付きでエラーを表示します。ただしモバイルからの保存と REST API での更新はチェックされません（プラグインが動作しないため）。',
+  },
+  {
+    q: '条件を後から変えたとき、前の条件で選んだ値はどうなりますか？',
+    a: 'フィールドごとに「条件のフィールドが変わったとき＝何もしない／警告を表示する／候補外になった値を自動で外す」を選べます。たとえば申請種別を「経費」から「有給」に変えたときに、経費用の承認者が残ったままになるのを防げます。画面を開いた時点では自動で外さず、警告だけを表示します。',
+  },
+  {
+    q: '承認者に自分を選ばせないようにできますか？',
+    a: 'はい。候補ルールの「操作している自分を候補から除外する」を ON にすると、その人自身が候補に出なくなります。自己承認や自分への割り当てを、選択の段階で防げます。',
+  },
+  {
+    q: '候補データが古いとどうなりますか？',
+    a: '設定画面のバッジとレコード画面の候補パネルに、候補データの最終更新日と経過日数が表示され、しきい値（既定30日）を超えると注意表示になります。古い状態では、保存のブロックと値の自動クリアを行わず、確認ダイアログと警告に切り替わります。古い名簿のせいで、入社・異動したばかりの担当者を入力できなくなるのを避けるためです。この場合は設定画面で「候補データを更新」を実行してください。',
+  },
+  {
+    q: '設定した候補が正しいか、保存する前に確認できますか？',
+    a: 'はい。設定画面の左側にライブプレビューがあり、ルールごとに「誰が候補に出るか」（人数と氏名・役職）を表示します。視点ユーザーを切り替えられるので、「自分と同じ所属組織」のように利用者基準で決まるルールも、実際に使う人の見え方で確認できます。レコード画面と同じ計算を使っているため、プレビューと実際の候補はずれません。',
+  },
+  {
+    q: 'v1 から更新すると動作が変わりますか？',
+    a: '既存の設定の動作は変わりません。v2.0.0 で追加した「保存するときのチェック」と「条件のフィールドが変わったときの再確認」は、これまでの設定では「何もしない」で読み込まれます。使いたいフィールドで個別に切り替えてください。プラグインIDは変わらないため、上書きアップロードで設定はそのまま引き継がれます。',
+  },
+  {
+    q: 'サブテーブル内のフィールドでも使えますか？',
+    a: 'はい。サブテーブル内のユーザー選択・組織選択・グループ選択フィールドにも対応し、同じ行の値を条件に使えます。行ごとに担当者の候補を切り替えられます。',
+  },
+  {
+    q: '外部にデータが送られませんか？',
+    a: '業務データを外部へ送信しません。組織・役職などの情報は自ドメインの共通管理 API から取得し、候補データは貴社の kintone 環境内の保管アプリにのみ保存します。外部通信はライセンス認証（プラグインIDとドメイン名）と最新版チェックのみです。',
+  },
+  {
+    q: 'ゲストスペースのアプリでも使えますか？',
+    a: 'はい、ゲストスペース内のアプリでも利用できます。ゲストスペースでは kintone の仕様により所属情報の取得が制限されるため、候補データのキャッシュから所属を判定します。',
+  },
+  {
+    q: '単品で購入できますか？',
+    a: '本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで1フィールドに全機能をお試しいただけます。複数フィールドへの適用・広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。',
+  },
+];
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${pageUrl}#faq`,
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 
 <Layout
   title="属性制御フィルター for kintone｜ユーザー・組織・グループ選択の候補を絞り込み | KIZUNA Works"
-  description="kintone のユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・申請種別などの条件で自動的に絞り込むプラグイン。申請先や承認者の部署外への誤選択を防ぎ、キーワードサジェストで素早く選べます。kintone完結のプレミアムプラグイン。"
+  description="kintone のユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・申請種別などの条件で自動的に絞り込むプラグイン。候補外の値は保存時チェックでブロックでき、キーワードとキーボード操作で素早く選べます。kintone完結のプレミアムプラグイン。"
   ogTitle="属性制御フィルター for kintone｜ユーザー・組織・グループ選択の候補を絞り込み | KIZUNA Works"
-  ogDescription="kintone のユーザー・組織・グループ選択の候補を、役職・所属・申請種別などの条件で自動的に絞り込むプラグイン。部署外への誤選択を防ぎ、キーワードで素早く選べるプレミアムプラグイン。"
+  ogDescription="kintone のユーザー・組織・グループ選択の候補を、役職・所属・申請種別などの条件で自動的に絞り込むプラグイン。候補外の値は保存時にブロックでき、キーボードで素早く選べるプレミアムプラグイン。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/attribute-filter/"
   ogImage="https://kizuna-works.jp/images/attribute-filter-banner.png"
@@ -25,7 +99,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "@id": "https://kizuna-works.jp/plugins/attribute-filter/",
           "url": "https://kizuna-works.jp/plugins/attribute-filter/",
           "name": "属性制御フィルター for kintone｜ユーザー・組織・グループ選択の候補を絞り込み | KIZUNA Works",
-          "description": "kintone のユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・申請種別などの条件で自動的に絞り込むプラグイン。部署外への誤選択を防ぎ、キーワードサジェストで素早く選べる。",
+          "description": "kintone のユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・申請種別などの条件で自動的に絞り込むプラグイン。候補外の値は保存時チェックでブロックでき、キーワードとキーボード操作で素早く選べる。",
           "primaryImageOfPage": {
             "@type": "ImageObject",
             "url": "https://kizuna-works.jp/images/attribute-filter-banner.png",
@@ -47,10 +121,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "属性制御フィルター for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.3",
-          "dateModified": "2026-08-12",
+          "softwareVersion": "2.0.0",
+          "dateModified": "2026-08-24",
           "url": "https://kizuna-works.jp/plugins/attribute-filter/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-attribute-filter-v1.0.3.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-attribute-filter-v2.0.0.zip",
           "image": "https://kizuna-works.jp/images/attribute-filter-banner.png",
           "offers": [
             {
@@ -70,7 +144,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、複数フィールドへの適用・広告非表示を含む全機能と、販売中の全プラグインを利用できます。単品販売はありません。"
             }
           ],
-          "description": "ユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・他フィールドの値・プロセス管理のステータスに応じて自動で絞り込む kintone プラグイン。部署外への誤選択を防ぎ、キーワードサジェストで素早く選べる。サブテーブルにも対応。",
+          "description": "ユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・他フィールドの値・プロセス管理のステータスに応じて自動で絞り込む kintone プラグイン。候補外の値は保存時チェック（ブロック／確認）と条件変更時の再検証で防止。キーワードとキーボード操作（↑↓・Enter）で素早く選べ、設定画面のライブプレビューで候補を保存前に確認できる。サブテーブルにも対応。",
           "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
           "featureList": [
             "ユーザー選択・組織選択・グループ選択フィールドの候補を条件で自動絞り込み",
@@ -78,27 +152,22 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             "親組織・子組織を含める階層指定",
             "適用条件（常に／プロセス管理のステータス／他フィールドの値：数値の以上・以下・範囲、日付、選択肢の複数一致）",
             "フィールドごとに複数ルールを合算（OR）",
-            "キーワードサジェスト（文字入力または標準ボタンでフィールド直下にフローティング表示）",
+            "キーワードサジェスト（文字入力・標準ボタン・↓キーでフィールド直下にフローティング表示）",
+            "キーボード操作（↑↓で候補移動・Enterで確定・Escで閉じる・候補1件ならEnterのみ）",
+            "候補外の値の保存時チェック（何もしない／確認する／保存をブロック）",
+            "条件のフィールドが変わったときの再検証（警告／候補外になった値を自動で外す）",
+            "ルール単位で操作者本人を候補から除外（自己承認の防止）",
+            "設定画面のライブプレビュー（視点ユーザーを切り替えて候補を保存前に確認）",
+            "候補データの鮮度表示（最終更新日と経過日数・しきい値超過で注意表示）",
+            "候補データが古いときは保存のブロックと自動クリアを行わず確認・警告に切り替え（フェイルセーフ）",
             "サブテーブル内のユーザー／組織／グループ選択フィールドにも対応",
             "候補データ保管アプリをワンクリック生成・kintone 完結で外部送信なし"
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            { "@type": "Question", "name": "kintoneで担当者や申請先の候補を絞り込めますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。属性制御フィルター for kintone は、ユーザー選択・組織選択・グループ選択フィールドの候補を、役職・所属組織・他フィールドの値・プロセス管理のステータスに応じて自動で絞り込むプラグインです。申請先や承認者を、部署外の人まで含めた全員から選ばせずに済みます。" } },
-            { "@type": "Question", "name": "kintone標準の機能と何が違いますか？", "acceptedAnswer": { "@type": "Answer", "text": "kintone標準のユーザー選択・組織選択は、常に全ユーザー・全組織が候補になります。本プラグインは、役職が課長の人だけ・申請種別が「情報システム依頼」ならシステム開発部だけ、のように条件に応じて候補を絞り込み、誤選択を防ぎます。" } },
-            { "@type": "Question", "name": "役職で承認者を絞り込めますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。「指定した役職のユーザー」を候補にできます。たとえば部内承認者は課長、最終承認者は部長、のように役職で候補を限定できます。役職の一覧はキャッシュ更新時に自動で収集されます。" } },
-            { "@type": "Question", "name": "候補が表示されません。", "acceptedAnswer": { "@type": "Answer", "text": "設定画面の「② キャッシュ」タブで保管アプリを作成し「候補データを更新」を実行したか、対象フィールドのルールが正しいかをご確認ください。組織変更・入退社の反映には候補データの再更新が必要です。" } },
-            { "@type": "Question", "name": "サブテーブル内のフィールドでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。サブテーブル内のユーザー選択・組織選択・グループ選択フィールドにも対応し、同じ行の値を条件に使えます。" } },
-            { "@type": "Question", "name": "外部にデータが送られませんか？", "acceptedAnswer": { "@type": "Answer", "text": "業務データを外部へ送信しません。組織・役職などの情報は自ドメインの共通管理APIから取得し、候補データは貴社のkintone環境内の保管アプリにのみ保存します。外部通信はライセンス認証（プラグインIDとドメイン名）のみです。" } },
-            { "@type": "Question", "name": "ゲストスペースのアプリでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、ゲストスペース内のアプリでも利用できます。" } },
-            { "@type": "Question", "name": "単品で購入できますか？", "acceptedAnswer": { "@type": "Answer", "text": "本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで1フィールドに全機能をお試しいただけます。複数フィールドへの適用・広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。" } }
           ]
         }
       ]
     }
     </script>
+    <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
   </Fragment>
 
   <style is:global>
@@ -252,6 +321,37 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
     .update-desc strong { color: var(--color-navy); }
     .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    /* Screenshot blocks inside the update box */
+    .update-shot { max-width: 440px; margin: 20px auto 6px; }
+    .update-shot img { width: 100%; height: auto; display: block; border: 1px solid #e2e8f0; border-radius: 8px; }
+    .update-shot-cap { color: var(--color-text-muted); font-size: 12.5px; line-height: 1.7; margin: 8px 0 0; text-align: center; }
+    .update-shot.wide { max-width: 620px; }
+    .update-shot.narrow { max-width: 440px; }
+
+    /* ===== FAQ accordion ===== */
+    .afp-faq-list { display: grid; gap: 10px; max-width: 980px; margin: 0 auto; }
+    .afp-faq {
+      background: var(--color-white); border: 1px solid #e2e8f0; border-radius: 10px;
+      overflow: hidden; transition: border-color .18s ease, box-shadow .18s ease;
+    }
+    .afp-faq[open] { border-color: var(--color-navy); box-shadow: 0 4px 12px rgba(27,58,107,0.08); }
+    .afp-faq summary {
+      list-style: none; cursor: pointer; padding: 16px 20px; display: flex;
+      align-items: center; justify-content: space-between; gap: 16px;
+      color: var(--color-navy); font-weight: 700; font-size: 0.98rem; line-height: 1.6;
+    }
+    .afp-faq summary::-webkit-details-marker { display: none; }
+    .afp-faq-q { flex: 1; }
+    .afp-faq-icon { position: relative; width: 16px; height: 16px; flex-shrink: 0; }
+    .afp-faq-icon::before, .afp-faq-icon::after {
+      content: ''; position: absolute; background: var(--color-green); transition: transform .18s ease;
+    }
+    .afp-faq-icon::before { top: 50%; left: 0; right: 0; height: 2px; transform: translateY(-50%); }
+    .afp-faq-icon::after { left: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(-50%); }
+    .afp-faq[open] .afp-faq-icon::after { transform: translateX(-50%) scaleY(0); }
+    .afp-faq-a {
+      padding: 0 20px 18px; color: var(--color-text-main); font-size: 0.95rem; line-height: 1.9;
+    }
     @media (max-width: 768px) {
       .update-box { padding: 24px 20px 28px; }
       .update-title { font-size: 17px; }
@@ -289,25 +389,49 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <img class="afp-hero-icon" src="/images/attribute-filter-icon.png" alt="属性制御フィルター for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.0.3</span>
+        <span class="afp-hero-version">v2.0.0</span>
       </div>
       <h1>属性制御フィルター for kintone</h1>
       <p class="afp-tagline">選ぶ人を、間違えさせない。</p>
-      <p class="afp-sub">ユーザー選択・組織選択・グループ選択の候補を、役職・所属・申請種別などの条件で自動的に絞り込み。申請先や承認者の「部署外の人を選んでしまう」ミスを、選択の段階で防ぎます。</p>
+      <p class="afp-sub">ユーザー選択・組織選択・グループ選択の候補を、役職・所属・申請種別などの条件で自動的に絞り込み。申請先や承認者の「部署外の人を選んでしまう」ミスを、選択の段階で防ぎます。候補外の値が入っていれば保存時にブロックでき、候補はキーボードだけで選べます。</p>
     </section>
     <div class="afp-hero-gradient-line"></div>
 
-    <!-- Update Info: プレミアム認証の不具合修正 (2026-07-07) -->
+    <!-- Update Info: v2.0.0 (2026-08-24) -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.0.1：プレミアム認証の不具合を修正しました</h2>
+            <h2 class="update-title">v2.0.0：キーボードだけで選べるようになり、候補外の値は保存前に止められるようになりました</h2>
           </div>
-          <p class="update-desc">複数の KIZUNA Works プラグインを同時に導入している環境で、<strong>プレミアム年間サポーターに加入済みでも、設定画面やレコード一覧でプレミアムとして認識されず、広告エリアが表示されてしまう</strong>不具合を修正しました。プラグイン間で内部の共通プログラムが競合し、認証結果が正しく判定されない場合があったことが原因です。</p>
-          <p style="background:#fff8e6;border-left:4px solid #e0a400;border-radius:0 8px 8px 0;padding:14px 18px;margin:0 0 8px;color:#8a4b00;font-size:14px;line-height:1.9;">該当されたみなさまには、プレミアム特典を正しくご提供できず、ご不便とご心配をおかけしましたことを深くお詫び申し上げます。</p>
-          <p class="update-note">最新版を kintone システム管理 →「プラグイン」→「読み込む」から上書きアップロードしてください。プラグインIDは変わらないため、既存の設定はそのまま引き継がれます。反映後もプレミアム表示に変わらない場合は、少し時間をおいてからブラウザを再読み込みのうえ再度ご確認ください。</p>
+          <p class="update-desc">これまでは候補を「絞り込む」ところまでで、標準の選択画面・貼り付け・CSV 取り込み・モバイル・API から入った<strong>候補外の値はそのまま保存できてしまう</strong>状態でした。v2.0.0 では、<strong>保存するときのチェック</strong>（何もしない／確認する／保存をブロック）と、<strong>条件のフィールドが変わったときの再確認</strong>（何もしない／警告／候補外になった値を自動で外す）をフィールドごとに設定できます。あわせて候補パネルを<strong>↑↓とEnterで操作</strong>できるようにし、設定画面には<strong>「誰が候補に出るか」を保存前に確認できるライブプレビュー</strong>を追加しました。</p>
+
+          <div class="update-shot">
+            <picture>
+              <source srcset="/images/attribute-filter-update-keyboard.webp" type="image/webp" />
+              <img class="zoomable" src="/images/attribute-filter-update-keyboard.png" alt="レコード画面の候補パネル — 承認者の候補3名が表示され、↓キーで選んだ佐藤 次郎（営業部／部長）の行がハイライトされている。パネル下部に候補データの更新日が表示されている" width="674" height="405" loading="lazy" />
+            </picture>
+            <p class="update-shot-cap">↓キーでパネルを開き、↑↓で選んで Enter で確定。候補が1件のときは Enter だけで入力できます。</p>
+          </div>
+
+          <div class="update-shot narrow">
+            <picture>
+              <source srcset="/images/attribute-filter-update-validate.webp" type="image/webp" />
+              <img class="zoomable" src="/images/attribute-filter-update-validate.png" alt="設定画面の「候補外の値の扱い」 — 保存するときは「保存をブロックする」、条件のフィールドが変わったときは「候補外になった値を自動で外す」を選択している" width="595" height="346" loading="lazy" />
+            </picture>
+            <p class="update-shot-cap">候補外の値をどう扱うかは、フィールドごとに選べます。</p>
+          </div>
+
+          <div class="update-shot wide">
+            <picture>
+              <source srcset="/images/attribute-filter-update-config.webp" type="image/webp" />
+              <img class="zoomable" src="/images/attribute-filter-update-config.png" alt="新しい設定画面 — 左に対象フィールドの目次とライブプレビュー（視点ユーザーを佐藤 次郎に切り替え、ルールごとの候補件数と氏名を表示）、中央に候補ルールの設定" width="1231" height="685" loading="lazy" />
+            </picture>
+            <p class="update-shot-cap">設定画面は左に「対象フィールドの目次」と「ライブプレビュー」を追加。視点ユーザーを切り替えると、その人が実際に見る候補を保存前に確認できます（画像をクリックすると拡大表示します）。</p>
+          </div>
+
+          <p class="update-note">最新版を kintone システム管理 →「プラグイン」→「読み込む」から上書きアップロードしてください。プラグインIDは変わらないため、既存の設定はそのまま引き継がれます。<strong>これまでの動作は変わりません</strong>——「保存するときのチェック」と「条件のフィールドが変わったときの再確認」は、既存の設定では「何もしない」で読み込まれます。使いたいフィールドで切り替えてください。</p>
         </div>
       </div>
     </section>
@@ -374,10 +498,29 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           </picture>
         </div>
 
+        <div class="afp-feature">
+          <div class="afp-feature-text">
+            <h3>候補外の値は、保存前に止められる</h3>
+            <p>候補を絞り込んでも、標準の選択画面・貼り付け・CSV 取り込み・モバイル・API からは候補外の値が入り得ます。フィールドごとに「保存するとき＝何もしない／確認する／保存をブロックする」を設定でき、ブロックにすると候補に含まれない値のままでは保存できません（テーブルは行番号付きでエラー表示）。さらに「条件のフィールドが変わったとき」は、警告を出すか、候補外になった値を自動で外すかを選べます。申請種別を「経費」から「有給」に変えたのに経費用の承認者が残る、という取り違えを防ぎます。<strong>候補データが古いときは、ブロックも自動クリアも行わず確認・警告に切り替わります</strong>——名簿が古いだけで正しい入力（入社したばかりの担当者など）が止まらないようにするためです。</p>
+          </div>
+          <picture>
+            <source srcset="/images/attribute-filter-update-validate.webp" type="image/webp" />
+            <img class="zoomable" src="/images/attribute-filter-update-validate.png" alt="設定画面の「候補外の値の扱い」— 保存するときは「保存をブロックする」、条件のフィールドが変わったときは「候補外になった値を自動で外す」を選択している" width="595" height="346" loading="lazy" />
+          </picture>
+        </div>
+
         <div class="afp-grid-feats" style="margin-top:8px;">
           <div class="afp-feat-card">
-            <h3>キーワードサジェスト</h3>
-            <p>フィールドに文字を入力するか、標準の選択ボタンを押すと、条件に合った候補がフィールド直下にフローティング表示されます。クリックするだけで値がセットされます。</p>
+            <h3>キーワードサジェスト＋キーボード操作</h3>
+            <p>文字入力・標準の選択ボタン・↓キーで候補を開き、↑↓で選んで Enter で確定。Esc で閉じ、候補が1件ならEnterだけで入力できます。マウスに持ち替えずに入力を終えられます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>自分を候補から除外</h3>
+            <p>ルール単位で、操作しているユーザー自身を候補から外せます。承認者欄で自分を選べないようにして、自己承認を仕組みで防げます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>候補データの鮮度がわかる</h3>
+            <p>候補データの最終更新日と経過日数を、設定画面と候補パネルに表示します。既定30日を超えると注意表示に変わるので、組織変更・入退社の反映漏れに気づけます。</p>
           </div>
           <div class="afp-feat-card">
             <h3>柔軟な適用条件</h3>
@@ -407,7 +550,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     <section class="afp-section alt">
       <div class="afp-wrap">
         <h2 class="afp-h2">設定はフィールドごとにルールを作るだけ</h2>
-        <p style="margin:-12px 0 26px;line-height:1.8;">対象フィールドを ON にし、「表示する候補」と「適用条件」を選ぶだけ。ユーザー・組織・グループそれぞれに合わせた条件を、画面上のチェックボックスで直感的に設定できます。</p>
+        <p style="margin:-12px 0 26px;line-height:1.8;">左の一覧（対象フィールドの目次）からフィールドを選び、ON にして「表示する候補」と「適用条件」を選ぶだけ。ユーザー・組織・グループそれぞれに合わせた条件を、画面上のチェックボックスで直感的に設定できます。設定中は左の<strong>ライブプレビュー</strong>に「誰が候補に出るか」が表示され、<strong>視点ユーザーを切り替えて</strong>実際に使う人の見え方を保存前に確認できます（レコード画面と同じ計算を使っています）。</p>
         <div class="afp-config-grid">
           <div class="afp-config-item">
             <picture>
@@ -450,7 +593,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <li>✅ ルール数は無制限・利用期限なし</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-attribute-filter-v1.0.3.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-attribute-filter-v2.0.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="afp-plan-card recommended">
@@ -484,6 +627,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <tr><td>役職・所属・組織・グループ・条件による絞り込み</td><td class="c">◯</td><td class="c">◯</td></tr>
               <tr><td>親子階層・適用条件（ステータス／フィールド値）</td><td class="c">◯</td><td class="c">◯</td></tr>
               <tr><td>サブテーブル対応</td><td class="c">◯</td><td class="c">◯</td></tr>
+              <tr><td>キーボード操作・候補外の値の保存時チェック・自分を除外</td><td class="c">◯</td><td class="c">◯</td></tr>
               <tr><td>レコード一覧画面の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
             </tbody>
           </table>
@@ -499,8 +643,8 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           <li>システム管理者で kintone にログインし、<strong>歯車アイコン → kintone システム管理 → プラグイン</strong> を開きます。</li>
           <li><strong>「読み込む」</strong>をクリックして、プラグイン zip をアップロードします。</li>
           <li>絞り込みたいアプリで <strong>アプリの設定 → プラグイン → 「+ プラグインを追加」</strong> から属性制御フィルターを追加します。</li>
-          <li>プラグイン一覧の<strong>歯車アイコン</strong>から設定画面を開き、<strong>「② キャッシュ」タブ</strong>で「保管アプリを作成」→「候補データを更新」を実行します。</li>
-          <li><strong>「① フィールド設定」タブ</strong>で対象フィールドを ON にし、「候補ルール」を設定します。</li>
+          <li>プラグイン一覧の<strong>歯車アイコン</strong>から設定画面を開き、<strong>「① 候補データ」タブ</strong>で「保管アプリを作成」→「候補データを更新」を実行します。</li>
+          <li><strong>「② フィールド設定」タブ</strong>で対象フィールドを ON にし、「候補ルール」を設定します（左の目次から選び、ライブプレビューで候補を確認できます）。</li>
           <li>設定後は<strong>「保存」→「アプリを更新」</strong>を実行してレコード画面に反映します。</li>
         </ol>
         <div class="afp-note">組織変更・入退社があったときは、設定画面の「候補データを更新」を再実行してください。ゲストスペース内のアプリでも利用できます。</div>
@@ -513,17 +657,37 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         <h2 class="afp-h2">ご利用にあたっての注意</h2>
         <div class="afp-cautions">
           <ul>
-            <li>絞り込みは<strong>レコードの新規作成・編集画面（PC版）</strong>で動作します。カレンダー・カスタマイズビュー・モバイルには対応しません。</li>
+            <li>絞り込みは<strong>レコードの新規作成・編集画面（PC版）</strong>で動作します。カレンダー・カスタマイズビュー・モバイルには対応しません。<strong>保存時のチェックも PC 版のみ</strong>です（モバイルからの保存・REST API での更新はチェックされません）。一覧のインライン編集は保存時チェックの対象です。</li>
             <li>候補は保管アプリのキャッシュを参照します。<strong>組織変更・入退社の反映には「候補データを更新」の実行が必要</strong>です（自動では最新化されません）。</li>
             <li>役職機能を利用していない環境では、役職による絞り込み条件は空になります。</li>
             <li>保管アプリを削除・改変すると候補が表示されなくなります。大規模組織では初回の候補データ更新に時間がかかることがあります。</li>
+            <li>v2.0.0 で追加した「保存するときのチェック」「条件のフィールドが変わったときの再確認」は、<strong>既存の設定では「何もしない」で読み込まれます</strong>（これまでの動作から勝手に変わりません）。使いたいフィールドで切り替えてください。</li>
+            <li><strong>候補データが古い（既定30日超）ときは、保存のブロックと値の自動クリアを行いません</strong>（確認ダイアログと警告に切り替わります）。古い名簿で正しい入力を止めないための動作です。</li>
           </ul>
         </div>
       </div>
     </section>
 
+    <!-- よくある質問（表示と JSON-LD は frontmatter の faqs を共有） -->
+    <section class="afp-section alt" aria-labelledby="afp-faq-heading">
+      <div class="afp-wrap">
+        <h2 class="afp-h2" id="afp-faq-heading">よくある質問</h2>
+        <div class="afp-faq-list">
+          {faqs.map((f) => (
+            <details class="afp-faq">
+              <summary>
+                <span class="afp-faq-q">{f.q}</span>
+                <span class="afp-faq-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="afp-faq-a">{f.a}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <!-- セキュリティ -->
-    <section class="afp-section alt">
+    <section class="afp-section">
       <div class="afp-wrap">
         <SecurityBox pluginId="kw-attribute-filter" />
         <ShareButtons title="属性制御フィルター for kintone" />
@@ -571,10 +735,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-attribute-filter-v1.0.3.zip',
+            file_name: 'kw-attribute-filter-v2.0.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-attribute-filter-v1.0.3.zip'
+            link_url: '/downloads/kw-attribute-filter-v2.0.0.zip'
           });
         });
       }
