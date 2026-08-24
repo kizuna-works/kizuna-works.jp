@@ -1,13 +1,13 @@
 ---
 import Layout from '../../../../layouts/Layout.astro';
-import { plugins } from '../../../../data/plugins';
+import { plugins, premiumPlugins } from '../../../../data/plugins';
 ---
 
 <Layout
   title="プラグイン作成リクエスト・改善要望フォーム | KIZUNA Works"
-  description="ちょこっとプラグイン 年間サポーター様専用のプラグイン作成リクエスト・改善要望フォームです。"
+  description="ちょこっと・プレミアムの年間サポーター様専用のプラグイン作成リクエスト・改善要望フォームです。"
   ogTitle="プラグイン作成リクエスト・改善要望フォーム | KIZUNA Works"
-  ogDescription="ちょこっとプラグイン 年間サポーター様専用のリクエストフォーム。"
+  ogDescription="ちょこっと・プレミアムの年間サポーター様専用のリクエストフォーム。"
   ogUrl="https://kizuna-works.jp/plugins/supporter/request/"
   ogType="website"
   canonical="https://kizuna-works.jp/plugins/supporter/request/"
@@ -355,9 +355,16 @@ import { plugins } from '../../../../data/plugins';
             </label>
             <select id="req-targetPlugin" name="targetPlugin" class="req-select">
               <option value="">選択してください</option>
-              {plugins.map((plugin) => (
-                <option value={plugin.formName}>{plugin.formName}</option>
-              ))}
+              <optgroup label="ちょこっとプラグイン">
+                {plugins.map((plugin) => (
+                  <option value={plugin.formName}>{plugin.formName}</option>
+                ))}
+              </optgroup>
+              <optgroup label="プレミアムプラグイン">
+                {premiumPlugins.map((plugin) => (
+                  <option value={plugin.formName}>{plugin.formName}</option>
+                ))}
+              </optgroup>
             </select>
             <p class="req-error" data-error-for="targetPlugin"></p>
           </div>
