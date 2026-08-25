@@ -7,10 +7,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
 ---
 
 <Layout
-  title="チャット通知 for kintone｜Slack・Teams・Google Chat へ自動通知 | KIZUNA Works"
-  description="kintone のレコード追加・更新・削除・ステータス変更をきっかけに、Slack / Microsoft Teams / Google Chat へ自動でメッセージを送るプラグイン。中継サーバー不要。条件で絞り込み、差し込みテンプレートで本文を自由に組み立てられるプレミアムプラグインです。"
+  title="チャット通知 for kintone｜Slack・Teams・Google Chat・LINE WORKS へ自動通知 | KIZUNA Works"
+  description="kintone のレコード追加・更新・削除・ステータス変更をきっかけに、Slack / Microsoft Teams / Google Chat / LINE WORKS へ自動でメッセージを送るプラグイン。中継サーバー不要。条件で絞り込み、差し込みテンプレートで本文を自由に組み立てられるプレミアムプラグインです。"
   ogTitle="チャット通知 for kintone｜Slack・Teams・Google Chat へ自動通知 | KIZUNA Works"
-  ogDescription="kintone のレコード操作をきっかけに Slack / Microsoft Teams / Google Chat へ自動通知。中継サーバー不要で、条件による絞り込み・差し込みテンプレート・送信履歴・エラー通知に対応するプレミアムプラグインです。"
+  ogDescription="kintone のレコード操作をきっかけに Slack / Microsoft Teams / Google Chat / LINE WORKS へ自動通知。中継サーバー不要で、条件による絞り込み・差し込みテンプレート・送信履歴・エラー通知に対応するプレミアムプラグインです。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/chat-notify/"
   ogImage="https://kizuna-works.jp/images/chat-notify-banner.png"
@@ -48,10 +48,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "チャット通知 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.0.1",
-          "dateModified": "2026-08-05",
+          "softwareVersion": "2.0.0",
+          "dateModified": "2026-08-25",
           "url": "https://kizuna-works.jp/plugins/chat-notify/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-chat-notify-v1.0.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-chat-notify-v2.0.0.zip",
           "image": "https://kizuna-works.jp/images/chat-notify-banner.png",
           "offers": [
             {
@@ -71,18 +71,19 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、通知ルールが無制限・広告非表示になり、販売中の全プラグインも利用できます。単品販売はありません。"
             }
           ],
-          "description": "kintone のレコード追加・更新・削除・ステータス変更・手動送信・一括通知をきっかけに、Slack / Microsoft Teams / Google Chat へ自動でメッセージを送るプラグイン。中継サーバーを立てずに kintone から Webhook へ直接送信する。条件による絞り込み、変更検知、差し込みテンプレート、送信履歴と失敗時のベル通知に対応する。",
+          "description": "kintone のレコード追加・更新・削除・ステータス変更・手動送信・一括通知をきっかけに、Slack / Microsoft Teams / Google Chat / LINE WORKS へ自動でメッセージを送るプラグイン。中継サーバーを立てずに kintone から Webhook へ直接送信する。条件による絞り込み、変更検知、差し込みテンプレート、送信履歴と失敗時のベル通知に対応する。LINE WORKS では見出しと「レコードを開く」ボタン付きのカード表示に対応する。",
           "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
           "featureList": [
-            "Slack（Incoming Webhooks）／Microsoft Teams（ワークフロー）／Google Chat（Webhook）へ通知",
+            "Slack（Incoming Webhooks）／Microsoft Teams（ワークフロー）／Google Chat（Webhook）／LINE WORKS（Incoming Webhook アプリ）へ通知",
             "追加・更新・削除・ステータス変更・手動送信・一括通知の6種類のきっかけ",
             "最大5件の条件をAND/ORで組み合わせて通知対象を絞り込み",
             "変更検知（値が変わったときだけ／指定フィールドが変わったときだけ／毎回）",
             "差し込みテンプレートでフィールド値・レコードURL・操作種別・操作者などを本文へ埋め込み",
-            "Slack と Google Chat の全員メンションに対応（濫用防止の警告つき）",
+            "Slack・Google Chat・LINE WORKS の全員メンションに対応（濫用防止の警告つき）",
             "一覧の絞り込み結果を1通にまとめて送る一括通知",
             "送信履歴を同一スペースの保管アプリへ記録し、失敗時は kintone のベル通知で管理者へ連絡",
             "URLを貼るだけでサービス種別を自動判定し、保存後はマスク表示",
+            "LINE WORKS では見出しと「レコードを開く」ボタン付きのカード表示に対応（スマートフォンから1タップでレコードを開ける）",
             "中継サーバー不要。kintone から Webhook へ直接送信（当社サーバーを経由しない）"
           ]
         }
@@ -227,6 +228,35 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
     .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
 
+    /* Update highlight box */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    .update-shots { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 20px 0 6px; }
+    .update-shots figure { margin: 0; max-width: 300px; flex: 1 1 260px; }
+    .update-shots img { width: 100%; height: auto; display: block; border: 1px solid #e2e8f0; border-radius: 8px; }
+    .update-shots figcaption { color: var(--color-text-muted); font-size: 12.5px; line-height: 1.7; margin: 8px 0 0; text-align: center; }
+    .update-shot { max-width: 640px; margin: 20px auto 6px; }
+    .update-shot img { width: 100%; height: auto; display: block; border: 1px solid #e2e8f0; border-radius: 8px; }
+    .update-shot-cap { color: var(--color-text-muted); font-size: 12.5px; line-height: 1.7; margin: 8px 0 0; text-align: center; }
+    @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
+
     .zoomable { cursor: zoom-in; }
     .afp-faq { max-width: 860px; margin: 0 auto; }
     .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
@@ -277,15 +307,51 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <img class="afp-hero-icon" src="/images/chat-notify-icon.png" alt="チャット通知 for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.0.1</span>
+        <span class="afp-hero-version">v2.0.0</span>
       </div>
       <h1>チャット通知 for kintone</h1>
       <p class="afp-tagline">kintone の動きを、いつものチャットへ。</p>
       <p class="afp-sub">
-        レコードの追加・更新・削除・ステータス変更をきっかけに、<strong><span class="nb">Slack</span> / <span class="nb">Microsoft Teams</span> / <span class="nb">Google Chat</span></strong> へ自動でメッセージを送ります。中継サーバーは不要。条件で絞り込み、本文も自由に組み立てられます。
+        レコードの追加・更新・削除・ステータス変更をきっかけに、<strong><span class="nb">Slack</span> / <span class="nb">Microsoft Teams</span> / <span class="nb">Google Chat</span> / <span class="nb">LINE WORKS</span></strong> へ自動でメッセージを送ります。中継サーバーは不要。条件で絞り込み、本文も自由に組み立てられます。
       </p>
     </section>
     <div class="afp-hero-gradient-line"></div>
+
+    <!-- UPDATE -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <div class="update-box">
+          <div class="update-head">
+            <span class="update-tag">UPDATE</span>
+            <h2 class="update-title">v2.0.0：LINE WORKS に対応しました</h2>
+          </div>
+          <p class="update-desc">
+            これまでの Slack / Microsoft Teams / Google Chat に加えて、<strong>LINE WORKS</strong> へ通知を送れるようになりました。
+            LINE WORKS 側で「<strong>Incoming Webhook</strong>」アプリを追加して発行した URL を貼るだけで、サービス種別は自動で判定されます。
+            このアプリは<strong>フリープランでも使える無料アプリ</strong>です。<strong>@All の全員メンション</strong>にも対応しました。
+          </p>
+          <p class="update-desc">
+            LINE WORKS では通知が「見出し＋本文」のカード形式で表示されます。見出しは<strong>アプリ名が既定</strong>で、
+            差し込みも使えます。あわせて<strong>「レコードを開く」ボタン</strong>を添えられるようにしたので、
+            スマートフォンの通知から1タップで該当レコードを開けます。
+          </p>
+          <div class="update-shots">
+            <figure>
+              <img class="zoomable" src="/images/chat-notify-lineworks-msg-01.png" alt="LINE WORKS に届いたチャット通知の例。見出し「案件管理」の下に @All メンションと受注内容が並び、下部に「レコードを開く」ボタンが表示されている" loading="lazy" />
+              <figcaption>見出し・@All・「レコードを開く」ボタン</figcaption>
+            </figure>
+          </div>
+          <div class="update-shot">
+            <img class="zoomable" src="/images/chat-notify-config-04.png" alt="チャット通知プラグインの設定画面。LINE WORKS を選んだルールにだけ「カード表示（LINE WORKS）」セクションが現れ、見出しと「レコードを開く」ボタンの文字を設定できる" loading="lazy" />
+            <p class="update-shot-cap">設定画面には LINE WORKS を選んだときだけ「カード表示」の項目が現れます</p>
+          </div>
+          <p class="update-note">
+            画像をクリックすると拡大表示します。<br />
+            すでにご利用中の方は、<strong>システム管理 → プラグイン から v2.0.0 の zip を上書きアップロード</strong>してください。既存の設定はそのまま引き継がれます。
+          </p>
+        </div>
+      </div>
+    </section>
 
     <!-- 課題 -->
     <section class="afp-section">
@@ -319,6 +385,11 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             <p>ステータス変更では、変更前後の状態を本文に差し込めます。</p>
           </div>
           <div class="afp-msg-card">
+            <h3>LINE WORKS</h3>
+            <img class="zoomable" src="/images/chat-notify-lineworks-msg-01.png" alt="LINE WORKS に届いたチャット通知の例。見出し「案件管理」の下に @All メンションと受注内容が並び、下部に「レコードを開く」ボタンが表示されている" loading="lazy" />
+            <p>見出し（既定はアプリ名）と「レコードを開く」ボタン付きのカードで届きます。@All のメンションにも対応。</p>
+          </div>
+          <div class="afp-msg-card">
             <h3>一括通知（1通にまとめる）</h3>
             <img class="zoomable" src="/images/chat-notify-slack-msg-02.png" alt="Slack に届いた一括通知の例。対象9件として、レコード番号・会社名・金額・期日の明細が1通にまとめて投稿されている" loading="lazy" />
             <p>一覧の絞り込み結果を1通に集約。朝会前の共有や督促にそのまま使えます。</p>
@@ -333,8 +404,8 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         <h2 class="afp-h2">主な機能</h2>
         <div class="afp-grid-feats">
           <div class="afp-feat-card">
-            <h3>3つのチャットに対応</h3>
-            <p>Slack（Incoming Webhooks）／Microsoft Teams（ワークフロー）／Google Chat（Webhook）。URL を貼るだけでサービス種別を自動判定します。</p>
+            <h3>4つのチャットに対応</h3>
+            <p>Slack（Incoming Webhooks）／Microsoft Teams（ワークフロー）／Google Chat（Webhook）／LINE WORKS（Incoming Webhook アプリ）。URL を貼るだけでサービス種別を自動判定します。</p>
           </div>
           <div class="afp-feat-card">
             <h3>6種類のきっかけ</h3>
@@ -353,8 +424,12 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             <p>フィールド値に加え、レコードURL・操作種別・操作者・操作日時・旧/新ステータスを本文に埋め込めます。文字数の切り詰めも可能です。</p>
           </div>
           <div class="afp-feat-card">
+            <h3>カード表示とボタン（LINE WORKS）</h3>
+            <p>見出しと「レコードを開く」ボタンを添えられます。スマートフォンの通知から1タップでレコードへ。見出しは差し込みも使えます。</p>
+          </div>
+          <div class="afp-feat-card">
             <h3>全員メンション</h3>
-            <p>Slack の <code>@channel</code>、Google Chat の <code>@all</code> に対応。濫用を防ぐため、条件なしで有効にすると警告します。</p>
+            <p>Slack の <code>@channel</code>、Google Chat の <code>@all</code>、LINE WORKS の <code>@All</code> に対応。濫用を防ぐため、条件なしで有効にすると警告します。</p>
           </div>
           <div class="afp-feat-card">
             <h3>送信履歴とエラー通知</h3>
@@ -443,7 +518,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     <!-- Webhook 取得手順 -->
     <section class="afp-section alt">
       <div class="afp-wrap">
-        <h2 class="afp-h2">Webhook URL の取り方（3サービス）</h2>
+        <h2 class="afp-h2">Webhook URL の取り方（4サービス）</h2>
         <p style="line-height:1.9; margin:0 0 24px;">
           ご用意いただくのは Webhook URL だけです。<strong>設定画面の中にも同じ手順を載せています</strong>ので、画面を行き来せずに設定できます。
         </p>
@@ -569,6 +644,48 @@ import TrialBanner from '../../../components/TrialBanner.astro';
                 <img class="zoomable" src="/images/chat-notify-gchat-03.png" alt="Google Chat の着信 Webhook ダイアログ。名前とアバターの URL を入力して保存する" loading="lazy" />
                 <figcaption>名前を付けて保存</figcaption>
               </figure>
+            </div>
+          </div>
+        </details>
+
+        <details class="afp-svc">
+          <summary>LINE WORKS ── Incoming Webhook アプリを追加する</summary>
+          <div class="afp-svc-body">
+            <div class="afp-note">
+              アプリの追加には <strong>LINE WORKS の管理者権限</strong>が必要です。「Incoming Webhook」はアプリディレクトリの<strong>無料アプリ</strong>で、<strong>フリープランでも利用できます</strong>（対象プラン：フリー／スタンダード／アドバンスト）。
+            </div>
+            <ol>
+              <li>管理者画面（<code>admin.worksmobile.com</code>）の左メニュー［アプリ］から「Incoming Webhook」を選び、［追加する］を押す（利用規約への同意と共有範囲の選択があります）</li>
+              <li>通知したいトークルームを開き、右上の［…］→［招待］→ タブを［Bot］に切り替えて「Incoming Webhook」を招待する</li>
+              <li>同じトークルームの右上［…］→ メニュー最下段の［チャンネルID］から［チャンネルIDをコピー］を押す</li>
+              <li>トークルームに届いた Incoming Webhook のメッセージ内の［Webhookリスト］ボタンを押す<br /><strong>※このボタンは管理者画面ではなく「トークルームの中」にあります。ここが一番見つけにくい箇所です。</strong></li>
+              <li>［追加］を押し、Webhook 名とチャンネルIDを入力して［OK］</li>
+              <li>発行された <code>https://webhook.worksmobile.com/message/…</code> をコピーして設定画面に貼り付ける</li>
+            </ol>
+            <div class="afp-svc-shots">
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-lineworks-01.png" alt="LINE WORKS 管理者画面のアプリ詳細。Incoming Webhook の課金設定が無料、アプリのタイプが Bot、対象プランがフリー・スタンダード・アドバンストと表示されている" loading="lazy" />
+                <figcaption>フリープランでも使える無料アプリ</figcaption>
+              </figure>
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-lineworks-02.png" alt="LINE WORKS のメンバー選択ダイアログ。Bot タブに Incoming Webhook が一覧表示されている" loading="lazy" />
+                <figcaption>［Bot］タブから招待する</figcaption>
+              </figure>
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-lineworks-03.png" alt="LINE WORKS のチャンネルID ダイアログ。トークルーム固有の ID とコピーボタンが表示されている（ID はマスク表示）" loading="lazy" />
+                <figcaption>チャンネルIDをコピー</figcaption>
+              </figure>
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-lineworks-04.png" alt="LINE WORKS の Webhook の追加ダイアログ。Webhook 名とチャンネルID を入力する（ID はマスク表示）" loading="lazy" />
+                <figcaption>名前とチャンネルIDを入力</figcaption>
+              </figure>
+              <figure>
+                <img class="zoomable" src="/images/chat-notify-lineworks-05.png" alt="LINE WORKS の Webhook 一覧画面。発行された Webhook URL とチャンネルID が表示されている（いずれもマスク表示）" loading="lazy" />
+                <figcaption>発行された URL をコピー</figcaption>
+              </figure>
+            </div>
+            <div class="afp-note">
+              1つの Webhook URL は<strong>1つのトークルーム専用</strong>で、あとからトークルームは変更できません。複数のトークルームへ送る場合は手順を繰り返して URL を追加発行し、送信先も分けて登録してください。発行できる URL は<strong>1ドメインあたり5つまで</strong>です。
             </div>
           </div>
         </details>
