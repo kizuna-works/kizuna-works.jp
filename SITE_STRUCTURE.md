@@ -723,15 +723,18 @@ c:\kizuna-works.jp\
 │   │   ├── kw-attribute-filter-v1.0.2.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-attribute-filter-v1.0.3.zip                        # 属性制御フィルター for kintone 配布ファイル（最新・手動配置・v1.0.3 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
 │   │   ├── kw-link-assist-v1.0.0.zip      # リンクアシスト 配布用プラグイン zip
-│   │   ├── kw-clip-assist-v1.0.0.zip      # コピーアシスト 配布用プラグイン zip
-│   │   ├── kw-lottery-roulette-v1.0.0.zip                       # 抽選ルーレット for kintone 配布プラグイン v1.0.0
+│   │   ├── kw-clip-assist-v1.0.0.zip      # コピーアシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-clip-assist-v1.0.1.zip      # コピーアシスト for kintone 配布ファイル（最新・手動配置・v1.0.1 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
+│   │   ├── kw-lottery-roulette-v1.0.0.zip                       # 抽選ルーレット for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-lottery-roulette-v1.0.1.zip                       # 抽選ルーレット for kintone 配布ファイル（最新・手動配置・v1.0.1 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
 │   │   ├── kw-after-save-v1.0.0.zip                              # 保存後ナビ for kintone 配布プラグイン v1.0.0
 │   │   ├── kw-autosave-assist-v1.0.0.zip                         # 自動保存アシスト for kintone 配布プラグイン v1.0.0
 │   │   ├── kw-barcode-assist-v1.0.0.zip                          # バーコードアシスト for kintone 配布ファイル（旧版・参考保管・初版）
 │   │   ├── kw-barcode-assist-v1.1.0.zip                          # バーコードアシスト for kintone 配布ファイル（最新・手動配置・v1.1.0 未登録コード警告＝ルックアップで引けなかったコードを一覧表示し、その行のコピー先を空に戻す）
 │   │   ├── kw-bulk-update-v1.0.0.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-bulk-update-v1.0.1.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-bulk-update-v1.0.2.zip                             # かんたん一括更新 for kintone 配布ファイル（最新・手動配置・v1.0.2 ライセンス認証の内部改修）
+│   │   ├── kw-bulk-update-v1.0.2.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-bulk-update-v1.0.3.zip                             # かんたん一括更新 for kintone 配布ファイル（最新・手動配置・v1.0.3 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
 │   │   ├── kw-card-board-v1.0.0.zip                              # カードボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第6弾・無料/プレミアム共通zip・無料=1ビューで全機能・複数ビューはプレミアム）
 │   │   ├── kw-card-board-v1.0.1.zip                              # カードボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-chat-notify-v1.0.0.zip                             # チャット通知 for kintone v1.0.0 配布ファイル（プレミアム・単品販売なし）
@@ -764,7 +767,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-csv-export-v1.2.0.zip                              # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.2.0 サブテーブル展開＋区切り記号列）
 │   │   ├── kw-csv-export-v1.2.1.zip                              # かんたんCSV出力 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-csv-export-v1.3.0.zip                              # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.3.0 出力列上限100→500・設定画面アコーディオン化）
-│   │   ├── kw-csv-export-v1.4.0.zip                              # かんたんCSV出力 for kintone 配布ファイル（手動配置・v1.4.0 先頭行を項目名にするON/OFF・ライセンス認証v2）
+│   │   ├── kw-csv-export-v1.4.0.zip                              # かんたんCSV出力 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-csv-export-v1.4.1.zip                              # かんたんCSV出力 for kintone 配布ファイル（最新・手動配置・v1.4.1 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
 │   │   ├── kw-dashboard-v1.1.0.zip                               # ダッシュボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第2弾・無料/プレミアム共通zip・v1.1.0=ポータルレイアウト構成）
 │   │   ├── kw-dashboard-v1.1.1.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-dashboard-v1.1.2.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
@@ -772,7 +776,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-elapsed-assist-v1.0.2.zip                          # 経過計算アシスト for kintone 配布ファイル（手動配置・v1.0.2 初版：基準日から9パターン自動計算＋その場再計算＋保存書込＋停止条件＋一括再計算）
 │   │   ├── kw-elapsed-assist-v1.0.3.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-elapsed-assist-v1.0.4.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-elapsed-assist-v1.0.5.zip                          # 経過計算アシスト for kintone 配布ファイル（最新・手動配置・v1.0.5 不具合修正5件＝保存時書込／詳細画面の再計算／停止条件のステータス判定／基準日クリア時の残留値／記録用フィールド未作成の検知）
+│   │   ├── kw-elapsed-assist-v1.0.5.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-elapsed-assist-v1.0.6.zip                          # 経過計算アシスト for kintone 配布ファイル（最新・手動配置・v1.0.6 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
 │   │   ├── kw-excel-paste-v1.0.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-excel-paste-v1.1.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-excel-paste-v1.1.1.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
@@ -839,7 +844,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-mail-assist-v1.1.0.zip                             # メールアシスト for kintone 配布ファイル（手動配置・v1.1.0＝表示条件に複数値OR演算子追加・編集画面幅拡大）
 │   │   ├── kw-mail-assist-v1.1.1.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-mail-assist-v1.1.2.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-mail-assist-v1.1.3.zip                             # メールアシスト for kintone 配布ファイル（最新・手動配置・v1.1.3 ライセンス認証の内部改修）
+│   │   ├── kw-mail-assist-v1.1.3.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-mail-assist-v1.1.4.zip                             # メールアシスト for kintone 配布ファイル（最新・手動配置・v1.1.4 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
 │   │   ├── kw-calendar-view-v1.0.0.zip                        # カレンダービュー for kintone 配布ファイル（最新・v1.0.0 初版）
 │   │   ├── kw-pdf-edit-v1.0.0.zip                              # PDF編集アシスト for kintone 配布ファイル（最新・v1.0.0 初版）
 │   │   ├── kw-quick-history-view-v1.0.0.zip                      # クイック履歴ビュー for kintone 配布ファイル（旧版・参考保管）
@@ -905,12 +911,14 @@ c:\kizuna-works.jp\
 │   │   ├── kw-status-bulk-action-v1.0.0.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-status-bulk-action-v1.0.1.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-status-bulk-action-v1.0.2.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-status-bulk-action-v1.0.3.zip                      # ステータス一括実行 for kintone 配布ファイル（最新・手動配置・v1.0.3 「すべて選択」からの一括実行が失敗する不具合の修正）
+│   │   ├── kw-status-bulk-action-v1.0.3.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-status-bulk-action-v1.0.4.zip                      # ステータス一括実行 for kintone 配布ファイル（最新・手動配置・v1.0.4 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
 │   │   ├── kw-sticky-board-v1.0.0.zip                            # 付箋ボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-sticky-board-v1.0.1.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-sticky-board-v1.0.2.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-table-assist-v1.0.0.zip                            # テーブルアシスト for kintone 配布ファイル（手動配置・初版）
-│   │   ├── kw-file-export-v1.0.0.zip                             # 添付ファイル出力 for kintone 配布ファイル（手動配置・初版）
+│   │   ├── kw-file-export-v1.0.0.zip                             # 添付ファイル出力 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-file-export-v1.0.1.zip                             # 添付ファイル出力 for kintone 配布ファイル（最新・手動配置・v1.0.1 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
 │   │   ├── kw-summary-bar-v1.0.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-summary-bar-v2.0.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-summary-bar-v2.1.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
