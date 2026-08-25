@@ -704,6 +704,33 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       margin-top: 10px;
     }
 
+    /* Callout that warns about the tab bar space width */
+    .setup-tip {
+      max-width: 900px;
+      margin: 36px auto 0;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 10px;
+      padding: 20px 24px;
+      color: var(--color-text);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+    .setup-tip strong { color: var(--color-navy); }
+    .setup-tip-head {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .setup-tip ul {
+      margin: 10px 0 0;
+      padding-left: 1.2em;
+    }
+    .setup-tip li { margin-bottom: 6px; }
+
     @media (max-width: 768px) {
       .related-posts-grid { grid-template-columns: 1fr; }
       .hero { padding: 60px 5%; }
@@ -872,7 +899,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           <img class="zoomable" src="/images/quick-tab-setup-01.png" alt="kintone フォーム設定の「スペースの設定」ダイアログ — 要素IDの入力欄に tab と入力している状態。クイックタブはスペースへの要素ID付与が必須" loading="lazy" />
           <div class="config-shot-caption">
             <strong>① 事前準備：スペースに要素IDを付ける</strong>
-            <p>フォーム設定でスペースを配置し、要素ID（例：<code>tab</code>）を付与します。タブバー用と区切り用に必要な数だけ用意します。</p>
+            <p>フォーム設定でスペースを配置し、要素ID（例：<code>tab</code>）を付与します。タブバー用と区切り用に必要な数だけ用意します。<strong>タブバー用のスペースは、幅を広めに（できればフォームの1行を丸ごと使う幅に）確保してください。</strong></p>
           </div>
         </div>
 
@@ -901,6 +928,16 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         </div>
       </div>
       <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+
+      <div class="setup-tip">
+        <span class="setup-tip-head">タブバーを置くスペースは「横幅」を広めに確保してください</span>
+        <p style="margin:0;">タブバーの横幅は、<strong>フォームで設定したタブバー設置スペースの幅がそのまま使われます</strong>。スペースが狭いとタブがその幅で折り返し、横並びではなく<strong>縦に積まれた見た目</strong>になります（タブ自体は正しく動作します）。</p>
+        <ul>
+          <li>フォーム設定でスペースの<strong>右下をドラッグして幅を広げる</strong>（タブバー用のスペースは、同じ行に他のフィールドを置かず1行を丸ごと使うのが確実です）</li>
+          <li>必要な幅の目安は<strong>「タブ数 × 約100px」</strong>（タブ名4文字・文字サイズ14pxの場合。1タブあたり おおよそ「タブ名の文字数 × 文字サイズ ＋ 40px」）</li>
+          <li>スペースをこれ以上広げられないときは、<strong>タブ名を短くする</strong>／設定画面で<strong>文字サイズを小さくする</strong>／タブの数を減らすと収まります</li>
+        </ul>
+      </div>
     </section>
 
     <!-- Install Steps Section -->
@@ -911,7 +948,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <ol class="steps-list">
           <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-quick-tab-v1.0.4.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
-          <li><span>使用するアプリのフォームに<strong>スペース要素</strong>を配置し、フォーム設定で<strong>要素ID</strong>を付与（タブバー用＋区切り用）</span></li>
+          <li><span>使用するアプリのフォームに<strong>スペース要素</strong>を配置し、フォーム設定で<strong>要素ID</strong>を付与（タブバー用＋区切り用）。タブバー用のスペースは、タブが折り返さないよう<strong>横幅を広めに</strong>しておきます</span></li>
           <li><span>アプリの<strong>アプリ設定 → プラグイン</strong>で「クイックタブ for kintone」を追加</span></li>
           <li><span>プラグイン設定画面で<strong>タブバー設置スペース・タブ定義・デザイン</strong>を設定して「保存」</span></li>
           <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると、レコード画面にタブバーが表示されます</span></li>
@@ -969,6 +1006,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
           <li>本プラグインはレコードの詳細・作成・編集画面（PC 版）でのみ動作します。一覧・カレンダー・カスタマイズビューでは動作しません。</li>
           <li>タブバー・区切りに使うスペースには、フォーム設定で要素IDの付与が必要です。要素IDの無いスペースは設定画面の選択肢に表示されません。</li>
+          <li>タブバーの横幅は、タブバー設置スペースの幅がそのまま使われます。スペースの幅が狭いとタブが折り返して縦に並んだ見た目になるため、スペースの幅を広めに確保してください（目安：タブ数 × 約100px。タブ名4文字・文字サイズ14pxの場合）。</li>
           <li>最初の区切りより上にあるフィールドは常時表示（共通エリア）となり、タブ化されません（仕様）。</li>
           <li>区切りスペースをサブテーブル内に置くことには対応していません（タブ内にサブテーブルを含めて表示することは可能です）。</li>
           <li>グループフィールドは v1.0.0 では対象外です。</li>
