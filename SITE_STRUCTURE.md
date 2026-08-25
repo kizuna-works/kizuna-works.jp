@@ -777,7 +777,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-elapsed-assist-v1.0.3.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-elapsed-assist-v1.0.4.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-elapsed-assist-v1.0.5.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-elapsed-assist-v1.0.6.zip                          # 経過計算アシスト for kintone 配布ファイル（最新・手動配置・v1.0.6 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
+│   │   ├── kw-elapsed-assist-v1.0.6.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-elapsed-assist-v1.0.7.zip                          # 経過計算アシスト for kintone 配布ファイル（最新・手動配置・v1.0.7 一括再計算ボタンを編集権限のない利用者に表示しないように）
 │   │   ├── kw-excel-paste-v1.0.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-excel-paste-v1.1.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-excel-paste-v1.1.1.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）

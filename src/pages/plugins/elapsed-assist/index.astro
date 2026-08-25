@@ -52,10 +52,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "経過計算アシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.6",
+          "softwareVersion": "1.0.7",
           "dateModified": "2026-08-25",
           "url": "https://kizuna-works.jp/plugins/elapsed-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-elapsed-assist-v1.0.6.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-elapsed-assist-v1.0.7.zip",
           "image": "https://kizuna-works.jp/images/elapsed-assist-banner.png",
           "offers": {
             "@type": "Offer",
@@ -76,7 +76,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "一覧・詳細を開くたびに「今日」時点の値を再計算して表示（レコード件数に関係なく追加API通信なし）",
             "レコード保存時に計算値を実フィールドへ書き込み（並び替え・絞り込み・集計に利用可能）",
             "カウント停止条件（フィールド値・日付の有無・ステータス）で条件成立時点の値に固定",
-            "一覧の一括再計算ボタンで既存レコードを今日の値へ一斉更新（最終更新日時を表示）",
+            "一覧の一括再計算ボタンで既存レコードを今日の値へ一斉更新（最終更新日時を表示・編集権限のない利用者には非表示）",
             "出力先フィールドは計算パターンの出力型（数値／文字列）に合わせて自動で絞り込み",
             "GAS・外部サービス不要・kintone完結・ゲストスペース対応"
           ]
@@ -766,7 +766,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.6</span>
+        <span class="hero-version">v1.0.7</span>
       </div>
       <h1 class="hero-title">経過計算アシスト for kintone</h1>
       <p class="hero-copy">経過計算アシスト for kintone は、基準となる日付フィールドから経過日数・経過年数・年齢・残日数・在籍期間（◯年◯ヶ月）などを自動計算する kintone プラグインです。一覧・詳細を開くたびに「今日」時点の値を再計算して表示し、保存時には実フィールドへ書き込むので、並び替え・絞り込み・集計にもそのまま使えます。標準の計算フィールドと違い、いつ開いても“今日の数字”になります。</p>
@@ -785,7 +785,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           <li><strong>停止条件にプロセス管理のステータスを使ったときの判定を修正しました</strong></li>
         </ul>
         <p class="update-desc">あわせて、一覧・詳細に表示する数値を <strong>kintone 標準の表示形式（桁区切り・小数点以下の表示桁数・単位記号）に合わせました</strong>。また、基準日を空にして保存すると出力先も空になり、停止条件の記録用フィールドが未作成のときは設定画面でご案内するようになりました。</p>
-        <p class="update-note">最新版（v1.0.6）をダウンロードして、kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。これまでのバージョンでは保存時の書き込みが行われなかったため、既存レコードの値をそろえる場合は一覧の一括再計算をご利用ください。</p>
+        <p class="update-note">最新版（v1.0.7）をダウンロードして、kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。これまでのバージョンでは保存時の書き込みが行われなかったため、既存レコードの値をそろえる場合は一覧の一括再計算をご利用ください。</p>
       </div>
     </section>
     <!-- Problem Section -->
@@ -863,7 +863,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title-left">表示するだけでなく、データとして確定</h2>
       <ul class="feature-list">
         <li><span><strong>保存時に実フィールドへ書き込み</strong> — レコードを保存すると、計算値が実フィールドへ書き込まれます。だから並び替え・絞り込み・集計・CSV出力にもそのまま使えます。</span></li>
-        <li><span><strong>一括再計算ボタン</strong> — 一覧のツールバーに任意で表示できるボタンで、絞り込み結果のレコードをまとめて今日の値へ再計算・更新。既存データも一斉に最新化できます（最終更新日時を表示）。</span></li>
+        <li><span><strong>一括再計算ボタン</strong> — 一覧のツールバーに任意で表示できるボタンで、絞り込み結果のレコードをまとめて今日の値へ再計算・更新。既存データも一斉に最新化できます（最終更新日時を表示）。<strong>レコードを編集できない利用者の画面には表示されません</strong>（設定不要）。</span></li>
         <li><span><strong>カウント停止条件</strong> — 「ステータスが完了になったら」「特定の日付が入ったら」など条件が成立した時点で値を固定します。値を<strong>いつの時点で確定するか</strong>も選べます：「停止した時点（保存日）」か、「指定した日付フィールドの日付」。後者は実際の区切り日で固定できるので、過去の日付を後から入力しても正しく記録できます（例：<strong>退社日→在籍期間</strong>、<strong>対応完了日→対応日数</strong>、<strong>解約日→契約期間</strong>）。条件解除時は「固定のまま／再カウント」を選択できます。</span></li>
         <li><span><strong>追加のAPI通信なしで軽快</strong> — 一覧・詳細の表示は kintone が渡すデータだけで再計算するため、レコード件数に関係なく追加の通信を発生させません。</span></li>
         <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。プラグインアップロードのみで導入できます。</span></li>
@@ -966,7 +966,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコード一覧・詳細・作成・編集画面（PC 版）でご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-elapsed-assist-v1.0.6.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-elapsed-assist-v1.0.7.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「経過計算アシスト for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>計算ルール</strong>（基準日 × 計算パターン × 出力先）を登録し、必要に応じて停止条件・一括再計算ボタンを設定して「保存」</span></li>
@@ -994,7 +994,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-elapsed-assist-v1.0.6.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-elapsed-assist-v1.0.7.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -1163,10 +1163,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-elapsed-assist-v1.0.6.zip',
+              file_name: 'kw-elapsed-assist-v1.0.7.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-elapsed-assist-v1.0.6.zip'
+              link_url: '/downloads/kw-elapsed-assist-v1.0.7.zip'
             });
           }
         });
