@@ -731,7 +731,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lottery-roulette-v1.0.0.zip                       # 抽選ルーレット for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-lottery-roulette-v1.0.1.zip                       # 抽選ルーレット for kintone 配布ファイル（最新・手動配置・v1.0.1 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
 │   │   ├── kw-after-save-v1.0.0.zip                              # 保存後ナビ for kintone 配布プラグイン v1.0.0
-│   │   ├── kw-autosave-assist-v1.0.0.zip                         # 自動保存アシスト for kintone 配布プラグイン v1.0.0
+│   │   ├── kw-autosave-assist-v1.0.0.zip                 # 自動保存アシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-autosave-assist-v1.0.1.zip                 # 自動保存アシスト for kintone 配布ファイル（最新・手動配置・v1.0.1 重複禁止が未設定のルックアップでも安定して動作するよう改善）
 │   │   ├── kw-barcode-assist-v1.0.0.zip                          # バーコードアシスト for kintone 配布ファイル（旧版・参考保管・初版）
 │   │   ├── kw-barcode-assist-v1.1.0.zip                          # バーコードアシスト for kintone 配布ファイル（最新・手動配置・v1.1.0 未登録コード警告＝ルックアップで引けなかったコードを一覧表示し、その行のコピー先を空に戻す）
 │   │   ├── kw-bulk-update-v1.0.0.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）
@@ -851,7 +852,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-mail-assist-v1.1.2.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-mail-assist-v1.1.3.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-mail-assist-v1.1.4.zip                             # メールアシスト for kintone 配布ファイル（最新・手動配置・v1.1.4 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
-│   │   ├── kw-calendar-view-v1.0.0.zip                        # カレンダービュー for kintone 配布ファイル（最新・v1.0.0 初版）
+│   │   ├── kw-calendar-view-v1.0.0.zip                   # カレンダービュー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-calendar-view-v1.0.1.zip                   # カレンダービュー for kintone 配布ファイル（最新・手動配置・v1.0.1 重複禁止が未設定のルックアップでも安定して動作するよう改善）
 │   │   ├── kw-pdf-edit-v1.0.0.zip                              # PDF編集アシスト for kintone 配布ファイル（最新・v1.0.0 初版）
 │   │   ├── kw-quick-history-view-v1.0.0.zip                      # クイック履歴ビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-history-view-v1.0.1.zip                      # クイック履歴ビュー for kintone 配布ファイル（旧版・参考保管）
@@ -867,7 +869,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-side-view-v1.0.0.zip                         # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-side-view-v1.0.1.zip                         # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-side-view-v1.0.2.zip                         # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
-│   │   ├── kw-quick-side-view-v1.0.3.zip                         # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-quick-side-view-v1.0.3.zip                 # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-side-view-v1.0.4.zip                 # クイックサイドビュー for kintone 配布ファイル（最新・手動配置・v1.0.4 重複禁止が未設定のルックアップでも安定して動作するよう改善）
 │   │   ├── kw-quick-tab-v1.0.0.zip                               # クイックタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-tab-v1.0.1.zip                               # クイックタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-tab-v1.0.2.zip                               # クイックタブ for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
@@ -888,7 +891,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-record-lock-v1.0.4.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-lock-v1.0.5.zip                             # レコードロック for kintone 配布ファイル（最新・手動配置・v1.0.5 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
 │   │   ├── kw-record-recovery-v1.0.0.zip                         # 削除レコード復元 for kintone 配布ファイル（旧版・手動配置・v1.0.0 初版）
-│   │   ├── kw-record-recovery-v1.0.1.zip                         # 削除レコード復元 for kintone 配布ファイル（最新・手動配置・v1.0.1 ライセンス認証の内部改修）
+│   │   ├── kw-record-recovery-v1.0.1.zip                 # 削除レコード復元 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-record-recovery-v1.0.2.zip                 # 削除レコード復元 for kintone 配布ファイル（最新・手動配置・v1.0.2 重複禁止が未設定のルックアップでも安定して動作するよう改善）
 │   │   ├── kw-related-enhancer-v1.0.0.zip                        # 関連レコード拡張 for kintone 配布ファイル（手動配置・プレミアムプラグイン第5弾・無料/プレミアム共通zip・無料=1対象で集計/見た目/検索・F-04/05/06はプレミアム限定）
 │   │   ├── kw-related-enhancer-v1.0.1.zip                        # 関連レコード拡張 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-related-record-popup-v1.0.0.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
@@ -909,7 +913,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-sheet-edit-v1.3.0.zip                              # シート編集 for kintone 配布ファイル（手動配置・v1.3.0＝「値が空」の絞り込み＋番号クリックで詳細＋数値をフィールド設定どおり表示）
 │   │   ├── kw-sheet-edit-v1.4.0.zip                              # シート編集 for kintone 配布ファイル（旧版・手動配置・v1.4.0＝組織/ユーザー/グループの絞り込みを選択式に＋設定セットの複製・アコーディオン表示）
 │   │   ├── kw-sheet-edit-v1.4.1.zip                              # シート編集 for kintone 配布ファイル（旧版・手動配置・v1.4.1 ライセンス認証の内部改修）
-│   │   ├── kw-sheet-edit-v1.5.0.zip                              # シート編集 for kintone 配布ファイル（最新・手動配置・v1.5.0 ライセンス認証の内部改修）
+│   │   ├── kw-sheet-edit-v1.5.0.zip                      # シート編集 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-sheet-edit-v1.5.1.zip                      # シート編集 for kintone 配布ファイル（最新・手動配置・v1.5.1 重複禁止が未設定のルックアップでも安定して動作するよう改善）
 │   │   ├── kw-sidebar-enhancer-v1.0.0.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・v1.0.0 初版）
 │   │   ├── kw-sidebar-enhancer-v1.0.2.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・手動配置・v1.0.2 で数値の桁区切り撤去／ラベルのHTML描画／設定画面の保存ボタン／タブ初期表示の高速化）
 │   │   ├── kw-sidebar-enhancer-v1.0.3.zip                        # サイドバー拡張 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.3 ライセンス認証の内部改修）
