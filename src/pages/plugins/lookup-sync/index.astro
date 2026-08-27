@@ -48,10 +48,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "ルックアップ自動同期 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.2.0",
-          "dateModified": "2026-08-10",
+          "softwareVersion": "2.2.1",
+          "dateModified": "2026-08-28",
           "url": "https://kizuna-works.jp/plugins/lookup-sync/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-sync-v2.2.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-sync-v2.2.1.zip",
           "image": "https://kizuna-works.jp/images/lookup-sync-banner.png",
           "offers": [
             {
@@ -313,7 +313,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <img class="afp-hero-icon" src="/images/lookup-sync-icon.png" alt="ルックアップ自動同期 for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v2.2.0</span>
+        <span class="afp-hero-version">v2.2.1</span>
       </div>
       <h1>ルックアップ自動同期 for kintone</h1>
       <p class="afp-tagline">マスターを直せば、参照先も自動で最新に。</p>
@@ -321,23 +321,23 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     </section>
     <div class="afp-hero-gradient-line"></div>
 
-    <!-- Update Info: v2.2.0 クリア連動 -->
+    <!-- Update Info: v2.2.1 サブテーブル同期の修正 -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v2.2.0：ルックアップをクリアしたときに、同期した項目も戻せるようになりました</h2>
+            <h2 class="update-title">v2.2.1：サブテーブル内のルックアップの同期を修正しました</h2>
           </div>
           <p class="update-desc">
-            2026年8月9日の kintone アップデートで、ルックアップフィールドの<strong>【クリア】を検知できる</strong>ようになりました。これに合わせて、<strong>方式2（デタッチして自動同期）</strong>をお使いの場合に、ルックアップをクリアすると<strong>「同期で取得した項目も空にしますか？」と確認</strong>し、［空にする］を選ぶとまとめて空へ戻せるようにしました。
+            <strong>同じテーブルの中に別のルックアップがある</strong>と、サブテーブル内ルックアップの同期が<strong>1件も成功しない</strong>不具合がありました。更新のたびにテーブルの行をまるごと送り返していたため、関係のないルックアップまで取得し直そうとして、kintone にレコードごと拒否されていたことが原因です。更新する行だけに必要な値を送るよう改め、テーブルの構成に関わらず同期できるようにしました。
           </p>
           <p class="update-desc">
-            これまでは、クリアしても同期で入れた値がそのまま残るため、手作業で消す必要がありました。確認ダイアログには<strong>対象の項目名が並ぶ</strong>ので、何が消えるか押す前に分かります。<strong>手入力した項目は対象外</strong>なので、消えて困るものは残ります。
+            あわせて、<strong>同期の実行中に他の人がテーブルへ行を追加すると、その行が消えてしまう</strong>問題も修正しました。今回からは行が保護され、そのレコードだけ「失敗」として結果に表示されます（あらためて同期を実行すれば反映されます）。同期に失敗したときは<strong>kintone が返した理由をそのまま画面に表示</strong>するようになり、原因がすぐ分かります。
           </p>
           <p class="update-note">
             最新版を kintone システム管理 →「プラグイン」→「読み込む」から上書きアップロードしてください。プラグインIDは変わらないため既存の設定は引き継がれます。<br>
-            ※ <strong>方式2をお使いの場合は、プラグインの更新だけでは反映されません。</strong>設定画面に<strong>「スクリプトを最新に再登録」</strong>が表示されるので、参照先アプリのスクリプトを更新するために必ず実行してください。
+            ※ サブテーブル内のルックアップを同期している場合は、更新後に設定画面から<strong>「今すぐ全件同期」</strong>を実行すると、これまで反映できていなかった分をまとめて追従できます。
           </p>
         </div>
       </div>
@@ -613,7 +613,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <li>✅ 反映件数は無制限・利用期限なし</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-lookup-sync-v2.2.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-lookup-sync-v2.2.1.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="afp-plan-card recommended">
@@ -834,10 +834,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-lookup-sync-v2.2.0.zip',
+            file_name: 'kw-lookup-sync-v2.2.1.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-lookup-sync-v2.2.0.zip'
+            link_url: '/downloads/kw-lookup-sync-v2.2.1.zip'
           });
         });
       }
