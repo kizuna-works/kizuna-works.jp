@@ -53,10 +53,10 @@ import Picture from '../../../components/Picture.astro';
           "name": "一覧コントロール for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.1",
-          "dateModified": "2026-08-12",
+          "softwareVersion": "1.0.2",
+          "dateModified": "2026-08-28",
           "url": "https://kizuna-works.jp/plugins/view-control/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-view-control-v1.0.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-view-control-v1.0.2.zip",
           "image": "https://kizuna-works.jp/images/view-control-banner.png",
           "offers": {
             "@type": "Offer",
@@ -765,7 +765,7 @@ import Picture from '../../../components/Picture.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.1</span>
+        <span class="hero-version">v1.0.2</span>
       </div>
       <h1 class="hero-title">一覧コントロール for kintone</h1>
       <p class="hero-copy">一覧コントロール for kintone は、<strong>レコード一覧・グラフの表示／非表示を、ユーザー・組織・グループ単位で出し分ける</strong> kintone プラグインです。増えすぎた一覧切替から関係のない一覧を隠し、<strong>最初に開く一覧</strong>も担当ごとに指定できます。制御は kintone 公式の JS API で行うため、一覧切替の DOM を書き換えません。</p>
@@ -776,11 +776,9 @@ import Picture from '../../../components/Picture.astro';
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.0.1：ほかの JavaScript カスタマイズの影響を受けにくくしました</h2>
+          <h2 class="update-title">v1.0.2：ほかのプラグインと併用したときの表示を改善しました</h2>
         </div>
-        <p class="update-desc">kintone は<strong>アプリの JavaScript カスタマイズを読み込んでから、プラグインを読み込みます</strong>。そしてレコード一覧の表示イベントは登録順に実行されるため、<strong>先に読み込まれたカスタマイズが 1 つでもエラーを起こすと、そのあとのプラグインは動かなくなります</strong>。このとき本プラグインは何も制御しないまま終わるため、<strong>設定したはずの一覧がすべて表示されてしまう</strong>状態になっていました。v1.0.1 では、イベントが届かなかった場合に<strong>プラグイン自身が画面を判定して制御を実行</strong>します。ほかのカスタマイズの状態に左右されません。</p>
-        <p class="update-desc">あわせて、アプリを開いた直後に<strong>対象外の一覧が一瞬表示されてしまう</strong>問題を解消しました。所属情報の判定が終わるまでレコード領域と一覧名を表示せず、判定後に<strong>設定した一覧だけ</strong>を表示します。所属情報は次回以降のために保持するので、2 回目からは対象外の一覧を経由しません。<strong>一覧の並び順を変更した場合も、実際に開かれた一覧を記憶して自動的に追従</strong>します。</p>
-        <p class="update-desc">このほか、同じタブで別のアカウントにログインし直したときに<strong>前の利用者の所属・権限で判定してしまう</strong>問題（共有 PC で発生）と、ゲストスペースなどで組織・グループを取得できない環境において<strong>ユーザー指定の設定まで無効になっていた</strong>問題を修正しています。</p>
+        <p class="update-desc"><strong>一覧の上にバーやボタンを表示するプラグインと併用している場合</strong>に、アプリを開いた直後の画面が一瞬ちらつくことがありました。v1.0.2 では「最初に開く一覧」への切り替えが終わってから<strong>画面全体をまとめて表示</strong>します。回線が遅い環境で切り替え前の一覧が一瞬見えることがあった点も、あわせて解消しています。</p>
         <p class="update-note">機能・設定項目に変更はありません。<strong>既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけ</strong>で適用できます。<strong>これまでの設定はそのまま引き継がれます</strong>。なお本プラグインは画面上の表示制御であり、kintone のアクセス権の代わりではありません（下記のご確認事項をご覧ください）。</p>
       </div>
     </section>
@@ -993,7 +991,7 @@ import Picture from '../../../components/Picture.astro';
         <h2 class="section-title">導入方法</h2>
         <p class="section-subtitle">ダウンロードから設定完了まで、5 ステップで終わります。</p>
         <ol class="steps-list">
-          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-view-control-v1.0.1.zip</code> をダウンロードします</span></li>
+          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-view-control-v1.0.2.zip</code> をダウンロードします</span></li>
           <li><span>kintone の<strong>「kintone システム管理」→「プラグイン」→「読み込む」</strong>で zip ファイルをアップロードします</span></li>
           <li><span>対象アプリの<strong>「アプリの設定」→「プラグイン」→「プラグインを追加」</strong>で「一覧コントロール」を追加します</span></li>
           <li><span>プラグインの<strong>歯車アイコン</strong>から設定画面を開き、対象者セットを追加して「表示する一覧」にチェックを入れます。★ で「最初に開く」一覧も指定できます</span></li>
@@ -1022,7 +1020,7 @@ import Picture from '../../../components/Picture.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・レコード一覧に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-view-control-v1.0.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-view-control-v1.0.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -1192,10 +1190,10 @@ import Picture from '../../../components/Picture.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-view-control-v1.0.1.zip',
+              file_name: 'kw-view-control-v1.0.2.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-view-control-v1.0.1.zip'
+              link_url: '/downloads/kw-view-control-v1.0.2.zip'
             });
           }
         });
