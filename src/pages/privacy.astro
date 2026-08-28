@@ -4,9 +4,9 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout
   title="プライバシーポリシー | KIZUNA Works"
-  description="KIZUNA Worksのプライバシーポリシー。個人情報の取り扱い・Cookieの使用・Google Analyticsによるアクセス解析・kintoneプラグインのライセンス管理に関する情報の収集と利用目的について明記しています。安心して無料プラグイン・無料Webツールをご利用ください。"
+  description="KIZUNA Worksのプライバシーポリシー。個人情報の取り扱い・Cookieの使用・アクセス解析・ライセンス管理に加え、kintoneプラグイン「ドライブ連携」が扱うGoogleユーザーデータの取得範囲・保存方針・限定的な使用について明記しています。"
   ogTitle="プライバシーポリシー | KIZUNA Works"
-  ogDescription="KIZUNA Worksのプライバシーポリシー。個人情報・Cookie・アクセス解析・ライセンス管理情報の取り扱いについて明記しています。"
+  ogDescription="KIZUNA Worksのプライバシーポリシー。個人情報・Cookie・アクセス解析・ライセンス管理に加え、Googleユーザーデータの取り扱いを明記しています。"
   ogUrl="https://kizuna-works.jp/privacy/"
   canonical="https://kizuna-works.jp/privacy/"
 >
@@ -18,7 +18,7 @@ import Layout from '../layouts/Layout.astro';
       "@id": "https://kizuna-works.jp/privacy/",
       "url": "https://kizuna-works.jp/privacy/",
       "name": "プライバシーポリシー | KIZUNA Works",
-      "description": "KIZUNA Worksのプライバシーポリシーページです。個人情報の取り扱い、Cookieの使用、アクセス解析について説明しています。",
+      "description": "KIZUNA Worksのプライバシーポリシーページです。個人情報の取り扱い、Cookieの使用、アクセス解析、およびkintoneプラグイン「ドライブ連携」におけるGoogleユーザーデータの取り扱いについて説明しています。",
       "isPartOf": {
         "@type": "WebSite",
         "name": "KIZUNA Works",
@@ -118,6 +118,7 @@ import Layout from '../layouts/Layout.astro';
     .policy-section:nth-child(6) { animation-delay: 0.5s; }
     .policy-section:nth-child(7) { animation-delay: 0.6s; }
     .policy-section:nth-child(8) { animation-delay: 0.7s; }
+    .policy-section:nth-child(9) { animation-delay: 0.8s; }
 
     @keyframes fadeInUp {
       to {
@@ -233,20 +234,57 @@ import Layout from '../layouts/Layout.astro';
       </section>
 
       <section class="policy-section">
-        <h2>5. 免責事項</h2>
+        <h2>5. Google ユーザーデータの取り扱い（kintoneプラグイン「ドライブ連携」）</h2>
+        <p>KIZUNA Works が提供する kintone プラグイン「ドライブ連携 for kintone」は、ご利用者様の Google アカウントに接続し、Google Drive API を利用します。本項は、当該プラグインが取り扱う Google ユーザーデータについて定めるものです。他のプラグイン・無料Webツールは Google アカウントに接続しません。</p>
+
+        <p><strong>取得するアクセス権（スコープ）</strong></p>
+        <p>本プラグインが要求するスコープは <strong>https://www.googleapis.com/auth/drive.file</strong> の1つのみです。これは「本アプリが作成したファイル・フォルダ」と「ご利用者様が選択画面（Google Picker）で明示的に選んだフォルダ」に限定されたアクセス権であり、ドライブ内のその他のファイルを参照することはできません。</p>
+
+        <p><strong>取得・利用する情報と目的</strong></p>
+        <ul>
+          <li>kintone の添付ファイル ── ご指定のフォルダへアップロードするため</li>
+          <li>ファイル名・ファイルサイズ ── 転送済みかどうかを判定し、二重転送を防ぐため</li>
+          <li>保存先フォルダのID・名称 ── 転送先を特定し、レコード単位のフォルダを作成するため</li>
+          <li>接続した Google アカウントの表示名・メールアドレス ── 設定画面に接続先を表示するため</li>
+        </ul>
+
+        <p><strong>保存について</strong></p>
+        <ul>
+          <li>KIZUNA Works のサーバーは、ファイルの送信経路に一切関与しません。ファイルはご利用者様のブラウザから Google ドライブへ直接送信されます。</li>
+          <li>KIZUNA Works は、ファイルの内容・ファイル名・フォルダ情報のいずれも保存しません。</li>
+          <li>接続情報（リフレッシュトークン等）は、ご利用者様の kintone 環境内のプラグイン設定領域にのみ保存され、KIZUNA Works は保持しません。</li>
+          <li>アクセストークンはブラウザの sessionStorage にのみ一時的に保持され、タブを閉じると消去されます。</li>
+        </ul>
+
+        <p><strong>限定的な使用（Limited Use）</strong></p>
+        <ul>
+          <li>取得した Google ユーザーデータを、上記の目的以外に利用しません。</li>
+          <li>第三者に販売・譲渡・提供しません。</li>
+          <li>広告目的で利用しません。</li>
+          <li>機械学習・AIモデルの学習に利用しません。</li>
+          <li>人間が閲覧することはありません（法令に基づく場合、ご利用者様の明示的な同意がある場合、セキュリティ上の必要がある場合を除きます）。</li>
+        </ul>
+        <p>本プラグインによる Google ユーザーデータの利用および他アプリへの転送は、限定的な使用の要件を含む「<a href="https://developers.google.com/terms/api-services-user-data-policy?hl=ja" target="_blank" rel="noopener noreferrer">Google API サービスのユーザーデータに関するポリシー</a>」に準拠します。</p>
+
+        <p><strong>接続の解除</strong></p>
+        <p>プラグイン設定画面の「接続を解除」から、いつでも接続を解除できます。また Google アカウントの「サードパーティ製のアプリとサービス」からもアクセス権を取り消せます。接続を解除しても、Google ドライブ上のファイルは削除されません。</p>
+      </section>
+
+      <section class="policy-section">
+        <h2>6. 免責事項</h2>
         <p>当サイトからのリンクやバナーなどで移動した外部サイトで提供される情報、サービス等について、当サイトは一切の責任を負いません。</p>
         <p>また、当サイトのコンテンツ・情報について、できる限り正確な情報を提供するように努めておりますが、正確性や安全性を保証するものではなく、情報が古くなっていることもございます。</p>
         <p>当サイトに掲載された内容によって生じたトラブルや損害等の一切の責任を負いかねますので、あらかじめご了承ください。</p>
       </section>
 
       <section class="policy-section">
-        <h2>6. プライバシーポリシーの変更について</h2>
+        <h2>7. プライバシーポリシーの変更について</h2>
         <p>当サイトは、個人情報に関して適用される日本の法令を遵守するとともに、本ポリシーの内容を適宜見直し、その改善に努めます。</p>
         <p>変更後のプライバシーポリシーは、当サイトに掲載した時点から効力を生じるものとし、常に本ページにて最新の情報を開示いたします。</p>
       </section>
 
       <section class="policy-section">
-        <h2>7. お問い合わせ先</h2>
+        <h2>8. お問い合わせ先</h2>
         <p>当サイトの個人情報の取扱に関するご質問、ご相談などのお問い合せは、下記までご連絡ください。</p>
         <div class="contact-box">
           <img src="/images/logo.png" alt="KIZUNA Works" width="677" height="369">
