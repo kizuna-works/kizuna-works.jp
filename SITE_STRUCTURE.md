@@ -994,6 +994,8 @@ c:\kizuna-works.jp\
 │   │   ├── Tsukuroi.html       # Tsukuroi（AI物体除去ツール／MI-GAN・onnxruntime-web・ブラウザ完結）スタンドアロンHTMLアプリ（Astro管理外）
 │   │   ├── Shirushi.html       # Shirushi（kintoneアプリアイコン作成ツール）スタンドアロンHTMLアプリ（Astro管理外）
 │   │   └── Obi.html            # Obi（kintoneカバー画像作成ツール）スタンドアロンHTMLアプリ（Astro管理外）
+│   ├── drive-connect/
+│   │   └── callback.html       # kintoneプラグイン「ドライブ連携（kw-drive-connect）」の Google OAuth コールバック（静的HTML・サーバー処理なし・noindex）。Google のリダイレクトURIは完全一致・ワイルドカード不可・1クライアント100件までで、顧客の kintone サブドメインを個別登録すると破綻するため、このページ1本に集約している。受け取った認可コードは保存も転送もせず、プラグイン設定画面へ postMessage で渡すだけ。宛先はプラグインが state に埋め込んだオリジンを cybozu.com / kintone.com 系に限定して照合してから決める（'*' にしない）。サイトの導線・sitemap には出さない
 │   ├── contact.html            # 旧URL（/contact.html）→ /contact/ への meta refresh リダイレクト（noindex）
 │   ├── privacy.html            # 旧URL（/privacy.html）→ /privacy/ への meta refresh リダイレクト（noindex）
 │   ├── terms.html              # 旧URL（/terms.html）→ /terms/ への meta refresh リダイレクト（noindex）

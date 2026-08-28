@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Google 連携の認可 | KIZUNA Works</title>
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F0F4F8;
+    color: #333;
+    font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(27, 58, 107, 0.12);
+    padding: 32px 36px;
+    max-width: 420px;
+    text-align: center;
+  }
+  h1 { font-size: 17px; color: #1B3A6B; margin: 0 0 12px; }
+  p { font-size: 13.5px; line-height: 1.9; margin: 0; color: #475569; }
+  .err { color: #a5342a; font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1 id="kwdc-title">Google との連携を確認しています…</h1>
+    <p id="kwdc-msg">この画面は自動的に閉じます。閉じない場合はこのウィンドウを閉じてください。</p>
+  </div>
+
+<script>
+/*
+ * kw-drive-connect — OAuth 2.0 コールバック（静的HTML・サーバー処理なし）
+ *
+ * Google の認可画面から認可コードを受け取り、プラグイン設定画面（＝このウィンドウを
+ * 開いた親ウィンドウ）へ postMessage で渡すだけのページ。
+ *
+ * ■ なぜ自社ドメインに 1 本だけ置くのか
+ *   Google のリダイレクトURIは完全一致・ワイルドカード不可で、1 クライアントあたり
+ *   100 件までしか登録できない。顧客の kintone サブドメインを個別に登録する方式は
+ *   すぐ破綻するため、このページ 1 本に集約している。
+ *
+ * ■ 認可コードの宛先
+ *   このページは顧客のサブドメインを知らない。宛先を '*' にすると、認可コードを
+ *   任意のウィンドウに渡してしまう。そこでプラグイン側が state に自分のオリジンを
+ *   base64url で埋め込んでおり、ここではそれを取り出し、cybozu.com / kintone.com 系の
+ *   オリジンであることを確かめてから、その 1 つだけに送る。
+ *
+ * ■ 扱う情報
+ *   認可コードと state だけ。アクセストークンもリフレッシュトークンもここでは扱わない
+ *   （トークン交換は kintone 側で行う）。保存も送信も一切しない。
+ */
+(function () {
+  'use strict';
+
+  var ALLOWED_HOST = /^[a-z0-9][a-z0-9-]*\.(cybozu\.com|cybozu-dev\.com|kintone\.com|s\.cybozu\.com)$/i;
+
+  var title = document.getElementById('kwdc-title');
+  var msg = document.getElementById('kwdc-msg');
+
+  function fail(text) {
+    title.textContent = '連携を完了できませんでした';
+    msg.className = 'err';
+    msg.textContent = text;
+  }
+
+  function base64UrlDecode(s) {
+    var b64 = String(s).replace(/-/g, '+').replace(/_/g, '/');
+    while (b64.length % 4) b64 += '=';
+    try {
+      var bin = window.atob(b64);
+      var bytes = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      return new TextDecoder().decode(bytes);
+    } catch (e) {
+      return '';
+    }
+  }
+
+  var params = new URLSearchParams(window.location.search);
+  var code = params.get('code') || '';
+  var state = params.get('state') || '';
+  var error = params.get('error') || '';
+
+  if (!state) {
+    fail('認可の応答が不正です（state がありません）。設定画面からやり直してください。');
+    return;
+  }
+
+  var dot = state.indexOf('.');
+  var origin = dot > 0 ? base64UrlDecode(state.slice(dot + 1)) : '';
+  var host = '';
+  try { host = new URL(origin).host; } catch (e) { host = ''; }
+
+  if (!origin || origin.indexOf('https://') !== 0 || !ALLOWED_HOST.test(host)) {
+    fail('認可の応答が不正です（送信元を確認できませんでした）。設定画面からやり直してください。');
+    return;
+  }
+
+  if (!window.opener) {
+    fail('設定画面のウィンドウが見つかりません。このウィンドウを閉じて、設定画面からやり直してください。');
+    return;
+  }
+
+  window.opener.postMessage({
+    source: 'kw-drive-connect',
+    state: state,
+    code: code,
+    error: error
+  }, origin);
+
+  if (error) {
+    fail('Google の認可がキャンセルされました。設定画面からやり直してください。');
+    return;
+  }
+
+  title.textContent = '連携を確認しました';
+  msg.textContent = 'このウィンドウは自動的に閉じます。';
+  setTimeout(function () { window.close(); }, 600);
+})();
+</script>
+</body>
+</html>
