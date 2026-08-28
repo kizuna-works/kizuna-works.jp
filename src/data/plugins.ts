@@ -1468,6 +1468,32 @@ export const premiumPlugins: Plugin[] = [
     releaseDate: '2026-08-22',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-drive-connect',
+    pluginId: 'pehinebgobbkbkbgmlmcnadncgcnfgff',
+    name: 'ドライブ連携 for kintone',
+    formName: 'ドライブ連携 for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'drive-connect',
+    categories: ['一括処理', '自動入力', '情報共有'],
+    description:
+      'レコードの添付ファイルを Google ドライブへ転送し、kintone にはリンクだけを残します。レコード単位のフォルダを命名ルールごと自動生成し、差分検知で二重転送を防止。転送後に kintone 側を削除して容量を節約でき、一覧からの一括転送にも対応します。',
+    image: '/images/drive-connect-banner.png',
+    imageWebp: '/images/drive-connect-banner.webp',
+    imageAlt:
+      'ドライブ連携 for kintone バナー — 添付は、ドライブへ。kintone にはリンクだけ。レコード単位のフォルダ自動生成と差分検知つき',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'coming-soon',
+    tier: 'premium',
+    cardDescription:
+      '添付ファイルを Google ドライブへ転送し、kintone にはリンクだけを残します。フォルダの自動生成と差分検知つき。',
+    problemTitle: '添付ファイルが増え続けて、kintone の容量が足りない',
+    problemDesc:
+      '容量を買い増すか、古いレコードから手で消すかの二択。ドライブへ手で上げて共有URLを貼る運用も、件数が増えるとフォルダの命名がばらついて追えなくなる',
+    releaseDate: '2026-08-28',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**

@@ -1,0 +1,659 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<Layout
+  title="ドライブ連携 for kintone｜添付ファイルをGoogleドライブへ自動転送 | KIZUNA Works"
+  description="kintone の添付ファイルを Google ドライブへ転送し、レコードにはリンクだけを残すプラグイン。レコード単位のフォルダを命名ルールごと自動生成し、差分検知で二重転送を防止。転送後に kintone 側を削除してディスク容量を節約します。サブテーブルの添付・一覧からの一括転送にも対応。"
+  ogTitle="ドライブ連携 for kintone｜添付ファイルをGoogleドライブへ自動転送 | KIZUNA Works"
+  ogDescription="添付は、ドライブへ。kintone にはリンクだけ。レコード単位のフォルダ自動生成、差分検知、転送後の削除で容量を節約。管理者が一度接続するだけで、利用者の Google ログインは不要です。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/drive-connect/"
+  ogImage="https://kizuna-works.jp/images/drive-connect-banner.png"
+  canonical="https://kizuna-works.jp/plugins/drive-connect/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/drive-connect/",
+          "url": "https://kizuna-works.jp/plugins/drive-connect/",
+          "name": "ドライブ連携 for kintone｜添付ファイルをGoogleドライブへ自動転送 | KIZUNA Works",
+          "description": "kintone の添付ファイルを Google ドライブへ転送し、レコードにはリンクだけを残すプラグイン。ディスク容量の圧迫を運用で解決し、ファイルの実体は普段使っている Google ドライブで一元管理できる。中継サーバーは不要。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/drive-connect-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "ドライブ連携 for kintone", "item": "https://kizuna-works.jp/plugins/drive-connect/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "ドライブ連携 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-08-28",
+          "url": "https://kizuna-works.jp/plugins/drive-connect/",
+          "image": "https://kizuna-works.jp/images/drive-connect-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "プレミアム年間サポーター（全プラグイン込み）",
+            "price": "16500",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/PreOrder",
+            "description": "プレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。現在は公開準備中です。"
+          },
+          "description": "kintone のレコードに添付されたファイルを Google ドライブの指定フォルダへ転送し、レコードにはそのリンクだけを残す kintone プラグイン。転送に成功したファイルは kintone から削除できるため、ディスク使用量を抑えながらファイルの実体を Google ドライブで一元管理できる。レコード単位のフォルダをパーツ方式の命名で自動生成し、ファイル名とサイズの突合による差分検知で二重転送を防ぐ。サブテーブル内の添付は行ごとに処理し、一覧からの一括転送にも対応する。ファイルは利用者のブラウザから Google ドライブへ直接送信されるため中継サーバーを必要としない。要求するアクセス権は drive.file スコープのみで、プラグインが作成したファイルと利用者が選択したフォルダ以外は参照しない。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "添付ファイルを Google ドライブへ転送し、レコードにはリンクだけを残す",
+            "転送に成功したファイルを kintone から削除してディスク容量を節約",
+            "レコード単位のフォルダをパーツ方式の命名で自動生成",
+            "空のフィールドは前後の区切り文字ごと省くフォルダ名の組み立て",
+            "差分検知（ファイル名＋サイズ）で二重転送を防止",
+            "実行モードは 自動／自動（条件つき）／手動 から選択",
+            "実行条件は最大5件・AND/OR で指定（一括転送でも尊重）",
+            "一覧から選択したレコード・絞り込み結果の全件をまとめて転送",
+            "サブテーブル内の添付ファイルに対応（行ごとに処理）",
+            "保存先フォルダは Google の選択画面から指定（共有ドライブ対応）",
+            "拡張子・最大サイズで転送対象外を指定",
+            "管理者が一度接続すれば、一般利用者は Google ログイン不要",
+            "中継サーバー不要（ファイルはブラウザからドライブへ直送）",
+            "要求するアクセス権は drive.file スコープのみ",
+            "ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
+    .afp-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+    .afp-hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 26px; border-radius: 26px;
+      font-weight: 700; font-size: 1rem; text-decoration: none; line-height: 1.3;
+    }
+    .afp-hero-btn.is-primary { background: #2E8B2E; color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.22); }
+    .afp-hero-btn.is-primary:hover { background: #35a035; }
+    .afp-hero-btn.is-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.6); }
+    .afp-hero-btn.is-ghost:hover { background: rgba(255,255,255,0.24); }
+    @media (max-width: 600px) { .afp-hero-btn { width: 100%; } }
+
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    /* Update box (latest release) */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      /* リード文自体が白いカードなので、下に余白を入れないと次のカードとくっついて見える */
+      margin: 0 0 26px;
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0 0 12px; }
+    .afp-feature p:last-child { margin-bottom: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+    /* Cap narrow captures at the width the UI really has, so nothing is blown up
+       larger than the user will see it in kintone. */
+    .afp-shot-w420 { max-width: 420px; }
+    .afp-shot-w640 { max-width: 640px; }
+    .afp-shot-w840 { max-width: 840px; }
+
+    .afp-shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+    @media (max-width: 900px) { .afp-shot-pair { grid-template-columns: 1fr; } }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    /* Feature block: 使い方の画面 → その設定画面、の2枚組 */
+    .afp-usecfg { margin-top: 30px; }
+    .afp-usecfg-head {
+      display: inline-block; background: var(--color-navy); color: #fff; font-weight: 700;
+      font-size: 0.85rem; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px;
+    }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <style is:global>
+    /* このページで足すもの */
+    /* 設定の手順見出し。既存の .afp-plan-compare-head と同じ見た目にそろえる
+       （紺の文字＋緑の縦線）。新しい体裁を持ち込まないため。 */
+    .afp-h3 {
+      font-size: 1.15rem; color: var(--color-navy); margin: 34px 0 12px;
+      padding-left: 12px; border-left: 4px solid var(--color-green);
+    }
+    .afp-h3:first-of-type { margin-top: 8px; }
+    .afp-feat-no {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--color-green); margin-bottom: 6px;
+    }
+  </style>
+
+  <style is:global>
+    /* Coming-soon notice for this page only */
+    .dc-notice {
+      background: #fdf7e9;
+      border: 1px solid #f0d8a8;
+      border-left: 5px solid #d99a1f;
+      border-radius: 10px;
+      padding: 22px 26px;
+      color: #6b4e12;
+      line-height: 1.9;
+    }
+    .dc-notice-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
+    .dc-notice a { color: var(--color-navy); font-weight: 700; text-decoration: underline; }
+    .dc-soon {
+      display: inline-block; width: 100%; text-align: center;
+      padding: 14px 20px; border-radius: 8px;
+      background: #e2e8f0; color: #64748b; font-weight: 700;
+      cursor: default;
+    }
+    .afp-hero-btn.is-soon {
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.55);
+      color: #fff;
+      cursor: default;
+    }
+    @media (max-width: 768px) { .dc-notice { padding: 18px; } }
+  </style>
+
+
+  <main>
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/drive-connect-icon.png" alt="ドライブ連携 for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1>ドライブ連携 for kintone</h1>
+      <p class="afp-tagline">添付は、ドライブへ。kintone にはリンクだけ。</p>
+      <p class="afp-sub">レコードに添付したファイルを <strong>Google ドライブへ転送</strong>し、kintone には<strong>リンクだけ</strong>を残します。転送に成功したファイルは kintone から削除できるので、<strong>ディスク容量を抑えながら</strong>、ファイルの実体は普段お使いのドライブで一元管理できます。中継サーバーは不要です。</p>
+      <div class="afp-hero-cta">
+        <span class="afp-hero-btn is-soon" aria-disabled="true">公開準備中</span>
+      </div>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 準備中のお知らせ -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <div class="dc-notice">
+          <p class="dc-notice-title">このプラグインは公開準備中です</p>
+          <p>現在、最終確認と Google 側の申請手続きを進めています。ダウンロードの開始まで、いましばらくお待ちください。公開時は<a href="/news/">お知らせ</a>でご案内します。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 課題 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">添付ファイルが、kintone の容量を食いつぶす</h2>
+        <p class="afp-lead">図面、写真、見積書、契約書。業務で扱うファイルは年々大きくなります。kintone のディスク容量は 1 ユーザーあたり 5GB。添付が増えるほど上限が近づき、容量を買い増すか、古いレコードから手で消していくかの二択になります。</p>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">01</span>
+            <h3>容量が足りず、買い増しが続く</h3>
+            <p>使っているのは一部のアプリの添付ファイルだけなのに、容量は全社で共有です。ファイルを置く場所が kintone しかないため、上限に近づくたびに追加費用が発生します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">02</span>
+            <h3>kintone とドライブの二重管理</h3>
+            <p>ドライブにも同じファイルがあるけれど、どちらが最新か分からない。結局どちらも消せず、両方に置いたまま増えていきます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">03</span>
+            <h3>手作業のアップロードとリンク貼り</h3>
+            <p>ドライブを開いてフォルダを作り、ファイルを上げて、共有 URL をコピーしてレコードに貼る。件数が増えるほど、フォルダの命名もばらついていきます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 解決 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ボタン1つで、ドライブへ移してリンクを残す</h2>
+        <p class="afp-lead">レコードを開いてボタンを押すと、添付ファイルが指定のフォルダへ転送され、リンクフィールドに URL が入ります。転送後に kintone 側から削除する設定にしておけば、レコードに残るのはリンクだけになります。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/drive-connect-action-02.png" alt="レコード詳細画面の「ドライブへ転送」ボタンと、押した直後の進捗表示。「ドライブへ転送中…（1 / 1 件）業務委託契約書.pdf」と進捗バーが出ている" width="1400" height="438" class="zoomable" />
+          <figcaption class="afp-shot-cap">ボタンを押すと、何件目のどのファイルを送っているかが表示されます</figcaption>
+        </figure>
+        <figure class="afp-shot afp-shot-w840" style="margin-top:28px;">
+          <Picture src="/images/drive-connect-action-01.png" alt="転送完了後のレコード詳細画面。「1 件をドライブへ転送しました 保存先：株式会社アオイ商事_業務委託契約書」と表示され、ドライブURLフィールドにリンクが入っている" width="1400" height="574" class="zoomable" />
+          <figcaption class="afp-shot-cap">終わると<strong>保存先のフォルダ名つき</strong>で結果が出ます。リンクからそのままフォルダを開けます</figcaption>
+        </figure>
+        <div class="afp-note">ファイルは<strong>利用者のブラウザから Google ドライブへ直接</strong>送られます。KIZUNA Works のサーバーは経路に入りません。中継サーバーの用意も、そのための月額費用も不要です。</div>
+      </div>
+    </section>
+
+    <!-- フォルダ自動生成 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">案件ごとのフォルダを、命名ルールごと自動化</h2>
+        <p class="afp-lead">「会社名_契約書名」のように、レコードの値をつないだ名前のフォルダをレコード単位で作成します。フォルダ名はパーツを並べて組み立てるので、誰が実行しても命名がばらつきません。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/drive-connect-config-01.png" alt="プラグイン設定画面の「② 転送ルール」タブ。対象の添付ファイルフィールド・保存先フォルダ・リンクの返却先を選び、フォルダ名を「会社名」「_」「契約書名」のパーツで組み立てている" width="1400" height="812" class="zoomable" />
+          <figcaption class="afp-shot-cap">フォルダ名のパーツはドラッグで並べ替えでき、<strong>実際のレコードを使ったプレビュー</strong>がその場に出ます</figcaption>
+        </figure>
+        <div class="afp-cautions">
+          <ul>
+            <li><strong>空のフィールドは、前後の区切り文字ごと省かれます。</strong>「__」や「【】」だけが残ることがありません。</li>
+            <li>ドライブで問題を起こす文字は自動で「_」に置き換え、長すぎる名前は 100 文字で切り詰めます。</li>
+            <li>フォルダは<strong>名前ではなく ID で管理</strong>します。ドライブ側でフォルダ名を変えても、同じフォルダに送り続けます。</li>
+            <li>フォルダを削除してしまった場合は、次の転送で作り直してリンクも更新します。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 差分検知と削除 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">同じファイルは送らない。消すときは、慎重に</h2>
+        <p class="afp-lead">転送のたびに保存先フォルダの中身を確認し、<strong>ファイル名とサイズが一致するものは送りません</strong>。同じレコードを何度開いても、ドライブにファイルが増えていくことはありません。</p>
+        <p class="afp-lead">「転送後に kintone から削除」は容量削減の本体ですが、取り消せない操作です。そのため、削除の前に次のすべてを確認します。</p>
+        <ol class="afp-steps steps-list">
+          <li><span>そのレコードの対象ファイルが<strong>全件</strong>転送に成功したこと。1 件でも失敗したら、1 件も削除しません。</span></li>
+          <li><span>転送したファイルが<strong>ドライブ上に実在する</strong>こと。ゴミ箱にあるものは失敗として扱います。</span></li>
+          <li><span>リンクの書き戻しが成功したこと。<strong>リンクの書き込みと添付の削除は 1 回の更新でまとめて行う</strong>ので、片方だけ成立することがありません。</span></li>
+          <li><span>他の人が同時に編集していないこと。競合を検知したときは削除しません。</span></li>
+        </ol>
+        <div class="afp-note">対象外に指定した拡張子のファイルなど、<strong>転送しなかったファイルは削除せずに残します</strong>。ドライブにも kintone にも無い状態を作らないためです。</div>
+      </div>
+    </section>
+
+    <!-- 実行タイミング -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">手動でも、自動でも、まとめてでも</h2>
+        <p class="afp-lead">転送をいつ走らせるかは、ルールごとに選べます。まずは手動で試し、運用が固まったら自動に切り替える、という進め方ができます。</p>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>手動</h3>
+            <p>レコード詳細画面のボタンを押したときだけ転送します。ボタンのラベルと表示位置は設定で変えられます。<strong>無料プランで使えるのはこのモードです。</strong></p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>自動 🔒</h3>
+            <p>レコード詳細画面を開いたときに、まだ転送していないファイルを自動で送ります。<strong>条件（最大5件・AND/OR）</strong>を付ければ、承認済みのレコードだけを対象にできます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>一括 🔒</h3>
+            <p>一覧から選んだレコード、または絞り込み結果の全件をまとめて転送します。運用を始める前の、過去分の回収に使えます。</p>
+          </div>
+        </div>
+        <div class="afp-note">実行条件は<strong>一括転送でも尊重されます</strong>。条件を満たさないレコードが、まとめて実行したときにだけ転送されてしまうことはありません。</div>
+      </div>
+    </section>
+
+    <!-- 設定 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定は、接続してルールを1本作るだけ</h2>
+        <p class="afp-lead">アプリ管理者が一度だけ Google に接続します。<strong>レコードを操作する一般の利用者が、Google にログインする必要はありません。</strong></p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/drive-connect-config-02.png" alt="プラグイン設定画面の「① Google 接続」タブ。KIZUNA Works の接続を使うか自社の Google Cloud を使うかを選び、接続済みのアカウントと接続日が表示されている" width="1400" height="583" class="zoomable" />
+          <figcaption class="afp-shot-cap">接続は 1 回だけ。接続情報はプラグイン内に保管され、<strong>レコード画面の JavaScript からは読み出せません</strong></figcaption>
+        </figure>
+        <ol class="afp-steps steps-list">
+          <li><span>システム管理者で kintone にログインし、<strong>歯車アイコン → kintone システム管理 → プラグイン</strong> を開き、<strong>「読み込む」</strong>からプラグイン zip をアップロードします。</span></li>
+          <li><span>添付ファイルを使っているアプリで <strong>アプリの設定 → プラグイン → 「+ プラグインを追加」</strong> から「ドライブ連携」を追加します。</span></li>
+          <li><span>プラグイン一覧の<strong>歯車アイコン</strong>から設定画面を開き、<strong>「① Google 接続」</strong>で Google に接続します（アプリ管理者が 1 回だけ）。</span></li>
+          <li><span><strong>「② 転送ルール」</strong>で、<strong>対象の添付ファイルフィールド・保存先フォルダ・リンクの返却先</strong>の 3 つを選びます。必要ならレコード単位のフォルダ・実行モード・削除の有無も設定します。</span></li>
+          <li><span><strong>「③ 動作確認」</strong>で接続テストと設定の読み上げを確認し、<strong>「保存」</strong>を押してアプリを更新します。</span></li>
+        </ol>
+        <div class="afp-note">保存先フォルダは Google の選択画面から選びます。<strong>フォルダ ID を手で入力する欄はありません。</strong>プラグインが触れるのは「選んだフォルダ」と「プラグインが作ったファイル」だけで、ドライブ内のその他のファイルは参照できないためです。</div>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>添付ファイルの転送</h3>
+            <p>対象の添付フィールドのファイルを Google ドライブへアップロードします。共有ドライブのフォルダも保存先に選べます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>リンクの書き戻し</h3>
+            <p>転送後の URL をリンクフィールドへ格納します。レコード単位のフォルダを作る設定では、フォルダの URL を入れます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>kintone 側の削除</h3>
+            <p>転送に成功したファイルを添付フィールドから削除します（既定はオフ）。全件成功・実在確認・書き戻し成功をすべて満たしたときだけ実行します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>レコード単位のフォルダ生成</h3>
+            <p>フィールドと固定文字を並べて組み立てた名前のフォルダを、レコードごとに作成します。空のフィールドは区切り文字ごと省かれます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>差分検知</h3>
+            <p>保存先のファイル名とサイズで突合し、未転送のファイルだけを送ります。何度実行してもドライブに重複が増えません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>実行モード 🔒</h3>
+            <p>自動／自動（条件つき）／手動 をルールごとに選べます。条件は最大5件・AND/OR で指定できます（自動系はプレミアム）。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>一覧からの一括転送 🔒</h3>
+            <p>選択した行、または絞り込み結果の全件をまとめて処理します。進捗と結果の内訳を画面に表示します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>サブテーブル対応</h3>
+            <p>テーブル内の添付ファイルを行ごとに処理し、同じ行のリンクフィールドへ書き戻します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>対象外の指定</h3>
+            <p>拡張子と最大サイズで、転送しないファイルを除外できます。除外したファイルは kintone 側から削除しません。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- プラン -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料のままでも、<strong>転送ルール1本を手動モードで</strong>使えます（フォルダの自動生成・差分検知・削除・サブテーブル対応は、すべて無料の範囲です）。<strong>自動転送</strong>と<strong>一覧からの一括転送</strong>、そして<strong>ルール本数の上限解除</strong>が、プレミアム年間サポーターで解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ 添付ファイルのドライブ転送・リンクの書き戻し</li>
+              <li>✅ レコード単位のフォルダ自動生成</li>
+              <li>✅ 差分検知（二重転送しない）</li>
+              <li>✅ 転送後の kintone 側削除</li>
+              <li>✅ サブテーブル内の添付ファイル・共有ドライブ</li>
+              <li>✅ 利用期限なし（転送ルールは1本・手動モードのみ／設定画面に控えめな広告あり）</li>
+            </ul>
+            <span class="dc-soon">公開準備中</span>
+          </div>
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>自動転送</strong>（レコードを開いたときに未転送分を送る）</li>
+              <li>✅ <strong>自動（条件つき）</strong>（最大5件・AND/OR で対象を絞る）</li>
+              <li>✅ <strong>一覧からの一括転送</strong>（過去分の回収に）</li>
+              <li>✅ 転送ルールの<strong>本数が無制限</strong>（添付フィールドごとに別の保存先へ）</li>
+              <li>✅ プラグイン内の<strong>広告非表示</strong></li>
+              <li>✅ 販売中の<strong>全プラグイン</strong>も対象（契約期間中に新しく公開されるプラグインも追加料金なし）</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta">プレミアム年間サポーターを見る →</a>
+          </div>
+        </div>
+
+        <h3 class="afp-plan-compare-head">機能の詳細比較</h3>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>機能</th><th class="c">無料プラン</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>動作する転送ルールの本数</td><td class="c">1本</td><td class="c">無制限</td></tr>
+              <tr><td>実行モード</td><td class="c">手動のみ</td><td class="c">自動／条件つき／手動</td></tr>
+              <tr><td><strong>一覧からの一括転送</strong></td><td class="c">—</td><td class="c">○</td></tr>
+              <tr><td>ドライブへの転送・リンクの書き戻し</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>レコード単位のフォルダ自動生成</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>差分検知（二重転送の防止）</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>転送後の kintone 側削除</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>サブテーブル対応・共有ドライブ対応</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>ゲストスペース対応</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>設定画面の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note" style="margin-top:20px;">プレミアムの期限が切れても<strong>設定は消えません</strong>。有効なルールの先頭 1 本が手動モードで動く状態に戻り、再加入すればすぐ元へ戻ります。自動転送が止まっているあいだは、レコード画面にその旨を表示します（黙って止まりません）。</div>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ご利用にあたっての注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li><strong>Google アカウント（または Google Workspace）が必要です。</strong>保存先は<strong>共有ドライブを推奨</strong>します。マイドライブに保存すると、接続したアカウントを削除したときにファイルが道連れになります。</li>
+            <li><strong>保存した直後にレコード詳細画面を離れると、転送は走りません。</strong>kintone の仕様上、保存が完了するまでファイルの実体を取得できないためです。次にそのレコードを開いたとき、または一覧からの一括転送で回収できます。</li>
+            <li><strong>アプリの「変更履歴を記録する」が有効な場合、添付を削除してもディスク使用量は減りません。</strong>変更履歴に過去のファイル実体が残るためです。容量削減が目的のときはこの設定をご確認ください。</li>
+            <li>ドライブ側でファイル名を変更したり、別のフォルダへ移動したりすると、「未転送」とみなして再アップロードします。</li>
+            <li><strong>PC 版のみの対応です。</strong>スマートフォンからの操作では転送が起きません（画面が壊れることはありません）。</li>
+            <li>ブラウザのメモリの都合上、1 ファイル 500MB を超えるファイルは動作保証外です。</li>
+            <li>プラグインの設定は「丸ごと保存」する仕組みのため、<strong>設定画面を2つ同時に開いて保存すると片方の変更が失われます</strong>。1つずつ保存してください。</li>
+            <li>アプリからプラグインを<strong>「利用を解除」すると設定が破棄されます</strong>。一時的に止めたいだけのときは「無効にする」をお使いください。</li>
+            <li>本プラグインはサイボウズ社の製品ではありません。kintone はサイボウズ株式会社の登録商標です。Google ドライブ は Google LLC の商標です。</li>
+            <li>推奨ブラウザは Google Chrome / Microsoft Edge です。</li>
+            <li>本プラグインの利用により生じた損害について、当社は責任を負いかねます。配布 zip に秘密鍵（ppk）は含まれません。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- よくある質問（表示と FAQPage JSON-LD は src/data/premium-faqs.ts を共有） -->
+    <PremiumFaqSection
+      pluginId="kw-drive-connect"
+      pageUrl="https://kizuna-works.jp/plugins/drive-connect/"
+      headingClass="afp-h2"
+      alt
+    />
+
+    <!-- セキュリティ -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-drive-connect" />
+        <ShareButtons title="ドライブ連携 for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>公開まで、もうしばらくお待ちください</h2>
+      <p>ドライブ連携はプレミアム年間サポーター（税込 ¥16,500/年）に含まれる予定です。単品販売はありません。公開時は<a href="/news/">お知らせ</a>でご案内します。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="dc-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('dc-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+    })();
+  </script>
+</Layout>

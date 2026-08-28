@@ -26,6 +26,21 @@ const GOLD = '#c9a961';
 
 /** 定義。iconSide は 'left' | 'right'（既存バナーも左右どちらもある）。 */
 const BANNERS = {
+  // ★ drive-connect は 2026-08-28 に手動バナー（Gemini生成）へ差し替え済み。
+  //    このスクリプトを実行すると public/images/drive-connect-banner.png を上書きしてしまうため、
+  //    定義を無効化してある。作り直す場合は手動バナーを退避してから戻すこと。
+  '_drive-connect_DISABLED': {
+    iconSrc: 'SECRET/kintone_plugin_workspace/kw-drive-connect/icon_512_kizuna.png',
+    iconSide: 'right',
+    catch: ['添付は、ドライブへ。', 'kintone にはリンクだけ。'],
+    name: 'ドライブ連携 for kintone',
+    nameSize: 42,
+    bullets: [
+      ['保存すると', 'Google ドライブへ自動転送', ''],
+      ['レコードごとの', 'フォルダを自動生成', ''],
+      ['転送後は', 'kintone から削除', 'して容量を節約']
+    ]
+  },
   'chat-notify': {
     iconSrc: 'SECRET/kintone_plugin_workspace/kw-chat-notify/kw-chat-notify_icon_512.png',
     iconSide: 'left',
