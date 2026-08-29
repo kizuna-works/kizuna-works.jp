@@ -196,6 +196,11 @@ import ShareButtons from '../../../components/ShareButtons.astro';
     .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
 
     .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    /* 白いカードが続くときにくっついて見えないようにする */
+    .afp-shot + .afp-shot,
+    .afp-shot + .afp-cautions,
+    .afp-shot + .afp-note,
+    .afp-shot + .afp-grid-feats { margin-top: 26px; }
     .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
     .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
     /* Cap narrow captures at the width the UI really has, so nothing is blown up
@@ -470,6 +475,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           <li><span><strong>「② 転送ルール」</strong>で、<strong>対象の添付ファイルフィールド・保存先フォルダ・リンクの返却先</strong>の 3 つを選びます。必要ならレコード単位のフォルダ・実行モード・削除の有無も設定します。</span></li>
           <li><span><strong>「③ 動作確認」</strong>で接続テストと設定の読み上げを確認し、<strong>「保存」</strong>を押してアプリを更新します。</span></li>
         </ol>
+        <div class="afp-note" style="margin-bottom:14px;"><strong>本番運用では、お客様ご自身の Google Cloud をおすすめします。</strong>利用枠が自社専用になり、第三者の都合で止まることもありません。費用はかかりません。→ <a href="/plugins/drive-connect/google-cloud/">自社の Google Cloud で使う設定手順</a></div>
         <div class="afp-note">保存先フォルダは Google の選択画面から選びます。<strong>フォルダ ID を手で入力する欄はありません。</strong>プラグインが触れるのは「選んだフォルダ」と「プラグインが作ったファイル」だけで、ドライブ内のその他のファイルは参照できないためです。</div>
       </div>
     </section>
@@ -587,6 +593,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
         <div class="afp-cautions">
           <ul>
             <li><strong>Google アカウント（または Google Workspace）が必要です。</strong>保存先は<strong>共有ドライブを推奨</strong>します。マイドライブに保存すると、接続したアカウントを削除したときにファイルが道連れになります。</li>
+            <li><strong>本番運用では、設定画面の接続方式で「自社の Google Cloud を使う」をおすすめします。</strong>既定の接続は当社のプロジェクトをご利用者全体で共有するため、Google の利用枠（クォータ）も共有になります。自社のプロジェクトを使えば枠は自社専用になり、費用もかかりません。<a href="/plugins/drive-connect/google-cloud/">設定手順はこちら</a>（所要 15 分）。</li>
             <li><strong>保存した直後にレコード詳細画面を離れると、転送は走りません。</strong>kintone の仕様上、保存が完了するまでファイルの実体を取得できないためです。次にそのレコードを開いたとき、または一覧からの一括転送で回収できます。</li>
             <li><strong>アプリの「変更履歴を記録する」が有効な場合、添付を削除してもディスク使用量は減りません。</strong>変更履歴に過去のファイル実体が残るためです。容量削減が目的のときはこの設定をご確認ください。</li>
             <li>ドライブ側でファイル名を変更したり、別のフォルダへ移動したりすると、「未転送」とみなして再アップロードします。</li>

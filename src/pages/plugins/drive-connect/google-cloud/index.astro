@@ -1,0 +1,522 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+---
+
+<Layout
+  title="自社の Google Cloud で使う設定手順｜ドライブ連携 for kintone | KIZUNA Works"
+  description="kintone プラグイン「ドライブ連携」を自社の Google Cloud プロジェクトで動かすための設定手順。プロジェクト作成、Drive API と Picker API の有効化、OAuth 同意画面、クライアント ID と API キーの作り方までを 6 手順で解説します。費用はかかりません。"
+  ogTitle="自社の Google Cloud で使う設定手順｜ドライブ連携 for kintone | KIZUNA Works"
+  ogDescription="ドライブ連携を自社の Google Cloud で動かす手順。API の有効化・OAuth 同意画面・クライアント ID・API キーの作り方を 6 手順で。所要 15 分・費用なし。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/drive-connect/google-cloud/"
+  ogImage="https://kizuna-works.jp/images/drive-connect-banner.png"
+  canonical="https://kizuna-works.jp/plugins/drive-connect/google-cloud/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/drive-connect/google-cloud/",
+          "url": "https://kizuna-works.jp/plugins/drive-connect/google-cloud/",
+          "name": "自社の Google Cloud で使う設定手順｜ドライブ連携 for kintone | KIZUNA Works",
+          "description": "kintone プラグイン「ドライブ連携」を自社の Google Cloud プロジェクトで動かすための設定手順。",
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "ドライブ連携 for kintone", "item": "https://kizuna-works.jp/plugins/drive-connect/" },
+            { "@type": "ListItem", "position": 4, "name": "自社の Google Cloud で使う設定手順", "item": "https://kizuna-works.jp/plugins/drive-connect/google-cloud/" }
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "ドライブ連携 for kintone を自社の Google Cloud で使う設定手順",
+          "description": "kintone プラグイン「ドライブ連携」を、お客様ご自身の Google Cloud プロジェクトで動かすための準備手順。",
+          "totalTime": "PT15M",
+          "estimatedCost": { "@type": "MonetaryAmount", "currency": "JPY", "value": "0" },
+          "supply": [
+            { "@type": "HowToSupply", "name": "Google アカウント（Google Workspace を推奨）" },
+            { "@type": "HowToSupply", "name": "kintone のアプリ管理権限" }
+          ],
+          "step": [
+            { "@type": "HowToStep", "position": 1, "name": "Google Cloud プロジェクトを作る", "text": "Google Cloud コンソールでプロジェクトを 1 つ作成します。Google Workspace を使っている場合は組織に所属したプロジェクトとして作ります。", "url": "https://kizuna-works.jp/plugins/drive-connect/google-cloud/#step1" },
+            { "@type": "HowToStep", "position": 2, "name": "API を 2 つ有効にする", "text": "Google Drive API と Google Picker API を有効化します。Picker API はフォルダ選択画面で使うため必須です。", "url": "https://kizuna-works.jp/plugins/drive-connect/google-cloud/#step2" },
+            { "@type": "HowToStep", "position": 3, "name": "OAuth 同意画面を用意する", "text": "アプリ名とサポートメールを登録します。Google Workspace ならユーザーの種類は内部、個人アカウントなら外部を選び本番環境に公開します。テストのままだと接続が 7 日で切れます。", "url": "https://kizuna-works.jp/plugins/drive-connect/google-cloud/#step3" },
+            { "@type": "HowToStep", "position": 4, "name": "OAuth クライアント ID を作る", "text": "ウェブ アプリケーション型のクライアントを作成し、承認済みのリダイレクト URI に https://kizuna-works.jp/drive-connect/callback.html を 1 本だけ登録します。", "url": "https://kizuna-works.jp/plugins/drive-connect/google-cloud/#step4" },
+            { "@type": "HowToStep", "position": 5, "name": "API キーを作る", "text": "フォルダ選択用の API キーを作り、API の制限を Google Picker API のみに設定します。HTTP リファラー制限は付けません。", "url": "https://kizuna-works.jp/plugins/drive-connect/google-cloud/#step5" },
+            { "@type": "HowToStep", "position": 6, "name": "プラグインに登録して接続する", "text": "プラグイン設定画面の「① Google 接続」で接続方式に自社の Google Cloud を選び、クライアント ID・シークレット・API キーを入力して接続します。", "url": "https://kizuna-works.jp/plugins/drive-connect/google-cloud/#step6" }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
+    .afp-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+    .afp-hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 26px; border-radius: 26px;
+      font-weight: 700; font-size: 1rem; text-decoration: none; line-height: 1.3;
+    }
+    .afp-hero-btn.is-primary { background: #2E8B2E; color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.22); }
+    .afp-hero-btn.is-primary:hover { background: #35a035; }
+    .afp-hero-btn.is-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.6); }
+    .afp-hero-btn.is-ghost:hover { background: rgba(255,255,255,0.24); }
+    @media (max-width: 600px) { .afp-hero-btn { width: 100%; } }
+
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    /* Update box (latest release) */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      /* リード文自体が白いカードなので、下に余白を入れないと次のカードとくっついて見える */
+      margin: 0 0 26px;
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0 0 12px; }
+    .afp-feature p:last-child { margin-bottom: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+    /* Cap narrow captures at the width the UI really has, so nothing is blown up
+       larger than the user will see it in kintone. */
+    .afp-shot-w420 { max-width: 420px; }
+    .afp-shot-w640 { max-width: 640px; }
+    .afp-shot-w840 { max-width: 840px; }
+
+    .afp-shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+    @media (max-width: 900px) { .afp-shot-pair { grid-template-columns: 1fr; } }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    /* Feature block: 使い方の画面 → その設定画面、の2枚組 */
+    .afp-usecfg { margin-top: 30px; }
+    .afp-usecfg-head {
+      display: inline-block; background: var(--color-navy); color: #fff; font-weight: 700;
+      font-size: 0.85rem; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px;
+    }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+  <style is:global>
+    /* このページで足すもの */
+    /* 設定の手順見出し。既存の .afp-plan-compare-head と同じ見た目にそろえる
+       （紺の文字＋緑の縦線）。新しい体裁を持ち込まないため。 */
+    .afp-h3 {
+      font-size: 1.15rem; color: var(--color-navy); margin: 34px 0 12px;
+      padding-left: 12px; border-left: 4px solid var(--color-green);
+    }
+    .afp-h3:first-of-type { margin-top: 8px; }
+    .afp-feat-no {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--color-green); margin-bottom: 6px;
+    }
+  </style>
+  <style is:global>
+    /* Coming-soon notice for this page only */
+    .dc-notice {
+      background: #fdf7e9;
+      border: 1px solid #f0d8a8;
+      border-left: 5px solid #d99a1f;
+      border-radius: 10px;
+      padding: 22px 26px;
+      color: #6b4e12;
+      line-height: 1.9;
+    }
+    .dc-notice-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
+    .dc-notice a { color: var(--color-navy); font-weight: 700; text-decoration: underline; }
+    .dc-soon {
+      display: inline-block; width: 100%; text-align: center;
+      padding: 14px 20px; border-radius: 8px;
+      background: #e2e8f0; color: #64748b; font-weight: 700;
+      cursor: default;
+    }
+    .afp-hero-btn.is-soon {
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.55);
+      color: #fff;
+      cursor: default;
+    }
+    @media (max-width: 768px) { .dc-notice { padding: 18px; } }
+  </style>
+
+  <style is:global>
+    /* Steps page only */
+    .gc-step { background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.08); padding:28px 30px; margin-bottom:22px; }
+    .gc-step-head { display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+    .gc-step-no {
+      flex:0 0 auto; width:38px; height:38px; border-radius:50%;
+      background:var(--color-navy); color:#fff; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .gc-step-title { font-size:1.15rem; color:var(--color-navy); font-weight:700; line-height:1.4; }
+    .gc-step p { line-height:1.9; margin-bottom:10px; }
+    .gc-step ol, .gc-step ul { margin:10px 0 10px 1.4em; line-height:1.95; }
+    .gc-step li { margin-bottom:6px; }
+    .gc-url {
+      display:block; background:#f4f7fb; border:1px solid #dbe5f0; border-radius:8px;
+      padding:10px 14px; margin:10px 0; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+      font-size:.9rem; word-break:break-all; color:#274b76;
+      white-space:pre-wrap; line-height:1.85;
+    }
+    .gc-branch { border-left:4px solid var(--color-green); background:#f3f9f3; border-radius:0 8px 8px 0; padding:16px 20px; margin:14px 0; }
+    .gc-branch-title { font-weight:700; color:#1f6b1f; margin-bottom:6px; }
+    .gc-time { color:var(--color-text-muted); font-size:.95rem; margin-bottom:26px; }
+    @media (max-width:768px) { .gc-step { padding:22px 18px; } }
+  </style>
+
+
+  <main>
+    <section class="afp-hero">
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+      </div>
+      <h1>自社の Google Cloud で使う ― 設定手順</h1>
+      <p class="afp-tagline">ドライブ連携 for kintone</p>
+      <p class="afp-sub">ドライブ連携は、はじめから使える <strong>KIZUNA Works の接続</strong>と、お客様ご自身の <strong>Google Cloud</strong> のどちらでも動きます。本番運用では<strong>自社の Google Cloud をおすすめします</strong>。このページはその準備手順です。<strong>作業は 15 分ほど、費用はかかりません。</strong></p>
+      <div class="afp-hero-cta">
+        <a class="afp-hero-btn is-primary" href="/plugins/drive-connect/">← ドライブ連携の製品ページへ</a>
+      </div>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- なぜ自社を勧めるのか -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">なぜ自社の Google Cloud をすすめるのか</h2>
+        <p class="afp-lead">どちらを選んでも機能は同じで、ファイルの流れも変わりません（利用者のブラウザから Google ドライブへ直送）。違うのは「<strong>誰の Google 利用枠を使うか</strong>」です。</p>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">01</span>
+            <h3>利用枠が自社専用になる</h3>
+            <p>Google の利用枠（クォータ）は Cloud プロジェクト単位で決まります。KIZUNA Works の接続は当社のプロジェクトを全ご利用者で共有するため、毎日大量に転送する運用では枠を分け合うことになります。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">02</span>
+            <h3>第三者の都合で止まらない</h3>
+            <p>当社の接続を使う場合、当社の OAuth クライアントに何かあれば影響を受けます。自社のプロジェクトなら、止まる・止めるの判断も自社で握れます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">03</span>
+            <h3>監査ログを自社で持てる</h3>
+            <p>API の利用状況を自社の Cloud コンソールで確認できます。情報システム部門の管理下に置きたい場合に向いています。</p>
+          </div>
+        </div>
+        <div class="afp-note">まず動かして試したいだけなら、<strong>KIZUNA Works の接続のままで構いません</strong>。あとから設定画面で切り替えられます（保存先フォルダの選び直しと再接続が必要です）。</div>
+      </div>
+    </section>
+
+    <!-- 用意するもの -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">用意するもの</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li><strong>Google アカウント</strong>（Google Workspace を推奨。個人の Google アカウントでも可）</li>
+            <li><strong>kintone のアプリ管理権限</strong>（設定画面を開くため）</li>
+            <li><strong>費用は不要です。</strong>Google Drive API と Google Picker API は、請求先アカウントを紐づけなくても使えます</li>
+          </ul>
+        </div>
+        <p class="gc-time">所要時間の目安：15 分。作業は最初の 1 回だけで、そのあとは通常の利用に切り替わります。</p>
+      </div>
+    </section>
+
+    <!-- 手順 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定手順</h2>
+
+        <div class="gc-step" id="step1">
+          <div class="gc-step-head"><span class="gc-step-no">1</span><span class="gc-step-title">Google Cloud プロジェクトを作る</span></div>
+          <p>下記を開き、プロジェクトを 1 つ作ります。名前は何でも構いません（例：<code>kintone-drive-connect</code>）。</p>
+          <code class="gc-url">https://console.cloud.google.com/projectcreate</code>
+          <p>Google Workspace をお使いの場合は、<strong>組織に所属したプロジェクト</strong>として作ってください。次の手順 3 で「内部」を選べるようになり、手続きが一段簡単になります。</p>
+        </div>
+
+        <div class="gc-step" id="step2">
+          <div class="gc-step-head"><span class="gc-step-no">2</span><span class="gc-step-title">API を 2 つ有効にする</span></div>
+          <p><strong>画面右上のプロジェクト名が、いま作ったプロジェクトになっているか必ず確認してから</strong>、次の 2 つを「有効にする」で有効化します。</p>
+          <code class="gc-url">Google Drive API
+https://console.cloud.google.com/apis/library/drive.googleapis.com
+
+Google Picker API
+https://console.cloud.google.com/apis/library/picker.googleapis.com</code>
+          <p><strong>Picker API を忘れないでください。</strong>保存先フォルダを選ぶ画面がこれを使います。有効になっていないと、設定画面の［フォルダを選択］を押しても何も開きません。</p>
+        </div>
+
+        <div class="gc-step" id="step3">
+          <div class="gc-step-head"><span class="gc-step-no">3</span><span class="gc-step-title">OAuth 同意画面を用意する</span></div>
+          <p>「Google Auth Platform」を開き、案内にしたがってアプリの情報を登録します。</p>
+          <code class="gc-url">https://console.cloud.google.com/auth/overview</code>
+          <ul>
+            <li><strong>アプリ名</strong>：接続するときの画面に出ます（例：<code>kintone ドライブ連携</code>）</li>
+            <li><strong>ユーザーサポートメール／デベロッパーの連絡先</strong>：自社のアドレス</li>
+          </ul>
+          <div class="gc-branch">
+            <p class="gc-branch-title">Google Workspace をお使いの場合 → ユーザーの種類は「内部」</p>
+            <p>自社の組織のアカウントだけが接続できる設定です。<strong>審査は要りません。</strong>接続するのはアプリ管理者ご自身の 1 アカウントだけなので、これで足ります。</p>
+          </div>
+          <div class="gc-branch">
+            <p class="gc-branch-title">個人の Google アカウントの場合 → 「外部」＋「本番環境に公開」</p>
+            <p>「外部」しか選べません。登録後、<strong>公開ステータスを「本番環境」に切り替えてください</strong>。<strong>テストのままにすると、接続が 7 日で切れます</strong>（Google の仕様で、テスト中のトークンは 7 日で失効します）。</p>
+            <p>本プラグインが求めるアクセス権は <code>drive.file</code> だけで、これは Google が非機密に分類しているものです。<strong>本番環境に切り替えるだけで、Google の審査を受ける必要はありません。</strong></p>
+          </div>
+          <p>データアクセス（スコープ）の設定欄がある場合、<strong>スコープは追加しないでください</strong>。必要なスコープはプラグインが接続時に要求します。</p>
+        </div>
+
+        <div class="gc-step" id="step4">
+          <div class="gc-step-head"><span class="gc-step-no">4</span><span class="gc-step-title">OAuth クライアント ID を作る</span></div>
+          <p>「クライアント」→「クライアントを作成」と進みます。</p>
+          <code class="gc-url">https://console.cloud.google.com/auth/clients</code>
+          <ul>
+            <li><strong>アプリケーションの種類</strong>：ウェブ アプリケーション</li>
+            <li><strong>名前</strong>：任意（例：<code>kintone-drive-connect</code>）</li>
+            <li><strong>承認済みの JavaScript 生成元</strong>：登録不要</li>
+            <li><strong>承認済みのリダイレクト URI</strong>：次の 1 本だけを登録します</li>
+          </ul>
+          <code class="gc-url">https://kizuna-works.jp/drive-connect/callback.html</code>
+          <p>これは Google からの認可コードを受け取るための<strong>当社の静的なページ</strong>です。サーバー処理はなく、受け取った値をブラウザ内で設定画面へ渡すだけで、<strong>保存も転送もしません</strong>。Google はリダイレクト URI を完全一致でしか認めず、ワイルドカードも使えないため、お客様の kintone サブドメインを個別に登録する方式が成り立たないので、この 1 枚に集約しています。</p>
+          <p>作成後に表示される<strong>クライアント ID</strong>と<strong>クライアント シークレット</strong>を控えてください（シークレットはこの画面を閉じると再表示できないことがあります）。</p>
+        </div>
+
+        <div class="gc-step" id="step5">
+          <div class="gc-step-head"><span class="gc-step-no">5</span><span class="gc-step-title">API キーを作る（フォルダ選択用）</span></div>
+          <p>「認証情報」→「認証情報を作成」→「API キー」で作ります。</p>
+          <code class="gc-url">https://console.cloud.google.com/apis/credentials</code>
+          <p>作成したキーを開き、次のとおり設定してください。</p>
+          <ul>
+            <li><strong>API の制限</strong>：<strong>「Google Picker API」だけ</strong>を選ぶ（必ず設定してください）</li>
+            <li><strong>アプリケーションの制限</strong>：<strong>「なし」のまま</strong>にする</li>
+          </ul>
+          <div class="afp-note" style="margin-top:14px;"><strong>HTTP リファラー制限は付けないでください。</strong>付けるとフォルダ選択の画面が「API デベロッパー キーが無効です。」となって開きません。フォルダ選択の画面は Google 側（<code>docs.google.com</code>）で読み込まれるため、kintone のドメインでは照合が通らないためです。<br />制限を「Picker API のみ」にしてあれば、仮にキーが読み取られても<strong>できるのはフォルダ選択の画面を出すことだけ</strong>で、ドライブのデータには一切触れられません（アクセスには別途 OAuth の認可が必要です）。</p>
+        </div>
+
+        <div class="gc-step" id="step6">
+          <div class="gc-step-head"><span class="gc-step-no">6</span><span class="gc-step-title">プラグインに登録して接続する</span></div>
+          <p>kintone のアプリ設定 → プラグイン →「ドライブ連携 for kintone」の歯車 →「① Google 接続」を開きます。</p>
+          <ol>
+            <li>接続方式で <strong>「自社の Google Cloud を使う【推奨】」</strong> を選ぶ</li>
+            <li><strong>クライアント ID</strong>・<strong>クライアント シークレット</strong>・<strong>API キー</strong> を入力する</li>
+            <li>［Google に接続］を押し、アカウントを選んでアクセスを許可する</li>
+            <li>「🟢 接続済：（メールアドレス）」に変われば完了</li>
+          </ol>
+          <p><strong>3 つとも同じプロジェクトのものにしてください。</strong>クライアント ID と別プロジェクトの API キーを混ぜると、フォルダ選択の画面が開きません（Google 側でプロジェクトの一致を見ています）。</p>
+          <p>あとは「② 転送ルール」で保存先フォルダを選び、保存してアプリを更新すれば、通常どおり使えます。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- つまずきやすいところ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">つまずきやすいところ</h2>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead><tr><th>症状</th><th>原因と対処</th></tr></thead>
+            <tbody>
+              <tr><td>［フォルダを選択］を押しても何も開かない</td><td>Google Picker API が有効になっていない／API キーに HTTP リファラー制限が付いている／クライアント ID と API キーが別プロジェクト</td></tr>
+              <tr><td>「API デベロッパー キーが無効です。」と出る</td><td>API キーの HTTP リファラー制限を外してください（アプリケーションの制限＝なし）</td></tr>
+              <tr><td>接続が 7 日で切れる</td><td>OAuth 同意画面が「テスト」のままです。「本番環境に公開」に切り替えてください</td></tr>
+              <tr><td>接続画面で「アクセスをブロックしました」と出る</td><td>ユーザーの種類が「内部」で、組織外のアカウントで接続しようとしています。組織内のアカウントで接続してください</td></tr>
+              <tr><td>リダイレクト URI が一致しないと言われる</td><td>末尾まで含めて <code>https://kizuna-works.jp/drive-connect/callback.html</code> と完全一致で登録してください</td></tr>
+              <tr><td>接続はできるが転送でエラーになる</td><td>Google Drive API が有効になっているか確認してください</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">よくある質問</h2>
+        <div class="afp-faq">
+          <details class="afp-faq-item">
+            <summary>費用はかかりますか？</summary>
+            <div class="afp-faq-answer">かかりません。Google Drive API と Google Picker API は請求先アカウントを紐づけなくても利用でき、通常の利用範囲では料金が発生しません。プロジェクトに請求先アカウントを紐づけないままにしておけば、想定外の請求が発生する経路そのものがありません。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>Google の審査（アプリの確認）は必要ですか？</summary>
+            <div class="afp-faq-answer">通常は不要です。本プラグインが求めるアクセス権は <code>drive.file</code> だけで、Google が非機密に分類しているものです。Google Workspace で「内部」を選んだ場合は審査という手続き自体がありません。「外部」の場合も、本番環境に公開するだけで使えます（同意画面にアプリ名やロゴを表示したい場合のみ、ブランド確認という軽い手続きがあります）。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>リダイレクト URI が KIZUNA Works のページなのはなぜですか？</summary>
+            <div class="afp-faq-answer">Google は認可後の戻り先を完全一致でしか認めず、ワイルドカードも使えないためです。お客様の kintone サブドメインを個別に登録していく方式は現実的でないため、当社が用意した静的なページ 1 枚に集約しています。このページはサーバー処理を持たず、受け取った認可コードをブラウザ内で設定画面へ渡すだけで、保存も転送もしません。ファイルがここを通ることもありません。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>あとから KIZUNA Works の接続に戻せますか？</summary>
+            <div class="afp-faq-answer">戻せます。設定画面の「① Google 接続」で接続方式を切り替え、あらためて接続してください。切り替え後は保存先フォルダを選び直す必要があります（フォルダの選択は接続したアカウントの権限で行うためです）。すでにドライブへ転送済みのファイルとリンクはそのまま残ります。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>複数のアプリで使う場合、プロジェクトも複数必要ですか？</summary>
+            <div class="afp-faq-answer">必要ありません。1 つの Cloud プロジェクトで作ったクライアント ID・シークレット・API キーを、複数のアプリの設定画面にそれぞれ入力してお使いいただけます。</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>ドライブ連携 for kintone</h2>
+      <p>添付ファイルを Google ドライブへ転送し、kintone にはリンクだけを残すプラグインです。プレミアム年間サポーター（税込 ¥16,500/年）に含まれる予定で、現在は公開準備中です。</p>
+      <a class="afp-cta-btn" href="/plugins/drive-connect/">製品ページを見る →</a>
+    </section>
+  </main>
+</Layout>
