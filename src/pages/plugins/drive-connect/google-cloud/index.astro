@@ -355,7 +355,7 @@ import Layout from '../../../../layouts/Layout.astro';
           </div>
           <div class="afp-feat-card">
             <span class="afp-feat-no">03</span>
-            <h3>監査ログを自社で持てる</h3>
+            <h3>利用状況を自社で確認できる</h3>
             <p>API の利用状況を自社の Cloud コンソールで確認できます。情報システム部門の管理下に置きたい場合に向いています。</p>
           </div>
         </div>
@@ -418,7 +418,7 @@ https://console.cloud.google.com/apis/library/picker.googleapis.com</code>
             <p>「外部」しか選べません。登録後、<strong>公開ステータスを「本番環境」に切り替えてください</strong>。<strong>テストのままにすると、接続が 7 日で切れます</strong>（Google の仕様で、テスト中のトークンは 7 日で失効します）。</p>
             <p>本プラグインが求めるアクセス権は <code>drive.file</code> だけで、これは Google が非機密に分類しているものです。<strong>本番環境に切り替えるだけで、Google の審査を受ける必要はありません。</strong></p>
           </div>
-          <p>データアクセス（スコープ）の設定欄がある場合、<strong>スコープは追加しないでください</strong>。必要なスコープはプラグインが接続時に要求します。</p>
+          <p><strong>データアクセス（スコープ）には <code>https://www.googleapis.com/auth/drive.file</code> を追加してください。</strong>これ 1 つだけで、ほかは追加しません。このスコープは「アプリが作ったファイル」と「利用者が選んだフォルダ」に限定されたもので、Google が非機密に分類しているため審査の対象になりません。同意画面に出る内容と実際に要求する内容を揃えておくと、接続時に「確認されていないアプリ」の警告が出るのを防げます。</p>
         </div>
 
         <div class="gc-step" id="step4">
@@ -474,8 +474,9 @@ https://console.cloud.google.com/apis/library/picker.googleapis.com</code>
               <tr><td>［フォルダを選択］を押しても何も開かない</td><td>Google Picker API が有効になっていない／API キーに HTTP リファラー制限が付いている／クライアント ID と API キーが別プロジェクト</td></tr>
               <tr><td>「API デベロッパー キーが無効です。」と出る</td><td>API キーの HTTP リファラー制限を外してください（アプリケーションの制限＝なし）</td></tr>
               <tr><td>接続が 7 日で切れる</td><td>OAuth 同意画面が「テスト」のままです。「本番環境に公開」に切り替えてください</td></tr>
-              <tr><td>接続画面で「アクセスをブロックしました」と出る</td><td>ユーザーの種類が「内部」で、組織外のアカウントで接続しようとしています。組織内のアカウントで接続してください</td></tr>
+              <tr><td>接続時に「アクセスをブロックしました」「確認されていないアプリ」と出る</td><td>①OAuth 同意画面が「テスト」のままです。「本番環境に公開」に切り替えてから接続してください（テストのまま使う場合は、自分のアカウントをテストユーザーに追加します）／②ユーザーの種類が「内部」で、組織外のアカウントで接続しようとしています。組織内のアカウントで接続してください</td></tr>
               <tr><td>リダイレクト URI が一致しないと言われる</td><td>末尾まで含めて <code>https://kizuna-works.jp/drive-connect/callback.html</code> と完全一致で登録してください</td></tr>
+              <tr><td>しばらく使っていなかったら接続が切れた</td><td>Google のリフレッシュトークンは <strong>6 か月間まったく使われないと失効</strong>します。設定画面から接続し直してください。日常的に転送していれば起きません</td></tr>
               <tr><td>接続はできるが転送でエラーになる</td><td>Google Drive API が有効になっているか確認してください</td></tr>
             </tbody>
           </table>
