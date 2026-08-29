@@ -153,6 +153,8 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .afp-lead {
       font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
       background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      /* リード文自体が白いカードなので、下に余白を入れないと次のカードとくっついて見える */
+      margin: 0 0 26px;
     }
     .afp-lead strong { color: var(--color-navy); }
 
@@ -171,6 +173,11 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
 
     .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    /* 白いカードが続くときにくっついて見えないようにする */
+    .afp-shot + .afp-shot,
+    .afp-shot + .afp-cautions,
+    .afp-shot + .afp-note,
+    .afp-shot + .afp-grid-feats { margin-top: 26px; }
     .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
     .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
     /* Screenshots are captured at 2x, so a shot of a 620px-wide dialog is a

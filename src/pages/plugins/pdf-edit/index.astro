@@ -190,6 +190,8 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .afp-lead {
       font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
       background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      /* リード文自体が白いカードなので、下に余白を入れないと次のカードとくっついて見える */
+      margin: 0 0 26px;
     }
     .afp-lead strong { color: var(--color-navy); }
 
@@ -207,6 +209,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
     .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
     .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+    .afp-feat-no {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--color-green); margin-bottom: 6px;
+    }
 
     .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
     .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
@@ -319,19 +325,19 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <div class="afp-wrap">
         <h2 class="afp-h2">PDF だけ、いつも kintone の外へ出ていく</h2>
         <p class="afp-lead">レコードに添付された PDF に一言書き加えたいだけなのに、ダウンロードして別のソフトで開き、保存して、また添付し直す。押印のためだけに印刷している現場もあります。作業が外に出るぶん、どれが最新なのか分からなくなります。</p>
-        <div class="afp-problems">
-          <div class="afp-problem">
-            <span class="afp-problem-no">01</span>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">01</span>
             <h3>押印のために印刷している</h3>
             <p>届いた申込書に受付印を押すため、印刷 → 押印 → スキャン → 再添付。紙とスキャナを経由するので、時間もかかれば画質も落ちます。</p>
           </div>
-          <div class="afp-problem">
-            <span class="afp-problem-no">02</span>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">02</span>
             <h3>図面の「どこ」を文字で説明している</h3>
             <p>「左上の会議室の隣」と書いても伝わりません。図面や現場写真は、その場所を直接指し示せないと話が進みません。</p>
           </div>
-          <div class="afp-problem">
-            <span class="afp-problem-no">03</span>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">03</span>
             <h3>白く塗って隠したつもりになっている</h3>
             <p>金額や個人情報を白い四角で覆っても、<strong>元の文字はファイルの中に残ります</strong>。コピーすれば読めてしまい、kintone の添付ファイル全文検索にも引っかかります。</p>
           </div>
