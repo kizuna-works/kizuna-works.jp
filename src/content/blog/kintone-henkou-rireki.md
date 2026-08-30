@@ -236,7 +236,7 @@ JavaScriptカスタマイズからは `kintone.app.record.getStatusHistory(offse
 | 誰が読んだかを残す | [既読チェック](/plugins/read-check/) |
 | 削除したレコードを復元する | [削除レコード復元](/plugins/record-recovery/) |
 
-変更履歴は「戻す」ための機能で、削除されたレコードそのものを復元する機能ではありません。誤削除への備えは[kintoneのバックアップの記事](/blog/kintone-backup/)で別に扱っています。
+変更履歴は「戻す」ための機能で、削除されたレコードそのものを復元する機能ではありません。レコードを削除すると変更履歴もろとも消えるため、**削除したレコードの復元**は履歴とは別の備えになります。削除の直前に添付ファイルごと退避して削除履歴から戻す方法は[削除したレコードを復元する（削除レコード復元 for kintone）](/plugins/record-recovery/)にまとめました。誤削除全般への備えは[kintoneのバックアップの記事](/blog/kintone-backup/)で別に扱っています。
 
 ## まとめ
 

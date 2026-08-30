@@ -49,7 +49,11 @@ const chokottoCount = plugins.length;
 const premiumCount = premiumPlugins.length;
 const totalCount = chokottoCount + premiumCount;
 
-// "kintone プラグイン 無料" is a high-intent query where this page ranked ~30th.
+// "kintone プラグイン 無料" is this page's highest-intent query. GSC (2026-08-27)
+// confirms this page — not the osusume article — is the one that holds it: 30 impr
+// at 22.5th vs the article's 1 impr at 47th. The 2026-08-10 split that moved "無料"
+// out of the title cost clicks (14 to 10) and impressions (247 to 178), so "無料"
+// stays in the title, H1 and description here; the article owns "おすすめ/比較".
 // Searchers want to know how many plugins exist and exactly what "free" covers,
 // so both are answered in static text below and mirrored in FAQPage structured data.
 const freeFaqJsonLd = {
@@ -101,10 +105,10 @@ const freeFaqJsonLd = {
 ---
 
 <Layout
-  title={`kintoneプラグイン一覧｜全${totalCount}製品を目的別に探す | KIZUNA Works`}
-  description={`KIZUNA Works の kintone プラグイン全${totalCount}製品のカタログ。フィールド装飾・自動採番・横断検索・一括更新・帳票出力などを、${pluginCategories.length}カテゴリの目的別に絞り込んで探せます。全製品ダウンロード無料・会員登録不要・利用期限なし。`}
-  ogTitle={`kintoneプラグイン一覧｜全${totalCount}製品を目的別に探す | KIZUNA Works`}
-  ogDescription={`KIZUNA Works の kintone プラグイン全${totalCount}製品のカタログ。${pluginCategories.length}カテゴリの目的別に絞り込んで探せます。ダウンロード無料・会員登録不要・利用期限なし。`}
+  title={`無料のkintoneプラグイン一覧 全${totalCount}製品｜目的別に探す | KIZUNA Works`}
+  description={`kintoneプラグインを全${totalCount}製品、無料で配布中のカタログ。フィールド装飾・自動採番・横断検索・一括更新・帳票出力などを、${pluginCategories.length}カテゴリの目的別に絞り込んで探せます。会員登録不要・利用期限なしで、ちょこっとプラグイン${chokottoCount}製品は全機能が無料です。`}
+  ogTitle={`無料のkintoneプラグイン一覧 全${totalCount}製品｜目的別に探す | KIZUNA Works`}
+  ogDescription={`kintoneプラグインを全${totalCount}製品、無料で配布中のカタログ。${pluginCategories.length}カテゴリの目的別に絞り込んで探せます。会員登録不要・利用期限なし。`}
   ogUrl="https://kizuna-works.jp/plugins/"
   ogType="website"
   canonical="https://kizuna-works.jp/plugins/"
@@ -1088,15 +1092,15 @@ const freeFaqJsonLd = {
 
   <main>
     <section class="hero">
-      <h1>kintone プラグイン一覧</h1>
-      <p>全 {totalCount} 製品を目的別に探せます。ダウンロードは無料・会員登録不要で、kintoneをもっと使いやすくするプラグインです</p>
+      <h1>無料の kintone プラグイン一覧</h1>
+      <p>全 {totalCount} 製品を無料で配布中。会員登録不要・利用期限なしで、目的別に探せます</p>
     </section>
     <div class="hero-gradient-line"></div>
 
     <section class="intro-section lead-section">
       <div class="intro-card lead-card">
         <p class="lead-main">KIZUNA Works の kintone プラグインは、<strong>全 {totalCount} 製品（ちょこっと {chokottoCount} 製品・プレミアム {premiumCount} 製品）</strong>を無料で配布しています。会員登録は不要、JavaScript を書く必要もなく、<strong>利用期限はありません</strong>。</p>
-        <p class="lead-sub">このページは<strong>製品カタログ</strong>です。やりたいことのカテゴリで絞り込めます。製品名ではなく<strong>目の前の不便から探したい</strong>ときは、全 {totalCount} 製品を課題別に並べた<a href="/plugins/problems/">kintoneの困りごとから探す</a>が近道です。<strong>どれを選べばいいか迷っている段階なら</strong>、「一覧を見やすくする」「入力を速くする」など目的ごとに自社・他社の無料プラグインを比較した<a href="/blog/kintone-muryou-plugin-osusume/">kintone無料プラグインのおすすめ｜やりたいこと別の選び方</a>から読むと、候補を絞りやすくなります。</p>
+        <p class="lead-sub">このページは<strong>製品カタログ</strong>です。やりたいことのカテゴリで絞り込めます。製品名ではなく<strong>目の前の不便から探したい</strong>ときは、全 {totalCount} 製品を課題別に並べた<a href="/plugins/problems/">kintoneの困りごとから探す</a>が近道です。<strong>どれを選べばいいか迷っている段階なら</strong>、「一覧を見やすくする」「入力を速くする」など目的ごとに自社・他社の無料プラグインを比較した<a href="/blog/kintone-muryou-plugin-osusume/">kintoneプラグインのおすすめと選び方（やりたいこと別）</a>から読むと、候補を絞りやすくなります。</p>
         <div class="lead-folds">
           <details class="lead-fold" id="free-scope">
             <summary><h2>無料でどこまで使えるのか</h2></summary>

@@ -664,7 +664,7 @@ export const glossary: Term[] = [
     seoTitle: 'kintoneのレコード番号とは？自動採番の仕組みと区分別連番の作り方',
     seoDescription: 'kintoneのレコード番号とは、レコード追加ごとに自動採番される一意の連番のこと。プレフィックスや開始番号の設定方法と、「区分ごとの連番」など標準では作れない採番を実現する方法まで解説します。',
     relatedTerms: ['record'],
-    relatedPlugins: ['kw-conditional-numbering'],
+    relatedPlugins: ['kw-conditional-numbering', 'record-recovery'],
     relatedBlog: ['kintone-jido-saiban'],
     hasPage: true,
     longDescription: [
@@ -680,6 +680,7 @@ export const glossary: Term[] = [
       { q: 'レコード番号は後から変更できますか？', a: 'できません。レコード番号はシステムが自動採番する読み取り専用の値で、手動での変更はできません。' },
       { q: '「区分ごとに連番を分ける」ことはできますか？', a: '標準のレコード番号ではできません。区分ごとの独立連番や日付＋接頭辞＋連番の組み立ては、条件分岐自動採番 for kintone のような採番プラグインで実現できます。詳しくは「[kintoneで自動採番する方法](/blog/kintone-jido-saiban/)」をご覧ください。' },
       { q: '年度や月でリセットできますか？', a: '標準機能ではできません。リセット周期（年・月・日）を指定した採番は採番プラグインが必要です。' },
+      { q: 'レコードを削除すると、レコード番号はどうなりますか？', a: '削除したレコードの番号は欠番になり、以降のレコードに振り直されることはありません。番号を詰めたいという理由でレコードを削除しても連番は戻らないため、番号は「一意の識別子」と割り切るのが安全です。誤って削除したレコード自体を元に戻したい場合は「[削除したレコードを復元する](/plugins/record-recovery/)」で、削除の直前に添付ファイルごとバックアップして履歴から復元できます。' },
     ],
   },
   {
