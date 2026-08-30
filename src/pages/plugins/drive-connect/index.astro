@@ -49,16 +49,17 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
           "softwareVersion": "1.0.0",
-          "dateModified": "2026-08-28",
+          "dateModified": "2026-08-30",
           "url": "https://kizuna-works.jp/plugins/drive-connect/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-drive-connect-v1.0.0.zip",
           "image": "https://kizuna-works.jp/images/drive-connect-banner.png",
           "offers": {
             "@type": "Offer",
             "name": "プレミアム年間サポーター（全プラグイン込み）",
             "price": "16500",
             "priceCurrency": "JPY",
-            "availability": "https://schema.org/PreOrder",
-            "description": "プレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。現在は公開準備中です。"
+            "availability": "https://schema.org/InStock",
+            "description": "プレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料プランでも転送ルール1本・手動モードで利用できます。"
           },
           "description": "kintone のレコードに添付されたファイルを Google ドライブの指定フォルダへ転送し、レコードにはそのリンクだけを残す kintone プラグイン。転送に成功したファイルは kintone から削除できるため、ディスク使用量を抑えながらファイルの実体を Google ドライブで一元管理できる。レコード単位のフォルダをパーツ方式の命名で自動生成し、ファイル名とサイズの突合による差分検知で二重転送を防ぐ。サブテーブル内の添付は行ごとに処理し、一覧からの一括転送にも対応する。ファイルは利用者のブラウザから Google ドライブへ直接送信されるため中継サーバーを必要としない。要求するアクセス権は drive.file スコープのみで、プラグインが作成したファイルと利用者が選択したフォルダ以外は参照しない。",
           "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
@@ -303,34 +304,6 @@ import ShareButtons from '../../../components/ShareButtons.astro';
     }
   </style>
 
-  <style is:global>
-    /* Coming-soon notice for this page only */
-    .dc-notice {
-      background: #fdf7e9;
-      border: 1px solid #f0d8a8;
-      border-left: 5px solid #d99a1f;
-      border-radius: 10px;
-      padding: 22px 26px;
-      color: #6b4e12;
-      line-height: 1.9;
-    }
-    .dc-notice-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
-    .dc-notice a { color: var(--color-navy); font-weight: 700; text-decoration: underline; }
-    .dc-soon {
-      display: inline-block; width: 100%; text-align: center;
-      padding: 14px 20px; border-radius: 8px;
-      background: #e2e8f0; color: #64748b; font-weight: 700;
-      cursor: default;
-    }
-    .afp-hero-btn.is-soon {
-      background: rgba(255,255,255,0.18);
-      border: 1px solid rgba(255,255,255,0.55);
-      color: #fff;
-      cursor: default;
-    }
-    @media (max-width: 768px) { .dc-notice { padding: 18px; } }
-  </style>
-
 
   <main>
     <section class="afp-hero">
@@ -343,20 +316,11 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       <p class="afp-tagline">添付は、ドライブへ。kintone にはリンクだけ。</p>
       <p class="afp-sub">レコードに添付したファイルを <strong>Google ドライブへ転送</strong>し、kintone には<strong>リンクだけ</strong>を残します。転送に成功したファイルは kintone から削除できるので、<strong>ディスク容量を抑えながら</strong>、ファイルの実体は普段お使いのドライブで一元管理できます。中継サーバーは不要です。</p>
       <div class="afp-hero-cta">
-        <span class="afp-hero-btn is-soon" aria-disabled="true">公開準備中</span>
+        <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-drive-connect-v1.0.0.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
-
-    <!-- 準備中のお知らせ -->
-    <section class="afp-section">
-      <div class="afp-wrap">
-        <div class="dc-notice">
-          <p class="dc-notice-title">このプラグインは公開準備中です</p>
-          <p>現在、最終確認と Google 側の申請手続きを進めています。ダウンロードの開始まで、いましばらくお待ちください。公開時は<a href="/news/">お知らせ</a>でご案内します。</p>
-        </div>
-      </div>
-    </section>
 
     <!-- 課題 -->
     <section class="afp-section">
@@ -543,7 +507,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
               <li>✅ サブテーブル内の添付ファイル・共有ドライブ</li>
               <li>✅ 利用期限なし（転送ルールは1本・手動モードのみ／設定画面に控えめな広告あり）</li>
             </ul>
-            <span class="dc-soon">公開準備中</span>
+            <a href="/downloads/kw-drive-connect-v1.0.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">👑 全機能を解放</span>
@@ -660,6 +624,20 @@ import ShareButtons from '../../../components/ShareButtons.astro';
         });
         lightbox.addEventListener('click', closeLightbox);
         document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      // ダウンロードは ヒーローとプランカードの2か所にあるので、まとめて計測する
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: 'kw-drive-connect-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-drive-connect-v1.0.0.zip'
+            });
+          });
+        });
       }
     })();
   </script>

@@ -1484,14 +1484,14 @@ export const premiumPlugins: Plugin[] = [
       'ドライブ連携 for kintone バナー — 添付は、ドライブへ。kintone にはリンクだけ。レコード単位のフォルダ自動生成と差分検知つき',
     imageWidth: 1200,
     imageHeight: 630,
-    status: 'coming-soon',
+    status: 'available',
     tier: 'premium',
     cardDescription:
       '添付ファイルを Google ドライブへ転送し、kintone にはリンクだけを残します。フォルダの自動生成と差分検知つき。',
     problemTitle: '添付ファイルが増え続けて、kintone の容量が足りない',
     problemDesc:
       '容量を買い増すか、古いレコードから手で消すかの二択。ドライブへ手で上げて共有URLを貼る運用も、件数が増えるとフォルダの命名がばらついて追えなくなる',
-    releaseDate: '2026-08-28',
+    releaseDate: '2026-08-30',
     summaryVersion: '1.0.0',
   },
 ];
