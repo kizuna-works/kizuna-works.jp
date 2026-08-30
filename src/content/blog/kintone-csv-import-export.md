@@ -179,4 +179,6 @@ kintoneのCSV読み込み・書き出しの要点を振り返ります。
 
 まずは標準で試し、残った不満だけをプラグインで補う。この順番なら、コストも手間も最小限で、CSVまわりのストレスから解放されます。
 
+CSVの再インポートで既存レコードを上書きしたい場合は、更新キーの条件や他の手段とあわせて[kintone一括更新の方法とプラグイン比較](/blog/kintone-ikkatsu-koushin/)にまとめています。
+
 CSVやExcelの運用でお困りのことがあれば、[お問い合わせ](/contact/)からお気軽にご相談ください。関連する話題として、[「Excelのほうがよかった」と言わせないkintone移行ステップ](/blog/kintone-excel-iko-steps/)や、[kintoneで帳票・PDFを出力する方法](/blog/kintone-cyouhyou-pdf-output/)、そのほかの[kintoneプラグインのおすすめと選び方](/blog/kintone-muryou-plugin-osusume/)もあわせてご覧ください。

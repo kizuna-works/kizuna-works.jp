@@ -234,7 +234,7 @@ const FIGURES = [
   {
     name: 'kintone-2026-06-update-ai-flow',
     w: 1000, h: 164,
-    el: flow(['管理者が歯車→kintone AI管理', '機能全体を有効化', '使う機能を選択', 'ユーザーが利用開始']),
+    el: flow(['管理者が歯車からkintone AI管理', '機能全体を有効化', '使う機能を選択', 'ユーザーが利用開始']),
   },
   {
     name: 'kintone-muryou-plugin-osusume-map',
@@ -390,7 +390,7 @@ const FIGURES = [
   {
     name: 'kintone-tsuuchi-settei-triage',
     w: 1000, h: 210,
-    el: flowCaptioned(['ポータルに通知は出ているか', '出ていない→アプリ側', '出ている→メール側'], C.navy, 'ポータルに届いていなければ、メール通知も届かない。まずここで切り分ける'),
+    el: flowCaptioned(['ポータルに通知は出ているか', '出ていなければアプリ側', '出ていればメール側'], C.navy, 'ポータルに届いていなければ、メール通知も届かない。まずここで切り分ける'),
   },
   {
     name: 'kintone-tsuuchi-settei-steps',
@@ -569,7 +569,7 @@ const FIGURES = [
     w: 1000, h: 300,
     el: contrastPanel(
       { title: "一括承認を入れたあと", desc: "一覧で対象を絞り、現在のステータスごとにアクションを選んで一度に進める。次の作業者は遷移先の設定から自動で決まる。30件でも操作は数回。" },
-      { title: "kintone標準のまま", desc: "レコードを開く→アクションを押す→一覧へ戻る、を件数ぶん繰り返す。月末に30件たまっていれば、その往復を30回する。" }
+      { title: "kintone標準のまま", desc: "レコードを開いてアクションを押し、一覧へ戻る。これを件数ぶん繰り返す。月末に30件たまっていれば、その往復を30回する。" }
     ),
   },
   {
@@ -577,7 +577,65 @@ const FIGURES = [
     w: 1000, h: 210,
     el: flowCaptioned(["一覧で一括実行", "REST APIでステータス更新", "詳細画面のJSは動かない", "チェックが素通りする"], C.navy, "一括実行はサーバー側の更新なので、詳細画面に仕込んだJSカスタマイズの検証は走らない"),
   },
+  {
+    name: "kintone-ikkatsu-koushin-overview",
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: '一覧のインライン編集', desc: '一覧の上でその場で直せる。ただし1件ずつ。5〜10件までの手段。', tag: '標準', paid: false },
+      { n: '2', name: 'CSVの再インポート', desc: '書き出して直して読み込む。更新キーでひも付け。数千件も可。', tag: '標準', paid: false },
+      { n: '3', name: '一括更新プラグイン', desc: '絞り込んだ結果に同じ値をまとめて反映・クリア。数クリックで完了。', tag: '無料あり', paid: false },
+      { n: '4', name: 'グリッド編集・貼り付け', desc: '一覧を表計算のように編集。レコードごとに違う値を入れられる。', tag: '無料あり', paid: false },
+      { n: '5', name: 'JavaScriptで自作', desc: 'REST APIで更新。一度に100件まで・失敗時は丸ごとキャンセル。', tag: '開発要', paid: true },
+    ]),
+  },
+  {
+    name: "kintone-ikkatsu-koushin-inline-limit",
+    w: 1000, h: 330,
+    el: overviewMethods([
+      { n: '1', name: '操作は1件ずつ', desc: '編集アイコンは行ごと。複数行をまとめて直す手段はない。', cost: '制約' },
+      { n: '2', name: '型に制限がある', desc: '文字列・数値・選択系・日付・ユーザー選択など13種のみ。', cost: '制約' },
+      { n: '3', name: '効かない場所がある', desc: 'テーブル内、ルックアップ設定や関連レコードの条件に使う項目。', cost: '制約' },
+    ]),
+  },
+  {
+    name: "kintone-ikkatsu-koushin-updatekey",
+    w: 1000, h: 300,
+    el: contrastPanel(
+      { title: '更新キーが一意', desc: 'レコード番号や受注番号のように、アプリ内で値が重複しない項目。ファイルの各行が1レコードに確実にひも付き、意図どおり上書きされる。' },
+      { title: '更新キーが重複・空', desc: '同じ値のレコードが複数あると、行とレコードを1対1でひも付けられない。空欄の行も同じ。公式が「重複しない項目を」と案内する理由。' }
+    ),
+  },
+  {
+    name: "kintone-ikkatsu-koushin-api-limit",
+    w: 1000, h: 210,
+    el: flowCaptioned(['対象を100件ずつに分割', '1リクエストを送信', '1件でも失敗したら', 'その100件は丸ごと未反映'], C.navy, 'REST APIは一度に100件まで。途中で止まると「前半だけ更新済み」が残るので再実行できる作りにする'),
+  },
+  {
+    name: "kintone-ikkatsu-koushin-csv-flow",
+    w: 1000, h: 210,
+    el: flowCaptioned(['一覧で対象を絞り込む', 'CSVを書き出す', '変えたい列だけ直す', '更新キーを指定して読み込む'], C.navy, '書き出したファイルを元に編集する。更新キーにはレコード番号が使える'),
+  },
+  {
+    name: "kintone-ikkatsu-koushin-contrast",
+    w: 1000, h: 300,
+    el: contrastPanel(
+      { title: 'プラグインを入れたあと', desc: '一覧で対象を絞り、値を選んで一度に反映。実行前に件数を確認でき、間違えても取り消せる。40件でも数クリック。' },
+      { title: 'kintone標準のまま', desc: 'レコードを開いて値を直し、保存して一覧へ戻る。これを件数ぶん繰り返す。月末に40件たまっていれば、その往復を40回する。' }
+    ),
+  },
 ];
+
+// The bundled Noto Sans JP WOFF is a subset without arrows and similar symbols;
+// satori silently renders them as tofu boxes. Fail the build instead of shipping that.
+const UNSUPPORTED = /[←-⇿⤀-⥿⇐-⇙➜➡]/;
+for (const f of FIGURES) {
+  const text = JSON.stringify(f.el);
+  const hit = text.match(UNSUPPORTED);
+  if (hit) {
+    console.error(`図版 ${f.name} に、同梱フォントに無い文字「${hit[0]}」（U+${hit[0].codePointAt(0).toString(16).toUpperCase()}）が含まれています。豆腐（□）になるので、言葉に置き換えてください。`);
+    process.exit(1);
+  }
+}
 
 const only = process.argv[2];
 for (const f of FIGURES) {
