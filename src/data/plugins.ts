@@ -1166,6 +1166,30 @@ export const plugins: Plugin[] = [
     releaseDate: '2026-08-22',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-split-view',
+    pluginId: 'blcklgnbapbhjlnlkbkdjifkjoplnldp',
+    name: '分割ビュー for kintone',
+    formName: '分割ビュー for kintone',
+    slug: 'split-view',
+    categories: ['画面レイアウト', '検索・閲覧'],
+    description:
+      'フォームに置いたスペース要素2個を境界に、レコードの詳細・編集・新規作成画面を左右2ペインへ分割します。左右は独立してスクロールし、境目のドラッグで変えた幅は利用者ごとに記憶。連動スクロール、ペイン見出しの表示と配色指定にも対応します。',
+    image: '/images/split-view-banner.png',
+    imageWebp: '/images/split-view-banner.webp',
+    imageAlt:
+      '分割ビュー for kintone バナー — 上下に長いフォームを、左右に並べて。スペース要素2個を境界にレコード画面を左右2ペインへ分割し、それぞれ独立してスクロール',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    cardDescription:
+      '縦に長いレコード画面を左右2ペインに分割。左右が別々にスクロールするので、離れた項目を1画面で見比べながら入力できます。',
+    problemTitle: '離れた項目を見比べるたび、レコード画面を上下に往復している',
+    problemDesc:
+      '顧客情報を見て明細へスクロールし、また戻る。入力しながら別のセクションを参照したいのに、スクロールすると入力欄が画面から消える。かといって運用中のフォームは組み替えられない',
+    releaseDate: '2026-09-01',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**

@@ -1,0 +1,1087 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="分割ビュー for kintone - レコード画面を左右2ペインに分割するプラグイン | KIZUNA Works"
+  description="kintone の縦に長いレコード画面を、フォーム上のスペース要素2個を境界にして左右2ペインに分割するプラグイン。左右はそれぞれ独立してスクロールするので、離れた項目を見比べながら入力できます。境目のドラッグで幅を変えて記憶、連動スクロール、ペイン見出しの配色指定にも対応。kintone完結・外部API不使用・ゲストスペース対応。"
+  ogTitle="分割ビュー for kintone - レコード画面を左右2ペインに分割するプラグイン | KIZUNA Works"
+  ogDescription="上下に長いフォームを、左右に並べて。スペース要素2個を境界にレコード画面を左右2ペインへ分割し、それぞれ独立してスクロールできるようにする kintone プラグイン。フォームを作り直さずに導入できます。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/split-view/"
+  ogImage="https://kizuna-works.jp/images/split-view-banner.png"
+  canonical="https://kizuna-works.jp/plugins/split-view/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/split-view/",
+          "url": "https://kizuna-works.jp/plugins/split-view/",
+          "name": "分割ビュー for kintone - レコード画面を左右2ペインに分割するプラグイン | KIZUNA Works",
+          "description": "kintone のレコード詳細・編集・新規作成画面を、フォーム上のスペース要素2個を境界にして左右2ペインに分割し、それぞれ独立してスクロールできるようにするプラグイン。離れた項目を1画面で見比べながら入力できます。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/split-view-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "分割ビュー for kintone", "item": "https://kizuna-works.jp/plugins/split-view/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "分割ビュー for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-09-01",
+          "url": "https://kizuna-works.jp/plugins/split-view/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-split-view-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/split-view-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone のレコード詳細・編集・新規作成画面を、フォーム上のスペース要素2個を境界にして左右2ペインに分割する kintone プラグイン。左右のペインはそれぞれ独立してスクロールするため、基本情報と明細のように離れた項目を1画面に並べて見比べながら入力できる。境目をドラッグして幅を変えられ、その幅は利用者ごとにブラウザへ記憶される。左右を同じ量だけ動かす連動スクロール、ペイン見出しの表示と配色指定にも対応。フォームのレイアウトを作り直す必要はなく、スペース要素を2個置いて要素IDを付けるだけで導入できる。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "フォーム上のスペース要素2個を境界に、レコード画面を共通エリア・左ペイン・右ペインの3領域へ自動で振り分け",
+            "左右のペインがそれぞれ独立してスクロール。片方を固定したまま、もう片方だけを読み進められる",
+            "境目をドラッグして左右の幅を変更。変えた幅は利用者ごとにブラウザへ記憶され、ダブルクリックで初期値に戻る",
+            "左右を同じ量だけ動かす連動スクロール（設定で切替）。予定と実績のような対になる項目を突き合わせられる",
+            "ペイン見出しをスクロールしても消えない位置に固定表示。背景色・文字色を左右それぞれプリセット12種＋自由な色で指定",
+            "詳細・編集・新規作成の画面ごとに分割するかを選択。フィールドの幅は変更しないため、入力の見た目は従来どおり",
+            "印刷時は自動で分割を解除して縦につなげるので、項目が欠けない・kintone完結・ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .feature-list li code {
+      background: #eef1f4;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .warn-box {
+      max-width: 900px;
+      margin: 0 auto 32px;
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      border-left: 5px solid #ea580c;
+      border-radius: 10px;
+      padding: 20px 24px;
+    }
+    .warn-box h3 {
+      color: #b45309;
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 10px;
+    }
+    .warn-box p {
+      color: #7c2d12;
+      font-size: 14px;
+      line-height: 1.8;
+      margin: 0 0 8px;
+    }
+    .warn-box p:last-child { margin-bottom: 0; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    .ba-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 4px;
+      padding: 2px 10px;
+      margin-bottom: 10px;
+    }
+    .ba-badge.before { background: #f1f5f9; color: #64748b; }
+    .ba-badge.after { background: #e6f4ea; color: #2d6a4f; }
+
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+      cursor: zoom-in;
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/split-view-icon.png"
+        alt="分割ビュー for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">分割ビュー for kintone</h1>
+      <p class="hero-copy">分割ビュー for kintone は、<strong>縦に長いレコード画面を左右2ペインに分けて表示する</strong>プラグインです。フォームに置いた<strong>スペース要素2個を境界</strong>にして、共通エリア・左ペイン・右ペインへ自動で振り分けます。左右は<strong>それぞれ独立してスクロール</strong>するので、基本情報と明細のように離れた項目を1画面に並べたまま入力できます。<strong>境目をドラッグして幅を変えられ</strong>、その幅は利用者ごとに記憶されます。フォームのレイアウトを作り直す必要はありません。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">項目数の多いアプリほど、レコード画面は縦に長くなります。長いこと自体より、<strong>「離れた2つを同時に見られないこと」</strong>が手を止めます。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🔃</span>
+            <h3 class="problem-title">見比べるたびに往復する</h3>
+            <p class="problem-desc">顧客情報を見て、案件情報へスクロールして、また戻る。1件を確認するだけで画面を何度も上下させている。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">👀</span>
+            <h3 class="problem-title">参照すると入力欄が消える</h3>
+            <p class="problem-desc">入力しながら別のセクションを確認したいのに、スクロールした瞬間に入力していた欄が画面の外へ行ってしまう。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📐</span>
+            <h3 class="problem-title">フォームは作り直せない</h3>
+            <p class="problem-desc">「並べれば済む」と分かっていても、運用中のフォームのレイアウトを組み替えるのは影響が大きくて手が出せない。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Before / After -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">同じレコードが、1画面に収まる</h2>
+      <p class="section-subtitle">kintone 公式テンプレート「案件管理」に、実務で足しがちな項目（業種・所在地・顧客メモ・競合・案件メモなど）を加えたアプリで比べています。同じ画面サイズ・同じレコードです。<strong>横に空いていた場所を使う</strong>ので、1画面に収まります。画像はクリックで拡大できます。</p>
+      <div class="screenshot-pair cols-2">
+        <figure>
+          <span class="ba-badge before">導入前</span>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/split-view-before.png" alt="分割ビュー 導入前 — kintone のレコード詳細画面。顧客情報だけで画面が埋まり、案件情報は画面の下端で切れていてスクロールしないと見えない" loading="lazy" width="1246" height="771" />
+          </div>
+          <figcaption>導入前：顧客情報だけで画面が埋まり、案件情報は下端で切れている。画面が広くても、フォームは中央の細い1列しか使っていない</figcaption>
+        </figure>
+        <figure>
+          <span class="ba-badge after">導入後</span>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/split-view-detail-01.png" alt="分割ビュー 導入後 — 同じレコードが左に顧客情報、右に案件情報・活動履歴として並び、上部の共通エリアに会社名と担当者が全幅で表示されている" loading="lazy" width="1400" height="606" />
+          </div>
+          <figcaption>導入後：空いていた横幅を使って左右に並ぶ。上部の共通エリアは全幅のまま</figcaption>
+        </figure>
+      </div>
+      <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+    </section>
+
+    <!-- How it works -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">スペースを2個置くだけ</h2>
+        <p class="section-subtitle">フォームの好きな位置に<strong>スペース要素を2個</strong>置いて、要素IDを付けます。設定画面でその2個を選ぶと、フォームの行が3つの領域へ自動で振り分けられます。</p>
+        <ul class="feature-list">
+          <li><span><strong>境界1より上</strong> ＝ 共通エリア。全幅のまま残ります。「どの顧客の、どの案件か」のように、常に見えていてほしい項目を置きます。</span></li>
+          <li><span><strong>境界1〜境界2</strong> ＝ 左ペイン。</span></li>
+          <li><span><strong>境界2より下</strong> ＝ 右ペイン。サブテーブル（テーブル）もそのまま入ります。</span></li>
+        </ul>
+        <p style="text-align:center; color:var(--color-text-light); font-size:14px; margin-top:24px; line-height:1.8;">
+          振り分けは<strong>行単位</strong>で、行の中身には手を触れません。<strong>フィールドの幅も変えない</strong>ので、入力欄の見た目はこれまでどおりです。<br />
+          合わなければプラグインを無効にするだけで、元の画面に戻ります。
+        </p>
+      </div>
+    </section>
+
+    <!-- Independent scroll -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">片方を固定したまま、もう片方だけ読む</h2>
+      <p class="section-subtitle">左右のペインは別々にスクロールします。下は<strong>右ペインだけを下端まで送った状態</strong>です。左の顧客情報は先頭のまま動いていません。</p>
+      <div class="screenshot-frame" style="max-width:1000px; margin:0 auto;">
+        <img class="zoomable" src="/images/split-view-scroll-01.png" alt="分割ビューの独立スクロール — 右ペインだけを下までスクロールして活動履歴のテーブルを表示させても、左ペインの顧客情報は先頭に表示されたまま動いていない" loading="lazy" width="1400" height="606" />
+      </div>
+      <p class="zoom-hint">右ペインだけを送って活動履歴を確認。左の顧客情報は見えたまま</p>
+      <ul class="feature-list" style="margin-top:32px;">
+        <li><span><strong>ページ自体はスクロールしません。</strong>動くのはペインの中だけなので、上の共通エリアと見出しは常に見えています。</span></li>
+        <li><span><strong>連動スクロールにも切り替えられます。</strong>左右を同じ量だけ動かすので、予定と実績のように<strong>対になる項目を突き合わせる</strong>ときに向いています。</span></li>
+        <li><span>横スクロールは常に左右別々です（幅あふれの対策であり、左右で対応関係を持たないため）。</span></li>
+      </ul>
+    </section>
+
+    <!-- Resize -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">幅は、使う人が決められる</h2>
+        <p class="section-subtitle">境目をドラッグすると左右の幅が変わります。変えた幅は<strong>利用者ごとにブラウザへ記憶</strong>されるので、次に開いたときも同じ配分です。管理者が決めた幅を全員に押しつけません。</p>
+        <div class="screenshot-frame" style="max-width:1000px; margin:0 auto;">
+          <img class="zoomable" src="/images/split-view-resize-01.png" alt="分割ビューで境目をドラッグして左ペインを広げた状態。顧客メモなど横に長い項目が読みやすくなっている" loading="lazy" width="1400" height="606" />
+        </div>
+        <p class="zoom-hint">左を広げた例。長い所在地やメモが折り返さずに読める</p>
+        <ul class="feature-list" style="margin-top:32px;">
+          <li><span><strong>ダブルクリックで元に戻ります。</strong>記憶を捨てて、設定した初期の幅に戻ります。</span></li>
+          <li><span><strong>コメント欄の開閉にも追従します。</strong>コメント／変更履歴を畳めば、そのぶん左右が広がります。</span></li>
+          <li><span>画面が狭いときは<strong>最小幅（既定 240px）</strong>を守ります。左右とも確保できないほど狭い場合は均等割りに切り替わります。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Edit screen -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">編集・新規作成でも同じように使える</h2>
+      <p class="section-subtitle">見るときだけでなく、<strong>入力するときこそ効きます</strong>。左の内容を見ながら右に入力する、という使い方が1画面で完結します。</p>
+      <div class="screenshot-frame" style="max-width:1000px; margin:0 auto;">
+        <img class="zoomable" src="/images/split-view-edit-01.png" alt="分割ビューの編集画面。左に顧客情報の入力欄、右に案件情報の入力欄が並び、それぞれ独立してスクロールできる" loading="lazy" width="1400" height="606" />
+      </div>
+      <p class="zoom-hint">編集画面。左を参照しながら右に入力できる</p>
+      <div class="warn-box" style="margin-top:32px;">
+        <strong>必須入力のエラーも見失いません。</strong>
+        分割中はページがスクロールしないため、kintone 標準のエラー表示だけでは、画面の外にあるエラーに気づけません。
+        分割ビューは<strong>エラーのある項目までペインの中を自動でスクロール</strong>します。左右の両方にエラーがあるときは、両方とも見える位置まで動かします。
+      </div>
+    </section>
+
+    <!-- Config -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定画面</h2>
+        <p class="section-subtitle">設定は2つのタブだけです。左側には<strong>「保存したらどう分かれるか」のプレビュー</strong>が出るので、アプリを更新する前に確認できます。</p>
+        <div class="config-screenshots">
+          <figure class="config-shot">
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/split-view-config-01.png" alt="分割ビューの設定画面①分割設定。境界スペース1・2のドロップダウン、ペイン幅の決め方、縦スクロールの独立／連動、ペインの最小幅を設定でき、左側にどの項目がどちらに入るかのプレビューが表示されている" loading="lazy" width="1400" height="874" />
+            </div>
+            <figcaption class="config-shot-caption">① 分割設定 — 境界にするスペースを選び、幅の決め方とスクロールの動きを指定します。左のプレビューに、どの項目がどちら側へ入るかが出ます。</figcaption>
+          </figure>
+          <figure class="config-shot">
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/split-view-config-02.png" alt="分割ビューの設定画面②対象画面・表示。詳細・編集・新規作成それぞれで分割するかのチェックと、ペイン見出しの名前・背景色・文字色をプリセットまたは16進で指定する画面" loading="lazy" width="1400" height="1322" />
+            </div>
+            <figcaption class="config-shot-caption">② 対象画面・表示 — 分割する画面を選び、ペイン見出しの名前と配色を決めます。プリセット12種のほか、16進で自由に指定できます。</figcaption>
+          </figure>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- Features list -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">できること</h2>
+      <ul class="feature-list">
+        <li><span><strong>2ペイン分割</strong> — スペース要素2個を境界に、共通エリア／左／右へ行単位で振り分けます。</span></li>
+        <li><span><strong>独立スクロール</strong> — 左右が別々に動きます。ページ自体はスクロールしません。</span></li>
+        <li><span><strong>連動スクロール</strong> — 設定で切り替えると、左右が同じ量だけ動きます。</span></li>
+        <li><span><strong>幅のドラッグと記憶</strong> — 境目をドラッグして配分を変更。利用者ごとに記憶し、ダブルクリックで初期値に戻ります。</span></li>
+        <li><span><strong>ペイン見出し</strong> — 左右に名前を付けて固定表示。背景色・文字色をプリセット12種＋自由な色で指定できます。</span></li>
+        <li><span><strong>幅の決め方を選択</strong> — 均等割り（50:50）か、境界スペースに設定した幅の比か。</span></li>
+        <li><span><strong>画面ごとの切替</strong> — 詳細・編集・新規作成それぞれで、分割するかを選べます。</span></li>
+        <li><span><strong>コメント欄への追従</strong> — コメント／変更履歴の開閉に合わせて幅を計算し直します。</span></li>
+        <li><span><strong>保存エラーの追従</strong> — エラーのある項目まで、ペインの中を自動でスクロールします。</span></li>
+        <li><span><strong>印刷時は分割を解除</strong> — 共通 → 左 → 右 の順に縦へつなげて印刷するので、項目が欠けません。</span></li>
+      </ul>
+    </section>
+
+    <!-- Install -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">インストール手順</h2>
+        <p class="section-subtitle">PC 版のレコード詳細・編集・新規作成画面で動作します。設定にはアプリの管理権限が必要です。</p>
+        <ol class="steps-list">
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-split-view-v1.0.0.zip</code> をダウンロード</span></li>
+          <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+          <li><span>対象アプリの<strong>フォーム</strong>を開き、分けたい位置に<strong>スペースを2個</strong>置いて、それぞれに<strong>要素ID</strong>を付けて保存（例：<code>sv_left</code> / <code>sv_right</code>）</span></li>
+          <li><span>同じアプリの<strong>アプリ設定 → プラグイン</strong>で「分割ビュー for kintone」を追加</span></li>
+          <li><span>プラグイン設定画面で<strong>境界スペース1・2</strong>を選び、左のプレビューで振り分けを確認して「保存」</span></li>
+          <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると設定が反映されます</span></li>
+        </ol>
+        <p style="text-align:center; color:var(--color-text-light); font-size:13px; margin-top:24px; line-height:1.7;">
+          ヒント：境界に使うスペースは<strong>単独の行</strong>に置いてください。他のフィールドと同じ行にあると、そのフィールドも境界側のペインに含まれます（設定画面でお知らせします）。
+        </p>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">プランについて</h2>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">基本プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥0</span>
+            <span class="unit">/ 完全無料</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ 利用期限なし・いつまでも無料</li>
+            <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
+          </ul>
+          <a href="/downloads/kw-split-view-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">開発を応援</span>
+          <h3 class="plan-name">年間サポーター</h3>
+          <div class="plan-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+            <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            <li>✅ サポーターの声を優先して開発に反映</li>
+          </ul>
+          <a href="/plugins/supporter/?plugin=kw-split-view" class="btn-primary">サポーターになる →</a>
+          <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+            ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
+        <li>PC 版でのみ動作します。<strong>モバイル（スマートフォン表示）では何も行いません</strong>（画面幅が足りず左右分割が成立しないため、従来どおりの表示になります）。</li>
+        <li><strong>クイックタブ・アコーディオンタブとは併用できません。</strong>どちらも同じスペース要素を境界にフォームを組み替えるためです。同じアプリで有効になっている場合、<strong>分割ビューのほうが動作を止め</strong>、これまでどおりの表示になります（相手の動作は妨げません）。設定画面でも警告を表示します。</li>
+        <li>境界に使えるのは、フォームの<strong>トップレベルの行に置いたスペース要素</strong>です。グループの中に置いたスペースは選択できません。</li>
+        <li>境界に使うスペースは単独の行に置いてください。他のフィールドと同じ行にある場合、そのフィールドは境界側のペインに含まれ、その行は非表示になりません。</li>
+        <li>フィールドの幅は変更しません。ペインに収まらない項目は、ペインの中を横スクロールしてご覧ください。</li>
+        <li>分割中はページ自体がスクロールしません。画面の高さが足りずペインの高さが下限（240px）に達した場合のみ、ページがスクロールします。</li>
+        <li>印刷は Ctrl+P に対応します（分割を解除して縦につなげます）。kintone 標準の「印刷用画面」は別画面のため対象外です。</li>
+        <li>一覧画面・カスタマイズビューには何も描画しません。</li>
+        <li>レコードの値もフォーム定義も変更しません（表示のみを扱います）。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-split-view" />
+    <PluginFaqSection pluginId="kw-split-view" pageUrl="https://kizuna-works.jp/plugins/split-view/" />
+    <SupporterCTA pluginId="kw-split-view" />
+    <ShareButtons title="分割ビュー for kintone" />
+
+    <!-- Related Plugins Section -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">縦に長いレコード画面を扱いやすくする kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/accordion-tab/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/accordion-tab-banner.png" alt="アコーディオンタブ for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">アコーディオンタブ</h3>
+            <p class="related-post-desc">スペース要素を見出しにしてフォームを開閉できるセクションに分けます。「必要なところだけ開く」方式で、2面を同時に見る分割ビューとは考え方が異なります（併用はできません）。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/quick-tab/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/quick-tab-banner.png" alt="クイックタブ for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">クイックタブ</h3>
+            <p class="related-post-desc">フォームをタブで切り替えて、1度に1つのセクションだけを表示します。画面の横幅を使わずに整理したい場合はこちら（併用はできません）。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/quick-toc/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/quick-toc-banner.png" alt="クイック目次 for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">クイック目次</h3>
+            <p class="related-post-desc">長いフォームに目次を出して、見たい場所へ一気に飛べるようにします。分割ビューと<strong>併用できます</strong>（目次の幅は自動で差し引かれます）。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">導入のご相談、機能のご要望などお気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ →</a>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="ea-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('ea-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-split-view-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-split-view-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>
