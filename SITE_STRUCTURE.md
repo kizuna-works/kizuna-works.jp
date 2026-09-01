@@ -723,13 +723,15 @@ c:\kizuna-works.jp\
 │   │   ├── kw-accordion-tab-v2.0.1.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-accordion-tab-v2.0.2.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-accordion-tab-v2.0.3.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-accordion-tab-v2.0.4.zip                           # アコーディオンタブ for kintone 配布ファイル（最新・手動配置・v2.0.4 編集画面での見出し固定位置の修正＋見出し幅をスペース設定幅に統一し初回描画のちらつきを解消）
+│   │   ├── kw-accordion-tab-v2.0.4.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-accordion-tab-v2.0.5.zip                           # アコーディオンタブ for kintone 配布ファイル（最新・手動配置・v2.0.5 固定表示中の見出しが kintone 標準のポップアップを覆う問題を修正）
 │   │   ├── kw-address-assist-v1.0.0.zip                          # 住所アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-address-assist-v1.0.1.zip                          # 住所アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-address-assist-v1.0.2.zip                          # 住所アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-address-assist-v1.1.0.zip                          # 住所アシスト for kintone 配布ファイル（旧版・v1.1.0 でサブテーブル対応）
 │   │   ├── kw-address-assist-v1.2.0.zip                          # 住所アシスト for kintone 配布ファイル（旧版・v1.2.0 で住所→郵便番号の逆引き＋住所セット対応）
-│   │   ├── kw-address-assist-v1.2.1.zip                          # 住所アシスト for kintone 配布ファイル（最新・手動配置・v1.2.1 ライセンス認証の内部改修）
+│   │   ├── kw-address-assist-v1.2.1.zip                          # 住所アシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-address-assist-v1.2.2.zip                          # 住所アシスト for kintone 配布ファイル（最新・手動配置・v1.2.2 逆引きボタンの重なり順を修正）
 │   │   ├── kw-ambiguous-match-v1.0.0.zip                         # あいまい照合 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-ambiguous-match-v1.0.1.zip                         # あいまい照合 for kintone 配布ファイル（最新・手動配置・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-attribute-filter-v1.0.0.zip                        # 属性制御フィルター for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=1フィールド全機能）
@@ -760,7 +762,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-comment-control-v1.0.1.zip                         # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.1＝閉じたコメント欄を手動で開けない不具合を修正）
 │   │   ├── kw-comment-control-v1.0.2.zip                         # コメントコントロール for kintone 配布ファイル（旧版・手動配置・v1.0.2＝APIリクエスト節約。一覧バッジのコメント取得をホバー時のみに変更・自分宛メンションの一覧色分けは任意オプション化）
 │   │   ├── kw-comment-control-v1.0.3.zip                         # コメントコントロール for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-comment-control-v1.0.4.zip                         # コメントコントロール for kintone 配布ファイル（最新・手動配置・v1.0.4 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
+│   │   ├── kw-comment-control-v1.0.4.zip                         # コメントコントロール for kintone 配布ファイル（最新・手動配置）
 │   │   ├── kw-conditional-form-v1.0.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-conditional-form-v1.0.1.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-conditional-form-v1.0.2.zip                        # 条件分岐フォーム for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
@@ -895,7 +897,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-toc-v1.0.1.zip                               # クイック目次 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-toc-v1.0.2.zip                               # クイック目次 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-toc-v1.2.0.zip                               # クイック目次 for kintone 配布ファイル（旧版・手動配置・v1.2.0 スペース対応/見出し表示/ステータスバッジ文字列1行）
-│   │   ├── kw-quick-toc-v1.2.1.zip                               # クイック目次 for kintone 配布ファイル（最新・手動配置・v1.2.1 ライセンス認証の内部改修）
+│   │   ├── kw-quick-toc-v1.2.1.zip                               # クイック目次 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-toc-v1.2.2.zip                               # クイック目次 for kintone 配布ファイル（最新・手動配置・v1.2.2 目次メニューが kintone 標準のポップアップを覆う問題を修正）
 │   │   ├── kw-read-check-v1.0.0.zip                              # 既読チェック for kintone 配布ファイル（旧版・v1.0.0 初版）
 │   │   ├── kw-read-check-v1.0.1.zip                              # 既読チェック for kintone 配布ファイル（旧版・手動配置・v1.0.1 で折りたたみサイドバーの展開を公式APIへ変更＋サイドバータブの表示順を宣言的に固定）
 │   │   ├── kw-read-check-v1.0.2.zip                              # 既読チェック for kintone 配布ファイル（最新・手動配置・v1.0.2 ライセンス認証の内部改修）
@@ -942,7 +945,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-sticky-board-v1.0.0.zip                            # 付箋ボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-sticky-board-v1.0.1.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-sticky-board-v1.0.2.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
-│   │   ├── kw-table-assist-v1.0.0.zip                            # テーブルアシスト for kintone 配布ファイル（手動配置・初版）
+│   │   ├── kw-table-assist-v1.0.0.zip                            # テーブルアシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-table-assist-v1.0.1.zip                            # テーブルアシスト for kintone 配布ファイル（最新・手動配置・v1.0.1 サブテーブルの固定見出しが kintone 標準のポップアップを覆う問題を修正）
 │   │   ├── kw-file-export-v1.0.0.zip                             # 添付ファイル出力 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-export-v1.0.1.zip                             # 添付ファイル出力 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-export-v1.0.2.zip                            # 添付ファイル出力 for kintone 配布ファイル（最新・手動配置・v1.0.2 当社製品を併用したときに一覧の選択列を1本にまとめ、チェックボックスの位置を統一）
