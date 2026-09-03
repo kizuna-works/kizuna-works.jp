@@ -266,15 +266,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .afp-cmp tbody th { background: #f2f6fb; color: #1B3A6B; text-align: left; font-weight: 600; }
     .afp-cmp tbody tr:nth-child(even) td { background: #f8fafc; }
     .afp-shot img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); display: block; }
-    .afp-faq { max-width: 860px; margin: 0 auto; }
-    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
-    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
-    .afp-faq-item > summary::-webkit-details-marker { display: none; }
-    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
-    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
-    .afp-faq-item[open] > summary::after { content: "－"; }
-    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
-    .afp-faq-answer strong { color: var(--color-navy); }
     .afp-steps { counter-reset: afpstep; margin: 8px 0 4px; }
     .afp-step { display: flex; gap: 16px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; }
     .afp-step:first-child { border-top: none; }
@@ -702,71 +693,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <div class="afp-wrap">
         <SecurityBox pluginId="kw-lookup-sync" />
         <ShareButtons title="ルックアップ自動同期 for kintone" />
-      </div>
-    </section>
-
-    <!-- よくある質問 -->
-    <section class="afp-section alt">
-      <div class="afp-wrap">
-        <h2 class="afp-h2">よくある質問</h2>
-        <div class="afp-faq">
-          <details class="afp-faq-item">
-            <summary>kintone でマスターを更新したとき、ルックアップのコピー値も更新できますか？</summary>
-            <div class="afp-faq-answer">はい。ルックアップ自動同期 for kintone は、ルックアップ元（マスター）のレコードを更新すると、その値をコピーしている参照先アプリの既存レコードを自動で追従更新します。マスターの会社名や単価を直しても、過去にルックアップ済みの参照先レコードが古いまま残る問題を解消します。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>どちらのアプリに追加しますか？</summary>
-            <div class="afp-faq-answer">ルックアップ元（参照される側＝マスター）アプリに追加します。参照している側のアプリではありません。マスターのレコードを保存したときに、参照先を更新しに行く動きです。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>「値の重複を禁止する」が設定されていないキー（会社名・商品名など）のルックアップでも同期できますか？</summary>
-            <div class="afp-faq-answer"><strong>v2.0.2 で対応しました。</strong>重複しうるキーのルックアップでは、目的に応じて<strong>方式1（表示のみ・軽量）</strong>または<strong>方式2（デタッチして自動同期・同名でもマスターのレコード番号で正確に照合）</strong>を選べます。運用上ゆるされる場合は、コピー元キーを一意（重複禁止）にするのが最もシンプルで確実です。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>方式1と方式2はどう違いますか？</summary>
-            <div class="afp-faq-answer"><strong>方式1</strong>は「表示のみ（軽量）」で、アプリ構成を変えずに詳細画面でマスター更新を通知し、ワンクリックで再取得・保存します。ただし一覧・集計・CSV には自動反映されません。<strong>方式2</strong>は「デタッチして自動同期」で、コピー先をルックアップから外してプラグインが直接更新するため、保存値が実体化して<strong>一覧・集計・CSV にも反映</strong>され、入力時の自動補完（PC・モバイル）にも対応します。全ビュー・全項目で最新化したい場合は方式2をおすすめします。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>方式2を選ぶと、参照先アプリの設定は変わりますか？元に戻せますか？</summary>
-            <div class="afp-faq-answer">はい。方式2は同期対象のフィールドをルックアップの「他のフィールドのコピー」設定から外し（デタッチ）、照合用の不可視フィールド（マスターのレコード番号）を追加します。<strong>この初期設定を実行する管理者アカウントに、参照先アプリのアプリ管理権限が必要</strong>です。設定画面の「元に戻す（再アタッチ）」でいつでも元のコピー設定に戻せます。レコードを入力するだけの一般ユーザーには特別な権限は不要です。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>モバイルでも使えますか？</summary>
-            <div class="afp-faq-answer">方式2の入力時の自動補完は PC・モバイルの両方に対応しています。マスター保存時の自動同期と方式1（表示のみ）は現在 PC のみの対応です。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>対象アプリやフィールドの設定は難しいですか？</summary>
-            <div class="afp-faq-answer">設定画面の「スキャン実行」を押すと、このマスターを参照しているルックアップフィールドをドメイン内から自動検出します。コピーするフィールド（フィールドマッピング）も各ルックアップ設定から自動で読み取るため、手入力のマッピングは不要です。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>サブテーブル内のルックアップにも対応していますか？</summary>
-            <div class="afp-faq-answer">はい。トップレベルのルックアップだけでなく、サブテーブル内のルックアップにも対応し、該当する行ごとにコピー値を追従更新します（一意キーでの自動同期・全件同期の場合）。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>導入前からある既存レコードも最新化できますか？</summary>
-            <div class="afp-faq-answer">はい。各対象の「今すぐ全件同期」を押すと、参照先アプリの既存レコードすべてのコピー値を、現在のマスターの値で一括更新します。プラグイン導入前に作られたレコードや反映漏れの修正に使えます（件数無制限・100件ずつ分割実行）。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>レコード数が多くても大丈夫ですか？</summary>
-            <div class="afp-faq-answer">上限はありません。カーソル方式で分割取得し、100件ずつ更新します。数百〜数千件でも動作を確認しています。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>特定のコピー項目だけ更新できますか？</summary>
-            <div class="afp-faq-answer">一意キーでの自動同期・全件同期では、kintone の仕様上、ルックアップキーを再セットするとそのルックアップに設定された全コピー項目が一括で再取得されるため、同期は常に「ルックアップ設定に従って一括」で行われます。方式2（デタッチ）では、同期する項目を手動マッピングで選べます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>外部にデータが送られませんか？</summary>
-            <div class="afp-faq-answer">業務データを外部へ送信しません。同期はすべて自ドメインの kintone REST API で完結します。外部通信はライセンス認証（プラグインIDとドメイン名）と更新通知の確認のみです。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>ゲストスペースのアプリでも使えますか？</summary>
-            <div class="afp-faq-answer">はい、ゲストスペース内のアプリでも利用できます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>単品で購入できますか？</summary>
-            <div class="afp-faq-answer">本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで1組の参照先に全機能をお試しいただけます。複数の参照先へまとめて同期する機能・広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。</div>
-          </details>
-        </div>
       </div>
     </section>
 

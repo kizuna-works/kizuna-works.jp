@@ -257,15 +257,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
 
     .zoomable { cursor: zoom-in; }
-    .afp-faq { max-width: 860px; margin: 0 auto; }
-    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
-    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
-    .afp-faq-item > summary::-webkit-details-marker { display: none; }
-    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
-    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
-    .afp-faq-item[open] > summary::after { content: "－"; }
-    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
-    .afp-faq-answer strong { color: var(--color-navy); }
 
     .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
     .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
@@ -721,47 +712,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <div class="afp-wrap">
         <SecurityBox pluginId="kw-calendar-view" />
         <ShareButtons title="カレンダービュー for kintone" />
-      </div>
-    </section>
-
-    <!-- よくある質問 -->
-    <section class="afp-section">
-      <div class="afp-wrap">
-        <h2 class="afp-h2">よくある質問</h2>
-        <div class="afp-faq">
-          <details class="afp-faq-item">
-            <summary>カスタマイズビューの HTML を自分で書く必要はありますか？</summary>
-            <div class="afp-faq-answer">ありません。設定画面の手順1にある<strong>「ビューを作成」</strong>を押すと、必要な HTML を含むカスタマイズビューが自動で作られ、アプリの更新まで行われます。すでに作ってあるカスタマイズビューに紐づけることもできます。設定を消してもビューは残るため、使っていないビューをまとめて削除する機能も手順1に用意しています（他社のカスタマイズビューは対象になりません）。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>どんなアプリで使えますか？</summary>
-            <div class="afp-faq-answer">開始と終了に使える<strong>日付または日時のフィールド</strong>を持つアプリで使えます。会議室・車両・機材の予約、営業の商談予定、面接や来客の予定、保守点検のスケジュールなどが向いています。終了の日時が無いアプリでも、開始を選ぶと空の終了に同じフィールドが自動で入り「その日1日で完結する予定」として扱えます。文字列フィールドに入れた日付は対象外です。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>ダブルブッキングはどこまで防げますか？</summary>
-            <div class="afp-faq-answer">同じリソース（担当者・会議室など）で時間帯が重なる予定があると警告します。カレンダー上でのドラッグや登録だけでなく、<strong>kintone 標準の追加・編集画面での保存時にも判定する</strong>のが特徴です。動作は「使わない／警告のみ（このまま保存できる）／禁止（保存をブロックする）」から選べ、<strong>リソースごと</strong>に変えられます。たとえば会議室は禁止、担当者は警告のみという運用ができます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>「空き枠を探す」は何を見て候補を出しますか？</summary>
-            <div class="afp-faq-answer">探す対象（担当者や会議室）・所要時間（15分〜8時間）・探す期間（表示中の期間／今日から2週間／今日から1か月）を選ぶと、<strong>営業時間内・非稼働日以外で、すでに入っている予定と重ならない時間</strong>を対象ごとに並べます。終日の予定はその日全体が埋まっているものとして扱います。候補を押すと、その時刻とその対象で登録モーダルが開きます。計算はブラウザの中で行うため、探すたびに外部へ問い合わせることはありません。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>祝日は自分で登録する必要がありますか？</summary>
-            <div class="afp-faq-answer">必要ありません。<strong>日本の祝日 2020〜2035年をプラグインに同梱</strong>しているため、何も用意しなくても色が付きます。会社休日や臨時休業も扱いたい場合は、設定画面のボタンで非稼働日マスタアプリを自動生成でき、複数のアプリから共有できます。マスタを指定したときはマスタの内容だけを見るので、マスタから消した休日が同梱データで復活することはありません。新しい年の祝日が同梱データに増えたときは、設定画面に「マスタに未登録が N 件あります」と出るのでボタン1つで追加できます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>無料プランではどこまで使えますか？</summary>
-            <div class="afp-faq-answer"><strong>カレンダー表示（年・月・週・日・リスト）</strong>が無料で使えます。ドラッグでの日程変更、区分（ラベル）での色分け、左サイドバーでの絞り込み、ダブルブッキング警告、繰り返し予定、祝日と非稼働日の色分けも無料のままお使いいただけます。プレミアム年間サポーター（税込 ¥16,500/年）の対象は、<strong>タイムライン表示・空き枠を探す・設定できるビュー数（無料は1件）・重ねられるレイヤー数（無料は1件）</strong>です。ロックされた機能は画面から消えるのではなく鍵つきで表示され、押すと案内が出ます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>スマートフォンでも使えますか？</summary>
-            <div class="afp-faq-answer">使えます。モバイル版では<strong>カレンダー表示の全粒度と、タイムラインの1日表示</strong>が動きます。絞り込みのサイドバーは画面幅の都合で左ではなく引き出しとして開きます。kintone のカスタマイズビューの設定で「一覧を表示する範囲」がPC版＋モバイル版になっている必要があります。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>予定のデータが外部に送信されることはありますか？</summary>
-            <div class="afp-faq-answer">ありません。カレンダーとタイムラインの描画、空き枠の計算、重複の判定、絞り込みはすべてご利用の kintone とブラウザの中で完結します。描画は自前実装で、<strong>実行時に第三者のCDNやライブラリを読み込むこともありません</strong>。祝日データもプラグインに同梱しているため、外部の祝日APIを呼びません。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。</div>
-          </details>
-        </div>
       </div>
     </section>
 

@@ -239,15 +239,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
 
     .zoomable { cursor: zoom-in; }
-    .afp-faq { max-width: 860px; margin: 0 auto; }
-    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
-    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
-    .afp-faq-item > summary::-webkit-details-marker { display: none; }
-    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
-    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
-    .afp-faq-item[open] > summary::after { content: "－"; }
-    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
-    .afp-faq-answer strong { color: var(--color-navy); }
 
     .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
     .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
@@ -692,47 +683,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <div class="afp-wrap">
         <SecurityBox pluginId="kw-barcode-assist" />
         <ShareButtons title="バーコードアシスト for kintone" />
-      </div>
-    </section>
-
-    <!-- よくある質問 -->
-    <section class="afp-section alt">
-      <div class="afp-wrap">
-        <h2 class="afp-h2">よくある質問</h2>
-        <div class="afp-faq">
-          <details class="afp-faq-item">
-            <summary>専用のバーコードリーダー（ハンディターミナル）は必要ですか？</summary>
-            <div class="afp-faq-answer">必要ありません。スマートフォンやタブレットのカメラ、PCに接続したWebカメラで読み取ります。読み取り結果はその場で kintone のレコードに入るため、ハンディターミナルからのCSV取り込みのような中間作業もなくなります。なお、USB接続のバーコードリーダー（キーボード入力として動作するもの）をお使いの場合は、そのままフィールドへ入力されるため本プラグインがなくても入力できます。本プラグインは<strong>カメラで読む場面</strong>と、<strong>読んだ値をサブテーブルへ加算・照合する場面</strong>で効果を発揮します。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>どのコードが読めますか？</summary>
-            <div class="afp-faq-answer">QRコード／JAN・EAN-13／JAN・EAN-8／CODE128／CODE39／ITF（Interleaved 2 of 5）／NW-7（CODABAR）の7種類に対応しています。設定で使う種別だけを有効にすると、誤読が減り読み取りも速くなります。チェックデジットの検証は、規格でチェックデジットが決まっている種別（JAN/EAN-13・JAN/EAN-8・ITF-14）でのみ行います。一般のITFやNW-7はチェックデジットが規格上「任意」のため、検証すると正しいコードまで弾いてしまうからです。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>カメラが使えない端末でも読み取れますか？</summary>
-            <div class="afp-faq-answer">読み取りは3段構えです。まず端末のOSに内蔵された読み取り機能（BarcodeDetector）を使い、対応していなければ読み取りライブラリに切り替え、カメラ自体が使えない環境では<strong>「写真を撮って、その画像から読み取る」</strong>方式へ自動的に切り替わります。写真からの読み取りは、縮小・中央の切り出し・回転など条件を変えて複数回試します。いま何段目で動いているかは、スキャン画面の右上と設定画面の「読取テスト」で確認できます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>全部の機能を設定しないと使えませんか？</summary>
-            <div class="afp-faq-answer">いいえ。読む・探す・照合する・出すの4つは完全に独立していて、設定画面の「① 共通設定」にあるトグルで個別にオン／オフできます。たとえば「備品にQRラベルを貼りたいだけ」なら<strong>「出す」だけをオン</strong>にすれば動きます。オフにした機能の設定は入力する必要がなく、レコード画面にもボタンが出ません。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>ラベルは市販のラベル用紙に印刷できますか？</summary>
-            <div class="afp-faq-answer">できます。メーカーの型番プリセットは持たず、<strong>列数・行数・上下左右の余白・マス間隔をmmで指定</strong>する方式です（型番プリセットは仕様変更に追随できず、かえって位置がずれるため採用していません）。印刷前に「テスト印刷（枠線のみ）」で1枚出し、お手元の用紙と枠が合うことを確かめてから本番を印刷してください。ラベルをはがした<strong>使いかけのシート</strong>に刷るときは、プレビュー上で「開始マス」を指定すると手前のマスを空けて送れます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>印刷の対象は一覧に表示されているぶんだけですか？</summary>
-            <div class="afp-faq-answer"><strong>一覧の絞り込み結果の全件（最大200件）</strong>が対象です。表示中のページ（1ページ目の100件など）だけではありません。並び順も一覧に見えているとおりに印刷されます。プレビュー上で「○件目から○件」と範囲を指定できるので、途中から刷り直したり、200件を分けて刷ったりもできます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>単品で購入できますか？</summary>
-            <div class="afp-faq-answer">本プラグインはプレミアムプラグインのため単品販売はありません。無料プランでもスキャン設定セット1つまで、機能の中身を制限せずお使いいただけます。読む・探す・照合する・出すの4機能、サブテーブル対応・モバイル対応・ゲストスペース対応・A4ラベル印刷は、すべて無料版でも動作します。設定セットの数と広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>読み取ったデータは外部に送信されますか？</summary>
-            <div class="afp-faq-answer">送信しません。カメラの映像も読み取った値も、お使いのブラウザの中だけで処理して kintone のレコードへ書き込みます。コードの生成も同様にブラウザ内で行い、画像を外部サービスへ送ることはありません。読み取り・生成に使う2つのライブラリ（ZXing・bwip-js）は第三者CDNではなく<strong>当社サーバー（kizuna-works.jp）から、改ざん検知（SRI）つき</strong>で読み込みます。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。</div>
-          </details>
-        </div>
       </div>
     </section>
 

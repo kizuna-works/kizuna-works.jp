@@ -264,15 +264,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .afp-cmp tbody th { background: #f2f6fb; color: #1B3A6B; text-align: left; font-weight: 600; }
     .afp-cmp tbody tr:nth-child(even) td { background: #f8fafc; }
     .afp-shot img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); display: block; }
-    .afp-faq { max-width: 860px; margin: 0 auto; }
-    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
-    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
-    .afp-faq-item > summary::-webkit-details-marker { display: none; }
-    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
-    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
-    .afp-faq-item[open] > summary::after { content: "－"; }
-    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
-    .afp-faq-answer strong { color: var(--color-navy); }
     .afp-steps { counter-reset: afpstep; margin: 8px 0 4px; }
     .afp-step { display: flex; gap: 16px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; }
     .afp-step:first-child { border-top: none; }
@@ -531,39 +522,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <div class="afp-wrap">
         <SecurityBox pluginId="kw-related-enhancer" />
         <ShareButtons title="関連レコード拡張 for kintone" />
-      </div>
-    </section>
-
-    <!-- よくある質問 -->
-    <section class="afp-section alt">
-      <div class="afp-wrap">
-        <h2 class="afp-h2">よくある質問</h2>
-        <div class="afp-faq">
-          <details class="afp-faq-item">
-            <summary>単品で購入できますか？</summary>
-            <div class="afp-faq-answer">本プラグインはプレミアムプラグインのため単品販売はありません。無料プランで1つの対象（関連レコード一覧）に集計カード・見た目カスタマイズ・検索/ソートをお試しいただけます。非表示フィールドの集計・サブテーブル展開集計・集計結果の書き込み保存と、対象数無制限は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>関連レコード一覧に表示していないフィールドも集計できますか？</summary>
-            <div class="afp-faq-answer">できます（プレミアム）。関連レコード一覧の「表示するフィールド」設定に依存せず、参照先アプリの数値/計算フィールドを集計対象として選べます。APIトークンの発行は不要で、閲覧ユーザー自身のセッション権限で自ドメインの REST API から取得します。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>参照先のサブテーブル内の数値も集計できますか？</summary>
-            <div class="afp-faq-answer">できます（プレミアム）。参照先アプリのサブテーブル内フィールドを集計対象に選び、行の絞り込み条件で対象の行だけに絞ってから合計・平均などを算出できます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>集計した値をレコードに保存できますか？</summary>
-            <div class="afp-faq-answer">できます（プレミアム）。集計値を自アプリの数値フィールドへ、対象ごとに自動（詳細画面の表示時に差分保存）または手動（ボタン押下時）で書き込み保存できます。保存した値は一覧の絞り込み・集計・CSV出力にそのまま利用できます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>モバイルでも使えますか？</summary>
-            <div class="afp-faq-answer">モバイルは集計カードの閲覧のみ対応です（現時点）。見た目カスタマイズ・検索/ソート・簡易フィルタは PC のレコード詳細画面での対応です。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>外部にデータは送信されますか？</summary>
-            <div class="afp-faq-answer">集計・表示はすべて kintone 内（同一ドメインの REST API）で完結し、業務データを外部へ送信しません。第三者 CDN や外部サーバーも使いません。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。</div>
-          </details>
-        </div>
       </div>
     </section>
 

@@ -230,15 +230,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .afp-blog-link { color: var(--color-green); font-weight: 700; font-size: 0.9rem; }
 
     .zoomable { cursor: zoom-in; }
-    .afp-faq { max-width: 860px; margin: 0 auto; }
-    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
-    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
-    .afp-faq-item > summary::-webkit-details-marker { display: none; }
-    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
-    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
-    .afp-faq-item[open] > summary::after { content: "－"; }
-    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
-    .afp-faq-answer strong { color: var(--color-navy); }
 
     .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
     .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
@@ -612,47 +603,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <div class="afp-wrap">
         <SecurityBox pluginId="kw-input-template" />
         <ShareButtons title="入力テンプレート for kintone" />
-      </div>
-    </section>
-
-    <!-- よくある質問 -->
-    <section class="afp-section alt">
-      <div class="afp-wrap">
-        <h2 class="afp-h2">よくある質問</h2>
-        <div class="afp-faq">
-          <details class="afp-faq-item">
-            <summary>単品で購入できますか？</summary>
-            <div class="afp-faq-answer">本プラグインはプレミアムプラグインのため単品販売はありません。無料プランでも共通テンプレート5件・個人テンプレート1件まで、機能の中身を制限せずお使いいただけます。テーブル明細のセット・モバイル対応・表示対象の絞り込み・編集画面での適用は無料版でもすべて動作します。登録数の上限と広告非表示は、プレミアム年間サポーター（税込 ¥16,500/年）にご加入いただくと解放され、販売中の全プラグインも利用できます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>kintone標準の「初期値」や「レコードを再利用する」と何が違いますか？</summary>
-            <div class="afp-faq-answer">kintone標準の初期値はフィールドごとに1パターンしか設定できず、用途別に切り替えられません。「レコードを再利用する」は元になる既存レコードが必要で、全項目がコピーされるためその回限りの値まで入ってしまいます。本プラグインは複数フィールドとテーブル明細を「ひとまとまりの型」として何パターンでも登録でき、既存レコードがなくても新規作成画面から呼び出せます。必要な項目だけを選んでテンプレート化することもできます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>アプリのフォームは変更されますか？</summary>
-            <div class="afp-faq-answer">変更されません。テンプレートの中身は対象アプリのフォームにもプラグイン設定にも保存せず、同じスペース内に自動生成する保管アプリへ分離して保存します。そのためフィールドが増えることはなく、登録できるテンプレート数にも上限がありません。保管アプリはスペース内の複数アプリで1個を共有します。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>一般ユーザーも自分でテンプレートを作れますか？</summary>
-            <div class="afp-faq-answer">はい。アプリの管理権限がないユーザーでも、レコード詳細画面の「テンプレートにする」から、そのレコードの値のうち必要な項目だけを選んで個人テンプレートとして保存できます。個人テンプレートは作成した本人にだけ表示され、ほかのユーザーからは見えません。管理者は設定画面から全員向けの共通テンプレートを作成します。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>既存レコードの編集画面でも使えますか？</summary>
-            <div class="afp-faq-answer">設定でオンにすると使えます（誤って値を上書きする事故を避けるため初期状態はオフです）。適用時は「空欄のみ埋める／すべて上書き」と、テーブルの「既存行の末尾に追加／既存行を置換」をその場で選べます。実際に失われる値がある場合だけ確認ダイアログで対象を一覧表示します。値をセットするだけで保存はしないため、内容を確認してから保存できます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>日付に「本日」を保存できますか？</summary>
-            <div class="afp-faq-answer">保存できます。日付・時刻・日時のフィールドは、固定の値だけでなく「本日」「本日から◯日後（◯日前）」「今月の初日／末日」「翌月の初日／末日」「現在時刻」「現在日時」「本日の指定時刻」を選べます。テンプレートには値そのものではなく求め方を保存するので、いつ適用しても適用した日の日付が入ります。申請日・点検予定日・納期・締め日のような、毎回その日を基準にする項目に使えます。設定画面の値エディタと、レコード詳細画面の「テンプレートにする」ダイアログのどちらからでも指定でき、サブテーブルの中の日付にも使えます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>テンプレートにできない項目はありますか？</summary>
-            <div class="afp-faq-answer">計算・レコード番号・作成者・更新者・作成日時・更新日時・ステータス・作業者・カテゴリーは kintone が自動で入れる項目のため対象外です。添付ファイルはファイルの実体に紐づくため再現できず対象外です。「値の重複を禁止する」設定のフィールドは適用すると必ず重複エラーになるため除外します。ルックアップは検索キーの値だけを保存し、適用後に「取得」を押すと参照先の値が入ります。除外した項目は理由つきで画面に表示されます。</div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>外部にデータは送信されますか？</summary>
-            <div class="afp-faq-answer">テンプレートの保存先は利用者ご自身の kintone 内（同一スペースの保管アプリ）で、業務データを外部へ送信しません。第三者 CDN や外部サーバーも使いません。外部通信はライセンス認証（プラグインIDとドメイン名）の確認のみです。</div>
-          </details>
-        </div>
       </div>
     </section>
 

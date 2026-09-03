@@ -260,15 +260,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     }
 
     .zoomable { cursor: zoom-in; }
-    .afp-faq { max-width: 860px; margin: 0 auto; }
-    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
-    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
-    .afp-faq-item > summary::-webkit-details-marker { display: none; }
-    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
-    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
-    .afp-faq-item[open] > summary::after { content: "－"; }
-    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
-    .afp-faq-answer strong { color: var(--color-navy); }
 
     .steps-list { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
     .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
@@ -805,57 +796,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <div class="afp-wrap">
         <SecurityBox pluginId="kw-chat-notify" />
         <ShareButtons title="チャット通知 for kintone" />
-      </div>
-    </section>
-
-    <!-- よくある質問 -->
-    <section class="afp-section">
-      <div class="afp-wrap">
-        <h2 class="afp-h2">よくある質問</h2>
-        <div class="afp-faq">
-          <details class="afp-faq-item">
-            <summary>単品で購入できますか？</summary>
-            <div class="afp-faq-answer">
-              本プラグインは<strong>プレミアムプラグイン</strong>のため単品販売はありません。無料プランで通知ルール1本まで、6種類のきっかけ・条件・差し込みテンプレートまで<strong>全機能をお試しいただけます</strong>。ルールを複数動かすには、プレミアム年間サポーター（税込 ¥16,500/年）にご加入ください。販売中の全プラグインも利用できます。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>中継サーバーやGASの準備は必要ですか？</summary>
-            <div class="afp-faq-answer">
-              <strong>不要です。</strong>kintone から各チャットサービスの Webhook へ直接送信します。当社のサーバーを経由しないため、通知の本文が第三者に渡ることはありません。ご用意いただくのは、チャット側で発行する Webhook URL だけです。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>スマートフォンからレコードを登録しても通知されますか？</summary>
-            <div class="afp-faq-answer">
-              <strong>いいえ。</strong>本プラグインは PC 版の kintone でのみ動作します。モバイル版ではプラグイン自体が読み込まれないため、スマートフォンからレコードを追加・更新・削除しても通知は送信されません（画面が乱れることはありません）。外回りの担当者がスマホから登録する運用では通知が届かない点にご注意ください。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>毎回の保存で通知が飛んで、うるさくなりませんか？</summary>
-            <div class="afp-faq-answer">
-              既定では<strong>「値に変更があったときだけ」</strong>通知します。値を変えずに保存した場合は送信されません。さらに「指定した項目が変わったときだけ」に絞ることもできます。加えて、最大5件の条件（例：金額が100万円以上、区分がAまたはC）を AND / OR で組み合わせ、通知する対象を絞り込めます。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>Teams でメンションはできますか？</summary>
-            <div class="afp-faq-answer">
-              <strong>できません。</strong>Microsoft Teams のワークフロー経由の投稿では、メンション記法が解釈されないためです。全員メンションは Slack（<code>@channel</code>）と Google Chat（<code>@all</code>）でご利用いただけます。なお、条件を設定せずに全員メンションを有効にすると保存のたびに全員へプッシュが飛ぶため、設定画面で警告を表示します。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>送信に失敗したときは分かりますか？</summary>
-            <div class="afp-faq-answer">
-              同じスペース内に自動生成する<strong>保管アプリ</strong>へ、送信日時・ルール名・送信先・本文・結果・エラー内容を記録します。失敗した場合は、設定した宛先へ <strong>kintone のベル通知</strong>が届きます。記録モードは「すべて記録」「エラーのみ記録」「記録しない」から選べます。保管アプリは一般ユーザーからは閲覧できません（追加のみ可）。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>Webhook URL は安全に保管されますか？</summary>
-            <div class="afp-faq-answer">
-              設定画面では伏字で表示され、kintone のプラグイン設定領域に保存されます。ただし、Webhook URL は kintone のプロキシ経由で送信される都合上、<strong>アプリ管理権限を持つ方には確認できる可能性があります</strong>。「誰にも見えない」とは申し上げられません。URL が漏れた場合は、チャット側で Webhook を再発行すれば古い URL は無効になります。
-            </div>
-          </details>
-        </div>
       </div>
     </section>
 

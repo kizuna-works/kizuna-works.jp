@@ -242,15 +242,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
 
     .zoomable { cursor: zoom-in; }
-    .afp-faq { max-width: 860px; margin: 0 auto; }
-    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
-    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
-    .afp-faq-item > summary::-webkit-details-marker { display: none; }
-    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
-    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
-    .afp-faq-item[open] > summary::after { content: "－"; }
-    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
-    .afp-faq-answer strong { color: var(--color-navy); }
 
     .steps-list { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
     .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
@@ -644,80 +635,6 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <div class="afp-wrap">
         <SecurityBox pluginId="kw-sidebar-enhancer" />
         <ShareButtons title="サイドバー拡張 for kintone" />
-      </div>
-    </section>
-
-    <!-- よくある質問 -->
-    <section class="afp-section">
-      <div class="afp-wrap">
-        <h2 class="afp-h2">よくある質問</h2>
-        <div class="afp-faq">
-          <details class="afp-faq-item">
-            <summary>既存アプリのフォームは変わってしまいますか？</summary>
-            <div class="afp-faq-answer">
-              <strong>変わりません。</strong>本プラグインは右サイドバー（コメント・変更履歴が並んでいる場所）にタブを追加するだけで、フォームのフィールド配置には手を加えません。そのため、すでに運用中のアプリへ後から入れても本体の見た目が崩れません。<br />
-              なお「進捗」タブを使う場合のみ、ステータスの変更履歴を保存する専用フィールドを2つ追加しますが、レコード画面では自動的に非表示になるため利用者の目には触れません。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>単品で購入できますか？</summary>
-            <div class="afp-faq-answer">
-              本プラグインはプレミアムプラグインのため<strong>単品販売はありません</strong>。無料プランでは5つの機能のうち1つを、機能の中身を制限せずお試しいただけます（利用期限なし）。複数の機能を同時に使うには、プレミアム年間サポーター（税込 ¥16,500/年）にご加入ください。販売中の全プラグインも利用できます。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>「進捗」タブはどの kintone 機能を使うものですか？プロセス管理は必須ですか？</summary>
-            <div class="afp-faq-answer">
-              kintone の<strong>「プロセス管理」</strong>（アプリの設定でステータスとアクションを定義する機能）を使っているアプリ向けのタブです。<strong>プロセス管理が無効なアプリでは、このタブは表示されません</strong>（設定画面でもその旨をお知らせします）。<br />
-              表示されるのは、プロセス管理のアクションによって<strong>ステータスがどう変わってきたか（どのアクションで・いつ・誰が）</strong>と、<strong>現在のステータスに何日とどまっているか</strong>です。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>過去のステータス変更も表示されますか？</summary>
-            <div class="afp-faq-answer">
-              いいえ。kintone には<strong>プロセス管理のステータス変更履歴を取り出す API がない</strong>ため、本プラグインはアクションが実行された時点で自分で記録します。したがって表示できるのは導入後に実行されたアクションだけです。<br />
-              導入前に通過したとみられるステータスは、まだ通っていない状態と<strong>区別できるようグレーの「記録なし」</strong>として表示し、凡例と注記も添えます。導入後の変更は、アクション名・日時・実行者つきで記録されます。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>リンクタブで表示できないサイトがありますか？</summary>
-            <div class="afp-faq-answer">
-              あります。セキュリティ設定で他サイトへの埋め込みを禁止しているサイト（金融機関や行政サイトなどに多い）は、<strong>仕様上どのプラグインでも埋め込めません</strong>。その場合は自動的に「別タブで開く」ボタンへ切り替わるので、操作が行き止まりになることはありません。<br />
-              Google マップの共有URLは、埋め込み可能な形式へ自動で書き換えてから表示します。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>「追加」タブでサブテーブルも登録できますか？</summary>
-            <div class="afp-faq-answer">
-              現時点では<strong>対応していません</strong>。サブテーブル以外のフィールド型（文字列・数値・日付・選択系・ユーザー選択・ルックアップ・添付ファイルなど）はすべて登録できます。サブテーブルへの入力は、レコードを追加したあとにレコード本体で行ってください。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>スマートフォンでも使えますか？</summary>
-            <div class="afp-faq-answer">
-              現時点では <strong>PC 版のみ</strong>の対応です。モバイル版はサイドバーの構造が異なるため、タブは表示されません（画面が乱れることはありません）。外出先での閲覧が中心の運用では、この点をご確認のうえご検討ください。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>チェックリストの内容は、担当者が変わっても引き継げますか？</summary>
-            <div class="afp-faq-answer">
-              <strong>引き継げます。</strong>チェック状態はレコード本体ではなく、同じスペース内に自動生成する保管アプリへ保存し、閲覧と編集は全員に許可しています（削除だけを管理者に限定）。そのため、前の担当者が途中まで消化したチェックの続きを、別の担当者がそのまま進められます。レコードの変更履歴を汚さない設計です。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>ほかのプラグインと同時に使えますか？</summary>
-            <div class="afp-faq-answer">
-              使えます。<strong>既読チェック・コメントコントロール・クイックタブ・アコーディオンタブ・クイック目次・テーマスタイラー・住所アシスト</strong>との同時利用を実機で確認しています。<br />
-              とくに既読チェックとは同じサイドバーにタブが並びますが、表示順は「標準タブ → サイドバー拡張の5タブ → 既読」で固定され、<strong>どちらを先にインストールしても変わりません</strong>。タブを切り替えると相手のパネルは自動で閉じるため、内容が重なって表示されることもありません。
-            </div>
-          </details>
-          <details class="afp-faq-item">
-            <summary>ゲストスペースでも使えますか？</summary>
-            <div class="afp-faq-answer">
-              <strong>使えます。</strong>ゲストスペース内のアプリでも、設定画面と5つの機能すべてが動作することを確認しています。
-            </div>
-          </details>
-        </div>
       </div>
     </section>
 
