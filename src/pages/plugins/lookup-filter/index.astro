@@ -1,0 +1,635 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<Layout
+  title="ルックアップ絞り込み for kintone｜候補をレコードの値で絞り込む | KIZUNA Works"
+  description="kintone のルックアップの候補を、入力中のレコードの値に応じて絞り込むプラグイン。標準の「絞り込みの初期設定」には入力中のレコードの値を書けませんが、他フィールドの値と突き合わせて候補を変えられます。場面ごとに絞り方を切り替えられ、条件に合わない値は保存時に止めます。"
+  ogTitle="ルックアップ絞り込み for kintone｜候補をレコードの値で絞り込む | KIZUNA Works"
+  ogDescription="候補は、入力中のレコードが決める。標準の絞り込みの初期設定では書けない「入力中のレコードの値との突き合わせ」ができます。場面ごとの切り替えと、保存時の取りこぼし防止つき。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/lookup-filter/"
+  ogImage="https://kizuna-works.jp/images/lookup-filter-banner.png"
+  canonical="https://kizuna-works.jp/plugins/lookup-filter/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/lookup-filter/",
+          "url": "https://kizuna-works.jp/plugins/lookup-filter/",
+          "name": "ルックアップ絞り込み for kintone｜候補をレコードの値で絞り込む | KIZUNA Works",
+          "description": "kintone のルックアップの候補を、入力中のレコードの値に応じて絞り込む kintone プラグイン。標準の「絞り込みの初期設定」には入力中のレコードの値を書けない（クエリ形式のため参照先アプリの条件しか書けない）という隙間を埋め、条件に合わない値は保存時に止める。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/lookup-filter-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "ルックアップ絞り込み for kintone", "item": "https://kizuna-works.jp/plugins/lookup-filter/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "ルックアップ絞り込み for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-09-03",
+          "url": "https://kizuna-works.jp/plugins/lookup-filter/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-filter-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/lookup-filter-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "プレミアム年間サポーター（全プラグイン込み）",
+            "price": "16500",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "プレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料プランでもルックアップ1つ・絞り込み1通りで利用できます。"
+          },
+          "description": "kintone のルックアップの候補を、入力中のレコードの値に応じて絞り込む kintone プラグイン。［取得］を押すと専用の選択画面が開き、他フィールドの値・操作している人・実行するときの日付・見る人ごとの対応表を条件に候補を限定する。kintone 標準の「絞り込みの初期設定」はクエリ形式で参照先アプリの条件を書くもので、入力中のレコードの値を参照する記法が無いため、案件ごとに候補を変えることができない。その隙間を埋める。場面によって絞り方を切り替える条件セットを持ち、取得後に条件のフィールドが変更された場合は値のクリア・警告・保存時の中止から動作を選べる。ルックアップサジェスト v3.0.0 と併用すると、入力中に表示される候補にも同じ絞り込みが適用される。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "ルックアップの候補を、入力中のレコードの値で絞り込む",
+            "条件の右辺に入力中のレコードのフィールドを指定（標準の絞り込みの初期設定では書けない）",
+            "条件の右辺に操作している人・実行するときの日付・固定値も指定可",
+            "見る人ごとの対応表（この人にはこの範囲）で候補を出し分け",
+            "場面によって絞り方を変える条件セット（上から順に判定）",
+            "取得後に条件が変わったときの動作を選択（クリア／警告／何もしない）",
+            "条件に合わない値のまま保存しようとすると保存を中止する保存時ガード",
+            "ルックアップサジェストと併用すると入力中の候補にも同じ絞り込みを適用",
+            "絞り込んだ条件を選択画面に日本語で表示",
+            "設定画面は穴埋め1文で、候補の実件数をその場で確認できる",
+            "kintone の「絞り込みの初期設定」と併用可能（AND で結合）",
+            "サブテーブル内のルックアップに対応",
+            "モバイル対応（テーブル外のルックアップ）",
+            "ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
+    .afp-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+    .afp-hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 26px; border-radius: 26px;
+      font-weight: 700; font-size: 1rem; text-decoration: none; line-height: 1.3;
+    }
+    .afp-hero-btn.is-primary { background: #2E8B2E; color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.22); }
+    .afp-hero-btn.is-primary:hover { background: #35a035; }
+    .afp-hero-btn.is-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.6); }
+    .afp-hero-btn.is-ghost:hover { background: rgba(255,255,255,0.24); }
+    @media (max-width: 600px) { .afp-hero-btn { width: 100%; } }
+
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    /* Update box (latest release) */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      /* リード文自体が白いカードなので、下に余白を入れないと次のカードとくっついて見える */
+      margin: 0 0 26px;
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0 0 12px; }
+    .afp-feature p:last-child { margin-bottom: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    /* 白いカードが続くときにくっついて見えないようにする */
+    .afp-shot + .afp-shot,
+    .afp-shot + .afp-cautions,
+    .afp-shot + .afp-note,
+    .afp-shot + .afp-grid-feats { margin-top: 26px; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+    /* Cap narrow captures at the width the UI really has, so nothing is blown up
+       larger than the user will see it in kintone. */
+    .afp-shot-w420 { max-width: 420px; }
+    .afp-shot-w640 { max-width: 640px; }
+    .afp-shot-w840 { max-width: 840px; }
+
+    .afp-shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+    @media (max-width: 900px) { .afp-shot-pair { grid-template-columns: 1fr; } }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    /* Feature block: 使い方の画面 → その設定画面、の2枚組 */
+    .afp-usecfg { margin-top: 30px; }
+    .afp-usecfg-head {
+      display: inline-block; background: var(--color-navy); color: #fff; font-weight: 700;
+      font-size: 0.85rem; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px;
+    }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <style is:global>
+    /* このページで足すもの */
+    /* 手順や小見出し。既存の .afp-plan-compare-head と同じ見た目にそろえる
+       （紺の文字＋緑の縦線）。新しい体裁を持ち込まないため。 */
+    .afp-h3 {
+      font-size: 1.15rem; color: var(--color-navy); margin: 34px 0 12px;
+      padding-left: 12px; border-left: 4px solid var(--color-green);
+    }
+    .afp-h3:first-of-type { margin-top: 8px; }
+    /* 課題カードの連番。共通ブロックには入っていないのでここで定義する */
+    .afp-feat-no {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--color-green); margin-bottom: 6px;
+    }
+    /* before / after の対比。狭い画面では縦に積む */
+    .lf-ba {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      margin: 26px 0 0;
+    }
+    .lf-ba figure { margin: 0; }
+    .lf-ba .lf-ba-tag {
+      display: inline-block; font-size: 0.78rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 999px; margin-bottom: 8px;
+    }
+    .lf-ba .is-before { background: #eef2f7; color: #64748b; }
+    .lf-ba .is-after { background: #e8f5e9; color: var(--color-green); }
+    .lf-ba img {
+      width: 100%; height: auto; border: 1px solid #dbe3ec; border-radius: 8px;
+      background: #fff; cursor: zoom-in;
+    }
+    .lf-ba figcaption {
+      font-size: 0.86rem; color: #64748b; line-height: 1.7; margin-top: 8px;
+    }
+    @media (max-width: 767px) {
+      .lf-ba { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+    <!-- ヒーロー -->
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/lookup-filter-icon.png" alt="ルックアップ絞り込み for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1 class="afp-hero-title">ルックアップ絞り込み for kintone</h1>
+      <p class="afp-tagline">候補は、入力中のレコードが決める。</p>
+      <p class="afp-sub">ルックアップの［取得］で開く一覧を、<strong>入力中のレコードの値に応じて絞り込みます</strong>。kintone 標準の「絞り込みの初期設定」は<strong>参照先アプリの条件しか書けず、入力中のレコードの値を見られません</strong>。本プラグインは<strong>入力中のレコードのフィールドと突き合わせて</strong>候補を決めるので、案件ごとに候補が変わります。条件に合わない値のまま保存しようとしたときは<strong>保存を止めます</strong>。</p>
+      <div class="afp-hero-cta">
+        <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-lookup-filter-v1.0.0.zip" download>無料でダウンロード</a>
+      </div>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 課題 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">候補が多すぎて、選ぶのに時間がかかる</h2>
+        <p class="afp-lead">取引先マスタ、商品マスタ、従業員マスタ。ルックアップの参照先が育つほど、［取得］を押して開く一覧は長くなります。目的の 1 件を探して選ぶだけの操作に時間がかかり、似た名前を取り違えれば後の集計まで狂います。</p>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">01</span>
+            <h3>標準の絞り込みは入力中のレコードを見られない</h3>
+            <p>kintone の「絞り込みの初期設定」に書けるのは「営業所 = 東京」のような決まった値だけです。「この案件の担当営業所と同じ取引先だけ」のように、<strong>レコードごとに変わる条件は書けません</strong>。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">02</span>
+            <h3>アプリを分けると運用が増える</h3>
+            <p>営業所ごとにマスタアプリを分ければ絞れますが、アプリの数と権限設定が増え、マスタの二重管理が始まります。区分が 2 つ重なれば、アプリの数は掛け算で増えていきます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">03</span>
+            <h3>選んではいけない値を選べてしまう</h3>
+            <p>候補が絞られていないので、他営業所の取引先や取り扱いのない商品もそのまま選べます。<strong>気づくのは月末の集計や請求の直前</strong>で、直すには関係するレコードをすべて洗い直すことになります。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- before / after -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">［取得］を押すと、絞り込まれた一覧が開く</h2>
+        <p class="afp-lead">レコードの〈対象サービス〉に「kintone」が入っているとき、商品リストの〈サービス種別〉が kintone のものだけを候補にした例です。参照先には 90 件の商品がありますが、候補は 21 件になります。</p>
+        <div class="lf-ba">
+          <figure>
+            <span class="lf-ba-tag is-before">導入前</span>
+            <Picture src="/images/lookup-filter-before.png" alt="kintone 標準のレコード選択画面。全 90 件が並び、V-Cube やメールアーカイブなど目的外の商品が上に表示されている" width="1400" height="948" class="zoomable" />
+            <figcaption>標準の選択画面。「全 90 件」で、上から順に V-Cube・ディスク保守・メールアーカイブ…と並び、<strong>目的の kintone の商品は 1 件も見えません</strong>。</figcaption>
+          </figure>
+          <figure>
+            <span class="lf-ba-tag is-after">導入後</span>
+            <Picture src="/images/lookup-filter-after.png" alt="ルックアップ絞り込みの選択画面。kintone の商品 21 件だけが並び、上部に絞り込み条件が表示されている" width="1080" height="1323" class="zoomable" />
+            <figcaption>「21 件中 1-21 件を表示」で、すべて kintone の商品です。上部に<strong>どの条件で絞ったかが日本語で出る</strong>ので、意図しない絞り込みにも気づけます。</figcaption>
+          </figure>
+        </div>
+        <div class="afp-note">絞り込みは<strong>参照先アプリへの問い合わせ条件</strong>として送ります。候補を取ってきてから隠すのではないので、件数が多いマスタでも表示が重くなりません。キーワード欄での検索は、絞り込みと <strong>AND</strong> で効きます。</div>
+      </div>
+    </section>
+
+    <!-- 使い方 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">レコードの見た目は変わらない</h2>
+        <p class="afp-lead">追加されるボタンや枠はありません。いつもどおり［取得］を押すだけです。上の〈対象サービス〉を選んでから明細の〈型番〉を取ると、そのサービスの商品だけが候補になります。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/lookup-filter-record.png" alt="見積書のレコード編集画面。対象サービスにkintoneが入り、明細のテーブルに型番のルックアップがある" width="1234" height="452" class="zoomable" />
+          <figcaption class="afp-shot-cap">画面に足すものが無いので、<strong>利用者への説明が要りません</strong>。無効にすれば元の動きに戻ります</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 保存時ガード -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">条件に合わない値は、保存の前に止める</h2>
+        <p class="afp-lead">候補を減らすだけでは、取得したあとに条件のフィールドを変えられたときに不整合が残ります。保存時ガードは、保存の直前に条件を満たしているかを確認し、満たしていなければ<strong>保存を中止して理由を表示</strong>します。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/lookup-filter-saveguard.png" alt="対象サービスをGaroonに変えたあと保存しようとして、明細の型番に絞り込み条件に該当しない値だと赤いエラーが表示されている" width="1234" height="630" class="zoomable" />
+          <figcaption class="afp-shot-cap">対象サービスを後から Garoon に変えたため、明細に残った kintone の商品が条件から外れた状態。<strong>保存は中止され、どの条件に合わないかが出ます</strong></figcaption>
+        </figure>
+        <h3 class="afp-h3">取得後に条件が変わったときの動きは選べます</h3>
+        <div class="afp-cautions">
+          <ul>
+            <li><strong>ルックアップの値をクリアする</strong>（既定）— 条件が変わった時点で取り直しを促します。</li>
+            <li><strong>値は残し、選び直しを促すメッセージを出す</strong> — 入力途中の値を消したくない場合に。</li>
+            <li><strong>何もしない</strong> — 上の保存時ガードでだけ検出します。</li>
+          </ul>
+        </div>
+        <div class="afp-note">kintone の仕様上、<strong>保存時のエラーは必ず保存を中止します</strong>（「警告だけ出して保存も通す」はできません）。参照先アプリへの照会に失敗した場合は保存を止めません — 通信の不調で業務が止まらないようにしています。</div>
+      </div>
+    </section>
+
+    <!-- 条件の作り方 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定は、1 文の空欄を埋めるだけ</h2>
+        <p class="afp-lead">「参照先の〈○○〉が、入力中のレコードの〈○○〉と一致するものだけを候補にします」— この 1 文を埋めると、読み下した文と<strong>実際のレコードで試算した候補の件数</strong>がその場に出ます。保存する前に結果を確かめられます。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/lookup-filter-config-02.png" alt="ルックアップ絞り込みの設定画面。1文の空欄を埋めると、読み下し文と候補件数が表示される" width="1400" height="905" class="zoomable" />
+          <figcaption class="afp-shot-cap">読み下し文と「この設定だと、こう出ます＝候補は 21 件」が同じ画面に出ます</figcaption>
+        </figure>
+        <h3 class="afp-h3">右辺に指定できるもの</h3>
+        <div class="afp-cautions">
+          <ul>
+            <li><strong>入力中のレコードのフィールド</strong> — 案件の営業所・区分・取引先など。<strong>標準の絞り込みの初期設定では書けません。</strong></li>
+            <li><strong>見る人ごとの対応表</strong> — 「A 店舗の人には A 店舗の従業員だけ、統括には A・B・C すべて」を表で設定。</li>
+            <li><strong>操作している人</strong> — ログインユーザー本人、その優先組織。</li>
+            <li><strong>実行するときの日付</strong> — 「今日以降のもの」「30 日以内のもの」など。</li>
+            <li><strong>自分で決めた値</strong> — 固定値での指定。</li>
+          </ul>
+        </div>
+        <div class="afp-note">後半の 3 つ（操作している人・実行するときの日付・自分で決めた値）は、<strong>kintone 標準の「絞り込みの初期設定」でも書けます</strong>（クエリ形式の関数 <code>LOGINUSER()</code> / <code>PRIMARY_ORGANIZATION()</code> / <code>TODAY()</code> などが使えます）。<strong>標準側にできないのは、入力中のレコードの値との突き合わせ</strong>と、見る人ごとの対応表、場面ごとの切り替え、保存時ガードです。標準側では <code>and</code> と <code>or</code> を混在させることもできません（1 つの条件式ではどちらか一方だけ）。</div>
+        <h3 class="afp-h3">はじめて開いたときは、この 2 つだけ</h3>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/lookup-filter-config-01.png" alt="ルックアップ絞り込みの初回の設定画面。どのルックアップを絞り込むかと、候補をしぼる条件の2つのカードだけが表示されている" width="1400" height="1055" class="zoomable" />
+          <figcaption class="afp-shot-cap">アプリのルックアップが 1 つなら自動で用意されます。<strong>既定のままで動く設定は折りたたんであり</strong>、それぞれに「〜したいときに開きます」と書いてあります</figcaption>
+        </figure>
+        <h3 class="afp-h3">よくある例から作れます</h3>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/lookup-filter-config-03.png" alt="よくある例から設定を作る入口。担当営業所で絞る、取引のある商品だけ、などの例が並んでいる" width="1400" height="223" class="zoomable" />
+          <figcaption class="afp-shot-cap">よく使う絞り方は例から選べます。選んだあとに 1 文を直せます</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 場面ごとの切り替え -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">場面によって、絞り方を変える</h2>
+        <p class="afp-lead">「新規のときは営業所で、更新のときは担当者で」「区分 A なら在庫のあるものだけ、区分 B なら全件」— 条件のセットを複数持ち、<strong>上から順に判定して最初に当てはまった 1 つ</strong>を使います。複数を AND で重ねることはしません。</p>
+        <div class="afp-cautions">
+          <ul>
+            <li>どのセットにも当てはまらないときは<strong>絞り込みません</strong>（標準どおりの候補になります）。</li>
+            <li>「常に絞り込む」セットを上に置くと、その下のセットには到達しません。設定画面で警告が出ます。</li>
+            <li>絞り込むタイミングを<strong>ステータス・入力値・実行する人</strong>で限定できます。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- サジェスト連携 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ルックアップサジェストと組み合わせる</h2>
+        <p class="afp-lead">当社の<a href="/plugins/lookup-suggest/">ルックアップサジェスト</a>（無料）を v3.0.0 以上にすると、<strong>入力中に出る候補にも同じ絞り込みが効きます</strong>。［取得］を押す前の段階から、選べる候補が正しくなります。</p>
+        <div class="lf-ba">
+          <figure>
+            <span class="lf-ba-tag is-before">連携オフ</span>
+            <Picture src="/images/lookup-suggest-filtercond-before.png" alt="サジェストの候補リスト。運用と入力すると10件出て、Garoon運用サポートやV-Cube運用サポートが混ざっている" width="1198" height="581" class="zoomable" />
+            <figcaption>〈型番〉に「運用」と打つと 10 件。<strong>Garoon 運用サポートや V-Cube 運用サポートが混ざります</strong>。</figcaption>
+          </figure>
+          <figure>
+            <span class="lf-ba-tag is-after">連携オン</span>
+            <Picture src="/images/lookup-suggest-filtercond-after.png" alt="サジェストの候補リスト。kintone 運用サポートの4件だけになり、下に絞り込み条件が表示されている" width="1198" height="420" class="zoomable" />
+            <figcaption>kintone の運用サポート 4 件だけ。リストの下に<strong>絞り込んだ条件</strong>が出ます。</figcaption>
+          </figure>
+        </div>
+        <figure class="afp-shot afp-shot-w840" style="margin-top:28px;">
+          <Picture src="/images/lookup-filter-config-04.png" alt="設定画面の折りたたみ「選んだあとの扱い（連動と検証）」。サジェストにも絞り込みを適用するチェックボックスがある" width="1400" height="343" class="zoomable" />
+          <figcaption class="afp-shot-cap">連携のオン・オフは<strong>ルックアップごと</strong>に切り替えられます（既定はオン）</figcaption>
+        </figure>
+        <div class="afp-note"><strong>オフにした場合でも、［取得］を押して開く一覧は絞り込まれます</strong>（打っている間だけ絞り込まれなくなります）。ルックアップサジェストを導入していない場合や旧版の場合も、本プラグインは単体で動作します。</div>
+      </div>
+    </section>
+
+    <!-- インストール -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="steps-list">
+          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-lookup-filter-v1.0.0.zip</code> を保存します。</span></li>
+          <li><span>kintone の<strong>「kintoneシステム管理」→「プラグイン」</strong>を開き、<strong>「読み込む」</strong>から zip を読み込みます。</span></li>
+          <li><span>ルックアップを設置しているアプリで<strong>「アプリの設定」→「プラグイン」→「プラグインの追加」</strong>から追加します。</span></li>
+          <li><span>歯車アイコンから設定画面を開き、<strong>1 文の空欄を埋めて</strong>保存します。候補の件数がその場に出るので、意図どおりか確認できます。</span></li>
+          <li><span>アプリを<strong>更新</strong>すると有効になります。</span></li>
+        </ol>
+        <div class="afp-note">すでにお使いの場合は、同じ手順で新しい zip を読み込むと上書きされます。<strong>アプリごとの設定は保持されます</strong>。</div>
+      </div>
+    </section>
+
+    <!-- プラン -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料のままでも、<strong>ルックアップ 1 つ・絞り込み 1 通り</strong>まで使えます（右辺に指定できるものと保存時ガードは、すべて無料の範囲です）。<strong>複数のルックアップ</strong>、<strong>場面ごとの条件セット</strong>、<strong>見る人ごとの対応表</strong>、そして<strong>ルックアップサジェストとの連携</strong>が、プレミアム年間サポーターで解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ 入力中のレコードの値で候補を絞り込む</li>
+              <li>✅ 右辺は フィールド／操作している人／実行日／固定値</li>
+              <li>✅ 保存時ガード（条件に合わない値なら保存を中止）</li>
+              <li>✅ 取得後に条件が変わったときの動作を選択</li>
+              <li>✅ サブテーブル内のルックアップ・ゲストスペース</li>
+              <li>✅ 利用期限なし（ルックアップ1つ・絞り込み1通り／設定画面に控えめな広告あり）</li>
+            </ul>
+            <a href="/downloads/kw-lookup-filter-v1.0.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>複数のルックアップ</strong>を絞り込む</li>
+              <li>✅ <strong>場面ごとの条件セット</strong>（上から順に判定）</li>
+              <li>✅ <strong>見る人ごとの対応表</strong>（この人にはこの範囲）</li>
+              <li>✅ <strong>ルックアップサジェストとの連携</strong>（入力中の候補にも適用）</li>
+              <li>✅ 設定画面の広告なし</li>
+              <li>✅ <strong>プレミアム全製品</strong>と、ちょこっとプラグイン全製品が使えます</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta is-primary">プレミアム年間サポーターを見る →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 制約 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">できないこと・ご注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li><strong>優先組織が設定されていない利用者</strong>では、優先組織を使った条件が無視され、全候補が表示されます（保存時ガードも同じ条件で判定するため止まりません）。これは kintone のクエリ関数 <code>PRIMARY_ORGANIZATION()</code> の仕様で、公式ドキュメントに「優先する組織が設定されていない場合、その条件は無視され、それ以外の絞り込み条件を満たすすべてのレコードが取得されます」と記載されています。優先組織を条件に使う場合は、対象の利用者に優先組織が設定されていることをご確認ください。</li>
+            <li>モバイル版は<strong>テーブル外のルックアップ</strong>に対応します。テーブル内のルックアップは PC 版のみです。</li>
+            <li>kintone 標準の「絞り込みの初期設定」は<strong>そのまま残して構いません</strong>（AND で組み合わせて動きます）。<strong>標準側だけで足りる場合は、本プラグインは不要です</strong> — 固定値での絞り込み、ログインユーザーや優先組織での絞り込み、実行日での絞り込みは、標準の絞り込みの初期設定だけで設定できます（クエリ形式の関数が使えます）。本プラグインが必要になるのは、<strong>入力中のレコードの値で候補を変えたい</strong>とき、見る人ごとに範囲を変えたいとき、場面によって絞り方を切り替えたいとき、そして条件に合わない値の保存を止めたいときです。</li>
+            <li>参照先アプリに対する<strong>閲覧権限</strong>は kintone 本体の設定どおりに働きます。権限のないレコードは候補にも出ません。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- よくある質問（表示と FAQPage JSON-LD は src/data/premium-faqs.ts を共有） -->
+    <PremiumFaqSection
+      pluginId="kw-lookup-filter"
+      pageUrl="https://kizuna-works.jp/plugins/lookup-filter/"
+      headingClass="afp-h2"
+    />
+
+    <!-- セキュリティ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-lookup-filter" />
+        <ShareButtons title="ルックアップ絞り込み for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>ルックアップの候補を、レコードに合わせる</h2>
+      <p>ルックアップ絞り込みはプレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料のままでもルックアップ 1 つ・絞り込み 1 通りまでお使いいただけます。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="lf-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('lf-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      // ダウンロードは ヒーローとプランカードの2か所にあるので、まとめて計測する
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: 'kw-lookup-filter-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-lookup-filter-v1.0.0.zip'
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

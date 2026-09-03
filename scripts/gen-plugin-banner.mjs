@@ -100,6 +100,19 @@ const BANNERS = {
       ['', 'フォルダ階層・ファイル名', 'を指定'],
       ['事前見積り＋', '自動分割', '・中止']
     ]
+  },
+  'lookup-filter': {
+    // iconSrc は必須（冒頭コメントの「無ければ」は実装されていない。205行目で必ず読む）
+    iconSrc: 'SECRET/kintone_plugin_workspace/kw-lookup-filter/kw-lookup-filter_512.png',
+    iconSide: 'right',
+    catch: ['候補は、入力中の', 'レコードが決める。'],
+    name: 'ルックアップ絞り込み for kintone',
+    nameSize: 38,
+    bullets: [
+      ['', 'レコードの値', 'で候補を絞る'],
+      ['場面ごとに', '絞り方を切り替え', ''],
+      ['条件に合わない値は', '保存を中止', '']
+    ]
   }
 };
 

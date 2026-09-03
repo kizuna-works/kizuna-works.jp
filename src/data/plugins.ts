@@ -180,7 +180,7 @@ export const plugins: Plugin[] = [
     slug: 'lookup-suggest',
     categories: ['自動入力'],
     description:
-      'ルックアップに、入力中の候補をその場で表示するライブサジェスト機能を追加するプラグイン。別画面に切り替える手間がなくなり、複数フィールドの横断検索で同名顧客の取り違えも防げます。「ABC-123」のように品番を途中まで入れた状態でも絞り込めます。候補は入力欄直下かスペースに表示。サブテーブル内・スマホ対応。',
+      'ルックアップに、入力中の候補をその場で表示するライブサジェスト機能を追加するプラグイン。別画面に切り替える手間がなくなり、複数フィールドの横断検索で同名顧客の取り違えも防げます。「ABC-123」のように品番を途中まで入れた状態でも絞り込めます。ルックアップ絞り込みと併用すると、打っている間の候補もレコードの値で絞り込めます。サブテーブル内・スマホ対応。',
     image: '/images/lookup-suggest-banner.png',
     imageAlt:
       'ルックアップサジェストプラグイン — 入力中に候補リストを表示し、画面遷移なしで取得完結',
@@ -189,12 +189,12 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      'ルックアップへの入力中に候補を表示。画面遷移なしで取得まで完結。品番を途中まで入れた状態でも絞り込める。サブテーブル内・スマホ対応、フォーム編集不要。',
+      'ルックアップへの入力中に候補を表示。画面遷移なしで取得まで完結。品番を途中まで入れた状態でも絞り込める。ルックアップ絞り込みと併用すれば候補をレコードの値で限定。サブテーブル内・スマホ対応。',
     problemTitle: 'ルックアップ入力を高速化',
     problemDesc: '入力中に候補表示でクリック数を減らしたい',
     problemFeatured: true,
     releaseDate: '2026-04-18',
-    summaryVersion: '2.3.0',
+    summaryVersion: '3.0.0',
   },
   {
     id: 'kw-quick-search',
@@ -1516,6 +1516,32 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       '容量を買い増すか、古いレコードから手で消すかの二択。ドライブへ手で上げて共有URLを貼る運用も、件数が増えるとフォルダの命名がばらついて追えなくなる',
     releaseDate: '2026-08-30',
+    summaryVersion: '1.0.0',
+  },
+  {
+    id: 'kw-lookup-filter',
+    pluginId: 'fiiogbdfdclefnpehfckcohfkgnlbogj',
+    name: 'ルックアップ絞り込み for kintone',
+    formName: 'ルックアップ絞り込み for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'lookup-filter',
+    categories: ['表示・編集制御', '入力チェック'],
+    description:
+      'ルックアップの［取得］で開く一覧を、入力中のレコードの値に応じて絞り込みます。標準の「絞り込みの初期設定」には入力中のレコードの値を書けませんが、他フィールドと突き合わせて候補を変えられます。場面ごとに絞り方を切り替えられ、条件に合わない値は保存時に止めます。',
+    image: '/images/lookup-filter-banner.png',
+    imageWebp: '/images/lookup-filter-banner.webp',
+    imageAlt:
+      'ルックアップ絞り込み for kintone バナー — 入力中のレコードの値で候補を絞り込み、条件に合わない値は保存時に止める',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      'ルックアップの候補を、入力中のレコードの値で絞り込みます。条件に合わない値は保存時に止めます。',
+    problemTitle: 'ルックアップの候補が多すぎて、選び間違える',
+    problemDesc:
+      '取引先を選ぶ画面に何百件も並び、目的の1件を探すのに時間がかかる。標準の絞り込みの初期設定は入力中のレコードの値を見られないので、案件の担当営業所や区分に応じて候補を変えられない',
+    releaseDate: '2026-09-03',
     summaryVersion: '1.0.0',
   },
 ];
