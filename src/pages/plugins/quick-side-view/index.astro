@@ -52,10 +52,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "クイックサイドビュー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.4",
-          "dateModified": "2026-08-28",
+          "softwareVersion": "1.0.5",
+          "dateModified": "2026-09-04",
           "url": "https://kizuna-works.jp/plugins/quick-side-view/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-side-view-v1.0.4.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-side-view-v1.0.5.zip",
           "image": "https://kizuna-works.jp/images/quick-side-view-banner.png",
           "screenshot": [
             "https://kizuna-works.jp/images/quick-side-view-before.png",
@@ -175,6 +175,60 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     }
 
     /* Section Wrapper */
+    /* Update highlight box */
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+    .update-note strong { color: var(--color-navy); }
+    @media (max-width: 640px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
+
     .section-wrapper {
       padding: 80px 5%;
       max-width: 1100px;
@@ -751,10 +805,25 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.4</span>
+        <span class="hero-version">v1.0.5</span>
       </div>
       <h1 class="hero-title">クイックサイドビュー for kintone</h1>
       <p class="hero-copy">kintone 一覧画面で行をクリックすると右側にサイドバーが開き、最大 5 件のレコードを並べて閲覧・編集。詳細画面に遷移せず、ビューを維持したまま比較・並行編集ができる kintone プラグインです。</p>
+    </section>
+
+    <!-- Update highlight -->
+    <section class="section-wrapper fade-in" style="padding-top:48px; padding-bottom:0;">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.0.5：一覧の編集・削除ボタンがそのまま使えるようになりました</h2>
+        </div>
+        <p class="update-desc">レコード一覧の右端にある<strong>編集アイコン・削除アイコンを押しても、サイドバーが開いてしまい編集・削除に進めない</strong>問題を解消しました。アイコンをクリックしたときは、これまでどおり kintone 標準のインライン編集・削除の確認が開きます。<br><br>行をクリックしてサイドバーを開く操作は、これまでと変わりません。<strong>サイドバーが開くのはデータの列をクリックしたとき</strong>で、左端の詳細アイコン・右端の編集／削除アイコン・チェックボックスは kintone 本来の動作になります。カーソルの形も、押せる場所と押せない場所で見分けられるようにしました。</p>
+        <p class="update-note">
+          同じ原因で反応しなかった、<strong>ユーザー選択フィールドのアイコン・氏名（プロフィールの表示）</strong>や、一覧の行に他のプラグインが置いたボタンも、あわせて押せるようになります。<br>
+          既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用できます。既存の設定はそのまま引き継がれます。
+        </p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -940,7 +1009,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-quick-side-view-v1.0.4.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-quick-side-view-v1.0.5.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -1113,10 +1182,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           gtag('event', 'file_download', {
-            file_name: 'kw-quick-side-view-v1.0.4.zip',
+            file_name: 'kw-quick-side-view-v1.0.5.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-quick-side-view-v1.0.4.zip'
+            link_url: '/downloads/kw-quick-side-view-v1.0.5.zip'
           });
         });
       }
