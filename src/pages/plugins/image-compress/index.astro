@@ -1,0 +1,1078 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="画像圧縮 for kintone - 添付画像を保存直後に自動圧縮するプラグイン | KIZUNA Works"
+  description="kintone に添付された画像を、レコードを保存した直後に自動で圧縮して差し替えるプラグイン。3MB の写真がおよそ 200KB に。サブテーブル内の写真も対象で、登録済みのレコードは設定画面からまとめて圧縮できます。kintone完結・ゲストスペース対応。"
+  ogTitle="画像圧縮 for kintone - 添付画像を保存直後に自動圧縮するプラグイン | KIZUNA Works"
+  ogDescription="添付写真を自動で圧縮。サブテーブルも、溜まった分もまとめて。保存した直後に裏で圧縮して差し替えるので、利用者の操作は何も変わりません。実測で 39MB → 2.7MB（93%削減）。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/image-compress/"
+  ogImage="https://kizuna-works.jp/images/image-compress-banner.png"
+  canonical="https://kizuna-works.jp/plugins/image-compress/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/image-compress/",
+          "url": "https://kizuna-works.jp/plugins/image-compress/",
+          "name": "画像圧縮 for kintone - 添付画像を保存直後に自動圧縮するプラグイン | KIZUNA Works",
+          "description": "kintone に添付された画像を、レコードを保存した直後に自動で圧縮して差し替えるプラグイン。管理者が強さを一度決めれば、利用者の操作は何も変わりません。サブテーブル内の写真も対象で、登録済みのレコードは設定画面からまとめて圧縮できます。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/image-compress-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "画像圧縮 for kintone", "item": "https://kizuna-works.jp/plugins/image-compress/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "画像圧縮 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-09-05",
+          "url": "https://kizuna-works.jp/plugins/image-compress/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-image-compress-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/image-compress-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone のレコードを保存した直後に、添付された画像を裏で圧縮して差し替える kintone プラグイン。管理者が圧縮の強さを一度決めれば、利用者の操作は何も変わらない。強さは軽量・標準・高画質のほか「自分で決める」で長辺と仕上げ方（品質で決める／1枚あたりの容量で決める）を指定できる。サブテーブル内の添付も対象で、登録済みのレコードは設定画面から一括圧縮できる。圧縮は利用者のブラウザの中だけで行い、画像を外部へ送信しない。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "レコードを保存した直後に、添付された画像を裏で圧縮して差し替える。利用者の操作は変わらず、保存も待たされない",
+            "強さは 軽量（1280px/70）・標準（1600px/80）・高画質（2048px/85）・自分で決める の4つ",
+            "「自分で決める」では長辺を指定したうえで、品質で決めるか 1枚あたりの容量で決めるかを選べる",
+            "1枚あたりの容量を指定すると、品質40〜95の範囲でその容量に収まる中で最も良い品質を自動で選ぶ",
+            "テーブル（サブテーブル）の中の添付画像も対象。行や他の列の値は変わらない",
+            "登録済みのレコードは設定画面から一括圧縮。対象範囲を選べ、実行前に件数と削減の見込みを確認でき、いつでも中止できる",
+            "ファイル名と添付の並び順は変わらない。撮影時の向きは画像そのものに反映するので縦の写真が横倒しにならない",
+            "長辺が設定値以下の画像・GIF・PDF・動画には手を触れない。何度保存しても劣化が積み重ならない",
+            "PC とモバイルで同じ強さが効く。ブラウザによる書き出し品質の差は実効品質を測って自動で補正する",
+            "圧縮は利用者のブラウザの中だけで完結。画像処理サービスや変換APIには送信しない"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .feature-list li code {
+      background: #eef1f4;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .warn-box {
+      max-width: 900px;
+      margin: 0 auto 32px;
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      border-left: 5px solid #ea580c;
+      border-radius: 10px;
+      padding: 20px 24px;
+    }
+    .warn-box h3 {
+      color: #b45309;
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 10px;
+    }
+    .warn-box p {
+      color: #7c2d12;
+      font-size: 14px;
+      line-height: 1.8;
+      margin: 0 0 8px;
+    }
+    .warn-box p:last-child { margin-bottom: 0; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    /* Caption under a single screenshot (not inside a <figure>). */
+    .shot-note {
+      max-width: 900px;
+      margin: 14px auto 0;
+      color: var(--color-text-light);
+      font-size: 13.5px;
+      line-height: 1.9;
+      text-align: center;
+    }
+    .screenshot-frame.narrow { max-width: 900px; margin-left: auto; margin-right: auto; }
+
+    .ba-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 4px;
+      padding: 2px 10px;
+      margin-bottom: 10px;
+    }
+    .ba-badge.before { background: #f1f5f9; color: #64748b; }
+    .ba-badge.after { background: #e6f4ea; color: #2d6a4f; }
+
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+      cursor: zoom-in;
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/image-compress-icon.png"
+        alt="画像圧縮 for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">画像圧縮 for kintone</h1>
+      <p class="hero-copy">画像圧縮 for kintone は、<strong>レコードを保存した直後に、添付された画像を自動で圧縮して差し替える</strong>プラグインです。管理者が強さを一度決めれば、<strong>利用者の操作は何も変わりません</strong>。専用の添付ボタンも、毎回の選択もありません。<strong>テーブル（サブテーブル）の中の写真も対象</strong>で、すでに溜まっている画像は<strong>設定画面からまとめて圧縮</strong>できます。ファイル名も、添付の並び順も変わりません。</p>
+    </section>
+
+    <!-- 導入前に必ず読んでほしい注意（ディスク削減が目的の場合） -->
+    <section class="section-wrapper fade-in" style="padding-top:56px; padding-bottom:56px;">
+      <div class="warn-box" id="history-note" style="margin-bottom:0;">
+        <h3>先にお伝えします — ディスク容量を減らす目的なら、アプリの「変更履歴」を必ずご確認ください</h3>
+        <p><strong>変更履歴を記録したままだと、圧縮してもディスクの使用量は減りません。</strong>圧縮は kintone のレコード更新として行うため、<strong>圧縮前の原本が変更履歴に残り続ける</strong>からです。<strong>kintone の既定は「記録する」</strong>なので、そのままでは削減効果が出ません。</p>
+        <p>kintone のヘルプにも「レコードの変更履歴が有効の場合は、［添付ファイル］フィールドからファイルを削除しても変更履歴にファイルが残るため、添付ファイルサイズは減りません」と記載されています。</p>
+        <p><strong>減らすには：</strong>アプリの「設定」→「その他の設定」→「高度な設定」で <strong>［レコードの変更履歴を記録する］のチェックを外します</strong>。外した時点で過去の変更履歴（＝残っていた原本）が削除され、そこで削減が確定します。使用量の表示に反映されるまでには時間がかかります。</p>
+        <p>変更履歴を残したまま使う場合でも、<strong>閲覧時のダウンロードは圧縮後の容量で済みます</strong>（3MB ではなく 200KB）。現場のモバイル回線では体感差が出ます。<strong>ディスク削減が目的か、表示の軽さが目的か</strong>でご判断ください。この注意書きは、プラグインの設定画面にも同じ内容で表示しています。</p>
+      </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">スマートフォンで撮った写真は 1 枚で 3〜4MB。現場写真を毎日添付していくアプリでは、<strong>そのままの容量で積み上がっていきます</strong>。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">💾</span>
+            <h3 class="problem-title">ディスク容量が足りなくなる</h3>
+            <p class="problem-desc">1 ユーザーあたり 5GB。4MB の写真が何百枚と積み上がれば、あっという間に上限が近づく。容量を買い足すか、古いレコードを消すかの二択になる。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🖥️</span>
+            <h3 class="problem-title">PC 版には小さくする機能がない</h3>
+            <p class="problem-desc">kintone の PC 版に画像を圧縮する機能はない。利用者に「小さくしてから添付して」と頼んでも、現場でそれを毎回やってもらうのは現実的ではない。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📱</span>
+            <h3 class="problem-title">モバイルの縮小は強制できない</h3>
+            <p class="problem-desc">kintone のモバイルアプリには縮小して保存する機能がある。ただし縮小するかは利用者が毎回選ぶ形で、管理者から一律に決めることができない。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Before / After -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">保存した直後に、勝手に小さくなる</h2>
+      <p class="section-subtitle">kintone 公式テンプレート「日報」で撮影しています。利用者はいつもどおり写真を添付して保存するだけ。<strong>保存が終わったあと、裏で圧縮して差し替えます</strong>。<strong>ファイル名は変わりません</strong>。画像はクリックで拡大できます。</p>
+      <div class="screenshot-frame">
+        <img class="zoomable" src="/images/image-compress-before-after.png" alt="画像圧縮 圧縮前と圧縮後の比較 — 添付ファイル欄の3枚が 3 MB から 186 KB・175 KB・232 KB に、サブテーブル内の現場写真も 3 MB から 186 KB になっている。ファイル名は同じまま" loading="lazy" width="1268" height="294" />
+      </div>
+      <p class="shot-note">標準の設定（長辺 1600px ／ 品質 80）での実測です。<strong>3MB の写真がおよそ 200KB</strong> になりました。<strong>下段のテーブル（サブテーブル）の中の写真も同じように圧縮されています</strong>。ファイル名（<code>IMG_3221.jpg</code>）はそのままです。</p>
+      <div class="screenshot-frame narrow" style="margin-top:32px;">
+        <img class="zoomable" src="/images/image-compress-notify.png" alt="画像圧縮 完了通知バナー — 「画像3枚を圧縮しました（8.1 MB → 536 KB）」と緑色のバナーが表示されている" loading="lazy" width="538" height="83" />
+      </div>
+      <p class="shot-note">圧縮が終わると、kintone 標準の通知バナーで結果をお知らせします。<strong>保存そのものは待たされません</strong>（保存はすぐ完了し、圧縮はそのあと裏で進みます）。</p>
+    </section>
+
+    <!-- Subtable -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">テーブルの中の写真も対象</h2>
+        <p class="section-subtitle">添付ファイルフィールドは、フォームの上にあるものも、<strong>テーブル（サブテーブル）の中にあるものも同じように圧縮</strong>します。行や他の列の値は変わりません。</p>
+        <div class="screenshot-frame narrow">
+          <img class="zoomable" src="/images/image-compress-subtable.png" alt="画像圧縮 サブテーブル — 日報の作業明細テーブルに訪問先・作業内容・現場写真の列があり、各行の現場写真が圧縮済みのサムネイルで表示されている" loading="lazy" width="747" height="205" />
+        </div>
+        <p class="shot-note">明細ごとに写真を貼っていくアプリでも、行数ぶんそのまま効きます。他社製品では対象外になりがちなところです。</p>
+      </div>
+    </section>
+
+    <!-- Bulk -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">すでに溜まっている画像も、まとめて</h2>
+      <p class="section-subtitle">導入したその日から先だけでなく、<strong>登録済みのレコードも設定画面から一括で圧縮</strong>できます。実行する前に、<strong>対象の件数と削減の見込みを確認</strong>できます。</p>
+      <div class="screenshot-frame">
+        <img class="zoomable" src="/images/image-compress-config-03.png" alt="画像圧縮 設定画面の一括圧縮 — 対象をすべてのレコードかレコード番号の範囲から選び、［対象を確認する］を押すと対象レコード8件・画像23点・合計41MB・うまくいった場合およそ5.8MBと表示される" loading="lazy" width="1176" height="449" />
+      </div>
+      <p class="shot-note">対象は「すべてのレコード」か「レコード番号の範囲」から選べます。見積りは<strong>上限の目安</strong>です（長辺だけは開いてみないと分からないため、すでに設定値以下の画像もいったん件数に含まれます）。</p>
+
+      <div class="screenshot-pair cols-2" style="margin-top:32px;">
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/image-compress-config-04.png" alt="画像圧縮 一括圧縮の確認画面 — 取り消せないこと、更新者と更新日時が書き換わること、条件通知が送信されること、変更履歴に圧縮前の画像が残ることが箇条書きで警告されている" loading="lazy" width="740" height="392" />
+          </div>
+          <figcaption>実行前の確認。<strong>取り消せないこと</strong>と、更新者・条件通知・変更履歴への影響をその場で示します</figcaption>
+        </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <img class="zoomable" src="/images/image-compress-config-05.png" alt="画像圧縮 一括圧縮の結果 — 処理したレコード8/8件、圧縮した画像13点、対象外だった画像10点、削減量39MBから2.7MB（37MB削減・93%）と表示されている" loading="lazy" width="1135" height="248" />
+          </div>
+          <figcaption>実行後のサマリ。この例では <strong>39 MB → 2.7 MB（93% 削減）</strong>。すでに圧縮済みの 10 点は<strong>対象外として飛ばしています</strong></figcaption>
+        </figure>
+      </div>
+      <p class="shot-note">1 件ずつ順番に処理し、<strong>いつでも中止できます</strong>。失敗したファイルは 3 回まで自動で再試行し、それでも駄目なら一覧に記録して処理を続けます。</p>
+
+      <p class="shot-note">上の「39 MB → 2.7 MB」は<strong>レコードに今ある画像の合計</strong>です。変更履歴を記録したままだと、これがそのままディスクの削減にはなりません（→ <a href="#history-note">ページ上部の注意</a>）。</p>
+    </section>
+
+    <!-- Config -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定画面</h2>
+        <p class="section-subtitle">管理者が決めるのは<strong>圧縮の強さだけ</strong>です。対象フィールドの指定も要りません（すべての添付ファイルフィールドが対象です）。</p>
+        <div class="screenshot-frame">
+          <img class="zoomable" src="/images/image-compress-config-01.png" alt="画像圧縮 設定画面の圧縮の強さ — 軽量・標準（推奨）・高画質・自分で決める の4つから選ぶカード。それぞれに長辺と品質、4MBの写真がおよそ何KBになるかが書かれている" loading="lazy" width="1176" height="262" />
+        </div>
+        <p class="shot-note">4 つから選ぶだけ。<strong>4MB の写真がおよそ何 KB になるか</strong>を添えてあるので、迷わず選べます。既定は「標準」です。</p>
+        <div class="screenshot-frame" style="margin-top:32px;">
+          <img class="zoomable" src="/images/image-compress-config-02.png" alt="画像圧縮 設定画面の自分で決める — 長辺を1600pxに指定し、仕上げ方として「品質で決める」と「容量で決める」を選ぶラジオボタン。容量で決めるを選ぶと1枚あたり300KB以内の入力欄と下限の目安が表示される" loading="lazy" width="1176" height="724" />
+        </div>
+        <p class="shot-note">「自分で決める」を選ぶと、長辺と<strong>仕上げ方</strong>を指定できます。<strong>品質で決める</strong>と見た目がそろい、<strong>容量で決める</strong>と容量がそろいます。容量を指定する場合は、<strong>長辺に応じた入力の下限</strong>と、写真での実際の目安をその場で示します（届かない目標を黙って受け付けません）。</p>
+        <div class="screenshot-frame" style="margin-top:32px;">
+          <img class="zoomable" src="/images/image-compress-config-06.png" alt="画像圧縮 設定画面の変更履歴の注意書き — 変更履歴を記録したままだとディスクの使用量は減らないこと、外す手順、このアプリの高度な設定を開くリンクがオレンジ色の枠で表示されている" loading="lazy" width="1167" height="252" />
+        </div>
+        <p class="shot-note">ページ上部と<strong>同じ注意書きを設定画面にも出しています</strong>。そのアプリの「高度な設定」を開くリンク付きなので、その場で確認できます。</p>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">主な機能</h2>
+      <ul class="feature-list">
+        <li><span><strong>保存した直後に自動で圧縮</strong>／利用者の操作は何も変わりません。保存はすぐ完了し、圧縮はそのあと裏で進みます</span></li>
+        <li><span><strong>強さは 4 つから選ぶ</strong>／軽量（1280px／70）・標準（1600px／80）・高画質（2048px／85）・自分で決める</span></li>
+        <li><span><strong>「1 枚あたり ◯KB 以内」で指定できる</strong>／品質 40〜95 の範囲で、その容量に収まる中でいちばん良い品質を自動で選びます</span></li>
+        <li><span><strong>テーブル（サブテーブル）の中の添付も対象</strong>／行や他の列の値は変わりません</span></li>
+        <li><span><strong>登録済みのレコードを一括圧縮</strong>／対象範囲を選び、見積りを確認してから実行。いつでも中止できます</span></li>
+        <li><span><strong>ファイル名と並び順が変わらない</strong>／撮った順に意味がある現場写真でも、圧縮の前後で並びは同じです</span></li>
+        <li><span><strong>すでに小さい画像には手を触れない</strong>／長辺が設定値以下ならそのまま。何度保存しても劣化が積み重なりません</span></li>
+        <li><span><strong>写真の向きを保つ</strong>／撮影時の向きは画像そのものに反映するので、縦の写真が横倒しになりません</span></li>
+        <li><span><strong>PC とモバイルで同じ強さ</strong>／ブラウザによる書き出し品質の差は、実効品質を測って自動で補正します</span></li>
+        <li><span><strong>画像は外部に出ません</strong>／圧縮は利用者のブラウザの中だけで行い、画像処理サービスや変換 API は使いません</span></li>
+      </ul>
+    </section>
+
+    <!-- Install -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">インストール手順</h2>
+        <p class="section-subtitle">PC・モバイルの両方で動作します。設定にはアプリの管理権限が必要です。</p>
+        <ol class="steps-list">
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-image-compress-v1.0.0.zip</code> をダウンロード</span></li>
+          <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+          <li><span>対象アプリの<strong>アプリ設定 → プラグイン</strong>で「画像圧縮 for kintone」を追加</span></li>
+          <li><span>プラグイン設定画面で<strong>圧縮の強さ</strong>を選んで「保存」（対象フィールドの指定は要りません）</span></li>
+          <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると設定が反映されます</span></li>
+        </ol>
+        <p style="text-align:center; color:var(--color-text-light); font-size:13px; margin-top:24px; line-height:1.7;">
+          ヒント：すでに溜まっている画像は、設定画面の<strong>「登録済みレコードの一括圧縮」</strong>から処理できます。まず<strong>レコード番号の範囲を絞って試す</strong>と安心です。
+        </p>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">プランについて</h2>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">基本プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥0</span>
+            <span class="unit">/ 完全無料</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ 利用期限なし・いつまでも無料</li>
+            <li>✅ 設定画面・レコード一覧に控えめな広告エリア表示あり</li>
+          </ul>
+          <a href="/downloads/kw-image-compress-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">開発を応援</span>
+          <h3 class="plan-name">年間サポーター</h3>
+          <div class="plan-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+            <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            <li>✅ サポーターの声を優先して開発に反映</li>
+          </ul>
+          <a href="/plugins/supporter/?plugin=kw-image-compress" class="btn-primary">サポーターになる →</a>
+          <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+            ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
+        <li><strong>圧縮は取り消せません。</strong>圧縮前の画質には戻せません。原本の画質が必要な画像を扱うアプリでは、導入前にご検討ください。</li>
+        <li>圧縮は kintone のレコード更新として行うため、<strong>更新者・更新日時が書き換わります</strong>。</li>
+        <li><strong>アプリに「レコードの編集」の条件通知を設定していると、圧縮のたびに通知が届きます。</strong>取りこぼしの回収は詳細画面を開いたときにも動くため、未圧縮のレコードを誰かが開くたびに通知が飛びます。通知を受け取る方が多いアプリでは、条件通知の設定を見直してから導入してください。</li>
+        <li><strong>変更履歴を記録したままだと、圧縮してもディスクの使用量は減りません</strong>（圧縮前の原本が履歴に残るため）。詳しくは<a href="#history-note">ページ上部の注意</a>をご覧ください。</li>
+        <li>撮影日時・位置情報などの <strong>Exif は削除されます</strong>（回転情報だけは画像そのものに反映します）。</li>
+        <li>透過のない PNG は JPEG に変換されるため、<strong>拡張子が .jpg に変わります</strong>（透過のある PNG は PNG のまま縮小します）。</li>
+        <li>対象は画像（JPEG・PNG・WebP・HEIC）だけです。<strong>PDF・動画・Office ファイル・アニメーション GIF は圧縮しません。</strong></li>
+        <li>100KB 未満の画像と、長辺が設定値以下の画像は対象外です（劣化させないため）。</li>
+        <li>圧縮は保存が終わったあとに行うため、<strong>ごく短い間は元のサイズのまま保存されています</strong>。</li>
+        <li>ほかの人が同時に同じレコードを更新した場合は、上書きせずに見送り、次に開いたときに改めて処理します。</li>
+        <li>一括圧縮はアプリの管理権限をお持ちの方のみ、プラグイン設定画面から実行できます。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-image-compress" />
+    <PluginFaqSection pluginId="kw-image-compress" pageUrl="https://kizuna-works.jp/plugins/image-compress/" />
+    <SupporterCTA pluginId="kw-image-compress" />
+    <ShareButtons title="画像圧縮 for kintone" />
+
+    <!-- Related Plugins -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">添付ファイルの扱いを楽にする kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/drive-connect/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/drive-connect-banner.png" alt="ドライブ連携 for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">ドライブ連携</h3>
+            <p class="related-post-desc">添付ファイルを Google ドライブへ逃がし、kintone にはリンクだけを残します。容量を減らす目的は同じで手段が違うため、画像は圧縮・大きなファイルは外部へ、と併用できます。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/file-preview/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/file-preview-banner.png" alt="添付ファイルプレビュー for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">添付ファイルプレビュー</h3>
+            <p class="related-post-desc">添付ファイルをダウンロードせずにその場で開けます。写真を小さくするのが画像圧縮、小さくした写真を素早く見るのがこちらです。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/file-export/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/file-export-banner.png" alt="添付ファイル出力 for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">添付ファイル出力</h3>
+            <p class="related-post-desc">絞り込んだレコードの添付ファイルを ZIP でまとめて持ち出せます。圧縮しておけば、書き出す ZIP も小さくなります。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">導入のご相談、機能のご要望などお気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ →</a>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="ea-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('ea-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-image-compress-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-image-compress-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

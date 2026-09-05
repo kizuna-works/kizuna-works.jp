@@ -1214,6 +1214,30 @@ export const plugins: Plugin[] = [
     releaseDate: '2026-09-05',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-image-compress',
+    pluginId: 'afpkgjmmcmbnfdplopejhaaejbjignci',
+    name: '画像圧縮 for kintone',
+    formName: '画像圧縮 for kintone',
+    slug: 'image-compress',
+    categories: ['一括処理'],
+    description:
+      'レコードを保存した直後に、添付された画像を自動で圧縮して差し替えます。強さは軽量・標準・高画質から選ぶほか、長辺と品質、または1枚あたりの容量を指定できます。サブテーブル内の写真も対象で、登録済みのレコードはまとめて圧縮できます。',
+    image: '/images/image-compress-banner.png',
+    imageWebp: '/images/image-compress-banner.webp',
+    imageAlt:
+      '画像圧縮 for kintone バナー — 添付写真を自動で圧縮。サブテーブルも、溜まった分もまとめて',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    cardDescription:
+      '保存した直後に添付画像を自動で圧縮して差し替えます。サブテーブル内の写真も対象で、登録済みのレコードはまとめて圧縮できます。',
+    problemTitle: 'スマホで撮った写真がそのまま溜まって、ディスク容量が足りない',
+    problemDesc:
+      '4MB の写真が何百枚と積み上がるのに、PC 版の kintone には画像を小さくする機能がない。モバイルアプリの縮小は利用者が毎回選ぶ形で、管理者から一律に決められない',
+    releaseDate: '2026-09-05',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**
