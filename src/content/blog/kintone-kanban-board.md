@@ -196,4 +196,4 @@ KIZUNA Worksでは、一覧をカンバン化する「カードボード for kin
 - [kintoneでBIのようにデータを可視化する方法](/blog/kintone-bi-tool-dashboard/) — 集計ダッシュボードで数値を俯瞰する方法
 
 👉 [お問い合わせはこちら](/contact/)  
-👉 [提供プラグイン一覧はこちら](/plugins/)
+👉 [無料で使えるkintoneプラグイン一覧](/plugins/)

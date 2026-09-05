@@ -305,4 +305,4 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [kintoneが定着しない本当の理由｜管理者が見落としがちな7つの原因](/blog/kintone-teichaku-shinai-riyu/) — ツール選定の前に押さえたい定着化のポイント
 
 👉 [お問い合わせはこちら](/contact/)  
-👉 [提供サービス一覧はこちら](/plugins/)
+👉 [無料で使えるkintoneプラグイン一覧](/plugins/)

@@ -150,4 +150,4 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、帳票・�
 - [「Excelのほうがよかった」と言わせないkintone移行ステップ](/blog/kintone-excel-iko-steps/) — Excel帳票運用からkintoneへ無理なく移行するコツ
 
 👉 [お問い合わせはこちら](/contact/)  
-👉 [提供サービス一覧はこちら](/plugins/)
+👉 [kintoneプラグインを無料で見る](/plugins/)

@@ -170,4 +170,4 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [kintone承認フローのプラグイン比較](/blog/kintone-shonin-flow-plugin-hikaku/) — 一括承認・代理承認・承認後のロックを、他社製品と当社製品で比較
 
 👉 [お問い合わせはこちら](/contact/)  
-👉 [提供サービス一覧はこちら](/plugins/)
+👉 [無料のkintoneプラグイン一覧はこちら](/plugins/)

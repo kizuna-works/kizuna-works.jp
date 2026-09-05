@@ -157,4 +157,4 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [プラグイン一覧](/plugins/) — KIZUNA Worksが提供するすべてのkintoneプラグイン
 
 👉 [お問い合わせはこちら](/contact/)
-👉 [提供サービス一覧はこちら](/plugins/)
+👉 [無料のkintoneプラグイン一覧はこちら](/plugins/)

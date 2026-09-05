@@ -1,6 +1,6 @@
 ---
-title: "【2026年最新】kintone帳票出力プラグイン徹底比較｜失敗しない選び方とおすすめ5選"
-description: "2026年最新のkintone帳票出力プラグインを徹底比較。PDF出力・Excel帳票に対応した主要製品（プリントクリエイター・レポトン・ドキュトーン・SVF Cloud・OPROARTS）の機能・コスト・電子帳簿保存法対応を整理し、無料で始める方法や失敗しない選び方を解説します。"
+title: "kintone帳票出力プラグイン比較8選｜料金・電帳法対応と無料で始める方法"
+description: "kintoneの帳票出力プラグイン8製品を、料金体系・出力形式・電子帳簿保存法への対応で比較しました。プリントクリエイター・レポトン・ドキュトーン・SVF Cloud・OPROARTSなど主要製品の違いと、無料で始められる選択肢、関連レコード500件の壁まで解説します。"
 pubDate: 2026-04-23
 updatedDate: 2026-06-21
 author: "KIZUNA Works"
@@ -231,4 +231,4 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [「Excelのほうがよかった」と言わせないkintone移行ステップ](/blog/kintone-excel-iko-steps/) — Excel帳票運用からkintoneへ無理なく移行するコツ
 
 👉 [お問い合わせはこちら](/contact/)  
-👉 [提供サービス一覧はこちら](/plugins/)
+👉 [無料のkintoneプラグイン一覧はこちら](/plugins/)

@@ -156,4 +156,4 @@ KIZUNA Worksでは、kintoneの一覧画面を見やすく整えるプラグイ�
 - [kintoneプラグインのおすすめと選び方（やりたいこと別）](/blog/kintone-muryou-plugin-osusume/) — 一覧以外の用途も含め、無料で使える製品を目的別に整理
 
 👉 [お問い合わせはこちら](/contact/)  
-👉 [提供プラグイン一覧はこちら](/plugins/)
+👉 [kintoneプラグインを無料で見る](/plugins/)
