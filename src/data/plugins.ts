@@ -664,7 +664,7 @@ export const plugins: Plugin[] = [
     slug: 'mail-assist',
     categories: ['通知・メール'],
     description:
-      'レコードの値（会社名・担当者名・メールアドレスなど）を差し込んで件名・本文・宛先を組み立て、ワンクリックでメーラー（既定/Gmail/Outlook/Yahoo!）を起動するプラグイン。詳細から個別に、一覧の絞り込み結果からBCCで一斉送信もできます。',
+      'レコードの値（会社名・担当者名・メールアドレスなど）を差し込んで件名・本文・宛先を組み立て、ワンクリックでメーラー（既定/Gmail/Outlook 個人・法人/Yahoo!）を起動するプラグイン。詳細から個別に、一覧の絞り込み結果からBCCで一斉送信もできます。',
     image: '/images/mail-assist-banner.png',
     imageAlt:
       'メールアシスト for kintone プラグイン — レコードの値を差し込んで件名・本文・宛先を組み立て、ワンクリックでメーラーを起動。詳細から個別に、一覧から BCC 一斉に送信',
@@ -677,7 +677,7 @@ export const plugins: Plugin[] = [
     problemTitle: 'レコードから定型メールを毎回手作業で作っている',
     problemDesc: '宛先・会社名・担当者名をメーラーにコピペし、定型文を打ち直している・同じ案内を全員に送るのが手間',
     releaseDate: '2026-06-26',
-    summaryVersion: '1.1.3',
+    summaryVersion: '1.2.0',
   },
   {
     id: 'kw-comment-control',

@@ -52,10 +52,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "メールアシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.1.4",
-          "dateModified": "2026-08-25",
+          "softwareVersion": "1.2.0",
+          "dateModified": "2026-09-05",
           "url": "https://kizuna-works.jp/plugins/mail-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-mail-assist-v1.1.4.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-mail-assist-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/mail-assist-banner.png",
           "offers": {
             "@type": "Offer",
@@ -354,27 +354,25 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.1.4</span>
+        <span class="hero-version">v1.2.0</span>
       </div>
       <h1 class="hero-title">メールアシスト for kintone</h1>
-      <p class="hero-copy">メールアシスト for kintone は、kintone のレコードの値（会社名・担当者名・メールアドレスなど）を差し込んで件名・本文・宛先を自動で組み立て、ワンクリックでお使いのメーラー（既定メーラー / Gmail / Outlook（個人・法人）/ Yahoo!）を起動する kintone プラグインです。レコード詳細から 1 件ずつ、一覧の絞り込み結果から BCC で一斉に。コピペと定型文の打ち直しから解放します。実際の送信はお使いのメーラーが行うので、外部サーバー・APIキー・GAS は不要で kintone 内で完結します。<strong>v1.1.0 では、1つの条件で複数の値を OR 判定できる演算子（いずれかに一致／いずれかを含む等）を追加し、「（A または B）かつ 他の条件」を1つのテンプレートで表現できるようになりました。</strong></p>
+      <p class="hero-copy">メールアシスト for kintone は、kintone のレコードの値（会社名・担当者名・メールアドレスなど）を差し込んで件名・本文・宛先を自動で組み立て、ワンクリックでお使いのメーラー（既定メーラー / Gmail / Outlook（個人・法人）/ Yahoo!）を起動する kintone プラグインです。レコード詳細から 1 件ずつ、一覧の絞り込み結果から BCC で一斉に。コピペと定型文の打ち直しから解放します。実際の送信はお使いのメーラーが行うので、外部サーバー・APIキー・GAS は不要で kintone 内で完結します。<strong>v1.2.0 では、メーラー選択の「Outlook（法人・Web／Microsoft 365）」を修復しました。あわせて宛先の区切りに全角のカンマ・セミコロン・読点も使えるようにしています。</strong></p>
     </section>
 
-    <!-- Update Info (v1.1.0) -->
+    <!-- Update Info (v1.2.0) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.1.0：1つの条件で「いずれか」を判定できる演算子を追加しました</h2>
+          <h2 class="update-title">v1.2.0：「Outlook（法人・Web／Microsoft 365）」を修復しました</h2>
         </div>
-        <p class="update-desc">表示・送信条件の演算子に <strong>「いずれかに一致」「いずれにも一致しない」「いずれかを含む」「いずれも含まない」</strong> の4つを追加しました。値を<strong>カンマ区切りで複数指定</strong>すると、その1行の中でいずれか1つに一致（含む）すれば条件が成立します（行内 OR）。AND／OR の結合はテンプレート単位で1つのため、これまで <strong>「（A または B）かつ 他の条件」</strong> のような組み合わせは表現できませんでしたが、行内 OR を使えば1つのテンプレートで設定できます。あわせてテンプレート編集画面の横幅を広げ、条件の設定を見やすくしました。</p>
+        <p class="update-desc">メーラー選択の <strong>「Outlook（法人・Web）」</strong> が、<strong>v1.1.1（2026-07-23）以降で選べなくなっていました。</strong>弊社のビルド手順の誤りにより、v1.0.1 で追加したこの選択肢が配布物から抜け落ちていたものです。v1.2.0 で復旧し、Microsoft 365 の Outlook on the web（<code>outlook.office.com</code>）で作成画面が開くようになりました。ご不便をおかけし申し訳ありません。<br>同じ原因で <strong>表示・送信条件の「いずれかに一致」「いずれにも一致しない」「いずれかを含む」「いずれも含まない」</strong>（v1.1.0 で追加した OR 演算子）も抜け落ちていたため、あわせて復旧しています。</p>
         <p class="update-example">
-          設定例：<strong>ステータスが「対応中」または「保留」のとき</strong>だけ、ほかの条件（例：担当部署＝営業）も満たすレコードに表示<br>
-          条件1：<code>ステータス</code> → <strong>いずれかに一致</strong> → <code>対応中,保留</code><br>
-          条件2：<code>担当部署</code> → <strong>＝</strong> → <code>営業</code><br>
-          結合：<strong>すべて満たす（AND）</strong>
+          <strong>設定はそのまま引き継がれます。</strong>「Outlook（法人・Web）」に固定していた設定も、OR 演算子を使った条件も、上書きアップロードするだけで元どおり動きます（設定の作り直しは不要です）。<br>
+          <strong>2026-06-30 〜 07-23 に OR 演算子で条件を設定された方へ：</strong>その間の版では条件が常に成立する状態になっていたため、<strong>意図しないレコードでテンプレートが表示されたり、一斉送信の宛先が絞り込まれなかった</strong>可能性があります。v1.2.0 適用後に、テンプレートの条件と一斉送信の対象範囲をご確認ください。
         </p>
-        <p class="update-note">既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定や既存テンプレートはそのまま引き継がれ、従来の演算子（＝／含む など）の動作は変わりません。</p>
+        <p class="update-note">あわせて、宛先フィールドの区切り記号に<strong>全角のカンマ「，」・セミコロン「；」・読点「、」</strong>も使えるようにし、設定画面に「1つのフィールドに複数のアドレスをまとめて入れられる（区切りはカンマ・セミコロン・スペース・改行のいずれでも可）」旨の説明を追記しました。既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。</p>
       </div>
     </section>
 
@@ -541,7 +539,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコード詳細（個別送信）・レコード一覧（一斉送信）（PC 版）でご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-mail-assist-v1.1.4.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-mail-assist-v1.2.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「メールアシスト for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>テンプレート</strong>（件名・本文・宛先・条件）を作成。必要に応じて送信履歴の記録をONにして保管アプリを生成し「保存」（保管アプリの自動生成にはアプリ作成権限が必要です）</span></li>
@@ -566,7 +564,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-mail-assist-v1.1.4.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-mail-assist-v1.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -709,10 +707,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-mail-assist-v1.1.4.zip',
+              file_name: 'kw-mail-assist-v1.2.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-mail-assist-v1.1.4.zip'
+              link_url: '/downloads/kw-mail-assist-v1.2.0.zip'
             });
           }
         });
