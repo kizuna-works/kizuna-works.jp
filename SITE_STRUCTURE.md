@@ -972,7 +972,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-related-record-popup-v1.0.2.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-related-record-popup-v1.0.3.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・手動配置・v1.0.3：ページ送りでポップアップが閉じる不具合の修正＋コメント系プラグインとのアイコン競合の自動回避）
 │   │   ├── kw-related-record-popup-v1.0.4.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-related-record-popup-v1.0.5.zip                   # 関連レコードポップアップ表示 for kintone 配布ファイル（最新・手動配置・v1.0.5 一覧の固定列見出しのクリックをトリガーアイコンが奪う問題を修正＋イベントチェーン保護を同梱）
+│   │   ├── kw-related-record-popup-v1.0.5.zip                   # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-related-record-popup-v1.0.6.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（最新・v1.0.6 コメント件数がある行でトリガーが kintone の詳細アイコンを覆いレコードを開けなくなる不具合を修正）
 │   │   ├── kw-report-designer-v1.0.0.zip                         # 帳票デザイナー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-report-designer-v1.0.1.zip                         # 帳票デザイナー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-report-designer-v1.0.2.zip                         # 帳票デザイナー for kintone 配布ファイル（手動配置・プレミアムプラグイン・v1.0.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
