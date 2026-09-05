@@ -1,0 +1,1049 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SupporterCTA from '../../../components/SupporterCTA.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+---
+
+<Layout
+  title="テーブルプレビュー for kintone - 一覧で明細を見て直せるプラグイン | KIZUNA Works"
+  description="kintone のレコード一覧に列を足し、テーブル（サブテーブル）の明細件数と集計値をバッジで表示するプラグイン。マウスを乗せると明細がポップアップで開き、クリックで固定すればその場で値を直して保存できます。kintone完結・ゲストスペース対応。"
+  ogTitle="テーブルプレビュー for kintone - 一覧で明細を見て直せるプラグイン | KIZUNA Works"
+  ogDescription="一覧のまま、明細が見える。直せる。サブテーブルの件数と合計をバッジで表示し、マウスを乗せれば明細がポップアップで開く kintone プラグイン。詳細画面を開いて戻る往復をなくします。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/table-preview/"
+  ogImage="https://kizuna-works.jp/images/table-preview-banner.png"
+  canonical="https://kizuna-works.jp/plugins/table-preview/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/table-preview/",
+          "url": "https://kizuna-works.jp/plugins/table-preview/",
+          "name": "テーブルプレビュー for kintone - 一覧で明細を見て直せるプラグイン | KIZUNA Works",
+          "description": "kintone のレコード一覧に列を1本足して、テーブル（サブテーブル）の明細件数と集計値をバッジで表示するプラグイン。マウスを乗せると明細がポップアップで開き、クリックで固定すればその場で値を直して保存できます。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/table-preview-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "テーブルプレビュー for kintone", "item": "https://kizuna-works.jp/plugins/table-preview/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "テーブルプレビュー for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web (kintone)",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-09-05",
+          "url": "https://kizuna-works.jp/plugins/table-preview/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-table-preview-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/table-preview-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "基本プラン（無料）",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "全機能が利用可能。完全無料でダウンロードできます。"
+          },
+          "description": "kintone のレコード一覧に自前の列を1本足し、テーブル（サブテーブル）の明細件数と集計値をバッジで表示する kintone プラグイン。バッジにマウスを乗せると明細がポップアップで開き、クリックで固定すると既存行の値をその場で編集して保存できる。複数のテーブルはタブで切り替えられ、タブには件数が付く。集計は件数・合計・平均・最大・最小から選べる。一覧のレイアウトは変わらず、行の高さもそのまま。",
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp"
+          },
+          "featureList": [
+            "レコード一覧に列を1本足し、テーブルの明細件数と集計値をバッジで表示。行ごとに位置がずれないので縦に読める",
+            "バッジにマウスを乗せると明細がポップアップで開く。列の並び・見せる列・列幅は設定で指定できる",
+            "クリックで固定すると、フッターの［編集］から既存行の値をその場で編集して保存できる",
+            "複数のテーブルをタブで切り替え。タブには件数が付き、切り替えても再取得しない",
+            "集計は件数・合計・平均・最大・最小から選択。0 行のレコードは淡色で「明細なし」が一目で分かる",
+            "計算・ルックアップのコピー先・添付ファイルは編集不可。空行があるレコードは保存を止める",
+            "保存は kintone 標準の更新なのでアクセス権はそのまま有効。同時更新はリビジョンで検知して上書きしない",
+            "バッジの置き場所は専用の列・詳細アイコンの隣・指定したフィールドの列から選択・ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.88) 0%, rgba(42,82,152,0.80) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg {
+      background-color: var(--color-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 15px;
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .problem-icon {
+      font-size: 44px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .problem-title {
+      font-size: 17px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .problem-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-list li {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .feature-list li strong {
+      color: var(--color-navy);
+    }
+
+    .feature-list li code {
+      background: #eef1f4;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: var(--color-navy);
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .warn-box {
+      max-width: 900px;
+      margin: 0 auto 32px;
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      border-left: 5px solid #ea580c;
+      border-radius: 10px;
+      padding: 20px 24px;
+    }
+    .warn-box h3 {
+      color: #b45309;
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 10px;
+    }
+    .warn-box p {
+      color: #7c2d12;
+      font-size: 14px;
+      line-height: 1.8;
+      margin: 0 0 8px;
+    }
+    .warn-box p:last-child { margin-bottom: 0; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .pricing-card.recommended {
+      border: 2px solid var(--color-green);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .plan-price .amount {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--color-navy);
+    }
+
+    .plan-price .unit {
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    .plan-discount {
+      text-align: center;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .plan-features li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .pricing-card .btn-primary {
+      display: block;
+      text-align: center;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .related-post-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .related-post-thumb {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+    .related-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .related-post-content {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-post-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .related-post-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      flex-grow: 1;
+    }
+    .related-post-link {
+      color: var(--color-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .screenshot-frame {
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid var(--color-gray-light);
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-pair.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-pair figure { margin: 0; }
+    .screenshot-pair figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .screenshot-pair .screenshot-frame { margin: 0 auto; }
+
+    /* Caption under a single screenshot (not inside a <figure>). */
+    .shot-note {
+      max-width: 900px;
+      margin: 14px auto 0;
+      color: var(--color-text-light);
+      font-size: 13.5px;
+      line-height: 1.9;
+      text-align: center;
+    }
+    .screenshot-frame.narrow { max-width: 900px; margin-left: auto; margin-right: auto; }
+
+    .ba-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 4px;
+      padding: 2px 10px;
+      margin-bottom: 10px;
+    }
+    .ba-badge.before { background: #f1f5f9; color: #64748b; }
+    .ba-badge.after { background: #e6f4ea; color: #2d6a4f; }
+
+    .config-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .config-shot {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .config-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .config-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--color-gray-light);
+      cursor: zoom-in;
+    }
+    .config-shot-caption {
+      padding: 16px 20px;
+    }
+    .config-shot-caption strong {
+      display: block;
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .config-shot-caption p {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .related-posts-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-copy { font-size: 15px; }
+      .hero-icon { width: 140px; height: 140px; }
+      .section-wrapper { padding: 60px 5%; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .config-screenshots { grid-template-columns: 1fr; }
+      .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <img
+        src="/images/table-preview-icon.png"
+        alt="テーブルプレビュー for kintone プラグイン アイコン"
+        class="hero-icon"
+        width="200"
+        height="200"
+        onerror="this.src='/images/favicon.png'"
+      />
+      <div>
+        <span class="hero-badge">無料配布中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">テーブルプレビュー for kintone</h1>
+      <p class="hero-copy">テーブルプレビュー for kintone は、<strong>レコード一覧のまま明細（サブテーブル）の中身が分かる</strong>プラグインです。一覧に列を1本足して、<strong>明細の件数と集計値をバッジ</strong>で表示します。バッジに<strong>マウスを乗せると明細がポップアップ</strong>で開き、<strong>クリックで固定すればその場で値を直して保存</strong>できます。複数のテーブルはタブで切り替えられます。一覧のレイアウトも行の高さも変わりません。</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな課題を解決します</h2>
+        <p class="section-subtitle">明細を持つアプリでは、<strong>一覧に出せるのは合計フィールドくらい</strong>です。中身を知りたくなるたび、レコードを開いて戻ることになります。</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="problem-icon">🔁</span>
+            <h3 class="problem-title">1件ずつ開いて戻る</h3>
+            <p class="problem-desc">明細が何行あるのか、合計いくらなのかを確かめるだけで詳細画面を開く。確認したら一覧へ戻る。それを件数分くり返している。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">✏️</span>
+            <h3 class="problem-title">1つ直すのに編集画面へ入る</h3>
+            <p class="problem-desc">金額を1か所だけ直したいのに、詳細画面を開き、編集ボタンを押し、保存して、一覧へ戻る。手順のほうが作業より長い。</p>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🧮</span>
+            <h3 class="problem-title">合計のために計算フィールドを増やす</h3>
+            <p class="problem-desc">一覧で合計を見るためだけに計算フィールドを足す。フィールドが増え、明細が 0 行だと空欄になり、結局それも見に行くことになる。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screenshot: list -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">一覧に、明細の件数と合計が並ぶ</h2>
+      <p class="section-subtitle">kintone 公式テンプレート「旅費精算申請」で撮影しています。一覧に列を1本足して、そこに<strong>明細の件数と合計</strong>を出します。<strong>行ごとに位置がずれない</strong>ので、上から下へ目で追えます。行の高さは変わりません。画像はクリックで拡大できます。</p>
+      <div class="screenshot-frame">
+        <img class="zoomable" src="/images/table-preview-list-01.png" alt="テーブルプレビュー 一覧画面 — 旅費精算申請の一覧の左端に「旅費」列が追加され、各行に明細件数と合計金額のバッジが縦に並んでいる" loading="lazy" width="1400" height="297" />
+      </div>
+      <p class="shot-note">左端の列が、このプラグインが足した列です。「5 ¥43,240」は明細が5行・合計43,240円という意味。明細が0行のレコードは淡色の「—」になるので、<strong>入っていないことも一目で分かります</strong>。</p>
+    </section>
+
+    <!-- Screenshot: popup -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">マウスを乗せるだけで、明細が開く</h2>
+        <p class="section-subtitle">クリックも画面遷移も要りません。バッジに<strong>マウスを乗せると明細がポップアップ</strong>で開きます。<strong>複数のテーブルはタブ</strong>で切り替えられ、タブには件数が付きます。切り替えても再取得しないので待ち時間はありません。</p>
+        <div class="screenshot-pair cols-2">
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/table-preview-popup-01.png" alt="テーブルプレビュー ポップアップ — 旅費タブに5行の明細（日付・手段・摘要・金額・領収書）が表示され、下に旅費合計と経費合計が出ている" loading="lazy" width="534" height="375" />
+            </div>
+            <figcaption>「旅費」タブ。日付・手段・摘要・金額・領収書がそのまま読めます。下には<strong>全タブの合計</strong>が並びます</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <img class="zoomable" src="/images/table-preview-popup-02.png" alt="テーブルプレビュー ポップアップ 経費タブ — 経費の明細3行（日付・科目・支払先・摘要・金額・領収書）が表示されている" loading="lazy" width="643" height="348" />
+            </div>
+            <figcaption>タブを押すと「経費」に切り替わります。テーブルごとに<strong>見せる列も並び順も別々に</strong>設定できます</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screenshot: edit -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">気づいた場所で、そのまま直せる</h2>
+      <p class="section-subtitle">ポップアップを<strong>クリックすると固定</strong>されます。読むだけならそのまま、直したくなったら<strong>［編集］を押してから</strong>入力欄が出ます。ページ送りやタブの切り替えで編集画面に入ってしまわないよう、固定と編集を分けてあります。</p>
+      <div class="screenshot-frame narrow">
+        <img class="zoomable" src="/images/table-preview-edit-01.png" alt="テーブルプレビュー 編集モード — ポップアップ内の明細5行が入力欄になり、手段のドロップダウン・摘要・金額・領収書を直せる。下に保存と編集をやめるボタン" loading="lazy" width="894" height="629" />
+      </div>
+      <p class="shot-note">編集できるのは<strong>既存の行の値だけ</strong>です（行の追加・削除はしません）。計算フィールド・ルックアップのコピー先・添付ファイルは編集できません。保存は kintone 標準の更新なので、<strong>アクセス権はそのまま効きます</strong>。ほかの人が先に更新していたら、上書きせずに知らせます。</p>
+    </section>
+
+    <!-- Screenshot: config -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定画面</h2>
+        <p class="section-subtitle">設定しながら<strong>結果がその場で見える</strong>ライブプレビュー付きです。一覧に出るバッジもポップアップも、本番と同じコードで描いているので見た目が一致します。</p>
+        <div class="screenshot-frame">
+          <img class="zoomable" src="/images/table-preview-config-01.png" alt="テーブルプレビュー 設定画面のライブプレビュー — 一覧の行に出るバッジとポップアップの見え方がその場で表示される" loading="lazy" width="1467" height="752" />
+        </div>
+        <p class="shot-note">ライブプレビュー。色・アイコン・列の並びを変えると、その場で反映されます。</p>
+        <div class="screenshot-frame" style="margin-top:32px;">
+          <img class="zoomable" src="/images/table-preview-config-02.png" alt="テーブルプレビュー 設定画面 バッジの出し方 — 専用の列・詳細アイコンの隣・指定したフィールドの列から選ぶラジオボタンと、列の見出し・列の幅の設定" loading="lazy" width="1467" height="487" />
+        </div>
+        <p class="shot-note">バッジの置き場所は3か所から選べます。列の見出しと幅も指定できます。</p>
+        <div class="screenshot-frame" style="margin-top:32px;">
+          <img class="zoomable" src="/images/table-preview-config-03.png" alt="テーブルプレビュー 設定画面 表示する列 — 明細のどの列を出すか、その場で編集できるかをチェックボックスで指定する一覧" loading="lazy" width="1467" height="518" />
+        </div>
+        <p class="shot-note">明細のどの列を出すか、<strong>どの列をその場で編集できるか</strong>を1列ずつ決められます。編集できない列には理由を書いてあります。</p>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">主な機能</h2>
+      <ul class="feature-list">
+        <li><span><strong>一覧に明細の件数と集計値をバッジで表示</strong>／専用の列に縦に並ぶので、行ごとに位置がずれません。0 行のレコードは淡色の「—」になります</span></li>
+        <li><span><strong>マウスを乗せると明細がポップアップで開く</strong>／見せる列・並び順・列幅をテーブルごとに指定できます</span></li>
+        <li><span><strong>クリックで固定してその場で編集・保存</strong>／［編集］を押してから入力欄が出ます。読むだけのときは固定したままで大丈夫です</span></li>
+        <li><span><strong>複数のテーブルをタブで切り替え</strong>／タブに件数が付きます。切り替えても再取得しません</span></li>
+        <li><span><strong>集計は件数・合計・平均・最大・最小</strong>／頭と末尾に付ける文字（¥・件 など）も指定できます</span></li>
+        <li><span><strong>選択行だけの集計</strong>／ポップアップの中で行を選ぶと、その分の集計が出ます</span></li>
+        <li><span><strong>編集できる人を絞れる</strong>／全員／アプリ管理者のみ／指定したユーザー・組織・グループ</span></li>
+        <li><span><strong>同時更新を検知</strong>／ポップアップを開いてから誰かが更新していたら、上書きせずに知らせます</span></li>
+        <li><span><strong>ポップアップの大きさを変えて記憶</strong>／右下のつまみでドラッグ。2回続けて押すと自動サイズに戻ります</span></li>
+        <li><span><strong>バッジの置き場所は3か所から選択</strong>／専用の列（既定）／詳細アイコンの隣／指定したフィールドの列</span></li>
+      </ul>
+    </section>
+
+    <!-- Install -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">インストール手順</h2>
+        <p class="section-subtitle">PC 版のレコード一覧で動作します。設定にはアプリの管理権限が必要です。</p>
+        <ol class="steps-list">
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-table-preview-v1.0.0.zip</code> をダウンロード</span></li>
+          <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
+          <li><span>対象アプリの<strong>アプリ設定 → プラグイン</strong>で「テーブルプレビュー for kintone」を追加</span></li>
+          <li><span>プラグイン設定画面で<strong>一覧に出すテーブル</strong>を選び、集計方法（件数・合計など）と<strong>ポップアップに出す列</strong>を指定して「保存」</span></li>
+          <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると設定が反映されます</span></li>
+        </ol>
+        <p style="text-align:center; color:var(--color-text-light); font-size:13px; margin-top:24px; line-height:1.7;">
+          ヒント：<strong>一覧に合計フィールドを置いていなくても構いません</strong>。集計はこのプラグインが明細から計算して表示します。
+        </p>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="section-wrapper fade-in">
+      <h2 class="section-title">プランについて</h2>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="plan-name">基本プラン</h3>
+          <div class="plan-price">
+            <span class="amount">¥0</span>
+            <span class="unit">/ 完全無料</span>
+          </div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ 利用期限なし・いつまでも無料</li>
+            <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
+          </ul>
+          <a href="/downloads/kw-table-preview-v1.0.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+        </div>
+        <div class="pricing-card recommended">
+          <span class="recommended-badge">開発を応援</span>
+          <h3 class="plan-name">年間サポーター</h3>
+          <div class="plan-price">
+            <span class="amount">¥3,300</span>
+            <span class="unit">/年（税込）</span>
+          </div>
+          <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <ul class="plan-features">
+            <li>✅ 全機能が利用可能</li>
+            <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
+            <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
+            <li>✅ サポーターの声を優先して開発に反映</li>
+          </ul>
+          <a href="/plugins/supporter/?plugin=kw-table-preview" class="btn-primary">サポーターになる →</a>
+          <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
+            ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">注意事項</h2>
+      <ul class="notes-list">
+        <li>本プラグインは KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        <li>kintone はサイボウズ株式会社の登録商標です。</li>
+        <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
+        <li>PC 版でのみ動作します。<strong>モバイル（スマートフォン表示）では何も表示しません</strong>。</li>
+        <li>一覧に足す列は、<strong>そのアプリのすべての一覧（ビュー）に出ます</strong>。一覧ごとの出し分けはできません。</li>
+        <li>kintone の一覧表は画面の幅いっぱいに広がるため、<strong>列を足すと横スクロールが出ることがあります</strong>。件数だけでよければ設定で列の幅を狭めてください。</li>
+        <li>編集できるのは<strong>既存の行の値だけ</strong>です。行の追加・削除・並べ替えは詳細画面で行ってください。</li>
+        <li>計算フィールド・ルックアップとそのコピー先・添付ファイルは編集できません（表示のみ）。</li>
+        <li>ポップアップからの保存では、<strong>保存時に動くカスタマイズやプラグインの処理は動きません</strong>。計算フィールドの値は詳細画面を開いて保存し直すと更新されます。</li>
+        <li>空の行があるレコードは保存を止めます。詳細画面で整理してから保存してください。</li>
+        <li>レコードの値は編集機能でのみ変更します。フォーム定義・一覧の設定は変更しません。</li>
+        <li>本プラグインの使用により生じたいかなる損害についても、KIZUNA Works は責任を負いません。</li>
+        <li>ppk（秘密鍵）ファイルは配布物に含まれていません。</li>
+      </ul>
+    </section>
+
+    <SecurityBox pluginId="kw-table-preview" />
+    <PluginFaqSection pluginId="kw-table-preview" pageUrl="https://kizuna-works.jp/plugins/table-preview/" />
+    <SupporterCTA pluginId="kw-table-preview" />
+    <ShareButtons title="テーブルプレビュー for kintone" />
+
+    <!-- Related Plugins -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">関連プラグイン</h2>
+      <p class="section-subtitle">一覧やテーブルの扱いを楽にする kintone プラグイン</p>
+      <div class="related-posts-grid">
+        <a href="/plugins/table-assist/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/table-assist-banner.png" alt="テーブルアシスト for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">テーブルアシスト</h3>
+            <p class="related-post-desc">レコード画面のテーブルに、行の並べ替え・絞り込み・列ごとの集計を足します。テーブルプレビューが「一覧から見る」のに対し、こちらは「詳細画面で扱う」ためのものです。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/summary-bar/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/summary-bar-banner.png" alt="集計サマリーバー for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">集計サマリーバー</h3>
+            <p class="related-post-desc">一覧の上に、表示中のレコードの合計・平均・件数を帯で出します。レコードをまたいだ集計はこちら、1レコードの明細の集計はテーブルプレビューです。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+        <a href="/plugins/quick-side-view/" class="related-post-card">
+          <div class="related-post-thumb">
+            <img src="/images/quick-side-view-banner.png" alt="クイックサイドビュー for kintone プラグイン" loading="lazy" width="1200" height="630">
+          </div>
+          <div class="related-post-content">
+            <h3 class="related-post-title">クイックサイドビュー</h3>
+            <p class="related-post-desc">一覧の行をクリックすると、横のパネルにレコードの内容を出します。レコード全体を見たいときはこちら、明細だけを見たいときはテーブルプレビューです。</p>
+            <span class="related-post-link">プラグインを見る →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">導入のご相談、機能のご要望などお気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ →</a>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="ea-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="" />
+    </div>
+
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const answer = question.nextElementSibling;
+          const isOpen = item.classList.contains('is-open');
+
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('is-open');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('is-open');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        });
+      });
+
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('ea-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const dlBtn = document.getElementById('btn-download');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'file_download', {
+              file_name: 'kw-table-preview-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-table-preview-v1.0.0.zip'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

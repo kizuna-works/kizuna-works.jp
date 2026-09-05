@@ -1190,6 +1190,30 @@ export const plugins: Plugin[] = [
     releaseDate: '2026-09-01',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-table-preview',
+    pluginId: 'jaofhhbminbaecfofcblhoknbicpcigd',
+    name: 'テーブルプレビュー for kintone',
+    formName: 'テーブルプレビュー for kintone',
+    slug: 'table-preview',
+    categories: ['一覧表示', '集計・計算'],
+    description:
+      'レコード一覧に列を1本足し、テーブル（サブテーブル）の明細件数と集計値をバッジで表示します。バッジにマウスを乗せると明細がポップアップで開き、クリックで固定すればその場で値を直して保存できます。複数のテーブルはタブで切り替えられます。',
+    image: '/images/table-preview-banner.png',
+    imageWebp: '/images/table-preview-banner.webp',
+    imageAlt:
+      'テーブルプレビュー for kintone バナー — 一覧のまま、明細が見える。直せる。サブテーブルの件数と合計をバッジで表示し、ポップアップで明細を開いてその場で編集',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    cardDescription:
+      '一覧に明細の件数と合計をバッジで表示。マウスを乗せれば明細がポップアップで開き、クリックで固定すればその場で値を直して保存できます。',
+    problemTitle: '明細の中身を見るために、レコードを1件ずつ開いて戻っている',
+    problemDesc:
+      '一覧では明細が何行あるかも合計いくらかも分からない。数字を1つ確かめるだけで詳細画面を開いて戻る往復が続き、直したい値が1つあっても編集画面へ入り直すことになる',
+    releaseDate: '2026-09-05',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**
