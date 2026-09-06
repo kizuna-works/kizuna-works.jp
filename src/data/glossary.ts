@@ -157,6 +157,7 @@ export const glossary: Term[] = [
   },
   {
     id: 'custom-view',
+    supersededBy: { path: '/blog/kintone-custom-view/', label: 'kintoneのカスタマイズビューの作り方と制約' },
     term: 'カスタマイズビュー',
     reading: 'かすたまいずびゅー',
     category: 'feature',
@@ -367,7 +368,7 @@ export const glossary: Term[] = [
   },
   {
     id: 'plugin',
-    supersededBy: { path: '/plugins/', label: 'kintone プラグイン一覧（全47製品・無料）' },
+    supersededBy: { path: '/plugins/', label: '無料のkintoneプラグイン一覧' },
     term: 'プラグイン',
     reading: 'ぷらぐいん',
     category: 'api',
