@@ -155,6 +155,7 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [kintoneプラグインのおすすめと選び方（やりたいこと別）](/blog/kintone-muryou-plugin-osusume/) — 検索以外も含め、無料で使えるプラグインを目的別に整理
 - [ルックアップサジェスト（無料）](/plugins/lookup-suggest/) — ルックアップ入力時に候補をリアルタイム表示するKIZUNA Works製プラグイン
 - [プラグイン一覧](/plugins/) — KIZUNA Worksが提供するすべてのkintoneプラグイン
+- [kintoneの困りごとから探す](/plugins/problems/) — 「目的のレコードが探せない」などの困りごとから解決プラグインを引ける索引
 
 👉 [お問い合わせはこちら](/contact/)
 👉 [無料のkintoneプラグイン一覧はこちら](/plugins/)

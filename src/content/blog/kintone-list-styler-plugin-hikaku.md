@@ -154,6 +154,7 @@ KIZUNA Worksでは、kintoneの一覧画面を見やすく整えるプラグイ�
 - [kintone一覧でレコードを閲覧・編集できるプラグイン比較](/blog/kintone-quick-side-view-plugin-hikaku/) — 一覧から詳細への往復を減らすアプローチを比較
 - [kintoneのデザイン・UIを整えるおすすめプラグイン](/blog/kintone-design-plugin-osusume/) — 見た目・操作性を改善するプラグインの選び方
 - [kintoneプラグインのおすすめと選び方（やりたいこと別）](/blog/kintone-muryou-plugin-osusume/) — 一覧以外の用途も含め、無料で使える製品を目的別に整理
+- [kintoneの困りごとから探す](/plugins/problems/) — 「一覧が見づらい」などの困りごとと解決プラグインを1対1で引ける索引
 
 👉 [お問い合わせはこちら](/contact/)  
 👉 [kintoneプラグインを無料で見る](/plugins/)

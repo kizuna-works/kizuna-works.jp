@@ -50,6 +50,24 @@ const categoryClientMeta = Object.fromEntries(
   ])
 );
 
+// Mirrors the rendered order (sections are the primary-category grouping), so the
+// structured data and the visible list agree. The description is the problem statement
+// rather than the product blurb — that is what this page is an index of.
+const problemsItemListJsonLd = sections
+  .flatMap((s) => s.rows)
+  .map((pl, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'SoftwareApplication',
+      name: pl.name,
+      url: `https://kizuna-works.jp/plugins/${pl.slug}/`,
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'kintone',
+      description: `${pl.problemTitle} — ${pl.problemDesc}`,
+    },
+  }));
+
 const pageUrl = 'https://kizuna-works.jp/plugins/problems/';
 const title = `kintoneの困りごとから探す｜課題別プラグイン索引 全${totalCount}製品 | KIZUNA Works`;
 const description = `「一覧が見づらい」「入力途中で消える」「合計が出せない」など、kintone 運用でよくある困りごとから、それを解決するプラグインを引ける索引。全${totalCount}製品を${categoryCount}カテゴリの課題別に掲載し、キーワード検索でも探せます。ダウンロード無料・会員登録不要。`;
@@ -103,6 +121,15 @@ const updated = allPlugins
             },
             { '@type': 'ListItem', position: 3, name: '困りごとから探す', item: pageUrl },
           ],
+        },
+        {
+          '@type': 'ItemList',
+          '@id': `${pageUrl}#itemlist`,
+          name: title,
+          description: ogDescription,
+          numberOfItems: totalCount,
+          itemListOrder: 'https://schema.org/ItemListUnordered',
+          itemListElement: problemsItemListJsonLd,
         },
       ],
     })} />
