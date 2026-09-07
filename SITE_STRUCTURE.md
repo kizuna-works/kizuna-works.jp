@@ -1108,6 +1108,8 @@ c:\kizuna-works.jp\
 │   ├── gen-install-ranking.mjs # GAS の action=ranking から src/data/install-ranking.json を生成。prebuild で自動実行（手動は npm run gen:ranking）。**成功時だけ上書き**し、失敗時は直近のスナップショットを残す（スナップショットが無い状態で失敗したらビルド中断）。以前はページ側で毎回 fetch していて、タイムアウト時に plugins.ts の並び順が「本物のランキング」として公開されていた
 │   ├── sync-llms-counts.mjs    # public/llms.txt の製品数を src/data/*.ts から同期＋掲載漏れ/存在しない製品へのリンクを検出してビルド中断。prebuild で自動実行（手動は npm run sync:llms）
 │   ├── check-plugin-summaries.mjs # プラグインの要約（一覧カード description / ランキング cardDescription / 製品ページ hero）が公開版に追いついているかを検査。plugins.ts の `summaryVersion` と製品ページ JSON-LD の `softwareVersion` の major.minor を比較する。prebuild では警告のみ、`npm run check:summaries` は不一致で exit 1（リリース前ゲート）
+│   ├── check-plugin-release.mjs # 公開ゲート。public/downloads/ に未コミットのプラグイン配布 zip があるとき、その版のテスト実施記録（SECRET/kintone_plugin_release/<name>_release/docs/<name>_TEST_v<版>.md に「判定: 合格」）が無ければビルドを中止する。prebuild で自動実行。SECRET/ や git が無い環境（GitHub Actions）ではスキップ
+│   ├── check-external-links.mjs # 相互リンクの維持ゲート。他社と約束した相互リンクが本文から消える／rel="nofollow" が付く／掲載テキストが変わると prebuild でビルドを中止する。約束の一覧は同ファイルの COMMITMENTS。単体実行は `npm run check:links`。解除は「先方と合意 → COMMITMENTS から削除 → 本文修正 → 記録」の順（CLAUDE.md「相互リンクの維持」参照）
 │   ├── gen-image-derivatives.mjs # dist の HTML が参照する PNG から .webp / -800.webp を生成（Picture.astro 用）
 │   ├── gen-favicon.mjs         # src/assets/KIZUNA-Worksロゴデータlogo.png から public/favicon.ico（16/32/48）・public/images/favicon.png（192x192）・public/images/apple-touch-icon.png（180x180）を生成。Google 検索結果のアイコンは「正方形かつ48pxの倍数」でないと採用されず、ルートの /favicon.ico も見られるため両方を用意する。手動実行（`node scripts/gen-favicon.mjs`）
 │   ├── gen-blog-figures.mjs    # ブログ本文の図解を satori＋sharp でコード生成（オンブランド）
