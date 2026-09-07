@@ -445,9 +445,13 @@ const jsonLd = {
     }
 
     /* Related-article card for an article on another site (partner link).
-       Deliberately unlike every other in-article block: the article body uses
-       white cards, a navy heading band and a pale green sub-heading band, so
-       this one is inverted - the navy-to-green diagonal of the blog banners.
+       Deliberately unlike every other in-article block - the body uses white
+       cards, a navy heading band and a pale green sub-heading band - and it is
+       painted in the DESTINATION site's colours (comdec.jp: #00a0e9 with an
+       #f6962e accent) so the reader can see they are leaving for another site.
+       Text sits on the darker left side of the gradient; the bright cyan is a
+       glow in the top-right corner, kept at low alpha so small text over it
+       still clears 4.5:1 against white.
        The whole card is clickable through a stretched overlay on the anchor,
        which keeps the anchor text exactly the partner's requested title and
        needs no second link for the call to action. */
@@ -456,18 +460,18 @@ const jsonLd = {
       overflow: hidden;
       margin: 2.6em 0;
       padding: 18px 24px 16px;
-      border-left: 5px solid #45b34a;
+      border-left: 5px solid #f6962e;
       border-radius: 4px 14px 14px 4px;
       color: #fff;
       background:
-        radial-gradient(120% 150% at 90% 6%, rgba(69, 179, 74, 0.5) 0%, rgba(69, 179, 74, 0) 62%),
-        linear-gradient(118deg, #142d55 0%, #1B3A6B 50%, #22593c 100%);
-      box-shadow: 0 10px 24px rgba(27, 58, 107, 0.2);
+        radial-gradient(115% 140% at 90% 4%, rgba(0, 160, 233, 0.35) 0%, rgba(0, 160, 233, 0) 60%),
+        linear-gradient(116deg, #013c5e 0%, #01547e 48%, #076c97 100%);
+      box-shadow: 0 10px 24px rgba(1, 60, 94, 0.22);
       transition: box-shadow 0.18s ease, transform 0.18s ease;
     }
 
     .blog-prose .related-external:hover {
-      box-shadow: 0 14px 30px rgba(27, 58, 107, 0.3);
+      box-shadow: 0 14px 30px rgba(1, 60, 94, 0.32);
       transform: translateY(-2px);
     }
 
@@ -483,7 +487,7 @@ const jsonLd = {
     .blog-prose .related-external-label {
       display: inline-block;
       background: #fff;
-      color: #1B3A6B;
+      color: #01547e;
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.04em;
@@ -492,7 +496,7 @@ const jsonLd = {
     }
 
     .blog-prose .related-external-ext {
-      color: rgba(255, 255, 255, 0.72);
+      color: #fff;
       font-size: 0.72rem;
       font-weight: 500;
       white-space: nowrap;
@@ -524,7 +528,7 @@ const jsonLd = {
     .blog-prose .related-external-sub {
       display: block;
       margin-top: 4px;
-      color: rgba(255, 255, 255, 0.82);
+      color: rgba(255, 255, 255, 0.85);
       font-size: 0.92rem;
       font-weight: 500;
       line-height: 1.6;
@@ -539,23 +543,23 @@ const jsonLd = {
       gap: 4px 14px;
       margin-top: 13px;
       padding-top: 12px;
-      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .blog-prose .related-external-source {
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.74);
       font-size: 0.8rem;
     }
 
     .blog-prose .related-external-cta {
-      color: #9ee8a4;
+      color: #fff;
       font-size: 0.84rem;
       font-weight: 700;
       white-space: nowrap;
     }
 
     .blog-prose .related-external:hover .related-external-cta {
-      color: #fff;
+      color: #ffc978;
     }
 
     @media (max-width: 600px) {
