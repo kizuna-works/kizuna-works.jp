@@ -444,16 +444,36 @@ const jsonLd = {
       margin: 1.5em 0;
     }
 
-    /* Related-article callout for an article on another site (partner link).
-       Mirrors the h3 band: green left rule, soft green wash, rounded right side.
-       The title is navy and unstyled so a two-line wrap stays readable, unlike
-       a long underlined inline link. */
+    /* Related-article card for an article on another site (partner link).
+       Whole card is clickable through a stretched overlay on the anchor, so the
+       anchor text stays exactly the partner's requested title and the footer
+       call-to-action needs no second link. */
     .blog-prose .related-external {
-      margin: 2.2em 0;
-      padding: 16px 20px;
-      border-left: 4px solid #2E8B2E;
-      border-radius: 0 10px 10px 0;
-      background: linear-gradient(90deg, #e7f2e8 0%, #f1f8f2 55%, rgba(241, 248, 242, 0) 100%);
+      position: relative;
+      margin: 2.4em 0;
+      padding: 16px 22px 15px;
+      background: #fff;
+      border: 1px solid #dbe4f0;
+      border-left: 5px solid #2E8B2E;
+      border-radius: 0 12px 12px 0;
+      box-shadow: 0 2px 10px rgba(27, 58, 107, 0.06);
+      transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    }
+
+    .blog-prose .related-external:hover {
+      border-color: #cfe0cf;
+      border-left-color: #2E8B2E;
+      box-shadow: 0 8px 20px rgba(27, 58, 107, 0.13);
+      transform: translateY(-1px);
+    }
+
+    /* Top row: green pill on the left, external-site chip on the right */
+    .blog-prose .related-external-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 11px;
     }
 
     .blog-prose .related-external-label {
@@ -467,32 +487,72 @@ const jsonLd = {
       border-radius: 999px;
     }
 
+    .blog-prose .related-external-ext {
+      color: #8798ad;
+      font-size: 0.72rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
     .blog-prose .related-external a {
       display: block;
-      margin-top: 10px;
-      color: #1B3A6B;
-      font-size: 1.02rem;
-      font-weight: 700;
-      line-height: 1.6;
       text-decoration: none;
+      color: inherit;
     }
 
-    .blog-prose .related-external a::after {
-      content: ' ↗';
-      font-weight: 400;
+    /* Stretched hit area: makes the whole card clickable */
+    .blog-prose .related-external a::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+    }
+
+    .blog-prose .related-external-title {
+      display: block;
+      color: #1B3A6B;
+      font-size: 1.06rem;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .blog-prose .related-external:hover .related-external-title {
       color: #2E8B2E;
     }
 
-    .blog-prose .related-external a:hover {
-      color: #2E8B2E;
-      text-decoration: underline;
+    /* The promotional tail of the title, kept inside the anchor but set smaller
+       so the first line reads as the headline */
+    .blog-prose .related-external-sub {
+      display: block;
+      margin-top: 3px;
+      color: #4a5568;
+      font-size: 0.92rem;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+
+    /* Bottom row: who published it, and the read-article affordance */
+    .blog-prose .related-external-foot {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px 14px;
+      margin-top: 12px;
+      padding-top: 11px;
+      border-top: 1px dashed #e2e8f0;
     }
 
     .blog-prose .related-external-source {
-      display: block;
-      margin-top: 6px;
       color: #64748b;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
+    }
+
+    .blog-prose .related-external-cta {
+      color: #2E8B2E;
+      font-size: 0.83rem;
+      font-weight: 700;
+      white-space: nowrap;
     }
 
     .blog-prose code {

@@ -207,7 +207,7 @@ kintoneの集計について、標準の範囲と実務でのつまずきどこ�
 
 まずは自社で「その数字を、どの画面で、どのくらいの頻度で見たいのか」を書き出してみてください。頻度が低く切り口が固定なら標準のグラフで十分です。
 
-<div class="related-external"><span class="related-external-label">関連記事</span><a href="https://www.comdec.jp/comdeclab/kintone-rra/">kintoneの関連レコードの数値を自動集計する方法は？<br />プラグイン・カスタマイズでkintoneをさらに便利に</a><span class="related-external-source">コムデックラボ／株式会社コムデック</span></div>
+<div class="related-external"><div class="related-external-head"><span class="related-external-label">関連記事</span><span class="related-external-ext">外部サイト・comdec.jp</span></div><a href="https://www.comdec.jp/comdeclab/kintone-rra/"><span class="related-external-title">kintoneの関連レコードの数値を自動集計する方法は？</span><span class="related-external-sub">プラグイン・カスタマイズでkintoneをさらに便利に</span></a><div class="related-external-foot"><span class="related-external-source">コムデックラボ／株式会社コムデック</span><span class="related-external-cta">記事を読む ↗</span></div></div>
 
 ## 関連記事・お問い合わせ
 
