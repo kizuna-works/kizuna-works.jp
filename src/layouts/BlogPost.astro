@@ -445,50 +445,54 @@ const jsonLd = {
     }
 
     /* Related-article card for an article on another site (partner link).
-       Whole card is clickable through a stretched overlay on the anchor, so the
-       anchor text stays exactly the partner's requested title and the footer
-       call-to-action needs no second link. */
+       Deliberately unlike every other in-article block: the article body uses
+       white cards, a navy heading band and a pale green sub-heading band, so
+       this one is inverted - the navy-to-green diagonal of the blog banners.
+       The whole card is clickable through a stretched overlay on the anchor,
+       which keeps the anchor text exactly the partner's requested title and
+       needs no second link for the call to action. */
     .blog-prose .related-external {
       position: relative;
-      margin: 2.4em 0;
-      padding: 16px 22px 15px;
-      background: #fff;
-      border: 1px solid #dbe4f0;
-      border-left: 5px solid #2E8B2E;
-      border-radius: 0 12px 12px 0;
-      box-shadow: 0 2px 10px rgba(27, 58, 107, 0.06);
-      transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+      overflow: hidden;
+      margin: 2.6em 0;
+      padding: 18px 24px 16px;
+      border-left: 5px solid #45b34a;
+      border-radius: 4px 14px 14px 4px;
+      color: #fff;
+      background:
+        radial-gradient(120% 150% at 90% 6%, rgba(69, 179, 74, 0.5) 0%, rgba(69, 179, 74, 0) 62%),
+        linear-gradient(118deg, #142d55 0%, #1B3A6B 50%, #22593c 100%);
+      box-shadow: 0 10px 24px rgba(27, 58, 107, 0.2);
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
     }
 
     .blog-prose .related-external:hover {
-      border-color: #cfe0cf;
-      border-left-color: #2E8B2E;
-      box-shadow: 0 8px 20px rgba(27, 58, 107, 0.13);
-      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(27, 58, 107, 0.3);
+      transform: translateY(-2px);
     }
 
-    /* Top row: green pill on the left, external-site chip on the right */
+    /* Top row: white pill on the left, destination hint on the right */
     .blog-prose .related-external-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 11px;
+      margin-bottom: 12px;
     }
 
     .blog-prose .related-external-label {
       display: inline-block;
-      background: #2E8B2E;
-      color: #fff;
+      background: #fff;
+      color: #1B3A6B;
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.04em;
-      padding: 3px 12px;
+      padding: 3px 13px;
       border-radius: 999px;
     }
 
     .blog-prose .related-external-ext {
-      color: #8798ad;
+      color: rgba(255, 255, 255, 0.72);
       font-size: 0.72rem;
       font-weight: 500;
       white-space: nowrap;
@@ -505,27 +509,22 @@ const jsonLd = {
       content: '';
       position: absolute;
       inset: 0;
-      border-radius: inherit;
     }
 
     .blog-prose .related-external-title {
       display: block;
-      color: #1B3A6B;
-      font-size: 1.06rem;
+      color: #fff;
+      font-size: 1.08rem;
       font-weight: 700;
       line-height: 1.55;
     }
 
-    .blog-prose .related-external:hover .related-external-title {
-      color: #2E8B2E;
-    }
-
-    /* The promotional tail of the title, kept inside the anchor but set smaller
-       so the first line reads as the headline */
+    /* The promotional tail of the title: kept inside the anchor, set smaller so
+       the first line reads as the headline */
     .blog-prose .related-external-sub {
       display: block;
-      margin-top: 3px;
-      color: #4a5568;
+      margin-top: 4px;
+      color: rgba(255, 255, 255, 0.82);
       font-size: 0.92rem;
       font-weight: 500;
       line-height: 1.6;
@@ -538,21 +537,31 @@ const jsonLd = {
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 4px 14px;
-      margin-top: 12px;
-      padding-top: 11px;
-      border-top: 1px dashed #e2e8f0;
+      margin-top: 13px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
     }
 
     .blog-prose .related-external-source {
-      color: #64748b;
+      color: rgba(255, 255, 255, 0.7);
       font-size: 0.8rem;
     }
 
     .blog-prose .related-external-cta {
-      color: #2E8B2E;
-      font-size: 0.83rem;
+      color: #9ee8a4;
+      font-size: 0.84rem;
       font-weight: 700;
       white-space: nowrap;
+    }
+
+    .blog-prose .related-external:hover .related-external-cta {
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      .blog-prose .related-external {
+        padding: 16px 18px 14px;
+      }
     }
 
     .blog-prose code {
