@@ -89,7 +89,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── premium-trial/
 │   │   │   │   └── index.astro # プレミアム年間サポーター 30日間無料体験 LP（/plugins/premium-trial/）― 全プラグイン（ちょこっと＋プレミアム）が広告なし・全機能。カード不要・自動課金なし。TrialForm＋FAQPage JSON-LD。hero背景=premium-trial-bg.webp。件数はplugins.tsから動的
 │   │   │   ├── field-styler/
-│   │   │   │   └── index.astro # フィールドスタイラー製品ページ（/plugins/field-styler/）
+│   │   │   │   └── index.astro # フィールドスタイラー製品ページ（/plugins/field-styler/） — 背景色・フォント・文字色・文字数制限・太字・条件付きスタイル（最大10条件）・フォントサイズ・コピー・入力文字種制限・プレースホルダーの全10機能。v2.2.0＝サブテーブル（明細）内フィールドのスタイル＋行ごとの条件付き色分け。v2.3.0＝条件ごとに背景色/文字色を「変更しない」に。**v2.4.0＝テーブル外のフィールドも作成・編集画面に反映**（入力欄の中の文字にサイズ・色・太字・フォントが効く／条件付きも入力中に追従）＋文字数制限・入力文字種制限が入力中にも動作＋ゲストスペースで設定画面のフィールド候補が出ない不具合を修正（UPDATEボックス＋スクショ field-styler-edit-01/02＝掲載用に作成した「案件管理」アプリで撮影）
 │   │   │   ├── kw-conditional-numbering/
 │   │   │   │   └── index.astro # 条件分岐自動採番プラグイン製品ページ（/plugins/kw-conditional-numbering/）
 │   │   │   ├── form-deco/
@@ -745,6 +745,8 @@ c:\kizuna-works.jp\
 │   │   ├── field-styler-subtable-01.png    # フィールドスタイラー v2.2.0 — 受注明細サブテーブルを条件で色分け（ステータス別・期限切れ・高額行強調）
 │   │   ├── field-styler-subtable-02.png    # フィールドスタイラー v2.2.0 — サブテーブル列の条件付き設定画面（ノーコード）
 │   │   ├── field-styler-conditional-color.png # フィールドスタイラー v2.3.0 — 条件付きスタイルの背景色・文字色「変更しない」トグル設定画面
+│   │   ├── field-styler-edit-01.png        # フィールドスタイラー v2.4.0 — 編集画面（入力中）にスタイルが反映された案件管理フォーム
+│   │   ├── field-styler-edit-02.png        # フィールドスタイラー v2.4.0 — 同じ設定の詳細画面（編集画面との比較用）
 │   │   ├── field-styler-bg.png / field-styler-bg.webp # フィールドスタイラーページ 背景
 │   │   ├── field-styler-config-list.png    # フィールドスタイラー 設定一覧画面
 │   │   ├── field-styler-config-detail.png  # フィールドスタイラー 設定詳細画面
@@ -880,7 +882,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-styler-v2.1.2.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・手動配置）
 │   │   ├── kw-field-styler-v2.2.0.zip                            # フィールドスタイラー for kintone 配布ファイル（v2.2.0 でサブテーブル対応）
 │   │   ├── kw-field-styler-v2.3.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・手動配置・v2.3.0 で条件付きスタイルの色を任意指定可）
-│   │   ├── kw-field-styler-v2.3.1.zip                            # フィールドスタイラー for kintone 配布ファイル（最新・手動配置・v2.3.1 ライセンス認証の内部改修）
+│   │   ├── kw-field-styler-v2.3.1.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・手動配置・v2.3.1 ライセンス認証の内部改修）
+│   │   ├── kw-field-styler-v2.4.0.zip                            # フィールドスタイラー for kintone 配布ファイル（最新・手動配置・v2.4.0 でテーブル外フィールドが作成/編集画面にも反映）
 │   │   ├── kw-file-icon-marker-v1.0.0.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-icon-marker-v1.0.1.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-icon-marker-v1.0.2.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
