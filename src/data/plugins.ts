@@ -677,7 +677,7 @@ export const plugins: Plugin[] = [
     problemTitle: 'レコードから定型メールを毎回手作業で作っている',
     problemDesc: '宛先・会社名・担当者名をメーラーにコピペし、定型文を打ち直している・同じ案内を全員に送るのが手間',
     releaseDate: '2026-06-26',
-    summaryVersion: '1.3.0',
+    summaryVersion: '1.4.0',
   },
   {
     id: 'kw-comment-control',

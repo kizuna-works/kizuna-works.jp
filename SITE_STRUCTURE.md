@@ -932,7 +932,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-mail-assist-v1.1.3.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-mail-assist-v1.1.4.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-mail-assist-v1.2.0.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-mail-assist-v1.3.0.zip                             # メールアシスト for kintone 配布ファイル（最新・手動配置・v1.3.0 既定メーラーへ渡す宛先の区切り記号をカンマ／セミコロンから選択可＝Outlookクラシックのビルド差対策）
+│   │   ├── kw-mail-assist-v1.3.0.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-mail-assist-v1.4.0.zip                             # メールアシスト for kintone 配布ファイル（最新・手動配置・v1.4.0 一斉送信の履歴が詳細画面に出ない不具合を修正／履歴取得の失敗理由を表示）
 │   │   ├── kw-calendar-view-v1.0.0.zip                   # カレンダービュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-calendar-view-v1.0.1.zip                   # カレンダービュー for kintone 配布ファイル（最新・手動配置・v1.0.1 重複禁止が未設定のルックアップでも安定して動作するよう改善）
 │   │   ├── kw-pdf-edit-v1.0.0.zip                              # PDF編集アシスト for kintone 配布ファイル（旧版・参考保管）
