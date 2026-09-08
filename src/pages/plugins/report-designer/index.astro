@@ -8,9 +8,9 @@ import TrialBanner from '../../../components/TrialBanner.astro';
 
 <Layout
   title="帳票デザイナー for kintone｜PDF帳票を出力（請求書・見積書）| KIZUNA Works"
-  description="kintone の帳票出力プラグイン。お手持ちの PDF や白紙の用紙に、レコード値や明細をドラッグ配置して帳票化。1件印刷・まとめ印刷に加え、絞り込んだ一覧を最大500件まで1枚の一覧表にする一覧帳票、PDF自動保存に対応。kintone完結のプレミアムプラグイン。"
+  description="kintone の帳票出力プラグイン。PDF や白紙の用紙にレコード値や明細をドラッグ配置して帳票化。フィールドは検索して項目名つきでまとめて配置でき、1件印刷・まとめ印刷・最大500件の一覧帳票・PDF自動保存に対応。kintone完結のプレミアムプラグイン。"
   ogTitle="帳票デザイナー for kintone｜PDF帳票を出力（請求書・見積書）| KIZUNA Works"
-  ogDescription="kintone の帳票出力プラグイン。手持ちの PDF や白紙の用紙にデータをドラッグ配置して帳票化。1件印刷・まとめ印刷・一覧帳票（複数レコードを1枚の表に）・PDF自動保存に対応。"
+  ogDescription="kintone の帳票出力プラグイン。PDF や白紙の用紙にデータをドラッグ配置して帳票化。フィールドは検索してまとめて配置。1件印刷・まとめ印刷・一覧帳票・PDF自動保存に対応。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/report-designer/"
   ogImage="https://kizuna-works.jp/images/report-designer-banner.png"
@@ -48,10 +48,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "帳票デザイナー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.1.0",
-          "dateModified": "2026-08-19",
+          "softwareVersion": "1.2.0",
+          "dateModified": "2026-09-08",
           "url": "https://kizuna-works.jp/plugins/report-designer/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-report-designer-v1.1.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-report-designer-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/report-designer-banner.png",
           "offers": [
             {
@@ -74,6 +74,11 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "description": "お手持ちの PDF や白紙の用紙に kintone のレコード値・サブテーブル明細・固定テキスト・画像をドラッグ配置して帳票化する kintone プラグイン。1件印刷・一覧まとめ印刷・一覧帳票（絞り込んだ複数レコードを1枚の表に）・集計表紙・PDF自動保存に対応。",
           "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
           "featureList": [
+            "フィールドを名前・フィールドコードで検索して選択（設定画面のすべての選択欄）",
+            "フィールドをまとめて配置（複数選択・項目名ラベルも同時配置・フォーム定義順に整列）",
+            "配置済みの要素を一覧から選択（重なった要素・小さい要素も選べる）",
+            "保存前チェック（未選択・存在しないフィールド・用紙外の要素を知らせる）",
+            "金額・数量の3桁区切り出力（要素ごとに切り替え）",
             "手持ちの PDF を背景に取り込みドラッグで項目配置",
             "背景 PDF が無くても白紙の用紙（A4/A3/B4/B5・縦横）に直接レイアウト",
             "一覧帳票：絞り込んだ複数レコードを最大500件まで1枚の一覧表として印刷",
@@ -281,6 +286,9 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .rd-update-shots figure { margin: 0; max-width: 560px; flex: 1 1 320px; }
     .rd-update-shots img { width: 100%; height: auto; border: 1px solid #d5dde8; border-radius: 8px; box-shadow: 0 2px 10px rgba(27,58,107,.10); background: #fff; }
     .rd-update-shots figcaption { font-size: 13px; color: var(--color-text-muted); line-height: 1.7; margin-top: 8px; text-align: center; }
+    /* Single screenshot per row (portrait shots would otherwise tower over landscape ones) */
+    .rd-update-shots-one figure { flex: 0 1 560px; }
+    .rd-update-shots-tall figure { flex: 0 1 420px; max-width: 420px; }
     /* Wide output figure */
     .rd-output-wide { max-width: 900px; margin: 28px auto 0; }
     .rd-output-wide figure { margin: 0; }
@@ -319,46 +327,49 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <img class="rd-hero-icon" src="/images/report-designer-icon.png" alt="帳票デザイナー for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="rd-hero-badges">
         <span class="rd-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="rd-hero-version">v1.1.0</span>
+        <span class="rd-hero-version">v1.2.0</span>
       </div>
       <h1>帳票デザイナー for kintone</h1>
       <p class="rd-tagline">お手持ちの PDF が、そのまま帳票になる。</p>
-      <p class="rd-sub">請求書・見積書・納品書などの PDF を背景に取り込み、その上に kintone のデータをドラッグで配置。1 件ずつも、一覧からまとめても印刷・PDF 保存できます。<strong>絞り込んだ複数レコードを 1 枚の一覧表にする「一覧帳票」</strong>にも対応し、元の様式が無ければ白紙の用紙から作れます。</p>
+      <p class="rd-sub">請求書・見積書・納品書などの PDF を背景に取り込み、その上に kintone のデータをドラッグで配置。1 件ずつも、一覧からまとめても印刷・PDF 保存できます。<strong>絞り込んだ複数レコードを 1 枚の一覧表にする「一覧帳票」</strong>にも対応し、元の様式が無ければ白紙の用紙から作れます。フィールドは<strong>名前やフィールドコードで検索</strong>して選べ、<strong>まとめて配置</strong>すれば項目名つきで一気に並びます。</p>
     </section>
     <div class="rd-hero-gradient-line"></div>
 
-    <!-- Update Info: 一覧帳票 (2026-08-19) -->
+    <!-- Update Info: 設定画面の作りやすさ (2026-09-08) -->
     <section class="rd-section">
       <div class="rd-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.1.0：一覧帳票を追加しました — 絞り込んだ複数レコードを 1 枚の表に</h2>
+            <h2 class="update-title">v1.2.0：フィールドを「探さずに」配置できるようになりました</h2>
           </div>
-          <p class="update-desc">これまでの帳票は「1 レコード＝1 枚」でした。v1.1.0 で追加した<strong>一覧帳票</strong>を使うと、レコード一覧で絞り込んだレコードを<strong>1 行ずつ並べた 1 枚の表</strong>として印刷・PDF 保存できます。売上一覧・案件一覧・出荷一覧のように、会議や取引先へそのまま配れる形で出力できます。対象は<strong>最大 500 件</strong>。一覧の絞り込みと並び順がそのまま行順になり、行が入りきらないときは自動で次のページへ続きます（見出し行は各ページに出力）。</p>
-          <div class="rd-update-shots">
+          <p class="update-desc">「フィールド数が多いアプリだと、帳票に置きたい項目を探すのが大変」というご要望をいただきました。v1.2.0 では、設定画面で<strong>フィールドを選ぶ欄すべてを検索できる欄</strong>に変え、あわせて<strong>まとめて配置</strong>・<strong>配置済みの要素リスト</strong>・<strong>保存前チェック</strong>を追加しています。</p>
+          <div class="rd-update-shots rd-update-shots-one">
             <figure>
-              <img class="zoomable" src="/images/report-designer-output-03.png" alt="一覧帳票の出力例 — 案件一覧表。会社名・先方担当者・見込み時期・確度・製品名・単価・ユーザー数・小計の列と、件数・出力日・合計金額・ページ番号" width="1123" height="794" loading="lazy" />
-              <figcaption>一覧帳票の出力例。件数・出力日・合計金額・ページ番号も差し込めます（画像はダミーデータ）。</figcaption>
+              <img class="zoomable" src="/images/report-designer-config-05.png" alt="フィールド欄を押すと検索できる候補リストが開いた設定画面 — 「担当」で絞り込み、担当者名・主担当・担当組織の3件と各フィールドコードを表示" width="555" height="329" loading="lazy" />
+              <figcaption><strong>フィールドを検索して選ぶ。</strong>フィールド名でもフィールドコードでも絞り込め、↑↓ と Enter だけでも決められます。</figcaption>
             </figure>
+          </div>
+          <div class="rd-update-shots rd-update-shots-one">
             <figure>
-              <img class="zoomable" src="/images/report-designer-config-04.png" alt="全画面編集にした配置エディタ — 用紙を大きく表示し、行番号・改ページの目印・列の設定パネルを一画面に表示" width="1400" height="958" loading="lazy" />
-              <figcaption>新しい<strong>全画面編集</strong>。用紙を大きく見ながら配置でき、何行目で次ページに送られるかも目印で分かります。</figcaption>
+              <img class="zoomable" src="/images/report-designer-config-06.png" alt="「フィールドをまとめて配置」ダイアログ — 検索欄、選択済みフィールドの緑のチップ、フィールドの一覧、項目名も一緒に置くチェック" width="888" height="1058" loading="lazy" />
+              <figcaption><strong>まとめて配置。</strong>チェックしたフィールドを、フォームの並び順で一気に並べます。選んだものはチップで確認できます。</figcaption>
             </figure>
           </div>
           <p style="text-align:center;color:var(--color-text-muted);font-size:0.85rem;margin:0 0 14px;">画像をクリックすると拡大表示します。</p>
-          <h3 class="rd-update-h3">配置エディタを全画面で編集できるようになりました</h3>
-          <p class="update-desc">これまで配置エディタは設定画面の中の限られた領域に表示されていたため、用紙が小さく、細かい位置合わせがしづらい状態でした。<strong>「⛶ 全画面で編集」ボタン</strong>を押すと、編集領域が画面いっぱいに広がります（Esc または「全画面を閉じる」で戻ります）。<strong>全画面のまま保存</strong>でき、用紙は<strong>マウスドラッグ（手のひら）で移動</strong>、<strong>Ctrl＋ホイールで拡大縮小</strong>できます。上の右側の画像が全画面編集の画面です。</p>
-          <p class="update-desc">あわせて、配置エディタに次を追加しました。</p>
-          <ul class="rd-update-list">
-            <li><strong>取り消し（Ctrl+Z）</strong>：移動・削除・追加などを 20 手まで元に戻せます</li>
-            <li><strong>スマートガイド</strong>：ドラッグ中に他の要素や用紙の端・中心へぴったり合わせられます</li>
-            <li><strong>用紙の中央へ</strong>：縦横とも／左右だけ／上下だけ。左右の余白は mm で表示されます</li>
-            <li><strong>列の並べ替え</strong>：一覧帳票の列を左右に動かせます</li>
-            <li><strong>行番号と改ページの目印</strong>：何行目から次のページへ送られるかがひと目で分かります</li>
-          </ul>
-          <p class="update-desc">また、<strong>背景 PDF が無くても白紙の用紙から帳票を作れる</strong>ようになりました（A4 / A3 / B4 / B5・縦横）。罫線・見出しの地色・縞模様はプラグインが描画します。<strong>印刷ボタンを出す一覧（ビュー）は帳票ごとに指定</strong>できるようになり、「見積用の一覧では見積書だけ、出荷用の一覧では納品書だけ」といった使い分けができます。</p>
-          <p class="update-note">最新版を kintone システム管理 →「プラグイン」→「読み込む」から上書きアップロードしてください。プラグイン ID は変わらないため、既存の設定はそのまま引き継がれます。<strong>本バージョンでは、本プラグインを入れたアプリで kintone 標準の「印刷用画面」やブラウザの印刷が白紙になる不具合（v1.0.2 以前）も修正しています。</strong></p>
+
+          <h3 class="rd-update-h3">1 つずつ選び直す作業がなくなります</h3>
+          <p class="update-desc">これまでは「＋ フィールド値」で 1 個ずつ置き、そのつどプルダウンから選び直す必要がありました。<strong>「＋ まとめて配置」</strong>なら、検索で絞り込んでチェックし、まとめて用紙に並べられます。<strong>項目名（ラベル）も左に一緒に置く</strong>にチェックしておけば、「顧客名｜〔顧客名〕」のように見出しつきで並ぶので、そのまま帳票の体裁になります。配置は<strong>既にある要素の下</strong>から始まるので、あとから明細（サブテーブル）を足しても重なりません。</p>
+          <div class="rd-update-shots rd-update-shots-one rd-update-shots-tall">
+            <figure>
+              <img class="zoomable" src="/images/report-designer-config-07.png" alt="設定画面の「配置済みの要素」リスト — 18件／要確認1件と表示され、画像が未選択の要素が赤い⚠付きで並んでいる" width="434" height="615" loading="lazy" />
+              <figcaption><strong>配置済みの要素</strong>から選べます。設定が足りない要素は ⚠ で分かります。</figcaption>
+            </figure>
+          </div>
+          <h3 class="rd-update-h3">「印刷したら空欄だった」を保存前に知らせます</h3>
+          <p class="update-desc">用紙の上では区別が付かない<strong>フィールドが未選択の要素</strong>や、フィールドを削除・改名したために<strong>参照先が無くなった要素</strong>は、これまで印刷して初めて空欄と分かりました。v1.2.0 では、右の<strong>「配置済みの要素」</strong>で ⚠ を付けて知らせ、<strong>保存前にも確認</strong>します。小さい要素・重なった要素も、このリストから選べます。</p>
+          <p class="update-desc">そのほか、<strong>候補の並びをフォームの定義順に統一</strong>（テーブルの列も同じ）、<strong>帳票に出せない種類のフィールドを候補から除外</strong>（テーブル・グループ・関連レコード一覧・カテゴリー・作業者）、<strong>テンプレートを開いた直後は用紙全体が見える倍率</strong>で表示、<strong>金額・数量の 3 桁区切り出力</strong>（要素ごとに切り替え。アプリ側で桁区切りを出していなくても 1,234,567 で印刷）を追加しました。</p>
+          <p class="update-note">最新版を kintone システム管理 →「プラグイン」→「読み込む」から上書きアップロードしてください。プラグイン ID は変わらないため、<strong>作成済みのテンプレートと設定はそのまま引き継がれます</strong>（既存テンプレートの配置・文字サイズ・桁区切りの見え方は変わりません）。</p>
         </div>
       </div>
     </section>
@@ -420,6 +431,30 @@ import TrialBanner from '../../../components/TrialBanner.astro';
 
         <div class="rd-feature reverse">
           <div class="rd-feature-text">
+            <h3>フィールドは検索して選ぶ <span class="rd-new">v1.2.0</span></h3>
+            <p>設定画面でフィールドを選ぶ欄は、すべて<strong>検索できる欄</strong>です。<strong>フィールド名でもフィールドコードでも</strong>絞り込め、↑↓ と Enter だけでも決められます。候補は<strong>フォームの並び順</strong>（テーブルの列も同じ）なので、実際の画面を思い出しながら探せます。帳票に出せない種類のフィールド（テーブル・グループ・関連レコード一覧・カテゴリー・作業者）は候補に出ません。フィールドが数十件あるアプリでも、目的の項目まで数文字で辿り着けます。</p>
+          </div>
+          <img class="zoomable" src="/images/report-designer-config-05.png" alt="フィールド欄の検索 — 「担当」で絞り込み、担当者名・主担当・担当組織を候補表示" width="555" height="329" loading="lazy" />
+        </div>
+
+        <div class="rd-feature">
+          <div class="rd-feature-text">
+            <h3>フィールドをまとめて配置 <span class="rd-new">v1.2.0</span></h3>
+            <p>置きたいフィールドを検索してチェックし、<strong>まとめて用紙へ並べられます</strong>。<strong>項目名（ラベル）も一緒に置く</strong>を選べば「顧客名｜〔顧客名〕」の形で並ぶので、帳票の体裁がそのまま出来上がります。並ぶ順はフォームの定義順、置く位置は<strong>既にある要素の下</strong>なので、あとから明細を足しても重なりません。金額・数量は<strong>右揃え＋3 桁区切り</strong>で配置されます。</p>
+          </div>
+          <img class="zoomable rd-doc-thumb" src="/images/report-designer-config-06.png" alt="フィールドをまとめて配置ダイアログ — 検索・選択済みチップ・項目名も置くチェック" width="888" height="1058" loading="lazy" />
+        </div>
+
+        <div class="rd-feature reverse">
+          <div class="rd-feature-text">
+            <h3>配置済みの要素リストと保存前チェック <span class="rd-new">v1.2.0</span></h3>
+            <p>用紙に置いた要素を<strong>一覧から選べます</strong>。小さい要素や重なった要素も確実に選べ、明細（表）は 1 行にまとまって表示されます。フィールドが未選択の要素や、フィールドの削除・改名で<strong>参照先が無くなった要素</strong>には ⚠ が付き、<strong>保存前にも確認</strong>します。「印刷したら空欄だった」に気づけるようになりました。</p>
+          </div>
+          <img class="zoomable rd-doc-thumb" src="/images/report-designer-config-07.png" alt="配置済みの要素リスト — 18件／要確認1件、⚠付きの要素" width="434" height="615" loading="lazy" />
+        </div>
+
+        <div class="rd-feature reverse">
+          <div class="rd-feature-text">
             <h3>一覧帳票：絞り込んだ複数レコードを 1 枚の表に <span class="rd-new">v1.1.0</span></h3>
             <p>レコード一覧で絞り込んだレコードを、1 行ずつ並べた 1 枚の一覧表として出力します（最大 500 件）。売上一覧・案件一覧・出荷一覧など、そのまま配れる形で印刷・PDF 保存できます。<strong>列は kintone の一覧の表示項目から自動生成</strong>され、追加・削除・並べ替え・見出しの変更ができます。一覧の絞り込みと並び順がそのまま行順になり、行があふれれば自動で次ページへ続きます（見出し行は各ページに出力）。件数・合計・ページ番号・出力日も差し込めます。</p>
           </div>
@@ -437,7 +472,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         <div class="rd-feature">
           <div class="rd-feature-text">
             <h3>配置エディタを全画面で編集 <span class="rd-new">v1.1.0</span></h3>
-            <p>「⛶ 全画面で編集」を押すと、編集領域が画面いっぱいに広がります（Esc で戻ります）。用紙を大きく見ながら配置でき、<strong>全画面のまま保存</strong>も可能です。用紙は<strong>手のひらツールやマウスドラッグで移動</strong>、<strong>Ctrl＋ホイールで拡大縮小</strong>。<strong>取り消し（Ctrl+Z・20 手）</strong>、他の要素や用紙の端・中心に吸着する<strong>スマートガイド</strong>、<strong>用紙の中央へ</strong>（縦横とも／左右だけ／上下だけ・余白は mm 表示）にも対応しました。</p>
+            <p>「⛶ 全画面で編集」を押すと、編集領域が画面いっぱいに広がります（Esc で戻ります）。用紙を大きく見ながら配置でき、<strong>全画面のまま保存</strong>も可能です。用紙は<strong>手のひらツールやマウスドラッグで移動</strong>、<strong>Ctrl＋ホイールで拡大縮小</strong>。テンプレートを開いた直後は<strong>用紙全体が見える倍率</strong>で表示されます。<strong>取り消し（Ctrl+Z・20 手）</strong>、他の要素や用紙の端・中心に吸着する<strong>スマートガイド</strong>、<strong>用紙の中央へ</strong>（縦横とも／左右だけ／上下だけ・余白は mm 表示）、<strong>列の並べ替え</strong>（一覧帳票の列を左右に移動）、<strong>行番号と改ページの目印</strong>（何行目から次のページへ送られるかが分かる）にも対応しています。なお、この画面のプレビューは<strong>印刷結果と寸分違わない寸法</strong>で表示されます。</p>
           </div>
           <img class="zoomable" src="/images/report-designer-config-04.png" alt="全画面編集にした配置エディタ — 用紙を大きく表示し、行番号・改ページの目印・列の設定を一画面に" width="1400" height="958" loading="lazy" />
         </div>
@@ -529,7 +564,9 @@ import TrialBanner from '../../../components/TrialBanner.astro';
                   <li><strong>＋ 固定テキスト</strong>：常に同じ文言（「御中」など）</li>
                   <li><strong>＋ 画像（ロゴ・印影）</strong>：会社ロゴや角印。透過 PNG なら背景が透明のまま</li>
                   <li><strong>＋ サブテーブル</strong>：明細の 1 行ぶんを配置（印刷時にデータ行数ぶん自動繰り返し）</li>
+                  <li><strong>＋ まとめて配置</strong>（v1.2.0）：複数のフィールドを検索してチェックし、一度に並べます。「項目名（ラベル）も左に一緒に置く」にチェックすると見出しつきで配置され、明細は既にある要素の下に置かれます</li>
                 </ul>
+                <p>フィールドを選ぶ欄は<strong>検索できる欄</strong>です（v1.2.0）。フィールド名でもフィールドコードでも絞り込め、候補はフォームの並び順で出ます。置いた要素は右の<strong>「配置済みの要素」</strong>から選べ、フィールドが未選択の要素や参照先が無くなった要素には ⚠ が付き、保存前にも確認します。</p>
                 <div class="rd-step-fig"><img src="/images/report-designer-config-02.png" alt="テンプレート編集画面 — 背景PDFの上に項目と明細表を配置" loading="lazy" /><figcaption>背景 PDF の上に項目（〔　〕）や明細を配置し、右の「要素を追加」から増やします。</figcaption></div>
                 <h4>エディタの操作（v1.1.0 で拡充）</h4>
                 <ul>
@@ -616,7 +653,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-report-designer-v1.1.0.zip" download class="rd-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-report-designer-v1.2.0.zip" download class="rd-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="rd-plan-card recommended">
@@ -732,10 +769,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-report-designer-v1.1.0.zip',
+            file_name: 'kw-report-designer-v1.2.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロードして試す',
-            link_url: '/downloads/kw-report-designer-v1.1.0.zip'
+            link_url: '/downloads/kw-report-designer-v1.2.0.zip'
           });
         });
       }
