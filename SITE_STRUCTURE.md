@@ -992,7 +992,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-record-recovery-v1.0.1.zip                 # 削除レコード復元 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-recovery-v1.0.2.zip                 # 削除レコード復元 for kintone 配布ファイル（最新・手動配置・v1.0.2 重複禁止が未設定のルックアップでも安定して動作するよう改善）
 │   │   ├── kw-related-enhancer-v1.0.0.zip                        # 関連レコード拡張 for kintone 配布ファイル（手動配置・プレミアムプラグイン第5弾・無料/プレミアム共通zip・無料=1対象で集計/見た目/検索・F-04/05/06はプレミアム限定）
-│   │   ├── kw-related-enhancer-v1.0.1.zip                        # 関連レコード拡張 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
+│   │   ├── kw-related-enhancer-v1.0.1.zip                        # 関連レコード拡張 for kintone 配布ファイル（旧版・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
+│   │   ├── kw-related-enhancer-v1.0.2.zip                        # 関連レコード拡張 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.2 集計結果の書き戻し後に画面を自動で読み直す修正。プロセス管理が「ほかのユーザーが更新しました」で実行できない不具合の解消）
 │   │   ├── kw-related-record-popup-v1.0.0.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-related-record-popup-v1.0.1.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-related-record-popup-v1.0.2.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
@@ -1030,7 +1031,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-sticky-board-v1.0.2.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.2 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-table-assist-v1.0.0.zip                            # テーブルアシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-table-assist-v1.0.1.zip                            # テーブルアシスト for kintone 配布ファイル（最新・手動配置・v1.0.1 サブテーブルの固定見出しが kintone 標準のポップアップを覆う問題を修正）
-│   │   ├── kw-image-compress-v1.0.0.zip # 画像圧縮 for kintone 配布物（v1.0.0）
+│   │   ├── kw-image-compress-v1.0.0.zip # 画像圧縮 for kintone 配布物（旧版・v1.0.0）
+│   │   ├── kw-image-compress-v1.0.1.zip # 画像圧縮 for kintone 配布物（最新・v1.0.1 圧縮後に画面を自動で読み直す修正。プロセス管理が「ほかのユーザーが更新しました」で実行できない不具合の解消）
 │   │   ├── kw-table-preview-v1.1.0.zip                          # テーブルプレビュー for kintone 配布ファイル（最新・見出しクリックで明細の並べ替え／出ている行数の表示／出す一覧の選択）
 │   │   ├── kw-table-preview-v1.0.0.zip                          # テーブルプレビュー for kintone 配布ファイル（旧版・一覧に列を足して明細の件数と集計値をバッジ表示／ホバーでポップアップ／その場編集）
 │   │   ├── kw-file-export-v1.0.0.zip                             # 添付ファイル出力 for kintone 配布ファイル（旧版・参考保管）
