@@ -52,10 +52,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "入力アシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.0.1",
-          "dateModified": "2026-08-05",
+          "softwareVersion": "2.1.0",
+          "dateModified": "2026-09-09",
           "url": "https://kizuna-works.jp/plugins/input-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-input-assist-v2.0.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-input-assist-v2.1.0.zip",
           "image": "https://kizuna-works.jp/images/input-assist-banner.png",
           "offers": {
             "@type": "Offer",
@@ -65,13 +65,17 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintone の新規作成・編集画面で、入力欄に過去の入力値やほかのアプリのフィールド値を候補表示して選ぶだけで入力できる kintone プラグイン。サブテーブル内のフィールドにも対応。入力してほしい順に色で誘導する入力順ガイド、保存を止めない未入力チェック、入力中の重複チェックも備える。",
+          "description": "kintone の新規作成・編集画面で、入力欄に過去の入力値やほかのアプリのフィールド値を候補表示して選ぶだけで入力できる kintone プラグイン。狭い入力欄を大きなダイアログで開いて入力できる拡大入力を v2.1.0 で追加し、明細表の長い品名も全文を見ながら書ける。サジェストと拡大入力はサブテーブル内のフィールドにも対応。入力してほしい順に色で誘導する入力順ガイド、保存を止めない未入力チェック、入力中の重複チェックも備える。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
             "url": "https://kizuna-works.jp"
           },
           "featureList": [
+            "拡大入力：狭い入力欄を大きなダイアログで開いて入力し、確定すると元のフィールドへ書き戻す",
+            "拡大入力：サブテーブル（明細）内の列にも対応・見出しに行番号を表示",
+            "拡大入力：Tab で確定して次の項目へ（対象なら続けて開く）・Esc で取り消し",
+            "拡大入力：開き方をフィールドごとに選択（入力欄に入ったとき／拡大ボタンを押したとき）",
             "入力サジェスト：同じフィールドに過去に入力された値を候補表示して入力",
             "入力サジェスト：ほかのアプリの指定フィールドの値を候補表示して入力（マスタ参照）",
             "サブテーブル内のフィールドもサジェスト対象にできる",
@@ -752,7 +756,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.0.1</span>
+        <span class="hero-version">v2.1.0</span>
       </div>
       <h1 class="hero-title">入力アシスト for kintone</h1>
       <p class="hero-copy">入力アシストは、kintone の入力欄に<strong>過去に入力された値</strong>や<strong>ほかのアプリの値</strong>を候補として表示し、選ぶだけで入力できる kintone プラグインです。<strong>サブテーブル内のフィールドにも対応</strong>。同じ値を毎回打ち直す手間と、打ち間違いによる表記のばらつきをまとめて減らせます。さらに入力してほしい順にフィールドを色で誘導する「入力順ガイド」、保存を止めずに入力漏れだけ知らせる「未入力チェック」、入力中に重複を警告する「重複チェック」を備え、新人やたまに使う担当者でも迷わず正しく入力できます。</p>
@@ -763,35 +767,61 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v2.0.0：入力サジェストを追加しました（サブテーブル内も対応）</h2>
+          <h2 class="update-title">v2.1.0：狭い入力欄を、大きなダイアログで入力できるようになりました</h2>
         </div>
         <p class="update-desc">
-          「取引先名も品名も、毎回同じ値を手で打ち直している」「人によって『株式会社』『（株）』が混ざる」——
-          入力のたびに発生するこの手間とばらつきに対して、<strong>入力サジェスト</strong>を追加しました。
-          対象フィールドに入力すると、<strong>同じフィールドに過去に入力された値</strong>、または
-          <strong>ほかのアプリの指定フィールドの値</strong>が入力欄の下に候補として並び、
-          クリック（または ↑↓ と Enter）でその値が入ります。既存の値から選ぶので表記が自然に揃います。
-        </p>
-        <p class="update-desc">
-          並び順は<strong>よく使われている順</strong>・新しい順・昇順から選べ、表示件数も指定できます。
-          ほかのアプリを参照する場合は、候補の右に別項目（品番・電話番号など）を併記して選びやすくしたり、
-          絞り込み条件で「有効なマスタだけ」に限定したりできます。
-          <strong>サブテーブル内のフィールドにも設定できる</strong>ため、明細行の品名・単位などの繰り返し入力にも使えます。
+          「明細表に長い品名を入れると、入力欄の中で文字が流れて<strong>全文を確認しながら入力できない</strong>」
+          「横に長い明細表だと、入力のたびに<strong>画面を横スクロール</strong>しないといけない」——
+          利用中のお客様からいただいたこの声に対して、<strong>拡大入力</strong>を追加しました。
+          対象に指定した文字列フィールドは、入力するときに<strong>大きな入力欄をダイアログで開き</strong>、
+          確定するとその値が元のフィールドへ書き戻されます。入力欄の幅に左右されず、全文を見ながら書けます。
         </p>
         <div class="update-shot">
-          <img
-            class="zoomable" src="/images/input-assist-after-06.png"
-            alt="入力アシストの入力サジェスト — kintone 新規作成画面の「会社名」に「株式」と入力すると、入力欄の下に過去の入力値「株式会社あいうえお（3件）」「株式会社かきくけこ」が候補として表示された状態"
-            width="832" height="269" loading="lazy"
-          />
+          <p class="shot-label">▼ これまで：明細表の狭い列では、入力中の文字が欄からはみ出して読めません</p>
+          <div class="screenshot-frame">
+            <picture>
+              <source srcset="/images/input-assist-zoom-01.webp" type="image/webp" />
+              <img
+                class="zoomable" src="/images/input-assist-zoom-01.png"
+                alt="kintone の明細表（サブテーブル）の編集画面。品名の列が狭く、「空調フィルター交換一式（3階フロア分・防カ」までしか表示されず、入力した文字の後半が欄の外に隠れている"
+                width="990" height="269" loading="lazy"
+              />
+            </picture>
+          </div>
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </div>
-        <p class="update-note">
-          ほかのアプリを参照するときは、<strong>アプリ一覧から選ぶ</strong>ことも、アプリIDを直接入力することもできます。
+        <div class="update-shot">
+          <p class="shot-label">▼ v2.1.0：その列に入力しようとすると、大きな入力欄が開きます</p>
+          <div class="screenshot-frame">
+            <picture>
+              <source srcset="/images/input-assist-zoom-02.webp" type="image/webp" />
+              <img
+                class="zoomable" src="/images/input-assist-zoom-02.png"
+                alt="入力アシスト v2.1.0 の拡大入力ダイアログ。見出しに「品名（1行目）」と行番号が表示され、大きな入力欄に「空調フィルター交換一式（3階フロア分・防カビ処理を含む）」の全文が見えている。右上に文字数、下に「Tab：確定して次の項目へ　Esc：取り消し」と取り消し・確定ボタン"
+                width="971" height="319" loading="lazy"
+              />
+            </picture>
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-desc">
+          <strong>Tab を押すと確定して次の項目へ進み</strong>、その項目も拡大入力の対象なら続けて開きます。
+          明細表では「品名 → 数量 → 単価 → 次の行の品名」と kintone 本来の順番で回るので、
+          <strong>横に長い明細表でも画面を横スクロールする回数を減らせます</strong>。
+          <strong>Esc</strong> で取り消し、暗い部分のクリックと「確定」ボタン、Ctrl+Enter で確定します。
+          見出しには「品名（2行目）」のように<strong>行番号</strong>が出るので、どの行を編集しているか分かります。
+        </p>
+        <p class="update-desc">
+          開き方はフィールドごとに<strong>「入力欄に入ったとき」</strong>と<strong>「拡大ボタンを押したとき」</strong>から選べます。
+          入力順ガイドと併用すると、<strong>入力の順番が来たフィールドで自動的に大きな入力欄が開く</strong>ので、
+          迷わず順番に書き進められます。設定画面はカードが増えたため、<strong>見出しをクリックして折り畳める</strong>ようにしました。
         </p>
         <p class="update-note">
+          対象にできるのは<strong>文字列1行・文字列複数行</strong>で、<strong>サブテーブル（明細）内の列にも設定できます</strong>。
+          同じフィールドに入力サジェストも設定する場合は、開き方を「拡大ボタンを押したとき」にしてください（自動で開くと候補リストがダイアログの背面に隠れます）。<br>
+          あわせて、当社プラグインを多数同居させた環境で<strong>入力サジェストと重複チェックが起動しないことがある不具合</strong>を修正しました（レコード取得が一時的に拒否されたときに、後続の機能まで巻き添えで止まっていました）。<br>
           すでにご利用中の方は、最新版の zip をダウンロードして<strong>同じプラグインを上書きアップロード</strong>してください（設定は引き継がれます）。
-          入力サジェストは<strong>既定でOFF</strong>のため、これまでの動作は変わりません。プラグイン設定の「入力サジェスト」で有効にし、対象フィールドを追加してご利用ください。
+          拡大入力は<strong>既定でOFF</strong>のため、これまでの動作は変わりません。プラグイン設定の「拡大入力」で有効にし、対象フィールドを追加してご利用ください。
         </p>
       </div>
     </section>
@@ -932,6 +962,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <li><span><strong>入力サジェスト（ほかのアプリの値から選んで入力）</strong> — 商品マスタ・取引先マスタなど別アプリの指定フィールドを候補元にできます。候補への別項目の併記（品番・電話番号など）、絞り込み条件、「自分が作成したレコードだけ」の限定にも対応。</span></li>
         <li><span><strong>サジェストはサブテーブル内も対応</strong> — 明細行の品名・単位など、行ごとに繰り返す項目でも候補が出ます。行を追加・削除しても自動で追従します。</span></li>
         <li><span><strong>候補の集め方を選べる</strong> — 「まとめて取得」は初回だけ通信して以降は通信ゼロ・1文字目から候補が出ます。データ件数が多いアプリでは「入力ごとに検索」（2文字から）を選べます。</span></li>
+        <li><span><strong>拡大入力（狭い入力欄を大きなダイアログで）</strong> — 対象に指定した文字列1行・文字列複数行のフィールドに入力しようとすると、<strong>大きな入力欄がダイアログで開きます</strong>。確定するとその値が元のフィールドへ書き戻されるので、明細表のように幅の狭い欄でも全文を見ながら入力できます。</span></li>
+        <li><span><strong>拡大入力はサブテーブル内も対応</strong> — 明細行の品名・備考など、行ごとに繰り返す項目でも開けます。見出しに「品名（2行目）」と行番号が出るので、どの行を編集しているか分かります。</span></li>
+        <li><span><strong>Tab で確定して次の項目へ</strong> — Tab で確定して kintone 本来の順番で次の項目へ進み、その項目も対象なら続けて開きます（Shift+Tab で前へ）。Esc で取り消し、暗い部分のクリック・「確定」ボタン・Ctrl+Enter で確定します。</span></li>
+        <li><span><strong>開き方をフィールドごとに選べる</strong> — 「入力欄に入ったとき」に自動で開くか、「拡大ボタンを押したとき」だけ開くかを対象ごとに指定。入力順ガイドと併用すると、入力の順番が来たフィールドで自動的に開きます。</span></li>
         <li><span><strong>入力順ガイド（色で誘導）</strong> — 指定した順にフィールドを「待機（淡）／現在地（強調＋『入力してください』タグ）／入力済み（解除）」で色分け。先頭の未入力フィールドが現在地になります。</span></li>
         <li><span><strong>値が入ると自動で前進</strong> — 現在地のフィールドに値が入ると、強調が次の未入力フィールドへ自動で移動。ルックアップ取得や選択肢の確定にも追従します。</span></li>
         <li><span><strong>自動スクロール・自動フォーカス</strong> — 現在地が画面外なら自動スクロール。任意で現在地フィールドへカーソルを移動（自動フォーカス）もできます。</span></li>
@@ -1008,7 +1042,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコードの新規作成・編集画面があるアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-input-assist-v2.0.1.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-input-assist-v2.1.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「入力アシスト」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>入力順ガイドの対象フィールド・未入力チェックの対象・配色</strong>などを設定して「保存」</span></li>
@@ -1033,7 +1067,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-input-assist-v2.0.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-input-assist-v2.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -1066,7 +1100,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <li>kintone はサイボウズ株式会社の登録商標です。</li>
         <li>動作は Google Chrome 最新版での確認を推奨します。</li>
         <li>入力順ガイド・未入力チェックはレコードの新規作成・編集画面（PC 版）で動作します。未入力の詳細画面表示はレコード詳細画面（PC 版）で動作します。</li>
-        <li>サブテーブル内のフィールドは<strong>入力サジェストのみ対応</strong>です（v2.0.0）。入力順ガイド・未入力チェックは、サブテーブル内・グループ内のフィールドが対象外です。</li>
+        <li>サブテーブル内のフィールドに対応しているのは<strong>入力サジェスト（v2.0.0〜）と拡大入力（v2.1.0〜）</strong>です。入力順ガイド・未入力チェックは、サブテーブル内・グループ内のフィールドが対象外です。</li>
         <li>入力サジェストの対象にできるのは、文字列1行・文字列複数行・リンク・数値のフィールドです。ルックアップと、ルックアップが値をコピーする先のフィールドは対象外です（値の書き込みが kintone の管理下にあるため）。</li>
         <li>ほかのアプリを参照するサジェストは、そのアプリの<strong>閲覧権限がある利用者にのみ</strong>候補が表示されます。ゲストスペースをまたいだ参照はできません。</li>
         <li>入力サジェストの「まとめて取得」は、新しいレコードから順に最大 5,000 件（サブテーブル内の列を候補元にする場合は 1,000 件）を対象にします。それより古い値も候補にしたい場合は「入力ごとに検索」をご利用ください（文字列系のフィールドのみ）。</li>
@@ -1203,10 +1237,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-input-assist-v2.0.1.zip',
+              file_name: 'kw-input-assist-v2.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-input-assist-v2.0.1.zip'
+              link_url: '/downloads/kw-input-assist-v2.1.0.zip'
             });
           }
         });
