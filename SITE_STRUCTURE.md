@@ -704,6 +704,7 @@ c:\kizuna-works.jp\
 │   │   ├── user-autofill-config-01.png ～ -config-04.png # ユーザーオートフィル 設定画面スクショ（①基本設定/②転記マッピング/③カード/④捺印）
 │   │   ├── user-autofill-print-01.png      # ユーザーオートフィル 機能スクショ（v1.1.0＝稟議申請アプリの印刷用画面に決裁欄の捺印が並ぶ・UPDATEボックス/news共用）
 │   │   ├── user-autofill-selfstamp-01.png   # ユーザーオートフィル 機能スクショ（v1.2.0＝本人捺印。押印済み/自分の欄の「捺印」ボタン/他の人の未押印の3状態・UPDATEボックス/news共用）
+│   │   ├── user-autofill-config-warning.png  # ユーザーオートフィル 設定画面スクショ（v1.2.1＝設定したフィールドが作り直されて型が変わったときの注意帯と ⚠ 付き選択肢・news 用）
 │   │   ├── dashboard-banner.png            # ダッシュボード for kintone 見出しバナー（OGP/グリッド共用・1200×630）
 │   │   ├── dashboard-icon.png              # ダッシュボード for kintone アイコン
 │   │   ├── dashboard-overview.png/.webp    # ダッシュボード 完成イメージ①（成績ダッシュボードの全景・製品ページ）
@@ -1052,6 +1053,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-user-autofill-v1.0.1.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.1 ライセンス認証の内部改修＋設定画面レイアウト統一＋転記設定テーブルの潰れ対策）
 │   │   ├── kw-user-autofill-v1.1.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.1.0＝印刷用画面への捺印/カード表示に対応。app.record.print.show を追加・@media print で印刷色を保持）
 │   │   ├── kw-user-autofill-v1.2.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.2.0＝本人捺印。詳細画面の「捺印」ボタン・押印日時の記録・記録用フィールドの自動非表示 setFieldShown・押印日表示・本人による取り消し）
+│   │   ├── kw-user-autofill-v1.2.1.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.2.1＝設定したフィールドを作り直して型が変わったときに意図しない値を書き込まないよう修正。設定画面でも該当フィールドを警告表示し保存を拒否）
 │   │   ├── kw-view-control-v1.0.0.zip                            # 一覧コントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-view-control-v1.0.1.zip                            # 一覧コントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-view-control-v1.0.2.zip                            # 一覧コントロール for kintone 配布ファイル（旧版・参考保管）
