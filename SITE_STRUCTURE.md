@@ -809,14 +809,18 @@ c:\kizuna-works.jp\
 │   │   ├── kw-attribute-filter-v1.0.0.zip                        # 属性制御フィルター for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=1フィールド全機能）
 │   │   ├── kw-attribute-filter-v1.0.1.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-attribute-filter-v1.0.2.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-attribute-filter-v1.0.3.zip                        # 属性制御フィルター for kintone 配布ファイル（最新・手動配置・v1.0.3 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
+│   │   ├── kw-attribute-filter-v1.0.3.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管・v1.0.3 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
+│   │   ├── kw-attribute-filter-v2.0.0.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管・v2.0.0 適用条件と候補ルールの分離）
+│   │   ├── kw-attribute-filter-v2.1.0.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管・v2.1.0 保管アプリ不要の直接取得を既定化＋所属組織ごとの出し分けを対応表で記述）
+│   │   ├── kw-attribute-filter-v2.1.1.zip                        # 属性制御フィルター for kintone 配布ファイル（最新・手動配置・v2.1.1 対象フィールドを別の型で作り直したとき、そのフィールドの絞り込みと保存時チェックを行わない。設定画面に注意帯を表示し保存を拒否）
 │   │   ├── kw-link-assist-v1.0.0.zip      # リンクアシスト 配布用プラグイン zip
 │   │   ├── kw-clip-assist-v1.0.0.zip      # コピーアシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-clip-assist-v1.0.1.zip      # コピーアシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-clip-assist-v1.0.2.zip     # コピーアシスト for kintone 配布ファイル（最新・手動配置・v1.0.2 当社製品を併用したときに一覧の選択列を1本にまとめ、チェックボックスの位置を統一）
 │   │   ├── kw-lottery-roulette-v1.0.0.zip                       # 抽選ルーレット for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-lottery-roulette-v1.0.1.zip                       # 抽選ルーレット for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-lottery-roulette-v1.0.2.zip                      # 抽選ルーレット for kintone 配布ファイル（最新・手動配置・v1.0.2 当社製品を併用したときに一覧の選択列を1本にまとめ、チェックボックスの位置を統一）
+│   │   ├── kw-lottery-roulette-v1.0.2.zip                      # 抽選ルーレット for kintone 配布ファイル（旧版・参考保管・v1.0.2 当社製品を併用したときに一覧の選択列を1本にまとめ、チェックボックスの位置を統一）
+│   │   ├── kw-lottery-roulette-v1.0.3.zip                          # 抽選ルーレット for kintone 配布ファイル（最新・手動配置・v1.0.3 出力先フィールドを別の型で作り直したとき、抽選を始める前に型を確認して中止。設定画面でも警告表示し保存を拒否）
 │   │   ├── kw-after-save-v1.0.0.zip                              # 保存後ナビ for kintone 配布プラグイン v1.0.0
 │   │   ├── kw-autosave-assist-v1.0.0.zip                 # 自動保存アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-autosave-assist-v1.0.1.zip                 # 自動保存アシスト for kintone 配布ファイル（最新・手動配置・v1.0.1 重複禁止が未設定のルックアップでも安定して動作するよう改善）
