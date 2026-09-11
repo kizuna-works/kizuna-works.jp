@@ -1,6 +1,13 @@
 ---
 import Layout from '../../../../layouts/Layout.astro';
 import { plugins, premiumPlugins } from '../../../../data/plugins';
+
+// プラグインの設定画面から開かれたときは ?plugin=<id> が付く。
+// 送信する値は formName なので、id → formName の対応をページに持たせる。
+const pluginNameById: Record<string, string> = {};
+[...plugins, ...premiumPlugins].forEach((p) => {
+  pluginNameById[p.id] = p.formName;
+});
 ---
 
 <Layout
@@ -401,6 +408,7 @@ import { plugins, premiumPlugins } from '../../../../data/plugins';
               </optgroup>
             </select>
             <span id="req-plugin-count" class="req-filter-count" aria-live="polite"></span>
+            <script type="application/json" id="req-plugin-map" is:inline set:html={JSON.stringify(pluginNameById)} />
             <p class="req-error" data-error-for="targetPlugin"></p>
           </div>
 
@@ -474,6 +482,11 @@ import { plugins, premiumPlugins } from '../../../../data/plugins';
       const titleCount = document.getElementById('req-title-count');
       const detailInput = document.getElementById('req-detail');
       const detailCount = document.getElementById('req-detail-count');
+
+      // プラグイン ID → フォームで送る表示名。?plugin= の引き当てに使う。
+      const PLUGIN_NAME_BY_ID = JSON.parse(
+        document.getElementById('req-plugin-map').textContent
+      );
 
       const ENDPOINT =
         'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec';
@@ -625,15 +638,38 @@ import { plugins, premiumPlugins } from '../../../../data/plugins';
       }
       renderPluginOptions('');
 
-      // 覚えていた値を戻す
+      // ---- 初期値を入れる --------------------------------------------
+      // 優先順位は「URL のパラメータ」→「前回の入力」。
+      // パラメータは kintone のプラグイン設定画面から開いたときに付く。
+      // 押した時点でドメインも対象プラグインも分かっているため、入力を省ける。
+      const params = new URLSearchParams(location.search);
+      const fromUrl = {
+        domain: params.get('domain') || '',
+        // 設定画面が渡すのはプラグインの ID。送信する値は表示名なので引き当てる。
+        targetPlugin: PLUGIN_NAME_BY_ID[params.get('plugin') || ''] || '',
+      };
       const saved = readStore();
-      if (domainInput && saved.domain && !domainInput.value) {
-        domainInput.value = saved.domain;
-        refreshDomainConfirm();
+
+      const initialDomain = fromUrl.domain || saved.domain || '';
+      if (domainInput && initialDomain && !domainInput.value) {
+        domainInput.value = initialDomain;
+        refreshDomainConfirm();   // 正規化と確認表示もそのまま通す
       }
-      if (pluginSelect && saved.targetPlugin) {
-        pluginSelect.value = saved.targetPlugin;
-        if (pluginSelect.value !== saved.targetPlugin) pluginSelect.value = '';   // 廃番等
+
+      const initialPlugin = fromUrl.targetPlugin || saved.targetPlugin || '';
+      if (pluginSelect && initialPlugin) {
+        pluginSelect.value = initialPlugin;
+        if (pluginSelect.value !== initialPlugin) pluginSelect.value = '';   // 廃番等
+      }
+
+      // 設定画面から来た場合は「改善要望」として扱い、対象プラグインの欄を開く。
+      // 新規プラグインの依頼に切り替えたい場合は種別を選び直せる（従来どおり選択は外れる）。
+      if (fromUrl.targetPlugin && pluginSelect && pluginSelect.value) {
+        const radio = form.querySelector('input[name="requestType"][value="既存プラグイン改善要望"]');
+        if (radio && !radio.checked) {
+          radio.checked = true;
+          targetGroup.hidden = false;
+        }
       }
 
       // 種別ラジオで対象プラグイン表示切替
