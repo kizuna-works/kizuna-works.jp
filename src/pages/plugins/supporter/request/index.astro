@@ -131,9 +131,35 @@ import { plugins, premiumPlugins } from '../../../../data/plugins';
       transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
     }
 
+    /* Roomy by default, and it grows with the text (see autoGrow in the script).
+       Feedback said the box felt cramped for long write-ups. */
     .req-textarea {
-      min-height: 140px;
+      min-height: 260px;
+      max-height: 70vh;
       resize: vertical;
+      overflow-y: auto;
+      line-height: 1.7;
+    }
+
+    /* Filter box above the plugin picker. */
+    .req-filter {
+      width: 100%;
+      margin-bottom: 8px;
+      padding: 9px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background-color: var(--color-white);
+      color: var(--color-text-main);
+      box-sizing: border-box;
+    }
+
+    .req-filter-count {
+      display: block;
+      margin: 6px 0 0;
+      font-size: 0.85rem;
+      color: var(--color-text-muted, #64748b);
     }
 
     .req-input:focus,
@@ -353,6 +379,14 @@ import { plugins, premiumPlugins } from '../../../../data/plugins';
             <label for="req-targetPlugin" class="req-label">
               対象プラグイン<span class="req-required">必須</span>
             </label>
+            <input
+              type="text"
+              id="req-plugin-filter"
+              class="req-filter"
+              placeholder="キーワードで絞り込み（例：メール、一覧、CSV）"
+              autocomplete="off"
+              aria-controls="req-targetPlugin"
+            />
             <select id="req-targetPlugin" name="targetPlugin" class="req-select">
               <option value="">選択してください</option>
               <optgroup label="ちょこっとプラグイン">
@@ -366,6 +400,7 @@ import { plugins, premiumPlugins } from '../../../../data/plugins';
                 ))}
               </optgroup>
             </select>
+            <span id="req-plugin-count" class="req-filter-count" aria-live="polite"></span>
             <p class="req-error" data-error-for="targetPlugin"></p>
           </div>
 
@@ -492,6 +527,115 @@ import { plugins, premiumPlugins } from '../../../../data/plugins';
         domainInput.addEventListener('change', refreshDomainConfirm);
       }
 
+      // ---- 前回入力の引き継ぎ -------------------------------------------
+      // ドメインと対象プラグインだけを、この端末のブラウザに覚えておく。
+      // 当社サーバーへは送らないので、他の利用者に見えることはない。
+      // 会社名・メールアドレスは覚えない（共有 PC で他の人の目に触れるため）。
+      const STORE_KEY = 'kwRequestForm.v1';
+
+      const readStore = () => {
+        try {
+          return JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {};
+        } catch (err) {
+          return {};   // プライベートウィンドウ等で読めなくても素通りする
+        }
+      };
+
+      const writeStore = (patch) => {
+        try {
+          localStorage.setItem(STORE_KEY, JSON.stringify({ ...readStore(), ...patch }));
+        } catch (err) {
+          /* 保存できない環境では、単に引き継がないだけ */
+        }
+      };
+
+      // ---- 詳細欄を入力量に合わせて伸ばす -------------------------------
+      const autoGrow = () => {
+        if (!detailInput) return;
+        detailInput.style.height = 'auto';
+        // max-height（CSS）を超える分はスクロールに任せる
+        detailInput.style.height = detailInput.scrollHeight + 'px';
+      };
+
+      if (detailInput) {
+        detailInput.addEventListener('input', autoGrow);
+      }
+
+      // ---- 対象プラグインの絞り込み -------------------------------------
+      // option を display:none で隠す方法はブラウザによって効かないため、
+      // 元の一覧を控えておき、選択肢そのものを作り直す。
+      const pluginSelect = document.getElementById('req-targetPlugin');
+      const pluginFilter = document.getElementById('req-plugin-filter');
+      const pluginCount = document.getElementById('req-plugin-count');
+
+      const pluginGroups = pluginSelect
+        ? Array.from(pluginSelect.querySelectorAll('optgroup')).map((g) => ({
+            label: g.label,
+            items: Array.from(g.querySelectorAll('option')).map((o) => o.value),
+          }))
+        : [];
+      const pluginTotal = pluginGroups.reduce((n, g) => n + g.items.length, 0);
+
+      const renderPluginOptions = (query) => {
+        if (!pluginSelect) return;
+        const q = String(query || '').trim().toLowerCase();
+        const keep = pluginSelect.value;   // 選択中は絞り込んでも残す
+        let shown = 0;
+
+        pluginSelect.innerHTML = '';
+        const head = document.createElement('option');
+        head.value = '';
+        head.textContent = '選択してください';
+        pluginSelect.appendChild(head);
+
+        pluginGroups.forEach((g) => {
+          const hits = g.items.filter(
+            (name) => !q || name.toLowerCase().indexOf(q) !== -1 || name === keep
+          );
+          if (!hits.length) return;
+          const group = document.createElement('optgroup');
+          group.label = g.label;
+          hits.forEach((name) => {
+            const opt = document.createElement('option');
+            opt.value = name;
+            opt.textContent = name;
+            group.appendChild(opt);
+            if (name !== keep || !q || name.toLowerCase().indexOf(q) !== -1) shown++;
+          });
+          pluginSelect.appendChild(group);
+        });
+
+        if (keep) pluginSelect.value = keep;
+
+        if (pluginCount) {
+          pluginCount.textContent = q
+            ? shown + ' 件が一致（全 ' + pluginTotal + ' 件）'
+            : '全 ' + pluginTotal + ' 件';
+        }
+      };
+
+      if (pluginFilter) {
+        pluginFilter.addEventListener('input', function () {
+          renderPluginOptions(this.value);
+        });
+        // 変換確定の Enter でフォームを送信してしまわないようにする
+        pluginFilter.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') e.preventDefault();
+        });
+      }
+      renderPluginOptions('');
+
+      // 覚えていた値を戻す
+      const saved = readStore();
+      if (domainInput && saved.domain && !domainInput.value) {
+        domainInput.value = saved.domain;
+        refreshDomainConfirm();
+      }
+      if (pluginSelect && saved.targetPlugin) {
+        pluginSelect.value = saved.targetPlugin;
+        if (pluginSelect.value !== saved.targetPlugin) pluginSelect.value = '';   // 廃番等
+      }
+
       // 種別ラジオで対象プラグイン表示切替
       form.querySelectorAll('input[name="requestType"]').forEach(function (r) {
         r.addEventListener('change', function () {
@@ -595,6 +739,8 @@ import { plugins, premiumPlugins } from '../../../../data/plugins';
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
           });
+          // 次回の入力を省くため、この端末にだけ控えておく
+          writeStore({ domain: data.domain, targetPlugin: data.targetPlugin || '' });
           form.hidden = true;
           successMsg.hidden = false;
         } catch (err) {
