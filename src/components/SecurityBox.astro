@@ -16,7 +16,15 @@ const profile = getSecurityProfile(pluginId);
 // claim "業務データを外部に送信しません". When `outbound` is declared we print
 // the honest version instead of the two shared claims.
 const outbound = profile.outbound;
+// A plugin that reaches an external service only to pull data IN (kw-form-connect
+// reading a Google 回答スプレッドシート) keeps the "送信しません" claim — it is
+// true — but must not also claim "外部通信はライセンス認証のみ".
+const inbound = profile.inbound;
 const extraComm = profile.extraComm ?? [];
+// Google の接続・ファイル選択を使うプラグインは、設定画面でだけ Google 公式の
+// スクリプトを読み込む。「実行時に外部ライブラリを読み込みません」と言い切ると、
+// すぐ上で開示した Picker の説明と同じ箱の中で矛盾するため、範囲を明示する。
+const configScript = profile.configScript;
 const libs = profile.libs ?? [];
 const runtimeLibs = profile.runtimeLibs ?? [];
 // Split the declared communications by where they actually go. Listing them
@@ -48,6 +56,14 @@ const hasExternal = externalComm.length > 0;
             <strong>{outbound.title}</strong>
             <p>{outbound.detail}</p>
             <p>{outbound.control}</p>
+          </div>
+        </li>
+      ) : inbound ? (
+        <li class="sb-item">
+          <span class="sb-icon" aria-hidden="true">✅</span>
+          <div class="sb-body">
+            <strong>{inbound.title}</strong>
+            <p>{inbound.detail}</p>
           </div>
         </li>
       ) : hasExternal ? (
@@ -123,6 +139,13 @@ const hasExternal = externalComm.length > 0;
                 {runtimeLibs.map((l, i) => (
                   <span>{i > 0 ? '、' : ' '}<strong>{l.name} v{l.version}</strong>（{l.license}／{l.purpose}）</span>
                 ))}
+              </p>
+            </>
+          ) : configScript ? (
+            <>
+              <strong>レコード画面では、実行時に外部ライブラリ（CDN）を読み込みません</strong>
+              <p>
+                第三者製ライブラリは同梱しておらず、改ざんリスクのある外部 CDN への依存もありません。{configScript}
               </p>
             </>
           ) : libs.length === 0 ? (

@@ -1592,6 +1592,32 @@ export const premiumPlugins: Plugin[] = [
     releaseDate: '2026-09-03',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-form-connect',
+    pluginId: 'gnhmdmgjogeamgcmjnlachccmcdjojce',
+    name: 'フォーム連携 for kintone',
+    formName: 'フォーム連携 for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'form-connect',
+    categories: ['自動入力', '一括処理'],
+    description:
+      'Google フォームの回答を、回答スプレッドシート経由で kintone アプリへ取り込みます。列とフィールドの対応づけは設定画面の表だけで完結し、見出しとフィールド名が一致する列は自動で対応づけ。回答IDで二重登録を防ぎ、複数のフォームを1つのアプリへ集約できます。',
+    image: '/images/form-connect-banner.png',
+    imageWebp: '/images/form-connect-banner.webp',
+    imageAlt:
+      'フォーム連携 for kintone バナー — 無料の Google フォームが、そのまま入力窓口になる。回答を自動でレコード化、GAS 不要・コード不要、複数フォームを1アプリに集約',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      'Google フォームの回答を kintone のレコードに取り込みます。列の対応づけは表だけで完結し、二重登録も防ぎます。',
+    problemTitle: '社外から集めた回答を、kintone へ手で打ち直している',
+    problemDesc:
+      'Google フォームで申込や問い合わせを受けているが、kintone へ載せるには CSV を書き出して貼り付けるか、1件ずつ入力するしかない。GAS を書く手もあるが、作った人しか直せないものを業務に挟みたくない',
+    releaseDate: '2026-09-11',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**

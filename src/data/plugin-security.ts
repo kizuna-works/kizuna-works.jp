@@ -72,6 +72,24 @@ export interface OutboundData {
   control: string;
 }
 
+/**
+ * Declared when a plugin reaches an external service only to PULL data into
+ * kintone (kw-form-connect reading a Google 回答スプレッドシート).
+ *
+ * The direction matters: no record value ever leaves kintone, so the shared
+ * "レコード等の業務データを外部に送信しません" claim stays true and must be
+ * kept — printing the `extraComm` variant ("業務データを外部に送信するのは、
+ * 下記の機能だけです") would understate the plugin. What is false for such a
+ * plugin is only "外部通信はライセンス認証のみ", which `extraComm` already
+ * rewrites. Setting this states the direction explicitly.
+ */
+export interface InboundData {
+  /** Headline shown in place of the plain "送信しません" claim. */
+  title: string;
+  /** Which way the data travels, and the little that does go out. */
+  detail: string;
+}
+
 export interface SecurityProfile {
   /**
    * Set only for plugins that intentionally send business data out of kintone.
@@ -79,8 +97,21 @@ export interface SecurityProfile {
    * claims, which would otherwise be false.
    */
   outbound?: OutboundData;
+  /**
+   * Set for plugins that talk to an external service but only to bring data in.
+   * Keeps the honest "送信しません" claim and states the direction.
+   */
+  inbound?: InboundData;
   /** Extra outbound communications on top of the shared license check. */
   extraComm?: ExtraComm[];
+  /**
+   * Set when the CONFIG screen loads a script from an external origin (the
+   * Google Picker / GIS scripts on apis.google.com). The record screen still
+   * loads nothing, but claiming "実行時に外部ライブラリを読み込みません" without
+   * qualification contradicts the Picker entry in the same box. The text given
+   * here is appended to the library claim, which is narrowed to the record screen.
+   */
+  configScript?: string;
   /** Third-party libraries bundled in the package (none for most plugins). */
   libs?: BundledLib[];
   /**
@@ -407,6 +438,8 @@ export const securityProfiles: Record<string, SecurityProfile> = {
   // ファイルの実体が kintone の外（Google ドライブ）へ出るため、共通の
   // 「業務データを外部に送信しません」は成り立たない。outbound で置き換える。
   'kw-drive-connect': {
+    configScript:
+      '設定画面で Google に接続し、保存先フォルダを選ぶときだけ、Google 公式のスクリプト（apis.google.com）を読み込みます。レコード画面では読み込みません。',
     outbound: {
       title: '添付ファイルを、指定した Google ドライブのフォルダへ送信します',
       detail:
@@ -431,6 +464,48 @@ export const securityProfiles: Record<string, SecurityProfile> = {
         label: '添付ファイルの取得とリンクの書き戻し（自ドメイン内）',
         detail:
           '転送するファイルの実体を取得するため kintone REST API（/k/v1/file.json）を、リンクの書き戻しと添付の削除のため /k/v1/record.json を呼びます。いずれも自ドメイン内で完結し、外部へは送信しません。',
+      },
+    ],
+  },
+
+  // Google と通信するが、向きは「外 → kintone」の一方向。レコードの値は一切
+  // 出て行かないので outbound ではなく inbound で宣言する。
+  'kw-form-connect': {
+    configScript:
+      '設定画面で Google に接続し、回答シートを選ぶときだけ、Google 公式のスクリプト（apis.google.com）を読み込みます。レコード画面では読み込みません。',
+    inbound: {
+      title: 'Google から取り込むだけで、kintone の値を Google へ送りません',
+      detail:
+        'このプラグインは「Google フォームの回答スプレッドシートを読んで kintone のレコードにする」ことが目的です。データの向きは外 → kintone の一方向で、レコードやフィールドの値が Google や当社へ送られることはありません。Google へ出るのは、アプリ管理者ご自身が選んだ回答シートの ID と読み取り範囲（例：フォームの回答 1!A1:Z1000）だけです。回答シートへの書き込みも行いません。',
+    },
+    extraComm: [
+      {
+        label: '回答スプレッドシートの読み取り',
+        scope: 'external',
+        detail:
+          'Google Sheets API（sheets.googleapis.com）へ、選んだ回答シートの指定範囲を読み取る要求を送ります。要求するアクセス権は drive.file スコープのみで、これは「利用者が選択したファイル」に限られます。ドライブ内のその他のファイルは参照できず、本プラグインは読み取りしか行いません（すべてのスプレッドシートを読める spreadsheets.readonly は使用していません）。',
+      },
+      {
+        label: 'シートを選ぶ画面（Google Picker）',
+        scope: 'external',
+        detail:
+          'アプリ管理者が回答シートを選ぶときだけ、設定画面に Google のファイル選択画面（Google Picker）を表示します。このとき Google のスクリプト（apis.google.com/js/api.js）を設定画面に読み込みます。レコード画面では読み込みません。選択の結果としてプラグインが受け取るのは、選んだファイルの ID と名前だけです。',
+      },
+      {
+        label: 'Google の認可（OAuth 2.0）',
+        scope: 'external',
+        detail:
+          'アプリ管理者が接続するときだけ、Google の認可画面（accounts.google.com）と当社の静的な受け取りページ（kizuna-works.jp/form-connect/callback.html）を使います。受け取りページは認可コードをブラウザ内で受け渡すだけで、認可情報がサーバーに保存されることはありません。取り込みのたびに使う更新用トークン（リフレッシュトークン）は kintone のプロキシ設定（setProxyConfig）に保管され、レコード画面の JavaScript からは読み出せません。取り込みに使うアクセストークンは設定画面のセッション（sessionStorage）にだけ置き、閉じると消えます。',
+      },
+      {
+        label: 'レコードの作成と必要なフィールドの用意（自ドメイン内）',
+        detail:
+          '取り込んだ回答をレコードにするため kintone REST API（/k/v1/records.json）を、二重登録を防ぐフィールド（回答ID など）の作成・確認のため /k/v1/preview/app/form/fields.json・/k/v1/preview/app/deploy.json などを呼びます。いずれも自ドメイン内で完結し、外部へは送信しません。',
+      },
+      {
+        label: '取り込みログの記録と失敗時の通知（自ドメイン内）',
+        detail:
+          '取り込みの結果を保管アプリへ記録し、失敗したときは指定のユーザーへ kintone の通知を出します（/k/v1/record.json ほか）。いずれもご利用中の kintone ドメイン内で完結します。',
       },
     ],
   },

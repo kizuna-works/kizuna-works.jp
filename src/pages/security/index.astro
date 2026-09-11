@@ -408,6 +408,18 @@ const updated = '2026-06-05';
                 <td>住所アシスト for kintone のみ</td>
               </tr>
               <tr>
+                <td>Google<br>(googleapis.com /<br>accounts.google.com)</td>
+                <td>Google ドライブへのファイル転送</td>
+                <td><strong>転送ルールで指定した添付ファイルと、フォルダ名に使うフィールドの値だけ</strong>。送信先は管理者ご自身が Google の選択画面で選んだフォルダに限られます。要求する権限は drive.file スコープのみ（このプラグインが作成したファイルと、選択されたフォルダだけ）。利用者のブラウザから Google へ直接送信し、当社サーバーは経路に入りません。</td>
+                <td>ドライブ連携 for kintone のみ</td>
+              </tr>
+              <tr>
+                <td>Google<br>(sheets.googleapis.com /<br>accounts.google.com)</td>
+                <td>Google フォームの回答スプレッドシートの読み取り</td>
+                <td><strong>読み取りだけで、kintone の値は送信しません</strong>。Google へ出るのは、管理者ご自身が選んだ回答シートの ID と読み取り範囲だけです。要求する権限は drive.file スコープのみ（選択されたファイルだけ）で、回答シートへの書き込みも行いません。取り込んだ回答は利用者のブラウザから kintone へ入り、当社サーバーは経路に入りません。</td>
+                <td>フォーム連携 for kintone のみ</td>
+              </tr>
+              <tr>
                 <td>管理者が登録した<br>Webhook URL<br>(Slack / Microsoft Teams / Google Chat)</td>
                 <td>通知の送信</td>
                 <td><strong>通知ルールの本文テンプレートに書いた内容</strong>（差し込んだフィールドの値・レコード URL・操作者名など）。kintone のプロキシ経由で各サービスへ直接送信し、当社サーバーは経由しません。テンプレートに書いていないフィールドは送信しません。</td>
@@ -424,7 +436,8 @@ const updated = '2026-06-05';
         </div>
         <p class="sec-note">
           ※ライセンス認証は、ライセンスの有効性を確認するためにプラグイン ID と利用ドメイン名のみを送信します。通信に失敗した場合もサポーター（有効）扱いにはせず、安全側に動作します。<br>
-          ※住所アシスト for kintone の Google マップ連携は、地図リンクの URL を組み立てるだけで、外部へのデータ送信はありません。
+          ※住所アシスト for kintone の Google マップ連携は、地図リンクの URL を組み立てるだけで、外部へのデータ送信はありません。<br>
+          ※ドライブ連携・フォーム連携 for kintone は、アプリ管理者が Google に接続してファイル（フォルダ／回答シート）を選ぶときだけ、設定画面に Google 公式のスクリプト（apis.google.com）を読み込みます。レコード画面では読み込みません。認可情報のうち更新用トークン（リフレッシュトークン）は kintone のプロキシ設定に保管され、レコード画面の JavaScript からは読み出せません。
         </p>
       </div>
     </section>

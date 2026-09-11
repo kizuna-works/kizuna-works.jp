@@ -1,0 +1,771 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<Layout
+  title="フォーム連携 for kintone｜Google フォームの回答を kintone へ取り込む | KIZUNA Works"
+  description="Google フォームの回答を、回答スプレッドシート経由で kintone アプリへ取り込む kintone プラグイン。中継サーバー・GAS・API トークンのいずれも不要で、列とフィールドの対応づけは設定画面の表だけで完結します。回答IDで二重登録を防ぎ、複数のフォームを1つのアプリへ集約できます。"
+  ogTitle="フォーム連携 for kintone｜Google フォームの回答を kintone へ取り込む | KIZUNA Works"
+  ogDescription="無料の Google フォームが、そのまま kintone の入力窓口になります。GAS もコードも書かず、列の対応づけは表だけ。二重登録も防ぎます。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/form-connect/"
+  ogImage="https://kizuna-works.jp/images/form-connect-banner.png"
+  canonical="https://kizuna-works.jp/plugins/form-connect/"
+  heroBg="/images/premium-plugins-bg.png"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/form-connect/",
+          "url": "https://kizuna-works.jp/plugins/form-connect/",
+          "name": "フォーム連携 for kintone｜Google フォームの回答を kintone へ取り込む | KIZUNA Works",
+          "description": "Google フォームの回答を、回答スプレッドシート経由で kintone アプリへ取り込む kintone プラグイン。kintone 側から取りに行くため Google 側に kintone への書き込み口を開けず、中継サーバー・GAS・API トークンのいずれも不要。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/form-connect-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "フォーム連携 for kintone", "item": "https://kizuna-works.jp/plugins/form-connect/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "フォーム連携 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-09-11",
+          "url": "https://kizuna-works.jp/plugins/form-connect/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-form-connect-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/form-connect-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "プレミアム年間サポーター（全プラグイン込み）",
+            "price": "16500",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "プレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料プランでもフォーム1本・手動での取り込みまで利用できます。"
+          },
+          "description": "Google フォームの回答を、回答スプレッドシート経由で kintone アプリへ取り込む kintone プラグイン。中継サーバー・GAS・API トークンのいずれも不要で、kintone 側から取りに行くため Google 側に kintone への書き込み口を開けない。Google に求める権限は drive.file のみで、Google Picker で選んだ回答シート 1 枚しか読めない。列とフィールドの対応づけは設定画面の表だけで完結し、見出しとフィールド名／フィールドコードが一致する列は自動で対応づける。同一性の判定は行番号ではなく回答ID（フォームキー＋タイムスタンプ＋行内容のハッシュ）で行い、kintone の［値の重複を禁止する］と合わせて二重登録を防ぐ。取り込みは一覧画面のボタン（プレビューつき）と、一覧を開いたときの自動の 2 経路。複数のフォームを 1 つのアプリへ集約できる。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "Google フォームの回答を回答スプレッドシート経由で kintone レコードにする",
+            "中継サーバー・GAS・API トークンのいずれも不要",
+            "Google に求める権限は drive.file のみ（選んだ回答シート 1 枚だけを読む）",
+            "列とフィールドの対応づけは設定画面の表だけで完結",
+            "見出しとフィールド名／フィールドコードが一致する列は自動で対応づけ",
+            "見出しの角かっこ [フィールドコード] を最優先で採用",
+            "タイムスタンプ列を空いている日時フィールドへ自動割り当て",
+            "列に依らない固定値の書き込み行を追加できる",
+            "回答IDと［値の重複を禁止する］による二重登録の防止",
+            "回答シートから行を削除しても取りこぼさない読み直し",
+            "取り込む前に内容を確認できるプレビュー",
+            "一覧を開いたときの自動取り込み（取り込めたら一覧を更新）",
+            "複数のフォームを 1 つのアプリへ集約",
+            "選択肢に無い値は退避／スキップを選択",
+            "取り込みログの保管アプリを自動生成",
+            "失敗したときに指定ユーザーへ kintone 通知",
+            "ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
+    .afp-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+    .afp-hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 26px; border-radius: 26px;
+      font-weight: 700; font-size: 1rem; text-decoration: none; line-height: 1.3;
+    }
+    .afp-hero-btn.is-primary { background: #2E8B2E; color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.22); }
+    .afp-hero-btn.is-primary:hover { background: #35a035; }
+    .afp-hero-btn.is-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.6); }
+    .afp-hero-btn.is-ghost:hover { background: rgba(255,255,255,0.24); }
+    @media (max-width: 600px) { .afp-hero-btn { width: 100%; } }
+
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    /* Update box (latest release) */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      /* リード文自体が白いカードなので、下に余白を入れないと次のカードとくっついて見える */
+      margin: 0 0 26px;
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0 0 12px; }
+    .afp-feature p:last-child { margin-bottom: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    /* 白いカードが続くときにくっついて見えないようにする */
+    .afp-shot + .afp-shot,
+    .afp-shot + .afp-cautions,
+    .afp-shot + .afp-note,
+    .afp-shot + .afp-grid-feats { margin-top: 26px; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    /* Captions are 1-3 lines of Japanese. Without balancing, a long one drops a
+       two-character orphan onto the last line. balance evens the lines out; the
+       max-width keeps a caption from running the full width of a wide screenshot. */
+    .afp-shot-cap {
+      text-align: center; font-size: 0.9rem; color: var(--color-text-muted);
+      margin: 12px 0 0; padding: 0 16px 2px; line-height: 1.75;
+      max-width: 46em; margin-left: auto; margin-right: auto;
+    }
+    /* Cap narrow captures at the width the UI really has, so nothing is blown up
+       larger than the user will see it in kintone. */
+    .afp-shot-w420 { max-width: 420px; }
+    .afp-shot-w640 { max-width: 640px; }
+    .afp-shot-w840 { max-width: 840px; }
+
+    .afp-shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+    @media (max-width: 900px) { .afp-shot-pair { grid-template-columns: 1fr; } }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    /* Feature block: 使い方の画面 → その設定画面、の2枚組 */
+    .afp-usecfg { margin-top: 30px; }
+    .afp-usecfg-head {
+      display: inline-block; background: var(--color-navy); color: #fff; font-weight: 700;
+      font-size: 0.85rem; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px;
+    }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <style is:global>
+    /* このページで足すもの */
+    /* 手順や小見出し。既存の .afp-plan-compare-head と同じ見た目にそろえる
+       （紺の文字＋緑の縦線）。新しい体裁を持ち込まないため。 */
+    .afp-h3 {
+      font-size: 1.15rem; color: var(--color-navy); margin: 34px 0 12px;
+      padding-left: 12px; border-left: 4px solid var(--color-green);
+    }
+    .afp-h3:first-of-type { margin-top: 8px; }
+    /* 課題カードの連番。共通ブロックには入っていないのでここで定義する */
+    .afp-feat-no {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--color-green); margin-bottom: 6px;
+    }
+    /* before / after の対比。狭い画面では縦に積む */
+    .lf-ba {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      margin: 26px 0 0;
+    }
+    .lf-ba figure { margin: 0; }
+    .lf-ba .lf-ba-tag {
+      display: inline-block; font-size: 0.78rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 999px; margin-bottom: 8px;
+    }
+    .lf-ba .is-before { background: #eef2f7; color: #64748b; }
+    .lf-ba .is-after { background: #e8f5e9; color: var(--color-green); }
+    .lf-ba img {
+      width: 100%; height: auto; border: 1px solid #dbe3ec; border-radius: 8px;
+      background: #fff; cursor: zoom-in;
+    }
+    .lf-ba figcaption {
+      font-size: 0.86rem; color: #64748b; line-height: 1.7; margin-top: 8px;
+    }
+    @media (max-width: 767px) {
+      .lf-ba { grid-template-columns: 1fr; }
+    }
+    /* Japanese line breaking.
+       - balance: short centred blocks (hero lead, captions, CTA) get lines of
+         even length instead of dropping two characters onto a last line.
+       - pretty: longer left-aligned prose keeps its ragged edge but never ends
+         on an orphan.
+       - strict: a line may not start with a small kana (ォ ャ ッ) or a closing
+         bracket, which is what split 「取り込み元フ / ォーム」 in a caption. */
+    .afp-hero .afp-sub,
+    .afp-hero .afp-tagline,
+    .afp-cta p,
+    .afp-shot-cap { text-wrap: balance; }
+    /* These run 2-4 lines, which is inside the range the browser will balance.
+       pretty only trims the last-line orphan and left several of 3-5 characters. */
+    .afp-lead,
+    .afp-note,
+    .afp-cautions li,
+    .afp-feat-card p,
+    .afp-plan-features li,
+    .gc-step p,
+    .gc-step li,
+    .gc-branch p,
+    .afp-faq-answer { text-wrap: balance; }
+    .afp-hero .afp-sub,
+    .afp-hero .afp-tagline,
+    .afp-cta p,
+    .afp-shot-cap,
+    .afp-lead,
+    .afp-note,
+    .afp-cautions li,
+    .afp-feat-card p,
+    .afp-plan-features li,
+    .gc-step p,
+    .gc-branch p,
+    .afp-faq-answer { line-break: strict; }
+
+  </style>
+
+  <main>
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/form-connect-icon.png" alt="フォーム連携 for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1 class="afp-hero-title">フォーム連携 for kintone</h1>
+      <p class="afp-tagline">打ち直しは、もういらない。</p>
+      <p class="afp-sub">無料の Google フォームが、そのまま kintone の入力窓口になります。回答は回答スプレッドシート経由で取り込むので、<strong>中継サーバーも GAS も API トークンも要りません</strong>。列とフィールドの対応づけは、設定画面の表だけで終わります。</p>
+      <div class="afp-hero-cta">
+        <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-form-connect-v1.0.0.zip" download>無料でダウンロード</a>
+      </div>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 課題 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">社外から集めた回答を、手で打ち直していませんか</h2>
+        <p class="afp-lead">
+          申込・問い合わせ・アンケートを Google フォームで受けるところまでは簡単です。困るのはその先で、
+          kintone へ載せるには <strong>CSV を書き出して貼り付ける</strong>か、<strong>1 件ずつ入力する</strong>しかありません。
+          GAS を書く手もありますが、作った人しか直せないものを業務の真ん中に挟むのは、あとが続きません。
+        </p>
+        <p class="afp-lead">
+          このプラグインは、<strong>kintone の側から回答スプレッドシートを読みに行きます</strong>。
+          Google 側に kintone への書き込み口を開ける必要がないので、
+          フォームの作り方も、回答を受け取る仕組みも、今のまま変えずに済みます。
+        </p>
+      </div>
+    </section>
+
+    <!-- しくみ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">しくみ</h2>
+        <p class="afp-lead">
+          Google フォームは、［回答］タブから<strong>回答スプレッドシート</strong>を作れます。
+          本プラグインが読むのは、この 1 枚だけです。
+        </p>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">STEP 01</span>
+            <h3>Google フォーム</h3>
+            <p>いつもどおり回答を受けます。フォームの作り方も、配布のしかたも変えません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">STEP 02</span>
+            <h3>回答スプレッドシート</h3>
+            <p>回答が 1 行ずつ溜まります。Google 側に手を入れる作業はここまでで終わりです。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">STEP 03</span>
+            <h3>kintone</h3>
+            <p>kintone の側からこのシートを読み、<strong>まだ取り込んでいない行だけ</strong>をレコードにします。</p>
+          </div>
+        </div>
+        <p class="afp-note">
+          読み取りは <strong>ブラウザから Google へ直接</strong>行います。当社のサーバーはデータの経路に一切入りません。
+          Google に求める権限は <code>drive.file</code> の 1 つだけで、<strong>Picker で選んだ回答シート以外は読めません</strong>。
+        </p>
+      </div>
+    </section>
+
+    <!-- Google 接続 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">Google につなぐのは、最初の一度だけ</h2>
+        <p class="afp-lead">
+          設定画面の<strong>「① Google 接続」</strong>で、アプリ管理者が一度だけ Google に接続します。
+          <strong>レコードを見る一般の利用者が Google にログインする必要はありません</strong>。
+          取り込みは、接続したアカウントの権限で動きます。
+        </p>
+        <figure class="afp-shot">
+          <Picture src="/images/form-connect-config-04.png" alt="プラグイン設定画面の「① Google 接続」。接続方式として KIZUNA Works の接続を使うか自社の Google Cloud を使うかを選べ、その下に接続中のアカウントと接続日時が表示されている" width="1400" height="479" class="zoomable" />
+          <figcaption class="afp-shot-cap">接続は 1 回だけ。更新用のトークンはプラグイン内に保管され、<strong>レコード画面の JavaScript からは読み出せません</strong>。</figcaption>
+        </figure>
+        <div class="afp-cautions">
+          <ul>
+            <li>求める権限は <code>drive.file</code> の 1 つだけです。<strong>Google Picker で選んだ回答シート 1 枚しか読めず</strong>、ドライブの他のファイルは見えません。書き込みも行いません。</li>
+            <li>スプレッドシートの ID を手で入力する欄はありません。<strong>Google の選択画面（Picker）から選びます</strong>。そのファイルにだけアクセス権が付く仕組みのためです。</li>
+            <li>接続は設定画面の<strong>［接続を解除］</strong>でいつでも切れます。解除すると保管していた接続情報も消えます。</li>
+            <li>Google のリフレッシュトークンは <strong>6 か月間まったく使われないと失効</strong>します（Google の仕様）。日常的に取り込んでいれば起きません。</li>
+          </ul>
+        </div>
+        <div class="afp-note" style="margin-bottom:14px;">
+          <strong>本番運用では、お客様ご自身の Google Cloud をおすすめします。</strong>
+          利用枠が自社専用になり、第三者の都合で止まることもありません。費用はかかりません。
+          → <a href="/plugins/form-connect/google-cloud/">自社の Google Cloud で使う設定手順</a>（所要 15 分）
+        </div>
+        <div class="afp-note">
+          まず試したいだけなら、<strong>KIZUNA Works の接続のままで構いません</strong>。あとから設定画面で切り替えられます（切り替え後は回答シートを選び直して再接続します）。
+        </div>
+      </div>
+    </section>
+
+    <!-- 使い方 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定は、表を埋めるだけ</h2>
+        <p class="afp-lead">
+          回答シートを選ぶと見出し行を読み取り、<strong>見出しとフィールド名が一致する列は自動で対応づけます</strong>。
+          当たらなかった列だけ、表で選び直してください。
+        </p>
+        <figure class="afp-shot">
+          <Picture src="/images/form-connect-screen-01.png" alt="フォーム連携の設定画面の全体。上に製品名とバージョン、左に設定の目次（① 接続／② 連携フォーム／③ 動作と準備）、中央に 4 つのタブと設定項目、右に KIZUNA Works のサイドバーが並んでいる" width="1400" height="717" class="zoomable" />
+          <figcaption class="afp-shot-cap">設定画面の全体。左が目次、中央が設定、右はサイドバーです。タブは<strong>① Google 接続 → ② 連携フォーム → ③ 動作 → ④ 必要なフィールド</strong>の順に進みます。</figcaption>
+        </figure>
+        <figure class="afp-shot">
+          <Picture src="/images/form-connect-config-05.png" alt="プラグイン設定画面の「② 連携フォーム」の回答シート設定。選んだスプレッドシート「お問い合わせフォーム（回答）」、対象シート「フォームの回答 1」、このフォームの表示名「Web からのお問い合わせ」、初回の取り込み範囲の選択が並んでいる" width="1400" height="365" class="zoomable" />
+          <figcaption class="afp-shot-cap">連携フォームは 1 本につきこの 1 枚。表示名は取り込んだレコードの「取り込み元フォーム」に入ります。<strong>既存の回答もすべて取り込む</strong>か、これ以降だけかも選べます。</figcaption>
+        </figure>
+        <figure class="afp-shot">
+          <Picture src="/images/form-connect-config-01.png" alt="フォーム連携の設定画面。シートの列（タイムスタンプ・メールアドレス・会社名・ご担当者名・問い合わせ種別・お問い合わせ内容）と kintone フィールドの対応づけを表で指定している" width="1400" height="620" class="zoomable" />
+          <figcaption class="afp-shot-cap">列とフィールドの対応づけ。この例では 6 列のうち 4 列が自動で当たり、「会社名 → 顧客名」「お問い合わせ内容 → 詳細」の 2 列だけを選び直しています。</figcaption>
+        </figure>
+        <div class="afp-cautions">
+          <ul>
+            <li>見出しに <code>お名前 [氏名]</code> のように<strong>角かっこでフィールドコード</strong>を書いておくと、それを最優先で使います</li>
+            <li>全角半角・空白・記号の違いは無視して照合します</li>
+            <li>Google フォームが必ず付ける<strong>「タイムスタンプ」列</strong>は、まだ使っていない日時フィールドがちょうど 1 つあるときだけ自動で割り当てます</li>
+            <li>列に依らない<strong>固定値</strong>の行も足せます（「このフォームから来た回答はすべて Web 申込」など）</li>
+                  </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 取り込み -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">取り込みは、押すか、開くか</h2>
+        <p class="afp-lead">
+          レコード一覧画面のツールバーにボタンが出ます。押すと差分だけを取り込みます。
+          プレミアムでは、<strong>一覧を開いたときに自動で</strong>取り込むこともできます。
+        </p>
+        <figure class="afp-shot">
+          <Picture src="/images/form-connect-action-03.png" alt="レコード一覧画面のツールバー。「Google フォームの回答を取り込む」ボタンが、レコード追加の＋ボタンの左に表示されている" width="991" height="83" class="zoomable" />
+          <figcaption class="afp-shot-cap">ボタンはレコード一覧のツールバーに出ます。名前は設定画面で変えられます。</figcaption>
+        </figure>
+        <figure class="afp-shot">
+          <Picture src="/images/form-connect-action-01.png" alt="取り込む内容の確認画面。15 件の回答が、フォーム・行・受付日時・メールアドレス・顧客名・ご担当者名・問い合わせ種別の列で一覧表示されている" width="1075" height="754" class="zoomable" />
+          <figcaption class="afp-shot-cap">取り込む前に内容を確認できます（プレビュー）。どの値がどのフィールドへ入るかが、押す前に分かります。</figcaption>
+        </figure>
+        <figure class="afp-shot">
+          <Picture src="/images/form-connect-action-02.png" alt="取り込み中の進捗表示。「Web からのお問い合わせ：Google から回答を読み込んでいます…」と 20% の進捗バーが表示されている" width="1075" height="185" class="zoomable" />
+          <figcaption class="afp-shot-cap">いま何をしているかが分かる進捗表示。フォームが複数あるときは「何本目か」も出ます。</figcaption>
+        </figure>
+        <figure class="afp-shot">
+          <Picture src="/images/form-connect-screen-02.png" alt="フォーム連携の設定画面の「③ 動作」タブ。取り込みのタイミング（自動取り込み）、手動取り込みのプレビュー、1 回あたりの上限、選択肢に無い値の扱いが並んでいる" width="1400" height="717" class="zoomable" />
+          <figcaption class="afp-shot-cap">2 つの経路の設定は「③ 動作」でまとめて決めます。自動取り込みの入／切、プレビューの有無、1 回あたりの上限。</figcaption>
+        </figure>
+        <div class="afp-cautions">
+          <ul>
+            <li>自動取り込みは<strong>一覧の表示を待たせません</strong>。裏で実行します</li>
+            <li>取り込めたら<strong>一覧を更新して</strong>「◯ 件を取り込みました」と伝えます。新しい回答が無ければ何も出しません</li>
+            <li>1 回あたりの上限を超えた分は<strong>次回に持ち越します</strong>（取りこぼしません）</li>
+            <li>レコードを追加する権限が無い方の画面には、ボタンを出しません</li>
+                  </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 二重登録 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">同じ回答が、二度入らない</h2>
+        <p class="afp-lead">
+          取り込み位置を「何行目まで読んだか」だけで覚えると、<strong>回答シートから 1 行消えただけで以降がずれます</strong>。
+          本プラグインは行番号を目安にしつつ、同一性の判定には
+          <strong>回答の内容から作った回答ID</strong>（フォーム＋タイムスタンプ＋行内容のハッシュ）を使います。
+        </p>
+        <figure class="afp-shot">
+          <Picture src="/images/form-connect-config-03.png" alt="設定画面の「このプラグインが使うフィールド」。回答ID・取り込み元フォーム・取り込み元フォームキー・取り込み元の行番号の 4 つが作成済みと表示されている" width="1400" height="638" class="zoomable" />
+          <figcaption class="afp-shot-cap">必要なフィールドはボタン 1 つで作れます。回答IDには［値の重複を禁止する］が付きます。</figcaption>
+        </figure>
+        <p class="afp-note">
+          取り込む前に登録済みの回答IDを調べて除外し、<strong>最後は kintone の［値の重複を禁止する］が止めます</strong>。
+          複数の人が同時に一覧を開いても、同じ回答が二度入ることはありません。
+        </p>
+      </div>
+    </section>
+
+    <!-- 複数フォーム -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">複数のフォームを、1 つのアプリへ</h2>
+        <p class="afp-lead">
+          会場別・部署別・年度別にフォームが分かれていても、<strong>1 つの kintone アプリにまとめられます</strong>（プレミアム）。
+          取り込んだレコードには「取り込み元フォーム」が入るので、一覧で絞り込めます。
+        </p>
+        <div class="afp-cautions">
+          <ul>
+            <li>フォームごとに<strong>別々の対応づけ</strong>を持てます。設問の並びや言い回しが違っていても構いません。</li>
+            <li>フォームごとに<strong>固定値</strong>を足せるので、「このフォームから来た回答は〈東京会場〉」のような区別を自動で付けられます。</li>
+            <li>取り込みは<strong>1 本ずつ順に</strong>行い、進捗に「何本目か」を表示します。1 本が失敗しても、残りのフォームは続けて取り込みます。</li>
+            <li>無料プランでは連携フォームは 1 本までです。2 本目以降はプレミアムで解放されます。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 選択肢のずれ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">選択肢が合わなくても、回答は失いません</h2>
+        <p class="afp-lead">
+          Google フォームの「その他」や、フォーム側だけで増やした選択肢は、kintone の選択肢と一致しません。
+          そのときどうするかを選べます。
+        </p>
+        <div class="afp-cautions">
+          <ul>
+            <li><strong>退避する</strong>：レコードは作り、合わなかった値だけを別のフィールドへ <code>【設問名】値</code> の形で記録します</li>
+            <li><strong>その行をスキップする</strong>：その行を失敗として記録します（どの行が、なぜ入らなかったかが残ります）</li>
+                  </ul>
+        </div>
+        <p class="afp-note">
+          どちらを選んでも、<strong>黙って空欄で登録することはありません</strong>。
+          取り込めなかった回答は、原因を直してもう一度取り込めば登録されます。
+        </p>
+      </div>
+    </section>
+
+    <!-- ログと通知 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">記録と、失敗の知らせ</h2>
+        <p class="afp-lead">
+          取り込みの履歴を残す設定（プレミアム・既定 OFF）を有効にすると、
+          同じスペースに保管アプリ「フォーム連携ログ」を<strong>自動で作ります</strong>。
+          実行日時・実行者・件数・失敗理由・元の回答内容が、1 回につき 1 レコード残ります。
+        </p>
+        <p class="afp-lead">
+          失敗した回答があったときだけ、指定したユーザーへ <strong>kintone のベル通知</strong>が飛びます。
+          通知そのものは kintone 本体の「レコードの条件通知」が担うので、外部へメールを送る仕組みは入っていません。
+        </p>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card"><h3>回答の取り込み</h3><p>回答スプレッドシートの差分を読み、kintone のレコードにします。中継サーバー・GAS・API トークンは不要です。</p></div>
+          <div class="afp-feat-card"><h3>自動の対応づけ</h3><p>見出しとフィールド名／フィールドコードが一致する列は自動で対応づけ。角かっこでの明示指定にも対応します。</p></div>
+          <div class="afp-feat-card"><h3>二重登録の防止</h3><p>回答の内容から作る回答IDと、kintone の［値の重複を禁止する］の二段構えで止めます。</p></div>
+          <div class="afp-feat-card"><h3>取り込みプレビュー</h3><p>押す前に、どの値がどのフィールドへ入るかを確認できます。取り込めない行も一緒に見えます。</p></div>
+          <div class="afp-feat-card"><h3>自動取り込み 🔒</h3><p>一覧を開いたときに裏で取り込み、入ったら一覧を更新します。表示は待たせません。</p></div>
+          <div class="afp-feat-card"><h3>複数フォームの集約 🔒</h3><p>会場別・部署別に分かれたフォームを 1 つのアプリへ。取り込み元で絞り込めます。</p></div>
+          <div class="afp-feat-card"><h3>取り込みログ 🔒</h3><p>保管アプリを自動生成し、実行履歴・失敗理由・元の回答内容を残します。</p></div>
+          <div class="afp-feat-card"><h3>失敗通知 🔒</h3><p>取り込めなかった回答があったときだけ、選んだユーザーへ kintone の通知を飛ばします。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- インストール -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="afp-steps steps-list">
+          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-form-connect-v1.0.0.zip</code> を保存します。</span></li>
+          <li><span>kintone の<strong>「kintoneシステム管理」→「プラグイン」</strong>を開き、<strong>「読み込む」</strong>から zip を読み込みます。</span></li>
+          <li><span>回答を取り込みたいアプリで<strong>「アプリの設定」→「プラグイン」→「プラグインの追加」</strong>から追加します。</span></li>
+          <li><span>歯車アイコンから設定画面を開き、<strong>［Google に接続］</strong>で回答スプレッドシートを選びます。接続するのはアプリ管理者だけで、一般の利用者に Google ログインは要りません。</span></li>
+          <li><span>列とフィールドの<strong>対応づけを確認</strong>し（多くは自動で当たります）、<strong>［必要なフィールドを作成］</strong>を押してから保存します。</span></li>
+          <li><span>アプリを<strong>更新</strong>すると、一覧のツールバーに取り込みボタンが出ます。</span></li>
+        </ol>
+        <div class="afp-note">すでにお使いの場合は、同じ手順で新しい zip を読み込むと上書きされます。<strong>アプリごとの設定と Google との接続は保持されます</strong>。</div>
+      </div>
+    </section>
+
+    <!-- プラン -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料のままでも、<strong>連携フォーム 1 本</strong>まで使えます（列の対応づけ・プレビュー・二重登録の防止・選択肢のずれの扱いは、すべて無料の範囲です）。<strong>一覧を開いたときの自動取り込み</strong>、<strong>複数フォームの集約</strong>、<strong>取り込みログと失敗通知</strong>が、プレミアム年間サポーターで解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ 連携フォーム 1 本の取り込み</li>
+              <li>✅ 一覧のツールバーのボタンから実行</li>
+              <li>✅ 取り込む前のプレビュー</li>
+              <li>✅ 回答IDと［値の重複を禁止する］による二重登録の防止</li>
+              <li>✅ 選択肢に無い値の退避／スキップ</li>
+              <li>✅ 利用期限なし（設定画面に控えめな広告あり）</li>
+            </ul>
+            <a href="/downloads/kw-form-connect-v1.0.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>連携フォームの本数に制限なし</strong>（複数フォームを 1 アプリへ集約）</li>
+              <li>✅ <strong>一覧を開いたときの自動取り込み</strong>（取り込めたら一覧を更新）</li>
+              <li>✅ <strong>取り込みログの保管アプリ</strong>（実行履歴・失敗理由・元の回答）</li>
+              <li>✅ <strong>失敗したときの kintone 通知</strong></li>
+              <li>✅ 設定画面の広告なし</li>
+              <li>✅ <strong>プレミアム全製品</strong>と、ちょこっとプラグイン全製品が使えます</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta is-primary">プレミアム年間サポーターを見る →</a>
+          </div>
+        </div>
+        <div class="afp-note">単品販売はありません。プレミアムに加入すると、<strong>保存済みの設定のまま</strong>そのまま動きます。</div>
+      </div>
+    </section>
+
+    <!-- 動作環境 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">動作環境と制約</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li>kintone（PC のレコード一覧画面）。<strong>スマートフォンアプリでは動きません</strong>（何も差し込みません）</li>
+            <li>ゲストスペース内のアプリに対応しています</li>
+            <li>Google フォームの<strong>ファイルアップロード（添付）とサブテーブルへの取り込みは v1.0.0 では非対応</strong>です</li>
+            <li>取り込みは一方通行です。kintone で値を直しても Google フォームの回答には反映されません</li>
+            <li>Google との接続はアプリ管理者が一度だけ行います。<strong>一般の利用者に Google ログインは不要</strong>です</li>
+            <li>接続は <strong>KIZUNA Works の接続</strong>と<strong>お客様ご自身の Google Cloud</strong> のどちらでも動きます。本番運用では後者を推奨しています（<a href="/plugins/form-connect/google-cloud/">自社の Google Cloud で使う設定手順</a>・所要 15 分・費用なし）</li>
+                  </ul>
+        </div>
+      </div>
+    </section>
+
+    <PremiumFaqSection
+      pluginId="kw-form-connect"
+      pageUrl="https://kizuna-works.jp/plugins/form-connect/"
+      headingClass="afp-h2"
+    />
+
+    <!-- セキュリティ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-form-connect" />
+        <ShareButtons title="フォーム連携 for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>回答の打ち直しを、やめる</h2>
+      <p>フォーム連携はプレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料のままでも、連携フォーム 1 本・ボタンからの取り込みまでお使いいただけます。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="fc-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('fc-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      // ダウンロードは ヒーローとプランカードの2か所にあるので、まとめて計測する
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: 'kw-form-connect-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-form-connect-v1.0.0.zip'
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>
