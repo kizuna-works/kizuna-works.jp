@@ -46,11 +46,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "条件分岐自動採番 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "dateModified": "2026-08-05",
-          "softwareVersion": "2.1.1",
-          "releaseNotes": "v2.1.0（2026-08-01）: 重複した番号を検出して振り直せる「重複チェックと修正」機能を追加。採番フィールドの値が重複しているレコードを検出し、1件はそのまま残したまま、それ以外の連番部分だけを未使用の番号へ振り直します（日付部分・条件テキストは維持）。実行前のプレビュー表示とCSVダウンロードに対応。あわせて採番フィールドへの「値の重複を禁止する」設定を設定画面で案内し、最大番号の検出は既存レコード全件を対象として精度を高めました。設定画面は3カラム＋タブ構成に刷新しています。",
+          "dateModified": "2026-09-13",
+          "softwareVersion": "2.2.0",
+          "releaseNotes": "v2.2.0（2026-09-13）: 当社のルックアップ新規登録プラグインと連携し、その登録パネルからレコードを作るときにも採番されるようになりました。登録パネルでは採番対象の項目に入力欄を出さず「自動採番」とだけ表示し、登録した瞬間に番号を発行します。採番できない場合は登録を中止するため、採番されないままレコードが作られることはありません。連携にはルックアップ新規登録側の設定が必要です。採番の仕様そのものに変更はありません。 / v2.1.0（2026-08-01）: 重複した番号を検出して振り直せる「重複チェックと修正」機能を追加。採番フィールドの値が重複しているレコードを検出し、1件はそのまま残したまま、それ以外の連番部分だけを未使用の番号へ振り直します（日付部分・条件テキストは維持）。実行前のプレビュー表示とCSVダウンロードに対応。あわせて採番フィールドへの「値の重複を禁止する」設定を設定画面で案内し、最大番号の検出は既存レコード全件を対象として精度を高めました。設定画面は3カラム＋タブ構成に刷新しています。",
           "url": "https://kizuna-works.jp/plugins/kw-conditional-numbering/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-numbering-v2.1.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-numbering-v2.2.0.zip",
           "offers": {
             "@type": "Offer",
             "name": "基本プラン（無料）",
@@ -819,53 +819,42 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.1.1</span>
+        <span class="hero-version">v2.2.0</span>
       </div>
       <h1 class="hero-title">条件分岐自動採番 for kintone</h1>
-      <p class="hero-copy">組織・担当者・ステータスなど、フィールドの条件に応じて採番ルールを自動切替。1つのアプリで最大3フィールドを同時採番し、CSVインポート後の一括採番、重複した番号の検出と振り直しにも対応した、kintone専用の自動採番プラグインです。</p>
+      <p class="hero-copy">組織・担当者・ステータスなど、フィールドの条件に応じて採番ルールを自動切替。1つのアプリで最大3フィールドを同時採番し、CSVインポート後の一括採番、重複した番号の検出と振り直し、ルックアップ新規登録の登録パネルからの採番にも対応した、kintone専用の自動採番プラグインです。</p>
     </section>
 
-    <!-- Update Notice (v2.1.0) -->
+    <!-- Update Notice (v2.2.0) -->
     <section class="update-section fade-in">
       <div class="update-box">
         <div>
           <span class="update-tag">UPDATE</span>
-          <span class="update-date">v2.1.0（2026年8月1日）</span>
+          <span class="update-date">v2.2.0（2026年9月13日）</span>
         </div>
-        <h2 class="update-title">重複した番号を検出して振り直せるようになりました</h2>
+        <h2 class="update-title">ルックアップの登録パネルの中でも採番されるようになりました</h2>
         <p class="update-desc">
-          kintone には採番専用の排他制御の仕組みがないため、<strong>複数の方がほぼ同時に保存された場合</strong>など、条件によっては同じ番号が採番されることがあります。<br>
-          v2.1.0 では、そうした重複を設定画面から検出し、<strong>重複しているレコードのうち1件はそのまま残したまま</strong>、それ以外の<strong>連番部分だけ</strong>を未使用の番号へ振り直せるようにしました。日付や条件テキストはそのまま維持されます。
+          同日に公開した<a href="/plugins/lookup-add/">ルックアップ新規登録</a>は、ルックアップの［取得］の隣から<strong>参照先アプリのレコードをその場で登録</strong>できるプラグインです。この登録は kintone の REST API で行うため、これまでは<strong>参照先アプリ側の採番が動きませんでした</strong>（保存時の処理を通らないため）。<br>
+          v2.2.0 では本プラグインが<strong>採番の窓口を公開</strong>し、登録パネルから呼び出せるようにしました。参照先アプリ側に本プラグインを入れておけば、<strong>登録パネルで作られたレコードにも番号が付きます</strong>。
         </p>
-        <div class="update-table-wrap">
-          <table class="update-eg">
-            <thead>
-              <tr><th>レコード番号</th><th>現在の番号</th><th>残す</th><th>新しい番号</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>13</td><td><code>240701-A-00005</code></td><td>●</td><td>変更しません</td></tr>
-              <tr><td>56</td><td><code>240701-A-00005</code></td><td></td><td><code>240701-A-00042</code></td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="update-shot">
+        <div class="update-shot" style="max-width:564px;">
           <div class="screenshot-frame">
             <picture>
-              <source srcset="/images/conditional-numbering-config-01.webp" type="image/webp" />
+              <source srcset="/images/conditional-numbering-lookup-add.webp" type="image/webp" />
               <img
                 class="zoomable"
-                src="/images/conditional-numbering-config-01.png"
-                alt="条件分岐自動採番 v2.1.0 の「重複チェックと修正」設定画面 — 重複している番号・レコード番号・条件値・残すレコードの選択・新しい番号を一覧表示し、上部に「値の重複を禁止する」の設定を案内するメッセージが表示されている"
+                src="/images/conditional-numbering-lookup-add.png"
+                alt="ルックアップ新規登録の登録パネル。採番対象の項目には入力欄が出ず「自動採番」と表示されている"
                 loading="lazy"
-                width="1536"
-                height="1295"
+                width="564"
+                height="712"
               />
             </picture>
           </div>
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </div>
         <p class="update-note">
-          どのレコードを残すかはグループ単位で選べます。実行前に「どのレコードがどう変わるか」のプレビューを表示し、CSV でダウンロードして記録に残せます。あわせて、採番フィールドに kintone 標準の「値の重複を禁止する」を設定することを設定画面でご案内するようにしました。この設定があれば、万一同じ番号が生成されても kintone 側で保存がブロックされ、重複したレコードが作られません。最大番号の検出は既存レコード全件を対象とするようにし、精度を高めています。既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください（設定は引き継がれます）。
+          採番対象の項目は<strong>入力欄を出さず「自動採番」とだけ表示</strong>し、［登録］を押した瞬間に番号を発行します。採番できないときは<strong>登録を中止</strong>して、やり直しと参照先アプリの画面で登録する方法を案内するため、<strong>採番されないままレコードが作られることはありません</strong>。条件分岐の設定はこれまでどおり働き、<strong>採番の仕様そのものは変更していません</strong>。連携には参照先アプリ側が<strong>v2.2.0 以上</strong>である必要があります（v2.1.1 以前ではルックアップ新規登録の設定画面が警告します）。連携を使わない場合はこれまでどおりの動作です。既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください（設定は引き継がれます）。
         </p>
       </div>
     </section>
@@ -904,6 +893,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <li><span><strong>連番の独立管理</strong> — 条件ごとに連番を分けるか、アプリ全体で通し番号にするかを選択可能。</span></li>
         <li><span><strong>CSVインポート対応</strong> — 設定画面のボタン1つで、採番フィールドがブランクのレコードにまとめて採番。</span></li>
         <li><span><strong>連番の手動修正</strong> — 設定画面から現在値の確認・修正・リセットが可能。</span></li>
+        <li><span><strong>ルックアップ新規登録との連携</strong> — 当社の<a href="/plugins/lookup-add/">ルックアップ新規登録</a>の登録パネルから作られるレコードにも採番。採番対象は入力欄を出さず「自動採番」と表示し、採番できないときは登録を中止します（v2.2.0 以上）。</span></li>
         <li><span><strong>重複チェックと修正</strong> — 番号が重複しているレコードを検出し、1件を残して連番部分だけを未使用の番号へ振り直し。日付・条件テキストは維持され、実行前のプレビューとCSV出力に対応。</span></li>
       </ul>
     </section>
@@ -1015,7 +1005,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-conditional-numbering-v2.1.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード（v2.1.1）</a>
+          <a href="/downloads/kw-conditional-numbering-v2.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード（v2.2.0）</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -1219,10 +1209,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           gtag('event', 'file_download', {
-            file_name: 'kw-conditional-numbering-v2.1.1.zip',
+            file_name: 'kw-conditional-numbering-v2.2.0.zip',
             file_extension: 'zip',
-            link_text: '無料でダウンロード（v2.1.1）',
-            link_url: '/downloads/kw-conditional-numbering-v2.1.1.zip'
+            link_text: '無料でダウンロード（v2.2.0）',
+            link_url: '/downloads/kw-conditional-numbering-v2.2.0.zip'
           });
         });
       }

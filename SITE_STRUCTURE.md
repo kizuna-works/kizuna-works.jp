@@ -204,6 +204,8 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】フォーム連携 製品ページ（/plugins/form-connect/）— Google フォームの回答を、回答スプレッドシート経由で kintone アプリへ取り込む。中継サーバー・GAS・API トークンのいずれも不要で、kintone 側から取りに行くため Google 側に kintone への書き込み口を開けない。Google に求める権限は drive.file のみ（Picker で選んだ回答シート 1 枚だけを読む／書き込みはしない）。列とフィールドの対応づけは設定画面の表だけで完結し、見出しとフィールド名/フィールドコードが一致する列は自動で対応づけ（角かっこ [フィールドコード] を最優先／全角半角・空白・記号は無視して照合／タイムスタンプ列は未使用の日時が1つのときだけ自動割り当て）。同一性の判定は行番号ではなく回答ID（フォームキー＋タイムスタンプ＋行内容のハッシュ）＋［値の重複を禁止する］の二段で二重登録を防ぐ。取り込みは一覧のボタン（プレビューつき）と一覧を開いたときの自動（プレミアム・取り込めたら一覧を更新）の2経路。選択肢に無い値は退避／スキップを選択。複数フォームを1アプリへ集約（無料は1本）。取り込みログの保管アプリ自動生成と失敗時の kintone 通知（プレミアム・既定OFF）。ヒーロー＋課題＋しくみ3ステップ（カード）＋設定（対応づけ表1枚）＋取り込み（ツールバーのボタン/プレビュー/進捗/タイミング設定の4枚）＋二重登録（必要なフィールド1枚）＋複数フォーム＋選択肢のずれ＋ログと通知＋主な機能8＋インストール手順6＋プラン（無料/プレミアム）＋動作環境＋FAQ12（本文は src/data/premium-faqs.ts の kw-form-connect）＋SecurityBox＋ShareButtons＋CTA。添付ファイル・サブテーブルへの取り込みは v1.0.0 非対応・PC の一覧画面のみ。ゲストスペース対応
 │   │   │   │   └── google-cloud/
 │   │   │   │       └── index.astro # 【手順ページ】自社の Google Cloud で使う設定手順（/plugins/form-connect/google-cloud/）— フォーム連携を顧客自身の Google Cloud プロジェクトで動かすための手順。①プロジェクト作成 ②Google Sheets API と Google Picker API を有効化（Drive API は接続アカウント表示用の任意）③OAuth 同意画面（Workspace は「内部」で審査不要／個人は「外部」＋本番環境に公開。テストのままだと 7 日で失効）④OAuth クライアント（リダイレクト URI は https://kizuna-works.jp/form-connect/callback.html の 1 本）⑤API キー（制限は Picker API のみ・HTTP リファラー制限は付けない）⑥設定画面へ 3 つを入力して接続。スコープは drive.file のみ（spreadsheets 系は CASA 対象なので使わない）。つまずき表 8 行＋FAQ 6 件。ドライブ連携の同種ページと同じ体裁で、Cloud プロジェクトの共用手順も記載。プラグイン設定画面の「自社の Google Cloud を使う」から直接リンクされる（config.js の SETUP_GUIDE_URL）
+│   │   │   ├── lookup-add/
+│   │   │   │   └── index.astro # 【プレミアムプラグイン】ルックアップ新規登録 製品ページ（/plugins/lookup-add/）— ルックアップの候補に参照先のレコードが無いとき、［取得］の隣の［＋新規登録］から入力中の画面を離れずに登録し、そのまま取得まで完了させる。登録画面には 打った文字（キー項目へ）／入力中のレコードの値・同じ行の値・固定値（引き継ぐ値）／絞り込みの初期設定から決まる値 が入った状態で開く。登録前に似ているレコードを表示し（9種類の表記ゆれを吸収）、完全一致は登録を中止。登録方式は パネル／標準画面（別のタブ・小さなウィンドウ）。パネルの見た目3スタイル、ボタンの見せ方2種類。条件分岐自動採番 v2.2.0 以上と連携してパネルからの登録でも採番。サジェスト・絞り込みと同じルックアップ上で併用可。ヒーロー＋課題3＋before/after 2枚＋使い方3枚＋引き継ぎ表＋見た目1枚＋標準画面1枚＋方式の比較表＋設定5枚＋連携（3製品カード＋4製品同居1枚）＋インストール手順5＋プラン（無料/プレミアム）＋できないこと5＋FAQ11＋SecurityBox＋ShareButtons＋CTA。無料はルックアップ1つ、複数ルックアップと広告非表示がプレミアム。PC 版のみ・ゲストスペース対応
 │   │   │   ├── lookup-filter/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】ルックアップ絞り込み 製品ページ（/plugins/lookup-filter/）— ルックアップの［取得］で開く一覧を、入力中のレコードの値に応じて絞り込む。kintone 標準の「絞り込みの初期設定」は固定値しか書けない隙間を埋め、条件の右辺に 入力中のレコードのフィールド／操作している人（ログインユーザー・優先組織）／実行するときの日付／固定値／見る人ごとの対応表 を指定できる。絞り込みは参照先アプリへの問い合わせ条件として送る（取得後に隠すのではない）。場面ごとの条件セットは上から順に判定し最初の1つだけを使う。保存時ガード＝条件に合わない値のまま保存しようとすると中止して理由を表示。取得後に条件が変わったときの動きは クリア／警告／何もしない から選択。ルックアップサジェスト v3.0.0 以上と併用すると入力中の候補にも適用（オンオフ可・オフでも［取得］の一覧は絞り込まれる）。ヒーロー＋課題3＋before/after 2枚＋レコード画面1枚＋保存時ガード1枚＋設定3枚（1文・初回・よくある例）＋場面ごと＋サジェスト連携 before/after 2枚＋インストール手順5＋プラン（無料/プレミアム）＋できないこと4＋FAQ10＋SecurityBox＋ShareButtons＋CTA。無料はルックアップ1つ・絞り込み1通り、複数ルックアップ/条件セット/対応表/サジェスト連携はプレミアム。ゲストスペース対応
 │   │   │   ├── pdf-edit/
@@ -288,7 +290,7 @@ c:\kizuna-works.jp\
 │   │   ├── musubi-preview.png              # Musubi（PDF結合・分割ツール）プレビュー画像
 │   │   ├── conditional-numbering-icon.png  # 条件分岐自動採番プラグイン アイコン
 │   │   ├── conditional-numbering-banner.png # 条件分岐自動採番プラグイン バナー
-│   │   ├── conditional-numbering-config-01.png  # 条件分岐自動採番 v2.1.0「重複チェックと修正」設定画面スクショ（製品ページ UPDATE ボックス用）
+│   │   ├── conditional-numbering-config-01.png  # 条件分岐自動採番 v2.1.0「重複チェックと修正」設定画面スクショ（**現在どこからも参照していない**。製品ページの UPDATE ボックスは最新版だけを載せる方針にしたため v2.2.0 の分に置き換わった）
 │   │   ├── conditional-numbering-config-01.webp # 同 WebP 版
 │   │   ├── form-deco-icon.png              # FormDecoプラグイン アイコン
 │   │   ├── form-deco-banner.png            # FormDecoプラグイン バナー（1200×675・OGP/グリッド共用）
@@ -591,6 +593,25 @@ c:\kizuna-works.jp\
 │   │   ├── form-connect-action-01.png   # フォーム連携 取り込む内容の確認（プレビュー・15件）＋ .webp
 │   │   ├── form-connect-action-02.png   # フォーム連携 取り込み中の進捗表示（何をしているかと進捗バー）＋ .webp
 │   │   ├── form-connect-action-03.png   # フォーム連携 一覧ツールバーの取り込みボタン（＋ボタンの左に配置）＋ .webp
+│   │   ├── lookup-add-banner.png        # ルックアップ新規登録 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・**手作りの差し替え版**。雛形は gen-plugin-banner.mjs の lookup-add 定義）＋ .webp / -800.webp
+│   │   ├── lookup-add-icon.png          # ルックアップ新規登録 アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
+│   │   ├── lookup-add-before.png        # 導入前：標準の［取得］で該当なし（行き止まり）＋ .webp
+│   │   ├── lookup-add-after.png         # 導入後：その場で登録して取得まで完了・ボタンが「登録したレコードを開く」に変わる＋ .webp
+│   │   ├── lookup-add-record.png        # ［取得］の隣に［＋］が出たレコード編集画面＋ .webp
+│   │   ├── lookup-add-similar.png       # 似ているレコードの確認（表記ゆれを吸収した候補一覧）＋ .webp
+│   │   ├── lookup-add-panel.png         # 登録パネル（理由バッジつきの入力欄）＋ .webp
+│   │   ├── lookup-add-skins.png         # パネルの見た目3スタイル比較（標準／やわらか／すっきり）＋ .webp
+│   │   ├── lookup-add-standard.png      # 標準画面方式（参照先アプリの新規作成画面に値が入って開く）＋ .webp
+│   │   ├── lookup-add-config-01.png     # 設定①対象と登録方式＋ .webp
+│   │   ├── lookup-add-config-02.png     # 設定②パネルに出すフィールド＋ .webp
+│   │   ├── lookup-add-config-03.png     # 設定③参照先アプリに引き継ぐ値＋ .webp
+│   │   ├── lookup-add-config-04.png     # 設定④登録できる人＋ .webp
+│   │   ├── lookup-add-config-05.png     # 設定⑤重複の確認（試しに入力）＋ .webp
+│   │   ├── lookup-add-combo-suggest.png # 連携：ルックアップサジェストの候補0件から［＋］へ＋ .webp
+│   │   ├── lookup-add-combo-filter.png  # 連携：ルックアップ絞り込みの条件が登録パネルに固定される＋ .webp
+│   │   ├── lookup-add-combo-numbering.png # 連携：条件分岐自動採番で「自動採番」と表示される＋ .webp
+│   │   ├── lookup-add-combo-all.png     # 連携：4製品を同じ画面に載せた例＋ .webp
+│   │   ├── conditional-numbering-lookup-add.png # 条件分岐自動採番 v2.2.0 の UPDATE 用（登録パネル内の自動採番）＋ .webp
 │   │   ├── lookup-filter-banner.png     # ルックアップ絞り込み for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・gen-plugin-banner.mjs で生成）＋ .webp / -800.webp
 │   │   ├── lookup-filter-icon.png       # ルックアップ絞り込み アイコン（200×200・ランキング/Top3/製品ページヒーロー・プラグイン同梱アイコン）＋ .webp
 │   │   ├── lookup-filter-before.png     # 導入前：kintone 標準のレコード選択画面（全90件・目的の商品が見えない）＋ .webp
@@ -886,6 +907,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-dashboard-v1.1.2.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-dashboard-v1.1.3.zip                               # ダッシュボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.1.3 参照アプリの候補をスペース非依存化＋設定画面の後追い反映）
 │   │   ├── kw-drive-connect-v1.0.0.zip                          # ドライブ連携 for kintone 配布ファイル（最新・手動配置・プレミアム第13弾 初版）
+│   │   ├── kw-lookup-add-v1.0.0.zip    # ルックアップ新規登録 v1.0.0 配布物
+│   │   ├── kw-conditional-numbering-v2.2.0.zip # 条件分岐自動採番 v2.2.0 配布物
 │   │   ├── kw-lookup-filter-v1.0.0.zip                          # ルックアップ絞り込み for kintone 配布ファイル（最新・手動配置・プレミアム第14弾 初版）
 │   │   ├── kw-elapsed-assist-v1.0.2.zip                          # 経過計算アシスト for kintone 配布ファイル（手動配置・v1.0.2 初版：基準日から9パターン自動計算＋その場再計算＋保存書込＋停止条件＋一括再計算）
 │   │   ├── kw-elapsed-assist-v1.0.3.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）

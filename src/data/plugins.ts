@@ -132,7 +132,7 @@ export const plugins: Plugin[] = [
     slug: 'kw-conditional-numbering',
     categories: ['自動入力', '一括処理', '入力チェック'],
     description:
-      '部署・担当者・ステータスなどフィールドの値に応じて、採番ルールを自動で切り替えるプラグイン。1つのアプリで最大3フィールドを同時採番でき、18種類の書式・条件別の連番管理、CSVインポート後の一括採番、重複した番号の検出と振り直しにも対応します。',
+      '部署・担当者・ステータスなどフィールドの値に応じて、採番ルールを自動で切り替えるプラグイン。最大3フィールドの同時採番、条件別の連番管理、CSVインポート後の一括採番、重複番号の検出と振り直し、ルックアップ新規登録の登録パネルからの採番に対応します。',
     image: '/images/conditional-numbering-banner.png',
     imageAlt:
       '条件分岐自動採番プラグイン — フィールドの条件に応じて採番ルールを自動切替',
@@ -141,11 +141,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '部署・担当者・ステータス等の条件に応じて採番ルールを自動切替。最大3フィールドの同時採番・CSV一括採番・重複番号の振り直しに対応。',
+      '部署・担当者・ステータス等の条件に応じて採番ルールを自動切替。最大3フィールドの同時採番・CSV一括採番・重複番号の振り直し・登録パネルからの採番に対応。',
     problemTitle: '採番ルールを条件で自動切替',
     problemDesc: 'CSVインポート後の一括採番にも対応したい',
     releaseDate: '2026-04-18',
-    summaryVersion: '2.1.1',
+    summaryVersion: '2.2.0',
   },
   {
     id: 'kw-form-deco',
@@ -1616,6 +1616,32 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       'Google フォームで申込や問い合わせを受けているが、kintone へ載せるには CSV を書き出して貼り付けるか、1件ずつ入力するしかない。GAS を書く手もあるが、作った人しか直せないものを業務に挟みたくない',
     releaseDate: '2026-09-11',
+    summaryVersion: '1.0.0',
+  },
+  {
+    id: 'kw-lookup-add',
+    pluginId: 'eceebgmaoamfpbobbjkjcmlncibfmpnp',
+    name: 'ルックアップ新規登録 for kintone',
+    formName: 'ルックアップ新規登録 for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'lookup-add',
+    categories: ['自動入力', '入力チェック'],
+    description:
+      'ルックアップの候補に無いレコードを、入力中の画面を離れずに参照先アプリへ登録し、そのまま取得まで終わらせます。打った文字・このレコードの値・絞り込みの条件を引き継いで入力欄に入れ、似ているレコードを先に見せるので重複登録も防げます。',
+    image: '/images/lookup-add-banner.png',
+    imageWebp: '/images/lookup-add-banner.webp',
+    imageAlt:
+      'ルックアップ新規登録 for kintone バナー — ルックアップで「探しても無い」を、その場の登録で終わらせる。［取得］の隣に「＋新規登録」／フォーム編集は不要、似たレコードを先に表示して二重登録を防ぐ、登録から取得まで自動／サブテーブル内も対応',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      'ルックアップの候補に無いレコードを、入力中の画面から登録して取得まで終わらせます。似ているレコードを先に出して重複も防ぎます。',
+    problemTitle: 'ルックアップで探しても、まだ参照先アプリに無い',
+    problemDesc:
+      '見積を入力している途中で取引先が参照先アプリに無いと気づき、別のアプリを開いて登録し、戻って探し直すことになる。入力中の内容が消えるのが怖くて、とりあえず空欄のまま保存してしまう',
+    releaseDate: '2026-09-13',
     summaryVersion: '1.0.0',
   },
 ];

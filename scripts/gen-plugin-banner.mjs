@@ -113,6 +113,18 @@ const BANNERS = {
       ['場面ごとに', '絞り方を切り替え', ''],
       ['条件に合わない値は', '保存を中止', '']
     ]
+  },
+  'lookup-add': {
+    iconSrc: 'SECRET/kintone_plugin_workspace/kw-lookup-add/kw-lookup-add_icon_512.png',
+    iconSide: 'left',
+    catch: ['候補に無いなら、', 'その場で登録。'],
+    name: 'ルックアップ新規登録 for kintone',
+    nameSize: 36,
+    bullets: [
+      ['入力中の画面から', '参照先アプリへ登録', ''],
+      ['登録したら', 'そのまま取得', 'まで自動'],
+      ['打った文字と', '条件を引き継いで', '入力']
+    ]
   }
 };
 

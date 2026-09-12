@@ -1,0 +1,641 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<Layout
+  title="ルックアップ新規登録 for kintone｜候補に無いレコードをその場で登録 | KIZUNA Works"
+  description="kintone のルックアップの候補に無いレコードを、入力中の画面を離れずに参照先アプリへ登録して取得まで終わらせるプラグイン。打った文字・このレコードの値・絞り込みの条件を引き継いで入力欄に入れ、似ているレコードを先に見せて二重登録を防ぎます。"
+  ogTitle="ルックアップ新規登録 for kintone｜候補に無いレコードをその場で登録 | KIZUNA Works"
+  ogDescription="候補に無いなら、その場で登録。入力中の画面を離れずに参照先アプリへ登録し、そのまま取得まで自動で終わります。打った文字と条件を引き継ぎ、似ているレコードを先に見せて二重登録も防ぎます。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/lookup-add/"
+  ogImage="https://kizuna-works.jp/images/lookup-add-banner.png"
+  canonical="https://kizuna-works.jp/plugins/lookup-add/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/lookup-add/",
+          "url": "https://kizuna-works.jp/plugins/lookup-add/",
+          "name": "ルックアップ新規登録 for kintone｜候補に無いレコードをその場で登録 | KIZUNA Works",
+          "description": "kintone のルックアップの候補に参照先のレコードが無いとき、入力中の画面を離れずに参照先アプリへ登録し、そのまま取得まで終わらせる kintone プラグイン。打った文字・入力中のレコードの値・絞り込みの初期設定の条件を引き継いで登録し、似ているレコードを先に表示して二重登録を防ぐ。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/lookup-add-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "ルックアップ新規登録 for kintone", "item": "https://kizuna-works.jp/plugins/lookup-add/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "ルックアップ新規登録 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-09-13",
+          "url": "https://kizuna-works.jp/plugins/lookup-add/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-add-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/lookup-add-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "プレミアム年間サポーター（全プラグイン込み）",
+            "price": "16500",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "プレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料プランでもルックアップ1つで利用できます。"
+          },
+          "description": "kintone のルックアップは参照先アプリにレコードが無いと先へ進めない。本プラグインは［取得］の隣に［＋新規登録］を置き、入力中の画面を離れずに参照先アプリのレコードを登録して、そのまま取得まで完了させる。登録画面には、ルックアップ欄に打った文字・入力中のレコードから引き継ぐ値・ルックアップの絞り込みの初期設定で決まる値が入った状態で開く。登録の前には表記ゆれを吸収して似ているレコードを表示し、完全一致のときは登録を止める。登録方式はパネル（この画面のまま入力）と標準画面（参照先アプリの新規作成画面を別のタブか小さなウィンドウで開き、保存を検知して取得まで自動完了）から選べる。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "ルックアップの［取得］の隣に［＋新規登録］を表示（フォームの編集は不要）",
+            "入力中の画面を離れずに参照先アプリへレコードを登録",
+            "登録したレコードをそのまま取得まで自動完了（コピー先の項目も反映）",
+            "ルックアップ欄に打った文字をキー項目へ引き継ぎ",
+            "入力中のレコードの値・同じ行の値・固定値を参照先アプリの項目へ引き継ぎ",
+            "絞り込みの初期設定で決まる値をあらかじめ固定し、登録直後に条件を検査",
+            "表記ゆれを吸収して似ているレコードを先に表示（完全一致は登録を中止）",
+            "登録できる人をユーザー・組織・グループで限定",
+            "登録方式はパネルと標準画面（別のタブ／小さなウィンドウ）から選択",
+            "パネルの見た目を3スタイルから選択（標準／やわらか／すっきり）",
+            "ボタンの見せ方を記号だけ・文字つきから選択",
+            "条件分岐自動採番 v2.2.0 以上と連携し、パネルからの登録でも採番",
+            "ルックアップサジェスト・ルックアップ絞り込みと同じルックアップ上で併用可",
+            "サブテーブル内のルックアップに対応",
+            "ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
+    .afp-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+    .afp-hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 26px; border-radius: 26px;
+      font-weight: 700; font-size: 1rem; text-decoration: none; line-height: 1.3;
+    }
+    .afp-hero-btn.is-primary { background: #2E8B2E; color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.22); }
+    .afp-hero-btn.is-primary:hover { background: #35a035; }
+    .afp-hero-btn.is-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.6); }
+    .afp-hero-btn.is-ghost:hover { background: rgba(255,255,255,0.24); }
+    @media (max-width: 600px) { .afp-hero-btn { width: 100%; } }
+
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      margin: 0 0 26px;
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot + .afp-shot,
+    .afp-shot + .afp-cautions,
+    .afp-shot + .afp-note,
+    .afp-shot + .afp-grid-feats { margin-top: 26px; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+    .afp-shot-w340 { max-width: 340px; }
+    .afp-shot-w380 { max-width: 380px; }
+    .afp-shot-w420 { max-width: 420px; }
+    .afp-shot-w520 { max-width: 520px; }
+    .afp-shot-w560 { max-width: 560px; }
+    .afp-shot-w640 { max-width: 640px; }
+    .afp-shot-w720 { max-width: 720px; }
+    .afp-shot-w840 { max-width: 840px; }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-zoomhint { text-align: center; font-size: 0.82rem; color: var(--color-text-muted); margin: 10px 0 0; }
+
+    .steps-list { list-style: none; padding: 0; margin: 8px 0 4px; counter-reset: afpstep; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <style is:global>
+    /* このページで足すもの */
+    .afp-h3 {
+      font-size: 1.15rem; color: var(--color-navy); margin: 34px 0 12px;
+      padding-left: 12px; border-left: 4px solid var(--color-green);
+    }
+    .afp-h3:first-of-type { margin-top: 8px; }
+    .afp-feat-no {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--color-green); margin-bottom: 6px;
+    }
+    /* before / after の対比 */
+    .la-ba { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 26px 0 0; }
+    .la-ba figure { margin: 0; }
+    .la-ba .la-ba-tag {
+      display: inline-block; font-size: 0.78rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 999px; margin-bottom: 8px;
+    }
+    .la-ba .is-before { background: #eef2f7; color: #64748b; }
+    .la-ba .is-after { background: #e8f5e9; color: var(--color-green); }
+    .la-ba img { width: 100%; height: auto; border: 1px solid #dbe3ec; border-radius: 8px; background: #fff; cursor: zoom-in; }
+    .la-ba figcaption { font-size: 0.86rem; color: #64748b; line-height: 1.7; margin-top: 8px; }
+    @media (max-width: 767px) { .la-ba { grid-template-columns: 1fr; } }
+
+    /* 連携する製品のカード */
+    .la-combo { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 26px; }
+    .la-combo-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 24px 24px; box-shadow: var(--shadow-card); display: flex; flex-direction: column; }
+    .la-combo-card h3 { font-size: 1.08rem; color: var(--color-navy); margin: 0 0 4px; }
+    .la-combo-card .la-combo-role { font-size: 0.8rem; font-weight: 700; color: var(--color-green); letter-spacing: 0.06em; margin-bottom: 10px; }
+    .la-combo-card p { font-size: 0.95rem; line-height: 1.8; margin: 0 0 14px; }
+    .la-combo-card img { width: 100%; height: auto; border: 1px solid #dbe3ec; border-radius: 8px; background: #fff; cursor: zoom-in; margin-top: auto; }
+    .la-combo-card a { color: var(--color-navy); font-weight: 700; }
+  </style>
+
+  <main>
+    <!-- ヒーロー -->
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/lookup-add-icon.png" alt="ルックアップ新規登録 for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1 class="afp-hero-title">ルックアップ新規登録 for kintone</h1>
+      <p class="afp-tagline">候補に無いなら、その場で登録。</p>
+      <p class="afp-sub">kintone のルックアップは、<strong>参照先アプリにレコードが無いと先へ進めません</strong>。本プラグインは［取得］の隣に<strong>［＋新規登録］</strong>を置き、<strong>入力中の画面を離れずに参照先アプリを登録して、そのまま取得まで終わらせます</strong>。打った文字も、入力中のレコードの値も、絞り込みの条件も引き継いで入力欄に入るので、<strong>登録して戻ってくる手間がなくなります</strong>。</p>
+      <div class="afp-hero-cta">
+        <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-lookup-add-v1.0.0.zip" download>無料でダウンロード</a>
+      </div>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 課題 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">「まだマスタに無い」で、入力が止まる</h2>
+        <p class="afp-lead">新しい取引先の受注を入力しようとして、ルックアップで探しても出てこない。参照先アプリを開いて登録し、戻ってきて［取得］を押し直す——ルックアップを使っている現場なら、毎日どこかで起きています。</p>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">01</span>
+            <h3>入力中の内容が消えるのが怖い</h3>
+            <p>別のアプリを開くために画面を離れると、<strong>入力途中のレコードをどうするか</strong>を毎回考えることになります。仮保存して戻る、別タブで開く、諦めて最初からやり直す——どれも本来やらなくていい作業です。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">02</span>
+            <h3>同じ会社が二重に登録される</h3>
+            <p>「株式会社大和運輸」と「大和運輸（株）」。<strong>探し方が少し違うだけで、無いように見えます</strong>。そのまま登録すると、同じ取引先のレコードが 2 つできて、集計も履歴も分かれます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">03</span>
+            <h3>登録したのに、候補に出てこない</h3>
+            <p>ルックアップに<strong>絞り込みの初期設定</strong>があると、条件を満たさないレコードは候補に出ません。急いで登録したレコードが条件から外れていて、また参照先アプリを開いて直す、ということが起きます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- before / after -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">［取得］の隣の［＋］を押すだけ</h2>
+        <p class="afp-lead">ルックアップ欄に<strong>探していた名前を打ったまま</strong>［＋］を押すと、その文字が入った登録画面が開きます。登録すると<strong>ルックアップの取得まで自動で終わり</strong>、コピー先の項目も埋まります。</p>
+        <div class="la-ba">
+          <figure>
+            <span class="la-ba-tag is-before">導入前</span>
+            <Picture src="/images/lookup-add-before.png" alt="見積の明細に型番を打ったが商品リストに無く、[取得]を押して参照先からデータを取得してくださいという赤いエラーが出て保存できない状態" width="1136" height="222" class="zoomable" />
+            <figcaption>参照先に無い値のままでは<strong>［取得］できず、保存も止まります</strong>。参照先アプリを開きに行くしかありません。</figcaption>
+          </figure>
+          <figure>
+            <span class="la-ba-tag is-after">導入後</span>
+            <Picture src="/images/lookup-add-after.png" alt="登録したあとの見積の明細。型番と商品名・単価が入り、参照先からデータが取得されましたと表示され、ボタンが登録したレコードを開くリンクに変わっている" width="1136" height="196" class="zoomable" />
+            <figcaption>その場で登録して<strong>取得まで完了</strong>。コピー先の商品名・単価も埋まり、ボタンは<strong>登録したレコードを開く導線</strong>に変わります。</figcaption>
+          </figure>
+        </div>
+        <p class="afp-zoomhint">画像をクリックすると拡大表示します</p>
+        <div class="afp-note">ボタンは<strong>［取得］の隣に自動で置かれます</strong>。フォームにスペースを足したり、レイアウトを編集したりする必要はありません。プラグインを無効にすれば、元の画面に戻ります。</div>
+      </div>
+    </section>
+
+    <!-- 使い方 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">使うときの流れ</h2>
+        <p class="afp-lead">利用者の操作は<strong>［＋］を押して、足りない項目を埋めて、［登録］</strong>だけです。参照先アプリを開くことも、元の画面に戻ってくることもありません。</p>
+
+        <h3 class="afp-h3">1. ［取得］の隣に［＋］が出ます</h3>
+        <figure class="afp-shot afp-shot-w560">
+          <Picture src="/images/lookup-add-record.png" alt="見積の明細行。ルックアップの取得ボタンの隣に、プラスとバツの記号だけのボタンが並んでいる" width="1136" height="142" class="zoomable" />
+          <figcaption class="afp-shot-cap">既定は<strong>記号だけ</strong>（＋とクリア）。設定で<strong>文字つきのボタン</strong>にも変えられます</figcaption>
+        </figure>
+
+        <h3 class="afp-h3">2. 似ているレコードがあれば、先に出ます</h3>
+        <figure class="afp-shot afp-shot-w340">
+          <Picture src="/images/lookup-add-similar.png" alt="似ているレコードの一覧。型番の似た商品が類似度つきで5件並び、それぞれに「これを取得する」ボタンがある" width="564" height="683" class="zoomable" />
+          <figcaption class="afp-shot-cap">「株式会社／(株)」「全角／半角」などのゆれを吸収して照合します。候補には<strong>見分けるための項目（商品名・価格など）を最大3つ併記</strong>でき、<strong>同じものなら登録せずにそのまま取得できます</strong></figcaption>
+        </figure>
+        <div class="afp-note"><strong>完全一致のときは登録できません。</strong>（表記のゆれを無視して同じなら、二重登録になるため）その場合は候補から取得します。別の会社であることが分かっているときは［それでも別のレコードとして登録する］で進めます。</div>
+
+        <h3 class="afp-h3">3. 足りない項目だけを埋めて、登録します</h3>
+        <figure class="afp-shot afp-shot-w340">
+          <Picture src="/images/lookup-add-panel.png" alt="ルックアップ新規登録の登録パネル。型番に打った文字が入り、サービス種別には引き継ぎ・変更不可のバッジ、商品コードには自動採番のバッジが付いている" width="564" height="712" class="zoomable" />
+          <figcaption class="afp-shot-cap">パネルに出す項目は設定で選べます。<strong>入力できない欄には、その理由が付きます</strong>（条件で固定／引き継ぎ・変更不可／自動採番）</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 引き継ぎ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">打ち直さなくていい</h2>
+        <p class="afp-lead">登録画面には、<strong>いま分かっていることが入った状態</strong>で開きます。利用者が打つのは、本当にまだ決まっていない項目だけです。</p>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>入るもの</th><th>どこから</th><th>例</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>キーの項目</td><td>ルックアップ欄に<strong>打った文字</strong></td><td>「トリオ商事」と打って［＋］→ 取引先名に入る</td></tr>
+              <tr><td>引き継ぐ値</td><td><strong>入力中のレコード</strong>の値／同じ行の値／固定値</td><td>受注の〈営業所〉→ 取引先の〈管理営業所〉</td></tr>
+              <tr><td>条件で決まる値</td><td>ルックアップの<strong>絞り込みの初期設定</strong></td><td>「区分＝取引先」で絞っているなら、区分を固定</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note"><strong>絞り込みの条件から決まる値は、あらかじめ固定します。</strong>登録したのに候補に出てこない、という取りこぼしを防ぐためです。条件が複雑で固定できない場合は<strong>登録した直後に検査</strong>し、合わなければその場で直して取得できます。</div>
+      </div>
+    </section>
+
+    <!-- 見た目 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">パネルの見た目は3つから選べます</h2>
+        <p class="afp-lead">アプリの雰囲気に合わせて選べます。<strong>どれを選んでも入力する内容と動きは同じ</strong>です。設定画面のプレビューで実物と同じ見た目を確認しながら決められます。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/lookup-add-skins.png" alt="パネルの3つの見た目の比較。標準・やわらか・すっきりが横に並んでいる" width="1400" height="599" class="zoomable" />
+          <figcaption class="afp-shot-cap">左から<strong>標準</strong>（kintone の入力欄に合わせる）／<strong>やわらか</strong>（既定）／<strong>すっきり</strong>（項目名を左に置いて下線だけ）</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 標準画面方式 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">参照先アプリの画面で登録することもできます</h2>
+        <p class="afp-lead">参照先アプリ側に他社プラグインや JavaScript カスタマイズが入っている場合は、<strong>標準画面方式</strong>を選びます。参照先アプリの新規作成画面が開き、<strong>保存すると元の画面が検知して取得まで自動で終わります</strong>。</p>
+        <figure class="afp-shot afp-shot-w560">
+          <Picture src="/images/lookup-add-standard.png" alt="標準画面方式で開いた商品リストの新規作成画面。型番に打った文字、サービス種別に引き継いだ値が入り、商品コードは採番されるため入力できない状態になっている" width="1203" height="747" class="zoomable" />
+          <figcaption class="afp-shot-cap">開き方は<strong>別のタブ</strong>（既定）と<strong>小さなウィンドウ</strong>から選べます。どちらでも、打った文字と引き継ぐ値は入った状態で開きます</figcaption>
+        </figure>
+        <div class="afp-tablewrap" style="margin-top:26px;">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>方式</th><th>登録する場所</th><th>参照先アプリ側の保存時処理</th><th>向いている場面</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>パネル</strong>（既定）</td><td>入力中の画面の上</td><td class="c">動きません<br /><span style="font-size:0.86em;color:#64748b;">（当社の条件分岐自動採番だけは連携します）</span></td><td>入力する項目が少ない。速く終わらせたい</td></tr>
+              <tr><td><strong>標準画面</strong></td><td>参照先アプリの新規作成画面</td><td class="c">動きます</td><td>参照先アプリ側のプラグインや JavaScript を動かしたい。テーブルを入力したい</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note">小さなウィンドウは<strong>ブラウザのポップアップブロックに止められることがあります</strong>。止められた場合は、その場で許可の方法とリンクを画面に出します。確実に開きたい場合は「別のタブ」をお使いください。</div>
+      </div>
+    </section>
+
+    <!-- 設定画面 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定画面</h2>
+        <p class="afp-lead">左が<strong>ルックアップの目次</strong>、中央が<strong>設定</strong>、右が<strong>プレビュー</strong>です。中央で設定した内容が、右に<strong>実物と同じ見た目</strong>で出ます。保存する前に、利用者に見える画面を確かめられます。</p>
+
+        <p class="afp-zoomhint">画像をクリックすると拡大表示します</p>
+
+        <h3 class="afp-h3">① 対象と登録方式</h3>
+        <figure class="afp-shot afp-shot-w560">
+          <Picture src="/images/lookup-add-config-01.png" alt="設定画面の①対象と登録方式。どのルックアップに出すかと、パネルか標準画面かを選ぶ" width="798" height="336" class="zoomable" />
+          <figcaption class="afp-shot-cap">どのルックアップに［＋］を出すかを選びます。<strong>参照先アプリ・キー・絞り込みの有無</strong>がその場に出ます</figcaption>
+        </figure>
+
+        <h3 class="afp-h3">② パネルに出すフィールド</h3>
+        <figure class="afp-shot afp-shot-w560">
+          <Picture src="/images/lookup-add-config-02.png" alt="設定画面の②パネルに出すフィールド。チェックボックスで項目を選び、並べ替えられる" width="798" height="460" class="zoomable" />
+          <figcaption class="afp-shot-cap"><strong>キー項目と必須項目は、選ばなくても必ず出ます。</strong>入力欄は少ないほど速く終わります</figcaption>
+        </figure>
+
+        <h3 class="afp-h3">③ 参照先アプリに引き継ぐ値</h3>
+        <figure class="afp-shot afp-shot-w560">
+          <Picture src="/images/lookup-add-config-03.png" alt="設定画面の③参照先アプリに引き継ぐ値。入れ先・どこから持ってくるか・変更させないかを表で設定する" width="798" height="527" class="zoomable" />
+          <figcaption class="afp-shot-cap">kintone のルックアップとは<strong>向きが逆</strong>（このレコード → 新しく作るレコード）です。［変更させない］にすると、利用者は書き換えられません</figcaption>
+        </figure>
+
+        <h3 class="afp-h3">④ 登録できる人</h3>
+        <figure class="afp-shot afp-shot-w560">
+          <Picture src="/images/lookup-add-config-04.png" alt="設定画面の④登録できる人。ユーザー・組織・グループを検索または一覧から選ぶ" width="798" height="476" class="zoomable" />
+          <figcaption class="afp-shot-cap">空のままなら全員が登録できます。<strong>打たなくても一覧から選べます</strong>（誰が居るか分からなくても設定できます）</figcaption>
+        </figure>
+
+        <h3 class="afp-h3">右のプレビューで、見た目と照合を決める</h3>
+        <figure class="afp-shot afp-shot-w380">
+          <Picture src="/images/lookup-add-preview.png" alt="設定画面右のプレビュー。パネルの見た目3種類とルックアップの隣のボタンの見せ方を選べ、重複の確認をためす入力欄がある" width="673" height="702" class="zoomable" />
+          <figcaption class="afp-shot-cap"><strong>パネルの見た目</strong>と<strong>ボタンの見せ方</strong>を選ぶと、すぐ下のプレビューが切り替わります。［重複の確認をためす］に打つと<strong>実際の参照先アプリのデータで照合が動きます</strong>（ここでは登録されません）</figcaption>
+        </figure>
+
+        <h3 class="afp-h3">⑤ 重複の確認</h3>
+        <figure class="afp-shot afp-shot-w560">
+          <Picture src="/images/lookup-add-config-05.png" alt="設定画面の⑤重複の確認。類似度のしきい値・件数・正規化ルールを設定し、試しに入力して結果を確かめられる" width="798" height="725" class="zoomable" />
+          <figcaption class="afp-shot-cap">照合の厳しさ（類似度）と<strong>同じとみなす表記ゆれ 9 種類</strong>を選べます。候補に併記する項目を足すと、似た名前を見分けやすくなります</figcaption>
+        </figure>
+
+        <div class="afp-note">保存すると、<strong>参照先アプリの権限・プラグイン・絞り込みの条件と突き合わせて</strong>気になる点を警告します（登録できる人に追加権限が無い、利用者が編集できない必須項目がある、など）。参照先アプリの設定を変えたら、この画面を開いて保存し直してください。</div>
+      </div>
+    </section>
+
+    <!-- 連携 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">当社のルックアップ製品と組み合わせる</h2>
+        <p class="afp-lead">ルックアップまわりの3製品は、<strong>同じ1つのルックアップに重ねて使えます</strong>。打っている間は<strong>サジェスト</strong>が候補を出し、［取得］では<strong>絞り込み</strong>が候補を限定し、それでも無いときに<strong>新規登録</strong>が出る——という流れになります。参照先アプリ側に<strong>条件分岐自動採番</strong>を入れておけば、登録するときの番号も自動で振られます。</p>
+
+        <div class="la-combo">
+          <div class="la-combo-card">
+            <div class="la-combo-role">打っている間</div>
+            <h3><a href="/plugins/lookup-suggest/">ルックアップサジェスト</a>（無料）</h3>
+            <p>入力中に候補を出します。<strong>候補が出ないことが「まだ無い」と分かる合図</strong>になり、そのまま隣の［＋］へ進めます。</p>
+            <Picture src="/images/lookup-add-combo-suggest.png" alt="型番を打っている途中で、絞り込み条件により該当する候補がありませんと表示され、隣に新規登録のボタンが出ている状態" width="1136" height="174" class="zoomable" />
+          </div>
+          <div class="la-combo-card">
+            <div class="la-combo-role">［取得］のとき</div>
+            <h3><a href="/plugins/lookup-filter/">ルックアップ絞り込み</a></h3>
+            <p>候補を入力中のレコードの値で限定します。<strong>その絞り込み条件は登録パネルにも引き継がれ</strong>、条件から外れたレコードを作ってしまう事故を防ぎます。</p>
+            <Picture src="/images/lookup-add-combo-filter.png" alt="ルックアップ絞り込みが開く候補の一覧。絞り込み条件：サービス種別＝kintone と表示され、kintone の商品だけが並んでいる" width="1400" height="640" class="zoomable" />
+          </div>
+          <div class="la-combo-card">
+            <div class="la-combo-role">登録するとき</div>
+            <h3><a href="/plugins/kw-conditional-numbering/">条件分岐自動採番</a>（無料）</h3>
+            <p>参照先アプリ側に入れておくと、<strong>パネルからの登録でも採番されます</strong>。その項目は入力欄を出さず「自動採番」とだけ表示します（v2.2.0 以上）。</p>
+            <Picture src="/images/lookup-add-combo-numbering.png" alt="登録パネルの商品コードの行。入力欄ではなく、自動採番という緑のバッジだけが表示されている" width="547" height="67" class="zoomable" />
+          </div>
+        </div>
+
+        <h3 class="afp-h3">4 製品を同じ画面に載せた例</h3>
+        <figure class="afp-shot afp-shot-w640">
+          <Picture src="/images/lookup-add-combo-all.png" alt="見積書アプリの編集画面。明細の型番にサジェストの候補表示・絞り込み・新規登録のボタンが効いており、参照先の商品リストには条件分岐自動採番が入っている" width="1166" height="859" class="zoomable" />
+          <figcaption class="afp-shot-cap">打っている間は<strong>サジェスト</strong>、［取得］では<strong>絞り込み</strong>、無ければ<strong>［＋］で登録</strong>。登録される商品コードは<strong>参照先アプリの採番</strong>が振ります</figcaption>
+        </figure>
+
+        <div class="afp-note">併用は<strong>必須ではありません</strong>。本プラグインだけでも動きます。条件分岐自動採番と連携するには、参照先アプリ側が <strong>v2.2.0 以上</strong>である必要があります（v2.1.1 以前のときは設定画面が警告します）。</div>
+      </div>
+    </section>
+
+    <!-- インストール -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="steps-list">
+          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-lookup-add-v1.0.0.zip</code> を保存します。</span></li>
+          <li><span>kintone の<strong>「kintoneシステム管理」→「プラグイン」</strong>を開き、<strong>「読み込む」</strong>から zip を読み込みます。</span></li>
+          <li><span>ルックアップを設置しているアプリで<strong>「アプリの設定」→「プラグイン」→「プラグインの追加」</strong>から追加します。</span></li>
+          <li><span>歯車アイコンから設定画面を開き、<strong>対象のルックアップを選んで</strong>保存します。右のプレビューで、利用者に見えるパネルを確かめられます。</span></li>
+          <li><span>アプリを<strong>更新</strong>すると有効になります。</span></li>
+        </ol>
+        <div class="afp-note">すでにお使いの場合は、同じ手順で新しい zip を読み込むと上書きされます。<strong>アプリごとの設定は保持されます</strong>。</div>
+      </div>
+    </section>
+
+    <!-- プラン -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料のままでも、<strong>ルックアップ 1 つ</strong>まで使えます（登録・引き継ぎ・重複の確認・標準画面方式は、すべて無料の範囲です）。<strong>複数のルックアップ</strong>に設定できるようになるのが、プレミアム年間サポーターです（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ ［取得］の隣の［＋新規登録］と、取得までの自動完了</li>
+              <li>✅ 打った文字・このレコードの値・条件で決まる値の引き継ぎ</li>
+              <li>✅ 似ているレコードの確認（完全一致は登録を中止）</li>
+              <li>✅ パネル／標準画面（別のタブ・小さなウィンドウ）</li>
+              <li>✅ 条件分岐自動採番との連携・サブテーブル・ゲストスペース</li>
+              <li>✅ 利用期限なし（ルックアップ1つ／設定画面に控えめな広告あり）</li>
+            </ul>
+            <a href="/downloads/kw-lookup-add-v1.0.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>複数のルックアップ</strong>に設定できます</li>
+              <li>✅ ルックアップごとに<strong>登録方式・引き継ぐ値・登録できる人</strong>を変えられます</li>
+              <li>✅ 設定画面の広告なし</li>
+              <li>✅ <strong>プレミアム全製品</strong>と、ちょこっとプラグイン全製品が使えます</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta is-primary">プレミアム年間サポーターを見る →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 制約 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">できないこと・ご注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li><strong>パネル方式では、参照先アプリ側の保存時プラグイン・JavaScript は動きません</strong>（REST API で登録するため）。該当するものがある場合は設定画面が警告します。動かす必要があるときは<strong>標準画面方式</strong>を選んでください。当社の<strong>条件分岐自動採番だけは例外</strong>で、パネル方式でも連携して採番します（v2.2.0 以上）。</li>
+            <li><strong>PC 版のみ</strong>です。モバイル版のレコード画面には対応していません。</li>
+            <li>登録したレコードは<strong>その場で確定します</strong>。入力中のレコードを保存せずに閉じても、参照先アプリに登録したレコードは残ります（間違えた場合は参照先アプリで削除してください）。</li>
+            <li>参照先アプリへの<strong>追加権限</strong>は kintone 本体の設定どおりに働きます。権限が無い利用者は登録できません（設定画面の「登録できる人」は、その手前で導線を隠すためのものです）。</li>
+            <li>当社の<strong>ルックアップ絞り込み</strong>の「動的条件」（入力中の値で決まる条件）は、登録パネルには引き継がれません。引き継ぐ値か固定値で、条件に使うフィールドを埋めてください。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- よくある質問（表示と FAQPage JSON-LD は src/data/premium-faqs.ts を共有） -->
+    <PremiumFaqSection
+      pluginId="kw-lookup-add"
+      pageUrl="https://kizuna-works.jp/plugins/lookup-add/"
+      headingClass="afp-h2"
+    />
+
+    <!-- セキュリティ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-lookup-add" />
+        <ShareButtons title="ルックアップ新規登録 for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>「まだマスタに無い」で、手を止めない</h2>
+      <p>ルックアップ新規登録はプレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料のままでもルックアップ 1 つまでお使いいただけます。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="la-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('la-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      // ダウンロードは ヒーローとプランカードの2か所にあるので、まとめて計測する
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: 'kw-lookup-add-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-lookup-add-v1.0.0.zip'
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>
