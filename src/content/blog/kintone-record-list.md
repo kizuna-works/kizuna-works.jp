@@ -234,6 +234,7 @@ kintoneに組み込まれている一覧で、アプリの設定には出てき�
 - [kintoneプラグインのおすすめと選び方（やりたいこと別）](/blog/kintone-muryou-plugin-osusume/) — 一覧以外の用途も含め、無料で使える製品を目的別に整理
 - [kintoneカンバンプラグイン比較｜無料で始める方法](/blog/kintone-kanban-board/) — 一覧をボード化して進捗管理
 - [kintoneをBIツールのように使う集計ダッシュボードの作り方](/blog/kintone-bi-tool-dashboard/) — 一覧を跨いだ集計ダッシュボード
+- [kintoneのカテゴリー機能の使い方](/blog/kintone-category/) — 一覧を増やさずにレコードを分類して絞り込む
 - [kintoneプラグイン一覧](/plugins/) — 無料で使えるプラグインをまとめて掲載
 
 *※本記事は2026年8月時点の情報をもとに作成しています。kintoneの仕様は変更される場合があるため、最新の情報はサイボウズ公式ヘルプをご確認ください。*
