@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="kintoneの計算式をブラウザだけで組み立てられる完全無料ツール。日数の差・年月の取り出し・IFの条件分岐・四捨五入などをフォームに入力するだけで、そのまま貼れる計算式を生成。Excelにあってkintoneに無い関数（LEFT/MID/TODAY等）も一覧で分かります。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://kizuna-works.jp/tools/Shiki.html">
+
+<!-- OGP -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="KIZUNA Works">
+<meta property="og:title" content="kintone計算式ジェネレーター Shiki - 無料 | KIZUNA Works">
+<meta property="og:description" content="kintoneの計算式をブラウザだけで生成。日数の差・年月の取り出し・IF・四捨五入をフォーム入力だけで作れます。Excelにあってkintoneに無い関数も一覧化。無料・登録不要。">
+<meta property="og:url" content="https://kizuna-works.jp/tools/Shiki.html">
+<meta property="og:image" content="https://kizuna-works.jp/images/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@KIZUNA_works_DX">
+<meta name="twitter:image" content="https://kizuna-works.jp/images/ogp.png">
+<meta name="theme-color" content="#1B3A6B">
+<link rel="icon" type="image/png" sizes="192x192" href="/images/favicon.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48 32x32 16x16">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<title>kintone計算式ジェネレーター Shiki - 無料 | KIZUNA Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://kizuna-works.jp/tools/Shiki.html",
+      "url": "https://kizuna-works.jp/tools/Shiki.html",
+      "name": "kintone計算式ジェネレーター Shiki - 無料 | KIZUNA Works",
+      "description": "kintoneの計算式をブラウザだけで組み立てられる完全無料ツール。日数の差・年月の取り出し・IFの条件分岐・四捨五入をフォーム入力だけで生成します。",
+      "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Shiki（kintone計算式ジェネレーター）",
+      "url": "https://kizuna-works.jp/tools/Shiki.html",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "WebBrowser",
+      "dateModified": "2026-09-13",
+      "description": "kintoneの計算式をブラウザだけで生成する完全無料のWebツール。日数の差・年月の取り出し・IFの条件分岐・四捨五入などをフォーム入力だけで組み立てられ、Excelにあってkintoneに無い関数（LEFT/MID/TODAY等）も一覧で確認できます。登録不要。",
+      "creator": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "kintoneの計算式でLEFT関数やMID関数は使えますか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "使えません。kintoneの計算式で使える関数はSUM・YEN・DATE_FORMAT・IF・AND・OR・NOT・ROUND・ROUNDDOWN・ROUNDUP・CONTAINSの11個だけで、文字列を切り出す関数はありません。日付から年月だけを取り出したい場合はLEFTではなくDATE_FORMAT関数を使います。文字列そのものを切り出したい場合は、標準機能では実現できないため、プラグインやJavaScriptカスタマイズが必要です。" }
+        },
+        {
+          "@type": "Question",
+          "name": "kintoneの計算式で2つの日付の差（日数）を出すには？",
+          "acceptedAnswer": { "@type": "Answer", "text": "kintoneは日付をUNIX時刻（秒）で扱うため、日付どうしを引き算すると秒数が返ります。日数にするには86400（60×60×24）で割ります。式は「(終了日 - 開始日) / 86400」です。初日と最終日の両方を数える場合は末尾に「+ 1」を足します。" }
+        },
+        {
+          "@type": "Question",
+          "name": "日付が未入力だと1970年と表示されるのはなぜですか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "kintoneは日時をUNIX時刻（1970年1月1日0時からの経過秒数）で扱うため、未入力の日付フィールドを参照すると1970年1月1日として計算されます。IF関数で空欄を判定し、「IF(日付=\"\",\"\",DATE_FORMAT(日付,\"YYYY/MM/dd\",\"Asia/Tokyo\"))」のように空欄のときは空文字を返す形にすると防げます。" }
+        },
+        {
+          "@type": "Question",
+          "name": "kintoneの計算式で今日の日付（TODAY関数）は使えますか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "使えません。kintoneの計算式にTODAYやNOWにあたる関数はないため、「期限まであと何日」のように現在日時を基準にした計算は計算フィールドでは作れません。レコード更新日時フィールドは計算式から参照できますが、値が変わるのは保存したときだけです。" }
+        },
+        {
+          "@type": "Question",
+          "name": "関連レコード一覧やレコード番号を計算式で使えますか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "どちらも計算式からは参照できません。ほかに、ラベル・文字列（複数行）・リッチエディター・添付ファイル・リンク・ユーザー選択・組織選択・グループ選択・スペース・罫線・グループ、プロセス管理のステータスと作業者、カテゴリーも参照できません。" }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1B44N0922"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q1B44N0922');
+</script>
+<!-- AdSense loader intentionally removed (2026-08-02): zero ad units on the site while the
+     account is under review. Restore together with the first real ad unit. -->
+
+<style>
+/* ===== Design tokens (brand) ===== */
+:root{
+  --navy:#1B3A6B; --navy-d:#142b50; --green:#2E8B2E; --green-d:#1A5C1A;
+  --ink:#1f2a44; --muted:#5b6b86; --paper:#f5f8fc; --card:#ffffff;
+  --line:#e2e9f3; --line-2:#eef3fa;
+  --warn-bg:#fff7e8; --warn-line:#e8b45e; --warn-ink:#7a5310;
+  --ng-bg:#fdf0f0; --ng-line:#d98b8b; --ng-ink:#8c2f2f;
+  --shadow:0 1px 2px rgba(20,43,80,.06),0 8px 24px rgba(20,43,80,.08);
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Segoe UI',Meiryo,sans-serif;
+  color:var(--ink); background:var(--paper); line-height:1.8;
+  overflow-x:clip;
+}
+img{max-width:100%;height:auto}
+a{color:var(--navy)}
+
+/* ===== Header / Footer (shared site chrome) ===== */
+.site-header{background:#F0F4F8;border-bottom:3px solid #1B3A6B;padding:8px 5%;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.site-header-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.site-header-logo img{display:block;height:64px;width:auto;transition:transform 0.3s ease}
+.site-header-logo:hover img{transform:scale(1.05)}
+.site-header-nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.site-nav-btn{display:inline-block;padding:8px 16px;background:#FFFFFF;color:#1B3A6B;border:2px solid #1B3A6B;border-radius:6px;font-weight:700;font-size:0.92rem;text-decoration:none;transition:all .2s ease}
+.site-nav-btn:hover{background:#1B3A6B;color:#FFFFFF}
+.site-footer{background-color:#1B3A6B;color:#FFFFFF;padding:48px 5% 28px;margin-top:32px}
+.site-footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:32px;margin-bottom:24px}
+.site-footer-links{display:flex;gap:30px;flex-wrap:wrap;align-items:center}
+.site-footer-links a{color:#FFFFFF;opacity:0.9;font-weight:500;text-decoration:none}
+.site-footer-links a:hover{color:#2E8B2E;opacity:1}
+.site-footer-copy{text-align:center;opacity:0.7;font-size:0.9rem;letter-spacing:1px}
+@media(max-width:768px){
+  .site-header-inner{flex-direction:column;padding:5px 0}
+  .site-header-logo img{height:56px}
+  .site-footer-inner{flex-direction:column;text-align:center;align-items:center}
+  .site-footer-links{justify-content:center;gap:15px}
+}
+
+/* ===== Hero ===== */
+.hero{max-width:1100px;margin:0 auto;padding:34px 20px 10px;text-align:center}
+.hero h1{font-size:clamp(1.35rem,3.6vw,2.1rem);margin:0 0 10px;line-height:1.45}
+.hero h1 b{color:var(--green)}
+.hero p{margin:0 auto;max-width:760px;color:var(--muted);font-size:.98rem}
+.badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.badge{background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:.82rem;font-weight:700;color:var(--navy)}
+
+/* ===== Layout ===== */
+.wrap{max-width:1100px;margin:0 auto;padding:18px 20px 40px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.12rem;margin:0 0 4px;color:var(--navy);border-left:5px solid var(--green);padding-left:11px;line-height:1.5}
+.panel .sub{color:var(--muted);font-size:.88rem;margin:0 0 16px;padding-left:16px}
+
+/* ===== Recipe picker ===== */
+.cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.cat{border:2px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;padding:7px 15px;font-size:.87rem;font-weight:700;cursor:pointer;font-family:inherit}
+.cat[aria-selected="true"]{border-color:var(--navy);background:var(--navy);color:#fff}
+.recipes{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:9px}
+.recipe{text-align:left;border:2px solid var(--line);background:#fff;border-radius:10px;padding:11px 13px;cursor:pointer;font-family:inherit;color:var(--ink);transition:border-color .15s ease}
+.recipe:hover{border-color:var(--green)}
+.recipe[aria-pressed="true"]{border-color:var(--green);background:#f3faf3}
+.recipe b{display:block;font-size:.94rem;margin-bottom:3px;line-height:1.5}
+.recipe span{display:block;font-size:.79rem;color:var(--muted);line-height:1.6}
+
+/* ===== Form ===== */
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px;margin:4px 0 16px}
+.field label{display:block;font-size:.84rem;font-weight:700;margin-bottom:5px}
+.field .hint{display:block;font-weight:400;color:var(--muted);font-size:.77rem;margin-top:2px}
+.field input,.field select{
+  width:100%;min-width:120px;padding:9px 11px;border:1px solid var(--line);border-radius:8px;
+  font-family:inherit;font-size:.93rem;color:var(--ink);background:#fff
+}
+.field input:focus,.field select:focus{outline:2px solid var(--green);outline-offset:1px}
+
+/* ===== Output ===== */
+.outbox{background:#0f1e33;border-radius:10px;padding:15px 17px;position:relative;overflow-x:auto}
+.outbox code{
+  font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+  color:#d6ecff;font-size:.95rem;line-height:1.75;white-space:pre-wrap;word-break:break-word
+}
+.outrow{display:flex;gap:9px;align-items:center;margin-top:11px;flex-wrap:wrap}
+.btn{border:0;border-radius:8px;padding:9px 17px;font-weight:700;font-size:.9rem;cursor:pointer;font-family:inherit}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-d)}
+.btn-ghost{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+.btn-ghost:hover{background:var(--navy);color:#fff}
+.copied{color:var(--green);font-weight:700;font-size:.85rem}
+.target{font-size:.85rem;color:var(--muted);margin:13px 0 0}
+.target b{color:var(--ink)}
+
+/* ===== Notes ===== */
+.note{border-left:4px solid var(--warn-line);background:var(--warn-bg);color:var(--warn-ink);border-radius:0 8px 8px 0;padding:11px 14px;font-size:.87rem;margin-top:13px}
+.note b{color:#5d3d05}
+.ng{border-left:4px solid var(--ng-line);background:var(--ng-bg);color:var(--ng-ink);border-radius:0 8px 8px 0;padding:11px 14px;font-size:.87rem;margin-top:13px}
+
+/* ===== Tables ===== */
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.87rem}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--line-2);font-weight:700;white-space:nowrap}
+td code,li code,p code{background:var(--line-2);padding:1px 5px;border-radius:4px;font-size:.88em;font-family:'SFMono-Regular',Consolas,Menlo,monospace}
+.yes{color:var(--green);font-weight:700}
+.no{color:#b3403f;font-weight:700}
+
+/* ===== FAQ ===== */
+details{border:1px solid var(--line);border-radius:10px;padding:0;margin-bottom:9px;background:#fff}
+summary{cursor:pointer;padding:12px 15px;font-weight:700;font-size:.93rem;line-height:1.6}
+details[open] summary{border-bottom:1px solid var(--line-2)}
+details .body{padding:12px 15px;font-size:.89rem;color:#37455f}
+
+/* ===== CTA ===== */
+.cta{background:linear-gradient(110deg,var(--navy),var(--green));color:#fff;border-radius:var(--radius);padding:24px 22px;text-align:center}
+.cta h2{color:#fff;border:0;padding:0;margin:0 0 8px;font-size:1.1rem}
+.cta p{margin:0 0 15px;opacity:.94;font-size:.92rem}
+.cta a{display:inline-block;background:#fff;color:var(--navy);border-radius:8px;padding:10px 22px;font-weight:700;text-decoration:none;margin:4px}
+.cta a:hover{background:#eaf3ff}
+
+@media(max-width:520px){
+  .wrap{padding:14px 16px 32px}
+  .panel{padding:16px}
+  .recipes{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" class="site-header-logo">
+      <img src="/images/logo.png" alt="KIZUNA Works" width="677" height="369">
+    </a>
+    <nav class="site-header-nav">
+      <a href="/tools/" class="site-nav-btn">無料ツール</a>
+      <a href="/plugins/" class="site-nav-btn">プラグイン</a>
+      <a href="/extensions/" class="site-nav-btn">拡張機能</a>
+      <a href="/blog/" class="site-nav-btn">ブログ</a>
+      <a href="/glossary/" class="site-nav-btn">用語集</a>
+      <a href="/contact/" class="site-nav-btn">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>kintone用 <b>計算式</b> ジェネレーター</h1>
+  <p>「やりたいこと」を選んでフィールドコードを入れるだけで、kintone にそのまま貼れる計算式を作ります。<b>Excel と違って kintone に無い関数</b>（LEFT・MID・TODAY など）も、代わりの書き方つきで確認できます。掲載している式は<b>すべて実機の kintone アプリで動作を確認</b>しています。</p>
+  <div class="badges">
+    <span class="badge">登録不要・完全無料</span>
+    <span class="badge">ブラウザ内で完結</span>
+    <span class="badge">実機で動作確認済み</span>
+  </div>
+</section>
+
+<div class="wrap" style="padding-bottom:0">
+  <div class="ng" style="margin:0">
+    <b>先に知っておくと早いこと：</b>kintone の計算式は、<b>間違っていてもエラーを出さずに「空欄」になるだけ</b>のことがほとんどです。
+    とくに<b>文字を返す式を「計算」フィールドに入れると、何も表示されません</b>（実機で確認済み）。
+    このツールはレシピごとに<b>置き場所</b>を示すので、そのとおりのフィールド種別に設定してください。
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ Generator ============ -->
+  <section class="panel">
+    <h2>1. やりたいことを選ぶ</h2>
+    <p class="sub">kintone の計算式で「できること」だけを並べています。標準機能で作れないものは下の対応表に分けました。</p>
+
+    <div class="cats" role="tablist" id="cats"></div>
+    <div class="recipes" id="recipes"></div>
+  </section>
+
+  <section class="panel" id="editor" hidden>
+    <h2>2. フィールドコードを入れる</h2>
+    <p class="sub" id="recipeDesc"></p>
+    <div class="fields" id="fields"></div>
+
+    <div class="outbox"><code id="out"></code></div>
+    <div class="ng" id="warn" hidden></div>
+    <div class="outrow">
+      <button class="btn btn-primary" id="copyBtn" type="button">計算式をコピー</button>
+      <span class="copied" id="copied" hidden>コピーしました</span>
+    </div>
+    <p class="target" id="target"></p>
+    <div id="notes"></div>
+  </section>
+
+  <!-- ============ Excel mapping ============ -->
+  <section class="panel">
+    <h2>Excel の関数は kintone でどう書くか</h2>
+    <p class="sub">kintone の計算式で使える関数は <b>11 個だけ</b>です（SUM／YEN／DATE_FORMAT／IF／AND／OR／NOT／ROUND／ROUNDDOWN／ROUNDUP／CONTAINS）。Excel の感覚で書くと動かない代表例をまとめました。</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Excel でよく使う</th><th>kintone</th><th>代わりの書き方</th></tr></thead>
+        <tbody>
+          <tr><td><code>LEFT</code> / <code>RIGHT</code> / <code>MID</code></td><td class="no">無い</td><td>日付から年月を取り出すだけなら <code>DATE_FORMAT</code> で代用できます。文字列そのものの切り出しは標準機能では作れません（プラグインか JavaScript が必要）。</td></tr>
+          <tr><td><code>TODAY</code> / <code>NOW</code></td><td class="no">無い</td><td>「期限まであと何日」のように今日を基準にする計算は計算フィールドでは作れません。レコード更新日時は参照できますが、値が変わるのは保存したときだけです。</td></tr>
+          <tr><td><code>CONCATENATE</code></td><td class="yes">演算子 <code>&amp;</code></td><td><code>姓 &amp; " " &amp; 名</code> のように <code>&amp;</code> でつなぎます。<code>+</code> では文字列は結合されません。</td></tr>
+          <tr><td><code>IF</code></td><td class="yes">あり</td><td><code>IF(条件, 真の値, 偽の値)</code>。入れ子にできます。</td></tr>
+          <tr><td><code>AND</code> / <code>OR</code> / <code>NOT</code></td><td class="yes">あり</td><td>引数は 32 個まで指定できます。</td></tr>
+          <tr><td><code>ROUND</code> / <code>ROUNDUP</code> / <code>ROUNDDOWN</code></td><td class="yes">あり</td><td>第 2 引数の桁数は省略すると 0 になります。負の数を指定すると 10 の位・100 の位で丸められます。</td></tr>
+          <tr><td><code>SUM</code></td><td class="yes">あり</td><td>テーブル内の数値を合計するときにも使います。</td></tr>
+          <tr><td><code>DATEDIF</code></td><td class="no">無い</td><td>日付どうしを引き算すると<b>秒数</b>が返るので、<code>86400</code> で割って日数にします。</td></tr>
+          <tr><td><code>TEXT</code>（日付の書式化）</td><td class="yes"><code>DATE_FORMAT</code></td><td><code>DATE_FORMAT(日付, "YYYY/MM", "Asia/Tokyo")</code> のように書きます。</td></tr>
+          <tr><td><code>COUNTIF</code> / <code>VLOOKUP</code></td><td class="no">無い</td><td>他レコードや他アプリを参照する計算は計算式では作れません。ルックアップ・関連レコード一覧・集計プラグインの領域です。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ng"><b>よくあるつまずき：</b>「kintone に LEFT 関数が無い」は、Excel から移ってきた方がまず引っかかる点です。kintone の計算式は<b>文字列を切り出す手段を持っていません</b>。日付の一部を取り出したいだけなら <code>DATE_FORMAT</code> で解決します。</div>
+  </section>
+
+  <!-- ============ Verified failures ============ -->
+  <section class="panel">
+    <h2>実機で「できない」と確かめたこと</h2>
+    <p class="sub">下はすべて検証用の kintone アプリで実際に試した結果です。<b>ほとんどはエラーにならず、静かに空欄になります</b>。</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>試したこと</th><th>実機の結果</th><th>どうするか</th></tr></thead>
+        <tbody>
+          <tr><td>文字を返す式を<b>計算フィールド</b>に入れる</td><td class="no">エラーも出ず<b>空欄</b>になる</td><td>文字列（1行）フィールド（自動計算）に設定する</td></tr>
+          <tr><td>曜日を出す <code>DATE_FORMAT(日付, "E", …)</code></td><td class="no"><code>E</code> がそのまま表示される</td><td rowspan="2">曜日は計算式では取得できない。プラグインか JavaScript が必要</td></tr>
+          <tr><td><code>DATE_FORMAT(日付, "ddd", …)</code></td><td class="no"><code>011</code>（4/1）のように <code>dd</code>+<code>d</code> に分解され<b>誤った値</b>が出る</td></tr>
+          <tr><td>年度（4月始まり）を出す</td><td class="no"><b>空欄</b></td><td rowspan="2">DATE_FORMAT の結果は文字列で、<b>数値に変換できない</b>ため計算に使えない</td></tr>
+          <tr><td><code>DATE_FORMAT(…) + 0</code> で数値化する</td><td class="no"><b>空欄</b></td></tr>
+          <tr><td>文字列フィールドを <code>&lt;</code> <code>&gt;</code> で大小比較する</td><td class="no"><b>空欄</b></td><td>文字列に使えるのは <code>=</code> <code>!=</code> <code>&lt;&gt;</code> のみ</td></tr>
+          <tr><td>テーブル外のドロップダウンに <code>CONTAINS</code></td><td class="no"><b>空欄</b></td><td><code>=</code> で直接比べる</td></tr>
+          <tr><td>平方根 <code>4 ^ 0.5</code>／<code>8 ^ (1 / 3)</code></td><td class="no">エラーも出ず <b>1</b> を返す</td><td>べき乗の指数は<b>整数だけ</b>。ルートは計算式では作れない</td></tr>
+          <tr><td><code>YEN</code> を計算フィールドに入れる</td><td class="no"><b>空欄</b>になる</td><td>YEN は文字を返すので文字列（1行）に置く</td></tr>
+          <tr><td><code>SUM(数量 * 単価)</code></td><td class="no"><b>kintone に拒否される</b>（「配列型の値に対して適切な関数が利用されていません」）</td><td>テーブル内に行計算フィールドを作り、それを SUM する</td></tr>
+          <tr><td>未入力の日付を引き算する</td><td class="no"><b>-20544</b> のような値（1970/01/01 扱い）</td><td rowspan="2">IF で空欄を先に判定する</td></tr>
+          <tr><td>未入力の日付を <code>DATE_FORMAT</code> に渡す</td><td class="no"><b>1970/01/01</b></td></tr>
+          <tr><td>未入力の数値を掛ける</td><td class="no"><b>0</b> として計算される</td><td>0 でよいならそのまま。区別したいなら IF で判定</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note"><b>タイムゾーンについて：</b><code>"YYYY/MM/dd"</code> のように日付だけを出す場合、<code>Asia/Tokyo</code> でも <code>Etc/GMT</code> でも同じ日付になります。ただし<b>時刻まで出すと 9 時間ずれます</b>（東京 09:00／GMT 00:00）。いずれも実機で確認しました。</div>
+  </section>
+
+  <!-- ============ Referenceable fields ============ -->
+  <section class="panel">
+    <h2>計算式で参照できるフィールド・できないフィールド</h2>
+    <p class="sub">式は正しいのに動かないときは、たいてい参照できないフィールドを使っています。</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>参照できる</th><th>参照できない</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>
+              数値／計算／日時・日付・時刻／作成日時・更新日時／文字列（1行）／ドロップダウン／ラジオボタン／チェックボックス／複数選択／作成者・更新者／ルックアップ
+              <div class="note" style="margin-top:10px">ルックアップは、コピー元がリンクフィールド（またはリンクを参照するルックアップ）の場合だけ参照できません。</div>
+            </td>
+            <td>
+              <b>関連レコード一覧</b>／<b>レコード番号</b>／文字列（複数行）／リッチエディター／添付ファイル／リンク／ユーザー選択・組織選択・グループ選択／ラベル・スペース・罫線・グループ／プロセス管理のステータス・作業者／カテゴリー
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="panel">
+    <h2>よくある質問</h2>
+    <details><summary>kintoneの計算式でLEFT関数やMID関数は使えますか？</summary><div class="body">使えません。kintone の計算式で使える関数は SUM・YEN・DATE_FORMAT・IF・AND・OR・NOT・ROUND・ROUNDDOWN・ROUNDUP・CONTAINS の 11 個だけで、文字列を切り出す関数はありません。日付から年月だけを取り出したい場合は LEFT ではなく DATE_FORMAT 関数を使います。文字列そのものを切り出したい場合は、標準機能では実現できないため、プラグインや JavaScript カスタマイズが必要です。</div></details>
+    <details><summary>kintoneの計算式で2つの日付の差（日数）を出すには？</summary><div class="body">kintone は日付を UNIX 時刻（秒）で扱うため、日付どうしを引き算すると秒数が返ります。日数にするには 86400（60×60×24）で割ります。式は <code>(終了日 - 開始日) / 86400</code> です。初日と最終日の両方を数える場合は末尾に <code>+ 1</code> を足します。</div></details>
+    <details><summary>日付が未入力だと1970年と表示されるのはなぜですか？</summary><div class="body">kintone は日時を UNIX 時刻（1970年1月1日0時からの経過秒数）で扱うため、未入力の日付フィールドを参照すると 1970年1月1日として計算されます。IF 関数で空欄を判定し、<code>IF(日付="","",DATE_FORMAT(日付,"YYYY/MM/dd","Asia/Tokyo"))</code> のように空欄のときは空文字を返す形にすると防げます。</div></details>
+    <details><summary>kintoneの計算式で今日の日付（TODAY関数）は使えますか？</summary><div class="body">使えません。kintone の計算式に TODAY や NOW にあたる関数はないため、「期限まであと何日」のように現在日時を基準にした計算は計算フィールドでは作れません。レコード更新日時フィールドは計算式から参照できますが、値が変わるのは保存したときだけです。</div></details>
+    <details><summary>関連レコード一覧やレコード番号を計算式で使えますか？</summary><div class="body">どちらも計算式からは参照できません。ほかに、ラベル・文字列（複数行）・リッチエディター・添付ファイル・リンク・ユーザー選択・組織選択・グループ選択・スペース・罫線・グループ、プロセス管理のステータスと作業者、カテゴリーも参照できません。</div></details>
+  </section>
+
+  <section class="panel" style="padding:0;border:0;box-shadow:none;background:transparent">
+    <div class="cta">
+      <h2>計算式では届かないところは、プラグインで</h2>
+      <p>文字列の切り出し・区分ごとの連番・他アプリの集計など、標準の計算式では作れない処理をノーコードで解決できます。</p>
+      <a href="/plugins/">無料プラグイン一覧を見る</a>
+      <a href="/blog/kintone-keisan-field/">計算フィールドの使い方を読む</a>
+    </div>
+  </section>
+
+  <p style="font-size:.82rem;color:var(--muted);text-align:center;margin:22px 0 0">
+    掲載している式は、kintone 公式ヘルプ「演算子と関数の一覧」「関数の使い方」「計算式で参照できるフィールド情報」で仕様を確認したうえ、
+    <b>2026-09-13 に実際の kintone アプリへ設定して戻り値まで確認</b>しています。
+    kintone のアップデートで変わる場合があるため、最終的な動作はご自身のアプリでもご確認ください。
+  </p>
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-brand"><img src="/images/logo-white.png" alt="KIZUNA Works" loading="lazy" decoding="async" width="264" height="144" style="height:48px;width:auto;margin-bottom:10px;display:block;mix-blend-mode:screen;"></div>
+    <div class="site-footer-links">
+      <a href="/news/">お知らせ</a><a href="/news/rss.xml">RSS</a><a href="/sitemap/">サイトマップ</a><a href="/security/">セキュリティ</a><a href="/privacy/">プライバシーポリシー</a><a href="/terms/">利用規約</a><a href="/tokushoho/">特定商取引法に基づく表記</a><a href="/refund/">返金ポリシー</a><a href="/contact/">お問い合わせ</a>
+    </div>
+  </div>
+  <div class="site-footer-copy">
+    <p style="opacity:0.85;margin:0 0 8px;letter-spacing:normal;font-size:0.82rem;">「kintone」はサイボウズ株式会社の商標です。本ツールはサイボウズ社の公式・提供物ではありません。</p>
+    <p>&copy; 2026 KIZUNA Works All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  // Every formula below is built only from functions/operators that kintone's official
+  // help documents as available: SUM, YEN, DATE_FORMAT, IF, AND, OR, NOT, ROUND,
+  // ROUNDDOWN, ROUNDUP, CONTAINS and the + - * / ^ & = != <> < <= > >= operators.
+  var TZ_HINT = 'タイムゾーンは "Asia/Tokyo" のようなIDか、利用者の設定に従う "system" を指定します。';
+  var BLANK_HINT = '未入力の日付を参照すると 1970/01/01 として計算されます。空欄のときに何も出したくない場合は「未入力なら空欄にする」のレシピを使ってください。';
+
+  // Literal text returned by a formula must always be wrapped in double quotes.
+  // kintone's help does not document an escape sequence for a double quote inside a
+  // string literal, so inner quotes are replaced with the full-width form instead of
+  // emitting a formula that would not parse.
+  function q(s){
+    return '"' + String(s === undefined || s === null ? '' : s).replace(/"/g, '”') + '"';
+  }
+  // Same, but lets a bare number through unquoted (e.g. showing 0 instead of "0").
+  function qn(s){
+    var t = String(s === undefined || s === null ? '' : s).trim();
+    return /^-?\d+(\.\d+)?$/.test(t) ? t : q(s);
+  }
+
+  // すべて app396「【常設】計算式検証（Shiki）」で実機確認済み（2026-09-13）。
+  // 検証していない式はここに置かない。記録は SHIKI_TEST_v1.0.0.md。
+  var CALC_N = '計算フィールド（表示形式：数値）';
+  var CALC_D = '計算フィールド（表示形式：日付）';
+  var TEXT_F = '文字列（1行）フィールド（自動計算）';
+  var TEXT_WHY = '<b>文字を返す式は計算フィールドに入れても値が出ません。</b>エラーも出ずに空欄になるだけなので、必ず文字列（1行）フィールド（自動計算）に設定してください。';
+
+  var RECIPES = [
+    /* ---------- 日付・期間 ---------- */
+    {
+      id:'days', cat:'日付・期間', name:'2つの日付の差（日数）',
+      lead:'受注日から納品日まで何日あるか、を出します。',
+      desc:'kintone は日付を UNIX 時刻（秒）で持っているため、引き算すると<b>秒数</b>が返ります。86400（60×60×24）で割って日数に直します。',
+      target:CALC_N,
+      inputs:[
+        {k:'from', label:'開始日のフィールドコード', ph:'開始日', def:'開始日'},
+        {k:'to', label:'終了日のフィールドコード', ph:'終了日', def:'終了日'}
+      ],
+      build:function(v){ return '(' + v.to + ' - ' + v.from + ') / 86400'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'4/1→4/11 で <b>10</b>、同じ日なら <b>0</b>。うるう年 2024/2/28→3/1 は <b>2</b>、平年 2026/2/28→3/1 は <b>1</b> と正しく数えます。'},
+             {t:'note',h:'',b:'どちらかが未入力だと 1970/01/01 として計算され、<b>-20544</b> のような値になります。防ぐには下の「未入力なら空欄にする」を使ってください。'}]
+    },
+    {
+      id:'days-incl', cat:'日付・期間', name:'期間の日数（初日と最終日を含む）',
+      lead:'出張日数・会期日数など「両端を数える」場合はこちら。',
+      desc:'差を取るだけだと初日が数えられず <b>1 日足りなく</b>なります。末尾に <code>+ 1</code> を足します。',
+      target:CALC_N,
+      inputs:[
+        {k:'from', label:'開始日のフィールドコード', ph:'開始日', def:'開始日'},
+        {k:'to', label:'終了日のフィールドコード', ph:'終了日', def:'終了日'}
+      ],
+      build:function(v){ return '(' + v.to + ' - ' + v.from + ') / 86400 + 1'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'4/1→4/11 で <b>11</b>、同じ日でも <b>1</b> を返します。'}]
+    },
+    {
+      id:'days-safe', cat:'日付・期間', name:'日数（未入力なら空欄にする）',
+      lead:'どちらかが未入力のときに、けた違いの数字が出るのを防ぎます。',
+      desc:'未入力の日付は 1970/01/01 として扱われるため、そのまま引き算すると巨大な負の数になります。IF で空欄を先に弾きます。',
+      target:TEXT_F,
+      inputs:[
+        {k:'from', label:'開始日のフィールドコード', ph:'開始日', def:'開始日'},
+        {k:'to', label:'終了日のフィールドコード', ph:'終了日', def:'終了日'}
+      ],
+      build:function(v){
+        return 'IF(' + v.from + '="", "", IF(' + v.to + '="", "", (' + v.to + ' - ' + v.from + ') / 86400))';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'未入力なら空欄、両方そろうと <b>5</b>（4/1→4/6）を返しました。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'date-add', cat:'日付・期間', name:'N日後・N日前の日付',
+      lead:'「申込日の30日後」のような期限日を出します。',
+      desc:'1 日 = 86400 秒なので、日数ぶんの秒数を足し引きします。前の日付にしたい場合は日数にマイナスを入れてください。',
+      target:CALC_D,
+      inputs:[
+        {k:'base', label:'基準の日付フィールドコード', ph:'申込日', def:'申込日'},
+        {k:'n', label:'日数（前にしたいときは -30 のように）', ph:'30', def:'30', type:'number'}
+      ],
+      build:function(v){
+        var n = String(v.n).trim() || '0';
+        var sign = n.charAt(0) === '-' ? ' - ' : ' + ';
+        var abs = n.charAt(0) === '-' ? n.slice(1) : n;
+        return v.base + sign + '60 * 60 * 24 * ' + abs;
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'2026/04/01 の 30 日後は <b>2026-05-01</b>、30 日前は <b>2026-03-02</b>。'},
+             {t:'note',h:'',b:'計算フィールドの<b>表示形式を「日付」</b>にしないと、UNIX 秒の数字がそのまま表示されます。'}]
+    },
+    {
+      id:'ym', cat:'日付・期間', name:'日付から「年月」だけ取り出す',
+      lead:'Excel で LEFT を使っていた処理は、kintone では DATE_FORMAT です。',
+      desc:'kintone に LEFT / MID はありません。日付の一部を取り出すのは <code>DATE_FORMAT</code> の役目です。',
+      target:TEXT_F,
+      inputs:[
+        {k:'date', label:'日付フィールドのフィールドコード', ph:'売上日', def:'売上日'},
+        {k:'fmt', label:'取り出す形式', type:'select', def:'YYYY/MM',
+          opts:[['YYYY/MM','年月（2026/04）'],['YYYY年M月','年月・和文（2026年4月）'],['YYYY','年だけ（2026）'],['MM','月だけ・ゼロ埋め（04）'],['M','月だけ（4）'],['dd','日だけ・ゼロ埋め（01）'],['YYYY/MM/dd','年月日（2026/04/01）'],['YYYY年M月d日','年月日・和文（2026年4月1日）']]}
+      ],
+      build:function(v){ return 'DATE_FORMAT(' + v.date + ', "' + v.fmt + '", "Asia/Tokyo")'; },
+      notes:[
+        {t:'ok',h:'実機で確認：',b:'2026/04/01 から <b>2026/04</b>、<b>2026年4月1日</b> を取得できました。'},
+        {t:'ng',h:'LEFT は使えません：', b:'「年月日から年月を抜きたい」で LEFT を探して行き詰まるのは定番のつまずきです。kintone の計算式に文字列を切り出す関数は無いので、この DATE_FORMAT が正解です。'},
+        {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}
+      ]
+    },
+    {
+      id:'ymd-safe', cat:'日付・期間', name:'日付の表示（未入力なら空欄）',
+      lead:'1970年が出てしまうのを防ぐ定番の書き方です。',
+      desc:'未入力の日付を DATE_FORMAT にそのまま渡すと <b>1970/01/01</b> と表示されます。IF で空欄を先に判定します。',
+      target:TEXT_F,
+      inputs:[
+        {k:'date', label:'日付フィールドのフィールドコード', ph:'納品日', def:'納品日'},
+        {k:'fmt', label:'表示形式', type:'select', def:'YYYY/MM/dd',
+          opts:[['YYYY/MM/dd','年月日（2026/04/01）'],['YYYY/MM','年月（2026/04）'],['YYYY年M月d日','和文（2026年4月1日）']]}
+      ],
+      build:function(v){
+        return 'IF(' + v.date + '="", "", DATE_FORMAT(' + v.date + ', "' + v.fmt + '", "Asia/Tokyo"))';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'未入力のとき空欄。IF を外すと本当に <b>1970/01/01</b> が表示されることも確認済みです。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'days-unit', cat:'日付・期間', name:'日数に単位をつけて表示する',
+      lead:'「10日」のように単位まで入れた文字列にします。',
+      desc:'数値と文字は <code>&amp;</code> でつなぎます。結果が文字列になるので、置き場所は文字列（1行）です。',
+      target:TEXT_F,
+      inputs:[
+        {k:'from', label:'開始日のフィールドコード', ph:'開始日', def:'開始日'},
+        {k:'to', label:'終了日のフィールドコード', ph:'終了日', def:'終了日'},
+        {k:'unit', label:'単位', ph:'日', def:'日'}
+      ],
+      build:function(v){ return '(' + v.to + ' - ' + v.from + ') / 86400 & ' + q(v.unit); },
+      notes:[{t:'ok',h:'実機で確認：',b:'4/1→4/11 で <b>10日</b>。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'hours', cat:'日付・期間', name:'2つの日付の差を「時間」で出す',
+      lead:'日数ではなく時間数で見たいときに使います。',
+      desc:'1 時間 = 3600 秒なので、差を 3600 で割ります。',
+      target:CALC_N,
+      inputs:[
+        {k:'from', label:'開始日のフィールドコード', ph:'開始日', def:'開始日'},
+        {k:'to', label:'終了日のフィールドコード', ph:'終了日', def:'終了日'}
+      ],
+      build:function(v){ return '(' + v.to + ' - ' + v.from + ') / 3600'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'10 日分の差で <b>240</b>（時間）。'}]
+    },
+    {
+      id:'raw-diff', cat:'日付・期間', name:'差をそのまま出して表示形式で切り替える',
+      lead:'割り算せず、計算フィールドの表示形式に任せる方法です。',
+      desc:'引き算だけを書き、計算フィールドの<b>表示形式</b>を「時間（日時分）」にすると、画面では「10日0時間0分」のように表示されます。',
+      target:'計算フィールド（表示形式：時間（日時分）など）',
+      inputs:[
+        {k:'from', label:'開始日のフィールドコード', ph:'開始日', def:'開始日'},
+        {k:'to', label:'終了日のフィールドコード', ph:'終了日', def:'終了日'}
+      ],
+      build:function(v){ return v.to + ' - ' + v.from; },
+      notes:[{t:'ok',h:'実機で確認：',b:'10 日ぶんの差のとき、表示形式が「数値」のままだと <b>864000</b>（秒）が出ます。「時間（日時分）」にすると <b>10日0時間0分</b>、「時間（時分）」にすると <b>240時間0分</b> と表示されます。'},
+             {t:'ng',h:'「日数」という表示形式はありません：',b:'計算フィールドの表示形式は<b>数値／数値（カンマ区切り）／日時／日付／時刻／時間（時分）／時間（日時分）</b>の 7 つだけです（実機で確認）。日数だけを数字で出したい場合は、このレシピではなく「2つの日付の差（日数）」を使ってください。'}]
+    },
+
+    /* ---------- 条件分岐 ---------- */
+    {
+      id:'if-num', cat:'条件分岐', name:'数値の大きさで表示を変える（IF）',
+      lead:'「金額が◯円以上なら要承認」のような判定です。',
+      desc:'<code>IF(条件, 真の値, 偽の値)</code>。<b>大小比較が使えるのは数値フィールドだけ</b>なので、このレシピは数値専用です。',
+      target:TEXT_F,
+      inputs:[
+        {k:'field', label:'判定する数値フィールドのフィールドコード', ph:'金額', def:'金額'},
+        {k:'op', label:'条件', type:'select', def:'>=', opts:[['>=','≧ 以上'],['>','＞ より大きい'],['<=','≦ 以下'],['<','＜ より小さい'],['=','＝ と等しい'],['!=','≠ と等しくない']]},
+        {k:'val', label:'比べる数値', ph:'10000', def:'10000', type:'number'},
+        {k:'t', label:'条件に合うとき表示する文字', ph:'要承認', def:'要承認'},
+        {k:'f', label:'合わないとき表示する文字', ph:'通常', def:'通常'}
+      ],
+      build:function(v){
+        var raw = String(v.val).trim();
+        var num = /^-?\d+(\.\d+)?$/.test(raw) ? raw : '0';
+        return 'IF(' + v.field + ' ' + v.op + ' ' + num + ', ' + q(v.t) + ', ' + q(v.f) + ')';
+      },
+      warn:function(v){
+        return /^-?\d+(\.\d+)?$/.test(String(v.val).trim()) ? null
+          : '「比べる数値」には半角の数字を入れてください。数字以外を入れるとフィールドコードとみなされ、kintone にエラーで拒否されます。いまは 0 を入れた式を表示しています。';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'6 つの比較すべてが正しく判定しました（≧ ＞ ≦ ＜ ＝ ≠）。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'if-text', cat:'条件分岐', name:'文字・選択肢で表示を変える（IF）',
+      lead:'「区分が新規なら要承認」のような判定です。',
+      desc:'文字列・ドロップダウン・ラジオボタンで使えるのは <b><code>=</code> と <code>!=</code> だけ</b>です。大小比較は使えません。',
+      target:TEXT_F,
+      inputs:[
+        {k:'field', label:'判定するフィールドコード', ph:'区分', def:'区分'},
+        {k:'op', label:'条件', type:'select', def:'=', opts:[['=','＝ と等しい'],['!=','≠ と等しくない']]},
+        {k:'val', label:'比べる文字（選択肢の値）', ph:'新規', def:'新規'},
+        {k:'t', label:'条件に合うとき表示する文字', ph:'要承認', def:'要承認'},
+        {k:'f', label:'合わないとき表示する文字', ph:'通常', def:'通常'}
+      ],
+      build:function(v){
+        return 'IF(' + v.field + ' ' + v.op + ' ' + q(v.val) + ', ' + q(v.t) + ', ' + q(v.f) + ')';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'区分が「新規」のとき <b>要承認</b>、≠ なら <b>通常</b>。'},
+             {t:'ng',h:'大小比較は使えません：',b:'文字列フィールドに <code>&lt;</code> や <code>&gt;</code> を書くと、<b>エラーにならず空欄になります</b>（実機で確認）。このレシピが = と ≠ しか出さないのはそのためです。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'if-nest', cat:'条件分岐', name:'3段階以上で判定する（IFの入れ子）',
+      lead:'点数でランクを分ける、といった多段の判定です。',
+      desc:'IF の「偽の値」の場所に、さらに IF を入れます。上から順に判定されます。',
+      target:TEXT_F,
+      inputs:[
+        {k:'field', label:'判定するフィールドコード', ph:'点数', def:'点数'},
+        {k:'a', label:'1段目の基準の値（これ以上）', ph:'80', def:'80', type:'number'},
+        {k:'al', label:'1段目の表示', ph:'A', def:'A'},
+        {k:'b', label:'2段目の基準の値（これ以上）', ph:'60', def:'60', type:'number'},
+        {k:'bl', label:'2段目の表示', ph:'B', def:'B'},
+        {k:'cl', label:'どれにも当てはまらないときの表示', ph:'C', def:'C'}
+      ],
+      build:function(v){
+        return 'IF(' + v.field + ' >= ' + (String(v.a).trim()||'0') + ', ' + q(v.al) +
+               ', IF(' + v.field + ' >= ' + (String(v.b).trim()||'0') + ', ' + q(v.bl) + ', ' + q(v.cl) + '))';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'95 のとき <b>A</b>。'},
+             {t:'note',h:'',b:'基準の値は<b>大きいほうから順</b>に並べてください。順番が逆だと、最初の条件がすべてを拾ってしまいます。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'if-and', cat:'条件分岐', name:'AND：どちらも満たすとき',
+      lead:'「金額が◯円以上」かつ「区分が◯◯」の判定です。',
+      desc:'<code>AND(条件1, 条件2)</code> を IF の条件に入れます。引数は 32 個まで指定できます。',
+      target:TEXT_F,
+      inputs:[
+        {k:'f1', label:'条件1のフィールドコード（数値）', ph:'金額', def:'金額'},
+        {k:'o1', label:'条件1の比較', type:'select', def:'>=', opts:[['=','＝'],['!=','≠'],['>','＞'],['>=','≧'],['<','＜'],['<=','≦']]},
+        {k:'v1', label:'条件1の値', ph:'10000', def:'10000', type:'number'},
+        {k:'f2', label:'条件2のフィールドコード（文字・選択肢）', ph:'区分', def:'区分'},
+        {k:'v2', label:'条件2の値', ph:'新規', def:'新規'},
+        {k:'t', label:'満たすとき表示する文字', ph:'要承認', def:'要承認'},
+        {k:'f', label:'満たさないとき表示する文字', ph:'', def:''}
+      ],
+      build:function(v){
+        return 'IF(AND(' + v.f1 + ' ' + v.o1 + ' ' + (String(v.v1).trim()||'0') + ', ' + v.f2 + ' = ' + q(v.v2) + '), ' + q(v.t) + ', ' + q(v.f) + ')';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'数値95以上かつ区分「新規」で <b>要承認</b>。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'if-or', cat:'条件分岐', name:'OR：いずれかに当てはまるとき',
+      lead:'「新規または更新なら対象」のような判定です。',
+      desc:'<code>OR(条件1, 条件2, 条件3…)</code>。同じフィールドの選択肢を並べるときによく使います。',
+      target:TEXT_F,
+      inputs:[
+        {k:'field', label:'判定するフィールドコード', ph:'区分', def:'区分'},
+        {k:'v1', label:'選択肢の値1', ph:'新規', def:'新規'},
+        {k:'v2', label:'選択肢の値2', ph:'更新', def:'更新'},
+        {k:'v3', label:'選択肢の値3（任意）', ph:'', def:''},
+        {k:'t', label:'当てはまるとき表示する文字', ph:'対象', def:'対象'},
+        {k:'f', label:'当てはまらないとき表示する文字', ph:'対象外', def:'対象外'}
+      ],
+      build:function(v){
+        var cs = [v.v1, v.v2].concat(String(v.v3).trim() ? [v.v3] : [])
+          .map(function(x){ return v.field + '=' + q(x); });
+        return 'IF(OR(' + cs.join(', ') + '), ' + q(v.t) + ', ' + q(v.f) + ')';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'値を 3 つ並べても正しく判定しました。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'if-and-or', cat:'条件分岐', name:'AND と OR を組み合わせる',
+      lead:'「金額が◯円以上」かつ「新規または更新」のような判定です。',
+      desc:'AND の中に OR を入れて入れ子にできます。',
+      target:TEXT_F,
+      inputs:[
+        {k:'f1', label:'数値のフィールドコード', ph:'金額', def:'金額'},
+        {k:'v1', label:'基準の値（これ以上）', ph:'10000', def:'10000', type:'number'},
+        {k:'f2', label:'選択肢のフィールドコード', ph:'区分', def:'区分'},
+        {k:'a', label:'選択肢1', ph:'新規', def:'新規'},
+        {k:'b', label:'選択肢2', ph:'更新', def:'更新'},
+        {k:'t', label:'満たすとき表示する文字', ph:'対象', def:'対象'},
+        {k:'f', label:'満たさないとき表示する文字', ph:'対象外', def:'対象外'}
+      ],
+      build:function(v){
+        return 'IF(AND(' + v.f1 + ' >= ' + (String(v.v1).trim()||'0') + ', OR(' + v.f2 + '=' + q(v.a) + ', ' + v.f2 + '=' + q(v.b) + ')), ' + q(v.t) + ', ' + q(v.f) + ')';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'入れ子でも正しく <b>対象</b> を返しました。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'if-not', cat:'条件分岐', name:'NOT：〜でないとき',
+      lead:'「解約でなければ有効」のような裏返しの判定です。',
+      desc:'<code>NOT(条件)</code> で条件を反転します。',
+      target:TEXT_F,
+      inputs:[
+        {k:'field', label:'判定するフィールドコード', ph:'区分', def:'区分'},
+        {k:'val', label:'この値かどうかを見る（例：解約）', ph:'解約', def:'解約'},
+        {k:'t', label:'その値「ではない」ときの表示', ph:'有効', def:'有効'},
+        {k:'f', label:'その値「である」ときの表示', ph:'解約済', def:'解約済'}
+      ],
+      build:function(v){ return 'IF(NOT(' + v.field + '=' + q(v.val) + '), ' + q(v.t) + ', ' + q(v.f) + ')'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'区分が「新規」のとき <b>有効</b>。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'if-blank', cat:'条件分岐', name:'未入力なら計算しない',
+      lead:'未入力のときに、意図しない 0 が混ざるのを防ぎます。',
+      desc:'数値フィールドが未入力のとき、kintone は <b>0</b> とみなして計算します。計算させたくない場合は IF で先に弾きます。',
+      target:'計算フィールド（0 を返す場合）／文字列（1行）（空欄や文字を返す場合）',
+      inputs:[
+        {k:'check', label:'未入力かどうかを判定するフィールドコード', ph:'個数', def:'個数'},
+        {k:'expr', label:'入力されているときに計算する式', ph:'単価 * 個数', def:'単価 * 個数'},
+        {k:'blank', label:'未入力のときに表示する値（0 なら 0 と入力）', ph:'0', def:'0'}
+      ],
+      build:function(v){
+        return 'IF(' + v.check + '="", ' + qn(v.blank) + ', ' + (String(v.expr).trim() || '0') + ')';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'未入力のとき <b>0</b>。なお未入力の数値をそのまま掛けても <b>0</b> になることも確認済みです。'},
+             {t:'note',h:'',b:'空欄（""）や文字を返す設定にした場合は、置き場所を<b>文字列（1行）</b>にしてください。'}]
+    },
+    {
+      id:'div-guard', cat:'条件分岐', name:'ゼロで割らないようにする',
+      lead:'割る数が 0 や未入力のときに、計算が壊れるのを防ぎます。',
+      desc:'割る前に 0 かどうかを判定します。未入力の数値は 0 として扱われるので、この 1 本で両方を防げます。',
+      target:CALC_N,
+      inputs:[
+        {k:'a', label:'割られる数のフィールドコード', ph:'実績', def:'実績'},
+        {k:'b', label:'割る数のフィールドコード', ph:'目標', def:'目標'},
+        {k:'digit', label:'小数部の桁数', type:'select', def:'2', opts:[['0','0（整数）'],['1','1'],['2','2'],['3','3']]}
+      ],
+      build:function(v){ return 'IF(' + v.b + ' = 0, 0, ROUND(' + v.a + ' / ' + v.b + ', ' + v.digit + '))'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'95 ÷ 100 で <b>0.95</b>。割る数が未入力でも 0 扱いで安全に 0 を返します。'}]
+    },
+
+    /* ---------- 数値の丸め・集計 ---------- */
+    {
+      id:'round', cat:'数値の丸め・集計', name:'四捨五入・切り上げ・切り捨て',
+      lead:'小数の桁をそろえる、100円単位に丸める、といった処理です。',
+      desc:'<code>ROUND(数値, 桁数)</code>。桁数を省略すると 0 になります。<b>マイナスの桁数</b>を指定すると 10 の位・100 の位で丸められます。',
+      target:CALC_N,
+      inputs:[
+        {k:'mode', label:'丸め方', type:'select', def:'ROUND', opts:[['ROUND','四捨五入'],['ROUNDUP','切り上げ'],['ROUNDDOWN','切り捨て']]},
+        {k:'expr', label:'丸めたい式またはフィールドコード', ph:'単価 * 個数', def:'単価 * 個数'},
+        {k:'digit', label:'桁数', type:'select', def:'0',
+          opts:[['2','2（小数第2位まで残す）'],['1','1（小数第1位まで残す）'],['0','0（整数にする）'],['-1','-1（10の位で丸める）'],['-2','-2（100の位で丸める）'],['-3','-3（1000の位で丸める）']]}
+      ],
+      build:function(v){ return v.mode + '(' + (String(v.expr).trim()||'0') + ', ' + v.digit + ')'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'9500 を桁数 -3 で切り捨てると <b>9000</b>。2.5 を四捨五入すると <b>3</b>、切り上げ（小数1位）は <b>2.5</b>。'}]
+    },
+    {
+      id:'tax-in', cat:'数値の丸め・集計', name:'税込金額を出す',
+      lead:'税率をかけて端数を処理します。',
+      desc:'端数の扱い（切り捨て・四捨五入）は会社のルールに合わせて選んでください。',
+      target:CALC_N,
+      inputs:[
+        {k:'base', label:'税抜金額のフィールドコード', ph:'小計', def:'小計'},
+        {k:'rate', label:'税率', type:'select', def:'1.1', opts:[['1.1','10%'],['1.08','8%（軽減税率）']]},
+        {k:'mode', label:'端数処理', type:'select', def:'ROUNDDOWN', opts:[['ROUNDDOWN','切り捨て'],['ROUND','四捨五入'],['ROUNDUP','切り上げ']]}
+      ],
+      build:function(v){ return v.mode + '(' + v.base + ' * ' + v.rate + ', 0)'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'95 × 1.1 = 104.5 を切り捨てて <b>104</b>。'}]
+    },
+    {
+      id:'tax-only', cat:'数値の丸め・集計', name:'消費税額だけを出す',
+      lead:'税抜金額から税額を取り出します。',
+      desc:'税率から 1 を引いた分（0.1 / 0.08）を掛けます。',
+      target:CALC_N,
+      inputs:[
+        {k:'base', label:'税抜金額のフィールドコード', ph:'小計', def:'小計'},
+        {k:'rate', label:'税率', type:'select', def:'0.1', opts:[['0.1','10%'],['0.08','8%（軽減税率）']]},
+        {k:'mode', label:'端数処理', type:'select', def:'ROUNDDOWN', opts:[['ROUNDDOWN','切り捨て'],['ROUND','四捨五入'],['ROUNDUP','切り上げ']]}
+      ],
+      build:function(v){ return v.mode + '(' + v.base + ' * ' + v.rate + ', 0)'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'95 × 0.1 = 9.5 を切り捨てて <b>9</b>。'}]
+    },
+    {
+      id:'percent', cat:'数値の丸め・集計', name:'達成率・構成比（％）',
+      lead:'実績 ÷ 目標 × 100 を桁を揃えて出します。',
+      desc:'100 を掛けてから桁を丸めます。単位の「％」は計算フィールドの<b>単位</b>設定で付けられます。',
+      target:CALC_N,
+      inputs:[
+        {k:'a', label:'分子のフィールドコード', ph:'実績', def:'実績'},
+        {k:'b', label:'分母のフィールドコード', ph:'目標', def:'目標'},
+        {k:'digit', label:'小数部の桁数', type:'select', def:'1', opts:[['0','0（整数）'],['1','1'],['2','2']]}
+      ],
+      build:function(v){ return 'ROUND(' + v.a + ' / ' + v.b + ' * 100, ' + v.digit + ')'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'95 / 100 × 100 で <b>95</b>。'},
+             {t:'note',h:'',b:'分母が 0 や未入力になりうるなら「ゼロで割らないようにする」と組み合わせてください。'}]
+    },
+    {
+      id:'sum', cat:'数値の丸め・集計', name:'テーブルの数値を合計する（SUM）',
+      lead:'テーブル内の数量や金額を合計します。',
+      desc:'<code>SUM(フィールドコード)</code> でテーブル内の数値を合計します。',
+      target:'計算フィールド（テーブルの外に置く）',
+      inputs:[
+        {k:'field', label:'合計したいテーブル内フィールドのフィールドコード', ph:'数量', def:'数量'}
+      ],
+      build:function(v){ return 'SUM(' + v.field + ')'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'数量 1・2・3 のテーブルで <b>6</b>。'},
+             {t:'note',h:'',b:'合計を出す計算フィールドは<b>テーブルの外</b>に置いてください。テーブルの中に置くと行ごとの計算になります。'}]
+    },
+    {
+      id:'row-calc', cat:'数値の丸め・集計', name:'テーブルの行ごとに金額を出す',
+      lead:'明細行の「数量 × 単価」を行ごとに計算します。',
+      desc:'<b>テーブルの中に</b>計算フィールドを作り、同じ行のフィールドコードを使った式を入れます。',
+      target:'テーブル内の計算フィールド',
+      inputs:[
+        {k:'a', label:'数量のフィールドコード（テーブル内）', ph:'数量', def:'数量'},
+        {k:'b', label:'単価のフィールドコード（テーブル内）', ph:'単価', def:'単価'}
+      ],
+      build:function(v){ return v.a + ' * ' + v.b; },
+      notes:[{t:'ok',h:'実機で確認：',b:'1×100、2×200、3×300 の各行で <b>100 / 400 / 900</b>。'},
+             {t:'ng',h:'SUM の中で掛け算はできません：',b:'<code>SUM(数量 * 単価)</code> は<b>kintone に拒否されます</b>（「配列型の値に対して適切な関数が利用されていません」）。この行計算フィールドを作ってから、それを SUM してください。'}]
+    },
+    {
+      id:'sum-row', cat:'数値の丸め・集計', name:'行ごとの金額を合計する',
+      lead:'テーブル内に作った行ごとの計算フィールドを合計します。',
+      desc:'テーブル内の計算フィールドも <code>SUM()</code> で合計できます。',
+      target:'計算フィールド（テーブルの外に置く）',
+      inputs:[
+        {k:'field', label:'テーブル内の行計算フィールドのフィールドコード', ph:'金額', def:'金額'}
+      ],
+      build:function(v){ return 'SUM(' + v.field + ')'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'100 + 400 + 900 で <b>1400</b>。'}]
+    },
+    {
+      id:'avg', cat:'数値の丸め・集計', name:'平均単価を出す',
+      lead:'合計金額 ÷ 合計数量で平均を出します。',
+      desc:'kintone に AVERAGE はありませんが、SUM どうしを割れば平均が出せます。',
+      target:CALC_N,
+      inputs:[
+        {k:'a', label:'金額のフィールドコード（テーブル内）', ph:'金額', def:'金額'},
+        {k:'b', label:'数量のフィールドコード（テーブル内）', ph:'数量', def:'数量'},
+        {k:'digit', label:'小数部の桁数', type:'select', def:'0', opts:[['0','0（整数）'],['1','1'],['2','2']]}
+      ],
+      build:function(v){ return 'ROUND(SUM(' + v.a + ') / SUM(' + v.b + '), ' + v.digit + ')'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'1400 ÷ 6 を四捨五入して <b>233</b>。'}]
+    },
+
+    /* ---------- 文字列・選択肢 ---------- */
+    {
+      id:'concat', cat:'文字列・選択肢', name:'複数のフィールドをつなげる',
+      lead:'「支店コード-顧客名」のような表示用の文字列を作ります。',
+      desc:'結合は半角の <code>&amp;</code> です。<b><code>+</code> では文字列は結合されません。</b>区切り文字は <code>" "</code> のように引用符で囲みます。',
+      target:TEXT_F,
+      inputs:[
+        {k:'f1', label:'1つ目のフィールドコード', ph:'支店コード', def:'支店コード'},
+        {k:'sep', label:'区切り文字（空でも可）', ph:'-', def:'-'},
+        {k:'f2', label:'2つ目のフィールドコード', ph:'顧客名', def:'顧客名'},
+        {k:'f3', label:'3つ目のフィールドコード（任意）', ph:'', def:''}
+      ],
+      build:function(v){
+        var parts = [v.f1];
+        if (v.sep !== '') parts.push(q(v.sep));
+        parts.push(v.f2);
+        if (String(v.f3).trim() !== '') {
+          if (v.sep !== '') parts.push(q(v.sep));
+          parts.push(v.f3);
+        }
+        return parts.join(' & ');
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'<b>ABC-東京</b>。数値をつないでも <b>ABC/95</b>、小数 0.95 をつないでも <b>ABC/0.95</b> と桁が落ちません。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'concat-unit', cat:'文字列・選択肢', name:'合計に単位をつけて表示する',
+      lead:'「1400円」のように単位まで入れます。',
+      desc:'計算した値と文字を <code>&amp;</code> でつなぎます。',
+      target:TEXT_F,
+      inputs:[
+        {k:'expr', label:'計算する式', ph:'SUM(金額)', def:'SUM(金額)'},
+        {k:'unit', label:'単位', ph:'円', def:'円'}
+      ],
+      build:function(v){ return (String(v.expr).trim() || '0') + ' & ' + q(v.unit); },
+      notes:[{t:'ok',h:'実機で確認：',b:'SUM(金額) が 1400 のとき <b>1400円</b>。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'contains', cat:'文字列・選択肢', name:'チェックボックスで選ばれているか判定する',
+      lead:'チェックボックスや複数選択で選ばれている項目を条件にします。',
+      desc:'<code>CONTAINS(フィールドコード, "選択肢")</code> で、指定した選択肢と<b>完全一致</b>するものがあるかを判定します。',
+      target:TEXT_F,
+      inputs:[
+        {k:'field', label:'チェックボックス／複数選択のフィールドコード', ph:'チェック', def:'チェック'},
+        {k:'val', label:'探す選択肢（完全一致）', ph:'済', def:'済'},
+        {k:'t', label:'含まれるときの表示', ph:'チェックあり', def:'チェックあり'},
+        {k:'f', label:'含まれないときの表示', ph:'チェックなし', def:'チェックなし'}
+      ],
+      build:function(v){
+        return 'IF(CONTAINS(' + v.field + ', ' + q(v.val) + '), ' + q(v.t) + ', ' + q(v.f) + ')';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'チェックが［済］のとき <b>チェックあり</b>。'},
+             {t:'ng',h:'ドロップダウンには使えません：',b:'CONTAINS が使えるのは<b>チェックボックス・複数選択</b>と、<b>テーブル内</b>の 文字列（1行）・ラジオボタン・ドロップダウン・ルックアップ（コピー元が文字列型）です。テーブル外のドロップダウンに使うと<b>エラーにならず空欄</b>になります（実機で確認）。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'dropdown-if', cat:'文字列・選択肢', name:'ドロップダウン・ラジオボタンで判定する',
+      lead:'選択肢の値をそのまま比べます。',
+      desc:'ドロップダウンやラジオボタンは CONTAINS ではなく、<code>=</code> で直接比べます。',
+      target:TEXT_F,
+      inputs:[
+        {k:'field', label:'ドロップダウン／ラジオボタンのフィールドコード', ph:'区分', def:'区分'},
+        {k:'val', label:'比べる選択肢', ph:'新規', def:'新規'},
+        {k:'t', label:'一致するときの表示', ph:'対象', def:'対象'},
+        {k:'f', label:'一致しないときの表示', ph:'対象外', def:'対象外'}
+      ],
+      build:function(v){ return 'IF(' + v.field + ' = ' + q(v.val) + ', ' + q(v.t) + ', ' + q(v.f) + ')'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'区分「新規」で <b>対象</b>。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    /* ---------- 追加：日付・期間 ---------- */
+    {
+      id:'time-diff', cat:'日付・期間', name:'時刻の差（勤務時間など）',
+      lead:'始業と終業の時刻から実働時間を出します。',
+      desc:'時刻フィールドも内部は秒です。引き算して 3600 で割ると時間数になります。',
+      target:CALC_N,
+      inputs:[
+        {k:'from', label:'開始時刻のフィールドコード', ph:'始業', def:'始業'},
+        {k:'to', label:'終了時刻のフィールドコード', ph:'終業', def:'終業'}
+      ],
+      build:function(v){ return '(' + v.to + ' - ' + v.from + ') / 3600'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'9:00 → 17:30 で <b>8.5</b>（時間）。割らずに引き算だけだと <b>30600</b>（秒）です。'},
+             {t:'note',h:'',b:'休憩時間を引きたい場合は、末尾に <code>- 1</code>（1時間）のように足し引きしてください。'}]
+    },
+    {
+      id:'datetime-diff', cat:'日付・期間', name:'日時の差（時間）',
+      lead:'受付日時から対応日時までの所要時間です。',
+      desc:'日時フィールドも秒で扱われます。3600 で割ると時間数になります。',
+      target:CALC_N,
+      inputs:[
+        {k:'from', label:'開始日時のフィールドコード', ph:'受付日時', def:'受付日時'},
+        {k:'to', label:'終了日時のフィールドコード', ph:'対応日時', def:'対応日時'}
+      ],
+      build:function(v){ return '(' + v.to + ' - ' + v.from + ') / 3600'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'9時間30分の差で <b>9.5</b>。'}]
+    },
+    {
+      id:'datetime-fmt', cat:'日付・期間', name:'日時を「年月日 時分」で表示する',
+      lead:'日時フィールドを読みやすい形にします。',
+      desc:'日時は <code>DATE_FORMAT</code> で書式を指定します。<b>日時フィールドはタイムゾーンの指定で表示がずれます</b>ので、通常は <code>Asia/Tokyo</code> を使います。',
+      target:TEXT_F,
+      inputs:[
+        {k:'f', label:'日時フィールドのフィールドコード', ph:'受付日時', def:'受付日時'},
+        {k:'fmt', label:'表示形式', type:'select', def:'YYYY/MM/dd HH:mm',
+          opts:[['YYYY/MM/dd HH:mm','2026/04/01 09:00'],['YYYY年M月d日 H時m分','2026年4月1日 9時0分'],['HH:mm','09:00']]}
+      ],
+      build:function(v){ return 'DATE_FORMAT(' + v.f + ', "' + v.fmt + '", "Asia/Tokyo")'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'UTC 00:00 の日時が Asia/Tokyo 指定で <b>2026/04/01 09:00</b> と表示されました。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'years-approx', cat:'日付・期間', name:'経過年数のおおよそを出す',
+      lead:'勤続年数・経過年数の概算です。',
+      desc:'日数を 365 で割って切り捨てます。<b>うるう年を数えないおおよその値</b>です。',
+      target:CALC_N,
+      inputs:[
+        {k:'from', label:'開始日のフィールドコード', ph:'入社日', def:'入社日'},
+        {k:'to', label:'終了日のフィールドコード', ph:'基準日', def:'基準日'}
+      ],
+      build:function(v){ return 'ROUNDDOWN((' + v.to + ' - ' + v.from + ') / 86400 / 365, 0)'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'10 日ぶんの差で <b>0</b>。'},
+             {t:'ng',h:'正確な年数ではありません：',b:'365 日で割る計算なので、<b>4 年に 1 日ずつずれ</b>ます。正確な満年齢・満年数が必要な業務には使わないでください。また kintone の計算式には「今日」を返す関数がないため、<b>基準日は別のフィールドで持つ</b>必要があります。'}]
+    },
+
+    /* ---------- 追加：条件分岐 ---------- */
+    {
+      id:'fallback', cat:'条件分岐', name:'空欄なら別のフィールドを使う',
+      lead:'「略称が空なら正式名称を出す」のような使い分けです。',
+      desc:'IF で空欄を判定し、空なら別のフィールドを返します。',
+      target:TEXT_F,
+      inputs:[
+        {k:'a', label:'優先して使うフィールドコード', ph:'略称', def:'略称'},
+        {k:'b', label:'空だったときに使うフィールドコード', ph:'正式名称', def:'正式名称'}
+      ],
+      build:function(v){ return 'IF(' + v.a + '="", ' + v.b + ', ' + v.a + ')'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'優先側を空にすると、もう一方の値が表示されました。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'maxmin', cat:'条件分岐', name:'大きいほう・小さいほうを取る',
+      lead:'2つの数値のどちらかを選びます。',
+      desc:'kintone に MAX / MIN はありませんが、IF で同じことができます。',
+      target:CALC_N,
+      inputs:[
+        {k:'mode', label:'どちらを取るか', type:'select', def:'max', opts:[['max','大きいほう（MAX の代わり）'],['min','小さいほう（MIN の代わり）']]},
+        {k:'a', label:'1つ目のフィールドコード', ph:'見積金額', def:'見積金額'},
+        {k:'b', label:'2つ目のフィールドコード', ph:'上限金額', def:'上限金額'}
+      ],
+      build:function(v){
+        var op = v.mode === 'max' ? '>' : '<';
+        return 'IF(' + v.a + ' ' + op + ' ' + v.b + ', ' + v.a + ', ' + v.b + ')';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'95 と 100 で、大きいほう <b>100</b>／小さいほう <b>95</b>。'}]
+    },
+    {
+      id:'abs', cat:'条件分岐', name:'マイナスを打ち消す（絶対値）',
+      lead:'差額をプラスの数字で見たいときに使います。',
+      desc:'kintone に ABS はありませんが、マイナスのときだけ符号を反転させれば同じ結果になります。',
+      target:CALC_N,
+      inputs:[
+        {k:'f', label:'対象のフィールドコード', ph:'差額', def:'差額'}
+      ],
+      build:function(v){ return 'IF(' + v.f + ' < 0, -' + v.f + ', ' + v.f + ')'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'-7 のとき <b>7</b>。'}]
+    },
+    {
+      id:'two-axis', cat:'条件分岐', name:'2つの軸を組み合わせて表示する',
+      lead:'「金額ランク」と「新規／既存」を1つの欄にまとめます。',
+      desc:'IF の結果どうしを <code>&amp;</code> でつなぎます。一覧に出す区分表示を1列で作れます。',
+      target:TEXT_F,
+      inputs:[
+        {k:'n', label:'数値のフィールドコード', ph:'金額', def:'金額'},
+        {k:'hi', label:'「高」とみなす基準（これ以上）', ph:'80', def:'80', type:'number'},
+        {k:'mid', label:'「中」とみなす基準（これ以上）', ph:'50', def:'50', type:'number'},
+        {k:'s', label:'選択肢のフィールドコード', ph:'区分', def:'区分'},
+        {k:'sv', label:'選択肢の値', ph:'新規', def:'新規'},
+        {k:'sep', label:'区切り文字', ph:'／', def:'／'}
+      ],
+      build:function(v){
+        var a = String(v.hi).trim() || '0', b = String(v.mid).trim() || '0';
+        return 'IF(' + v.n + ' >= ' + a + ', "高", IF(' + v.n + ' >= ' + b + ', "中", "低")) & ' + q(v.sep) + ' & IF(' + v.s + '=' + q(v.sv) + ', "新", "既")';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'金額 95・区分「新規」で <b>高／新</b>。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+
+    /* ---------- 追加：数値の丸め・集計 ---------- */
+    {
+      id:'yen', cat:'数値の丸め・集計', name:'金額を ¥1,234 の形式で表示する',
+      lead:'桁区切りと円記号をまとめて付けます。',
+      desc:'<code>YEN(数値, 桁数)</code> は、四捨五入したうえで 3 桁区切りの「¥」形式にします。',
+      target:TEXT_F,
+      inputs:[
+        {k:'expr', label:'金額の式またはフィールドコード', ph:'単価 * 個数', def:'単価 * 個数'},
+        {k:'digit', label:'小数部の桁数', type:'select', def:'0', opts:[['0','0（円単位）'],['1','1'],['2','2']]}
+      ],
+      build:function(v){ return 'YEN(' + (String(v.expr).trim() || '0') + ', ' + v.digit + ')'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'9500 が <b>¥9,500</b> になりました。'},
+             {t:'ng',h:'計算フィールドでは空欄になります：',b:'YEN は<b>文字を返す関数</b>です。計算フィールドに入れると、エラーも出ずに空欄になります（実機で確認）。必ず文字列（1行）フィールドの自動計算に設定してください。'},
+             {t:'note',h:'',b:'金額を数値のまま持ちたい場合は、YEN ではなく計算フィールドの表示形式「数値（カンマ区切り）」と単位記号を使ってください。'}]
+    },
+    {
+      id:'power', cat:'数値の丸め・集計', name:'べき乗（面積・体積など）',
+      lead:'同じ数を掛け合わせます。',
+      desc:'<code>^</code> でべき乗を計算します。-100 乗から 100 乗まで指定できます。',
+      target:CALC_N,
+      inputs:[
+        {k:'f', label:'対象のフィールドコード', ph:'一辺', def:'一辺'},
+        {k:'n', label:'何乗するか', type:'select', def:'2', opts:[['2','2乗（面積）'],['3','3乗（体積）'],['4','4乗'],['-1','-1乗（逆数）']]}
+      ],
+      build:function(v){ return v.f + ' ^ ' + v.n; },
+      notes:[{t:'ok',h:'実機で確認：',b:'95 の 2 乗で <b>9025</b>、95 の 3 乗で <b>857375</b>、100 の -1 乗で <b>0.01</b>。'},
+             {t:'ng',h:'平方根は出せません：',b:'指数に小数を書くと（<code>^ 0.5</code> や <code>^ (1 / 3)</code>）、kintone は<b>エラーを出さずに 1 を返します</b>（実機で確認）。ルートの計算は計算式では作れません。'}]
+    },
+    {
+      id:'boxes', cat:'数値の丸め・集計', name:'箱数・ケース数を出す（切り上げ）',
+      lead:'「入数で割って、余りも1箱と数える」計算です。',
+      desc:'割り算の結果を <code>ROUNDUP</code> で切り上げます。端数が出ても 1 箱として数えられます。',
+      target:CALC_N,
+      inputs:[
+        {k:'a', label:'総数のフィールドコード', ph:'総数', def:'総数'},
+        {k:'b', label:'1箱の入数のフィールドコード', ph:'入数', def:'入数'}
+      ],
+      build:function(v){ return 'ROUNDUP(' + v.a + ' / ' + v.b + ', 0)'; },
+      notes:[{t:'ok',h:'実機で確認：',b:'100 個を 12 個入りで <b>9</b> 箱。'},
+             {t:'note',h:'',b:'入数が未入力だと 0 で割ることになります。「ゼロで割らないようにする」と組み合わせると安全です。'},
+             {t:'ng',h:'テーブル内のフィールドは使えません：',b:'テーブルの中にある数値を掛けたり割ったりすると、kintone に<b>拒否されます</b>（「配列型の値に対して適切な関数が利用されていません」）。テーブルを対象にしたいときは、行ごとの計算フィールドを作ってから <code>SUM()</code> してください。'}]
+    },
+    {
+      id:'mod', cat:'数値の丸め・集計', name:'割り切れない余りを出す',
+      lead:'「12個入りに詰めた残り」のような端数です。',
+      desc:'kintone に MOD はありませんが、<b>総数 −（箱数 × 入数）</b>で余りが出せます。',
+      target:CALC_N,
+      inputs:[
+        {k:'a', label:'総数のフィールドコード', ph:'総数', def:'総数'},
+        {k:'b', label:'割る数のフィールドコード', ph:'入数', def:'入数'}
+      ],
+      build:function(v){ return v.a + ' - ROUNDDOWN(' + v.a + ' / ' + v.b + ', 0) * ' + v.b; },
+      notes:[{t:'ok',h:'実機で確認：',b:'100 を 12 で割った余り <b>4</b>。'}]
+    },
+    {
+      id:'add-fields', cat:'数値の丸め・集計', name:'複数のフィールドを合計する',
+      lead:'テーブルではなく、独立した数値項目どうしの合計です。',
+      desc:'SUM はテーブル用です。フォーム上に並んだ数値フィールドは <code>+</code> でつなぎます。',
+      target:CALC_N,
+      inputs:[
+        {k:'a', label:'1つ目のフィールドコード', ph:'商品代', def:'商品代'},
+        {k:'b', label:'2つ目のフィールドコード', ph:'送料', def:'送料'},
+        {k:'c', label:'3つ目のフィールドコード（任意）', ph:'手数料', def:'手数料'}
+      ],
+      build:function(v){
+        var p = [v.a, v.b].concat(String(v.c).trim() ? [v.c] : []);
+        return p.join(' + ');
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'95 + 100 + 12 で <b>207</b>。'},
+             {t:'note',h:'',b:'未入力のフィールドは 0 として足されます。'}]
+    },
+    {
+      id:'discount', cat:'数値の丸め・集計', name:'割引後の金額を出す',
+      lead:'「20%引き」の金額を計算します。',
+      desc:'割引率を 100 で割って 1 から引き、掛けます。端数は切り捨てにしています。',
+      target:CALC_N,
+      inputs:[
+        {k:'base', label:'元の金額のフィールドコード', ph:'定価', def:'定価'},
+        {k:'rate', label:'割引率（％）', ph:'20', def:'20', type:'number'},
+        {k:'mode', label:'端数処理', type:'select', def:'ROUNDDOWN', opts:[['ROUNDDOWN','切り捨て'],['ROUND','四捨五入'],['ROUNDUP','切り上げ']]}
+      ],
+      build:function(v){
+        var r = String(v.rate).trim();
+        var num = /^\d+(\.\d+)?$/.test(r) ? r : '0';
+        return v.mode + '(' + v.base + ' * (1 - ' + num + ' / 100), 0)';
+      },
+      warn:function(v){
+        return /^\d+(\.\d+)?$/.test(String(v.rate).trim()) ? null
+          : '「割引率」には半角の数字を入れてください。いまは 0 を入れた式を表示しています。';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'95 円の 20% 引きで <b>76</b>。'}]
+    },
+
+    /* ---------- 追加：文字列・選択肢 ---------- */
+    {
+      id:'check-count', cat:'文字列・選択肢', name:'チェックが何個ついているか数える',
+      lead:'チェックボックスの選択数を数値にします。',
+      desc:'kintone に個数を数える関数はありません。<b>選択肢ごとに「あれば 1」を足し合わせ</b>ます。選択肢の数だけ項目を並べてください。',
+      target:CALC_N,
+      inputs:[
+        {k:'field', label:'チェックボックスのフィールドコード', ph:'確認項目', def:'確認項目'},
+        {k:'a', label:'選択肢1', ph:'A', def:'A'},
+        {k:'b', label:'選択肢2', ph:'B', def:'B'},
+        {k:'c', label:'選択肢3（任意）', ph:'C', def:'C'}
+      ],
+      build:function(v){
+        var xs = [v.a, v.b].concat(String(v.c).trim() ? [v.c] : []);
+        return xs.map(function(x){ return 'IF(CONTAINS(' + v.field + ',' + q(x) + '),1,0)'; }).join(' + ');
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'A と B にチェックが入った状態で <b>2</b>。'}]
+    },
+    {
+      id:'not-checked', cat:'文字列・選択肢', name:'チェックが付いていないことを判定する',
+      lead:'「未完了だけ目印を出す」といった使い方です。',
+      desc:'<code>NOT</code> と <code>CONTAINS</code> を組み合わせます。',
+      target:TEXT_F,
+      inputs:[
+        {k:'field', label:'チェックボックスのフィールドコード', ph:'確認項目', def:'確認項目'},
+        {k:'val', label:'探す選択肢', ph:'済', def:'済'},
+        {k:'t', label:'付いていないときの表示', ph:'未完了', def:'未完了'},
+        {k:'f', label:'付いているときの表示', ph:'完了', def:'完了'}
+      ],
+      build:function(v){
+        return 'IF(NOT(CONTAINS(' + v.field + ', ' + q(v.val) + ')), ' + q(v.t) + ', ' + q(v.f) + ')';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'「済」が入っている状態で <b>完了</b>。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'check-both', cat:'文字列・選択肢', name:'複数のチェックが同時に付いているか',
+      lead:'「AとBの両方が済んでいるか」の判定です。',
+      desc:'<code>CONTAINS</code> を <code>AND</code> でつなぎます。どちらか一方でよい場合は OR に読み替えてください。',
+      target:TEXT_F,
+      inputs:[
+        {k:'field', label:'チェックボックスのフィールドコード', ph:'確認項目', def:'確認項目'},
+        {k:'logic', label:'つなぎ方', type:'select', def:'AND', opts:[['AND','両方に付いている'],['OR','どちらかに付いている']]},
+        {k:'a', label:'選択肢1', ph:'A', def:'A'},
+        {k:'b', label:'選択肢2', ph:'B', def:'B'},
+        {k:'t', label:'条件に合うときの表示', ph:'OK', def:'OK'},
+        {k:'f', label:'合わないときの表示', ph:'NG', def:'NG'}
+      ],
+      build:function(v){
+        return 'IF(' + v.logic + '(CONTAINS(' + v.field + ',' + q(v.a) + '), CONTAINS(' + v.field + ',' + q(v.b) + ')), ' + q(v.t) + ', ' + q(v.f) + ')';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'A と B の両方にチェックがある状態で、AND 指定が正しく判定しました。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    }
+  ];
+
+  var catsEl = document.getElementById('cats');
+  var recipesEl = document.getElementById('recipes');
+  var editorEl = document.getElementById('editor');
+  var fieldsEl = document.getElementById('fields');
+  var outEl = document.getElementById('out');
+  var descEl = document.getElementById('recipeDesc');
+  var targetEl = document.getElementById('target');
+  var notesEl = document.getElementById('notes');
+  var copiedEl = document.getElementById('copied');
+  var warnEl = document.getElementById('warn');
+
+  var cats = [];
+  RECIPES.forEach(function(r){ if (cats.indexOf(r.cat) < 0) cats.push(r.cat); });
+
+  var state = { cat: cats[0], recipe: null, values: {} };
+
+  function renderCats(){
+    catsEl.innerHTML = '';
+    cats.forEach(function(c){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'cat'; b.textContent = c;
+      b.setAttribute('role','tab');
+      b.setAttribute('aria-selected', String(c === state.cat));
+      b.addEventListener('click', function(){ state.cat = c; renderCats(); renderRecipes(); });
+      catsEl.appendChild(b);
+    });
+  }
+
+  function renderRecipes(){
+    recipesEl.innerHTML = '';
+    RECIPES.filter(function(r){ return r.cat === state.cat; }).forEach(function(r){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'recipe';
+      b.setAttribute('aria-pressed', String(state.recipe && state.recipe.id === r.id));
+      var n = document.createElement('b'); n.textContent = r.name;
+      var s = document.createElement('span'); s.textContent = r.lead;
+      b.appendChild(n); b.appendChild(s);
+      b.addEventListener('click', function(){ selectRecipe(r); });
+      recipesEl.appendChild(b);
+    });
+  }
+
+  function selectRecipe(r){
+    state.recipe = r;
+    state.values = {};
+    r.inputs.forEach(function(i){ state.values[i.k] = i.def !== undefined ? i.def : ''; });
+    renderRecipes();
+    renderEditor();
+    editorEl.hidden = false;
+    editorEl.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function renderEditor(){
+    var r = state.recipe;
+    descEl.innerHTML = r.desc;
+    targetEl.innerHTML = '置き場所の目安：<b>' + r.target + '</b>';
+
+    fieldsEl.innerHTML = '';
+    r.inputs.forEach(function(i){
+      var wrap = document.createElement('div'); wrap.className = 'field';
+      var id = 'f_' + r.id + '_' + i.k;
+      var lab = document.createElement('label'); lab.setAttribute('for', id); lab.textContent = i.label;
+      wrap.appendChild(lab);
+
+      var el;
+      if (i.type === 'select') {
+        el = document.createElement('select');
+        i.opts.forEach(function(o){
+          var op = document.createElement('option');
+          op.value = o[0]; op.textContent = o[1];
+          if (o[0] === state.values[i.k]) op.selected = true;
+          el.appendChild(op);
+        });
+      } else {
+        el = document.createElement('input');
+        el.type = i.type === 'number' ? 'text' : 'text';
+        el.placeholder = i.ph || '';
+        el.value = state.values[i.k];
+      }
+      el.id = id;
+      el.addEventListener('input', function(){ state.values[i.k] = el.value; renderOut(); });
+      el.addEventListener('change', function(){ state.values[i.k] = el.value; renderOut(); });
+      wrap.appendChild(el);
+      fieldsEl.appendChild(wrap);
+    });
+
+    notesEl.innerHTML = '';
+    (r.notes || []).forEach(function(n){
+      var d = document.createElement('div');
+      d.className = n.t === 'ng' ? 'ng' : 'note';
+      d.innerHTML = (n.h ? '<b>' + n.h + '</b>' : '') + n.b;
+      notesEl.appendChild(d);
+    });
+
+    renderOut();
+  }
+
+  var NUM_RE = /^-?\d+(\.\d+)?$/;
+
+  /** Quick structural check of a finished formula. A ")" inside quotes is legal. */
+  function syntaxProblem(f) {
+    if (!f) return false;
+    if ((f.match(/"/g) || []).length % 2 !== 0) return true;
+    var bare = f.replace(/"[^"]*"/g, '§'), depth = 0;
+    for (var i = 0; i < bare.length; i++) {
+      if (bare[i] === '(') depth++;
+      if (bare[i] === ')') { depth--; if (depth < 0) return true; }
+    }
+    if (depth !== 0) return true;
+    return /\(\s*[=<>!,]/.test(bare) || /,\s*\)/.test(bare) || /^\s*[-+*\/&]/.test(bare) ||
+           /[-+*\/]\s*[,)]/.test(bare) || bare.indexOf('()') >= 0 || /[-+*\/]\s*[-+*\/]/.test(bare);
+  }
+
+  function renderOut(){
+    // Numeric inputs are dropped straight into the formula, so a typo like "A)B" would
+    // produce text kintone cannot parse. Substitute 0 and warn below instead.
+    var safe = {}, badNum = [];
+    (state.recipe.inputs || []).forEach(function(i){
+      var raw = state.values[i.k] === undefined ? '' : String(state.values[i.k]);
+      if (i.type === 'number' && raw.trim() && !NUM_RE.test(raw.trim())) {
+        safe[i.k] = '0';
+        badNum.push(i.label);
+      } else {
+        safe[i.k] = state.values[i.k];
+      }
+    });
+    try {
+      outEl.textContent = state.recipe.build(safe);
+    } catch (e) {
+      outEl.textContent = '';
+    }
+    // A blank field code produces a formula kintone cannot parse — "(終了日 - ) / 86400".
+    // Catch it here for every recipe instead of letting the broken text be copied out.
+    // Display-text inputs may legitimately be empty, so only field-code / expression
+    // inputs (and not the ones marked 任意) are treated as required.
+    var missing = [], illegal = [];
+    // kintone's field code allows only: kana, kanji, letters and digits (half or full
+    // width), "_" / "＿", "･" / "・", and full-width currency symbols. Everything else —
+    // including "-" and spaces — is rejected, so check against that list rather than
+    // guessing at a blacklist. Expression inputs are skipped: they may legitimately
+    // contain operators and parentheses.
+    var CODE_OK = /^[぀-ゟ゠-ヿ㐀-䶿一-鿿･-ﾟA-Za-z0-9０-９Ａ-Ｚａ-ｚ_＿＄￠￡￢￥￦]+$/;
+    (state.recipe.inputs || []).forEach(function(i){
+      var isCode = i.label.indexOf('フィールドコード') >= 0 && i.label.indexOf('式') < 0;
+      var req = (i.label.indexOf('フィールドコード') >= 0 || i.label.indexOf('式') >= 0) &&
+                i.label.indexOf('（任意）') < 0;
+      var val = String(state.values[i.k] === undefined ? '' : state.values[i.k]).trim();
+      if (req && !val) { missing.push(i.label); return; }
+      if (isCode && val && !CODE_OK.test(val)) illegal.push(i.label);
+    });
+
+    var w = null;
+    if (missing.length) {
+      w = '「' + missing.join('」「') + '」が空です。フィールドコードを入れてください。' +
+          'このままでは kintone に貼っても計算式として読み取れません。';
+    } else if (illegal.length) {
+      w = '「' + illegal.join('」「') + '」に、kintone のフィールドコードでは使えない文字が入っています。' +
+          'フィールドコードに使えるのは<b>ひらがな・カタカナ・漢字・英数字</b>と、記号は <code>_</code> <code>＿</code> <code>･</code> <code>・</code> と全角の通貨記号だけです' +
+          '（<code>-</code> や半角スペースも使えません）。フォームの設定画面に表示されているフィールドコードをそのまま入れてください。';
+    } else if (badNum.length) {
+      w = '「' + badNum.join('」「') + '」には半角の数字を入れてください。' +
+          'いまは 0 を入れた式を表示しています。';
+    } else if (syntaxProblem(outEl.textContent)) {
+      // Catch-all for the free-form expression inputs: a typed "(" or a stray quote
+      // makes the whole formula unparseable, and kintone would only say
+      // 「計算式が正しくありません」without pointing at the cause.
+      w = '式のかっこか引用符の対応が取れていません。' +
+          '自由に書ける欄（式を入れる欄）の内容を見直してください。このままでは kintone が受け付けません。';
+    } else {
+      // Some recipes can also be driven into an input the formula cannot express.
+      try { w = state.recipe.warn ? state.recipe.warn(state.values) : null; } catch (e) { w = null; }
+    }
+    warnEl.innerHTML = w ? '<b>入力を確認してください：</b>' + w : '';
+    warnEl.hidden = !w;
+  }
+
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    var text = outEl.textContent;
+    if (!text) return;
+    var done = function(){
+      copiedEl.hidden = false;
+      setTimeout(function(){ copiedEl.hidden = true; }, 1800);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else {
+      fallback();
+    }
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly','');
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+  });
+
+  renderCats();
+  renderRecipes();
+  selectRecipe(RECIPES[0]);
+  editorEl.hidden = false;
+  window.scrollTo(0, 0);
+})();
+</script>
+
+</body>
+</html>
