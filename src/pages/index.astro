@@ -39,6 +39,7 @@ const isNewRelease = (p: { releaseDate?: string }) => (p.releaseDate ?? '') >= n
 // kintone-specific tools get a dedicated featured block; generic tools fill the compact grid.
 const featuredKintoneTool = tools.find((t) => t.file === 'Shirushi.html');
 const obiTool = tools.find((t) => t.file === 'Obi.html');
+const shikiTool = tools.find((t) => t.file === 'Shiki.html');
 const genericTools = tools.filter((t) => !t.kintoneNative);
 
 const allPosts = (await getCollection('blog'))
@@ -924,6 +925,41 @@ const pluginPosts = allPosts
       background: repeating-linear-gradient(45deg, #0f766e, #0f766e 14px, #0d655e 14px, #0d655e 28px);
     }
 
+    /* Shiki formula visual: "what you want to do" rows paired with the generated formula */
+    .shiki-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+    .shiki-row {
+      background: #fff;
+      border: 1px solid #e2e9f3;
+      border-left: 4px solid #2E8B2E;
+      border-radius: 10px;
+      padding: 10px 14px;
+      box-shadow: 0 6px 16px rgba(27, 58, 107, 0.10);
+    }
+    .shiki-want {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #1B3A6B;
+      margin-bottom: 6px;
+    }
+    .shiki-formula {
+      display: block;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      color: #d6ecff;
+      background: #0f1e33;
+      border-radius: 6px;
+      padding: 7px 10px;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
     @media (max-width: 768px) {
       .kintool-feature { padding: 48px 16px 16px; }
       .kintool-card {
@@ -934,6 +970,7 @@ const pluginPosts = allPosts
       .kintool-visual { max-width: 260px; margin: 0 auto; }
       .ktv-icon { width: 88px; height: 88px; }
       .obi-visual { max-width: 360px; margin: 0 auto; }
+      .shiki-visual { max-width: 360px; margin: 0 auto; }
     }
 
     /* =========================================
@@ -1890,6 +1927,41 @@ const pluginPosts = allPosts
               <li>PNGで即ダウンロード（登録不要・完全無料）</li>
             </ul>
             <a href={`/tools/${obiTool.file}`} class="btn btn-primary">無料でkintoneのスペース カバー画像を作る →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {shikiTool && (
+    <!-- Featured kintone-specific tool: Shiki (formula generator) -->
+    <section class="bg-white kintool-feature">
+      <div class="container" style="padding-top:0;">
+        <h2 class="section-title">kintoneの計算式を無料で作成</h2>
+        <p class="section-subtitle">Shirushi・Obi に続く <strong>kintone専用</strong> 無料ツール。<br>やりたいことを選ぶだけで、そのまま貼れる計算式が作れます。</p>
+        <div class="kintool-card">
+          <div class="shiki-visual" aria-hidden="true">
+            <span class="shiki-row">
+              <span class="shiki-want">2つの日付の差（日数）</span>
+              <span class="shiki-formula">(終了日 - 開始日) / 86400</span>
+            </span>
+            <span class="shiki-row">
+              <span class="shiki-want">テーブルの金額を合計する</span>
+              <span class="shiki-formula">SUM(金額)</span>
+            </span>
+            <span class="shiki-row">
+              <span class="shiki-want">条件で表示を変える</span>
+              <span class="shiki-formula">IF(区分 = "新規", "要承認", "通常")</span>
+            </span>
+          </div>
+          <div class="kintool-body">
+            <p class="kintool-lead"><strong>Shiki（kintone計算式ジェネレーター）</strong>は、kintoneの計算式を登録不要・完全無料で組み立てられるWebツールです。日数の差・年月の取り出し・条件分岐・四捨五入・テーブル集計など<strong>47のレシピ</strong>から選び、フィールドコードを入れるだけで式が完成します。Excelにあってkintoneには<strong>ない関数</strong>（LEFT・MID・TODAYなど）も、代わりの書き方つきで確認できます。</p>
+            <ul class="kintool-points">
+              <li>47レシピから選ぶだけ。掲載している式は<strong>すべて実機のkintoneで動作確認済み</strong></li>
+              <li>式の置き場所（計算フィールドか文字列フィールドか）まで表示</li>
+              <li>できないこと（曜日・年度・平方根など）も実機で確かめて明記</li>
+            </ul>
+            <a href={`/tools/${shikiTool.file}`} class="btn btn-primary">無料でkintoneの計算式を作る →</a>
           </div>
         </div>
       </div>
