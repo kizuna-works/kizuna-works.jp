@@ -386,6 +386,68 @@ const jsonLd = {
       border-radius: 6px;
     }
 
+    /* Screenshots are wide; showing them full width pushes the text apart and makes the
+       article hard to scan. Cap them and let the reader open one when they want detail. */
+    .blog-prose p > img {
+      max-width: 560px;
+      cursor: zoom-in;
+      border: 1px solid var(--line, #e2e9f3);
+      box-shadow: 0 4px 14px rgba(27, 58, 107, 0.10);
+      transition: box-shadow .18s ease;
+    }
+    .blog-prose p > img:hover {
+      box-shadow: 0 8px 22px rgba(27, 58, 107, 0.18);
+    }
+    .blog-prose p > img + em,
+    .blog-prose .img-caption {
+      display: block;
+      text-align: center;
+      font-size: 0.82rem;
+      color: #64748b;
+      margin: -0.9em 0 1.8em;
+      font-style: normal;
+    }
+
+    /* Lightbox */
+    #blog-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 30, 51, 0.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9500;
+      padding: 24px;
+    }
+    #blog-lightbox[open] { display: flex; }
+    #blog-lightbox img {
+      max-width: min(1200px, 96vw);
+      max-height: 90vh;
+      width: auto;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      cursor: zoom-out;
+    }
+    #blog-lightbox-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      color: #1B3A6B;
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    #blog-lightbox-close:hover { background: #fff; }
+    @media (max-width: 768px) {
+      .blog-prose p > img { max-width: 100%; }
+    }
+
     .blog-prose .table-wrapper,
     .blog-prose figure.table-wrapper {
       overflow-x: auto;
@@ -670,6 +732,57 @@ const jsonLd = {
       </div>
     </article>
   </main>
+
+  <div id="blog-lightbox" role="dialog" aria-modal="true" aria-label="画像の拡大表示">
+    <button type="button" id="blog-lightbox-close" aria-label="閉じる">×</button>
+    <img id="blog-lightbox-img" src="" alt="">
+  </div>
+
+  <script is:inline>
+    (function () {
+      var box = document.getElementById('blog-lightbox');
+      var img = document.getElementById('blog-lightbox-img');
+      if (!box || !img) return;
+      var lastFocus = null;
+
+      function open(src, alt) {
+        lastFocus = document.activeElement;
+        img.src = src;
+        img.alt = alt || '';
+        box.setAttribute('open', '');
+        document.body.style.overflow = 'hidden';
+        document.getElementById('blog-lightbox-close').focus();
+      }
+      function close() {
+        box.removeAttribute('open');
+        img.src = '';
+        document.body.style.overflow = '';
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+
+      // Only body screenshots (a paragraph holding a single image) open — not the
+      // article header image or anything wrapped in a link.
+      document.querySelectorAll('.blog-prose p > img').forEach(function (el) {
+        if (el.closest('a')) return;
+        el.setAttribute('role', 'button');
+        el.setAttribute('tabindex', '0');
+        el.title = 'クリックすると拡大表示します';
+        el.addEventListener('click', function () {
+          open(el.currentSrc || el.src, el.alt);
+        });
+        el.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(el.currentSrc || el.src, el.alt); }
+        });
+      });
+
+      box.addEventListener('click', function (e) {
+        if (e.target === box || e.target === img || e.target.id === 'blog-lightbox-close') close();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && box.hasAttribute('open')) close();
+      });
+    })();
+  </script>
 
   <RelatedPosts currentSlug={slug} currentTags={tags} limit={3} />
 </Layout>
