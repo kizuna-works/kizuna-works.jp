@@ -214,5 +214,5 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [シート編集 for kintone](/plugins/sheet-edit/) — 一覧を表計算グリッドに置き換えてその場で編集（無料）
 - [ダッシュボード for kintone](/plugins/dashboard/) — 一覧のカスタマイズビューに集計ボードを常設
 - [カードボード for kintone](/plugins/card-board/) — 標準一覧のままカンバン表示に切り替え
-- [kintoneでカンバン方式のタスク管理を実現する方法](/blog/kintone-kanban-board/) — 案件をカードで動かす運用の作り方
+- [kintoneのカンバンを無料で始める方法とプラグイン比較](/blog/kintone-kanban-board/) — 案件をカードで動かす運用の作り方
 - [kintoneプラグイン一覧](/plugins/) — 目的別に探せる全製品のカタログ

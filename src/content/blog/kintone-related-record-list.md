@@ -183,7 +183,7 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 
 - [kintoneの関連レコード一覧とは（用語集）](/glossary/related-records/) — 機能の定義・ルックアップとの違いを短くおさらい
 - [kintoneルックアップとは？使い方・設定方法を徹底解説](/blog/kintone-lookup-kaisetsu/) — 関連レコード一覧と混同しやすいルックアップを基本から解説
-- [kintoneでBIのようにデータを可視化する方法](/blog/kintone-bi-tool-dashboard/) — 集計ダッシュボードの作り方と標準グラフの限界
+- [kintoneのBIツール的な集計ダッシュボードの作り方](/blog/kintone-bi-tool-dashboard/) — 標準グラフの限界とデータ可視化の進め方
 - [関連レコードポップアップ表示（無料）](/plugins/related-record-popup/) — 一覧画面でホバーするだけで関連レコードを確認
 - [集計サマリーバー（無料）](/plugins/summary-bar/) — 一覧ヘッダーに合計・件数を表示し絞り込み連動で再集計
 - [プラグイン一覧](/plugins/) — KIZUNA Worksが提供するすべてのkintoneプラグイン

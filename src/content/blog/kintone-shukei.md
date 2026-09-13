@@ -216,7 +216,7 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [kintoneテーブル（サブテーブル）の使い方](/blog/kintone-table-tsukaikata/) — 明細の仕様と条件付き集計の作り方
 - [kintoneの関連レコード一覧](/blog/kintone-related-record-list/) — 設定手順と4つの限界
 - [kintone計算フィールドの使い方と計算式の例](/blog/kintone-keisan-field/) — レコード内で数字を組み立てる方法
-- [kintoneでBIのようにデータを可視化する方法](/blog/kintone-bi-tool-dashboard/) — 集計ダッシュボードの作り方
+- [kintoneをBIツール代わりに使ってデータを可視化する方法](/blog/kintone-bi-tool-dashboard/) — 集計ダッシュボードの作り方
 - [集計サマリーバー（無料）](/plugins/summary-bar/) — 一覧ヘッダーに合計・件数を表示し絞り込み連動で再集計
 - [プラグイン一覧](/plugins/) — KIZUNA Worksが提供するすべてのkintoneプラグイン
 

@@ -140,8 +140,8 @@ kintoneを使い始めて半年ほど経ったアプリを開くと、だいた�
 | 列が流れる・行が判別しづらい | [一覧スタイラー](/plugins/list-styler/)（[比較記事](/blog/kintone-list-styler-plugin-hikaku/)） |
 | 探すために一覧を増やしている | [クイックサーチ](/plugins/quick-search/)・[絞り込み拡張](/plugins/summary-bar/)（[比較記事](/blog/kintone-kensaku-plugin-hikaku/)） |
 | 詳細画面への往復が多い | [クイックサイドビュー](/plugins/quick-side-view/)（[比較記事](/blog/kintone-quick-side-view-plugin-hikaku/)） |
-| 進捗をボードで見たい | [カードボード](/plugins/card-board/)（[比較記事](/blog/kintone-kanban-board/)） |
-| 一覧を跨いで数字を見たい | [ダッシュボード](/plugins/dashboard/)（[解説記事](/blog/kintone-bi-tool-dashboard/)） |
+| 進捗をボードで見たい | [カードボード](/plugins/card-board/)（[無料カンバン比較](/blog/kintone-kanban-board/)） |
+| 一覧を跨いで数字を見たい | [ダッシュボード](/plugins/dashboard/)（[kintoneのBIツール活用](/blog/kintone-bi-tool-dashboard/)） |
 
 ### 一覧を「消さずに片付ける」という選択肢
 
@@ -199,7 +199,7 @@ kintoneを使い始めて半年ほど経ったアプリを開くと、だいた�
 
 **Q. カスタマイズビューを作ろうとしたら、設定できませんでした**
 
-カスタマイズ形式の一覧を作成・編集するには、アプリ管理権限ではなく**kintoneシステム管理権限**が必要です。またカスタマイズ形式で保存した一覧は、あとから表形式・カレンダー形式に戻せません。
+カスタマイズ形式の一覧を作成・編集するには、アプリ管理権限ではなく**kintoneシステム管理権限**が必要です。またカスタマイズ形式で保存した一覧は、あとから表形式・カレンダー形式に戻せません。詳しくは[kintoneカスタマイズビューの作り方と“戻せない”制約](/blog/kintone-custom-view/)で解説しています。
 
 **Q. 一覧を増やしすぎると重くなりますか？**
 
@@ -232,8 +232,8 @@ kintoneに組み込まれている一覧で、アプリの設定には出てき�
 - [kintoneの検索・絞り込みを改善するプラグイン比較](/blog/kintone-kensaku-plugin-hikaku/) — 一覧を増やさずに探す方法
 - [kintone一覧でレコードを閲覧・編集できるプラグイン比較](/blog/kintone-quick-side-view-plugin-hikaku/) — 詳細画面への往復を解消する
 - [kintoneプラグインのおすすめと選び方（やりたいこと別）](/blog/kintone-muryou-plugin-osusume/) — 一覧以外の用途も含め、無料で使える製品を目的別に整理
-- [kintoneカンバンプラグイン比較](/blog/kintone-kanban-board/) — 一覧をボード化して進捗管理
-- [kintoneでBIのようにデータを可視化する方法](/blog/kintone-bi-tool-dashboard/) — 一覧を跨いだ集計ダッシュボード
+- [kintoneカンバンプラグイン比較｜無料で始める方法](/blog/kintone-kanban-board/) — 一覧をボード化して進捗管理
+- [kintoneをBIツールのように使う集計ダッシュボードの作り方](/blog/kintone-bi-tool-dashboard/) — 一覧を跨いだ集計ダッシュボード
 - [kintoneプラグイン一覧](/plugins/) — 無料で使えるプラグインをまとめて掲載
 
 *※本記事は2026年8月時点の情報をもとに作成しています。kintoneの仕様は変更される場合があるため、最新の情報はサイボウズ公式ヘルプをご確認ください。*

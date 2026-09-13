@@ -319,7 +319,7 @@ kintoneの「あと一歩」は、無料プラグインでかなりの部分を�
 ### 関連記事
 
 - [kintoneの検索・絞り込みを改善するプラグイン比較](/blog/kintone-kensaku-plugin-hikaku/)
-- [kintoneの見た目を劇的に改善！おすすめデザイン変更プラグイン特集](/blog/kintone-design-plugin-osusume/)
+- [kintoneをおしゃれな見た目にするデザイン変更プラグイン特集](/blog/kintone-design-plugin-osusume/)
 - [kintone一覧でレコードを閲覧・編集できるプラグイン比較](/blog/kintone-quick-side-view-plugin-hikaku/)
 - [kintoneからメールを送る方法を徹底比較](/blog/kintone-mail-soushin-hikaku/)
 - [kintoneが「使いにくい」と言われる原因と、現場に定着させる運用改善ガイド](/blog/kintone-tsukainikunai-genin/)

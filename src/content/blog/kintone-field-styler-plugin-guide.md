@@ -166,7 +166,7 @@ kintoneの画面が見づらいと感じている方や、データ入力のミ�
 
 kintone の画面表示・業務効率化に関連する KIZUNA Works のプラグインや記事もぜひご覧ください。
 
-- 比較記事: [【2026年最新】kintoneの見た目を劇的に改善！おすすめデザイン変更プラグイン特集と設定のコツ](/blog/kintone-design-plugin-osusume/)
+- 比較記事: [kintoneの画面をおしゃれにするデザイン変更プラグイン特集と設定のコツ](/blog/kintone-design-plugin-osusume/)
 - 関連プラグイン: [FormDeco — kintone フォーム画面の罫線・スペースを装飾](/plugins/form-deco/)
 - 関連プラグイン: [添付ファイルアイコン表示 — 一覧で添付ファイル有無を視覚化](/plugins/file-icon-marker/)
 - 関連プラグイン: [条件分岐自動採番 — 採番ルールを条件で切り替え](/plugins/kw-conditional-numbering/)

@@ -277,5 +277,5 @@ kintoneのアカウントを持たない相手には、標準の通知メール�
 - [ステータス一括実行 for kintone](/plugins/status-bulk-action/) — 滞留日数の可視化とステータスの一括処理
 - [kintoneのメール送信・受信・通知を徹底比較](/blog/kintone-mail-soushin-hikaku/) — 社外へ送る場合の手段の違い
 - [kintoneプロセス管理の使い方ガイド](/blog/kintone-process-management/) — 作業者・条件分岐・差し戻しの設定
-- [kintoneのコメント機能の使い方](/blog/kintone-comment-tsukaikata/) — メンション通知と見落としの対策
+- [kintoneのメンションとコメント機能の使い方](/blog/kintone-comment-tsukaikata/) — メンション通知と見落としの対策
 - [kintoneプラグイン一覧](/plugins/) — 無料で使えるプラグインをまとめて掲載

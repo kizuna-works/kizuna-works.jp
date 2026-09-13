@@ -193,6 +193,7 @@ KIZUNA Worksでは、一覧をカンバン化する「カードボード for kin
 - [カードボード for kintone](/plugins/card-board/) — 一覧を2段カンバンに切り替え、D&Dでステータス変更・集計・写真ギャラリーに対応（無料プランあり）
 - [kintoneプロセス管理の使い方ガイド](/blog/kintone-process-management/) — カンバンのD&Dが対応する「ステータス遷移」の設計・設定手順
 - [kintoneの一覧を見やすくするプラグイン比較](/blog/kintone-list-styler-plugin-hikaku/) — 列固定・行の色分けで表の一覧を見やすくするアプローチ
+- [kintoneカスタマイズビューの作り方と“戻せない”制約](/blog/kintone-custom-view/) — ボードを自作する場合に先に知っておきたい制約
 - [kintoneでBIのようにデータを可視化する方法](/blog/kintone-bi-tool-dashboard/) — 集計ダッシュボードで数値を俯瞰する方法
 
 👉 [お問い合わせはこちら](/contact/)  
