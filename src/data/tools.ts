@@ -197,20 +197,4 @@ export const tools: Tool[] = [
     imageWidth: 1280,
     imageHeight: 800,
   },
-  {
-    file: 'Shiki.html',
-    name: 'Shiki（kintone計算式ジェネレーター）',
-    shortName: 'Shiki',
-    kintoneNative: true,
-    description:
-      'kintoneの計算式をブラウザ上で組み立てられる完全無料のWebツールです。日数の差・年月の取り出し・IFの条件分岐・四捨五入などをフォームに入力するだけで、そのまま貼れる計算式を生成します。ExcelにあってkintoneにはないLEFT・MID・TODAYなどの関数も、代わりの書き方つきで確認できます。',
-    applicationCategory: 'BusinessApplication',
-    tags: ['完全無料', '登録不要', '公式ヘルプ準拠'],
-    miniIcon: '🧮',
-    miniDescription: '計算式ジェネレーター',
-    image: '/images/shiki-preview.png',
-    imageAlt: 'Shiki（kintone計算式ジェネレーター）のサムネイル画像',
-    imageWidth: 1280,
-    imageHeight: 800,
-  },
 ];
