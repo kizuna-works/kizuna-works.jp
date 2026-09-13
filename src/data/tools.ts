@@ -171,9 +171,9 @@ export const tools: Tool[] = [
     shortName: 'Shirushi',
     kintoneNative: true,
     description:
-      'kintoneのアプリアイコンをブラウザ上で作成できる完全無料のWebツールです。背景・文字・アイコン・絵文字を組み合わせ、用途別プリセットからも編集できます。透過PNGで書き出せ、画像はブラウザ内で処理されサーバーに送信されません。',
+      'kintoneのアプリアイコンをブラウザ上で作成できる完全無料のWebツールです。背景・文字・アイコン・絵文字を組み合わせ、用途別プリセットからも編集できます。250・128・192・512pxからサイズを選んで透過PNGで書き出せ、画像はブラウザ内で処理されサーバーに送信されません。',
     applicationCategory: 'MultimediaApplication',
-    tags: ['完全無料', '登録不要', '透過PNG対応'],
+    tags: ['完全無料', '登録不要', '透過PNG対応', 'サイズ選択可'],
     miniIcon: '🎨',
     miniDescription: 'アプリアイコン作成',
     image: '/images/shirushi-preview.png',
