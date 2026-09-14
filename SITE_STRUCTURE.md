@@ -740,6 +740,13 @@ c:\kizuna-works.jp\
 │   │   ├── report-designer-config-09.png   # 帳票デザイナー 表示条件「操作している人」の候補（v1.3.0）
 │   │   ├── report-designer-config-10.png   # 帳票デザイナー 捺印の置き方を選ぶダイアログ（v1.3.0）
 │   │   ├── report-designer-config-11.png   # 帳票デザイナー 決裁欄の列設定（欄名・担当者・押印日時／v1.3.0）
+│   │   ├── report-designer-config-12.png   # 帳票デザイナー 設定画面全体（STEP1保管アプリ／STEP2帳票テンプレート・v1.4.0）
+│   │   ├── report-designer-config-13.png   # 帳票デザイナー 明細を置くダイアログ（テーブル選択＋下に並べる/右に並べる・v1.4.0）
+│   │   ├── report-designer-config-14.png   # 帳票デザイナー インスペクタ「対象のテーブル」（v1.4.0）
+│   │   ├── report-designer-config-15.png   # 帳票デザイナー 他のアプリから取り込むダイアログ（v1.4.0）
+│   │   ├── report-designer-config-16.png   # 帳票デザイナー 配置エディタ 2つの明細を上下に配置（v1.4.0）
+│   │   ├── report-designer-config-17.png   # 帳票デザイナー インスペクタ「この表を出すページ」（v1.4.0）
+│   │   ├── report-designer-output-05.png   # 帳票デザイナー 出力例⑤ 御見積書（商品明細＋作業明細を1枚に・v1.4.0）
 │   │   ├── user-autofill-banner.png        # ユーザーオートフィル for kintone 見出しバナー（OGP/グリッド/news共用・1200×630）
 │   │   ├── user-autofill-icon.png          # ユーザーオートフィル for kintone アイコン（200×200・ヒーロー用）
 │   │   ├── user-autofill-org-transcription.png # ユーザーオートフィル 機能スクショ（申請者→申請部署/役職/社員番号の自動転記）
@@ -1062,6 +1069,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-report-designer-v1.1.0.zip   # 帳票デザイナー v1.1.0（一覧帳票）
 │   │   ├── kw-report-designer-v1.2.0.zip   # 帳票デザイナー v1.2.0（フィールド検索・まとめて配置・配置済みリスト・保存前チェック・3桁区切り）
 │   │   ├── kw-report-designer-v1.3.0.zip   # 帳票デザイナー v1.3.0（決裁欄の印影を1クリック配置・押印枠へ自動位置合わせ・表示条件に操作している人・ボタン方式・印刷プレビュー）
+│   │   ├── kw-report-designer-v1.4.0.zip   # 帳票デザイナー v1.4.0（1枚に複数テーブルの明細・他のアプリの帳票を取り込む・用紙外の行による白紙ページを修正）
 │   │   ├── kw-reuse-control-v1.0.0.zip                           # レコード再利用コントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-reuse-control-v1.0.1.zip                           # レコード再利用コントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-reuse-control-v1.0.2.zip                           # レコード再利用コントロール for kintone 配布ファイル（最新・手動配置・v1.0.2 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
