@@ -908,6 +908,9 @@ c:\kizuna-works.jp\
 │   │   ├── kw-dashboard-v1.1.3.zip                               # ダッシュボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.1.3 参照アプリの候補をスペース非依存化＋設定画面の後追い反映）
 │   │   ├── kw-drive-connect-v1.0.0.zip                          # ドライブ連携 for kintone 配布ファイル（最新・手動配置・プレミアム第13弾 初版）
 │   │   ├── kw-lookup-add-v1.0.0.zip    # ルックアップ新規登録 v1.0.0 配布物
+│   │   ├── kw-lookup-add-v1.0.1.zip    # ルックアップ新規登録 v1.0.1（対象ルックアップの取り違え修正）
+│   │   ├── kw-lookup-filter-v1.0.1.zip # ルックアップ絞り込み v1.0.1（同上）
+│   │   ├── kw-lookup-suggest-v3.0.1.zip # ルックアップサジェスト v3.0.1（同上）
 │   │   ├── kw-conditional-numbering-v2.2.0.zip # 条件分岐自動採番 v2.2.0 配布物
 │   │   ├── kw-lookup-filter-v1.0.0.zip                          # ルックアップ絞り込み for kintone 配布ファイル（最新・手動配置・プレミアム第14弾 初版）
 │   │   ├── kw-elapsed-assist-v1.0.2.zip                          # 経過計算アシスト for kintone 配布ファイル（手動配置・v1.0.2 初版：基準日から9パターン自動計算＋その場再計算＋保存書込＋停止条件＋一括再計算）
