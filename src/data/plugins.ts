@@ -106,7 +106,7 @@ export const plugins: Plugin[] = [
     slug: 'field-styler',
     categories: ['装飾・配色', '表示・編集制御'],
     description:
-      '背景色・文字色・フォントサイズ・条件付きスタイル・入力制御など全10機能をノーコードで設定できるプラグイン。詳細・一覧に加えて入力中の編集画面にも反映され、サブテーブル（明細）内の列や日付・ステータスなど最大10件の条件で重要な値を自動で目立たせます。',
+      '背景色・文字色・フォントサイズ・条件付きスタイル・入力制御など全11機能をノーコードで設定できるプラグイン。文字数制限・入力文字種制限はサブテーブル（明細）内の列にも設定でき、超えている行にエラーを出して保存を止めます。文字列複数行には最大行数も指定できます。',
     image: '/images/field-styler-banner.png',
     imageWebp: '/images/field-styler-banner.webp',
     imageAlt:
@@ -116,12 +116,12 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '背景色・文字色・文字サイズ・条件付きスタイルなど10機能をノーコード設定。入力中の編集画面やサブテーブル（明細）内のフィールドにも反映。',
-    problemTitle: 'フィールドの色分け・文字サイズ',
-    problemDesc: '入力中の画面も含めて JavaScript なしで整えたい',
+      '背景色・文字色・文字サイズ・条件付きスタイルなど11機能をノーコード設定。文字数制限・入力文字種制限は明細内の列にも設定でき、複数行には最大行数も。',
+    problemTitle: 'フィールドの色分け・入力の長さ制限',
+    problemDesc: '帳票の枠に収まる長さで入力させたい。明細の中も含めて',
     problemFeatured: true,
     releaseDate: '2026-04-16',
-    summaryVersion: '2.4.0',
+    summaryVersion: '2.5.0',
   },
   {
     id: 'kw-conditional-numbering',
