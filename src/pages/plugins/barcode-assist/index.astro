@@ -48,10 +48,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "バーコードアシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.1.1",
-          "dateModified": "2026-08-11",
+          "softwareVersion": "1.1.2",
+          "dateModified": "2026-09-16",
           "url": "https://kizuna-works.jp/plugins/barcode-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-barcode-assist-v1.1.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-barcode-assist-v1.1.2.zip",
           "image": "https://kizuna-works.jp/images/barcode-assist-banner.png",
           "offers": [
             {
@@ -278,7 +278,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <img class="afp-hero-icon" src="/images/barcode-assist-icon.png" alt="バーコードアシスト for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.1.1</span>
+        <span class="afp-hero-version">v1.1.2</span>
       </div>
       <h1>バーコードアシスト for kintone</h1>
       <p class="afp-tagline">かざすだけで、台帳がそろう。</p>
@@ -286,23 +286,26 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     </section>
     <div class="afp-hero-gradient-line"></div>
 
-    <!-- Update Info: v1.1.0 未登録コードの警告 -->
+    <!-- Update Info: v1.1.2 他プラグインとの共存・読み取りの安定 -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.1.0：マスターに無いコードを読んだとき、その場で気づけるようになりました</h2>
+            <h2 class="update-title">v1.1.2：ほかのプラグインとの競合を避けて、読み取りを単独で動かすようにしました</h2>
           </div>
           <p class="update-desc">
-            出力先がルックアップのとき、<strong>マスターに登録されていないコードを読み取ると、スキャンを閉じたあとに「未登録コード」として一覧表示</strong>します。2026年8月9日の kintone アップデートで、ルックアップが参照先を確定できたかどうかを正確に判定できるようになったため、取りこぼしなく拾えます。
+            kintone は、同じアプリに追加したすべてのプラグインを同じ画面で動かします。そのため<strong>読み取りに使う部品（ライブラリ）を他の製品と共有してしまう</strong>ことがあり、組み合わせによっては読み取りが始まらない場合がありました。v1.1.2 では<strong>読み取りの部品を自分専用に読み込む方式</strong>に変更し、他の製品の影響を受けず、逆に他の製品へ影響を与えることもないようにしました。コードを生成する部品（ラベル発行）も同じ方式にそろえています。あわせて、<strong>読み込んだ部品が正しく使える状態かを確認してから動かす</strong>ようにしました。
           </p>
           <p class="update-desc">
-            あわせて、<strong>引けなかった行のコピー先を空にする</strong>ようにしました。kintone は参照先が見つからなくてもコピー先を前の値のまま残すため、これまでは「知らないコードなのに、直前に読んだ商品名がぶら下がった行」ができていました。読み取ったコード自体は残るので、何を読んだかは追えます。
+            <strong>読み取れないときの案内も分かりやすく</strong>しました。原因が分かる短い記号（例：<code>E-LIB-NET</code> は通信、<code>E-LIB-FOREIGN</code> は他製品との競合）を表示し、そのまま<strong>「撮影して読み取る」方式へ自動で切り替わります</strong>。画面を閉じ直す必要はありません。通信が一時的に不安定だった場合は「カメラで読み取る（やり直す）」で読み込みからやり直せます。
+          </p>
+          <p class="update-desc">
+            <strong>QRコードの読み取り</strong>も調整しました。読取ガイド枠いっぱいに大きなQRコードをかざしたときに反応しにくいことがあった点を見直しています。このほか、他のプラグインと同じ画面で動くときの動作の安定性を高め、撮影して読み取る画面のボタンの並び順を案内文に合わせました。
           </p>
           <p class="update-note">
             最新版を kintone システム管理 →「プラグイン」→「読み込む」から上書きアップロードしてください。プラグインIDは変わらないため既存の設定は引き継がれます。<br>
-            ※ この警告は、設定の「読む」で<strong>未登録コードを知らせる</strong>がオンのときに動きます（既定はオン）。
+            ※ 読み取り・コード生成の実行時に <strong>https://kizuna-works.jp/libs/</strong> から部品を取得します（取得のみで、kintone のデータや読み取った値が外部へ送信されることはありません）。社内ネットワークで外部への接続を制限されている場合は、この宛先への HTTPS 接続の許可が必要です。
           </p>
         </div>
       </div>
@@ -592,7 +595,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <li>✅ A4ラベルの面付け印刷</li>
               <li>✅ 利用期限なし（設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-barcode-assist-v1.1.1.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-barcode-assist-v1.1.2.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="afp-plan-card recommended">
@@ -727,10 +730,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-barcode-assist-v1.1.1.zip',
+            file_name: 'kw-barcode-assist-v1.1.2.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-barcode-assist-v1.1.1.zip'
+            link_url: '/downloads/kw-barcode-assist-v1.1.2.zip'
           });
         });
       }
