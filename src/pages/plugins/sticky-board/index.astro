@@ -4,13 +4,14 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <Layout
   title="付箋ボード for kintone - レコードに付箋、一覧で未対応を集計表示 | KIZUNA Works"
-  description="kintone のレコード詳細にカテゴリ付き付箋を自由位置で貼り付け、一覧上部でカテゴリ別の未対応件数を集計表示するプラグイン。付箋からレコードへジャンプ・その場で対応済み、個人付箋は作成者のみ秘匿、対応済みは自動削除。通知とコメントの中間を埋める申し送り基盤。kintone完結。"
+  description="kintone のレコード詳細にカテゴリ付き付箋を自由位置で貼り付け、貼った場所にピンを残して線で結ぶプラグイン。一覧上部で未対応件数を集計し、一覧の行にも付箋マークと件数を表示。個人付箋は作成者のみ秘匿、対応済みは自動削除。通知とコメントの中間を埋める申し送り基盤。kintone完結。"
   ogTitle="付箋ボード for kintone - レコードに付箋、一覧で未対応を集計表示 | KIZUNA Works"
-  ogDescription="kintone のレコード詳細にカテゴリ付き付箋を自由位置で貼り付け、一覧上部でカテゴリ別の未対応件数を集計表示するプラグイン。付箋からレコードへジャンプ・その場で対応済み、個人付箋は作成者のみ秘匿、対応済みは自動削除。kintone完結。"
+  ogDescription="kintone のレコード詳細にカテゴリ付き付箋を自由位置で貼り付け、貼った場所にピンを残して線で結ぶプラグイン。一覧上部で未対応件数を集計し、一覧の行にも付箋マークと件数を表示。個人付箋は作成者のみ秘匿。kintone完結。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/sticky-board/"
   ogImage="https://kizuna-works.jp/images/sticky-board-banner.png"
@@ -26,7 +27,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "@id": "https://kizuna-works.jp/plugins/sticky-board/",
           "url": "https://kizuna-works.jp/plugins/sticky-board/",
           "name": "付箋ボード for kintone - レコードに付箋、一覧で未対応を集計表示 | KIZUNA Works",
-          "description": "kintone のレコード詳細にカテゴリ付き付箋を自由位置で貼り付け、一覧上部でカテゴリ別の未対応件数を集計表示するプラグイン。付箋からレコードへジャンプ・その場で対応済み、個人付箋は作成者のみ秘匿、対応済みは自動削除。",
+          "description": "kintone のレコード詳細にカテゴリ付き付箋を自由位置で貼り付け、貼った場所にピンを残して線で結ぶプラグイン。一覧上部で未対応件数を集計し、一覧の行にも付箋マークと件数を表示。個人付箋は作成者のみ秘匿、対応済みは自動削除。",
           "primaryImageOfPage": {
             "@type": "ImageObject",
             "url": "https://kizuna-works.jp/images/sticky-board-banner.png",
@@ -52,10 +53,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "付箋ボード for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.2",
-          "dateModified": "2026-08-04",
+          "softwareVersion": "1.1.0",
+          "dateModified": "2026-09-16",
           "url": "https://kizuna-works.jp/plugins/sticky-board/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-sticky-board-v1.0.2.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-sticky-board-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/sticky-board-banner.png",
           "offers": {
             "@type": "Offer",
@@ -73,6 +74,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           },
           "featureList": [
             "レコード詳細にカテゴリ付き付箋をクリックで自由配置（移動・リサイズ・本文編集）",
+            "貼った場所にピンを残し、動かした付箋と線で結ぶ（クリックで元の位置に戻る・形と色を選択）",
+            "レコード一覧の行に付箋マークと件数を表示（アイコン欄／指定した列の値の前・うしろ）",
+            "件数バーの付箋にレコードの項目をタグ表示（どのレコードの付箋かが分かる）",
             "付箋はタイトル＝濃色・本文＝薄いトーン、パステル10色プリセット＋カスタム",
             "一覧上部でカテゴリ別の未対応件数を集計表示（公開／個人で分割）",
             "件数カードを開いて付箋からレコードへ別タブジャンプ・その場で対応済み",
@@ -267,6 +271,23 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     .config-shot-caption strong { display: block; color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 6px; }
     .config-shot-caption p { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0; }
 
+    /* Update highlight box (shown for the latest release) */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid var(--color-gray-light); border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white); font-size: 12px;
+      font-weight: 700; letter-spacing: 0.05em; padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text); font-size: 15px; line-height: 1.8; margin: 0 0 24px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-shot { max-width: 640px; margin: 0 auto 8px; }
+    .update-note { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+
     /* Zoomable images + lightbox overlay (screenshots open enlarged) */
     .zoomable { cursor: zoom-in; }
     .lightbox {
@@ -326,10 +347,63 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.2</span>
+        <span class="hero-version">v1.1.0</span>
       </div>
       <h1 class="hero-title">付箋ボード for kintone</h1>
-      <p class="hero-copy">付箋ボード for kintone は、レコード詳細画面にカテゴリ付きの付箋メモを自由な位置で貼り付け、レコード一覧の上部でカテゴリ別の未対応件数を集計表示する kintone プラグインです。標準の通知やコメントでは埋もれがちな「画面内での申し送り・気づき・備忘」を、貼る → 一覧で気づく → 対応する、の流れで取りこぼしません。レコードに付箋、一覧で気づく。通知とコメントの、いいとこ取り。</p>
+      <p class="hero-copy">付箋ボード for kintone は、レコード詳細画面にカテゴリ付きの付箋メモを自由な位置で貼り付け、レコード一覧の上部でカテゴリ別の未対応件数を集計表示する kintone プラグインです。標準の通知やコメントでは埋もれがちな「画面内での申し送り・気づき・備忘」を、貼る → 一覧で気づく → 対応する、の流れで取りこぼしません。<strong>v1.1.0 では、貼った場所に残る「ピン」と、一覧のどのレコードに付箋があるかが分かる「付箋マーク」を追加</strong>しました。レコードに付箋、一覧で気づく。通知とコメントの、いいとこ取り。</p>
+    </section>
+
+    <!-- Update Info (v1.1.0) -->
+    <section class="section-wrapper fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.1.0：貼った場所に「ピン」が残り、一覧でも付箋に気づけるようになりました</h2>
+        </div>
+        <p class="update-desc">付箋は自由に動かせる反面、<strong>動かすと「どこに対するメモだったか」が分からなくなる</strong>という声をいただきました。v1.1.0 では、貼った場所に<strong>ピンを残し、付箋とピンを線で結びます</strong>。項目の値に重なって読みにくいときは付箋を横へ動かせば、線がどの項目へのメモかを示し続けます。<strong>ピンをクリックすると付箋が元の位置に戻ります。</strong>ピンの形（丸・四角・ひし形・旗・画鋲・星）と色は設定で選べ、付箋ごとに刺すかどうかも切り替えられます。</p>
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <Picture
+              src="/images/sticky-board-update-01.png"
+              alt="付箋ボード v1.1.0 — kintone のレコード詳細画面で、会社名の項目に赤いピンが刺さり、そこから破線で離れた位置の付箋へつながっている状態"
+              class="zoomable"
+              loading="lazy"
+              width="1920"
+              height="880"
+            />
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-desc">あわせて、<strong>レコード一覧のどのレコードに付箋があるかを、件数つきのマークで表示</strong>できるようにしました。これまでは「付箋から対象レコードへ飛ぶ」一方通行でしたが、一覧を見て「このレコードに付箋がある」と気づけます。マークを出す場所は<strong>左端のアイコン欄／指定した列の値の前／値のうしろ</strong>から選べ、どれを選んでも<strong>行の高さは変わりません</strong>。数えるのは<strong>その人が見られる付箋だけ</strong>なので、ほかの人の個人付箋は件数に入りません。件数バーで付箋を開いたときに<strong>どのレコードのものかが分かるよう、項目の値をタグで表示</strong>することもできます。タグに出す<strong>項目数の上限（1〜6）は管理者が決められ</strong>、管理者の設定と付箋を貼る人の追加を合わせた数で数えます。上限まで設定されていれば、貼り付け時の追加欄は出さずに理由を伝えます。</p>
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <Picture
+              src="/images/sticky-board-update-02.png"
+              alt="付箋ボード v1.1.0 — kintone のレコード一覧で、会社名の前に付箋の件数マークが並び、上部の件数バーでは付箋に会社名と顧客No.のタグが表示された状態"
+              class="zoomable"
+              loading="lazy"
+              width="1920"
+              height="880"
+            />
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-desc">設定画面では、<strong>ピンの形と色をその場で確かめながら選べます</strong>。項目を選ぶ欄は、チェックボックスを並べる形から<strong>名前で検索して選ぶ形</strong>に変えました（項目の多いアプリでも探せます）。付箋を貼るときのタグ選びも同じ検索方式です。あわせて、<strong>コメント／変更履歴のサイドバーを開閉すると付箋の位置がずれる不具合</strong>と、<strong>レコードを開いた直後に付箋が少しずつ動いて見える現象</strong>を修正しました（関連レコード一覧などの読み込みでフォームの高さが伸びるためで、位置が定まってから付箋を表示するようにしました）。</p>
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <Picture
+              src="/images/sticky-board-update-03.png"
+              alt="付箋ボード v1.1.0 の設定画面 — ピンの形を選ぶ欄、10色のプリセットとカラーピッカー、選んだ見え方のプレビュー、項目を検索して選ぶ欄が表示された状態"
+              class="zoomable"
+              loading="lazy"
+              width="1920"
+              height="880"
+            />
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-note">既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください。設定と既存の付箋はそのまま引き継がれます。ピンと一覧マークを使うには、更新後に<strong>プラグインの設定画面で「保管アプリを最新にする」を一度実行</strong>してください（案内が表示されます）。なお位置ずれの修正にともない、<strong>これまでに貼った付箋の位置がわずかに変わります</strong>（気になる場合は貼り直してください）。</p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -432,6 +506,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <ul class="feature-list">
           <li><span><strong>付箋の貼付（クリックで配置）</strong> — レコード詳細画面の「＋付箋」から、カテゴリ（管理者が色・名前を定義）または自由メモ（色とタイトルを自分で指定）を選び、本文・公開区分を入力。フォーム上の好きな位置をクリックして貼り付けます。</span></li>
           <li><span><strong>移動・リサイズ・本文編集</strong> — 貼った付箋はヘッダーをドラッグで移動、右下の角でリサイズ、本文をクリックでその場編集。位置・サイズは割合で保存され、開き直しても同じ場所に表示されます。</span></li>
+          <li><span><strong>ピンと線で「どこへのメモか」を残す</strong> — 貼った場所にピンが残り、付箋を動かしても線で結ばれます。項目の値に重なって読みにくいときは横へ避けられ、それでもどの項目への指摘かが分かります。ピンをクリックすると付箋が元の位置に戻ります。形（丸・四角・ひし形・旗・画鋲・星）と色は設定で選べ、付箋ごとに刺すかどうかも切り替えられます。</span></li>
+          <li><span><strong>一覧の行に付箋マークと件数</strong> — レコード一覧を見るだけで「このレコードに付箋がある」と分かります。出す場所は左端のアイコン欄／指定した列の値の前・うしろから選べ、どれでも行の高さは変わりません。数えるのは<strong>その人が見られる付箋だけ</strong>で、他の人の個人付箋は件数に入りません。</span></li>
+          <li><span><strong>付箋カードにレコードの項目をタグ表示</strong> — 件数バーで付箋を開いたとき、「会社名：〇〇」「顧客No.：〇〇」のように、どのレコードの付箋かが分かる項目を表示できます（管理者の設定に加えて、貼る人が項目を追加することも可能）。</span></li>
           <li><span><strong>タイトル濃色・本文薄色の配色</strong> — 付箋はタイトル部が選んだ濃い色、本文部がそれに連動した薄いトーン。色はパステル10系統（黒・グレー・青・水色・赤・ピンク・オレンジ・黄・緑・薄緑）のプリセット＋カスタムから選べます。</span></li>
           <li><span><strong>一覧の未対応件数バー</strong> — レコード一覧の上部に、カテゴリ別・自由メモタイトル別の未対応件数カードを「公開」「個人」に分けて常設表示。指定した一覧ビューにのみ表示されます。</span></li>
           <li><span><strong>カード展開・レコードジャンプ・対応済み</strong> — カードをクリックすると付箋の要約・作成者/作成日時・対応者/対応日時を一覧化。各付箋から対象レコードを別タブで開いたり、その場で「対応済み／未対応に戻す」を連続操作できます。</span></li>
@@ -514,7 +591,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">レコード詳細・編集・一覧画面（PC 版）でご利用いただけます。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-sticky-board-v1.0.2.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-sticky-board-v1.1.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「付箋ボード for kintone」を追加</span></li>
           <li><span>プラグイン設定画面で<strong>「付箋保管アプリを自動作成」</strong>を実行し、件数バー対象一覧やカテゴリを設定して「保存」（保管アプリの自動作成にはアプリ作成権限が必要です）</span></li>
@@ -539,7 +616,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-sticky-board-v1.0.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-sticky-board-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -682,10 +759,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-sticky-board-v1.0.2.zip',
+              file_name: 'kw-sticky-board-v1.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-sticky-board-v1.0.2.zip'
+              link_url: '/downloads/kw-sticky-board-v1.1.0.zip'
             });
           }
         });
