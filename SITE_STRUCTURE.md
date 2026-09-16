@@ -933,7 +933,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-elapsed-assist-v1.0.4.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-elapsed-assist-v1.0.5.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-elapsed-assist-v1.0.6.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-elapsed-assist-v1.0.7.zip                          # 経過計算アシスト for kintone 配布ファイル（最新・手動配置・v1.0.7 一括再計算ボタンを編集権限のない利用者に表示しないように）
+│   │   ├── kw-elapsed-assist-v1.0.7.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-elapsed-assist-v1.0.8.zip                      # 経過計算アシスト for kintone 配布ファイル（最新・手動配置・v1.0.8 設定の保存後にアプリの設定画面へ戻るように（［アプリを更新］をすぐ押せる）／ゲストスペースで戻り先が存在しないパスになっていたのを修正）
 │   │   ├── kw-excel-paste-v1.0.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-excel-paste-v1.1.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-excel-paste-v1.1.1.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
@@ -1078,7 +1079,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-report-designer-v1.4.0.zip   # 帳票デザイナー v1.4.0（1枚に複数テーブルの明細・他のアプリの帳票を取り込む・用紙外の行による白紙ページを修正）
 │   │   ├── kw-reuse-control-v1.0.0.zip                           # レコード再利用コントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-reuse-control-v1.0.1.zip                           # レコード再利用コントロール for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-reuse-control-v1.0.2.zip                           # レコード再利用コントロール for kintone 配布ファイル（最新・手動配置・v1.0.2 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
+│   │   ├── kw-reuse-control-v1.0.2.zip                           # レコード再利用コントロール for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-reuse-control-v1.0.3.zip                       # レコード再利用コントロール for kintone 配布ファイル（最新・手動配置・v1.0.3 設定の保存後にアプリの設定画面へ戻るように（［アプリを更新］をすぐ押せる）／ゲストスペースで戻り先が GAIA_GS02 エラーになっていたのを修正）
 │   │   ├── kw-sheet-edit-v1.0.0.zip                              # シート編集 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-sheet-edit-v1.0.1.zip                              # シート編集 for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-sheet-edit-v1.1.0.zip                              # シート編集 for kintone 配布ファイル（手動配置・v1.1.0＝サブテーブル対応）
@@ -1095,7 +1097,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-status-bulk-action-v1.0.2.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-status-bulk-action-v1.0.3.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-status-bulk-action-v1.0.4.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-status-bulk-action-v1.0.5.zip                     # ステータス一括実行 for kintone 配布ファイル（最新・手動配置・v1.0.5 当社製品を併用したときに一覧の選択列を1本にまとめ、チェックボックスの位置を統一）
+│   │   ├── kw-status-bulk-action-v1.0.5.zip                     # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-status-bulk-action-v1.0.6.zip                  # ステータス一括実行 for kintone 配布ファイル（最新・手動配置・v1.0.6 設定の保存後にアプリの設定画面へ戻るように（［アプリを更新］をすぐ押せる）／ゲストスペースで戻り先が存在しないパスになっていたのを修正）
 │   │   ├── kw-sticky-board-v1.0.0.zip                            # 付箋ボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-sticky-board-v1.0.1.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-sticky-board-v1.0.2.zip                            # 付箋ボード for kintone 配布ファイル（旧版・参考保管）
@@ -1116,7 +1119,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-summary-bar-v2.1.1.zip                             # 集計サマリーバー for kintone 配布ファイル（手動配置・v2.1.1 でゲストスペース対応）
 │   │   ├── kw-summary-bar-v2.1.2.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-summary-bar-v2.2.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-summary-bar-v2.2.1.zip                             # 集計サマリーバー for kintone 配布ファイル（最新・v2.2.1 設定画面で一覧を取得できなかった理由を表示＝一覧名の重複（kintone の GAIA_DU01）を案内／表記を kintone の「表形式」に統一／index.show のイベントチェーン保護を同梱）
+│   │   ├── kw-summary-bar-v2.2.1.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-summary-bar-v2.3.0.zip                         # 集計サマリーバー for kintone 配布ファイル（最新・手動配置・v2.3.0 カード設定を折りたたみ式に（既定は閉じた状態・見出しに要約・すべて開く/閉じる）／設定の保存後にアプリの設定画面へ戻るように／設定と実際の型が違うフィールドは集計せず案内を出すように）
 │   │   ├── kw-text-join-v1.0.0.zip                               # 文字列結合 for kintone v1.0.0 配布ファイル（旧版・手動配置・ちょこっと・複数フィールドを1つの文字列へ自動入力／明細集約／重複チェック／一括反映）
 │   │   ├── kw-text-join-v1.0.1.zip                               # 文字列結合 for kintone 配布ファイル（最新・手動配置・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-theme-styler-v1.0.0.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・参考保管）

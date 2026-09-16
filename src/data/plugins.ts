@@ -435,7 +435,7 @@ export const plugins: Plugin[] = [
     problemDesc: 'グラフ画面に移動せず、一覧の上でそのまま集計を確認したい',
     problemFeatured: true,
     releaseDate: '2026-05-30',
-    summaryVersion: '2.2.0',
+    summaryVersion: '2.3.0',
   },
   {
     id: 'kw-csv-export',
