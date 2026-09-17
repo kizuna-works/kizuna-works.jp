@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
@@ -55,10 +56,10 @@ const teaser = teaserIds
           "name": "ダッシュボード for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.1.3",
-          "dateModified": "2026-08-18",
+          "softwareVersion": "1.2.0",
+          "dateModified": "2026-09-17",
           "url": "https://kizuna-works.jp/plugins/dashboard/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-dashboard-v1.1.3.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-dashboard-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/dashboard-banner.png",
           "offers": [
             {
@@ -83,7 +84,7 @@ const teaser = teaserIds
           "featureList": [
             "グラフ（縦棒・横棒・折れ線・エリア・円・ドーナツ・レーダー・積み上げ各種・複合・割合%）",
             "数値カード（合計・件数・平均などの単一値／割合%／★評価）",
-            "クロス集計表・ヒートマップ（行×列のピボット集計・濃淡/閾値カラー）",
+            "クロス集計表・ヒートマップ（行×列のピボット集計・濃淡/閾値カラー・行合計／列合計を個別に表示）",
             "12列グリッドに複数ウィジェットを自由配置",
             "期間セレクタで全ウィジェットを連動再集計",
             "ウィジェットクリックで対象レコードへドリルダウン",
@@ -285,7 +286,7 @@ const teaser = teaserIds
       <img class="dbp-hero-icon" src="/images/dashboard-icon.png" alt="ダッシュボード for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="dbp-hero-badges">
         <span class="dbp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="dbp-hero-version">v1.1.3</span>
+        <span class="dbp-hero-version">v1.2.0</span>
       </div>
       <h1>ダッシュボード for kintone</h1>
       <p class="dbp-tagline">見たい数字を、1枚に。</p>
@@ -293,17 +294,29 @@ const teaser = teaserIds
     </section>
     <div class="dbp-hero-gradient-line"></div>
 
-    <!-- Update Info: 参照アプリの候補をスペース非依存に (2026-08-18) -->
+    <!-- Update Info: クロス集計表の合計を行／列で個別に (2026-09-17) -->
     <section class="dbp-section">
       <div class="dbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.1.3：ほかのスペースのアプリ・スペースに所属していないアプリの参照を安定化しました</h2>
+            <h2 class="update-title">v1.2.0：クロス集計表の合計を「行合計」「列合計」で別々に表示できるようになりました</h2>
           </div>
-          <p class="update-desc">アプリ横断集計の<strong>「参照アプリ」の候補が、これまでは同じスペース内のアプリを中心に表示される作り</strong>になっていました。v1.1.3 では<strong>スペースの所属を問わず、ログインユーザーがレコードを閲覧できる公開済みアプリをすべて候補として表示</strong>します。スペースに属していないアプリ同士でも、別々のスペースに置かれたアプリ同士でも、そのまま選んで1枚のボードに集約できます。候補が多い環境でも探しやすいよう、同じスペースのアプリは先頭にまとめて表示し、100 件を超えるアプリがあるテナントでも全件を候補に含めるようにしました。なお<strong>ゲストスペース内のアプリは、kintone の仕様上ほかのスペースから参照できない</strong>ため候補には含めません（除外した件数を設定画面に表示します）。</p>
-          <p class="update-desc">あわせて、<strong>設定画面を開いた直後にライセンスの判定が終わる前の状態のまま表示が固定されることがあり、プレミアム年間サポーターが有効でも「参照アプリ」を選択できない</strong>場合がありました。判定とアプリ一覧の取得が完了した時点で選択肢が自動的に反映されるようにしています。設定済みの参照アプリは、読み込み中や権限の変更があった場合でも選択が保持されます。</p>
-          <p class="update-note">最新版を kintone システム管理 →「プラグイン」→「読み込む」から上書きアップロードしてください。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます（アプリの再設定や「アプリを更新」の操作は不要です）。なお、ダッシュボードを閲覧されるみなさまにも、参照先アプリのレコード閲覧権限が必要です。</p>
+          <p class="update-desc">クロス集計表の表示オプションは、これまで<strong>「合計行/列」という 1 つのチェックボックス</strong>で、<strong>表の右端の合計列</strong>と<strong>表の下端の合計行</strong>が同時に出る作りでした。「列ごとの総計は表の下に出したいが、行ごとの合計は要らない」という場面では、必要のない合計列まで表示され、列数の多い表では横幅を圧迫していました。</p>
+          <p class="update-desc">v1.2.0 では、表示オプションが<strong>「行合計（表の右端）」と「列合計（表の下端）」の 2 つ</strong>に分かれ、<strong>それぞれ独立して表示・非表示を切り替え</strong>られます。<strong>表の下の列合計だけを残して、右端の行合計を消す</strong>という表の作り方ができます。ウィジェットごとの設定なので、同じボードの中で「片方だけの表」と「両方出す表」を並べることもできます。</p>
+          <div class="update-shot">
+            <Picture
+              src="/images/dashboard-config-totals.png"
+              alt="ダッシュボード for kintone の設定画面 — クロス集計表の表示オプションが「ヒートマップ」「行合計（表の右端）」「列合計（表の下端）」の3つのチェックボックスに分かれ、その下に行合計と列合計の意味を説明する補足文が表示されている"
+              width="2160"
+              height="1500"
+              class="zoomable"
+            />
+            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+          </div>
+          <p class="update-desc"><strong>総計（右下のセル）は、行合計と列合計の両方を表示したときだけ</strong>入ります。割合（%）モードのクロス集計表やヒートマップと組み合わせても同じように切り替えられます。</p>
+          <p class="update-desc">これまでに保存した設定は<strong>そのまま引き継がれ、更新後も見た目は変わりません</strong>（行合計・列合計の両方が表示された状態から始まります）。集計キャッシュをお使いの場合も、表示を切り替えるだけで<strong>再集計は不要</strong>です。</p>
+          <p class="update-note">最新版を kintone システム管理 →「プラグイン」→「読み込む」から上書きアップロードしてください。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます（アプリの再設定や「アプリを更新」の操作は不要です）。</p>
         </div>
       </div>
     </section>
@@ -455,7 +468,7 @@ const teaser = teaserIds
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-dashboard-v1.1.3.zip" download class="dbp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-dashboard-v1.2.0.zip" download class="dbp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="dbp-plan-card recommended">
@@ -586,10 +599,10 @@ const teaser = teaserIds
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-dashboard-v1.1.3.zip',
+            file_name: 'kw-dashboard-v1.2.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-dashboard-v1.1.3.zip'
+            link_url: '/downloads/kw-dashboard-v1.2.0.zip'
           });
         });
       }

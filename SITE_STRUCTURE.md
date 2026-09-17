@@ -767,6 +767,7 @@ c:\kizuna-works.jp\
 │   │   ├── dashboard-overview.png/.webp    # ダッシュボード 完成イメージ①（成績ダッシュボードの全景・製品ページ）
 │   │   ├── dashboard-overview-yojitsu.png/.webp # ダッシュボード 完成イメージ②（アプリ横断集計＝予実管理ダッシュボードの全景・製品ページ）
 │   │   ├── dashboard-portal-layout.png/.webp # ダッシュボード v1.1.0 ポータルレイアウト構成画面（製品ページUPDATEボックス・お知らせOGP・1100×634）
+│   │   ├── dashboard-config-totals.png/.webp # ダッシュボード v1.2.0 設定画面のクロス集計表 表示オプション（行合計／列合計の個別切替・製品ページUPDATEボックス）
 │   │   ├── dashboard/recipes/<id>.png/.webp # ダッシュボード設定レシピ集の完成イメージ（種別ごと・第1バッチ22対）
 │   │   ├── attribute-filter-banner.png      # 属性制御フィルター for kintone 見出しバナー（OGP/グリッド共用・1200×630）
 │   │   ├── attribute-filter-icon.png        # 属性制御フィルター for kintone アイコン（hero・200×200）
@@ -922,7 +923,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-dashboard-v1.1.0.zip                               # ダッシュボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第2弾・無料/プレミアム共通zip・v1.1.0=ポータルレイアウト構成）
 │   │   ├── kw-dashboard-v1.1.1.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-dashboard-v1.1.2.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-dashboard-v1.1.3.zip                               # ダッシュボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.1.3 参照アプリの候補をスペース非依存化＋設定画面の後追い反映）
+│   │   ├── kw-dashboard-v1.1.3.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-dashboard-v1.2.0.zip                               # ダッシュボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.2.0 クロス集計表の合計を行合計／列合計で個別表示）
 │   │   ├── kw-drive-connect-v1.0.0.zip                          # ドライブ連携 for kintone 配布ファイル（最新・手動配置・プレミアム第13弾 初版）
 │   │   ├── kw-lookup-add-v1.0.0.zip    # ルックアップ新規登録 v1.0.0 配布物
 │   │   ├── kw-lookup-add-v1.0.1.zip    # ルックアップ新規登録 v1.0.1（2026-09-14 に版そのままで差し替え＝フォームの並びを実行時に読み、列の入れ替えに追従）
