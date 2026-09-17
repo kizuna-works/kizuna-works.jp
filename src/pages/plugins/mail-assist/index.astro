@@ -53,10 +53,10 @@ import Picture from '../../../components/Picture.astro';
           "name": "メールアシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.6.1",
-          "dateModified": "2026-09-10",
+          "softwareVersion": "1.7.0",
+          "dateModified": "2026-09-18",
           "url": "https://kizuna-works.jp/plugins/mail-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-mail-assist-v1.6.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-mail-assist-v1.7.0.zip",
           "image": "https://kizuna-works.jp/images/mail-assist-banner.png",
           "offers": {
             "@type": "Offer",
@@ -334,6 +334,10 @@ import Picture from '../../../components/Picture.astro';
     .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
     .update-desc { color: var(--color-text); font-size: 15px; line-height: 1.8; margin: 0; }
     .update-desc strong { color: var(--color-navy); }
+    .update-desc + .update-desc { margin-top: 12px; }
+    .update-list { color: var(--color-text); font-size: 15px; line-height: 1.8; margin: 4px 0 0; padding-left: 1.4em; }
+    .update-list li { margin-bottom: 4px; }
+    .update-list strong { color: var(--color-navy); }
     .update-example {
       max-width: 720px; margin: 20px auto 0; padding: 16px 20px;
       background: var(--color-bg); border-radius: 10px;
@@ -385,10 +389,50 @@ import Picture from '../../../components/Picture.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.6.1</span>
+        <span class="hero-version">v1.7.0</span>
       </div>
       <h1 class="hero-title">メールアシスト for kintone</h1>
       <p class="hero-copy">メールアシスト for kintone は、kintone のレコードの値（会社名・担当者名・メールアドレスなど）を差し込んで件名・本文・宛先を自動で組み立て、ワンクリックでお使いのメーラー（既定メーラー / Gmail / Outlook（個人・法人）/ Yahoo!）を起動する kintone プラグインです。レコード詳細から 1 件ずつ、一覧の絞り込み結果から BCC で一斉に。コピペと定型文の打ち直しから解放します。実際の送信はお使いのメーラーが行うので、外部サーバー・APIキー・GAS は不要で kintone 内で完結します。<strong>v1.6.0 では「下書きファイル（.eml）を作る」送信方法を追加しました。リッチエディターの表・罫線・文字色をそのまま本文に載せ、添付ファイルフィールドのファイルも付けられます。一斉送信を「レコードごとに 1 通」にすることもできます（Outlook / Thunderbird などパソコンのメールソフトが必要です）。あわせて、表示・送信条件でユーザー・所属組織・アプリ管理権限による出し分けができるようになりました。</strong></p>
+    </section>
+
+    <!-- Update Info (v1.7.0) -->
+    <section class="section-wrapper fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.7.0：設定の保存を取りこぼさないようにしました</h2>
+        </div>
+        <p class="update-desc">
+          テンプレートの保存先に別のアプリを指定してしまっても、<strong>その場で気づける</strong>ようになりました。kintone には「アプリに無い項目を受け取っても、エラーを出さずにその値だけを捨てる」仕様があります。そのためテンプレートの保存先を取り違えていると、「保存しました」と表示されたのに<strong>テンプレート名や宛先だけが空になる</strong>ことがありました。v1.7.0 では、保存先のアプリが正しいかを保存の前に確かめ、合っていなければ<strong>保存を中止して理由を表示</strong>します。足りない項目はボタン 1 つで追加できます。
+        </p>
+        <p class="update-desc">
+          あわせて、設定画面まわりを次のように整えました。
+        </p>
+        <ul class="update-list">
+          <li>テンプレート編集の小窓のボタンを「この内容で確定」に変更し、<strong>保存していない変更があること</strong>を画面に表示します（保存せずに離れようとすると確認します）</li>
+          <li>保存の「保存」ボタンは画面下部に常に表示されます</li>
+          <li>保管アプリのアプリ ID 欄を空にすると、その場で「プラグイン内に保存」へ戻ります</li>
+          <li>同じ保管アプリを複数のアプリで使っても、<strong>他のアプリのテンプレートを消しません</strong></li>
+          <li>保存できたときのメッセージに、［アプリを更新］が必要なことを明記しました</li>
+          <li>保存後は、プラグインの一覧ではなく<strong>「アプリの設定」画面に戻ります</strong></li>
+          <li>送信履歴の保管アプリについても、同じ確認を行います</li>
+        </ul>
+        <div class="update-shot">
+          <Picture
+            class="zoomable"
+            src="/images/mail-assist-config-08.png"
+            alt="メールアシスト 設定画面 — テンプレート保管アプリの欄に送信履歴保管アプリのアプリ ID が入っているため、「指定されているのは『送信履歴保管アプリ』です。…件名以外（テンプレ名・宛先・本文など）は、保存されずに消えます」と赤い枠で知らせている画面"
+            width="1920"
+            height="870"
+            loading="lazy"
+          />
+          <p class="update-shot-cap">保存先のアプリが違うと、保存する前に知らせます（画像をクリックすると拡大表示します）</p>
+        </div>
+        <p class="update-note">
+          既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。<strong>設定・テンプレート・記録済みの履歴はそのまま引き継がれます。</strong><br>
+          <strong>テンプレートの保存先に別のアプリを指定したことがある場合は、設定画面を開くと赤い案内が表示されます。</strong>案内にしたがってアプリ ID を直すか、欄を空にしてください。なお、<strong>取り違えていた間に保存されなかったテンプレートの内容は復元できません</strong>ので、お手数ですが入力し直してください。
+        </p>
+      </div>
     </section>
 
     <!-- Update Info (v1.6.0) -->
@@ -446,7 +490,7 @@ import Picture from '../../../components/Picture.astro';
         <p class="update-note">
           <strong>下書きファイル方式は、Outlook / Thunderbird などパソコンにインストールされたメールソフトが必要です</strong>（ブラウザ版のみをお使いの場合は、従来どおりの「メーラーを起動する」方式でご利用ください）。どの方法で何ができるかは、設定画面と下記の対応表でご確認いただけます。<br>
           既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。<strong>設定・既存テンプレート・記録済みの履歴はそのまま引き継がれ、送信方法は従来どおり（メーラーを起動する）のままです。</strong><br>
-          <strong>現在の配布版は v1.6.1 です。</strong>上記 ⑩ のご要望への対応を反映しています。v1.6.0 をお使いの方も、この版への更新をおすすめします。
+          上記 ⑩ のご要望への対応は v1.6.1 で反映しています。
         </p>
       </div>
     </section>
@@ -656,7 +700,7 @@ import Picture from '../../../components/Picture.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコード詳細（個別送信）・レコード一覧（一斉送信）（PC 版）でご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-mail-assist-v1.6.1.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-mail-assist-v1.7.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「メールアシスト for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>テンプレート</strong>（件名・本文・宛先・条件）を作成。必要に応じて送信履歴の記録をONにして保管アプリを生成し「保存」（保管アプリの自動生成にはアプリ作成権限が必要です）</span></li>
@@ -681,7 +725,7 @@ import Picture from '../../../components/Picture.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-mail-assist-v1.6.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-mail-assist-v1.7.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -828,10 +872,10 @@ import Picture from '../../../components/Picture.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-mail-assist-v1.6.1.zip',
+              file_name: 'kw-mail-assist-v1.7.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-mail-assist-v1.6.1.zip'
+              link_url: '/downloads/kw-mail-assist-v1.7.0.zip'
             });
           }
         });
