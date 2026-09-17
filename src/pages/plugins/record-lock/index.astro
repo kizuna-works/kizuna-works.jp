@@ -4,13 +4,14 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <Layout
   title="レコードロック for kintone｜条件で自動ロックして編集を制限する無料プラグイン | KIZUNA Works"
-  description="kintoneレコードを条件で自動ロックして編集を制限する無料プラグイン。ステータス・日付・特定フィールド値などの複数条件（AND/OR）と除外ユーザー設定で、受注後・承認後のレコードを保護できます。会員登録なしで無料ダウンロードでき、利用期限もありません。"
+  description="kintoneレコードを条件で自動ロックして編集を制限する無料プラグイン。ステータス・日付・フィールド値の複数条件（AND/OR）で、レコード全体・特定フィールド・ユーザーオートフィルの本人捺印をロック。除外ユーザー設定で管理者だけ編集できます。無料・登録不要。"
   ogTitle="レコードロック for kintone｜条件で自動ロックして編集を制限する無料プラグイン | KIZUNA Works"
-  ogDescription="kintoneレコードを条件で自動ロックして編集を制限する無料プラグイン。ステータス・日付・特定フィールド値などの複数条件（AND/OR）と除外ユーザー設定で、受注後・承認後のレコードを保護できます。会員登録なしで無料ダウンロードでき、利用期限もありません。"
+  ogDescription="kintoneレコードを条件で自動ロックして編集を制限する無料プラグイン。ステータス・日付・フィールド値の複数条件（AND/OR）で、レコード全体・特定フィールド・ユーザーオートフィルの本人捺印をロック。除外ユーザー設定で管理者だけ編集できます。無料・登録不要。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/record-lock/"
   ogImage="https://kizuna-works.jp/images/record-lock-banner.png"
@@ -26,7 +27,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "@id": "https://kizuna-works.jp/plugins/record-lock/",
           "url": "https://kizuna-works.jp/plugins/record-lock/",
           "name": "レコードロック for kintone｜条件で自動ロックして編集を制限する無料プラグイン | KIZUNA Works",
-          "description": "kintoneレコードを条件で自動ロックして編集を制限する無料プラグイン。ステータス・日付・特定フィールド値などの複数条件（AND/OR）と除外ユーザー設定で、受注後・承認後のレコードを保護できます。会員登録なしで無料ダウンロードでき、利用期限もありません。",
+          "description": "kintoneレコードを条件で自動ロックして編集を制限する無料プラグイン。ステータス・日付・フィールド値の複数条件（AND/OR）で、レコード全体・特定フィールド・ユーザーオートフィルの本人捺印をロック。除外ユーザー設定で管理者だけ編集できます。無料・登録不要。",
           "isPartOf": {
             "@type": "WebSite",
             "name": "KIZUNA Works",
@@ -46,10 +47,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "レコードロック for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.5",
-          "dateModified": "2026-08-12",
+          "softwareVersion": "1.1.0",
+          "dateModified": "2026-09-17",
           "url": "https://kizuna-works.jp/plugins/record-lock/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-record-lock-v1.0.5.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-record-lock-v1.1.0.zip",
           "offers": {
             "@type": "Offer",
             "name": "基本プラン（無料）",
@@ -58,7 +59,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintoneレコードを条件で自動ロックして編集を制限する無料プラグイン。複数条件（AND/OR）・除外ユーザー設定・フィールド単位ロックに対応。会員登録なしで無料ダウンロードでき、利用期限もありません。",
+          "description": "kintoneレコードを条件で自動ロックして編集を制限する無料プラグイン。複数条件（AND/OR）・除外ユーザー／グループ／組織・フィールド単位ロック・ユーザーオートフィルの本人捺印ロックに対応。会員登録なしで無料ダウンロードでき、利用期限もありません。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -69,6 +70,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "複数条件（AND/OR）の組み合わせ",
             "レコード全体ロック／フィールド単位ロックの切替",
             "除外ユーザー・グループ・組織の設定",
+            "ユーザーオートフィル for kintone の「本人捺印」のロック",
             "ステータス・日付（Today系演算子）・ユーザー選択など多様なフィールドに対応",
             "詳細画面バナー・一覧画面アイコンでロック状態を可視化"
           ]
@@ -657,8 +659,54 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       font-weight: 700;
     }
 
+    /* Update highlight box (v1.1.0) */
+    .update-section { padding: 48px 5% 8px; max-width: 1100px; margin: 0 auto; }
+    .update-box {
+      background: #ffffff; border: 1px solid var(--color-gray-light);
+      border-left: 6px solid var(--color-green); border-radius: 12px;
+      padding: 28px 32px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      display: inline-block; background-color: var(--color-green); color: #fff;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+      padding: 4px 12px; border-radius: 6px;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 800; margin: 0; line-height: 1.5; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.9; margin: 0 0 16px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-list { margin: 0 0 20px; padding-left: 1.2em; color: var(--color-text-main); font-size: 15px; line-height: 1.9; }
+    .update-list li { margin-bottom: 10px; }
+    .update-list strong { color: var(--color-navy); }
+    .update-shot { max-width: 640px; margin: 22px auto 8px; }
+    .update-shot--wide { max-width: 820px; }
+    .update-shot img { width: 100%; height: auto; border: 1px solid var(--color-gray-light); border-radius: 8px; }
+    .update-shot-cap { text-align: center; color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 10px 0 0; }
+    .update-note {
+      background: #f0f7f0; border-radius: 8px; padding: 14px 18px; margin: 18px 0 0;
+      font-size: 13px; color: var(--color-text-muted); line-height: 1.8;
+    }
+    .update-note strong { color: var(--color-navy); }
+
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none;
+      align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close {
+      position: absolute; top: 14px; right: 22px; width: 44px; height: 44px;
+      background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px;
+      line-height: 1; border-radius: 50%; cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
     /* Responsive */
     @media (max-width: 768px) {
+      .update-section { padding: 36px 5% 4px; }
+      .update-box { padding: 22px 20px; }
+      .update-title { font-size: 17px; }
       .related-posts-grid {
         grid-template-columns: 1fr;
       }
@@ -705,10 +753,70 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.5</span>
+        <span class="hero-version">v1.1.0</span>
       </div>
       <h1 class="hero-title">レコードロック for kintone</h1>
-      <p class="hero-copy">受注後・承認後・期限切れなどの条件を満たすレコードを自動的にロックし、編集を制限。除外ユーザー設定で管理者だけ編集可能にできる、kintone のレコード保護プラグインです。</p>
+      <p class="hero-copy">受注後・承認後・期限切れなどの条件を満たすレコードを自動的にロックし、編集を制限。<strong>ユーザーオートフィル for kintone の「本人捺印」もロック対象</strong>にでき、除外ユーザー設定で管理者だけ編集可能にできる、kintone のレコード保護プラグインです。</p>
+    </section>
+
+    <!-- Update Highlight (v1.1.0) -->
+    <section class="update-section fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.1.0：ユーザーオートフィルの「本人捺印」もロックできるようにしました</h2>
+        </div>
+        <p class="update-desc">
+          <a href="/plugins/user-autofill/">ユーザーオートフィル for kintone</a> の<strong>本人捺印</strong>は、編集モードにしなくてもクリックだけで押印・取り消しができます。手軽な反面、<strong>承認プロセスが終わったレコードの印影を、誤ってクリックして取り消してしまう</strong>という声をいただきました。v1.1.0 では、ロック対象に<strong>「本人捺印」</strong>を追加しています。ロック中は「捺印」ボタンを押せなくし、自分が押した印影のクリック（取り消し）も受け付けません。<strong>押印済みの印影と押印日はそのまま表示され、印刷にも出ます</strong>。
+        </p>
+        <p class="update-desc">
+          ロック範囲（レコード全体／フィールド指定）とは<strong>独立した設定</strong>なので、「レコードの項目は編集できるが、捺印だけは触らせない」という使い方もできます。ユーザーオートフィルが入っていないアプリでは、設定画面にその旨の案内が出ます。
+        </p>
+        <div class="update-shot">
+          <Picture
+            class="zoomable"
+            src="/images/record-lock-stamp-lock-02.png"
+            alt="ロック中のkintoneレコード詳細画面。上部に「このレコードはロックされています」のバナーが出ており、決裁欄の「捺印」ボタンが灰色で押せない状態になっている"
+            width="2100"
+            height="954"
+            loading="lazy"
+          />
+          <p class="update-shot-cap">ロック中は「捺印」ボタンが押せなくなり、押した印影のクリック（取り消し）も受け付けません</p>
+        </div>
+        <div class="update-shot">
+          <Picture
+            class="zoomable"
+            src="/images/record-lock-config-02.png"
+            alt="レコードロックの設定画面「② ロック対象」。ロック範囲のラジオボタンとフィールド一覧の下に「ユーザーオートフィル for kintone の『本人捺印』もロックする」チェックボックスが追加されている"
+            width="1177"
+            height="845"
+            loading="lazy"
+          />
+          <p class="update-shot-cap">設定画面の「② ロック対象」に、本人捺印のチェックが加わりました</p>
+        </div>
+        <div class="update-shot update-shot--wide">
+          <Picture
+            class="zoomable"
+            src="/images/record-lock-config-01.png"
+            alt="レコードロック for kintone の設定画面の全体。左にプラグイン名とバージョン、中央に①ロック条件・②ロック対象・③除外ユーザー/グループ/組織・④ロック中の表示設定、右に KIZUNA Works の案内サイドバーが並んでいる"
+            width="2250"
+            height="3878"
+            loading="lazy"
+          />
+          <p class="update-shot-cap">設定画面の全体（クリックで拡大できます）</p>
+        </div>
+        <p class="update-desc" style="margin-top:22px;">
+          あわせて、<strong>2 件の不具合を修正</strong>しました。
+        </p>
+        <ul class="update-list">
+          <li><strong>除外グループ・除外組織が効いていなかった問題</strong>を修正しました。v1.0.5 まで、除外リストにグループや組織を入れても、その所属メンバーはロックされたままでした（除外ユーザーの個別指定だけが働いていました）。<strong>グループや組織で除外していたアプリでは、更新後に設定どおり除外されるようになります</strong>ので、意図した設定になっているかご確認ください。</li>
+          <li><strong>ロック範囲が「レコード全体」のとき、詳細画面の編集・削除ボタンが隠れていなかった問題</strong>を修正しました。保存自体はこれまでも止まっていましたが、編集画面に入って入力したあとで弾かれる状態でした。v1.1.0 では「レコードを編集する」と［⋮］の「レコードを削除」が最初から表示されません。</li>
+        </ul>
+        <p class="update-note">
+          画像をクリックすると拡大表示します。<br />
+          最新版をダウンロードして、kintone の「システム管理 → プラグイン」から<strong>上書きアップロード</strong>してください。プラグインIDは変わらないため、既存の設定はそのまま引き継がれます。
+        </p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -743,6 +851,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <li><span><strong>条件で自動ロック</strong> — 文字列・数値・日付・ステータス・ユーザー選択など、kintoneの多様なフィールド種別を条件にできます。日付フィールドは「今日より前」「今日から30日後」など Today 系演算子に対応。</span></li>
         <li><span><strong>複数条件の AND / OR 結合</strong> — 「ステータス＝受注済 かつ 受注日＜今日」のような複雑な条件も設定可能。</span></li>
         <li><span><strong>ロック範囲の切替</strong> — レコード全体をロック（保存・削除も不可）、または特定フィールドだけをロックの2モードから選択できます。</span></li>
+        <li><span><strong>本人捺印のロック</strong> — <a href="/plugins/user-autofill/">ユーザーオートフィル for kintone</a> の「本人捺印」を同じ条件でロックできます。承認が終わったレコードの印影を、誤ってクリックして取り消してしまう事故を防げます。押印済みの印影はそのまま表示されます。</span></li>
         <li><span><strong>除外ユーザー・グループ・組織</strong> — ロック条件を満たしていても、ホワイトリスト設定で管理者など特定のユーザー／グループ／組織は編集可能。</span></li>
         <li><span><strong>視覚的なロック表示</strong> — レコード詳細画面の上部にバナー、レコード一覧画面の行背景色変更と🔒アイコンでロック状態をひと目で識別。色やメッセージは設定からカスタマイズできます。</span></li>
       </ul>
@@ -901,7 +1010,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧に控えめな広告バナー表示あり</li>
             </ul>
-            <a href="/downloads/kw-record-lock-v1.0.5.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-record-lock-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">開発を応援</span>
@@ -997,6 +1106,12 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 
   </main>
 
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="rl-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
   <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
       const observer = new IntersectionObserver((entries, obs) => {
@@ -1009,6 +1124,27 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       }, { threshold: 0.1 });
 
       document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const lightbox = document.getElementById('rl-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+      }
 
       const faqQuestions = document.querySelectorAll('.faq-question');
       faqQuestions.forEach(question => {
@@ -1039,10 +1175,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-record-lock-v1.0.5.zip',
+              file_name: 'kw-record-lock-v1.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-record-lock-v1.0.5.zip'
+              link_url: '/downloads/kw-record-lock-v1.1.0.zip'
             });
           }
         });

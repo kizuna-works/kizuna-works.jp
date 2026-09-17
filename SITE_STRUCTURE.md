@@ -296,6 +296,9 @@ c:\kizuna-works.jp\
 │   │   ├── form-deco-banner.png            # FormDecoプラグイン バナー（1200×675・OGP/グリッド共用）
 │   │   ├── lookup-suggest-icon.png         # ルックアップサジェストプラグイン アイコン
 │   │   ├── lookup-suggest-banner.png       # ルックアップサジェストプラグイン バナー（1200×675・OGP/グリッド共用）
+│   │   ├── record-lock-config-01.png       # レコードロックプラグイン 設定画面スクショ（全体）— ②ロック対象に「ユーザーオートフィル for kintone の『本人捺印』もロックする」チェックがある v1.1.0 の画面
+│   │   ├── record-lock-config-02.png       # レコードロックプラグイン 設定画面スクショ（②ロック対象の切り出し）— 本人捺印のチェックと注記
+│   │   ├── record-lock-stamp-lock-02.png   # レコードロックプラグイン ロック中のレコード詳細 — ロックのバナーと、押せない状態の決裁欄（捺印ボタンが灰色）
 │   │   ├── lookup-suggest-config-01.png    # ルックアップサジェストプラグイン 設定画面スクショ① — ルックアップフィールド選択ドロップダウン
 │   │   ├── lookup-suggest-config-02.png    # ルックアップサジェストプラグイン 設定画面スクショ② — サジェスト一覧に表示するフィールドのチップ選択UI
 │   │   ├── lookup-suggest-action-01.png    # ルックアップサジェストプラグイン 動作画面スクショ① — レコード画面のヒントバナー表示状態（入力前）
@@ -1055,7 +1058,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-record-lock-v1.0.2.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-lock-v1.0.3.zip                             # レコードロック for kintone 配布ファイル（旧版・手動配置・v1.0.3 で設定画面 サイドバー250px/条件表の拡大縮小時 操作性改善）
 │   │   ├── kw-record-lock-v1.0.4.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-record-lock-v1.0.5.zip                             # レコードロック for kintone 配布ファイル（最新・手動配置・v1.0.5 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
+│   │   ├── kw-record-lock-v1.0.5.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-record-lock-v1.1.0.zip                             # レコードロック for kintone 配布ファイル（最新・手動配置・v1.1.0 ユーザーオートフィルの本人捺印をロック対象に追加＋除外グループ/組織が効かない不具合と編集・削除ボタンが隠れない不具合を修正）
 │   │   ├── kw-record-recovery-v1.0.0.zip                         # 削除レコード復元 for kintone 配布ファイル（旧版・手動配置・v1.0.0 初版）
 │   │   ├── kw-record-recovery-v1.0.1.zip                 # 削除レコード復元 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-recovery-v1.0.2.zip                 # 削除レコード復元 for kintone 配布ファイル（最新・手動配置・v1.0.2 重複禁止が未設定のルックアップでも安定して動作するよう改善）
