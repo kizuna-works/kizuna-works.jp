@@ -66,9 +66,9 @@ export const extensions: Extension[] = [
     slug: 'kw-app-exporter-for-kintone',
     name: 'KW App Exporter for kintone',
     description:
-      'kintone アプリの設定情報（フィールド構成・レイアウト・一覧・権限・プロセス管理）を HTML / JSON / Excel / Markdown 形式で一括エクスポートできる Chrome 拡張機能。アプリ引き継ぎ・差分比較を効率化。',
+      'kintone アプリの設定情報（フィールド構成・レイアウト・一覧・権限・プロセス管理・プラグイン・JavaScript/CSS）を HTML / JSON / Excel / Markdown 形式で一括エクスポートできる Chrome 拡張機能。カスタマイズファイルの中身は ZIP で同梱。',
     shortDescription:
-      'アプリの設定情報を HTML/JSON/Excel/Markdown 形式で一括エクスポート。',
+      'アプリの設定情報・プラグイン・JavaScript/CSS を HTML/JSON/Excel/Markdown 形式で一括エクスポート。',
     bannerImage: '/images/extensions/kw-app-exporter-banner.png',
     bannerAlt: 'KW App Exporter for kintone のバナー画像',
     iconImage: '/images/extensions/kw-app-exporter-icon.png',

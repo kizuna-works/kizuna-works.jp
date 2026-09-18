@@ -1,12 +1,13 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <Layout
   title="kintone アプリ設定エクスポート Chrome拡張機能 - KW App Exporter | KIZUNA Works"
-  description="kintoneアプリの設定情報（フィールド構成・レイアウト・一覧・権限・プロセス管理）をHTML/JSON/Excel/Markdown形式で一括エクスポートできる無料Chrome拡張機能。アプリの引き継ぎ・ドキュメント化・差分比較を効率化する管理者向けツール。"
+  description="kintoneアプリの設定情報（フィールド構成・レイアウト・一覧・権限・プロセス管理・プラグイン・JavaScript/CSS）をHTML/JSON/Excel/Markdown形式で一括エクスポートできる無料Chrome拡張機能。カスタマイズファイルの中身はZIPで同梱。アプリの引き継ぎ・ドキュメント化を効率化します。"
   ogTitle="kintone アプリ設定エクスポート Chrome拡張機能 - KW App Exporter | KIZUNA Works"
-  ogDescription="kintoneアプリの設定情報をHTML/JSON/Excel/Markdown形式で一括エクスポート。アプリ引き継ぎ・ドキュメント化・差分比較を効率化する無料Chrome拡張機能。"
+  ogDescription="kintoneアプリの設定情報に加え、プラグインとJavaScript/CSSカスタマイズもHTML/JSON/Excel/Markdown形式で一括エクスポート。カスタマイズファイルの中身はZIPで同梱できる無料Chrome拡張機能。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/extensions/kw-app-exporter-for-kintone/"
   ogImage="https://kizuna-works.jp/images/extensions/kw-app-exporter-banner.png"
@@ -40,7 +41,7 @@ import Layout from '../../../layouts/Layout.astro';
         {
           "@type": "SoftwareApplication",
           "name": "KW App Exporter for kintone",
-          "description": "kintoneアプリの設定情報（フィールド構成・レイアウト・一覧・権限・プロセス管理）をHTML/JSON/Excel/Markdown形式で一括エクスポートできるChrome拡張機能。",
+          "description": "kintoneアプリの設定情報（フィールド構成・レイアウト・一覧・権限・プロセス管理・プラグイン・JavaScript/CSSカスタマイズ）をHTML/JSON/Excel/Markdown形式で一括エクスポートできるChrome拡張機能。カスタマイズファイルの中身はZIPで同梱。",
           "applicationCategory": "DeveloperApplication",
           "applicationSubCategory": "BrowserExtension",
           "operatingSystem": "Chrome",
@@ -50,12 +51,15 @@ import Layout from '../../../layouts/Layout.astro';
             "https://kizuna-works.jp/images/extensions/kw-app-exporter/01-popup.png",
             "https://kizuna-works.jp/images/extensions/kw-app-exporter/02-html-export.png",
             "https://kizuna-works.jp/images/extensions/kw-app-exporter/03-excel-export.png",
-            "https://kizuna-works.jp/images/extensions/kw-app-exporter/04-markdown-export.png"
+            "https://kizuna-works.jp/images/extensions/kw-app-exporter/04-markdown-export.png",
+            "https://kizuna-works.jp/images/extensions/kw-app-exporter/05-plugins.png",
+            "https://kizuna-works.jp/images/extensions/kw-app-exporter/06-customize.png",
+            "https://kizuna-works.jp/images/extensions/kw-app-exporter/07-app-acl.png"
           ],
-          "softwareVersion": "1.1.0",
+          "softwareVersion": "1.2.0",
           "inLanguage": "ja",
-          "dateModified": "2026-06-03",
-          "releaseNotes": "v1.1.0（2026-06-03）: フィールド構成のエクスポートで、GROUP（グループ）配下のフィールドを親グループ行の下に └ インデント表示するよう変更（テーブル / SUBTABLE と同じ表示形式に統一）。HTML / Markdown はグループ配下フィールドを階層表示し、Excel「フィールド構成」シートは「親テーブル」列を「親テーブル/グループ」列にリネームしてグループ配下フィールドに親グループのフィールドコードを出力。フィールド構成の取得時に内部でレイアウト情報を自動参照し、グループ所属を正確に解決します。",
+          "dateModified": "2026-09-19",
+          "releaseNotes": "v1.2.0（2026-09-19）: アプリのアクセス権限・フィールドのアクセス権限が HTML と Excel で空欄になっていた不具合を修正し、「アプリ管理」「下位組織への継承」を追加。アプリに追加されているプラグイン（名前・バージョン・有効/無効・プラグインID）と、JavaScript / CSS カスタマイズの設定（適用範囲・PC / モバイル別の読み込み順）をエクスポートできるようにしました。「ファイルの中身も同梱する」を選ぶと、アップロード済みの JavaScript / CSS ファイルを実体ごと ZIP にまとめて保存できます。",
           "downloadUrl": "https://chromewebstore.google.com/detail/kw-app-exporter-for-kinto/kojeebklgjlejjpfadmaaobdmbmjcfld",
           "installUrl": "https://chromewebstore.google.com/detail/kw-app-exporter-for-kinto/kojeebklgjlejjpfadmaaobdmbmjcfld",
           "offers": {
@@ -77,13 +81,16 @@ import Layout from '../../../layouts/Layout.astro';
             }
           },
           "featureList": [
-            "アプリ設定情報を8カテゴリ一括取得（フィールド・レイアウト・一覧・権限・プロセス）",
+            "アプリ設定情報を10カテゴリ一括取得（フィールド・レイアウト・一覧・権限・プロセス・プラグイン・JavaScript/CSS）",
             "HTML / JSON / Excel / Markdown の4形式で出力",
+            "追加されているプラグインの名前・バージョン・有効/無効・プラグインIDを一覧化",
+            "JavaScript / CSS カスタマイズの適用範囲とPC / モバイル別の読み込み順を出力",
+            "カスタマイズファイルの中身をZIPに同梱（読み込み順の連番フォルダー＋README付き）",
+            "アクセス権限はアプリ管理・下位組織への継承まで出力",
             "GROUP / テーブル配下フィールドの親子関係を出力に反映（└ インデント表示）",
-            "権限不足の項目は自動スキップして他項目を出力",
+            "取得できない項目は自動スキップして他項目を出力",
             "ポップアップから出力対象と形式を選んでワンクリック実行",
-            "選択状態は次回起動時に復元",
-            "ゲストスペース対応"
+            "選択状態は次回起動時に復元"
           ]
         },
         {
@@ -825,6 +832,30 @@ import Layout from '../../../layouts/Layout.astro';
       color: var(--color-navy);
       font-family: 'Courier New', monospace;
     }
+    .update-shot { max-width: 760px; margin: 22px auto 6px; }
+    .update-shot img { width: 100%; height: auto; border: 1px solid var(--color-border, #e2e8f0); border-radius: 8px; box-shadow: 0 2px 10px rgba(27,58,107,0.08); display: block; }
+    .update-shot-caption { text-align: center; color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 8px 0 0; }
+    .update-note {
+      background: #f0f7f0; border-radius: 8px; padding: 14px 18px; margin: 22px 0 0;
+      font-size: 13px; color: var(--color-text-light); line-height: 1.8;
+    }
+    .update-note code { background: #fff; border-radius: 4px; padding: 1px 6px; font-size: 12px; }
+
+    .zoom-hint { text-align: center; color: var(--color-text-light); font-size: 12px; margin: 10px 0 0; }
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none;
+      align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close {
+      position: absolute; top: 14px; right: 22px; width: 44px; height: 44px;
+      background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px;
+      line-height: 1; border-radius: 50%; cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
     .update-sample {
       background-color: var(--color-white);
       border-radius: 8px;
@@ -898,9 +929,9 @@ import Layout from '../../../layouts/Layout.astro';
       <h1 class="hero-title">KW App Exporter for kintone</h1>
       <p class="hero-subtitle">kintone アプリの「設定情報そのもの」を、ワンクリックでエクスポート。</p>
       <p class="hero-copy">
-        フィールド構成・レイアウト・一覧・権限・プロセス管理など、kintone アプリの設定情報を
-        HTML / JSON / Excel / Markdown 形式で一括書き出し。<br>
-        アプリの引き継ぎ・ドキュメント化・差分比較を、画面遷移なしで完結させる管理者向けツール。
+        フィールド構成・レイアウト・一覧・権限・プロセス管理に加え、追加されているプラグインと
+        JavaScript / CSS カスタマイズまで、kintone アプリの設定情報を HTML / JSON / Excel / Markdown 形式で一括書き出し。<br>
+        カスタマイズファイルの中身は ZIP に同梱。アプリの引き継ぎ・ドキュメント化・差分比較を、画面遷移なしで完結させる管理者向けツール。
       </p>
       <a href="https://chromewebstore.google.com/detail/kw-app-exporter-for-kinto/kojeebklgjlejjpfadmaaobdmbmjcfld" class="btn-primary" target="_blank" rel="noopener noreferrer">Chrome Web Store で入手する</a>
     </section>
@@ -910,36 +941,45 @@ import Layout from '../../../layouts/Layout.astro';
       <div class="update-inner">
         <div class="update-header">
           <span class="update-tag">UPDATE</span>
-          <span class="update-version">v1.1.0</span>
-          <span class="update-date">2026年6月3日リリース</span>
+          <span class="update-version">v1.2.0</span>
+          <span class="update-date">2026年9月19日リリース</span>
         </div>
-        <h2 class="update-title">GROUP（グループ）配下フィールドの親子関係をエクスポートに反映 — フォーム階層を保ったまま書き出し</h2>
+        <h2 class="update-title">プラグインと JavaScript / CSS カスタマイズもエクスポート対象に — アクセス権限が空欄になる不具合も修正</h2>
         <p class="update-summary">
-          v1.1.0 では、フィールド構成のエクスポートで <strong>GROUP（グループ）配下にあるフィールド</strong>が、どのグループに属しているかを出力結果から判別できるようになりました。<br>
-          これまで対応済みだったテーブル（SUBTABLE）と同じ表示形式に統一され、グループに分かれた複雑なフォーム構造でも階層を保ったままドキュメント化できます。
+          v1.2.0 では、アプリに追加されている<strong>プラグイン</strong>と、適用されている <strong>JavaScript / CSS カスタマイズ</strong>を書き出せるようになりました。<br>
+          あわせて、<strong>アプリ／フィールドのアクセス権限が HTML と Excel で空欄になっていた不具合</strong>を修正しています。引き継ぎ資料に「このアプリは何で動いているか」まで残せます。
         </p>
 
         <div class="update-examples">
-          <h4>🆕 v1.1.0 で追加・変更された内容</h4>
+          <h4>🆕 v1.2.0 で追加・変更された内容</h4>
           <ul>
-            <li>🧩 <strong>フィールド構成出力</strong>：GROUP 配下のフィールドを親グループ行の下に <code>└</code> インデント表示（テーブル / SUBTABLE と同じ形式に統一）</li>
-            <li>📄 <strong>HTML / Markdown</strong>：グループ配下フィールドを階層構造で表現し、フォーム構成がそのまま伝わるレイアウトに</li>
-            <li>📊 <strong>Excel</strong>：「フィールド構成」シートの「親テーブル」列を <code>親テーブル/グループ</code> 列にリネーム。グループ配下フィールドには親グループのフィールドコードが入る</li>
-            <li>🔗 <strong>グループ所属の自動解決</strong>：フィールド構成の取得時に内部でレイアウト情報を自動参照し、所属グループを正確に判定（出力項目は増えません）</li>
+            <li>🧩 <strong>プラグイン</strong>：追加されているプラグインの名前・バージョン・有効/無効・プラグイン ID を一覧化</li>
+            <li>📜 <strong>JavaScript / CSS カスタマイズ</strong>：適用範囲と、PC / モバイル別の読み込み順・ファイル名 / URL を出力</li>
+            <li>🗜️ <strong>ファイルの中身を ZIP に同梱</strong>：アップロード済みの JavaScript / CSS を実体ごと保存。読み込み順が分かる連番フォルダーと README 付き</li>
+            <li>🔧 <strong>不具合修正</strong>：アプリアクセス権限・フィールドアクセス権限が、HTML と Excel で内容が空欄になっていたのを修正</li>
+            <li>➕ <strong>権限の表示を拡充</strong>：「アプリ管理」「下位組織への継承」を追加し、アプリの作成者やユーザー種別を日本語で表示</li>
           </ul>
         </div>
 
-        <div class="update-sample">
-          <h4>📋 Markdown 出力例（v1.1.0）</h4>
-<pre>| フィールド名 | フィールドコード | タイプ | 親テーブル/グループ |
-|---|---|---|---|
-| 顧客情報 | customer_group | グループ |  |
-| └ 会社名 | `company_name` | 文字列（1行） | customer_group |
-| └ 担当者 | `contact_person` | 文字列（1行） | customer_group |
-| 案件詳細 | project_group | グループ |  |
-| └ 受注金額 | `order_amount` | 数値 | project_group |</pre>
-          <p class="update-sample-note">グループに属するフィールドは <code>└</code> プレフィックスで視覚的に階層化されるため、仕様書や引き継ぎ資料にそのまま貼り付けても構造が崩れません。</p>
+        <div class="update-shot">
+          <Picture class="zoomable" src="/images/extensions/kw-app-exporter/05-plugins.png" alt="エクスポートした HTML のプラグインタブ。プラグイン名・バージョン・状態（有効）・プラグインID・入手元の列を持つ表に、アプリへ追加された14件のプラグインが一覧表示されている" width="1869" height="574" />
+          <p class="update-shot-caption">追加されているプラグインを、バージョン付きで一覧化します。</p>
         </div>
+
+        <div class="update-shot">
+          <Picture class="zoomable" src="/images/extensions/kw-app-exporter/06-customize.png" alt="エクスポートした HTML の JavaScript/CSS カスタマイズタブ。適用範囲「すべてのユーザー」の下に、対象（PC）・種別（JS/CSS）・読み込み順・指定方法（URL/ファイル）・ファイル名やURL・サイズの列を持つ表が表示されている" width="1869" height="699" />
+          <p class="update-shot-caption">適用範囲と読み込み順が、そのまま資料になります。URL 指定と自前ファイルも区別して表示します。</p>
+        </div>
+
+        <div class="update-shot">
+          <Picture class="zoomable" src="/images/extensions/kw-app-exporter/07-app-acl.png" alt="エクスポートした HTML のアプリアクセス権限タブ。エンティティ・タイプ・下位組織・アプリ管理・閲覧・追加・編集・削除・インポート・エクスポートの列があり、アプリの作成者と everyone の行にチェックマークが入っている" width="1848" height="256" />
+          <p class="update-shot-caption">空欄になっていたアクセス権限が、正しく出力されるようになりました（「アプリ管理」「下位組織」の列も追加）。</p>
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します。</p>
+
+        <p class="update-note">
+          Chrome ウェブストアからの自動更新で v1.2.0 になります。すぐに反映したい場合は、<code>chrome://extensions</code> を開いて「更新」を押してください。
+        </p>
       </div>
     </section>
 
@@ -982,7 +1022,7 @@ import Layout from '../../../layouts/Layout.astro';
 
     <section class="section-wrapper fade-in">
       <h2 class="section-title">主な機能</h2>
-      <p class="section-subtitle">8 種類の設定情報 × 4 種類の出力形式で、用途に最適なエクスポートを実現します。</p>
+      <p class="section-subtitle">10 種類の設定情報 × 4 種類の出力形式で、用途に最適なエクスポートを実現します。</p>
       <div class="features-grid">
         <div class="feature-card">
           <span class="feature-num">1</span>
@@ -991,13 +1031,13 @@ import Layout from '../../../layouts/Layout.astro';
         </div>
         <div class="feature-card">
           <span class="feature-num">2</span>
-          <h3 class="feature-title">8 種類の設定情報を一括取得</h3>
-          <p class="feature-desc">アプリ基本情報・フィールド構成・レイアウト・一覧設定・プロセス管理・アプリ／フィールド／レコードの各アクセス権限を、選択した分だけまとめて取得します。</p>
+          <h3 class="feature-title">10 種類の設定情報を一括取得</h3>
+          <p class="feature-desc">アプリ基本情報・フィールド構成・レイアウト・一覧設定・プロセス管理・アプリ／フィールド／レコードの各アクセス権限に加え、追加されているプラグインと JavaScript / CSS カスタマイズを、選択した分だけまとめて取得します。</p>
         </div>
         <div class="feature-card">
           <span class="feature-num">3</span>
-          <h3 class="feature-title">権限不足の項目は自動スキップ</h3>
-          <p class="feature-desc">アプリ管理者でない場合に取得できない項目は自動スキップし、取得できた項目のみで出力。エクスポートファイル内に「⚠️ 権限なし」を明示します。</p>
+          <h3 class="feature-title">カスタマイズファイルの中身を ZIP で保存</h3>
+          <p class="feature-desc">「ファイルの中身も同梱する」を選ぶと、アプリにアップロードされている JavaScript / CSS を実体ごと ZIP 化。読み込み順が分かる連番フォルダーと、適用範囲を書いた README が付きます。</p>
         </div>
         <div class="feature-card">
           <span class="feature-num">4</span>
@@ -1038,7 +1078,7 @@ import Layout from '../../../layouts/Layout.astro';
       <div class="gallery-row">
         <div class="gallery-card">
           <div class="gallery-image-wrap gallery-image-wrap--narrow">
-            <img src="/images/extensions/kw-app-exporter/01-popup.png" alt="拡張機能アイコンをクリックして開いたポップアップ画面。アプリ名・ID と8項目のチェックリスト、出力形式（HTML/JSON/Excel/Markdown）の選択欄、エクスポート実行ボタンが配置されている" width="421" height="816" loading="lazy">
+            <img src="/images/extensions/kw-app-exporter/01-popup.png" alt="拡張機能アイコンをクリックして開いたポップアップ画面。アプリ名・ID と10項目のチェックリスト、JavaScript/CSS カスタマイズの下に「ファイルの中身も同梱する（ZIP で出力）」のチェック、出力形式（HTML/JSON/Excel/Markdown）の選択欄、エクスポート実行ボタンが配置されている" width="420" height="1022" loading="lazy">
           </div>
           <div class="gallery-content">
             <h3 class="gallery-title">📌 ポップアップから 1 クリック実行</h3>
@@ -1080,7 +1120,7 @@ import Layout from '../../../layouts/Layout.astro';
 
     <section class="section-wrapper fade-in">
       <h2 class="section-title">エクスポート対象</h2>
-      <p class="section-subtitle">下表の 8 カテゴリから、必要な項目だけを選んで出力できます。</p>
+      <p class="section-subtitle">下表の 10 カテゴリから、必要な項目だけを選んで出力できます。</p>
       <table class="target-table">
         <thead>
           <tr>
@@ -1091,13 +1131,15 @@ import Layout from '../../../layouts/Layout.astro';
         </thead>
         <tbody>
           <tr><td>アプリ基本情報</td><td><code>app.json</code></td><td><span class="tag-anyone">一般ユーザー可</span></td></tr>
-          <tr><td>フィールド構成</td><td><code>app/form/fields.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
-          <tr><td>レイアウト</td><td><code>app/form/layout.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
+          <tr><td>フィールド構成</td><td><code>app/form/fields.json</code></td><td><span class="tag-anyone">一般ユーザー可</span></td></tr>
+          <tr><td>レイアウト</td><td><code>app/form/layout.json</code></td><td><span class="tag-anyone">一般ユーザー可</span></td></tr>
           <tr><td>一覧設定</td><td><code>app/views.json</code></td><td><span class="tag-anyone">一般ユーザー可</span></td></tr>
-          <tr><td>プロセス管理</td><td><code>app/status.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
+          <tr><td>プロセス管理</td><td><code>app/status.json</code></td><td><span class="tag-anyone">一般ユーザー可</span></td></tr>
           <tr><td>アプリアクセス権限</td><td><code>app/acl.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
           <tr><td>フィールドアクセス権限</td><td><code>field/acl.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
           <tr><td>レコードアクセス権限</td><td><code>record/acl.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
+          <tr><td>プラグイン</td><td><code>app/plugins.json</code> ＋ <code>plugins.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
+          <tr><td>JavaScript / CSS</td><td><code>app/customize.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
         </tbody>
       </table>
     </section>
@@ -1142,7 +1184,7 @@ import Layout from '../../../layouts/Layout.astro';
         <h2 class="section-title-left">動作環境</h2>
         <ul class="notes-list">
           <li>Google Chrome 最新版（Manifest V3 対応版）。Microsoft Edge / Brave / Arc 等の Chromium ベースブラウザでも動作します。</li>
-          <li>対応サービス: kintone（<code>*.cybozu.com</code> / <code>*.kintone.com</code>）。ゲストスペース対応。</li>
+          <li>対応サービス: kintone（<code>*.cybozu.com</code> / <code>*.kintone.com</code>）。ゲストスペース内のアプリは未対応です。</li>
           <li>kintone アプリへのアクセス権限を持つアカウントでログインしている必要があります。</li>
           <li>フィールド構成・レイアウト・権限・プロセス管理の取得には「アプリ管理者」権限が必要です。権限不足の項目は自動スキップされます。</li>
           <li>本拡張機能は KIZUNA Works が独自に開発・提供するものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
@@ -1189,6 +1231,12 @@ import Layout from '../../../layouts/Layout.astro';
       <p class="bottom-cta-desc">機能リクエストや不具合報告など、お気軽にお問い合わせください。</p>
       <a href="/contact/" class="btn-primary">お問い合わせ</a>
     </section>
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="kwae-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+
   </main>
 
   <script is:inline>
@@ -1202,6 +1250,29 @@ import Layout from '../../../layouts/Layout.astro';
         });
       }, { root: null, rootMargin: '0px', threshold: 0.1 });
       document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const lightbox = document.getElementById('kwae-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
     });
   </script>
 </Layout>
