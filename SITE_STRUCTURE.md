@@ -1120,7 +1120,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-sticky-board-v1.0.2.zip                            # 付箋ボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-sticky-board-v1.1.0.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.1.0 ピンと線／一覧の付箋マーク／カードのタグ表示／サイドバー開閉の位置ずれ修正）
 │   │   ├── kw-table-assist-v1.0.0.zip                            # テーブルアシスト for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-table-assist-v1.0.1.zip                            # テーブルアシスト for kintone 配布ファイル（最新・手動配置・v1.0.1 サブテーブルの固定見出しが kintone 標準のポップアップを覆う問題を修正）
+│   │   ├── kw-table-assist-v1.0.1.zip                            # テーブルアシスト for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-table-assist-v1.0.2.zip                            # テーブルアシスト for kintone 配布ファイル（最新・手動配置・v1.0.2 行番号表示でフィールド幅設定が無視される／行追加で文字列(複数行)が潰れる／空欄のある行を複製できない、の3件を修正）
 │   │   ├── kw-image-compress-v1.0.0.zip # 画像圧縮 for kintone 配布物（旧版・v1.0.0）
 │   │   ├── kw-image-compress-v1.0.1.zip # 画像圧縮 for kintone 配布物（最新・v1.0.1 圧縮後に画面を自動で読み直す修正。プロセス管理が「ほかのユーザーが更新しました」で実行できない不具合の解消）
 │   │   ├── kw-table-preview-v1.1.0.zip                          # テーブルプレビュー for kintone 配布ファイル（最新・見出しクリックで明細の並べ替え／出ている行数の表示／出す一覧の選択）
