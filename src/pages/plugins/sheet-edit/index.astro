@@ -4,6 +4,7 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <Layout
@@ -52,10 +53,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "シート編集 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.5.1",
-          "dateModified": "2026-08-28",
+          "softwareVersion": "1.5.2",
+          "dateModified": "2026-09-18",
           "url": "https://kizuna-works.jp/plugins/sheet-edit/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-sheet-edit-v1.5.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-sheet-edit-v1.5.2.zip",
           "image": "https://kizuna-works.jp/images/sheet-edit-banner.png",
           "offers": {
             "@type": "Offer",
@@ -769,7 +770,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.5.1</span>
+        <span class="hero-version">v1.5.2</span>
       </div>
       <h1 class="hero-title">シート編集 for kintone</h1>
       <p class="hero-copy">kintone のレコード一覧（カスタマイズビュー）を、Excel のような表計算グリッドに置き換えるプラグインです。詳細画面を開かずに、一覧の上で表示中フィールドをその場で直接編集・保存。サブテーブル（明細）の各行もグリッドに展開して編集でき、型に合わせたセル編集、範囲選択での一括編集、コピー＆ペースト、<strong>連番・日付を続きから埋めるオートフィル</strong>、元に戻す/やり直しに対応し、Excel 感覚で複数レコードをテンポよく更新できます。列ヘッダーからの絞り込み・並べ替え、表示そのままの Excel 出力まで一覧上で完結。GAS・外部サービス不要で kintone 完結です。</p>
@@ -780,17 +781,15 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.5.0：連番・日付を「続きから」埋めるオートフィル＋Excel出力と表示の修正</h2>
+          <h2 class="update-title">v1.5.2：チェックボックス・複数選択の列を、その場で選んで保存できます</h2>
         </div>
-        <p class="update-desc"><strong>① 連番・日付オートフィル</strong><br />これまでオートフィルは「同じ値を下にコピーする」動作だけでした。v1.5.0 では、<strong>同じ列で2セル以上を選んでからフィルハンドルを下へドラッグ</strong>すると、選んだ値から規則を読み取って<strong>続きを自動で生成</strong>します。<strong>1セルだけ選んでドラッグしたときは今までどおりコピー</strong>なので、これまでの操作は変わりません。<br />数値は等差（<code>1, 2</code> なら 3,4,5… / <code>1, 3</code> なら 5,7,9…）、日付は日数の等差（<code>8/30, 8/31</code> なら 9/1, 9/2… と月末をまたいで継続）、時刻は分の等差（23:30 の次は 00:00 へ折り返し）、日時も同じ間隔で伸ばします。文字列は<strong>末尾の数字だけを進め、ゼロ埋めの桁数を保ちます</strong>（<code>A-001, A-002</code> → A-003…A-010）。降順（<code>10, 9</code> → 8,7…）にも対応します。ドロップダウンやユーザー選択など規則を作れない項目、選んだ範囲に空欄が混ざっている場合は、誤った値を入れないよう<strong>従来のコピーに切り替わります</strong>。何行埋めても<strong>元に戻す（Ctrl+Z）は1回</strong>で、サブテーブルの列でも同じ操作で使えます。</p>
+        <p class="update-desc">チェックボックスと複数選択のセルをダブルクリックすると開く選択肢の一覧に、<strong>選択を確定する OK ボタンが表示される</strong>ようになりました。v1.5.1 までは OK ボタンが背景色を失って見えない状態で、チェックは付けられても確定できず、セルに値が入りませんでした。</p>
         <div class="update-shot">
-          <img class="zoomable" src="/images/sheet-edit-after-06.png" alt="シート編集 for kintone v1.5.0 の連番オートフィル — 数量の1・2を選んで下へドラッグすると3〜12、管理番号は A-001・A-002 から A-012、期限は 2026/08/30・08/31 から 09/10 まで続きの値が自動で入る" width="1200" height="311" loading="lazy" decoding="async" />
+          <Picture class="zoomable" src="/images/sheet-edit-after-07.png" alt="シート編集 for kintone v1.5.2 — 「タイムシートへ転記」列のセルを開いたところ。選択肢「転記」「未選択」の下に、設定した配色の OK ボタンが表示されている" width={1200} height={406} />
           <p class="update-shot-cap">画像をクリックすると拡大表示します</p>
         </div>
-        <p class="update-desc" style="margin-top:18px;"><strong>② Excel出力にサブテーブルの明細が出るように</strong><br />サブテーブル（明細）を表示している一覧で Excel 出力すると、<strong>明細の列が空になり、行も展開されていませんでした</strong>。画面と同じように<strong>明細の行数ぶんレコードを展開し、明細の値を出力</strong>するよう修正しました。テーブル以外の列は画面と同じく先頭行にだけ値が入ります。</p>
-        <p class="update-desc" style="margin-top:18px;"><strong>③ 数値の桁区切りが表示に反映されるように</strong><br />フィールド側で「桁区切りを表示する」を有効にしていても、グリッド上では区切りが付かず <code>1000.00</code> のように表示されていました。フィールド設定どおり <code>1,000.00</code> と表示するよう修正しました。<strong>保存される値と Excel 出力の値は素の数値のまま</strong>で変わりません。</p>
-        <p class="update-desc" style="margin-top:18px;"><strong>④ 選択中のセルが分かりにくい問題を解消</strong><br />範囲選択やオートフィルのドラッグ中に付く色が<strong>ゼブラ（1行おきの薄い色）と同じ色</strong>だったため、行によって選択の塗りが見えたり見えなかったりしていました。また<strong>マウスが乗っている行だけ色が変わってしまう</strong>ことがありました。選択用の色を分けて、どの行でも同じ見え方になるようにしています（配色プリセット・カスタム基準色のいずれでも自動で調整されます）。</p>
-        <p class="update-desc" style="margin-top:18px;"><strong>⑤ 他社製プラグインとの併用時の安定性向上</strong><br />Excel 出力に使うライブラリを、これまではプラグインに同梱して<strong>全ページで読み込んでいました</strong>。同じアプリに他社製の Excel 系プラグインがある場合、共通の置き場所を取り合って<strong>どちらかの動作に影響する可能性</strong>がありました。v1.5.0 では<strong>出力ボタンを押したときだけ読み込み、読み込み前の状態に戻す</strong>方式に変更しています。出力結果は変わりません。あわせて、Excel 出力を使わない場合の<strong>ページの読み込みが約 273KB 軽くなりました</strong>。</p>
+        <p class="update-desc" style="margin-top:18px;">あわせて、<strong>ほかのセルをクリックして閉じた場合も、選んだ内容が反映される</strong>ようにしています（これまでは破棄されていました）。列の絞り込みメニューと同じ動きです。反映せずに閉じたいときは <strong>Esc</strong> を押してください。</p>
+        <p class="update-desc" style="margin-top:18px;">影響があるのは<strong>チェックボックスと複数選択の列だけ</strong>です。文字列・数値・日付・ドロップダウン・ラジオボタンなどの列は、これまでどおり編集できます。</p>
         <p class="update-note">最新版をダウンロードして、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用されます。保存済みの設定（表示フィールド・絞り込み条件・配色など）はそのまま引き継がれます。</p>
       </div>
     </section>
@@ -978,7 +977,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">レコード一覧の「カスタマイズ形式」ビューを使うアプリでご利用いただけます。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-sheet-edit-v1.5.1.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-sheet-edit-v1.5.2.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「シート編集」を追加</span></li>
           <li><span><strong>アプリ設定 → 一覧</strong>で対象の一覧を<strong>「カスタマイズ」形式</strong>にし、HTML 欄に <code>&lt;div class="kw-sheet-edit-root"&gt;&lt;/div&gt;</code> を貼り付けて保存（プラグイン設定画面のコピーボタンが使えます）</span></li>
@@ -1004,7 +1003,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-sheet-edit-v1.5.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-sheet-edit-v1.5.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">開発を応援</span>
@@ -1149,10 +1148,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-sheet-edit-v1.5.1.zip',
+              file_name: 'kw-sheet-edit-v1.5.2.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-sheet-edit-v1.5.1.zip'
+              link_url: '/downloads/kw-sheet-edit-v1.5.2.zip'
             });
           }
         });
