@@ -1,5 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import ResellerCard from '../../../components/ResellerCard.astro';
+import PremiumPlanCard from '../../../components/PremiumPlanCard.astro';
 import SupporterCTA from '../../../components/SupporterCTA.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
@@ -54,7 +56,7 @@ import Picture from '../../../components/Picture.astro';
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
           "softwareVersion": "2.5.0",
-          "dateModified": "2026-09-07",
+          "dateModified": "2026-09-19",
           "url": "https://kizuna-works.jp/plugins/conditional-form/",
           "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-form-v2.5.0.zip",
           "image": "https://kizuna-works.jp/images/conditional-form-banner.png",
@@ -526,9 +528,9 @@ import Picture from '../../../components/Picture.astro';
 
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 40px;
-      max-width: 900px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
@@ -536,7 +538,7 @@ import Picture from '../../../components/Picture.astro';
       background-color: var(--color-white);
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      padding: 40px 32px;
+      padding: 36px 20px;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -563,6 +565,7 @@ import Picture from '../../../components/Picture.astro';
       border-radius: 20px;
       font-size: 14px;
       font-weight: 700;
+      white-space: nowrap;
     }
 
     .plan-name {
@@ -607,15 +610,15 @@ import Picture from '../../../components/Picture.astro';
     .plan-features li {
       margin-bottom: 12px;
       font-size: 15px;
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
       line-height: 1.6;
     }
 
     .pricing-card .btn-primary {
       display: block;
       text-align: center;
+      padding: 15px 16px;
+      font-size: 15px;
+      white-space: nowrap;
     }
 
     .bottom-cta {
@@ -722,6 +725,10 @@ import Picture from '../../../components/Picture.astro';
       .problem-grid { grid-template-columns: 1fr; }
       .bottom-cta-title { font-size: 22px; }
       .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+      /* One column here, so let long labels wrap instead of overflowing */
+      .pricing-card .btn-primary {
+        white-space: normal;
+      }
       .screenshot-pair { grid-template-columns: 1fr; }
       .config-screenshots { grid-template-columns: 1fr; }
     }
@@ -1075,7 +1082,7 @@ import Picture from '../../../components/Picture.astro';
     <section id="pricing" class="section-bg">
       <div class="section-wrapper fade-in">
         <h2 class="section-title">プランについて</h2>
-        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+        <p class="section-subtitle">基本機能は完全無料でご利用いただけます。広告エリアの非表示と改善要望の送付をご希望の場合は、年間サポーターをお選びください。</p>
         <div class="pricing-grid">
           <div class="pricing-card">
             <h3 class="plan-name">基本プラン</h3>
@@ -1091,7 +1098,7 @@ import Picture from '../../../components/Picture.astro';
             <a href="/downloads/kw-conditional-form-v2.5.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
-            <span class="recommended-badge">開発を応援</span>
+            <span class="recommended-badge">1プラグインならこちら</span>
             <h3 class="plan-name">年間サポーター</h3>
             <div class="plan-price">
               <span class="amount">¥3,300</span>
@@ -1105,11 +1112,10 @@ import Picture from '../../../components/Picture.astro';
               <li>✅ サポーターの声を優先して開発に反映</li>
             </ul>
             <a href="/plugins/supporter/?plugin=kw-conditional-form" class="btn-primary">サポーターになる →</a>
-            <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
-              ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
-            </p>
           </div>
+        <PremiumPlanCard />
         </div>
+        <ResellerCard />
       </div>
     </section>
 

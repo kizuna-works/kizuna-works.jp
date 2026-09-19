@@ -1,0 +1,260 @@
+---
+/**
+ * 製品ページのプラン欄の下に置く「販売代理店からのご購入」カード。
+ *
+ * 掲載する代理店は src/data/resellers.ts で管理する。
+ * 登録が 0 件のあいだは何も出力しない（契約締結前に社名が出ないようにするため）。
+ *
+ * ちょこっと・プレミアムの両方の製品ページで共通に使う。
+ * ページ側の CSS には依存せず、このファイル内のスコープ付き CSS で完結させている。
+ */
+import Picture from './Picture.astro';
+import { resellers } from '../data/resellers';
+---
+
+{resellers.length > 0 && (
+  <section class="rs-card" aria-labelledby="rs-heading">
+    <span class="rs-badge">販売代理店からのご購入</span>
+    <h3 class="rs-heading" id="rs-heading">導入のご相談まで、あわせてお任せいただけます</h3>
+    <p class="rs-lead">
+      サイボウズ オフィシャルパートナーである販売代理店からも、同じライセンスをご購入いただけます。
+    </p>
+
+    <ul class="rs-merits">
+      <li>
+        <span class="rs-merit-title">設定・導入までサポート</span>
+        プラグインの設定や kintone アプリへの組み込みまで、担当者がご相談に応じます。
+      </li>
+      <li>
+        <span class="rs-merit-title">kintone まわりをまとめて</span>
+        アプリ構築・運用改善とあわせて、窓口をひとつにできます。
+      </li>
+      <li>
+        <span class="rs-merit-title">法人とのお取引</span>
+        見積書・請求書の発行や支払条件は、販売代理店の商流に沿ってご対応いただけます。
+      </li>
+    </ul>
+
+    <ul class={resellers.length === 1 ? 'rs-list is-solo' : 'rs-list'}>
+      {resellers.map((r) => (
+        <li class="rs-item">
+          <div class="rs-identity">
+            {r.logo && (
+              <span class="rs-logo">
+                <Picture
+                  src={r.logo}
+                  alt={r.name}
+                  width={r.logoWidth}
+                  height={r.logoHeight}
+                />
+              </span>
+            )}
+            <span class="rs-names">
+              <span class="rs-name">{r.name}</span>
+              <span class="rs-title">{r.title}</span>
+            </span>
+          </div>
+          <div class="rs-actions">
+            <a href={r.siteUrl} class="rs-btn rs-btn-ghost" target="_blank" rel="noopener">サイトを見る</a>
+            <a href={r.contactUrl} class="rs-btn rs-btn-solid" target="_blank" rel="noopener">購入について問い合わせる</a>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <p class="rs-fine">
+      ご購入・ご請求・導入サポートは、販売代理店との直接のお取引になります。
+      ライセンスの機能・有効期間・対象プラグインは、当社から直接ご購入いただく場合と同一です。
+      販売価格は各販売代理店が定めます。
+    </p>
+  </section>
+)}
+
+<style>
+  .rs-card {
+    position: relative;
+    max-width: 1100px;
+    margin: 32px auto 0;
+    padding: 32px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .rs-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    background-color: #1b3a6b;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .rs-heading {
+    margin: 14px 0 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1b3a6b;
+    line-height: 1.5;
+  }
+
+  .rs-lead {
+    margin: 0 0 20px;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #333333;
+  }
+
+  .rs-merits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 0 0 24px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rs-merits li {
+    padding: 14px 16px;
+    background-color: #f0f4f8;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: #333333;
+  }
+
+  .rs-merit-title {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 700;
+    color: #1b3a6b;
+  }
+
+  .rs-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rs-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background-color: #ffffff;
+  }
+
+  /* A single reseller gets one full-width row instead of a lonely half-width card */
+  .rs-list.is-solo {
+    grid-template-columns: 1fr;
+  }
+
+  .rs-identity {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  .rs-logo :global(img) {
+    display: block;
+    max-width: 180px;
+    height: auto;
+  }
+
+  .rs-names {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .rs-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1b3a6b;
+  }
+
+  .rs-title {
+    font-size: 12.5px;
+    color: #666666;
+  }
+
+  .rs-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .rs-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .rs-btn-ghost {
+    border: 1px solid #1b3a6b;
+    color: #1b3a6b;
+    background-color: #ffffff;
+  }
+
+  .rs-btn-ghost:hover {
+    background-color: #f0f4f8;
+  }
+
+  .rs-btn-solid {
+    border: 1px solid #2e8b2e;
+    background-color: #2e8b2e;
+    color: #ffffff;
+  }
+
+  .rs-btn-solid:hover {
+    background-color: #276f27;
+    border-color: #276f27;
+  }
+
+  .rs-fine {
+    margin: 18px 0 0;
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: #666666;
+  }
+
+  @media (max-width: 768px) {
+    .rs-card {
+      padding: 24px 20px;
+    }
+
+    .rs-merits {
+      grid-template-columns: 1fr;
+    }
+
+    .rs-item {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .rs-actions {
+      width: 100%;
+    }
+
+    .rs-btn {
+      flex: 1 1 auto;
+      text-align: center;
+    }
+  }
+</style>

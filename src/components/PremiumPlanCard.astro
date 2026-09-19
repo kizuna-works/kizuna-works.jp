@@ -1,0 +1,59 @@
+---
+/**
+ * ちょこっとプラグインの製品ページで、プラン欄の 3 枚目に置くカード。
+ *
+ * ページ側の `.pricing-card` / `.plan-name` / `.plan-price` / `.plan-features`
+ * （各ページの `<style is:global>` で定義）をそのまま使うので、
+ * 同じページの他のカードと見た目が自動的に揃う。
+ * 色のアクセントだけをこのコンポーネントのスコープ付き CSS で足している。
+ *
+ * プレミアムプラグインの製品ページでは使わない
+ * （年間サポーターを掲載しないため、プラン欄は 2 枚のまま）。
+ */
+interface Props {
+  /** 上部のバッジを出すか（既定: 出す） */
+  badge?: boolean;
+}
+const { badge = true } = Astro.props;
+---
+
+<div class="pricing-card kwp-premium">
+  {badge && <span class="recommended-badge kwp-badge">5プラグイン以上ならお得</span>}
+  <h3 class="plan-name">プレミアム年間サポーター</h3>
+  <div class="plan-price">
+    <span class="amount">¥16,500</span>
+    <span class="unit">/年（税込）</span>
+  </div>
+  <div class="plan-discount kwp-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+  <ul class="plan-features">
+    <li><span>✅ 販売中の<strong>全プラグイン</strong>が対象</span></li>
+    <li><span>✅ <strong>プレミアム限定プラグイン</strong>（帳票デザイナー など）も利用可能</span></li>
+    <li><span>✅ 契約期間中にリリースされる<strong>新プラグイン</strong>も追加料金なし</span></li>
+    <li><span>✅ 全プラグインの広告エリアが完全非表示</span></li>
+  </ul>
+  <a href="/plugins/supporter/?plan=all" class="btn-primary kwp-cta">プレミアムを申し込む →</a>
+</div>
+
+<style>
+  /* Navy accent so this card is distinct from the green "recommended" card */
+  .kwp-premium {
+    border: 2px solid #1b3a6b;
+  }
+
+  /* The page rule centres the badge with left:50%, which leaves only half the
+     card width before it wraps onto the plan name. Keep it on one line. */
+  .kwp-badge {
+    background-color: #1b3a6b;
+    white-space: nowrap;
+  }
+
+  .kwp-discount {
+    color: #1b3a6b;
+  }
+
+  /* Page-level .btn-primary is navy already; keep block layout consistent */
+  .kwp-cta {
+    display: block;
+    text-align: center;
+  }
+</style>

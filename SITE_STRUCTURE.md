@@ -47,6 +47,8 @@ c:\kizuna-works.jp\
 
 │   │   ├── PremiumFaqSection.astro # プレミアム製品ページの「よくある質問」（アコーディオン＋FAQPage JSON-LD を src/data/premium-faqs.ts から生成＝表示と構造化データが必ず一致）
 │   │   ├── ShareButtons.astro  # SNS共有ボタン（X/LINE/はてブは静的intentリンク・URLコピー/OS共有シートのみJS）。全プラグイン個別ページ末尾に設置。title="〇〇 for kintone"・URLはAstro.urlから自動導出
+│   │   ├── PremiumPlanCard.astro # ちょこっと製品ページのプラン欄3枚目（プレミアム年間サポーター）。ページ側の `.pricing-card` 等をそのまま使い、紺のアクセントだけスコープ付きCSSで足す＝各ページの見た目に自動で馴染む。プレミアム製品ページでは使わない（年間サポーターを掲載しないため2枚のまま）
+│   │   ├── ResellerCard.astro  # プラン欄の下に出る「販売代理店からのご購入」カード（全63製品ページ共通）。掲載先は src/data/resellers.ts。登録0件のあいだは何も出力しない＝契約締結前に社名が出ない。ページ側CSSに依存せず自前のスコープ付きCSSで完結
 │   │   ├── ExtensionNotice.astro # Chrome拡張「KW Plugin Updater」の案内帯。トップ（プラグインセクション直後）・/plugins/（リードと絞り込みバーの間）・/plugins/ranking/（一覧直下）の3か所で使用。見出しと本文だけ props で差し替え、ストアURLは extensions.ts から取得。CTAクリックで GA4 の ext_updater_click（surface/link_kind）を送る
 │   │   └── Picture.astro       # PNG指定で同名 .webp があれば <picture> で WebP を優先配信。card 指定時は <base>-800.webp を srcset に足す（カードの実表示幅は400px前後なので原寸1200pxを配らない）。WebP が無ければ素の <img> を出すだけなので置き換え安全。派生画像は scripts/gen-image-derivatives.mjs が生成
 │   ├── data/                   # ビルド時参照される TS データ
@@ -54,6 +56,7 @@ c:\kizuna-works.jp\
 │   │   ├── pluginCategories.ts # プラグインの目的カテゴリ14種の定義（名称・URLスラッグ・一言説明・チップ列のグループ分け）。/plugins/ の絞り込みバーとカード上のタグ、/plugins/problems/ の課題索引が参照。カテゴリを増減するときは index.astro と problems/index.astro のチップ色（--cat-bg/--cat-fg）も追加する
 │   │   ├── glossary.ts         # kintone 用語集の単一情報源（/glossary/ 一覧と DefinedTermSet JSON-LD を生成）。hasPage/longDescription/useCases/faq を持つ語は /glossary/<id>/ の個別ページも生成。`supersededBy` を持つ語は個別ページを noindex＋sitemap 除外にし、同じ検索意図で上位のブログ記事へ誘導する（自社2ページで表示回数を食い合うのを防ぐ。付与は GSC で順位を確認してから）
 │   │   ├── plugin-security.ts  # プラグインごとのセキュリティ事実（外部通信・同梱ライブラリ）の単一情報源。SecurityBox が参照
+│   │   ├── resellers.ts        # 販売代理店マスタ（ResellerCard が参照）。1件でも登録すると全63製品ページに代理店カードが出る。**掲載は販売代理店契約の締結後**（契約書 第9条第4項）。現在は空配列＝非表示
 │   │   └── install-ranking.json # インストール数ランキングのスナップショット（scripts/gen-install-ranking.mjs が prebuild で更新）。トップの Top3 と /plugins/ranking/ が両方これを読む＝順位が食い違わない。**手で編集しない**
 │   ├── layouts/                # 共通レイアウトコンポーネント
 │   │   ├── Layout.astro        # 全ページ共通レイアウト（GA4・AdSense・Noto Sans JP・ヘッダー・フッター）

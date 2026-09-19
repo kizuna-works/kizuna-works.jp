@@ -1,5 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import ResellerCard from '../../../components/ResellerCard.astro';
+import PremiumPlanCard from '../../../components/PremiumPlanCard.astro';
 import SupporterCTA from '../../../components/SupporterCTA.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
@@ -46,7 +48,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "条件分岐自動採番 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "dateModified": "2026-09-13",
+          "dateModified": "2026-09-19",
           "softwareVersion": "2.2.0",
           "releaseNotes": "v2.2.0（2026-09-13）: 当社のルックアップ新規登録プラグインと連携し、その登録パネルからレコードを作るときにも採番されるようになりました。登録パネルでは採番対象の項目に入力欄を出さず「自動採番」とだけ表示し、登録した瞬間に番号を発行します。採番できない場合は登録を中止するため、採番されないままレコードが作られることはありません。連携にはルックアップ新規登録側の設定が必要です。採番の仕様そのものに変更はありません。 / v2.1.0（2026-08-01）: 重複した番号を検出して振り直せる「重複チェックと修正」機能を追加。採番フィールドの値が重複しているレコードを検出し、1件はそのまま残したまま、それ以外の連番部分だけを未使用の番号へ振り直します（日付部分・条件テキストは維持）。実行前のプレビュー表示とCSVダウンロードに対応。あわせて採番フィールドへの「値の重複を禁止する」設定を設定画面で案内し、最大番号の検出は既存レコード全件を対象として精度を高めました。設定画面は3カラム＋タブ構成に刷新しています。",
           "url": "https://kizuna-works.jp/plugins/kw-conditional-numbering/",
@@ -425,9 +427,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     /* Pricing */
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 40px;
-      max-width: 900px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
@@ -435,7 +437,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       background-color: var(--color-white);
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      padding: 40px 32px;
+      padding: 36px 20px;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -462,6 +464,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       border-radius: 20px;
       font-size: 14px;
       font-weight: 700;
+      white-space: nowrap;
     }
 
     .plan-name {
@@ -506,15 +509,15 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     .plan-features li {
       margin-bottom: 12px;
       font-size: 15px;
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
       line-height: 1.6;
     }
 
     .pricing-card .btn-primary {
       display: block;
       text-align: center;
+      padding: 15px 16px;
+      font-size: 15px;
+      white-space: nowrap;
     }
 
     /* Bottom CTA */
@@ -710,6 +713,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       .pricing-grid {
         grid-template-columns: 1fr;
         gap: 32px;
+      }
+      /* One column here, so let long labels wrap instead of overflowing */
+      .pricing-card .btn-primary {
+        white-space: normal;
       }
     }
 
@@ -992,7 +999,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     <!-- Pricing Section -->
     <section id="pricing" class="section-wrapper fade-in">
       <h2 class="section-title">プランについて</h2>
-      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。気に入っていただけたら、年間サポーターとして開発をご支援ください。</p>
+      <p class="section-subtitle">基本機能は完全無料でご利用いただけます。広告エリアの非表示と改善要望の送付をご希望の場合は、年間サポーターをお選びください。</p>
       <div class="pricing-grid">
         <div class="pricing-card">
           <h3 class="plan-name">基本プラン</h3>
@@ -1008,7 +1015,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           <a href="/downloads/kw-conditional-numbering-v2.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード（v2.2.0）</a>
         </div>
         <div class="pricing-card recommended">
-          <span class="recommended-badge">開発を応援</span>
+          <span class="recommended-badge">1プラグインならこちら</span>
           <h3 class="plan-name">年間サポーター</h3>
           <div class="plan-price">
             <span class="amount">¥3,300</span>
@@ -1022,11 +1029,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ サポーターの声を優先して開発に反映</li>
           </ul>
           <a href="/plugins/supporter/?plugin=kw-conditional-numbering" class="btn-primary">サポーターになる →</a>
-          <p style="margin: 12px 0 0; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.6;">
-            ※5プラグイン以上ご利用なら<a href="/plugins/supporter/?plan=all" style="color: #2E8B2E; font-weight: 700;">プレミアム年間サポーター（年額¥16,500・税込）</a>もお得です
-          </p>
         </div>
+      <PremiumPlanCard />
       </div>
+      <ResellerCard />
     </section>
 
     <!-- FAQ Section -->
