@@ -74,8 +74,9 @@ import Layout from '../../../layouts/Layout.astro';
 
         <div class="po-field">
           <label for="po-refno">管理番号</label>
-          <input type="text" id="po-refno" autocomplete="off" />
-          <p class="po-note">御社の案件番号・注文番号があればご入力ください。請求書に記載します</p>
+          <input type="text" id="po-refno" autocomplete="off" maxlength="30" />
+          <p class="po-note">御社の案件番号・注文番号があればご入力ください（30文字まで）。請求書に記載します</p>
+          <p class="po-err" data-err="refNo"></p>
         </div>
 
         <!-- ------------------------------------------------------ 申込内容 -->
@@ -469,7 +470,7 @@ import Layout from '../../../layouts/Layout.astro';
       if (el) el.textContent = msg || '';
     };
     var clearErrs = function () {
-      ['code', 'key', 'customer', 'domain', 'issueDate', 'person', 'email', 'form']
+      ['code', 'key', 'refNo', 'customer', 'domain', 'issueDate', 'person', 'email', 'form']
         .forEach(function (n) { setErr(n, ''); });
     };
 
@@ -600,6 +601,7 @@ import Layout from '../../../layouts/Layout.astro';
 
       if (!/^KW[0-9]{2}[A-Z]{2}$/.test(v.code)) bad('code', '代理店コード', 'KW から始まる6文字でご入力ください。');
       if (!v.key) bad('key', '申込キー', 'ご入力ください。');
+      if (v.refNo.length > 30) bad('refNo', '管理番号', '30文字以内でご入力ください。');
       if (!v.customer) bad('customer', '顧客名', 'ご入力ください。');
       if (!v.domain) bad('domain', '顧客ドメイン', 'ご入力ください。');
       else if (/[\s@\/]/.test(v.domain) || v.domain.indexOf('.') === -1) {
