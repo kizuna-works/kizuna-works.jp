@@ -128,7 +128,7 @@ Excelを長く使ってきた現場が違和感を覚える最大のポイント
 *導入後 — Excel の条件付き書式と同じ感覚で、要注意レコードが瞬時に判別可能に*
 
 > **フィールドスタイラーの全機能はこちらの解説記事をご覧ください**  
-> [【2026年最新】kintoneフィールドを自由にカスタマイズ｜Field Stylerプラグインの全10機能を解説](/blog/kintone-field-styler-plugin-guide/)
+> [【2026年最新】kintoneフィールドを自由にカスタマイズ｜Field Stylerプラグインの全11機能を解説](/blog/kintone-field-styler-plugin-guide/)
 
 ---
 

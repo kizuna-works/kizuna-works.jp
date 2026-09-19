@@ -405,7 +405,7 @@ export const glossary: Term[] = [
     term: 'ちょこっとプラグイン',
     reading: 'ちょこっとぷらぐいん',
     category: 'community',
-    definition: 'KIZUNA Works が提供する無料 kintone プラグインシリーズ。フィールドスタイラー・条件分岐自動採番・クイックサイドビューなど「ちょっと便利」な機能を完全無料で配布。年間サポーターライセンスで開発を応援できる。',
+    definition: 'KIZUNA Works が提供する無料 kintone プラグインシリーズ。フィールドスタイラー・条件分岐自動採番・クイックサイドビューなど「ちょっと便利」な機能を完全無料で配布。年間サポーターライセンスに加入すると広告エリアが非表示になり、改善のご要望を開発に反映できる。',
     relatedTerms: ['plugin'],
     relatedPlugins: ['field-styler', 'quick-side-view'],
   },
