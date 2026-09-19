@@ -290,11 +290,16 @@ import Layout from '../../../layouts/Layout.astro';
     color: #b3261e;
   }
 
+  /* Summary shown right above the submit button. Field-level errors alone are
+     missed when the page is scrolled down to the button, which makes people
+     press it again. Keep the line breaks of the joined messages. */
   .ps-err-top:not(:empty) {
     margin-bottom: 12px;
     padding: 12px 14px;
-    border-radius: 8px;
+    border-left: 3px solid #b3261e;
+    border-radius: 0 8px 8px 0;
     background-color: #fdecea;
+    white-space: pre-line;
   }
 
   .ps-check {
@@ -454,15 +459,26 @@ import Layout from '../../../layouts/Layout.astro';
       var email = $('ps-email').value.trim();
       var billEmail = $('ps-billemail').value.trim();
 
-      var ng = false;
       // The server checks all of this again. Browser validation can be bypassed.
-      if (key.length < 8) { setErr('key', '8文字以上でご指定ください。'); ng = true; }
-      else if (!/^[\x21-\x7e]+$/.test(key)) { setErr('key', '半角の英数字と記号でご指定ください（全角は使えません）。'); ng = true; }
-      if (key !== key2) { setErr('key2', '申込キーが一致しません。'); ng = true; }
-      if (!person) { setErr('person', 'ご担当者名をご入力ください。'); ng = true; }
-      if (!email || email.indexOf('@') === -1) { setErr('email', '担当者メールアドレスをご入力ください。'); ng = true; }
-      if (billEmail && billEmail.indexOf('@') === -1) { setErr('billEmail', 'メールアドレスの形式をご確認ください。'); ng = true; }
-      if (ng) return;
+      // Collect the messages so they can also be shown next to the button: a
+      // person scrolled down to the button would otherwise see nothing happen.
+      var errs = [];
+      var bad = function (field, label, msg) {
+        setErr(field, msg);
+        errs.push('・' + label + '：' + msg);
+      };
+
+      if (key.length < 8) bad('key', '申込キー', '8文字以上でご指定ください。');
+      else if (!/^[\x21-\x7e]+$/.test(key)) bad('key', '申込キー', '半角の英数字と記号でご指定ください（全角は使えません）。');
+      if (key !== key2) bad('key2', '申込キー（確認）', '申込キーが一致しません。');
+      if (!person) bad('person', 'ご担当者名', 'ご入力ください。');
+      if (!email || email.indexOf('@') === -1) bad('email', '担当者メールアドレス', 'ご入力ください。');
+      if (billEmail && billEmail.indexOf('@') === -1) bad('billEmail', '請求書送付先メールアドレス', '形式をご確認ください。');
+
+      if (errs.length) {
+        setErr('form', '入力内容をご確認ください。\n' + errs.join('\n'));
+        return;
+      }
 
       submit.disabled = true;
       submit.textContent = '送信しています…';
