@@ -72,6 +72,9 @@ c:\kizuna-works.jp\
 │   │   ├── security/
 │   │   │   └── index.astro     # セキュリティ・データの取り扱い（/security/）— 全プラグイン共通のセキュリティ方針・外部通信内訳・F12検証手順・FAQ。フッターからリンク
 │   │   ├── rss.xml.js          # RSSフィード生成（/rss.xml）
+│   │   ├── partner/            # 販売代理店向け（noindex・sitemap除外。一般の導線からはリンクしない）
+│   │   │   └── setup/
+│   │   │       └── index.astro # 初回セットアップ（/partner/setup/）― 代理店が申込キーを設定する画面。当社が発行するワンタイムURL（?t=32桁）でのみ開ける。トークンが無効・期限切れ・使用済みなら入力欄を出さず理由だけ表示。GAS へは Content-Type: text/plain で送る（application/json はプリフライトを起こし GAS が OPTIONS を処理できないため）。保存すると申込キーはハッシュで代理店_マスタへ入り、契約状態が 準備中 → 有効 になる
 │   │   ├── blog/
 │   │   │   ├── index.astro     # ブログ一覧ページ（/blog/）― note.com RSS + コンテンツコレクション
 │   │   │   └── [...slug].astro # ブログ記事動的ルート（/blog/[記事スラッグ]/）

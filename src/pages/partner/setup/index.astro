@@ -1,0 +1,508 @@
+---
+/**
+ * 販売代理店 初回セットアップ（申込キーの設定）
+ *
+ * 仕様書：SECRET/partner/販売代理店フォーム仕様書.md 第2.2.1・第5.1節
+ *
+ * ワンタイムURL（?t=<32桁>）でのみ開ける。トークンが無効・期限切れ・使用済みなら
+ * 入力欄を出さず、理由だけを表示する。
+ *
+ * 既存の申込フォーム（SupporterForm.astro）には手を入れない。
+ * こちらは Content-Type: text/plain で送る。application/json はブラウザが
+ * プリフライト（OPTIONS）を投げる条件に当たり、GAS は OPTIONS を処理できないため。
+ */
+import Layout from '../../../layouts/Layout.astro';
+---
+
+<Layout
+  title="販売代理店 初回セットアップ | KIZUNA Works"
+  description="販売代理店向けの初回セットアップページです。ご案内したURLからお開きください。"
+  noindex={true}
+>
+  <main class="ps-main">
+    <div class="ps-card">
+      <p class="ps-eyebrow">KIZUNA Works 販売代理店</p>
+      <h1 class="ps-title">初回セットアップ</h1>
+
+      <!-- Shown while the token is being checked -->
+      <div id="ps-loading" class="ps-state">
+        <p>確認しています…</p>
+      </div>
+
+      <!-- Shown when the token cannot be used -->
+      <div id="ps-blocked" class="ps-state ps-hidden">
+        <div class="ps-alert" id="ps-blocked-msg"></div>
+        <p class="ps-help">
+          お手数ですが <a href="mailto:info@kizuna-works.jp">info@kizuna-works.jp</a> までご連絡ください。
+        </p>
+      </div>
+
+      <!-- The form itself -->
+      <div id="ps-form-area" class="ps-hidden">
+        <dl class="ps-fixed">
+          <div>
+            <dt>代理店コード</dt>
+            <dd id="ps-code">—</dd>
+          </div>
+          <div>
+            <dt>代理店名</dt>
+            <dd id="ps-name">—</dd>
+          </div>
+        </dl>
+
+        <p class="ps-lead">
+          ライセンスのお申し込みに使用する<strong>申込キー</strong>と、ご担当者様の情報をご登録ください。
+        </p>
+
+        <form id="ps-form" novalidate>
+          <div class="ps-field">
+            <label for="ps-key">申込キー <span class="ps-req">必須</span></label>
+            <input type="password" id="ps-key" autocomplete="new-password" />
+            <p class="ps-note">8文字以上・半角の英数字と記号（全角は使えません）</p>
+            <p class="ps-err" data-err="key"></p>
+          </div>
+
+          <div class="ps-field">
+            <label for="ps-key2">申込キー（確認） <span class="ps-req">必須</span></label>
+            <input type="password" id="ps-key2" autocomplete="new-password" />
+            <p class="ps-err" data-err="key2"></p>
+          </div>
+
+          <label class="ps-check">
+            <input type="checkbox" id="ps-reveal" />
+            申込キーを表示する
+          </label>
+
+          <div class="ps-warn">
+            設定いただいた申込キーは、<strong>当社では確認できません</strong>。お手元で保管してください。
+          </div>
+
+          <div class="ps-field">
+            <label for="ps-person">ご担当者名 <span class="ps-req">必須</span></label>
+            <input type="text" id="ps-person" autocomplete="name" />
+            <p class="ps-err" data-err="person"></p>
+          </div>
+
+          <div class="ps-field">
+            <label for="ps-email">担当者メールアドレス <span class="ps-req">必須</span></label>
+            <input type="email" id="ps-email" autocomplete="email" />
+            <p class="ps-note">受付・承諾・発行・更新のご案内をお送りします</p>
+            <p class="ps-err" data-err="email"></p>
+          </div>
+
+          <div class="ps-field">
+            <label for="ps-billto">請求書の宛名</label>
+            <input type="text" id="ps-billto" />
+            <p class="ps-note">未入力の場合は代理店名を使用します</p>
+          </div>
+
+          <div class="ps-field">
+            <label for="ps-billemail">請求書送付先メールアドレス</label>
+            <input type="email" id="ps-billemail" />
+            <p class="ps-note">未入力の場合は担当者メールアドレスへお送りします</p>
+            <p class="ps-err" data-err="billEmail"></p>
+          </div>
+
+          <div class="ps-field">
+            <label for="ps-tel">電話番号</label>
+            <input type="tel" id="ps-tel" />
+          </div>
+
+          <p class="ps-err ps-err-top" data-err="form"></p>
+
+          <button type="submit" id="ps-submit" class="ps-btn">設定する</button>
+        </form>
+      </div>
+
+      <!-- Shown after a successful save -->
+      <div id="ps-done" class="ps-state ps-hidden">
+        <div class="ps-ok">設定が完了しました。</div>
+        <p>
+          販売代理店専用の申込フォームがご利用いただけます。<br />
+          確認のメールをお送りしましたのでご確認ください。
+        </p>
+        <p class="ps-help">
+          申込キーは当社では確認できません。お手元で保管してください。<br />
+          忘れた場合や変更したい場合は <a href="mailto:info@kizuna-works.jp">info@kizuna-works.jp</a> までご連絡ください。
+        </p>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style is:global>
+  .ps-main {
+    padding: 48px 5% 80px;
+    background-color: #f0f4f8;
+    min-height: 60vh;
+  }
+
+  .ps-card {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 36px 32px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .ps-eyebrow {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: #2e8b2e;
+    letter-spacing: 0.04em;
+  }
+
+  .ps-title {
+    margin: 6px 0 24px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #1b3a6b;
+    line-height: 1.4;
+  }
+
+  .ps-hidden {
+    display: none;
+  }
+
+  .ps-state p {
+    margin: 0 0 12px;
+    font-size: 15px;
+    line-height: 1.9;
+    color: #333333;
+  }
+
+  .ps-alert {
+    padding: 14px 16px;
+    border-left: 3px solid #b3261e;
+    border-radius: 0 8px 8px 0;
+    background-color: #fdecea;
+    font-size: 14.5px;
+    line-height: 1.9;
+    color: #333333;
+  }
+
+  .ps-ok {
+    padding: 14px 16px;
+    border-left: 3px solid #2e8b2e;
+    border-radius: 0 8px 8px 0;
+    background-color: #eaf6ea;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1b3a6b;
+    margin-bottom: 16px;
+  }
+
+  .ps-help {
+    font-size: 13.5px;
+    color: #666666;
+    line-height: 1.9;
+  }
+
+  /* Read-only identity supplied by the token */
+  .ps-fixed {
+    margin: 0 0 20px;
+    padding: 16px;
+    background-color: #f0f4f8;
+    border-radius: 8px;
+  }
+
+  .ps-fixed > div {
+    display: flex;
+    gap: 12px;
+    padding: 4px 0;
+  }
+
+  .ps-fixed dt {
+    flex: 0 0 104px;
+    font-size: 13px;
+    color: #666666;
+  }
+
+  .ps-fixed dd {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1b3a6b;
+    min-width: 0;
+    word-break: break-all;
+  }
+
+  .ps-lead {
+    margin: 0 0 24px;
+    font-size: 15px;
+    line-height: 1.9;
+    color: #333333;
+  }
+
+  .ps-field {
+    margin-bottom: 20px;
+  }
+
+  .ps-field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1b3a6b;
+  }
+
+  .ps-req {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 7px;
+    border-radius: 4px;
+    background-color: #2e8b2e;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .ps-field input {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333333;
+    background-color: #ffffff;
+    box-sizing: border-box;
+  }
+
+  .ps-field input:focus {
+    outline: none;
+    border-color: #1b3a6b;
+    box-shadow: 0 0 0 3px rgba(27, 58, 107, 0.12);
+  }
+
+  .ps-note {
+    margin: 6px 0 0;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #666666;
+  }
+
+  .ps-err {
+    margin: 6px 0 0;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #b3261e;
+  }
+
+  .ps-err-top:not(:empty) {
+    margin-bottom: 12px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background-color: #fdecea;
+  }
+
+  .ps-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: -8px 0 16px;
+    font-size: 13.5px;
+    color: #333333;
+    cursor: pointer;
+  }
+
+  .ps-check input {
+    width: auto;
+  }
+
+  .ps-warn {
+    margin: 0 0 24px;
+    padding: 12px 14px;
+    border-left: 3px solid #1b3a6b;
+    border-radius: 0 8px 8px 0;
+    background-color: #f0f4f8;
+    font-size: 13.5px;
+    line-height: 1.9;
+    color: #333333;
+  }
+
+  .ps-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2e8b2e;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .ps-btn:hover:not(:disabled) {
+    background-color: #276f27;
+  }
+
+  .ps-btn:disabled {
+    background-color: #9aa7b6;
+    cursor: default;
+  }
+
+  @media (max-width: 480px) {
+    .ps-main {
+      padding: 28px 16px 60px;
+    }
+
+    .ps-card {
+      padding: 26px 20px;
+    }
+
+    .ps-title {
+      font-size: 22px;
+    }
+
+    .ps-fixed > div {
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .ps-fixed dt {
+      flex: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var ENDPOINT =
+      'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec';
+
+    var $ = function (id) { return document.getElementById(id); };
+    var loading = $('ps-loading');
+    var blocked = $('ps-blocked');
+    var blockedMsg = $('ps-blocked-msg');
+    var formArea = $('ps-form-area');
+    var done = $('ps-done');
+    var form = $('ps-form');
+    var submit = $('ps-submit');
+
+    var token = new URLSearchParams(location.search).get('t') || '';
+
+    var show = function (el) { el.classList.remove('ps-hidden'); };
+    var hide = function (el) { el.classList.add('ps-hidden'); };
+    var setErr = function (name, msg) {
+      var el = form.querySelector('[data-err="' + name + '"]');
+      if (el) el.textContent = msg || '';
+    };
+    var clearErrs = function () {
+      ['key', 'key2', 'person', 'email', 'billEmail', 'form'].forEach(function (n) { setErr(n, ''); });
+    };
+
+    var block = function (msg) {
+      hide(loading);
+      hide(formArea);
+      blockedMsg.textContent = msg;
+      show(blocked);
+    };
+
+    // Content-Type: text/plain keeps this a simple request, so the browser does
+    // not send a preflight. GAS cannot answer OPTIONS, which is why the existing
+    // forms had to use mode:'no-cors' and could not read the response.
+    var post = function (payload) {
+      var ctl = new AbortController();
+      var timer = setTimeout(function () { ctl.abort(); }, 15000);
+      return fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+        signal: ctl.signal,
+      })
+        .then(function (res) { return res.json(); })
+        .finally(function () { clearTimeout(timer); });
+    };
+
+    if (!/^[0-9a-f]{32}$/.test(token)) {
+      block('このURLは正しくありません。メールに記載のURLをそのままお開きください。');
+      return;
+    }
+
+    post({ formType: 'partner-setup-info', token: token })
+      .then(function (r) {
+        if (!r || r.status !== 'ok') {
+          block((r && r.message) || 'このURLはご利用いただけません。');
+          return;
+        }
+        $('ps-code').textContent = r.code;
+        $('ps-name').textContent = r.name;
+        hide(loading);
+        show(formArea);
+      })
+      .catch(function () {
+        block('通信に失敗しました。時間をおいて再度お試しください。');
+      });
+
+    $('ps-reveal').addEventListener('change', function (e) {
+      var t = e.target.checked ? 'text' : 'password';
+      $('ps-key').type = t;
+      $('ps-key2').type = t;
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      clearErrs();
+
+      var key = $('ps-key').value;
+      var key2 = $('ps-key2').value;
+      var person = $('ps-person').value.trim();
+      var email = $('ps-email').value.trim();
+      var billEmail = $('ps-billemail').value.trim();
+
+      var ng = false;
+      // The server checks all of this again. Browser validation can be bypassed.
+      if (key.length < 8) { setErr('key', '8文字以上でご指定ください。'); ng = true; }
+      else if (!/^[\x21-\x7e]+$/.test(key)) { setErr('key', '半角の英数字と記号でご指定ください（全角は使えません）。'); ng = true; }
+      if (key !== key2) { setErr('key2', '申込キーが一致しません。'); ng = true; }
+      if (!person) { setErr('person', 'ご担当者名をご入力ください。'); ng = true; }
+      if (!email || email.indexOf('@') === -1) { setErr('email', '担当者メールアドレスをご入力ください。'); ng = true; }
+      if (billEmail && billEmail.indexOf('@') === -1) { setErr('billEmail', 'メールアドレスの形式をご確認ください。'); ng = true; }
+      if (ng) return;
+
+      submit.disabled = true;
+      submit.textContent = '送信しています…';
+
+      post({
+        formType: 'partner-setup-save',
+        token: token,
+        key: key,
+        person: person,
+        email: email,
+        billTo: $('ps-billto').value.trim(),
+        billEmail: billEmail,
+        tel: $('ps-tel').value.trim(),
+      })
+        .then(function (r) {
+          if (r && r.status === 'ok') {
+            hide(formArea);
+            show(done);
+            return;
+          }
+          // Token problems cannot be fixed on this screen, so swap to the blocked view
+          if (r && (r.reason === 'expired' || r.reason === 'used' || r.reason === 'notfound')) {
+            block(r.message);
+            return;
+          }
+          setErr('form', (r && r.message) || '保存できませんでした。時間をおいて再度お試しください。');
+          submit.disabled = false;
+          submit.textContent = '設定する';
+        })
+        .catch(function () {
+          // The response could not be read. Do not claim success or failure:
+          // tell them how to find out which it was.
+          setErr(
+            'form',
+            '送信しましたが、結果を確認できませんでした。完了のメールが届いているかご確認ください。' +
+              '届いていない場合は info@kizuna-works.jp までご連絡ください。'
+          );
+          submit.disabled = false;
+          submit.textContent = '設定する';
+        });
+    });
+  })();
+</script>

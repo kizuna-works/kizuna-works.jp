@@ -154,7 +154,9 @@ export default defineConfig({
       // - blog announcement news pages (noindex; they duplicate the blog article)
       // - blog posts with `noindex: true` in frontmatter
       // - glossary terms with `supersededBy` (a blog post owns those queries)
+      // - partner-only pages (reached by a one-time URL or a private form)
       filter: (page) =>
+        !page.includes('/partner/') &&
         !page.includes('/plugins/supporter/request/') &&
         !page.includes('/news/blog-') &&
         !noindexBlogPaths.some((p) => page.endsWith(p)) &&
