@@ -94,7 +94,7 @@ import Layout from '../../../layouts/Layout.astro';
           <div class="po-field">
             <label for="po-date">ライセンス発行日 <span class="po-req">必須</span></label>
             <input type="date" id="po-date" />
-            <p class="po-note" id="po-date-note">本日から90日先までご指定いただけます</p>
+            <p class="po-note" id="po-date-note">3日後から90日先までご指定いただけます</p>
             <p class="po-err" data-err="issueDate"></p>
           </div>
           <div class="po-field">
@@ -449,6 +449,7 @@ import Layout from '../../../layouts/Layout.astro';
     var ENDPOINT =
       'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec';
 
+    var MIN_AHEAD_DAYS = 3;
     var MAX_AHEAD_DAYS = 90;
     var LS = 'kwPartnerOrder';
 
@@ -480,11 +481,15 @@ import Layout from '../../../layouts/Layout.astro';
       return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
     };
 
+    // 承諾は手作業で、しかも希望発行日の直前に行う運用なので、当日は選べない。
+    // 3日にしているのは、これ以上延ばすと月初開始（最も多い）が通らなくなるため。
     var today = new Date();
     today.setHours(0, 0, 0, 0);
+    var earliest = new Date(today.getTime());
+    earliest.setDate(earliest.getDate() + MIN_AHEAD_DAYS);
     var limit = new Date(today.getTime());
     limit.setDate(limit.getDate() + MAX_AHEAD_DAYS);
-    date.min = ymd(today);
+    date.min = ymd(earliest);
     date.max = ymd(limit);
 
     // 請求月は発行日から決まる（月末に請求書を発行する）。
@@ -506,7 +511,7 @@ import Layout from '../../../layouts/Layout.astro';
       if (on) date.value = '';
       dateNote.textContent = on
         ? '更新の場合、発行日は現在の有効期限の翌日になります（入力不要）'
-        : '本日から' + MAX_AHEAD_DAYS + '日先までご指定いただけます';
+        : MIN_AHEAD_DAYS + '日後から' + MAX_AHEAD_DAYS + '日先までご指定いただけます';
       updateBill();
     };
 
@@ -610,7 +615,7 @@ import Layout from '../../../layouts/Layout.astro';
       if (!v.renewal) {
         if (!v.issueDate) bad('issueDate', 'ライセンス発行日', 'ご指定ください。');
         else if (v.issueDate < date.min || v.issueDate > date.max) {
-          bad('issueDate', 'ライセンス発行日', '本日から' + MAX_AHEAD_DAYS + '日先までの範囲でご指定ください。');
+          bad('issueDate', 'ライセンス発行日', MIN_AHEAD_DAYS + '日後から' + MAX_AHEAD_DAYS + '日先までの範囲でご指定ください。お急ぎの場合はご連絡ください。');
         }
       }
       if (!v.person) bad('person', 'ご担当者名', 'ご入力ください。');
