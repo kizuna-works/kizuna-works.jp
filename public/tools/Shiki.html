@@ -45,7 +45,7 @@
       "url": "https://kizuna-works.jp/tools/Shiki.html",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "WebBrowser",
-      "dateModified": "2026-09-13",
+      "dateModified": "2026-09-21",
       "description": "kintoneの計算式をブラウザだけで生成する完全無料のWebツール。日数の差・年月の取り出し・IFの条件分岐・四捨五入などをフォーム入力だけで組み立てられ、Excelにあってkintoneに無い関数（LEFT/MID/TODAY等）も一覧で確認できます。登録不要。",
       "creator": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" },
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
@@ -67,6 +67,16 @@
           "@type": "Question",
           "name": "日付が未入力だと1970年と表示されるのはなぜですか？",
           "acceptedAnswer": { "@type": "Answer", "text": "kintoneは日時をUNIX時刻（1970年1月1日0時からの経過秒数）で扱うため、未入力の日付フィールドを参照すると1970年1月1日として計算されます。IF関数で空欄を判定し、「IF(日付=\"\",\"\",DATE_FORMAT(日付,\"YYYY/MM/dd\",\"Asia/Tokyo\"))」のように空欄のときは空文字を返す形にすると防げます。" }
+        },
+        {
+          "@type": "Question",
+          "name": "kintoneの計算式で曜日を表示できますか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "できます。DATE_FORMAT関数に曜日を返す書式はありません（\"E\"はそのまま表示され、\"ddd\"はdd+dに分解されて誤った値になります）が、kintoneは日付をUNIX時刻（1970年1月1日＝木曜日からの経過秒数）で扱うため、経過日数を7で割った余りで曜日が決まります。余りが0なら木曜、1なら金曜、2なら土曜、3なら日曜、4なら月曜、5なら火曜、6なら水曜です。式は「IF(日付 = \"\", \"\", IF(日付 / 86400 - ROUNDDOWN(日付 / 86400 / 7, 0) * 7 = 0, \"木曜\", …))」のように書き、計算フィールドではなく文字列（1行）フィールドの自動計算に設定します。アプリの高度な設定の「小数部の桁数」を0にすると正しく計算されません（既定の4のままなら動きます）。サイボウズ公式のFAQ（記事番号01043）でも同じ考え方の式が案内されています。" }
+        },
+        {
+          "@type": "Question",
+          "name": "DATE_FORMATで取り出した年や月を計算に使えますか？（kintoneで年度や月末日を出す方法）",
+          "acceptedAnswer": { "@type": "Answer", "text": "使えます。ただし同じ式の中では使えません。IF(DATE_FORMAT(日付,\"M\",\"system\") >= 4, …)のように式の項としてDATE_FORMATを書くと、エラーも出ずに空欄になります。DATE_FORMATを単独で「計算」フィールド（表示形式：数値）に置くと数値として取り出せるので、そのフィールドを別の式から参照します。たとえば「年」＝DATE_FORMAT(日付,\"YYYY\",\"system\")、「月」＝DATE_FORMAT(日付,\"M\",\"system\")の2つを計算フィールドで作り、文字列（1行）フィールドの自動計算でIF(月 >= 4, 年 & \"年度\", 年 - 1 & \"年度\")と書けば、年度（4月始まり）が表示できます。同じ2段構えで、うるう年に対応した月末日、和暦、誕生日前後でもずれない年齢も作れます。この方法はサイボウズ公式のFAQでも案内されています。下ごしらえ用のフィールドは、フィールドのアクセス権で非表示にしても計算されます。" }
         },
         {
           "@type": "Question",
@@ -301,6 +311,8 @@ details .body{padding:12px 15px;font-size:.89rem;color:#37455f}
           <tr><td><code>SUM</code></td><td class="yes">あり</td><td>テーブル内の数値を合計するときにも使います。</td></tr>
           <tr><td><code>DATEDIF</code></td><td class="no">無い</td><td>日付どうしを引き算すると<b>秒数</b>が返るので、<code>86400</code> で割って日数にします。</td></tr>
           <tr><td><code>TEXT</code>（日付の書式化）</td><td class="yes"><code>DATE_FORMAT</code></td><td><code>DATE_FORMAT(日付, "YYYY/MM", "Asia/Tokyo")</code> のように書きます。</td></tr>
+          <tr><td><code>WEEKDAY</code> / <code>TEXT(日付,"aaa")</code></td><td class="no">無い</td><td>曜日を返す関数・書式はありませんが、<b>曜日は出せます</b>。日付を <code>86400</code> で割った経過日数を 7 で割った余り（0＝木曜）を <code>IF</code> で振り分けます。レシピ「日付から曜日を出す」がこの式を作ります。</td></tr>
+          <tr><td><code>EOMONTH</code>（月末日）／<code>DATEDIF</code> の年数</td><td class="no">無い</td><td>どちらも<b>2段構えで出せます</b>。<code>DATE_FORMAT</code> を単独で計算フィールド（表示形式：数値）に置いて年・月を数値にし、それを参照します。レシピ「月末日を出す」「年齢・勤続年数」を参照してください。</td></tr>
           <tr><td><code>COUNTIF</code> / <code>VLOOKUP</code></td><td class="no">無い</td><td>他レコードや他アプリを参照する計算は計算式では作れません。ルックアップ・関連レコード一覧・集計プラグインの領域です。</td></tr>
         </tbody>
       </table>
@@ -317,10 +329,10 @@ details .body{padding:12px 15px;font-size:.89rem;color:#37455f}
         <thead><tr><th>試したこと</th><th>実機の結果</th><th>どうするか</th></tr></thead>
         <tbody>
           <tr><td>文字を返す式を<b>計算フィールド</b>に入れる</td><td class="no">エラーも出ず<b>空欄</b>になる</td><td>文字列（1行）フィールド（自動計算）に設定する</td></tr>
-          <tr><td>曜日を出す <code>DATE_FORMAT(日付, "E", …)</code></td><td class="no"><code>E</code> がそのまま表示される</td><td rowspan="2">曜日は計算式では取得できない。プラグインか JavaScript が必要</td></tr>
+          <tr><td>曜日を出す <code>DATE_FORMAT(日付, "E", …)</code></td><td class="no"><code>E</code> がそのまま表示される</td><td rowspan="2"><b>曜日そのものは出せます</b>（DATE_FORMAT では取れないだけ）。経過日数を 7 で割った余りから IF で判定します → レシピ「<b>日付から曜日を出す</b>」</td></tr>
           <tr><td><code>DATE_FORMAT(日付, "ddd", …)</code></td><td class="no"><code>011</code>（4/1）のように <code>dd</code>+<code>d</code> に分解され<b>誤った値</b>が出る</td></tr>
-          <tr><td>年度（4月始まり）を出す</td><td class="no"><b>空欄</b></td><td rowspan="2">DATE_FORMAT の結果は文字列で、<b>数値に変換できない</b>ため計算に使えない</td></tr>
-          <tr><td><code>DATE_FORMAT(…) + 0</code> で数値化する</td><td class="no"><b>空欄</b></td></tr>
+          <tr><td>式の中に <code>DATE_FORMAT</code> を混ぜる<br>（<code>IF(DATE_FORMAT(…) &gt;= 4, …)</code> など）</td><td class="no"><b>空欄</b></td><td rowspan="2"><b>1本の式にはできませんが、2段構えなら出せます。</b><code>DATE_FORMAT</code> を<b>単独で</b>計算フィールド（表示形式：数値）に置くと数値として取り出せ、それを別の式から参照できます → レシピ「<b>年度（4月始まり）を出す</b>」「<b>月末日を出す</b>」「<b>和暦で表示する</b>」「<b>年齢・勤続年数</b>」</td></tr>
+          <tr><td><code>DATE_FORMAT(…) + 0</code> で<b>その式の中で</b>数値化する</td><td class="no"><b>空欄</b></td></tr>
           <tr><td>文字列フィールドを <code>&lt;</code> <code>&gt;</code> で大小比較する</td><td class="no"><b>空欄</b></td><td>文字列に使えるのは <code>=</code> <code>!=</code> <code>&lt;&gt;</code> のみ</td></tr>
           <tr><td>テーブル外のドロップダウンに <code>CONTAINS</code></td><td class="no"><b>空欄</b></td><td><code>=</code> で直接比べる</td></tr>
           <tr><td>平方根 <code>4 ^ 0.5</code>／<code>8 ^ (1 / 3)</code></td><td class="no">エラーも出ず <b>1</b> を返す</td><td>べき乗の指数は<b>整数だけ</b>。ルートは計算式では作れない</td></tr>
@@ -332,6 +344,14 @@ details .body{padding:12px 15px;font-size:.89rem;color:#37455f}
         </tbody>
       </table>
     </div>
+    <div class="note"><b>2026-09-21 訂正②：</b>公開当初、この表で「年度（4月始まり）は出せない」「<b>DATE_FORMAT の結果は数値に変換できない</b>」と書いていましたが、これも誤りでした。
+    <b>式の中に混ぜられない</b>のは事実ですが、<code>DATE_FORMAT</code> を<b>単独で計算フィールド（表示形式：数値）に置けば数値として取り出せます</b>。
+    サイボウズ公式の FAQ（<a href="https://kintone-faq.cybozu.co.jp/hc/ja/articles/47861079936281" target="_blank" rel="noopener">月末日</a>／<a href="https://kintone-faq.cybozu.co.jp/hc/ja/articles/47211470017305" target="_blank" rel="noopener">和暦</a>／<a href="https://kintone-faq.cybozu.co.jp/hc/ja/articles/40851226466969" target="_blank" rel="noopener">経過年数</a>）もこの方法を使っています。
+    上のタブ「<b>2段構え（下ごしらえ）</b>」に、年度・月末日・和暦・年齢のレシピを追加しました（いずれも実機で確認済み）。</div>
+    <div class="note"><b>2026-09-21 訂正：</b>公開当初、この表で「<b>曜日は計算式では取得できない</b>」と書いていましたが、これは誤りでした。
+    <code>DATE_FORMAT</code> で曜日が取れないのは事実ですが、<b>経過日数を 7 で割った余りを使えば標準の計算式だけで曜日を出せます</b>。
+    サイボウズ公式の FAQ「<a href="https://kintone-faq.cybozu.co.jp/hc/ja/articles/40851241011225" target="_blank" rel="noopener">日付の値に応じて曜日を表示する方法を教えてください。</a>」（記事番号01043）でも同じ方法が案内されています。
+    ご指摘をありがとうございました。レシピ「<b>日付から曜日を出す</b>」「<b>土日かどうかを判定する</b>」を追加し、公式 FAQ の式とあわせて実機で確認しています。</div>
     <div class="note"><b>タイムゾーンについて：</b><code>"YYYY/MM/dd"</code> のように日付だけを出す場合、<code>Asia/Tokyo</code> でも <code>Etc/GMT</code> でも同じ日付になります。ただし<b>時刻まで出すと 9 時間ずれます</b>（東京 09:00／GMT 00:00）。いずれも実機で確認しました。</div>
   </section>
 
@@ -363,6 +383,8 @@ details .body{padding:12px 15px;font-size:.89rem;color:#37455f}
     <details><summary>kintoneの計算式でLEFT関数やMID関数は使えますか？</summary><div class="body">使えません。kintone の計算式で使える関数は SUM・YEN・DATE_FORMAT・IF・AND・OR・NOT・ROUND・ROUNDDOWN・ROUNDUP・CONTAINS の 11 個だけで、文字列を切り出す関数はありません。日付から年月だけを取り出したい場合は LEFT ではなく DATE_FORMAT 関数を使います。文字列そのものを切り出したい場合は、標準機能では実現できないため、プラグインや JavaScript カスタマイズが必要です。</div></details>
     <details><summary>kintoneの計算式で2つの日付の差（日数）を出すには？</summary><div class="body">kintone は日付を UNIX 時刻（秒）で扱うため、日付どうしを引き算すると秒数が返ります。日数にするには 86400（60×60×24）で割ります。式は <code>(終了日 - 開始日) / 86400</code> です。初日と最終日の両方を数える場合は末尾に <code>+ 1</code> を足します。</div></details>
     <details><summary>日付が未入力だと1970年と表示されるのはなぜですか？</summary><div class="body">kintone は日時を UNIX 時刻（1970年1月1日0時からの経過秒数）で扱うため、未入力の日付フィールドを参照すると 1970年1月1日として計算されます。IF 関数で空欄を判定し、<code>IF(日付="","",DATE_FORMAT(日付,"YYYY/MM/dd","Asia/Tokyo"))</code> のように空欄のときは空文字を返す形にすると防げます。</div></details>
+    <details><summary>kintoneの計算式で曜日を表示できますか？</summary><div class="body">できます。ただし <code>DATE_FORMAT</code> に曜日を返す書式はありません（<code>"E"</code> はそのまま表示され、<code>"ddd"</code> は誤った値になります）。kintone は日付を UNIX 時刻（1970年1月1日＝木曜からの経過秒数）で扱うので、<b>経過日数を 7 で割った余り</b>で曜日が決まります。余りが 0 なら木曜、1 なら金曜、2 なら土曜、3 なら日曜、4 なら月曜、5 なら火曜、6 なら水曜です。<code>IF(日付 = "", "", IF(日付 / 86400 - ROUNDDOWN(日付 / 86400 / 7, 0) * 7 = 0, "木曜", …))</code> のように書き、<b>文字列（1行）フィールドの自動計算</b>に設定します。上の「日付から曜日を出す」で式を生成できます。サイボウズ公式の FAQ（記事番号01043）でも同じ考え方の式が案内されています。</div></details>
+    <details><summary>DATE_FORMATで取り出した年や月を、計算に使えますか？（年度・月末日の出し方）</summary><div class="body">使えます。ただし<b>同じ式の中では使えません</b>。<code>IF(DATE_FORMAT(日付,"M","system") &gt;= 4, …)</code> のように式の項に書くと、エラーも出ずに空欄になります。<b>DATE_FORMAT を単独で「計算」フィールド（表示形式：数値）に置くと、数値として取り出せます</b>。たとえば「年」＝<code>DATE_FORMAT(日付,"YYYY","system")</code>、「月」＝<code>DATE_FORMAT(日付,"M","system")</code> の 2 つを作り、別のフィールドで <code>IF(月 &gt;= 4, 年 &amp; "年度", 年 - 1 &amp; "年度")</code> と書けば年度（4月始まり）が出せます。同じ考え方で月末日（うるう年対応）・和暦・年齢も作れます。この2段構えはサイボウズ公式の FAQ でも案内されている方法で、上の「2段構え（下ごしらえ）」タブで式を生成できます。下ごしらえ用のフィールドは、フィールドのアクセス権で非表示にしても計算されます。</div></details>
     <details><summary>kintoneの計算式で今日の日付（TODAY関数）は使えますか？</summary><div class="body">使えません。kintone の計算式に TODAY や NOW にあたる関数はないため、「期限まであと何日」のように現在日時を基準にした計算は計算フィールドでは作れません。レコード更新日時フィールドは計算式から参照できますが、値が変わるのは保存したときだけです。</div></details>
     <details><summary>関連レコード一覧やレコード番号を計算式で使えますか？</summary><div class="body">どちらも計算式からは参照できません。ほかに、ラベル・文字列（複数行）・リッチエディター・添付ファイル・リンク・ユーザー選択・組織選択・グループ選択・スペース・罫線・グループ、プロセス管理のステータスと作業者、カテゴリーも参照できません。</div></details>
   </section>
@@ -378,7 +400,7 @@ details .body{padding:12px 15px;font-size:.89rem;color:#37455f}
 
   <p style="font-size:.82rem;color:var(--muted);text-align:center;margin:22px 0 0">
     掲載している式は、kintone 公式ヘルプ「演算子と関数の一覧」「関数の使い方」「計算式で参照できるフィールド情報」で仕様を確認したうえ、
-    <b>2026-09-13 に実際の kintone アプリへ設定して戻り値まで確認</b>しています。
+    <b>2026-09-13 に実際の kintone アプリへ設定して戻り値まで確認</b>しています（曜日・土日判定のレシピは 2026-09-21 に追加し、同じ方法で確認しました）。
     kintone のアップデートで変わる場合があるため、最終的な動作はご自身のアプリでもご確認ください。
   </p>
 </div>
@@ -419,7 +441,7 @@ details .body{padding:12px 15px;font-size:.89rem;color:#37455f}
     return /^-?\d+(\.\d+)?$/.test(t) ? t : q(s);
   }
 
-  // すべて app396「【常設】計算式検証（Shiki）」で実機確認済み（2026-09-13）。
+  // すべて app396/app397「【常設】計算式検証（Shiki）」で実機確認済み（2026-09-13／曜日は 2026-09-21）。
   // 検証していない式はここに置かない。記録は SHIKI_TEST_v1.0.0.md。
   var CALC_N = '計算フィールド（表示形式：数値）';
   var CALC_D = '計算フィールド（表示形式：日付）';
@@ -518,6 +540,157 @@ details .body{padding:12px 15px;font-size:.89rem;color:#37455f}
       },
       notes:[{t:'ok',h:'実機で確認：',b:'未入力のとき空欄。IF を外すと本当に <b>1970/01/01</b> が表示されることも確認済みです。'},
              {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'weekday', cat:'日付・期間', name:'日付から曜日を出す',
+      lead:'「水」「水曜」「2026/04/01（水）」のように曜日を表示します。',
+      desc:'kintone の <code>DATE_FORMAT</code> に曜日を返す書式はありませんが、<b>曜日そのものは標準機能で出せます</b>。日付は UNIX 時刻（1970年1月1日＝<b>木曜</b>からの経過秒数）なので、<b>経過日数を 7 で割った余り</b>で曜日が決まります。サイボウズ公式の FAQ と同じ考え方で、式を短くまとめています。',
+      target:TEXT_F,
+      inputs:[
+        {k:'kind', label:'対象のフィールド種別', type:'select', def:'date', opts:[['date','日付フィールド'],['datetime','日時フィールド']]},
+        {k:'field', label:'フィールドコード', ph:'日付', def:'日付'},
+        {k:'style', label:'表示の仕方', type:'select', def:'曜',
+          opts:[['曜','水曜'],['曜日','水曜日'],['短','水'],['en','Wed'],['withdate','2026/04/01（水）']]}
+      ],
+      build:function(v){
+        var isDt = v.kind === 'datetime';
+        var f = v.field;
+        // 日付は UTC 0 時ちょうどなので 86400 で割れば整数。日時は時刻を持つので
+        // 日本時間（+9 時間 = 32400 秒）に寄せてから小数を切り捨てて日数にする。
+        var D = isDt ? 'ROUNDDOWN((' + f + ' + 32400) / 86400, 0)' : f + ' / 86400';
+        var R = D + ' - ROUNDDOWN(' + D + ' / 7, 0) * 7';
+        var JA = ['木','金','土','日','月','火','水'];
+        var EN = ['Thu','Fri','Sat','Sun','Mon','Tue','Wed'];
+        var names = v.style === 'en' ? EN : JA;
+        var sfx = (v.style === '曜' || v.style === '曜日') ? v.style : '';
+        var out = q(names[6] + sfx);
+        for (var i = 5; i >= 0; i--) {
+          out = 'IF(' + R + ' = ' + i + ', ' + q(names[i] + sfx) + ', ' + out + ')';
+        }
+        if (v.style === 'withdate') {
+          out = 'DATE_FORMAT(' + f + ', "' + (isDt ? 'YYYY/MM/dd HH:mm' : 'YYYY/MM/dd') +
+                '", "Asia/Tokyo") & "（" & ' + out + ' & "）"';
+        }
+        return 'IF(' + f + ' = "", "", ' + out + ')';
+      },
+      notes:[
+        {t:'ok',h:'実機で確認：',b:'2026/04/01〜04/07 の 7 日連続、うるう年（2024/02/28〜03/01）、年またぎ、1969/12/31、2100/12/31 まで<b>すべて暦どおり</b>。日時フィールドは UTC 14:59（日本時間の同日 23:59）と UTC 15:00（翌日 0:00）で<b>正しく日付をまたぎ</b>ました。'},
+        {t:'note',h:'アプリの「小数部の桁数」を 0 にしないでください：',b:'この式は割り算の小数を使って余りを求めます。アプリの設定＞高度な設定＞<b>数値の有効桁数と丸めかた</b>の「小数部の桁数」を <b>0</b> にすると誤った曜日が出ます（実機で確認）。<b>既定は 4</b> なので、触っていなければそのままで動きます。'},
+        {t:'note',h:'',b:'日時フィールドを選んだ場合は<b>日本時間（UTC+9）</b>で判定します。他のタイムゾーンで使う場合は式の <code>32400</code>（＝9時間ぶんの秒数）を時差に合わせて変えてください。'},
+        {t:'ng',h:'DATE_FORMAT では出せません：',b:'<code>DATE_FORMAT(日付, "E", …)</code> は <code>E</code> がそのまま表示され、<code>"ddd"</code> は <code>dd</code>+<code>d</code> に分解されて <code>011</code> のような誤った値になります（実機で確認）。曜日はこのレシピの形で出してください。'},
+        {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}
+      ]
+    },
+    {
+      id:'weekend', cat:'日付・期間', name:'土日かどうかを判定する',
+      lead:'「休」「平日」のように、土日だけ目印を出します。',
+      desc:'曜日と同じく、経過日数を 7 で割った余りで判定します。余りが <b>2 なら土曜・3 なら日曜</b>です。',
+      target:TEXT_F,
+      inputs:[
+        {k:'field', label:'日付フィールドのフィールドコード', ph:'日付', def:'日付'},
+        {k:'t', label:'土日のときの表示', ph:'休', def:'休'},
+        {k:'f', label:'平日のときの表示', ph:'平日', def:'平日'}
+      ],
+      build:function(v){
+        var R = v.field + ' / 86400 - ROUNDDOWN(' + v.field + ' / 86400 / 7, 0) * 7';
+        return 'IF(' + v.field + ' = "", "", IF(OR(' + R + ' = 2, ' + R + ' = 3), ' + q(v.t) + ', ' + q(v.f) + '))';
+      },
+      notes:[{t:'ok',h:'実機で確認：',b:'2026/04/04（土）と 04/05（日）で <b>休</b>、平日はすべて <b>平日</b>。'},
+             {t:'ng',h:'祝日は判定できません：',b:'kintone は祝日のデータを持っていないため、<b>祝日・振替休日・会社の休業日は「平日」になります</b>。祝日も含めて休みを判定したい場合は、休日マスタのアプリを作ってルックアップするか、プラグイン・JavaScript が必要です。'},
+             {t:'ng',h:'置き場所に注意：',b:TEXT_WHY}]
+    },
+    {
+      id:'fiscal-year', cat:'2段構え（下ごしらえ）', name:'年度（4月始まり）を出す',
+      lead:'3月31日までは前年度。「2025年度」のように表示します。',
+      desc:'<b>DATE_FORMAT は、式の中に混ぜると使えませんが、単独で計算フィールド（表示形式：数値）に置くと数値として取り出せます。</b>その数値フィールドを別の式から参照するのが「2段構え」です。サイボウズ公式の FAQ（月末日・和暦・経過年数）も同じ方法を使っています。',
+      target:'下の【1】【2】は計算フィールド（表示形式：数値）、【3】は文字列（1行）フィールド（自動計算）',
+      multi:true,
+      inputs:[
+        {k:'date', label:'日付フィールドのフィールドコード', ph:'日付', def:'日付'},
+        {k:'style', label:'出し方', type:'select', def:'text', opts:[['text','文字で出す（2025年度）'],['num','数値で出す（2025）']]}
+      ],
+      build:function(v){
+        var d = v.date;
+        var last = v.style === 'num'
+          ? '【3】計算フィールド「年度」（表示形式：数値）\nIF(月 >= 4, 年, 年 - 1)'
+          : '【3】文字列（1行）フィールド「年度」（自動計算）\nIF(' + d + ' = "", "", IF(月 >= 4, 年 & "年度", 年 - 1 & "年度"))';
+        return '【1】計算フィールド「年」（表示形式：数値）\nDATE_FORMAT(' + d + ', "YYYY", "system")\n\n' +
+               '【2】計算フィールド「月」（表示形式：数値）\nDATE_FORMAT(' + d + ', "M", "system")\n\n' + last;
+      },
+      notes:[
+        {t:'ok',h:'実機で確認：',b:'2026/03/31 で <b>2025年度</b>、2026/04/01 で <b>2026年度</b>。数値で出す設定でも <b>2025</b> / <b>2026</b> を返しました。'},
+        {t:'note',h:'年度の開始月を変えるには：',b:'【3】の <code>月 &gt;= 4</code> の <b>4</b> を開始月に変えてください（7月始まりなら <code>月 &gt;= 7</code>）。'},
+        {t:'note',h:'',b:'【1】【2】のフィールドは見せる必要がありません。<b>フィールドのアクセス権</b>で非表示にしても、【3】は正しく計算されます（公式ヘルプに明記）。'},
+        {t:'ng',h:'1本の式にまとめることはできません：',b:'<code>IF(DATE_FORMAT(日付, "M", "system") &gt;= 4, …)</code> のように<b>式の中に DATE_FORMAT を書くと、エラーも出ずに空欄</b>になります（実機で確認）。必ず【1】【2】のように<b>単独で</b>計算フィールドに置いて、そのフィールドコードを参照してください。'}
+      ]
+    },
+    {
+      id:'month-end', cat:'2段構え（下ごしらえ）', name:'月末日を出す（うるう年対応）',
+      lead:'その日付が属する月の末日を出します。2月も正しく判定します。',
+      desc:'月の日数を返す関数はありませんが、<b>月ごとに場合分けすれば出せます</b>。2月はうるう年（4で割り切れる／100で割り切れて400で割り切れない年は平年）を判定します。サイボウズ公式 FAQ（記事番号10211）と同じ式です。',
+      target:'【1】【2】は計算フィールド（表示形式：数値）、【3】【4】は文字列（1行）フィールド（自動計算）',
+      multi:true,
+      inputs:[
+        {k:'date', label:'日付フィールドのフィールドコード', ph:'日付', def:'日付'}
+      ],
+      build:function(v){
+        var d = v.date;
+        return '【1】計算フィールド「年」（表示形式：数値）\nDATE_FORMAT(' + d + ', "YYYY", "system")\n\n' +
+          '【2】計算フィールド「月」（表示形式：数値）\nDATE_FORMAT(' + d + ', "M", "system")\n\n' +
+          '【3】文字列（1行）フィールド「うるう年判定」（自動計算）\n' +
+          'IF(OR(年/4-ROUNDDOWN(年/4)!=0,AND(年/100-ROUNDDOWN(年/100)=0,年/400-ROUNDDOWN(年/400)!=0)),"平年","うるう年")\n\n' +
+          '【4】文字列（1行）フィールド「月末日」（自動計算）\n' +
+          'IF(OR(月=4,月=6,月=9,月=11),DATE_FORMAT(' + d + ', "YYYY年M月30日", "system"),' +
+          'IF(AND(月=2,うるう年判定="うるう年"),DATE_FORMAT(' + d + ', "YYYY年M月29日", "system"),' +
+          'IF(AND(月=2,うるう年判定="平年"),DATE_FORMAT(' + d + ', "YYYY年M月28日", "system"),' +
+          'DATE_FORMAT(' + d + ', "YYYY年M月31日", "system"))))';
+      },
+      notes:[
+        {t:'ok',h:'実機で確認：',b:'2024/02/10 → <b>2024年2月29日</b>、2026/02/10 → <b>2026年2月28日</b>、2026/11/05 → <b>2026年11月30日</b>。<b>2000年は29日・1900年は28日</b>（400年ルール）まで正しく判定しました。'},
+        {t:'note',h:'',b:'結果は<b>文字列</b>です。日付フィールドとして絞り込みや期間計算に使うことはできません。'}
+      ]
+    },
+    {
+      id:'wareki', cat:'2段構え（下ごしらえ）', name:'和暦で表示する',
+      lead:'「令和8年4月1日」のように元号つきで表示します。',
+      desc:'元号を返す書式はありませんが、<b>年月日を数値で取り出して改元日と比べれば出せます</b>。サイボウズ公式 FAQ（記事番号10209）と同じ式です。',
+      target:'【1】【2】は計算フィールド（表示形式：数値）、【3】は文字列（1行）フィールド（自動計算）',
+      multi:true,
+      inputs:[
+        {k:'date', label:'日付フィールドのフィールドコード', ph:'日付', def:'日付'}
+      ],
+      build:function(v){
+        var d = v.date;
+        return '【1】計算フィールド「年」（表示形式：数値）\nDATE_FORMAT(' + d + ', "YYYY", "system")\n\n' +
+          '【2】計算フィールド「年月日」（表示形式：数値）\nDATE_FORMAT(' + d + ', "YYYYMMdd", "system")\n\n' +
+          '【3】文字列（1行）フィールド「和暦年月日」（自動計算）\n' +
+          'IF(年月日 >= 20190501, "令和" & 年-2018 & "年",\n  IF(年月日 >= 19890108, "平成" & 年-1988 & "年",\n                         "昭和" & 年-1925 & "年" ))\n                          & DATE_FORMAT(' + d + ', "M月d日", "system")';
+      },
+      notes:[
+        {t:'ok',h:'実機で確認：',b:'2026/04/01 → <b>令和8年4月1日</b>、2019/04/30 → <b>平成31年4月30日</b>、2019/05/01 → <b>令和1年5月1日</b>、1989/01/07 → <b>昭和64年1月7日</b>。改元日の前後で正しく切り替わります。'},
+        {t:'ng',h:'大正・明治には対応していません：',b:'この式は<b>昭和以降</b>が前提です。1926年（昭和元年）より前の日付を入れると <b>昭和-25年</b> のような値になります（実機で確認）。古い日付を扱うなら、さらに IF を足して元号を増やしてください。'}
+      ]
+    },
+    {
+      id:'age-faq', cat:'2段構え（下ごしらえ）', name:'年齢・勤続年数（うるう年も正確）',
+      lead:'生年月日と更新日時から、誕生日前後もずれない年齢を出します。',
+      desc:'日付を <code>YYYYMMdd</code> の<b>数値</b>で取り出して引き算し、10000 で割って切り捨てます。365 で割る概算と違い、<b>うるう年でも誕生日の前後でもずれません</b>。サイボウズ公式 FAQ（記事番号00104 の方法2）と同じ式です。',
+      target:'3つとも計算フィールド（表示形式：数値）',
+      multi:true,
+      inputs:[
+        {k:'birth', label:'生年月日（起点）のフィールドコード', ph:'生年月日', def:'生年月日'},
+        {k:'base', label:'基準日のフィールドコード（更新日時など）', ph:'更新日時', def:'更新日時'}
+      ],
+      build:function(v){
+        return '【1】計算フィールド「基準日A」（表示形式：数値）\nDATE_FORMAT(' + v.base + ',"YYYYMMdd","system")\n\n' +
+          '【2】計算フィールド「生年月日A」（表示形式：数値）\nDATE_FORMAT(' + v.birth + ',"YYYYMMdd","system")\n\n' +
+          '【3】計算フィールド「年齢」（表示形式：数値）\nIF(' + v.birth + '="", "", ROUNDDOWN((基準日A-生年月日A)/10000,0))';
+      },
+      notes:[
+        {t:'ok',h:'実機で確認：',b:'2026/09/21 時点で、1990/05/20 生まれ → <b>36</b>、1990/09/22 生まれ（翌日が誕生日）→ <b>35</b>。<b>誕生日の前日でもずれません</b>。'},
+        {t:'ng',h:'「今日」は使えません：',b:'kintone の計算式に TODAY はありません。基準日には<b>更新日時</b>（保存し直したときだけ更新）か、<b>手で入れる日付フィールド</b>を使います。更新日時を使う場合は、<b>先にフォームへ配置しないと</b>計算式に書けません。'},
+        {t:'note',h:'',b:'勤続年数なら【2】を入社日に差し替えてください。考え方は同じです。'}
+      ]
     },
     {
       id:'days-unit', cat:'日付・期間', name:'日数に単位をつけて表示する',
@@ -1333,7 +1506,7 @@ details .body{padding:12px 15px;font-size:.89rem;color:#37455f}
     } else if (badNum.length) {
       w = '「' + badNum.join('」「') + '」には半角の数字を入れてください。' +
           'いまは 0 を入れた式を表示しています。';
-    } else if (syntaxProblem(outEl.textContent)) {
+    } else if (!state.recipe.multi && syntaxProblem(outEl.textContent)) {
       // Catch-all for the free-form expression inputs: a typed "(" or a stray quote
       // makes the whole formula unparseable, and kintone would only say
       // 「計算式が正しくありません」without pointing at the cause.
