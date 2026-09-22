@@ -49,6 +49,11 @@ const chokottoCount = plugins.length;
 const premiumCount = premiumPlugins.length;
 const totalCount = chokottoCount + premiumCount;
 
+// Derived, never hand-counted: the badge and this number must always agree.
+const bornFromRequestCount = [...plugins, ...premiumPlugins].filter(
+  (p) => p.bornFrom === 'supporter-request'
+).length;
+
 // "kintone プラグイン 無料" is this page's highest-intent query. GSC (2026-08-27)
 // confirms this page — not the osusume article — is the one that holds it: 30 impr
 // at 22.5th vs the article's 1 impr at 47th. The 2026-08-10 split that moved "無料"
@@ -422,10 +427,21 @@ const freeFaqJsonLd = {
       outline: none;
     }
 
+    /* Subtitle and the request-origin badge share one line; the badge wraps under
+       it on narrow cards. .plugin-desc is flex-grow:1, so a two-line row here only
+       shortens the description and the CTA stays aligned across the grid row. */
+    .plugin-subtitle-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      row-gap: 6px;
+      margin-bottom: 20px;
+    }
+
     .plugin-subtitle {
       font-size: 0.9rem;
       color: var(--color-text-muted);
-      margin-bottom: 20px;
     }
 
     /* Category chips. Sits above the stretched title link so it stays clickable.
@@ -902,6 +918,48 @@ const freeFaqJsonLd = {
       align-items: center;
       gap: 12px;
       margin-bottom: 12px;
+      /* Premium cards can carry three badges; without wrapping they overflow on phones */
+      flex-wrap: wrap;
+      row-gap: 8px;
+    }
+
+    /* Outline pill: sits next to the filled badges without competing with them */
+    .badge-request-origin {
+      background-color: var(--color-white);
+      color: var(--color-navy);
+      border: 1px solid var(--color-navy);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .badge-request-origin::before {
+      content: '💬';
+      font-size: 0.9rem;
+    }
+
+    /* On the cards the mark is text only — no pill, no icon. The outline competed
+       with the category chips right above it, and dropping both freed enough of
+       the ~290px subtitle line to carry the full wording. Emphasis comes from the
+       green underline instead. Product pages keep the pill and the icon. */
+    .plugin-subtitle-row .badge-request-origin {
+      background: none;
+      border: none;
+      border-bottom: 2px solid var(--color-green);
+      border-radius: 0;
+      padding: 0 0 2px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-navy);
+    }
+
+    .plugin-subtitle-row .badge-request-origin::before {
+      content: none;
     }
 
     .plugin-pricing-row {
@@ -1101,6 +1159,7 @@ const freeFaqJsonLd = {
       <div class="intro-card lead-card">
         <p class="lead-main">KIZUNA Works の kintone プラグインは、<strong>全 {totalCount} 製品（ちょこっと {chokottoCount} 製品・プレミアム {premiumCount} 製品）</strong>を無料で配布しています。会員登録は不要、JavaScript を書く必要もなく、<strong>利用期限はありません</strong>。</p>
         <p class="lead-sub">このページは<strong>製品カタログ</strong>です。やりたいことのカテゴリで絞り込めます。製品名ではなく<strong>目の前の不便から探したい</strong>ときは、全 {totalCount} 製品を課題別に並べた<a href="/plugins/problems/">kintoneの困りごとから探す</a>が近道です。<strong>どれを選べばいいか迷っている段階なら</strong>、「一覧を見やすくする」「入力を速くする」など目的ごとに自社・他社の無料プラグインを比較した<a href="/blog/kintone-muryou-plugin-osusume/">kintoneプラグインのおすすめと選び方（やりたいこと別）</a>から読むと、候補を絞りやすくなります。</p>
+        <p class="lead-sub">このうち <strong>{bornFromRequestCount} 製品</strong>は、ご利用中のお客様からいただいた<strong>リクエストをもとに新しく開発した</strong>プラグインです。該当する製品のカードには「リクエストから誕生」のバッジが付いています。ご要望は<a href="/plugins/supporter/">年間サポーター</a>の特典としてお送りいただけます。</p>
         <div class="lead-folds">
           <details class="lead-fold" id="free-scope">
             <summary><h2>無料でどこまで使えるのか</h2></summary>
@@ -1261,7 +1320,15 @@ const freeFaqJsonLd = {
                   ))}
                 </div>
                 <h3 class="plugin-title"><a href={`/plugins/${plugin.slug}/`}>{plugin.name}</a></h3>
-                <span class="plugin-subtitle">{plugin.subtitle}</span>
+                <div class="plugin-subtitle-row">
+                  <span class="plugin-subtitle">{plugin.subtitle}</span>
+                  {plugin.bornFrom === 'supporter-request' && (
+                    <span
+                      class="badge-request-origin"
+                      title="サポーターの方からのリクエストをもとに開発したプラグインです"
+                    >リクエストから誕生</span>
+                  )}
+                </div>
                 <p class="plugin-desc">{plugin.description}</p>
                 <div class="plugin-meta">
                   {plugin.status === 'available' ? (
@@ -1313,7 +1380,15 @@ const freeFaqJsonLd = {
                 ))}
               </div>
               <h3 class="plugin-title"><a href={`/plugins/${plugin.slug}/`}>{plugin.name}</a></h3>
-              <span class="plugin-subtitle">{plugin.subtitle}</span>
+              <div class="plugin-subtitle-row">
+                <span class="plugin-subtitle">{plugin.subtitle}</span>
+                {plugin.bornFrom === 'supporter-request' && (
+                  <span
+                    class="badge-request-origin"
+                    title="サポーターの方からのリクエストをもとに開発したプラグインです"
+                  >リクエストから誕生</span>
+                )}
+              </div>
               <p class="plugin-desc">{plugin.description}</p>
               <div class="plugin-meta">
                 {plugin.status === 'available' ? (

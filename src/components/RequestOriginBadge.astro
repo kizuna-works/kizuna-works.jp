@@ -1,0 +1,106 @@
+---
+/**
+ * Marks a plugin that was newly developed because a supporter asked for it.
+ * Drive it from `bornFrom: 'supporter-request'` in `src/data/plugins.ts` — never
+ * hand-place it, or the badge and the count on /plugins/ will drift apart.
+ *
+ * Do NOT use it on a plugin that merely gained a feature from a request; those
+ * belong in the product page's UPDATE box.
+ *
+ * `as="badge"` is the hero pill (translucent, for the dark hero gradient).
+ * `as="note"` is the one-line strip placed just below the hero.
+ */
+interface Props {
+  as?: 'badge' | 'note';
+  /** Overrides the note's default sentence when a page needs more specifics. */
+  note?: string;
+}
+
+const { as = 'badge', note } = Astro.props;
+const noteText =
+  note ??
+  'このプラグインは、ご利用中のお客様からいただいたリクエストをもとに開発しました。';
+---
+
+{as === 'badge' ? (
+  <span class="rob-badge"><span class="rob-icon" aria-hidden="true">💬</span><span>リクエストから誕生</span></span>
+) : (
+  <div class="rob-note">
+    <p>
+      <span class="rob-note-icon" aria-hidden="true">💬</span>
+      <strong>リクエストから誕生</strong>
+      <span class="rob-note-text">{noteText}ご要望は<a href="/plugins/supporter/">年間サポーター</a>の特典としてお送りいただけます。</span>
+    </p>
+  </div>
+)}
+
+<style>
+  /* Hero pill: matches the translucent version/premium badges on the dark hero */
+  .rob-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    padding: 6px 14px;
+    border-radius: 20px;
+    line-height: 1;
+    /* Some hero rows are inline-block, not flex — keep it on the same baseline */
+    vertical-align: middle;
+    /* Narrow heroes squeeze flex items; break the row, never the words */
+    white-space: nowrap;
+  }
+
+  .rob-icon {
+    display: block;
+    line-height: 1;
+    font-size: 1.02em;
+  }
+
+  .rob-note {
+    max-width: 900px;
+    margin: 28px auto 0;
+    padding: 0 20px;
+  }
+
+  .rob-note p {
+    margin: 0;
+    padding: 14px 18px;
+    background: #f4f7fb;
+    border: 1px solid #d7e0ec;
+    border-left: 4px solid #1B3A6B;
+    border-radius: 6px;
+    color: #333;
+    font-size: 0.97rem;
+    line-height: 1.8;
+  }
+
+  .rob-note-icon {
+    margin-right: 6px;
+  }
+
+  .rob-note strong {
+    color: #1B3A6B;
+  }
+
+  .rob-note-text {
+    margin-left: 8px;
+  }
+
+  .rob-note a {
+    color: #1B3A6B;
+    font-weight: 700;
+  }
+
+  @media (max-width: 600px) {
+    .rob-note-text {
+      display: block;
+      margin-left: 0;
+      margin-top: 4px;
+    }
+  }
+</style>

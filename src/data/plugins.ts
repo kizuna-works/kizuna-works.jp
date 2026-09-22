@@ -94,6 +94,17 @@ export interface Plugin {
    * Bump it (only) after rewriting the summaries. Patch releases do not need a bump.
    */
   summaryVersion?: string;
+  /**
+   * Set only when the plugin ITSELF was newly developed because a supporter
+   * asked for it. Renders the 「リクエストから誕生」 badge on the grid card, the
+   * homepage showcase and the product page, and feeds the count shown on
+   * /plugins/ and /plugins/supporter/.
+   *
+   * Do NOT set it for a plugin that merely gained a feature from a request —
+   * those are covered by the UPDATE box on the product page. Keeping the two
+   * apart is what makes the badge worth trusting.
+   */
+  bornFrom?: 'supporter-request';
 }
 
 export const plugins: Plugin[] = [
@@ -759,6 +770,7 @@ export const plugins: Plugin[] = [
     formName: 'エクセル一括貼り付け for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'excel-paste',
+    bornFrom: 'supporter-request',
     categories: ['一括処理', '自動入力'],
     description:
       'Excel等の表データを貼り付けるだけで一括入力できるプラグイン。作成・編集画面ではサブテーブルへ複数行をまとめて流し込み（複数のテーブルもテーブルごとの設定で対応）、一覧画面では貼り付けだけで複数レコードを一括作成。プレビューで列の対応を確認でき、見出し行を含めれば自動マッピング。',
@@ -1220,6 +1232,7 @@ export const plugins: Plugin[] = [
     name: '画像圧縮 for kintone',
     formName: '画像圧縮 for kintone',
     slug: 'image-compress',
+    bornFrom: 'supporter-request',
     categories: ['一括処理'],
     description:
       'レコードを保存した直後に、添付された画像を自動で圧縮して差し替えます。強さは軽量・標準・高画質から選ぶほか、長辺と品質、または1枚あたりの容量を指定できます。サブテーブル内の写真も対象で、登録済みのレコードはまとめて圧縮できます。',
@@ -1496,6 +1509,7 @@ export const premiumPlugins: Plugin[] = [
     formName: 'PDF編集アシスト for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'pdf-edit',
+    bornFrom: 'supporter-request',
     categories: ['出力・帳票', '情報共有', '入力保護'],
     description:
       '添付PDFに押印画像・手書き・テキスト・図形9種・矢印をその場で書き加えて保存。スマホ対応のサイン専用モードは署名欄を最大10か所登録でき、書いたあとに置く欄を選べます。白塗りでは残る情報を焼き直して物理削除する墨消し、原本を残す世代管理、パスワード付きPDFにも対応。',
@@ -1625,6 +1639,7 @@ export const premiumPlugins: Plugin[] = [
     formName: 'ルックアップ新規登録 for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'lookup-add',
+    bornFrom: 'supporter-request',
     categories: ['自動入力', '入力チェック'],
     description:
       'ルックアップの候補に無いレコードを、入力中の画面を離れずに参照先アプリへ登録し、そのまま取得まで終わらせます。打った文字・このレコードの値・絞り込みの条件を引き継いで入力欄に入れ、似ているレコードを先に見せるので重複登録も防げます。',
@@ -1651,6 +1666,7 @@ export const premiumPlugins: Plugin[] = [
     formName: '注釈アシスト for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'annotation',
+    bornFrom: 'supporter-request',
     categories: ['情報共有', '入力チェック'],
     description:
       'ボタンの隣や画面の上部など、kintone がラベルを置けない場所へ説明や注意書きを貼れます。実際の画面を見ながらドラッグで位置を決め、常に表示・マウスを乗せたとき・クリックしたときから見せ方を選択。注釈ごとに言語を足せば、閲覧者の表示言語で出し分けます。',

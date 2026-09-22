@@ -3,6 +3,12 @@ import Layout from '../../../layouts/Layout.astro';
 import SupporterForm from '../../../components/SupporterForm.astro';
 import TrialBanner from '../../../components/TrialBanner.astro';
 import { plugins, premiumPlugins } from '../../../data/plugins';
+
+// Proof for the "いただいたご要望を開発に反映します" promise. Derived from the
+// catalogue so this list and the badges on /plugins/ can never disagree.
+const bornFromRequest = [...plugins, ...premiumPlugins].filter(
+  (p) => p.bornFrom === 'supporter-request'
+);
 ---
 
 <Layout
@@ -467,6 +473,53 @@ import { plugins, premiumPlugins } from '../../../data/plugins';
     }
 
     /* Perks list */
+    /* Evidence block under the perks: which products requests actually produced */
+    .request-proof {
+      margin-top: 24px;
+      padding: 22px 24px;
+      background-color: #f4f7fb;
+      border: 1px solid #d7e0ec;
+      border-left: 4px solid var(--color-navy);
+      border-radius: 10px;
+    }
+
+    .request-proof p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--color-text-main);
+    }
+
+    .request-proof p strong {
+      color: var(--color-navy);
+    }
+
+    .request-proof-list {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .request-proof-list a {
+      display: inline-block;
+      padding: 6px 14px;
+      background-color: var(--color-white);
+      border: 1px solid var(--color-navy);
+      border-radius: 20px;
+      color: var(--color-navy);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .request-proof-list a:hover {
+      background-color: var(--color-navy);
+      color: var(--color-white);
+    }
+
     .perks-list {
       list-style: none;
       padding: 0;
@@ -815,6 +868,16 @@ import { plugins, premiumPlugins } from '../../../data/plugins';
         <li><strong>プレミアム年間サポーター限定：</strong>本ページ下部のサポーター一覧に貴社ロゴ・サイトリンクを掲載いたします（任意・ご希望の場合のみ）</li>
         <li><strong>乗り換え特典：</strong>年間サポーター（個別プラグイン）をご契約中の方がプレミアム年間サポーターへ切り替える場合、初回のプレミアム期間を <strong>60 日延長</strong>して 1 年＋60 日でご提供します</li>
       </ul>
+      {bornFromRequest.length > 0 && (
+        <div class="request-proof">
+          <p><strong>リクエストは、実際に製品になっています。</strong>公開中のプラグインのうち次の {bornFromRequest.length} 製品は、お客様からいただいたリクエストをもとに新しく開発したものです。</p>
+          <ul class="request-proof-list">
+            {bornFromRequest.map((p) => (
+              <li><a href={`/plugins/${p.slug}/`}>{p.name}</a></li>
+            ))}
+          </ul>
+        </div>
+      )}
     </section>
 
     <section class="content-section">

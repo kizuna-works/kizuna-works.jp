@@ -778,6 +778,25 @@ const pluginPosts = allPosts
       right: 12px;
     }
 
+    /* Both image corners are taken (NEW left, tier right), so the request-origin
+       mark goes inline in the body instead of becoming a third overlay */
+    .plugin-card-origin {
+      align-self: flex-start;
+      margin: 0 0 10px;
+      padding: 3px 10px;
+      border: 1px solid #1B3A6B;
+      border-radius: 12px;
+      color: #1B3A6B;
+      background: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .plugin-card-origin::before {
+      content: '💬';
+      margin-right: 4px;
+    }
+
     /* Premium plugins use a designed banner (1200×630) — show it fully without cropping */
     .plugin-card-thumb.is-premium {
       aspect-ratio: 1200 / 630;
@@ -1866,6 +1885,9 @@ const pluginPosts = allPosts
             <div class="plugin-card-body">
               <h3>{p.name}</h3>
               <p>{p.cardDescription}</p>
+              {p.bornFrom === 'supporter-request' && (
+                <span class="plugin-card-origin">リクエストから誕生</span>
+              )}
               <span class="plugin-card-link">無料で見る →</span>
             </div>
           </a>
