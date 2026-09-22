@@ -1644,6 +1644,32 @@ export const premiumPlugins: Plugin[] = [
     releaseDate: '2026-09-13',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-annotation',
+    pluginId: 'jlhoinomneggmfbinlghbkfdpgfkdoad',
+    name: '注釈アシスト for kintone',
+    formName: '注釈アシスト for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'annotation',
+    categories: ['情報共有', '入力チェック'],
+    description:
+      'ボタンの隣や画面の上部など、kintone がラベルを置けない場所へ説明や注意書きを貼れます。実際の画面を見ながらドラッグで位置を決め、常に表示・マウスを乗せたとき・クリックしたときから見せ方を選択。注釈ごとに言語を足せば、閲覧者の表示言語で出し分けます。',
+    image: '/images/annotation-banner.png',
+    imageWebp: '/images/annotation-banner.webp',
+    imageAlt:
+      '注釈アシスト for kintone バナー — ラベルを置けない場所に、説明を貼る。ボタンの隣・画面の上部へ自由に配置、見せ方は常時・ホバー・クリック、注釈ごとに言語を出し分け',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'coming-soon',
+    tier: 'premium',
+    cardDescription:
+      'kintone がラベルを置けない場所へ、説明や注意書きを貼れます。実際の画面で位置を決められ、閲覧者の表示言語で出し分けます。',
+    problemTitle: '操作の注意を書いておく場所が、画面に無い',
+    problemDesc:
+      '「この欄は空欄のまま保存しないで」「回答したらステータスを進めて」と一言書きたいのに、kintone のラベルはフォームの中にしか置けない。ボタンの隣にも画面の上部にも置けないので、結局マニュアルに書いて、読まれないまま同じ間違いが繰り返される',
+    releaseDate: '2026-09-22',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**

@@ -1,0 +1,644 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ResellerCard from '../../../components/ResellerCard.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<Layout
+  title="注釈アシスト for kintone｜ボタンの隣や画面上部に説明を貼る | KIZUNA Works"
+  description="kintone のラベルでは置けない場所——標準ボタンの隣・画面の上部・一覧のツールバー・列見出し——に、説明や注意書きのカードを貼れるプラグイン。実際の画面を開いてドラッグで位置を決め、常に表示・マウスを乗せたとき・クリックしたときから見せ方を選べます。注釈ごとに言語を足せば、閲覧者の表示言語で出し分けます。"
+  ogTitle="注釈アシスト for kintone｜ボタンの隣や画面上部に説明を貼る | KIZUNA Works"
+  ogDescription="ラベルを置けない場所に、説明を貼る。実際の画面を見ながらドラッグで位置を決め、常に表示・マウスを乗せたとき・クリックしたときから見せ方を選択。注釈ごとに言語を足せば、閲覧者の表示言語で出し分けます。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/annotation/"
+  ogImage="https://kizuna-works.jp/images/annotation-banner.png"
+  canonical="https://kizuna-works.jp/plugins/annotation/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/annotation/",
+          "url": "https://kizuna-works.jp/plugins/annotation/",
+          "name": "注釈アシスト for kintone｜ボタンの隣や画面上部に説明を貼る | KIZUNA Works",
+          "description": "kintone のラベルフィールドでは置けない場所に、説明・注意書き・リンク・画像のカードを貼り付ける kintone プラグイン。レコード詳細／追加／編集画面と一覧画面に対応し、実際の画面を開いてドラッグで位置を決める。常に表示・マウスを乗せたとき・クリックしたときの3つから見せ方を選べ、注釈ごとに言語を追加すると閲覧者の kintone の表示言語で本文・リンク・画像を出し分ける。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/annotation-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "注釈アシスト for kintone", "item": "https://kizuna-works.jp/plugins/annotation/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "注釈アシスト for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-09-22",
+          "url": "https://kizuna-works.jp/plugins/annotation/",
+          "image": "https://kizuna-works.jp/images/annotation-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "プレミアム年間サポーター（全プラグイン込み）",
+            "price": "16500",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/PreOrder",
+            "description": "プレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料プランでも注釈1件で全機能を利用できます。"
+          },
+          "description": "kintone のラベルフィールドはフォームの中にしか置けないため、標準ボタンの隣や画面の上部、一覧のツールバー、一覧の列見出しには説明を書けない。本プラグインはそうした場所へ説明・注意書き・リンク・画像のカードを重ねて表示する。位置は設定画面から実際のレコード画面・一覧画面を開き、置きたい場所をドラッグして決める（フォームの編集は不要）。見せ方は常に表示する・アイコンにマウスを乗せたとき・アイコンをクリックしたときの3つから注釈ごとに選択でき、見た目は12種類の配色プリセットと10種類の形状から選ぶか、色・枠線・影・大きさを個別に指定する。注釈ごとに言語を追加すると、閲覧者の kintone の表示言語に合わせて本文・リンク・画像を出し分ける。表示する相手をユーザー・組織・グループで限定でき、モバイルにも対応する。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "kintone のラベルでは置けない場所に説明カードを表示（フォームの編集は不要）",
+            "実際のレコード画面・一覧画面を開いて、置きたい場所をドラッグで指定",
+            "1 つの注釈を複数の画面に表示（レコード詳細／編集／新規作成／一覧・本文と位置は共有）",
+            "貼り先はフィールドの上下左右・画面上部・ツールバー・ステータスバー・一覧の列見出し・テーブルの見出し・画面に出ている文字",
+            "見せ方は常に表示する／アイコンにマウスを乗せたとき／アイコンをクリックしたときの3つ",
+            "12種類の配色プリセット（情報・注意・警告・手順・メモ・強調・完了・質問・ふせん・黒板・ホワイトボード・ダーク）",
+            "10種類の形状（角丸・吹き出し・ふせん風・左に色帯・上に色帯・枠だけ・枠なし ほか）",
+            "色・枠線・影・幅・高さ・アイコン・見出しラベルを注釈ごとに指定",
+            "リンクの色はカードの背景に合わせて自動で決まる（指定も可能）",
+            "ツールバー付きエディターで太字・下線・箇条書き・番号リスト・リンクを入力（HTML 編集も可）",
+            "注釈ごとに言語を追加し、閲覧者の表示言語で本文・リンク・画像を出し分け（8言語）",
+            "画像1枚とリンク最大3本を注釈に添付",
+            "表示する相手をユーザー・組織・グループで限定",
+            "一覧画面の注釈は、出す一覧（ビュー）を選択可能",
+            "印刷画面にも表示するかを選択",
+            "閲覧者がカードを動かす・大きさを変えることが可能（レコードを閉じると設定どおりに戻る）",
+            "設定画面に実際の見え方のライブプレビュー",
+            "配置モードのプレビューでカードを動かす・広げると、その位置と大きさがそのまま設定に反映",
+            "kintone の標準ボタン・ツールバー・コメント欄などを覆う位置に置くと、配置モードが警告",
+            "モバイル対応（一覧・詳細・編集・新規作成の4画面／画面上部にまとめて表示）・ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
+    .afp-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+    .afp-hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 26px; border-radius: 26px;
+      font-weight: 700; font-size: 1rem; text-decoration: none; line-height: 1.3;
+    }
+    .afp-hero-btn.is-primary { background: #2E8B2E; color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.22); }
+    .afp-hero-btn.is-primary:hover { background: #35a035; }
+    .afp-hero-btn.is-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.6); }
+    .afp-hero-btn.is-ghost:hover { background: rgba(255,255,255,0.24); }
+    @media (max-width: 600px) { .afp-hero-btn { width: 100%; } }
+
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      margin: 0 0 26px;
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot + .afp-shot,
+    .afp-shot + .afp-cautions,
+    .afp-shot + .afp-note,
+    .afp-shot + .afp-grid-feats { margin-top: 26px; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+    .afp-shot-w340 { max-width: 340px; }
+    .afp-shot-w380 { max-width: 380px; }
+    .afp-shot-w420 { max-width: 420px; }
+    .afp-shot-w520 { max-width: 520px; }
+    .afp-shot-w560 { max-width: 560px; }
+    .afp-shot-w640 { max-width: 640px; }
+    .afp-shot-w720 { max-width: 720px; }
+    .afp-shot-w840 { max-width: 840px; }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    /* Pre-release state: the product page is live but the zip is not distributed yet. */
+    .afp-plan-cta.is-soon { background: #94A3B8; cursor: default; text-align: center; }
+    .afp-plan-cta.is-soon:hover { transform: none; box-shadow: none; }
+    .afp-hero-btn.is-soon { background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.85); border: 1px dashed rgba(255,255,255,0.55); cursor: default; }
+    .afp-soon-box { display: flex; align-items: flex-start; gap: 14px; background: #FFF7ED; border: 1px solid #FDBA74; border-left: 5px solid #EA580C; border-radius: 10px; padding: 18px 20px; }
+    .afp-soon-tag { flex-shrink: 0; background: #EA580C; color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+    .afp-soon-text { margin: 0; line-height: 1.8; color: #7C2D12; }
+    .afp-soon-text a { color: #7C2D12; text-decoration: underline; }
+    @media (max-width: 560px) { .afp-soon-box { flex-direction: column; gap: 10px; } }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-zoomhint { text-align: center; font-size: 0.82rem; color: var(--color-text-muted); margin: 10px 0 0; }
+
+    .steps-list { list-style: none; padding: 0; margin: 8px 0 4px; counter-reset: afpstep; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <style is:global>
+    /* このページで足すもの */
+    .afp-h3 {
+      font-size: 1.15rem; color: var(--color-navy); margin: 34px 0 12px;
+      padding-left: 12px; border-left: 4px solid var(--color-green);
+    }
+    .afp-h3:first-of-type { margin-top: 8px; }
+    .afp-feat-no {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--color-green); margin-bottom: 6px;
+    }
+    /* 見せ方の見出しに付ける設定名のバッジ */
+    .an-mode-role {
+      display: inline-block; background: #e8f5e9; color: var(--color-green);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em;
+      padding: 3px 10px; border-radius: 999px; margin-right: 10px;
+      vertical-align: middle; white-space: nowrap;
+    }
+    /* 日本語／英語の対比 */
+    .an-lang { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 26px 0 0; }
+    .an-lang figure { margin: 0; }
+    .an-lang .an-lang-tag {
+      display: inline-block; font-size: 0.78rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 999px; margin-bottom: 8px;
+      background: #eef2f7; color: #334e74;
+    }
+    .an-lang img { width: 100%; height: auto; border: 1px solid #dbe3ec; border-radius: 8px; background: #fff; cursor: zoom-in; }
+    .an-lang figcaption { font-size: 0.86rem; color: #64748b; line-height: 1.7; margin-top: 8px; }
+    @media (max-width: 767px) { .an-lang { grid-template-columns: 1fr; } }
+  </style>
+
+  <main>
+    <!-- ヒーロー -->
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/annotation-icon.png" alt="注釈アシスト for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1 class="afp-hero-title">注釈アシスト for kintone</h1>
+      <p class="afp-tagline">ラベルを置けない場所に、説明を貼る。</p>
+      <p class="afp-sub">kintone のラベルは<strong>フォームの中にしか置けません</strong>。本プラグインは、<strong>標準ボタンの隣・画面の上部・一覧のツールバー・一覧の列見出し</strong>といった「書きたいのに書けなかった場所」へ、説明や注意書きのカードを貼り付けます。位置は<strong>実際の画面を開いてドラッグで決める</strong>ので、フォームの編集は要りません。注釈ごとに言語を足せば、<strong>閲覧者の表示言語で出し分け</strong>ます。</p>
+      <div class="afp-hero-cta">
+        <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+        <span class="afp-hero-btn is-soon" aria-disabled="true">配布準備中</span>
+      </div>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 配布前のお知らせ -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <div class="afp-soon-box">
+          <span class="afp-soon-tag">配布準備中</span>
+          <p class="afp-soon-text">ただいま<strong>公開の準備を進めています</strong>。機能と使い方は下記のとおり確定していますが、<strong>ダウンロードはまだ開始していません</strong>。開始しましたら<a href="/news/">お知らせ</a>でご案内します。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 課題 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">「ここに一言書ければ」が、書けない</h2>
+        <p class="afp-lead">「この欄は空欄のまま保存しないで」「回答したらステータスを進めて」——伝えたいのは、たいてい<strong>操作するその場所</strong>のことです。ところが kintone のラベルフィールドは<strong>フォームの中にしか置けない</strong>ため、ボタンの隣にも、一覧の列見出しにも、画面の上部にも書けません。</p>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">01</span>
+            <h3>マニュアルは読まれない</h3>
+            <p>別ファイルの手順書に書いても、入力している人はその画面を見ています。<strong>読みに行く手間の分だけ、読まれません。</strong></p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">02</span>
+            <h3>ラベルを足すとフォームが伸びる</h3>
+            <p>注意書きのためにラベルを並べると、<strong>入力欄より説明文のほうが長い</strong>フォームになります。スペースの調整もそのたびに必要です。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">03</span>
+            <h3>日本語だけでは届かない</h3>
+            <p>海外拠点や外国籍のメンバーが同じアプリを使う場合、<strong>ラベルに書いた注意書きは日本語のまま</strong>です。kintone の「言語ごとの名称」は項目名にしか効きません。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 配置モード -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">実際の画面を開いて、置きたい場所に置く</h2>
+        <p class="afp-lead">設定画面の［レコード詳細画面を開いて置き直す］を押すと、<strong>本物のレコード画面が配置モードで開きます</strong>。置きたい場所をクリックすると、その近くにある項目・ボタン・見出しを目印として拾い、<strong>「フィールド『対応状況』の右」</strong>のように覚えます。あとで項目を動かしても、注釈は目印についていきます。</p>
+
+        <p class="afp-zoomhint">画像をクリックすると拡大表示します</p>
+
+        <figure class="afp-shot afp-shot-w720">
+          <Picture src="/images/annotation-config-05.png" alt="配置モードで開いたレコード詳細画面。上部に配置モードの操作バーが出て、画面上の注釈アイコンをドラッグで移動できる状態" width="2160" height="1350" class="zoomable" />
+          <figcaption class="afp-shot-cap">実際のレコード画面がそのまま出ます。<strong>置く・動かす・大きさを変える</strong>をこの画面で終わらせます</figcaption>
+        </figure>
+
+        <figure class="afp-shot afp-shot-w720">
+          <Picture src="/images/annotation-config-06.png" alt="配置モードのプレビュー。操作バーが利用者と同じ見え方であることを説明し、実際の注釈カードが表示されている" width="2160" height="1350" class="zoomable" />
+          <figcaption class="afp-shot-cap">［プレビュー］を押すと<strong>利用者と同じ見え方</strong>になります。マウスを乗せる・クリックするところまで試せて、<strong>このままカードを動かすと、その位置がそのまま設定に反映されます</strong></figcaption>
+        </figure>
+
+        <h3 class="afp-h3">kintone のボタンの上に置くと、その場で止めます</h3>
+        <p class="afp-lead">注釈は画面に<strong>重ねて</strong>表示します。そのため<strong>kintone の操作部品の上に置くと、そこがクリックできなくなります</strong>。配置モードは、置いた注釈が<strong>プロセス管理のボタン・ツールバー・［保存］［キャンセル］・コメント欄・ページ送り</strong>などを覆うと、その場で知らせます。</p>
+        <figure class="afp-shot afp-shot-w720">
+          <Picture src="/images/annotation-config-07.png" alt="配置モードで注釈のアイコンを［申請する］ボタンの上へ運んだところ。上部のバーに「この位置だと「プロセス管理のアクションボタン」が押せなくなります」と警告が出て、アイコンに赤い輪が付いている" width="2160" height="1350" class="zoomable" />
+          <figcaption class="afp-shot-cap">覆っているアイコンには<strong>赤い輪</strong>が付きます。少しずらせば消えます</figcaption>
+        </figure>
+        <div class="afp-note">当社 15 製品が同居し、プロセス管理を使っているアプリで実機確認しています。<strong>離れた場所に置いている限り、標準のボタンもポップアップも邪魔しません</strong>——プロセス管理の作業者選択ポップアップは注釈より前面に出ますし、注釈のポップアップを開いたままボタンを押しても、注釈のほうが先に閉じます。</div>
+
+        <h3 class="afp-h3">貼れる場所</h3>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>目印</th><th>置ける場所の例</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>フィールド</strong></td><td>項目の上・下・左・右（ピクセル単位の微調整つき）</td></tr>
+              <tr><td><strong>kintone 標準の枠</strong></td><td>画面上部（ヘッダースペース）／ツールバー／ツールバーの空き／ステータスバー／一覧の列見出し／テーブルの見出し／ページ送りの付近</td></tr>
+              <tr><td><strong>画面に出ている文字</strong></td><td>ボタンの文字や見出しなど、画面に出ている文字の近く</td></tr>
+              <tr><td><strong>画面の固定位置</strong></td><td>目印が見つからないときは、画面の左上からの座標で固定</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note"><strong>1 つの注釈を、複数の画面に出せます。</strong>［出す画面］で<strong>レコード詳細・編集・新規作成・一覧</strong>にチェックを入れるだけで、<strong>本文も見た目も位置もひとつのまま</strong>、選んだ画面すべてに出ます（置き直しは要りません）。目印が無い画面では、その注釈だけ出ません。<strong>フォームの編集は不要</strong>で、スペースやラベルを足す必要はありません。プラグインを無効にすれば、元の画面にそのまま戻ります。</div>
+      </div>
+    </section>
+
+    <!-- 見せ方 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">見せ方は、注釈ごとに3つから選べます</h2>
+        <p class="afp-lead">必ず読んでほしい決まりごとは<strong>常に表示</strong>、補足は<strong>マウスを乗せたとき</strong>、長い説明は<strong>クリックしたとき</strong>——というように、1つの画面の中で使い分けられます。</p>
+
+        <p class="afp-zoomhint">画像をクリックすると拡大表示します</p>
+
+        <h3 class="afp-h3"><span class="an-mode-role">常に表示する</span>読み飛ばしてほしくない決まりごと</h3>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/annotation-use-01.png" alt="kintone のレコード詳細画面。フォームの空いた場所に、対応のきまりという緑の注釈カードが常に表示されている" width="2160" height="1105" class="zoomable" />
+          <figcaption class="afp-shot-cap">画面を開いた瞬間から見えています。アイコンは出ず、<strong>カードだけが置かれます</strong></figcaption>
+        </figure>
+
+        <h3 class="afp-h3"><span class="an-mode-role">アイコンにマウスを乗せたとき</span>気づいた人だけが読む補足</h3>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/annotation-use-02.png" alt="期限の項目の隣にある注意アイコンにマウスを乗せ、期限の決め方を説明する注釈カードが開いた状態" width="2160" height="1173" class="zoomable" />
+          <figcaption class="afp-shot-cap">小さなアイコンだけを置き、<strong>マウスを乗せている間だけ</strong>カードを出します。画面は狭くなりません</figcaption>
+        </figure>
+
+        <h3 class="afp-h3"><span class="an-mode-role">アイコンをクリックしたとき</span>少し長い説明や手順</h3>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/annotation-use-03.png" alt="詳細の項目の隣にある情報アイコンをクリックし、書き方のコツを説明する紺色の注釈カードが開いた状態" width="2160" height="1105" class="zoomable" />
+          <figcaption class="afp-shot-cap">クリックで開き、もう一度クリックか画面の外を押すと閉じます。<strong>読み終わるまで開いたまま</strong>です</figcaption>
+        </figure>
+
+        <div class="afp-note">閲覧している人は、<strong>カードを動かしたり大きさを変えたり</strong>できます（下に隠れた項目を見たいときのため）。動かした位置は保存されないので、<strong>レコードを閉じれば設定どおりの場所に戻ります</strong>。</div>
+
+        <h3 class="afp-h3">一覧画面にも置けます</h3>
+        <figure class="afp-shot afp-shot-w720">
+          <Picture src="/images/annotation-use-04.png" alt="kintone の一覧画面。ツールバーの空いた場所に、一覧の使い方を説明する注釈カードが表示されている" width="2160" height="1350" class="zoomable" />
+          <figcaption class="afp-shot-cap">一覧の<strong>ツールバー・列見出し・ページ送りの付近</strong>に置けます。「この一覧は何を見るためのものか」をその場に書けます</figcaption>
+        </figure>
+        <div class="afp-note">一覧の注釈は<strong>［対象の一覧］でどの一覧に出すかを選べます</strong>（何も選ばなければ、すべての一覧に出ます）。一覧ごとに違う説明を出したいときに使います。</div>
+      </div>
+    </section>
+
+    <!-- 多言語 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">同じ注釈を、相手の言語で出し分けます</h2>
+        <p class="afp-lead">注釈ごとに<strong>［＋言語を追加］</strong>を押して、言語別の本文・リンク・画像を登録します。あとは<strong>閲覧している人の kintone の表示言語</strong>に合わせて、自動で切り替わります。利用者に操作は要りません。</p>
+
+        <div class="an-lang">
+          <figure>
+            <span class="an-lang-tag">表示言語：日本語</span>
+            <Picture src="/images/annotation-use-01.png" alt="表示言語が日本語のレコード詳細画面。項目名も注釈カードも日本語で表示されている" width="2160" height="1105" class="zoomable" />
+            <figcaption>項目名も注釈も日本語。ラベル帯は「対応のきまり」</figcaption>
+          </figure>
+          <figure>
+            <span class="an-lang-tag">表示言語：English</span>
+            <Picture src="/images/annotation-en-01.png" alt="表示言語が英語のレコード詳細画面。項目名も注釈カードも英語で表示され、同じ位置に同じ見た目で出ている" width="2160" height="1105" class="zoomable" />
+            <figcaption>同じ注釈が英語に。位置も見た目もそのまま</figcaption>
+          </figure>
+        </div>
+
+        <div class="afp-note">対応言語は <strong>kintone の表示言語に準じた8言語</strong>です。登録していない言語の人には、<strong>既定の言語を出す／何も出さない</strong>のどちらかを選べます（注釈ごとに指定できます）。</div>
+      </div>
+    </section>
+
+    <!-- 見た目 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">見た目は、選ぶだけでも・細かく決めても</h2>
+        <p class="afp-lead"><strong>12種類の配色プリセット</strong>（情報・注意・警告・手順・メモ・強調・完了・質問・ふせん・黒板・ホワイトボード・ダーク）から選べば、<strong>色も形も見出しの帯もまとめて変わります</strong>。そのうえで、形状・枠線・色・影・幅・高さ・アイコンを個別に直すこともできます。</p>
+
+        <p class="afp-zoomhint">画像をクリックすると拡大表示します</p>
+
+        <figure class="afp-shot afp-shot-w720">
+          <Picture src="/images/annotation-config-04.png" alt="設定画面の見た目の共通設定タブ。新しい注釈のひな形になる配色プリセット・形状・枠線・配色・影・大きさを設定し、左にライブプレビューが出ている" width="2318" height="1493" class="zoomable" />
+          <figcaption class="afp-shot-cap">［見た目の共通設定］は<strong>新しい注釈のひな形</strong>です。すでにある注釈は変わらず、揃えたいときだけ［この見た目をすべての注釈に適用する］を押します</figcaption>
+        </figure>
+
+        <div class="afp-tablewrap" style="margin-top:26px;">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>決められること</th><th>選べるもの</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>配色プリセット</td><td>12種類（選ぶと色・形状・枠線・影がまとめて変わります）</td></tr>
+              <tr><td>形状</td><td>10種類（標準の四角／角丸3段階／吹き出し／ふせん風／左に色帯／上に色帯／枠だけ／枠なし）</td></tr>
+              <tr><td>配色</td><td>背景・本文・ラベル背景・ラベル文字・アクセントを個別に指定</td></tr>
+              <tr><td>リンク</td><td><strong>既定は自動</strong>（カードの背景に合わせて読める色を選びます）。色の指定も可能</td></tr>
+              <tr><td>枠線・影</td><td>太さ・線の種類・色／影は なし・弱・強</td></tr>
+              <tr><td>大きさ</td><td>幅・高さを px で指定（0 なら中身に合わせる）</td></tr>
+              <tr><td>アイコン</td><td>10種類から選択、大きさも指定</td></tr>
+              <tr><td>見出しラベル</td><td>言語ごとに文字を入れると、カードの上に帯が出ます（空欄なら出ません）</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 設定画面 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定画面</h2>
+        <p class="afp-lead">注釈を一覧で管理し、1件ずつ<strong>［STEP 1 中身を書く］→［STEP 2 見せ方を決める］</strong>の順に設定します。左には<strong>実際の見え方</strong>が出ていて、閉じているとき・開いたときの両方をその場で確かめられます。</p>
+
+        <p class="afp-zoomhint">画像をクリックすると拡大表示します</p>
+
+        <h3 class="afp-h3">① 注釈の一覧</h3>
+        <figure class="afp-shot afp-shot-w720">
+          <Picture src="/images/annotation-config-01.png" alt="設定画面の注釈タブ。設定済みの注釈が画面・貼り先・表示のしかたとともに表で並んでいる" width="2340" height="1260" class="zoomable" />
+          <figcaption class="afp-shot-cap">どの画面の・どこに・どう出るかが一覧で分かります。<strong>目印が見つからなくなった注釈には警告が付きます</strong></figcaption>
+        </figure>
+
+        <h3 class="afp-h3">② 1件の設定</h3>
+        <figure class="afp-shot afp-shot-w560">
+          <Picture src="/images/annotation-config-02.png" alt="設定画面で注釈を1件編集している画面。言語タブ、ツールバー付きのエディター、ラベル文字、画像、リンク、表示のしかた、配色プリセット、形状、配色、大きさ、アイコン、見せる相手などの設定が並んでいる" width="2318" height="3690" class="zoomable" />
+          <figcaption class="afp-shot-cap">本文は<strong>ツールバー付きのエディター</strong>で書きます（太字・下線・箇条書き・番号リスト・リンク）。HTML で直接書くこともできます</figcaption>
+        </figure>
+
+        <h3 class="afp-h3">③ 言語を足す</h3>
+        <figure class="afp-shot afp-shot-w560">
+          <Picture src="/images/annotation-config-03.png" alt="設定画面で English の言語タブを開いた状態。本文とラベル文字を英語で入力し、左のプレビューも英語のカードになっている" width="2318" height="3690" class="zoomable" />
+          <figcaption class="afp-shot-cap">言語タブを切り替えて書くだけです。<strong>左のプレビューもその言語の見え方</strong>に変わります</figcaption>
+        </figure>
+
+        <div class="afp-note">保存すると<strong>［アプリの設定］画面に戻ります</strong>。そこで kintone の<strong>［アプリを更新］</strong>を押すと、注釈が利用者の画面に出ます（保存しただけでは、まだ利用者には見えません）。</div>
+      </div>
+    </section>
+
+    <!-- インストール -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="steps-list">
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-annotation-v1.0.0.zip</code> を保存します（<strong>配布の開始後にご利用いただけます</strong>）。</span></li>
+          <li><span>kintone の<strong>「kintoneシステム管理」→「プラグイン」</strong>を開き、<strong>「読み込む」</strong>から zip を読み込みます。</span></li>
+          <li><span>注釈を出したいアプリで<strong>「アプリの設定」→「プラグイン」→「プラグインの追加」</strong>から追加します。</span></li>
+          <li><span>歯車アイコンから設定画面を開き、<strong>［＋新しい注釈］</strong>で対象の画面を選び、実際の画面を開いて位置を決めて保存します。</span></li>
+          <li><span>アプリを<strong>更新</strong>すると、利用者の画面に出ます。</span></li>
+        </ol>
+        <div class="afp-note">すでにお使いの場合は、同じ手順で新しい zip を読み込むと上書きされます。<strong>アプリごとの設定は保持されます</strong>。</div>
+      </div>
+    </section>
+
+    <!-- プラン -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料のままでも、<strong>注釈 1 件</strong>まで使えます（配置・見た目・画像・リンク・表示条件・モバイルは、すべて無料の範囲です）。<strong>複数の注釈</strong>と<strong>言語の出し分け</strong>が使えるようになるのが、プレミアム年間サポーターです（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ 実際の画面を開いての配置（詳細・追加・編集・一覧）</li>
+              <li>✅ 見せ方3種類（常に表示／マウスを乗せたとき／クリック）</li>
+              <li>✅ 配色プリセット12種類・形状10種類・色や大きさの個別指定</li>
+              <li>✅ 画像・リンク・見せる相手の限定・印刷画面</li>
+              <li>✅ モバイル対応・ゲストスペース対応</li>
+              <li>✅ 利用期限なし（注釈1件・既定の言語のみ／設定画面に控えめな広告あり）</li>
+            </ul>
+            <span class="afp-plan-cta is-soon" id="btn-download" aria-disabled="true">配布準備中</span>
+          </div>
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>注釈を何件でも</strong>設定できます</li>
+              <li>✅ <strong>8言語の出し分け</strong>（本文・リンク・画像を言語ごとに登録）</li>
+              <li>✅ 言語テキストの<strong>まとめて書き出し・読み込み</strong></li>
+              <li>✅ 設定画面の広告なし</li>
+              <li>✅ <strong>プレミアム全製品</strong>と、ちょこっとプラグイン全製品が使えます</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta is-primary">プレミアム年間サポーターを見る →</a>
+          </div>
+        </div>
+
+        <ResellerCard />
+      </div>
+    </section>
+
+    <!-- 制約 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">できないこと・ご注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li>注釈は<strong>アプリ共通の説明</strong>です。レコードごとに違う内容を出すことはできません（レコードに紐づく申し送りには、当社の<a href="/plugins/sticky-board/">付箋ボード</a>が向いています）。</li>
+            <li><strong>モバイル版は、置きたい場所をドラッグで決められません</strong>。kintone のモバイル版にはレコード画面の任意の位置へ要素を置く API が無いため、注釈は<strong>画面の上部にまとめて表示</strong>されます（出る画面は PC と同じ<strong>一覧・詳細・編集・新規作成</strong>の4つです）。フォームの途中に出したい場合は、<strong>スペース要素を置いてその要素IDを［全体の設定］に入れる</strong>と、その位置に表示できます（詳細・編集・新規作成の3画面で1か所・一覧は常に上部）。マウスを乗せたときの表示は、タップでの表示に読み替えます。カードの<strong>幅の指定はモバイルでは効きません</strong>（画面幅に合わせます）。</li>
+            <li>注釈は画面に<strong>重ねて</strong>表示するため、<strong>注釈の真下にある kintone のボタンや入力欄はクリックできなくなります</strong>。配置モードが警告しますが、<strong>保存は止めません</strong>（そこに置きたい場合もあるため）。警告が出たら、少しずらすか、常に表示ではなく「マウスを乗せたとき」「クリックしたとき」にしてください。</li>
+            <li>貼り先の目印（項目・見出し・ボタンの文字）が<strong>アプリの変更で無くなると、その注釈は表示されません</strong>。設定画面の一覧で警告が出るので、置き直してください。画面が壊れることはありません。</li>
+            <li>注釈に貼った画像は、ご利用中の kintone ドメイン内に自動で作られる<strong>保管アプリ</strong>へ添付されます（画像を使わなければ作られません）。この保管アプリを削除すると画像は表示されなくなります。</li>
+            <li>設定は kintone のプラグイン設定に保存され、<strong>1アプリあたり 65,535 文字</strong>という kintone 側の上限があります。言語や注釈を増やすと近づくため、設定画面に<strong>現在の大きさを常時表示</strong>しています（8割を超えると警告します）。</li>
+            <li>保存しただけでは利用者の画面には出ません。<strong>［アプリを更新］</strong>まで行ってください（kintone の仕様です）。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- よくある質問（表示と FAQPage JSON-LD は src/data/premium-faqs.ts を共有） -->
+    <PremiumFaqSection
+      pluginId="kw-annotation"
+      pageUrl="https://kizuna-works.jp/plugins/annotation/"
+      headingClass="afp-h2"
+    />
+
+    <!-- セキュリティ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-annotation" />
+        <ShareButtons title="注釈アシスト for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>書きたい場所に、書けるようにする</h2>
+      <p>注釈アシストはプレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料のままでも注釈 1 件まで、すべての機能をお試しいただけます。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="an-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('an-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      // ダウンロードは ヒーローとプランカードの2か所にあるので、まとめて計測する
+      // （配布準備中は a.js-dl が存在しないため、この登録は何もしない）
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: 'kw-annotation-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-annotation-v1.0.0.zip'
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

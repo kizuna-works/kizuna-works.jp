@@ -125,6 +125,18 @@ const BANNERS = {
       ['登録したら', 'そのまま取得', 'まで自動'],
       ['打った文字と', '条件を引き継いで', '入力']
     ]
+  },
+  'annotation': {
+    iconSrc: 'SECRET/kintone_plugin_workspace/kw-annotation/kw-annotation_icon_512.png',
+    iconSide: 'right',
+    catch: ['ラベルを置けない場所に、', '説明を貼る。'],
+    name: '注釈アシスト for kintone',
+    nameSize: 40,
+    bullets: [
+      ['ボタンの隣・画面の上部へ', '自由に配置', ''],
+      ['見せ方は', '常時・ホバー・クリック', ''],
+      ['注釈ごとに', '言語を出し分け', '']
+    ]
   }
 };
 
