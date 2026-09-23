@@ -11,9 +11,9 @@ import Picture from '../../../components/Picture.astro';
 
 <Layout
   title="テーブルアシスト for kintone - 明細の行を並べ替え・選んだ行だけ集計するプラグイン | KIZUNA Works"
-  description="kintone のテーブル（サブテーブル）の行をドラッグ&ドロップで並べ替え、複製・まとめて操作できるようにし、チェックを入れた行だけを合計・平均・件数で集計して数値フィールドへ自動入力する kintone プラグイン。標準にない SUMIF を作業用の計算列なしで実現します。列見出しソート・ヘッダー固定・行番号・行数制限・既存レコードへの一括反映に対応。kintone完結・外部API不使用。"
+  description="kintone のテーブル（サブテーブル）の行をドラッグ&ドロップで並べ替え、複製・まとめて操作できるようにし、チェックを入れた行だけを合計・平均・件数で集計して数値フィールドへ自動入力する kintone プラグイン。標準にない SUMIF を作業用の計算列なしで実現します。行の「＋」で押した行の真上に追加、一度に表示する行数を絞る折りたたみとページ送り、列見出しソート・ヘッダー固定・行番号・既存レコードへの一括反映に対応。kintone完結・外部API不使用。"
   ogTitle="テーブルアシスト for kintone - 明細の行を並べ替え・選んだ行だけ集計するプラグイン | KIZUNA Works"
-  ogDescription="チェックした行だけ、合計する。明細の行を並べ替え・複製・まとめて操作でき、選んだ行だけの合計・平均・件数を数値フィールドへ自動入力。作業用の計算列は不要です。kintone完結・外部API不使用。"
+  ogDescription="チェックした行だけ、合計する。明細の行を並べ替え・複製・まとめて操作でき、選んだ行だけの合計・平均・件数を数値フィールドへ自動入力。行数の多い明細は先頭 N 行だけ表示でき、＋は押した行の真上にも追加できます。kintone完結・外部API不使用。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/table-assist/"
   ogImage="https://kizuna-works.jp/images/table-assist-banner.png"
@@ -29,7 +29,7 @@ import Picture from '../../../components/Picture.astro';
           "@id": "https://kizuna-works.jp/plugins/table-assist/",
           "url": "https://kizuna-works.jp/plugins/table-assist/",
           "name": "テーブルアシスト for kintone - 明細の行を並べ替え・選んだ行だけ集計するプラグイン | KIZUNA Works",
-          "description": "kintone のテーブルの行を並べ替え・複製・まとめて操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ自動入力する kintone プラグイン。既存レコードへの一括反映にも対応。",
+          "description": "kintone のテーブルの行を並べ替え・複製・まとめて操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ自動入力する kintone プラグイン。行の追加位置の切り替えと表示行数の制限、既存レコードへの一括反映にも対応。",
           "primaryImageOfPage": {
             "@type": "ImageObject",
             "url": "https://kizuna-works.jp/images/table-assist-banner.png",
@@ -55,10 +55,10 @@ import Picture from '../../../components/Picture.astro';
           "name": "テーブルアシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.2",
-          "dateModified": "2026-09-19",
+          "softwareVersion": "1.1.0",
+          "dateModified": "2026-09-23",
           "url": "https://kizuna-works.jp/plugins/table-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-table-assist-v1.0.2.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-table-assist-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/table-assist-banner.png",
           "offers": {
             "@type": "Offer",
@@ -68,7 +68,7 @@ import Picture from '../../../components/Picture.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintone のテーブル（サブテーブル）の行をドラッグ&ドロップで並べ替え、複製・まとめて操作できるようにし、チェックを入れた行だけを合計・平均・件数で集計して数値フィールドへ自動入力する kintone プラグイン。列見出しソート・ヘッダー固定・行番号・行数制限・既存レコードへの一括反映に対応。",
+          "description": "kintone のテーブル（サブテーブル）の行をドラッグ&ドロップで並べ替え、複製・まとめて操作できるようにし、チェックを入れた行だけを合計・平均・件数で集計して数値フィールドへ自動入力する kintone プラグイン。行の「＋」で押した行の真上に追加、一度に表示する行数を絞る折りたたみとページ送り、列見出しソート・ヘッダー固定・行番号・行数制限・既存レコードへの一括反映に対応。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -84,6 +84,8 @@ import Picture from '../../../components/Picture.astro';
             "チェック用の列は自動生成せず、テーブル内の既存フィールド（チェックボックス・複数選択・ドロップダウン・ラジオボタン・文字列1行）を目印に使用",
             "導入前に登録済みのレコードにも集計値を一括反映（値が変わらないレコードは更新しない）",
             "テーブルごとの最大行数の設定と、1アプリの複数テーブルへの対応",
+            "行の「＋」を押したときの追加位置を「押した行の下（kintone 標準）／真上」から選択",
+            "一度に表示する行数を制限し、超えた行は折りたたみ（ページ送り・全件表示つき。隠れた行も保存・集計の対象）",
             "GAS・外部サービス不要・kintone完結・レコード画面では通信しない・ゲストスペース対応"
           ]
         }
@@ -727,6 +729,16 @@ import Picture from '../../../components/Picture.astro';
       margin: 0 0 24px;
     }
     .update-desc strong { color: var(--color-navy); }
+    /* Screenshot inside the update box */
+    .update-shot { max-width: 640px; margin: 20px auto 8px; }
+    .update-shot img { width: 100%; height: auto; display: block; border: 1px solid var(--color-gray-light); border-radius: 8px; }
+    .update-shot .shot-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--color-text-light);
+      margin: 8px 0 0;
+    }
+
     .update-note {
       color: var(--color-text-light);
       font-size: 13px;
@@ -770,23 +782,27 @@ import Picture from '../../../components/Picture.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.2</span>
+        <span class="hero-version">v1.1.0</span>
       </div>
       <h1 class="hero-title">テーブルアシスト for kintone</h1>
-      <p class="hero-copy">テーブルアシスト for kintone は、<strong>テーブル（サブテーブル）の行を並べ替え・複製・まとめて操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ書き込む</strong> kintone プラグインです。標準にない「条件付きの合計」を、<strong>作業用の計算列も関数式もなし</strong>で実現します。</p>
+      <p class="hero-copy">テーブルアシスト for kintone は、<strong>テーブル（サブテーブル）の行を並べ替え・複製・まとめて操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ書き込む</strong> kintone プラグインです。標準にない「条件付きの合計」を、<strong>作業用の計算列も関数式もなし</strong>で実現します。行の「＋」は<strong>押した行の真上</strong>にも追加でき、行数の多い明細は<strong>先頭 N 行だけ表示</strong>して折りたためます。</p>
     </section>
 
-    <!-- Update Info (v1.0.2) -->
+    <!-- Update Info (v1.1.0) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.0.2：行番号を表示しても、テーブルの列幅が設定どおりに保たれます</h2>
+          <h2 class="update-title">v1.1.0：行は「押した行の真上」にも追加でき、長い明細は先頭の数行だけ表示できます</h2>
         </div>
-        <p class="update-desc">「行番号を表示」を ON にすると、<strong>フォームで設定した各列の幅が反映されず、テーブルが画面の右端まで広がってしまう</strong>ことがありました。増設する行番号の列に割合（%）の幅を指定していたためで、kintone のテーブルはこの指定があると表そのものを親要素いっぱいまで広げ、余った幅を既存の列へ配ってしまいます。v1.0.2 では幅の指定をやめ、<strong>行番号の列は中身のぶん（30〜40px 程度）だけを使う</strong>ようにしました。列幅は行番号が OFF のときとまったく同じです。</p>
-        <p class="update-desc">あわせて、<strong>＋ボタンで行を追加したとき、その行の「文字列（複数行）」や「リッチエディター」だけが細く潰れる</strong>不具合を修正しました。行が生まれる一瞬だけ列の数が食い違い、kintone がその幅を入力欄に焼き付けてしまうのが原因で、あとから列が揃っても戻りませんでした。v1.0.2 では行が作られる前に列の構成を元へ戻すようにし、万一潰れた入力欄があっても同じ列の他の行に合わせ直します。</p>
-        <p class="update-desc">さらに、<strong>単価や納期など空欄のある行を複製すると、ボタンを押しても何も起きない</strong>不具合も直しました。kintone は未入力のセルを持たない形で行を返すため、複製した行が「列の欠けた行」として捨てられていたものです。<strong>空欄を含む行も、空の行も複製できます</strong>。</p>
-        <p class="update-note">すでにお使いの方は、最新版（v1.0.2）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+        <p class="update-desc">明細を<strong>新しいものから上へ積んでいく</strong>運用のために、行の「＋」で<strong>押した行の真上に追加</strong>できるようにしました（テーブルごとに「下（kintone 標準）／真上」を選べます）。一番上の行の＋を押すだけで先頭に行が増えるので、追加のたびに並べ替える必要がありません。途中の行の＋でも、その行の真上に入ります。追加した行には kintone 標準の＋と同じくフィールドの初期値が入ります。</p>
+        <p class="update-desc">あわせて、<strong>一度に表示する行数</strong>を決められるようにしました（例：10 行）。それを超える行は折りたたまれ、テーブルの下の<strong>ページ送り</strong>と<strong>「全 N 行を表示」</strong>で切り替えられます。<strong>隠れている行もこれまでどおり保存され、集計の対象になります</strong>——見えていないだけでデータは変わりません。保存するときは自動的に全行を表示するので、隠れた行の入力エラーを見落とす心配もありません。</p>
+        <div class="update-shot">
+          <Picture class="zoomable" src="/images/table-assist-record-03.png" alt="テーブルアシスト v1.1.0 のレコード編集画面 — 全12行のうち先頭5行だけを表示し、テーブル下に「1–5 行目 / 全 12 行（1 / 3 ページ）」のページ送りと「全 12 行を表示」ボタン、「＋ 末尾に行を追加」ボタン、選択中3行のうち2行は非表示である旨の注意、選択合計 22,400 の集計カードが並んでいる" width="1284" height="1061" />
+          <p class="shot-note">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-desc">このバージョンでは、次の 2 件の不具合も修正しています。<strong>必須フィールドの列だけ、列見出しをクリックしても並べ替わらない</strong>問題（kintone が必須の見出しに付ける「＊」まで列名として読んでいたためで、必須の列が多いテーブルではプラグイン自体が動かなくなることもありました）と、<strong>列見出しで 2 回並べ替えたあとにドラッグ&ドロップが効かなくなる</strong>問題です。いずれも v1.0.0 から存在していたもので、該当する症状にお心当たりがある場合は最新版への更新をおすすめします。</p>
+        <p class="update-note">すでにお使いの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。行の追加位置と表示行数はどちらも既定では変更なし（従来どおりの動き）なので、使いたいテーブルだけ設定してください。</p>
       </div>
     </section>
 
@@ -849,6 +865,8 @@ import Picture from '../../../components/Picture.astro';
           <li><span><strong>選んだ行だけの集計</strong> — 合計・平均・件数・最大・最小を、テーブル外の数値フィールドへ自動入力。1 つのテーブルに複数の集計ルールを設定できます。</span></li>
           <li><span><strong>既存レコードへの一括反映</strong> — 導入前に登録済みのレコードや、CSV 読み込みで入れたレコードにもまとめて書き込めます。値が変わらないレコードは更新しません。</span></li>
           <li><span><strong>行数制限</strong> — テーブルごとに最大行数を決めると、上限に達したときに ＋ ボタンと複製ボタンが押せなくなります。</span></li>
+          <li><span><strong>行の追加位置</strong> — 行の「＋」を押したときに、<strong>押した行の下（kintone 標準）／真上</strong>のどちらへ入れるかをテーブルごとに選べます。新しい明細を上へ積んでいく運用では、一番上の行の＋を押すだけで先頭に追加できます。</span></li>
+          <li><span><strong>表示する行数の制限</strong> — 行数の多い明細を<strong>先頭 N 行だけ表示</strong>し、残りは折りたたみます。ページ送りと「全 N 行を表示」で切り替えられ、隠れている行もそのまま保存・集計されます。</span></li>
           <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は不要。<strong>レコード画面では通信しません</strong>。ゲストスペースにも対応します。</span></li>
         </ul>
       </div>
@@ -907,6 +925,12 @@ import Picture from '../../../components/Picture.astro';
           </div>
           <figcaption>① テーブル設定：行の操作・行の選択・集計ルールを 1 画面で設定</figcaption>
         </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/table-assist-config-03.png" alt="テーブルアシスト 設定画面 — v1.1.0 で追加した「行の追加位置」（＋を押したときに「押した行の真上に追加」を選択し、「テーブルの下に『末尾に行を追加』ボタンを表示する」にチェック）と「表示する行数」の設定が並んでいる" width="1573" height="847" />
+          </div>
+          <figcaption>v1.1.0 で追加：行の追加位置と、一度に表示する行数</figcaption>
+        </figure>
       </div>
       <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
         <li><span><strong>テーブルごとに設定</strong> — 1 つのアプリに明細テーブルが複数あっても、それぞれ別の設定にできます。使わないテーブルには一切干渉しません。</span></li>
@@ -943,7 +967,7 @@ import Picture from '../../../components/Picture.astro';
       <p class="section-subtitle">レコードの作成・編集画面で全機能が動作します。詳細画面とモバイルは集計の表示に対応しています。</p>
       <ol class="steps-list">
         <li><span>テーブルの中に<strong>「行を選ぶ目印」になるフィールド</strong>（チェックボックスなど）と、テーブルの外に<strong>集計結果を書き込む数値フィールド</strong>を用意しておく</span></li>
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-table-assist-v1.0.2.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-table-assist-v1.1.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「テーブルアシスト for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で対象のテーブルを<strong>有効にし</strong>、行操作・選択に使うフィールド・集計ルールを設定して「保存」</span></li>
@@ -972,7 +996,7 @@ import Picture from '../../../components/Picture.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 設定画面・レコード一覧に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-table-assist-v1.0.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-table-assist-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">1プラグインならこちら</span>
@@ -1142,10 +1166,10 @@ import Picture from '../../../components/Picture.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-table-assist-v1.0.2.zip',
+              file_name: 'kw-table-assist-v1.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-table-assist-v1.0.2.zip'
+              link_url: '/downloads/kw-table-assist-v1.1.0.zip'
             });
           }
         });
