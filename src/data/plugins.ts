@@ -1589,7 +1589,7 @@ export const premiumPlugins: Plugin[] = [
     slug: 'lookup-filter',
     categories: ['表示・編集制御', '入力チェック'],
     description:
-      'ルックアップの［取得］で開く一覧を、入力中のレコードの値に応じて絞り込みます。標準の「絞り込みの初期設定」には入力中のレコードの値を書けませんが、他フィールドと突き合わせて候補を変えられます。場面ごとに絞り方を切り替えられ、条件に合わない値は保存時に止めます。',
+      'ルックアップの［取得］で開く一覧を、入力中のレコードの値に応じて絞り込みます。標準の「絞り込みの初期設定」には入力中のレコードの値を書けませんが、他フィールドと突き合わせて候補を変えられます。条件に合わない値は保存時に止めるか、確認して保存できます。',
     image: '/images/lookup-filter-banner.png',
     imageWebp: '/images/lookup-filter-banner.webp',
     imageAlt:
@@ -1599,12 +1599,12 @@ export const premiumPlugins: Plugin[] = [
     status: 'available',
     tier: 'premium',
     cardDescription:
-      'ルックアップの候補を、入力中のレコードの値で絞り込みます。条件に合わない値は保存時に止めます。',
+      'ルックアップの候補を、入力中のレコードの値で絞り込みます。条件に合わない値は保存時に止めるか、確認して保存できます。',
     problemTitle: 'ルックアップの候補が多すぎて、選び間違える',
     problemDesc:
       '取引先を選ぶ画面に何百件も並び、目的の1件を探すのに時間がかかる。標準の絞り込みの初期設定は入力中のレコードの値を見られないので、案件の担当営業所や区分に応じて候補を変えられない',
     releaseDate: '2026-09-03',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
   },
   {
     id: 'kw-form-connect',
