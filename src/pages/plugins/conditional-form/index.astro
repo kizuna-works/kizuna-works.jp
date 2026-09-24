@@ -55,10 +55,10 @@ import Picture from '../../../components/Picture.astro';
           "name": "条件分岐フォーム for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.5.0",
-          "dateModified": "2026-09-19",
+          "softwareVersion": "2.6.0",
+          "dateModified": "2026-09-24",
           "url": "https://kizuna-works.jp/plugins/conditional-form/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-form-v2.5.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-form-v2.6.0.zip",
           "image": "https://kizuna-works.jp/images/conditional-form-banner.png",
           "offers": {
             "@type": "Offer",
@@ -68,7 +68,7 @@ import Picture from '../../../components/Picture.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "区分・ステータス・入力値・ルックアップで取得した値などの条件に応じて、フォームのフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに動的制御する kintone プラグイン。保存前・プロセスアクションの実行前・削除前に条件を判定して処理を止める／確認ダイアログを出す／不足している項目をその場で入力させる「実行時チェック」に対応。値のセットは同じ型のフィールドの値のコピーにも対応し（例：申請者→発注担当）、固定値はユーザー選択・組織選択・グループ選択・チェックボックス・複数選択を複数まとめて指定できる。v2.5.0 からモバイル（kintone アプリ・スマートフォンのブラウザ）でも同じ設定がそのまま働く（一覧画面からの削除を止める機能はモバイル非対応）。条件→動作をルールで設定し、1つのアプリで区分別フォームと入力チェックをノーコードで実現する。",
+          "description": "区分・ステータス・入力値・ルックアップで取得した値などの条件に応じて、フォームのフィールドを表示/非表示・必須化・読み取り専用・自動入力・選択肢の絞り込みに動的制御する kintone プラグイン。保存前・プロセスアクションの実行前・削除前に条件を判定して処理を止める／確認ダイアログを出す／不足している項目をその場で入力させる「実行時チェック」に対応。値のセットは同じ型のフィールドの値のコピーにも対応し（例：申請者→発注担当）、固定値はユーザー選択・組織選択・グループ選択・チェックボックス・複数選択を複数まとめて指定できる。v2.5.0 からモバイル（kintone アプリ・スマートフォンのブラウザ）でも同じ設定がそのまま働く（一覧画面からの削除を止める機能はモバイル非対応）。v2.6.0 から、値のセットは条件を満たした状態で編集・新規作成画面を開いたときにも動き、空欄のときだけ入れるか、入力済みでも上書きするかをルールの動作ごとに選べる。条件→動作をルールで設定し、1つのアプリで区分別フォームと入力チェックをノーコードで実現する。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -78,7 +78,7 @@ import Picture from '../../../components/Picture.astro';
             "条件（最大5件・AND/OR）でフィールド/グループ/サブテーブル/関連レコード一覧を表示・非表示に出し分け",
             "条件成立時のみ必須化（標準は任意のフィールドを動的に必須に）",
             "条件成立時に読み取り専用化（編集ロック）",
-            "条件成立の瞬間に値を自動セット（固定値・クリア・TODAY 対応）",
+            "条件成立時に値を自動セット（固定値・クリア・TODAY 対応）。入力中に条件を満たした瞬間と、条件を満たした状態で画面を開いたときに入る",
             "条件成立時に選択肢を絞り込む（表示する選択肢を限定）",
             "選択肢・数値・日付（TODAY±N）・プロセス管理ステータスを条件に利用",
             "対象ユーザー条件（v2.0.0）：特定のユーザー・組織・グループのときだけルールを適用",
@@ -96,6 +96,9 @@ import Picture from '../../../components/Picture.astro';
             "モバイル対応（v2.5.0）：kintone モバイルアプリ・スマートフォンのブラウザでも、同じ設定でフォーム制御と実行時チェックが働く",
             "モバイルで対象外（v2.5.0）：一覧画面からの削除を止める機能（kintone のモバイル版に該当する仕組みが無い）。詳細画面での中止はダイアログで理由を表示",
             "チェックボックス・ラジオボタンの選択肢の絞り込みに対応（v2.5.0 で修正）",
+            "開いたときの値セット（v2.6.0）：条件を満たした状態で編集・新規作成画面を開いたときも値をセット。動作ごとに「空欄のときだけ入れる（既定）」「入力済みでも上書きする」を選択",
+            "設定画面の注意書き（v2.6.0）：詳細画面で動かない動作（値をセット・必須・読み取り専用・選択肢の絞り込み）を含むルールで「詳細」を選ぶと注意を表示",
+            "設定後にフィールドの型や選択肢が変わっても、合わない値の動作だけを見送り、ほかの動作はそのまま働く（v2.6.0）",
             "1ルールで複数の対象に動作を適用・優先順位はドラッグで変更",
             "安全則で競合解決（非表示＞読み取り専用＞必須）",
             "条件で表示された項目を枠線ハイライト・必須項目に必須バッジ",
@@ -176,34 +179,74 @@ import Picture from '../../../components/Picture.astro';
       margin-bottom: 24px;
     }
 
-    /* Update box (latest release) */
-    .update-section { max-width: 980px; margin: 32px auto 0; padding: 0 20px; }
+    /* Update box (version highlight) — same form as csv-export / summary-bar */
     .update-box {
-      background: #f6fff6;
-      border: 1px solid #bfe6bf;
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
       border-left: 5px solid var(--color-green);
-      border-radius: 10px;
-      padding: 24px 26px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
     }
     .update-tag {
-      display: inline-block; background: var(--color-green); color: #fff;
-      font-size: 0.72rem; font-weight: 700; letter-spacing: .04em;
-      padding: 3px 10px; border-radius: 4px; margin-right: 10px;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
     }
-    .update-date { color: var(--color-text-light); font-size: 0.85rem; }
-    .update-title { font-size: 1.2rem; color: var(--color-navy); font-weight: 700; margin: 12px 0 10px; }
-    .update-subtitle { font-size: 1.02rem; color: var(--color-navy); font-weight: 700; margin: 20px 0 8px; padding-top: 16px; border-top: 1px dashed #cfe6cf; }
-    .update-desc { color: var(--color-text); line-height: 1.85; margin: 0 0 16px; }
-    .update-shot { max-width: 640px; margin: 0 auto; }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 24px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-list { margin: 0 0 24px; padding-left: 1.3em; color: var(--color-text); font-size: 15px; line-height: 1.8; }
+    .update-list li { margin-bottom: 6px; }
+    .update-list strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+    /* Smaller, centered screenshot inside the update box */
+    .update-shot {
+      max-width: 640px;
+      margin: 0 auto 24px;
+    }
     .update-shot img {
       width: 100%; height: auto; display: block;
       border: 1px solid var(--color-gray-light); border-radius: 8px;
       box-shadow: 0 4px 14px rgba(0,0,0,0.08);
     }
-    .update-shot-cap { text-align: center; color: var(--color-text-light); font-size: 0.8rem; margin: 8px 0 0; }
-    .update-list { margin: 8px 0 0; padding-left: 1.3em; color: var(--color-text); line-height: 1.9; }
-    .update-list li { margin-bottom: 6px; }
-    .update-note { color: var(--color-text-light); font-size: 0.86rem; margin: 16px 0 0; line-height: 1.7; }
+    .update-shot .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin: 10px 0 0;
+    }
+    .update-shot-cap { text-align: center; color: var(--color-text); font-size: 13px; margin: 10px 0 0; }
 
     .hero-copy {
       font-size: 17px;
@@ -748,53 +791,50 @@ import Picture from '../../../components/Picture.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.5.0</span>
+        <span class="hero-version">v2.6.0</span>
       </div>
       <h1 class="hero-title">条件分岐フォーム for kintone</h1>
-      <p class="hero-copy">区分・ステータス・入力値のほか、ルックアップで取得した値や対象ユーザー（組織・グループ）の条件に応じて、フォームのフィールドを「表示／非表示・必須化・読み取り専用・自動入力・選択肢の絞り込み」に切り替える kintone プラグインです。サブテーブル・関連レコード一覧の表示制御にも対応。「条件 → 動作」をルールで設定するだけで、1つのアプリの中に区分別・担当者別の入力フォームをノーコードで作れます。<strong>保存・プロセスアクションの実行・削除そのもの</strong>を条件で止める・確認する・その場で入力させる「実行時チェック」も使えます。値のセットでは<strong>ほかのフィールドの値をコピー</strong>でき（例：申請者→発注担当）、固定値は<strong>ユーザー・組織・グループ・チェックボックスを複数まとめて指定</strong>できます。<strong>v2.5.0 からはモバイル（kintone アプリ・スマートフォンのブラウザ）でも同じ設定がそのまま働きます。</strong>入力の流れ・入力ミス・項目の取捨選択を、条件で自然に制御します。</p>
+      <p class="hero-copy">区分・ステータス・入力値のほか、ルックアップで取得した値や対象ユーザー（組織・グループ）の条件に応じて、フォームのフィールドを「表示／非表示・必須化・読み取り専用・自動入力・選択肢の絞り込み」に切り替える kintone プラグインです。サブテーブル・関連レコード一覧の表示制御にも対応。「条件 → 動作」をルールで設定するだけで、1つのアプリの中に区分別・担当者別の入力フォームをノーコードで作れます。<strong>保存・プロセスアクションの実行・削除そのもの</strong>を条件で止める・確認する・その場で入力させる「実行時チェック」も使えます。値のセットでは<strong>ほかのフィールドの値をコピー</strong>でき（例：申請者→発注担当）、固定値は<strong>ユーザー・組織・グループ・チェックボックスを複数まとめて指定</strong>できます。<strong>v2.5.0 からはモバイル（kintone アプリ・スマートフォンのブラウザ）でも同じ設定がそのまま働きます。</strong><strong>v2.6.0 では、条件を満たした状態で画面を開いたときにも値を自動でセットできるようになりました。</strong>入力の流れ・入力ミス・項目の取捨選択を、条件で自然に制御します。</p>
     </section>
 
-    <!-- Update Notice (v2.5.0 — 最新1件のみ。過去版の内容は「主な機能」「設定画面の使い方」に内包) -->
-    <section class="update-section fade-in">
+    <!-- Update Info (v2.6.0 — 最新1件のみ。過去版の内容は「主な機能」「設定画面の使い方」に内包) -->
+    <section class="section-wrapper fade-in">
       <div class="update-box">
-        <div>
+        <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <span class="update-date">v2.5.0（2026年9月7日）</span>
+          <h2 class="update-title">v2.6.0：条件を満たした状態で画面を開いたときも、値を自動でセットできるようにしました</h2>
         </div>
-        <h2 class="update-title">モバイル（kintone アプリ）に対応しました</h2>
-        <p class="update-desc">
-          これまで条件分岐フォームは <strong>PC 版の kintone 専用</strong>で、スマートフォンからレコードを開くと条件による制御が働きませんでした。v2.5.0 から、<strong>kintone モバイルアプリとスマートフォンのブラウザでも、PC と同じ設定がそのまま働きます</strong>。設定画面での作業や設定の作り直しは必要ありません。
-        </p>
+        <p class="update-desc">「値をセットする」は、これまで<strong>入力中に条件を満たした瞬間</strong>だけ値を入れていました。そのため、<strong>条件に使う項目が最初から入っているレコード</strong>（初期値で入る担当組織、外部から取り込んだデータ、既存のレコードなど）では、編集画面を開いても値が入りませんでした。v2.6.0 から、<strong>条件を満たした状態で編集・新規作成画面を開いたときにも値をセット</strong>します。たとえば「商談フェーズが受注」のレコードを開くと、空欄の「アクション内容」に決まった文言が入ります。</p>
         <div class="update-shot">
           <Picture
             class="zoomable"
-            src="/images/conditional-form-mobile-01.png"
-            alt="スマートフォンで開いた稟議申請アプリの2画面。左は編集画面で、条件により申請部署がグレーの読み取り専用になり、申請内容のラベル横に赤い「必須」バッジが付いている。右はレコード詳細で「差し戻す」を実行したときに「差し戻す理由を入力してください。申請者に通知されます。」という入力画面が開き、差し戻し理由が入力されている"
-            width="1332"
-            height="1098"
+            src="/images/conditional-form-setvalue-05.png"
+            alt="条件分岐フォーム v2.6.0 の設定画面の動作欄。1行目は確度を「値をセットする／固定値／セット値 100%」、開いたとき「入力済みでも上書きする」。2行目はアクション内容を「値をセットする／固定値／契約書の送付」、開いたとき「空欄のときだけ入れる」。下に適用する画面（新規作成・編集にチェック）"
+            width="941"
+            height="618"
             loading="lazy"
           />
-          <p class="update-shot-cap">画像をクリックすると拡大表示します</p>
+          <p class="update-shot-cap">動作の行ごとに「開いたとき:」を選べます</p>
         </div>
-        <h3 class="update-subtitle">スマートフォンでも働くもの</h3>
+        <div class="update-shot">
+          <Picture
+            class="zoomable"
+            src="/images/conditional-form-setvalue-07.png"
+            alt="案件管理アプリの編集画面。商談フェーズが受注のレコードを開いた時点で、確度が100%に、アクション内容に「契約書の送付」が入っている（確度・商談フェーズ・受注予定日・売上の行と、アクション内容の行を抜粋）"
+            width="1087"
+            height="311"
+            loading="lazy"
+          />
+          <p class="update-shot-cap">「商談フェーズ＝受注」のレコードの編集画面を開いたところ（該当部分を抜粋）</p>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
         <ul class="update-list">
-          <li><strong>フォーム制御</strong> — 表示／非表示・必須化・読み取り専用・値の自動入力・選択肢の絞り込み・ハイライト表示。</li>
-          <li><strong>実行時チェック</strong> — 保存前・プロセスアクションの実行前・削除前（詳細画面）に、<strong>止める／確認する／入力を促す</strong>。承認の途中で必要な項目をその場で入力してもらう流れも、そのままスマートフォンで使えます。</li>
-          <li><strong>アクションボタンの出し分け</strong> — 条件を満たすまで、そのアクションのボタン自体を出しません。</li>
-          <li><strong>対象ユーザー条件</strong> — 特定のユーザー・組織・グループだけに適用するルールも同じように働きます。</li>
+          <li><strong>空欄のときだけ入れる（既定）</strong> — 対象が空欄のときだけ値を入れます。手で入力した値は残ります。</li>
+          <li><strong>入力済みでも上書きする</strong> — 開くたびに、設定した値にそろえます。常に同じ値にしておきたい項目向けです。</li>
+          <li><strong>詳細画面を選んだときの注意書き</strong> — 値のセットは kintone の仕組み上、詳細画面では動きません。「適用する画面」で「詳細」を選ぶと、設定画面に注意書きが出るようにしました。</li>
         </ul>
-        <h3 class="update-subtitle">スマートフォンでは対象外のもの</h3>
-        <ul class="update-list">
-          <li><strong>一覧画面からの削除を止める</strong> — kintone のモバイル版には一覧からレコードを削除する操作そのものがなく、この制御の仕組みも提供されていないため対象外です（詳細画面からの削除は止められます）。設定画面では「削除前（一覧画面・PC のみ）」と表示します。</li>
-          <li><strong>削除・アクションを止めたときのメッセージの出方</strong> — PC は画面上部に表示しますが、モバイルはその仕組みが使えないため、<strong>理由をダイアログで表示してから中止</strong>します。止まること・理由が伝わることは同じです。</li>
-        </ul>
-        <h3 class="update-subtitle">あわせて、選択肢の絞り込みの不具合を修正しました</h3>
-        <p class="update-desc">
-          「選択肢を絞り込む」が<strong>チェックボックスとラジオボタンでは効いていなかった</strong>点を修正しました（ドロップダウン・複数選択は従来どおり動作していました）。この2種類を対象に設定していた場合は、上書きアップロード後から絞り込みが働きます。
-        </p>
         <p class="update-note">
-          設定はそのまま引き継がれます。モバイルで使いたくない場合の設定は不要で、これまでどおり PC でご利用いただけます。<br>
-          ※ 実行時チェックは<strong>画面の操作に対する歯止め</strong>です。REST API・CSV 読み込み・他プラグインの一括処理から行われた保存・ステータス変更・削除は止められません。<br>
+          これまでに作ったルールは「空欄のときだけ入れる」として動きます。設定し直す必要はありません。画面を開いて値が入っても、保存するまでレコードは変わりません。入力中に条件を満たした瞬間の動き（入力済みでも値を置き換える）は、これまでどおりです。<br>
           ※ プラグインは自動更新されません。お手数ですが、最新版をダウンロードし、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>してください。
         </p>
       </div>
@@ -932,7 +972,11 @@ import Picture from '../../../components/Picture.astro';
           <li><span><strong>表示／非表示の出し分け</strong> — 条件成立でフィールド・グループに加え、<strong>サブテーブル・関連レコード一覧（テーブル全体）</strong>も表示・非表示。「表示する」を選んだ項目は普段は自動的に隠れ、条件を満たしたときだけ現れます（区分別フォーム）。</span></li>
           <li><span><strong>動的な必須化</strong> — 標準では任意のフィールドを、条件成立時だけ必須に。未入力で保存しようとするとエラーになり、必須項目にはラベル横に「必須」バッジを表示します。</span></li>
           <li><span><strong>読み取り専用（ロック）</strong> — 条件成立時に対象フィールドを入力不可に。決まった値を裏でセットしてロック表示する定番パターンにも対応します。</span></li>
-          <li><span><strong>値の自動セット</strong> — 条件が成立した瞬間に値をセット／空欄にクリア。日付フィールドには <strong>TODAY・TODAY+7・TODAY-3</strong> も指定できます。常時上書きはせず手入力を妨げません。</span></li>
+          <li><span><strong>値の自動セット</strong> — 入力中に条件を満たした瞬間と、<strong>条件を満たした状態で画面を開いたとき</strong>に値をセット／空欄にクリア。日付フィールドには <strong>TODAY・TODAY+7・TODAY-3</strong> も指定できます。</span></li>
+          <li><span><strong>開いたときも値をセット（v2.6.0）</strong> — 条件に使う項目が最初から入っているレコードでも、編集・新規作成画面を開いた時点で値が入ります。初期値で入る担当組織や、外部から取り込んだレコードを条件にしたルールに向いています。</span></li>
+          <li><span><strong>空欄のときだけ／上書きを選べる（v2.6.0）</strong> — 開いたときの動作は、動作の行ごとに「空欄のときだけ入れる（既定）」「入力済みでも上書きする」から選べます。手入力を残したい項目と、常に同じ値にそろえたい項目を使い分けられます。</span></li>
+          <li><span><strong>詳細画面を選んだときの注意書き（v2.6.0）</strong> — 値のセット・必須・読み取り専用・選択肢の絞り込みは詳細画面では動きません。これらを含むルールで「詳細」を選ぶと、設定画面に注意書きを表示します。</span></li>
+          <li><span><strong>フォームを変えても他のルールは止まらない（v2.6.0）</strong> — ルールを作ったあとでフィールドの型や選択肢を変えても、今のフィールドに合わない値の動作だけを見送り、ほかの動作はそのまま働きます。</span></li>
           <li><span><strong>ほかのフィールドの値をコピー（v2.4.0）</strong> — 固定値のかわりに、<strong>同じアプリの同じ型のフィールドの値</strong>を入れられます。「社外案件になったら発注担当に申請者を入れる」のような連動が、JavaScript なしで作れます。コピー元が空のときは対象も空になります。</span></li>
           <li><span><strong>固定値の複数指定（v2.4.0）</strong> — <strong>ユーザー選択・組織選択・グループ選択</strong>は候補の一覧から複数選択、<strong>チェックボックス・複数選択</strong>は選択肢を複数チェックできます。担当者を2人まとめて入れる、といった指定が可能です。</span></li>
           <li><span><strong>グループの中の項目も1つずつ制御（v2.4.0）</strong> — グループ内のフィールドは一覧に <strong>「項目名（グループ名 グループ内）」</strong> と表示され、グループの外の項目と見分けられます。グループ全体をまとめて出し分けることもできます。</span></li>
@@ -1061,6 +1105,34 @@ import Picture from '../../../components/Picture.astro';
             <p>値のセットでは、固定値のかわりに<strong>同じ型のほかのフィールドの値</strong>をコピーできます。固定値はユーザー・組織・グループ・チェックボックスを複数まとめて指定できます。</p>
           </div>
         </div>
+        <div class="config-shot">
+          <Picture
+            class="zoomable"
+            src="/images/conditional-form-setvalue-06.png"
+            alt="条件分岐フォームの設定画面で、値をセットする動作だけのルールの「適用する画面」に「詳細」までチェックしたとき、下に「『値をセットする』は詳細画面では動きません。このルールは詳細画面では何もしないため、『詳細』のチェックは外してください」という注意書きが表示されている"
+            width="941"
+            height="696"
+            loading="lazy"
+          />
+          <div class="config-shot-caption">
+            <strong>⑪ 開いたときの動作と、詳細画面の注意書き（v2.6.0）</strong>
+            <p>値をセットする行ごとに「開いたとき:」で<strong>空欄のときだけ入れる／入力済みでも上書きする</strong>を選べます。詳細画面で動かない動作を含むルールで「詳細」を選ぶと、注意書きが出ます。</p>
+          </div>
+        </div>
+        <div class="config-shot">
+          <Picture
+            class="zoomable"
+            src="/images/conditional-form-mobile-01.png"
+            alt="スマートフォンで開いた稟議申請アプリの2画面。左は編集画面で、条件により申請部署がグレーの読み取り専用になり、申請内容のラベル横に赤い「必須」バッジが付いている。右はレコード詳細で「差し戻す」を実行したときに「差し戻す理由を入力してください。申請者に通知されます。」という入力画面が開き、差し戻し理由が入力されている"
+            width="1332"
+            height="1098"
+            loading="lazy"
+          />
+          <div class="config-shot-caption">
+            <strong>⑫ モバイルでも同じ設定で動く（v2.5.0）</strong>
+            <p>kintone モバイルアプリ・スマートフォンのブラウザでも、PC と同じ設定でフォーム制御と実行時チェックが働きます。削除・アクションを止めたときは、理由をダイアログで表示してから中止します（一覧画面からの削除を止める機能はモバイル非対応）。</p>
+          </div>
+        </div>
       </div>
       <p class="zoom-hint">画像をクリックすると拡大表示します</p>
     </section>
@@ -1070,7 +1142,7 @@ import Picture from '../../../components/Picture.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコードの新規作成・編集・詳細画面があるアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-conditional-form-v2.5.0.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-conditional-form-v2.6.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「条件分岐フォーム」を追加</span></li>
         <li><span>プラグイン設定画面の<strong>「フォーム制御」タブでルール（条件 → 動作 → 適用する画面）</strong>を作成。保存・承認・削除を止めたい場合は<strong>「実行時チェック」タブ</strong>でチェックを作成して「保存」</span></li>
@@ -1095,7 +1167,7 @@ import Picture from '../../../components/Picture.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-conditional-form-v2.5.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-conditional-form-v2.6.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">1プラグインならこちら</span>
@@ -1265,10 +1337,10 @@ import Picture from '../../../components/Picture.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-conditional-form-v2.5.0.zip',
+              file_name: 'kw-conditional-form-v2.6.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-conditional-form-v2.5.0.zip'
+              link_url: '/downloads/kw-conditional-form-v2.6.0.zip'
             });
           }
         });
