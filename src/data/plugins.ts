@@ -1669,21 +1669,21 @@ export const premiumPlugins: Plugin[] = [
     bornFrom: 'supporter-request',
     categories: ['情報共有', '入力チェック'],
     description:
-      'ボタンの隣や画面の上部など、kintone がラベルを置けない場所へ説明や注意書きを貼れます。実際の画面を見ながらドラッグで位置を決め、常に表示・マウスを乗せたとき・クリックしたときから見せ方を選択。注釈ごとに言語を足せば、閲覧者の表示言語で出し分けます。',
+      'ボタンの隣や画面の上部など、kintone がラベルを置けない場所へ説明を貼れます。実際の画面でドラッグして位置を決め、見せ方は常時・ホバー・クリックから選択。ステータスや見ている人などの条件で出し分け、ヘルプボタンで利用者が自分で出し入れもできます。',
     image: '/images/annotation-banner.png',
     imageWebp: '/images/annotation-banner.webp',
     imageAlt:
       '注釈アシスト for kintone バナー — ラベルを置けない場所に、説明を貼る。ボタンの隣・画面の上部へ自由に配置、見せ方は常時・ホバー・クリック、注釈ごとに言語を出し分け',
     imageWidth: 1200,
     imageHeight: 630,
-    status: 'coming-soon',
+    status: 'available',
     tier: 'premium',
     cardDescription:
-      'kintone がラベルを置けない場所へ、説明や注意書きを貼れます。実際の画面で位置を決められ、閲覧者の表示言語で出し分けます。',
+      'kintone がラベルを置けない場所へ、説明や注意書きを貼れます。実際の画面で位置を決め、条件や表示言語で出し分け。ヘルプボタンで必要な人だけが出せます。',
     problemTitle: '操作の注意を書いておく場所が、画面に無い',
     problemDesc:
       '「この欄は空欄のまま保存しないで」「回答したらステータスを進めて」と一言書きたいのに、kintone のラベルはフォームの中にしか置けない。ボタンの隣にも画面の上部にも置けないので、結局マニュアルに書いて、読まれないまま同じ間違いが繰り返される',
-    releaseDate: '2026-09-22',
+    releaseDate: '2026-09-25',
     summaryVersion: '1.0.0',
   },
 ];
