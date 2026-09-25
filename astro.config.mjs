@@ -145,6 +145,10 @@ function resolveLastmod(url) {
 
 export default defineConfig({
   site: 'https://kizuna-works.jp',
+  // Merged news entries: the old URL keeps working and points to the merged one.
+  redirects: {
+    '/news/plugin-input-template-v110': '/news/plugin-input-template-v120/'
+  },
   integrations: [
     mdx(),
     sitemap({
