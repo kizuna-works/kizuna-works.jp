@@ -54,10 +54,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "ステータス一括実行 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.6",
-          "dateModified": "2026-09-19",
+          "softwareVersion": "1.1.0",
+          "dateModified": "2026-09-28",
           "url": "https://kizuna-works.jp/plugins/status-bulk-action/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-status-bulk-action-v1.0.6.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-status-bulk-action-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/status-bulk-action-banner.png",
           "offers": {
             "@type": "Offer",
@@ -78,11 +78,13 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "現在ステータスごとにグループ分けしてアクションを選択",
             "次の作業者を遷移先の設定に応じて自動判定（選択／全員／作成者／フィールド指定）",
             "独自条件で対象外レコードを事前に除外し理由を表示",
+            "勤務時間など表示形式が「時間」の計算フィールドを条件に使用（しきい値は「8:30」形式・サブテーブルの合計／平均にも対応）",
+            "表示形式が「日付」「日時」の計算フィールドを日付の条件（以降／以前／範囲内）に使用",
             "現在ステータスの滞留日数を一覧に色で可視化",
             "カーソル方式で件数上限なく処理（100件バッチ）",
             "実行できるユーザーを制限（全員／指定ユーザー・組織・グループ）",
             "ボタンの文言・形・アイコン・色・位置をカスタマイズ",
-            "モバイル版でも一括実行に対応",
+            "モバイル版の一覧でも一括実行に対応（一覧切替メニューの下にボタンを表示）",
             "外部サーバー・APIキー不要・kintone完結"
           ]
         }
@@ -283,6 +285,67 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     .lightbox-close:hover { background: rgba(255,255,255,0.25); }
     .zoom-hint { text-align: center; color: var(--color-text-light); font-size: 12px; margin-top: 10px; }
 
+    /* Update box (version highlight) */
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 24px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+    /* Smaller, centered screenshot inside the update box */
+    .update-shot {
+      max-width: 640px;
+      margin: 0 auto 24px;
+    }
+    .update-shot img { width: 100%; height: auto; display: block; }
+    .update-shot .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin: 10px 0 0;
+    }
+
     @media (max-width: 768px) {
       .related-posts-grid { grid-template-columns: 1fr; }
       .hero { padding: 60px 5%; }
@@ -299,6 +362,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       }
       .config-screenshots { grid-template-columns: 1fr; }
       .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
     }
   </style>
 
@@ -316,10 +381,40 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.6</span>
+        <span class="hero-version">v1.1.0</span>
       </div>
       <h1 class="hero-title">ステータス一括実行 for kintone</h1>
-      <p class="hero-copy">ステータス一括実行 for kintone は、プロセス管理の<strong>ステータス・作業者</strong>を、標準のレコード一覧から<strong>まとめて一括実行</strong>できる kintone プラグインです。対象を<strong>現在ステータスごとにグループ分け</strong>してアクションを選ぶだけ。次の作業者は遷移先の設定に応じて<strong>自動で判断</strong>し、独自条件を満たさないレコードは<strong>事前に除外</strong>。現在ステータスの<strong>滞留日数</strong>も一覧に色で見える化します。外部サーバー不要で kintone 内で完結します。</p>
+      <p class="hero-copy">ステータス一括実行 for kintone は、プロセス管理の<strong>ステータス・作業者</strong>を、標準のレコード一覧から<strong>まとめて一括実行</strong>できる kintone プラグインです。対象を<strong>現在ステータスごとにグループ分け</strong>してアクションを選ぶだけ。次の作業者は遷移先の設定に応じて<strong>自動で判断</strong>し、独自条件（勤務時間などの時間も可）を満たさないレコードは<strong>事前に除外</strong>。現在ステータスの<strong>滞留日数</strong>も一覧に色で見える化します。外部サーバー不要で kintone 内で完結します。</p>
+    </section>
+
+    <!-- Update Info (v1.1.0) -->
+    <section class="section-wrapper fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.1.0：勤務時間などの時間を条件にして一括実行できるようになりました</h2>
+        </div>
+        <p class="update-desc">表示形式が「時間」の計算フィールド（勤務時間など）を、<strong>実行できる条件に正しく使えるようになりました</strong>。しきい値は<strong>「8:30」（8時間30分）</strong>のように入力するか、<strong>時間の数（「8」＝8時間、「1.5」＝1時間30分）</strong>で指定します。24時間を超える時間やマイナスの時間も比べられ、サブテーブルの時間の列の<strong>合計・平均</strong>も時間として判定します。対象外になった理由は「勤務時間 ≧ 8時間30分」のように、kintone の画面と同じ形で表示します。</p>
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <picture>
+              <source srcset="/images/status-bulk-action-time-01.webp" type="image/webp" />
+              <img
+                class="zoomable"
+                src="/images/status-bulk-action-time-01.png"
+                alt="ステータス一括実行 v1.1.0 の「実行内容の確認」画面 — 未処理から確認済へ（アクション：確認する）、実行対象 15 件／条件により除外 21 件、「合計 15 件のステータスを変更します。」と表示され、除外理由の一覧に「レコード 1：条件を満たしません: 勤務時間 ≧ 8時間30分 / 作業時間の合計 ≧ 2時間0分」などが並び、下にキャンセルと実行するのボタンがある"
+                loading="lazy"
+                width="656"
+                height="493"
+              />
+            </picture>
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-desc">あわせて、表示形式が「日付」「日時」の計算フィールド（締日の計算など）も、日付フィールドと同じく<strong>以降／以前／範囲内</strong>の日付の条件として選べるようになりました。</p>
+        <p class="update-desc"><strong>モバイル版の不具合も修正しました。</strong>これまでモバイル対応とご案内していましたが、v1.0.6 までは不具合によりモバイル版のレコード一覧にボタンが表示されず、一括実行をお使いいただけない状態でした。ご不便をおかけし申し訳ありません。v1.1.0 では、一覧を切り替えるメニューの下に画面幅いっぱいのボタンを表示し、絞り込み結果全体を対象に PC と同じ流れで一括実行できます。</p>
+        <p class="update-note"><strong>上書き時のご注意：</strong>v1.0.6 までは、表示形式が「時間」の計算フィールドの条件を正しく読めず、条件を満たすレコードも<strong>必ず対象外</strong>になっていました。v1.1.0 からは条件どおりに判定するため、時間の条件を設定していた場合は、<strong>条件を満たすレコードが実際にステータスを進めるようになります</strong>。上書き後の最初の実行では、確認画面の対象件数と除外理由を確かめてから「実行する」を押してください。<br>設定はそのまま引き継がれ、保存し直す必要はありません（以前のしきい値「8」は 8 時間として判定します）。ただし、表示形式が「日付」「日時」の計算フィールドで v1.1.0 より前に保存した条件は、数値の条件のまま残り自動では切り替わりません。設定画面でその条件のフィールドを選び直し、日付を入れ直して保存してください。<br>既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。</p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -397,11 +492,13 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <li><span><strong>ステータスごとのグループ分け</strong> — 混在した一覧でも、そのステータスから実行できる登録済みアクションだけを選択肢に表示。誤操作を防ぎます。</span></li>
         <li><span><strong>次の作業者を自動判定</strong> — 「次のユーザーから選択」なら候補（ユーザー・グループ・組織メンバー）だけに絞って選択。「全員／うち一人」「作成者」「フォームのフィールド指定」なら選ばずに自動でセットします。</span></li>
         <li><span><strong>独自条件で対象外を除外</strong> — アクションごとに条件（数値・日付・文字列・選択肢／最大5件・AND/OR／サブテーブルの合計・平均・件数）を設定。満たさないレコードは対象外にし、除外理由を表示します。</span></li>
+        <li><span><strong>時間の条件</strong> — 勤務時間など、表示形式が「時間」の計算フィールドを条件に使えます。しきい値は「8:30」（8時間30分）のように入力するか、時間の数（「8」＝8時間、「1.5」＝1時間30分）で指定。サブテーブルの時間の列の合計・平均も比べられ、除外理由は「勤務時間 ≧ 8時間30分」のように kintone の画面と同じ形で表示します。</span></li>
+        <li><span><strong>日付の計算フィールドの条件</strong> — 表示形式が「日付」「日時」の計算フィールド（締日の計算など）も、日付フィールドと同じく「以降／以前／範囲内」で条件にできます。</span></li>
         <li><span><strong>滞留日数の可視化</strong> — 現在ステータスに何日とどまっているかを一覧の「滞留」列に表示。しきい値（複数段階）を超えたセルを背景色でアラート表示します。</span></li>
         <li><span><strong>件数上限なし</strong> — カーソル方式で分割取得し100件ずつ実行するため、大量レコードでも進捗表示付きで処理できます。</span></li>
         <li><span><strong>実行できるユーザーの制限</strong> — 全員／指定ユーザー・組織・グループから選べます。対象外のユーザーにはボタンを表示しません。</span></li>
         <li><span><strong>ボタンの見た目カスタマイズ</strong> — 文言・形（角丸／ピル型／四角）・アイコン・色・表示位置をライブプレビューで確認しながら設定できます。</span></li>
-        <li><span><strong>モバイル対応</strong> — モバイル版でも一括実行できます（チェック選択列・滞留列の表示は PC 版のみ）。</span></li>
+        <li><span><strong>モバイル対応</strong> — モバイル版のレコード一覧では、一覧を切り替えるメニューの下に画面幅いっぱいのボタンを表示し、絞り込み結果全体を対象に一括実行できます（チェック選択列・滞留列の表示は PC 版のみ）。</span></li>
         <li><span><strong>kintone 完結</strong> — ステータス変更・作業者設定はすべて kintone 標準のプロセス管理 API で行い、業務データを外部の第三者へ送信しません。</span></li>
       </ul>
     </section>
@@ -442,9 +539,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     <!-- Install Steps Section -->
     <section class="section-wrapper fade-in">
       <h2 class="section-title">インストール手順</h2>
-      <p class="section-subtitle">プロセス管理を有効にしたアプリの、標準のレコード一覧（PC 版）でご利用いただけます。</p>
+      <p class="section-subtitle">プロセス管理を有効にしたアプリの、標準のレコード一覧（PC 版・モバイル版）でご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-status-bulk-action-v1.0.6.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-status-bulk-action-v1.1.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリ（<strong>プロセス管理が有効</strong>なアプリ）の<strong>アプリ設定 → プラグイン</strong>で「ステータス一括実行 for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>対象アクション</strong>を登録し、必要に応じて<strong>実行できる条件</strong>・<strong>滞留の可視化</strong>・<strong>ボタンの見た目</strong>を設定して「保存」</span></li>
@@ -469,7 +566,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧の設定エリアに控えめな広告表示あり</li>
             </ul>
-            <a href="/downloads/kw-status-bulk-action-v1.0.6.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-status-bulk-action-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">1プラグインならこちら</span>
@@ -610,10 +707,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-status-bulk-action-v1.0.6.zip',
+              file_name: 'kw-status-bulk-action-v1.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-status-bulk-action-v1.0.6.zip'
+              link_url: '/downloads/kw-status-bulk-action-v1.1.0.zip'
             });
           }
         });

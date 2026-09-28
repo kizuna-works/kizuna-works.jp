@@ -11,9 +11,9 @@ import Picture from '../../../components/Picture.astro';
 
 <Layout
   title="テーブルプレビュー for kintone - 一覧で明細を見て直せるプラグイン | KIZUNA Works"
-  description="kintone のレコード一覧に列を足し、テーブル（サブテーブル）の明細件数と集計値をバッジで表示するプラグイン。マウスを乗せると明細がポップアップで開き、見出しクリックで並べ替え、クリックで固定すればその場で値を直して保存できます。出す一覧も選べます。kintone完結・ゲストスペース対応。"
+  description="kintone のレコード一覧に、テーブル（サブテーブル）の明細件数と合計をバッジで表示するプラグイン。マウスを乗せると明細がポップアップで開き、並べ替えもその場での編集・保存もできます。作業時間などの時間も「〇時間〇分」で合計。出す一覧も選べます。ゲストスペース対応。"
   ogTitle="テーブルプレビュー for kintone - 一覧で明細を見て直せるプラグイン | KIZUNA Works"
-  ogDescription="一覧のまま、明細が見える。並べ替えられる。直せる。サブテーブルの件数と合計をバッジで表示し、マウスを乗せれば明細がポップアップで開く kintone プラグイン。詳細画面を開いて戻る往復をなくします。"
+  ogDescription="kintone のレコード一覧に、テーブル（サブテーブル）の明細件数と合計をバッジで表示するプラグイン。マウスを乗せると明細がポップアップで開き、並べ替えもその場での編集・保存もできます。作業時間などの時間も「〇時間〇分」で合計。出す一覧も選べます。ゲストスペース対応。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/table-preview/"
   ogImage="https://kizuna-works.jp/images/table-preview-banner.png"
@@ -55,10 +55,10 @@ import Picture from '../../../components/Picture.astro';
           "name": "テーブルプレビュー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.1.0",
-          "dateModified": "2026-09-19",
+          "softwareVersion": "1.2.0",
+          "dateModified": "2026-09-28",
           "url": "https://kizuna-works.jp/plugins/table-preview/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-table-preview-v1.1.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-table-preview-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/table-preview-banner.png",
           "offers": {
             "@type": "Offer",
@@ -68,7 +68,7 @@ import Picture from '../../../components/Picture.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintone のレコード一覧に自前の列を1本足し、テーブル（サブテーブル）の明細件数と集計値をバッジで表示する kintone プラグイン。バッジにマウスを乗せると明細がポップアップで開き、列の見出しをクリックすると昇順・降順に並べ替えられる。何行出ているかも表示される。クリックで固定すると既存行の値をその場で編集して保存できる。複数のテーブルはタブで切り替えられ、タブには件数が付く。バッジと列を出す一覧（ビュー）も選べる。集計は件数・合計・平均・最大・最小から選べる。一覧のレイアウトは変わらず、行の高さもそのまま。",
+          "description": "kintone のレコード一覧に自前の列を1本足し、テーブル（サブテーブル）の明細件数と集計値をバッジで表示する kintone プラグイン。バッジにマウスを乗せると明細がポップアップで開き、列の見出しをクリックすると昇順・降順に並べ替えられる。何行出ているかも表示される。クリックで固定すると既存行の値をその場で編集して保存できる。複数のテーブルはタブで切り替えられ、タブには件数が付く。バッジと列を出す一覧（ビュー）も選べる。集計は件数・合計・平均・最大・最小から選べ、明細の作業時間など表示形式が「時間」の計算フィールドは「〇時間〇分」で合計できる。一覧のレイアウトは変わらず、行の高さもそのまま。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -83,6 +83,8 @@ import Picture from '../../../components/Picture.astro';
             "クリックで固定すると、フッターの［編集］から既存行の値をその場で編集して保存できる",
             "複数のテーブルをタブで切り替え。タブには件数が付き、切り替えても再取得しない",
             "集計は件数・合計・平均・最大・最小から選択。0 行のレコードは淡色で「明細なし」が一目で分かる",
+            "表示形式が「時間」の計算フィールドは、合計・平均・最大・最小を kintone と同じ「〇時間〇分」（日時分なら「〇日〇時間〇分」）でバッジに表示。分や時間を入力した数値フィールドも、表示形式で入力値の単位を選べば時間で表示できる",
+            "ポップアップでは時間の計算列を「〇時間〇分」、日付・時刻・日時の計算列を日付や時刻で表示。時間の列の並べ替えは時間の長さの順",
             "計算・ルックアップのコピー先・添付ファイルは編集不可。空行があるレコードは保存を止める",
             "保存は kintone 標準の更新なのでアクセス権はそのまま有効。同時更新はリビジョンで検知して上書きしない",
             "バッジの置き場所は専用の列・詳細アイコンの隣・指定したフィールドの列から選択・ゲストスペース対応"
@@ -810,31 +812,26 @@ import Picture from '../../../components/Picture.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.1.0</span>
+        <span class="hero-version">v1.2.0</span>
       </div>
       <h1 class="hero-title">テーブルプレビュー for kintone</h1>
-      <p class="hero-copy">テーブルプレビュー for kintone は、<strong>レコード一覧のまま明細（サブテーブル）の中身が分かる</strong>プラグインです。一覧に列を1本足して、<strong>明細の件数と集計値をバッジ</strong>で表示します。バッジに<strong>マウスを乗せると明細がポップアップ</strong>で開き、<strong>クリックで固定すればその場で値を直して保存</strong>できます。ポップアップでは<strong>列の見出しをクリックして明細を並べ替え</strong>られ、<strong>何行あるかも表示</strong>されます。複数のテーブルはタブで切り替えられ、<strong>出す一覧（ビュー）も選べます</strong>。一覧のレイアウトも行の高さも変わりません。</p>
+      <p class="hero-copy">テーブルプレビュー for kintone は、<strong>レコード一覧のまま明細（サブテーブル）の中身が分かる</strong>プラグインです。一覧に列を1本足して、<strong>明細の件数と集計値をバッジ</strong>で表示します。明細の作業時間なども<strong>「〇時間〇分」で合計</strong>できます。バッジに<strong>マウスを乗せると明細がポップアップ</strong>で開き、<strong>クリックで固定すればその場で値を直して保存</strong>できます。ポップアップでは<strong>列の見出しをクリックして明細を並べ替え</strong>られ、<strong>何行あるかも表示</strong>されます。複数のテーブルはタブで切り替えられ、<strong>出す一覧（ビュー）も選べます</strong>。一覧のレイアウトも行の高さも変わりません。</p>
     </section>
 
-    <!-- Update highlight -->
+    <!-- Update Info (v1.2.0) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.1.0：明細を並べ替えられるようになりました</h2>
+          <h2 class="update-title">v1.2.0：明細の作業時間などを「〇時間〇分」で合計できるようになりました</h2>
         </div>
-        <p class="update-desc">ポップアップの<strong>列の見出しをクリックすると、その列で明細を並べ替え</strong>られます。押すたびに<strong>昇順（▲）→ 降順（▼）→ 元の並び</strong>で切り替わるので、金額の大きい行や日付の新しい行をすぐ先頭に持ってこられます。並べ替えできる列の見出しには <strong>↕ のボタンが常に付いている</strong>ので、どの列で並べ替えられるかが触る前に分かります。<strong>並ぶのは表示だけ</strong>で、レコードのテーブルの行順は変わりません。並べ替えた状態のまま値を直して保存しても、正しい行に入ります。あわせて、<strong>ポップアップの下に「1–20 / 25 行」のように、そのページに出ている行数と合計</strong>を表示するようにしました（1 ページに収まるときは「全 5 行」）。</p>
+        <p class="update-desc">明細（テーブル）の作業時間や勤務時間を、<strong>バッジで「〇時間〇分」と合計できる</strong>ようになりました。表示形式が「時間」の計算フィールド（例：終了時刻－開始時刻）を集計列に選ぶと、合計・平均・最大・最小を<strong>kintone の画面と同じ形（1時間19分／日時分の表示形式なら 2日1時間30分）</strong>で表示します。これまではこうした列を数値として読めず、<strong>集計から外れてバッジに合計が出ていませんでした</strong>。分や時間を数字で入力している数値フィールドも、集計列の下の「表示形式」で<strong>「時間で表示（入力値は分）」</strong>などを選べば「〇時間〇分」で表示できます（既定は「数値のまま」）。</p>
         <div class="update-shot">
-          <Picture class="zoomable" src="/images/table-preview-sort-01.png" alt="テーブルプレビュー v1.1.0 ポップアップ — 金額（円）の見出しに降順の ▼ ボタンが付き、明細5行が金額の大きい順に並んでいる。ほかの列の見出しには ↕ ボタンが付き、下に「全 5 行」と表示されている" width="552" height="465" />
+          <Picture class="zoomable" src="/images/table-preview-time-01.png" alt="テーブルプレビュー v1.2.0 — 勤務記録の一覧で、明細の列に「明細 2 | 計 1時間19分」「明細 3 | 計 3時間21分」「明細 4 | 計 6時間18分」のバッジが並ぶ。明細4行のレコードのポップアップが開き、見積作成・現地調査・報告書作成・打合せの行に開始時刻・終了時刻・作業時間（0時間51分・1時間20分・1時間49分・2時間18分）・作業（分）が表示され、下に「全 4 行」と「明細 合計 計 6時間18分」が出ている" width="559" height="471" />
         </div>
         <p class="update-shot-cap">画像をクリックすると拡大表示します</p>
-        <p class="update-desc"><strong>バッジと専用列を出す一覧（ビュー）も選べる</strong>ようになりました。これまではアプリのすべての一覧に出ていましたが、明細を見たい一覧だけに絞れます。<strong>何も選ばなければ従来どおりすべての一覧に出る</strong>ので、これまでお使いの設定はそのまま変わりません。この状態のままなら、あとで一覧を追加したときも自動で出ます。</p>
-        <div class="update-shot">
-          <Picture class="zoomable" src="/images/table-preview-views-01.png" alt="テーブルプレビュー v1.1.0 設定画面「対象の一覧」— アプリの一覧形式のビューがチェックボックスで並び、「すべての一覧に出ます（4 件）」の帯と「すべての一覧に出す」ボタンが表示されている" width="878" height="391" />
-        </div>
-        <p class="update-shot-cap">画像をクリックすると拡大表示します</p>
-        <p class="update-desc">見え方も 3 か所直しました。<strong>ポップアップを開いている間は、背後のレコード一覧が動かない</strong>ようにしました（ポップアップの上でホイールを回すと明細だけがスクロールし、外で回すとポップアップが閉じてそのまま一覧が動きます）。<strong>専用列の見出しの文字の位置を kintone 標準の列と揃え</strong>、<strong>レコードが 0 件の一覧で列の位置がずれて空の列があるように見えていた</strong>のを修正しています。</p>
-        <p class="update-note">既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+        <p class="update-desc">ポップアップの中でも、<strong>時間の計算列は「1時間7分」のように表示</strong>します（これまでは「01:07」のままでした）。表示形式が日付・時刻・日時の計算列は日付や時刻として表示し、<strong>時間の列で並べ替えると時間の長さの順</strong>に並びます。分未満は kintone と同じく切り捨てて表示します。</p>
+        <p class="update-note">上書きアップロードすると、表示形式が「時間」の計算フィールドを集計列にしていたバッジに、<strong>設定を変えなくても合計が出はじめます</strong>（例：「明細 2」→「明細 2 計 1時間19分」）。設定はそのまま引き継がれます。サフィックスに「時間」などを付けていた場合は「1時間19分時間」と重なるので、サフィックスを空にしてください。<br>既存ユーザーの方は、最新版（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。</p>
       </div>
     </section>
 
@@ -892,6 +889,10 @@ import Picture from '../../../components/Picture.astro';
             <figcaption>タブを押すと「経費」に切り替わります。テーブルごとに<strong>見せる列も並び順も別々に</strong>設定できます</figcaption>
           </figure>
         </div>
+        <div class="screenshot-frame" style="margin-top:40px;">
+          <Picture class="zoomable" src="/images/table-preview-sort-01.png" alt="テーブルプレビュー ポップアップの並べ替え — 金額（円）の見出しに降順の ▼ ボタンが付き、明細5行が金額の大きい順に並んでいる。ほかの列の見出しには ↕ ボタンが付き、下に「全 5 行」と表示されている" width="552" height="465" />
+        </div>
+        <p class="shot-note"><strong>列の見出しをクリックすると明細を並べ替え</strong>られます。押すたびに昇順（▲）→ 降順（▼）→ 元の並びで切り替わり、並べ替えできる列には ↕ のボタンが常に付いています。<strong>並ぶのは表示だけ</strong>で、レコードのテーブルの行順は変わりません。下には「1–20 / 25 行」のように、そのページに出ている行数と合計が出ます（1 ページに収まるときは「全 5 行」）。</p>
       </div>
     </section>
 
@@ -922,6 +923,10 @@ import Picture from '../../../components/Picture.astro';
           <img class="zoomable" src="/images/table-preview-config-03.png" alt="テーブルプレビュー 設定画面 表示する列 — 明細のどの列を出すか、その場で編集できるかをチェックボックスで指定する一覧" loading="lazy" width="1467" height="518" />
         </div>
         <p class="shot-note">明細のどの列を出すか、<strong>どの列をその場で編集できるか</strong>を1列ずつ決められます。編集できない列には理由を書いてあります。</p>
+        <div class="screenshot-frame" style="margin-top:32px;">
+          <Picture class="zoomable" src="/images/table-preview-views-01.png" alt="テーブルプレビュー 設定画面「対象の一覧」— アプリの一覧形式のビューがチェックボックスで並び、「すべての一覧に出ます（4 件）」の帯と「すべての一覧に出す」ボタンが表示されている" width="878" height="391" />
+        </div>
+        <p class="shot-note">「対象の一覧」で、<strong>バッジと専用列を出す一覧（ビュー）を選べます</strong>。何も選ばなければすべての一覧に出て、あとで一覧を追加したときも自動で出ます。</p>
       </div>
     </section>
 
@@ -937,6 +942,8 @@ import Picture from '../../../components/Picture.astro';
         <li><span><strong>クリックで固定してその場で編集・保存</strong>／［編集］を押してから入力欄が出ます。読むだけのときは固定したままで大丈夫です</span></li>
         <li><span><strong>複数のテーブルをタブで切り替え</strong>／タブに件数が付きます。切り替えても再取得しません</span></li>
         <li><span><strong>集計は件数・合計・平均・最大・最小</strong>／頭と末尾に付ける文字（¥・件 など）も指定できます</span></li>
+        <li><span><strong>作業時間などを「〇時間〇分」で集計</strong>／表示形式が「時間」の計算フィールドは、合計・平均・最大・最小を kintone と同じ形（1時間19分／日時分なら 2日1時間30分）で表示します。分や時間を入力した数値フィールドも「表示形式」で時間を選べば時間で表示できます</span></li>
+        <li><span><strong>ポップアップでも時間・日付を kintone と同じ見え方に</strong>／時間の計算列は「1時間7分」、日付・時刻・日時の計算列は日付や時刻で表示。時間の列は時間の長さの順に並べ替えられます</span></li>
         <li><span><strong>選択行だけの集計</strong>／ポップアップの中で行を選ぶと、その分の集計が出ます</span></li>
         <li><span><strong>編集できる人を絞れる</strong>／全員／アプリ管理者のみ／指定したユーザー・組織・グループ</span></li>
         <li><span><strong>同時更新を検知</strong>／ポップアップを開いてから誰かが更新していたら、上書きせずに知らせます</span></li>
@@ -951,7 +958,7 @@ import Picture from '../../../components/Picture.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">PC 版のレコード一覧で動作します。設定にはアプリの管理権限が必要です。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-table-preview-v1.1.0.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-table-preview-v1.2.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>対象アプリの<strong>アプリ設定 → プラグイン</strong>で「テーブルプレビュー for kintone」を追加</span></li>
           <li><span>プラグイン設定画面で<strong>一覧に出すテーブル</strong>を選び、集計方法（件数・合計など）と<strong>ポップアップに出す列</strong>を指定して「保存」</span></li>
@@ -979,7 +986,7 @@ import Picture from '../../../components/Picture.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-table-preview-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-table-preview-v1.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">1プラグインならこちら</span>
@@ -1010,7 +1017,7 @@ import Picture from '../../../components/Picture.astro';
         <li>kintone はサイボウズ株式会社の登録商標です。</li>
         <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
         <li>PC 版でのみ動作します。<strong>モバイル（スマートフォン表示）では何も表示しません</strong>。</li>
-        <li>一覧に足す列は、<strong>そのアプリのすべての一覧（ビュー）に出ます</strong>。一覧ごとの出し分けはできません。</li>
+        <li>一覧に足す列は、設定の「対象の一覧」で何も選ばなければ<strong>そのアプリのすべての一覧（ビュー）に出ます</strong>。出す一覧を絞りたいときは、そこで選んでください。</li>
         <li>kintone の一覧表は画面の幅いっぱいに広がるため、<strong>列を足すと横スクロールが出ることがあります</strong>。件数だけでよければ設定で列の幅を狭めてください。</li>
         <li>編集できるのは<strong>既存の行の値だけ</strong>です。行の追加・削除・並べ替えは詳細画面で行ってください。</li>
         <li>計算フィールド・ルックアップとそのコピー先・添付ファイルは編集できません（表示のみ）。</li>
@@ -1146,10 +1153,10 @@ import Picture from '../../../components/Picture.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-table-preview-v1.1.0.zip',
+              file_name: 'kw-table-preview-v1.2.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-table-preview-v1.1.0.zip'
+              link_url: '/downloads/kw-table-preview-v1.2.0.zip'
             });
           }
         });

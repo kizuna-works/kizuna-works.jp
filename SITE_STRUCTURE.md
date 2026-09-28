@@ -478,6 +478,7 @@ c:\kizuna-works.jp\
 │   │   ├── table-assist-config-02.png      # テーブルアシスト 設定画面②一括反映（対象テーブル・対象ルール・実行できるユーザー）＋ .webp
 │   │   ├── table-assist-config-03.png      # テーブルアシスト 設定画面（v1.1.0・3カラム全体像／行の追加位置・表示する行数）＋ .webp
 │   │   ├── table-assist-record-03.png      # テーブルアシスト レコード編集画面（v1.1.0・全12行中5行表示＋ページ送り＋末尾に行を追加＋非表示行を含む選択の注意）＋ .webp
+│   │   ├── table-assist-time-01.png         # テーブルアシスト v1.2.0 UPDATE 用スクショ — チェックした3行の作業時間の合計カード 4時間58分（926×454・.webp あり）
 │   │   ├── file-export-banner.png          # 添付ファイル出力 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── file-export-icon.png            # 添付ファイル出力 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
 │   │   ├── file-export-detail-01.png       # 添付ファイル出力 レコード詳細画面のツールバー（アイコン列の左に「ファイルを選んで出力」ボタン・v1.1.0）＋ .webp
@@ -507,6 +508,7 @@ c:\kizuna-works.jp\
 │   │   ├── table-preview-config-02.png    # 製品ページ：設定画面「バッジの出し方」（置き場所3択・列の見出しと幅）＋ .webp
 │   │   ├── table-preview-config-03.png    # 製品ページ：設定画面「表示する列」（出す列・その場で編集できる列）＋ .webp
 │   │   ├── table-preview-sort-01.png      # 製品ページ UPDATE：ポップアップの明細を金額の降順に並べ替えた状態（▼ と ↕ のボタン・下に「全 5 行」）＋ .webp
+│   │   ├── table-preview-time-01.png        # テーブルプレビュー v1.2.0 UPDATE 用スクショ — 一覧のバッジ「計 〇時間〇分」と明細ポップアップの作業時間列（559×471・.webp あり）
 │   │   ├── table-preview-views-01.png     # 製品ページ UPDATE：設定画面「対象の一覧」（バッジと専用列を出すビューをチェックで選ぶ）＋ .webp
 │   │   ├── split-view-banner.png          # 分割ビュー for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── split-view-icon.png            # 分割ビュー 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
@@ -766,6 +768,8 @@ c:\kizuna-works.jp\
 │   │   ├── card-board-icon.png             # カードボード for kintone アイコン（200×200・ヒーロー用）
 │   │   ├── card-board-{board,dnd,realestate,catalog,individual,lanegrid}.png / .webp # カードボード製品ページ用スクショ（実機・PNG＋WebP。individual=不動産の個別モードギャラリー）
 │   │   ├── card-board-config-{1,2,3,4}.png / .webp # カードボード設定画面スクショ（①基本設定/②状態カード/③詳細カード/④カラーのタブ別・実機・PNG＋WebP）
+│   │   ├── card-board-time-01.png           # カードボード v1.1.0 UPDATE 用スクショ — 勤務記録のカード表示で部署ごとの勤務時間の合計・経過の平均・作業（分→時間）を〇時間〇分で表示、詳細カードは勤務時間の多い順（1280×492・.webp あり）
+│   │   ├── status-bulk-action-time-01.png   # ステータス一括実行 v1.1.0 UPDATE 用スクショ — 実行内容の確認画面で時間の条件（勤務時間 ≧ 8時間30分）による除外理由を表示（656×493・.webp あり）
 │   │   ├── related-enhancer-align-01.png   # 関連レコード拡張「実際の画面」の表示位置そろえのスクリーンショット（v1.1.0 で撮影。横に並べた2つの関連レコード一覧の表示位置がそろった状態・807×533）
 │   │   ├── related-enhancer-time-01.png    # 関連レコード拡張 v1.2.0 UPDATE 用スクショ① — 担当者のレコードで勤務時間の合計（色分け）・8時間以上の日数・作業時間の合計カードと手動保存ボタン（1221×850・.webp あり）
 │   │   ├── related-enhancer-time-02.png    # 関連レコード拡張 v1.2.0 UPDATE 用スクショ② — 集計設定で数値フィールドを時間で表示（入力値は分）（1400×419・.webp あり）
@@ -815,6 +819,7 @@ c:\kizuna-works.jp\
 │   │   ├── dashboard-overview-yojitsu.png/.webp # ダッシュボード 完成イメージ②（アプリ横断集計＝予実管理ダッシュボードの全景・製品ページ）
 │   │   ├── dashboard-portal-layout.png/.webp # ダッシュボード v1.1.0 ポータルレイアウト構成画面（製品ページUPDATEボックス・お知らせOGP・1100×634）
 │   │   ├── dashboard-config-totals.png/.webp # ダッシュボード v1.2.0 設定画面のクロス集計表 表示オプション（行合計／列合計の個別切替・製品ページUPDATEボックス）
+│   │   ├── dashboard-time-01.png            # ダッシュボード v1.3.0 UPDATE 用スクショ — 勤務時間の合計カード 304時間39分・部署別の勤務時間の棒グラフ（軸は時間）・部署×月の作業時間のクロス集計（1280×587・.webp あり）
 │   │   ├── dashboard/recipes/<id>.png/.webp # ダッシュボード設定レシピ集の完成イメージ（種別ごと・第1バッチ22対）
 │   │   ├── attribute-filter-banner.png      # 属性制御フィルター for kintone 見出しバナー（OGP/グリッド共用・1200×630）
 │   │   ├── attribute-filter-icon.png        # 属性制御フィルター for kintone アイコン（hero・200×200）
@@ -934,6 +939,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-bulk-update-v1.0.3.zip                             # かんたん一括更新 for kintone 配布ファイル（最新・手動配置・v1.0.3 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
 │   │   ├── kw-card-board-v1.0.0.zip                              # カードボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第6弾・無料/プレミアム共通zip・無料=1ビューで全機能・複数ビューはプレミアム）
 │   │   ├── kw-card-board-v1.0.1.zip                              # カードボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
+│   │   ├── kw-card-board-v1.1.0.zip                                  # カードボード for kintone 配布ファイル（最新・v1.1.0：時間の集計を〇時間〇分で表示・対象フィールドなしの表示）
 │   │   ├── kw-chat-notify-v1.0.0.zip                             # チャット通知 for kintone v1.0.0 配布ファイル（プレミアム・単品販売なし）
 │   │   ├── kw-chat-notify-v1.0.1.zip                             # チャット通知 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-comment-control-v1.0.0.zip                         # コメントコントロール for kintone 配布ファイル（旧版・参考保管）
@@ -973,6 +979,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-dashboard-v1.1.2.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-dashboard-v1.1.3.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-dashboard-v1.2.0.zip                               # ダッシュボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.2.0 クロス集計表の合計を行合計／列合計で個別表示）
+│   │   ├── kw-dashboard-v1.3.0.zip                                   # ダッシュボード for kintone 配布ファイル（最新・v1.3.0：時間の集計・条件の秒換算・対象フィールドなしの表示）
 │   │   ├── kw-drive-connect-v1.0.0.zip                          # ドライブ連携 for kintone 配布ファイル（最新・手動配置・プレミアム第13弾 初版）
 │   │   ├── kw-lookup-add-v1.0.0.zip    # ルックアップ新規登録 v1.0.0 配布物
 │   │   ├── kw-lookup-add-v1.0.1.zip    # ルックアップ新規登録 v1.0.1（2026-09-14 に版そのままで差し替え＝フォームの並びを実行時に読み、列の入れ替えに追従）
@@ -1161,6 +1168,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-status-bulk-action-v1.0.4.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-status-bulk-action-v1.0.5.zip                     # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-status-bulk-action-v1.0.6.zip                  # ステータス一括実行 for kintone 配布ファイル（最新・手動配置・v1.0.6 設定の保存後にアプリの設定画面へ戻るように（［アプリを更新］をすぐ押せる）／ゲストスペースで戻り先が存在しないパスになっていたのを修正）
+│   │   ├── kw-status-bulk-action-v1.1.0.zip                          # ステータス一括実行 for kintone 配布ファイル（最新・v1.1.0：時間・日付の計算フィールドの条件・モバイル一覧のボタン修正）
 │   │   ├── kw-sticky-board-v1.0.0.zip                            # 付箋ボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-sticky-board-v1.0.1.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-sticky-board-v1.0.2.zip                            # 付箋ボード for kintone 配布ファイル（旧版・参考保管）
@@ -1168,10 +1176,12 @@ c:\kizuna-works.jp\
 │   │   ├── kw-table-assist-v1.0.0.zip                            # テーブルアシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-table-assist-v1.0.1.zip                            # テーブルアシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-table-assist-v1.0.2.zip                            # テーブルアシスト for kintone 配布ファイル（最新・手動配置・v1.0.2 行番号表示でフィールド幅設定が無視される／行追加で文字列(複数行)が潰れる／空欄のある行を複製できない、の3件を修正）
+│   │   ├── kw-table-assist-v1.2.0.zip                                # テーブルアシスト for kintone 配布ファイル（最新・v1.2.0：選んだ行の時間を合計・出力先に書く単位・書き込めないときの案内）
 │   │   ├── kw-image-compress-v1.0.0.zip # 画像圧縮 for kintone 配布物（旧版・v1.0.0）
 │   │   ├── kw-image-compress-v1.0.1.zip # 画像圧縮 for kintone 配布物（最新・v1.0.1 圧縮後に画面を自動で読み直す修正。プロセス管理が「ほかのユーザーが更新しました」で実行できない不具合の解消）
 │   │   ├── kw-table-preview-v1.1.0.zip                          # テーブルプレビュー for kintone 配布ファイル（最新・見出しクリックで明細の並べ替え／出ている行数の表示／出す一覧の選択）
 │   │   ├── kw-table-preview-v1.0.0.zip                          # テーブルプレビュー for kintone 配布ファイル（旧版・一覧に列を足して明細の件数と集計値をバッジ表示／ホバーでポップアップ／その場編集）
+│   │   ├── kw-table-preview-v1.2.0.zip                               # テーブルプレビュー for kintone 配布ファイル（最新・v1.2.0：明細の時間を〇時間〇分で合計）
 │   │   ├── kw-file-export-v1.0.0.zip                             # 添付ファイル出力 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-export-v1.0.1.zip                             # 添付ファイル出力 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-export-v1.0.2.zip                            # 添付ファイル出力 for kintone 配布ファイル（旧版・参考保管）

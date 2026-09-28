@@ -11,9 +11,9 @@ import Picture from '../../../components/Picture.astro';
 
 <Layout
   title="テーブルアシスト for kintone - 明細の行を並べ替え・選んだ行だけ集計するプラグイン | KIZUNA Works"
-  description="kintone のテーブル（サブテーブル）の行をドラッグ&ドロップで並べ替え、複製・まとめて操作できるようにし、チェックを入れた行だけを合計・平均・件数で集計して数値フィールドへ自動入力する kintone プラグイン。標準にない SUMIF を作業用の計算列なしで実現します。行の「＋」で押した行の真上に追加、一度に表示する行数を絞る折りたたみとページ送り、列見出しソート・ヘッダー固定・行番号・既存レコードへの一括反映に対応。kintone完結・外部API不使用。"
+  description="kintone のテーブル（サブテーブル）でチェックした行だけを合計・平均・件数で集計し、数値フィールドへ自動入力するプラグイン。標準にない SUMIF を計算列なしで実現し、作業時間も「〇時間〇分」で合計できます。行の並べ替え・複製・一括操作にも対応。"
   ogTitle="テーブルアシスト for kintone - 明細の行を並べ替え・選んだ行だけ集計するプラグイン | KIZUNA Works"
-  ogDescription="チェックした行だけ、合計する。明細の行を並べ替え・複製・まとめて操作でき、選んだ行だけの合計・平均・件数を数値フィールドへ自動入力。行数の多い明細は先頭 N 行だけ表示でき、＋は押した行の真上にも追加できます。kintone完結・外部API不使用。"
+  ogDescription="kintone のテーブル（サブテーブル）でチェックした行だけを合計・平均・件数で集計し、数値フィールドへ自動入力するプラグイン。標準にない SUMIF を計算列なしで実現し、作業時間も「〇時間〇分」で合計できます。行の並べ替え・複製・一括操作にも対応。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/table-assist/"
   ogImage="https://kizuna-works.jp/images/table-assist-banner.png"
@@ -29,7 +29,7 @@ import Picture from '../../../components/Picture.astro';
           "@id": "https://kizuna-works.jp/plugins/table-assist/",
           "url": "https://kizuna-works.jp/plugins/table-assist/",
           "name": "テーブルアシスト for kintone - 明細の行を並べ替え・選んだ行だけ集計するプラグイン | KIZUNA Works",
-          "description": "kintone のテーブルの行を並べ替え・複製・まとめて操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ自動入力する kintone プラグイン。行の追加位置の切り替えと表示行数の制限、既存レコードへの一括反映にも対応。",
+          "description": "kintone のテーブルの行を並べ替え・複製・まとめて操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ自動入力する kintone プラグイン。勤務時間などの時間の列も「〇時間〇分」で集計でき、行の追加位置の切り替えと表示行数の制限、既存レコードへの一括反映にも対応。",
           "primaryImageOfPage": {
             "@type": "ImageObject",
             "url": "https://kizuna-works.jp/images/table-assist-banner.png",
@@ -55,10 +55,10 @@ import Picture from '../../../components/Picture.astro';
           "name": "テーブルアシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.1.0",
-          "dateModified": "2026-09-23",
+          "softwareVersion": "1.2.0",
+          "dateModified": "2026-09-28",
           "url": "https://kizuna-works.jp/plugins/table-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-table-assist-v1.1.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-table-assist-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/table-assist-banner.png",
           "offers": {
             "@type": "Offer",
@@ -68,7 +68,7 @@ import Picture from '../../../components/Picture.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintone のテーブル（サブテーブル）の行をドラッグ&ドロップで並べ替え、複製・まとめて操作できるようにし、チェックを入れた行だけを合計・平均・件数で集計して数値フィールドへ自動入力する kintone プラグイン。行の「＋」で押した行の真上に追加、一度に表示する行数を絞る折りたたみとページ送り、列見出しソート・ヘッダー固定・行番号・行数制限・既存レコードへの一括反映に対応。",
+          "description": "kintone のテーブル（サブテーブル）の行をドラッグ&ドロップで並べ替え、複製・まとめて操作できるようにし、チェックを入れた行だけを合計・平均・件数で集計して数値フィールドへ自動入力する kintone プラグイン。行の「＋」で押した行の真上に追加、一度に表示する行数を絞る折りたたみとページ送り、列見出しソート・ヘッダー固定・行番号・行数制限・既存レコードへの一括反映、時間の列の「〇時間〇分」での集計に対応。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -86,7 +86,9 @@ import Picture from '../../../components/Picture.astro';
             "テーブルごとの最大行数の設定と、1アプリの複数テーブルへの対応",
             "行の「＋」を押したときの追加位置を「押した行の下（kintone 標準）／真上」から選択",
             "一度に表示する行数を制限し、超えた行は折りたたみ（ページ送り・全件表示つき。隠れた行も保存・集計の対象）",
-            "GAS・外部サービス不要・kintone完結・レコード画面では通信しない・ゲストスペース対応"
+            "時間の計算フィールドもチェックした行だけ「〇時間〇分」で集計し、出力先の数値フィールドへ分・時間・秒のいずれかで書き込み",
+            "列の種類の変更や出力先を編集できない利用者を検知して画面に案内（パソコン・スマートフォン共通）",
+            "GAS・外部サービス不要・kintone完結（レコード画面の通信は同じ kintone から利用者の権限を読み取るのみ）・ゲストスペース対応"
           ]
         }
       ]
@@ -782,27 +784,27 @@ import Picture from '../../../components/Picture.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.1.0</span>
+        <span class="hero-version">v1.2.0</span>
       </div>
       <h1 class="hero-title">テーブルアシスト for kintone</h1>
-      <p class="hero-copy">テーブルアシスト for kintone は、<strong>テーブル（サブテーブル）の行を並べ替え・複製・まとめて操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ書き込む</strong> kintone プラグインです。標準にない「条件付きの合計」を、<strong>作業用の計算列も関数式もなし</strong>で実現します。行の「＋」は<strong>押した行の真上</strong>にも追加でき、行数の多い明細は<strong>先頭 N 行だけ表示</strong>して折りたためます。</p>
+      <p class="hero-copy">テーブルアシスト for kintone は、<strong>テーブル（サブテーブル）の行を並べ替え・複製・まとめて操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ書き込む</strong> kintone プラグインです。標準にない「条件付きの合計」を、<strong>作業用の計算列も関数式もなし</strong>で実現します。行の「＋」は<strong>押した行の真上</strong>にも追加でき、行数の多い明細は<strong>先頭 N 行だけ表示</strong>して折りたためます。v1.2.0 からは、勤務時間・作業時間などの<strong>時間の列も「〇時間〇分」で集計</strong>できます。</p>
     </section>
 
-    <!-- Update Info (v1.1.0) -->
+    <!-- Update Info (v1.2.0) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.1.0：行は「押した行の真上」にも追加でき、長い明細は先頭の数行だけ表示できます</h2>
+          <h2 class="update-title">v1.2.0：選んだ行の作業時間を「〇時間〇分」で合計できるようになりました</h2>
         </div>
-        <p class="update-desc">明細を<strong>新しいものから上へ積んでいく</strong>運用のために、行の「＋」で<strong>押した行の真上に追加</strong>できるようにしました（テーブルごとに「下（kintone 標準）／真上」を選べます）。一番上の行の＋を押すだけで先頭に行が増えるので、追加のたびに並べ替える必要がありません。途中の行の＋でも、その行の真上に入ります。追加した行には kintone 標準の＋と同じくフィールドの初期値が入ります。</p>
-        <p class="update-desc">あわせて、<strong>一度に表示する行数</strong>を決められるようにしました（例：10 行）。それを超える行は折りたたまれ、テーブルの下の<strong>ページ送り</strong>と<strong>「全 N 行を表示」</strong>で切り替えられます。<strong>隠れている行もこれまでどおり保存され、集計の対象になります</strong>——見えていないだけでデータは変わりません。保存するときは自動的に全行を表示するので、隠れた行の入力エラーを見落とす心配もありません。</p>
+        <p class="update-desc">勤務時間・作業時間などの<strong>時間の列を、チェックした行だけ集計できる</strong>ようにしました。表示形式を「時間」にした計算フィールド（例：終了時刻－開始時刻）を集計対象に選ぶと、kintone と同じく秒で計算し、集計カードには<strong>kintone の画面と同じ「4時間58分」の形</strong>（日時分の表示形式なら「2日1時間30分」）で表示します。合計・平均・最大・最小に対応しています。分や時間を数字で入力している数値フィールドも、集計ルールの「表示形式」で<strong>「時間で表示（入力値は分）」</strong>などを選べば「〇時間〇分」で表示できます。</p>
         <div class="update-shot">
-          <Picture class="zoomable" src="/images/table-assist-record-03.png" alt="テーブルアシスト v1.1.0 のレコード編集画面 — 全12行のうち先頭5行だけを表示し、テーブル下に「1–5 行目 / 全 12 行（1 / 3 ページ）」のページ送りと「全 12 行を表示」ボタン、「＋ 末尾に行を追加」ボタン、選択中3行のうち2行は非表示である旨の注意、選択合計 22,400 の集計カードが並んでいる" width="1284" height="1061" />
+          <Picture class="zoomable" src="/images/table-assist-time-01.png" alt="テーブルアシスト v1.2.0 — 勤務記録のレコード編集画面。明細テーブルの4行（見積作成・現地調査・報告書作成・打合せ）に、対象のチェックボックス・開始時刻・終了時刻・作業時間（0時間51分／1時間20分／1時間49分／2時間18分）・作業（分）の列と行の移動・複製ボタンが並び、現地調査を除く3行にチェックが入っている。テーブル下に「選択中 3 行」の一括操作ボタンと、集計カード「対象の作業時間 4時間58分」「作業分の合計 4時間58分」が表示されている" width="926" height="454" />
           <p class="shot-note">画像をクリックすると拡大表示します</p>
         </div>
-        <p class="update-desc">このバージョンでは、次の 2 件の不具合も修正しています。<strong>必須フィールドの列だけ、列見出しをクリックしても並べ替わらない</strong>問題（kintone が必須の見出しに付ける「＊」まで列名として読んでいたためで、必須の列が多いテーブルではプラグイン自体が動かなくなることもありました）と、<strong>列見出しで 2 回並べ替えたあとにドラッグ&ドロップが効かなくなる</strong>問題です。いずれも v1.0.0 から存在していたもので、該当する症状にお心当たりがある場合は最新版への更新をおすすめします。</p>
-        <p class="update-note">すでにお使いの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。行の追加位置と表示行数はどちらも既定では変更なし（従来どおりの動き）なので、使いたいテーブルだけ設定してください。</p>
+        <p class="update-desc">集計結果を書き込む出力先は数値フィールドなので、新しい設定<strong>「出力先に書く単位」</strong>で<strong>分（既定）／時間／秒</strong>のどの数に直して書くかを選べます（例：49時間30分なら 分＝2970、時間＝49.5、秒＝178200）。v1.1.0 までは、時間の計算フィールドの値を「数値として読み取れない値」として集計から外していたため、<strong>保存のたびに出力先が空欄で上書きされていました</strong>。この不具合も v1.2.0 で解消しています。</p>
+        <p class="update-desc">あわせて、集計値が<strong>黙って消えたり保存されなかったりしないための案内</strong>を加えました。集計対象の列を削除して同じフィールドコードで別の種類に作り直した場合は、そのルールの書き込みを止めて（既存の値はそのまま残します）「設定画面を開いて保存し直してください」と表示します。また、フィールドのアクセス権で<strong>出力先を編集できない利用者</strong>が保存しても kintone がその書き込みを黙って取り消すため、その利用者の編集・新規作成画面に「集計値は保存されません」と表示します。これらの案内は、<strong>スマートフォンでもパソコンと同じように表示</strong>されるようになりました。</p>
+        <p class="update-note">すでにお使いの方は、最新版（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。上書き後は、これまで空欄で上書きされていた時間の集計の出力先に、値を変更したとき・保存したときに分の数が入るようになります。出力先を時間の数（49.5 など）で管理している場合は、設定画面で「出力先に書く単位」を「時間」に変えて保存してください。過去のレコードの集計値をまとめて直すには「② 一括反映」を実行してください。</p>
       </div>
     </section>
 
@@ -842,6 +844,12 @@ import Picture from '../../../components/Picture.astro';
           </div>
           <figcaption>見積明細でチェックした 4 行だけを集計（選択金額 762,900 円／選択件数 4 件）。左端に行番号と掴みハンドル、右端に↑↓と複製ボタン</figcaption>
         </figure>
+        <figure>
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/table-assist-record-03.png" alt="テーブルアシスト レコード編集画面 — 全12行のうち先頭5行だけを表示し、テーブル下に「1–5 行目 / 全 12 行（1 / 3 ページ）」のページ送りと「全 12 行を表示」ボタン、「＋ 末尾に行を追加」ボタン、選択中3行のうち2行は非表示である旨の注意、選択合計 22,400 の集計カードが並んでいる" width="1284" height="1061" />
+          </div>
+          <figcaption>行数の多い明細は先頭 N 行だけ表示し、ページ送りと「全 N 行を表示」で切り替え（隠れた行も保存・集計の対象）。＋は押した行の真上にも追加できます</figcaption>
+        </figure>
       </div>
       <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
         <li><span><strong>集計結果は実データとして書き込まれます</strong> — 一覧の絞り込み・グラフ・CSV 出力・ルックアップにそのまま使えます。画面に出すだけの集計ではありません。</span></li>
@@ -867,7 +875,10 @@ import Picture from '../../../components/Picture.astro';
           <li><span><strong>行数制限</strong> — テーブルごとに最大行数を決めると、上限に達したときに ＋ ボタンと複製ボタンが押せなくなります。</span></li>
           <li><span><strong>行の追加位置</strong> — 行の「＋」を押したときに、<strong>押した行の下（kintone 標準）／真上</strong>のどちらへ入れるかをテーブルごとに選べます。新しい明細を上へ積んでいく運用では、一番上の行の＋を押すだけで先頭に追加できます。</span></li>
           <li><span><strong>表示する行数の制限</strong> — 行数の多い明細を<strong>先頭 N 行だけ表示</strong>し、残りは折りたたみます。ページ送りと「全 N 行を表示」で切り替えられ、隠れている行もそのまま保存・集計されます。</span></li>
-          <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は不要。<strong>レコード画面では通信しません</strong>。ゲストスペースにも対応します。</span></li>
+          <li><span><strong>時間の集計</strong> — 勤務時間・作業時間など、表示形式が「時間」の計算フィールドを、チェックした行だけ合計・平均・最大・最小できます。集計カードには kintone の画面と同じ<strong>「〇時間〇分」</strong>で表示します。分や時間を数字で入力している数値フィールドも、時間として表示できます。</span></li>
+          <li><span><strong>出力先に書く単位</strong> — 時間の集計結果を数値フィールドへ書くときに、<strong>分（既定）／時間／秒</strong>のどの数にするかを選べます（49時間30分なら 分＝2970／時間＝49.5）。</span></li>
+          <li><span><strong>集計値が消えないための案内</strong> — 集計対象の列を別の種類に作り直したときは書き込みを止めて設定の保存し直しを促し、出力先を編集できない利用者には「集計値は保存されません」と表示します。案内はパソコンとスマートフォンの両方に出ます。</span></li>
+          <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は不要。レコード画面での通信は、作成・編集画面を開いたときに<strong>利用者の権限を同じ kintone から読み取るだけ</strong>です（レコードの値は取得しません）。ゲストスペースにも対応します。</span></li>
         </ul>
       </div>
     </section>
@@ -967,7 +978,7 @@ import Picture from '../../../components/Picture.astro';
       <p class="section-subtitle">レコードの作成・編集画面で全機能が動作します。詳細画面とモバイルは集計の表示に対応しています。</p>
       <ol class="steps-list">
         <li><span>テーブルの中に<strong>「行を選ぶ目印」になるフィールド</strong>（チェックボックスなど）と、テーブルの外に<strong>集計結果を書き込む数値フィールド</strong>を用意しておく</span></li>
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-table-assist-v1.1.0.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-table-assist-v1.2.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「テーブルアシスト for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で対象のテーブルを<strong>有効にし</strong>、行操作・選択に使うフィールド・集計ルールを設定して「保存」</span></li>
@@ -996,7 +1007,7 @@ import Picture from '../../../components/Picture.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 設定画面・レコード一覧に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-table-assist-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-table-assist-v1.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">1プラグインならこちら</span>
@@ -1166,10 +1177,10 @@ import Picture from '../../../components/Picture.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-table-assist-v1.1.0.zip',
+              file_name: 'kw-table-assist-v1.2.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-table-assist-v1.1.0.zip'
+              link_url: '/downloads/kw-table-assist-v1.2.0.zip'
             });
           }
         });

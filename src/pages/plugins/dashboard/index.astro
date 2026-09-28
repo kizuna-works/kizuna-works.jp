@@ -57,10 +57,10 @@ const teaser = teaserIds
           "name": "ダッシュボード for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.2.0",
-          "dateModified": "2026-09-19",
+          "softwareVersion": "1.3.0",
+          "dateModified": "2026-09-28",
           "url": "https://kizuna-works.jp/plugins/dashboard/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-dashboard-v1.2.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-dashboard-v1.3.0.zip",
           "image": "https://kizuna-works.jp/images/dashboard-banner.png",
           "offers": [
             {
@@ -86,6 +86,8 @@ const teaser = teaserIds
             "グラフ（縦棒・横棒・折れ線・エリア・円・ドーナツ・レーダー・積み上げ各種・複合・割合%）",
             "数値カード（合計・件数・平均などの単一値／割合%／★評価）",
             "クロス集計表・ヒートマップ（行×列のピボット集計・濃淡/閾値カラー・行合計／列合計を個別に表示）",
+            "時間の集計（時間の計算フィールド・分/時間/秒の数値を「〇時間〇分」でカード・グラフ・クロス集計に表示）",
+            "時間の条件を「8:30」で入力・ドリルダウンでも正しく絞り込み（秒に換算して検索）",
             "12列グリッドに複数ウィジェットを自由配置",
             "期間セレクタで全ウィジェットを連動再集計",
             "ウィジェットクリックで対象レコードへドリルダウン",
@@ -287,7 +289,7 @@ const teaser = teaserIds
       <img class="dbp-hero-icon" src="/images/dashboard-icon.png" alt="ダッシュボード for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="dbp-hero-badges">
         <span class="dbp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="dbp-hero-version">v1.2.0</span>
+        <span class="dbp-hero-version">v1.3.0</span>
       </div>
       <h1>ダッシュボード for kintone</h1>
       <p class="dbp-tagline">見たい数字を、1枚に。</p>
@@ -295,29 +297,29 @@ const teaser = teaserIds
     </section>
     <div class="dbp-hero-gradient-line"></div>
 
-    <!-- Update Info: クロス集計表の合計を行／列で個別に (2026-09-17) -->
+    <!-- Update Info (v1.3.0) -->
     <section class="dbp-section">
       <div class="dbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.2.0：クロス集計表の合計を「行合計」「列合計」で別々に表示できるようになりました</h2>
+            <h2 class="update-title">v1.3.0：勤務時間などの時間を「〇時間〇分」で集計・グラフ化できるようになりました</h2>
           </div>
-          <p class="update-desc">クロス集計表の表示オプションは、これまで<strong>「合計行/列」という 1 つのチェックボックス</strong>で、<strong>表の右端の合計列</strong>と<strong>表の下端の合計行</strong>が同時に出る作りでした。「列ごとの総計は表の下に出したいが、行ごとの合計は要らない」という場面では、必要のない合計列まで表示され、列数の多い表では横幅を圧迫していました。</p>
-          <p class="update-desc">v1.2.0 では、表示オプションが<strong>「行合計（表の右端）」と「列合計（表の下端）」の 2 つ</strong>に分かれ、<strong>それぞれ独立して表示・非表示を切り替え</strong>られます。<strong>表の下の列合計だけを残して、右端の行合計を消す</strong>という表の作り方ができます。ウィジェットごとの設定なので、同じボードの中で「片方だけの表」と「両方出す表」を並べることもできます。</p>
+          <p class="update-desc">表示形式を「時間」にした計算フィールド（例：退勤－出勤－休憩）を集計対象に選ぶと、<strong>数値カード・グラフ・クロス集計表のすべてで、kintone の画面と同じ形（49時間30分／日時分の表示形式なら 2日1時間30分）</strong>で表示します。グラフでは<strong>値の目盛り（「50時間」「100時間」）・データラベル（「102時間6分」）・マウスを乗せたときの値・ドーナツの中央</strong>も「〇時間〇分」になります。v1.2.0 までは時間の値を数値として読んでいたため、<strong>分が切り捨てられた値（例：49時間30分が「49」）</strong>になっていました。</p>
           <div class="update-shot">
             <Picture
-              src="/images/dashboard-config-totals.png"
-              alt="ダッシュボード for kintone の設定画面 — クロス集計表の表示オプションが「ヒートマップ」「行合計（表の右端）」「列合計（表の下端）」の3つのチェックボックスに分かれ、その下に行合計と列合計の意味を説明する補足文が表示されている"
-              width="2160"
-              height="1500"
+              src="/images/dashboard-time-01.png"
+              alt="ダッシュボード for kintone v1.3.0 — 「勤務時間」ボードに、数値カード「勤務時間の合計 304時間39分」、目盛りが0時間・50時間・100時間・150時間の棒グラフ「部署別の勤務時間」（総務部 102時間6分・開発部 101時間33分・営業部 101時間0分）、ヒートマップの濃淡が付いたクロス集計表「部署×月の作業時間」（総務部 2026-10 が11時間19分・2026-09 が45時間35分・合計 56時間54分）が並んでいる"
+              width="1280"
+              height="587"
               class="zoomable"
             />
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
-          <p class="update-desc"><strong>総計（右下のセル）は、行合計と列合計の両方を表示したときだけ</strong>入ります。割合（%）モードのクロス集計表やヒートマップと組み合わせても同じように切り替えられます。</p>
-          <p class="update-desc">これまでに保存した設定は<strong>そのまま引き継がれ、更新後も見た目は変わりません</strong>（行合計・列合計の両方が表示された状態から始まります）。集計キャッシュをお使いの場合も、表示を切り替えるだけで<strong>再集計は不要</strong>です。</p>
-          <p class="update-note">最新版を kintone システム管理 →「プラグイン」→「読み込む」から上書きアップロードしてください。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます（アプリの再設定や「アプリを更新」の操作は不要です）。</p>
+          <p class="update-desc">分や時間を数字で入力している<strong>数値フィールドも、集計対象の横の欄で「分の数 → 〇時間〇分で表示」「時間の数 → 〇時間〇分で表示」「秒の数 → 〇時間〇分で表示」</strong>を選ぶと時間で表示できます。100%積み上げグラフと割合（%）は、これまでどおりパーセントで表示します。</p>
+          <p class="update-desc">時間のフィールドの<strong>絞り込み条件は「8:30」（8時間30分）の形で入力</strong>できます。kintone の検索は時間を秒の数で比べるため、プラグインが秒に直して渡し、<strong>ドリルダウンでも正しい対象レコードが開く</strong>ようになりました。</p>
+          <p class="update-desc">あわせて、集計に使うフィールドが削除された場合や、閲覧する人にそのフィールドの閲覧権限が無い場合は、0 と表示する代わりに<strong>「対象フィールドなし（フィールドコード）」</strong>と表示します（ほかのウィジェットはそのまま表示されます）。レコードの取得に失敗したときは、<strong>kintone からの理由</strong>を併記します。</p>
+          <p class="update-note">上書きアップロードすると、設定を変えなくてもカード・グラフ・クロス集計が「〇時間〇分」の正しい値になります。数値カードの接尾辞に「時間」などを付けていた場合は「49時間30分時間」のように重なって表示されるので、接尾辞を空にしてください。時間の条件に「8:30」のような値を入れていた場合、以前はドリルダウン先で 0 件になっていましたが、v1.3.0 からは正しく絞り込まれます。<br>既存ユーザーの方は、最新版（v1.3.0）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。</p>
         </div>
       </div>
     </section>
@@ -326,7 +328,7 @@ const teaser = teaserIds
     <section class="dbp-section">
       <div class="dbp-wrap">
         <p class="dbp-lead">
-          <strong>ダッシュボード for kintone</strong> は、複数の<strong>グラフ・数値カード・クロス集計表</strong>を1枚のボードに自由配置し、レコード一覧の<strong>カスタマイズビュー</strong>に常設の集計ダッシュボードを描画する kintone プラグインです。標準グラフのように1画面1グラフではなく、見たい指標を並べて一望できます。上部の<strong>期間セレクタで全ウィジェットを連動再集計</strong>でき、<strong>複数アプリ横断の集計・ポータルへの常時表示・大規模データ向けの集計キャッシュ</strong>にも対応。集計はすべてブラウザ内で完結し、業務データを外部へ送信しません。<strong>「プレミアムプラグイン」シリーズの第 2 弾</strong>です。
+          <strong>ダッシュボード for kintone</strong> は、複数の<strong>グラフ・数値カード・クロス集計表</strong>を1枚のボードに自由配置し、レコード一覧の<strong>カスタマイズビュー</strong>に常設の集計ダッシュボードを描画する kintone プラグインです。標準グラフのように1画面1グラフではなく、見たい指標を並べて一望できます。上部の<strong>期間セレクタで全ウィジェットを連動再集計</strong>でき、<strong>複数アプリ横断の集計・ポータルへの常時表示・大規模データ向けの集計キャッシュ</strong>にも対応。勤務時間・作業時間などの時間も<strong>「〇時間〇分」</strong>で集計できます。集計はすべてブラウザ内で完結し、業務データを外部へ送信しません。<strong>「プレミアムプラグイン」シリーズの第 2 弾</strong>です。
         </p>
       </div>
     </section>
@@ -348,6 +350,16 @@ const teaser = teaserIds
             <img src="/images/dashboard-overview-yojitsu.png" alt="ダッシュボード for kintone のアプリ横断集計の例 — 実績アプリと予算アプリのデータを集約し、営業所別・地域別・カテゴリ別の実績vs予算の棒グラフ、総実績・総予算カード、実績／予算のクロス集計表、月別の予算達成率ヒートマップを1枚に表示した予実管理ダッシュボード" width="1891" height="2035" loading="lazy" />
           </picture>
           <figcaption>② <strong>アプリ横断集計</strong>の例：実績アプリと予算アプリのデータを1枚に集約した「予実管理ダッシュボード」。営業所別・地域別の実績 vs 予算、月別の予算達成率ヒートマップまで（ダミーデータ・プレミアム）</figcaption>
+        </figure>
+        <figure class="dbp-shot-full" style="margin-top:36px;">
+          <Picture
+            src="/images/dashboard-config-totals.png"
+            alt="ダッシュボード for kintone の設定画面 — クロス集計表の表示オプションが「ヒートマップ」「行合計（表の右端）」「列合計（表の下端）」の3つのチェックボックスに分かれ、その下に行合計と列合計の意味を説明する補足文が表示されている"
+            width="2160"
+            height="1500"
+            class="zoomable"
+          />
+          <figcaption>③ クロス集計表の設定：「行合計（表の右端）」と「列合計（表の下端）」を別々に表示・非表示にできます。総計（右下のセル）は両方を表示したときだけ入ります</figcaption>
         </figure>
       </div>
     </section>
@@ -418,6 +430,18 @@ const teaser = teaserIds
             <p>ウィジェットをクリックすると、その集計の対象レコードの一覧へ遷移。気になった数字の中身をすぐ確認できます。</p>
           </div>
           <div class="dbp-feat-card">
+            <h3>時間を「〇時間〇分」で集計</h3>
+            <p>表示形式が「時間」の計算フィールドは、数値カード・グラフ（目盛り・データラベル・ツールチップ）・クロス集計表を kintone と同じ「49時間30分」の形で表示。分や時間を数字で入力した数値フィールドも時間で表示できます。条件は「8:30」で入力でき、ドリルダウンでも正しく絞り込まれます。</p>
+          </div>
+          <div class="dbp-feat-card">
+            <h3>行合計・列合計を別々に表示</h3>
+            <p>クロス集計表の「行合計（表の右端）」と「列合計（表の下端）」は、ウィジェットごとに独立して表示・非表示を切り替えられます。表の下の列合計だけを残して横幅を抑える、といった表が作れます。割合（%）モードやヒートマップとも組み合わせられます。</p>
+          </div>
+          <div class="dbp-feat-card">
+            <h3>集計できない理由を表示</h3>
+            <p>集計に使うフィールドが削除された、または閲覧権限が無い場合は、0 と見誤らないよう「対象フィールドなし（フィールドコード）」と表示します。取得に失敗したときは kintone からの理由を併記。ほかのウィジェットはそのまま表示されます。</p>
+          </div>
+          <div class="dbp-feat-card">
             <h3>配色・ライブプレビュー</h3>
             <p>ボード既定／プリセット／カスタム多色、クロス集計のヒートマップ濃淡・閾値カラーに対応。設定画面ではボード全体・カード個別を実データでプレビューできます。</p>
           </div>
@@ -469,7 +493,7 @@ const teaser = teaserIds
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-dashboard-v1.2.0.zip" download class="dbp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-dashboard-v1.3.0.zip" download class="dbp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="dbp-plan-card recommended">
@@ -602,10 +626,10 @@ const teaser = teaserIds
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-dashboard-v1.2.0.zip',
+            file_name: 'kw-dashboard-v1.3.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-dashboard-v1.2.0.zip'
+            link_url: '/downloads/kw-dashboard-v1.3.0.zip'
           });
         });
       }

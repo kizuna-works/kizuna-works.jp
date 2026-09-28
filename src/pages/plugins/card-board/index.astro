@@ -49,10 +49,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "カードボード for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.0.1",
-          "dateModified": "2026-09-19",
+          "softwareVersion": "1.1.0",
+          "dateModified": "2026-09-28",
           "url": "https://kizuna-works.jp/plugins/card-board/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-card-board-v1.0.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-card-board-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/card-board-banner.png",
           "offers": [
             {
@@ -78,6 +78,8 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             "レコード一覧を「状態カード＋詳細カード」の2段カンバンUIに切替表示",
             "詳細カードを状態カードへドラッグ&ドロップしてステータス・選択肢・文字列の値を変更",
             "状態カードに件数と集計値（合計/平均/最大/最小/件数）を全幅で表示",
+            "勤務時間などの時間の計算フィールドを「〇時間〇分」「〇日〇時間〇分」でkintoneと同じ形に集計表示",
+            "分・時間・秒を数字で入力した数値フィールドも「時間で表示」を選んで「〇時間〇分」で集計",
             "連動モード（全レーンを横並びで俯瞰）と個別モード（1状態をギャラリー表示）を切替",
             "詳細カードに任意フィールドをドラッグで配置＋添付ファイルの画像をサムネイル表示",
             "レーンの区切り線（縦グリッド）・初期に開く状態の指定・カードの高さ（自動/固定/可変）",
@@ -219,6 +221,82 @@ import TrialBanner from '../../../components/TrialBanner.astro';
 
     .zoomable { cursor: zoom-in; }
 
+    /* Update box (version highlight) */
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid #e2e8f0;
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text-main);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 24px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-muted);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+    /* Smaller, centered screenshot inside the update box */
+    .update-shot {
+      max-width: 640px;
+      margin: 0 auto 24px;
+    }
+    .update-shot img { width: 100%; height: auto; display: block; }
+    .update-shot .zoom-hint {
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 12px;
+      margin: 10px 0 0;
+    }
+    /* Screenshot frame used inside the update box */
+    .screenshot-frame {
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
     .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
     .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
     .steps-list li:first-child { border-top: none; }
@@ -250,6 +328,8 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       .afp-plan-grid { grid-template-columns: 1fr; }
       .afp-blog-grid { grid-template-columns: 1fr; }
       .afp-h2 { font-size: 1.4rem; }
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
     }
   </style>
 
@@ -259,13 +339,44 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <img class="afp-hero-icon" src="/images/card-board-icon.png" alt="カードボード for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.0.1</span>
+        <span class="afp-hero-version">v1.1.0</span>
       </div>
       <h1>カードボード for kintone</h1>
       <p class="afp-tagline">一覧を、動かせるカードボードに。</p>
-      <p class="afp-sub">レコード一覧を「状態カード＋詳細カード」の2段カンバンに切り替え。詳細カードをドラッグ&ドロップするだけでステータスを変更でき、状態別の件数・合計を一目で俯瞰できます。「表の一覧では進捗が掴めない」を解消します。</p>
+      <p class="afp-sub">レコード一覧を「状態カード＋詳細カード」の2段カンバンに切り替え。詳細カードをドラッグ&ドロップするだけでステータスを変更でき、状態別の件数・合計を一目で俯瞰できます。勤務時間などの時間も「〇時間〇分」で集計できます。「表の一覧では進捗が掴めない」を解消します。</p>
     </section>
     <div class="afp-hero-gradient-line"></div>
+
+    <!-- Update Info (v1.1.0) -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <div class="update-box">
+          <div class="update-head">
+            <span class="update-tag">UPDATE</span>
+            <h2 class="update-title">v1.1.0：勤務時間などの時間を「〇時間〇分」で集計できるようになりました</h2>
+          </div>
+          <p class="update-desc">状態カードの集計値が<strong>時間の集計に対応しました</strong>。表示形式を「時間」にした計算フィールドを集計値に選ぶと、合計・平均・最大・最小を<strong>kintone の画面と同じ形（101時間0分／日時分の表示形式なら 1日2時間22分）</strong>で表示します。これまでは分が切り捨てられた数字（例：49時間30分が「49」）になっていました。分や時間を数字で入力している数値フィールドも、集計値の設定で<strong>「時間で表示（入力値は分）」</strong>などを選べば「〇時間〇分」で表示できます。</p>
+          <div class="update-shot">
+            <div class="screenshot-frame">
+              <picture>
+                <source srcset="/images/card-board-time-01.webp" type="image/webp" />
+                <img
+                  class="zoomable"
+                  src="/images/card-board-time-01.png"
+                  alt="カードボード v1.1.0 — 勤務記録アプリのカード表示。上部の状態カード「営業部／開発部／総務部」にそれぞれ12件と「勤務 101時間0分」「経過平均 0日23時間33分」「作業 52時間6分」などの時間の集計値が並び、その下の詳細カードは勤務時間の長い順（10時間10分、9時間37分…）に並んで、日付と報告期限も日付の形で表示されている"
+                  loading="lazy"
+                  width="1280"
+                  height="492"
+                />
+              </picture>
+            </div>
+            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+          </div>
+          <p class="update-desc">詳細カードに置いた計算フィールドも、<strong>時間は「〇時間〇分」、日付・日時は「2026/10/22」のような日付</strong>で表示します（これまでは年だけが表示されていました）。詳細カードの並び順に時間の計算フィールドを選ぶと、<strong>時間の長さの順</strong>に並びます。また、集計に選んだフィールドが削除された場合や、見ている方にそのフィールドの閲覧権限が無い場合は、実際の値に見える「0」ではなく<strong>「対象フィールドなし」</strong>と表示するようにしました。</p>
+          <p class="update-note">v1.0.1 までは時間の計算フィールドの集計値が数字で表示されていましたが、上書きアップロードすると、設定を変えなくても「〇時間〇分」で表示されます。以前の値に合わせて集計値のラベルに「時間」などの単位を付けていた場合は、単位が重なって見えるのでラベルから外してください。<br>既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+        </div>
+      </div>
+    </section>
 
     <!-- 定義（結論ファースト） -->
     <section class="afp-section">
@@ -370,6 +481,18 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           <div class="afp-feat-card">
             <h3>状態カード＋集計値</h3>
             <p>グルーピング元（プロセス管理ステータス／ドロップダウン／ラジオ／文字列）の値ごとに「状態名＋件数」を全幅均等で表示。その状態に属するレコードの<strong>合計／平均／最大／最小／件数</strong>を集計して並べられます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>時間を「〇時間〇分」で集計</h3>
+            <p>表示形式を「時間」にした計算フィールド（勤務時間・経過時間など）の合計・平均・最大・最小を、<strong>kintone の画面と同じ「〇時間〇分」「〇日〇時間〇分」</strong>で状態カードに表示。詳細カードの時間・日付の計算フィールドも同じ形で表示し、時間の長さ順での並べ替えにも対応します（v1.1.0〜）。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>数値フィールドも時間で表示</h3>
+            <p>分や時間を数字で入力している数値フィールドは、集計値の設定で<strong>「時間で表示（入力値は分）」</strong>（秒・時間も選択可）を選ぶだけで「〇時間〇分」に。例えば合計 3126 分を「52時間6分」と表示できます（v1.1.0〜）。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>「対象フィールドなし」の表示</h3>
+            <p>集計に選んだフィールドが削除された、または見ている方に閲覧権限が無い場合は、実際の値に見える「0」ではなく<strong>「対象フィールドなし」</strong>と表示。誤った数字で判断してしまうのを防ぎます（v1.1.0〜）。</p>
           </div>
           <div class="afp-feat-card">
             <h3>ドラッグ&ドロップで値変更</h3>
@@ -495,7 +618,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <li>✅ 連動/個別モード・添付サムネイル・ライブ編集</li>
               <li>✅ 利用期限なし（レコード一覧画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-card-board-v1.0.1.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-card-board-v1.1.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="afp-plan-card recommended">
@@ -642,10 +765,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-card-board-v1.0.1.zip',
+            file_name: 'kw-card-board-v1.1.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-card-board-v1.0.1.zip'
+            link_url: '/downloads/kw-card-board-v1.1.0.zip'
           });
         });
       }
