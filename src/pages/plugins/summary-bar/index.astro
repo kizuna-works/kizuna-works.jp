@@ -10,9 +10,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 
 <Layout
   title="集計サマリーバー for kintone - 一覧ヘッダーに合計・件数を即時表示 | KIZUNA Works"
-  description="kintone レコード一覧のヘッダーに合計・平均・最大・最小・件数の集計カードを表示するプラグイン。絞り込みに連動して即時に再集計し、グラフ画面に移動せず数字を確認。カードごとの絞り込み集計・条件付き色分け・段組みに対応。"
+  description="kintone レコード一覧のヘッダーに合計・平均・最大・最小・件数の集計カードを表示するプラグイン。絞り込みに連動して即時に再集計し、勤務時間などの時間も「〇時間〇分」で集計できます。カードごとの絞り込み集計・条件付き色分け・段組みに対応。"
   ogTitle="集計サマリーバー for kintone - 一覧ヘッダーに合計・件数を即時表示 | KIZUNA Works"
-  ogDescription="kintone レコード一覧のヘッダーに合計・平均・最大・最小・件数の集計カードを表示するプラグイン。絞り込みに連動して即時に再集計し、グラフ画面に移動せず数字を確認。カードごとの絞り込み集計・条件付き色分け・段組みに対応。"
+  ogDescription="kintone レコード一覧のヘッダーに合計・平均・最大・最小・件数の集計カードを表示するプラグイン。絞り込みに連動して即時に再集計し、勤務時間などの時間も「〇時間〇分」で集計できます。カードごとの絞り込み集計・条件付き色分け・段組みに対応。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/summary-bar/"
   ogImage="https://kizuna-works.jp/images/summary-bar-banner.png"
@@ -54,10 +54,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "集計サマリーバー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.3.0",
-          "dateModified": "2026-09-19",
+          "softwareVersion": "2.4.0",
+          "dateModified": "2026-09-28",
           "url": "https://kizuna-works.jp/plugins/summary-bar/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-summary-bar-v2.3.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-summary-bar-v2.4.0.zip",
           "image": "https://kizuna-works.jp/images/summary-bar-banner.png",
           "offers": {
             "@type": "Offer",
@@ -67,7 +67,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintone レコード一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示する kintone プラグイン。絞り込みに連動して即時に再集計する。",
+          "description": "kintone レコード一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示する kintone プラグイン。絞り込みに連動して即時に再集計する。勤務時間・作業時間などの時間も「〇時間〇分」で合計・平均できる。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -75,6 +75,9 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           },
           "featureList": [
             "レコード一覧ヘッダーに合計・平均・最大・最小・件数の集計カードを表示",
+            "計算フィールド（表示形式：時間）の合計・平均・最大・最小を kintone と同じ「〇時間〇分」「〇日〇時間〇分」で表示",
+            "分・時間・秒を入れた数値フィールドを「〇時間〇分」で表示（入力値の単位を選択）",
+            "時間の絞り込み・色分けのしきい値を「8:30」の形で入力（例：勤務時間8時間以上の日数）",
             "カードごとに別フィールドの条件で集計対象を絞り込み（例：商品＝商品Aの売上だけ合計／複数条件はAND・OR）",
             "絞り込み・ソートに連動して即時に再集計（debounce 制御）",
             "「表示中（現在ページ）／絞り込み全件」をトグルでワンクリック切替",
@@ -581,6 +584,56 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       line-height: 1.7;
       margin: 18px 0 0;
     }
+    /* Smaller, centered screenshot inside the update box */
+    .update-shot {
+      max-width: 640px;
+      margin: 0 auto 24px;
+    }
+    .update-shot img { width: 100%; height: auto; display: block; }
+    .update-shot .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin: 10px 0 0;
+    }
+
+    /* Zoomable images + lightbox overlay */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
 
     /* Screenshot Frame (live action screenshot) */
     .screenshot-frame {
@@ -691,22 +744,54 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.3.0</span>
+        <span class="hero-version">v2.4.0</span>
       </div>
       <h1 class="hero-title">集計サマリーバー for kintone</h1>
-      <p class="hero-copy">レコード一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示する kintone プラグインです。絞り込みに連動して即時に再集計するので、グラフ画面に移動せず「今この一覧の数字」をひと目で把握できます。一覧ビューごとに別のカード構成を設定でき、集計値による色分けや段組みに対応。<strong>v2.1.0 では集計対象の絞り込みに「日付の相対期間（今月・先月・本年など）」と「ユーザー／組織／グループ選択・作成者／更新者」を追加</strong>し、「今月の売上」「先月の売上」「自分が担当の件数」といったカードを並べられます。</p>
+      <p class="hero-copy">レコード一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示する kintone プラグインです。絞り込みに連動して即時に再集計するので、グラフ画面に移動せず「今この一覧の数字」をひと目で把握できます。一覧ビューごとに別のカード構成を設定でき、集計値による色分けや段組みに対応。「今月の売上」「自分が担当の件数」のような絞り込みカードや、<strong>勤務時間・作業時間を「〇時間〇分」で合計・平均するカード</strong>も並べられます。</p>
     </section>
 
-    <!-- Update Info (v2.2.0) -->
+    <!-- Update Info (v2.4.0) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v2.2.0：カードごとの絞り込みを取得条件に含めるようになりました</h2>
+          <h2 class="update-title">v2.4.0：勤務時間などの時間を「〇時間〇分」で集計できるようになりました</h2>
         </div>
-        <p class="update-desc">「絞り込み全件」で集計するときの<strong>取得の上限件数（既定 5,000 件）を、カードごとに判定する</strong>ようにしました。これまでは一覧全体の件数で判定していたため、たとえば本年度の 10,000 件が並んでいる一覧では、カードを「今月」に絞っていても上限に当たり、期間で絞ったカードが正しく集計できないことがありました。v2.2.0 では<strong>「一覧の絞り込み＋そのカード自身の絞り込み」を適用した件数</strong>で判定するので、一覧が 1 万件を超えていても今月分が上限内なら正確に集計されます。<strong>件数カードは、絞り込み条件をそのまま検索条件にできる場合はレコードを取得せず件数だけを数える</strong>ようになり、上限件数の影響を受けません。</p>
-        <p class="update-desc">あわせて、<strong>ドロップダウンフィールドでも絞り込めるように</strong>し、<strong>上限件数が指定した件数どおりに効くよう</strong>修正しました。上限に達したカードは値のうしろに <strong>⚠</strong> が付き枠が破線になるので、一部だけの集計であることがその場で分かります（このとき数値による色分けは適用しません）。</p>
-        <p class="update-note">既存ユーザーの方は、最新版（v2.3.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定や既存カードはそのまま引き継がれます。</p>
+        <p class="update-desc">「担当者の勤務時間の合計や、案件に費やした平均作業時間を『〇〇時間△△分』でカードに出したい」というご要望をいただき、<strong>時間の集計に対応しました</strong>。表示形式を「時間」にした計算フィールド（例：退勤－出勤－休憩）を選ぶと、合計・平均・最大・最小を<strong>kintone の画面と同じ形（49時間30分／日時分の表示形式なら 2日1時間30分）</strong>で表示します。分や時間を数字で入力している数値フィールドも、カードの「表示形式」で<strong>「時間で表示（入力値は分）」</strong>などを選べば「〇時間〇分」で表示できます。</p>
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <picture>
+              <source srcset="/images/summary-bar-time-01.webp" type="image/webp" />
+              <img
+                class="zoomable"
+                src="/images/summary-bar-time-01.png"
+                alt="集計サマリーバー v2.4.0 — 勤務記録アプリの一覧ヘッダーに、勤務時間の合計 851時間25分・平均勤務時間 8時間30分・8時間以上の日数 76・作業時間の合計 492時間30分・最長の経過 2日1時間35分のカードが並び、勤務時間の合計は予定時間の合計を上回ったため色が変わっている"
+                loading="lazy"
+                width="1400"
+                height="503"
+              />
+            </picture>
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-desc">時間のカードの<strong>絞り込み・色分けのしきい値は「8:30」の形で入力</strong>できます。「勤務時間が 8:00 以上の日数」を数えたり、「勤務時間の合計が予定時間の合計を上回ったら色を変える」といった使い方ができます。分未満は kintone の標準グラフと同じく切り捨てて表示します。</p>
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <picture>
+              <source srcset="/images/summary-bar-time-02.webp" type="image/webp" />
+              <img
+                class="zoomable"
+                src="/images/summary-bar-time-02.png"
+                alt="集計サマリーバー v2.4.0 の設定画面 — 対象フィールドに数値フィールド「作業（分）」を選び、表示形式で「時間で表示（入力値は分）」と「例：49時間30分」を選んでいるカード設定"
+                loading="lazy"
+                width="1400"
+                height="682"
+              />
+            </picture>
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-note">v2.3.0 までは、表示形式が「時間」の計算フィールドを選ぶと分が切り捨てられた値（例：49時間30分が「49」）になっていました。上書きアップロードすると、設定を変えなくても正しい「〇時間〇分」で表示されます（以前の値に合わせて接尾辞に「時間」を付けていた場合は、接尾辞を空にしてください）。<br>既存ユーザーの方は、最新版（v2.4.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定や既存カードはそのまま引き継がれます。</p>
       </div>
     </section>
 
@@ -769,11 +854,14 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <h2 class="section-title-left">主な機能</h2>
         <ul class="feature-list">
           <li><span><strong>一覧ヘッダーに集計カードを常設</strong> — 合計・平均・最大・最小・件数の集計カードをレコード一覧画面の上部に並べて表示。詳細画面やグラフ画面に移動せず、その場で数字を確認できます。</span></li>
+          <li><span><strong>勤務時間などの時間を「〇時間〇分」で集計（v2.4.0）</strong> — 表示形式を「時間」にした計算フィールドの合計・平均・最大・最小を、kintone の画面と同じ形（49時間30分／2日1時間30分）で表示します。「担当者の勤務時間の合計」「案件ごとの平均作業時間」をカードで常設できます。</span></li>
+          <li><span><strong>分・時間の数値も時間で表示（v2.4.0）</strong> — 作業時間を分や時間の数字で入力している数値フィールドは、カードの「表示形式」で入力値の単位（秒・分・時間）を選ぶと「〇時間〇分」で表示できます。</span></li>
+          <li><span><strong>時間のしきい値は「8:30」で入力（v2.4.0）</strong> — 時間のカードの絞り込み・色分けは「8:00 以上」「160:00 を超えたら」のように時間の形で入力できます。「8時間以上働いた日数」や「予定時間を上回ったら色を変える」カードも作れます。</span></li>
           <li><span><strong>カードごとに集計対象を絞り込み（v2.0.0）</strong> — カードごとに別フィールドの条件を設定して、集計対象のレコードを絞り込めます。「商品＝商品Aの売上だけ合計」「区分＝サービスの件数だけ」といった内訳カードを並べて表示でき、複数条件は AND／OR で組み合わせ可能。対象は文字列・ドロップダウン・チェックボックス・数値・日付などで、選択肢は値をプルダウンから選ぶだけです。</span></li>
           <li><span><strong>日付の「相対期間」で絞り込み（v2.1.0）</strong> — 日付・日時フィールドは固定日（以降・以前・等しい）に加えて、本日・前日・今週・先週・今月・先月・本年・昨年・期間指定で絞り込めます。「今月の売上」「先月の売上」「本年累計」を並べて期間比較が一覧上で完結します。</span></li>
           <li><span><strong>ユーザー／組織／グループ選択で絞り込み（v2.1.0）</strong> — ユーザー選択・組織選択・グループ選択・作成者・更新者フィールドでも絞り込めます。ユーザー系は「ログインユーザー（本人）」を選べるので、「自分が担当のレコードだけ」「自分が作成した件数だけ」を各自の画面で集計できます。</span></li>
           <li><span><strong>絞り込みに連動して即時再集計</strong> — 一覧の絞り込みやソートを変えると、その結果に合わせてカードが自動で再集計されます。多重実行を抑える debounce 制御付き。</span></li>
-          <li><span><strong>「表示中／絞り込み全件」をトグル切替</strong> — バー右端のトグルで、現在ページだけの集計と、絞り込み条件に合致する全レコードの集計をワンクリックで切り替え。全件はページングで取得し、上限件数（既定 5,000 件）で API 負荷を保護します。</span></li>
+          <li><span><strong>「表示中／絞り込み全件」をトグル切替</strong> — バー右端のトグルで、現在ページだけの集計と、絞り込み条件に合致する全レコードの集計をワンクリックで切り替え。全件はページングで取得し、上限件数（既定 5,000 件）で API 負荷を保護します。上限は「一覧の絞り込み＋そのカード自身の絞り込み」を適用した件数で判定するので、一覧が 1 万件を超えていても「今月」に絞ったカードは正確に集計されます。件数カードは条件をそのまま検索条件にできる場合は件数だけを数えるため、上限の影響を受けません。上限に達したカードには ⚠ が付き、一部だけの集計であることがその場で分かります。</span></li>
           <li><span><strong>一覧ビューごとに別のカード構成</strong> — 一覧ビューごとに、表示するカードの種類・順番・色を別々に設定可能。1 一覧あたり最大 10 枚まで並べられます。</span></li>
           <li><span><strong>集計値による条件付き色分け</strong> — 集計値が条件（以上・以下・等しい等）に一致したカードの配色をテーマで切替。比較先は固定値のほか、別の数値フィールドの同じ集計値も指定でき、「売上合計が目標売上合計を上回ったら緑」といった表示ができます。</span></li>
           <li><span><strong>段組みレイアウト</strong> — カードごとに「表示段（1〜3段）」を指定でき、同じ段のカードが横に並び段ごとに改行されます。カード数が多くても見やすく整理できます。</span></li>
@@ -867,6 +955,23 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <p>集計値が固定値や別フィールドの集計値と比べて条件に一致したとき、カードの配色をテーマで切り替え。目標達成状況をひと目で可視化できます。</p>
             </div>
           </div>
+
+          <div class="config-shot">
+            <picture>
+              <source srcset="/images/summary-bar-time-03.webp" type="image/webp" />
+              <img
+                src="/images/summary-bar-time-03.png"
+                alt="集計サマリーバー 設定画面⑤ 時間の絞り込み — 集計対象の絞り込みで、計算フィールド「勤務時間」が以上 8:00 の条件を入力している"
+                loading="lazy"
+                width="1400"
+                height="432"
+              />
+            </picture>
+            <div class="config-shot-caption">
+              <strong>⑤ 時間で絞り込む（v2.4.0）</strong>
+              <p>表示形式が「時間」の計算フィールドは、絞り込みの値を「8:00」の形で入力できます。件数カードと組み合わせると「8時間以上働いた日数」を数えられます。</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -876,7 +981,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">集計に使う数値（または計算）フィールドと、テーブル形式の一覧ビューがあるアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-summary-bar-v2.3.0.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-summary-bar-v2.4.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「集計サマリーバー」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>対象一覧</strong>を選び、「カード設定」タブで集計方法・対象フィールド・表示段などを設定して「保存」</span></li>
@@ -901,7 +1006,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-summary-bar-v2.3.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-summary-bar-v2.4.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="pricing-card recommended">
             <span class="recommended-badge">1プラグインならこちら</span>
@@ -936,7 +1041,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           <li>動作は Google Chrome 最新版での確認を推奨します。</li>
           <li>本プラグインはレコード一覧画面（PC 版）でのみ動作します。詳細・編集画面では動作しません。</li>
           <li>カレンダービュー・カスタマイズビューでは表示されません。テーブル形式の一覧ビューでのみ動作します。</li>
-          <li>合計・平均は数値／計算（数値結果）フィールド、最大・最小は数値・計算・日付・日時フィールドが対象です。文字列・選択肢系フィールドは集計対象外です（件数のみ可）。</li>
+          <li>合計・平均は数値フィールドと計算フィールド（表示形式が数値または時間）、最大・最小はそれに加えて日付・日時フィールドが対象です。文字列・選択肢系フィールドは集計対象外です（件数のみ可）。</li>
+          <li>時間の集計は分未満を切り捨てて表示します（kintone の標準グラフと同じ丸め方）。計算式「退勤-出勤-休憩*60」は、kintone の仕様で<strong>退勤が空欄のときや日をまたぐ勤務のときにマイナスの値</strong>になり、そのまま集計されます。</li>
           <li>カードごとの絞り込みは、文字列・ドロップダウン・ラジオボタン・チェックボックス・複数選択・数値・計算・日付・日時・ユーザー選択・組織選択・グループ選択・作成者・更新者フィールドに対応します（ユーザー／組織／グループ選択・相対期間は v2.1.0〜）。</li>
           <li>カードの絞り込みは、kintone 標準の一覧の絞り込みで表示中のレコードの中からさらに絞り込みます（一覧側の条件を上書きしません）。例：一覧を「先月」で絞り込んでいると、カードで「今月」を指定しても 0 件になります。</li>
           <li>サブテーブル内フィールドの集計には対応していません。</li>
@@ -997,6 +1103,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <a href="/contact/" class="btn-primary">お問い合わせ</a>
     </section>
 
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="sb-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
 
   </main>
 
@@ -1037,15 +1148,39 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         });
       });
 
+      // Lightbox: click any .zoomable screenshot to view it enlarged.
+      const lightbox = document.getElementById('sb-lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      };
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(img => {
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
       const dlBtn = document.getElementById('btn-download');
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-summary-bar-v2.3.0.zip',
+              file_name: 'kw-summary-bar-v2.4.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-summary-bar-v2.3.0.zip'
+              link_url: '/downloads/kw-summary-bar-v2.4.0.zip'
             });
           }
         });

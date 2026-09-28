@@ -9,9 +9,9 @@ import TrialBanner from '../../../components/TrialBanner.astro';
 
 <Layout
   title="関連レコード拡張 for kintone｜関連レコード一覧を集計・見た目・検索で強化 | KIZUNA Works"
-  description="kintone の関連レコード一覧を集計・見た目・検索/ソートでまとめて強化するプラグイン。カーソルAPIで参照先を全件取得し、合計・平均・件数の集計カードを一覧の直上に表示。非表示フィールドやサブテーブル内の集計、集計結果の書き込み保存にも対応するプレミアムプラグインです。"
+  description="kintone の関連レコード一覧を集計・見た目・検索/ソートでまとめて強化するプラグイン。合計・平均・件数の集計カードを一覧の直上に表示し、勤務時間などの時間も「〇時間〇分」で集計。非表示フィールドやサブテーブル内の集計、書き込み保存にも対応するプレミアムプラグインです。"
   ogTitle="関連レコード拡張 for kintone｜関連レコード一覧を集計・見た目・検索で強化 | KIZUNA Works"
-  ogDescription="kintone の関連レコード一覧を集計・見た目・検索/ソートでまとめて強化するプラグイン。合計・平均・件数の集計カードを一覧の直上に表示し、非表示フィールドやサブテーブル内の集計、集計結果の書き込み保存にも対応するプレミアムプラグインです。"
+  ogDescription="kintone の関連レコード一覧を集計・見た目・検索/ソートでまとめて強化するプラグイン。合計・平均・件数の集計カードを一覧の直上に表示し、勤務時間などの時間も「〇時間〇分」で集計。非表示フィールドやサブテーブル内の集計、書き込み保存にも対応するプレミアムプラグインです。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/related-enhancer/"
   ogImage="https://kizuna-works.jp/images/related-enhancer-banner.png"
@@ -49,10 +49,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "関連レコード拡張 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.1.0",
-          "dateModified": "2026-09-19",
+          "softwareVersion": "1.2.0",
+          "dateModified": "2026-09-28",
           "url": "https://kizuna-works.jp/plugins/related-enhancer/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-related-enhancer-v1.1.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-related-enhancer-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/related-enhancer-banner.png",
           "offers": [
             {
@@ -72,12 +72,14 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、対象数無制限・非表示フィールドの集計・サブテーブル展開集計・集計結果の書き込み保存・広告非表示を含む全機能と、販売中の全プラグインを利用できます。単品販売はありません。"
             }
           ],
-          "description": "kintone の関連レコード一覧を集計・見た目・検索/ソートでまとめて強化するプラグイン。カーソルAPIで参照先を表示件数に依存せず全件取得し、合計・平均・最大・最小・件数の集計カードを一覧の直上に表示。関連レコード一覧に表示していないフィールドやサブテーブル内の数値の集計、集計結果の書き込み保存にも対応する。横に並べて配置した一覧どうしの表示位置をそろえる機能や、カードを一覧の上／下から選ぶ設定も備える。",
+          "description": "kintone の関連レコード一覧を集計・見た目・検索/ソートでまとめて強化するプラグイン。カーソルAPIで参照先を表示件数に依存せず全件取得し、合計・平均・最大・最小・件数の集計カードを一覧の直上に表示。関連レコード一覧に表示していないフィールドやサブテーブル内の数値の集計、集計結果の書き込み保存にも対応する。横に並べて配置した一覧どうしの表示位置をそろえる機能や、カードを一覧の上／下から選ぶ設定も備える。勤務時間・作業時間などの時間は「〇時間〇分」で合計・平均できる。",
           "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
           "featureList": [
             "参照先をカーソルAPIで全件取得し、合計/平均/最大/最小/件数の集計カードを関連レコード一覧の直上に表示",
             "フィールド×演算子×値（最大5件・AND/OR）の条件で絞り込んだ条件別カードを複数並列表示",
             "集計値が閾値を超えたらカード背景を警告色に変更",
+            "計算フィールド（表示形式：時間）の合計・平均などを kintone と同じ「〇時間〇分」で表示（サブテーブル内も対象）",
+            "分・時間・秒を入れた数値フィールドを「〇時間〇分」で表示し、しきい値・絞り込み条件は「8:30」の形で入力",
             "関連レコード一覧の「表示するフィールド」に入れていない数値/計算フィールドも集計対象に選択（プレミアム）",
             "参照先アプリのサブテーブル内フィールドを行の絞り込み条件で絞ってから合計・平均等を算出（プレミアム）",
             "集計値を自アプリの数値フィールドへ自動／手動で書き込み保存（プレミアム）",
@@ -260,7 +262,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       .update-title { font-size: 17px; }
     }
 
-    .update-shot { max-width: 640px; margin: 0 auto; }
+    .update-shot { max-width: 640px; margin: 0 auto 24px; }
     .update-shot img { width: 100%; height: auto; display: block; border: 1px solid #e2e8f0; border-radius: 8px; }
     .zoomable { cursor: zoom-in; }
     .afp-cmp { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 660px; background: #fff; }
@@ -309,11 +311,11 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <img class="afp-hero-icon" src="/images/related-enhancer-icon.png" alt="関連レコード拡張 for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.1.0</span>
+        <span class="afp-hero-version">v1.2.0</span>
       </div>
       <h1>関連レコード拡張 for kintone</h1>
       <p class="afp-tagline">関連レコード一覧を、集計して・見やすく整える。</p>
-      <p class="afp-sub">レコード詳細の関連レコード一覧に、合計・平均・件数などの集計カードを表示。カードは一覧の上／下から選べ、横に並べた一覧どうしの表示位置もそろえられます。見た目の調整・検索・並べ替えもまとめて強化し、「関連レコード一覧は表示するだけで集計できない」を解消します。</p>
+      <p class="afp-sub">レコード詳細の関連レコード一覧に、合計・平均・件数などの集計カードを表示。勤務時間などの時間も「〇時間〇分」で集計できます。カードは一覧の上／下から選べ、横に並べた一覧どうしの表示位置もそろえられます。見た目の調整・検索・並べ替えもまとめて強化し、「関連レコード一覧は表示するだけで集計できない」を解消します。</p>
     </section>
     <div class="afp-hero-gradient-line"></div>
 
@@ -323,29 +325,25 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.1.0：横に並べた関連レコード一覧の表示位置をそろえられるようになりました</h2>
+            <h2 class="update-title">v1.2.0：勤務時間などの時間を「〇時間〇分」で集計できるようになりました</h2>
           </div>
-          <p class="update-desc">
-            関連レコード一覧を<strong>横に並べて配置</strong>していると、集計カードを出した一覧だけがカードの高さのぶん下がり、
-            隣の一覧と表の位置がずれていました。左右を<strong>「見えている行数」で見比べる</strong>使い方では、この上下のずれが
-            確認のさまたげになります。v1.1.0 では、<strong>同じ行に並ぶ他の関連レコード一覧（本プラグインの対象外を含む）にも
-            同じだけ余白を入れて、表の先頭行の高さをそろえる</strong>設定を追加しました。
-          </p>
+          <p class="update-desc">「担当者ごとの勤務時間の合計や、案件に費やした平均作業時間を『〇〇時間△△分』でカードに出したい」というご要望をいただき、<strong>関連レコードの時間の集計に対応しました</strong>。表示形式を「時間」にした計算フィールドを集計対象に選ぶと、合計・平均・最大・最小を<strong>kintone の画面と同じ形（49時間30分／日時分の表示形式なら 2日1時間30分）</strong>で表示します。参照先のサブテーブル内の時間も集計できます。分や時間を数字で入力している数値フィールドは、「表示形式」で<strong>「時間で表示（入力値は分）」</strong>などを選べば「〇時間〇分」で表示できます。</p>
           <figure class="update-shot">
-            <img class="zoomable" src="/images/related-enhancer-align-01.png" alt="関連レコード拡張 v1.1.0 — 右の案件一覧に集計カード（受注金額の合計 3,960,000）を表示しても、プラグインを適用していない左の担当者一覧が同じだけ下がり、2つの表の見出しと1行目の高さがそろっている" width="807" height="533" loading="lazy" />
-            <figcaption class="afp-shot-cap">集計カードを出した一覧に合わせて、隣の一覧の表の位置もそろう（画像をクリックすると拡大表示します）</figcaption>
+            <picture>
+              <source srcset="/images/related-enhancer-time-01.webp" type="image/webp" />
+              <img class="zoomable" src="/images/related-enhancer-time-01.png" alt="関連レコード拡張 v1.2.0 — 担当者のレコードで、勤務記録の関連レコード一覧の上に「勤務時間の合計 340時間23分（200時間を超えたため赤）」「8時間以上の日数 31」「作業時間の合計 193時間0分」のカードと、「集計結果を保存（340時間23分）」ボタンが表示されている" width="1221" height="850" loading="lazy" />
+            </picture>
+            <figcaption class="afp-shot-cap">担当者ごとの勤務時間の合計・8時間以上の日数・作業時間を「〇時間〇分」で表示（画像をクリックすると拡大表示します）</figcaption>
           </figure>
-          <p class="update-desc">
-            あわせて<strong>集計カードの表示位置を「一覧の上（従来）／一覧の下」から選べる</strong>ようにしました。下に置けば
-            カードのぶん一覧が下がらないため、横並びの位置は最初からそろいます。明細を先に見せて合計を締めに置きたい場合にも使えます。
-            カードを下に置いた一覧が横に2つ以上並ぶときは、カードの段もそろえます。
-          </p>
-          <p class="update-note">
-            表示位置をそろえる設定は「④ 見た目・検索」タブの全体設定（既定オフ）、カードの表示位置は「② 集計設定」の対象ごとの設定です。
-            一覧が横に並びきらず上下2段に折り返して表示されている場合と、モバイル画面では動作しません。
-            既存の設定はそのまま引き継がれ、これまでの表示は変わりません。バージョンアップは上記の zip をダウンロードし、
-            kintone システム管理の「プラグイン」から上書きアップロードしてください（アプリごとの設定は保持されます）。
-          </p>
+          <p class="update-desc">時間のカードの<strong>色分けのしきい値と、時間のフィールドの絞り込み条件は「8:30」の形で入力</strong>できます（「勤務時間が 8:00 以上の日数」など）。<strong>集計結果の書き込み保存</strong>（プレミアム）では、時間を「分」「時間」「秒」のどれかの数に直して数値フィールドへ保存します。関連レコード一覧の列の並べ替えも、「100時間」と「49時間」を時間として正しく並べます。</p>
+          <figure class="update-shot">
+            <picture>
+              <source srcset="/images/related-enhancer-time-02.webp" type="image/webp" />
+              <img class="zoomable" src="/images/related-enhancer-time-02.png" alt="関連レコード拡張 v1.2.0 の設定画面 — 集計カード「作業時間の合計」で、集計対象フィールドに数値フィールド「作業（分）」を選び、表示形式で「時間で表示（入力値は分）」と「例：49時間30分」を選んでいる" width="1400" height="419" loading="lazy" />
+            </picture>
+            <figcaption class="afp-shot-cap">② 集計設定 — 数値フィールドを「時間で表示」にする設定</figcaption>
+          </figure>
+          <p class="update-note">v1.1.0 までは、表示形式が「時間」の計算フィールドを集計すると 0 になっていました。上書きアップロードすると、設定を変えなくても正しい「〇時間〇分」で表示されます（書き込み保存を「自動」にしている場合は、詳細画面を開いたときに保存先が新しい値に更新されます）。あわせて、モバイルで関連レコード一覧のフィールド名を変えると集計カードが表示されなくなる問題を改善しました。バージョンアップは上記の zip をダウンロードし、kintone システム管理の「プラグイン」から上書きアップロードしてください（アプリごとの設定は保持されます）。</p>
         </div>
       </div>
     </section>
@@ -373,6 +371,13 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         <figure class="afp-shot" style="margin-top:28px;">
           <img class="zoomable" src="/images/related-enhancer-board.png" alt="関連レコード拡張の横断ボード — レコード上部に配置した「関連レコード集計ボード」に、案件一覧の集計カード（受注見込み合計・案件件数・受注済み売上・平均単価）をまとめて表示している" width="1022" height="198" loading="lazy" />
           <figcaption class="afp-shot-cap">横断ボード — 複数の関連レコード一覧の集計を、フォームのスペース要素1箇所にまとめて俯瞰（画像をクリックで拡大）</figcaption>
+        </figure>
+        <figure class="afp-shot" style="margin-top:28px;">
+          <picture>
+            <source srcset="/images/related-enhancer-align-01.webp" type="image/webp" />
+            <img class="zoomable" src="/images/related-enhancer-align-01.png" alt="関連レコード拡張の表示位置そろえ — 右の案件一覧に集計カード（受注金額の合計 3,960,000）を表示しても、プラグインを適用していない左の担当者一覧が同じだけ下がり、2つの表の見出しと1行目の高さがそろっている" width="807" height="533" loading="lazy" />
+          </picture>
+          <figcaption class="afp-shot-cap">横並び一覧の表示位置そろえ — 集計カードを出した一覧に合わせて、隣の一覧の表の位置もそろう（画像をクリックで拡大）</figcaption>
         </figure>
         <figure class="afp-shot" style="margin-top:28px;max-width:360px;">
           <img class="zoomable" src="/images/related-enhancer-mobile.png" alt="関連レコード拡張のモバイル表示 — スマートフォンのレコード詳細で、関連レコード一覧の上に集計カード（受注見込み合計・案件件数・受注済み売上・平均単価）が縦に並んで表示されている" width="788" height="944" loading="lazy" />
@@ -412,6 +417,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             <p>カーソルAPIで参照先を表示件数に依存せず全件取得し、合計/平均/最大/最小/件数を算出して、関連レコード一覧の直上にカード表示。フィールド×演算子×値（最大5件・AND/OR）の条件で絞り込んだ条件別カードを複数並べて比較でき、集計値が閾値を超えたら背景色を警告色に変えて知らせます。</p>
           </div>
           <div class="afp-feat-card">
+            <h3>時間を「〇時間〇分」で集計（v1.2.0）</h3>
+            <p>表示形式を「時間」にした計算フィールドの合計・平均・最大・最小を、kintone の画面と同じ形（49時間30分／2日1時間30分）で表示。分や時間を数字で入れた数値フィールドも時間で表示できます。しきい値・絞り込み条件は「8:30」の形で入力でき、「担当者の勤務時間の合計」「8時間以上の日数」をカードで確認できます。</p>
+          </div>
+          <div class="afp-feat-card">
             <h3>非表示フィールドの集計 <span style="color:var(--color-green);font-size:0.8rem;">（プレミアム）</span></h3>
             <p>関連レコード一覧の「表示するフィールド」に入れていない数値/計算フィールドも、集計対象として選べます。APIトークンの発行は不要で、閲覧ユーザー自身のセッション権限で自ドメインの REST API から取得します。</p>
           </div>
@@ -425,7 +434,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           </div>
           <div class="afp-feat-card">
             <h3>横並び一覧の表示位置そろえ</h3>
-            <p>関連レコード一覧を横に並べて配置しているとき、集計カードや検索バーで下がった一覧に合わせて、同じ行に並ぶ他の一覧（本プラグインの対象外を含む）にも同じ余白を入れ、表の先頭行の高さをそろえます。左右の一覧を「見えている行数」で見比べる使い方に向いています。</p>
+            <p>関連レコード一覧を横に並べて配置しているとき、集計カードや検索バーで下がった一覧に合わせて、同じ行に並ぶ他の一覧（本プラグインの対象外を含む）にも同じ余白を入れ、表の先頭行の高さをそろえます。左右の一覧を「見えている行数」で見比べる使い方に向いています。集計カードは一覧の上（既定）／下から選べ、下に置けばカードのぶん一覧が下がりません。</p>
           </div>
           <div class="afp-feat-card">
             <h3>見た目カスタマイズ</h3>
@@ -441,7 +450,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           </div>
           <div class="afp-feat-card">
             <h3>kintone 完結</h3>
-            <p>集計・表示はすべて同一ドメインの REST API で完結し、業務データを外部へ送信しません。第三者 CDN・外部サーバーも不使用です。ゲストスペース内のアプリにも対応しています（v1.1.0 で実機検証済み）。</p>
+            <p>集計・表示はすべて同一ドメインの REST API で完結し、業務データを外部へ送信しません。第三者 CDN・外部サーバーも不使用です。ゲストスペース内のアプリにも対応しています（v1.1.0・v1.2.0 で実機検証済み）。</p>
           </div>
         </div>
       </div>
@@ -479,7 +488,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <li>✅ 見た目カスタマイズ・検索/ソート・簡易フィルタ</li>
               <li>✅ 利用期限なし（レコード一覧画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-related-enhancer-v1.1.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-related-enhancer-v1.2.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="afp-plan-card recommended">
@@ -546,7 +555,8 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             <li>本プラグインは<strong>レコード詳細画面（PC）</strong>で動作します。<strong>カレンダー・カスタマイズビュー</strong>では動作しません。</li>
             <li><strong>モバイルは集計カードの閲覧のみ</strong>の対応です（現時点）。見た目カスタマイズ・検索/ソート・簡易フィルタは PC のレコード詳細画面での対応です。</li>
             <li>集計は<strong>閲覧ユーザー自身のセッション権限</strong>に依存します。参照先アプリの閲覧権限がないと集計できません（標準の関連レコード一覧と同じ挙動です）。APIトークンの発行は不要です。</li>
-            <li><strong>ゲストスペース</strong>内のアプリに対応しています（設定画面・集計カード・表示位置そろえを v1.1.0 で実機検証済み）。</li>
+            <li><strong>ゲストスペース</strong>内のアプリに対応しています（設定画面・集計カード・表示位置そろえを v1.1.0、時間の集計を v1.2.0 で実機検証済み）。</li>
+            <li>時間の集計は分未満を切り捨てて表示します（kintone の標準グラフと同じ丸め方）。計算式「退勤-出勤-休憩*60」は、kintone の仕様で<strong>退勤が空欄のときや日をまたぐ勤務のときにマイナスの値</strong>になり、そのまま集計されます。</li>
             <li>非表示フィールドの集計・サブテーブル展開集計・集計結果の書き込み保存は、<strong>プレミアム年間サポーター</strong>限定の機能です。</li>
           </ul>
         </div>
@@ -627,10 +637,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-related-enhancer-v1.1.0.zip',
+            file_name: 'kw-related-enhancer-v1.2.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-related-enhancer-v1.1.0.zip'
+            link_url: '/downloads/kw-related-enhancer-v1.2.0.zip'
           });
         });
       }

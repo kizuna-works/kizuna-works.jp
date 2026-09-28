@@ -423,6 +423,9 @@ c:\kizuna-works.jp\
 │   │   ├── summary-bar-config-02.png       # 集計サマリーバー 設定画面スクショ② — 基本設定タブ下部（数値表示・カードの配置・集計値の文字位置・カードテーマ）
 │   │   ├── summary-bar-config-03.png       # 集計サマリーバー 設定画面スクショ③ — カード設定タブ（集計方法・ラベル・プレフィックス/サフィックス・表示段）
 │   │   ├── summary-bar-config-04.png       # 集計サマリーバー 設定画面スクショ④ — 値による条件付き色分け（別フィールド比較）
+│   │   ├── summary-bar-time-01.png         # 集計サマリーバー v2.4.0 UPDATE 用スクショ① — 勤務記録の一覧ヘッダーに勤務時間の合計・平均・8時間以上の日数・作業時間・最長の経過のカード（1400×503・.webp あり）
+│   │   ├── summary-bar-time-02.png         # 集計サマリーバー v2.4.0 UPDATE 用スクショ② — カード設定の「表示形式」で数値フィールドを時間で表示（入力値は分）（1400×682・.webp あり）
+│   │   ├── summary-bar-time-03.png         # 集計サマリーバー 設定画面スクショ⑤ — 時間の絞り込み（勤務時間が以上 8:00）（1400×432・.webp あり）
 │   │   ├── csv-export-icon.png             # かんたんCSV出力 for kintone プラグイン アイコン（ヒーロー画像用）
 │   │   ├── csv-export-banner.png           # かんたんCSV出力 for kintone バナー（1200×675・OGP/グリッド/news共用）
 │   │   ├── csv-export-action-01.png        # かんたんCSV出力 動作スクショ① — 一覧ツールバーに緑の「CSV出力」ボタンを設置
@@ -763,7 +766,9 @@ c:\kizuna-works.jp\
 │   │   ├── card-board-icon.png             # カードボード for kintone アイコン（200×200・ヒーロー用）
 │   │   ├── card-board-{board,dnd,realestate,catalog,individual,lanegrid}.png / .webp # カードボード製品ページ用スクショ（実機・PNG＋WebP。individual=不動産の個別モードギャラリー）
 │   │   ├── card-board-config-{1,2,3,4}.png / .webp # カードボード設定画面スクショ（①基本設定/②状態カード/③詳細カード/④カラーのタブ別・実機・PNG＋WebP）
-│   │   ├── related-enhancer-align-01.png   # 関連レコード拡張 v1.1.0 UPDATE 用スクリーンショット（横に並べた2つの関連レコード一覧の表示位置がそろった状態・807×533）
+│   │   ├── related-enhancer-align-01.png   # 関連レコード拡張「実際の画面」の表示位置そろえのスクリーンショット（v1.1.0 で撮影。横に並べた2つの関連レコード一覧の表示位置がそろった状態・807×533）
+│   │   ├── related-enhancer-time-01.png    # 関連レコード拡張 v1.2.0 UPDATE 用スクショ① — 担当者のレコードで勤務時間の合計（色分け）・8時間以上の日数・作業時間の合計カードと手動保存ボタン（1221×850・.webp あり）
+│   │   ├── related-enhancer-time-02.png    # 関連レコード拡張 v1.2.0 UPDATE 用スクショ② — 集計設定で数値フィールドを時間で表示（入力値は分）（1400×419・.webp あり）
 │   │   ├── related-enhancer-banner.png     # 関連レコード拡張 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）
 │   │   ├── report-designer-banner.png      # 帳票デザイナー for kintone 見出しバナー（OGP/グリッド/製品ページ共用）
 │   │   ├── report-designer-icon.png        # 帳票デザイナー for kintone アイコン
@@ -1117,7 +1122,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-related-enhancer-v1.0.0.zip                        # 関連レコード拡張 for kintone 配布ファイル（手動配置・プレミアムプラグイン第5弾・無料/プレミアム共通zip・無料=1対象で集計/見た目/検索・F-04/05/06はプレミアム限定）
 │   │   ├── kw-related-enhancer-v1.0.1.zip                        # 関連レコード拡張 for kintone 配布ファイル（旧版・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-related-enhancer-v1.0.2.zip                        # 関連レコード拡張 for kintone 配布ファイル（旧版・手動配置・プレミアムプラグイン・v1.0.2 集計結果の書き戻し後に画面を自動で読み直す修正）
-│   │   ├── kw-related-enhancer-v1.1.0.zip                        # 関連レコード拡張 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.1.0 横に並べた関連レコード一覧の表示位置そろえ＋集計カードの表示位置（上/下）＋設定画面の配置診断。ゲストスペース実機検証済み）
+│   │   ├── kw-related-enhancer-v1.1.0.zip                        # 関連レコード拡張 for kintone 配布ファイル（旧版・手動配置・プレミアムプラグイン・v1.1.0 横に並べた関連レコード一覧の表示位置そろえ＋集計カードの表示位置（上/下）＋設定画面の配置診断。ゲストスペース実機検証済み）
+│   │   ├── kw-related-enhancer-v1.2.0.zip                        # 関連レコード拡張 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.2.0 時間の集計（計算フィールドの時間・日時分を「〇時間〇分」で表示、数値フィールドの時間表示、しきい値・条件を「8:30」で入力、書き込み保存は分・時間・秒の数）＋モバイルでフィールド名を変えてもカードが出るように）
 │   │   ├── kw-related-record-popup-v1.0.0.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-related-record-popup-v1.0.1.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-related-record-popup-v1.0.2.zip                    # 関連レコードポップアップ表示 for kintone 配布ファイル（旧版・参考保管）
@@ -1177,7 +1183,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-summary-bar-v2.1.2.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-summary-bar-v2.2.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-summary-bar-v2.2.1.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-summary-bar-v2.3.0.zip                         # 集計サマリーバー for kintone 配布ファイル（最新・手動配置・v2.3.0 カード設定を折りたたみ式に（既定は閉じた状態・見出しに要約・すべて開く/閉じる）／設定の保存後にアプリの設定画面へ戻るように／設定と実際の型が違うフィールドは集計せず案内を出すように）
+│   │   ├── kw-summary-bar-v2.3.0.zip                         # 集計サマリーバー for kintone 配布ファイル（旧版・手動配置・v2.3.0 カード設定を折りたたみ式に（既定は閉じた状態・見出しに要約・すべて開く/閉じる）／設定の保存後にアプリの設定画面へ戻るように／設定と実際の型が違うフィールドは集計せず案内を出すように）
+│   │   ├── kw-summary-bar-v2.4.0.zip                         # 集計サマリーバー for kintone 配布ファイル（最新・手動配置・v2.4.0 時間の集計（計算フィールドの時間・日時分を「〇時間〇分」で表示、数値フィールドを秒・分・時間の単位で時間表示、時間の絞り込み・色分けを「8:30」で入力）／表示形式が日時系の計算フィールドは最大・最小のみ）
 │   │   ├── kw-text-join-v1.0.0.zip                               # 文字列結合 for kintone v1.0.0 配布ファイル（旧版・手動配置・ちょこっと・複数フィールドを1つの文字列へ自動入力／明細集約／重複チェック／一括反映）
 │   │   ├── kw-text-join-v1.0.1.zip                               # 文字列結合 for kintone 配布ファイル（最新・手動配置・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-theme-styler-v1.0.0.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・参考保管）
