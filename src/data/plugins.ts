@@ -1686,6 +1686,32 @@ export const premiumPlugins: Plugin[] = [
     releaseDate: '2026-09-25',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-sheets-sync',
+    pluginId: 'ohmmppnaihnpjjkkhamjgafdfdbjaeji',
+    name: 'スプレッドシート連携 for kintone',
+    formName: 'スプレッドシート連携 for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'sheets-sync',
+    categories: ['情報共有', '自動入力'],
+    description:
+      'Google スプレッドシートと kintone を双方向に同期。社外の方がシートに入れた行はレコードに、kintone で変えた値はシートの同じ行へ書き戻します。列ごとに入力する側を決め、両方で変わった列は競合ルールでそろえます。',
+    image: '/images/sheets-sync-banner.png',
+    imageWebp: '/images/sheets-sync-banner.webp',
+    imageAlt:
+      'スプレッドシート連携 for kintone バナー — シートと kintone を、双方向に同期する。社外の相手はシートのまま入力、列ごとに入力する側を決める、両方の変更を前回の値と比べてそろえる',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      'Google スプレッドシートと kintone を双方向に同期します。社外の方はシートのまま入力でき、kintone で変えた値はシートへ書き戻します。',
+    problemTitle: '社外とはスプレッドシート、社内は kintone で二重に入力している',
+    problemDesc:
+      '協力会社や取引先とは Google スプレッドシートで進捗を共有しているが、社内は kintone で管理している。同じ内容を両方に打ち、どちらが新しいか分からなくなる。CSV を往復させると、相手が同時に直した値を上書きして消してしまう',
+    releaseDate: '2026-09-29',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**

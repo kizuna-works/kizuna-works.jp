@@ -1,0 +1,843 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ResellerCard from '../../../components/ResellerCard.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<Layout
+  title="スプレッドシート連携 for kintone｜Google スプレッドシートと kintone を双方向に同期 | KIZUNA Works"
+  description="Google スプレッドシートと kintone アプリを双方向に同期する kintone プラグイン。社外の方がシートに入れた行はレコードに、kintone で変えた値はシートの同じ行へ書き戻します。列ごとに入力する側を決め、kintone で入力する列はシートで保護。中継サーバー・GAS は不要です。"
+  ogTitle="スプレッドシート連携 for kintone｜Google スプレッドシートと kintone を双方向に同期 | KIZUNA Works"
+  ogDescription="社外の相手はスプレッドシートのまま、社内は kintone のまま。両方で入力した値を、前回同期したときの値と比べてそろえます。二重入力をやめる kintone プラグインです。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/sheets-sync/"
+  ogImage="https://kizuna-works.jp/images/sheets-sync-banner.png"
+  canonical="https://kizuna-works.jp/plugins/sheets-sync/"
+  heroBg="/images/premium-plugins-bg.png"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/sheets-sync/",
+          "url": "https://kizuna-works.jp/plugins/sheets-sync/",
+          "name": "スプレッドシート連携 for kintone｜Google スプレッドシートと kintone を双方向に同期 | KIZUNA Works",
+          "description": "Google スプレッドシートと kintone アプリを双方向に同期する kintone プラグイン。シートの行と kintone のレコードを「kintoneレコード番号」の列で結び、前回同期したときの値と比べてどちらで変わったかを判定する。中継サーバー・GAS・API トークンは不要。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/sheets-sync-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "スプレッドシート連携 for kintone", "item": "https://kizuna-works.jp/plugins/sheets-sync/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "スプレッドシート連携 for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-09-29",
+          "url": "https://kizuna-works.jp/plugins/sheets-sync/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-sheets-sync-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/sheets-sync-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "プレミアム年間サポーター（全プラグイン込み）",
+            "price": "16500",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "プレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料プランでも 1 シート・［同期］ボタンでの双方向同期まで利用できます。"
+          },
+          "description": "Google スプレッドシートと kintone アプリを双方向に同期する kintone プラグイン。シートに入力された行は kintone のレコードとして取り込み、kintone で入力・変更した値はシートの同じ行へ書き戻す。行とレコードは「kintoneレコード番号」の列で結ぶため、並べ替えや行の挿入でも崩れない。列ごとに持ち主（シート専用／kintone専用／両方可）を決め、kintone専用の列はシート側で保護する。前回同期したときの値と比べてどちらで変わったかを判定し、両方で変わった列は競合ルールで決める。読めない値はシートの同期状態の列に「値エラー：列名（理由）」で示す。中継サーバー・GAS・API トークンは不要で、Google に求める権限は drive.file のみ。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "Google スプレッドシートと kintone アプリの双方向同期",
+            "シートの行を kintone のレコードとして取り込む",
+            "kintone で変えた値をシートの同じ行へ書き戻す",
+            "kintone で作ったレコードをシートの末尾に追加",
+            "行とレコードを「kintoneレコード番号」の列で結ぶ（並べ替え・行の挿入に強い）",
+            "列ごとの持ち主（シート専用／kintone専用／両方可）",
+            "kintone専用の列をシート側で保護",
+            "前回同期したときの値との比較による変更の判定",
+            "両方で変わった列の競合ルール（kintone 優先／シート優先）",
+            "読めない値をシートの同期状態の列に列名と理由つきで表示",
+            "一覧を開いたときの自動同期",
+            "レコードを保存したときの即時書き戻し",
+            "［同期］ボタンの名称・色・形・置き場所の変更（アプリ名の帯の左・中央・右にも置ける）",
+            "振り分け（値ごとに別のファイルへ・最大 10 シート）",
+            "見出しからフィールドを作成",
+            "同期ログの保管アプリと失敗時の kintone 通知",
+            "中継サーバー・GAS・API トークンは不要",
+            "Google に求める権限は drive.file のみ",
+            "共有ドライブのスプレッドシートに対応",
+            "ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
+    .afp-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+    .afp-hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 26px; border-radius: 26px;
+      font-weight: 700; font-size: 1rem; text-decoration: none; line-height: 1.3;
+    }
+    .afp-hero-btn.is-primary { background: #2E8B2E; color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.22); }
+    .afp-hero-btn.is-primary:hover { background: #35a035; }
+    .afp-hero-btn.is-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.6); }
+    .afp-hero-btn.is-ghost:hover { background: rgba(255,255,255,0.24); }
+    @media (max-width: 600px) { .afp-hero-btn { width: 100%; } }
+
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    /* Update box (latest release) */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      /* The lead is itself a white card; keep a gap so it does not touch the next card. */
+      margin: 0 0 26px;
+    }
+    .afp-lead strong { color: var(--color-navy); }
+    /* Answer card right after the problem statement */
+    .afp-lead.is-accent { background: #eef7ee; border-left: 5px solid var(--color-green); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0 0 12px; }
+    .afp-feature p:last-child { margin-bottom: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    /* Keep consecutive white cards apart. */
+    .afp-shot + .afp-shot,
+    .afp-shot + .afp-cautions,
+    .afp-shot + .afp-note,
+    .afp-shot + .afp-grid-feats { margin-top: 26px; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    /* Captions are 1-3 lines of Japanese. Without balancing, a long one drops a
+       two-character orphan onto the last line. balance evens the lines out; the
+       max-width keeps a caption from running the full width of a wide screenshot. */
+    .afp-shot-cap {
+      text-align: center; font-size: 0.9rem; color: var(--color-text-muted);
+      margin: 12px 0 0; padding: 0 16px 2px; line-height: 1.75;
+      max-width: 46em; margin-left: auto; margin-right: auto;
+    }
+    /* Cap narrow captures at the width the UI really has, so nothing is blown up
+       larger than the user will see it in kintone. */
+    .afp-shot-w420 { max-width: 420px; }
+    .afp-shot-w640 { max-width: 640px; }
+    .afp-shot-w840 { max-width: 840px; }
+
+    .afp-shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+    /* Auto margins on grid items stop them stretching; fill the cell instead. */
+    .afp-shot-pair > .afp-shot { margin: 0; width: 100%; }
+    .afp-shot-pair + .afp-shot { margin-top: 26px; }
+    @media (max-width: 900px) { .afp-shot-pair { grid-template-columns: 1fr; } }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    /* Feature block: usage screen followed by its settings screen. */
+    .afp-usecfg { margin-top: 30px; }
+    .afp-usecfg-head {
+      display: inline-block; background: var(--color-navy); color: #fff; font-weight: 700;
+      font-size: 0.85rem; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px;
+    }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <style is:global>
+    /* Page-specific additions */
+    /* Sub-headings. Same look as .afp-plan-compare-head (navy text, green bar). */
+    .afp-h3 {
+      font-size: 1.15rem; color: var(--color-navy); margin: 34px 0 12px;
+      padding-left: 12px; border-left: 4px solid var(--color-green);
+    }
+    .afp-h3:first-of-type { margin-top: 8px; }
+    /* Card number label, not part of the shared block. */
+    .afp-feat-no {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--color-green); margin-bottom: 6px;
+    }
+    /* Before / after pair. Stacks on narrow screens. */
+    .lf-ba {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      margin: 26px 0 0;
+    }
+    .lf-ba figure { margin: 0; }
+    .lf-ba .lf-ba-tag {
+      display: inline-block; font-size: 0.78rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 999px; margin-bottom: 8px;
+    }
+    .lf-ba .is-before { background: #eef2f7; color: #64748b; }
+    .lf-ba .is-after { background: #e8f5e9; color: var(--color-green); }
+    .lf-ba img {
+      width: 100%; height: auto; border: 1px solid #dbe3ec; border-radius: 8px;
+      background: #fff; cursor: zoom-in;
+    }
+    .lf-ba figcaption {
+      font-size: 0.86rem; color: #64748b; line-height: 1.7; margin-top: 8px;
+    }
+    @media (max-width: 767px) {
+      .lf-ba { grid-template-columns: 1fr; }
+    }
+    /* Japanese line breaking.
+       - balance: short centred blocks (hero lead, captions, CTA) get lines of
+         even length instead of dropping two characters onto a last line.
+       - pretty: longer left-aligned prose keeps its ragged edge but never ends
+         on an orphan.
+       - strict: a line may not start with a small kana (ォ ャ ッ) or a closing
+         bracket (a katakana word split before a small kana in a caption). */
+    .afp-hero .afp-sub,
+    .afp-hero .afp-tagline,
+    .afp-cta p,
+    .afp-shot-cap { text-wrap: balance; }
+    /* Left-aligned prose fills the line; balance would shorten every line and
+       leave a wide gap on the right. pretty only avoids a one-word last line. */
+    .afp-lead,
+    .afp-note,
+    .afp-cautions li,
+    .afp-feat-card p,
+    .afp-plan-features li,
+    .gc-step p,
+    .gc-step li,
+    .gc-branch p,
+    .afp-faq-answer { text-wrap: pretty; }
+    .afp-hero .afp-sub,
+    .afp-hero .afp-tagline,
+    .afp-cta p,
+    .afp-shot-cap,
+    .afp-lead,
+    .afp-note,
+    .afp-cautions li,
+    .afp-feat-card p,
+    .afp-plan-features li,
+    .gc-step p,
+    .gc-branch p,
+    .afp-faq-answer { line-break: strict; }
+    /* Phrase breaking only for short, centred or heading text. In left-aligned
+       body text it breaks early whenever a phrase does not fit, which leaves
+       uneven gaps on the right; normal breaking with line-break: strict reads
+       better there. */
+    .afp-h2 { text-wrap: balance; }
+    .afp-h2,
+    .afp-h3,
+    .afp-hero .afp-tagline,
+    .afp-feat-card h3,
+    .afp-faq-item > summary { word-break: auto-phrase; }
+    @media (min-width: 769px) {
+      .afp-hero .afp-sub,
+      .afp-cta p,
+      .afp-shot-cap { word-break: auto-phrase; }
+    }
+    /* Bullet list inside a caution card: a small green dot per item so the
+       items read as one list rather than separate paragraphs. */
+    .afp-cautions ul { list-style: none; margin: 0; padding: 0; }
+    .afp-cautions li { position: relative; padding-left: 1.2em; }
+    .afp-cautions li::before {
+      content: ""; position: absolute; left: 0.2em; top: 0.72em;
+      width: 6px; height: 6px; border-radius: 50%; background: var(--color-green);
+    }
+
+  </style>
+
+  <main>
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/sheets-sync-icon.png" alt="スプレッドシート連携 for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1 class="afp-hero-title">スプレッドシート連携 for kintone</h1>
+      <p class="afp-tagline">シートと kintone、二重の入力をやめる。</p>
+      <p class="afp-sub">スプレッドシート連携 for kintone は、<strong>Google スプレッドシートと kintone アプリを双方向に同期する</strong> kintone プラグインです。社外の方はシートのまま入力し、社内は kintone のまま管理できます。両方で入力した値は、前回同期したときの値と比べてそろえます。中継サーバーも GAS も要りません。</p>
+      <div class="afp-hero-cta">
+        <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-sheets-sync-v1.0.0.zip" download>無料でダウンロード</a>
+      </div>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 課題 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">社外とはスプレッドシート、社内は kintone。二重に入力していませんか</h2>
+        <p class="afp-lead">
+          販売代理店・協力会社・取引先とは、Google スプレッドシートで進捗や実績を共有している。けれど社内の管理は kintone。すると、<strong>相手がシートに書いた内容を kintone に打ち直し</strong>、kintone で決まったことを<strong>またシートに書き写す</strong>ことになります。どちらが新しいのか分からなくなり、CSV を往復させれば、相手が同時に直した値を上書きして消してしまいます。
+        </p>
+        <p class="afp-lead is-accent">
+          スプレッドシート連携は、<strong>シートと kintone の両方を正として扱います</strong>。相手に kintone のアカウントを配る必要はなく、シートの使い方も今のままです。変わった側の値だけを、もう片方へ反映します。
+        </p>
+      </div>
+    </section>
+
+    <!-- しくみ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">しくみ</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">POINT 01</span>
+            <h3>行とレコードを番号で結ぶ</h3>
+            <p>シートの右端に「kintoneレコード番号」の列を置きます。<strong>行番号は使わない</strong>ので、並べ替え・行の挿入・フィルタをしても結び付きは崩れません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">POINT 02</span>
+            <h3>前回の値と比べる</h3>
+            <p>前回同期したときの値をレコードに控えておき、<strong>シートと kintone のどちらで変わったか</strong>を列ごとに判定します。片方だけの変更は、そのまま反映します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">POINT 03</span>
+            <h3>列ごとに入力する側を決める</h3>
+            <p>「シート専用」「kintone専用」「両方可」を列ごとに選べます。kintone専用の列はシート側で保護し、社外の方が書き換えられないようにします。</p>
+          </div>
+        </div>
+        <figure class="afp-shot" style="margin-top:26px;">
+          <Picture src="/images/sheets-sync-sheet-01.png" alt="kintone と同期している Google スプレッドシート「案件共有シート（販売代理店向け）」。会社名・部署名・先方担当者・製品名・単価・ユーザー数・小計・確度・見込み時期・案件担当者名・TEL・メールアドレスの列の右に、プラグインが置いた「kintoneレコード番号」と「同期状態」の列がある" width="2250" height="596" class="zoomable" />
+          <figcaption class="afp-shot-cap">kintone と同期しているシート。右端の<strong>「kintoneレコード番号」「同期状態」</strong>の列は、プラグインが最初の同期で自動で置き、保護します。</figcaption>
+        </figure>
+        <p class="afp-note">
+          読み書きは <strong>ブラウザから Google へ直接</strong>行います。当社のサーバーはデータの経路に入りません。Google に求める権限は <code>drive.file</code> の 1 つだけで、<strong>Picker で選んだスプレッドシート以外は読み書きできません</strong>。
+        </p>
+      </div>
+    </section>
+
+    <!-- Google 接続 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">Google につなぐのは、アプリ管理者が一度だけ</h2>
+        <p class="afp-lead">
+          設定画面の<strong>「① Google 接続」</strong>で、アプリ管理者が一度だけ Google に接続します。接続するのは<strong>シートを編集できるアカウント</strong>です。<strong>レコードを見る一般の利用者が Google にログインする必要はありません</strong>。同期は、接続したアカウントの権限で動きます。
+        </p>
+        <figure class="afp-shot">
+          <Picture src="/images/sheets-sync-config-01.png" alt="プラグイン設定画面の「① Google 接続」。接続方式として KIZUNA Works の接続を使うか自社の Google Cloud を使うかを選べ、その下に接続中のアカウントと接続日時、［Google に接続し直す］［接続を解除］のボタンが並んでいる" width="1091" height="481" class="zoomable" />
+          <figcaption class="afp-shot-cap">接続は 1 回だけ。更新用のトークンはプラグイン内に保管され、<strong>レコード画面の JavaScript からは読み出せません</strong>。</figcaption>
+        </figure>
+        <div class="afp-cautions">
+          <ul>
+            <li>求める権限は <code>drive.file</code> の 1 つだけです。<strong>Google Picker で選んだファイルしか読み書きできず</strong>、ドライブの他のファイルは見えません。</li>
+            <li>スプレッドシートの ID を手で入力する欄はありません。<strong>Google の選択画面（Picker）から選びます</strong>。「マイドライブ」「共有ドライブ」のどちらからも選べます。</li>
+            <li>接続は設定画面の<strong>［接続を解除］</strong>でいつでも切れます。</li>
+            <li>Google のリフレッシュトークンは <strong>6 か月間まったく使われないと失効</strong>します（Google の仕様）。日常的に同期していれば起きません。</li>
+          </ul>
+        </div>
+        <div class="afp-note" style="margin-bottom:14px;">
+          <strong>利用者が多いアプリでは、お客様ご自身の Google Cloud をおすすめします。</strong>Google の読み取りの上限が自社専用になります。費用はかかりません。→ <a href="/plugins/sheets-sync/google-cloud/">自社の Google Cloud で使う設定手順</a>（所要 15 分）
+        </div>
+        <div class="afp-note">
+          まず試したいだけなら、<strong>KIZUNA Works の接続のままで構いません</strong>。あとから設定画面で切り替えられます（切り替え後は接続し直してシートを選び直します）。
+        </div>
+      </div>
+    </section>
+
+    <!-- 設定 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定は、シートを選んで表を確かめるだけ</h2>
+        <p class="afp-lead">
+          シートを選ぶと 1 行目を見出しとして読み取り、<strong>見出しとフィールド名が一致する列は自動で対応づけます</strong>。当たらなかった列だけ、表で選び直してください。左の「シートの見え方」で、シート側でどの列が保護され、どの列を社外の方が入力するかを色で確かめられます。
+        </p>
+        <figure class="afp-shot">
+          <Picture src="/images/sheets-sync-screen-01.png" alt="スプレッドシート連携の設定画面の全体。左に設定の目次と「シートの見え方」のプレビュー、中央に「③ 列の対応づけ」のタブで、シートの列 A〜L と kintone フィールド・持ち主・競合したとき・確認事項の表が並んでいる" width="1321" height="793" class="zoomable" />
+          <figcaption class="afp-shot-cap">設定画面の全体。タブは<strong>① Google 接続 → ② シート → ③ 列の対応づけ → ④ 同期の動作 → ⑤ ログ・通知</strong>の順に進みます。</figcaption>
+        </figure>
+        <figure class="afp-shot">
+          <Picture src="/images/sheets-sync-config-02.png" alt="設定画面の「② シート」。振り分けの切り替えと、同期するシートとして選んだスプレッドシート「案件共有シート（販売代理店向け）」・タブ「案件一覧」・読み取った 1 行目の見出しが並んでいる" width="1091" height="381" class="zoomable" />
+          <figcaption class="afp-shot-cap">同期するスプレッドシートとタブを選ぶと、1 行目の見出しを読み取ります。見出しを変えたときは［見出しを読み直す］を押します。</figcaption>
+        </figure>
+        <figure class="afp-shot">
+          <Picture src="/images/sheets-sync-config-03.png" alt="設定画面の「列の対応づけ」の表。会社名・製品名・単価・小計・確度・案件担当者名などのシートの列ごとに、kintone のフィールド、持ち主（両方可・kintone専用）、競合したとき（kintone 優先）、読めない値をどう扱うかの確認事項が表示されている" width="1088" height="722" class="zoomable" />
+          <figcaption class="afp-shot-cap">列ごとの持ち主と、競合したときの扱い。右端の「確認事項」に、<strong>その列にどんな値が入ると取り込めないか</strong>を先に書き出します。</figcaption>
+        </figure>
+        <div class="afp-cautions">
+          <ul>
+            <li>見出しに <code>会社名 [company]</code> のように<strong>角かっこでフィールドコード</strong>を書いておくと、それを最優先で使います。全角半角・空白・記号の違いは無視して照合します</li>
+            <li>ユーザー選択・組織選択・計算・ルックアップなどは <strong>kintone専用</strong>です（kintone からシートへ書き出すだけ）</li>
+            <li>「（同期しない）」にした列は、読みも書きもしません</li>
+          </ul>
+        </div>
+        <h3 class="afp-h3">必要なフィールドは、ボタン 1 つで</h3>
+        <figure class="afp-shot">
+          <Picture src="/images/sheets-sync-config-04.png" alt="設定画面の「このプラグインが使うフィールド」。同期状態・紐付け先シート・前回同期時の値・取り込みキー（値の重複を禁止する）・最終同期日時・起票元の 6 つがすべて作成済みと表示されている" width="1088" height="605" class="zoomable" />
+          <figcaption class="afp-shot-cap">同期に使う専用フィールドは 6 つ。作成と同時に、非表示の 3 つを除いた一覧「すべて（連携用の項目を除く）」も追加します。</figcaption>
+        </figure>
+        <p class="afp-note">
+          <strong>フィールドがまだ無いアプリでも始められます（プレミアム）。</strong>「見出しからフィールドを作成」で、シートの先頭 200 行から種類（入力規則のリスト→ドロップダウン、数字だけ→数値、日付の書式→日付、改行あり→文字列（複数行）など）を推定し、確認の表で選び直してからフィールドを作ります。
+        </p>
+      </div>
+    </section>
+
+    <!-- 同期 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">同期は、一覧を開いたときと［同期］を押したとき</h2>
+        <p class="afp-lead">
+          レコード一覧画面のツールバーに<strong>［⇄ 同期］</strong>が出ます。押すと、シートと kintone の両方で変わったものを反映します。プレミアムでは、<strong>一覧を開いたときに裏で自動同期</strong>し、<strong>レコードを保存したときにその 1 件をすぐシートへ書き戻します</strong>。
+        </p>
+        <figure class="afp-shot">
+          <Picture src="/images/sheets-sync-action-01.png" alt="kintone の案件管理アプリのレコード一覧。ツールバーの右側に紺色の［同期］ボタンがあり、一覧には会社名・先方担当者・見込み時期・確度・製品名・単価・ユーザー数・小計・案件担当者名と、同期状態の列（同期済み）が並んでいる" width="1352" height="405" class="zoomable" />
+          <figcaption class="afp-shot-cap">一覧のツールバーの［同期］ボタン。一覧の「同期状態」で、未反映のレコードなどを絞り込めます。</figcaption>
+        </figure>
+        <div class="afp-shot-pair" style="margin-top:26px;">
+          <figure class="afp-shot">
+            <Picture src="/images/sheets-sync-action-02.png" alt="同期中の進捗表示。「スプレッドシートと同期しています」「シートの変更を確認しています…」と進捗バーが表示されている" width="712" height="104" class="zoomable" />
+            <figcaption class="afp-shot-cap">いま何をしているかが分かる進捗表示。</figcaption>
+          </figure>
+          <figure class="afp-shot">
+            <Picture src="/images/sheets-sync-action-03.png" alt="同期の結果画面。「同期しました（確認事項あり）」の見出しの下に、kintone で入力する列の入力を戻した件数、確認事項、反映できなかったもの（ユーザー数を数値として読み取れない、確度の選択肢にない）が表示されている" width="712" height="271" class="zoomable" />
+            <figcaption class="afp-shot-cap">終わると結果が出ます。反映できなかったものは、<strong>どの行の、どの列の、何が原因か</strong>まで表示します。</figcaption>
+          </figure>
+        </div>
+        <figure class="afp-shot">
+          <Picture src="/images/sheets-sync-config-05.png" alt="設定画面の「同期のタイミング」。一覧を開いたときに自動で同期する、自動同期の間隔（1 分に 1 回まで）、レコードを保存したときにすぐシートへ書き戻す、の設定が並んでいる" width="1088" height="263" class="zoomable" />
+          <figcaption class="afp-shot-cap">自動同期の入／切と間隔、保存時の書き戻しは「④ 同期の動作」で決めます。</figcaption>
+        </figure>
+        <h3 class="afp-h3">［同期］ボタンは、名称・色・形・置き場所を変えられます</h3>
+        <figure class="afp-shot">
+          <Picture src="/images/sheets-sync-config-11.png" alt="設定画面の「［同期］ボタンの見た目と配置」。ボタンの名称に「シートと同期」、色見本から緑、カラーコード欄に #2E8B2E、形に丸（両端が丸い）、置く場所にアプリ名の帯・右を選び、下の見本に緑の丸いボタン「シートと同期」が表示されている" width="1088" height="410" class="zoomable" />
+          <figcaption class="afp-shot-cap">色は色見本・カラーピッカー・カラーコード（#RRGGBB）の直接入力のどれでも選べます。下の見本で仕上がりを確かめてから保存できます。</figcaption>
+        </figure>
+        <figure class="afp-shot">
+          <Picture src="/images/sheets-sync-action-04.png" alt="案件管理アプリの一覧画面。アプリ名の帯の右端に、緑の丸いボタン「シートと同期」が表示されている" width="1352" height="190" class="zoomable" />
+          <figcaption class="afp-shot-cap">アプリ名の帯の右に置いた例。置く場所は、ツールバーの右・左と、アプリ名の帯の左・中央・右から選べます。</figcaption>
+        </figure>
+        <div class="afp-cautions">
+          <ul>
+            <li>自動同期は<strong>一覧の表示を待たせません</strong>。変わったものが無ければ何も出しません</li>
+            <li>保存時の書き戻しに失敗しても<strong>保存は成功</strong>し、同期状態を「未反映」にして次の同期で反映します</li>
+            <li>1 回に処理する件数（既定 500 件）を超えた分は、<strong>次回に回します</strong>（取りこぼしません）</li>
+            <li>［同期］ボタンの見た目と置き場所の設定は<strong>無料でも使えます</strong>。アプリ名の帯では、テーマスタイラーなど同じ帯にボタンを置くプラグインと同じ位置を選んでも、重ねずに横に並べます</li>
+            <li>中継サーバーを持たないため、<strong>リアルタイムの同期や時刻を決めた自動実行はできません</strong>。シートの変更は、誰かが一覧を開いたとき（または［同期］を押したとき）に反映します</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 読めない値 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">シートで入力した方にも、何が起きたかが分かる</h2>
+        <p class="afp-lead">
+          シートは自由に書けるぶん、「120名」のように数値として読めない値や、選択肢に無い値も入ります。そうした値は<strong>その列だけ取り込まず</strong>、ほかの列は取り込みます。そして、<strong>シートの「同期状態」の列に、列名と理由を出します</strong>。入力した方がシートを見れば、自分で直せます。
+        </p>
+        <figure class="afp-shot">
+          <Picture src="/images/sheets-sync-sheet-02.png" alt="同期したあとのスプレッドシート。2 行目の同期状態の列に「値エラー：ユーザー数（数値として読めない）、確度（選択肢にない値）」、3 行目に「確認：案件担当者名は kintone で入力します（「田中」は反映していません）」と表示されている" width="2250" height="596" class="zoomable" />
+          <figcaption class="afp-shot-cap">「値エラー：」は、直せば次の同期で取り込んで消えます。「確認：」は、kintone で入力する列にシートで値が入ったため kintone の値へ戻したことを知らせる印です。</figcaption>
+        </figure>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/sheets-sync-detail-01.png" alt="kintone のレコード詳細画面の上部に出る案内。スプレッドシートに kintone へ取り込めない値があることと、「ユーザー数」を数値として読み取れません（「120名」）、「確度」の選択肢にありません（「D」）の 2 点が箇条書きで表示されている" width="760" height="82" class="zoomable" />
+          <figcaption class="afp-shot-cap">kintone のレコード詳細画面にも、どの列の何が読めないかを箇条書きで出します。</figcaption>
+        </figure>
+        <div class="afp-cautions">
+          <ul>
+            <li>シートの同期状態の列には、ほかに<strong>必須未入力・取り込み失敗・kintoneから削除済み・重複番号</strong>の印が出ます</li>
+            <li>kintone でレコードを削除しても、<strong>シートの行は消しません</strong>（「kintoneから削除済み」と印を付けます）</li>
+            <li>シートから行を削除したレコードは、kintone で「シートから削除済み」になります。詳細画面の［シートに再追加］で、末尾に行を戻せます</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 競合と振り分け -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">両方で変えたとき、相手ごとに分けたいとき</h2>
+        <h3 class="afp-h3">競合したとき</h3>
+        <p class="afp-lead">
+          前回の同期のあと、<strong>シートと kintone の両方で同じ列が変わったときだけ</strong>競合になります。「kintone 優先」ならシートを kintone の値で、「シート優先」なら kintone をシートの値で上書きします（無料プランは kintone 優先で固定・シート優先はプレミアム）。上書きされた側の値は、同期ログに残せます。
+        </p>
+        <h3 class="afp-h3">振り分け（プレミアム）</h3>
+        <p class="afp-lead">
+          取引先コードなどの<strong>振り分けフィールドの値ごとに、行き先のファイルを分けられます</strong>（最大 10 シート）。取引先ごとに別のファイルで共有すれば、ほかの取引先の情報は見えません。シートから取り込んだレコードには、そのシートの値が振り分けフィールドへ自動で入ります。
+        </p>
+        <div class="afp-cautions">
+          <ul>
+            <li>列の構成は全シート共通です（対応づけは 1 回だけ）</li>
+            <li>シートと紐付いたレコードは、振り分けフィールドを変えられません（別のシートへ移ってしまうのを防ぐため）</li>
+            <li>同じファイルのほかのタブは共有相手に見えます。相手ごとに見せる範囲を分けたいときは、別のファイルにしてください</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 共有 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">共有相手と共有ドライブ</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li>シートを編集してもらう社外の方に必要なのは <strong>Google アカウント</strong>だけです。Gmail でなくても、会社のメールアドレスで作った Google アカウントで構いません。kintone のアカウントは要りません</li>
+            <li>共有は Google スプレッドシートの［共有］で通常どおり行ってください。このプラグインは共有の設定を変えません。取引先の情報を扱うときは、「リンクを知っている全員」ではなく<strong>相手のアカウントを指定して</strong>共有してください</li>
+            <li>保護範囲（番号・同期状態・kintone専用の列）は、接続した Google アカウント以外は編集できません。ただし<strong>シートの持ち主には保護が効かない</strong>ため、持ち主が kintone専用の列に書き込んだ場合は kintone に入れず、kintone の値へ戻して「確認：」の印を出します</li>
+            <li>同期中のシートを<strong>共有ドライブへ移動</strong>しても、ファイルの ID は変わらないのでそのまま同期できます。コピーしたファイルは別のファイルなので、設定画面で選び直してください</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 上限の目安 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">Google の読み取りの上限と、kintone の API 回数の目安</h2>
+        <p class="afp-lead">
+          Google スプレッドシートの読み取りは <strong>1 分あたり 60 回まで</strong>で、接続したアカウント 1 つを<strong>アプリを使う全員で分け合います</strong>。同期 1 回で 1 シートにつき 1 回（書き込みがある回は 2 回）読むため、目安は<strong>アプリ全体で 1 分あたり「60 ÷ シート数」回の同期</strong>です。
+        </p>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead><tr><th>場面</th><th class="c">kintone の API 回数の目安</th></tr></thead>
+            <tbody>
+              <tr><td>変化のない自動同期</td><td class="c">1 回</td></tr>
+              <tr><td>自動同期の間隔内に一覧を開き直した</td><td class="c">0 回</td></tr>
+              <tr><td>1 行ぶんの反映</td><td class="c">3 回（レコード数に比例しません）</td></tr>
+              <tr><td>端末ごと 1 日 1 回の全件照合</td><td class="c">上記＋紐付いたレコード 500 件ごとに 1 回</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-cautions" style="margin-top:26px;">
+          <ul>
+            <li>プラグインの通信も、kintone の「1 アプリ 1 日 10,000 回」に数えます</li>
+            <li>Google の上限に当たったとき、自動同期は何も言わずに見送り、その端末は 1 分間自動同期を止めます。［同期］ボタンでは「1 分ほど待ってから、もう一度お試しください。」と出ます</li>
+            <li>多くの人が同じアプリを頻繁に開く場合は、自動同期の間隔（端末ごと・一覧を開くたび／1／5／10／30 分）を長めにしてください</li>
+            <li>KIZUNA Works の接続は、当社の Google Cloud を全ご利用者で共有しています。日常的に上限に当たる場合は、<a href="/plugins/sheets-sync/google-cloud/">自社の Google Cloud</a> に切り替えてください</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ログと通知 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">記録と、失敗の知らせ</h2>
+        <p class="afp-lead">
+          同期ログを記録する設定（プレミアム・既定 OFF）を有効にすると、保管アプリ「スプレッドシート連携ログ」を<strong>自動で作ります</strong>。失敗したときだけ、指定したユーザーへ <strong>kintone の通知</strong>が届きます。同じ失敗は、端末ごとに初回だけ知らせます。
+        </p>
+        <figure class="afp-shot">
+          <Picture src="/images/sheets-sync-config-07.png" alt="設定画面の「⑤ ログ・通知」。同期ログを記録する、同期に失敗したときに通知する、の切り替えが並んでいる" width="1091" height="152" class="zoomable" />
+          <figcaption class="afp-shot-cap">ログの保持期間は 30／90／180／365 日／無期限から選べます。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card"><h3>双方向の同期</h3><p>シートの行は kintone のレコードに、kintone で変えた値はシートの同じ行へ。kintone で作ったレコードはシートの末尾に追加します。</p></div>
+          <div class="afp-feat-card"><h3>列ごとの持ち主と保護</h3><p>シート専用／kintone専用／両方可を列ごとに。kintone専用の列はシート側で保護します。</p></div>
+          <div class="afp-feat-card"><h3>値エラーの表示</h3><p>読めない値はその列だけ取り込まず、シートの同期状態の列に列名と理由を出します。</p></div>
+          <div class="afp-feat-card"><h3>自動の対応づけ</h3><p>見出しとフィールド名／フィールドコードが一致する列は自動で対応づけ。角かっこでの明示指定にも対応します。</p></div>
+          <div class="afp-feat-card"><h3>ボタンの見た目と置き場所</h3><p>［同期］ボタンの名称・色・形を変え、ツールバーかアプリ名の帯（左・中央・右）に置けます。</p></div>
+          <div class="afp-feat-card"><h3>自動同期と即時書き戻し 🔒</h3><p>一覧を開いたときに裏で同期し、保存したレコードはその場でシートへ書き戻します。</p></div>
+          <div class="afp-feat-card"><h3>振り分け 🔒</h3><p>振り分けフィールドの値ごとに別のファイルへ（最大 10 シート）。相手ごとに見せる範囲を分けられます。</p></div>
+          <div class="afp-feat-card"><h3>見出しからフィールドを作成 🔒</h3><p>シートの中身から種類を推定し、確認してから kintone のフィールドを作ります。</p></div>
+          <div class="afp-feat-card"><h3>競合ルール・ログ・通知 🔒</h3><p>列ごとにシート優先も選べます。同期ログの保管アプリと、失敗したときの kintone 通知も使えます。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- インストール -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="afp-steps steps-list">
+          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-sheets-sync-v1.0.0.zip</code> を保存します。</span></li>
+          <li><span>kintone の<strong>「kintoneシステム管理」→「プラグイン」</strong>を開き、<strong>「読み込む」</strong>から zip を読み込みます。</span></li>
+          <li><span>同期したいアプリで<strong>「アプリの設定」→「プラグイン」→「プラグインの追加」</strong>から追加します。</span></li>
+          <li><span>歯車アイコンから設定画面を開き、<strong>［Google に接続］</strong>でシートを編集できるアカウントを選んで許可します。接続するのはアプリ管理者だけで、一般の利用者に Google ログインは要りません。</span></li>
+          <li><span>「② シート」で<strong>スプレッドシートとタブを選び</strong>、「③ 列の対応づけ」で対応づけと持ち主を確かめ、<strong>［必要なフィールドを作成する］</strong>を押します。</span></li>
+          <li><span><strong>［保存］</strong>を押してアプリを<strong>更新</strong>すると、一覧のツールバーに［同期］ボタンが出ます。最初の同期で、シートに「kintoneレコード番号」「同期状態」の列が追加されます。</span></li>
+        </ol>
+        <div class="afp-note">「kintone で作成したレコードをシートに追加する」が ON（既定）のときは、<strong>このアプリにすでにあるレコードも、最初の同期でシートに追加されます</strong>。不要なら「④ 同期の動作」で OFF にしてから保存してください。</div>
+      </div>
+    </section>
+
+    <!-- プラン -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料のままでも、<strong>1 シート</strong>を［同期］ボタンで双方向に同期できます（列ごとの持ち主と保護範囲・値エラーの表示・［シートに再追加］・専用フィールドの作成は、すべて無料の範囲です）。<strong>自動同期と保存時の書き戻し</strong>、<strong>振り分け</strong>、<strong>見出しからフィールドを作成</strong>、<strong>競合ルールの選択・同期ログ・失敗通知</strong>が、プレミアム年間サポーターで解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ 1 シートの双方向同期</li>
+              <li>✅ 一覧のツールバーの［同期］ボタンから実行</li>
+              <li>✅ 列ごとの持ち主と保護範囲</li>
+              <li>✅ 値エラー・確認の印（シートの同期状態の列）</li>
+              <li>✅ ［シートに再追加］と専用フィールドの作成</li>
+              <li>✅ ［同期］ボタンの名称・色・形・置き場所の変更</li>
+              <li>✅ 利用期限なし（設定画面に控えめな広告あり）</li>
+            </ul>
+            <a href="/downloads/kw-sheets-sync-v1.0.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>一覧を開いたときの自動同期</strong>と<strong>保存時の即時書き戻し</strong></li>
+              <li>✅ <strong>振り分け</strong>（値ごとに別のファイルへ・最大 10 シート）</li>
+              <li>✅ <strong>見出しからフィールドを作成</strong></li>
+              <li>✅ <strong>競合ルールの選択</strong>（シート優先）と<strong>未反映の再送</strong></li>
+              <li>✅ <strong>同期ログの保管アプリ</strong>と<strong>失敗したときの kintone 通知</strong></li>
+              <li>✅ <strong>プレミアム全製品</strong>と、ちょこっとプラグイン全製品が使えます（設定画面の広告なし）</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta is-primary">プレミアム年間サポーターを見る →</a>
+          </div>
+        </div>
+
+        <ResellerCard />
+        <div class="afp-note">単品販売はありません。期限が切れても<strong>設定は消えません</strong>。先頭の 1 シートが［同期］ボタンで動く状態に戻り、加入（更新）すればそのまま再開します。</div>
+      </div>
+    </section>
+
+    <!-- 動作環境 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">動作環境と制約</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li>kintone（PC のレコード一覧・詳細・追加・編集画面）。<strong>スマートフォンアプリでは同期しません</strong>（スマホでの変更は、次に PC で同期したときに反映します）</li>
+            <li>ゲストスペース内のアプリに対応しています</li>
+            <li><strong>サブテーブル（表）と添付ファイルの同期は v1.0.0 では非対応</strong>です</li>
+            <li>ユーザー選択・組織選択・計算・ルックアップなどは、kintone からシートへ書き出すだけです（シートから kintone へは書き込みません）</li>
+            <li>リアルタイムの同期・時刻を決めた自動実行はできません（一覧を開いたとき／［同期］を押したとき／保存したときに同期します）</li>
+            <li>接続は <strong>KIZUNA Works の接続</strong>と<strong>お客様ご自身の Google Cloud</strong> のどちらでも動きます（<a href="/plugins/sheets-sync/google-cloud/">自社の Google Cloud で使う設定手順</a>・所要 15 分・費用なし）</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <PremiumFaqSection
+      pluginId="kw-sheets-sync"
+      pageUrl="https://kizuna-works.jp/plugins/sheets-sync/"
+      headingClass="afp-h2"
+    />
+
+    <!-- セキュリティ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-sheets-sync" />
+        <ShareButtons title="スプレッドシート連携 for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>シートと kintone の二重入力を、やめる</h2>
+      <p>スプレッドシート連携はプレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料のままでも、1 シート・［同期］ボタンでの双方向同期までお使いいただけます。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="ss-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('ss-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      // ダウンロードは ヒーローとプランカードの2か所にあるので、まとめて計測する
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: 'kw-sheets-sync-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-sheets-sync-v1.0.0.zip'
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

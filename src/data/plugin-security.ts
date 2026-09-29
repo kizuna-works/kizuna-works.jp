@@ -510,6 +510,49 @@ export const securityProfiles: Record<string, SecurityProfile> = {
     ],
   },
 
+  // 双方向の同期なので、レコードの値が Google へ出て行く。outbound で宣言する。
+  'kw-sheets-sync': {
+    configScript:
+      '設定画面で Google に接続し、スプレッドシートを選ぶときだけ、Google 公式のスクリプト（apis.google.com）を読み込みます。レコード画面では読み込みません。',
+    outbound: {
+      title: '対応づけた列の値を、選んだ Google スプレッドシートへ書き込みます',
+      detail:
+        'このプラグインは「Google スプレッドシートと kintone アプリを双方向に同期する」ことが目的のため、kintone の値がシートへ出ます。送信先は、アプリ管理者ご自身が Google の選択画面で選んだスプレッドシートだけです。送られるのは、設定画面で列と対応づけたフィールドの値と、行とレコードを結ぶレコード番号・同期状態だけで、対応づけていないフィールドの値は送信しません。通信は利用者のブラウザから Google へ直接行い、当社のサーバーは経路に入りません（中継サーバーはありません）。',
+      control:
+        '何を送るかは列の対応づけで、どの列を kintone から書き出すかは列ごとの持ち主で管理者が決められます。「（同期しない）」にした列は読み書きしません。kintone で作ったレコードをシートへ追加するかどうかも設定で切り替えられます。設定画面の「接続を解除」で、保管している接続情報を削除できます。',
+    },
+    extraComm: [
+      {
+        label: 'スプレッドシートの読み書き',
+        scope: 'external',
+        detail:
+          'Google Sheets API（sheets.googleapis.com）へ、選んだスプレッドシートの読み取り・書き込み・保護範囲の設定を行います。ファイルがゴミ箱に入っていないかの確認に Google Drive API（www.googleapis.com）を使います。要求するアクセス権は drive.file スコープのみで、これは「利用者が選択したファイル」に限られます。ドライブ内のその他のファイルは参照できません（すべてのスプレッドシートを読み書きできる spreadsheets スコープは使用していません）。',
+      },
+      {
+        label: 'シートを選ぶ画面（Google Picker）',
+        scope: 'external',
+        detail:
+          'アプリ管理者がスプレッドシートを選ぶときだけ、設定画面に Google のファイル選択画面（Google Picker）を表示します。このとき Google のスクリプト（apis.google.com/js/api.js）を設定画面に読み込みます。レコード画面では読み込みません。選択の結果としてプラグインが受け取るのは、選んだファイルの ID と名前だけです。',
+      },
+      {
+        label: 'Google の認可（OAuth 2.0）',
+        scope: 'external',
+        detail:
+          'アプリ管理者が接続するときだけ、Google の認可画面（accounts.google.com）と当社の静的な受け取りページ（kizuna-works.jp/sheets-sync/callback.html）を使います。受け取りページは認可コードをブラウザ内で受け渡すだけで、認可情報がサーバーに保存されることはありません。更新用トークン（リフレッシュトークン）は kintone のプロキシ設定（setProxyConfig）に保管され、レコード画面の JavaScript からは読み出せません。同期に使うアクセストークンはブラウザのセッション（sessionStorage）にだけ置き、タブを閉じると消えます。',
+      },
+      {
+        label: 'レコードの作成・更新と専用フィールドの用意（自ドメイン内）',
+        detail:
+          'シートの行をレコードにし、シートで変わった値を反映するため kintone REST API（/k/v1/records.json・/k/v1/record.json）を、同期に使う専用フィールドと一覧の作成のため /k/v1/preview/app/form/fields.json・/k/v1/preview/app/views.json・/k/v1/preview/app/deploy.json などを呼びます。いずれも自ドメイン内で完結します。',
+      },
+      {
+        label: '同期ログの記録と失敗時の通知（自ドメイン内）',
+        detail:
+          '同期ログを有効にしたときだけ、結果を保管アプリ「スプレッドシート連携ログ」へ記録し、失敗したときは指定のユーザーへ kintone の通知を出します（/k/v1/record.json ほか）。いずれもご利用中の kintone ドメイン内で完結します。',
+      },
+    ],
+  },
+
   // 注釈に画像を貼ったときだけ、同じ kintone ドメイン内の保管アプリへ置く。
   // 外部通信ではないので scope は internal（既定）。
   'kw-annotation': {

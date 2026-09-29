@@ -213,6 +213,10 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】フォーム連携 製品ページ（/plugins/form-connect/）— Google フォームの回答を、回答スプレッドシート経由で kintone アプリへ取り込む。中継サーバー・GAS・API トークンのいずれも不要で、kintone 側から取りに行くため Google 側に kintone への書き込み口を開けない。Google に求める権限は drive.file のみ（Picker で選んだ回答シート 1 枚だけを読む／書き込みはしない）。列とフィールドの対応づけは設定画面の表だけで完結し、見出しとフィールド名/フィールドコードが一致する列は自動で対応づけ（角かっこ [フィールドコード] を最優先／全角半角・空白・記号は無視して照合／タイムスタンプ列は未使用の日時が1つのときだけ自動割り当て）。同一性の判定は行番号ではなく回答ID（フォームキー＋タイムスタンプ＋行内容のハッシュ）＋［値の重複を禁止する］の二段で二重登録を防ぐ。取り込みは一覧のボタン（プレビューつき）と一覧を開いたときの自動（プレミアム・取り込めたら一覧を更新）の2経路。選択肢に無い値は退避／スキップを選択。複数フォームを1アプリへ集約（無料は1本）。取り込みログの保管アプリ自動生成と失敗時の kintone 通知（プレミアム・既定OFF）。ヒーロー＋課題＋しくみ3ステップ（カード）＋設定（対応づけ表1枚）＋取り込み（ツールバーのボタン/プレビュー/進捗/タイミング設定の4枚）＋二重登録（必要なフィールド1枚）＋複数フォーム＋選択肢のずれ＋ログと通知＋主な機能8＋インストール手順6＋プラン（無料/プレミアム）＋動作環境＋FAQ12（本文は src/data/premium-faqs.ts の kw-form-connect）＋SecurityBox＋ShareButtons＋CTA。添付ファイル・サブテーブルへの取り込みは v1.0.0 非対応・PC の一覧画面のみ。ゲストスペース対応
 │   │   │   │   └── google-cloud/
 │   │   │   │       └── index.astro # 【手順ページ】自社の Google Cloud で使う設定手順（/plugins/form-connect/google-cloud/）— フォーム連携を顧客自身の Google Cloud プロジェクトで動かすための手順。①プロジェクト作成 ②Google Sheets API と Google Picker API を有効化（Drive API は接続アカウント表示用の任意）③OAuth 同意画面（Workspace は「内部」で審査不要／個人は「外部」＋本番環境に公開。テストのままだと 7 日で失効）④OAuth クライアント（リダイレクト URI は https://kizuna-works.jp/form-connect/callback.html の 1 本）⑤API キー（制限は Picker API のみ・HTTP リファラー制限は付けない）⑥設定画面へ 3 つを入力して接続。スコープは drive.file のみ（spreadsheets 系は CASA 対象なので使わない）。つまずき表 8 行＋FAQ 6 件。ドライブ連携の同種ページと同じ体裁で、Cloud プロジェクトの共用手順も記載。プラグイン設定画面の「自社の Google Cloud を使う」から直接リンクされる（config.js の SETUP_GUIDE_URL）
+│   │   │   ├── sheets-sync/
+│   │   │   │   └── index.astro # 【プレミアムプラグイン】スプレッドシート連携 製品ページ（/plugins/sheets-sync/）— Google スプレッドシートと kintone アプリを双方向に同期する。シートの行はレコードに、kintone で変えた値はシートの同じ行へ書き戻す（kintone で作ったレコードはシート末尾に追加）。行とレコードはシートの「kintoneレコード番号」列で結ぶ（行番号は使わない）。前回同期時の値と比べてどちらで変わったかを列ごとに判定、列ごとの持ち主（シート専用／kintone専用／両方可）と kintone専用列のシート保護、両方で変わった列は競合ルール。読めない値はシートの同期状態の列に「値エラー：列名（理由）」。中継サーバー・GAS・API トークン不要・drive.file のみ。ヒーロー＋課題＋しくみ（POINT 3 枚＋シートの画像）＋Google 接続＋設定（全体・シート・対応づけ表・専用フィールド）＋同期（一覧の［同期］・進捗・結果・タイミング設定）＋値エラー（シートの印・詳細画面の案内）＋競合と振り分け＋共有相手と共有ドライブ＋Google の読み取り上限と kintone API 回数の目安（表）＋ログと通知＋主な機能8＋インストール手順6＋プラン（無料/プレミアム）＋動作環境＋FAQ15（本文は src/data/premium-faqs.ts の kw-sheets-sync）＋SecurityBox（outbound 宣言）＋ShareButtons＋CTA。サブテーブル・添付ファイルは v1.0.0 非対応・スマホでは同期しない。ゲストスペース対応
+│   │   │   │   └── google-cloud/
+│   │   │   │       └── index.astro # 【手順ページ】自社の Google Cloud で使う設定手順（/plugins/sheets-sync/google-cloud/）— スプレッドシート連携を顧客自身の Google Cloud プロジェクトで動かすための手順。①プロジェクト作成 ②Google Sheets API・Google Drive API・Google Picker API の 3 つを有効化（Drive API はゴミ箱の確認と接続アカウント表示に使う）③OAuth 同意画面（Workspace は「内部」／個人は「外部」＋本番環境に公開。テストのままだと 7 日で失効）④OAuth クライアント（リダイレクト URI は https://kizuna-works.jp/sheets-sync/callback.html の 1 本）⑤API キー（制限は Picker API のみ・HTTP リファラー制限は付けない）⑥設定画面へ 3 つを入力して接続。フォーム連携の同種ページを元にした同じ体裁。プラグイン設定画面の「自社の Google Cloud を使う」から直接リンクされる（config.js の SETUP_GUIDE_URL）
 │   │   │   ├── lookup-add/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】ルックアップ新規登録 製品ページ（/plugins/lookup-add/）— ルックアップの候補に参照先のレコードが無いとき、［取得］の隣の［＋新規登録］から入力中の画面を離れずに登録し、そのまま取得まで完了させる。登録画面には 打った文字（キー項目へ）／入力中のレコードの値・同じ行の値・固定値（引き継ぐ値）／絞り込みの初期設定から決まる値 が入った状態で開く。登録前に似ているレコードを表示し（9種類の表記ゆれを吸収）、完全一致は登録を中止。登録方式は パネル／標準画面（別のタブ・小さなウィンドウ）。パネルの見た目3スタイル、ボタンの見せ方2種類。条件分岐自動採番 v2.2.0 以上と連携してパネルからの登録でも採番。サジェスト・絞り込みと同じルックアップ上で併用可。ヒーロー＋課題3＋before/after 2枚＋使い方3枚＋引き継ぎ表＋見た目1枚＋標準画面1枚＋方式の比較表＋設定5枚＋連携（3製品カード＋4製品同居1枚）＋インストール手順5＋プラン（無料/プレミアム）＋できないこと5＋FAQ11＋SecurityBox＋ShareButtons＋CTA。無料はルックアップ1つ、複数ルックアップと広告非表示がプレミアム。PC 版のみ・ゲストスペース対応
 │   │   │   ├── annotation/
@@ -621,6 +625,24 @@ c:\kizuna-works.jp\
 │   │   ├── form-connect-action-01.png   # フォーム連携 取り込む内容の確認（プレビュー・15件）＋ .webp
 │   │   ├── form-connect-action-02.png   # フォーム連携 取り込み中の進捗表示（何をしているかと進捗バー）＋ .webp
 │   │   ├── form-connect-action-03.png   # フォーム連携 一覧ツールバーの取り込みボタン（＋ボタンの左に配置）＋ .webp
+│   │   ├── sheets-sync-banner.png           # スプレッドシート連携 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・scripts/gen-plugin-banner.mjs の sheets-sync）＋ .webp / -800.webp
+│   │   ├── sheets-sync-icon.png             # スプレッドシート連携 アイコン（200×200・プラグイン同梱アイコンから生成）＋ .webp
+│   │   ├── sheets-sync-screen-01.png        # スプレッドシート連携 設定画面の全体（目次＋シートの見え方プレビュー＋「③ 列の対応づけ」）＋ .webp
+│   │   ├── sheets-sync-config-01.png        # スプレッドシート連携 設定画面：① Google 接続（接続方式＋接続中のアカウント。掲載用にメールアドレスは example.com へ差し替え）＋ .webp
+│   │   ├── sheets-sync-config-02.png        # スプレッドシート連携 設定画面：② シート（振り分け・同期するシート・見出し）＋ .webp
+│   │   ├── sheets-sync-config-03.png        # スプレッドシート連携 設定画面：列の対応づけ表（持ち主・競合したとき・確認事項）＋ .webp
+│   │   ├── sheets-sync-config-04.png        # スプレッドシート連携 設定画面：このプラグインが使うフィールド（専用フィールド6つ・作成済み）＋ .webp
+│   │   ├── sheets-sync-config-05.png        # スプレッドシート連携 設定画面：同期のタイミング（自動同期・間隔・保存時の書き戻し）＋ .webp
+│   │   ├── sheets-sync-config-11.png    # スプレッドシート連携 設定画面：［同期］ボタンの見た目と配置（名称・色見本・カラーコード・形・置く場所・見本）＋ .webp
+│   │   ├── sheets-sync-action-04.png    # スプレッドシート連携 一覧：アプリ名の帯の右に置いた［シートと同期］ボタン＋ .webp
+│   │   ├── sheets-sync-config-07.png        # スプレッドシート連携 設定画面：⑤ ログ・通知 ＋ .webp
+│   │   ├── sheets-sync-owncloud.png         # スプレッドシート連携 設定画面：接続方式で「自社の Google Cloud を使う」を選んだ状態（入力欄は空）。/plugins/sheets-sync/google-cloud/ の手順6で使用＋ .webp
+│   │   ├── sheets-sync-action-01.png        # スプレッドシート連携 一覧のツールバーの［同期］ボタンと同期状態の列＋ .webp
+│   │   ├── sheets-sync-action-02.png        # スプレッドシート連携 同期中の進捗表示＋ .webp
+│   │   ├── sheets-sync-action-03.png        # スプレッドシート連携 同期の結果（確認事項・反映できなかったもの）＋ .webp
+│   │   ├── sheets-sync-detail-01.png        # スプレッドシート連携 レコード詳細画面の値エラーの案内＋ .webp
+│   │   ├── sheets-sync-sheet-01.png         # スプレッドシート連携 同期しているシート（A〜N 列・レコード番号と同期状態の列つき）＋ .webp
+│   │   ├── sheets-sync-sheet-02.png         # スプレッドシート連携 同期状態の列に「値エラー：」「確認：」の印が出たシート＋ .webp
 │   │   ├── lookup-add-banner.png        # ルックアップ新規登録 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・**手作りの差し替え版**。雛形は gen-plugin-banner.mjs の lookup-add 定義）＋ .webp / -800.webp
 │   │   ├── lookup-add-icon.png          # ルックアップ新規登録 アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
 │   │   ├── lookup-add-before.png        # 導入前：標準の［取得］で該当なし（行き止まり）＋ .webp

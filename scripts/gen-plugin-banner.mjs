@@ -137,6 +137,18 @@ const BANNERS = {
       ['見せ方は', '常時・ホバー・クリック', ''],
       ['注釈ごとに', '言語を出し分け', '']
     ]
+  },
+  'sheets-sync': {
+    iconSrc: 'SECRET/kintone_plugin_workspace/kw-sheets-sync/kw-sheets-sync_icon_512.png',
+    iconSide: 'right',
+    catch: ['シートと kintone を、', '双方向に同期する。'],
+    name: 'スプレッドシート連携 for kintone',
+    nameSize: 36,
+    bullets: [
+      ['社外の相手は', 'シートのまま入力', ''],
+      ['列ごとに', '入力する側を決める', ''],
+      ['両方の変更を', '前回の値と比べてそろえる', '']
+    ]
   }
 };
 
