@@ -1699,7 +1699,7 @@ export const premiumPlugins: Plugin[] = [
     image: '/images/sheets-sync-banner.png',
     imageWebp: '/images/sheets-sync-banner.webp',
     imageAlt:
-      'スプレッドシート連携 for kintone バナー — シートと kintone を、双方向に同期する。社外の相手はシートのまま入力、列ごとに入力する側を決める、両方の変更を前回の値と比べてそろえる',
+      'スプレッドシート連携 for kintone バナー — スプレッドシートと kintone を、双方向に。社外の方は Google スプレッドシートで入力、入力された行を kintone のレコードへ自動取り込み、kintone での変更をシートへ書き戻し',
     imageWidth: 1200,
     imageHeight: 630,
     status: 'available',

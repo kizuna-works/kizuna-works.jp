@@ -625,7 +625,7 @@ c:\kizuna-works.jp\
 │   │   ├── form-connect-action-01.png   # フォーム連携 取り込む内容の確認（プレビュー・15件）＋ .webp
 │   │   ├── form-connect-action-02.png   # フォーム連携 取り込み中の進捗表示（何をしているかと進捗バー）＋ .webp
 │   │   ├── form-connect-action-03.png   # フォーム連携 一覧ツールバーの取り込みボタン（＋ボタンの左に配置）＋ .webp
-│   │   ├── sheets-sync-banner.png           # スプレッドシート連携 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・scripts/gen-plugin-banner.mjs の sheets-sync）＋ .webp / -800.webp
+│   │   ├── sheets-sync-banner.png           # スプレッドシート連携 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・手動作成。gen-plugin-banner.mjs の定義は上書き防止のため無効化）＋ .webp / -800.webp
 │   │   ├── sheets-sync-icon.png             # スプレッドシート連携 アイコン（200×200・プラグイン同梱アイコンから生成）＋ .webp
 │   │   ├── sheets-sync-screen-01.png        # スプレッドシート連携 設定画面の全体（目次＋シートの見え方プレビュー＋「③ 列の対応づけ」）＋ .webp
 │   │   ├── sheets-sync-config-01.png        # スプレッドシート連携 設定画面：① Google 接続（接続方式＋接続中のアカウント。掲載用にメールアドレスは example.com へ差し替え）＋ .webp

@@ -138,7 +138,9 @@ const BANNERS = {
       ['注釈ごとに', '言語を出し分け', '']
     ]
   },
-  'sheets-sync': {
+  // ★ sheets-sync は 2026-09-29 に手動バナーへ差し替え済み。実行すると
+  //    public/images/sheets-sync-banner.png を上書きしてしまうため、定義を無効化してある。
+  '_sheets-sync_DISABLED': {
     iconSrc: 'SECRET/kintone_plugin_workspace/kw-sheets-sync/kw-sheets-sync_icon_512.png',
     iconSide: 'right',
     catch: ['シートと kintone を、', '双方向に同期する。'],
