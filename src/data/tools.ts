@@ -203,9 +203,9 @@ export const tools: Tool[] = [
     shortName: 'Shiki',
     kintoneNative: true,
     description:
-      'kintoneの計算式をブラウザ上で組み立てられる完全無料のWebツールです。日数の差・年月の取り出し・IFの条件分岐・四捨五入・テーブルの集計など47のレシピから選び、フィールドコードを入れるだけで貼り付け可能な計算式を生成します。ExcelにあってkintoneにないLEFT・TODAYなどの関数も代わりの書き方つきで確認できます。',
+      'kintoneの計算式をブラウザ上で組み立てられる完全無料のWebツールです。日数の差・年月の取り出し・IFの条件分岐・四捨五入・テーブルの集計など62のレシピから選び、フィールドコードを入れるだけで貼り付け可能な計算式を生成します。ExcelにあってkintoneにないLEFT・TODAYなどの関数も代わりの書き方つきで確認できます。',
     applicationCategory: 'BusinessApplication',
-    tags: ['完全無料', '登録不要', '実機で動作確認済み', '47レシピ'],
+    tags: ['完全無料', '登録不要', '実機で動作確認済み', '62レシピ'],
     miniIcon: '🧮',
     miniDescription: '計算式ジェネレーター',
     image: '/images/shiki-preview.png',

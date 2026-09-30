@@ -40,6 +40,7 @@ const isNewRelease = (p: { releaseDate?: string }) => (p.releaseDate ?? '') >= n
 const featuredKintoneTool = tools.find((t) => t.file === 'Shirushi.html');
 const obiTool = tools.find((t) => t.file === 'Obi.html');
 const shikiTool = tools.find((t) => t.file === 'Shiki.html');
+const totonoeTool = tools.find((t) => t.file === 'Totonoe.html');
 const genericTools = tools.filter((t) => !t.kintoneNative);
 
 const allPosts = (await getCollection('blog'))
@@ -983,6 +984,52 @@ const pluginPosts = allPosts
       word-break: break-all;
     }
 
+    /* Totonoe CSV visual: a messy cell (before) and what kintone can import (after) */
+    .totonoe-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      align-self: start;
+      margin-top: 6px;
+    }
+    .totonoe-row {
+      display: grid;
+      /* fixed first column so the arrows line up across the three rows */
+      grid-template-columns: 8.6rem auto 1fr;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid #e2e9f3;
+      border-left: 4px solid #2E8B2E;
+      border-radius: 10px;
+      padding: 8px 12px;
+      box-shadow: 0 6px 16px rgba(27, 58, 107, 0.10);
+    }
+    .totonoe-before {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #8c2f2f;
+      background: #fdf0f0;
+      border-radius: 6px;
+      padding: 5px 8px;
+      white-space: nowrap;
+    }
+    .totonoe-arrow {
+      color: #2E8B2E;
+      font-weight: 700;
+    }
+    .totonoe-after {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.74rem;
+      line-height: 1.45;
+      color: #1f5f1f;
+      background: #eaf6ea;
+      border-radius: 6px;
+      padding: 5px 8px;
+      overflow-wrap: anywhere;
+    }
+
     @media (max-width: 768px) {
       .kintool-feature { padding: 48px 16px 16px; }
       .kintool-card {
@@ -994,6 +1041,7 @@ const pluginPosts = allPosts
       .ktv-icon { width: 88px; height: 88px; }
       .obi-visual { max-width: 360px; margin: 0 auto; }
       .shiki-visual { max-width: 360px; margin: 0 auto; }
+      .totonoe-visual { max-width: 360px; margin: 0 auto; }
     }
 
     /* =========================================
@@ -1911,7 +1959,7 @@ const pluginPosts = allPosts
     <section class="bg-white kintool-feature">
       <div class="container">
         <h2 class="section-title">kintoneアプリのアイコンを無料で作成</h2>
-        <p class="section-subtitle">KIZUNA Works 唯一の <strong>kintone専用</strong> 無料ツール。<br>kintoneのアプリアイコンをブラウザだけで作成できます。</p>
+        <p class="section-subtitle">KIZUNA Works の <strong>kintone専用</strong> 無料ツール第1弾。<br>kintoneのアプリアイコンをブラウザだけで作成できます。</p>
         <div class="kintool-card">
           <div class="kintool-visual" aria-hidden="true">
             <span class="ktv-icon ktv-1">営</span>
@@ -1981,13 +2029,51 @@ const pluginPosts = allPosts
             </span>
           </div>
           <div class="kintool-body">
-            <p class="kintool-lead"><strong>Shiki（kintone計算式ジェネレーター）</strong>は、kintoneの計算式を登録不要・完全無料で組み立てられるWebツールです。日数の差・年月の取り出し・条件分岐・四捨五入・テーブル集計など<strong>47のレシピ</strong>から選び、フィールドコードを入れるだけで式が完成します。Excelにあってkintoneには<strong>ない関数</strong>（LEFT・MID・TODAYなど）も、代わりの書き方つきで確認できます。</p>
+            <p class="kintool-lead"><strong>Shiki（kintone計算式ジェネレーター）</strong>は、kintoneの計算式を登録不要・完全無料で組み立てられるWebツールです。日数の差・年月の取り出し・条件分岐・四捨五入・テーブル集計など<strong>62のレシピ</strong>から選び、フィールドコードを入れるだけで式が完成します。Excelにあってkintoneには<strong>ない関数</strong>（LEFT・MID・TODAYなど）も、代わりの書き方つきで確認できます。</p>
             <ul class="kintool-points">
-              <li>47レシピから選ぶだけ。掲載している式は<strong>すべて実機のkintoneで動作確認済み</strong></li>
+              <li>62レシピから選ぶだけ。掲載している式は<strong>すべて実機のkintoneで動作確認済み</strong></li>
               <li>式の置き場所（計算フィールドか文字列フィールドか）まで表示</li>
               <li>できないこと（年度・平方根・文字列の切り出しなど）も実機で確かめて明記</li>
             </ul>
             <a href={`/tools/${shikiTool.file}`} class="btn btn-primary">無料でkintoneの計算式を作る →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {totonoeTool && (
+    <!-- Featured kintone-specific tool: Totonoe (CSV import cleaner) -->
+    <section class="bg-white kintool-feature">
+      <div class="container" style="padding-top:0;">
+        <h2 class="section-title">kintoneに読み込むCSVを無料で整形</h2>
+        <p class="section-subtitle">Shirushi・Obi・Shiki に続く <strong>kintone専用</strong> 無料ツール。<br>Excelのデータを、kintoneがそのまま読み込めるCSVに直せます。</p>
+        <div class="kintool-card">
+          <div class="totonoe-visual" aria-hidden="true">
+            <span class="totonoe-row">
+              <span class="totonoe-before">令和8年9月30日</span>
+              <span class="totonoe-arrow">→</span>
+              <span class="totonoe-after">2026-09-30</span>
+            </span>
+            <span class="totonoe-row">
+              <span class="totonoe-before">¥1,200,000</span>
+              <span class="totonoe-arrow">→</span>
+              <span class="totonoe-after">1200000</span>
+            </span>
+            <span class="totonoe-row">
+              <span class="totonoe-before">帳票、一括更新</span>
+              <span class="totonoe-arrow">→</span>
+              <span class="totonoe-after">[帳票] 1<br>[一括更新] 1</span>
+            </span>
+          </div>
+          <div class="kintool-body">
+            <p class="kintool-lead"><strong>Totonoe（kintone CSVインポート整形ツール）</strong>は、kintoneにCSVを読み込む前のデータを、kintoneが読める形に直す登録不要・完全無料のWebツールです。<strong>和暦やExcelの日付の数値</strong>、「¥」や全角の金額、「午後3時」などの時刻を直し、1つのセルに並べたチェックボックスを<strong>選択肢ごとの列</strong>に展開します。データはブラウザ内で処理され、外部に送信されません。</p>
+            <ul class="kintool-points">
+              <li>日付・金額・時刻・チェックボックスを kintone の読み込み形式に</li>
+              <li>2行に分かれた行のまとめと、複数項目の組み合わせでの重複チェック</li>
+              <li>書き出したCSVは<strong>実際のkintoneアプリで読み込みを確認済み</strong></li>
+            </ul>
+            <a href={`/tools/${totonoeTool.file}`} class="btn btn-primary">無料でkintoneのCSVを整形する →</a>
           </div>
         </div>
       </div>
