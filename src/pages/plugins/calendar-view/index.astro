@@ -50,10 +50,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "カレンダービュー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.0.1",
-          "dateModified": "2026-09-19",
+          "softwareVersion": "1.0.2",
+          "dateModified": "2026-09-30",
           "url": "https://kizuna-works.jp/plugins/calendar-view/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-calendar-view-v1.0.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-calendar-view-v1.0.2.zip",
           "image": "https://kizuna-works.jp/images/calendar-view-banner.png",
           "offers": [
             {
@@ -93,7 +93,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             "カスタマイズビューを設定画面のボタンで自動生成（HTML 手入力なし）",
             "サブテーブルの行・他アプリの予定を背景として重ねて表示",
             "キーボード操作（今日・期間の移動・表示の切り替え・追加・元に戻す）",
-            "モバイル対応（カレンダー全粒度とタイムラインの1日）",
+            "モバイル対応（カレンダー全粒度とタイムラインの1日・iPhone／Android の kintone アプリとブラウザ）",
             "ゲストスペース対応・外部サーバーへのデータ送信なし"
           ]
         }
@@ -177,6 +177,13 @@ import TrialBanner from '../../../components/TrialBanner.astro';
     .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
     .update-desc strong { color: var(--color-navy); }
     .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    .update-shot { max-width: 640px; margin: 0 auto; }
+    .update-shot img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; cursor: zoom-in; }
+    .update-shot .zoom-hint { text-align: center; color: var(--color-text-muted); font-size: 12px; margin: 10px 0 0; }
+    .update-points { margin: 0 0 18px; padding-left: 1.3em; color: var(--color-text-main); font-size: 15px; line-height: 1.8; list-style: disc; }
+    .update-shot + .update-desc { margin-top: 20px; }
+    .update-points li { margin: 0 0 6px; }
+    .update-points strong { color: var(--color-navy); }
     @media (max-width: 768px) {
       .update-box { padding: 24px 20px 28px; }
       .update-title { font-size: 17px; }
@@ -312,17 +319,47 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <img class="afp-hero-icon" src="/images/calendar-view-icon.png" alt="カレンダービュー for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.0.1</span>
+        <span class="afp-hero-version">v1.0.2</span>
       </div>
       <h1>カレンダービュー for kintone</h1>
       <p class="afp-tagline">同じ予定を、カレンダーでも、担当者ごとの時間軸でも。</p>
       <p class="afp-sub">kintone のレコードが持つ<strong>開始・終了</strong>を、カレンダー（年・月・週・日・リスト）と<strong>タイムライン</strong>（縦＝担当者・会議室 × 横＝時間）に、画面上のボタンで切り替えて表示します。ドラッグで日程を変更でき、<strong>空いている時間</strong>も条件から探せます。ダブルブッキングの警告は kintone 標準の編集画面でも働きます。</p>
       <div class="afp-hero-cta">
         <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
-        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-calendar-view-v1.0.1.zip" download>無料でダウンロード</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-calendar-view-v1.0.2.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
+
+    <!-- Update Info (v1.0.2) -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <div class="update-box">
+          <div class="update-head">
+            <span class="update-tag">UPDATE</span>
+            <h2 class="update-title">v1.0.2：スマートフォンで、すぐに・画面に収まって表示されるようになりました</h2>
+          </div>
+          <p class="update-desc">iPhone・Android の kintone アプリやスマートフォンのブラウザで、カレンダーをより快適にお使いいただけるよう改善しました。</p>
+          <ul class="update-points">
+            <li><strong>開いてすぐに表示されます。</strong>ご契約の確認を待たずにカレンダーを表示し、確認が終わるとタイムラインなどのプレミアム機能が使えるようになります（確認は通常数秒です）。</li>
+            <li><strong>画面の幅に収まります。</strong>画面が狭いときはツールバーのボタンが2段に折り返して並び、横にスクロールしなくても全体が見えます。</li>
+            <li><strong>ご自分で作ったカスタマイズビューでも表示されます。</strong>設定画面の「ビューを作成」で作ったビューだけでなく、既存のカスタマイズビューを「描画先のビュー」に選んだ場合も、スマートフォンに表示されます。</li>
+          </ul>
+          <div class="update-shot">
+            <Picture
+              src="/images/calendar-view-mobile-01.png"
+              alt="カレンダービュー for kintone v1.0.2 — スマートフォン（幅390px）で表示した「会議室・打合せ予約」アプリ。左は月表示で、ツールバーの前へ・今日・次へ・年月・空き枠・絞り込みのボタンが画面幅に収まり、区分ごとに色分けされた予定が並んでいる。右はタイムラインの1日表示で、A会議室・B会議室・オンライン・大会議室ごとに9時台からの予約が横棒で並んでいる"
+              width="1744"
+              height="1800"
+              class="zoomable"
+            />
+            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+          </div>
+          <p class="update-desc">予定を動かした直後の「元に戻す」は、スマートフォンでもタップして使えます。</p>
+          <p class="update-note">既存ユーザーの方は、最新版（v1.0.2）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。</p>
+        </div>
+      </div>
+    </section>
 
     <!-- 課題 -->
     <section class="afp-section">
@@ -580,7 +617,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           </div>
           <div class="afp-feat-card">
             <h3>モバイル対応</h3>
-            <p>カレンダーの全粒度とタイムラインの1日表示。絞り込みは引き出しとして開きます。</p>
+            <p>カレンダーの全粒度とタイムラインの1日表示。iPhone・Android の kintone アプリでも、開いてすぐ画面幅に収まって表示されます。絞り込みは引き出しとして開きます。</p>
           </div>
           <div class="afp-feat-card">
             <h3>件数が多くても止まらない</h3>
@@ -614,7 +651,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <li>✅ 繰り返し予定・祝日と非稼働日の色分け</li>
               <li>✅ 利用期限なし（設定できるビューは1件・レイヤーは1件／設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-calendar-view-v1.0.1.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-calendar-view-v1.0.2.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">👑 全機能を解放</span>
@@ -760,10 +797,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
             gtag('event', 'file_download', {
-              file_name: 'kw-calendar-view-v1.0.1.zip',
+              file_name: 'kw-calendar-view-v1.0.2.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-calendar-view-v1.0.1.zip'
+              link_url: '/downloads/kw-calendar-view-v1.0.2.zip'
             });
           });
         });

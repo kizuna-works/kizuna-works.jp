@@ -613,6 +613,7 @@ c:\kizuna-works.jp\
 │   │   ├── calendar-view-config-08.png    # 設定 手順3 使うモード（カレンダー／タイムライン）
 │   │   ├── calendar-view-config-04.png    # 設定 手順4 ラベル（選択肢の追加・削除と色）
 │   │   ├── calendar-view-config-06.png    # 設定 手順7 重複警告（リソースごとの動作）
+│   │   ├── calendar-view-mobile-01.png    # v1.0.2 UPDATE 用スクショ — スマートフォン（390px）の月表示とタイムライン1日を横に並べた（1744×1800・.webp あり）
 │   │   ├── drive-connect-banner.png     # ドライブ連携 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── drive-connect-icon.png       # ドライブ連携 アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
 │   │   ├── drive-connect-config-01.png  # 設定「② 転送ルール」（対象フィールド・保存先・リンク返却先＋フォルダ名の組み立てとプレビュー）＋ .webp
@@ -1111,7 +1112,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-mail-assist-v1.6.1.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管・v1.6.1 表示・送信条件でユーザーを選ぶとき、停止中の利用者を候補に出さない。設定済みのものは「停止中」と表示して残す）
 │   │   ├── kw-mail-assist-v1.7.0.zip                             # メールアシスト for kintone 配布ファイル（最新・手動配置・v1.7.0 テンプレートの保存先アプリを保存前に検査し、別用途のアプリ・項目不足なら理由を出して保存を中止／不足項目はボタン1つで追加／未保存の変更を表示し離脱時に警告／保管アプリIDを空にすればプラグイン内保存へ戻る／同じ保管アプリを複数アプリで使っても互いのテンプレートを消さない／送信履歴保管アプリにも同じ検査）
 │   │   ├── kw-calendar-view-v1.0.0.zip                   # カレンダービュー for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-calendar-view-v1.0.1.zip                   # カレンダービュー for kintone 配布ファイル（最新・手動配置・v1.0.1 重複禁止が未設定のルックアップでも安定して動作するよう改善）
+│   │   ├── kw-calendar-view-v1.0.1.zip                   # カレンダービュー for kintone 配布ファイル（旧版・参考保管・v1.0.1 重複禁止が未設定のルックアップでも安定して動作するよう改善）
+│   │   ├── kw-calendar-view-v1.0.2.zip                   # カレンダービュー for kintone 配布ファイル（最新・v1.0.2：スマートフォンで開いてすぐ・画面幅に収まって表示／自作のカスタマイズビューでもスマホに表示／元に戻すをタップで使える）
 │   │   ├── kw-pdf-edit-v1.0.0.zip                              # PDF編集アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-pdf-edit-v1.2.6.zip                              # PDF編集アシスト for kintone 配布ファイル（最新・v1.2.6 署名欄の複数登録＋別のサインを追加）
 │   │   ├── kw-pdf-edit-v1.1.0.zip                              # PDF編集アシスト for kintone 配布ファイル（旧版・v1.1.0 スマホ対応＋サイン専用モード）
