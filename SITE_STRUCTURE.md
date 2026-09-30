@@ -872,6 +872,8 @@ c:\kizuna-works.jp\
 │   │   ├── lookup-sync-popup.png/.webp       # 同期の確認ポップアップ（自動＝完了5件／手動＝待機中）
 │   │   ├── lookup-sync-v2-dialog.png/.webp       # v2.0.2：同名候補ダイアログ（非一意キーで1件に定まらない＝標準ルックアップの弱点）
 │   │   ├── lookup-sync-v2-method-select.png/.webp # v2.0.2：方式選択（推奨=一意キー化／方式1=表示のみ／方式2=デタッチ自動同期）
+│   │   ├── lookup-sync-v222-notice.png/.webp  # v2.2.2 UPDATE：設定画面の「参照先スクリプトの更新があります」案内と「スクリプトを最新に再登録」（1393×419）
+│   │   ├── lookup-sync-v222-config.png/.webp  # v2.2.2 UPDATE：設定画面の全体（方式2・照合キー設定済み・再登録の案内・サイドバー）（1425×1678）
 │   │   ├── lookup-sync-v2-method2-config.png/.webp # v2.0.2：方式2の設定（マスター→参照先マッピング＋自動デタッチ＆照合キー）
 │   │   ├── lookup-sync-v2-method2-autofill.png/.webp # v2.0.2：方式2の入力補完（同名から選んだ1件で型番・単価を自動補完）
 │   │   ├── lookup-sync-v2-method1-popup.png/.webp # v2.0.2：方式1の更新通知ポップアップ（詳細画面・保存済み値のまま）
@@ -1094,7 +1096,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-sync-v2.1.1.zip                             # ルックアップ自動同期 for kintone v2.1.1 配布ファイル（全件同期を自己修復型に＝キー未設定でも名前一致で同期・前後空白正規化・要確認内訳CSV出力。旧版・参考保管）
 │   │   ├── kw-lookup-sync-v2.1.2.zip                             # ルックアップ自動同期 for kintone 配布ファイル（旧版・参考保管・v2.1.2 ライセンス認証の内部改修）
 │   │   ├── kw-lookup-sync-v2.2.0.zip                             # ルックアップ自動同期 for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-lookup-sync-v2.2.1.zip                             # ルックアップ自動同期 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v2.2.1 サブテーブル内ルックアップ同期の全件失敗と実行中に追加された行の消失を修正／失敗理由を画面表示）
+│   │   ├── kw-lookup-sync-v2.2.1.zip                             # ルックアップ自動同期 for kintone 配布ファイル（手動配置・プレミアムプラグイン・v2.2.1 サブテーブル内ルックアップ同期の全件失敗と実行中に追加された行の消失を修正／失敗理由を画面表示）
+│   │   ├── kw-lookup-sync-v2.2.2.zip                             # ルックアップ自動同期 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v2.2.2 方式1/2 の参照先スクリプトが v2.2.1 で全停止していたのを修正（再登録が必要）・ゲストの再取得・一般ユーザー初回のプレミアム誘導の誤表示）
 │   │   ├── kw-mail-assist-v1.0.1.zip                             # メールアシスト for kintone 配布ファイル（手動配置・v1.0.1＝法人Outlook対応）
 │   │   ├── kw-mail-assist-v1.1.0.zip                             # メールアシスト for kintone 配布ファイル（手動配置・v1.1.0＝表示条件に複数値OR演算子追加・編集画面幅拡大）
 │   │   ├── kw-mail-assist-v1.1.1.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
