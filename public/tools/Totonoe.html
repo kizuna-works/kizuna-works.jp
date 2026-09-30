@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="kintoneにCSVを読み込む前のデータ整形をブラウザだけで行う無料ツール。日付・和暦・数値の書式直し、チェックボックスを選択肢ごとの列に展開、2行に分かれた行のまとめ、複数項目の組み合わせでの重複チェックまで。データは外部に送信しません。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://kizuna-works.jp/tools/Totonoe.html">
+
+<!-- OGP -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="KIZUNA Works">
+<meta property="og:title" content="kintone CSVインポート整形ツール Totonoe - 無料 | KIZUNA Works">
+<meta property="og:description" content="kintoneにCSVを読み込む前のデータ整形をブラウザだけで。日付・和暦・数値の書式直し、チェックボックスの列展開、2行に分かれた行のまとめ、重複チェック。無料・登録不要・データは送信しません。">
+<meta property="og:url" content="https://kizuna-works.jp/tools/Totonoe.html">
+<meta property="og:image" content="https://kizuna-works.jp/images/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@KIZUNA_works_DX">
+<meta name="twitter:image" content="https://kizuna-works.jp/images/ogp.png">
+<meta name="theme-color" content="#1B3A6B">
+<link rel="icon" type="image/png" sizes="192x192" href="/images/favicon.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48 32x32 16x16">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<title>kintone CSVインポート整形ツール Totonoe - 無料 | KIZUNA Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://kizuna-works.jp/tools/Totonoe.html",
+      "url": "https://kizuna-works.jp/tools/Totonoe.html",
+      "name": "kintone CSVインポート整形ツール Totonoe - 無料 | KIZUNA Works",
+      "description": "kintoneにCSVを読み込む前のデータ整形をブラウザだけで行う無料ツール。日付・和暦・数値の書式直し、チェックボックスの列展開、2行に分かれた行のまとめ、重複チェックができます。",
+      "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Totonoe（kintone CSVインポート整形ツール）",
+      "url": "https://kizuna-works.jp/tools/Totonoe.html",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "WebBrowser",
+      "dateModified": "2026-09-30",
+      "description": "kintoneにCSVファイルを読み込む前に、日付・和暦・数値・時刻の書式をkintoneが読める形に直し、チェックボックスを選択肢ごとの列に展開し、2行に分かれた行をまとめ、複数項目の組み合わせで重複を見つける無料のWebツール。処理はブラウザ内で完結し、データを外部に送信しません。登録不要。",
+      "creator": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "kintoneのCSV読み込みで、日付はどの形式なら読み込めますか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "kintone公式ヘルプでは、CSVファイルの日付はYYYY-MM-DD、YYYY/MM/DD、YYYYMMDD、YY/MM/DD、MM/DD/YYYY、MM/DD/YY、DD/MM/YYYY、DD/MM/YYの形式に対応しているとされています。「令和8年9月30日」のような和暦や「2026年9月30日」の形はこの一覧にないため、読み込む前にYYYY-MM-DDなどへ直します。" }
+        },
+        {
+          "@type": "Question",
+          "name": "チェックボックスや複数選択の値は、CSVでどう書けばよいですか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "kintone公式ヘルプでは、チェックボックスと複数選択は選択肢ごとに列を分け、列の見出しを「フィールド名[選択肢名]」とし、選択する選択肢の列に「1」、選択しない選択肢の列は空欄にすると案内されています。1つのセルに「A、B」のように並べた形は、この書き方ではありません。" }
+        },
+        {
+          "@type": "Question",
+          "name": "CSVを読み込むと「ファイルの内容が不正です。」と表示されるのはなぜですか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "原因の一つは改行コードです。kintoneが読み込めるCSVの改行コードはCR+LFまたはLFで、CRだけで改行したファイルを読み込むとこのメッセージが表示されるとkintone公式ヘルプで案内されています。このツールで書き出したCSVは、改行コードをCR+LFにそろえます。" }
+        },
+        {
+          "@type": "Question",
+          "name": "ユーザー選択フィールドに複数のユーザーを読み込むには？",
+          "acceptedAnswer": { "@type": "Answer", "text": "kintone公式ヘルプでは、ユーザー選択にはユーザーの表示名ではなくログイン名を記載し、複数のユーザーを選ぶときはセルの中で改行して区切ると案内されています。組織選択は組織コード、グループ選択はグループコード、カテゴリーはカテゴリー名を、同じく改行区切りで記載します。" }
+        },
+        {
+          "@type": "Question",
+          "name": "CSVを読み込んだのに、数値の列だけ空欄になるのはなぜですか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "読み込み画面の「4. データの対応付け」で、その列がフィールドに対応づいていない可能性があります。対応づいていない列はエラーにならず、空欄のまま読み込まれます。検証用のkintoneアプリで試したところ、数値の列に1.20E+03のような指数表記の値が1つでも混ざっていると、見出しがフィールド名と同じでも、その列は自動では対応づけられませんでした。このツールで数値の種類を選ぶと、指数表記を1200のような通常の数字に直します。" }
+        },
+        {
+          "@type": "Question",
+          "name": "読み込むデータは外部に送信されますか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "送信されません。ファイルの読み込み・変換・書き出しはすべてお使いのブラウザの中で行い、データをKIZUNA Worksのサーバーを含む外部へ送ることはありません。" }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1B44N0922"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q1B44N0922');
+</script>
+<!-- AdSense loader intentionally removed (2026-08-02): zero ad units on the site while the
+     account is under review. Restore together with the first real ad unit. -->
+
+<style>
+/* ===== Design tokens (brand) ===== */
+:root{
+  --navy:#1B3A6B; --navy-d:#142b50; --green:#2E8B2E; --green-d:#1A5C1A;
+  --ink:#1f2a44; --muted:#5b6b86; --paper:#f5f8fc; --card:#ffffff;
+  --line:#e2e9f3; --line-2:#eef3fa;
+  --warn-bg:#fff7e8; --warn-line:#e8b45e; --warn-ink:#7a5310;
+  --ng-bg:#fdf0f0; --ng-line:#d98b8b; --ng-ink:#8c2f2f;
+  --fix-bg:#eaf6ea; --fix-ink:#1f5f1f;
+  --shadow:0 1px 2px rgba(20,43,80,.06),0 8px 24px rgba(20,43,80,.08);
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Segoe UI',Meiryo,sans-serif;
+  color:var(--ink); background:var(--paper); line-height:1.8;
+  overflow-x:clip;
+}
+img{max-width:100%;height:auto}
+a{color:var(--navy)}
+[hidden]{display:none !important}
+
+/* ===== Header / Footer (shared site chrome) ===== */
+.site-header{background:#F0F4F8;border-bottom:3px solid #1B3A6B;padding:8px 5%;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.site-header-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.site-header-logo img{display:block;height:64px;width:auto;transition:transform 0.3s ease}
+.site-header-logo:hover img{transform:scale(1.05)}
+.site-header-nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.site-nav-btn{display:inline-block;background-color:#1B3A6B;color:#FFFFFF;font-size:0.95rem;font-weight:500;padding:8px 16px;border-radius:20px;text-decoration:none;transition:all 0.3s ease}
+.site-nav-btn:hover{background-color:#2E8B2E;color:#FFFFFF;transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,0.2)}
+/* Dropdown ("もっと見る") */
+.site-nav-dropdown{position:relative}
+.site-nav-more{display:inline-flex;align-items:center;gap:4px}
+.site-nav-arrow{font-size:0.7em;transition:transform 0.2s ease}
+.site-nav-more[aria-expanded="true"] .site-nav-arrow{transform:rotate(180deg)}
+.site-nav-submenu{position:absolute;top:calc(100% + 8px);right:0;min-width:180px;background:#FFFFFF;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 10px 24px rgba(27,58,107,0.18);padding:8px 0;list-style:none;margin:0;opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity 0.18s ease,visibility 0.18s ease,transform 0.18s ease;z-index:150}
+.site-nav-dropdown:focus-within .site-nav-submenu,.site-nav-more[aria-expanded="true"] + .site-nav-submenu{opacity:1;visibility:visible;transform:translateY(0)}
+@media(hover:hover){.site-nav-dropdown:hover .site-nav-submenu{opacity:1;visibility:visible;transform:translateY(0)}}
+.site-nav-sub{display:block;padding:10px 18px;color:#1B3A6B;font-weight:500;font-size:0.92rem;text-decoration:none;transition:background 0.15s ease,color 0.15s ease}
+.site-nav-sub:hover,.site-nav-sub:focus{background:#F0F4F8;color:#2E8B2E;outline:none}
+.site-footer{background-color:#1B3A6B;color:#FFFFFF;padding:48px 5% 28px;margin-top:32px}
+.site-footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:32px;margin-bottom:24px}
+.site-footer-links{display:flex;gap:30px;flex-wrap:wrap;align-items:center}
+.site-footer-links a{color:#FFFFFF;opacity:0.9;font-weight:500;text-decoration:none}
+.site-footer-links a:hover{color:#2E8B2E;opacity:1}
+.site-footer-copy{text-align:center;opacity:0.7;font-size:0.9rem;letter-spacing:1px}
+@media(max-width:768px){
+  .site-header-inner{flex-direction:column;padding:5px 0}
+  .site-header-logo img{height:56px}
+  .site-nav-btn{font-size:0.85rem;padding:6px 12px}
+  .site-footer-inner{flex-direction:column;text-align:center;align-items:center}
+  .site-footer-links{justify-content:center;gap:15px}
+}
+
+/* ===== Hero ===== */
+.hero{max-width:1100px;margin:0 auto;padding:34px 20px 10px;text-align:center}
+.hero h1{font-size:clamp(1.35rem,3.6vw,2.1rem);margin:0 0 10px;line-height:1.45}
+.hero h1 b{color:var(--green)}
+.hero p{margin:0 auto;max-width:780px;color:var(--muted);font-size:.98rem}
+.badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.badge{background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:.82rem;font-weight:700;color:var(--navy)}
+
+/* ===== Layout ===== */
+.wrap{max-width:1100px;margin:0 auto;padding:18px 20px 40px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:20px;min-width:0}
+.panel h2{font-size:1.12rem;margin:0 0 4px;color:var(--navy);border-left:5px solid var(--green);padding-left:11px;line-height:1.5}
+.panel h3{font-size:.98rem;margin:16px 0 6px;color:var(--navy)}
+.panel .sub{color:var(--muted);font-size:.88rem;margin:0 0 16px;padding-left:16px}
+
+/* ===== Input ===== */
+.drop{display:block;border:2px dashed #b9c7dc;border-radius:12px;padding:26px 16px;text-align:center;background:#fafcff;cursor:pointer;transition:border-color .15s ease,background .15s ease}
+.drop:hover,.drop.over{border-color:var(--green);background:#f3faf3}
+.drop b{display:block;font-size:1rem;color:var(--navy)}
+.drop span{display:block;font-size:.84rem;color:var(--muted);margin-top:4px}
+.or{text-align:center;color:var(--muted);font-size:.84rem;margin:12px 0}
+textarea{width:100%;min-height:110px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-family:'SFMono-Regular',Consolas,Menlo,monospace;font-size:.85rem;color:var(--ink);resize:vertical}
+textarea:focus,input:focus,select:focus{outline:2px solid var(--green);outline-offset:1px}
+.info{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{background:var(--line-2);border-radius:999px;padding:3px 12px;font-size:.82rem;font-weight:700;color:var(--navy)}
+.chip.bad{background:var(--ng-bg);color:var(--ng-ink)}
+
+/* ===== Options ===== */
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:10px;align-items:flex-start;font-size:.9rem}
+.opt input[type=checkbox]{margin-top:6px;width:17px;height:17px;flex-shrink:0}
+.opt .hint{display:block;color:var(--muted);font-size:.8rem}
+.inline-select{padding:5px 8px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:.88rem;min-width:140px;background:#fff}
+.seps{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:4px}
+.seps label{font-size:.86rem;display:flex;gap:5px;align-items:center}
+
+/* ===== Column settings ===== */
+.cols-wrap{overflow-x:auto}
+.cols{border-collapse:collapse;width:100%;min-width:760px;font-size:.86rem}
+.cols th,.cols td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:middle}
+.cols th{background:var(--line-2);font-weight:700;white-space:nowrap}
+.cols select,.cols input[type=text]{width:100%;min-width:130px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:.86rem;background:#fff;color:var(--ink)}
+.cols td.sample{color:var(--muted);font-size:.8rem;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cols td.center{text-align:center}
+
+/* ===== Result ===== */
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:6px 0 14px}
+.stat{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff}
+.stat b{display:block;font-size:1.3rem;line-height:1.3;color:var(--navy)}
+.stat span{font-size:.8rem;color:var(--muted)}
+.stat.s-ng b{color:#b3403f}
+.stat.s-warn b{color:#9a6a12}
+.stat.s-fix b{color:var(--green)}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.toolbar label{font-size:.86rem;display:flex;gap:6px;align-items:center}
+.preview-wrap{overflow:auto;max-height:520px;border:1px solid var(--line);border-radius:10px}
+.preview{border-collapse:collapse;font-size:.82rem;min-width:100%}
+.preview th,.preview td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top;white-space:pre}
+.preview th{background:var(--line-2);position:sticky;top:0;z-index:1;white-space:nowrap}
+.preview td.rn{color:var(--muted);background:#fafcff;white-space:nowrap}
+.preview td.fix{background:var(--fix-bg);color:var(--fix-ink)}
+.preview td.warn{background:var(--warn-bg);color:var(--warn-ink)}
+.preview td.err{background:var(--ng-bg);color:var(--ng-ink);font-weight:700}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:4px;border:1px solid var(--line)}
+.issues{margin:12px 0 0;padding:0;list-style:none;font-size:.86rem;max-height:260px;overflow:auto}
+.issues li{padding:6px 10px;border-bottom:1px solid var(--line-2)}
+.issues li b{color:var(--ng-ink)}
+.issues li.w b{color:var(--warn-ink)}
+.dups{font-size:.86rem;margin:8px 0 0;padding-left:20px}
+.dups li{margin-bottom:4px}
+
+/* ===== Buttons ===== */
+.btn{border:0;border-radius:8px;padding:10px 18px;font-weight:700;font-size:.92rem;cursor:pointer;font-family:inherit}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-d)}
+.btn-primary:disabled{background:#B8C5D6;cursor:not-allowed}
+.btn-ghost{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+.btn-ghost:hover{background:var(--navy);color:#fff}
+.outrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+
+/* ===== Notes ===== */
+.note{border-left:4px solid var(--warn-line);background:var(--warn-bg);color:var(--warn-ink);border-radius:0 8px 8px 0;padding:11px 14px;font-size:.87rem;margin-top:13px}
+.note b{color:#5d3d05}
+.ok{border-left:4px solid var(--green);background:#f1f8f1;color:#244a24;border-radius:0 8px 8px 0;padding:11px 14px;font-size:.87rem;margin-top:13px}
+.ng{border-left:4px solid var(--ng-line);background:var(--ng-bg);color:var(--ng-ink);border-radius:0 8px 8px 0;padding:11px 14px;font-size:.87rem;margin-top:13px}
+
+/* ===== Reference tables ===== */
+.tablewrap{overflow-x:auto}
+table.ref{border-collapse:collapse;width:100%;min-width:560px;font-size:.87rem}
+table.ref th,table.ref td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+table.ref th{background:var(--line-2);font-weight:700;white-space:nowrap}
+td code,li code,p code{background:var(--line-2);padding:1px 5px;border-radius:4px;font-size:.88em;font-family:'SFMono-Regular',Consolas,Menlo,monospace}
+
+/* ===== FAQ ===== */
+details{border:1px solid var(--line);border-radius:10px;padding:0;margin-bottom:9px;background:#fff}
+summary{cursor:pointer;padding:12px 15px;font-weight:700;font-size:.93rem;line-height:1.6}
+details[open] summary{border-bottom:1px solid var(--line-2)}
+details .body{padding:12px 15px;font-size:.89rem;color:#37455f}
+
+/* ===== CTA ===== */
+.cta{background:linear-gradient(110deg,var(--navy),var(--green));color:#fff;border-radius:var(--radius);padding:24px 22px;text-align:center}
+.cta h2{color:#fff;border:0;padding:0;margin:0 0 8px;font-size:1.1rem}
+.cta p{margin:0 0 15px;opacity:.94;font-size:.92rem}
+.cta a{display:inline-block;background:#fff;color:var(--navy);border-radius:8px;padding:10px 22px;font-weight:700;text-decoration:none;margin:4px}
+.cta a:hover{background:#eaf3ff}
+
+@media(max-width:520px){
+  .wrap{padding:14px 16px 32px}
+  .panel{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" class="site-header-logo">
+      <img src="/images/logo.png" alt="KIZUNA Works" width="677" height="369">
+    </a>
+    <nav class="site-header-nav">
+      <a href="/news/" class="site-nav-btn">お知らせ</a>
+      <a href="/plugins/" class="site-nav-btn">プラグイン</a>
+      <a href="/plugins/premium-trial/" class="site-nav-btn">キャンペーン</a>
+      <a href="/plugins/supporter/" class="site-nav-btn">サポーター</a>
+      <a href="/contact/" class="site-nav-btn">お問い合わせ</a>
+      <div class="site-nav-dropdown">
+        <a href="#" class="site-nav-btn site-nav-more" role="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-nav-submenu">
+          もっと見る<span class="site-nav-arrow" aria-hidden="true">▾</span>
+        </a>
+        <ul id="site-nav-submenu" class="site-nav-submenu" role="menu">
+          <li role="none"><a href="/extensions/" class="site-nav-sub" role="menuitem">拡張機能</a></li>
+          <li role="none"><a href="/plugins/ranking/" class="site-nav-sub" role="menuitem">ランキング</a></li>
+          <li role="none"><a href="/tools/" class="site-nav-sub" role="menuitem">無料ツール</a></li>
+          <li role="none"><a href="/blog/" class="site-nav-sub" role="menuitem">ブログ</a></li>
+          <li role="none"><a href="/glossary/" class="site-nav-sub" role="menuitem">用語集</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>kintone <b>CSVインポート</b> 整形ツール Totonoe</h1>
+  <p>Totonoe（ととのえ）は、kintone に CSV を読み込む前のデータを、kintone が読める形に直す無料ツールです。<b>日付・和暦・数値の書式</b>を直し、<b>チェックボックスを選択肢ごとの列</b>に展開し、<b>2行に分かれた行</b>をまとめ、<b>複数の項目の組み合わせで重複</b>を見つけます。</p>
+  <div class="badges">
+    <span class="badge">登録不要・完全無料</span>
+    <span class="badge">ブラウザ内で完結（データを送信しません）</span>
+    <span class="badge">kintone の実機で読み込みを確認済み</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <!-- ============ Step 1 ============ -->
+  <section class="panel">
+    <h2>1. データを入れる</h2>
+    <p class="sub">CSV・TSV ファイルを選ぶか、Excel のセル範囲をコピーして貼り付けてください（1行目は見出しとして扱います）。</p>
+    <label class="drop" id="drop">
+      <input type="file" id="file" accept=".csv,.tsv,.txt,text/csv,text/plain" hidden>
+      <b>ここに CSV ファイルをドロップ、またはクリックして選ぶ</b>
+      <span>文字コード（UTF-8／Shift_JIS／Excel の「Unicode テキスト」）と区切り文字は自動で判別します</span>
+    </label>
+    <div class="or">または</div>
+    <textarea id="paste" placeholder="Excel でセル範囲（見出しの行を含む）をコピーして、ここに貼り付けます"></textarea>
+    <div class="outrow" style="margin-top:10px">
+      <button class="btn btn-ghost" id="pasteBtn" type="button">貼り付けたデータを読み込む</button>
+      <button class="btn btn-ghost" id="sampleBtn" type="button">サンプルで試す</button>
+    </div>
+    <div class="info" id="info"></div>
+    <div id="inputNotes"></div>
+  </section>
+
+  <!-- ============ Step 2 ============ -->
+  <section class="panel" id="step2" hidden>
+    <h2>2. 行を整える</h2>
+    <p class="sub">行単位の整理です。変更はすぐ下の結果に反映されます。</p>
+    <div class="opts">
+      <label class="opt"><input type="checkbox" id="optEmpty" checked><span>空の行を削除する<span class="hint">すべてのセルが空の行を取り除きます。</span></span></label>
+      <label class="opt" id="optYenWrap" hidden><input type="checkbox" id="optYen" checked><span>「\」を「¥」に戻す<span class="hint">Shift_JIS のファイルでは、「¥」が「\」として読み込まれます（日本語版の Excel で保存した CSV でよく起きます）。フォルダのパスなど、本当に「\」を使っている場合はチェックを外してください。</span></span></label>
+      <label class="opt"><input type="checkbox" id="optTrim" checked><span>セルの前後の空白を削除する<span class="hint">全角の空白も対象です。セルの途中の空白は残します。</span></span></label>
+      <div class="opt"><input type="checkbox" id="optMerge"><span><label for="optMerge">2行に分かれた行を、前の行にまとめる</label>
+        <span class="hint">基準の列 <select class="inline-select" id="mergeKey"></select> が<b>空の行</b>を「前の行の続き」とみなし、値のあるセルを前の行の同じ列へ<b>セル内改行でつなげます</b>。</span>
+        <span class="hint" style="color:var(--ng-ink)">テーブル（サブテーブル）を含むデータには使わないでください。kintone ではテーブルの2行目以降も「基準の列が空の行」になるため、区別できません。</span></span></div>
+    </div>
+  </section>
+
+  <!-- ============ Step 3 ============ -->
+  <section class="panel" id="step3" hidden>
+    <h2>3. 列ごとに、kintone のフィールドの種類を選ぶ</h2>
+    <p class="sub">種類に合わせて値を直します。中身から推測した種類を最初に入れてあるので、違うものだけ直してください。見出しは kintone のフィールド名にそろえておくと、読み込み画面での対応づけが楽になります。</p>
+    <div class="cols-wrap">
+      <table class="cols">
+        <thead><tr><th>元の見出し</th><th>kintone のフィールド名（出力の見出し）</th><th>フィールドの種類</th><th>重複チェック</th><th>最初の値</th></tr></thead>
+        <tbody id="colsBody"></tbody>
+      </table>
+    </div>
+    <h3>複数の値の区切り文字</h3>
+    <p class="sub" style="padding-left:0;margin-bottom:6px">「チェックボックス・複数選択」「複数の値（ユーザー・組織・カテゴリーなど）」の列で、1つのセルに並んだ値を分ける文字です。</p>
+    <div class="seps" id="seps">
+      <label><input type="checkbox" value="、" checked>「、」</label>
+      <label><input type="checkbox" value="," checked>「,」「，」</label>
+      <label><input type="checkbox" value=";" checked>「;」「；」</label>
+      <label><input type="checkbox" value="\n" checked>セル内改行</label>
+      <label><input type="checkbox" value="/">「/」「／」</label>
+      <label><input type="checkbox" value="・">「・」</label>
+      <label><input type="checkbox" value=" ">空白</label>
+    </div>
+    <div class="note"><b>チェックボックス・複数選択</b>は、kintone では<b>選択肢ごとに列を分け、見出しを「フィールド名[選択肢名]」、選んだ選択肢の列に「1」</b>を入れる形で読み込みます（kintone 公式ヘルプ）。この種類を選ぶと、その形の列に展開します。選択肢名は kintone に登録した選択肢と<b>1文字も違わず</b>一致させてください。</div>
+  </section>
+
+  <!-- ============ Step 4 ============ -->
+  <section class="panel" id="step4" hidden>
+    <h2>4. 結果を確かめて、書き出す</h2>
+    <div class="stats" id="stats"></div>
+    <div id="dupBox"></div>
+    <div class="toolbar">
+      <label><input type="checkbox" id="onlyIssues">直したセル・要確認・エラーのある行だけ表示</label>
+    </div>
+    <div class="preview-wrap"><table class="preview" id="preview"></table></div>
+    <div class="legend">
+      <span><i style="background:var(--fix-bg)"></i>書式を直したセル</span>
+      <span><i style="background:var(--warn-bg)"></i>直したが確認してほしいセル</span>
+      <span><i style="background:var(--ng-bg)"></i>直せなかったセル（エラー）</span>
+    </div>
+    <p id="previewNote" style="font-size:.8rem;color:var(--muted);margin:6px 0 0"></p>
+    <ul class="issues" id="issues"></ul>
+    <div class="outrow">
+      <button class="btn btn-primary" id="dlBtn" type="button">CSV を書き出す（UTF-8）</button>
+      <span id="dlNote" style="font-size:.84rem;color:var(--muted)"></span>
+    </div>
+    <div class="ok">書き出した CSV は <b>文字コード UTF-8（BOM 付き）・改行コード CR+LF・区切り文字カンマ</b>です。kintone のアプリで［ファイルから読み込む］を開き、このファイルを選んでください。</div>
+    <div class="note"><b>kintone の読み込み画面で、次の 2 つを確かめてください。</b><br>
+    ① <b>文字コードを「UTF-8（Unicode）」に切り替える。</b>そのアプリで初めて読み込むときは「Shift-JIS（日本語）」が選ばれていて、プレビューが文字化けします。<br>
+    ② <b>画面下の「4. データの対応付け」で、すべての列がフィールドに対応づいているか見る。</b>対応づいていない列（「（指定しない）」の行）は、エラーにならずに<b>空欄のまま</b>読み込まれます。</div>
+  </section>
+
+  <!-- ============ Reference ============ -->
+  <section class="panel">
+    <h2>kintone が CSV から読み込める形（公式ヘルプより）</h2>
+    <p class="sub">kintone 公式ヘルプ「レコード登録・上書き用のファイルの記載形式」をもとにまとめました。このツールの変換は、この表の形に合わせています。</p>
+    <div class="tablewrap">
+      <table class="ref">
+        <thead><tr><th>フィールド</th><th>CSV に書く形</th><th>このツールでの直し方</th></tr></thead>
+        <tbody>
+          <tr><td>日付</td><td><code>YYYY-MM-DD</code>・<code>YYYY/MM/DD</code>・<code>YYYYMMDD</code>・<code>YY/MM/DD</code>・<code>MM/DD/YYYY</code>・<code>MM/DD/YY</code>・<code>DD/MM/YYYY</code>・<code>DD/MM/YY</code></td><td>「2026年9月30日」「令和8年9月30日」「R8.9.30」「2026.9.30」、Excel の日付の数値（46295 など）を <code>YYYY-MM-DD</code> に直します</td></tr>
+          <tr><td>時刻</td><td><code>HH:MM</code>（24時間）または <code>HH:MM AM/PM</code>。秒は読み込まれません</td><td>「9時30分」「午後3時」「3:30 PM」「9:30:15」を <code>HH:MM</code> に直します</td></tr>
+          <tr><td>日時</td><td>日付＋空白＋時刻（<code>YYYY-MM-DD HH:MM</code> など）</td><td>日付と時刻をそれぞれ直して <code>YYYY-MM-DD HH:MM</code> にします</td></tr>
+          <tr><td>数値</td><td>整数・小数・マイナス・指数表記。桁区切りはカンマとピリオドのみ</td><td>全角数字・「¥」「円」・桁区切り・「△」「▲」（マイナス）・指数表記（1.20E+03 など）を直します。「%」などの記号が残るセルはエラーにします</td></tr>
+          <tr><td>チェックボックス・複数選択</td><td>選択肢ごとに列を分け、見出し「フィールド名[選択肢名]」、選んだ列に「1」</td><td>1つのセルに並んだ値を、選択肢ごとの列に展開します</td></tr>
+          <tr><td>ユーザー選択・組織選択・グループ選択・カテゴリー</td><td>ログイン名・組織コード・グループコード・カテゴリー名。複数はセル内で改行して区切る</td><td>「、」などで並んだ値を、セル内改行の区切りに直します。表示名からログイン名への置き換えはしません</td></tr>
+          <tr><td>リンク</td><td>Web サイト：<code>http://</code> か <code>https://</code> で始まるアドレス／電話番号：ハイフンあり・なしのどちらでも可／メール：<code>ローカル部@ドメイン</code></td><td>全角の英数字・記号を半角に直します。<code>www.example.com</code> のように始まりが無いアドレスには <code>https://</code> を付けます（要確認として表示）</td></tr>
+          <tr><td>テーブル（サブテーブル）</td><td>先頭列を「レコードの開始行」とし、各レコードの最初の行に「*」。テーブルの2行目以降は同じレコードの続きとして複数行で書く</td><td>「レコードの開始行」列があれば、この形式として扱います。テーブル内の日付・数値なども同じように直します</td></tr>
+          <tr><td>ラジオボタン・ドロップダウン</td><td>選択肢の名前</td><td>そのまま出力します（前後の空白だけ削除）</td></tr>
+          <tr><td>文字列（複数行）</td><td>内容をそのまま。改行はセル内改行</td><td>そのまま出力します</td></tr>
+          <tr><td>ラベル・計算・添付ファイル・関連レコード一覧</td><td colspan="2">値を読み込めません。種類で「出力しない」を選ぶと、その列を書き出しから外せます</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">ファイルの上限は、kintone 公式ヘルプでは <b>CSV・TSV・TXT が 100MB・10万行まで</b>、Excel ファイルが 1MB・1,000行までとされています。改行コードは <b>CR+LF または LF</b> だけが読み込めます。</div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="panel">
+    <h2>よくある質問</h2>
+    <details><summary>kintoneのCSV読み込みで、日付はどの形式なら読み込めますか？</summary><div class="body">kintone 公式ヘルプでは、CSV ファイルの日付は <code>YYYY-MM-DD</code>、<code>YYYY/MM/DD</code>、<code>YYYYMMDD</code>、<code>YY/MM/DD</code>、<code>MM/DD/YYYY</code>、<code>MM/DD/YY</code>、<code>DD/MM/YYYY</code>、<code>DD/MM/YY</code> の形式に対応しているとされています。「令和8年9月30日」のような和暦や「2026年9月30日」の形はこの一覧にないため、読み込む前に <code>YYYY-MM-DD</code> などへ直します。</div></details>
+    <details><summary>チェックボックスや複数選択の値は、CSVでどう書けばよいですか？</summary><div class="body">kintone 公式ヘルプでは、チェックボックスと複数選択は選択肢ごとに列を分け、列の見出しを「フィールド名[選択肢名]」とし、選択する選択肢の列に「1」、選択しない選択肢の列は空欄にすると案内されています。1つのセルに「A、B」のように並べた形は、この書き方ではありません。</div></details>
+    <details><summary>CSVを読み込むと「ファイルの内容が不正です。」と表示されるのはなぜですか？</summary><div class="body">原因の一つは改行コードです。kintone が読み込める CSV の改行コードは CR+LF または LF で、CR だけで改行したファイルを読み込むとこのメッセージが表示されると kintone 公式ヘルプで案内されています。このツールで書き出した CSV は、改行コードを CR+LF にそろえます。</div></details>
+    <details><summary>ユーザー選択フィールドに複数のユーザーを読み込むには？</summary><div class="body">kintone 公式ヘルプでは、ユーザー選択にはユーザーの表示名ではなく<b>ログイン名</b>を記載し、複数のユーザーを選ぶときはセルの中で改行して区切ると案内されています。組織選択は組織コード、グループ選択はグループコード、カテゴリーはカテゴリー名を、同じく改行区切りで記載します。</div></details>
+    <details><summary>CSVを読み込んだのに、数値の列だけ空欄になるのはなぜですか？</summary><div class="body">読み込み画面の「4. データの対応付け」で、その列がフィールドに対応づいていない可能性があります。対応づいていない列はエラーにならず、空欄のまま読み込まれます。検証用の kintone アプリで試したところ、数値の列に <code>1.20E+03</code> のような指数表記の値が1つでも混ざっていると、見出しがフィールド名と同じでも、その列は自動では対応づけられませんでした。このツールで数値の種類を選ぶと、指数表記を <code>1200</code> のような通常の数字に直します。</div></details>
+    <details><summary>読み込むデータは外部に送信されますか？</summary><div class="body">送信されません。ファイルの読み込み・変換・書き出しはすべてお使いのブラウザの中で行い、データを KIZUNA Works のサーバーを含む外部へ送ることはありません。</div></details>
+  </section>
+
+  <section class="panel" style="padding:0;border:0;box-shadow:none;background:transparent">
+    <div class="cta">
+      <h2>読み込んだあとの一括更新は、プラグインで</h2>
+      <p>一覧で絞り込んだレコードをまとめて更新・クリアするなど、CSV を往復させずに済む操作をノーコードで追加できます。</p>
+      <a href="/plugins/bulk-update/">かんたん一括更新を見る</a>
+      <a href="/blog/kintone-csv-import-export/">CSV の読み込み・書き出しの使い方を読む</a>
+    </div>
+  </section>
+
+  <p style="font-size:.82rem;color:var(--muted);text-align:center;margin:22px 0 0">
+    変換の形式は kintone 公式ヘルプ「レコード登録・上書き用のファイルの記載形式」「ファイルからレコードのデータを登録・上書きするときのポイント」で確認し、
+    <b>2026-09-30 に、このツールで書き出した CSV を検証用の kintone アプリへ実際に読み込んで</b>、日付・時刻・日時・数値・チェックボックス・複数選択・ユーザー選択・ドロップダウン・文字列（複数行）の値が正しく入ることを確かめています。
+    kintone のアップデートで変わる場合があるため、大量のデータを読み込む前に、数行だけで試すことをおすすめします。
+  </p>
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-brand"><img src="/images/logo-white.png" alt="KIZUNA Works" loading="lazy" decoding="async" width="264" height="144" style="height:48px;width:auto;margin-bottom:10px;display:block;mix-blend-mode:screen;"></div>
+    <div class="site-footer-links">
+      <a href="/news/">お知らせ</a><a href="/news/rss.xml">RSS</a><a href="/sitemap/">サイトマップ</a><a href="/security/">セキュリティ</a><a href="/privacy/">プライバシーポリシー</a><a href="/terms/">利用規約</a><a href="/tokushoho/">特定商取引法に基づく表記</a><a href="/refund/">返金ポリシー</a><a href="/contact/">お問い合わせ</a>
+    </div>
+  </div>
+  <div class="site-footer-copy">
+    <p style="opacity:0.85;margin:0 0 8px;letter-spacing:normal;font-size:0.82rem;">「kintone」はサイボウズ株式会社の商標です。本ツールはサイボウズ社の公式・提供物ではありません。</p>
+    <p>&copy; 2026 KIZUNA Works All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- Header dropdown ("もっと見る") — mirrors Layout.astro -->
+<script>
+(function(){
+  var moreBtn=document.querySelector('.site-nav-more');
+  if(!moreBtn) return;
+  var dropdown=moreBtn.parentElement;
+  moreBtn.addEventListener('click',function(e){
+    e.preventDefault(); e.stopPropagation();
+    var expanded=moreBtn.getAttribute('aria-expanded')==='true';
+    moreBtn.setAttribute('aria-expanded',String(!expanded));
+  });
+  document.addEventListener('click',function(e){
+    if(!dropdown.contains(e.target)) moreBtn.setAttribute('aria-expanded','false');
+  });
+})();
+</script>
+
+<script>
+(function(){
+  'use strict';
+
+  var $ = function(id){ return document.getElementById(id); };
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+
+  /* ---------- state ---------- */
+  var S = { header: [], rows: [], cols: [], meta: {}, startCol: -1 };
+  var PREVIEW_LIMIT = 300;
+
+  var TYPES = [
+    ['text', 'そのまま（文字列・ドロップダウン・ラジオボタンなど）'],
+    ['number', '数値'],
+    ['date', '日付'],
+    ['datetime', '日時'],
+    ['time', '時刻'],
+    ['url', 'リンク（Web サイトのアドレス）'],
+    ['tel', 'リンク（電話番号）'],
+    ['mail', 'リンク（メールアドレス）'],
+    ['split', 'チェックボックス・複数選択（選択肢ごとの列に展開）'],
+    ['multi', '複数の値（ユーザー・組織・グループ・カテゴリー）'],
+    ['skip', '出力しない']
+  ];
+
+  /* ---------- text normalization ---------- */
+  function toHalf(s){
+    return s.replace(/[０-９Ａ-Ｚａ-ｚ]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+            .replace(/[．]/g, '.').replace(/[，]/g, ',').replace(/[：]/g, ':').replace(/[／]/g, '/')
+            .replace(/[－−ー‐―]/g, '-').replace(/[　]/g, ' ');
+  }
+  // Every full-width ASCII character (！ to ～) to its half-width form, plus the ideographic space.
+  function toHalfAscii(s){
+    return s.replace(/[！-～]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+            .replace(/[　]/g, ' ').replace(/[－−ー‐―]/g, '-');
+  }
+  function trimAll(s){ return s.replace(/^[\s　]+|[\s　]+$/g, ''); }
+  function pad2(n){ return (n < 10 ? '0' : '') + n; }
+
+  /* ---------- decoding ---------- */
+  function decode(buf){
+    var bytes = new Uint8Array(buf);
+    // Excel's "Unicode テキスト" is UTF-16 (little endian) with a BOM.
+    if (bytes.length >= 2 && bytes[0] === 0xFF && bytes[1] === 0xFE) return { text: new TextDecoder('utf-16le').decode(bytes.subarray(2)), enc: 'UTF-16（Unicode テキスト）' };
+    if (bytes.length >= 2 && bytes[0] === 0xFE && bytes[1] === 0xFF) return { text: new TextDecoder('utf-16be').decode(bytes.subarray(2)), enc: 'UTF-16（ビッグエンディアン）' };
+    var hasBom = bytes.length >= 3 && bytes[0] === 0xEF && bytes[1] === 0xBB && bytes[2] === 0xBF;
+    try {
+      var t = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+      return { text: t.replace(/^﻿/, ''), enc: hasBom ? 'UTF-8（BOM 付き）' : 'UTF-8' };
+    } catch (e) {
+      return { text: new TextDecoder('shift_jis').decode(bytes), enc: 'Shift_JIS' };
+    }
+  }
+
+  /* ---------- CSV parsing (RFC 4180, CR / LF / CRLF) ---------- */
+  function detectNewline(t){
+    var crlf = (t.match(/\r\n/g) || []).length;
+    var cr = (t.match(/\r(?!\n)/g) || []).length;
+    var lf = (t.match(/(^|[^\r])\n/g) || []).length;
+    if (cr && !crlf && !lf) return 'CR';
+    if (crlf && !cr && !lf) return 'CR+LF';
+    if (lf && !cr && !crlf) return 'LF';
+    if (!cr && !crlf && !lf) return '（1行のみ）';
+    return '混在';
+  }
+  // Excel copies cells as tab-separated text, so pasted data prefers tabs.
+  function detectDelim(t, pasted){
+    var first = t.split(/\r\n|\r|\n/)[0] || '';
+    var tabs = (first.match(/\t/g) || []).length;
+    var commas = (first.match(/,/g) || []).length;
+    if (tabs || commas) return tabs >= commas ? '\t' : ',';
+    if (pasted || /\t/.test(t)) return '\t';
+    return ',';
+  }
+  function parse(t, d){
+    var rows = [], row = [], cell = '', i = 0, q = false, n = t.length;
+    while (i < n) {
+      var c = t[i];
+      if (q) {
+        if (c === '"') {
+          if (t[i + 1] === '"') { cell += '"'; i += 2; continue; }
+          q = false; i++; continue;
+        }
+        cell += c; i++; continue;
+      }
+      if (c === '"' && cell === '') { q = true; i++; continue; }
+      if (c === d) { row.push(cell); cell = ''; i++; continue; }
+      if (c === '\r' || c === '\n') {
+        row.push(cell); rows.push(row); row = []; cell = '';
+        if (c === '\r' && t[i + 1] === '\n') i++;
+        i++; continue;
+      }
+      cell += c; i++;
+    }
+    if (cell !== '' || row.length) { row.push(cell); rows.push(row); }
+    // normalize line breaks inside cells to LF
+    for (var r = 0; r < rows.length; r++) for (var k = 0; k < rows[r].length; k++) rows[r][k] = rows[r][k].replace(/\r\n|\r/g, '\n');
+    return rows;
+  }
+
+  /* ---------- converters: return {v, s:'same'|'fix'|'warn'|'err', m} ---------- */
+  var ERAS = { '明治':1868, '大正':1912, '昭和':1926, '平成':1989, '令和':2019, 'M':1868, 'T':1912, 'S':1926, 'H':1989, 'R':2019 };
+  function validYMD(y, m, d){
+    if (m < 1 || m > 12 || d < 1) return false;
+    var last = new Date(Date.UTC(y, m, 0)).getUTCDate();
+    return d <= last;
+  }
+  function serialToDate(n){
+    var ms = Date.UTC(1899, 11, 30) + Math.round(n * 86400000);
+    var dt = new Date(ms);
+    return { y: dt.getUTCFullYear(), m: dt.getUTCMonth() + 1, d: dt.getUTCDate(), h: dt.getUTCHours(), mi: dt.getUTCMinutes() };
+  }
+  // returns {y,m,d,note,warn} or {err}
+  function parseDatePart(raw){
+    var s = toHalf(raw).replace(/\s+/g, '');
+    var m, y, mo, d, note = '', warn = '';
+    if ((m = s.match(/^(明治|大正|昭和|平成|令和|[MTSHR])(元|\d{1,2})[年.\/-](\d{1,2})[月.\/-](\d{1,2})日?$/i))) {
+      var era = m[1].length === 1 ? m[1].toUpperCase() : m[1];
+      y = ERAS[era] + (m[2] === '元' ? 1 : parseInt(m[2], 10)) - 1; mo = +m[3]; d = +m[4]; note = '和暦を西暦に直しました';
+    } else if ((m = s.match(/^(\d{4})[年.\/-](\d{1,2})[月.\/-](\d{1,2})日?$/))) {
+      y = +m[1]; mo = +m[2]; d = +m[3];
+    } else if ((m = s.match(/^(\d{4})(\d{2})(\d{2})$/))) {
+      y = +m[1]; mo = +m[2]; d = +m[3];
+    } else if ((m = s.match(/^(\d{2})[.\/-](\d{1,2})[.\/-](\d{1,2})$/))) {
+      y = 2000 + +m[1]; mo = +m[2]; d = +m[3]; warn = '年が2桁なので ' + y + ' 年として扱いました';
+    } else if ((m = s.match(/^(\d{5})(\.\d+)?$/)) && +m[1] >= 20000 && +m[1] <= 80000) {
+      var sd = serialToDate(+s); y = sd.y; mo = sd.m; d = sd.d; warn = 'Excel の日付の数値（' + s + '）を日付に直しました';
+      return { y: y, m: mo, d: d, warn: warn, serial: sd };
+    } else if ((m = s.match(/^(\d{1,2})[月.\/-](\d{1,2})日?$/))) {
+      return { err: '年がありません' };
+    } else if (/^\d{1,2}[.\/-]\d{1,2}[.\/-]\d{4}$/.test(s)) {
+      return { err: '月／日／年の並びか日／月／年の並びか判断できません（年を先頭にしてください）' };
+    } else {
+      return { err: '日付として読めません' };
+    }
+    if (!validYMD(y, mo, d)) return { err: '存在しない日付です' };
+    return { y: y, m: mo, d: d, note: note, warn: warn };
+  }
+  function fmtDate(p){ return p.y + '-' + pad2(p.m) + '-' + pad2(p.d); }
+
+  function parseTimePart(raw){
+    var s = toHalf(raw).replace(/\s+/g, ' ').trim();
+    var m, h, mi = 0, pm = null, secDropped = false, jp = false;
+    var ampm = s.match(/^(午前|午後)\s*(.*)$/) || s.match(/^(.*?)\s*(AM|PM|am|pm|A\.M\.|P\.M\.)$/);
+    if (ampm) {
+      if (ampm[1] === '午前' || ampm[1] === '午後') { pm = ampm[1] === '午後'; jp = true; s = ampm[2]; }
+      else { pm = /^p/i.test(ampm[2]); s = ampm[1]; }
+      s = s.trim();
+    }
+    if ((m = s.match(/^(\d{1,2})時(?:(\d{1,2})分)?(?:(\d{1,2})秒)?$/))) { h = +m[1]; mi = m[2] ? +m[2] : 0; secDropped = !!m[3]; }
+    else if ((m = s.match(/^(\d{1,2}):(\d{1,2})(?::(\d{1,2}))?$/))) { h = +m[1]; mi = +m[2]; secDropped = !!m[3] && +m[3] !== 0; }
+    else if ((m = s.match(/^(\d{1,2})$/)) && pm !== null) { h = +m[1]; }
+    else return { err: '時刻として読めません' };
+    var ampmWarn = '';
+    if (pm !== null) {
+      if (h > 12) return { err: '午前・午後の時刻は 0〜12 時で書いてください' };
+      // "午前12時" is used for both midnight and noon in Japanese, so it is flagged for review.
+      if (h === 12 && jp) ampmWarn = (pm ? '午後12時' : '午前12時') + 'は意味が分かれるため、' + (pm ? '12:00（正午）' : '00:00（深夜0時）') + 'として扱いました';
+      if (pm && h !== 12) h += 12;
+      if (!pm && h === 12) h = 0;
+    }
+    if (h > 23 || mi > 59) return { err: '存在しない時刻です' };
+    var w = [ampmWarn, secDropped ? '秒は kintone に読み込まれないので切り捨てました' : ''].filter(Boolean).join('／');
+    return { h: h, mi: mi, warn: w };
+  }
+  function fmtTime(p){ return pad2(p.h) + ':' + pad2(p.mi); }
+
+  // Values Excel leaves behind that must not reach kintone silently, whatever type the column has.
+  var EXCEL_ERRORS = /^#(N\/A|VALUE!|REF!|DIV\/0!|NUM!|NAME\?|NULL!|SPILL!|CALC!|GETTING_DATA|FIELD!|BLOCKED!|UNKNOWN!|CONNECT!|BUSY!)$/i;
+  function excelTrouble(v, type){
+    var s = trimAll(v);
+    if (EXCEL_ERRORS.test(s)) return { v: v, s: 'err', m: 'Excel の数式のエラー（' + s + '）がそのまま入っています。元の Excel で数式を直してください' };
+    // Excel shows long numbers (JAN codes, IDs, phone numbers) as "4.90123E+12" and saves only those digits.
+    var em = toHalf(s).match(/^-?\d(\.\d+)?[eE]\+(\d+)$/);
+    if (type !== 'number' && em && +em[2] >= 11) return { v: v, s: 'err', m: 'Excel が長い数字を指数表記に変えたため、桁が失われています。元の Excel で列の表示形式を「文字列」にして保存し直してください' };
+    return null;
+  }
+
+  // "1.20E+03" -> "1200", "-2.5e-3" -> "-0.0025" (string arithmetic, no float error)
+  function expandExp(s){
+    var m = s.match(/^(-?)(\d*)\.?(\d*)[eE]([+-]?\d+)$/);
+    if (!m) return s;
+    var sign = m[1], digits = m[2] + m[3], point = m[2].length + parseInt(m[4], 10);
+    while (digits.length > 1 && digits.charAt(0) === '0') { digits = digits.slice(1); point--; }
+    if (/^0*$/.test(digits)) return '0';
+    var out;
+    if (point <= 0) out = '0.' + new Array(-point + 1).join('0') + digits;
+    else if (point >= digits.length) out = digits + new Array(point - digits.length + 1).join('0');
+    else out = digits.slice(0, point) + '.' + digits.slice(point);
+    if (out.indexOf('.') >= 0) out = out.replace(/0+$/, '').replace(/\.$/, '');
+    return sign + out;
+  }
+
+  function res(v, orig, m, level){
+    if (level === 'err') return { v: orig, s: 'err', m: m };
+    if (level === 'warn') return { v: v, s: 'warn', m: m };
+    return { v: v, s: v === orig ? 'same' : 'fix', m: m || '' };
+  }
+
+  var CONV = {
+    text: function(v){ return { v: v, s: 'same' }; },
+    url: function(v){
+      if (v === '') return { v: v, s: 'same' };
+      var s = toHalfAscii(v).trim();
+      if (/\s/.test(s)) return res(v, v, 'アドレスの途中に空白があります', 'err');
+      var added = false;
+      if (!/^https?:\/\//i.test(s)) {
+        if (!/^[^\s\/.]+(\.[^\s\/.]+)+(\/\S*)?$/.test(s)) return res(v, v, 'http:// か https:// で始まるアドレスにしてください', 'err');
+        s = 'https://' + s; added = true;
+      }
+      // kintone rejects addresses containing Japanese (verified: GAIA_IL16), so use the standard ASCII form:
+      // the domain as "xn--…" and the path as "%E6…". Browsers show and open both forms the same way.
+      var ascii = false;
+      if (/[^\x00-\x7F]/.test(s)) {
+        try { s = new URL(s).href; ascii = true; } catch (e) { return res(v, v, 'アドレスとして読めません', 'err'); }
+      }
+      var notes = [];
+      if (added) notes.push('「https://」を付けました（kintone は http:// か https:// で始まるアドレスだけを読み込みます）');
+      if (ascii) notes.push('日本語を含むアドレスを、kintone が読み込める形（xn--… や %E6… の形）に変換しました');
+      return notes.length ? res(s, v, notes.join('／'), 'warn') : res(s, v);
+    },
+    tel: function(v){
+      if (v === '') return { v: v, s: 'same' };
+      var s = toHalfAscii(v).replace(/\s+/g, '');
+      if (!/^\+?[0-9()\-]+$/.test(s) || !/\d/.test(s)) return res(v, v, '電話番号として読めません', 'err');
+      // Excel treats 0312345678 as a number and drops the leading 0 (→ 312345678).
+      if (/^[1-9]\d{8,9}$/.test(s)) return res('0' + s, v, '先頭の 0 を補いました（Excel で数値として扱われると、電話番号の先頭の 0 が消えます）', 'warn');
+      return res(s, v);
+    },
+    mail: function(v){
+      if (v === '') return { v: v, s: 'same' };
+      var s = toHalfAscii(v).trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s)) return res(v, v, 'メールアドレスとして読めません', 'err');
+      return res(s, v);
+    },
+    number: function(v){
+      if (v === '') return { v: v, s: 'same' };
+      var inner = /\d\s+\d/.test(toHalf(v));
+      // In Shift_JIS files the yen sign arrives as a backslash (byte 0x5C).
+      var s = toHalf(v).replace(/[¥￥円\\\s]/g, '').replace(/^[△▲]/, '-');
+      if (/%$/.test(s)) return res(v, v, '「%」は読み込めません（数値だけにしてください）', 'err');
+      var t = s.replace(/,/g, '');
+      if (!/^-?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(t)) return res(v, v, '数値として読めません', 'err');
+      // kintone's import screen leaves a number column unmapped when any value uses exponent
+      // notation (verified 2026-09-30), so expand it to plain digits without float rounding.
+      var expNote = '';
+      var lossy = false;
+      if (/[eE]/.test(t)) {
+        // Excel's "General" format keeps about 6 significant digits for 12+ digit numbers, e.g. 1.23457E+11.
+        var em = t.match(/^-?\d(?:\.(\d+))?[eE]\+?(\d+)$/);
+        lossy = !!em && +em[2] >= 11 && (em[1] || '').length <= 5;
+        t = expandExp(t);
+        expNote = '指数表記を通常の数字に直しました（kintone の読み込み画面は、指数表記を含む列を自動で対応づけません）';
+      }
+      if (lossy) return res(t, v, 'Excel が長い数字を指数表記に変えたため、桁が失われている可能性があります（' + v + ' → ' + t + '）。元のデータと見比べてください', 'warn');
+      var intPart = t.replace(/^-/, '').split('.')[0];
+      if (intPart.length > 12) return res(t, v, '整数部が12桁を超えています（kintone の初期設定では読み込めません）', 'warn');
+      if (inner) return res(t, v, '数字の間の空白を取り除きました（2つの数値が並んでいないか確認してください）', 'warn');
+      return res(t, v, expNote);
+    },
+    date: function(v){
+      if (v === '') return { v: v, s: 'same' };
+      var p = parseDatePart(v);
+      if (p.err) return res(v, v, p.err, 'err');
+      var out = fmtDate(p);
+      if (p.warn) return res(out, v, p.warn, 'warn');
+      return res(out, v, p.note);
+    },
+    time: function(v){
+      if (v === '') return { v: v, s: 'same' };
+      // Excel stores a time as a fraction of a day (0.375 = 9:00) and saves that when the cell lost its format.
+      var fr = toHalf(v).trim();
+      if (/^0?\.\d+$/.test(fr)) {
+        var mins = Math.round(parseFloat(fr) * 1440);
+        return res(fmtTime({ h: Math.floor(mins / 60) % 24, mi: mins % 60 }), v, 'Excel の時刻の数値（' + fr + '）を時刻に直しました', 'warn');
+      }
+      var p = parseTimePart(v);
+      if (p.err) return res(v, v, p.err, 'err');
+      var out = fmtTime(p);
+      if (p.warn) return res(out, v, p.warn, 'warn');
+      return res(out, v);
+    },
+    datetime: function(v){
+      if (v === '') return { v: v, s: 'same' };
+      var s = toHalf(v).trim();
+      var serial = s.match(/^(\d{5})(\.\d+)?$/);
+      if (serial && +serial[1] >= 20000 && +serial[1] <= 80000) {
+        var sd = serialToDate(+s);
+        return res(fmtDate(sd) + ' ' + fmtTime({ h: sd.h, mi: sd.mi }), v, 'Excel の日時の数値（' + s + '）を日時に直しました', 'warn');
+      }
+      // Values carrying a time zone (Z or +09:00) are read by kintone as-is; changing them would shift the time.
+      if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:?\d{2})$/i.test(s)) return { v: v, s: 'same' };
+      s = s.replace(/^(\d{4}[-\/.]\d{1,2}[-\/.]\d{1,2})T/i, '$1 ');
+      var m = s.match(/^(.+?日|\S+)(?:\s+(.+))?$/);
+      if (!m) return res(v, v, '日時として読めません', 'err');
+      var dp = parseDatePart(m[1]);
+      if (dp.err) return res(v, v, dp.err, 'err');
+      if (!m[2]) return res(fmtDate(dp) + ' 00:00', v, '時刻がないので 00:00 にしました', 'warn');
+      var tp = parseTimePart(m[2].replace(/Z$/, ''));
+      if (tp.err) return res(v, v, tp.err, 'err');
+      var out = fmtDate(dp) + ' ' + fmtTime(tp);
+      var w = [dp.warn, tp.warn].filter(Boolean).join('／');
+      if (w) return res(out, v, w, 'warn');
+      return res(out, v, dp.note);
+    }
+  };
+
+  function sepRegex(){
+    var parts = [];
+    Array.prototype.forEach.call($('seps').querySelectorAll('input:checked'), function(el){
+      var v = el.value;
+      if (v === '\\n') parts.push('\\n');
+      else if (v === ',') parts.push(',', '，');
+      else if (v === ';') parts.push(';', '；');
+      else if (v === '/') parts.push('/', '／');
+      else if (v === ' ') parts.push(' ', '　');
+      else parts.push(v);
+    });
+    if (!parts.length) return null;
+    return new RegExp('(?:' + parts.map(function(p){ return p === '\\n' ? '\\n' : p.replace(/[.*+?^${}()|[\]\\\/]/g, '\\$&'); }).join('|') + ')+');
+  }
+  function splitValues(v, re){
+    if (v === '') return [];
+    var arr = re ? v.split(re) : [v];
+    return arr.map(trimAll).filter(function(x){ return x !== ''; });
+  }
+
+  /* ---------- type guessing ---------- */
+  function guessType(values){
+    var vals = values.filter(function(v){ return v !== ''; }).slice(0, 50);
+    if (!vals.length) return 'text';
+    var score = function(fn){ return vals.filter(function(v){ var r = fn(v); return r.s !== 'err'; }).length / vals.length; };
+    var looksDate = function(v){ return /\d/.test(toHalf(v)) &&/[年\/.\-]|^\d{8}$|^(明治|大正|昭和|平成|令和|[MTSHR]\d)/i.test(toHalf(v)); };
+    if (vals.every(function(v){ return looksDate(v) && /[\sT](午前|午後)?\d{1,2}(:\d|時)/.test(toHalf(v)); }) && score(CONV.datetime) >= .8) return 'datetime';
+    // Excel date serials (e.g. 44828) often sit among written dates; count them as dates only when
+    // the column also has real date text, so an amount column like 35000 is not taken for a date.
+    var isSerial = function(v){ var s = toHalf(v).trim(); return /^\d{5}$/.test(s) && +s >= 20000 && +s <= 80000; };
+    if (vals.some(looksDate) && vals.every(function(v){ return looksDate(v) || isSerial(v); }) && score(CONV.date) >= .8) return 'date';
+    if (vals.every(function(v){ return /^(https?:\/\/|www\.)/i.test(toHalfAscii(v).trim()); })) return 'url';
+    if (vals.every(function(v){ return /^[^@\s＠]+[@＠][^@\s＠]+$/.test(v.trim()); })) return 'mail';
+    if (vals.every(function(v){ var s = toHalfAscii(v).replace(/\s+/g, ''); return /^(\+\d{1,3}-?|0)\d[\d-]{7,13}$/.test(s) && s.replace(/\D/g, '').length >= 10; })) return 'tel';
+    if (vals.every(function(v){ return /^(午前|午後)?\s*\d{1,2}(:\d{1,2}|時)/.test(toHalf(v).trim()); }) && score(CONV.time) >= .8) return 'time';
+    if (vals.every(function(v){ return /[0-9０-９]/.test(v); }) && score(CONV.number) >= .8) {
+      var anyDecor = vals.some(function(v){ return /[,，¥￥円\\△▲０-９]/.test(v); });
+      var leadingZero = vals.some(function(v){ return /^0\d/.test(toHalf(v)); });
+      if (!leadingZero && (anyDecor || vals.every(function(v){ return /^-?\d+(\.\d+)?$/.test(v); }))) return 'number';
+    }
+    return 'text';
+  }
+
+  /* ---------- load ---------- */
+  function load(text, enc, pasted){
+    var nl = detectNewline(text);
+    var d = detectDelim(text, pasted);
+    var rows = parse(text, d);
+    if (!rows.length) { showInfo([['読み込めるデータがありません', true]]); return; }
+    var header = rows.shift();
+    var width = Math.max(header.length, rows.reduce(function(a, r){ return Math.max(a, r.length); }, 0));
+    for (var i = header.length; i < width; i++) header.push('列' + (i + 1));
+    rows = rows.map(function(r, idx){ var x = r.slice(); while (x.length < width) x.push(''); x.__row = idx + 2; return x; });
+    S.header = header.map(function(h){ return trimAll(h); });
+    S.rows = rows;
+    // Shift_JIS byte 0x5C is shown as "¥" in Japanese Excel but decodes to a backslash.
+    var yenFix = enc === 'Shift_JIS' && /\\/.test(text);
+    S.meta = { fileName: S.meta.fileName, enc: enc, nl: nl, delim: d === '\t' ? 'タブ' : 'カンマ', rows: rows.length, cols: width, yenFix: yenFix };
+    $('optYenWrap').hidden = !yenFix;
+    $('optYen').checked = true;
+    S.cols = S.header.map(function(h, c){
+      var vals = rows.map(function(r){ return trimAll(r[c] || ''); });
+      // Excel often adds trailing columns with no header and no values; leave them out by default.
+      var blank = !h && vals.every(function(v){ return v === ''; });
+      return { name: h || ('列' + (c + 1)), type: blank ? 'skip' : guessType(vals), key: false, outEdited: false };
+    });
+    applyHeaderNames();
+    var chips = [
+      ['文字コード：' + enc, false],
+      ['区切り：' + S.meta.delim, false],
+      ['改行コード：' + nl, nl === 'CR' || nl === '混在'],
+      ['データ ' + rows.length.toLocaleString() + ' 行 × ' + width + ' 列', false]
+    ];
+    showInfo(chips);
+    var notes = [];
+    if (nl === 'CR') notes.push('<div class="ng"><b>改行コードが CR だけのファイルです。</b>kintone はこのまま読み込むと「ファイルの内容が不正です。」になります。書き出す CSV は CR+LF に直します。</div>');
+    if (rows.length > 100000) notes.push('<div class="ng"><b>10万行を超えています。</b>kintone が1回に読み込める CSV は 10万行までです（公式ヘルプ）。ファイルを分けて読み込んでください。</div>');
+    var seen = {}, dupHead = [];
+    S.header.forEach(function(h){ if (h && seen[h]) dupHead.push(h); seen[h] = 1; });
+    if (dupHead.length) notes.push('<div class="note"><b>同じ見出しが複数あります：</b>' + dupHead.map(esc).join('、') + '。読み込み画面でフィールドを対応づけるときに取り違えやすいので、手順3で見出しを変えておくと安全です。</div>');
+    // kintone's table (subtable) format: a "レコードの開始行" column marks each record's first row with "*".
+    S.startCol = S.header.indexOf('レコードの開始行');
+    if (S.startCol >= 0) {
+      notes.push('<div class="ok"><b>テーブル（サブテーブル）を含む形式として扱います。</b>「レコードの開始行」列に「*」がある行を1件のレコードの始まりとみなし、重複チェックはその行だけで行います。テーブルの2行目以降を壊さないよう、「2行に分かれた行をまとめる」は使えなくしています。</div>');
+      S.cols[S.startCol].type = 'text';
+    }
+    $('optMerge').disabled = S.startCol >= 0;
+    if (S.startCol >= 0) $('optMerge').checked = false;
+    $('inputNotes').innerHTML = notes.join('');
+    buildMergeKey();
+    buildCols();
+    ['step2', 'step3', 'step4'].forEach(function(id){ $(id).hidden = false; });
+    run();
+  }
+  // Output header = original header, with the Shift_JIS yen fix applied (unless the user typed a name).
+  // A header left as "単価(\)" would not match the kintone field "単価(¥)" and the column would import empty.
+  function applyHeaderNames(){
+    var yen = S.meta.yenFix && $('optYen').checked;
+    S.cols.forEach(function(c){
+      if (c.outEdited) return;
+      c.out = yen ? c.name.replace(/\\/g, '¥') : c.name;
+    });
+  }
+  function showInfo(chips){
+    $('info').innerHTML = chips.map(function(c){ return '<span class="chip' + (c[1] ? ' bad' : '') + '">' + esc(c[0]) + '</span>'; }).join('');
+  }
+  function buildMergeKey(){
+    $('mergeKey').innerHTML = S.cols.map(function(c, i){ return '<option value="' + i + '">' + esc(c.name) + '</option>'; }).join('');
+  }
+  function buildCols(){
+    $('colsBody').innerHTML = S.cols.map(function(c, i){
+      var first = '';
+      for (var r = 0; r < S.rows.length && r < 200; r++) { if (trimAll(S.rows[r][i] || '') !== '') { first = S.rows[r][i]; break; } }
+      if (S.meta.yenFix && $('optYen').checked) first = first.replace(/\\/g, '¥');
+      return '<tr>' +
+        '<td>' + esc(c.name) + '</td>' +
+        '<td><input type="text" data-i="' + i + '" data-k="out" value="' + esc(c.out) + '" aria-label="' + esc(c.name) + ' の出力の見出し">' +
+          (c.type === 'split' ? '<input type="text" data-i="' + i + '" data-k="all" value="' + esc(c.all || '') + '" placeholder="kintone の選択肢をすべて（「、」区切り）" aria-label="' + esc(c.name) + ' の kintone の選択肢（すべて）" style="margin-top:6px">' : '') +
+        '</td>' +
+        '<td><select data-i="' + i + '" data-k="type" aria-label="' + esc(c.name) + ' のフィールドの種類">' + TYPES.map(function(t){ return '<option value="' + t[0] + '"' + (t[0] === c.type ? ' selected' : '') + '>' + t[1] + '</option>'; }).join('') + '</select></td>' +
+        '<td class="center"><input type="checkbox" data-i="' + i + '" data-k="key" aria-label="' + esc(c.name) + ' を重複チェックに使う"' + (c.key ? ' checked' : '') + '></td>' +
+        '<td class="sample" title="' + esc(first) + '">' + esc(first.replace(/\n/g, ' ⏎ ')) + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  /* ---------- run pipeline ---------- */
+  var OUT = null;
+  function run(){
+    var trim = $('optTrim').checked, dropEmpty = $('optEmpty').checked, merge = $('optMerge').checked && S.startCol < 0, mk = +$('mergeKey').value;
+    var yen = S.meta.yenFix && $('optYen').checked;
+    var rows = S.rows.map(function(r){ var x = r.map(function(v){ if (yen) v = v.replace(/\\/g, '¥'); return trim ? trimAll(v) : v; }); x.__row = r.__row; x.__merged = []; return x; });
+    var removedEmpty = 0, merged = 0;
+    if (dropEmpty) {
+      rows = rows.filter(function(r){ var e = r.every(function(v){ return trimAll(v) === ''; }); if (e) removedEmpty++; return !e; });
+    }
+    if (merge) {
+      var outRows = [];
+      rows.forEach(function(r){
+        var prev = outRows[outRows.length - 1];
+        if (prev && trimAll(r[mk]) === '' && r.some(function(v){ return trimAll(v) !== ''; })) {
+          r.forEach(function(v, c){ if (trimAll(v) !== '') prev[c] = prev[c] ? prev[c] + '\n' + v : v; });
+          prev.__merged.push(r.__row); merged++;
+        } else outRows.push(r);
+      });
+      rows = outRows;
+    }
+
+    var re = sepRegex();
+    // collect choices for split columns (in order of first appearance)
+    var choices = S.cols.map(function(c, i){
+      if (c.type !== 'split') return null;
+      var list = [], seen = {};
+      // Choices typed by the user come first, so options absent from the data still get a column
+      // (on an update import, kintone leaves options without a column unchanged).
+      splitValues(c.all || '', /[、,，\n]+/).forEach(function(v){ if (!seen[v]) { seen[v] = 1; list.push(v); } });
+      rows.forEach(function(r){ splitValues(r[i], re).forEach(function(v){ if (!seen[v]) { seen[v] = 1; list.push(v); } }); });
+      return list;
+    });
+
+    // output header
+    var outHeader = [], outMap = [];
+    S.cols.forEach(function(c, i){
+      if (c.type === 'skip') return;
+      if (c.type === 'split') { choices[i].forEach(function(ch){ outHeader.push(c.out + '[' + ch + ']'); outMap.push({ i: i, ch: ch }); }); }
+      else { outHeader.push(c.out); outMap.push({ i: i }); }
+    });
+
+    var counts = { fix: 0, warn: 0, err: 0 };
+    var issues = [];
+    var cells = rows.map(function(r){
+      var conv = S.cols.map(function(c, i){
+        var v = r[i];
+        if (c.type === 'skip' || c.type === 'split') return null;
+        var ex = excelTrouble(v, c.type);
+        if (ex) return ex;
+        if (c.type === 'multi') {
+          var parts = splitValues(v, re); var nv = parts.join('\n');
+          return { v: nv, s: nv === v ? 'same' : 'fix', m: '' };
+        }
+        return CONV[c.type](v);
+      });
+      var line = outMap.map(function(o){
+        if (o.ch !== undefined) {
+          var has = splitValues(r[o.i], re).indexOf(o.ch) >= 0;
+          return { v: has ? '1' : '', s: 'same' };
+        }
+        return conv[o.i];
+      });
+      conv.forEach(function(x, i){
+        if (!x || x.s === 'same') return;
+        counts[x.s]++;
+        if (x.s !== 'fix' || x.m) issues.push({ row: r.__row, col: S.cols[i].out, orig: r[i], v: x.v, s: x.s, m: x.m });
+      });
+      S.cols.forEach(function(c, i){ if (c.type === 'split' && r[i] !== '') counts.fix++; });
+      return { row: r.__row, merged: r.__merged, line: line, conv: conv };
+    });
+
+    // duplicate check on converted values
+    var keyIdx = S.cols.map(function(c, i){ return c.key && c.type !== 'skip' ? i : -1; }).filter(function(i){ return i >= 0; });
+    var dupGroups = [];
+    if (keyIdx.length) {
+      var map = {};
+      rows.forEach(function(r, n){
+        if (S.startCol >= 0 && trimAll(r[S.startCol]) !== '*') return;
+        var parts = keyIdx.map(function(i){
+          var t = S.cols[i].type;
+          if (t === 'split' || t === 'multi') return splitValues(r[i], re).join('\n');
+          return cells[n].conv[i].v;
+        });
+        if (parts.every(function(p){ return p === ''; })) return;
+        var k = JSON.stringify(parts);
+        (map[k] = map[k] || { parts: parts, rows: [] }).rows.push(r.__row);
+      });
+      Object.keys(map).forEach(function(k){ if (map[k].rows.length > 1) dupGroups.push(map[k]); });
+    }
+
+    OUT = { header: outHeader, cells: cells, dupRows: {} };
+    dupGroups.forEach(function(g){ g.rows.forEach(function(rn){ OUT.dupRows[rn] = true; }); });
+    render(counts, issues, removedEmpty, merged, keyIdx, dupGroups, choices);
+  }
+
+  /* ---------- render ---------- */
+  function render(counts, issues, removedEmpty, merged, keyIdx, dupGroups, choices){
+    var stat = function(cls, n, label){ return '<div class="stat ' + cls + '"><b>' + n.toLocaleString() + '</b><span>' + label + '</span></div>'; };
+    $('stats').innerHTML =
+      stat('', OUT.cells.length, '書き出す行') +
+      stat('', OUT.header.length, '書き出す列') +
+      stat('s-fix', counts.fix, '書式を直したセル') +
+      stat('s-warn', counts.warn, '要確認のセル') +
+      stat('s-ng', counts.err, 'エラーのセル') +
+      (merged ? stat('', merged, '前の行にまとめた行') : '') +
+      (removedEmpty ? stat('', removedEmpty, '削除した空の行') : '') +
+      (keyIdx.length ? stat(dupGroups.length ? 's-ng' : 's-fix', dupGroups.length, '重複の組') : '');
+
+    var dupHtml = '';
+    if (keyIdx.length) {
+      var keyNames = keyIdx.map(function(i){ return S.cols[i].out; }).join(' ＋ ');
+      if (!dupGroups.length) dupHtml = '<div class="ok"><b>重複はありません</b>（' + esc(keyNames) + ' の組み合わせで確認）。</div>';
+      else dupHtml = '<div class="ng"><b>' + esc(keyNames) + ' の組み合わせが同じ行が ' + dupGroups.length + ' 組あります。</b>上書きの更新キーに使う列なら、kintone はどちらの行で上書きすべきか決められません。<ul class="dups">' +
+        dupGroups.slice(0, 30).map(function(g){ return '<li>' + g.parts.map(function(p){ return '「' + esc(p.replace(/\n/g, ' ')) + '」'; }).join(' ＋ ') + ' … ' + g.rows.map(function(n){ return n + '行目'; }).join('、') + '</li>'; }).join('') +
+        (dupGroups.length > 30 ? '<li>ほか ' + (dupGroups.length - 30) + ' 組</li>' : '') + '</ul></div>';
+    }
+    var splitNote = choices.map(function(list, i){ return list ? '<b>' + esc(S.cols[i].out) + '</b> の選択肢：' + list.map(function(x){ return '「' + esc(x) + '」'; }).join('') : ''; }).filter(Boolean);
+    if (splitNote.length) dupHtml += '<div class="note">チェックボックス・複数選択に展開した選択肢です。kintone の選択肢と<b>1文字も違わず</b>一致しているか確かめてください。<br>' + splitNote.join('<br>') +
+      '<br><b>既存のレコードを上書きする（［レコードの更新と追加］で読み込む）ときは</b>、手順3の「kintone の選択肢をすべて」の欄に選択肢を全部入れてください。CSV に列が無い選択肢は、kintone が<b>元のチェックのまま残します</b>（検証用アプリで確認）。</div>';
+    $('dupBox').innerHTML = dupHtml;
+
+    var only = $('onlyIssues').checked;
+    var list = OUT.cells.filter(function(c){ return !only || OUT.dupRows[c.row] || c.merged.length || c.line.some(function(x){ return x.s !== 'same'; }); });
+    var shown = list.slice(0, PREVIEW_LIMIT);
+    var html = '<thead><tr><th>元の行</th>' + OUT.header.map(function(h){ return '<th>' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>';
+    html += shown.map(function(c){
+      var rn = c.row + '行目' + (c.merged.length ? '\n＋' + c.merged.join(',') : '') + (OUT.dupRows[c.row] ? '\n重複' : '');
+      return '<tr><td class="rn">' + esc(rn) + '</td>' + c.line.map(function(x){
+        var cls = x.s === 'fix' ? 'fix' : x.s === 'warn' ? 'warn' : x.s === 'err' ? 'err' : '';
+        return '<td' + (cls ? ' class="' + cls + '"' : '') + (x.m ? ' title="' + esc(x.m) + '"' : '') + '>' + esc(x.v) + '</td>';
+      }).join('') + '</tr>';
+    }).join('');
+    html += '</tbody>';
+    $('preview').innerHTML = html;
+    $('previewNote').textContent = list.length > PREVIEW_LIMIT ? '表示は先頭の ' + PREVIEW_LIMIT + ' 行までです（書き出しには全 ' + OUT.cells.length.toLocaleString() + ' 行が入ります）。' : (list.length ? 'セルにマウスを乗せると、直した理由が表示されます。' : '表示する行がありません。');
+
+    var errs = issues.filter(function(x){ return x.s === 'err'; }), warns = issues.filter(function(x){ return x.s === 'warn'; });
+    var li = function(x){ return '<li class="' + (x.s === 'warn' ? 'w' : '') + '"><b>' + x.row + '行目「' + esc(x.col) + '」</b>：「' + esc(x.orig) + '」' + (x.s === 'err' ? '' : ' → 「' + esc(x.v) + '」') + ' … ' + esc(x.m) + '</li>'; };
+    $('issues').innerHTML = errs.slice(0, 100).map(li).join('') + warns.slice(0, 100).map(li).join('') +
+      (errs.length + warns.length > 200 ? '<li>ほか ' + (errs.length + warns.length - 200) + ' 件</li>' : '');
+
+    $('dlNote').textContent = counts.err ? 'エラーのセルは元の値のまま書き出します。直してから読み込むことをおすすめします。' : '';
+  }
+
+  /* ---------- export ---------- */
+  function csvCell(v){ return /[",\r\n]/.test(v) || /^\s|\s$/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+  function download(){
+    if (!OUT) return;
+    var lines = [OUT.header.map(csvCell).join(',')];
+    OUT.cells.forEach(function(c){ lines.push(c.line.map(function(x){ return csvCell(x.v); }).join(',')); });
+    var blob = new Blob(['﻿' + lines.join('\r\n') + '\r\n'], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a');
+    var base = (S.meta.fileName || 'data').replace(/\.[^.]+$/, '');
+    a.href = URL.createObjectURL(blob); a.download = base + '_kintone.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+  }
+
+  /* ---------- events ---------- */
+  function readFile(f){
+    if (!f) return;
+    var fr = new FileReader();
+    fr.onload = function(){ var d = decode(fr.result); S.meta.fileName = f.name; load(d.text, d.enc); };
+    fr.readAsArrayBuffer(f);
+  }
+  $('file').addEventListener('change', function(e){ readFile(e.target.files[0]); e.target.value = ''; });
+  var drop = $('drop');
+  ['dragenter', 'dragover'].forEach(function(t){ drop.addEventListener(t, function(e){ e.preventDefault(); drop.classList.add('over'); }); });
+  ['dragleave', 'drop'].forEach(function(t){ drop.addEventListener(t, function(e){ e.preventDefault(); drop.classList.remove('over'); }); });
+  drop.addEventListener('drop', function(e){ readFile(e.dataTransfer.files[0]); });
+  $('pasteBtn').addEventListener('click', function(){
+    var t = $('paste').value;
+    if (!t.trim()) { $('paste').focus(); return; }
+    S.meta.fileName = 'pasted'; load(t, '貼り付け', true);
+  });
+  $('sampleBtn').addEventListener('click', function(){
+    var t = '顧客コード,会社名,受注日,金額,対応時間,担当者,関心のある製品,メモ\n' +
+      'C001,株式会社サンプル,令和8年9月1日,"¥1,200,000",午後3時30分,yamada、suzuki,帳票、一括更新,初回商談\n' +
+      ',,,,,,,見積を再提出\n' +
+      'C002,テスト商事,2026年9月15日,△5000,9:05,tanaka,一括更新,\n' +
+      'C003,見本工業,20260931,３５０００,25:00,sato,帳票;ダッシュボード,至急\n' +
+      'C002,テスト商事,R8.9.15,5000,10時,tanaka,ダッシュボード,重複の例\n' +
+      ',,,,,,,\n' +
+      'C004,例示ホールディングス,46295,12%,9:30:15,"ito\nkato",帳票,Excel の日付の数値';
+    $('paste').value = t;
+    S.meta.fileName = 'sample'; load(t, '貼り付け', false);
+    $('optMerge').checked = true; $('mergeKey').value = '0';
+    S.cols[0].key = true; S.cols[2].key = true;
+    S.cols[2].type = 'date'; S.cols[3].type = 'number'; S.cols[4].type = 'time';
+    S.cols[5].type = 'multi'; S.cols[6].type = 'split';
+    buildCols(); run();
+  });
+  ['optEmpty', 'optTrim', 'optMerge', 'mergeKey', 'onlyIssues'].forEach(function(id){ $(id).addEventListener('change', run); });
+  $('optYen').addEventListener('change', function(){ applyHeaderNames(); buildCols(); run(); });
+  $('seps').addEventListener('change', run);
+  $('colsBody').addEventListener('change', function(e){
+    var el = e.target, i = +el.getAttribute('data-i'), k = el.getAttribute('data-k');
+    if (isNaN(i) || !k) return;
+    if (k === 'key') S.cols[i].key = el.checked;
+    else if (k === 'type') { S.cols[i].type = el.value; buildCols(); }
+    else if (k === 'all') S.cols[i].all = el.value;
+    else if (k === 'out') { S.cols[i].out = el.value.trim() || S.cols[i].name; S.cols[i].outEdited = !!el.value.trim(); }
+    run();
+  });
+  $('dlBtn').addEventListener('click', download);
+})();
+</script>
+</body>
+</html>

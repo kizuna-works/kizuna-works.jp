@@ -213,4 +213,20 @@ export const tools: Tool[] = [
     imageWidth: 1280,
     imageHeight: 800,
   },
+  {
+    file: 'Totonoe.html',
+    name: 'Totonoe（kintone CSVインポート整形ツール）',
+    shortName: 'Totonoe',
+    kintoneNative: true,
+    description:
+      'kintoneにCSVを読み込む前のデータを、kintoneが読める形に直す完全無料のWebツールです。和暦・Excelの日付の数値・¥や全角の金額・「午後3時」などの時刻を直し、チェックボックスを選択肢ごとの列に展開します。2行に分かれた行のまとめや、複数項目の組み合わせでの重複チェックにも対応。データはブラウザの外に送信しません。',
+    applicationCategory: 'BusinessApplication',
+    tags: ['完全無料', '登録不要', '実機で読み込みを確認済み', 'Excel の CSV 対応'],
+    miniIcon: '🧹',
+    miniDescription: 'CSVインポート整形',
+    image: '/images/totonoe-preview.png',
+    imageAlt: 'Totonoe（kintone CSVインポート整形ツール）のサムネイル画像',
+    imageWidth: 1280,
+    imageHeight: 800,
+  },
 ];
