@@ -844,7 +844,8 @@ c:\kizuna-works.jp\
 │   │   ├── dashboard-overview-yojitsu.png/.webp # ダッシュボード 完成イメージ②（アプリ横断集計＝予実管理ダッシュボードの全景・製品ページ）
 │   │   ├── dashboard-portal-layout.png/.webp # ダッシュボード v1.1.0 ポータルレイアウト構成画面（製品ページUPDATEボックス・お知らせOGP・1100×634）
 │   │   ├── dashboard-config-totals.png/.webp # ダッシュボード v1.2.0 設定画面のクロス集計表 表示オプション（行合計／列合計の個別切替・製品ページUPDATEボックス）
-│   │   ├── dashboard-time-01.png            # ダッシュボード v1.3.0 UPDATE 用スクショ — 勤務時間の合計カード 304時間39分・部署別の勤務時間の棒グラフ（軸は時間）・部署×月の作業時間のクロス集計（1280×587・.webp あり）
+│   │   ├── dashboard-time-01.png            # ダッシュボード「主な機能」の時間の集計（v1.3.0 の UPDATE 枠から移設）— 勤務時間の合計カード 304時間39分・部署別の勤務時間の棒グラフ（軸は時間）・部署×月の作業時間のクロス集計（1280×587・.webp あり）
+│   │   ├── dashboard-portal-multi-01.png    # ダッシュボード v1.3.1 UPDATE 用スクショ — 全社ポータルに別々のアプリの2つのダッシュボード（地域×月の売上／種別×月の問い合わせ件数・月は時系列順）を上下に並べた（1280×1000・.webp あり）
 │   │   ├── dashboard/recipes/<id>.png/.webp # ダッシュボード設定レシピ集の完成イメージ（種別ごと・第1バッチ22対）
 │   │   ├── attribute-filter-banner.png      # 属性制御フィルター for kintone 見出しバナー（OGP/グリッド共用・1200×630）
 │   │   ├── attribute-filter-icon.png        # 属性制御フィルター for kintone アイコン（hero・200×200）
@@ -1004,7 +1005,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-dashboard-v1.1.2.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-dashboard-v1.1.3.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-dashboard-v1.2.0.zip                               # ダッシュボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.2.0 クロス集計表の合計を行合計／列合計で個別表示）
-│   │   ├── kw-dashboard-v1.3.0.zip                                   # ダッシュボード for kintone 配布ファイル（最新・v1.3.0：時間の集計・条件の秒換算・対象フィールドなしの表示）
+│   │   ├── kw-dashboard-v1.3.0.zip                                   # ダッシュボード for kintone 配布ファイル（v1.3.0：時間の集計・条件の秒換算・対象フィールドなしの表示）
+│   │   ├── kw-dashboard-v1.3.1.zip                                   # ダッシュボード for kintone 配布ファイル（最新・v1.3.1：ポータル埋め込みの複数コード共存・スペース判定・クロス集計表の日付を時系列順）
 │   │   ├── kw-drive-connect-v1.0.0.zip                          # ドライブ連携 for kintone 配布ファイル（最新・手動配置・プレミアム第13弾 初版）
 │   │   ├── kw-lookup-add-v1.0.0.zip    # ルックアップ新規登録 v1.0.0 配布物
 │   │   ├── kw-lookup-add-v1.0.1.zip    # ルックアップ新規登録 v1.0.1（2026-09-14 に版そのままで差し替え＝フォームの並びを実行時に読み、列の入れ替えに追従）
