@@ -1046,7 +1046,9 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-styler-v2.2.0.zip                            # フィールドスタイラー for kintone 配布ファイル（v2.2.0 でサブテーブル対応）
 │   │   ├── kw-field-styler-v2.3.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・手動配置・v2.3.0 で条件付きスタイルの色を任意指定可）
 │   │   ├── kw-field-styler-v2.3.1.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・手動配置・v2.3.1 ライセンス認証の内部改修）
-│   │   ├── kw-field-styler-v2.4.0.zip                            # フィールドスタイラー for kintone 配布ファイル（最新・手動配置・v2.4.0 でテーブル外フィールドが作成/編集画面にも反映）
+│   │   ├── kw-field-styler-v2.4.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管・v2.4.0 でテーブル外フィールドが作成/編集画面にも反映）
+│   │   ├── kw-field-styler-v2.5.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管・v2.5.0 で明細内の文字数/文字種制限と最大行数）
+│   │   ├── kw-field-styler-v2.5.1.zip                            # フィールドスタイラー for kintone 配布ファイル（最新・v2.5.1 で一覧のコピー機能の空セルで行の背景色が抜ける不具合を修正）
 │   │   ├── kw-file-icon-marker-v1.0.0.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-icon-marker-v1.0.1.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-icon-marker-v1.0.2.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
