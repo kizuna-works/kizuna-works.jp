@@ -138,6 +138,20 @@ const BANNERS = {
       ['注釈ごとに', '言語を出し分け', '']
     ]
   },
+  // ★ footprint は 2026-10-01 に手動バナーへ差し替え済み。実行すると
+  //    public/images/footprint-banner.png を上書きしてしまうため、定義を無効化してある。
+  '_footprint_DISABLED': {
+    iconSrc: 'SECRET/kintone_plugin_workspace/kw-footprint/kw-footprint_icon_512.png',
+    iconSide: 'left',
+    catch: ['誰が来て、どこを触ったか。', '一覧でひと目で。'],
+    name: '足あと for kintone',
+    nameSize: 42,
+    bullets: [
+      ['一覧に', '閲覧と編集の足あと', ''],
+      ['フィールドごとに', '直した人', 'が分かる'],
+      ['新しさを', '4段階の濃さ', 'で表示']
+    ]
+  },
   // ★ sheets-sync は 2026-09-29 に手動バナーへ差し替え済み。実行すると
   //    public/images/sheets-sync-banner.png を上書きしてしまうため、定義を無効化してある。
   '_sheets-sync_DISABLED': {

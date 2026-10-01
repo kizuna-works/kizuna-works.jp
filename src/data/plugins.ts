@@ -1251,6 +1251,32 @@ export const plugins: Plugin[] = [
     releaseDate: '2026-09-05',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-footprint',
+    pluginId: 'hflicpcacdoblelkcbkbiglcoabljfen',
+    name: '足あと for kintone',
+    formName: '足あと for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'footprint',
+    categories: ['情報共有', '履歴・復元', '一覧表示'],
+    description:
+      '一覧に足あと列を1本足し、誰が見て誰が直したかを閲覧・編集のマークで表示します。マウスを乗せると人と日時・直した項目が出て、詳細画面では直されたフィールドの横にもマーク。新しさは4段階の濃さで、ホバーは4スタイル×8配色から選べます。',
+    image: '/images/footprint-banner.png',
+    imageWebp: '/images/footprint-banner.webp',
+    imageAlt:
+      '足あと for kintone バナー — 誰が見て、誰が直したか。一覧でひと目でわかる。一覧の専用列に閲覧と編集の足あと、直したフィールドの横にもマーク、新しいほど濃い4段階で表示',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '一覧とフィールドの横に、誰が見て誰が直したかを足あとマークで表示。乗せると人と日時・直した項目が出て、新しさは4段階の濃さで分かります。',
+    problemTitle: '登録したレコードを、誰か見てくれたのか分からない',
+    problemDesc:
+      '上司や担当者が確認したかは聞いてみるしかなく、誰がどの項目を直したかもレコードを1件ずつ開いて変更履歴をたどるしかない。最近動いた案件と、しばらく誰も触っていない案件の区別も一覧ではつかない',
+    releaseDate: '2026-10-01',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**

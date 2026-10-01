@@ -390,6 +390,33 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-footprint': {
+    extraComm: [
+      {
+        label: '足あとの記録と表示（自ドメイン内）',
+        detail:
+          '足あとは、同じスペースに作る「足あと管理」保管アプリ（kintone アプリ）に記録します。一覧・詳細画面を開いたときにその保管アプリから足あとを取得し（/k/v1/records）、詳細画面を開いたときと値を変えて保存したときに、ご自身の足あとの行を作成・更新します（/k/v1/record の POST／PUT）。記録するのは「誰が・いつ・どのフィールドを」見た／直したかと回数だけで、値の中身（何から何へ変えたか）は記録しません。プラグインを入れたアプリのレコードやフォームは書き換えず、変えたフィールドの判定も kintone が画面に渡すデータの比較で行います。既読チェック for kintone の保管アプリがあれば、それを共用します。',
+      },
+      {
+        label: '保管アプリの作成と足あとの整理（自ドメイン内）',
+        detail:
+          '設定画面で［保管アプリを作成する］を押したときだけ、保管アプリを作成します（/k/v1/preview/app・/preview/app/form/fields・/preview/app/settings・/preview/app/acl・/preview/record/acl・/preview/app/deploy・アイコンの /k/v1/file）。［足あとの整理］を実行したときだけ、このアプリの足あとの行を保管アプリから削除します（/k/v1/records/cursor・/k/v1/records の GET／DELETE・削除権限の確認に /k/v1/records/acl/evaluate）。削除したレコードの確認で対象アプリから読むのはレコード番号だけです。自動で削除することはありません。',
+      },
+      {
+        label: 'フィールドと所属の読み取り（自ドメイン内）',
+        detail:
+          '設定画面で、フィールド名・テーブルの列・一覧の定義（/k/v1/preview/app/form/fields・form/layout・views）を読み取ります。「足あとを見られる人」「記録しない人」を選ぶとき、および組織・グループのメンバーを展開して保存するときに、ご利用中の kintone ドメイン内の cybozu.com 共通管理API（/v1/users・/v1/organizations・/v1/groups・/v1/organization/users・/v1/group/users）を呼び出します。レコード画面での所属の判定は kintone の JS API（通信先はご利用中の kintone）で、組織・グループを指定したときだけ行います。いずれもご利用中の kintone ドメイン内で完結し、外部の第三者へは送信しません。',
+      },
+    ],
+    libs: [
+      {
+        name: 'Lucide（アイコン 6 種）',
+        version: 'lucide-static 1.48.0',
+        license: 'ISC',
+        purpose: '足あとマークの形（足あと・肉球・目・えんぴつ・スタンプ・ドット）を SVG として同梱',
+      },
+    ],
+  },
   'kw-lottery-roulette': {
     extraComm: [
       {
