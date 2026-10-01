@@ -624,6 +624,59 @@ const FIGURES = [
       { title: 'kintone標準のまま', desc: 'レコードを開いて値を直し、保存して一覧へ戻る。これを件数ぶん繰り返す。月末に40件たまっていれば、その往復を40回する。' }
     ),
   },
+  {
+    name: 'kintone-calendar-plugin-hikaku-overview',
+    w: 1000, h: 330,
+    el: overviewMethods([
+      { n: '1', name: '標準のカレンダー', desc: '一覧の表示形式を切り替えるだけ。月表示で、日付ごとに件名が並ぶ。', cost: '無料' },
+      { n: '2', name: 'プラグインを入れる', desc: '週・日の時間表示、期間の帯、ドラッグでの日程変更、色分けを足す。', cost: '無料〜有料' },
+      { n: '3', name: '外部の予定表へ', desc: 'Googleカレンダーなどへ予定を送る。普段の予定表で見たいときに。', cost: '連携' },
+    ]),
+  },
+  {
+    name: 'kintone-calendar-plugin-hikaku-standard-limit',
+    w: 1000, h: 330,
+    el: overviewMethods([
+      { n: '1', name: '日付は1つだけ', desc: '基準日のマスに1回出るだけ。3日間の研修も、1マスにしか載らない。', cost: '制約' },
+      { n: '2', name: '月表示だけ', desc: '週・日の時間軸がない。午前と午後の予定の重なりは読み取れない。', cost: '制約' },
+      { n: '3', name: '見るだけ', desc: '色分けもドラッグでの日程変更もない。直すには詳細画面を開く。', cost: '制約' },
+    ]),
+  },
+  {
+    name: 'kintone-calendar-plugin-hikaku-criteria',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: '表示の種類', desc: '月だけで足りるか。週・日の時間表示、年表示、リスト表示が要るか。', tag: '基本', paid: false },
+      { n: '2', name: '期間と時刻', desc: '開始〜終了を帯で出せるか。時刻を持つ予定を時間枠に並べられるか。', tag: '基本', paid: false },
+      { n: '3', name: '人・部屋の軸', desc: '担当者や会議室を縦に並べて、空きと重なりを横の時間軸で見られるか。', tag: '業務次第', paid: true },
+      { n: '4', name: 'スマホと環境', desc: 'kintoneモバイルで開けるか。ゲストスペースで動くか。', tag: '要確認', paid: true },
+      { n: '5', name: '価格と試し方', desc: '月額・年額・買い切りのどれか。無料のまま使える範囲と試用期間。', tag: '予算', paid: true },
+    ]),
+  },
+  {
+    name: 'kintone-calendar-plugin-hikaku-contrast',
+    w: 1000, h: 300,
+    el: contrastPanel(
+      { title: 'レコードがそのまま予定表', desc: '登録した予定がカレンダーに並ぶ。日程の変更はドラッグで済み、書き換えた内容はレコードに戻る。予定表は1つだけ。' },
+      { title: '予定表が別の場所にある', desc: 'kintoneに登録したあと、ホワイトボードやExcelの予定表に同じことを書き写す。どちらかが古くなり、会議室の二重予約が起きる。' }
+    ),
+  },
+  {
+    name: 'kintone-calendar-plugin-hikaku-setup',
+    w: 1000, h: 210,
+    el: flowCaptioned(['プラグインを読み込む', 'アプリに追加', 'ビューを作成', '開始・終了・件名を選ぶ', '保存して表示'], C.navy, 'HTMLは書かない。ビュー（カスタマイズの一覧）は設定画面のボタン1つで作られる'),
+  },
+  {
+    name: 'kintone-calendar-plugin-hikaku-choose',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: '月の締切が見えればいい', desc: '期限・納期・訪問日を月で俯瞰するだけなら、標準のカレンダー形式で足りる。', tag: '標準', paid: false },
+      { n: '2', name: '週・日の時間で見たい', desc: '時刻のある予定、数日にまたがる予定。ドラッグで日程も直したい。', tag: '無料あり', paid: false },
+      { n: '3', name: '会議室・担当者の空き', desc: '人や部屋ごとの時間軸で、空きと重なりを見て予約を入れたい。', tag: '有料が中心', paid: true },
+      { n: '4', name: '工程を行ごとに並べたい', desc: '1件の案件が持つ工程（テーブルの行）を、それぞれ予定として出したい。', tag: '対応製品が少ない', paid: true },
+      { n: '5', name: '普段の予定表で見たい', desc: 'Googleカレンダーなどに予定を送り、スマホの予定表で確認したい。', tag: '連携サービス', paid: true },
+    ]),
+  },
 ];
 
 // The bundled Noto Sans JP WOFF is a subset without arrows and similar symbols;
