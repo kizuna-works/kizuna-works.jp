@@ -1196,8 +1196,9 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-side-view-v1.0.2.zip                         # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-quick-side-view-v1.0.3.zip                 # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-side-view-v1.0.4.zip                 # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-quick-side-view-v1.0.5.zip                 # クイックサイドビュー for kintone 配布ファイル（最新・手動配置・v1.0.5 一覧の編集／削除アイコンなど行内のボタンがサイドバーに横取りされる不具合を修正）
-│   │   ├── kw-quick-side-view-v1.0.6.zip  # QuickSideView for kintone 配布ファイル（最新・v1.0.6：他製品の列のクリックでサイド表示が開く不具合を修正）
+│   │   ├── kw-quick-side-view-v1.0.5.zip                 # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管・手動配置・v1.0.5 一覧の編集／削除アイコンなど行内のボタンがサイドバーに横取りされる不具合を修正）
+│   │   ├── kw-quick-side-view-v1.0.6.zip  # QuickSideView for kintone 配布ファイル（旧版・参考保管・v1.0.6：他製品の列のクリックでサイド表示が開く不具合を修正）
+│   │   ├── kw-quick-side-view-v1.0.7.zip  # クイックサイドビュー for kintone 配布ファイル（最新・v1.0.7：保存で他の人の変更を上書きしない・見張りを60秒＋表のタブだけにして API リクエスト数を節約・広告 v2）
 │   │   ├── kw-quick-tab-v1.0.0.zip                               # クイックタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-tab-v1.0.1.zip                               # クイックタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-tab-v1.0.2.zip                               # クイックタブ for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
