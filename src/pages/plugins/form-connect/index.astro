@@ -50,10 +50,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           "name": "フォーム連携 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.0.1",
-          "dateModified": "2026-10-03",
+          "softwareVersion": "1.0.2",
+          "dateModified": "2026-10-04",
           "url": "https://kizuna-works.jp/plugins/form-connect/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-form-connect-v1.0.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-form-connect-v1.0.2.zip",
           "image": "https://kizuna-works.jp/images/form-connect-banner.png",
           "offers": {
             "@type": "Offer",
@@ -77,7 +77,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             "回答IDと［値の重複を禁止する］による二重登録の防止",
             "回答シートから行を削除しても取りこぼさない読み直し",
             "取り込む前に内容を確認できるプレビュー",
-            "一覧を開いたときの自動取り込み（取り込めたら一覧を更新）",
+            "一覧を開いたときの自動取り込み（最短5分おき・取り込めたら一覧を更新）",
             "複数のフォームを 1 つのアプリへ集約",
             "選択肢に無い値は退避／スキップを選択",
             "取り込みログの保管アプリを自動生成",
@@ -378,14 +378,14 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       <img class="afp-hero-icon" src="/images/form-connect-icon.png" alt="フォーム連携 for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.0.1</span>
+        <span class="afp-hero-version">v1.0.2</span>
       </div>
       <h1 class="afp-hero-title">フォーム連携 for kintone</h1>
       <p class="afp-tagline">打ち直しは、もういらない。</p>
       <p class="afp-sub">無料の Google フォームが、そのまま kintone の入力窓口になります。回答は回答スプレッドシート経由で取り込むので、<strong>中継サーバーも GAS も API トークンも要りません</strong>。列とフィールドの対応づけは、設定画面の表だけで終わります。</p>
       <div class="afp-hero-cta">
         <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
-        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-form-connect-v1.0.1.zip" download>無料でダウンロード</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-form-connect-v1.0.2.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
@@ -529,6 +529,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
         <div class="afp-cautions">
           <ul>
             <li>自動取り込みは<strong>一覧の表示を待たせません</strong>。裏で実行します</li>
+            <li>自動取り込みは<strong>前回から 5 分以上たっているときだけ</strong>動きます（ページ送りや並べ替えでは動かず、kintone の API リクエスト数を節約します）。すぐに取り込みたいときはボタンを押してください</li>
             <li>取り込めたら<strong>一覧を更新して</strong>「◯ 件を取り込みました」と伝えます。新しい回答が無ければ何も出しません</li>
             <li>1 回あたりの上限を超えた分は<strong>次回に持ち越します</strong>（取りこぼしません）</li>
             <li>レコードを追加する権限が無い方の画面には、ボタンを出しません</li>
@@ -622,7 +623,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           <div class="afp-feat-card"><h3>自動の対応づけ</h3><p>見出しとフィールド名／フィールドコードが一致する列は自動で対応づけ。角かっこでの明示指定にも対応します。</p></div>
           <div class="afp-feat-card"><h3>二重登録の防止</h3><p>回答の内容から作る回答IDと、kintone の［値の重複を禁止する］の二段構えで止めます。</p></div>
           <div class="afp-feat-card"><h3>取り込みプレビュー</h3><p>押す前に、どの値がどのフィールドへ入るかを確認できます。取り込めない行も一緒に見えます。</p></div>
-          <div class="afp-feat-card"><h3>自動取り込み 🔒</h3><p>一覧を開いたときに裏で取り込み、入ったら一覧を更新します。表示は待たせません。</p></div>
+          <div class="afp-feat-card"><h3>自動取り込み 🔒</h3><p>一覧を開いたときに裏で取り込み（最短5分おき）、入ったら一覧を更新します。表示は待たせません。</p></div>
           <div class="afp-feat-card"><h3>複数フォームの集約 🔒</h3><p>会場別・部署別に分かれたフォームを 1 つのアプリへ。取り込み元で絞り込めます。</p></div>
           <div class="afp-feat-card"><h3>取り込みログ 🔒</h3><p>保管アプリを自動生成し、実行履歴・失敗理由・元の回答内容を残します。</p></div>
           <div class="afp-feat-card"><h3>失敗通知 🔒</h3><p>取り込めなかった回答があったときだけ、選んだユーザーへ kintone の通知を飛ばします。</p></div>
@@ -635,7 +636,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       <div class="afp-wrap">
         <h2 class="afp-h2">インストール手順</h2>
         <ol class="afp-steps steps-list">
-          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-form-connect-v1.0.1.zip</code> を保存します。</span></li>
+          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-form-connect-v1.0.2.zip</code> を保存します。</span></li>
           <li><span>kintone の<strong>「kintoneシステム管理」→「プラグイン」</strong>を開き、<strong>「読み込む」</strong>から zip を読み込みます。</span></li>
           <li><span>回答を取り込みたいアプリで<strong>「アプリの設定」→「プラグイン」→「プラグインの追加」</strong>から追加します。</span></li>
           <li><span>歯車アイコンから設定画面を開き、<strong>［Google に接続］</strong>で回答スプレッドシートを選びます。接続するのはアプリ管理者だけで、一般の利用者に Google ログインは要りません。</span></li>
@@ -664,7 +665,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
               <li>✅ 選択肢に無い値の退避／スキップ</li>
               <li>✅ 利用期限なし（設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-form-connect-v1.0.1.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-form-connect-v1.0.2.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">👑 全機能を解放</span>
@@ -673,7 +674,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
             <ul class="afp-plan-features">
               <li>✅ <strong>連携フォームの本数に制限なし</strong>（複数フォームを 1 アプリへ集約）</li>
-              <li>✅ <strong>一覧を開いたときの自動取り込み</strong>（取り込めたら一覧を更新）</li>
+              <li>✅ <strong>一覧を開いたときの自動取り込み</strong>（最短5分おき・取り込めたら一覧を更新）</li>
               <li>✅ <strong>取り込みログの保管アプリ</strong>（実行履歴・失敗理由・元の回答）</li>
               <li>✅ <strong>失敗したときの kintone 通知</strong></li>
               <li>✅ 設定画面の広告なし</li>
@@ -761,10 +762,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
             gtag('event', 'file_download', {
-              file_name: 'kw-form-connect-v1.0.1.zip',
+              file_name: 'kw-form-connect-v1.0.2.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-form-connect-v1.0.1.zip'
+              link_url: '/downloads/kw-form-connect-v1.0.2.zip'
             });
           });
         });
