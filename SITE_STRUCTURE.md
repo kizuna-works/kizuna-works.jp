@@ -1006,7 +1006,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-bulk-update-v1.0.0.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-bulk-update-v1.0.1.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-bulk-update-v1.0.2.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-bulk-update-v1.0.3.zip                             # かんたん一括更新 for kintone 配布ファイル（最新・手動配置・v1.0.3 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
+│   │   ├── kw-bulk-update-v1.0.3.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管・手動配置・v1.0.3 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
+│   │   ├── kw-bulk-update-v1.0.4.zip                             # かんたん一括更新 for kintone 配布ファイル（最新・v1.0.4：kintone の API リクエスト数を節約）
 │   │   ├── kw-card-board-v1.0.0.zip                              # カードボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第6弾・無料/プレミアム共通zip・無料=1ビューで全機能・複数ビューはプレミアム）
 │   │   ├── kw-card-board-v1.0.1.zip                              # カードボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-card-board-v1.1.0.zip                                  # カードボード for kintone 配布ファイル（最新・v1.1.0：時間の集計を〇時間〇分で表示・対象フィールドなしの表示）
@@ -1263,8 +1264,9 @@ c:\kizuna-works.jp\
 │   │   ├── kw-status-bulk-action-v1.0.3.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-status-bulk-action-v1.0.4.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-status-bulk-action-v1.0.5.zip                     # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-status-bulk-action-v1.0.6.zip                  # ステータス一括実行 for kintone 配布ファイル（最新・手動配置・v1.0.6 設定の保存後にアプリの設定画面へ戻るように（［アプリを更新］をすぐ押せる）／ゲストスペースで戻り先が存在しないパスになっていたのを修正）
-│   │   ├── kw-status-bulk-action-v1.1.0.zip                          # ステータス一括実行 for kintone 配布ファイル（最新・v1.1.0：時間・日付の計算フィールドの条件・モバイル一覧のボタン修正）
+│   │   ├── kw-status-bulk-action-v1.0.6.zip                  # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管・手動配置・v1.0.6 設定の保存後にアプリの設定画面へ戻るように（［アプリを更新］をすぐ押せる）／ゲストスペースで戻り先が存在しないパスになっていたのを修正）
+│   │   ├── kw-status-bulk-action-v1.1.0.zip                          # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管・v1.1.0：時間・日付の計算フィールドの条件・モバイル一覧のボタン修正）
+│   │   ├── kw-status-bulk-action-v1.1.1.zip                          # ステータス一括実行 for kintone 配布ファイル（最新・v1.1.1：kintone の API リクエスト数を節約）
 │   │   ├── kw-sticky-board-v1.0.0.zip                            # 付箋ボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-sticky-board-v1.0.1.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-sticky-board-v1.0.2.zip                            # 付箋ボード for kintone 配布ファイル（旧版・参考保管）

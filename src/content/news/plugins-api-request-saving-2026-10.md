@@ -1,11 +1,11 @@
 ---
-title: "11 製品をアップデートし、kintone の API リクエスト数を節約する対策を講じました"
-description: "添付ファイルプレビュー・テーブルプレビュー・あいまい照合など 11 製品で、画面を開くたびに使っていた kintone の API リクエストを減らしました。機能は変わりません。1 日の上限に近いアプリでお使いの方は最新版への上書きをおすすめします。"
+title: "13 製品をアップデートし、kintone の API リクエスト数を節約する対策を講じました"
+description: "添付ファイルプレビュー・テーブルプレビュー・あいまい照合など 13 製品で、画面を開くたびに使っていた kintone の API リクエストを減らしました。機能は変わりません。1 日の上限に近いアプリでお使いの方は最新版への上書きをおすすめします。"
 pubDate: 2026-10-03
 category: update
 ---
 
-KIZUNA Works の kintone プラグイン 11 製品をアップデートし、**kintone の API リクエスト数を節約する対策**を講じました。機能・設定・画面の見た目は変わりません。
+KIZUNA Works の kintone プラグイン 13 製品をアップデートし、**kintone の API リクエスト数を節約する対策**を講じました。機能・設定・画面の見た目は変わりません。
 
 ## 何が変わったか
 
@@ -32,6 +32,8 @@ kintone には、**1 つのアプリで 1 日に実行できる API リクエス
 | [ルックアップ新規登録 for kintone](/plugins/lookup-add/) | v1.0.3 |
 | [PDF編集アシスト for kintone](/plugins/pdf-edit/) | v1.2.8 |
 | [あいまい照合 for kintone](/plugins/ambiguous-match/) | v1.0.2 |
+| [ステータス一括実行 for kintone](/plugins/status-bulk-action/) | v1.1.1 |
+| [かんたん一括更新 for kintone](/plugins/bulk-update/) | v1.0.4 |
 
 ## アップデートの方法
 
