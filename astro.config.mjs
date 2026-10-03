@@ -159,8 +159,10 @@ export default defineConfig({
       // - blog posts with `noindex: true` in frontmatter
       // - glossary terms with `supersededBy` (a blog post owns those queries)
       // - partner-only pages (reached by a one-time URL or a private form)
+      // - /go/<ad>/ click-through pages for plugin banners (noindex; they only redirect)
       filter: (page) =>
         !page.includes('/partner/') &&
+        !page.includes('/go/') &&
         !page.includes('/plugins/supporter/request/') &&
         !page.includes('/news/blog-') &&
         !noindexBlogPaths.some((p) => page.endsWith(p)) &&

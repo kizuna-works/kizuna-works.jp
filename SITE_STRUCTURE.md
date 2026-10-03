@@ -60,9 +60,10 @@ c:\kizuna-works.jp\
 │   │   ├── resellers.ts        # 販売代理店マスタ（ResellerCard が参照）。1件でも登録すると全63製品ページに代理店カードが出る。**掲載は販売代理店契約の締結後**（契約書 第9条第4項）。現在は空配列＝非表示
 │   │   └── install-ranking.json # インストール数ランキングのスナップショット（scripts/gen-install-ranking.mjs が prebuild で更新）。トップの Top3 と /plugins/ranking/ が両方これを読む＝順位が食い違わない。**手で編集しない**
 │   ├── layouts/                # 共通レイアウトコンポーネント
-│   │   ├── Layout.astro        # 全ページ共通レイアウト（GA4・AdSense・Noto Sans JP・ヘッダー・フッター）
+│   │   ├── Layout.astro        # 全ページ共通レイアウト（GA4・プラグイン内バナーからの流入元の記録（utm_source=kizuna-plugin を localStorage kz_src に30日）・Noto Sans JP・ヘッダー・フッター）。AdSense は 2026-10-03 にやめた
 │   │   └── BlogPost.astro      # ブログ記事専用レイアウト
 │   ├── pages/                  # ページファイル（URLに対応）
+│   │   ├── go/[id].astro       # /go/<広告ID>/ ＝プラグイン内バナーの広告のクリック計測用の中継ページ。public/ads/ads.json の広告（当社サイト・他社サイトとも）ごとにビルド時に生成。GA4 に ad_click（ad_id・plugin_id）を記録して行き先へ移動（行き先はビルド時に固定・URLで受け取らない。当社サイトへは utm を付ける）。noindex・サイトマップ除外（astro.config.mjs の filter）
 │   │   ├── index.astro         # トップページ（/）
 │   │   ├── about.astro         # 運営者情報ページ（/about/）― KIZUNA Works の事業紹介（kintone・Google Workspace・AIによるDX/業務効率化/自動化支援）・支援領域・提供コンテンツ・運営方針・お問い合わせ。フッターからリンク（AdSense E-E-A-T / 信頼性向上用）
 │   │   ├── contact.astro       # お問い合わせページ（/contact/）― Google Forms リンク
@@ -1354,6 +1355,9 @@ c:\kizuna-works.jp\
 │   ├── CNAME                   # GitHub Pages カスタムドメイン設定（kizuna-works.jp）
 │   ├── favicon.ico             # ルート直下のファビコン（16/32/48 のマルチサイズ ICO）。Google はここも見るので必ずブランドのマークにする（Astro テンプレートの初期アイコンが残っていて検索結果に出ていた）。scripts/gen-favicon.mjs で生成
 │   ├── llms.txt                # AI検索（ChatGPT/Perplexity/AI Overviews）向けのサイト要約。全プラグイン・拡張・ツールを1行説明付きで列挙。製品数は scripts/sync-llms-counts.mjs がビルド時に src/data/*.ts から書き換え、未掲載の製品があるとビルドを止める
+│   ├── ads/                    # プラグイン内バナーの掲載データ。各プラグインの共通 ad.js（v2）が kintone.proxy で ads/ads.json を読み、無料プランの利用者のバナーに出す（6時間キャッシュ・取得できなければ内蔵バナー）。書き方は SECRET/kintone_plugin_workspace/_planning/ad-remote_design.md
+│   │   ├── ads.json            # 掲載する広告の一覧（schema 1・期間・対象プラグイン・重み。複数あれば一覧を開くたびに順に替わる）。scripts/check-ads.mjs が prebuild で点検
+│   │   └── img/                # バナー画像（最初の画像を置くときに作る）。2400×120px＝表示 1200×60px・200KB 以内・左右の端は bg と同じ単色。帯の高さは 60px 固定。ads.json から https://kizuna-works.jp/ads/img/… で参照
 │   └── robots.txt              # 検索エンジンクローラー制御
 │
 ├── scripts/                    # ビルド補助スクリプト（Node直実行・Astro管理外）
@@ -1364,6 +1368,7 @@ c:\kizuna-works.jp\
 │   ├── check-plugin-summaries.mjs # プラグインの要約（一覧カード description / ランキング cardDescription / 製品ページ hero）が公開版に追いついているかを検査。plugins.ts の `summaryVersion` と製品ページ JSON-LD の `softwareVersion` の major.minor を比較する。prebuild では警告のみ、`npm run check:summaries` は不一致で exit 1（リリース前ゲート）
 │   ├── check-plugin-release.mjs # 公開ゲート。public/downloads/ に未コミットのプラグイン配布 zip があるとき、その版のテスト実施記録（SECRET/kintone_plugin_release/<name>_release/docs/<name>_TEST_v<版>.md に「判定: 合格」）が無ければビルドを中止する。prebuild で自動実行。SECRET/ や git が無い環境（GitHub Actions）ではスキップ
 │   ├── check-external-links.mjs # 相互リンクの維持ゲート。他社と約束した相互リンクが本文から消える／rel="nofollow" が付く／掲載テキストが変わると prebuild でビルドを中止する。約束の一覧は同ファイルの COMMITMENTS。単体実行は `npm run check:links`。解除は「先方と合意 → COMMITMENTS から削除 → 本文修正 → 記録」の順（CLAUDE.md「相互リンクの維持」参照）
+│   ├── check-ads.mjs           # public/ads/ads.json の点検。プラグインの ad.js と同じ基準（https のリンクだけ・画像は kizuna-works.jp/ads/ 配下・2400×120px・200KB 以内・画像の左右の端が bg と同じ色・画像の広告にも text・他社サイトへの広告は label 必須・rotation（表示中の自動切り替え）は不可・id は英数字・期間の書式・plugins.ts に無いプラグインID）を当て、違反があればビルドを中止。prebuild で自動実行（単体は `npm run check:ads`）
 │   ├── gen-image-derivatives.mjs # dist の HTML が参照する PNG から .webp / -800.webp を生成（Picture.astro 用）
 │   ├── gen-favicon.mjs         # src/assets/KIZUNA-Worksロゴデータlogo.png から public/favicon.ico（16/32/48）・public/images/favicon.png（192x192）・public/images/apple-touch-icon.png（180x180）を生成。Google 検索結果のアイコンは「正方形かつ48pxの倍数」でないと採用されず、ルートの /favicon.ico も見られるため両方を用意する。手動実行（`node scripts/gen-favicon.mjs`）
 │   ├── gen-blog-figures.mjs    # ブログ本文の図解を satori＋sharp でコード生成（オンブランド）
