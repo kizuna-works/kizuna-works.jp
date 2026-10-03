@@ -529,6 +529,14 @@ if (pluginId && !fixedPlugin) {
     const waitingMsg = document.getElementById('sf-waiting');
     const ENDPOINT =
       'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec';
+    // Plugin banner attribution (set in Layout.astro for 30 days). Sent as `source`; empty when the visit did not come from a banner.
+    const readKzSource = () => {
+      try {
+        const s = JSON.parse(localStorage.getItem('kz_src') || 'null');
+        if (!s || !s.at || Date.now() - s.at > 30 * 24 * 60 * 60 * 1000) return '';
+        return 'kizuna-plugin/' + (s.c || '') + '/' + (s.p || '');
+      } catch (e) { return ''; }
+    };
 
     const setError = (name, msg) => {
       const el = form.querySelector('[data-error-for="' + name + '"]');
@@ -595,6 +603,7 @@ if (pluginId && !fixedPlugin) {
         paymentMethod: form.paymentMethod.value,
         applicationType: checkedType ? checkedType.value : 'new',
         planType: planType,
+        source: readKzSource(),
       };
 
       if (!validate(data)) return;

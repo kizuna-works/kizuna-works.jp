@@ -312,6 +312,14 @@
     const waitingMsg = document.getElementById('tf-waiting');
     const ENDPOINT =
       'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec';
+    // Plugin banner attribution (set in Layout.astro for 30 days). Sent as `source`; empty when the visit did not come from a banner.
+    const readKzSource = () => {
+      try {
+        const s = JSON.parse(localStorage.getItem('kz_src') || 'null');
+        if (!s || !s.at || Date.now() - s.at > 30 * 24 * 60 * 60 * 1000) return '';
+        return 'kizuna-plugin/' + (s.c || '') + '/' + (s.p || '');
+      } catch (e) { return ''; }
+    };
 
     // ---- kintone domain field -------------------------------------------
     // Applicants often type only the subdomain, paste the whole URL, or use
@@ -409,6 +417,7 @@
         email: form.email.value,
         planType: 'trial',
         applicationType: 'new',
+        source: readKzSource(),
       };
 
       if (!validate(data, agreed)) return;
