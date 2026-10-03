@@ -243,6 +243,20 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       { name: 'Chart.js', version: '4.4.1', license: 'MIT', purpose: 'グラフ（棒・折れ線・円・レーダー等）の描画。グラフを表示するときだけ読み込みます' },
     ],
   },
+  'kw-barcode-assist': {
+    runtimeLibs: [
+      { name: 'ZXing for JS（@zxing/library）', version: '0.21.3', license: 'MIT', purpose: 'カメラ映像・撮影した画像からのバーコード・QRコードの読み取り。端末内蔵の読み取りが使える環境では読み込まないこともあります' },
+      { name: 'bwip-js', version: '4.11.2', license: 'MIT', purpose: 'バーコード・QRコードの生成（詳細画面の表示・PNG保存・添付書込・ラベル印刷）' },
+    ],
+    extraComm: [
+      {
+        label: 'まとめて更新・添付書込',
+        scope: 'internal',
+        detail:
+          'ご利用中の kintone ドメイン内の REST API だけを使います（読み取ったコードに当たるレコードの検索 GET /k/v1/records、項目の書き換え PUT /k/v1/records、ステータスを進める PUT /k/v1/records/status、生成したコード画像の添付 POST /k/v1/file）。まとめて更新は確認画面で「更新する」を押したときだけ書き換えます。カメラの映像も読み取った値もブラウザの中だけで処理し、外部へ送ることはありません。電波が途切れても読み取りを失わないよう、読み取った値を端末のブラウザに一時的に控えます（レコードの保存・まとめて更新が済むと消去し、残っていれば次に開いたときに反映するか破棄するかを確認します）。読み取り用の部品も端末に保存し、使うたびに改ざんされていないかを確かめます。',
+      },
+    ],
+  },
   'kw-bulk-update': {
     extraComm: [
       {

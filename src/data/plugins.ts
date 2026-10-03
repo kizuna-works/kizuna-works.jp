@@ -1512,7 +1512,7 @@ export const premiumPlugins: Plugin[] = [
     slug: 'barcode-assist',
     categories: ['自動入力', '検索・閲覧', '出力・帳票'],
     description:
-      'スマホやPCのカメラでバーコード・QRを読み取り、レコードへ入力／該当レコードを開く／予定と実績の照合まで行うプラグイン。マスターに無いコードは警告。値からコードを生成してA4ラベル面付け印刷もでき、4機能は個別にオン／オフ。',
+      'スマホのカメラやハンディスキャナでバーコード・QRを読み取り、レコードへ入力／検索／予定と実績の照合／一覧でまとめて更新。GS1 のロット・使用期限も分けて入れ、値からコードを作ってA4ラベル印刷まで。5機能は個別にオン／オフ。',
     image: '/images/barcode-assist-banner.png',
     imageWebp: '/images/barcode-assist-banner.webp',
     imageAlt:
@@ -1522,11 +1522,11 @@ export const premiumPlugins: Plugin[] = [
     status: 'available',
     tier: 'premium',
     cardDescription:
-      'スマホのカメラでバーコード・QRを読み取り、レコードへ入力／検索／予定と実績の照合。マスターに無いコードは警告。値からコードを作ってA4ラベル印刷まで。',
+      'カメラやハンディスキャナでバーコード・QRを読み取り、入力・検索・照合・一覧でまとめて更新。GS1 の分解からA4ラベル印刷まで。',
     problemTitle: '現物とレコードの突き合わせが手打ち',
-    problemDesc: '棚卸や検品で型番を目視で読んで手入力しており、桁ずれや入力漏れが起きる。ラベルの発行も別ソフトで二重管理になっている',
+    problemDesc: '棚卸・検品・出荷で型番を目視で読んで手入力し、ステータスも1件ずつ更新している。桁ずれや入力漏れが起き、ラベルの発行も別ソフトで二重管理になっている',
     releaseDate: '2026-08-10',
-    summaryVersion: '1.1.0',
+    summaryVersion: '1.2.0',
   },
   {
     id: 'kw-pdf-edit',
