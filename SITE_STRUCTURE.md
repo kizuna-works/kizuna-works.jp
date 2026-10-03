@@ -978,7 +978,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-address-assist-v1.2.1.zip                          # 住所アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-address-assist-v1.2.2.zip                          # 住所アシスト for kintone 配布ファイル（最新・手動配置・v1.2.2 逆引きボタンの重なり順を修正）
 │   │   ├── kw-ambiguous-match-v1.0.0.zip                         # あいまい照合 for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-ambiguous-match-v1.0.1.zip                         # あいまい照合 for kintone 配布ファイル（最新・手動配置・v1.0.1 ライセンス認証の内部改修）
+│   │   ├── kw-ambiguous-match-v1.0.1.zip                         # あいまい照合 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-ambiguous-match-v1.0.2.zip                         # あいまい照合 for kintone 配布ファイル（最新・v1.0.2：照合用の取得を端末に控え、API リクエスト数を節約）
 │   │   ├── kw-attribute-filter-v1.0.0.zip                        # 属性制御フィルター for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=1フィールド全機能）
 │   │   ├── kw-attribute-filter-v1.0.1.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-attribute-filter-v1.0.2.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
