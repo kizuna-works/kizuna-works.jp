@@ -9,7 +9,7 @@ import { recipes, widgetTypeLabels } from '../../../data/recipes';
 import TrialBanner from '../../../components/TrialBanner.astro';
 
 // Pick a few representative recipes to showcase in the "設定レシピ集" teaser.
-const teaserIds = ['bar-office-sales', 'donut-category-share', 'line-monthly-trend', 'crosstab-office-category', 'heatmap-winrate', 'card-win-rate'];
+const teaserIds = ['bar-office-sales', 'donut-category-share', 'line-monthly-trend', 'crosstab-office-category', 'heatmap-winrate', 'bar-table-filter-product'];
 const teaser = teaserIds
   .map((id) => recipes.find((r) => r.id === id))
   .filter((r): r is NonNullable<typeof r> => Boolean(r));
@@ -17,9 +17,9 @@ const teaser = teaserIds
 
 <Layout
   title="ダッシュボード for kintone｜グラフ・集計を1枚に(BI/可視化) | KIZUNA Works"
-  description="kintone のダッシュボード（BI）プラグイン。グラフ・数値カード・クロス集計表を1枚に集約し、一覧のカスタマイズビューやポータルに常設の集計ダッシュボードを描画。期間連動の再集計・アプリ横断集計・テーブル（サブテーブル）の集計に対応。kintone完結のプレミアムプラグイン。"
+  description="kintone のダッシュボード（BI）プラグイン。グラフ・数値カード・クロス集計表を1枚に集約し、一覧のカスタマイズビューやポータルに常設の集計ダッシュボードを描画。期間連動の再集計・アプリ横断集計・テーブル（サブテーブル）の集計とカードごとの絞り込みに対応。kintone完結のプレミアムプラグイン。"
   ogTitle="ダッシュボード for kintone｜グラフ・集計を1枚に(BI/可視化) | KIZUNA Works"
-  ogDescription="kintone のダッシュボード（BI）プラグイン。グラフ・数値カード・クロス集計表を1枚に集約。期間連動の再集計・アプリ横断集計・テーブル（サブテーブル）の集計に対応するプレミアムプラグイン。"
+  ogDescription="kintone のダッシュボード（BI）プラグイン。グラフ・数値カード・クロス集計表を1枚に集約。期間連動の再集計・アプリ横断集計・テーブル（サブテーブル）の集計とカードごとの絞り込みに対応するプレミアムプラグイン。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/dashboard/"
   ogImage="https://kizuna-works.jp/images/dashboard-banner.png"
@@ -35,7 +35,7 @@ const teaser = teaserIds
           "@id": "https://kizuna-works.jp/plugins/dashboard/",
           "url": "https://kizuna-works.jp/plugins/dashboard/",
           "name": "ダッシュボード for kintone｜グラフ・集計を1枚に(BI/可視化) | KIZUNA Works",
-          "description": "kintone のダッシュボード（BI）プラグイン。グラフ・数値カード・クロス集計表を1枚に集約し、一覧のカスタマイズビューやポータルに常設の集計ダッシュボードを描画・データ可視化する。テーブル（サブテーブル）の明細の数値も集計できる。",
+          "description": "kintone のダッシュボード（BI）プラグイン。グラフ・数値カード・クロス集計表を1枚に集約し、一覧のカスタマイズビューやポータルに常設の集計ダッシュボードを描画・データ可視化する。テーブル（サブテーブル）の明細の数値も、カードごとの条件で行単位に絞り込んで集計できる。",
           "primaryImageOfPage": {
             "@type": "ImageObject",
             "url": "https://kizuna-works.jp/images/dashboard-banner.png",
@@ -57,10 +57,10 @@ const teaser = teaserIds
           "name": "ダッシュボード for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.4.0",
-          "dateModified": "2026-10-01",
+          "softwareVersion": "1.5.0",
+          "dateModified": "2026-10-03",
           "url": "https://kizuna-works.jp/plugins/dashboard/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-dashboard-v1.4.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-dashboard-v1.5.0.zip",
           "image": "https://kizuna-works.jp/images/dashboard-banner.png",
           "offers": [
             {
@@ -80,13 +80,14 @@ const teaser = teaserIds
               "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、本プラグインと販売中の全プラグインの全機能を利用できます。単品販売はありません。"
             }
           ],
-          "description": "グラフ・数値カード・クロス集計表を1枚に集約し、レコード一覧のカスタマイズビューに常設の集計ダッシュボードを描画する kintone プラグイン。期間連動再集計・アプリ横断集計・ポータル常設・集計キャッシュ・テーブル（サブテーブル）の集計に対応。",
+          "description": "グラフ・数値カード・クロス集計表を1枚に集約し、レコード一覧のカスタマイズビューに常設の集計ダッシュボードを描画する kintone プラグイン。期間連動再集計・アプリ横断集計・ポータル常設・集計キャッシュ・テーブル（サブテーブル）の集計・カードごとの条件に対応。",
           "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
           "featureList": [
             "グラフ（縦棒・横棒・折れ線・エリア・円・ドーナツ・レーダー・積み上げ各種・複合・割合%）",
             "数値カード（合計・件数・平均などの単一値／割合%／★評価）",
             "クロス集計表・ヒートマップ（行×列のピボット集計・濃淡/閾値カラー・行合計／列合計を個別に表示・日付の行や列は時系列順）",
             "テーブル（サブテーブル）の集計（カードごとに集計の単位でテーブルを選び、テーブルの1行を1件として集計・分類や条件に親レコードのフィールドも使える）",
+            "カードごとの条件（数値カード・グラフ・クロス集計表を、そのカードだけ絞り込む。テーブル内の項目・ルックアップで行単位に絞り込める）",
             "時間の集計（時間の計算フィールド・分/時間/秒の数値を「〇時間〇分」でカード・グラフ・クロス集計に表示）",
             "時間の条件を「8:30」で入力・ドリルダウンでも正しく絞り込み（秒に換算して検索）",
             "12列グリッドに複数ウィジェットを自由配置",
@@ -290,45 +291,46 @@ const teaser = teaserIds
       <img class="dbp-hero-icon" src="/images/dashboard-icon.png" alt="ダッシュボード for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="dbp-hero-badges">
         <span class="dbp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="dbp-hero-version">v1.4.0</span>
+        <span class="dbp-hero-version">v1.5.0</span>
       </div>
       <h1>ダッシュボード for kintone</h1>
       <p class="dbp-tagline">見たい数字を、1枚に。</p>
-      <p class="dbp-sub">グラフ・数値カード・クロス集計表を1つのボードに集約。レコード一覧のカスタマイズビューに業務の数字を一望できる集計ダッシュボードを常設し、ポータルには別々のボードのグラフを横並びに配置できます。テーブル（サブテーブル）の明細の数値も集計できます。</p>
+      <p class="dbp-sub">グラフ・数値カード・クロス集計表を1つのボードに集約。レコード一覧のカスタマイズビューに業務の数字を一望できる集計ダッシュボードを常設し、ポータルには別々のボードのグラフを横並びに配置できます。テーブル（サブテーブル）の明細の数値も、カードごとの条件で品目などを絞り込んで集計できます。</p>
     </section>
     <div class="dbp-hero-gradient-line"></div>
 
-    <!-- Update Info (v1.4.0) -->
+    <!-- Update Info (v1.5.0) -->
     <section class="dbp-section">
       <div class="dbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.4.0：テーブル（サブテーブル）の数値を、グラフ・クロス集計表で集計できるようになりました</h2>
+            <h2 class="update-title">v1.5.0：カードごとに条件を設定し、テーブルの中の項目で絞り込んで集計できるようになりました</h2>
           </div>
-          <p class="update-desc">月ごとに作るレコードの明細テーブルのように、<strong>テーブルに入力した数値をグラフ・数値カード・クロス集計表で集計</strong>できます。カードの設定の「集計の単位」でテーブルを選ぶと、<strong>テーブルの1行を1件</strong>として集計します。明細の「製品名」を行、親レコードの「年月」を列にして金額を合計すれば、製品×月の表がそのまま作れます。</p>
+          <p class="update-desc">数値カード・グラフ・クロス集計表の設定に<strong>「このカードの条件」</strong>が増えました。条件はそのカードだけに効くので、同じデータソースから「全体の合計」と「特定の製品だけの合計」を並べられます。テーブル（サブテーブル）を集計するカードでは、<strong>テーブルの中の項目（ルックアップを含む）で、条件に合う行だけを集計</strong>します。同じレコードにあるほかの製品の行は入りません。</p>
           <div class="update-shot">
             <Picture
-              src="/images/dashboard-table-01.png"
-              alt="ダッシュボード for kintone v1.4.0 — 月ごと・工場ごとに作る「月次生産実績」アプリの生産明細テーブルを集計した「生産ダッシュボード」。ヒートマップ付きのクロス集計表「製品×月の生産金額」（六角ボルト M8・六角ナット M8・スプリングピン・平ワッシャー × 2026-04〜2026-09・合計 5,022,700）、数値カード「生産金額の合計 5,022,700円」、製品別に色分けした積み上げ棒グラフ「月別の生産数量（製品別）」、棒グラフ「工場別の不良数」が並んでいる"
+              src="/images/dashboard-filter-01.png"
+              alt="ダッシュボード for kintone v1.5.0 — 「生産ダッシュボード」の下段に、このカードの条件で生産明細の製品名を「六角ボルト M8」に絞った棒グラフ「六角ボルト M8 の月別生産金額」（2026-04〜2026-09）と、数値カード「六角ボルト M8 の生産金額 2,484,000円」が並び、どちらのカードにもタイトルの下に「条件：製品名 いずれか 六角ボルト M8」と表示されている。上段のクロス集計表「製品×月の生産金額」の六角ボルト M8 の合計 2,484,000 と一致し、全体の合計カードは 5,022,700円"
               width="2100"
-              height="1176"
+              height="1776"
               class="zoomable"
             />
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
-          <p class="update-desc"><strong>集計する数値はテーブルの列</strong>から選び、分類・系列・条件にはテーブルの列に加えて<strong>親レコードのフィールドも使えます</strong>。候補ではテーブルの列に「[テーブル名]」が付くので見分けられます。件数は行の数で数え、行のないレコードは数えません。テーブルが複数あるアプリでは、カードごとに別のテーブルを選べます。</p>
+          <p class="update-desc">条件の欄では、テーブルの列に「[テーブル名]」が付き、親レコードのフィールドも選べます。選択肢のフィールドは値を一覧から選べます。ダッシュボードでは、条件を付けたカードのタイトルの下に「条件：…」と表示されるので、全体の数字と見分けられます。データソースの絞り込み条件は、そのデータソースを使うすべてのカードに効くので、<strong>カードごとに変えたい条件や、テーブルの中の項目の条件はカードの条件</strong>に設定してください。</p>
           <div class="update-shot">
             <Picture
-              src="/images/dashboard-table-02.png"
-              alt="ダッシュボード for kintone v1.4.0 の設定画面 — クロス集計表のカード設定で「集計の単位」に「テーブル『生産明細』の行（1行＝1件）」を選んでいる。その下に、テーブルの1行を1件として集計することの説明があり、行項目に「[生産明細] 製品名」、列項目に親レコードの「年月」、集計に「合計」「[生産明細] 金額」を選んでいる"
+              src="/images/dashboard-filter-02.png"
+              alt="ダッシュボード for kintone v1.5.0 の設定画面 — グラフのカード設定で、集計の単位に「テーブル『生産明細』の行」、集計に「合計」「[生産明細] 金額」を選び、その下の見出し「このカードの条件（任意）」と、条件に合うテーブルの行だけを集計する旨の案内に続けて、「[生産明細] 製品名」「いずれか」「六角ボルト M8」を指定している"
               width="1073"
-              height="965"
+              height="1293"
               class="zoomable"
             />
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
-          <p class="update-note">ウィジェットをクリックして開く一覧は、kintone の一覧がレコード単位のため、<strong>該当する行を含むレコードの一覧</strong>です。期間セレクタは、データソースで選んだ親レコードの日付フィールドで絞り込みます。「集計の単位」を「レコード」のままにしたカードは、これまでどおり1レコードを1件として集計します。<br>既存ユーザーの方は、最新版（v1.4.0）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。</p>
+          <p class="update-desc"><strong>不具合の修正：</strong>割合（分子÷分母）のカード・グラフ・クロス集計表で、分子・分母の条件に日付を使うと、日付の「期間（範囲）」「以降」「以前」が正しく判定されず、割合が 0% や 100% になることがありました。v1.5.0 で修正しています（設定のやり直しは不要です）。あわせて、条件に使った項目が削除されたときは 0 ではなく「対象フィールドなし」と表示し、値を入れていない条件は集計に使わないようにしました。</p>
+          <p class="update-note">設定例は<a href="/plugins/dashboard/recipes/">設定レシピ集</a>の「テーブル集計」にもまとめています。ウィジェットをクリックして開く一覧は、kintone の一覧がレコード単位のため、条件に合う行を含むレコードの一覧です。無料プランでお使いの方に一覧の上へ表示している案内（バナー）は、全プラグイン共通の新しい形式になりました。<br>既存ユーザーの方は、最新版（v1.5.0）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。</p>
         </div>
       </div>
     </section>
@@ -446,6 +448,20 @@ const teaser = teaserIds
           />
         </div>
 
+        <div class="dbp-feature reverse">
+          <div class="dbp-feature-text">
+            <h3>テーブル（サブテーブル）の明細を集計</h3>
+            <p>月ごとに作るレコードの明細テーブルのように、<strong>テーブルに入力した数値をグラフ・数値カード・クロス集計表で集計</strong>できます。カードの「集計の単位」でテーブルを選ぶと、テーブルの1行を1件として集計します。明細の「製品名」を行、親レコードの「年月」を列にして金額を合計すれば、製品×月の表がそのまま作れます。「このカードの条件」で、特定の製品の行だけを集計することもできます。</p>
+          </div>
+          <Picture
+            src="/images/dashboard-table-01.png"
+            alt="ダッシュボード for kintone — 月ごと・工場ごとに作る「月次生産実績」アプリの生産明細テーブルを集計した「生産ダッシュボード」。ヒートマップ付きのクロス集計表「製品×月の生産金額」（六角ボルト M8・六角ナット M8・スプリングピン・平ワッシャー × 2026-04〜2026-09・合計 5,022,700）、数値カード「生産金額の合計 5,022,700円」、製品別に色分けした積み上げ棒グラフ「月別の生産数量（製品別）」、棒グラフ「工場別の不良数」が並んでいる"
+            width="2100"
+            height="1176"
+            class="zoomable"
+          />
+        </div>
+
         <div class="dbp-grid-feats" style="margin-top:8px;">
           <div class="dbp-feat-card">
             <span class="dbp-tag-premium">プレミアム</span>
@@ -467,6 +483,10 @@ const teaser = teaserIds
             <p>カードごとに「集計の単位」でテーブルを選ぶと、テーブルの1行を1件として集計します。明細の製品名×親レコードの年月のように、テーブルの列と親レコードのフィールドを組み合わせたグラフやクロス集計表が作れます。テーブルが複数あるアプリでは、カードごとに別のテーブルを選べます。</p>
           </div>
           <div class="dbp-feat-card">
+            <h3>カードごとの条件</h3>
+            <p>数値カード・グラフ・クロス集計表に「このカードの条件」を設定すると、そのカードだけを絞り込めます。テーブルを集計するカードでは、テーブルの中の項目（ルックアップを含む）で条件に合う行だけを集計します。全体の合計と特定の製品の合計を、同じボードに並べられます。</p>
+          </div>
+          <div class="dbp-feat-card">
             <h3>ドリルダウン</h3>
             <p>ウィジェットをクリックすると、その集計の対象レコードの一覧へ遷移。気になった数字の中身をすぐ確認できます。</p>
           </div>
@@ -476,7 +496,7 @@ const teaser = teaserIds
           </div>
           <div class="dbp-feat-card">
             <h3>集計できない理由を表示</h3>
-            <p>集計に使うフィールドが削除された、または閲覧権限が無い場合は、0 と見誤らないよう「対象フィールドなし（フィールドコード）」と表示します。取得に失敗したときは kintone からの理由を併記。ほかのウィジェットはそのまま表示されます。</p>
+            <p>集計や条件に使うフィールドが削除された、または閲覧権限が無い場合は、0 と見誤らないよう「対象フィールドなし（フィールドコード）」と表示します。取得に失敗したときは kintone からの理由を併記。ほかのウィジェットはそのまま表示されます。</p>
           </div>
           <div class="dbp-feat-card">
             <h3>配色・ライブプレビュー</h3>
@@ -497,7 +517,7 @@ const teaser = teaserIds
           <div class="dbp-recipe-cta-head">
             <h3>作りたいグラフから逆引き：設定レシピ集</h3>
           </div>
-          <p>「営業所別の売上を縦棒で」「受注率を%カードで」「営業所×カテゴリのクロス集計」など、よくある業務シーン別に <strong>目的 → 設定手順 → 完成イメージ</strong> で解説しています。作りたいウィジェットの作り方がすぐ分かります。</p>
+          <p>「営業所別の売上を縦棒で」「営業所×カテゴリのクロス集計」「明細テーブルの特定の製品だけの推移」など、よくある業務シーン別に <strong>目的 → 設定手順 → 完成イメージ</strong> で解説しています。作りたいウィジェットの作り方がすぐ分かります。</p>
           <div class="dbp-recipe-thumbs">
             {teaser.map((r) => (
               <a class="dbp-recipe-thumb" href={`/plugins/dashboard/recipes/#${r.id}`}>
@@ -530,7 +550,7 @@ const teaser = teaserIds
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-dashboard-v1.4.0.zip" download class="dbp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-dashboard-v1.5.0.zip" download class="dbp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="dbp-plan-card recommended">
@@ -664,10 +684,10 @@ const teaser = teaserIds
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-dashboard-v1.4.0.zip',
+            file_name: 'kw-dashboard-v1.5.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-dashboard-v1.4.0.zip'
+            link_url: '/downloads/kw-dashboard-v1.5.0.zip'
           });
         });
       }
