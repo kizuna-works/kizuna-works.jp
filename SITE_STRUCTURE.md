@@ -1023,9 +1023,10 @@ c:\kizuna-works.jp\
 │   │   ├── kw-conditional-form-v2.3.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管・v2.3.0 実行時チェック＝保存前/プロセスアクション実行前/削除前に条件で止める・確認する・入力を促す＋アクションボタンの出し分け）
 │   │   ├── kw-conditional-form-v2.4.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管・v2.4.0 値のセットでほかのフィールドの値をコピー＋固定値の複数指定＋グループ内フィールドの明示）
 │   │   ├── kw-conditional-form-v2.5.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管・v2.5.0＝モバイル対応／チェックボックス・ラジオの選択肢絞り込みの不具合修正）
-│   │   ├── kw-conditional-form-v2.7.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（最新・手動配置・v2.7.0＝ルールの「適用する画面」に「印刷」を追加し、表示／非表示を印刷画面にも適用）
+│   │   ├── kw-conditional-form-v2.7.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・手動配置・v2.7.0＝ルールの「適用する画面」に「印刷」を追加し、表示／非表示を印刷画面にも適用）
 │   │   ├── kw-conditional-form-v2.6.0.zip                        # 条件分岐フォーム for kintone 配布ファイル（旧版・参考保管・v2.6.0＝値のセットを条件を満たした状態で画面を開いたときにも実行（空欄のみ／上書きを選択）・詳細画面を選んだときの注意書き）
 │   │   ├── kw-conditional-form-v2.2.1.zip                        # 条件分岐フォーム for kintone 配布ファイル（v2.2.1 他のJSカスタマイズの例外でイベントチェーンが中断されても後続を巻き込まない保護＋レコード画面のフォールバック起動）
+│   │   ├── kw-conditional-form-v2.7.1.zip  # 条件分岐フォーム for kintone 配布ファイル（最新・2026-10-03・v2.7.1：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
 │   │   ├── kw-conditional-numbering-v1.1.0.zip                   # 条件分岐自動採番 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-conditional-numbering-v1.1.1.zip                   # 条件分岐自動採番 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-conditional-numbering-v1.1.2.zip                   # 条件分岐自動採番 for kintone 配布ファイル（旧版）
@@ -1055,12 +1056,14 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-add-v1.0.0.zip    # ルックアップ新規登録 v1.0.0 配布物
 │   │   ├── kw-lookup-add-v1.0.1.zip    # ルックアップ新規登録 v1.0.1（2026-09-14 に版そのままで差し替え＝フォームの並びを実行時に読み、列の入れ替えに追従）
 │   │   ├── kw-annotation-v1.0.0.zip    # 注釈アシスト v1.0.0 配布物（最新・2026-09-25 配布開始）
-│   │   ├── kw-lookup-add-v1.0.2.zip    # ルックアップ新規登録 v1.0.2（最新・2026-09-14＝［＋新規登録］の表示を1つに保つよう置き方を見直し、設定画面に共通項目である旨を明記）
-│   │   ├── kw-lookup-filter-v1.1.0.zip # ルックアップ絞り込み v1.1.0（最新・2026-09-24＝条件に合わない値で保存しようとしたときに「確認して保存」を選べる／保存時の検査は今回入れた・書き換えた値だけ）
+│   │   ├── kw-lookup-add-v1.0.2.zip    # ルックアップ新規登録 v1.0.2（旧版・2026-09-14＝［＋新規登録］の表示を1つに保つよう置き方を見直し、設定画面に共通項目である旨を明記）
+│   │   ├── kw-lookup-add-v1.0.3.zip  # ルックアップ新規登録 for kintone 配布ファイル（最新・2026-10-03・v1.0.3：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に・「バナー非表示」の案内先をプレミアム年間サポーターに修正）
+│   │   ├── kw-lookup-filter-v1.1.0.zip # ルックアップ絞り込み v1.1.0（旧版・2026-09-24＝条件に合わない値で保存しようとしたときに「確認して保存」を選べる／保存時の検査は今回入れた・書き換えた値だけ）
 │   │   ├── kw-lookup-filter-v1.0.1.zip # ルックアップ絞り込み v1.0.1（旧版・参考保管）
 │   │   ├── kw-lookup-suggest-v3.0.1.zip # ルックアップサジェスト v3.0.1（同上）
 │   │   ├── kw-conditional-numbering-v2.2.0.zip # 条件分岐自動採番 v2.2.0 配布物
 │   │   ├── kw-lookup-filter-v1.0.0.zip                          # ルックアップ絞り込み for kintone 配布ファイル（旧版・手動配置・プレミアム第14弾 初版）
+│   │   ├── kw-lookup-filter-v1.1.1.zip  # ルックアップ絞り込み for kintone 配布ファイル（最新・2026-10-03・v1.1.1：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に・「バナー非表示」の案内先をプレミアム年間サポーターに修正）
 │   │   ├── kw-elapsed-assist-v1.0.2.zip                          # 経過計算アシスト for kintone 配布ファイル（手動配置・v1.0.2 初版：基準日から9パターン自動計算＋その場再計算＋保存書込＋停止条件＋一括再計算）
 │   │   ├── kw-elapsed-assist-v1.0.3.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-elapsed-assist-v1.0.4.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
@@ -1089,7 +1092,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-styler-v2.3.1.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・手動配置・v2.3.1 ライセンス認証の内部改修）
 │   │   ├── kw-field-styler-v2.4.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管・v2.4.0 でテーブル外フィールドが作成/編集画面にも反映）
 │   │   ├── kw-field-styler-v2.5.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管・v2.5.0 で明細内の文字数/文字種制限と最大行数）
-│   │   ├── kw-field-styler-v2.5.1.zip                            # フィールドスタイラー for kintone 配布ファイル（最新・v2.5.1 で一覧のコピー機能の空セルで行の背景色が抜ける不具合を修正）
+│   │   ├── kw-field-styler-v2.5.1.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・v2.5.1 で一覧のコピー機能の空セルで行の背景色が抜ける不具合を修正）
+│   │   ├── kw-field-styler-v2.5.2.zip  # フィールドスタイラー for kintone 配布ファイル（最新・2026-10-03・v2.5.2：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
 │   │   ├── kw-file-icon-marker-v1.0.0.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-icon-marker-v1.0.1.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-icon-marker-v1.0.2.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
@@ -1102,7 +1106,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-file-preview-v2.1.0.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-preview-v2.2.0.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-preview-v2.2.1.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版）
-│   │   ├── kw-file-preview-v2.2.2.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（最新・手動配置・v2.2.2 他社PDFプラグイン併用時の表示不具合を修正）
+│   │   ├── kw-file-preview-v2.2.2.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版・手動配置・v2.2.2 他社PDFプラグイン併用時の表示不具合を修正）
+│   │   ├── kw-file-preview-v2.3.1.zip  # 添付ファイルプレビュー for kintone 配布ファイル（最新・2026-10-03・v2.3.1：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
 │   │   ├── kw-form-deco-v1.0.0.zip                               # FormDeco for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-form-deco-v1.0.1.zip                               # FormDeco for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-form-deco-v1.0.2.zip                               # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
@@ -1112,7 +1117,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-input-assist-v1.0.2.zip                            # 入力アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-input-assist-v2.0.0.zip                            # 入力アシスト for kintone 配布ファイル（旧版・手動配置・v2.0.0＝入力サジェスト追加／サブテーブル内対応。公開後に参照アプリの一覧選択と不具合2件の修正を同じ 2.0.0 として差し替え）
 │   │   ├── kw-input-assist-v2.0.1.zip                            # 入力アシスト for kintone 配布ファイル（旧版・手動配置・v2.0.1 ライセンス認証の内部改修）
-│   │   ├── kw-input-assist-v2.1.0.zip                            # 入力アシスト for kintone 配布ファイル（最新・手動配置・v2.1.0 拡大入力を追加）
+│   │   ├── kw-input-assist-v2.1.0.zip                            # 入力アシスト for kintone 配布ファイル（旧版・手動配置・v2.1.0 拡大入力を追加）
+│   │   ├── kw-input-assist-v2.1.1.zip  # 入力アシスト for kintone 配布ファイル（最新・2026-10-03・v2.1.1：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
 │   │   ├── kw-input-template-v1.0.0.zip                          # 入力テンプレート for kintone v1.0.0 配布ファイル（プレミアム第9弾・単品販売なし・共通/個人2階層・動的な日付・保管アプリはスペース内で共有）
 │   │   ├── kw-input-template-v1.0.1.zip                          # 入力テンプレート for kintone 配布ファイル（旧版・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-input-template-v1.2.0.zip                          # 入力テンプレート for kintone 配布ファイル（最新・2026-09-25＝ユーザー選択に「ログインユーザー」・組織選択に「優先する組織」／テーブルの列を「空欄にする」／「本日から○日後」／表示名で入る）
@@ -1133,8 +1139,9 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-suggest-v2.1.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.1.0 でモバイル版 kintone 対応＝通常ルックアップのみ）
 │   │   ├── kw-lookup-suggest-v2.2.1.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.2.1＝候補リストの表示方法選択／複数ルックアップの不具合修正／サジェスト併記フィールドの拡充）
 │   │   ├── kw-lookup-suggest-v2.2.2.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.2.2 ライセンス認証の内部改修）
-│   │   ├── kw-lookup-suggest-v2.3.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（最新・手動配置・v2.3.0＝記号を含む品番を途中まで入力しても候補が絞り込めるよう修正／候補が多いグループはoffsetページングで最大1万件まで自動読み込み／検索リクエスト数の削減）
-│   │   ├── kw-lookup-suggest-v3.0.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（最新・手動配置・v3.0.0＝ルックアップの「絞り込みの初期設定」を候補にも適用〔標準の選択画面に出ない候補が出て選べてしまう不具合の修正〕／絞り込んだ条件をリストに表示／ルックアップ絞り込みとの連携の受け口）
+│   │   ├── kw-lookup-suggest-v2.3.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.3.0＝記号を含む品番を途中まで入力しても候補が絞り込めるよう修正／候補が多いグループはoffsetページングで最大1万件まで自動読み込み／検索リクエスト数の削減）
+│   │   ├── kw-lookup-suggest-v3.0.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v3.0.0＝ルックアップの「絞り込みの初期設定」を候補にも適用〔標準の選択画面に出ない候補が出て選べてしまう不具合の修正〕／絞り込んだ条件をリストに表示／ルックアップ絞り込みとの連携の受け口）
+│   │   ├── kw-lookup-suggest-v3.0.2.zip  # ルックアップサジェスト for kintone 配布ファイル（最新・2026-10-03・v3.0.2：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
 │   │   ├── kw-lookup-sync-v1.0.0.zip                             # ルックアップ自動同期 for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=参照先1組で全機能）
 │   │   ├── kw-lookup-sync-v1.0.1.zip                             # ルックアップ自動同期 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-lookup-sync-v2.0.2.zip                             # ルックアップ自動同期 for kintone v2.0.2 配布ファイル（重複しうるキー対応＝方式1/方式2・入力補完・PC/モバイル）
@@ -1159,8 +1166,9 @@ c:\kizuna-works.jp\
 │   │   ├── kw-calendar-view-v1.0.1.zip                   # カレンダービュー for kintone 配布ファイル（旧版・参考保管・v1.0.1 重複禁止が未設定のルックアップでも安定して動作するよう改善）
 │   │   ├── kw-calendar-view-v1.0.2.zip                   # カレンダービュー for kintone 配布ファイル（最新・v1.0.2：スマートフォンで開いてすぐ・画面幅に収まって表示／自作のカスタマイズビューでもスマホに表示／元に戻すをタップで使える）
 │   │   ├── kw-pdf-edit-v1.0.0.zip                              # PDF編集アシスト for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-pdf-edit-v1.2.6.zip                              # PDF編集アシスト for kintone 配布ファイル（最新・v1.2.6 署名欄の複数登録＋別のサインを追加）
+│   │   ├── kw-pdf-edit-v1.2.6.zip                              # PDF編集アシスト for kintone 配布ファイル（旧版・v1.2.6 署名欄の複数登録＋別のサインを追加）
 │   │   ├── kw-pdf-edit-v1.1.0.zip                              # PDF編集アシスト for kintone 配布ファイル（旧版・v1.1.0 スマホ対応＋サイン専用モード）
+│   │   ├── kw-pdf-edit-v1.2.8.zip  # PDF編集アシスト for kintone 配布ファイル（最新・2026-10-03・v1.2.8：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
 │   │   ├── kw-quick-history-view-v1.0.0.zip                      # クイック履歴ビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-history-view-v1.0.1.zip                      # クイック履歴ビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-history-view-v1.0.2.zip                      # クイック履歴ビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
@@ -1171,7 +1179,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-search-v1.1.2.zip                            # クイックサーチ for kintone 配布ファイル（手動配置・v1.1.2 でゲストスペース対応）
 │   │   ├── kw-quick-search-v1.2.0.zip                            # クイックサーチ for kintone 配布ファイル（手動配置・v1.2.0＝期間フィルタ追加）
 │   │   ├── kw-quick-search-v1.2.2.zip                            # クイックサーチ for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-quick-search-v1.2.3.zip                            # クイックサーチ for kintone 配布ファイル（最新・手動配置・v1.2.3 ライセンス認証の内部改修）
+│   │   ├── kw-quick-search-v1.2.3.zip                            # クイックサーチ for kintone 配布ファイル（旧版・手動配置・v1.2.3 ライセンス認証の内部改修）
+│   │   ├── kw-quick-search-v1.2.4.zip  # クイックサーチ for kintone 配布ファイル（最新・2026-10-03・v1.2.4：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
 │   │   ├── kw-quick-side-view-v1.0.0.zip                         # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-side-view-v1.0.1.zip                         # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-side-view-v1.0.2.zip                         # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
@@ -1260,10 +1269,11 @@ c:\kizuna-works.jp\
 │   │   ├── kw-table-assist-v1.2.0.zip                                # テーブルアシスト for kintone 配布ファイル（最新・v1.2.0：選んだ行の時間を合計・出力先に書く単位・書き込めないときの案内）
 │   │   ├── kw-image-compress-v1.0.0.zip # 画像圧縮 for kintone 配布物（旧版・v1.0.0）
 │   │   ├── kw-image-compress-v1.0.1.zip # 画像圧縮 for kintone 配布物（最新・v1.0.1 圧縮後に画面を自動で読み直す修正。プロセス管理が「ほかのユーザーが更新しました」で実行できない不具合の解消）
-│   │   ├── kw-table-preview-v1.1.0.zip                          # テーブルプレビュー for kintone 配布ファイル（最新・見出しクリックで明細の並べ替え／出ている行数の表示／出す一覧の選択）
+│   │   ├── kw-table-preview-v1.1.0.zip                          # テーブルプレビュー for kintone 配布ファイル（旧版・見出しクリックで明細の並べ替え／出ている行数の表示／出す一覧の選択）
 │   │   ├── kw-table-preview-v1.0.0.zip                          # テーブルプレビュー for kintone 配布ファイル（旧版・一覧に列を足して明細の件数と集計値をバッジ表示／ホバーでポップアップ／その場編集）
-│   │   ├── kw-table-preview-v1.2.0.zip                               # テーブルプレビュー for kintone 配布ファイル（最新・v1.2.0：明細の時間を〇時間〇分で合計）
-│   │   ├── kw-table-preview-v1.2.1.zip  # テーブルプレビュー for kintone 配布ファイル（最新・v1.2.1：一覧スタイラーのテーブル展開と同居したとき続きの行の列がずれる不具合を修正）
+│   │   ├── kw-table-preview-v1.2.0.zip                               # テーブルプレビュー for kintone 配布ファイル（旧版・v1.2.0：明細の時間を〇時間〇分で合計）
+│   │   ├── kw-table-preview-v1.2.1.zip  # テーブルプレビュー for kintone 配布ファイル（旧版・v1.2.1：一覧スタイラーのテーブル展開と同居したとき続きの行の列がずれる不具合を修正）
+│   │   ├── kw-table-preview-v1.2.2.zip  # テーブルプレビュー for kintone 配布ファイル（最新・2026-10-03・v1.2.2：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
 │   │   ├── kw-footprint-v1.1.0.zip  # 足あと for kintone 配布ファイル（最新・v1.1.0：記録する人・詳細画面の閲覧状況・一覧のユーザーの足あと・組織の階層表示）
 │   │   ├── kw-footprint-v1.0.0.zip  # 足あと for kintone 配布ファイル（旧版・v1.0.0 初版：一覧の足あと列・ホバー・詳細画面のフィールド足あと）
 │   │   ├── kw-file-export-v1.0.0.zip                             # 添付ファイル出力 for kintone 配布ファイル（旧版・参考保管）
