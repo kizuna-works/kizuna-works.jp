@@ -67,6 +67,9 @@ for (const b of data.banners || []) {
   // 他社サイトへの広告には札（「PR」「提携」など）を必須にする（2026-10-03 決定）。自社サイトへの宣伝は札なしでよい
   if (typeof b.link === 'string' && /^https:\/\//.test(b.link) && !b.link.startsWith('https://kizuna-works.jp/') && !String(b.label || '').trim())
     err(id, '他社サイトへの広告には label（「PR」または「提携」など）を付けてください。宣伝であることが分かるようにするためです');
+  // 当社サイトへのリンクは中継ページが utm（campaign=広告ID）を付ける。手書きの utm があると中継ページは付けず、どの広告から来たかが残らない
+  if (typeof b.link === 'string' && b.link.startsWith('https://kizuna-works.jp/') && /[?&]utm_/.test(b.link))
+    err(id, '当社サイトへのリンクに utm を書かないでください。中継ページ /go/' + id + '/ が utm_campaign=' + id + ' 付きで足します');
   if (b.plugins && !Array.isArray(b.plugins)) err(id, 'plugins は配列（空なら全プラグイン）');
   for (const p of b.plugins || []) if (pluginIds.size && !pluginIds.has(p)) err(id, 'plugins の「' + p + '」は plugins.ts にありません');
   if (b.type === 'text') {
