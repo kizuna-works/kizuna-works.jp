@@ -6,6 +6,7 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <Layout
@@ -54,10 +55,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "ルックアップサジェスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "3.0.2",
-          "dateModified": "2026-10-03",
+          "softwareVersion": "3.1.0",
+          "dateModified": "2026-10-05",
           "url": "https://kizuna-works.jp/plugins/lookup-suggest/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-suggest-v3.0.2.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-suggest-v3.1.0.zip",
           "image": "https://kizuna-works.jp/images/lookup-suggest-banner.png",
           "screenshot": [
             "https://kizuna-works.jp/images/lookup-suggest-display-floating.png",
@@ -82,7 +83,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintoneのルックアップフィールドへの入力中に候補を表示し画面遷移なしで取得完結する無料プラグイン。v2.3.0で「ABC-123」のように品番やコードを途中まで入力した状態でも候補が絞り込めるように改善（kintone標準のキーワード検索は単語単位のため従来は途中の文字数で候補が出なかった）。候補リストの表示方法は入力欄直下のフローティングとスペースフィールドから選択可。v3.0.0で当社の「ルックアップ絞り込み」と連携し、打っている間に出る候補にも入力中のレコードの値による絞り込みが適用できるようになった（連携はルックアップごとにオン・オフ可、未導入なら従来どおりの動作）。サブテーブル内ルックアップ・モバイル版kintone・複数フィールド横断検索に対応。kintone プラグイン 無料配布中。",
+          "description": "kintoneのルックアップフィールドへの入力中に候補を表示し画面遷移なしで取得完結する無料プラグイン。v2.3.0で「ABC-123」のように品番やコードを途中まで入力した状態でも候補が絞り込めるように改善（kintone標準のキーワード検索は単語単位のため従来は途中の文字数で候補が出なかった）。候補リストの表示方法は入力欄直下のフローティングとスペースフィールドから選択可。v3.0.0で当社の「ルックアップ絞り込み」と連携し、打っている間に出る候補にも入力中のレコードの値による絞り込みが適用できるようになった（連携はルックアップごとにオン・オフ可、未導入なら従来どおりの動作）。サブテーブル内ルックアップ・モバイル版kintone・複数フィールド横断検索に対応。kintone プラグイン 無料配布中。v3.1.0 から、スペースフィールドに表示するルックアップは、レコード詳細画面では何も表示せずスペースを隠す（案内を出すかはルックアップごとに選べる）。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -99,7 +100,8 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "参照先の複数フィールドからの横断検索",
             "複数ルックアップフィールド対応",
             "追加表示フィールドのカスタマイズ",
-            "日本語IME（漢字変換）対応"
+            "日本語IME（漢字変換）対応",
+            "詳細画面の表示を選べる（v3.1.0）：スペースフィールドに表示する場合、詳細画面ではスペースを隠して詰める（既定）か、「ルックアップサジェスト機能が有効です」の案内を出すかをルックアップごとに選択"
           ]
         }
       ]
@@ -228,6 +230,29 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       margin: 0 0 24px;
     }
     .update-desc strong { color: var(--color-navy); }
+    .update-list { margin: 0 0 24px; padding-left: 1.3em; color: var(--color-text); font-size: 15px; line-height: 1.8; }
+    .update-list li { margin-bottom: 6px; }
+    .update-list strong { color: var(--color-navy); }
+    .update-shot-cap { text-align: center; color: var(--color-text); font-size: 13px; margin: 10px 0 0; }
+    /* Before / after pair inside the update box (stacks on narrow screens) */
+    .update-compare {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      max-width: 860px;
+      margin: 0 auto 8px;
+      align-items: start;
+    }
+    .update-compare-item { margin: 0; min-width: 0; }
+    .update-compare-item img {
+      width: 100%; height: auto; display: block;
+      border: 1px solid var(--color-gray-light); border-radius: 8px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+    .update-compare-item figcaption { text-align: center; color: var(--color-text); font-size: 13px; line-height: 1.6; margin: 10px 0 0; }
+    @media (max-width: 640px) {
+      .update-compare { grid-template-columns: minmax(0, 1fr); }
+    }
     .update-note {
       color: var(--color-text-light);
       font-size: 13px;
@@ -1126,28 +1151,66 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v3.0.2</span>
+        <span class="hero-version">v3.1.0</span>
       </div>
       <h1 class="hero-title">ルックアップサジェスト for kintone</h1>
-      <p class="hero-copy">入力中に参照先候補をライブ表示し、画面遷移なしでルックアップ取得を完結。複数ルックアップ・参照先の複数フィールド横断検索・サブテーブル内ルックアップ・スマートフォン（モバイル版 kintone）に対応した、kintone のルックアップ作業を高速化するプラグインです。候補リストは入力欄の直下にフローティング表示でき、フォームを編集せずに導入できます。<strong>v3.0.0 では、同日公開の<a href="/plugins/lookup-filter/">ルックアップ絞り込み</a>と連携し、打っている間に出る候補も入力中のレコードの値で絞り込めるようになりました。</strong></p>
+      <p class="hero-copy">入力中に参照先候補をライブ表示し、画面遷移なしでルックアップ取得を完結。複数ルックアップ・参照先の複数フィールド横断検索・サブテーブル内ルックアップ・スマートフォン（モバイル版 kintone）に対応した、kintone のルックアップ作業を高速化するプラグインです。候補リストは入力欄の直下にフローティング表示でき、フォームを編集せずに導入できます。<a href="/plugins/lookup-filter/">ルックアップ絞り込み</a>と併用すると、打っている間に出る候補も入力中のレコードの値で絞り込めます。<strong>v3.1.0 では、レコード詳細画面ではスペースを隠して詰めて表示するようにしました（案内を出すかは選べます）。</strong></p>
     </section>
 
-    <!-- Update Info (v3.0.0) -->
+    <!-- Update Info (v3.1.0 — 最新1件のみ。過去版の内容は「主な機能」「動作画面イメージ」に内包) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v3.0.0：「ルックアップ絞り込み」と連携し、打っている間の候補も絞り込めるようになりました</h2>
+          <h2 class="update-title">v3.1.0：詳細画面では、スペースを隠して詰めて表示するようにしました</h2>
         </div>
-        <p class="update-desc">同日公開の<a href="/plugins/lookup-filter/">ルックアップ絞り込み</a>は、ルックアップの候補を<strong>入力中のレコードの値に応じて絞り込む</strong>プラグインです。「この案件の担当営業所と同じ取引先だけ」「この案件の対象サービスで取り扱いのある商品だけ」といった絞り込みができます。</p>
-        <p class="update-desc"><strong>両方をお使いいただくと、サジェストの候補にも同じ絞り込みが適用されます。</strong>［取得］を押して選択画面を開く前の、打っている段階から、その案件で選べる候補だけが並びます。</p>
+        <p class="update-desc">「スペースフィールドに表示」を選んだルックアップは、これまでレコード詳細画面にも<strong>「ルックアップサジェスト機能が有効です」</strong>と表示していました。詳細画面ではサジェストを使わないため、<strong>レコードを見る人には何の表示か分かりにくい</strong>とのご意見をいただきました。v3.1.0 から、詳細画面では<strong>何も表示せず、スペースも隠します</strong>（空白も詰めます）。これまでどおり案内を出したいときは、ルックアップごとに設定で選べます。</p>
+        <div class="update-compare">
+          <figure class="update-compare-item">
+            <Picture
+              class="zoomable"
+              src="/images/lookup-suggest-detail-01.png"
+              alt="レコード詳細画面（これまで）。顧客名の下のスペースに「ルックアップサジェスト機能が有効です（編集画面で候補から選択できます）」という案内が表示され、その下に電話と備考が並んでいる"
+              width="482"
+              height="284"
+              loading="lazy"
+            />
+            <figcaption>これまで<br>詳細画面にも案内が出る</figcaption>
+          </figure>
+          <figure class="update-compare-item">
+            <Picture
+              class="zoomable"
+              src="/images/lookup-suggest-detail-02.png"
+              alt="同じレコードの詳細画面（v3.1.0）。案内もスペースの空白もなく、顧客名のすぐ下に電話と備考が詰めて並んでいる"
+              width="482"
+              height="225"
+              loading="lazy"
+            />
+            <figcaption>v3.1.0（既定）<br>スペースを隠し、行も詰まる</figcaption>
+          </figure>
+        </div>
         <div class="update-shot">
-          <img src="/images/lookup-suggest-filtercond-after.png" alt="サジェストの候補リストが4件に絞られ、下に絞り込み条件が表示されている" width="1198" height="420" class="zoomable" loading="lazy" />
+          <Picture
+            class="zoomable"
+            src="/images/lookup-suggest-config-03.png"
+            alt="ルックアップサジェストの設定画面。スペース要素IDの欄の下に「詳細画面にも『ルックアップサジェスト機能が有効です』の案内を出す」のチェックボックスと、「チェックしないときは、詳細画面ではこのスペースを隠します（何も表示せず、空白も詰めます）」という注記がある"
+            width="699"
+            height="236"
+            loading="lazy"
+          />
+          <p class="update-shot-cap">案内を残したいルックアップは、ここにチェックします</p>
         </div>
         <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-        <p class="update-desc">対象サービスが「kintone」の見積で〈型番〉に「運用」と打った例です。連携なしでは Garoon 運用サポートや V-Cube 運用サポートも混ざって 10 件出ますが、<strong>kintone の運用サポート 4 件だけ</strong>になります。リストの下には<strong>「絞り込み条件：サービス種別＝kintone」</strong>のように、どの条件で絞られているかを表示します。</p>
-        <p class="update-desc"><strong>連携はオン・オフできます。</strong>設定はルックアップ絞り込み側の設定画面（「選んだあとの扱い」）にあり、既定はオン、ルックアップごとに切り替えられます。ルックアップ絞り込みを導入していない場合、連携は働きません（サジェストはこれまでどおりお使いいただけます）。</p>
-        <p class="update-note">既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>するだけで適用できます。<strong>これまでの設定はそのまま引き継がれます</strong>（設定画面での操作は不要です）。<br />※参照先アプリの設定によっては、候補の件数がこれまでと変わる場合があります。</p>
+        <ul class="update-list">
+          <li><strong>新規作成・編集画面は変わりません</strong> — 入力前の「2文字以上入力すると候補を表示します」の案内と、候補リストの表示はこれまでどおりです。</li>
+          <li><strong>案内を残すこともできます</strong> — 設定画面のスペース要素IDの下にある「詳細画面にも『ルックアップサジェスト機能が有効です』の案内を出す」にチェックすると、これまでと同じ表示になります。</li>
+          <li><strong>ほかの表示は消しません</strong> — 同じスペースにほかのプラグインなどが表示しているときは、スペースを隠しません。</li>
+          <li><strong>あわせて不具合を直しました</strong> — ルックアップが2つ以上あるアプリで、プラグインの設定を保存したあとにフォームのルックアップの並びを入れ替えると、候補を選んだ値が<strong>別のルックアップに入る</strong>ことがありました。並びを入れ替えても、入力した欄に正しく入ります。</li>
+        </ul>
+        <p class="update-note">
+          上書きアップロードすると、これまで案内が出ていた詳細画面は、案内が消えて詰まった表示になります。案内を残したい場合は、設定画面でチェックして保存し、アプリを更新してください。「入力欄の直下にフローティング表示」とテーブル内のルックアップは、これまでどおり詳細画面には何も表示しません。<br />
+          ※ プラグインは自動更新されません。お手数ですが、最新版をダウンロードし、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>してください。
+        </p>
       </div>
     </section>
 
@@ -1181,7 +1244,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       <h2 class="section-title-left">主な機能</h2>
       <ul class="feature-list">
         <li><span><strong>ルックアップ絞り込みとの連携（v3.0.0〜）</strong> — 当社の<a href="/plugins/lookup-filter/">ルックアップ絞り込み</a>（プレミアム）と併用すると、打っている間に出る候補にも<strong>入力中のレコードの値による絞り込み</strong>が効きます。［取得］を押す前の段階から、その案件で選べる候補だけが並びます。<strong>絞り込んだ条件はリストの下に日本語で表示</strong>するので、候補が少ないときも理由が分かります。連携はルックアップごとにオン・オフでき、未導入なら従来どおりの動作です。</span></li>
-        <li><span><strong>候補リストの表示方法を選べる（v2.2.1〜）</strong> — <strong>入力欄の直下にフローティング表示</strong>（フォームの編集が不要・PC/モバイル対応）と、<strong>スペースフィールドに表示</strong>（他の項目に重ならず、入力前・詳細画面に案内が出る）から、ルックアップごとに選択できます。詳しくは下の「候補リストの表示方法」をご覧ください。</span></li>
+        <li><span><strong>候補リストの表示方法を選べる（v2.2.1〜）</strong> — <strong>入力欄の直下にフローティング表示</strong>（フォームの編集が不要・PC/モバイル対応）と、<strong>スペースフィールドに表示</strong>（他の項目に重ならず、入力前に案内が出る。詳細画面に案内を出すかも選べる）から、ルックアップごとに選択できます。詳しくは下の「候補リストの表示方法」をご覧ください。</span></li>
         <li><span><strong>サブテーブル内ルックアップ対応</strong> — テーブル内のルックアップでもサジェストが動作。候補は入力中のセル直下にフローティング表示し、選んだ行に値セット＋同じ行のコピー先フィールドへ反映。行追加にも自動追従（スペース要素の設置不要・PC 版のみ）。</span></li>
         <li><span><strong>スマートフォン対応</strong> — モバイル版 kintone の追加・編集画面でもサジェストが動作。タップしやすい行の高さ・読みやすい文字サイズで表示され、タップすればそのまま取得完了＋キーボードも自動で閉じます（通常フィールドのルックアップ）。</span></li>
         <li><span><strong>ライブサジェスト表示</strong> — ルックアップフィールドへ入力するとリアルタイムで候補を直下に表示。300ms デバウンスで API 負荷も最小限。</span></li>
@@ -1191,7 +1254,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         <li><span><strong>追加表示フィールド</strong> — サジェスト一覧に電話番号・住所・顧客No など好きな参照先フィールドを併記表示。同名顧客の取り違えを防止。<strong>チェックボックス・複数選択・ユーザー選択・組織選択・グループ選択・ステータス・カテゴリー</strong>なども併記でき（表示のみ）、<strong>取得時にコピーされるフィールドも選択可</strong>です（「コピー先」バッジで判別できます）。</span></li>
         <li><span><strong>テキスト系は検索対象にも</strong> — 1行/複数行/リッチエディタ/リンク 型のフィールドはサジェストの絞り込み対象にも自動で参加。</span></li>
         <li><span><strong>日本語IME対応</strong> — 漢字変換中はサジェストを発火させず、確定後に検索。Compositionend イベントで正しく検知。</span></li>
-        <li><span><strong>詳細画面でもインジケータ表示</strong> — レコード詳細画面でも「サジェスト機能が有効です」のバナーが出るので、編集画面で何が使えるか一目で分かる（「スペースフィールドに表示」を選んだ場合）。</span></li>
+        <li><span><strong>詳細画面の表示を選べる（v3.1.0）</strong> — 「スペースフィールドに表示」を選んだ場合、レコード詳細画面では<strong>スペースを隠して詰めて表示</strong>します（既定）。「サジェスト機能が有効です」の案内を出して、編集画面で使えることを知らせたいときは、ルックアップごとに設定で選べます。</span></li>
       </ul>
     </section>
 
@@ -1270,7 +1333,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <tr>
                 <th scope="row">詳細画面の案内</th>
                 <td>出ない</td>
-                <td class="is-plus">「サジェスト機能が有効です」を表示</td>
+                <td class="is-plus">既定はスペースを隠して詰める。設定で「サジェスト機能が有効です」を表示できる</td>
               </tr>
               <tr>
                 <th scope="row">モバイル</th>
@@ -1482,6 +1545,21 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <p>電話番号「03」と入力すれば、電話番号でも検索できます。kintone 標準では絞り込めない情報からも候補を引き当てられるのが本プラグインの強みです。</p>
           </div>
         </div>
+        <div class="screenshot-item">
+          <div class="screenshot-thumb">
+            <Picture
+              src="/images/lookup-suggest-filtercond-after.png"
+              alt="ルックアップ絞り込みと併用した例。サジェストの候補リストが kintone の運用サポート4件に絞られ、リストの下に「絞り込み条件：サービス種別＝kintone」と表示されている"
+              width="1198"
+              height="420"
+              loading="lazy"
+            />
+          </div>
+          <div class="screenshot-caption">
+            <strong>④ ルックアップ絞り込みとの連携（v3.0.0〜）</strong>
+            <p><a href="/plugins/lookup-filter/">ルックアップ絞り込み</a>と併用すると、打っている間の候補にも入力中のレコードの値による絞り込みが効きます。どの条件で絞ったかはリストの下に表示します。連携はルックアップ絞り込み側の設定でオン・オフでき、既定はオンです。</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1521,6 +1599,21 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
               <p>参照先アプリのフィールドをチップ式で選択。緑バッジ「検索 + 表示」のフィールドは絞り込みにも参加し、灰色バッジ「表示のみ」のフィールド（数値・日付など）は候補一覧の併記表示用として使えます。</p>
             </div>
           </div>
+          <div class="screenshot-item">
+            <div class="screenshot-thumb">
+              <Picture
+                src="/images/lookup-suggest-config-03.png"
+                alt="設定画面のスペース要素IDの欄。下に「詳細画面にも『ルックアップサジェスト機能が有効です』の案内を出す」のチェックボックスがある"
+                width="699"
+                height="236"
+                loading="lazy"
+              />
+            </div>
+            <div class="screenshot-caption">
+              <strong>③ 詳細画面に案内を出すか（v3.1.0）</strong>
+              <p>スペースフィールドに表示するルックアップは、詳細画面ではスペースを隠して詰めます（既定）。案内を出したいときはチェックします。</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1556,7 +1649,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-lookup-suggest-v3.0.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-lookup-suggest-v3.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">1プラグインならこちら</span>
@@ -1756,10 +1849,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           gtag('event', 'file_download', {
-            file_name: 'kw-lookup-suggest-v3.0.2.zip',
+            file_name: 'kw-lookup-suggest-v3.1.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-lookup-suggest-v3.0.2.zip'
+            link_url: '/downloads/kw-lookup-suggest-v3.1.0.zip'
           });
         });
       }

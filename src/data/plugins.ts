@@ -205,7 +205,7 @@ export const plugins: Plugin[] = [
     problemDesc: '入力中に候補表示でクリック数を減らしたい',
     problemFeatured: true,
     releaseDate: '2026-04-18',
-    summaryVersion: '3.0.0',
+    summaryVersion: '3.1.0',
   },
   {
     id: 'kw-quick-search',

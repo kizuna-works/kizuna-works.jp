@@ -330,6 +330,9 @@ c:\kizuna-works.jp\
 │   │   ├── record-lock-stamp-lock-02.png   # レコードロックプラグイン ロック中のレコード詳細 — ロックのバナーと、押せない状態の決裁欄（捺印ボタンが灰色）
 │   │   ├── lookup-suggest-config-01.png    # ルックアップサジェストプラグイン 設定画面スクショ① — ルックアップフィールド選択ドロップダウン
 │   │   ├── lookup-suggest-config-02.png    # ルックアップサジェストプラグイン 設定画面スクショ② — サジェスト一覧に表示するフィールドのチップ選択UI
+│   │   ├── lookup-suggest-config-03.png    # ルックアップサジェスト v3.1.0 設定画面 — スペース要素IDの下の「詳細画面にも『ルックアップサジェスト機能が有効です』の案内を出す」チェック（UPDATE ボックスと設定画面イメージ③）＋ .webp
+│   │   ├── lookup-suggest-detail-01.png    # ルックアップサジェスト v3.1.0 詳細画面（これまで・案内あり）— 顧客名の下に「機能が有効です」の案内（UPDATE ボックスの比較・左）＋ .webp
+│   │   ├── lookup-suggest-detail-02.png    # ルックアップサジェスト v3.1.0 詳細画面（既定）— スペースを隠して詰めた表示（UPDATE ボックスの比較・右）＋ .webp
 │   │   ├── lookup-suggest-action-01.png    # ルックアップサジェストプラグイン 動作画面スクショ① — レコード画面のヒントバナー表示状態（入力前）
 │   │   ├── lookup-suggest-action-02.png    # ルックアップサジェストプラグイン 動作画面スクショ② — 「株式」入力中に8件の候補が会社名・電話番号付きで表示
 │   │   ├── lookup-suggest-action-03.png    # ルックアップサジェストプラグイン 動作画面スクショ③ — 電話番号「03」で検索し電話番号始まりの3社がヒット（追加検索フィールドの活用例）
@@ -727,7 +730,7 @@ c:\kizuna-works.jp\
 │   │   ├── lookup-filter-config-03.png  # 設定・よくある例から作る（入口）＋ .webp
 │   │   ├── lookup-filter-config-04.png  # 設定・折りたたみ「選んだあとの扱い（連動と検証）」＝条件が変わったとき／条件に合わない値で保存しようとしたとき（止める・確認・何もしない／v1.1.0 で撮り直し 2498×600）／サジェスト連携のオンオフ ＋ .webp
 │   │   ├── lookup-suggest-filtercond-before.png # サジェスト連携オフ：候補10件に他サービスが混在（製品ページ両方で共用）＋ .webp
-│   │   ├── lookup-suggest-filtercond-after.png  # サジェスト連携オン：候補4件＋条件ラベル（v3.0.0 の UPDATE ボックスでも使用）＋ .webp
+│   │   ├── lookup-suggest-filtercond-after.png  # サジェスト連携オン：候補4件＋条件ラベル（v3.0.0 の UPDATE ボックスで使用。v3.1.0 で「動作画面イメージ④」へ移動）＋ .webp
 │   │   ├── lookup-suggest-filtercond-partial.png # 型番を途中まで入力＋絞り込み（7件）＋ .webp
 │   │   ├── drive-connect-config-02.png  # 設定「① Google 接続」（接続方式の選択と接続済みアカウント）＋ .webp
 │   │   ├── drive-connect-action-01.png  # レコード詳細：転送完了バナー（保存先フォルダ名つき）＋ .webp
@@ -1162,7 +1165,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-suggest-v2.2.2.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.2.2 ライセンス認証の内部改修）
 │   │   ├── kw-lookup-suggest-v2.3.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v2.3.0＝記号を含む品番を途中まで入力しても候補が絞り込めるよう修正／候補が多いグループはoffsetページングで最大1万件まで自動読み込み／検索リクエスト数の削減）
 │   │   ├── kw-lookup-suggest-v3.0.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v3.0.0＝ルックアップの「絞り込みの初期設定」を候補にも適用〔標準の選択画面に出ない候補が出て選べてしまう不具合の修正〕／絞り込んだ条件をリストに表示／ルックアップ絞り込みとの連携の受け口）
-│   │   ├── kw-lookup-suggest-v3.0.2.zip  # ルックアップサジェスト for kintone 配布ファイル（最新・2026-10-03・v3.0.2：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
+│   │   ├── kw-lookup-suggest-v3.0.2.zip  # ルックアップサジェスト for kintone 配布ファイル（旧版・2026-10-03・v3.0.2：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
+│   │   ├── kw-lookup-suggest-v3.1.0.zip  # ルックアップサジェスト for kintone 配布ファイル（最新・2026-10-05・v3.1.0：スペースに表示するルックアップは、詳細画面では案内を出さずスペースを隠す〔設定で案内を出せる〕）
 │   │   ├── kw-lookup-sync-v1.0.0.zip                             # ルックアップ自動同期 for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=参照先1組で全機能）
 │   │   ├── kw-lookup-sync-v1.0.1.zip                             # ルックアップ自動同期 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-lookup-sync-v2.0.2.zip                             # ルックアップ自動同期 for kintone v2.0.2 配布ファイル（重複しうるキー対応＝方式1/方式2・入力補完・PC/モバイル）
