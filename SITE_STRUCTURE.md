@@ -149,7 +149,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── quick-tab/
 │   │   │   │   └── index.astro # クイックタブプラグイン製品ページ（/plugins/quick-tab/）— レコード詳細/作成/編集のフィールドをスペース要素を境界にタブ自動分割・「すべて」タブ・必須エラー追従・スクロール固定・スタイル20種×配色（スクショはクリックで拡大オーバーレイ）
 │   │   │   ├── file-preview/
-│   │   │   │   └── index.astro # 添付ファイルプレビュープラグイン製品ページ（/plugins/file-preview/）— 添付の画像/PDF/Excel/Word/PowerPoint/テキストを一覧・詳細のファイル名クリックで全画面モーダル表示・送りナビ・Excel書式/グラフ再現・文字コード自動判定。PowerPoint(pptx)対応(v2.2.0)。関連レコード一覧の参照先アプリ添付にも対応(v2.3.0)。表示ライブラリは自社配信(/libs/)からSRI付き遅延読込（2026-08-22 に「見たあと、そのまま書き込む — PDF編集アシストとの連携」セクション＋主な機能1項目＋FAQ1問＋関連プラグインカードを追加。スクショは pdf-edit-preview-01.png を共用）
+│   │   │   │   └── index.astro # 添付ファイルプレビュープラグイン製品ページ（/plugins/file-preview/）— 添付の画像/PDF/Excel/Word/PowerPoint/テキストを一覧・詳細のファイル名クリックで全画面モーダル表示・送りナビ・Excel書式/グラフ再現・文字コード自動判定。PowerPoint(pptx)対応(v2.2.0)。関連レコード一覧の参照先アプリ添付にも対応(v2.3.0)。PDF・画像の印刷ボタン＋表示する人の指定・PDF のページ番号表示(v2.4.0)。表示ライブラリは自社配信(/libs/)からSRI付き遅延読込（2026-08-22 に「見たあと、そのまま書き込む — PDF編集アシストとの連携」セクション＋主な機能1項目＋FAQ1問＋関連プラグインカードを追加。スクショは pdf-edit-preview-01.png を共用）
 │   │   │   ├── quick-toc/
 │   │   │   │   └── index.astro # クイック目次プラグイン製品ページ（/plugins/quick-toc/）— レコード詳細/編集/新規の左側にセクション目次を常時表示・項目クリックで該当セクションへジャンプ・ステータスバッジ（DropDown/Radio/プロセス管理）・配色3モード・ヘッダー追従・kintone完結（スクショはクリックで拡大オーバーレイ）
 │   │   │   ├── list-styler/
@@ -478,6 +478,8 @@ c:\kizuna-works.jp\
 │   │   ├── file-preview-config-02.png      # 添付ファイルプレビュー 設定② — 対象画面・操作・モーダルサイズ・テーマ色
 │   │   ├── file-preview-reftable-01.png    # 添付ファイルプレビュー v2.3.0 — 関連レコード一覧に参照先アプリの添付が並ぶレコード詳細画面
 │   │   ├── file-preview-reftable-02.png    # 添付ファイルプレビュー v2.3.0 — 関連レコード一覧から開いたPDF(工程表)の全画面プレビュー ＋ .webp
+│   │   ├── file-preview-print-01.png       # 添付ファイルプレビュー v2.4.0 — PDF プレビュー中のツールバー（ページ番号「2 / 3 ページ」・印刷ボタン）＋ .webp
+│   │   ├── file-preview-print-02.png       # 添付ファイルプレビュー v2.4.0 — 設定画面「印刷ボタン」（表示する人をユーザー・組織・グループから選択）＋ .webp
 │   │   ├── sidebar-enhancer-banner.png     # サイドバー拡張 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp
 │   │   ├── input-template-banner.png       # 入力テンプレート for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── sticky-board-update-01.png      # 付箋ボード v1.1.0 — 会社名の項目に刺さった赤いピンから、離れた位置の付箋へ破線が伸びるレコード詳細画面
@@ -1118,7 +1120,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-file-preview-v2.2.0.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-preview-v2.2.1.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版）
 │   │   ├── kw-file-preview-v2.2.2.zip                            # 添付ファイルプレビュー for kintone 配布ファイル（旧版・手動配置・v2.2.2 他社PDFプラグイン併用時の表示不具合を修正）
-│   │   ├── kw-file-preview-v2.3.1.zip  # 添付ファイルプレビュー for kintone 配布ファイル（最新・2026-10-03・v2.3.1：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
+│   │   ├── kw-file-preview-v2.4.0.zip  # 添付ファイルプレビュー for kintone 配布ファイル（最新・2026-10-05・v2.4.0：PDF・画像の印刷ボタン＋表示する人の指定・PDF のページ番号表示）
+│   │   ├── kw-file-preview-v2.3.1.zip  # 添付ファイルプレビュー for kintone 配布ファイル（旧版・2026-10-03・v2.3.1：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
 │   │   ├── kw-form-deco-v1.0.0.zip                               # FormDeco for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-form-deco-v1.0.1.zip                               # FormDeco for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-form-deco-v1.0.2.zip                               # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
