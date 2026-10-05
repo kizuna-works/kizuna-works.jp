@@ -10,9 +10,9 @@ import TrialBanner from '../../../components/TrialBanner.astro';
 
 <Layout
   title="ルックアップ自動同期 for kintone｜マスター更新で参照先レコードを自動追従 | KIZUNA Works"
-  description="kintone のルックアップ元（マスター）を更新すると、その値をコピーした参照先アプリの既存レコードを自動で追従更新するプラグイン。会社名・商品名のように重複しうるキーにも2つの同期方式で対応し、対象は自動スキャンで検出。サブテーブル内のルックアップや既存データの一括同期もできるプレミアムプラグイン。"
+  description="kintone のルックアップ元（マスター）を更新すると、その値をコピーした参照先アプリの既存レコードを自動で追従更新するプラグイン。配送先の住所など登録時点の値を残したい項目は自動更新から外せます。重複しうるキーにも2つの同期方式で対応し、対象は自動スキャンで検出。サブテーブルや既存データの一括同期にも対応するプレミアムプラグイン。"
   ogTitle="ルックアップ自動同期 for kintone｜マスター更新で参照先レコードを自動追従 | KIZUNA Works"
-  ogDescription="kintone のマスターを更新すると、その値をルックアップでコピーした参照先アプリの既存レコードを自動で追従更新。重複しうるキーにも2方式で対応し、自動スキャン検出・サブテーブル・既存データの一括同期に対応するプレミアムプラグイン。"
+  ogDescription="kintone のマスターを更新すると、その値をルックアップでコピーした参照先アプリの既存レコードを自動で追従更新。配送先など残したい項目は自動更新から除外でき、重複しうるキーにも2方式で対応。自動スキャン検出・サブテーブル・既存データの一括同期に対応するプレミアムプラグイン。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/lookup-sync/"
   ogImage="https://kizuna-works.jp/images/lookup-sync-banner.png"
@@ -50,10 +50,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "ルックアップ自動同期 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.2.2",
-          "dateModified": "2026-09-30",
+          "softwareVersion": "2.3.0",
+          "dateModified": "2026-10-05",
           "url": "https://kizuna-works.jp/plugins/lookup-sync/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-sync-v2.2.2.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-sync-v2.3.0.zip",
           "image": "https://kizuna-works.jp/images/lookup-sync-banner.png",
           "offers": [
             {
@@ -73,7 +73,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、複数の参照先へのまとめて同期・広告非表示を含む全機能と、販売中の全プラグインを利用できます。単品販売はありません。"
             }
           ],
-          "description": "ルックアップ元（マスター）のレコードを更新すると、その値をコピーしている参照先アプリの既存レコードを自動で追従更新する kintone プラグイン。会社名・商品名のように重複しうるキー（重複禁止なし）にも2つの同期方式で対応。対象は自動スキャンで検出し、サブテーブル内のルックアップにも対応。導入前の既存データも一括同期できる。v2.2.0 では、ルックアップをクリアしたときに同期で取得した項目も確認のうえまとめて空へ戻せる。",
+          "description": "ルックアップ元（マスター）のレコードを更新すると、その値をコピーしている参照先アプリの既存レコードを自動で追従更新する kintone プラグイン。会社名・商品名のように重複しうるキー（重複禁止なし）にも2つの同期方式で対応。対象は自動スキャンで検出し、サブテーブル内のルックアップにも対応。導入前の既存データも一括同期できる。v2.2.0 では、ルックアップをクリアしたときに同期で取得した項目も確認のうえまとめて空へ戻せる。v2.3.0 では、配送先の住所・電話番号など登録時点の値を残したい項目を自動更新から外せる（取得したときだけマスターの値が入り、その後は書き換わらない）。",
           "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
           "featureList": [
             "マスター保存時に、参照先アプリのルックアップコピー値を自動で追従更新",
@@ -87,6 +87,8 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             "重複しうるキー（重複禁止なし）のルックアップにも対応：方式1（表示のみ・軽量）／方式2（デタッチして自動同期・同名でもレコード番号で正確に照合）",
             "参照先での入力時の自動補完（PC・モバイル両対応）",
             "ルックアップをクリアしたときに、同期で取得した項目も確認ダイアログでまとめて空に戻せる（方式2・v2.2.0）",
+            "マスターを変えても書き換えたくない項目（配送先の住所・電話番号など）を自動更新から外せる。外した項目は取得したときだけマスターの値が入る（v2.3.0）",
+            "画面を通さずに登録したレコード（CSV 読み込みなど）の、外した項目が空のものだけをあとからマスターの値で埋められる（v2.3.0）",
             "kintone 完結・外部送信なし・ゲストスペース対応"
           ]
         }
@@ -312,51 +314,52 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <img class="afp-hero-icon" src="/images/lookup-sync-icon.png" alt="ルックアップ自動同期 for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v2.2.2</span>
+        <span class="afp-hero-version">v2.3.0</span>
       </div>
       <h1>ルックアップ自動同期 for kintone</h1>
       <p class="afp-tagline">マスターを直せば、参照先も自動で最新に。</p>
-      <p class="afp-sub">ルックアップ元（マスター）のレコードを更新すると、その値をコピーした参照先アプリの既存レコードを自動で追従更新。会社名・商品名のように重複しうるキーにも2つの同期方式で対応し、「マスターは直したのに、コピー済みの値が古いまま」を解消します。ルックアップをクリアしたときは、同期で取得した項目も確認のうえまとめて空へ戻せます。</p>
+      <p class="afp-sub">ルックアップ元（マスター）のレコードを更新すると、その値をコピーした参照先アプリの既存レコードを自動で追従更新。会社名・商品名のように重複しうるキーにも2つの同期方式で対応し、「マスターは直したのに、コピー済みの値が古いまま」を解消します。ルックアップをクリアしたときは、同期で取得した項目も確認のうえまとめて空へ戻せます。配送先の住所など、登録した時点の値を残したい項目は自動更新から外せます。</p>
     </section>
     <div class="afp-hero-gradient-line"></div>
 
-    <!-- Update Info: v2.2.2 参照先スクリプトの更新 -->
+    <!-- Update Info: v2.3.0 自動更新しない項目 -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v2.2.2：参照先アプリに登録するスクリプトを更新しました（方式1・方式2をお使いの方は再登録をお願いします）</h2>
+            <h2 class="update-title">v2.3.0：マスターを変えても書き換えたくない項目を、自動更新から外せるようになりました</h2>
           </div>
           <p class="update-desc">
-            マスターのキーに「値の重複を禁止する」が設定されていない場合の<strong>方式1（更新を通知）・方式2（デタッチして自動同期）</strong>では、参照先アプリにスクリプトを登録して動かします。<strong>v2.2.1 の設定画面で登録したこのスクリプトは、参照先で動作していませんでした</strong>（入力時の補完・マスター更新の通知・同期キーの非表示が効かない状態です）。v2.2.2 で登録し直すと、正しく動きます。
+            取引先マスターの電話番号・住所を、受注の<strong>配送先</strong>として使っていませんか。取引先名や担当部門は過去の受注も最新にしたい一方で、配送先まで書き換わると<strong>実際に送った先と記録が食い違って</strong>しまいます。設定画面の<strong>「自動更新しない項目」</strong>で項目にチェックを付けて「反映する」を押すと、その項目は<strong>ルックアップで取得したときだけ</strong>マスターの値が入り、その後マスターを変更しても書き換わりません。チェックしなかった項目は、これまでどおり過去のレコードも含めて自動で更新されます。
           </p>
           <div class="update-shot">
             <Picture
-              src="/images/lookup-sync-v222-notice.png"
-              alt="ルックアップ自動同期 v2.2.2 の設定画面に出る案内 —「参照先スクリプトの更新があります」の見出しと、v2.2.1 で登録したスクリプトは参照先で動作していないこと、再登録のあと「今すぐ全件同期」を実行するとその間に登録されたレコードの値もマスターに合わせて埋まることの説明、緑の「スクリプトを最新に再登録」ボタン"
-              width="1393"
-              height="419"
+              src="/images/lookup-sync-v230-freeze.png"
+              alt="ルックアップ自動同期 v2.3.0 の設定画面の「自動更新しない項目（任意）」欄 — 状態は設定済み（配送先電話・配送先住所）、取引先名と当社担当部門はチェックなし、配送先電話（電話番号）と配送先住所（住所）にチェック、「反映する（参照先アプリを更新）」ボタンと「外した項目が空のレコードを埋める」ボタン"
+              width="734"
+              height="439"
               class="zoomable"
             />
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
           <p class="update-desc">
-            上書きアップロードすると、登録済みの参照先ごとに設定画面へ<strong>「参照先スクリプトの更新があります」</strong>と表示されます。<strong>「スクリプトを最新に再登録」</strong>を押してから［保存］してください。方式2の場合は、続けて<strong>「今すぐ全件同期」</strong>を実行すると、スクリプトが動いていなかった間に登録されたレコードの値もマスターに合わせて埋まります。あわせて、ゲストスペースで方式1の「編集画面で再取得」を押したときに、正しく編集画面が開くようにしました。
+            反映すると、参照先アプリのルックアップ設定からその項目のコピーを外し、取得時に値を入れる仕組みを自動で登録します。手作業でアプリの設定を変える必要はありません。CSV ファイルの読み込みなど、画面を通さずに登録したレコードでは外した項目が空のままになるため、<strong>「外した項目が空のレコードを埋める」</strong>で空の項目だけをあとからマスターの値で埋められます（値が入っている項目は変更しません）。
           </p>
           <div class="update-shot">
             <Picture
-              src="/images/lookup-sync-v222-config.png"
-              alt="ルックアップ自動同期 v2.2.2 の設定画面の全体 — 上にプラグイン名とバージョン 2.2.2、中央に対象アプリ・フィールドのスキャンと同期する対象（案件管理・方式2：直接コピー・コピーするフィールドのマッピング・照合キーと自動デタッチは設定済み）、その下に参照先スクリプトの更新の案内と「スクリプトを最新に再登録」ボタン、右にサポーターのサイドバー"
+              src="/images/lookup-sync-v230-config.png"
+              alt="ルックアップ自動同期 v2.3.0 の設定画面の全体 — 上にプラグイン名とバージョン 2.3.0、中央に対象アプリ・フィールドのスキャンと同期する対象（受注管理・コピーするフィールドは取引先名と当社担当部門・自動更新しない項目は配送先電話と配送先住所が設定済み・同期モードと今すぐ全件同期）、右にサポーターのサイドバー"
               width="1425"
-              height="1678"
+              height="1222"
               class="zoomable"
             />
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
           <p class="update-note">
             最新版を kintone システム管理 →「プラグイン」→「読み込む」から上書きアップロードしてください。プラグインIDは変わらないため既存の設定は引き継がれます。<br>
-            ※ マスターのキーが「値の重複を禁止する」になっている推奨の構成（再コピー方式）では、参照先へのスクリプト登録を使わないため、上書きアップロードだけで完了です。
+            ※ この機能は、マスターのキーに「値の重複を禁止する」が設定されたルックアップで使えます（テーブル内のルックアップは対象外）。「反映する」には参照先アプリの管理権限が必要です。<br>
+            ※ 方式1・方式2をお使いの場合は、設定画面に「参照先スクリプトの更新があります」と表示されます。「スクリプトを最新に再登録」を押して［保存］してください（動作は変わりません）。
           </p>
         </div>
       </div>
@@ -436,6 +439,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         </div>
 
         <div class="afp-grid-feats" style="margin-top:8px;">
+          <div class="afp-feat-card">
+            <h3>自動更新しない項目を選べる</h3>
+            <p>配送先の住所・電話番号のように、<strong>登録した時点の値を残したい項目</strong>は自動更新から外せます。外した項目はルックアップで取得したときだけマスターの値が入り、その後マスターを変えても書き換わりません。CSV などで取り込んだレコードの空欄は、あとからまとめて埋められます。</p>
+          </div>
           <div class="afp-feat-card">
             <h3>重複しうるキーにも対応</h3>
             <p>会社名・商品名・氏名のように<strong>「値の重複を禁止する」設定がないキー</strong>のルックアップでも、目的に応じて選べる<strong>2つの同期方式</strong>で追従できます。参照先での入力時の自動補完つきで、PC・モバイルの両方に対応。選び方は下の「重複しうるキーのルックアップを同期するには」をご覧ください。</p>
@@ -632,7 +639,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <li>✅ 反映件数は無制限・利用期限なし</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-lookup-sync-v2.2.2.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-lookup-sync-v2.3.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="afp-plan-card recommended">
@@ -697,9 +704,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         <h2 class="afp-h2">ご利用にあたっての注意</h2>
         <div class="afp-cautions">
           <ul>
-            <li><strong>自動同期は「コピー元キーが一意キー（値の重複を禁止する設定）」のルックアップでのみ動作します。</strong>「値の重複を禁止する」が設定されていないキーでは、現在は同期・全件同期ともに動作しません。重複禁止でないキーに対応する新バージョンを準備中です。</li>
+            <li><strong>自動同期の推奨構成は「コピー元キーが一意キー（値の重複を禁止する設定）」のルックアップです。</strong>「値の重複を禁止する」が設定されていないキーでは、上の「重複しうるキーのルックアップを同期するには」の方式1・方式2を選びます。</li>
             <li>本プラグインは<strong>ルックアップ元（参照される側＝マスター）アプリ</strong>に追加します。参照している側のアプリではありません。</li>
-            <li><strong>コピー項目のフィールド単位でのオン／オフはできません。</strong> kintone の仕様上、ルックアップキーを再セットすると、そのルックアップに設定された全コピー項目が一括で再取得されるためです。</li>
+            <li>同期は<strong>ルックアップ設定に従って一括</strong>で行われます（kintone の仕様上、コピー項目は一括で取り直されるため）。一部の項目を外したい場合は「自動更新しない項目」（v2.3.0）を使います。外した項目は取得したときだけ値が入り、手入力でも変更できるようになります。</li>
+            <li>「自動更新しない項目」で外した項目は、<strong>CSV の読み込みや API など画面を通さずに登録したレコードでは空のまま</strong>になります。設定画面の「外した項目が空のレコードを埋める」で、空の項目だけをあとから埋められます。</li>
             <li>参照先アプリを後から追加した場合は<strong>「スキャン実行」の再実行が必要</strong>です。取り込み前の既存レコードは「今すぐ全件同期」で追従できます。</li>
             <li>同期には、実行ユーザーに<strong>参照先アプリのレコード閲覧・編集権限</strong>が必要です。権限のないアプリはスキャン・同期の対象外になります。</li>
             <li>同期は<strong>PC版のレコード保存時</strong>および設定画面の「今すぐ全件同期」で動作します。</li>
@@ -790,10 +798,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-lookup-sync-v2.2.2.zip',
+            file_name: 'kw-lookup-sync-v2.3.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-lookup-sync-v2.2.2.zip'
+            link_url: '/downloads/kw-lookup-sync-v2.3.0.zip'
           });
         });
       }

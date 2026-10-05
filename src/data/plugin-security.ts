@@ -238,6 +238,16 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       { name: 'pdf-lib', version: '1.17.1', license: 'MIT', purpose: 'PDF 自動保存時に PDF ファイルをブラウザ内で生成' },
     ],
   },
+  'kw-lookup-sync': {
+    extraComm: [
+      {
+        label: '参照先レコードの同期・参照先アプリの設定',
+        scope: 'internal',
+        detail:
+          'ご利用中の kintone ドメイン内の REST API だけを使います。マスターを保存したときは、参照先アプリのレコードを検索（GET /k/v1/records）し、ルックアップのキーを入れ直して kintone にコピーし直させます（PUT /k/v1/records）。設定画面では、参照先のスキャン（GET /k/v1/apps・/k/v1/app/form/fields）に加え、方式2と「自動更新しない項目」を使うときだけ、ボタンを押したときに参照先アプリのルックアップ設定の変更・参照先用スクリプトの登録・アプリの更新（/k/v1/preview/app/form/fields・/k/v1/preview/app/customize・/k/v1/preview/app/deploy・/k/v1/file）を行います。外部へ送ることはありません。',
+      },
+    ],
+  },
   'kw-dashboard': {
     runtimeLibs: [
       { name: 'Chart.js', version: '4.4.1', license: 'MIT', purpose: 'グラフ（棒・折れ線・円・レーダー等）の描画。グラフを表示するときだけ読み込みます' },
