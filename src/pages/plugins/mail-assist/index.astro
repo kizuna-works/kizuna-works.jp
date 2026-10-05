@@ -341,16 +341,6 @@ import Picture from '../../../components/Picture.astro';
     .update-list { color: var(--color-text); font-size: 15px; line-height: 1.8; margin: 4px 0 0; padding-left: 1.4em; }
     .update-list li { margin-bottom: 4px; }
     .update-list strong { color: var(--color-navy); }
-    .update-example {
-      max-width: 720px; margin: 20px auto 0; padding: 16px 20px;
-      background: var(--color-bg); border-radius: 10px;
-      font-size: 14px; color: var(--color-text); line-height: 1.9;
-    }
-    .update-example strong { color: var(--color-navy); }
-    .update-example code {
-      background: #fff; border: 1px solid var(--color-gray-light); border-radius: 5px;
-      padding: 2px 7px; font-size: 13px;
-    }
     .update-note { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
     .update-shot { max-width: 640px; margin: 24px auto 0; }
     .update-shot img {
@@ -442,65 +432,6 @@ import Picture from '../../../components/Picture.astro';
       </div>
     </section>
 
-    <!-- Update Info (v1.6.0) -->
-    <section class="section-wrapper fade-in">
-      <div class="update-box">
-        <div class="update-head">
-          <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.6.0：書式つきの本文と添付ファイルを渡せる「下書きファイル方式」を追加しました</h2>
-        </div>
-        <p class="update-desc">
-          これまで、メールの本文は<strong>プレーンテキストだけ</strong>で、<strong>添付ファイルは付けられませんでした</strong>。ブラウザからメーラーへ書式や添付を渡す方法が無いためです。<br>
-          この版では、テンプレートの<strong>送信方法に「下書きファイル（.eml）を作る」</strong>を選べるようにしました。ファイルがダウンロードされ、それを開くと<strong>そのまま送信できるメールの作成画面</strong>になります。この方法なら次のことができます。
-        </p>
-        <p class="update-example">
-          <strong>① リッチエディターの書式がそのまま入ります</strong><br>
-          表の罫線・箇条書き・番号・文字色を保ったまま本文に差し込めます（「罫線が消えてレイアウトが崩れる」というご要望への対応です）<br>
-          <strong>② 添付ファイルフィールドのファイルを添付できます</strong><br>
-          テンプレートで添付したいフィールドを選ぶだけ。日本語のファイル名もそのまま付きます<br>
-          <strong>③ 一斉送信を「レコードごとに 1 通」にできます</strong><br>
-          各レコードの値で差し込んだメールを 1 通ずつ作ります。2 件以上なら zip でまとめて受け取れるので、ブラウザがメールを開ける数に縛られません<br>
-          <strong>④ 本文の長さの制限もありません</strong><br>
-          URL でメーラーを開く方式には長さの上限があります（当社実測で日本語 1,200 文字前後が目安。これを超えるとメーラーが開きません）。ファイルなのでその制限を受けません
-        </p>
-        <p class="update-example">
-          <strong>あわせて、設定と出し分けも改善しました</strong><br>
-          ⑤ <strong>表示・送信条件に「操作している人」を追加</strong>しました。ユーザー・所属組織（子組織を含む）・所属グループ・<strong>アプリ管理権限</strong>で出し分けられるので、「管理者だけに使わせたい」「営業部だけに出したい」がフィールドを用意せずに設定できます（条件の上限も 5 → 8 件に増やしました）<br>
-          ⑥ 件名・本文・宛先の直接入力で <strong><code>&#123;</code> を入力するとフィールド候補が出る</strong>ようにしました。フィールドコードを調べるためにフォーム設定を開き直す必要がなくなります<br>
-          ⑦ テンプレート編集中に<strong>画面の外側をクリックしても内容が消えない</strong>ようにしました（閉じるときは変更があれば確認します）<br>
-          ⑧ リッチエディターをプレーンテキストで送る場合も、<strong>表を罫線で組み直し、箇条書きを「・」に整える</strong>ようにしました（従来はすべて 1 行に潰れていました）<br>
-          ⑨ Web メーラー（Gmail / Outlook Web / Yahoo!）はブラウザの仕様で 2 通目以降のタブが開きません。この場合に<strong>開けなかった件数を画面でお知らせする</strong>ようにしました<br>
-          ⑩ 条件で<strong>ユーザーを選ぶとき、停止中の利用者を候補に表示しない</strong>ようにしました。退職された方などが並んで選びにくい、というご要望への対応です（<strong>すでに設定済みのものは「停止中」と表示して残します</strong>——黙って消すと、その設定を画面から外せなくなるためです）
-        </p>
-        <div class="update-shot">
-          <Picture
-            class="zoomable"
-            src="/images/mail-assist-config-06.png"
-            alt="メールアシスト テンプレート編集 — 送信方法で「下書きファイル（.eml）を作る」を選び、本文の形式を「書式つき（表・罫線・文字色をそのまま）」、添付ファイルフィールドにチェック、一斉送信の方式を「レコードごとに 1 通ずつ作る」に設定した画面"
-            width="936"
-            height="1190"
-            loading="lazy"
-          />
-          <p class="update-shot-cap">送信方法・本文の形式・添付ファイル・一斉送信の方式（画像をクリックすると拡大表示します）</p>
-        </div>
-        <div class="update-shot">
-          <Picture
-            class="zoomable"
-            src="/images/mail-assist-config-07.png"
-            alt="メールアシスト テンプレート編集 — 表示・送信条件に、レコードの値の条件（区分）に加えて「操作している人のアプリ管理権限＝あり（アプリ管理者）」と「操作している人の所属組織＝いずれかに該当する」を並べた画面。操作している人の条件は左に紫の線が付く"
-            width="936"
-            height="820"
-            loading="lazy"
-          />
-          <p class="update-shot-cap">表示・送信条件に「操作している人」を追加（画像をクリックすると拡大表示します）</p>
-        </div>
-        <p class="update-note">
-          <strong>下書きファイル方式は、Outlook / Thunderbird などパソコンにインストールされたメールソフトが必要です</strong>（ブラウザ版のみをお使いの場合は、従来どおりの「メーラーを起動する」方式でご利用ください）。どの方法で何ができるかは、設定画面と下記の対応表でご確認いただけます。<br>
-          既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。<strong>設定・既存テンプレート・記録済みの履歴はそのまま引き継がれ、送信方法は従来どおり（メーラーを起動する）のままです。</strong><br>
-          上記 ⑩ のご要望への対応は v1.6.1 で反映しています。
-        </p>
-      </div>
-    </section>
     <!-- Problem Section -->
     <section class="section-bg">
       <div class="section-wrapper fade-in">
