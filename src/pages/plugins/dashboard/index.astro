@@ -57,10 +57,10 @@ const teaser = teaserIds
           "name": "ダッシュボード for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.5.0",
-          "dateModified": "2026-10-03",
+          "softwareVersion": "1.5.1",
+          "dateModified": "2026-10-05",
           "url": "https://kizuna-works.jp/plugins/dashboard/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-dashboard-v1.5.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-dashboard-v1.5.1.zip",
           "image": "https://kizuna-works.jp/images/dashboard-banner.png",
           "offers": [
             {
@@ -291,7 +291,7 @@ const teaser = teaserIds
       <img class="dbp-hero-icon" src="/images/dashboard-icon.png" alt="ダッシュボード for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="dbp-hero-badges">
         <span class="dbp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="dbp-hero-version">v1.5.0</span>
+        <span class="dbp-hero-version">v1.5.1</span>
       </div>
       <h1>ダッシュボード for kintone</h1>
       <p class="dbp-tagline">見たい数字を、1枚に。</p>
@@ -299,38 +299,27 @@ const teaser = teaserIds
     </section>
     <div class="dbp-hero-gradient-line"></div>
 
-    <!-- Update Info (v1.5.0) -->
+    <!-- Update Info (v1.5.1) -->
     <section class="dbp-section">
       <div class="dbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.5.0：カードごとに条件を設定し、テーブルの中の項目で絞り込んで集計できるようになりました</h2>
+            <h2 class="update-title">v1.5.1：絞り込みの条件に「いずれも含まない」を追加しました</h2>
           </div>
-          <p class="update-desc">数値カード・グラフ・クロス集計表の設定に<strong>「このカードの条件」</strong>が増えました。条件はそのカードだけに効くので、同じデータソースから「全体の合計」と「特定の製品だけの合計」を並べられます。テーブル（サブテーブル）を集計するカードでは、<strong>テーブルの中の項目（ルックアップを含む）で、条件に合う行だけを集計</strong>します。同じレコードにあるほかの製品の行は入りません。</p>
+          <p class="update-desc">データソースの絞り込み条件と、カードごとの条件で、演算子<strong>「いずれも含まない」</strong>を選べるようになりました。値を複数選ぶと、<strong>そのすべてを集計から除外</strong>します。たとえば、ステータスが「失注」「保留」の案件を除いた受注見込み金額を、ひと目で確認できます。</p>
           <div class="update-shot">
             <Picture
-              src="/images/dashboard-filter-01.png"
-              alt="ダッシュボード for kintone v1.5.0 — 「生産ダッシュボード」の下段に、このカードの条件で生産明細の製品名を「六角ボルト M8」に絞った棒グラフ「六角ボルト M8 の月別生産金額」（2026-04〜2026-09）と、数値カード「六角ボルト M8 の生産金額 2,484,000円」が並び、どちらのカードにもタイトルの下に「条件：製品名 いずれか 六角ボルト M8」と表示されている。上段のクロス集計表「製品×月の生産金額」の六角ボルト M8 の合計 2,484,000 と一致し、全体の合計カードは 5,022,700円"
-              width="2100"
-              height="1776"
-              class="zoomable"
-            />
-            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-          </div>
-          <p class="update-desc">条件の欄では、テーブルの列に「[テーブル名]」が付き、親レコードのフィールドも選べます。選択肢のフィールドは値を一覧から選べます。ダッシュボードでは、条件を付けたカードのタイトルの下に「条件：…」と表示されるので、全体の数字と見分けられます。データソースの絞り込み条件は、そのデータソースを使うすべてのカードに効くので、<strong>カードごとに変えたい条件や、テーブルの中の項目の条件はカードの条件</strong>に設定してください。</p>
-          <div class="update-shot">
-            <Picture
-              src="/images/dashboard-filter-02.png"
-              alt="ダッシュボード for kintone v1.5.0 の設定画面 — グラフのカード設定で、集計の単位に「テーブル『生産明細』の行」、集計に「合計」「[生産明細] 金額」を選び、その下の見出し「このカードの条件（任意）」と、条件に合うテーブルの行だけを集計する旨の案内に続けて、「[生産明細] 製品名」「いずれか」「六角ボルト M8」を指定している"
+              src="/images/dashboard-notin-01.png"
+              alt="ダッシュボード for kintone v1.5.1 の設定画面 — データソースの絞り込み条件で、フィールド「ステータス」、演算子「いずれも含まない」を選び、値の一覧（商談中・受注・失注・保留）で「失注」と「保留」の2つを選んでいる。上に、この条件はデータソースを使うすべてのカードに効くこと、テーブル内のフィールドで絞り込むときはカードの条件を使うことの案内がある"
               width="1073"
-              height="1293"
+              height="511"
               class="zoomable"
             />
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
-          <p class="update-desc"><strong>不具合の修正：</strong>割合（分子÷分母）のカード・グラフ・クロス集計表で、分子・分母の条件に日付を使うと、日付の「期間（範囲）」「以降」「以前」が正しく判定されず、割合が 0% や 100% になることがありました。v1.5.0 で修正しています（設定のやり直しは不要です）。あわせて、条件に使った項目が削除されたときは 0 ではなく「対象フィールドなし」と表示し、値を入れていない条件は集計に使わないようにしました。</p>
-          <p class="update-note">設定例は<a href="/plugins/dashboard/recipes/">設定レシピ集</a>の「テーブル集計」にもまとめています。ウィジェットをクリックして開く一覧は、kintone の一覧がレコード単位のため、条件に合う行を含むレコードの一覧です。無料プランでお使いの方に一覧の上へ表示している案内（バナー）は、全プラグイン共通の新しい形式になりました。<br>既存ユーザーの方は、最新版（v1.5.0）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。</p>
+          <p class="update-desc">ドロップダウン・チェックボックス・ユーザー選択などのフィールドは、演算子を「いずれか」「いずれも含まない」から選ぶ形になりました。ユーザー選択の条件はログイン名で指定します。カードに表示する条件は、長いときは 2 行まで折り返して表示します。</p>
+          <p class="update-note">これまでに「等しくない」で保存していた条件は、上書きアップロードすると「いずれも含まない」として動きます。<br>既存ユーザーの方は、最新版（v1.5.1）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。</p>
         </div>
       </div>
     </section>
@@ -462,6 +451,20 @@ const teaser = teaserIds
           />
         </div>
 
+        <div class="dbp-feature">
+          <div class="dbp-feature-text">
+            <h3>カードごとに条件を付けて集計</h3>
+            <p>数値カード・グラフ・クロス集計表に<strong>「このカードの条件」</strong>を設定すると、そのカードだけを絞り込めます。同じデータソースから「全体の合計」と「特定の製品だけの合計」を並べられます。テーブル（サブテーブル）を集計するカードでは、テーブルの中のフィールド（ルックアップを含む）で、条件に合う行だけを集計します。条件を付けたカードには、タイトルの下に「条件：…」と表示されるので、全体の数字と見分けられます。</p>
+          </div>
+          <Picture
+            src="/images/dashboard-filter-01.png"
+            alt="ダッシュボード for kintone — 「生産ダッシュボード」の下段に、このカードの条件で生産明細の製品名を「六角ボルト M8」に絞った棒グラフ「六角ボルト M8 の月別生産金額」と、数値カード「六角ボルト M8 の生産金額 2,484,000円」が並び、どちらのカードにもタイトルの下に「条件：製品名 いずれか 六角ボルト M8」と表示されている。上段のクロス集計表の六角ボルト M8 の合計 2,484,000 と一致し、全体の合計カードは 5,022,700円"
+            width="2100"
+            height="1776"
+            class="zoomable"
+          />
+        </div>
+
         <div class="dbp-grid-feats" style="margin-top:8px;">
           <div class="dbp-feat-card">
             <span class="dbp-tag-premium">プレミアム</span>
@@ -550,7 +553,7 @@ const teaser = teaserIds
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-dashboard-v1.5.0.zip" download class="dbp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-dashboard-v1.5.1.zip" download class="dbp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="dbp-plan-card recommended">
@@ -684,10 +687,10 @@ const teaser = teaserIds
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-dashboard-v1.5.0.zip',
+            file_name: 'kw-dashboard-v1.5.1.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-dashboard-v1.5.0.zip'
+            link_url: '/downloads/kw-dashboard-v1.5.1.zip'
           });
         });
       }
