@@ -1552,7 +1552,7 @@ export const premiumPlugins: Plugin[] = [
     problemTitle: '添付PDFへの押印や現場でのサインのたび、kintoneの外へ出ている',
     problemDesc: '押印のために印刷してスキャンし直している。現場でお客様の署名をもらうのに確認書を紙で持ち出している。お客様欄と自社欄の2か所に署名する帳票で、2人目のサインを毎回動かしている。金額や個人情報を白く塗って隠したつもりでも、元の文字はファイルに残っている',
     releaseDate: '2026-08-21',
-    summaryVersion: '1.2.6',
+    summaryVersion: '1.3.0',
   },
   {
     id: 'kw-calendar-view',

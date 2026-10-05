@@ -51,10 +51,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "PDF編集アシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.2.8",
-          "dateModified": "2026-10-03",
+          "softwareVersion": "1.3.0",
+          "dateModified": "2026-10-05",
           "url": "https://kizuna-works.jp/plugins/pdf-edit/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-pdf-edit-v1.2.8.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-pdf-edit-v1.3.0.zip",
           "image": "https://kizuna-works.jp/images/pdf-edit-banner.png",
           "offers": [
             {
@@ -87,6 +87,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             "置くページを選択（表示中／ページ番号で指定／最後／すべてのページ）",
             "スマートフォンでの2本指ピンチ拡大縮小・1本指スクロール",
             "設定に登録した押印画像をクリックで配置（移動・拡大縮小・回転）",
+            "押印画像は最大10枚・設定全体で256KBまで登録でき、保存すると大きくなる画像には追加した時点で大きさと小さくする方法を表示",
             "手書き（色・太さを選んで自由線）",
             "日本語テキストの挿入（ゴシック／明朝・サイズ・色・行揃え）",
             "図形9種類（四角・角丸四角・円・三角・ひし形・マーカー・チェック・バツ・多角形）",
@@ -97,6 +98,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             "全画面表示（設定は次回も引き継ぎ）",
             "保存は「同じフィールドに追加」（原本と最新のみ／すべて残す）と「上書き」から選択",
             "上書きはファイル名を変えず、保存直前に必ず確認",
+            "ページに回転の指定（90度・180度・270度）があるPDFでも、置いた位置と向きのまま保存",
             "詳細画面のサブテーブル内添付ファイルにも対応（行の並べ替えや他の列を壊さない）",
             "一覧画面からの編集（任意・確認ダイアログつき）",
             "パスワード付きPDFの編集（許可制・パスワードは保存しない）",
@@ -193,6 +195,8 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
     .update-shot.is-wide img { width: auto; max-width: min(640px, 100%); }
+    /* Picture renders a full-width block wrapper; center the image inside it. */
+    .update-shot picture { text-align: center; }
     @media (max-width: 768px) {
       .update-box { padding: 24px 20px 28px; }
       .update-title { font-size: 17px; }
@@ -324,14 +328,14 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
         <RequestOriginBadge />
-        <span class="afp-hero-version">v1.2.8</span>
+        <span class="afp-hero-version">v1.3.0</span>
       </div>
       <h1>PDF編集アシスト for kintone</h1>
       <p class="afp-tagline">印刷せず、その場で書き込む。そして、本当に消せる。</p>
       <p class="afp-sub">添付された PDF に、押印・手書き・テキスト・図形をその場で書き加えて保存できます。<strong>スマートフォンにも対応</strong>し、画面いっぱいの欄に大きく書いたサインを署名欄へ収める<strong>サイン専用モード</strong>で、現場でそのまま署名をいただけます。<strong>署名欄は最大10か所まで登録でき</strong>、お客様欄と自社欄のように署名する人が複数いる帳票でも、書いたあとに置く欄を選ぶだけです。白く塗るだけでは残ってしまう情報は、ページを焼き直して本当に消す<strong>墨消し</strong>で。印刷して押してスキャンする往復が、レコード画面の中で終わります。</p>
       <div class="afp-hero-cta">
         <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
-        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-pdf-edit-v1.2.8.zip" download>無料でダウンロード</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-pdf-edit-v1.3.0.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
@@ -343,14 +347,20 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.2.7：回転の指定があるPDFでも、置いた位置のまま保存されるようになりました</h2>
+            <h2 class="update-title">v1.3.0：押印画像を、案内どおり 256KB まで登録できるようになりました</h2>
           </div>
           <p class="update-desc">
-            PDF には、縦向きのページに<strong>「90度回転して表示する」という指定</strong>を入れて、横向きに見せているものがあります。v1.2.7 では、こうした PDF でも、編集画面で置いた<strong>押印・サイン・文字・図形・矢印が、保存後も同じ位置・同じ向き</strong>になるようにしました。90度・180度・270度のどの回転にも対応し、1 つのファイルの中でページごとに向きが違う PDF でも、それぞれのページで正しく保存されます。
+            押印画像は、プラグインの設定全体で <strong>256KB まで</strong>登録できるとご案内していました。ところが v1.2.8 までは、画像の合計が<strong>約 64KB を超えると、使用量が 256KB に届いていなくても「保存」でエラーになる</strong>ことがありました。v1.3.0 では設定の保存方法を見直し、<strong>案内どおり 256KB まで</strong>登録して保存できるようにしました。
           </p>
+          <p class="update-desc">
+            あわせて、登録した画像が<strong>保存するとどれくらいの大きさになるか</strong>を、追加したその場でお知らせするようにしました。押印画像は登録時に 200×200px へ縮小して保存するため、大きさは<strong>元のファイル容量ではなく画像の中身</strong>で決まります。背景を透明にした単色の印影なら 1 枚数KB ですが、紙の背景やざらつきが残ったスキャン画像は 1 枚 100KB を超えることがあります。大きい画像を追加すると、サイズの表示が赤字になり、小さくする方法（背景を透明にして、印影の色を 1 色にした PNG にする）を表示します。
+          </p>
+          <div class="update-shot is-wide">
+            <Picture src="/images/pdf-edit-stamp-size.png" alt="設定画面の「押印画像の登録」。受付印（18KB）と、スキャンした社印（96KB・赤字）が並び、使用量は115KB／256KB。下に「この画像は保存すると約96KBになります。背景を透明にし、印影の色を1色にしたPNGにすると数KB程度まで小さくなります」という案内が表示されている" width="1000" height="882" class="zoomable" />
+          </div>
           <p class="update-note">
-            v1.2.6 以前では、回転の指定がある PDF で、保存時に書き込みの位置がずれることがありました。<strong>すでに保存したファイルは自動では直らない</strong>ため、該当するファイルは元の PDF から編集し直してください。<br />
-            すでにお使いの方は、システム管理のプラグイン画面から新しい zip を<strong>上書きでアップロード</strong>してください。プラグインを削除する必要はなく、<strong>アプリごとの設定はそのまま引き継がれます</strong>。
+            画像をクリックすると拡大表示します。<br />
+            すでにお使いの方は、システム管理のプラグイン画面から新しい zip を<strong>上書きでアップロード</strong>してください。プラグインを削除する必要はなく、<strong>アプリごとの設定はそのまま引き継がれます</strong>。保存できなかった押印画像は、上書きしたあとに設定画面から登録し直してください。
           </p>
         </div>
       </div>
@@ -573,7 +583,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         <div class="afp-grid-feats">
           <div class="afp-feat-card">
             <h3>押印画像を置く</h3>
-            <p>設定に登録した印影をクリックで配置。移動・拡大縮小・回転ができます。パソコン内の画像も選べます（禁止も可）。</p>
+            <p>設定に登録した印影をクリックで配置。移動・拡大縮小・回転ができます。パソコン内の画像も選べます（禁止も可）。登録は最大10枚・256KBまでで、大きい画像は追加した時点で小さくする方法をお知らせします。</p>
           </div>
           <div class="afp-feat-card">
             <h3>手書き</h3>
@@ -618,6 +628,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           <div class="afp-feat-card">
             <h3>世代管理つきの保存</h3>
             <p>追加（原本と最新のみ／すべて残す）と上書きから選択。上書きはファイル名を変えず、直前に確認します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>回転したページもそのまま</h3>
+            <p>縦のページに「90度回転して表示する」指定が入った横向きの PDF でも、置いた位置と向きのまま保存します。180度・270度、ページごとに向きが違うファイルにも対応します。</p>
           </div>
           <div class="afp-feat-card">
             <h3>サブテーブル内の添付</h3>
@@ -667,7 +681,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <li>✅ パスワード付きPDF・添付ファイルプレビュー連携</li>
               <li>✅ 利用期限なし（設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-pdf-edit-v1.2.8.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-pdf-edit-v1.3.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="afp-plan-card recommended">
@@ -742,6 +756,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             <li><strong>マーカーや白い図形は「隠す」だけ</strong>です。元の文字はファイルに残ります。確実に消すには<strong>墨消し</strong>を使ってください。</li>
             <li><strong>墨消しをしたページは、文字の選択・検索ができなくなります</strong>（画像として焼き直すため）。ファイルサイズも増えます。取り消しはできません。</li>
             <li>パスワード付き PDF は、保存後のファイルに<strong>パスワードを再設定できません</strong>（全ページを画像化し、保護のかかった原本を残します）。旧 Standard 暗号には対応していません。</li>
+            <li><strong>押印画像は設定全体で 256KB まで</strong>です（最大10枚）。大きさは元のファイル容量ではなく画像の中身で決まり、紙の背景やざらつきが残ったスキャン画像は 1 枚 100KB を超えることがあります。たくさん登録するときは、背景を透明にして印影の色を 1 色にした PNG をお使いください。</li>
             <li><strong>編集できるのは先頭 50 ページまで</strong>です。51 ページ目以降はそのまま複製されるので、内容が失われることはありません。</li>
             <li><strong>スマートフォンで使えるのはレコード詳細画面のサイン・手書き・画像（押印）</strong>です（テキスト・図形・矢印・墨消しは PC 版のみ／テーブル内の添付ファイルもスマートフォンでは対象外）。レコードの<strong>編集・新規作成画面</strong>、カスタマイズビュー、カレンダービューでは動作しません。</li>
             <li>一覧画面では、<strong>サブテーブル内の添付ファイルは編集できません</strong>。</li>
@@ -813,10 +828,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
             gtag('event', 'file_download', {
-              file_name: 'kw-pdf-edit-v1.2.8.zip',
+              file_name: 'kw-pdf-edit-v1.3.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-pdf-edit-v1.2.8.zip'
+              link_url: '/downloads/kw-pdf-edit-v1.3.0.zip'
             });
           });
         });
