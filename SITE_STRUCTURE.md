@@ -386,6 +386,8 @@ c:\kizuna-works.jp\
 │   │   ├── field-comment-after-01.png      # フィールドコメントプラグイン 動作画面スクショ① — 案件名にチェックアイコン（hover/click用）と会社名に常時コメント表示の組み合わせ
 │   │   ├── field-comment-after-02.png      # フィールドコメントプラグイン 動作画面スクショ② — 案件名のアイコンにマウスを乗せてポップアップ「必ず入力して下さい」が開いた状態（hoverモード）
 │   │   ├── field-comment-config-01.png     # フィールドコメントプラグイン 設定画面スクショ①（v1.1.0）— 背景色/文字色/アイコンの色をカラーピッカー＋#カラーコード入力で指定、プリセット6種、10種アイコンギャラリー（情報/ヘルプ/注意/警告/ヒント/コメント/確認/重要/ピン/ブックマーク）
+│   │   ├── field-comment-config-02.png     # フィールドコメントプラグイン 設定画面スクショ②（v1.2.0）— 対象の選択欄でラベル「先方担当者情報（要素ID：lbl_tantou）」を選び常時表示を設定したカード＋プレビュー ＋ .webp
+│   │   ├── field-comment-heading-01.png    # フィールドコメントプラグイン 製品ページ UPDATE 欄（v1.2.0）— 見出しラベルに常時表示コメント、グループ「請求先情報」の見出しにヘルプアイコン ＋ .webp
 │   │   ├── read-check-icon.png             # 既読チェック for kintone プラグイン アイコン（ヒーロー画像用・200×200）
 │   │   ├── read-check-banner.png/.webp     # 既読チェック for kintone バナー（1200×630・OGP/グリッド共用）※ユーザー用意
 │   │   ├── read-check-before.png/.webp     # 既読チェック スクショ Before — サイドバーはコメント・変更履歴のみで既読不明
@@ -1115,7 +1117,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-comment-v1.0.2.zip                           # フィールドコメント for kintone 配布ファイル（v1.0.2・ゲストスペース対応）
 │   │   ├── kw-field-comment-v1.1.0.zip                           # フィールドコメント for kintone 配布ファイル（手動配置・v1.1.0 編集/新規画面対応＋アイコン10種＋カラーコード入力＋設定アコーディオン化）
 │   │   ├── kw-field-comment-v1.1.1.zip                           # フィールドコメント for kintone 配布ファイル（旧版・手動配置・v1.1.1 フィールド名非表示フィールドのコメント誤付着を修正＋入力欄直上に表示＋ラベル改称後も追従）
-│   │   ├── kw-field-comment-v1.1.2.zip                           # フィールドコメント for kintone 配布ファイル（最新・手動配置・v1.1.2 ライセンス認証の内部改修）
+│   │   ├── kw-field-comment-v1.1.2.zip                           # フィールドコメント for kintone 配布ファイル（旧版・手動配置・v1.1.2 ライセンス認証の内部改修）
+│   │   ├── kw-field-comment-v1.2.0.zip                           # フィールドコメント for kintone 配布ファイル（最新・手動配置・v1.2.0 グループの見出し・ラベルへのコメント＋同名フィールドでも正しい欄に表示）
 │   │   ├── kw-field-styler-v1.1.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-field-styler-v1.2.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-field-styler-v2.0.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
