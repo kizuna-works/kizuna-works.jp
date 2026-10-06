@@ -55,11 +55,11 @@ import Picture from '../../../components/Picture.astro';
           "name": "足あと for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.1.0",
+          "softwareVersion": "1.2.0",
           "datePublished": "2026-10-01",
-          "dateModified": "2026-10-02",
+          "dateModified": "2026-10-06",
           "url": "https://kizuna-works.jp/plugins/footprint/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-footprint-v1.1.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-footprint-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/footprint-banner.png",
           "offers": {
             "@type": "Offer",
@@ -88,6 +88,8 @@ import Picture from '../../../components/Picture.astro';
             "詳細画面の上に「閲覧状況 2 / 3名（まだ見ていない 1名）」を表示し、押すとまだ見ていない人と見た人を分けて一覧にする（v1.1.0）",
             "一覧の上で人を選ぶと、足あと列がその人の足あとだけになる。対象なのに一度も見ていないレコードに白抜きの丸、対象のうち何件を閲覧したかの件数も表示。一覧と同じ表示する期間で絞る（v1.1.0・既定はオフ）",
             "組織を選ぶ欄は、組織の親子を字下げした階層で表示（v1.1.0）",
+            "ユーザーの足あとで、閲覧したレコード・一度も見ていないレコードだけに一覧を絞り込める（v1.2.0）",
+            "保管アプリ（足あと管理）にアプリ名を残し、どのアプリの足あとか保管アプリを開いただけで分かる。レコードのタイトルも設定で残せる（v1.2.0・既定は残さない）",
             "記録するのは誰が・いつ・どのフィールドをだけで、値の中身は記録しない。計算フィールドとルックアップのコピー先には付けない",
             "足あとは同じスペースの保管アプリに記録し、対象アプリのレコードは書き換えない。保管アプリはボタン1つで作成でき、既読チェック for kintone の保管アプリも共用できる",
             "モバイル版での閲覧・保存も記録（表示はPC版）・ゲストスペース対応"
@@ -802,6 +804,10 @@ import Picture from '../../../components/Picture.astro';
     .fp-pair-narrow { max-width: 760px; }
 
     .update-section { padding: 48px 5% 8px; background: var(--color-white); }
+    .fp-whoseen { max-width: 980px; margin: 0 auto; }
+    .fp-whoseen-shot { max-width: 760px; margin: 0 auto 28px; }
+    .fp-whoseen-shot .screenshot-frame { margin: 0 auto; }
+    .fp-whoseen-cap { color: var(--color-text-light); font-size: 13px; line-height: 1.6; text-align: center; margin-top: 10px; }
     .update-box {
       max-width: 980px; margin: 0 auto; background: var(--color-white);
       border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
@@ -849,30 +855,31 @@ import Picture from '../../../components/Picture.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.1.0</span>
+        <span class="hero-version">v1.2.0</span>
       </div>
       <h1 class="hero-title">足あと for kintone</h1>
       <p class="hero-copy">足あと for kintone は、<strong>レコードを誰が見て、誰がどのフィールドを直したか</strong>を、一覧と詳細画面に「足あと」として出す kintone プラグインです。一覧に列を1本足して、<strong>見た人がいれば閲覧マーク、直した人がいれば編集マーク</strong>を並べます。マウスを乗せると<strong>人と日時・直した項目</strong>が出て、詳細画面では<strong>直されたフィールドの横</strong>にもマークが付きます。足あとは<strong>新しいほど濃く、古いほど薄く</strong>なるので、最近動いたレコードがひと目で分かります。担当者など<strong>見てほしい人のうち、まだ見ていない人</strong>もレコードごとに分かります。記録するのは「誰が・いつ・どのフィールドを」だけで、<strong>値の中身は記録しません</strong>。</p>
     </section>
 
-    <!-- Update v1.1.0 -->
+    <!-- Update v1.2.0 -->
     <section class="update-section">
       <div class="update-box fade-in">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.1.0：見てほしい人のうち、まだ見ていない人が分かるようになりました</h2>
+          <h2 class="update-title">v1.2.0：まだ見ていないレコードだけに絞り込めるようになりました</h2>
         </div>
-        <p class="update-desc">ご利用中のお客様から「担当者がレコードを見たかどうかを確かめたい」というご要望をいただき、設定に<strong>「記録する人」</strong>を加えました。担当者などの<strong>ユーザー・組織・グループ選択フィールド</strong>や、固定のユーザー・組織・グループで、足あとを記録する人を指定できます。指定すると、詳細画面の上に<strong>「閲覧状況 2 / 3名（まだ見ていない 1名）」</strong>のボタンが出て、押すと<strong>まだ見ていない人</strong>と<strong>見た人</strong>（日時・回数）を分けて表示します。指定した人以外の閲覧・編集は記録しません。</p>
+        <p class="update-desc">ご利用中のお客様から「ユーザーの足あとで、閲覧した・まだのレコードを絞り込みたい」というご要望をいただき、件数の横に<strong>［閲覧したレコードで絞り込む］［一度も見ていないレコードで絞り込む］</strong>のボタンを加えました。押すと、当てはまるレコードだけの一覧に切り替わります。<strong>kintone の一覧のまま</strong>なので、ページ送り・CSV への書き出しもそのまま使えます。今の絞り込み条件に重ねて絞り込み、［絞り込みを解除］で元に戻ります。［一度も見ていないレコードで絞り込む］は、「記録する人」で対象を指定しているときに出ます（全員を記録する設定では［閲覧したレコードで絞り込む］だけです）。</p>
         <figure class="update-shot">
-          <div class="screenshot-frame"><Picture class="zoomable" src="/images/footprint-roster-01.png" alt="足あと for kintone v1.1.0 の閲覧状況 — 詳細画面の上の「閲覧状況 2 / 3名（まだ見ていない 1名）」ボタンを押すと、対象 3名のうち、まだ見ていない人（鈴木 花子）と、見た人 2名（KIZUNA Works（あなた）今日・3回、絆 太郎 10/1・2回）が左右に並ぶ" width="1190" height="387" /></div>
-          <figcaption class="update-cap">詳細画面の閲覧状況 — 記録する人を「案件担当者名」（ユーザー選択）で指定したレコード（画像をクリックすると拡大表示します）</figcaption>
+          <div class="screenshot-frame"><Picture class="zoomable" src="/images/footprint-filter-02.png" alt="足あと for kintone v1.2.0 — ユーザーの足あとで鈴木 花子を選び［一度も見ていないレコードで絞り込む］を押した一覧。担当なのに一度も見ていない 11 件だけが並び、全行の足あと列に白抜きの丸。上に［絞り込みを解除］ボタン" width="1400" height="754" /></div>
+          <figcaption class="update-cap">一度も見ていないレコードで絞り込んだ一覧 — 鈴木 花子の担当のうち、まだ一度も開いていない 11 件（画像をクリックすると拡大表示します）</figcaption>
         </figure>
-        <p class="update-desc">あわせて、一覧に<strong>「ユーザーの足あと」</strong>を追加しました（初期設定はオフ）。一覧の上で人を選ぶと、<strong>足あと列がその人の足あとだけ</strong>になります。記録する人を指定しているときは、対象なのに<strong>一度も見ていないレコードに白抜きの丸</strong>が付き、「直近7日　対象 15件中 4件を閲覧・一度も見ていない 11件」のように件数も出ます。マークは一覧と同じ<strong>表示する期間</strong>（今日・直近N日・すべて）で絞り、期間の切り替えボタンを出していればボタンで切り替わります。</p>
+        <p class="update-desc">あわせて、<strong>足あと管理アプリ（保管アプリ）にアプリ名を残す</strong>ようにしました。複数のアプリの足あとを 1 つの保管アプリにまとめていても、どのアプリの足あとか、保管アプリを開いただけで分かります。<strong>レコードのタイトル</strong>も、設定でオンにすると残せます（初期設定はオフ）。</p>
         <figure class="update-shot">
-          <div class="screenshot-frame"><Picture class="zoomable" src="/images/footprint-user-list-01.png" alt="足あと for kintone v1.1.0 のユーザーの足あと — 一覧の上で「鈴木 花子」を選ぶと、足あと列が鈴木 花子の足あとだけになり、見たレコードに足あとマーク、一度も見ていない担当レコードに白抜きの丸、担当でないレコードは空欄。上に「直近7日　対象 15件中 4件を閲覧・一度も見ていない 11件」" width="1400" height="767" /></div>
-          <figcaption class="update-cap">一覧のユーザーの足あと — 担当でないレコードと、期間より前に見ただけのレコードは空欄。一覧が 2 ページ以上あるときは［全 N件で数える］ボタンが出て、次のページ以降も含めて数えられます</figcaption>
+          <div class="screenshot-frame"><Picture class="zoomable" src="/images/footprint-store-01.png" alt="足あと for kintone v1.2.0 — 足あと管理アプリの一覧。ユーザー名・アプリ名（案件管理）・レコードのタイトル（会社名）・最終既読日時・既読回数・最終編集日時・編集回数が並ぶ" width="1400" height="546" /></div>
+          <figcaption class="update-cap">足あと管理アプリ — アプリ名とレコードのタイトル（タイトルを残す設定のとき）が入る</figcaption>
         </figure>
-        <p class="update-note">組織を選ぶ欄は、組織の親子を字下げした階層で表示するようになりました。「記録する人」の初期設定は「全員を記録する」で、上書きアップロードしただけでは画面は変わりません。バージョンアップは zip をダウンロードし、kintone システム管理の「プラグイン」から上書きアップロードしてください（アプリごとの設定は保持されます）。</p>
+        <p class="update-desc">設定画面では<strong>「ユーザーの足あと」を目次の独立した項目</strong>にし、見つけやすくしました。</p>
+        <p class="update-note">保管アプリは、足あとを表示するために利用者全員が開けます。レコードのタイトルを残すと、レコードのアクセス権で閲覧を制限しているレコードのタイトルも見えるようになるため、タイトルは閲覧を制限していないアプリでお使いください。これまでの足あとには、設定画面を開いたときに出る案内で［入れる］を押すと、アプリ名（とタイトル）が入ります。バージョンアップは zip をダウンロードし、kintone システム管理の「プラグイン」から上書きアップロードしてください（アプリごとの設定は保持されます）。</p>
       </div>
     </section>
 
@@ -1065,6 +1072,23 @@ import Picture from '../../../components/Picture.astro';
       <p class="fp-p fp-p--center fp-after-grid">配色は <strong>KIZUNA／さくら／ひだまり／ミント／ラベンダー／オーシャン／ミッドナイト／モノクロ</strong> の8種類。どの配色も、閲覧と編集の2色を色覚の個人差があっても見分けやすい組み合わせにしてあります。ホバーの背景・文字・見出し・枠線の色を個別に変えることもできます。</p>
     </section>
 
+    <!-- Who has not seen it yet (v1.1.0) -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">見てほしい人が、見たかどうかが分かる</h2>
+      <div class="fp-whoseen">
+        <p class="fp-p">設定の<strong>「記録する人」</strong>で、レコードごとの見てほしい人を決められます（v1.1.0）。担当者などの<strong>ユーザー・組織・グループ選択フィールド</strong>や、固定のユーザー・組織・グループで、足あとを記録する人を指定できます。指定すると、詳細画面の上に<strong>「閲覧状況 2 / 3名（まだ見ていない 1名）」</strong>のボタンが出て、押すと<strong>まだ見ていない人</strong>と<strong>見た人</strong>（日時・回数）を分けて表示します。指定した人以外の閲覧・編集は記録しません。</p>
+        <figure class="fp-whoseen-shot">
+          <div class="screenshot-frame"><Picture class="zoomable" src="/images/footprint-roster-01.png" alt="足あと for kintone の閲覧状況 — 詳細画面の上の「閲覧状況 2 / 3名（まだ見ていない 1名）」ボタンを押すと、対象 3名のうち、まだ見ていない人（鈴木 花子）と、見た人 2名（KIZUNA Works（あなた）今日・3回、絆 太郎 10/1・2回）が左右に並ぶ" width="1190" height="387" /></div>
+          <figcaption class="fp-whoseen-cap">詳細画面の閲覧状況 — 記録する人を「案件担当者名」（ユーザー選択）で指定したレコード（画像をクリックすると拡大表示します）</figcaption>
+        </figure>
+        <p class="fp-p">一覧の<strong>「ユーザーの足あと」</strong>（初期設定はオフ）では、一覧の上で人を選ぶと、<strong>足あと列がその人の足あとだけ</strong>になります。記録する人を指定しているときは、対象なのに<strong>一度も見ていないレコードに白抜きの丸</strong>が付き、「直近7日　対象 15件中 4件を閲覧・一度も見ていない 11件」のように件数も出ます。マークは一覧と同じ<strong>表示する期間</strong>（今日・直近N日・すべて）で絞り、期間の切り替えボタンを出していればボタンで切り替わります。</p>
+        <figure class="fp-whoseen-shot">
+          <div class="screenshot-frame"><Picture class="zoomable" src="/images/footprint-user-list-01.png" alt="足あと for kintone のユーザーの足あと — 一覧の上で「鈴木 花子」を選ぶと、足あと列が鈴木 花子の足あとだけになり、見たレコードに足あとマーク、一度も見ていない担当レコードに白抜きの丸、担当でないレコードは空欄。上に「直近7日　対象 15件中 4件を閲覧・一度も見ていない 11件」" width="1400" height="767" /></div>
+          <figcaption class="fp-whoseen-cap">一覧のユーザーの足あと — 担当でないレコードと、期間より前に見ただけのレコードは空欄。一覧が 2 ページ以上あるときは［全 N件で数える］ボタンが出て、次のページ以降も含めて数えられます</figcaption>
+        </figure>
+              </div>
+    </section>
+
     <!-- Detail screen -->
     <section class="section-bg">
       <div class="section-wrapper fade-in">
@@ -1128,17 +1152,25 @@ import Picture from '../../../components/Picture.astro';
         </div>
         <p class="shot-note"><strong>② 表示</strong>：期間・切り替えボタン・濃さの境目・マークの形・ホバーのスタイルと配色・マークの色。見分けにくい色を選ぶと、保存するときに警告が出ます。</p>
         <div class="screenshot-frame" style="margin-top:32px;">
+          <Picture class="zoomable" src="/images/footprint-config-09.png" alt="設定画面「ユーザーの足あと」— 一覧の上に「ユーザーの足あと」を出すチェック、足あとマーク・白抜きの丸・空欄の意味、件数と絞り込みのボタンの説明。左のライブプレビューの先頭に一覧のユーザーの足あとの見本、右にサイドバー" width="1400" height="1576" />
+        </div>
+        <p class="shot-note"><strong>④ ユーザーの足あと</strong>（v1.2.0 で独立した項目に）：一覧の上に「ユーザーの足あと」を出すかを選びます。セルの見方（足あとマーク・白抜きの丸・空欄）と、件数・絞り込みの説明も書いてあります。「記録する人」で対象を指定していないときは、その案内とボタンが出ます。</p>
+        <div class="screenshot-frame" style="margin-top:32px;">
+          <Picture class="zoomable" src="/images/footprint-config-08.png" alt="設定画面「保管アプリに残す情報」— アプリ名はいつも残し、レコードのタイトルも残すかのチェック。タイトルを残すと閲覧を制限したレコードのタイトルも保管アプリから見える旨の警告" width="1095" height="472" />
+        </div>
+        <p class="shot-note"><strong>① 保管アプリ — 保管アプリに残す情報</strong>（v1.2.0）：アプリ名はいつも残します。レコードのタイトルは、チェックを付けたときだけ残します（初期設定はオフ）。</p>
+        <div class="screenshot-frame" style="margin-top:32px;">
           <Picture class="zoomable" src="/images/footprint-config-07.png" alt="設定画面「記録する人」— 指定した人をレコードごとの「見てほしい人（対象）」とする説明、記録の対象（全員を記録する／足あとの設定で指定した人だけ記録する）、すべてのレコードで対象にする人（ユーザー・組織・グループ）、レコードのフィールドで指定する（案件担当者名）、子組織を含める、詳細画面の閲覧状況を出すかのチェック。左のライブプレビューには閲覧状況の見本、右にサイドバー" width="1400" height="1576" />
         </div>
-        <p class="shot-note"><strong>⑤ 記録する人</strong>（v1.1.0）：ここで指定した人が、レコードごとの<strong>「見てほしい人（対象）」</strong>になります。どのレコードでも対象にする人（ユーザー・組織・グループ）と、担当者などのフィールドで指定する人を組み合わせられます。詳細画面の閲覧状況と、一覧のユーザーの足あとの白抜きの丸は、この対象の人について「見た・まだ見ていない」を出します。ライブプレビューに閲覧状況の見本が出ます。</p>
+        <p class="shot-note"><strong>⑥ 記録する人</strong>（v1.1.0）：ここで指定した人が、レコードごとの<strong>「見てほしい人（対象）」</strong>になります。どのレコードでも対象にする人（ユーザー・組織・グループ）と、担当者などのフィールドで指定する人を組み合わせられます。詳細画面の閲覧状況と、一覧のユーザーの足あとの白抜きの丸は、この対象の人について「見た・まだ見ていない」を出します。ライブプレビューに閲覧状況の見本が出ます。</p>
         <div class="screenshot-pair fp-stack" style="margin-top:32px;">
           <figure>
-            <div class="screenshot-frame"><Picture class="zoomable" src="/images/footprint-config-03.png" alt="設定画面「一覧の列」— 列の見出し（足あと）と列の幅（64px）、ユーザーの足あとを出すチェックと、足あとマーク・白抜きの丸・空欄の意味、件数と［全 N件で数える］の説明" width="1095" height="775" /></div>
-            <figcaption><strong>③ 一覧の列</strong>：列の見出し・幅と、足あと列を出す一覧（選ばなければすべての一覧）。v1.1.0 から、<strong>ユーザーの足あと</strong>を出すかもここで選びます。足あとマーク・白抜きの丸・空欄の意味も、設定画面に書いてあります</figcaption>
+            <div class="screenshot-frame"><Picture class="zoomable" src="/images/footprint-config-03.png" alt="設定画面「一覧の列」— 列の見出し（足あと）と列の幅（64px）、足あと列を出す一覧のチェックボックス（案件一覧・確度Aの案件・kintone案件）" width="1095" height="704" /></div>
+            <figcaption><strong>③ 一覧の列</strong>：列の見出し・幅と、足あと列を出す一覧（選ばなければすべての一覧）</figcaption>
           </figure>
           <figure>
             <div class="screenshot-frame"><Picture class="zoomable" src="/images/footprint-config-06.png" alt="設定画面「足あとの整理」— 削除したレコードの足あと、指定した日数より古い足あとをそれぞれ件数を確認してから消すボタン" width="1400" height="389" /></div>
-            <figcaption><strong>⑦ 足あとの整理</strong>：削除したレコードの足あと・古い足あとを、件数を確認してから消します（自動では消しません）</figcaption>
+            <figcaption><strong>⑧ 足あとの整理</strong>：削除したレコードの足あと・古い足あとを、件数を確認してから消します（自動では消しません）</figcaption>
           </figure>
         </div>
       </div>
@@ -1158,7 +1190,10 @@ import Picture from '../../../components/Picture.astro';
         <li><span><strong>見られる人・記録しない人を指定</strong>／ユーザー・組織（子組織を含めるも選べます）・グループで指定できます</span></li>
         <li><span><strong>記録する人を指定</strong>（v1.1.0）／担当者などのユーザー・組織・グループ選択フィールドと、固定のユーザー・組織・グループで指定。指定した人以外の閲覧・編集は記録しません</span></li>
         <li><span><strong>詳細画面の閲覧状況</strong>（v1.1.0）／「閲覧状況 2 / 3名（まだ見ていない 1名）」のボタンから、まだ見ていない人と見た人（日時・回数）を分けて表示します</span></li>
-        <li><span><strong>一覧のユーザーの足あと</strong>（v1.1.0・既定はオフ）／一覧の上で人を選ぶと、足あと列がその人の足あとだけに。一度も見ていない担当レコードには白抜きの丸と件数を出します（期間の切り替えにも従います）</span></li>
+        <li><span><strong>一覧のユーザーの足あと</strong>（v1.1.0・既定はオフ・設定の「ユーザーの足あと」でオン）／一覧の上で人を選ぶと、足あと列がその人の足あとだけに。一度も見ていない担当レコードには白抜きの丸と件数を出します（期間の切り替えにも従います）</span></li>
+        <li><span><strong>閲覧した・一度も見ていないレコードで絞り込む</strong>（v1.2.0）／ユーザーの足あとの件数の横のボタンで、当てはまるレコードだけの一覧に。kintone の一覧のままで、今の絞り込み条件にも重ねられます。一度も見ていないの絞り込みは「記録する人」で対象を指定しているときに使えます</span></li>
+        <li><span><strong>保管アプリにアプリ名を残す</strong>（v1.2.0）／複数のアプリの足あとを 1 つの保管アプリにまとめても、どのアプリの足あとか分かります。これまでの足あとにも、設定の保存時に確認して入れられます</span></li>
+        <li><span><strong>レコードのタイトルも残せる</strong>（v1.2.0・既定はオフ）／アプリの設定で決めたタイトルの値を保管アプリに残します。閲覧を制限していないアプリ向け</span></li>
         <li><span><strong>組織を階層で選べる</strong>（v1.1.0）／組織を選ぶ欄は、親子を字下げした階層で表示します。絞り込むと「営業部 ＞ 営業一課」のように経路が出ます</span></li>
         <li><span><strong>値は記録しない</strong>／記録するのは誰が・いつ・どのフィールドをだけ。計算フィールドとルックアップのコピー先には足あとを付けません</span></li>
         <li><span><strong>対象アプリを書き換えない</strong>／足あとは同じスペースの保管アプリに記録します。保管アプリはボタン1つで作成でき、既読チェック for kintone の保管アプリも共用できます</span></li>
@@ -1172,7 +1207,7 @@ import Picture from '../../../components/Picture.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">足あとの表示は PC 版のレコード一覧・詳細画面で動作します。設定にはアプリの管理権限が必要です。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-footprint-v1.1.0.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-footprint-v1.2.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>対象アプリの<strong>アプリ設定 → プラグイン</strong>で「足あと for kintone」を追加</span></li>
           <li><span>プラグイン設定画面で<strong>［保管アプリを作成する］</strong>を押し（初回だけ）、表示の設定を選んで「保存」</span></li>
@@ -1200,7 +1235,7 @@ import Picture from '../../../components/Picture.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-footprint-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-footprint-v1.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">1プラグインならこちら</span>
@@ -1343,10 +1378,10 @@ import Picture from '../../../components/Picture.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-footprint-v1.1.0.zip',
+              file_name: 'kw-footprint-v1.2.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-footprint-v1.1.0.zip'
+              link_url: '/downloads/kw-footprint-v1.2.0.zip'
             });
           }
         });
