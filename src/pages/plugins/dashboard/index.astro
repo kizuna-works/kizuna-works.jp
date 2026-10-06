@@ -57,10 +57,10 @@ const teaser = teaserIds
           "name": "ダッシュボード for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.5.1",
-          "dateModified": "2026-10-05",
+          "softwareVersion": "1.5.2",
+          "dateModified": "2026-10-06",
           "url": "https://kizuna-works.jp/plugins/dashboard/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-dashboard-v1.5.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-dashboard-v1.5.2.zip",
           "image": "https://kizuna-works.jp/images/dashboard-banner.png",
           "offers": [
             {
@@ -92,10 +92,11 @@ const teaser = teaserIds
             "時間の条件を「8:30」で入力・ドリルダウンでも正しく絞り込み（秒に換算して検索）",
             "12列グリッドに複数ウィジェットを自由配置",
             "期間セレクタで全ウィジェットを連動再集計",
-            "ウィジェットクリックで対象レコードへドリルダウン",
+            "ウィジェットクリックで対象レコードへドリルダウン（開く一覧の件数は集計の数字と一致・日時は月初 0:00〜月末 23:59・積み上げは押した系列まで・担当者や部署の分類にも対応）",
+            "条件の演算子「いずれも含まない」で指定した値をまとめて除外（ドロップダウン・ユーザー選択などは「いずれか／いずれも含まない」から選ぶ）",
             "アプリ横断集計（複数アプリのデータソースを1ボードに集約・プレミアム）",
             "ポータルへの iframe 埋め込みコードを自動生成（別々のアプリのダッシュボードを同じポータルに並べて表示・プレミアム）",
-            "集計キャッシュで大規模データを高速描画（プレミアム）",
+            "集計キャッシュで大規模データを高速描画（設定や期間が変わると集計し直しを案内・プレミアム）",
             "設定画面のライブプレビュー（ボード全体・カード個別）",
             "グラフは自社配信のChart.jsをSRI付きで読込・集計はブラウザ内完結で外部送信なし"
           ]
@@ -291,7 +292,7 @@ const teaser = teaserIds
       <img class="dbp-hero-icon" src="/images/dashboard-icon.png" alt="ダッシュボード for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="dbp-hero-badges">
         <span class="dbp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="dbp-hero-version">v1.5.1</span>
+        <span class="dbp-hero-version">v1.5.2</span>
       </div>
       <h1>ダッシュボード for kintone</h1>
       <p class="dbp-tagline">見たい数字を、1枚に。</p>
@@ -299,27 +300,27 @@ const teaser = teaserIds
     </section>
     <div class="dbp-hero-gradient-line"></div>
 
-    <!-- Update Info (v1.5.1) -->
+    <!-- Update Info (v1.5.2) -->
     <section class="dbp-section">
       <div class="dbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.5.1：絞り込みの条件に「いずれも含まない」を追加しました</h2>
+            <h2 class="update-title">v1.5.2：クリックで開く一覧が、集計の数字と一致するようになりました</h2>
           </div>
-          <p class="update-desc">データソースの絞り込み条件と、カードごとの条件で、演算子<strong>「いずれも含まない」</strong>を選べるようになりました。値を複数選ぶと、<strong>そのすべてを集計から除外</strong>します。たとえば、ステータスが「失注」「保留」の案件を除いた受注見込み金額を、ひと目で確認できます。</p>
+          <p class="update-desc">受付日時などの<strong>日時フィールド</strong>で月ごとに集計したグラフをクリックすると、<strong>その月の 1 日 0:00 〜 末日 23:59</strong> のレコードの一覧が開きます。グラフの数字と一覧の件数がそのまま一致するので、気になった月の中身をすぐに確かめられます。カードの条件の「以前（その日含む）」「その日」「期間」も、日時フィールドではその日の 23:59 までを含みます。</p>
           <div class="update-shot">
             <Picture
-              src="/images/dashboard-notin-01.png"
-              alt="ダッシュボード for kintone v1.5.1 の設定画面 — データソースの絞り込み条件で、フィールド「ステータス」、演算子「いずれも含まない」を選び、値の一覧（商談中・受注・失注・保留）で「失注」と「保留」の2つを選んでいる。上に、この条件はデータソースを使うすべてのカードに効くこと、テーブル内のフィールドで絞り込むときはカードの条件を使うことの案内がある"
-              width="1073"
-              height="511"
+              src="/images/dashboard-drill-datetime-01.png"
+              alt="ダッシュボード for kintone v1.5.2 — 期間「今期（年度）」のダッシュボードで受付日時の「2026-06」の棒をクリックして開いた一覧の「絞り込む」画面。条件は 受付日時 ≧ 2026-04-01 00:00、受付日時 ＜ 2027-04-01 00:00、受付日時 ≧ 2026-06-01 00:00、受付日時 ＜ 2026-07-01 00:00 の4つで、6月30日の 23:59 までが含まれる"
+              width="1266"
+              height="790"
               class="zoomable"
             />
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
-          <p class="update-desc">ドロップダウン・チェックボックス・ユーザー選択などのフィールドは、演算子を「いずれか」「いずれも含まない」から選ぶ形になりました。ユーザー選択の条件はログイン名で指定します。カードに表示する条件は、長いときは 2 行まで折り返して表示します。</p>
-          <p class="update-note">これまでに「等しくない」で保存していた条件は、上書きアップロードすると「いずれも含まない」として動きます。<br>既存ユーザーの方は、最新版（v1.5.1）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。</p>
+          <p class="update-desc">担当者（ユーザー選択）・部署（組織選択）・日単位で分類したグラフや表からも、該当するレコードの一覧を開けるようになりました。積み上げグラフは押した部分の系列まで絞り込み、「(なし)」を押すと空欄のレコードだけを開きます。集計キャッシュは、カードの設定や「今月」などの期間が変わると、「更新」で集計し直すよう表示します。</p>
+          <p class="update-note">集計キャッシュをお使いの方は、上書きアップロードのあと「更新」で集計し直してください。<br>既存ユーザーの方は、最新版（v1.5.2）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。</p>
         </div>
       </div>
     </section>
@@ -465,6 +466,20 @@ const teaser = teaserIds
           />
         </div>
 
+        <div class="dbp-feature reverse">
+          <div class="dbp-feature-text">
+            <h3>指定した値をまとめて除外して集計</h3>
+            <p>データソースの絞り込み条件とカードごとの条件で、演算子<strong>「いずれも含まない」</strong>を選ぶと、選んだ値のレコードを<strong>すべて集計から除外</strong>します。ステータスが「失注」「保留」の案件を除いた受注見込み金額を、ひと目で確認できます。ドロップダウン・チェックボックス・ユーザー選択などのフィールドは「いずれか」「いずれも含まない」から選び、ユーザー選択の条件はログイン名で指定します。</p>
+          </div>
+          <Picture
+            src="/images/dashboard-notin-01.png"
+            alt="ダッシュボード for kintone の設定画面 — データソースの絞り込み条件で、フィールド「ステータス」、演算子「いずれも含まない」を選び、値の一覧（商談中・受注・失注・保留）で「失注」と「保留」の2つを選んでいる。上に、この条件はデータソースを使うすべてのカードに効くこと、テーブル内のフィールドで絞り込むときはカードの条件を使うことの案内がある"
+            width="1073"
+            height="511"
+            class="zoomable"
+          />
+        </div>
+
         <div class="dbp-grid-feats" style="margin-top:8px;">
           <div class="dbp-feat-card">
             <span class="dbp-tag-premium">プレミアム</span>
@@ -479,7 +494,7 @@ const teaser = teaserIds
           <div class="dbp-feat-card">
             <span class="dbp-tag-premium">プレミアム</span>
             <h3>集計キャッシュ（大規模対応）</h3>
-            <p>数千〜数万件規模では、集計済みの値を保管アプリに保存して読み込む集計キャッシュで高速描画。保管アプリはワンクリックで自動生成されます。</p>
+            <p>数千〜数万件規模では、集計済みの値を保管アプリに保存して読み込む集計キャッシュで高速描画。保管アプリはワンクリックで自動生成されます。カードの設定や「今月」などの期間が変わると、集計し直すよう表示します。</p>
           </div>
           <div class="dbp-feat-card">
             <h3>テーブル（サブテーブル）の集計</h3>
@@ -491,7 +506,7 @@ const teaser = teaserIds
           </div>
           <div class="dbp-feat-card">
             <h3>ドリルダウン</h3>
-            <p>ウィジェットをクリックすると、その集計の対象レコードの一覧へ遷移。気になった数字の中身をすぐ確認できます。</p>
+            <p>ウィジェットをクリックすると、その集計の対象レコードの一覧へ遷移。開く一覧の件数は集計の数字と一致し、日時フィールドの月はその月の 0:00〜末日 23:59 で開きます。積み上げグラフは押した部分の系列まで、担当者や部署で分類したグラフは該当する人・部署のレコードで絞り込みます。</p>
           </div>
           <div class="dbp-feat-card">
             <h3>行合計・列合計を別々に表示</h3>
@@ -553,7 +568,7 @@ const teaser = teaserIds
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-dashboard-v1.5.1.zip" download class="dbp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-dashboard-v1.5.2.zip" download class="dbp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="dbp-plan-card recommended">
@@ -687,10 +702,10 @@ const teaser = teaserIds
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-dashboard-v1.5.1.zip',
+            file_name: 'kw-dashboard-v1.5.2.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-dashboard-v1.5.1.zip'
+            link_url: '/downloads/kw-dashboard-v1.5.2.zip'
           });
         });
       }
