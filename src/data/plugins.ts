@@ -301,7 +301,7 @@ export const plugins: Plugin[] = [
     problemTitle: '受注済みレコードの編集を防ぎ、段階ごとに入力者を限定したい',
     problemDesc: '受注済み・完了したレコードの編集を防ぎ、承認や工程の段階ごとに、担当者だけが担当の欄を入力できるようにしたい',
     releaseDate: '2026-05-16',
-    summaryVersion: '1.2.0',
+    summaryVersion: '1.2.1',
   },
   {
     id: 'kw-field-comment',
