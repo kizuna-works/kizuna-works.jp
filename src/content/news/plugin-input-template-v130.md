@@ -6,7 +6,7 @@ category: update
 ogImage: "/images/input-template-banner.png"
 ---
 
-**入力テンプレート for kintone** を **v1.3.0** にアップデートしました。ご利用中のお客様からのお問い合わせをもとにした機能追加です。
+**入力テンプレート for kintone** を **v1.3.0** にアップデートしました。
 
 **個人テンプレートを削除できます**
 
