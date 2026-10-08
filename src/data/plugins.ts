@@ -1501,7 +1501,7 @@ export const premiumPlugins: Plugin[] = [
     problemTitle: '毎回おなじ内容を打ち直している',
     problemDesc: '標準の初期値は1パターンだけ。レコード再利用は元レコード探しと不要項目の消去が要り、定型の明細行も毎回手で足している',
     releaseDate: '2026-08-02',
-    summaryVersion: '1.2.0',
+    summaryVersion: '1.3.0',
   },
   {
     id: 'kw-barcode-assist',
