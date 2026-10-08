@@ -50,10 +50,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "カレンダービュー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.1.1",
-          "dateModified": "2026-10-03",
+          "softwareVersion": "1.1.2",
+          "dateModified": "2026-10-08",
           "url": "https://kizuna-works.jp/plugins/calendar-view/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-calendar-view-v1.1.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-calendar-view-v1.1.2.zip",
           "image": "https://kizuna-works.jp/images/calendar-view-banner.png",
           "offers": [
             {
@@ -320,54 +320,43 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <img class="afp-hero-icon" src="/images/calendar-view-icon.png" alt="カレンダービュー for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.1.1</span>
+        <span class="afp-hero-version">v1.1.2</span>
       </div>
       <h1>カレンダービュー for kintone</h1>
       <p class="afp-tagline">同じ予定を、カレンダーでも、担当者ごとの時間軸でも。</p>
       <p class="afp-sub">kintone のレコードが持つ<strong>開始・終了</strong>を、カレンダー（年・月・週・日・リスト）と<strong>タイムライン</strong>（縦＝担当者・会議室 × 横＝時間）に、画面上のボタンで切り替えて表示します。ドラッグで日程を変更でき、<strong>空いている時間</strong>も条件から探せます。ダブルブッキングの警告は kintone 標準の編集画面でも働きます。サブテーブルの行も1行ずつ予定にでき、行ごとに色を分けられます。</p>
       <div class="afp-hero-cta">
         <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
-        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-calendar-view-v1.1.1.zip" download>無料でダウンロード</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-calendar-view-v1.1.2.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
 
-    <!-- Update Info (v1.1.0) -->
+    <!-- Update Info (v1.1.2) -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.1.0：サブテーブルの行ごとに、色を分けられるようになりました</h2>
+            <h2 class="update-title">v1.1.2：「非稼働日マスタを作成」で、いつでも新しいマスタを作れるようになりました</h2>
           </div>
-          <p class="update-desc">1件のレコードに工程や作業を何行も持つアプリでは、サブテーブルの行を1つずつ予定として表示できます。これまでは、行の中のドロップダウンを<strong>ラベル</strong>に選べず、どの行も同じ色になっていました。</p>
+          <p class="update-desc">これまでは、環境にすでに非稼働日マスタがあると、「非稼働日マスタを作成」を押しても新しいマスタは作られず、既存のマスタが選ばれていました。そのため、別の事業所のマスタは使わずに自分たちのマスタを作りたい、という場合に作る手段がありませんでした。</p>
           <ul class="update-points">
-            <li><strong>テーブル内のドロップダウンをラベルに選べます。</strong>設定画面の「色分け」で、テーブル内のフィールドが「［テーブル「工程」］」のように表示されて候補の先頭に並びます。選択肢ごとに色を決めれば、行ごとに色が分かれます。</li>
-            <li><strong>テーブル内の選択肢も、設定画面から追加・削除できます。</strong>使っている行があるラベルは、削除する前に件数をお知らせして止めます。</li>
-            <li><strong>条件で色を変えるルールや予定ごとの色にも、テーブル内のフィールドを使えます。</strong>テーブルの外（レコード本体）の区分やステータスを選ぶと、同じレコードの行はまとめて同じ色になります。</li>
+            <li><strong>ボタンを押すたびに、新しいマスタを作ります。</strong>事業所ごとに休日を分けたいときも、ボタンでもう1つ作れます。名前が重なるときは「非稼働日マスタ_2」のように番号を付けます。</li>
+            <li><strong>作成済みのマスタがあるときは、確認の画面でお知らせします。</strong>既存のマスタを使う場合は、これまでどおり「参照する非稼働日マスタ」から選んでください。</li>
+            <li><strong>作成が終わると、作ったマスタの名前と登録した祝日の件数を表示します。</strong>表示がすぐに消えて、作成できたかどうか分かりにくかった点も改めました。</li>
           </ul>
           <div class="update-shot">
             <Picture
-              src="/images/calendar-view-subtable-01.png"
-              alt="カレンダービュー for kintone v1.1.0 — 工事工程表アプリの月表示。1件の工事が持つテーブル「工程」の行が、準備工・基礎工事・躯体工事・内装工事・検査・引渡しの工程区分ごとに色分けされた帯で並んでいる"
+              src="/images/calendar-view-master-01.png"
+              alt="設定画面の手順6、非稼働日マスタのカード。「非稼働日マスタを作成」を押した直後で、参照する非稼働日マスタに新しく作ったマスタが選ばれ、その下にマスタを作成して祝日 286 件を登録した旨が緑色で表示されている"
               width="1400"
-              height="806"
+              height="538"
               class="zoomable"
             />
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
-          <div class="update-shot">
-            <Picture
-              src="/images/calendar-view-subtable-02.png"
-              alt="設定画面の色分けの手順。ラベルのフィールドにテーブル「工程」の中の工程区分を選んでいて、5つの工程区分それぞれに色が割り当てられている"
-              width="1400"
-              height="755"
-              class="zoomable"
-            />
-            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-          </div>
-          <p class="update-desc">あわせて、サブテーブルの行を編集するモーダルで、テーブルの外の項目が空欄で表示されていた不具合を直しました。レコードに入っている値が表示され、保存しても消えません。モーダルで変えていない項目は書き換えないので、開いている間にほかの人が更新した内容も残ります。</p>
-          <p class="update-note">既存ユーザーの方は、最新版（v1.1.1）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。</p>
+          <p class="update-note">既存ユーザーの方は、最新版（v1.1.2）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定（参照している非稼働日マスタを含む）はそのまま引き継がれます。</p>
         </div>
       </div>
     </section>
@@ -513,6 +502,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           <Picture src="/images/calendar-view-sidebar-01.png" alt="左サイドバーで主催者を鈴木花子だけに絞り込んだ状態。ほかの2人はチェックが外れてグレーになり「2件を非表示」と表示され、カレンダーには鈴木花子の予定だけが残っている" width="1400" height="835" class="zoomable" />
           <figcaption class="afp-shot-cap">「これだけ」で1人に絞った状態。<strong>すべて表示</strong>でいつでも戻せます</figcaption>
         </figure>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/calendar-view-subtable-01.png" alt="工事工程表アプリの月表示。1件の工事が持つテーブル「工程」の行が、準備工・基礎工事・躯体工事・内装工事・検査・引渡しの工程区分ごとに色分けされた帯で並んでいる" width="1400" height="806" class="zoomable" />
+          <figcaption class="afp-shot-cap">サブテーブルの行を予定にした例。テーブル内の工程区分で行ごとに色が分かれます</figcaption>
+        </figure>
         <div class="afp-note">色は「予定ごとに選んだ色 → 条件で変える色 → ラベル → 既定色」の順で決まります。条件は<strong>数値の閾値・日付の超過・プロセス管理のステータス・選択肢</strong>から作れるので、「期限を過ぎた予定だけ赤」といった強調もできます。</div>
       </div>
     </section>
@@ -553,6 +546,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         <figure class="afp-shot afp-shot-w840">
           <Picture src="/images/calendar-view-config-04.png" alt="設定画面の手順4のラベル設定。ラベルのフィールドに区分を選び、社内会議・来客・オンライン商談・面接・研修・社内イベントの6つの選択肢に色が割り当てられている。新しいラベル名を入力して追加するボタンもある" width="1400" height="587" class="zoomable" />
           <figcaption class="afp-shot-cap">手順4。<strong>ここから選択肢を追加・削除できます</strong>（アプリのフォームも更新されます）</figcaption>
+        </figure>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/calendar-view-subtable-02.png" alt="設定画面の色分けの手順。ラベルのフィールドにテーブル「工程」の中の工程区分を選んでいて、5つの工程区分それぞれに色が割り当てられている" width="1400" height="755" class="zoomable" />
+          <figcaption class="afp-shot-cap">サブテーブルの行を予定にしている場合は、<strong>テーブル内のドロップダウン</strong>もラベルに選べます</figcaption>
         </figure>
         <div class="afp-note">同じ手順4では<strong>条件での色分け</strong>（数値の閾値・日付の超過・ステータス・選択肢）も作れます。凡例は<strong>効いているルールだけ</strong>表示します。</div>
 
@@ -616,7 +613,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           </div>
           <div class="afp-feat-card">
             <h3>祝日・非稼働日</h3>
-            <p>日本の祝日 2020〜2035年を同梱。会社休日は非稼働日マスタアプリを自動生成して複数アプリで共有できます。</p>
+            <p>日本の祝日 2020〜2035年を同梱。会社休日は非稼働日マスタアプリを自動生成して複数アプリで共有できます。事業所ごとにマスタを分けることもできます。</p>
           </div>
           <div class="afp-feat-card">
             <h3>ビューの自動生成</h3>
@@ -670,7 +667,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <li>✅ 繰り返し予定・祝日と非稼働日の色分け</li>
               <li>✅ 利用期限なし（設定できるビューは1件・レイヤーは1件／設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-calendar-view-v1.1.1.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-calendar-view-v1.1.2.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">👑 全機能を解放</span>
@@ -816,10 +813,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
             gtag('event', 'file_download', {
-              file_name: 'kw-calendar-view-v1.1.1.zip',
+              file_name: 'kw-calendar-view-v1.1.2.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-calendar-view-v1.1.1.zip'
+              link_url: '/downloads/kw-calendar-view-v1.1.2.zip'
             });
           });
         });
