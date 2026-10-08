@@ -560,6 +560,7 @@ c:\kizuna-works.jp\
 │   │   ├── footprint-orgtree-01.png  # 製品ページ：組織を選ぶ欄の階層表示（v1.1.0）＋ .webp
 │   │   ├── footprint-filter-02.png  # 製品ページ UPDATE 欄：一度も見ていないで絞り込んだ一覧（v1.2.0）＋ .webp
 │   │   ├── footprint-store-01.png  # 製品ページ UPDATE 欄：足あと管理アプリにアプリ名・タイトルが入った一覧（v1.2.0）＋ .webp
+│   │   ├── footprint-config-10.png  # 製品ページ UPDATE 欄：設定画面「このアプリの足あとを読める人」（v1.2.1）＋ .webp
 │   │   ├── footprint-config-08.png / footprint-config-09.png  # 製品ページ：設定画面「保管アプリに残す情報」／「④ ユーザーの足あと」（画面の全体・v1.2.0）＋ .webp
 │   │   ├── split-view-banner.png          # 分割ビュー for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── split-view-icon.png            # 分割ビュー 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
@@ -1332,7 +1333,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-table-preview-v1.2.1.zip  # テーブルプレビュー for kintone 配布ファイル（旧版・v1.2.1：一覧スタイラーのテーブル展開と同居したとき続きの行の列がずれる不具合を修正）
 │   │   ├── kw-table-preview-v1.2.2.zip  # テーブルプレビュー for kintone 配布ファイル（旧版・2026-10-03・v1.2.2：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
 │   │   ├── kw-table-preview-v1.2.3.zip  # テーブルプレビュー for kintone 配布ファイル（最新・2026-10-07・v1.2.3：テーブルに何も入れていないレコードを 0 件と数える・空の行があっても編集を保存できる）
-│   │   ├── kw-footprint-v1.2.0.zip  # 足あと for kintone 配布ファイル（最新・v1.2.0：閲覧した／一度も見ていないで絞り込み・保管アプリにアプリ名とタイトル（既定オフ）・ユーザーの足あとを独立した設定項目に）
+│   │   ├── kw-footprint-v1.2.1.zip  # 足あと for kintone 配布ファイル（最新・v1.2.1：このアプリの足あとを読める人＝「足あとを見られる人」に連動して足あと管理アプリのアクセス権にアプリごとの行・作成者で判定・呼び方を「足あと管理アプリ」に）
+│   │   ├── kw-footprint-v1.2.0.zip  # 足あと for kintone 配布ファイル（旧版・v1.2.0：閲覧した／一度も見ていないで絞り込み・保管アプリにアプリ名とタイトル（既定オフ）・ユーザーの足あとを独立した設定項目に）
 │   │   ├── kw-footprint-v1.1.0.zip  # 足あと for kintone 配布ファイル（旧版・v1.1.0：記録する人・詳細画面の閲覧状況・一覧のユーザーの足あと・組織の階層表示）
 │   │   ├── kw-footprint-v1.0.0.zip  # 足あと for kintone 配布ファイル（旧版・v1.0.0 初版：一覧の足あと列・ホバー・詳細画面のフィールド足あと）
 │   │   ├── kw-file-export-v1.0.0.zip                             # 添付ファイル出力 for kintone 配布ファイル（旧版・参考保管）
