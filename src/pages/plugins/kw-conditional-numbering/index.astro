@@ -5,14 +5,15 @@ import PremiumPlanCard from '../../../components/PremiumPlanCard.astro';
 import SupporterCTA from '../../../components/SupporterCTA.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
+import Picture from '../../../components/Picture.astro';
 import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 ---
 
 <Layout
   title="条件分岐自動採番 for kintone｜無料の自動採番プラグイン | KIZUNA Works"
-  description="kintoneのレコード保存時に部署・担当者・ステータス等のフィールド値に応じて採番ルールを自動切替する無料プラグイン。最大3フィールドの同時採番・18種類のフォーマット・条件別連番管理・CSVインポート後の一括採番・重複番号の検出と振り直しに対応。kintone プラグイン 無料配布中。"
+  description="kintoneのレコード保存時に部署・担当者などの条件で採番ルールを自動切替する無料プラグイン。商品IDごとに001から振る枝番（PRD-00001-001）、最大3フィールドの同時採番、条件別の連番、CSVインポート後の一括採番、重複番号の振り直しに対応。"
   ogTitle="条件分岐自動採番 for kintone｜無料の自動採番プラグイン | KIZUNA Works"
-  ogDescription="kintoneのレコード保存時に部署・担当者・ステータス等のフィールド値に応じて採番ルールを自動切替する無料プラグイン。最大3フィールドの同時採番・18種類のフォーマット・条件別連番管理・CSVインポート後の一括採番・重複番号の検出と振り直しに対応。kintone プラグイン 無料配布中。"
+  ogDescription="kintoneのレコード保存時に部署・担当者などの条件で採番ルールを自動切替する無料プラグイン。商品IDごとに001から振る枝番（PRD-00001-001）、最大3フィールドの同時採番、条件別の連番、CSVインポート後の一括採番、重複番号の振り直しに対応。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/kw-conditional-numbering/"
   ogImage="https://kizuna-works.jp/images/conditional-numbering-banner.png"
@@ -28,7 +29,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "@id": "https://kizuna-works.jp/plugins/kw-conditional-numbering/",
           "url": "https://kizuna-works.jp/plugins/kw-conditional-numbering/",
           "name": "条件分岐自動採番 for kintone｜無料の自動採番プラグイン | KIZUNA Works",
-          "description": "kintoneのレコード保存時に部署・担当者・ステータス等のフィールド値に応じて採番ルールを自動切替する無料プラグイン。最大3フィールドの同時採番・18種類のフォーマット・条件別連番管理・CSVインポート後の一括採番・重複番号の検出と振り直しに対応。kintone プラグイン 無料配布中。",
+          "description": "kintoneのレコード保存時に部署・担当者などの条件で採番ルールを自動切替する無料プラグイン。商品IDごとに001から振る枝番（PRD-00001-001）、最大3フィールドの同時採番、条件別の連番、CSVインポート後の一括採番、重複番号の振り直しに対応。",
           "isPartOf": {
             "@type": "WebSite",
             "name": "KIZUNA Works",
@@ -48,11 +49,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           "name": "条件分岐自動採番 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "dateModified": "2026-09-19",
-          "softwareVersion": "2.2.0",
-          "releaseNotes": "v2.2.0（2026-09-13）: 当社のルックアップ新規登録プラグインと連携し、その登録パネルからレコードを作るときにも採番されるようになりました。登録パネルでは採番対象の項目に入力欄を出さず「自動採番」とだけ表示し、登録した瞬間に番号を発行します。採番できない場合は登録を中止するため、採番されないままレコードが作られることはありません。連携にはルックアップ新規登録側の設定が必要です。採番の仕様そのものに変更はありません。 / v2.1.0（2026-08-01）: 重複した番号を検出して振り直せる「重複チェックと修正」機能を追加。採番フィールドの値が重複しているレコードを検出し、1件はそのまま残したまま、それ以外の連番部分だけを未使用の番号へ振り直します（日付部分・条件テキストは維持）。実行前のプレビュー表示とCSVダウンロードに対応。あわせて採番フィールドへの「値の重複を禁止する」設定を設定画面で案内し、最大番号の検出は既存レコード全件を対象として精度を高めました。設定画面は3カラム＋タブ構成に刷新しています。",
+          "dateModified": "2026-10-08",
+          "softwareVersion": "2.3.0",
+          "releaseNotes": "v2.3.0（2026-10-08）: 連番の数え方に「枝番」を追加。商品IDなどフィールドの値ごとに 001 から番号を振れるようになりました（例：PRD-00001-001、PRD-00001-002、PRD-00002-001）。固定の文字や日付との組み合わせ、一括採番、ルックアップ新規登録からの採番にも対応し、同じ値のレコードだけを確認して番号を決めるため、レコード数が増えても保存の速さは変わりません。あわせて、採番に時間がかかるときの進捗表示、採番対象のアクセス権の警告、一覧のインライン編集で番号を変更できないようにする改善を行いました。 / v2.2.0（2026-09-13）: 当社のルックアップ新規登録プラグインと連携し、その登録パネルからレコードを作るときにも採番されるようになりました。登録パネルでは採番対象の項目に入力欄を出さず「自動採番」とだけ表示し、登録した瞬間に番号を発行します。採番できない場合は登録を中止するため、採番されないままレコードが作られることはありません。連携にはルックアップ新規登録側の設定が必要です。採番の仕様そのものに変更はありません。 / v2.1.0（2026-08-01）: 重複した番号を検出して振り直せる「重複チェックと修正」機能を追加。採番フィールドの値が重複しているレコードを検出し、1件はそのまま残したまま、それ以外の連番部分だけを未使用の番号へ振り直します（日付部分・条件テキストは維持）。実行前のプレビュー表示とCSVダウンロードに対応。あわせて採番フィールドへの「値の重複を禁止する」設定を設定画面で案内し、最大番号の検出は既存レコード全件を対象として精度を高めました。設定画面は3カラム＋タブ構成に刷新しています。",
           "url": "https://kizuna-works.jp/plugins/kw-conditional-numbering/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-numbering-v2.2.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-conditional-numbering-v2.3.0.zip",
           "offers": {
             "@type": "Offer",
             "name": "基本プラン（無料）",
@@ -61,7 +62,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintoneのレコード保存時に条件分岐で自動採番する無料プラグイン。1アプリで最大3フィールドの同時採番、CSVインポート後の一括採番、重複した番号の検出と振り直しに対応。kintone プラグイン 無料配布中。",
+          "description": "kintoneのレコード保存時に条件分岐で自動採番する無料プラグイン。商品IDなどの値ごとに001から振る枝番、1アプリで最大3フィールドの同時採番、CSVインポート後の一括採番、重複した番号の検出と振り直しに対応。kintone プラグイン 無料配布中。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -71,10 +72,13 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             "複数フィールド採番（1アプリ最大3フィールド・フィールドごとに採番ルール）",
             "18種類のフォーマット対応",
             "条件分岐採番",
+            "枝番の自動採番（商品IDなどフィールドの値ごとに001から・固定文字や日付と組み合わせ可）",
             "条件ごとの連番独立管理",
             "CSVインポート後の一括採番",
             "連番の手動修正・リセット",
-            "重複した番号の検出と連番の振り直し（プレビュー・CSV出力付き）"
+            "重複した番号の検出と連番の振り直し（プレビュー・CSV出力付き）",
+            "採番中の進捗表示（レコードが多いアプリ向け）",
+            "採番対象のアクセス権の点検（編集できない利用者がいると警告）"
           ]
         }
       ]
@@ -237,6 +241,20 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     }
 
     /* Feature List */
+    /* Feature group headings inside the features section */
+    .feature-group-title {
+      color: var(--color-navy);
+      font-size: 17px;
+      font-weight: 700;
+      margin: 32px 0 12px;
+      padding-left: 12px;
+      border-left: 4px solid var(--color-green);
+      line-height: 1.4;
+    }
+    .feature-group-title:first-of-type { margin-top: 8px; }
+    /* Keep example IDs such as PRD-00001-001 on one line */
+    .id-nowrap { white-space: nowrap; }
+
     .feature-list {
       list-style: none;
       padding: 0;
@@ -720,43 +738,68 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       }
     }
 
-    /* Update box (v2.0.0) */
-    .update-section { max-width: 980px; margin: 32px auto 0; padding: 0 20px; }
+    /* Update box (version highlight) */
     .update-box {
-      background: #f6fff6;
-      border: 1px solid #bfe6bf;
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
       border-left: 5px solid var(--color-green);
-      border-radius: 10px;
-      padding: 24px 26px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
     }
     .update-tag {
-      display: inline-block; background: var(--color-green); color: #fff;
-      font-size: 0.72rem; font-weight: 700; letter-spacing: .04em;
-      padding: 3px 10px; border-radius: 4px; margin-right: 10px;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
     }
-    .update-date { color: var(--color-text-light); font-size: 0.85rem; }
-    .update-title { font-size: 1.2rem; color: var(--color-navy); font-weight: 700; margin: 12px 0 10px; }
-    .update-desc { color: var(--color-text); line-height: 1.85; margin: 0 0 16px; }
-    .update-table-wrap { overflow-x: auto; }
-    .update-eg {
-      border-collapse: collapse; width: 100%; min-width: 460px;
-      background: #fff; font-size: 0.92rem;
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
     }
-    .update-eg th, .update-eg td { border: 1px solid #d6e4d6; padding: 9px 12px; text-align: left; }
-    .update-eg thead th { background: var(--color-navy); color: #fff; font-weight: 700; }
-    .update-eg code { background: #eef4ff; color: var(--color-navy); padding: 1px 7px; border-radius: 4px; font-weight: 700; }
-    .update-note { color: var(--color-text-light); font-size: 0.86rem; margin: 14px 0 0; line-height: 1.7; }
-
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 24px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
     /* Smaller, centered screenshot inside the update box */
     .update-shot {
       max-width: 640px;
-      margin: 18px auto 0;
+      margin: 0 auto 24px;
     }
     .update-shot .zoom-hint {
       text-align: center;
       color: var(--color-text-light);
       font-size: 12px;
       margin: 10px 0 0;
+    }
+    @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
     }
 
     /* Screenshot frame */
@@ -826,43 +869,34 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.2.0</span>
+        <span class="hero-version">v2.3.0</span>
       </div>
       <h1 class="hero-title">条件分岐自動採番 for kintone</h1>
-      <p class="hero-copy">組織・担当者・ステータスなど、フィールドの条件に応じて採番ルールを自動切替。1つのアプリで最大3フィールドを同時採番し、CSVインポート後の一括採番、重複した番号の検出と振り直し、ルックアップ新規登録の登録パネルからの採番にも対応した、kintone専用の自動採番プラグインです。</p>
+      <p class="hero-copy">条件分岐自動採番 for kintone は、組織・担当者・ステータスなどフィールドの条件に応じて採番ルールを自動で切り替える kintone 専用の自動採番プラグインです。商品IDごとに 001 から番号を振る<strong>枝番</strong>（PRD-00001-001、PRD-00001-002…）にも対応し、1つのアプリで最大3フィールドを同時採番。CSVインポート後の一括採番、重複した番号の検出と振り直し、ルックアップ新規登録の登録パネルからの採番にも対応しています。</p>
     </section>
 
-    <!-- Update Notice (v2.2.0) -->
-    <section class="update-section fade-in">
+    <!-- Update Info (v2.3.0) -->
+    <section class="section-wrapper fade-in">
       <div class="update-box">
-        <div>
+        <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <span class="update-date">v2.2.0（2026年9月13日）</span>
+          <h2 class="update-title">v2.3.0：商品IDごとに 001 から番号を振る「枝番」に対応しました</h2>
         </div>
-        <h2 class="update-title">ルックアップの登録パネルの中でも採番されるようになりました</h2>
-        <p class="update-desc">
-          同日に公開した<a href="/plugins/lookup-add/">ルックアップ新規登録</a>は、ルックアップの［取得］の隣から<strong>参照先アプリのレコードをその場で登録</strong>できるプラグインです。この登録は kintone の REST API で行うため、これまでは<strong>参照先アプリ側の採番が動きませんでした</strong>（保存時の処理を通らないため）。<br>
-          v2.2.0 では本プラグインが<strong>採番の窓口を公開</strong>し、登録パネルから呼び出せるようにしました。参照先アプリ側に本プラグインを入れておけば、<strong>登録パネルで作られたレコードにも番号が付きます</strong>。
-        </p>
-        <div class="update-shot" style="max-width:564px;">
+        <p class="update-desc">商品マスタの「PRD-00001」を SKU マスタでルックアップし、SKU ID を <strong>PRD-00001-001、PRD-00001-002…と商品ごとに分けて振りたい</strong>——これまでの連番はアプリ全体の通し番号だったため、商品ごとに 001 から数え直すことはできませんでした。v2.3.0 では「連番の数え方」に<strong>「枝番（連番以外が同じ番号ごと）」</strong>を追加しました。フォーマットに「フィールドの値（商品ID など）」と「連番」を並べるだけで、保存のたびに<strong>同じ商品IDの番号を確認し、その次の番号</strong>を付けます。別の商品は 001 から始まります。「SKU」などの固定の文字や日付とも組み合わせられ、日付を入れれば日付が変わったときにも 001 から数え直します。</p>
+        <div class="update-shot">
           <div class="screenshot-frame">
-            <picture>
-              <source srcset="/images/conditional-numbering-lookup-add.webp" type="image/webp" />
-              <img
-                class="zoomable"
-                src="/images/conditional-numbering-lookup-add.png"
-                alt="ルックアップ新規登録の登録パネル。採番対象の項目には入力欄が出ず「自動採番」と表示されている"
-                loading="lazy"
-                width="564"
-                height="712"
-              />
-            </picture>
+            <Picture class="zoomable" src="/images/conditional-numbering-config-02.png" alt="条件分岐自動採番 v2.3.0 の設定画面。パーツ1に「テキスト：フィールドの値を使用（商品ID）」、パーツ2に「連番 3 桁」を置き、連番の数え方で「枝番（連番以外が同じ番号ごと）」を選んでいる。採番サンプルは〈商品ID〉-001" width="1129" height="1149" />
           </div>
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </div>
-        <p class="update-note">
-          採番対象の項目は<strong>入力欄を出さず「自動採番」とだけ表示</strong>し、［登録］を押した瞬間に番号を発行します。採番できないときは<strong>登録を中止</strong>して、やり直しと参照先アプリの画面で登録する方法を案内するため、<strong>採番されないままレコードが作られることはありません</strong>。条件分岐の設定はこれまでどおり働き、<strong>採番の仕様そのものは変更していません</strong>。連携には参照先アプリ側が<strong>v2.2.0 以上</strong>である必要があります（v2.1.1 以前ではルックアップ新規登録の設定画面が警告します）。連携を使わない場合はこれまでどおりの動作です。既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください（設定は引き継がれます）。
-        </p>
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/conditional-numbering-list-01.png" alt="SKU マスタの一覧。SKU ID が PRD-00001-001〜004、PRD-00002-001〜003、PRD-00003-001〜002 と、商品IDごとに 001 から振られている" width="1200" height="530" />
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-desc">同じ商品IDのレコードだけを確認して番号を決めるので、<strong>レコードが何千件・何万件に増えても保存の速さは変わりません</strong>。番号の元になる商品IDが空のときは保存を止めて知らせるため、「001」だけの番号ができることもありません。あわせて、レコードが多いアプリで採番に時間がかかるとき（全体の通し番号など）は<strong>「採番しています…」と進み具合を表示</strong>するようにし、一覧のインライン編集からも番号を書き換えられないようにしました。</p>
+        <p class="update-note">複数のマスタの ID を組み合わせたキー（例：PRD-00001-001@LOC-001）は、無料の<a href="/plugins/text-join/">文字列結合 for kintone</a>で作れます。採番対象をフィールドのアクセス権で編集できない利用者が保存すると、kintone の仕様で番号が入りません。該当する設定があるときは設定画面に警告が出ます（このプラグインが画面で入力できないようにするため、アクセス権で編集を禁止する必要はありません）。<br>既存ユーザーの方は、最新版（v2.3.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください。設定は引き継がれ、これまでの採番の動きは変わりません（連番の数え方は「全体で通し番号（従来）」になります）。</p>
       </div>
     </section>
 
@@ -894,14 +928,34 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     <!-- Features Section -->
     <section class="section-wrapper fade-in">
       <h2 class="section-title-left">主な機能</h2>
+
+      <h3 class="feature-group-title">番号の決め方</h3>
       <ul class="feature-list">
-        <li><span><strong>18種類のフォーマットに対応</strong> — 日付・テキスト・連番の並び順を自由に設定。区切り文字はハイフン・アンダースコア・なしから選択。</span></li>
-        <li><span><strong>条件分岐採番</strong> — フィールドの値に応じてテキスト部分と連番を自動切替（例：A事業部→AD-00001、B事業部→BD-00001）。</span></li>
-        <li><span><strong>連番の独立管理</strong> — 条件ごとに連番を分けるか、アプリ全体で通し番号にするかを選択可能。</span></li>
-        <li><span><strong>CSVインポート対応</strong> — 設定画面のボタン1つで、採番フィールドがブランクのレコードにまとめて採番。</span></li>
-        <li><span><strong>連番の手動修正</strong> — 設定画面から現在値の確認・修正・リセットが可能。</span></li>
-        <li><span><strong>ルックアップ新規登録との連携</strong> — 当社の<a href="/plugins/lookup-add/">ルックアップ新規登録</a>の登録パネルから作られるレコードにも採番。採番対象は入力欄を出さず「自動採番」と表示し、採番できないときは登録を中止します（v2.2.0 以上）。</span></li>
-        <li><span><strong>重複チェックと修正</strong> — 番号が重複しているレコードを検出し、1件を残して連番部分だけを未使用の番号へ振り直し。日付・条件テキストは維持され、実行前のプレビューとCSV出力に対応。</span></li>
+        <li><span><strong>18種類のフォーマット</strong> — 日付・テキスト・連番を最大3つ並べて番号を作ります。区切り文字（ハイフン・アンダースコア・なし）と連番の桁数（1〜10桁）を選べます。</span></li>
+        <li><span><strong>条件分岐採番</strong> — 部署・担当者などフィールドの値に応じて番号の文字を切り替え（例：A事業部→<span class="id-nowrap">AD-00001</span>、B事業部→<span class="id-nowrap">BD-00001</span>）。条件ごとに連番を分けることもできます。</span></li>
+        <li><span><strong>枝番</strong> — 商品IDなどフィールドの値ごとに 001 から番号を振ります（<span class="id-nowrap">PRD-00001-001</span>、<span class="id-nowrap">PRD-00001-002</span>…、別の商品は <span class="id-nowrap">PRD-00002-001</span> から）。「SKU」などの固定の文字や日付とも組み合わせられ、レコードが増えても保存の速さは変わりません。</span></li>
+        <li><span><strong>複数フィールドの同時採番</strong> — 1つのアプリで最大3つのフィールドに、それぞれ別のルールで採番できます。</span></li>
+        <li><span><strong>年・月・日で連番をリセット</strong> — 日付を入れたフォーマットでは、年・月・日が変わったときに連番を 1 から始め直せます。</span></li>
+      </ul>
+
+      <h3 class="feature-group-title">保存したときの動き</h3>
+      <ul class="feature-list">
+        <li><span><strong>保存時に自動で採番</strong> — 採番フィールドが空のレコードを保存すると番号が入ります。発行済みの番号は書き換えません。採番フィールドは新規作成・編集・一覧のインライン編集で入力できないようにします。</span></li>
+        <li><span><strong>番号の元になる値が空なら保存を止める</strong> — 枝番で商品IDなどが空のときは、理由を表示して保存を止めます。「001」だけの番号はできません。</span></li>
+        <li><span><strong>採番中の進捗表示</strong> — レコードが多く採番に時間がかかるときは、「採番しています…」と件数つきで進み具合を表示します。</span></li>
+        <li><span><strong>ルックアップ新規登録との連携</strong> — 当社の<a href="/plugins/lookup-add/">ルックアップ新規登録</a>の登録パネルから作られるレコードにも採番します。採番対象は入力欄を出さず「自動採番」と表示し、採番できないときは登録を中止します（v2.2.0 以上）。</span></li>
+      </ul>
+
+      <h3 class="feature-group-title">登録済みのデータの管理</h3>
+      <ul class="feature-list">
+        <li><span><strong>CSVインポート後の一括採番</strong> — 設定画面のボタン1つで、採番フィールドが空のレコードにまとめて採番します。枝番も商品ごとに振り分け、進み具合を件数で表示します。</span></li>
+        <li><span><strong>連番の確認・修正</strong> — 現在の連番の確認・手動での修正・既存レコードからの再計算ができます。</span></li>
+        <li><span><strong>重複チェックと修正</strong> — 番号が重複しているレコードを検出し、1件を残して連番部分だけを未使用の番号へ振り直します。日付や条件の文字はそのまま残り、実行前のプレビューと CSV 出力に対応しています。</span></li>
+      </ul>
+
+      <h3 class="feature-group-title">設定の点検</h3>
+      <ul class="feature-list">
+        <li><span><strong>重複禁止とアクセス権の確認</strong> — 採番フィールドに「値の重複を禁止する」が設定されているか、フィールドのアクセス権で編集できない利用者がいないか（いると番号が入りません）を確認し、設定画面で案内します。</span></li>
       </ul>
     </section>
 
@@ -931,6 +985,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <span class="format-pattern">00001-テキスト-YYMMDD</span>
             <span class="format-example">例）00001-AD-260418</span>
           </div>
+          <div class="format-card">
+            <span class="format-pattern">フィールド値-001（枝番）</span>
+            <span class="format-example">例）PRD-00001-001</span>
+          </div>
         </div>
       </div>
     </section>
@@ -938,6 +996,12 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
     <!-- Screenshots Section -->
     <section class="section-wrapper fade-in">
       <h2 class="section-title-left">設定画面イメージ</h2>
+      <div class="update-shot" style="max-width:980px;">
+        <div class="screenshot-frame">
+          <Picture class="zoomable" src="/images/conditional-numbering-config-01.png" alt="条件分岐自動採番 for kintone の設定画面の全体。上にプラグイン名とバージョン 2.3.0、左に採番ルールの目次とライブプレビュー（〈商品ID〉-001・連番の数え方：枝番）、中央に基本設定・条件分岐・連番管理・重複チェックのタブ、右にサイドバー" width="1400" height="767" />
+        </div>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+      </div>
       <div class="screenshots-grid">
         <div class="screenshot-item">
           <img
@@ -978,6 +1042,13 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <p>現在の連番値の確認・手動編集・リセット、CSVインポート後の一括採番がこの画面から実行できます。</p>
           </div>
         </div>
+        <div class="screenshot-item">
+          <Picture class="zoomable" src="/images/conditional-numbering-lookup-add.png" alt="ルックアップ新規登録の登録パネル。採番対象の項目には入力欄が出ず「自動採番」と表示されている" width="564" height="712" />
+          <div class="screenshot-caption">
+            <strong>ルックアップ新規登録との連携</strong>
+            <p>当社のルックアップ新規登録の登録パネルでは、採番対象に入力欄を出さず「自動採番」と表示。登録した瞬間に番号を発行します（v2.2.0 以上）。</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1008,11 +1079,11 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
             <span class="unit">/ 完全無料</span>
           </div>
           <ul class="plan-features">
-            <li>✅ 全機能（18フォーマット・条件分岐・一括採番）が利用可能</li>
+            <li>✅ 全機能（18フォーマット・条件分岐・枝番・一括採番）が利用可能</li>
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-conditional-numbering-v2.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード（v2.2.0）</a>
+          <a href="/downloads/kw-conditional-numbering-v2.3.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード（v2.3.0）</a>
         </div>
         <div class="pricing-card recommended">
           <span class="recommended-badge">1プラグインならこちら</span>
@@ -1023,7 +1094,7 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
           </div>
           <div class="plan-discount">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
           <ul class="plan-features">
-            <li>✅ 全機能（18フォーマット・条件分岐・一括採番）が利用可能</li>
+            <li>✅ 全機能（18フォーマット・条件分岐・枝番・一括採番）が利用可能</li>
             <li>✅ プラグイン内の<strong>広告エリアが完全非表示</strong></li>
             <li>✅ プラグイン作成リクエスト・改善要望を送付可能</li>
             <li>✅ サポーターの声を優先して開発に反映</li>
@@ -1215,10 +1286,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           gtag('event', 'file_download', {
-            file_name: 'kw-conditional-numbering-v2.2.0.zip',
+            file_name: 'kw-conditional-numbering-v2.3.0.zip',
             file_extension: 'zip',
-            link_text: '無料でダウンロード（v2.2.0）',
-            link_url: '/downloads/kw-conditional-numbering-v2.2.0.zip'
+            link_text: '無料でダウンロード（v2.3.0）',
+            link_url: '/downloads/kw-conditional-numbering-v2.3.0.zip'
           });
         });
       }

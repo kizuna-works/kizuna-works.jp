@@ -143,7 +143,7 @@ export const plugins: Plugin[] = [
     slug: 'kw-conditional-numbering',
     categories: ['自動入力', '一括処理', '入力チェック'],
     description:
-      '部署・担当者・ステータスなどフィールドの値に応じて、採番ルールを自動で切り替えるプラグイン。最大3フィールドの同時採番、条件別の連番管理、CSVインポート後の一括採番、重複番号の検出と振り直し、ルックアップ新規登録の登録パネルからの採番に対応します。',
+      '部署・担当者などフィールドの値で採番ルールを自動で切り替えるプラグイン。商品IDごとに001から振る枝番、最大3フィールドの同時採番、条件別の連番、CSVインポート後の一括採番、重複番号の振り直し、ルックアップ新規登録からの採番に対応します。',
     image: '/images/conditional-numbering-banner.png',
     imageAlt:
       '条件分岐自動採番プラグイン — フィールドの条件に応じて採番ルールを自動切替',
@@ -152,11 +152,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '部署・担当者・ステータス等の条件に応じて採番ルールを自動切替。最大3フィールドの同時採番・CSV一括採番・重複番号の振り直し・登録パネルからの採番に対応。',
-    problemTitle: '採番ルールを条件で自動切替',
-    problemDesc: 'CSVインポート後の一括採番にも対応したい',
+      '条件に応じて採番ルールを自動切替。商品IDごとの枝番（PRD-00001-001）・最大3フィールド同時採番・CSV一括採番・重複番号の振り直しに対応。',
+    problemTitle: '採番ルールを条件で切り替え、枝番も自動で振りたい',
+    problemDesc: '商品IDごとの -001 連番やCSVインポート後の一括採番も自動化したい',
     releaseDate: '2026-04-18',
-    summaryVersion: '2.2.0',
+    summaryVersion: '2.3.0',
   },
   {
     id: 'kw-form-deco',

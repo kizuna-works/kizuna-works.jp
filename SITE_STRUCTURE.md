@@ -309,8 +309,10 @@ c:\kizuna-works.jp\
 │   │   ├── musubi-preview.png              # Musubi（PDF結合・分割ツール）プレビュー画像
 │   │   ├── conditional-numbering-icon.png  # 条件分岐自動採番プラグイン アイコン
 │   │   ├── conditional-numbering-banner.png # 条件分岐自動採番プラグイン バナー
-│   │   ├── conditional-numbering-config-01.png  # 条件分岐自動採番 v2.1.0「重複チェックと修正」設定画面スクショ（**現在どこからも参照していない**。製品ページの UPDATE ボックスは最新版だけを載せる方針にしたため v2.2.0 の分に置き換わった）
+│   │   ├── conditional-numbering-config-01.png  # 条件分岐自動採番 v2.3.0 設定画面の全体像（上帯・目次とライブプレビュー・タブ・サイドバー。製品ページ「設定画面イメージ」）。2026-10-08 に v2.1.0 の未使用スクショを差し替え
 │   │   ├── conditional-numbering-config-01.webp # 同 WebP 版
+│   │   ├── conditional-numbering-config-02.png  # 条件分岐自動採番 v2.3.0 の UPDATE 用（パーツ設定＋連番の数え方「枝番」＋採番サンプル）＋ .webp
+│   │   ├── conditional-numbering-list-01.png    # 条件分岐自動採番 v2.3.0 の UPDATE 用（SKU マスタの一覧＝商品IDごとの枝番）＋ .webp
 │   │   ├── form-deco-icon.png              # FormDecoプラグイン アイコン
 │   │   ├── form-deco-banner.png            # FormDecoプラグイン バナー（1200×675・OGP/グリッド共用）
 │   │   ├── lookup-suggest-icon.png         # ルックアップサジェストプラグイン アイコン
@@ -729,7 +731,7 @@ c:\kizuna-works.jp\
 │   │   ├── annotation-use-06.png        # 使用：申請前（未処理）に「申請を忘れずに」の注釈が出ている詳細画面（v1.1.0 UPDATE）＋ .webp
 │   │   ├── annotation-use-07.png        # 使用：［申請する］後（承認待ち）に同じ注釈が消えた詳細画面（v1.1.0 UPDATE）＋ .webp
 │   │   ├── annotation-config-10.png     # 設定⑩表示するステータス（未処理だけチェック・v1.1.0）＋ .webp
-│   │   ├── conditional-numbering-lookup-add.png # 条件分岐自動採番 v2.2.0 の UPDATE 用（登録パネル内の自動採番）＋ .webp
+│   │   ├── conditional-numbering-lookup-add.png # 条件分岐自動採番の「設定画面イメージ」4 枚目（ルックアップ新規登録の登録パネル内の自動採番・v2.2.0 の UPDATE から移設）＋ .webp
 │   │   ├── lookup-filter-banner.png     # ルックアップ絞り込み for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・gen-plugin-banner.mjs で生成）＋ .webp / -800.webp
 │   │   ├── lookup-filter-icon.png       # ルックアップ絞り込み アイコン（200×200・ランキング/Top3/製品ページヒーロー・プラグイン同梱アイコン）＋ .webp
 │   │   ├── lookup-filter-before.png     # 導入前：kintone 標準のレコード選択画面（全90件・目的の商品が見えない）＋ .webp
@@ -1103,6 +1105,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-suggest-v3.0.1.zip # ルックアップサジェスト v3.0.1（同上）
 │   │   ├── kw-conditional-numbering-v2.2.0.zip # 条件分岐自動採番 v2.2.0 配布物
 │   │   ├── kw-lookup-filter-v1.0.0.zip                          # ルックアップ絞り込み for kintone 配布ファイル（旧版・手動配置・プレミアム第14弾 初版）
+│   │   ├── kw-conditional-numbering-v2.3.0.zip # 条件分岐自動採番 v2.3.0 配布物（最新・枝番／採番中の進捗表示）
 │   │   ├── kw-lookup-filter-v1.1.1.zip  # ルックアップ絞り込み for kintone 配布ファイル（最新・2026-10-03・v1.1.1：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に・「バナー非表示」の案内先をプレミアム年間サポーターに修正）
 │   │   ├── kw-elapsed-assist-v1.0.2.zip                          # 経過計算アシスト for kintone 配布ファイル（手動配置・v1.0.2 初版：基準日から9パターン自動計算＋その場再計算＋保存書込＋停止条件＋一括再計算）
 │   │   ├── kw-elapsed-assist-v1.0.3.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
