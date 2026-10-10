@@ -6,6 +6,7 @@ import Picture from '../../components/Picture.astro';
 import ExtensionNotice from '../../components/ExtensionNotice.astro';
 import { plugins, premiumPlugins, pluginsItemListJsonLd } from '../../data/plugins';
 import type { Plugin } from '../../data/plugins';
+import { PRICE_REVISION_LIVE } from '../../data/pricing';
 import {
   pluginCategoryGroups,
   pluginCategoryMeta,
@@ -78,7 +79,7 @@ const freeFaqJsonLd = {
       name: '無料プランと年間サポーターの違いは何ですか？',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: `ちょこっとプラグインは無料プランでも全機能が使え、違いはレコード一覧画面に控えめな広告エリアが表示される点です。年間サポーター（選んだ 1 製品が対象・年額 ¥3,300 税込）に加入すると、その製品の広告エリアが非表示になり、プラグイン作成リクエストや改善要望を送れます。プレミアムプラグインは全機能の利用にプレミアム年間サポーター（年額 ¥16,500 税込・販売中の全製品が対象）が必要で、単品販売はありません。`,
+        text: `ちょこっとプラグインは無料プランでも全機能が使え、違いはレコード一覧画面に控えめな広告エリアが表示される点です。${PRICE_REVISION_LIVE ? '年間サポーター（ちょこっとプラグインすべてが対象・年額 ¥8,250 税込）に加入すると、ちょこっとプラグインすべての広告エリアが非表示になり、' : '年間サポーター（選んだ 1 製品が対象・年額 ¥3,300 税込）に加入すると、その製品の広告エリアが非表示になり、'}プラグイン作成リクエストや改善要望を送れます。プレミアムプラグインは全機能の利用にプレミアム年間サポーター（年額 ¥16,500 税込・販売中の全製品が対象）が必要で、単品販売はありません。`,
       },
     },
     {
@@ -1203,7 +1204,7 @@ const freeFaqJsonLd = {
                   </tbody>
                 </table>
               </div>
-              <p>年間サポーターは対象が<strong>選んだ 1 製品</strong>で、機能を解除するためのものではなく開発を支えていただくためのプランです。プレミアムプラグイン {premiumCount} 製品だけは、全機能の利用に<a href="/plugins/supporter/?plan=all">プレミアム年間サポーター</a>（年額 ¥16,500 税込・販売中の全製品が対象）が必要で、単品販売はありません。</p>
+              <p>年間サポーターは対象が{PRICE_REVISION_LIVE ? <strong>ちょこっとプラグインすべて</strong> : <strong>選んだ 1 製品</strong>}で、機能を解除するためのものではなく開発を支えていただくためのプランです。プレミアムプラグイン {premiumCount} 製品だけは、全機能の利用に<a href="/plugins/supporter/?plan=all">プレミアム年間サポーター</a>（年額 ¥16,500 税込・販売中の全製品が対象）が必要で、単品販売はありません。</p>
               <p>導入手順はどの製品も共通です。kintone の<strong>システム管理 → プラグイン</strong>で ZIP ファイルを読み込み、使うアプリの<strong>アプリ設定 → プラグイン</strong>で追加して、設定画面で対象のフィールドや条件を選ぶだけ。JavaScript を書く必要はありません。</p>
               <p>公開後の<strong>更新（バージョンアップ）も同じ手順の上書きアップロードだけ</strong>で、アプリごとの設定はそのまま保持されます。更新が必要かどうかはプラグインの設定画面で確認できます。詳しくは<a href="/plugins/update/">プラグインの更新方法・広告が消えないときの対処</a>をご覧ください。</p>
             </div>

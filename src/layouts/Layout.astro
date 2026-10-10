@@ -26,6 +26,13 @@ interface Props {
    * fetchpriority=high so the request starts with the document.
    */
   heroBg?: string;
+  /**
+   * Skip Google Analytics on this page. Use on pages whose URL carries a one-time secret
+   * (e.g. the application confirmation page), so the secret never reaches analytics.
+   */
+  noAnalytics?: boolean;
+  /** Referrer policy for the page. Defaults to strict-origin-when-cross-origin. */
+  referrer?: string;
 }
 
 const {
@@ -40,6 +47,8 @@ const {
   noindex = false,
   followLinks = false,
   heroBg,
+  noAnalytics = false,
+  referrer = 'strict-origin-when-cross-origin',
 } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -47,7 +56,7 @@ const {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="referrer" content={referrer}>
   {noindex && <meta name="robots" content={followLinks ? "noindex, follow" : "noindex, nofollow"}>}
   <meta name="description" content={description}>
   <title>{title}</title>
@@ -79,13 +88,13 @@ const {
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
 
   <!-- Google tag (gtag.js) -->
-  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-Q1B44N0922"></script>
-  <script is:inline>
+  {!noAnalytics && <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-Q1B44N0922"></script>}
+  {!noAnalytics && <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-Q1B44N0922');
-  </script>
+  </script>}
   <!-- Plugin banner attribution: when a visit comes from a KIZUNA Works plugin banner (utm_source=kizuna-plugin),
        remember the campaign and plugin ID for 30 days so the supporter / trial forms can send it as `source`.
        Only these two short values are stored, in this browser only. -->

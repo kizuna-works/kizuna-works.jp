@@ -9,12 +9,17 @@ export interface FaqItem {
   a: string;
 }
 
+import { PRICE_REVISION_LIVE } from './pricing';
+
 // Shared across all plugins — placed AFTER the plugin-specific items in the
 // rendered order so that plugin-unique questions come first.
 export const commonFaqs: FaqItem[] = [
   {
     q: 'このプラグインは無料で使えますか？',
-    a: 'はい、すべての機能を完全無料でご利用いただけます。利用期限もなく、ずっとお使いいただけます。設定画面に控えめな広告エリアが表示される「基本無料・広告表示モデル」を採用しており、対象プラグインの広告は年間サポーターライセンス（年額 ¥3,300 税込）にお申込みいただくことで非表示にできます。',
+    a: 'はい、すべての機能を完全無料でご利用いただけます。利用期限もなく、ずっとお使いいただけます。設定画面に控えめな広告エリアが表示される「基本無料・広告表示モデル」を採用しており、' +
+      (PRICE_REVISION_LIVE
+        ? '年間サポーターライセンス（ちょこっとプラグインすべてが対象・年額 ¥8,250 税込）にお申込みいただくことで、ちょこっとプラグインすべての広告を非表示にできます。'
+        : '対象プラグインの広告は年間サポーターライセンス（年額 ¥3,300 税込）にお申込みいただくことで非表示にできます。'),
   },
   {
     q: '同一 kintone 環境内の複数アプリで利用できますか？',

@@ -1,0 +1,263 @@
+---
+// Contact-address change request. The license GAS sends an approval link to the contact
+// currently registered for the domain; nothing changes until that person approves.
+// The response is the same whether or not the domain is registered, so this page never
+// reveals which companies hold a license.
+import Layout from '../../../layouts/Layout.astro';
+
+import { LICENSE_GAS_URL } from '../../../data/licenseEndpoint';
+const ENDPOINT = LICENSE_GAS_URL;
+---
+<Layout
+  title="ご担当者メールアドレスの変更 | KIZUNA Works"
+  description="KIZUNA Works の年間サポーター・プレミアム年間サポーターに登録しているご担当者のメールアドレスと請求書の送付先を変更するページです。今のご担当者様の承認で変更します。"
+  canonical="https://kizuna-works.jp/apply/contact-change/"
+  ogUrl="https://kizuna-works.jp/apply/contact-change/"
+  noindex
+>
+  <main class="cc-wrap">
+    <section class="cc-card">
+      <h1 class="cc-title">ご担当者メールアドレスの変更</h1>
+      <p class="cc-lead">
+        年間サポーター・プレミアム年間サポーターに登録しているご担当者のメールアドレスと、請求書の送付先を変更します。送信すると、まず<strong>新しいアドレスへ確認メール</strong>をお送りします。確認が済んだら<strong>今登録されているご担当者様</strong>へ承認のお願いをお送りし、承認されたら変更します。
+      </p>
+
+      <form id="cc-form" novalidate>
+        <div class="cc-field">
+          <label for="cc-domain">kintone のドメイン<span class="cc-req">必須</span></label>
+          <input id="cc-domain" type="text" inputmode="url" autocomplete="off" placeholder="例：acme.cybozu.com">
+          <p id="cc-domain-echo" class="cc-echo" hidden></p>
+          <p class="cc-error" data-error-for="domain"></p>
+        </div>
+        <div class="cc-field">
+          <label for="cc-new">新しいご担当者のメールアドレス</label>
+          <input id="cc-new" type="email" autocomplete="email" placeholder="例：new@example.co.jp">
+          <p class="cc-error" data-error-for="newEmail"></p>
+        </div>
+        <div class="cc-field">
+          <label for="cc-inv">新しい請求書の送付先（変える場合だけ）</label>
+          <input id="cc-inv" type="email" autocomplete="off" placeholder="例：keiri@example.co.jp">
+          <p class="cc-hint">ご担当者と請求書の送付先のどちらか一方だけの変更もできます。</p>
+          <p class="cc-error" data-error-for="newInvoiceEmail"></p>
+        </div>
+        <div class="cc-field">
+          <label for="cc-name">ご依頼者のお名前</label>
+          <input id="cc-name" type="text" autocomplete="name">
+        </div>
+        <label class="cc-check" for="cc-same">
+          <input id="cc-same" type="checkbox" checked>
+          <span>ご依頼者は新しいご担当者と同じ</span>
+        </label>
+        <div id="cc-req-field" class="cc-field" hidden>
+          <label for="cc-req">ご依頼者のメールアドレス<span class="cc-req">必須</span></label>
+          <input id="cc-req" type="email" autocomplete="email">
+          <p class="cc-hint">今のご担当者様が承認できない場合（ご退職など）に、当社からこちらへご連絡します。</p>
+          <p class="cc-error" data-error-for="requesterEmail"></p>
+        </div>
+        <div class="cc-field">
+          <label for="cc-reason">変更の理由</label>
+          <textarea id="cc-reason" rows="3" maxlength="500" placeholder="例：担当者の異動のため"></textarea>
+        </div>
+        <button id="cc-submit" type="submit" class="cc-btn">入力内容を確認する</button>
+      </form>
+
+      <div id="cc-review" hidden>
+        <h2 class="cc-sub">入力内容の確認</h2>
+        <div class="cc-domain">
+          <div>入力されたドメイン：<code id="cc-r-dom-input"></code></div>
+          <div>変更するドメイン：<strong id="cc-r-domain"></strong><span id="cc-r-dom-note" class="cc-note" hidden>（.cybozu.com などを補いました）</span></div>
+          <div><a id="cc-r-open" href="#" target="_blank" rel="noopener noreferrer"></a>（自社の kintone のログイン画面が開けば正しいです）</div>
+          <p class="cc-domain-hint">ドメインが違うと、今のご担当者様へ承認のお願いが届きません。</p>
+        </div>
+        <table class="cc-table">
+          <tbody>
+            <tr id="cc-r-new-row"><th>新しいご担当者</th><td id="cc-r-new"></td></tr>
+            <tr id="cc-r-inv-row"><th>新しい請求書の送付先</th><td id="cc-r-inv"></td></tr>
+            <tr><th>ご依頼者</th><td id="cc-r-req"></td></tr>
+            <tr id="cc-r-reason-row"><th>理由</th><td id="cc-r-reason"></td></tr>
+          </tbody>
+        </table>
+        <div class="cc-btns">
+          <button id="cc-send" type="button" class="cc-btn">この内容で依頼する</button>
+          <button id="cc-back" type="button" class="cc-btn cc-btn-sub">戻って直す</button>
+        </div>
+      </div>
+
+      <div id="cc-done" class="cc-msg" hidden>
+        <strong>確認メールを <span id="cc-done-to"></span> へお送りしました。</strong>
+        メールのリンクを開いて「このアドレスを確認する」を押してください（48時間以内）。<span id="cc-done-two" hidden>アドレスごとにメールが届きますので、それぞれで確認してください。</span>確認が済むと、今のご担当者様へ承認のお願いをお送りします。メールが届かない場合は、迷惑メールのフォルダもご確認ください。
+      </div>
+      <p id="cc-fail" class="cc-msg cc-msg-err" hidden>送信できませんでした。時間をおいてもう一度お試しください。</p>
+
+      <div id="cc-after" class="cc-after" hidden>
+        <button id="cc-close" type="button" class="cc-btn">閉じる</button>
+      </div>
+      <p class="cc-help">お困りの場合は <a href="/contact/">お問い合わせ</a> からご連絡ください。</p>
+    </section>
+  </main>
+</Layout>
+
+<style is:global>
+  .cc-wrap { max-width: 680px; margin: 0 auto; padding: 32px 16px 56px; }
+  .cc-card { background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(27, 58, 107, 0.08); }
+  .cc-title { color: #1B3A6B; font-size: 22px; margin: 0 0 12px; text-wrap: balance; }
+  .cc-sub { color: #1B3A6B; font-size: 18px; margin: 0 0 8px; }
+  .cc-lead { line-height: 1.8; margin: 0 0 20px; }
+  #cc-form { display: flex; flex-direction: column; gap: 16px; }
+  .cc-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .cc-field label { font-weight: 500; font-size: 14px; color: #1B3A6B; }
+  .cc-req { margin-left: 8px; font-size: 11px; color: #ffffff; background: #2E8B2E; border-radius: 4px; padding: 1px 6px; vertical-align: 1px; }
+  .cc-field input, .cc-field textarea {
+    font-size: 16px;
+    padding: 9px 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-family: inherit;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .cc-hint { color: #64748b; font-size: 13px; margin: 0; line-height: 1.6; }
+  .cc-echo { color: #2E8B2E; font-size: 13px; margin: 0; overflow-wrap: anywhere; }
+  .cc-echo.cc-bad { color: #b45309; }
+  .cc-error { color: #c0392b; font-size: 13px; margin: 0; }
+  .cc-check { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+  .cc-check input { width: 18px; height: 18px; margin: 0; flex: none; }
+  .cc-check:has(input:disabled) { color: #94a3b8; cursor: default; }
+  .cc-error:empty { display: none; }
+  .cc-domain { background: #F0F4F8; border-radius: 8px; padding: 12px 14px; line-height: 1.9; font-size: 14px; overflow-wrap: anywhere; margin: 8px 0 4px; }
+  .cc-domain strong { color: #1B3A6B; font-size: 18px; }
+  .cc-note { color: #2E8B2E; margin-left: 6px; font-size: 13px; }
+  .cc-domain-hint { color: #64748b; font-size: 13px; margin: 4px 0 0; }
+  .cc-table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; }
+  .cc-table th, .cc-table td { text-align: left; padding: 8px; border-bottom: 1px solid #e5e7eb; font-size: 14px; vertical-align: top; overflow-wrap: anywhere; }
+  .cc-table th { width: 10em; color: #64748b; font-weight: 500; }
+  .cc-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+  .cc-btn { font-size: 15px; padding: 11px 20px; border-radius: 6px; border: none; background: #1B3A6B; color: #ffffff; cursor: pointer; font-family: inherit; align-self: flex-start; }
+  .cc-btn-sub { background: #ffffff; color: #1B3A6B; border: 1px solid #1B3A6B; }
+  .cc-btn:disabled { opacity: 0.5; cursor: default; }
+  .cc-msg { background: #eef7ee; border-radius: 8px; padding: 12px 14px; line-height: 1.8; margin: 0; }
+  .cc-msg strong { display: block; color: #1B3A6B; }
+  .cc-msg-err { background: #fdecea; }
+  .cc-after { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 24px; }
+  .cc-after .cc-btn { align-self: auto; }
+  /* display:flex would override the hidden attribute */
+  .cc-card [hidden], #cc-form[hidden], .cc-field[hidden] { display: none; }
+  .cc-help { color: #64748b; font-size: 13px; margin-top: 20px; }
+</style>
+
+<script is:inline src="/js/kintone-domain.js"></script>
+<script define:vars={{ ENDPOINT }}>
+  (function () {
+    var q = function (id) { return document.getElementById(id); };
+    var norm = window.KZ.normalizeKintoneDomain;
+    var MAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var form = q('cc-form');
+
+    var setError = function (name, text) { form.querySelector('[data-error-for="' + name + '"]').textContent = text || ''; };
+
+    q('cc-domain').addEventListener('input', function () {
+      var v = q('cc-domain').value;
+      var echo = q('cc-domain-echo');
+      if (!v.trim()) { echo.hidden = true; return; }
+      var nd = norm(v);
+      echo.hidden = false;
+      echo.classList.toggle('cc-bad', !nd.valid);
+      echo.textContent = nd.valid
+        ? '→ ' + nd.domain + (nd.completed ? '（.cybozu.com などを補いました）' : '')
+        : 'kintone のアドレスの形になっていません（abc.cybozu.com のようにご入力ください）';
+    });
+
+    var syncSame = function () {
+      var hasNew = !!q('cc-new').value.trim();
+      q('cc-same').disabled = !hasNew;
+      if (!hasNew) q('cc-same').checked = false;
+      q('cc-req-field').hidden = q('cc-same').checked;
+    };
+    q('cc-same').addEventListener('change', syncSame);
+    q('cc-new').addEventListener('input', function () {
+      // Re-check "same" when the new address comes back, unless the user unticked it on purpose.
+      if (q('cc-new').value.trim() && q('cc-same').disabled && !q('cc-same').dataset.userOff) q('cc-same').checked = true;
+      syncSame();
+    });
+    q('cc-same').addEventListener('click', function () { q('cc-same').dataset.userOff = q('cc-same').checked ? '' : '1'; });
+    syncSame();
+
+    var data = null;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var nd = norm(q('cc-domain').value);
+      var d = {
+        domain: nd.domain,
+        newEmail: q('cc-new').value.trim(),
+        newInvoiceEmail: q('cc-inv').value.trim(),
+        requesterName: q('cc-name').value.trim(),
+        requesterEmail: q('cc-same').checked ? q('cc-new').value.trim() : q('cc-req').value.trim(),
+        reason: q('cc-reason').value.trim()
+      };
+      var ok = true;
+      ['domain', 'newEmail', 'newInvoiceEmail', 'requesterEmail'].forEach(function (n) { setError(n, ''); });
+      if (!nd.valid) { setError('domain', 'kintone のアドレス（abc.cybozu.com など）を入力してください'); ok = false; }
+      if (!d.newEmail && !d.newInvoiceEmail) { setError('newEmail', '新しいご担当者か請求書の送付先のどちらかを入力してください'); ok = false; }
+      if (d.newEmail && !MAIL.test(d.newEmail)) { setError('newEmail', 'メールアドレスの形になっていません'); ok = false; }
+      if (d.newInvoiceEmail && !MAIL.test(d.newInvoiceEmail)) { setError('newInvoiceEmail', 'メールアドレスの形になっていません'); ok = false; }
+      if (!q('cc-same').checked && !MAIL.test(d.requesterEmail)) { setError('requesterEmail', 'ご依頼者のメールアドレスを入力してください'); ok = false; }
+      if (!ok) return;
+      data = d;
+      q('cc-r-dom-input').textContent = q('cc-domain').value;
+      q('cc-r-domain').textContent = d.domain;
+      q('cc-r-dom-note').hidden = !nd.completed;
+      q('cc-r-open').href = 'https://' + d.domain + '/';
+      q('cc-r-open').textContent = 'https://' + d.domain + '/ を開いて確かめる';
+      q('cc-r-new').textContent = d.newEmail;
+      q('cc-r-new-row').hidden = !d.newEmail;
+      q('cc-r-inv').textContent = d.newInvoiceEmail;
+      q('cc-r-inv-row').hidden = !d.newInvoiceEmail;
+      q('cc-r-req').textContent = q('cc-same').checked
+        ? (d.requesterName ? d.requesterName + '（新しいご担当者と同じ）' : '新しいご担当者と同じ')
+        : (d.requesterName ? d.requesterName + '（' + d.requesterEmail + '）' : d.requesterEmail);
+      q('cc-r-reason').textContent = d.reason;
+      q('cc-r-reason-row').hidden = !d.reason;
+      form.hidden = true;
+      q('cc-review').hidden = false;
+      q('cc-review').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // A tab the visitor opened themselves usually cannot be closed by script; go to the top page instead.
+    q('cc-close').addEventListener('click', function () {
+      try { window.close(); } catch (e) { /* ignore */ }
+      setTimeout(function () { if (!window.closed) location.href = '/'; }, 300);
+    });
+
+    q('cc-back').addEventListener('click', function () {
+      q('cc-review').hidden = true;
+      form.hidden = false;
+    });
+
+    // text/plain POST avoids a CORS preflight, which Apps Script cannot answer.
+    q('cc-send').addEventListener('click', function () {
+      if (!data) return;
+      var btn = q('cc-send');
+      btn.disabled = true;
+      btn.textContent = '送信中...';
+      q('cc-fail').hidden = true;
+      var payload = Object.assign({ formType: 'contact-change-request' }, data);
+      fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(payload) })
+        .then(function (r) { if (r.status !== 200) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (r) {
+          if (!r.ok) throw new Error(r.message || 'failed');
+          var to = [data.newEmail, data.newInvoiceEmail].filter(function (v, i, a) { return v && a.map(function (x) { return x.toLowerCase(); }).indexOf(v.toLowerCase()) === i; });
+          q('cc-done-to').textContent = to.join('、');
+          q('cc-done-two').hidden = to.length < 2;
+          q('cc-review').hidden = true;
+          q('cc-done').hidden = false;
+          q('cc-after').hidden = false;
+        })
+        .catch(function () {
+          q('cc-fail').hidden = false;
+          btn.disabled = false;
+          btn.textContent = 'この内容で依頼する';
+        });
+    });
+  })();
+</script>

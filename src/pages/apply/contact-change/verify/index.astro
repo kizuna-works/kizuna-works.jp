@@ -1,0 +1,133 @@
+---
+// Verification page for a new contact address. The verification email (sent to each new
+// address) links here with the one-time token in the URL fragment (#t=...), which is never sent
+// to servers or analytics. Opening the page verifies nothing; only the button does (corporate
+// mail scanners open links automatically). The result reads the same whether or not the domain
+// is registered, so this page never reveals which companies hold a license.
+import Layout from '../../../../layouts/Layout.astro';
+
+import { LICENSE_GAS_URL } from '../../../../data/licenseEndpoint';
+const ENDPOINT = LICENSE_GAS_URL;
+---
+<Layout
+  title="メールアドレスの確認 | KIZUNA Works"
+  description="KIZUNA Works のサポーター契約のご担当者アドレス変更で、新しいメールアドレスを確認するページです。"
+  canonical="https://kizuna-works.jp/apply/contact-change/verify/"
+  ogUrl="https://kizuna-works.jp/apply/contact-change/verify/"
+  noindex
+  noAnalytics
+  referrer="no-referrer"
+>
+  <main class="cv-wrap">
+    <section class="cv-card">
+      <h1 class="cv-title">メールアドレスの確認</h1>
+      <p id="cv-loading" class="cv-msg">読み込んでいます…</p>
+      <div id="cv-body" hidden>
+        <p class="cv-lead">ご担当者アドレスの変更のご依頼で、次のアドレスが入力されました。このアドレスで受け取れることを確かめるため「このアドレスを確認する」を押してください。</p>
+        <p class="cv-addr" id="cv-addr"></p>
+        <table class="cv-table">
+          <tbody>
+            <tr><th>ドメイン</th><td id="cv-domain"></td></tr>
+            <tr id="cv-new-row"><th>新しいご担当者</th><td id="cv-new"></td></tr>
+            <tr id="cv-inv-row"><th>新しい請求書の送付先</th><td id="cv-inv"></td></tr>
+            <tr><th>ご依頼者</th><td id="cv-req"></td></tr>
+          </tbody>
+        </table>
+        <div class="cv-btns">
+          <button id="cv-verify" type="button" class="cv-btn">このアドレスを確認する</button>
+        </div>
+        <p class="cv-expire">このページは <span id="cv-expires"></span> まで有効です。お心当たりがない場合は、何もせずに閉じてください。</p>
+      </div>
+      <p id="cv-result" class="cv-msg" hidden></p>
+      <div id="cv-after" class="cv-after" hidden>
+        <button id="cv-close" type="button" class="cv-btn">閉じる</button>
+      </div>
+      <p class="cv-help">お困りの場合は <a href="/contact/">お問い合わせ</a> からご連絡ください。</p>
+    </section>
+  </main>
+</Layout>
+
+<style is:global>
+  .cv-wrap { max-width: 680px; margin: 0 auto; padding: 32px 16px 56px; }
+  .cv-card { background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(27, 58, 107, 0.08); }
+  .cv-title { color: #1B3A6B; font-size: 22px; margin: 0 0 12px; text-wrap: balance; }
+  .cv-lead { line-height: 1.8; margin: 0 0 12px; }
+  .cv-addr { background: #F0F4F8; border-radius: 8px; padding: 12px 14px; font-size: 17px; font-weight: 700; color: #1B3A6B; overflow-wrap: anywhere; margin: 0 0 12px; }
+  .cv-table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; }
+  .cv-table th, .cv-table td { text-align: left; padding: 8px; border-bottom: 1px solid #e5e7eb; font-size: 14px; vertical-align: top; overflow-wrap: anywhere; }
+  .cv-table th { width: 10em; color: #64748b; font-weight: 500; }
+  .cv-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .cv-btn { font-size: 15px; padding: 10px 18px; border-radius: 6px; border: none; background: #1B3A6B; color: #ffffff; cursor: pointer; font-family: inherit; }
+  .cv-btn:disabled { opacity: 0.5; cursor: default; }
+  .cv-msg { white-space: pre-line; background: #eef7ee; border-radius: 8px; padding: 12px 14px; line-height: 1.8; }
+  .cv-after { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 24px; }
+  /* display:flex above would override the hidden attribute */
+  .cv-card [hidden] { display: none; }
+  .cv-expire, .cv-help { color: #64748b; font-size: 13px; margin-top: 16px; }
+</style>
+
+<script define:vars={{ ENDPOINT }}>
+  (function () {
+    // Take the token from the fragment, then drop it from the address bar and history.
+    var m = /(?:^#|&)t=([A-Za-z0-9]+)/.exec(location.hash || '');
+    var token = m ? m[1] : '';
+    try { history.replaceState(null, '', location.pathname); } catch (e) { /* ignore */ }
+
+    var q = function (id) { return document.getElementById(id); };
+
+    // text/plain POST avoids a CORS preflight, which Apps Script cannot answer.
+    var call = function (payload) {
+      var attempt = function (n) {
+        return fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(payload) })
+          .then(function (r) { if (r.status !== 200) throw new Error('HTTP ' + r.status); return r.json(); })
+          .catch(function (e) { if (n > 0) return new Promise(function (ok) { setTimeout(ok, 2000); }).then(function () { return attempt(n - 1); }); throw e; });
+      };
+      return attempt(2);
+    };
+
+    // Browsers only let a page close a tab that a script opened, so a tab opened from an email link
+    // usually cannot be closed. Try, and if the tab is still open, go to the top page instead.
+    q('cv-close').addEventListener('click', function () {
+      try { window.close(); } catch (e) { /* ignore */ }
+      setTimeout(function () { if (!window.closed) location.href = '/'; }, 300);
+    });
+    var showResult = function (text, done) {
+      q('cv-result').hidden = false;
+      q('cv-result').textContent = text;
+      if (done) { q('cv-verify').disabled = true; q('cv-after').hidden = false; }
+    };
+
+    if (!token) {
+      q('cv-loading').textContent = 'このページは、確認メールのリンクから開いてください。';
+      q('cv-after').hidden = false;
+      return;
+    }
+
+    call({ formType: 'contact-change-verify-info', t: token }).then(function (r) {
+      q('cv-loading').hidden = true;
+      if (!r.ok) { showResult(r.message, true); return; }
+      q('cv-body').hidden = false;
+      q('cv-addr').textContent = r.address;
+      q('cv-domain').textContent = r.domain;
+      q('cv-new').textContent = r.newEmail;
+      q('cv-new-row').hidden = !r.newEmail;
+      q('cv-inv').textContent = r.newInvoiceEmail;
+      q('cv-inv-row').hidden = !r.newInvoiceEmail;
+      q('cv-req').textContent = r.requesterName ? r.requesterName + '（' + r.requesterEmail + '）' : r.requesterEmail;
+      q('cv-expires').textContent = r.expires;
+    }).catch(function () {
+      q('cv-loading').textContent = '読み込めませんでした。時間をおいてページを開き直してください。';
+    });
+
+    q('cv-verify').addEventListener('click', function () {
+      q('cv-verify').disabled = true;
+      showResult('処理しています…', false);
+      call({ formType: 'contact-change-verify', t: token }).then(function (r) {
+        showResult(r.message, true);
+      }).catch(function () {
+        showResult('通信に失敗しました。時間をおいてもう一度お試しください。', false);
+        q('cv-verify').disabled = false;
+      });
+    });
+  })();
+</script>

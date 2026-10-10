@@ -1,0 +1,252 @@
+---
+// Application confirmation page. The confirmation email links here with the one-time
+// token in the URL fragment (#t=...), which is never sent to servers or analytics.
+// Opening the page only shows the application; nothing is confirmed until the button is pressed
+// (corporate mail scanners open links automatically — measured on Microsoft 365, 26s after delivery).
+import Layout from '../../../layouts/Layout.astro';
+
+import { LICENSE_GAS_URL } from '../../../data/licenseEndpoint';
+const ENDPOINT = LICENSE_GAS_URL;
+---
+<Layout
+  title="お申し込みの確認 | KIZUNA Works"
+  description="KIZUNA Works の年間サポーター・プレミアム年間サポーター・無料体験のお申し込み内容を確認し、確定するページです。"
+  canonical="https://kizuna-works.jp/apply/confirm/"
+  ogUrl="https://kizuna-works.jp/apply/confirm/"
+  noindex
+  noAnalytics
+  referrer="no-referrer"
+>
+  <main class="ac-wrap">
+    <section class="ac-card">
+      <h1 class="ac-title">お申し込み内容のご確認</h1>
+      <p id="ac-loading" class="ac-msg">読み込んでいます…</p>
+      <div id="ac-body" hidden>
+        <p class="ac-lead">内容をご確認のうえ「申込を確定する」を押してください。押すまでお申し込みは確定しません。</p>
+        <table class="ac-table">
+          <tbody>
+            <tr><th>プラン</th><td id="ac-plan"></td></tr>
+            <tr><th>会社・団体名</th><td id="ac-company"></td></tr>
+            <tr><th>ご担当者メール</th><td id="ac-email"></td></tr>
+            <tr id="ac-row-pay"><th>お支払い方法</th><td id="ac-pay"></td></tr>
+            <tr id="ac-row-inv"><th>請求書の送付先</th><td id="ac-inv"></td></tr>
+          </tbody>
+        </table>
+        <div class="ac-domain">
+          <div>入力されたドメイン：<code id="ac-dom-input"></code></div>
+          <div>登録するドメイン：<strong id="ac-dom"></strong><span id="ac-dom-note" class="ac-note" hidden>（.cybozu.com などを補いました）</span></div>
+          <div id="ac-dom-warn" class="ac-warn" hidden>kintone のアドレスの形になっていません。「ドメインを直す」から直してください。</div>
+          <div><a id="ac-open" href="#" target="_blank" rel="noopener noreferrer"></a>（自社の kintone のログイン画面が開けば正しいです）</div>
+          <div id="ac-fix" class="ac-fix" hidden>
+            <input id="ac-newdom" type="text" inputmode="url" autocomplete="off" placeholder="例：acme.cybozu.com">
+            <button id="ac-fixok" type="button" class="ac-btn ac-btn-sub">このドメインにする</button>
+          </div>
+        </div>
+        <div class="ac-btns">
+          <button id="ac-confirm" type="button" class="ac-btn">申込を確定する</button>
+          <button id="ac-fixbtn" type="button" class="ac-btn ac-btn-sub">ドメインを直す</button>
+          <button id="ac-cancel" type="button" class="ac-btn ac-btn-sub">この申し込みを取り消す</button>
+        </div>
+        <p class="ac-expire">このページは <span id="ac-expires"></span> まで有効です。</p>
+      </div>
+      <p id="ac-result" class="ac-msg" hidden></p>
+      <div id="ac-after" class="ac-after" hidden>
+        <a id="ac-kintone" class="ac-btn ac-btn-sub ac-link-btn" href="#" target="_blank" rel="noopener noreferrer" hidden>kintone を開く</a>
+        <button id="ac-close" type="button" class="ac-btn">閉じる</button>
+      </div>
+      <p class="ac-help">お困りの場合は <a href="/contact/">お問い合わせ</a> からご連絡ください。</p>
+    </section>
+  </main>
+</Layout>
+
+<style is:global>
+  .ac-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 32px 16px 56px;
+  }
+  .ac-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(27, 58, 107, 0.08);
+  }
+  .ac-title {
+    color: #1B3A6B;
+    font-size: 22px;
+    margin: 0 0 12px;
+  }
+  .ac-lead { line-height: 1.8; margin: 0 0 12px; }
+  .ac-table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; }
+  .ac-table th, .ac-table td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+  }
+  .ac-table th { width: 9em; color: #64748b; font-weight: 500; }
+  .ac-domain {
+    background: #F0F4F8;
+    border-radius: 8px;
+    padding: 12px 14px;
+    line-height: 1.9;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+  .ac-domain strong { color: #1B3A6B; font-size: 18px; }
+  .ac-note { color: #2E8B2E; margin-left: 6px; font-size: 13px; }
+  .ac-warn { color: #b45309; }
+  .ac-fix { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  /* display:flex above would override the hidden attribute */
+  .ac-fix[hidden], .ac-card [hidden] { display: none; }
+  .ac-fix input {
+    font-size: 16px;
+    padding: 8px 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    min-width: 0;
+    flex: 1 1 14em;
+  }
+  .ac-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .ac-btn {
+    font-size: 15px;
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: none;
+    background: #1B3A6B;
+    color: #ffffff;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .ac-btn-sub { background: #ffffff; color: #1B3A6B; border: 1px solid #1B3A6B; }
+  .ac-btn:disabled { opacity: 0.5; cursor: default; }
+  .ac-msg {
+    white-space: pre-line;
+    background: #eef7ee;
+    border-radius: 8px;
+    padding: 12px 14px;
+    line-height: 1.8;
+  }
+  .ac-after { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 24px; }
+  .ac-link-btn { display: inline-block; text-decoration: none; }
+  .ac-expire, .ac-help { color: #64748b; font-size: 13px; margin-top: 16px; }
+</style>
+
+<script define:vars={{ ENDPOINT }}>
+  (function () {
+    // Take the token from the fragment, then drop it from the address bar and history.
+    var m = /(?:^#|&)t=([A-Za-z0-9]+)/.exec(location.hash || '');
+    var token = m ? m[1] : '';
+    try { history.replaceState(null, '', location.pathname); } catch (e) { /* ignore */ }
+
+    var q = function (id) { return document.getElementById(id); };
+    var BASES = ['cybozu.com', 'kintone.com', 'cybozu-dev.com', 'cybozu.cn'];
+    // Mirrors normalizeApplicationDomain() in the license GAS. Shared test vectors keep them in sync.
+    var normalizeDomain = function (raw) {
+      var input = String(raw == null ? '' : raw);
+      var h = input.replace(/[\s　]+/g, '');
+      if (typeof h.normalize === 'function') h = h.normalize('NFKC');
+      h = h.trim().toLowerCase().replace(/^[a-z]+:\/\//, '');
+      h = h.split('/')[0].split('?')[0].split('#')[0].split('@').pop().split(':')[0].replace(/\.+$/, '');
+      var completed = false;
+      if (h && h.indexOf('.') === -1) { h += '.cybozu.com'; completed = true; }
+      else if (/^[a-z0-9][a-z0-9-]*(\.s)?\.(cybozu|kintone|cybozu-dev)$/.test(h)) { h += '.com'; completed = true; }
+      var valid = BASES.some(function (b) {
+        return new RegExp('^[a-z0-9][a-z0-9-]*(\\.s)?\\.' + b.replace(/\./g, '\\.') + '$').test(h);
+      });
+      return { domain: h, completed: completed, valid: valid };
+    };
+
+    // text/plain POST avoids a CORS preflight, which Apps Script cannot answer.
+    var call = function (payload) {
+      var attempt = function (n) {
+        return fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(payload) })
+          .then(function (r) { if (r.status !== 200) throw new Error('HTTP ' + r.status); return r.json(); })
+          .catch(function (e) { if (n > 0) return new Promise(function (ok) { setTimeout(ok, 2000); }).then(function () { return attempt(n - 1); }); throw e; });
+      };
+      return attempt(2);
+    };
+
+    // Shown once nothing more can be done on this page (confirmed, cancelled, expired, already used).
+    var showAfter = function (kintoneDomain) {
+      if (kintoneDomain) { q('ac-kintone').href = 'https://' + kintoneDomain + '/'; q('ac-kintone').hidden = false; }
+      q('ac-after').hidden = false;
+    };
+    // Browsers only let a page close a tab that a script opened, so a tab opened from an email link
+    // usually cannot be closed. Try, and if the tab is still open, go to the top page instead.
+    q('ac-close').addEventListener('click', function () {
+      try { window.close(); } catch (e) { /* ignore */ }
+      setTimeout(function () { if (!window.closed) location.href = '/'; }, 300);
+    });
+
+    var showResult = function (text, done) {
+      q('ac-result').hidden = false;
+      q('ac-result').textContent = text;
+      if (done) ['ac-confirm', 'ac-fixbtn', 'ac-cancel'].forEach(function (id) { q(id).disabled = true; });
+    };
+
+    var domain = '';
+    var setDomain = function (d, completed, valid) {
+      domain = d;
+      q('ac-dom').textContent = d;
+      q('ac-dom-note').hidden = !completed;
+      q('ac-dom-warn').hidden = valid;
+      q('ac-confirm').disabled = !valid;
+      q('ac-open').href = 'https://' + d + '/';
+      q('ac-open').textContent = 'https://' + d + '/ を開いて確かめる';
+    };
+
+    if (!token) {
+      q('ac-loading').textContent = 'このページは、確認メールのリンクから開いてください。';
+      showAfter('');
+      return;
+    }
+
+    call({ formType: 'application-confirm-info', t: token }).then(function (r) {
+      q('ac-loading').hidden = true;
+      if (!r.ok) { showResult(r.message, true); showAfter(''); return; }
+      q('ac-body').hidden = false;
+      q('ac-plan').textContent = r.plan;
+      q('ac-company').textContent = r.companyName;
+      q('ac-email').textContent = r.email;
+      q('ac-pay').textContent = r.paymentMethod;
+      q('ac-row-pay').hidden = !r.paymentMethod;
+      q('ac-inv').textContent = r.invoiceEmail;
+      q('ac-row-inv').hidden = !r.invoiceEmail;
+      q('ac-dom-input').textContent = r.domainInput;
+      q('ac-expires').textContent = r.expires;
+      setDomain(r.domain, r.completed, r.valid);
+    }).catch(function () {
+      q('ac-loading').textContent = '読み込めませんでした。時間をおいてページを開き直してください。';
+    });
+
+    q('ac-fixbtn').addEventListener('click', function () {
+      q('ac-fix').hidden = false;
+      q('ac-newdom').value = domain;
+      q('ac-newdom').focus();
+    });
+    q('ac-fixok').addEventListener('click', function () {
+      var nd = normalizeDomain(q('ac-newdom').value);
+      setDomain(nd.domain, nd.completed, nd.valid);
+      q('ac-fix').hidden = nd.valid;
+    });
+    q('ac-confirm').addEventListener('click', function () {
+      q('ac-confirm').disabled = true;
+      showResult('処理しています…', false);
+      call({ formType: 'application-confirm', t: token, domain: domain }).then(function (r) {
+        showResult(r.message, r.ok);
+        if (r.ok) showAfter(domain);
+        else q('ac-confirm').disabled = false;
+      }).catch(function () {
+        showResult('通信に失敗しました。時間をおいてもう一度お試しください。', false);
+        q('ac-confirm').disabled = false;
+      });
+    });
+    q('ac-cancel').addEventListener('click', function () {
+      if (!window.confirm('このお申し込みを取り消しますか？')) return;
+      call({ formType: 'application-cancel', t: token }).then(function (r) { showResult(r.message, r.ok); if (r.ok) showAfter(''); });
+    });
+  })();
+</script>

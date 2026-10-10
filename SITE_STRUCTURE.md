@@ -48,6 +48,7 @@ c:\kizuna-works.jp\
 │   │   ├── PremiumFaqSection.astro # プレミアム製品ページの「よくある質問」（アコーディオン＋FAQPage JSON-LD を src/data/premium-faqs.ts から生成＝表示と構造化データが必ず一致）
 │   │   ├── ShareButtons.astro  # SNS共有ボタン（X/LINE/はてブは静的intentリンク・URLコピー/OS共有シートのみJS）。全プラグイン個別ページ末尾に設置。title="〇〇 for kintone"・URLはAstro.urlから自動導出
 │   │   ├── PremiumPlanCard.astro # ちょこっと製品ページのプラン欄3枚目（プレミアム年間サポーター）。ページ側の `.pricing-card` 等をそのまま使い、紺のアクセントだけスコープ付きCSSで足す＝各ページの見た目に自動で馴染む。プレミアム製品ページでは使わない（年間サポーターを掲載しないため2枚のまま）
+│   │   ├── SupporterPlanCard.astro # ちょこっと製品ページのプラン欄2枚目（年間サポーター）。料金は src/data/pricing.ts から出し、PRICE_REVISION_LIVE で改定前（1 製品・¥3,300）と改定後（ちょこっとプラグインすべて・¥8,250）を切り替える。props は pluginId（申込フォームへ渡す）と features（ページごとの機能の行）
 │   │   ├── ResellerCard.astro  # プラン欄の下に出る「販売代理店からのご購入」カード（全63製品ページ共通）。掲載先は src/data/resellers.ts。登録0件のあいだは何も出力しない＝契約締結前に社名が出ない。ページ側CSSに依存せず自前のスコープ付きCSSで完結
 │   │   ├── ExtensionNotice.astro # Chrome拡張「KW Plugin Updater」の案内帯。トップ（プラグインセクション直後）・/plugins/（リードと絞り込みバーの間）・/plugins/ranking/（一覧直下）の3か所で使用。見出しと本文だけ props で差し替え、ストアURLは extensions.ts から取得。CTAクリックで GA4 の ext_updater_click（surface/link_kind）を送る
 │   │   ├── RequestOriginBadge.astro # 「リクエストから誕生」バッジ（サポーターのリクエストで**新しく開発した**製品にだけ付ける）。`as="badge"` はヒーロー用の半透明ピル、`as="note"` はヒーロー直下の1行ボックス（サポーターページへ導線）。**一覧カードだけは `/plugins/index.astro` 側の `.badge-request-origin` を副題（「プレミアムプラグイン」等）の右に置き、ピルの枠とアイコンを外して紺の太字＋緑の下線にする**（枠が上のカテゴリチップと競合するため。枠とアイコンを落とした分の幅で全文が副題行に収まる＝3カラム時で余裕15px）。表示の有無は plugins.ts の `bornFrom: 'supporter-request'` が単一の情報源＝/plugins/ の件数・/plugins/supporter/ の実績一覧とズレない。**要望で機能追加しただけの製品には付けない**（それは製品ページの UPDATE ボックスの役割）
@@ -58,6 +59,8 @@ c:\kizuna-works.jp\
 │   │   ├── glossary.ts         # kintone 用語集の単一情報源（/glossary/ 一覧と DefinedTermSet JSON-LD を生成）。hasPage/longDescription/useCases/faq を持つ語は /glossary/<id>/ の個別ページも生成。`supersededBy` を持つ語は個別ページを noindex＋sitemap 除外にし、同じ検索意図で上位のブログ記事へ誘導する（自社2ページで表示回数を食い合うのを防ぐ。付与は GSC で順位を確認してから）
 │   │   ├── plugin-security.ts  # プラグインごとのセキュリティ事実（外部通信・同梱ライブラリ）の単一情報源。SecurityBox が参照
 │   │   ├── resellers.ts        # 販売代理店マスタ（ResellerCard が参照）。1件でも登録すると全63製品ページに代理店カードが出る。**掲載は販売代理店契約の締結後**（契約書 第9条第4項）。現在は空配列＝非表示
+│   │   ├── licenseEndpoint.ts  # ライセンス GAS の /exec の URL（申込フォーム・/apply/ のページが使う）。環境変数 PUBLIC_LICENSE_GAS_URL があればそちら（試験用の GAS につなぐときだけ）
+│   │   ├── pricing.ts          # サポーターの料金とプランの表示の単一情報源。PRICE_REVISION_LIVE（年間サポーターの料金改定を公開したか）・改定日・プランごとの料金・申込の planType。製品ページのカード・サポーターページ・申込フォーム・一覧・規約・トップのお知らせがここを見る
 │   │   └── install-ranking.json # インストール数ランキングのスナップショット（scripts/gen-install-ranking.mjs が prebuild で更新）。トップの Top3 と /plugins/ranking/ が両方これを読む＝順位が食い違わない。**手で編集しない**
 │   ├── layouts/                # 共通レイアウトコンポーネント
 │   │   ├── Layout.astro        # 全ページ共通レイアウト（GA4・プラグイン内バナーからの流入元の記録（utm_source=kizuna-plugin を localStorage kz_src に30日）・Noto Sans JP・ヘッダー・フッター）。AdSense は 2026-10-03 にやめた
@@ -66,7 +69,13 @@ c:\kizuna-works.jp\
 │   │   ├── go/[id].astro       # /go/<広告ID>/ ＝プラグイン内バナーの広告のクリック計測用の中継ページ。public/ads/ads.json の広告（当社サイト・他社サイトとも）ごとにビルド時に生成。GA4 に ad_click（ad_id・plugin_id）を記録して行き先へ移動（行き先はビルド時に固定・URLで受け取らない。当社サイトへは utm を付ける）。noindex・サイトマップ除外（astro.config.mjs の filter）
 │   │   ├── index.astro         # トップページ（/）
 │   │   ├── about.astro         # 運営者情報ページ（/about/）― KIZUNA Works の事業紹介（kintone・Google Workspace・AIによるDX/業務効率化/自動化支援）・支援領域・提供コンテンツ・運営方針・お問い合わせ。フッターからリンク（AdSense E-E-A-T / 信頼性向上用）
-│   │   ├── contact.astro       # お問い合わせページ（/contact/）― Google Forms リンク
+│   │   ├── contact.astro       # お問い合わせページ（/contact/）― Google Forms リンク。フォームの下に担当者変更ページ（/apply/contact-change/）への案内
+│   │   ├── apply/              # 申込・担当者変更の手続きページ。すべて noindex・サイトマップ除外（astro.config.mjs の filter）。ライセンス GAS（src/data/licenseEndpoint.ts）へ text/plain で POST
+│   │   │   ├── confirm/index.astro         # 申込の確認ページ（/apply/confirm/#t=…）。申込後の確認メールのリンクから開き「申込を確定する」で確定（開くだけでは確定しない）。ドメインの直し・取消・閉じる。鍵は # の後ろで受け取りアドレス欄から消す・計測なし・no-referrer
+│   │   │   └── contact-change/
+│   │   │       ├── index.astro             # 担当者メールアドレスの変更の依頼（/apply/contact-change/）。ドメインの確認（補った表示・開いて確かめるリンク）・「依頼者は新しいご担当者と同じ」・確認の段・閉じる。登録の有無は明かさない。導線＝サポーターページの FAQ・お問い合わせページ・顧客向けメールのフッター
+│   │   │       ├── verify/index.astro      # 新しいアドレスの確認（/apply/contact-change/verify/#t=…）。新しいアドレスへのメールのリンクから開き「このアドレスを確認する」。計測なし・no-referrer
+│   │   │       └── approve/index.astro     # 今のご担当者による承認（/apply/contact-change/approve/#t=…）。「承認する」で台帳を書き換え・「承認しない」はページ内で確かめる。計測なし・no-referrer
 │   │   ├── privacy.astro       # プライバシーポリシー（/privacy/）
 │   │   ├── refund.astro        # 返金ポリシー（/refund/）
 │   │   ├── terms.astro         # 利用規約（/terms/）
@@ -1474,6 +1483,8 @@ c:\kizuna-works.jp\
 │   ├── CNAME                   # GitHub Pages カスタムドメイン設定（kizuna-works.jp）
 │   ├── favicon.ico             # ルート直下のファビコン（16/32/48 のマルチサイズ ICO）。Google はここも見るので必ずブランドのマークにする（Astro テンプレートの初期アイコンが残っていて検索結果に出ていた）。scripts/gen-favicon.mjs で生成
 │   ├── llms.txt                # AI検索（ChatGPT/Perplexity/AI Overviews）向けのサイト要約。全プラグイン・拡張・ツールを1行説明付きで列挙。製品数は scripts/sync-llms-counts.mjs がビルド時に src/data/*.ts から書き換え、未掲載の製品があるとビルドを止める
+│   ├── js/
+│   │   └── kintone-domain.js   # kintone ドメインの整え方（window.KZ.normalizeKintoneDomain）。空白の除去・全角→半角・URL の部分を外す・.cybozu.com などを補う。申込フォーム・/apply/ のページが共用し、ライセンス GAS の normalizeApplicationDomain と同じ答えを返す（scripts/kintone-domain-vectors.json で突き合わせ）
 │   ├── ads/                    # プラグイン内バナーの掲載データ。各プラグインの共通 ad.js（v2）が kintone.proxy で ads/ads.json を読み、無料プランの利用者のバナーに出す（6時間キャッシュ・取得できなければ内蔵バナー）。書き方は SECRET/kintone_plugin_workspace/_planning/ad-remote_design.md
 │   │   ├── ads.json            # 掲載する広告の一覧（schema 1・期間・対象プラグイン・重み。複数あれば一覧を開くたびに順に替わる）。scripts/check-ads.mjs が prebuild で点検
 │   │   └── img/                # バナー画像（最初の画像を置くときに作る）。2400×120px＝表示 1200×60px・200KB 以内・左右の端は bg と同じ単色。帯の高さは 60px 固定。ads.json から https://kizuna-works.jp/ads/img/… で参照
@@ -1484,6 +1495,8 @@ c:\kizuna-works.jp\
 │   ├── gen-catalog.mjs         # plugins.ts から public/catalog.json を生成（Chrome拡張「KW Plugin Updater」のおすすめ・新着タブ用）。prebuild で自動実行
 │   ├── gen-install-ranking.mjs # GAS の action=ranking から src/data/install-ranking.json を生成。prebuild で自動実行（手動は npm run gen:ranking）。**成功時だけ上書き**し、失敗時は直近のスナップショットを残す（スナップショットが無い状態で失敗したらビルド中断）。以前はページ側で毎回 fetch していて、タイムアウト時に plugins.ts の並び順が「本物のランキング」として公開されていた
 │   ├── sync-llms-counts.mjs    # public/llms.txt の製品数を src/data/*.ts から同期＋掲載漏れ/存在しない製品へのリンクを検出してビルド中断。prebuild で自動実行（手動は npm run sync:llms）
+│   ├── check-kintone-domain.mjs # public/js/kintone-domain.js が kintone-domain-vectors.json の例（24件）と同じ答えを返すかの検査。ライセンス GAS 側も同じ例で確かめている
+│   ├── kintone-domain-vectors.json # ドメインの整え方の共通の例（入力 → 整えたドメイン・補ったか・正しい形か）
 │   ├── check-plugin-summaries.mjs # プラグインの要約（一覧カード description / ランキング cardDescription / 製品ページ hero）が公開版に追いついているかを検査。plugins.ts の `summaryVersion` と製品ページ JSON-LD の `softwareVersion` の major.minor を比較する。prebuild では警告のみ、`npm run check:summaries` は不一致で exit 1（リリース前ゲート）
 │   ├── check-plugin-release.mjs # 公開ゲート。public/downloads/ に未コミットのプラグイン配布 zip があるとき、その版のテスト実施記録（SECRET/kintone_plugin_release/<name>_release/docs/<name>_TEST_v<版>.md に「判定: 合格」）が無ければビルドを中止する。prebuild で自動実行。SECRET/ や git が無い環境（GitHub Actions）ではスキップ
 │   ├── check-external-links.mjs # 相互リンクの維持ゲート。他社と約束した相互リンクが本文から消える／rel="nofollow" が付く／掲載テキストが変わると prebuild でビルドを中止する。約束の一覧は同ファイルの COMMITMENTS。単体実行は `npm run check:links`。解除は「先方と合意 → COMMITMENTS から削除 → 本文修正 → 記録」の順（CLAUDE.md「相互リンクの維持」参照）

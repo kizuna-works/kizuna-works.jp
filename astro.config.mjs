@@ -160,9 +160,12 @@ export default defineConfig({
       // - glossary terms with `supersededBy` (a blog post owns those queries)
       // - partner-only pages (reached by a one-time URL or a private form)
       // - /go/<ad>/ click-through pages for plugin banners (noindex; they only redirect)
+      // - /apply/ pages (noindex; application confirmation and contact-address change)
       filter: (page) =>
         !page.includes('/partner/') &&
         !page.includes('/go/') &&
+        // application confirmation and contact-change pages (noindex; reached from emails or the supporter page)
+        !page.includes('/apply/') &&
         !page.includes('/plugins/supporter/request/') &&
         !page.includes('/news/blog-') &&
         !noindexBlogPaths.some((p) => page.endsWith(p)) &&

@@ -1,0 +1,47 @@
+---
+/**
+ * ちょこっとプラグインの製品ページで、プラン欄の 2 枚目（おすすめ）に置く年間サポーターのカード。
+ *
+ * 料金改定（src/data/pricing.ts の PRICE_REVISION_LIVE）で中身が切り替わる：
+ *   改定前＝1 製品の年間サポーター（¥3,300／年・税込）。今までの各ページのカードと同じ文面。
+ *   改定後＝年間サポーター（ちょこっとプラグインすべて・¥8,250／年・税込）。
+ * ページ側の `.pricing-card` などのスタイルをそのまま使う（PremiumPlanCard と同じ）。
+ */
+import { PRICE_REVISION_LIVE, SUPPORTER_PLAN, yen } from '../data/pricing';
+
+interface Props {
+  /** 申込フォームへ渡すプラグイン ID（?plugin=） */
+  pluginId: string;
+  /**
+   * カードの機能の行（先頭の ✅ を除いた HTML）。ページごとに書き分けていた行をそのまま渡す。
+   * 省略時は共通の 4 行。
+   */
+  features?: string[];
+}
+const { pluginId, features } = Astro.props;
+const DEFAULT_FEATURES = [
+  '全機能が利用可能',
+  'プラグイン内の<strong>広告エリアが完全非表示</strong>',
+  'プラグイン作成リクエスト・改善要望を送付可能',
+  'サポーターの声を優先して開発に反映',
+];
+const lines = features && features.length ? features : DEFAULT_FEATURES;
+const p = SUPPORTER_PLAN;
+---
+
+<div class="pricing-card recommended">
+  <span class="recommended-badge">{PRICE_REVISION_LIVE ? 'ちょこっとプラグインすべて' : '1プラグインならこちら'}</span>
+  <h3 class="plan-name">年間サポーター</h3>
+  <div class="plan-price">
+    <span class="amount">{yen(p.priceInTax)}</span>
+    <span class="unit">/年（税込）</span>
+  </div>
+  <div class="plan-discount">税抜 {yen(p.priceExTax)} ／ 月額換算 約 {p.monthlyInTax.toLocaleString('ja-JP')} 円</div>
+  <ul class="plan-features">
+    {PRICE_REVISION_LIVE && (
+      <li>✅ この製品を含む<strong>ちょこっとプラグインすべて</strong>が対象</li>
+    )}
+    {lines.map((l) => <li set:html={'✅ ' + l} />)}
+  </ul>
+  <a href={'/plugins/supporter/?plugin=' + encodeURIComponent(pluginId)} class="btn-primary">サポーターになる →</a>
+</div>

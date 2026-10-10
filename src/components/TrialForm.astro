@@ -1,4 +1,5 @@
 ---
+import { LICENSE_GAS_URL } from '../data/licenseEndpoint';
 // Slim trial-application form for the Premium Free Trial LP.
 // Posts to the same GAS endpoint as SupporterForm, but with planType='trial'.
 // Only the fields needed to issue a domain-based trial license are collected.
@@ -14,7 +15,7 @@
         下記をご入力ください。カード登録は不要です。お申し込み後、利用開始のご案内メールをお送りします。
       </p>
 
-      <form id="tf-form" class="tf-form" novalidate>
+      <form id="tf-form" class="tf-form" novalidate data-endpoint={LICENSE_GAS_URL}>
         <div class="tf-group">
           <label for="tf-companyName" class="tf-label">
             会社・団体名<span class="tf-required">必須</span>
@@ -72,10 +73,32 @@
         </p>
       </form>
 
+      <div id="tf-review" class="tf-review" hidden>
+        <h3 class="tf-review-title">入力内容の確認</h3>
+        <p class="tf-review-lead">内容をご確認のうえ「この内容で送信する」を押してください。送信後、ご担当者メールアドレスへ確認メールをお送りします。</p>
+        <table class="tf-review-table">
+          <tbody>
+            <tr><th>お申し込み</th><td>プレミアム年間サポーター 30日間無料体験</td></tr>
+            <tr><th>会社・団体名</th><td id="tf-review-company"></td></tr>
+            <tr><th>ご担当者メール</th><td id="tf-review-email"></td></tr>
+          </tbody>
+        </table>
+        <div class="tf-review-domain">
+          <div>入力されたドメイン：<code id="tf-review-dom-input"></code></div>
+          <div>体験を始めるドメイン：<strong id="tf-review-dom"></strong><span id="tf-review-dom-note" class="tf-review-note" hidden>（.cybozu.com などを補いました）</span></div>
+          <div><a id="tf-review-open" href="#" target="_blank" rel="noopener noreferrer"></a>（自社の kintone のログイン画面が開けば正しいです）</div>
+        </div>
+        <div class="tf-review-btns">
+          <button type="button" id="tf-review-back" class="tf-review-back">戻って直す</button>
+          <button type="button" id="tf-review-send" class="tf-submit">この内容で送信する</button>
+        </div>
+      </div>
+
       <div id="tf-success" class="tf-message tf-message-success" hidden>
-        <strong>無料体験のお申し込みを受け付けました。</strong><br />
-        まもなく、ご入力のメールアドレス宛に利用開始のご案内をお送りします。<br />
-        （すでにプレミアムをご利用中・体験済みのドメインなど、対象外の場合はその旨をメールでご案内します。）
+        <strong>確認メールを <span id="tf-success-email"></span> へお送りしました。</strong><br />
+        メールのリンクから内容をご確認のうえ「申込を確定する」を押すと、無料体験が始まります（48時間以内）。<br />
+        メールが届かない場合は、迷惑メールのフォルダもご確認ください。<br />
+        （すでにプレミアムをご利用中・体験済みのドメインなど、対象外の場合は、確定のあとにその旨をご案内します。）
       </div>
       <div id="tf-error-msg" class="tf-message tf-message-error" hidden>
         送信に失敗しました。時間をおいて再度お試しいただくか、info@kizuna-works.jp までご連絡ください。
@@ -270,6 +293,41 @@
     text-align: center;
   }
 
+  .tf-review { margin-top: 8px; }
+  .tf-review-title { color: #1B3A6B; font-size: 18px; margin: 0 0 8px; }
+  .tf-review-lead { line-height: 1.8; margin: 0 0 12px; }
+  .tf-review-table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; }
+  .tf-review-table th, .tf-review-table td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+  }
+  .tf-review-table th { width: 7.5em; color: #64748b; font-weight: 500; }
+  .tf-review-domain {
+    background: #F0F4F8;
+    border-radius: 8px;
+    padding: 12px 14px;
+    line-height: 1.9;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+  .tf-review-domain strong { color: #1B3A6B; font-size: 17px; }
+  .tf-review-note { color: #2E8B2E; margin-left: 6px; font-size: 13px; }
+  .tf-review-btns { display: flex; flex-direction: column-reverse; gap: 10px; margin-top: 18px; }
+  .tf-review-back {
+    width: 100%;
+    font-size: 15px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid #1B3A6B;
+    background: #ffffff;
+    color: #1B3A6B;
+    cursor: pointer;
+    font-family: inherit;
+  }
   .tf-message {
     padding: 28px 24px;
     border-radius: 8px;
@@ -301,6 +359,7 @@
   }
 </style>
 
+<script is:inline src="/js/kintone-domain.js"></script>
 <script is:inline>
   (function () {
     const form = document.getElementById('tf-form');
@@ -310,8 +369,7 @@
     const successMsg = document.getElementById('tf-success');
     const errorMsg = document.getElementById('tf-error-msg');
     const waitingMsg = document.getElementById('tf-waiting');
-    const ENDPOINT =
-      'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec';
+    const ENDPOINT = form.dataset.endpoint;
     // Plugin banner attribution (set in Layout.astro for 30 days). Sent as `source`; empty when the visit did not come from a banner.
     const readKzSource = () => {
       try {
@@ -325,44 +383,29 @@
     // Applicants often type only the subdomain, paste the whole URL, or use
     // full-width characters. Normalize on blur and echo the resolved value so
     // they can confirm it before submitting. Submission is never blocked here.
-    const DOMAIN_BASES = ['cybozu.com', 'kintone.com', 'cybozu-dev.com', 'cybozu.cn'];
-
-    // Mirrors normalizeDomainHost() in the license GAS. Keep both in sync.
-    const normalizeDomainHost = (raw) => {
-      let h = String(raw == null ? '' : raw);
-      if (typeof h.normalize === 'function') h = h.normalize('NFKC');
-      h = h.trim().toLowerCase();
-      h = h.replace(/^[a-z]+:\/\//, '');
-      h = h.split('/')[0].split('?')[0].split('#')[0];
-      h = h.split('@').pop().split(':')[0];
-      return h.replace(/\.+$/, '');
-    };
-
-    const isFullKintoneDomain = (host) =>
-      DOMAIN_BASES.some((base) =>
-        new RegExp('^[a-z0-9][a-z0-9-]*(\\.s)?\\.' + base.replace(/\./g, '\\.') + '$').test(host)
-      );
+    // Shared with the supporter form, the confirmation page and the license GAS (same test vectors).
+    const normalizeKintoneDomain = window.KZ.normalizeKintoneDomain;
 
     const domainInput = document.getElementById('tf-domain');
     const domainConfirm = document.getElementById('tf-domain-confirm');
 
     const refreshDomainConfirm = () => {
       if (!domainInput || !domainConfirm) return;
-      const host = normalizeDomainHost(domainInput.value);
-      if (host && host !== domainInput.value) domainInput.value = host;
+      const nd = normalizeKintoneDomain(domainInput.value);
+      const host = nd.domain;
       if (!host) {
         domainConfirm.hidden = true;
         domainConfirm.removeAttribute('data-state');
         domainConfirm.textContent = '';
         return;
       }
-      const valid = isFullKintoneDomain(host);
+      const valid = nd.valid;
       domainConfirm.hidden = false;
       domainConfirm.setAttribute('data-state', valid ? 'ok' : 'warn');
       domainConfirm.textContent = valid
-        ? '✓ このドメインで体験ライセンスを発行します： ' + host
-        : '⚠ フルドメインになっていません（現在の入力： ' + host +
-          '）。abc.cybozu.com のように .cybozu.com まで含めてご入力ください。';
+        ? '✓ このドメインで体験ライセンスを発行します： ' + host + (nd.completed ? '（.cybozu.com などを補いました）' : '')
+        : '⚠ kintone のアドレスの形になっていません（現在の入力： ' + host +
+          '）。abc.cybozu.com のようにご入力ください。';
     };
 
     if (domainInput) {
@@ -397,6 +440,9 @@
       if (!data.domain.trim()) {
         setError('domain', 'kintone ドメインを入力してください');
         ok = false;
+      } else if (!normalizeKintoneDomain(data.domain).valid) {
+        setError('domain', 'kintone のアドレス（abc.cybozu.com など）を入力してください');
+        ok = false;
       }
       if (!agreed) {
         setError('agree', '内容に同意のうえチェックを入れてください');
@@ -421,11 +467,40 @@
       };
 
       if (!validate(data, agreed)) return;
+      showReview(data);
+    });
 
-      const originalLabel = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = '送信中...';
-      if (waitingMsg) waitingMsg.hidden = false;
+    // ---- review step (before sending) ------------------------------------
+    const review = document.getElementById('tf-review');
+    let pending = null;
+    const showReview = (data) => {
+      pending = data;
+      const nd = normalizeKintoneDomain(data.domain);
+      document.getElementById('tf-review-company').textContent = data.companyName;
+      document.getElementById('tf-review-email').textContent = data.email;
+      document.getElementById('tf-review-dom-input').textContent = data.domain;
+      document.getElementById('tf-review-dom').textContent = nd.domain;
+      document.getElementById('tf-review-dom-note').hidden = !nd.completed;
+      const open = document.getElementById('tf-review-open');
+      open.href = 'https://' + nd.domain + '/';
+      open.textContent = 'https://' + nd.domain + '/ を開いて確かめる';
+      form.hidden = true;
+      review.hidden = false;
+      review.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    document.getElementById('tf-review-back').addEventListener('click', () => {
+      review.hidden = true;
+      form.hidden = false;
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    document.getElementById('tf-review-send').addEventListener('click', async () => {
+      const data = pending;
+      if (!data) return;
+      const sendBtn = document.getElementById('tf-review-send');
+      const originalLabel = sendBtn.textContent;
+      sendBtn.disabled = true;
+      sendBtn.textContent = '送信中...';
+      if (waitingMsg) { review.appendChild(waitingMsg); waitingMsg.hidden = false; }
 
       try {
         await fetch(ENDPOINT, {
@@ -434,13 +509,14 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
         });
-        form.hidden = true;
+        review.hidden = true;
+        document.getElementById('tf-success-email').textContent = data.email;
         successMsg.hidden = false;
       } catch (err) {
         console.error('Trial form submit error:', err);
         errorMsg.hidden = false;
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalLabel;
+        sendBtn.disabled = false;
+        sendBtn.textContent = originalLabel;
         if (waitingMsg) waitingMsg.hidden = true;
       }
     });

@@ -1,5 +1,7 @@
 ---
+import { LICENSE_GAS_URL } from '../data/licenseEndpoint';
 import { plugins } from '../data/plugins';
+import { PRICE_REVISION_LIVE, SUPPORTER_PLAN_TYPE } from '../data/pricing';
 
 interface Props {
   /**
@@ -21,7 +23,7 @@ if (pluginId && !fixedPlugin) {
 <section class="sf-section">
   <div class="sf-inner">
     <div class="sf-card">
-      <form id="sf-form" class="sf-form" novalidate data-locked-plugin={fixedPlugin ? 'true' : 'false'}>
+      <form id="sf-form" class="sf-form" novalidate data-endpoint={LICENSE_GAS_URL} data-locked-plugin={fixedPlugin ? 'true' : 'false'} data-supporter-plan={SUPPORTER_PLAN_TYPE}>
         {!fixedPlugin && (
           <div class="sf-group">
             <label class="sf-label">
@@ -29,7 +31,7 @@ if (pluginId && !fixedPlugin) {
             </label>
             <div class="sf-radio-row" role="radiogroup" aria-label="プラン">
               <label class="sf-radio">
-                <input type="radio" name="planType" value="individual" checked />
+                <input type="radio" name="planType" value={SUPPORTER_PLAN_TYPE} checked />
                 <span>年間サポーター</span>
               </label>
               <label class="sf-radio">
@@ -38,7 +40,9 @@ if (pluginId && !fixedPlugin) {
               </label>
             </div>
             <p class="sf-help">
-              年間サポーター：1プラグイン対象・年額¥3,300（税込）／ プレミアム年間サポーター：販売中の全プラグインが対象・年額¥16,500（税込）。5プラグイン以上ご利用ならプレミアムがお得です。
+              {PRICE_REVISION_LIVE
+                ? '年間サポーター：ちょこっとプラグインすべてが対象・年額¥8,250（税込）／ プレミアム年間サポーター：プレミアムプラグインを含む販売中の全プラグインが対象・年額¥16,500（税込）。'
+                : '年間サポーター：1プラグイン対象・年額¥3,300（税込）／ プレミアム年間サポーター：販売中の全プラグインが対象・年額¥16,500（税込）。5プラグイン以上ご利用ならプレミアムがお得です。'}
             </p>
           </div>
         )}
@@ -116,7 +120,9 @@ if (pluginId && !fixedPlugin) {
             </select>
           )}
           <p class="sf-help" id="sf-help-allPlan" hidden>
-            プレミアム年間サポーターは販売中の全プラグインが対象のため、プラグイン名の選択は不要です。
+            {PRICE_REVISION_LIVE
+              ? '年間サポーターはちょこっとプラグインすべて、プレミアム年間サポーターは販売中の全プラグインが対象のため、プラグイン名の選択は不要です。'
+              : 'プレミアム年間サポーターは販売中の全プラグインが対象のため、プラグイン名の選択は不要です。'}
           </p>
           <p class="sf-error" data-error-for="pluginName"></p>
         </div>
@@ -155,8 +161,27 @@ if (pluginId && !fixedPlugin) {
         </p>
       </form>
 
+      <div id="sf-review" class="sf-review" hidden>
+        <h3 class="sf-review-title">入力内容の確認</h3>
+        <p class="sf-review-lead">内容をご確認のうえ「この内容で送信する」を押してください。送信後、ご担当者メールアドレスへ確認メールをお送りします。</p>
+        <table class="sf-review-table">
+          <tbody id="sf-review-rows"></tbody>
+        </table>
+        <div class="sf-review-domain">
+          <div>入力されたドメイン：<code id="sf-review-dom-input"></code></div>
+          <div>登録するドメイン：<strong id="sf-review-dom"></strong><span id="sf-review-dom-note" class="sf-review-note" hidden>（.cybozu.com などを補いました）</span></div>
+          <div><a id="sf-review-open" href="#" target="_blank" rel="noopener noreferrer"></a>（自社の kintone のログイン画面が開けば正しいです）</div>
+        </div>
+        <div class="sf-review-btns">
+          <button type="button" id="sf-review-back" class="sf-review-back">戻って直す</button>
+          <button type="button" id="sf-review-send" class="sf-submit">この内容で送信する</button>
+        </div>
+      </div>
+
       <div id="sf-success" class="sf-message sf-message-success" hidden>
-        お申し込みを受け付けました。担当者メールアドレス宛にご連絡いたします。
+        確認メールを <strong id="sf-success-email"></strong> へお送りしました。<br />
+        メールのリンクから内容をご確認のうえ「申込を確定する」を押すと、お申し込みが確定します（48時間以内）。<br />
+        メールが届かない場合は、迷惑メールのフォルダもご確認ください。
       </div>
       <div id="sf-error-msg" class="sf-message sf-message-error" hidden>
         送信に失敗しました。時間をおいて再度お試しいただくか、info@kizuna-works.jpまでご連絡ください。
@@ -370,6 +395,48 @@ if (pluginId && !fixedPlugin) {
     text-align: center;
   }
 
+  .sf-review {
+    margin-top: 8px;
+  }
+  .sf-review-title {
+    color: #1B3A6B;
+    font-size: 18px;
+    margin: 0 0 8px;
+  }
+  .sf-review-lead { line-height: 1.8; margin: 0 0 12px; }
+  .sf-review-table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; }
+  /* rows are created by the script, so they need :global to receive these styles */
+  .sf-review-table :global(th), .sf-review-table :global(td) {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+  }
+  .sf-review-table :global(th) { width: 7.5em; color: #64748b; font-weight: 500; }
+  .sf-review-domain {
+    background: #F0F4F8;
+    border-radius: 8px;
+    padding: 12px 14px;
+    line-height: 1.9;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+  .sf-review-domain strong { color: #1B3A6B; font-size: 17px; }
+  .sf-review-note { color: #2E8B2E; margin-left: 6px; font-size: 13px; }
+  .sf-review-btns { display: flex; flex-direction: column-reverse; gap: 10px; margin-top: 18px; }
+  .sf-review-back {
+    width: 100%;
+    font-size: 15px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid #1B3A6B;
+    background: #ffffff;
+    color: #1B3A6B;
+    cursor: pointer;
+    font-family: inherit;
+  }
   .sf-message {
     padding: 28px 24px;
     border-radius: 8px;
@@ -401,6 +468,7 @@ if (pluginId && !fixedPlugin) {
   }
 </style>
 
+<script is:inline src="/js/kintone-domain.js"></script>
 <script is:inline>
   (function () {
     const form = document.getElementById('sf-form');
@@ -412,49 +480,37 @@ if (pluginId && !fixedPlugin) {
     const pluginSelect = form.querySelector('select[name="pluginName"]');
     const paymentSelect = form.querySelector('select[name="paymentMethod"]');
     const invoiceGroup = document.getElementById('sf-group-invoiceEmail');
+    // planType of the annual supporter plan: 'individual' (one plugin) before the price revision, 'chokotto' after it.
+    const supporterPlan = form.dataset.supporterPlan || 'individual';
+    const needsPlugin = (planType) => planType === 'individual';
 
     // ---- kintone domain field -------------------------------------------
     // Applicants often type only the subdomain, paste the whole URL, or use
     // full-width characters. Normalize on blur and echo the resolved value so
     // they can confirm it before submitting. Submission is never blocked here.
-    const DOMAIN_BASES = ['cybozu.com', 'kintone.com', 'cybozu-dev.com', 'cybozu.cn'];
-
-    // Mirrors normalizeDomainHost() in the license GAS. Keep both in sync.
-    const normalizeDomainHost = (raw) => {
-      let h = String(raw == null ? '' : raw);
-      if (typeof h.normalize === 'function') h = h.normalize('NFKC');
-      h = h.trim().toLowerCase();
-      h = h.replace(/^[a-z]+:\/\//, '');
-      h = h.split('/')[0].split('?')[0].split('#')[0];
-      h = h.split('@').pop().split(':')[0];
-      return h.replace(/\.+$/, '');
-    };
-
-    const isFullKintoneDomain = (host) =>
-      DOMAIN_BASES.some((base) =>
-        new RegExp('^[a-z0-9][a-z0-9-]*(\\.s)?\\.' + base.replace(/\./g, '\\.') + '$').test(host)
-      );
+    // Shared with the trial form, the confirmation page and the license GAS (same test vectors).
+    const normalizeKintoneDomain = window.KZ.normalizeKintoneDomain;
 
     const domainInput = document.getElementById('sf-domain');
     const domainConfirm = document.getElementById('sf-domain-confirm');
 
     const refreshDomainConfirm = () => {
       if (!domainInput || !domainConfirm) return;
-      const host = normalizeDomainHost(domainInput.value);
-      if (host && host !== domainInput.value) domainInput.value = host;
+      const nd = normalizeKintoneDomain(domainInput.value);
+      const host = nd.domain;
       if (!host) {
         domainConfirm.hidden = true;
         domainConfirm.removeAttribute('data-state');
         domainConfirm.textContent = '';
         return;
       }
-      const valid = isFullKintoneDomain(host);
+      const valid = nd.valid;
       domainConfirm.hidden = false;
       domainConfirm.setAttribute('data-state', valid ? 'ok' : 'warn');
       domainConfirm.textContent = valid
-        ? '✓ このドメインで登録します： ' + host
-        : '⚠ フルドメインになっていません（現在の入力： ' + host +
-          '）。abc.cybozu.com のように .cybozu.com まで含めてご入力ください。';
+        ? '✓ このドメインで登録します： ' + host + (nd.completed ? '（.cybozu.com などを補いました）' : '')
+        : '⚠ kintone のアドレスの形になっていません（現在の入力： ' + host +
+          '）。abc.cybozu.com のようにご入力ください。';
     };
 
     if (domainInput) {
@@ -473,7 +529,7 @@ if (pluginId && !fixedPlugin) {
     const applyPlanVisibility = () => {
       if (isLockedPlugin) return; // plugin is fixed → no plan radio exists
       const planChecked = form.querySelector('input[name="planType"]:checked');
-      const isAll = planChecked && planChecked.value === 'all';
+      const isAll = !needsPlugin(planChecked ? planChecked.value : supporterPlan);
       if (pluginGroup) {
         // Hide label / select but keep error slot tidy.
         const labelEl = pluginGroup.querySelector('label.sf-label');
@@ -490,6 +546,7 @@ if (pluginId && !fixedPlugin) {
     //   ?plugin=<id>  : pre-select plugin (when in select mode) + force individual plan
     //   ?mode=renew   : switch the applicationType radio to 「更新申込」
     //   ?plan=all     : pre-select 全プラグイン plan
+    //   ?plan=chokotto / ?plan=individual : pre-select the annual supporter plan (either value maps to the current one)
     try {
       const params = new URLSearchParams(window.location.search);
       const pluginParam = params.get('plugin');
@@ -498,7 +555,7 @@ if (pluginId && !fixedPlugin) {
           (o) => o.dataset.pluginId === pluginParam,
         );
         if (opt) pluginSelect.value = opt.value;
-        const indivRadio = form.querySelector('input[name="planType"][value="individual"]');
+        const indivRadio = form.querySelector('input[name="planType"][value="' + supporterPlan + '"]');
         if (indivRadio) indivRadio.checked = true;
       }
       const modeParam = params.get('mode');
@@ -510,6 +567,9 @@ if (pluginId && !fixedPlugin) {
       if (planParam === 'all') {
         const allRadio = form.querySelector('input[name="planType"][value="all"]');
         if (allRadio) allRadio.checked = true;
+      } else if (planParam === 'chokotto' || planParam === 'individual') {
+        const supRadio = form.querySelector('input[name="planType"][value="' + supporterPlan + '"]');
+        if (supRadio) supRadio.checked = true;
       }
     } catch (_) {
       /* ignore URL parsing errors */
@@ -527,8 +587,7 @@ if (pluginId && !fixedPlugin) {
     const successMsg = document.getElementById('sf-success');
     const errorMsg = document.getElementById('sf-error-msg');
     const waitingMsg = document.getElementById('sf-waiting');
-    const ENDPOINT =
-      'https://script.google.com/macros/s/AKfycbzqMJ9CTBR0qC5F9yF5a4W3uPGhq105cft0ONflVGJcdsNsS-eg82U_Th5_qRZnIm6B_A/exec';
+    const ENDPOINT = form.dataset.endpoint;
     // Plugin banner attribution (set in Layout.astro for 30 days). Sent as `source`; empty when the visit did not come from a banner.
     const readKzSource = () => {
       try {
@@ -558,6 +617,9 @@ if (pluginId && !fixedPlugin) {
       if (!data.domain.trim()) {
         setError('domain', 'ドメインを入力してください');
         ok = false;
+      } else if (!normalizeKintoneDomain(data.domain).valid) {
+        setError('domain', 'kintone のアドレス（abc.cybozu.com など）を入力してください');
+        ok = false;
       }
       if (!data.email.trim()) {
         setError('email', '担当者メールアドレスを入力してください');
@@ -572,7 +634,7 @@ if (pluginId && !fixedPlugin) {
         ok = false;
       }
       // pluginName is only required for the individual plan
-      if (data.planType !== 'all' && !data.pluginName) {
+      if (needsPlugin(data.planType) && !data.pluginName) {
         setError('pluginName', 'プラグイン名を選択してください');
         ok = false;
       }
@@ -590,8 +652,8 @@ if (pluginId && !fixedPlugin) {
 
       const checkedType = form.querySelector('input[name="applicationType"]:checked');
       const checkedPlan = form.querySelector('input[name="planType"]:checked');
-      // When pluginId prop is set the plan radio is not rendered → default 'individual'.
-      const planType = checkedPlan ? checkedPlan.value : 'individual';
+      // When pluginId prop is set the plan radio is not rendered → default to the annual supporter plan.
+      const planType = checkedPlan ? checkedPlan.value : supporterPlan;
       const isBank = form.paymentMethod.value === '銀行振込';
       const data = {
         companyName: form.companyName.value,
@@ -599,7 +661,7 @@ if (pluginId && !fixedPlugin) {
         email: form.email.value,
         // Invoice recipient is only relevant for bank transfer (documents are issued).
         invoiceEmail: isBank && form.invoiceEmail ? form.invoiceEmail.value.trim() : '',
-        pluginName: planType === 'all' ? '' : form.pluginName.value,
+        pluginName: needsPlugin(planType) ? form.pluginName.value : '',
         paymentMethod: form.paymentMethod.value,
         applicationType: checkedType ? checkedType.value : 'new',
         planType: planType,
@@ -607,11 +669,63 @@ if (pluginId && !fixedPlugin) {
       };
 
       if (!validate(data)) return;
+      showReview(data);
+    });
 
-      const originalLabel = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = '送信中...';
-      if (waitingMsg) waitingMsg.hidden = false;
+    // ---- review step (before sending) ------------------------------------
+    const review = document.getElementById('sf-review');
+    const reviewRows = document.getElementById('sf-review-rows');
+    let pending = null;
+    const planLabel = (d) =>
+      d.planType === 'all'
+        ? 'プレミアム年間サポーター'
+        : d.planType === 'chokotto'
+          ? '年間サポーター（ちょこっとプラグインすべて）'
+          : '年間サポーター（' + d.pluginName + '）';
+    const showReview = (data) => {
+      pending = data;
+      const nd = normalizeKintoneDomain(data.domain);
+      const rows = [
+        ['プラン', planLabel(data)],
+        ['申込種別', data.applicationType === 'renew' ? '更新申込' : '新規申込'],
+        ['会社・団体名', data.companyName],
+        ['ご担当者メール', data.email],
+        ['お支払い方法', data.paymentMethod],
+      ];
+      if (data.invoiceEmail) rows.push(['請求書の送付先', data.invoiceEmail]);
+      reviewRows.textContent = '';
+      rows.forEach(([k, v]) => {
+        const tr = document.createElement('tr');
+        const th = document.createElement('th');
+        const td = document.createElement('td');
+        th.textContent = k;
+        td.textContent = v;
+        tr.append(th, td);
+        reviewRows.appendChild(tr);
+      });
+      document.getElementById('sf-review-dom-input').textContent = data.domain;
+      document.getElementById('sf-review-dom').textContent = nd.domain;
+      document.getElementById('sf-review-dom-note').hidden = !nd.completed;
+      const open = document.getElementById('sf-review-open');
+      open.href = 'https://' + nd.domain + '/';
+      open.textContent = 'https://' + nd.domain + '/ を開いて確かめる';
+      form.hidden = true;
+      review.hidden = false;
+      review.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    document.getElementById('sf-review-back').addEventListener('click', () => {
+      review.hidden = true;
+      form.hidden = false;
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    document.getElementById('sf-review-send').addEventListener('click', async () => {
+      const data = pending;
+      if (!data) return;
+      const sendBtn = document.getElementById('sf-review-send');
+      const originalLabel = sendBtn.textContent;
+      sendBtn.disabled = true;
+      sendBtn.textContent = '送信中...';
+      if (waitingMsg) { review.appendChild(waitingMsg); waitingMsg.hidden = false; }
 
       try {
         await fetch(ENDPOINT, {
@@ -620,13 +734,14 @@ if (pluginId && !fixedPlugin) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
         });
-        form.hidden = true;
+        review.hidden = true;
+        document.getElementById('sf-success-email').textContent = data.email;
         successMsg.hidden = false;
       } catch (err) {
         console.error('Supporter form submit error:', err);
         errorMsg.hidden = false;
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalLabel;
+        sendBtn.disabled = false;
+        sendBtn.textContent = originalLabel;
         if (waitingMsg) waitingMsg.hidden = true;
       }
     });

@@ -1,0 +1,153 @@
+---
+// Approval page for a contact-address change. The approval email (sent to the contact
+// currently registered) links here with the one-time token in the URL fragment (#t=...),
+// which is never sent to servers or analytics. Opening the page changes nothing; only the
+// button does (corporate mail scanners open links automatically).
+import Layout from '../../../../layouts/Layout.astro';
+
+import { LICENSE_GAS_URL } from '../../../../data/licenseEndpoint';
+const ENDPOINT = LICENSE_GAS_URL;
+---
+<Layout
+  title="ご担当者アドレス変更の承認 | KIZUNA Works"
+  description="KIZUNA Works のサポーター契約について、ご担当者メールアドレスの変更依頼を確認し、承認するページです。"
+  canonical="https://kizuna-works.jp/apply/contact-change/approve/"
+  ogUrl="https://kizuna-works.jp/apply/contact-change/approve/"
+  noindex
+  noAnalytics
+  referrer="no-referrer"
+>
+  <main class="ca-wrap">
+    <section class="ca-card">
+      <h1 class="ca-title">ご担当者アドレス変更の承認</h1>
+      <p id="ca-loading" class="ca-msg">読み込んでいます…</p>
+      <div id="ca-body" hidden>
+        <p class="ca-lead">次の変更のご依頼がありました。お心当たりがあれば「承認する」を押してください。押すまで変更されません。</p>
+        <table class="ca-table">
+          <tbody>
+            <tr><th>ドメイン</th><td id="ca-domain"></td></tr>
+            <tr id="ca-new-row"><th>新しいご担当者</th><td id="ca-new"></td></tr>
+            <tr id="ca-inv-row"><th>新しい請求書の送付先</th><td id="ca-inv"></td></tr>
+            <tr><th>ご依頼者</th><td id="ca-req"></td></tr>
+            <tr id="ca-reason-row"><th>理由</th><td id="ca-reason"></td></tr>
+          </tbody>
+        </table>
+        <div class="ca-btns">
+          <button id="ca-approve" type="button" class="ca-btn">承認する</button>
+          <button id="ca-reject" type="button" class="ca-btn ca-btn-sub">承認しない</button>
+        </div>
+        <div id="ca-ask" class="ca-ask" hidden>
+          <p>このご依頼を承認しません。よろしいですか？</p>
+          <div class="ca-btns">
+            <button id="ca-reject-yes" type="button" class="ca-btn ca-btn-warn">承認しない</button>
+            <button id="ca-reject-no" type="button" class="ca-btn ca-btn-sub">戻る</button>
+          </div>
+        </div>
+        <p class="ca-expire">このページは <span id="ca-expires"></span> まで有効です。</p>
+      </div>
+      <p id="ca-result" class="ca-msg" hidden></p>
+      <div id="ca-after" class="ca-after" hidden>
+        <button id="ca-close" type="button" class="ca-btn">閉じる</button>
+      </div>
+      <p class="ca-help">お心当たりのないご依頼が届いた場合や、お困りの場合は <a href="/contact/">お問い合わせ</a> からご連絡ください。</p>
+    </section>
+  </main>
+</Layout>
+
+<style is:global>
+  .ca-wrap { max-width: 680px; margin: 0 auto; padding: 32px 16px 56px; }
+  .ca-card { background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(27, 58, 107, 0.08); }
+  .ca-title { color: #1B3A6B; font-size: 22px; margin: 0 0 12px; text-wrap: balance; }
+  .ca-lead { line-height: 1.8; margin: 0 0 12px; }
+  .ca-table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; }
+  .ca-table th, .ca-table td { text-align: left; padding: 8px; border-bottom: 1px solid #e5e7eb; font-size: 14px; vertical-align: top; overflow-wrap: anywhere; }
+  .ca-table th { width: 10em; color: #64748b; font-weight: 500; }
+  .ca-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .ca-btn { font-size: 15px; padding: 10px 18px; border-radius: 6px; border: none; background: #1B3A6B; color: #ffffff; cursor: pointer; font-family: inherit; }
+  .ca-btn-sub { background: #ffffff; color: #1B3A6B; border: 1px solid #1B3A6B; }
+  .ca-btn-warn { background: #b45309; }
+  .ca-btn:disabled { opacity: 0.5; cursor: default; }
+  .ca-ask { background: #fff7ed; border-radius: 8px; padding: 12px 14px; margin-top: 14px; }
+  .ca-ask p { margin: 0; }
+  .ca-ask .ca-btns { margin-top: 10px; }
+  .ca-msg { white-space: pre-line; background: #eef7ee; border-radius: 8px; padding: 12px 14px; line-height: 1.8; }
+  .ca-after { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 24px; }
+  /* display:flex above would override the hidden attribute */
+  .ca-card [hidden] { display: none; }
+  .ca-expire, .ca-help { color: #64748b; font-size: 13px; margin-top: 16px; }
+</style>
+
+<script define:vars={{ ENDPOINT }}>
+  (function () {
+    // Take the token from the fragment, then drop it from the address bar and history.
+    var m = /(?:^#|&)t=([A-Za-z0-9]+)/.exec(location.hash || '');
+    var token = m ? m[1] : '';
+    try { history.replaceState(null, '', location.pathname); } catch (e) { /* ignore */ }
+
+    var q = function (id) { return document.getElementById(id); };
+
+    // text/plain POST avoids a CORS preflight, which Apps Script cannot answer.
+    var call = function (payload) {
+      var attempt = function (n) {
+        return fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(payload) })
+          .then(function (r) { if (r.status !== 200) throw new Error('HTTP ' + r.status); return r.json(); })
+          .catch(function (e) { if (n > 0) return new Promise(function (ok) { setTimeout(ok, 2000); }).then(function () { return attempt(n - 1); }); throw e; });
+      };
+      return attempt(2);
+    };
+
+    var showAfter = function () { q('ca-after').hidden = false; };
+    // Browsers only let a page close a tab that a script opened, so a tab opened from an email link
+    // usually cannot be closed. Try, and if the tab is still open, go to the top page instead.
+    q('ca-close').addEventListener('click', function () {
+      try { window.close(); } catch (e) { /* ignore */ }
+      setTimeout(function () { if (!window.closed) location.href = '/'; }, 300);
+    });
+
+    var lock = function (on) { ['ca-approve', 'ca-reject', 'ca-reject-yes', 'ca-reject-no'].forEach(function (id) { q(id).disabled = on; }); };
+    var showResult = function (text, done) {
+      q('ca-result').hidden = false;
+      q('ca-result').textContent = text;
+      if (done) { lock(true); q('ca-ask').hidden = true; showAfter(); }
+    };
+
+    if (!token) {
+      q('ca-loading').textContent = 'このページは、承認のお願いのメールのリンクから開いてください。';
+      showAfter();
+      return;
+    }
+
+    call({ formType: 'contact-change-info', t: token }).then(function (r) {
+      q('ca-loading').hidden = true;
+      if (!r.ok) { showResult(r.message, true); return; }
+      q('ca-body').hidden = false;
+      q('ca-domain').textContent = r.domain;
+      q('ca-new').textContent = r.newEmail;
+      q('ca-new-row').hidden = !r.newEmail;
+      q('ca-inv').textContent = r.newInvoiceEmail;
+      q('ca-inv-row').hidden = !r.newInvoiceEmail;
+      q('ca-req').textContent = r.requesterName ? r.requesterName + '（' + r.requesterEmail + '）' : r.requesterEmail;
+      q('ca-reason').textContent = r.reason;
+      q('ca-reason-row').hidden = !r.reason;
+      q('ca-expires').textContent = r.expires;
+    }).catch(function () {
+      q('ca-loading').textContent = '読み込めませんでした。時間をおいてページを開き直してください。';
+    });
+
+    var act = function (formType) {
+      lock(true);
+      showResult('処理しています…', false);
+      call({ formType: formType, t: token }).then(function (r) {
+        showResult(r.message, true);
+      }).catch(function () {
+        showResult('通信に失敗しました。時間をおいてもう一度お試しください。', false);
+        lock(false);
+      });
+    };
+    q('ca-approve').addEventListener('click', function () { act('contact-change-approve'); });
+    // The viewer suppresses window.confirm in some contexts, so the second step lives in the page.
+    q('ca-reject').addEventListener('click', function () { q('ca-ask').hidden = false; });
+    q('ca-reject-no').addEventListener('click', function () { q('ca-ask').hidden = true; });
+    q('ca-reject-yes').addEventListener('click', function () { act('contact-change-reject'); });
+  })();
+</script>

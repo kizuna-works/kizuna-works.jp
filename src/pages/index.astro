@@ -10,6 +10,11 @@ import { pluginCategories } from '../data/pluginCategories';
 import { extensions } from '../data/extensions';
 import { tools } from '../data/tools';
 
+// 年間サポーターの料金改定のお知らせ（キャンペーンの帯の下）。予告せず、切り替えた当日に公開する
+// （予告すると改定前の 1 製品 3,300 円に駆け込みが出るため。2026-10-05 ユーザー判断）。スイッチは src/data/pricing.ts の PRICE_REVISION_LIVE
+import { PRICE_REVISION_LIVE, PRICE_REVISION_DATE } from '../data/pricing';
+const PRICE_REVISION = { show: PRICE_REVISION_LIVE, date: PRICE_REVISION_DATE };
+
 // 課題セクション: representative pains only, ordered by their primary category so
 // the grid reads 入力・制御 → 画面 → データ・運用 rather than by release date.
 // Listing every product had grown the section to 27 rows and one more row shipped
@@ -356,6 +361,99 @@ const pluginPosts = allPosts
         font-size: 1.2rem;
       }
       .home-campaign-cta {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* =========================================
+       Price revision notice (below the campaign band)
+    ========================================= */
+    .home-price-notice {
+      background-color: #F0F4F8;
+      padding: 0 20px 44px;
+    }
+
+    .home-price-notice-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1px solid #dbe3ec;
+      border-left: 6px solid #1B3A6B;
+      border-radius: 12px;
+      padding: 26px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .home-price-notice-text {
+      flex: 1 1 520px;
+      min-width: 0;
+    }
+
+    .home-price-notice-badge {
+      display: inline-block;
+      background-color: #1B3A6B;
+      color: #FFFFFF;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+
+    .home-price-notice-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #1B3A6B;
+      margin: 0 0 8px;
+      line-height: 1.5;
+      text-wrap: balance;
+    }
+
+    .home-price-notice-desc {
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: #333333;
+      margin: 0;
+    }
+
+    .home-price-notice-desc + .home-price-notice-desc {
+      margin-top: 6px;
+      color: #64748b;
+    }
+
+    .home-price-notice-cta {
+      flex-shrink: 0;
+      display: inline-block;
+      background-color: #1B3A6B;
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.98rem;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .home-price-notice-cta:hover {
+      background-color: #2E8B2E;
+      transition: background-color 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .home-price-notice-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 22px 20px;
+      }
+      .home-price-notice-text {
+        flex: 0 0 auto;
+        width: 100%;
+      }
+      .home-price-notice-cta {
         width: 100%;
         text-align: center;
       }
@@ -1822,6 +1920,24 @@ const pluginPosts = allPosts
       <a href="/plugins/premium-trial/" class="home-campaign-cta">無料体験の詳細を見る →</a>
     </div>
   </section>
+
+  {PRICE_REVISION.show && (
+    <section class="home-price-notice" aria-labelledby="home-price-notice-title">
+      <div class="home-price-notice-inner">
+        <div class="home-price-notice-text">
+          <span class="home-price-notice-badge">料金改定のお知らせ</span>
+          <h2 id="home-price-notice-title" class="home-price-notice-title">年間サポーターが「ちょこっとプラグインすべて」で使えるようになりました</h2>
+          <p class="home-price-notice-desc">
+            {PRICE_REVISION.date}から、年間サポーターは1製品ごとの契約から、ちょこっとプラグインすべてを広告なしでお使いいただけるプランに変わりました（年額 8,250円・税込）。
+          </p>
+          <p class="home-price-notice-desc">
+            いま1製品の年間サポーターをご契約中の方は、今の契約の終了日まで、追加料金なしでちょこっとプラグインすべてをお使いいただけます。新しい料金は次回の更新からです。
+          </p>
+        </div>
+        <a href="/plugins/supporter/" class="home-price-notice-cta">新しい年間サポーターを見る →</a>
+      </div>
+    </section>
+  )}
 
   <InstallRankingTop3 />
 

@@ -14,11 +14,12 @@ interface Props {
   /** 上部のバッジを出すか（既定: 出す） */
   badge?: boolean;
 }
+import { PRICE_REVISION_LIVE } from '../data/pricing';
 const { badge = true } = Astro.props;
 ---
 
 <div class="pricing-card kwp-premium">
-  {badge && <span class="recommended-badge kwp-badge">5プラグイン以上ならお得</span>}
+  {badge && <span class="recommended-badge kwp-badge">{PRICE_REVISION_LIVE ? 'プレミアムプラグインも使うなら' : '5プラグイン以上ならお得'}</span>}
   <h3 class="plan-name">プレミアム年間サポーター</h3>
   <div class="plan-price">
     <span class="amount">¥16,500</span>

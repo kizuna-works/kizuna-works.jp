@@ -3,191 +3,217 @@ import Layout from '../../../layouts/Layout.astro';
 import SupporterForm from '../../../components/SupporterForm.astro';
 import TrialBanner from '../../../components/TrialBanner.astro';
 import { plugins, premiumPlugins } from '../../../data/plugins';
+import { PRICE_REVISION_LIVE, PRICE_REVISION_DATE, CHOKO_PLAN, SUPPORTER_PLAN, SUPPORTER_PLAN_TYPE, yen } from '../../../data/pricing';
 
 // Proof for the "いただいたご要望を開発に反映します" promise. Derived from the
 // catalogue so this list and the badges on /plugins/ can never disagree.
 const bornFromRequest = [...plugins, ...premiumPlugins].filter(
   (p) => p.bornFrom === 'supporter-request'
 );
+
+// Structured data. Kept as data so the price revision (PRICE_REVISION_LIVE) can switch the plan wording.
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://kizuna-works.jp/plugins/supporter/",
+      "url": "https://kizuna-works.jp/plugins/supporter/",
+      "name": "kintone プラグイン 年間サポーターライセンス｜ちょこっとプラグイン | KIZUNA Works",
+      "description": "kintone プラグイン「ちょこっとプラグイン」シリーズの年間サポーターライセンス。年間サポーター ¥3,000/年（税抜）／プレミアム年間サポーター ¥15,000/年（税抜）。",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "KIZUNA Works",
+        "url": "https://kizuna-works.jp/"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://kizuna-works.jp/plugins/supporter/#service",
+      "name": "kintone プラグイン 年間サポーターライセンス（ちょこっとプラグイン）",
+      "description": "kintone プラグイン「ちょこっとプラグイン」シリーズの年間サポーター向けライセンス。プラグイン内の広告非表示、プラグイン作成リクエスト、既存プラグインへの改善要望の送付、優先サポートなどの特典を提供。年間サポーターとプレミアム年間サポーターの2種類をご用意。",
+      "serviceType": "SoftwareLicense",
+      "provider": {
+        "@type": "Organization",
+        "name": "KIZUNA Works",
+        "url": "https://kizuna-works.jp/"
+      },
+      "areaServed": "JP",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "年間サポーターライセンス（1プラグイン・年額）",
+          "price": "3000",
+          "priceCurrency": "JPY",
+          "url": "https://kizuna-works.jp/plugins/supporter/",
+          "availability": "https://schema.org/InStock",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "3000",
+            "priceCurrency": "JPY",
+            "billingDuration": "P1Y",
+            "unitText": "year",
+            "valueAddedTaxIncluded": false
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "プレミアム年間サポーターライセンス（販売中の全プラグイン対象・年額）",
+          "price": "15000",
+          "priceCurrency": "JPY",
+          "url": "https://kizuna-works.jp/plugins/supporter/?plan=all",
+          "availability": "https://schema.org/InStock",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "15000",
+            "priceCurrency": "JPY",
+            "billingDuration": "P1Y",
+            "unitText": "year",
+            "valueAddedTaxIncluded": false
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://kizuna-works.jp/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "kintone プラグイン一覧",
+          "item": "https://kizuna-works.jp/plugins/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "年間サポーターライセンス",
+          "item": "https://kizuna-works.jp/plugins/supporter/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kizuna-works.jp/plugins/supporter/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "年間サポーターとプレミアム年間サポーターの違いは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "年間サポーター（¥3,300/年税込）はお申込み時に選択した 1 プラグインが対象で、対象プラグインの広告エリアが非表示になります。プレミアム年間サポーター（¥16,500/年税込）は販売中の全プラグインが対象で、契約期間中にリリースされる新プラグインも追加料金なしで利用できます。さらに HP サポーター一覧へのロゴ掲載特典が付きます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "途中で年間サポーターからプレミアム年間サポーターにアップグレードできますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "本ページの申込フォームから新規申込として手続きできます。差額返金や日割り計算は行っていませんが、乗り換え特典として初回のプレミアム年間サポーター期間を 60 日延長し、1 年＋60 日でご提供します。ご契約中の年間サポーター（個別プラグイン）も満了までそのままご利用いただけます。また、プラグインの設定画面には個別とプレミアムのうち最も遅い有効期限が自動的に表示されます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "申し込みから利用開始までどのくらいかかりますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "お支払い確認後、3 営業日以内にライセンスを発行いたします。銀行振込の場合は入金確認後、Square 決済の場合は決済完了後にライセンス発行メールをお送りします。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "法人でも申し込めますか？見積書・請求書・領収書の発行は可能ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "はい、法人・個人どちらでも申し込めます。銀行振込をご選択いただくと、お申込みと同時に見積書および請求書 PDF を自動発行してメール添付でお送りします。領収書は、お支払い方法にかかわらず（銀行振込・Square 決済のいずれでも）ライセンス発行メールに PDF を添付してお送りします。請求書・領収書はインボイス制度に対応した適格請求書（登録番号 T4810295462932）として発行されます。電子交付のため収入印紙の貼付はございません。宛名や但し書きのご指定、発行済み書類の再発行をご希望の場合は info@kizuna-works.jp までお知らせください。なお、銀行振込の場合の振込手数料はお客様のご負担でお願いいたします。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "見積書だけ先にほしいのですが（社内稟議・予算取りのため）どうすればよいですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "申込フォームの支払い方法で「銀行振込」を選んでお申し込みください。送信と同時に、見積書と請求書の PDF を担当者メールアドレスへ自動でお送りします。お申し込みの時点では契約は確定せず、料金が自動で引き落とされることもありません。ライセンスの発行はご入金を確認してからです。請求書には発行日から 14 日後の支払期日を記載していますが、稟議が通らなかった場合などはお振込みいただかなければそのままで結構です。督促のご連絡はいたしません（ご一報いただければ取り下げのお手続きをいたします）。なお、ご入金後の返金はお受けしておりませんので、社内でのご確認は入金前にお願いいたします。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "サポーターに加入しているのに広告が表示されます。どうすればよいですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "まずプラグインが最新版かどうかをご確認ください。プラグインの設定画面のサイドバーに「新しいバージョン（vX.Y.Z）があります」と表示されている場合は旧版です。2026 年 8 月より前のバージョンには、ライセンス確認の通信が一時的に失敗したときに「未加入」と判断してしまう問題があり、その結果として広告が表示されることがありました。最新版の ZIP を kintone に上書きアップロードすると解消します（アプリごとの設定はそのまま保持されます）。1 つのアプリに当社のプラグインを複数入れている場合は、入っているものすべてを更新すると確実です。確認のしかたと更新手順は https://kizuna-works.jp/plugins/update/ にまとめています。更新後も表示が続く場合は、ご利用ドメイン・プラグイン名・画面のスクリーンショットを添えて info@kizuna-works.jp までご連絡ください。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "ライセンスが有効かどうかはどこで確認できますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "プラグインの設定画面のサイドバーで確認できます。有効なドメインでは「サポーターライセンス有効」と有効期限・残り日数が表示されます。ここが「有効」になっていれば認証は正しく通っています。なお、個別とプレミアムの両方をご契約中の場合は最も遅い有効期限が表示されます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "担当者が変わった・メールアドレスを変えたいときはどうすればよいですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ご担当者のメールアドレス変更ページから手続きできます。kintone のドメインと新しいメールアドレスを入力すると、まず新しいアドレスへ確認メールをお送りします。確認が済むと、今登録されているご担当者様へ承認のお願いをお送りし、承認されたら変更します。新旧両方のアドレスへ変更のお知らせが届きます。前のご担当者様がご退職などで承認できない場合は、承認の期限（7日）のあとに当社からご依頼者様へご連絡し、確認のうえで変更します。請求書の送付先だけの変更も同じページからできます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "ライセンスは何台のドメインで使えますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "1 ライセンスにつき登録ドメイン 1 つで有効です。kintone のサブドメイン単位での認証となります。複数の kintone 環境で利用される場合は、それぞれにライセンスが必要です。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "解約・返金はできますか？年間ライセンスは自動更新されますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "お申込み後の返金・キャンセルはお受けしておりません。年間ライセンスの自動更新はなく、期限の 30 日前・7 日前・当日に更新案内メールをお送りしますので、必要に応じて更新申込フォームからお手続きください。"
+          }
+        }
+      ]
+    }
+  ]
+};
+if (PRICE_REVISION_LIVE) {
+  const g = ld['@graph'] as any[];
+  g.find((x) => x['@type'] === 'WebPage').description = "kintone プラグイン「ちょこっとプラグイン」シリーズの年間サポーターライセンス。年間サポーター（ちょこっとプラグインすべて）¥7,500/年（税抜）／プレミアム年間サポーター ¥15,000/年（税抜）。";
+  const offer = g.find((x) => x['@type'] === 'Service').offers[0];
+  offer.name = '年間サポーターライセンス（ちょこっとプラグインすべて・年額）';
+  offer.price = String(CHOKO_PLAN.priceExTax);
+  offer.priceSpecification.price = String(CHOKO_PLAN.priceExTax);
+  const faq = g.find((x) => x['@type'] === 'FAQPage').mainEntity;
+  faq[0].acceptedAnswer.text = "年間サポーター（¥8,250/年税込）はちょこっとプラグインすべてが対象で、ちょこっとプラグインすべての広告エリアが非表示になります。契約期間中にリリースされる新しいちょこっとプラグインも対象です。プレミアム年間サポーター（¥16,500/年税込）はプレミアムプラグインを含む販売中の全プラグインが対象で、契約期間中にリリースされる新プラグインも追加料金なしで利用できます。さらに HP サポーター一覧へのロゴ掲載特典が付きます。";
+  faq[1].name = '途中で年間サポーターからプレミアム年間サポーターに切り替えられますか？';
+  faq[1].acceptedAnswer.text = "できます。お問い合わせフォームからご連絡ください。ご契約中の年間サポーターの残りの期間に応じた差額で、プレミアム年間サポーターへ切り替えられます。残りが 9 か月以下なら残り 1 か月あたり ¥825（税込）で、今の有効期限までプレミアム年間サポーターになります。残りが 10 か月以上なら ¥8,250（税込）で、お支払いの日から 1 年間のプレミアム年間サポーターになります。";
+  faq[6].acceptedAnswer.text = "プラグインの設定画面のサイドバーで確認できます。有効なドメインでは「サポーターライセンス有効」と有効期限・残り日数が表示されます。ここが「有効」になっていれば認証は正しく通っています。なお、年間サポーターとプレミアム年間サポーターの両方が有効な場合は最も遅い有効期限が表示されます。";
+}
+const metaDesc = PRICE_REVISION_LIVE
+  ? "kintone プラグイン「ちょこっとプラグイン」シリーズの年間サポーターライセンスお申込みページ。年間サポーターはちょこっとプラグインすべてが対象で ¥7,500/年（税抜）、プレミアム年間サポーターは全プラグイン対象で ¥15,000/年（税抜）。広告非表示・優先サポート付き。"
+  : 'kintone プラグイン「ちょこっとプラグイン」シリーズの年間サポーターライセンスお申込みページ。年間サポーターは 1 プラグイン ¥3,000/年（税抜）、プレミアム年間サポーターは全プラグイン対象で ¥15,000/年（税抜）。広告非表示・優先サポート付き。';
 ---
 
 <Layout
   title="kintone プラグイン 年間サポーターライセンス｜ちょこっとプラグイン | KIZUNA Works"
-  description="kintone プラグイン「ちょこっとプラグイン」シリーズの年間サポーターライセンスお申込みページ。年間サポーターは 1 プラグイン ¥3,000/年（税抜）、プレミアム年間サポーターは全プラグイン対象で ¥15,000/年（税抜）。広告非表示・優先サポート付き。"
+  description={metaDesc}
   ogTitle="kintone プラグイン 年間サポーターライセンス｜ちょこっとプラグイン | KIZUNA Works"
-  ogDescription="kintone プラグイン「ちょこっとプラグイン」シリーズの年間サポーターライセンスお申込みページ。年間サポーターは 1 プラグイン ¥3,000/年（税抜）、プレミアム年間サポーターは全プラグイン対象で ¥15,000/年（税抜）。広告非表示・優先サポート付き。"
+  ogDescription={metaDesc}
   ogUrl="https://kizuna-works.jp/plugins/supporter/"
   ogType="website"
   canonical="https://kizuna-works.jp/plugins/supporter/"
 >
   <Fragment slot="head">
-    <script is:inline type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebPage",
-          "@id": "https://kizuna-works.jp/plugins/supporter/",
-          "url": "https://kizuna-works.jp/plugins/supporter/",
-          "name": "kintone プラグイン 年間サポーターライセンス｜ちょこっとプラグイン | KIZUNA Works",
-          "description": "kintone プラグイン「ちょこっとプラグイン」シリーズの年間サポーターライセンス。年間サポーター ¥3,000/年（税抜）／プレミアム年間サポーター ¥15,000/年（税抜）。",
-          "isPartOf": {
-            "@type": "WebSite",
-            "name": "KIZUNA Works",
-            "url": "https://kizuna-works.jp/"
-          }
-        },
-        {
-          "@type": "Service",
-          "@id": "https://kizuna-works.jp/plugins/supporter/#service",
-          "name": "kintone プラグイン 年間サポーターライセンス（ちょこっとプラグイン）",
-          "description": "kintone プラグイン「ちょこっとプラグイン」シリーズの年間サポーター向けライセンス。プラグイン内の広告非表示、プラグイン作成リクエスト、既存プラグインへの改善要望の送付、優先サポートなどの特典を提供。年間サポーターとプレミアム年間サポーターの2種類をご用意。",
-          "serviceType": "SoftwareLicense",
-          "provider": {
-            "@type": "Organization",
-            "name": "KIZUNA Works",
-            "url": "https://kizuna-works.jp/"
-          },
-          "areaServed": "JP",
-          "offers": [
-            {
-              "@type": "Offer",
-              "name": "年間サポーターライセンス（1プラグイン・年額）",
-              "price": "3000",
-              "priceCurrency": "JPY",
-              "url": "https://kizuna-works.jp/plugins/supporter/",
-              "availability": "https://schema.org/InStock",
-              "priceSpecification": {
-                "@type": "UnitPriceSpecification",
-                "price": "3000",
-                "priceCurrency": "JPY",
-                "billingDuration": "P1Y",
-                "unitText": "year",
-                "valueAddedTaxIncluded": false
-              }
-            },
-            {
-              "@type": "Offer",
-              "name": "プレミアム年間サポーターライセンス（販売中の全プラグイン対象・年額）",
-              "price": "15000",
-              "priceCurrency": "JPY",
-              "url": "https://kizuna-works.jp/plugins/supporter/?plan=all",
-              "availability": "https://schema.org/InStock",
-              "priceSpecification": {
-                "@type": "UnitPriceSpecification",
-                "price": "15000",
-                "priceCurrency": "JPY",
-                "billingDuration": "P1Y",
-                "unitText": "year",
-                "valueAddedTaxIncluded": false
-              }
-            }
-          ]
-        },
-        {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "ホーム",
-              "item": "https://kizuna-works.jp/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "kintone プラグイン一覧",
-              "item": "https://kizuna-works.jp/plugins/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 3,
-              "name": "年間サポーターライセンス",
-              "item": "https://kizuna-works.jp/plugins/supporter/"
-            }
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "@id": "https://kizuna-works.jp/plugins/supporter/#faq",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "年間サポーターとプレミアム年間サポーターの違いは何ですか？",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "年間サポーター（¥3,300/年税込）はお申込み時に選択した 1 プラグインが対象で、対象プラグインの広告エリアが非表示になります。プレミアム年間サポーター（¥16,500/年税込）は販売中の全プラグインが対象で、契約期間中にリリースされる新プラグインも追加料金なしで利用できます。さらに HP サポーター一覧へのロゴ掲載特典が付きます。"
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "途中で年間サポーターからプレミアム年間サポーターにアップグレードできますか？",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "本ページの申込フォームから新規申込として手続きできます。差額返金や日割り計算は行っていませんが、乗り換え特典として初回のプレミアム年間サポーター期間を 60 日延長し、1 年＋60 日でご提供します。ご契約中の年間サポーター（個別プラグイン）も満了までそのままご利用いただけます。また、プラグインの設定画面には個別とプレミアムのうち最も遅い有効期限が自動的に表示されます。"
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "申し込みから利用開始までどのくらいかかりますか？",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "お支払い確認後、3 営業日以内にライセンスを発行いたします。銀行振込の場合は入金確認後、Square 決済の場合は決済完了後にライセンス発行メールをお送りします。"
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "法人でも申し込めますか？見積書・請求書・領収書の発行は可能ですか？",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "はい、法人・個人どちらでも申し込めます。銀行振込をご選択いただくと、お申込みと同時に見積書および請求書 PDF を自動発行してメール添付でお送りします。領収書は、お支払い方法にかかわらず（銀行振込・Square 決済のいずれでも）ライセンス発行メールに PDF を添付してお送りします。請求書・領収書はインボイス制度に対応した適格請求書（登録番号 T4810295462932）として発行されます。電子交付のため収入印紙の貼付はございません。宛名や但し書きのご指定、発行済み書類の再発行をご希望の場合は info@kizuna-works.jp までお知らせください。なお、銀行振込の場合の振込手数料はお客様のご負担でお願いいたします。"
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "見積書だけ先にほしいのですが（社内稟議・予算取りのため）どうすればよいですか？",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "申込フォームの支払い方法で「銀行振込」を選んでお申し込みください。送信と同時に、見積書と請求書の PDF を担当者メールアドレスへ自動でお送りします。お申し込みの時点では契約は確定せず、料金が自動で引き落とされることもありません。ライセンスの発行はご入金を確認してからです。請求書には発行日から 14 日後の支払期日を記載していますが、稟議が通らなかった場合などはお振込みいただかなければそのままで結構です。督促のご連絡はいたしません（ご一報いただければ取り下げのお手続きをいたします）。なお、ご入金後の返金はお受けしておりませんので、社内でのご確認は入金前にお願いいたします。"
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "サポーターに加入しているのに広告が表示されます。どうすればよいですか？",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "まずプラグインが最新版かどうかをご確認ください。プラグインの設定画面のサイドバーに「新しいバージョン（vX.Y.Z）があります」と表示されている場合は旧版です。2026 年 8 月より前のバージョンには、ライセンス確認の通信が一時的に失敗したときに「未加入」と判断してしまう問題があり、その結果として広告が表示されることがありました。最新版の ZIP を kintone に上書きアップロードすると解消します（アプリごとの設定はそのまま保持されます）。1 つのアプリに当社のプラグインを複数入れている場合は、入っているものすべてを更新すると確実です。確認のしかたと更新手順は https://kizuna-works.jp/plugins/update/ にまとめています。更新後も表示が続く場合は、ご利用ドメイン・プラグイン名・画面のスクリーンショットを添えて info@kizuna-works.jp までご連絡ください。"
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "ライセンスが有効かどうかはどこで確認できますか？",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "プラグインの設定画面のサイドバーで確認できます。有効なドメインでは「サポーターライセンス有効」と有効期限・残り日数が表示されます。ここが「有効」になっていれば認証は正しく通っています。なお、個別とプレミアムの両方をご契約中の場合は最も遅い有効期限が表示されます。"
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "ライセンスは何台のドメインで使えますか？",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "1 ライセンスにつき登録ドメイン 1 つで有効です。kintone のサブドメイン単位での認証となります。複数の kintone 環境で利用される場合は、それぞれにライセンスが必要です。"
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "解約・返金はできますか？年間ライセンスは自動更新されますか？",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "お申込み後の返金・キャンセルはお受けしておりません。年間ライセンスの自動更新はなく、期限の 30 日前・7 日前・当日に更新案内メールをお送りしますので、必要に応じて更新申込フォームからお手続きください。"
-              }
-            }
-          ]
-        }
-      ]
-    }
-    </script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />
   </Fragment>
 
   <style is:global>
@@ -316,6 +342,17 @@ const bornFromRequest = [...plugins, ...premiumPlugins].filter(
       line-height: 1.8;
       color: var(--color-text-main);
       margin: 0 0 32px;
+    }
+    /* Shown after the price revision: older plugin builds still display the previous price */
+    .plan-cards-note {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--color-text-muted, #64748b);
+      background: #fff;
+      border-left: 4px solid #2E8B2E;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: -16px 0 28px;
     }
 
     .plan-cards-grid {
@@ -760,9 +797,20 @@ const bornFromRequest = [...plugins, ...premiumPlugins].filter(
     <section class="plan-cards-section">
       <h2 class="plan-cards-heading">プランを選ぶ</h2>
       <p class="plan-cards-desc">
-        ご利用のプラグイン数に応じて、3 つのプランからお選びいただけます。<br />
-        <strong>5 プラグイン以上ご利用ならプレミアム年間サポーターがお得</strong>です。
+        {PRICE_REVISION_LIVE ? (
+          <>ご利用のプラグインに応じて、3 つのプランからお選びいただけます。<br />
+          <strong>ちょこっとプラグインだけなら年間サポーター、プレミアムプラグインも使うならプレミアム年間サポーター</strong>です。</>
+        ) : (
+          <>ご利用のプラグイン数に応じて、3 つのプランからお選びいただけます。<br />
+          <strong>5 プラグイン以上ご利用ならプレミアム年間サポーターがお得</strong>です。</>
+        )}
       </p>
+      {PRICE_REVISION_LIVE && (
+        // 配布中のプラグインの画面（バナーの「バナー非表示」・設定画面の右欄）には改定前の料金が残っているため（各製品の版上げで順に消える）
+        <p class="plan-cards-note">
+          プラグインの画面に以前の料金（1 製品 税抜 ¥3,000）が表示されている場合があります。{PRICE_REVISION_DATE}からの料金は、このページのとおりです。
+        </p>
+      )}
       <div class="plan-cards-grid">
         <article class="plan-card is-free">
           <h3 class="plan-card-name">無料プラン</h3>
@@ -784,21 +832,31 @@ const bornFromRequest = [...plugins, ...premiumPlugins].filter(
         <article class="plan-card is-individual">
           <h3 class="plan-card-name">年間サポーター</h3>
           <div class="plan-card-price">
-            <span class="amount">¥3,300</span>
+            <span class="amount">{yen(SUPPORTER_PLAN.priceInTax)}</span>
             <span class="unit">/ 年（税込）</span>
           </div>
-          <div class="plan-card-sub">税抜 ¥3,000 ／ 月額換算 約 250 円</div>
+          <div class="plan-card-sub">税抜 {yen(SUPPORTER_PLAN.priceExTax)} ／ 月額換算 約 {SUPPORTER_PLAN.monthlyInTax.toLocaleString('ja-JP')} 円</div>
           <ul class="plan-card-features">
-            <li>選択した <strong>1 プラグイン</strong>が対象</li>
-            <li>対象プラグインの広告エリアが非表示</li>
+            {PRICE_REVISION_LIVE ? (
+              <>
+                <li><strong>ちょこっとプラグインすべて</strong>が対象</li>
+                <li>契約期間中にリリースされる<strong>新しいちょこっとプラグイン</strong>も対象</li>
+                <li>ちょこっとプラグインすべての広告エリアが非表示</li>
+              </>
+            ) : (
+              <>
+                <li>選択した <strong>1 プラグイン</strong>が対象</li>
+                <li>対象プラグインの広告エリアが非表示</li>
+              </>
+            )}
             <li>プラグイン作成リクエスト・改善要望の送付</li>
             <li>サポーターの声を優先反映</li>
           </ul>
-          <a href="#sf-form" class="plan-card-cta" data-select-plan="individual">年間サポーターに申し込む →</a>
+          <a href="#sf-form" class="plan-card-cta" data-select-plan={SUPPORTER_PLAN_TYPE}>年間サポーターに申し込む →</a>
         </article>
 
         <article class="plan-card is-premium">
-          <span class="plan-card-badge">5プラグイン以上ならお得</span>
+          <span class="plan-card-badge">{PRICE_REVISION_LIVE ? 'プレミアムプラグインも使うなら' : '5プラグイン以上ならお得'}</span>
           <h3 class="plan-card-name">プレミアム年間サポーター</h3>
           <div class="plan-card-price">
             <span class="amount">¥16,500</span>
@@ -859,14 +917,22 @@ const bornFromRequest = [...plugins, ...premiumPlugins].filter(
       <h2>サポーターの特典</h2>
       <ul class="perks-list">
         <li><strong>プレミアム年間サポーター限定：</strong>プレミアムプラグイン「帳票デザイナー for kintone」を含む、販売中の<strong>全プラグインの全機能</strong>をご利用いただけます</li>
-        <li>プラグイン内の広告エリアが非表示になります（年間サポーターはそのプラグインのみ／プレミアム年間サポーターは販売中の全プラグインが対象）</li>
+        <li>プラグイン内の広告エリアが非表示になります（{PRICE_REVISION_LIVE ? '年間サポーターはちょこっとプラグインすべて' : '年間サポーターはそのプラグインのみ'}／プレミアム年間サポーターは販売中の全プラグインが対象）</li>
         <li>設定画面から無料ツール・プラグインへのリンクを利用できます</li>
         <li>プラグイン作成リクエストフォームをご利用いただけます</li>
         <li>既存プラグインへの改善要望をお送りいただけます</li>
         <li>サポーターの声を優先してプラグイン開発を進めます</li>
-        <li><strong>プレミアム年間サポーター限定：</strong>契約期間中にリリースされる新しいちょこっとプラグインシリーズも追加料金なしでご利用いただけます</li>
+        {PRICE_REVISION_LIVE ? (
+          <li>契約期間中にリリースされる新しいプラグインも追加料金なしで対象になります（年間サポーターは新しいちょこっとプラグイン／プレミアム年間サポーターは新しいプラグインすべて）</li>
+        ) : (
+          <li><strong>プレミアム年間サポーター限定：</strong>契約期間中にリリースされる新しいちょこっとプラグインシリーズも追加料金なしでご利用いただけます</li>
+        )}
         <li><strong>プレミアム年間サポーター限定：</strong>本ページ下部のサポーター一覧に貴社ロゴ・サイトリンクを掲載いたします（任意・ご希望の場合のみ）</li>
-        <li><strong>乗り換え特典：</strong>年間サポーター（個別プラグイン）をご契約中の方がプレミアム年間サポーターへ切り替える場合、初回のプレミアム期間を <strong>60 日延長</strong>して 1 年＋60 日でご提供します</li>
+        {PRICE_REVISION_LIVE ? (
+          <li><strong>プラン変更：</strong>年間サポーターからプレミアム年間サポーターへは、残りの期間に応じた差額で切り替えられます（<a href="/contact/">お問い合わせ</a>ください）</li>
+        ) : (
+            <li><strong>乗り換え特典：</strong>年間サポーター（個別プラグイン）をご契約中の方がプレミアム年間サポーターへ切り替える場合、初回のプレミアム期間を <strong>60 日延長</strong>して 1 年＋60 日でご提供します</li>
+        )}
       </ul>
       {bornFromRequest.length > 0 && (
         <div class="request-proof">
@@ -886,15 +952,33 @@ const bornFromRequest = [...plugins, ...premiumPlugins].filter(
         <details class="supporter-faq">
           <summary>年間サポーターとプレミアム年間サポーターの違いは何ですか？</summary>
           <div class="supporter-faq-answer">
-            年間サポーター（¥3,300/年税込）はお申込み時に選択した <strong>1 プラグイン</strong>が対象で、対象プラグインの広告エリアが非表示になります。<br />
-            プレミアム年間サポーター（¥16,500/年税込）は<strong>販売中の全プラグイン</strong>が対象で、契約期間中にリリースされる新プラグインも追加料金なしで利用できます。さらに HP サポーター一覧へのロゴ掲載特典が付きます。
+            {PRICE_REVISION_LIVE ? (
+              <>
+                年間サポーター（¥8,250/年税込）は<strong>ちょこっとプラグインすべて</strong>が対象で、ちょこっとプラグインすべての広告エリアが非表示になります。契約期間中にリリースされる新しいちょこっとプラグインも対象です。<br />
+                プレミアム年間サポーター（¥16,500/年税込）は<strong>プレミアムプラグインを含む販売中の全プラグイン</strong>が対象で、契約期間中にリリースされる新プラグインも追加料金なしで利用できます。さらに HP サポーター一覧へのロゴ掲載特典が付きます。
+              </>
+            ) : (
+              <>
+                年間サポーター（¥3,300/年税込）はお申込み時に選択した <strong>1 プラグイン</strong>が対象で、対象プラグインの広告エリアが非表示になります。<br />
+                プレミアム年間サポーター（¥16,500/年税込）は<strong>販売中の全プラグイン</strong>が対象で、契約期間中にリリースされる新プラグインも追加料金なしで利用できます。さらに HP サポーター一覧へのロゴ掲載特典が付きます。
+              </>
+            )}
           </div>
         </details>
         <details class="supporter-faq">
-          <summary>途中で年間サポーターからプレミアム年間サポーターにアップグレードできますか？</summary>
+          <summary>{PRICE_REVISION_LIVE ? '途中で年間サポーターからプレミアム年間サポーターに切り替えられますか？' : '途中で年間サポーターからプレミアム年間サポーターにアップグレードできますか？'}</summary>
           <div class="supporter-faq-answer">
-            本ページの申込フォームから新規申込として手続きできます。差額返金や日割り計算は行っていませんが、<strong>乗り換え特典として初回のプレミアム年間サポーター期間を 60 日延長し、1 年＋60 日でご提供します。</strong><br />
-            ご契約中の年間サポーター（個別プラグイン）も満了までそのままご利用いただけます。また、プラグインの設定画面には個別とプレミアムのうち<strong>最も遅い有効期限</strong>が自動的に表示されます。
+            {PRICE_REVISION_LIVE ? (
+              <>
+                できます。<a href="/contact/">お問い合わせフォーム</a>からご連絡ください。ご契約中の年間サポーターの<strong>残りの期間に応じた差額</strong>で、プレミアム年間サポーターへ切り替えられます。<br />
+                残りが 9 か月以下なら残り 1 か月あたり ¥825（税込）で、今の有効期限までプレミアム年間サポーターになります。残りが 10 か月以上なら ¥8,250（税込）で、お支払いの日から 1 年間のプレミアム年間サポーターになります。
+              </>
+            ) : (
+              <>
+                本ページの申込フォームから新規申込として手続きできます。差額返金や日割り計算は行っていませんが、<strong>乗り換え特典として初回のプレミアム年間サポーター期間を 60 日延長し、1 年＋60 日でご提供します。</strong><br />
+                ご契約中の年間サポーター（個別プラグイン）も満了までそのままご利用いただけます。また、プラグインの設定画面には個別とプレミアムのうち<strong>最も遅い有効期限</strong>が自動的に表示されます。
+              </>
+            )}
           </div>
         </details>
         <details class="supporter-faq">
@@ -931,7 +1015,14 @@ const bornFromRequest = [...plugins, ...premiumPlugins].filter(
           <summary>ライセンスが有効かどうかはどこで確認できますか？</summary>
           <div class="supporter-faq-answer">
             プラグインの設定画面のサイドバーで確認できます。有効なドメインでは「サポーターライセンス有効」と<strong>有効期限・残り日数</strong>が表示されます。ここが「有効」になっていれば認証は正しく通っています。<br />
-            なお、個別とプレミアムの両方をご契約中の場合は<strong>最も遅い有効期限</strong>が表示されます。
+            なお、{PRICE_REVISION_LIVE ? '年間サポーターとプレミアム年間サポーターの両方が有効な場合' : '個別とプレミアムの両方をご契約中の場合'}は<strong>最も遅い有効期限</strong>が表示されます。
+          </div>
+        </details>
+        <details class="supporter-faq">
+          <summary>担当者が変わった・メールアドレスを変えたいときはどうすればよいですか？</summary>
+          <div class="supporter-faq-answer">
+            <a href="/apply/contact-change/">ご担当者のメールアドレス変更ページ</a>から手続きできます。kintone のドメインと新しいメールアドレスを入力すると、まず<strong>新しいアドレスへ確認メール</strong>をお送りします。確認が済むと、<strong>今登録されているご担当者様へ承認のお願い</strong>をお送りし、承認されたら変更します。新旧両方のアドレスへ変更のお知らせが届きます。<br />
+            前のご担当者様がご退職などで承認できない場合は、承認の期限（7日）のあとに当社からご依頼者様へご連絡し、確認のうえで変更します。請求書の送付先だけの変更も同じページからできます。
           </div>
         </details>
         <details class="supporter-faq">
@@ -967,7 +1058,14 @@ const bornFromRequest = [...plugins, ...premiumPlugins].filter(
         <li>第三者への譲渡・転売は禁止しております</li>
         <li>お支払い確認後、3営業日以内にライセンスを発行いたします</li>
         <li>プレミアム年間サポーターはご契約時点で販売中の全プラグインが対象です。ご契約期間中に新規リリースされたプラグインは追加料金なしで対象に含まれます</li>
-        <li>年間サポーターからプレミアム年間サポーターへの切り替えは新規申込として承ります。差額返金・日割り計算は行いませんが、乗り換え特典として初回のプレミアム期間を60日延長いたします（同一ドメインで年間サポーターが有効な場合・初回のみ）</li>
+        {PRICE_REVISION_LIVE ? (
+          <>
+            <li>年間サポーターからプレミアム年間サポーターへの切り替えは、お問い合わせで承ります。ご契約中の年間サポーターの残りの期間に応じた差額をお支払いいただきます</li>
+            <li>料金改定より前に年間サポーター（1 プラグイン）をご契約の方は、有効期限までちょこっとプラグインすべてでご利用いただけます。更新の際は新しい年間サポーターでのご案内となります</li>
+          </>
+        ) : (
+          <li>年間サポーターからプレミアム年間サポーターへの切り替えは新規申込として承ります。差額返金・日割り計算は行いませんが、乗り換え特典として初回のプレミアム期間を60日延長いたします（同一ドメインで年間サポーターが有効な場合・初回のみ）</li>
+        )}
         <li>広告の非表示はライセンス認証によって行われます。プラグインは<strong>最新版でのご利用を推奨</strong>します（2026年8月より前のバージョンでは、認証の一時的な失敗により広告が表示される場合があります）。確認と更新の方法は<a href="/plugins/update/">プラグインの更新方法・広告が消えないときの対処</a>をご覧ください</li>
       </ul>
     </section>
