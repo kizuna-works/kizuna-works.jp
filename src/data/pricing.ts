@@ -12,10 +12,10 @@
  */
 
 /** 料金改定を公開したか（改定日に true にする） */
-export const PRICE_REVISION_LIVE = false;
+export const PRICE_REVISION_LIVE = true;
 
 /** 改定日（トップページのお知らせに出す。PRICE_REVISION_LIVE を true にするときに入れる） */
-export const PRICE_REVISION_DATE = '2026年10月6日';
+export const PRICE_REVISION_DATE = '2026年10月11日';
 
 /** 年間サポーター（改定後）＝ちょこっとプラグインすべて */
 export const CHOKO_PLAN = {
