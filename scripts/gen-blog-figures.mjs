@@ -151,8 +151,9 @@ function flowCaptioned(steps, color, caption) {
   const box = (label) => ({
     type: 'div',
     props: {
-      style: { display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flex: 1, height: 96, background: color, color: C.white, borderRadius: 14, padding: '0 14px', fontSize: 19, fontWeight: 700, lineHeight: 1.4 },
-      children: label,
+      style: { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flex: 1, height: 96, background: color, color: C.white, borderRadius: 14, padding: '0 14px', fontSize: 19, fontWeight: 700, lineHeight: 1.4 },
+      // "\n" in a label forces the line break where it reads naturally
+      children: label.includes('\n') ? label.split('\n').map((t) => ({ type: 'div', props: { style: { display: 'flex' }, children: t } })) : label,
     },
   });
   const arrow = () => ({ type: 'div', props: { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, color, fontSize: 40, fontWeight: 700, paddingBottom: '4px' }, children: '>' } });
@@ -676,6 +677,45 @@ const FIGURES = [
       { n: '4', name: '工程を行ごとに並べたい', desc: '1件の案件が持つ工程（テーブルの行）を、それぞれ予定として出したい。', tag: '対応製品が少ない', paid: true },
       { n: '5', name: '普段の予定表で見たい', desc: 'Googleカレンダーなどに予定を送り、スマホの予定表で確認したい。', tag: '連携サービス', paid: true },
     ]),
+  },
+  {
+    name: 'kintone-status-henkou-overview',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: 'まとめて進めたい', desc: '標準の画面では1件ずつ。プラグインかREST APIで一括実行する。', tag: '標準では不可', paid: true },
+      { n: '2', name: '前に戻したい・完了から戻したい', desc: '戻す道もアクションとして設定する。設定が無い遷移は管理者でもできない。', tag: '設定で可', paid: false },
+      { n: '3', name: 'ボタンが出ない・変更できない', desc: '作業者ではない・実行条件・アクションが無い・次の作業者を未選択。', tag: '原因は4つ', paid: false },
+      { n: '4', name: 'いつ誰が変えたか知りたい', desc: 'レコード画面の［ステータスの履歴］。JavaScriptでも取得できる。', tag: '標準で可', paid: false },
+      { n: '5', name: '一覧や件数で状況を見たい', desc: '一覧の列・絞り込み・グラフのどれもステータスを扱える。', tag: '標準で可', paid: false },
+    ]),
+  },
+  {
+    name: 'kintone-status-henkou-revert-flow',
+    w: 1000, h: 210,
+    el: flowCaptioned(['課長承認待ち', '承認して完了', '完了', '承認を\n取り消す', '課長承認待ち'], C.navy, '戻る方向のアクションを1本足すと、完了から戻せる。足していない遷移はREST APIでも実行できない'),
+  },
+  {
+    name: 'kintone-status-henkou-revert-guard',
+    w: 1000, h: 300,
+    el: contrastPanel(
+      { title: '完了に作業者を置く', desc: '完了の作業者に管理担当を設定すると、「承認を取り消す」を押せるのはその人だけになる。申請者や承認者は戻せない。' },
+      { title: '完了の作業者が空のまま', desc: '作業者がいないステータスのアクションは、レコードを見られる全員が実行できる。戻すアクションを足すと、誰でも完了を取り消せてしまう。' }
+    ),
+  },
+  {
+    name: 'kintone-status-henkou-cannot',
+    w: 1000, h: 490,
+    el: overview5([
+      { n: '1', name: '作業者ではない', desc: 'アクションは原則として作業者だけが実行できる。管理者でも例外ではない。', tag: 'いちばん多い', paid: true },
+      { n: '2', name: '実行条件を満たしていない', desc: '［アクションが実行できる条件］に合わないと、ボタン自体が表示されない。', tag: 'ボタンが出ない', paid: true },
+      { n: '3', name: 'その遷移のアクションが無い', desc: '戻す・飛ばすなど、設定していない方向にはどの方法でも動かせない。', tag: '設定の追加', paid: true },
+      { n: '4', name: '次の作業者を選んでいない', desc: '作業者を選ぶ設定のステータスへ進むときは、候補から1人を選ぶ必要がある。', tag: '選べば進む', paid: false },
+    ], 490),
+  },
+  {
+    name: 'kintone-status-henkou-admin-flow',
+    w: 1000, h: 210,
+    el: flowCaptioned(['止まった\nレコードを開く', '現在の作業者を\n変更', '後任か自分を\n選ぶ', 'その人が\nアクションを実行'], C.green, '休職・異動で止まったレコードは、アプリ管理者が作業者を付け替えて進める'),
   },
 ];
 
