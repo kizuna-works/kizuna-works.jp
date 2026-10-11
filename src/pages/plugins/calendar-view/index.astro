@@ -10,7 +10,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
 
 <Layout
   title="カレンダービュー for kintone｜予定をカレンダーと担当者ごとの時間軸で見る | KIZUNA Works"
-  description="kintone のレコードの開始・終了を、カレンダー（年/月/週/日/リスト）とタイムライン（担当者・会議室ごとの時間軸）に切り替えて表示できるプラグイン。ドラッグで日程変更、空いている時間の検索、予定のない担当者・会議室も常に表示、標準の編集画面でも効くダブルブッキング警告、繰り返し予定、日本の祝日を同梱。サブテーブルの行も予定にでき、行ごとに色分けできます。ビューのHTMLはボタン1つで自動生成します。"
+  description="kintone のレコードの開始・終了を、カレンダー（年/月/週/日/リスト）とタイムライン（担当者・会議室ごとの時間軸）に切り替えて表示できるプラグイン。ドラッグで日程変更、空いている時間の検索、予定のない担当者・会議室も常に表示、予定のバーに表示する項目の選択、標準の編集画面でも効くダブルブッキング警告、繰り返し予定、日本の祝日を同梱。サブテーブルの行も予定にでき、行ごとに色分けできます。ビューのHTMLはボタン1つで自動生成します。"
   ogTitle="カレンダービュー for kintone｜予定をカレンダーと担当者ごとの時間軸で見る | KIZUNA Works"
   ogDescription="同じ予定を、カレンダーでも、担当者・会議室ごとの時間軸でも。予定のない担当者も空白の行で表示。ドラッグで日程変更、空き枠の検索、ダブルブッキング警告、繰り返し予定、祝日同梱。カスタマイズビューはボタン1つで作成します。"
   ogType="website"
@@ -50,10 +50,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "カレンダービュー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.2.0",
+          "softwareVersion": "1.3.0",
           "dateModified": "2026-10-11",
           "url": "https://kizuna-works.jp/plugins/calendar-view/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-calendar-view-v1.2.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-calendar-view-v1.3.0.zip",
           "image": "https://kizuna-works.jp/images/calendar-view-banner.png",
           "offers": [
             {
@@ -85,7 +85,9 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             "空き枠を探す（対象・所要時間・期間を選ぶと候補が出て、押すとその枠で登録）",
             "ダブルブッキング警告（ビュー操作＋kintone 標準の追加・編集画面の保存時）",
             "リソースごとに警告のみ／禁止を切り替え",
-            "その場で登録・編集できるモーダル（表示する項目は設定で選択）",
+            "その場で登録・編集できるモーダル（表示する項目は設定で選択・時刻は時／分のプルダウン）",
+            "予定のバーに表示する項目（最大3つ）とポップアップの表示項目（最大10個）を選択",
+            "新しい予定の長さを設定（15分〜4時間）・予定を動かしても表示位置を保持",
             "区分（ラベル）で色分け・選択肢の追加や削除も設定画面から",
             "サブテーブルの行を予定として表示・テーブル内のドロップダウンで行ごとに色分け",
             "条件で色を変える（数値の閾値・日付の超過・ステータス・選択肢）",
@@ -321,43 +323,43 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <img class="afp-hero-icon" src="/images/calendar-view-icon.png" alt="カレンダービュー for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.2.0</span>
+        <span class="afp-hero-version">v1.3.0</span>
       </div>
       <h1>カレンダービュー for kintone</h1>
       <p class="afp-tagline">同じ予定を、カレンダーでも、担当者ごとの時間軸でも。</p>
       <p class="afp-sub">kintone のレコードが持つ<strong>開始・終了</strong>を、カレンダー（年・月・週・日・リスト）と<strong>タイムライン</strong>（縦＝担当者・会議室 × 横＝時間）に、画面上のボタンで切り替えて表示します。ドラッグで日程を変更でき、<strong>空いている時間</strong>も条件から探せます。予定のない担当者・会議室も、タイムラインに空白の行として常に表示できます。ダブルブッキングの警告は kintone 標準の編集画面でも働きます。サブテーブルの行も1行ずつ予定にでき、行ごとに色を分けられます。</p>
       <div class="afp-hero-cta">
         <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
-        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-calendar-view-v1.2.0.zip" download>無料でダウンロード</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-calendar-view-v1.3.0.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
 
-    <!-- Update Info (v1.2.0) -->
+    <!-- Update Info (v1.3.0) -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.2.0：タイムラインで、予定のない担当者・会議室も常に表示できるようになりました</h2>
+            <h2 class="update-title">v1.3.0：予定のバーに表示する項目を選べるようになり、予定を動かしても表示位置が変わらなくなりました</h2>
           </div>
-          <p class="update-desc">これまでのタイムラインは、表示している期間に予定があるリソースだけを行に並べていました。そのため、予定の入っていない担当者や会議室は行ごと表示されず、「誰が空いているか」をタイムラインで一目で確かめることができませんでした。</p>
+          <p class="update-desc">予定のバーに「タイトル / 対応区分」のように複数の項目を並べて表示できます。予定の登録・編集画面の時刻も、プルダウンで選べるようになりました。</p>
           <ul class="update-points">
-            <li><strong>選択肢で選ぶリソースは、選択肢がすべて行として並びます。</strong>ドロップダウン・ラジオボタン・チェックボックス・複数選択の場合は、設定をしなくても、予定のない選択肢も空白の行で表示します。並びは選択肢の順です。</li>
-            <li><strong>ユーザー・組織・グループは「常に表示するリソース」で選べます。</strong>設定画面の「タイムライン」で、常に表示したい人を検索して追加します。並び順も設定できます。</li>
-            <li><strong>予定のない行でも、そのまま予定を入れられます。</strong>空いている行をダブルクリックすると、その担当者で新規作成できます。左の絞り込みや「空き枠を探す」の候補にも表示します。</li>
+            <li><strong>予定のバーに、最大3つの項目を表示できます。</strong>設定画面の「バーに表示する項目」で選びます。タイムライン・月・週・日・リストのすべての表示で、予定を開かなくても内容が分かります。マウスを重ねたときのポップアップに出す項目（最大10個）も選べます。</li>
+            <li><strong>予定を動かしても、表示位置が変わりません。</strong>タイムラインと週・日表示で、予定のドラッグ・長さの変更・保存をしても、見ていた位置のままです。現在時刻へ寄せるのは、開いたとき・日付を移動したとき・［今日］を押したときだけです。</li>
+            <li><strong>時刻をプルダウンで選べ、新しい予定の長さも決められます。</strong>登録・編集画面の開始・終了は「時」「分」で選び、分の候補は設定「時刻間隔」のとおりです。空き時間をクリックして追加するときの長さは、設定「新しい予定の長さ」で15分〜4時間から選べます。</li>
           </ul>
           <div class="update-shot">
             <Picture
-              src="/images/calendar-view-timeline-pin-01.png"
-              alt="タイムラインの時刻表示。担当者の行が並び、予定のない担当者も0件の空白の行で表示されている"
+              src="/images/calendar-view-timeline-bar-01.png"
+              alt="タイムラインの1日表示。予定のバーに「定例会議 / …」「資料発注 / 完了」のようにタイトルと対応区分が並んで表示されている"
               width="1400"
-              height="706"
+              height="760"
               class="zoomable"
             />
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
-          <p class="update-note">既存ユーザーの方は、最新版（v1.2.0）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。タイムラインの行は、常に表示するリソースが先に並び、その後ろに予定のあるリソースが名前順で並びます。</p>
+          <p class="update-note">既存ユーザーの方は、最新版（v1.3.0）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。追加した3つの設定は、手順3の［共通］タブ（共通の表示設定）にあります。</p>
         </div>
       </div>
     </section>
@@ -541,7 +543,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           <Picture src="/images/calendar-view-config-08.png" alt="設定画面の使うモードのカード。用途プリセット、使うモード（カレンダー・タイムライン）のチェック、開いたときの表示を選ぶ欄" width="1400" height="287" class="zoomable" />
           <figcaption class="afp-shot-cap">使う表示と、開いたときにどちらを出すかを決めます</figcaption>
         </figure>
-        <div class="afp-note">このほか手順3では、既定の粒度・1日あたりの表示件数（超えた分は「他N件」）・新規登録の方式（その場のモーダル／kintone 標準の追加画面）・週の開始曜日・時刻間隔・営業時間・営業曜日を決められます。<strong>すべて既定のままでも動きます。</strong></div>
+        <div class="afp-note">このほか手順3では、既定の粒度・1日あたりの表示件数（超えた分は「他N件」）・新規登録の方式（その場のモーダル／kintone 標準の追加画面）・週の開始曜日・時刻間隔・新しい予定の長さ・バーとポップアップに表示する項目・営業時間・営業曜日を決められます。<strong>すべて既定のままでも動きます。</strong></div>
 
         <h3 class="afp-h3">手順4：ラベル（分類）の色を決める</h3>
         <figure class="afp-shot afp-shot-w840">
@@ -581,8 +583,12 @@ import TrialBanner from '../../../components/TrialBanner.astro';
             <p>予定の入っていない担当者・会議室も、空白の行で表示。選択肢で選ぶリソースは設定なしで全部並び、ユーザー・組織・グループ・文字列は「常に表示するリソース」で指定。空き状況を一目で確認できます。</p>
           </div>
           <div class="afp-feat-card">
+            <h3>バーとポップアップに表示する項目</h3>
+            <p>予定のバーに「タイトル / 対応区分」のように最大3つの項目を表示。マウスを重ねたときのポップアップには、項目名と値を最大10個まで追加できます。</p>
+          </div>
+          <div class="afp-feat-card">
             <h3>ドラッグで日程変更</h3>
-            <p>予定をドラッグして移動、下端をつまんで時間を伸縮。タイムラインでは担当者と日時を同時に変更。直後は「元に戻す」で戻せます。</p>
+            <p>予定をドラッグして移動、下端をつまんで時間を伸縮。タイムラインでは担当者と日時を同時に変更。直後は「元に戻す」で戻せます。動かしても表示位置は変わりません。</p>
           </div>
           <div class="afp-feat-card">
             <h3>空き枠を探す 🔒</h3>
@@ -594,7 +600,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           </div>
           <div class="afp-feat-card">
             <h3>その場で登録・編集</h3>
-            <p>日付や時間帯のクリックで登録モーダル。出す項目は設定で選べます。右クリックから複製・削除・詳細画面も開けます。</p>
+            <p>日付や時間帯のクリックで登録モーダル。出す項目は設定で選べ、開始・終了の時刻は「時」「分」のプルダウンで選びます。右クリックから複製・削除・詳細画面も開けます。</p>
           </div>
           <div class="afp-feat-card">
             <h3>区分（ラベル）で色分け</h3>
@@ -672,7 +678,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <li>✅ 繰り返し予定・祝日と非稼働日の色分け</li>
               <li>✅ 利用期限なし（設定できるビューは1件・レイヤーは1件／設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-calendar-view-v1.2.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-calendar-view-v1.3.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">👑 全機能を解放</span>
@@ -818,10 +824,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
             gtag('event', 'file_download', {
-              file_name: 'kw-calendar-view-v1.2.0.zip',
+              file_name: 'kw-calendar-view-v1.3.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-calendar-view-v1.2.0.zip'
+              link_url: '/downloads/kw-calendar-view-v1.3.0.zip'
             });
           });
         });
