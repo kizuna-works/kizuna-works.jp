@@ -717,6 +717,30 @@ const FIGURES = [
     w: 1000, h: 210,
     el: flowCaptioned(['止まった\nレコードを開く', '現在の作業者を\n変更', '後任か自分を\n選ぶ', 'その人が\nアクションを実行'], C.green, '休職・異動で止まったレコードは、アプリ管理者が作業者を付け替えて進める'),
   },
+  {
+    name: 'kintone-record-bangou-overview',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: '番号を書き換えたい', desc: '画面でもCSVでもREST APIでも変更できない。読み取り専用の値。', tag: 'できない', paid: true },
+      { n: '2', name: '消した番号を詰めたい', desc: '削除した番号は欠番のまま。全件削除しても続きの番号から振られる。', tag: 'できない', paid: true },
+      { n: '3', name: '1から振り直したい', desc: 'アプリを再利用して作り直し、CSVでレコードを読み込み直す。', tag: '作り直しで可', paid: false },
+      { n: '4', name: '頭に記号を付けたい', desc: 'アプリコードを設定すると「TOI-8」の形になる。アプリで1種類だけ。', tag: '標準で可', paid: false },
+      { n: '5', name: '計算式で使いたい', desc: '「"Q-" & レコード番号」のような式は保存できない。採番は別の方法で。', tag: 'できない', paid: true },
+    ]),
+  },
+  {
+    name: 'kintone-record-bangou-renumber-flow',
+    w: 1000, h: 210,
+    el: flowCaptioned(['アプリを\n再利用して作る', '元のアプリから\nCSVを書き出す', '新しいアプリへ\n追加で読み込む', '番号が\n1から振られる'], C.navy, '新しいアプリでは番号が1から。アプリコード・APIトークン・プラグインの設定は引き継がれない'),
+  },
+  {
+    name: 'kintone-record-bangou-vs-field',
+    w: 1000, h: 300,
+    el: contrastPanel(
+      { title: '番号用のフィールドを足す', desc: '文字列や数値のフィールドに番号を持たせる。採番プラグインなら、区分ごと・年度ごとの連番も作れる。' },
+      { title: 'レコード番号を変える', desc: '開始番号の指定も書き換えもリセットもできない。計算式にも使えない。' }
+    ),
+  },
 ];
 
 // The bundled Noto Sans JP WOFF is a subset without arrows and similar symbols;
