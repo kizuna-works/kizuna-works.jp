@@ -152,6 +152,20 @@ const BANNERS = {
       ['新しさを', '4段階の濃さ', 'で表示']
     ]
   },
+  // ★ quick-filter は 2026-10-11 に手動バナーへ差し替え済み。実行すると
+  //    public/images/quick-filter-banner.png を上書きしてしまうため、定義を無効化してある。
+  '_quick-filter_DISABLED': {
+    iconSrc: 'SECRET/kintone_plugin_workspace/kw-quick-filter/icon_512.png',
+    iconSide: 'right',
+    catch: ['値を選ぶだけで、', '一覧が絞れる。'],
+    name: 'クイックフィルター for kintone',
+    nameSize: 40,
+    bullets: [
+      ['件数つきの候補から', '選ぶだけ', ''],
+      ['複数の窓が', '同時に効く', ''],
+      ['テーブル・別アプリの値', 'でも', '絞り込める']
+    ]
+  },
   // ★ sheets-sync は 2026-09-29 に手動バナーへ差し替え済み。実行すると
   //    public/images/sheets-sync-banner.png を上書きしてしまうため、定義を無効化してある。
   '_sheets-sync_DISABLED': {

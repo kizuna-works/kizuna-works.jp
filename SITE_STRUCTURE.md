@@ -229,6 +229,8 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】スプレッドシート連携 製品ページ（/plugins/sheets-sync/）— Google スプレッドシートと kintone アプリを双方向に同期する。シートの行はレコードに、kintone で変えた値はシートの同じ行へ書き戻す（kintone で作ったレコードはシート末尾に追加）。行とレコードはシートの「kintoneレコード番号」列で結ぶ（行番号は使わない）。前回同期時の値と比べてどちらで変わったかを列ごとに判定、列ごとの持ち主（シート専用／kintone専用／両方可）と kintone専用列のシート保護、両方で変わった列は競合ルール。読めない値はシートの同期状態の列に「値エラー：列名（理由）」。中継サーバー・GAS・API トークン不要・drive.file のみ。ヒーロー＋課題＋しくみ（POINT 3 枚＋シートの画像）＋Google 接続＋設定（全体・シート・対応づけ表・専用フィールド）＋同期（一覧の［同期］・進捗・結果・タイミング設定）＋値エラー（シートの印・詳細画面の案内）＋競合と振り分け＋共有相手と共有ドライブ＋Google の読み取り上限と kintone API 回数の目安（表）＋ログと通知＋主な機能8＋インストール手順6＋プラン（無料/プレミアム）＋動作環境＋FAQ15（本文は src/data/premium-faqs.ts の kw-sheets-sync）＋SecurityBox（outbound 宣言）＋ShareButtons＋CTA。サブテーブル・添付ファイルは v1.0.0 非対応・スマホでは同期しない。ゲストスペース対応
 │   │   │   │   └── google-cloud/
 │   │   │   │       └── index.astro # 【手順ページ】自社の Google Cloud で使う設定手順（/plugins/sheets-sync/google-cloud/）— スプレッドシート連携を顧客自身の Google Cloud プロジェクトで動かすための手順。①プロジェクト作成 ②Google Sheets API・Google Drive API・Google Picker API の 3 つを有効化（Drive API はゴミ箱の確認と接続アカウント表示に使う）③OAuth 同意画面（Workspace は「内部」／個人は「外部」＋本番環境に公開。テストのままだと 7 日で失効）④OAuth クライアント（リダイレクト URI は https://kizuna-works.jp/sheets-sync/callback.html の 1 本）⑤API キー（制限は Picker API のみ・HTTP リファラー制限は付けない）⑥設定画面へ 3 つを入力して接続。フォーム連携の同種ページを元にした同じ体裁。プラグイン設定画面の「自社の Google Cloud を使う」から直接リンクされる（config.js の SETUP_GUIDE_URL）
+│   │   │   ├── quick-filter/
+│   │   │   │   └── index.astro # 【プレミアムプラグイン】クイックフィルター 製品ページ（/plugins/quick-filter/）— 一覧の上の「絞り込みの窓」から値を選ぶだけで絞り込む。クイックサーチ・集計サマリーバーとの併用の節あり
 │   │   │   ├── lookup-add/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】ルックアップ新規登録 製品ページ（/plugins/lookup-add/）— ルックアップの候補に参照先のレコードが無いとき、［取得］の隣の［＋新規登録］から入力中の画面を離れずに登録し、そのまま取得まで完了させる。登録画面には 打った文字（キー項目へ）／入力中のレコードの値・同じ行の値・固定値（引き継ぐ値）／絞り込みの初期設定から決まる値 が入った状態で開く。登録前に似ているレコードを表示し（9種類の表記ゆれを吸収）、完全一致は登録を中止。登録方式は パネル／標準画面（別のタブ・小さなウィンドウ）。パネルの見た目3スタイル、ボタンの見せ方2種類。条件分岐自動採番 v2.2.0 以上と連携してパネルからの登録でも採番。サジェスト・絞り込みと同じルックアップ上で併用可。ヒーロー＋課題3＋before/after 2枚＋使い方3枚＋引き継ぎ表＋見た目1枚＋標準画面1枚＋方式の比較表＋設定5枚＋連携（3製品カード＋4製品同居1枚）＋インストール手順5＋プラン（無料/プレミアム）＋できないこと5＋FAQ11＋SecurityBox＋ShareButtons＋CTA。無料はルックアップ1つ、複数ルックアップと広告非表示がプレミアム。PC 版のみ・ゲストスペース対応
 │   │   │   ├── annotation/
@@ -722,6 +724,18 @@ c:\kizuna-works.jp\
 │   │   ├── sheets-sync-detail-01.png        # スプレッドシート連携 レコード詳細画面の値エラーの案内＋ .webp
 │   │   ├── sheets-sync-sheet-01.png         # スプレッドシート連携 同期しているシート（A〜N 列・レコード番号と同期状態の列つき）＋ .webp
 │   │   ├── sheets-sync-sheet-02.png         # スプレッドシート連携 同期状態の列に「値エラー：」「確認：」の印が出たシート＋ .webp
+│   │   ├── quick-filter-banner.png          # クイックフィルター for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・手動バナー。gen-plugin-banner.mjs の定義は _quick-filter_DISABLED で無効化済み）＋ .webp / -800.webp
+│   │   ├── quick-filter-icon.png            # クイックフィルター アイコン（200×200）＋ .webp
+│   │   ├── quick-filter-before-01.png       # クイックフィルター Before：kintone 標準の［絞り込む］画面で確度 A・B＋案件担当者名を1行ずつ組み立てた状態 + .webp
+│   │   ├── quick-filter-after-01.png        # クイックフィルター After：同じ条件を一覧の上の窓で選んだ状態（絞り込み結果 11件）+ .webp
+│   │   ├── quick-filter-panel-01.png        # クイックフィルター 案件担当者名の窓を開いた候補パネル（件数つき・候補の検索・選んだ値以外）＋ .webp
+│   │   ├── quick-filter-list-02.png         # クイックフィルター 確度 A・B と製品名 kintone を選んだ後（絞り込み結果 26件）＋ .webp
+│   │   ├── quick-filter-panel-02.png        # クイックフィルター 日付の窓（期間ボタン・日付の範囲）＋ .webp
+│   │   ├── quick-filter-panel-03.png        # クイックフィルター 数値の窓（範囲入力・値の候補）＋ .webp
+│   │   ├── quick-filter-add-01.png          # クイックフィルター ［＋ 絞り込みを追加］のフィールド選択パネル（プレミアム）＋ .webp
+│   │   ├── quick-filter-combo-01.png        # クイックフィルター クイックサーチ・集計サマリーバーとの併用（小計 632,250・件数 10）。クイックサーチ・集計サマリーバーの製品ページの併用の節でも使用 ＋ .webp
+│   │   ├── quick-filter-combo-02.png        # クイックフィルター クイックサーチ・集計サマリーバー・かんたんCSV出力との4製品併用（［CSV出力］ボタンあり・10件）。クイックフィルターとかんたんCSV出力の製品ページで使用 ＋ .webp
+│   │   ├── quick-filter-config-01.png       # クイックフィルター 設定画面の全体（上帯・左の目次＋ライブプレビュー・中央の設定セットと窓・右サイドバー）＋ .webp
 │   │   ├── lookup-add-banner.png        # ルックアップ新規登録 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・**手作りの差し替え版**。雛形は gen-plugin-banner.mjs の lookup-add 定義）＋ .webp / -800.webp
 │   │   ├── lookup-add-icon.png          # ルックアップ新規登録 アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
 │   │   ├── lookup-add-before.png        # 導入前：標準の［取得］で該当なし（行き止まり）＋ .webp

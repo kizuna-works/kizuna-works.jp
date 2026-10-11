@@ -1,0 +1,819 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ResellerCard from '../../../components/ResellerCard.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<Layout
+  title="クイックフィルター for kintone｜値を選ぶだけで一覧を絞り込む | KIZUNA Works"
+  description="kintone の一覧の上にフィールドごとの絞り込みの窓を並べ、件数つきの候補から値を選ぶだけで絞り込めるプラグイン。複数の窓が同時に効き、テーブル内やルックアップ先・関連レコード先の値にも対応。クイックサーチ・集計サマリーバー・かんたんCSV出力とも併用できます。"
+  ogTitle="クイックフィルター for kintone｜値を選ぶだけで一覧を絞り込む | KIZUNA Works"
+  ogDescription="一覧の上に並んだ窓から、値を選ぶだけで絞り込める kintone プラグイン。候補は件数つきで、複数の窓は同時に効きます。クイックサーチ・集計サマリーバーと組み合わせれば、探す・絞る・合計を見るが一覧の上で完結します。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/quick-filter/"
+  ogImage="https://kizuna-works.jp/images/quick-filter-banner.png"
+  canonical="https://kizuna-works.jp/plugins/quick-filter/"
+  heroBg="/images/premium-plugins-bg.png"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/quick-filter/",
+          "url": "https://kizuna-works.jp/plugins/quick-filter/",
+          "name": "クイックフィルター for kintone｜値を選ぶだけで一覧を絞り込む | KIZUNA Works",
+          "description": "クイックフィルター for kintone は、レコード一覧の上にフィールドごとの絞り込みの窓を並べ、値の一覧から選ぶだけで一覧を絞り込める kintone プラグイン。窓を開くとそのフィールドにある値が件数つきで並び、複数の窓は AND で同時に効く。テーブル内の値や、ルックアップ先・関連レコード先の別アプリの値でも絞り込める。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/quick-filter-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "クイックフィルター for kintone", "item": "https://kizuna-works.jp/plugins/quick-filter/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "クイックフィルター for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-10-11",
+          "url": "https://kizuna-works.jp/plugins/quick-filter/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-filter-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/quick-filter-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "プレミアム年間サポーター（全プラグイン込み）",
+            "price": "16500",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "プレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料プランでも、先頭の設定セットでこのアプリのフィールドの窓を 3 個まで利用できます。"
+          },
+          "description": "kintone のレコード一覧の上にフィールドごとの絞り込みの窓を並べ、値の一覧から選ぶだけで一覧を絞り込める kintone プラグイン。窓を開くと、そのフィールドにある値が件数つきで並ぶ。複数の窓は AND で同時に効き、同じ窓の中で選んだ複数の値は OR になる。選択肢系・文字列系・数値・日付の各フィールドに合わせた窓を出し、数値は範囲指定、日付は期間ボタンも使える。テーブル内の値や、ルックアップ先・関連レコード先の別アプリの値でも絞り込める（プレミアム）。クイックサーチ・集計サマリーバーと同じ一覧に置いて併用できる。候補の集計と条件の組み立てはブラウザの中で行い、外部へ送信しない。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "一覧の上にフィールドごとの絞り込みの窓を並べる",
+            "窓を開くと値が件数つきで並び、チェックを入れるだけで絞り込める",
+            "複数の窓は AND、同じ窓の複数の値は OR で同時に効く",
+            "フィールドの種類に合わせた窓（選択肢・文字列・ユーザー・数値・日付）",
+            "数値の範囲指定（〜以上・〜以下）",
+            "日付の期間ボタン（今日・昨日・今週・先週・今月・先月・今年・昨年）",
+            "候補の検索・選んだ値以外・表示中をすべてチェック",
+            "絞り込み結果の件数表示",
+            "選択を一覧ごとに記憶",
+            "kintone 標準の絞り込み・クイックサーチ・集計サマリーバー・かんたんCSV出力との併用",
+            "テーブル内の値で絞り込む（プレミアム）",
+            "ルックアップ先・関連レコード先の別アプリの値で絞り込む（プレミアム）",
+            "利用者が［＋ 絞り込みを追加］で窓を足せる（プレミアム）",
+            "一覧ごとに別の窓を出す複数の設定セット（プレミアム）",
+            "帯の配色の変更",
+            "候補の集計と条件の組み立てはブラウザ内で完結",
+            "ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
+    .afp-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+    .afp-hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 26px; border-radius: 26px;
+      font-weight: 700; font-size: 1rem; text-decoration: none; line-height: 1.3;
+    }
+    .afp-hero-btn.is-primary { background: #2E8B2E; color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.22); }
+    .afp-hero-btn.is-primary:hover { background: #35a035; }
+    .afp-hero-btn.is-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.6); }
+    .afp-hero-btn.is-ghost:hover { background: rgba(255,255,255,0.24); }
+    @media (max-width: 600px) { .afp-hero-btn { width: 100%; } }
+
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    /* Update box (latest release) */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      /* The lead is itself a white card; keep a gap so it does not touch the next card. */
+      margin: 0 0 26px;
+    }
+    .afp-lead strong { color: var(--color-navy); }
+    /* Answer card right after the problem statement */
+    .afp-lead.is-accent { background: #eef7ee; border-left: 5px solid var(--color-green); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0 0 12px; }
+    .afp-feature p:last-child { margin-bottom: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    /* Keep consecutive white cards apart. */
+    .afp-shot + .afp-shot,
+    .afp-shot + .afp-cautions,
+    .afp-shot + .afp-note,
+    .afp-shot + .afp-grid-feats { margin-top: 26px; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    /* Captions are 1-3 lines of Japanese. Without balancing, a long one drops a
+       two-character orphan onto the last line. balance evens the lines out; the
+       max-width keeps a caption from running the full width of a wide screenshot. */
+    .afp-shot-cap {
+      text-align: center; font-size: 0.9rem; color: var(--color-text-muted);
+      margin: 12px 0 0; padding: 0 16px 2px; line-height: 1.75;
+      max-width: 46em; margin-left: auto; margin-right: auto;
+    }
+    /* Cap narrow captures at the width the UI really has, so nothing is blown up
+       larger than the user will see it in kintone. */
+    .afp-shot-w420 { max-width: 420px; }
+    .afp-shot-w640 { max-width: 640px; }
+    .afp-shot-w840 { max-width: 840px; }
+
+    /* Panel shots are small crops; cap them near their real size (the lightbox shows them larger). */
+    .afp-shot-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 380px)); justify-content: center; gap: 28px; align-items: start; }
+    /* Auto margins on grid items stop them stretching; fill the cell instead. */
+    .afp-shot-pair > .afp-shot { margin: 0; width: 100%; }
+    .afp-shot-pair + .afp-shot { margin-top: 26px; }
+    @media (max-width: 900px) { .afp-shot-pair { grid-template-columns: minmax(0, 380px); } }
+
+    /* Before / After */
+    .afp-ba-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px; align-items: start; margin-top: 28px; }
+    .afp-ba-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: var(--shadow-card); overflow: hidden; min-width: 0; }
+    .afp-ba-card.after { border: 2px solid var(--color-green); }
+    .afp-ba-label { font-weight: 700; padding: 12px 18px; font-size: 0.98rem; }
+    .afp-ba-card.before .afp-ba-label { background: #eef2f7; color: var(--color-text-muted); }
+    .afp-ba-card.after .afp-ba-label { background: #eaf6ea; color: var(--color-green); }
+    .afp-ba-card img { width: 100%; height: auto; display: block; background: #F0F4F8; border-top: 1px solid #e2e8f0; }
+    .afp-ba-desc { font-size: 0.92rem; line-height: 1.7; color: var(--color-text-main); padding: 14px 18px 18px; margin: 0; }
+    .afp-ba-desc strong { color: var(--color-navy); }
+    .afp-ba-arrow { text-align: center; font-size: 0.95rem; color: var(--color-text-muted); margin: 20px 0 0; }
+    @media (max-width: 900px) { .afp-ba-grid { grid-template-columns: 1fr; } }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    /* Feature block: usage screen followed by its settings screen. */
+    .afp-usecfg { margin-top: 30px; }
+    .afp-usecfg-head {
+      display: inline-block; background: var(--color-navy); color: #fff; font-weight: 700;
+      font-size: 0.85rem; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px;
+    }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <style is:global>
+    /* Page-specific additions */
+    /* Sub-headings. Same look as .afp-plan-compare-head (navy text, green bar). */
+    .afp-h3 {
+      font-size: 1.15rem; color: var(--color-navy); margin: 34px 0 12px;
+      padding-left: 12px; border-left: 4px solid var(--color-green);
+    }
+    .afp-h3:first-of-type { margin-top: 8px; }
+    /* Card number label, not part of the shared block. */
+    .afp-feat-no {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--color-green); margin-bottom: 6px;
+    }
+    /* Before / after pair. Stacks on narrow screens. */
+    .lf-ba {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      margin: 26px 0 0;
+    }
+    .lf-ba figure { margin: 0; }
+    .lf-ba .lf-ba-tag {
+      display: inline-block; font-size: 0.78rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 999px; margin-bottom: 8px;
+    }
+    .lf-ba .is-before { background: #eef2f7; color: #64748b; }
+    .lf-ba .is-after { background: #e8f5e9; color: var(--color-green); }
+    .lf-ba img {
+      width: 100%; height: auto; border: 1px solid #dbe3ec; border-radius: 8px;
+      background: #fff; cursor: zoom-in;
+    }
+    .lf-ba figcaption {
+      font-size: 0.86rem; color: #64748b; line-height: 1.7; margin-top: 8px;
+    }
+    @media (max-width: 767px) {
+      .lf-ba { grid-template-columns: 1fr; }
+    }
+    /* Japanese line breaking.
+       - balance: short centred blocks (hero lead, captions, CTA) get lines of
+         even length instead of dropping two characters onto a last line.
+       - pretty: longer left-aligned prose keeps its ragged edge but never ends
+         on an orphan.
+       - strict: a line may not start with a small kana (ォ ャ ッ) or a closing
+         bracket (a katakana word split before a small kana in a caption). */
+    .afp-hero .afp-sub,
+    .afp-hero .afp-tagline,
+    .afp-cta p,
+    .afp-shot-cap { text-wrap: balance; }
+    /* Left-aligned prose fills the line; balance would shorten every line and
+       leave a wide gap on the right. pretty only avoids a one-word last line. */
+    .afp-lead,
+    .afp-note,
+    .afp-cautions li,
+    .afp-feat-card p,
+    .afp-plan-features li,
+    .gc-step p,
+    .gc-step li,
+    .gc-branch p,
+    .afp-faq-answer { text-wrap: pretty; }
+    .afp-hero .afp-sub,
+    .afp-hero .afp-tagline,
+    .afp-cta p,
+    .afp-shot-cap,
+    .afp-lead,
+    .afp-note,
+    .afp-cautions li,
+    .afp-feat-card p,
+    .afp-plan-features li,
+    .gc-step p,
+    .gc-branch p,
+    .afp-faq-answer { line-break: strict; }
+    /* Phrase breaking only for short, centred or heading text. In left-aligned
+       body text it breaks early whenever a phrase does not fit, which leaves
+       uneven gaps on the right; normal breaking with line-break: strict reads
+       better there. */
+    .afp-h2 { text-wrap: balance; }
+    .afp-h2,
+    .afp-h3,
+    .afp-hero .afp-tagline,
+    .afp-feat-card h3,
+    .afp-faq-item > summary { word-break: auto-phrase; }
+    @media (min-width: 769px) {
+      .afp-hero .afp-sub,
+      .afp-cta p,
+      .afp-shot-cap { word-break: auto-phrase; }
+    }
+    /* Bullet list inside a caution card: a small green dot per item so the
+       items read as one list rather than separate paragraphs. */
+    .afp-cautions ul { list-style: none; margin: 0; padding: 0; }
+    .afp-cautions li { position: relative; padding-left: 1.2em; }
+    .afp-cautions li::before {
+      content: ""; position: absolute; left: 0.2em; top: 0.72em;
+      width: 6px; height: 6px; border-radius: 50%; background: var(--color-green);
+    }
+
+  </style>
+
+  <style is:global>
+    /* Combo (pairs-well-with) section */
+    .qf-combo-box {
+      background: #ffffff; border: 2px solid #cde3cd; border-radius: 16px;
+      padding: 32px 24px; max-width: 1040px; margin: 0 auto;
+      box-shadow: 0 4px 16px rgba(46,139,46,0.08);
+    }
+    .qf-combo-flow { display: flex; align-items: stretch; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .qf-combo-step {
+      flex: 1 1 170px; max-width: 220px; background: #f7faf7; border: 1px solid #dcebdc;
+      border-radius: 12px; padding: 20px 18px; text-align: center;
+    }
+    .qf-combo-step .qf-combo-plugin {
+      display: inline-block; font-size: 12px; font-weight: 700; color: var(--color-green);
+      background: #eaf5ea; border-radius: 10px; padding: 2px 10px; margin-bottom: 10px;
+    }
+    .qf-combo-step .qf-combo-plugin.is-self { background: var(--color-green); color: #fff; }
+    .qf-combo-step strong { display: block; color: var(--color-navy); font-size: 15px; margin-bottom: 6px; }
+    .qf-combo-step p { font-size: 13px; color: var(--color-text-muted); line-height: 1.7; margin: 0; }
+    .qf-combo-arrow { display: flex; align-items: center; font-size: 26px; color: var(--color-green); font-weight: 700; }
+    .qf-combo-links { display: flex; flex-wrap: wrap; gap: 8px 28px; justify-content: center; margin-top: 24px; }
+    .qf-combo-link {
+      color: var(--color-green); font-weight: 700; font-size: 15px; text-decoration: none;
+      border-bottom: 2px solid transparent;
+    }
+    .qf-combo-link:hover { border-bottom-color: var(--color-green); }
+    .qf-combo-shot { margin-top: 28px; }
+    .qf-type-table td:first-child { white-space: nowrap; font-weight: 700; color: var(--color-navy); }
+    @media (max-width: 768px) {
+      .qf-combo-flow { flex-direction: column; align-items: stretch; }
+      .qf-combo-step { flex: 0 0 auto; min-width: 0; }
+      .qf-combo-arrow { justify-content: center; }
+      .qf-combo-step { max-width: none; }
+      .qf-combo-box { padding: 24px 16px; }
+      .qf-type-table td:first-child { white-space: normal; }
+    }
+  </style>
+
+  <main>
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/quick-filter-icon.png" alt="クイックフィルター for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1 class="afp-hero-title">クイックフィルター for kintone</h1>
+      <p class="afp-tagline">値を選ぶだけで、一覧が絞れる。</p>
+      <p class="afp-sub">クイックフィルター for kintone は、<strong>レコード一覧の上にフィールドごとの絞り込みの窓を並べ、値の一覧から選ぶだけで一覧を絞り込める</strong> kintone プラグインです。窓を開くと、そのフィールドにある値が件数つきで並びます。フィールド・条件・値を毎回組み立てる必要はありません。</p>
+      <div class="afp-hero-cta">
+        <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-quick-filter-v1.0.0.zip" download>無料でダウンロード</a>
+      </div>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 課題 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">一覧を絞るたびに、条件を組み立て直していませんか</h2>
+        <p class="afp-lead">
+          担当者やステータスで絞りたいだけなのに、kintone 標準の絞り込みでは、<strong>毎回フィールドを選び、条件を選び、値を入れます</strong>。そのフィールドにどんな値があるのか分からないまま入力して、表記の違いで 0 件になることもあります。
+        </p>
+        <p class="afp-lead is-accent">
+          クイックフィルターは、一覧の上に<strong>絞り込みの窓</strong>を並べます。窓を開けば<strong>値が件数つきで並ぶ</strong>ので、チェックを入れて閉じるだけです。
+        </p>
+        <div class="afp-ba-grid">
+          <div class="afp-ba-card before">
+            <div class="afp-ba-label">BEFORE ― kintone 標準の絞り込み</div>
+            <Picture src="/images/quick-filter-before-01.png" alt="kintone 標準の［絞り込む］画面。条件の1行目で確度を選び「次のいずれかを含む」で A と B にチェック、2行目で案件担当者名を選び「次のいずれかを含む」で鈴木 花子を指定し、「すべての条件を満たす」を選んでいる。下にソートの指定と［キャンセル］［保存］［適用］のボタンがある" width="1266" height="1050" class="zoomable" />
+            <p class="afp-ba-desc">［絞り込む］を開き、<strong>フィールド → 条件 → 値</strong>を1行ずつ組み立てて［適用］。条件を変えるたびに、この画面を開き直します。</p>
+          </div>
+          <div class="afp-ba-card after">
+            <div class="afp-ba-label">AFTER ― クイックフィルター</div>
+            <Picture src="/images/quick-filter-after-01.png" alt="クイックフィルターを入れた一覧。一覧の上に確度・製品名・案件担当者名・見込み時期・小計の窓が並び、確度は「A ほか1件」、案件担当者名は「鈴木 花子」が選ばれて緑の枠になっている。右端に「絞り込み結果 11件」と［すべて解除］があり、一覧は鈴木 花子の確度 A・B の案件に絞られている" width="1400" height="558" class="zoomable" />
+            <p class="afp-ba-desc">同じ条件（確度 A・B かつ 担当者 鈴木 花子）を、<strong>一覧の上の窓で値を選ぶだけ</strong>で指定できます。条件を変えるのも、窓を開いてチェックを付け替えるだけです。</p>
+          </div>
+        </div>
+        <p class="afp-ba-arrow">画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- 使い方 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">窓を開いて、値にチェックを入れるだけ</h2>
+        <p class="afp-lead">
+          窓をクリックすると、そのフィールドにある<strong>値が件数つきで並びます</strong>。チェックを入れてパネルの外をクリックする（または Esc を押す）と、一覧が絞り込まれます。複数の値を選んだときは OR です。
+        </p>
+        <figure class="afp-shot">
+          <Picture src="/images/quick-filter-panel-01.png" alt="案件担当者名の窓を開いた候補パネル。佐藤 次郎(22)・絆 太郎(20)・鈴木 花子(15)・(空白)(7) のように値が件数つきで並び、鈴木 花子にチェックが入っている。上には候補の検索欄と「選んだ値以外」、下には「表示中をすべてチェック」「すべて選択」「解除」のボタンがある" width="1400" height="551" class="zoomable" />
+          <figcaption class="afp-shot-cap">窓を開いたところ。候補の検索、<strong>「選んだ値以外」</strong>、表示中の候補をまとめてチェックする操作も使えます。</figcaption>
+        </figure>
+        <figure class="afp-shot">
+          <Picture src="/images/quick-filter-list-02.png" alt="確度 A と B、製品名 kintone を選んだ後の一覧。選んだ窓が緑の枠で表示され、帯の右端に「絞り込み結果 26件」と［すべて解除］が表示されて、一覧が 26 件に絞られている" width="1400" height="654" class="zoomable" />
+          <figcaption class="afp-shot-cap">確度 A・B と製品名 kintone を選んだ状態。選んだ窓は緑の枠になり、右端に<strong>「絞り込み結果 26件」</strong>が出ます。</figcaption>
+        </figure>
+        <div class="afp-cautions">
+          <ul>
+            <li>窓どうしは<strong>AND で同時に効き</strong>ます。文字列系・数値の窓は、ほかの窓の選択に合わせて、候補と件数が残りの値だけに更新されます</li>
+            <li>kintone 標準の［絞り込み］で付けた条件はそのまま残り、クイックフィルターの条件が<strong>重ねて（AND で）</strong>効きます</li>
+            <li>選んだ内容は<strong>一覧ごとに記憶</strong>され、画面を移動しても残ります（設定でオフにできます）</li>
+            <li>窓ごとの × と、帯の［すべて解除］で外せます。標準の絞り込みなど、クイックフィルター以外の条件は残ります</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- フィールドの種類 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">フィールドの種類に合わせた窓になります</h2>
+        <div class="afp-tablewrap">
+          <table class="afp-compare qf-type-table">
+            <thead><tr><th>種類</th><th>窓の中身</th></tr></thead>
+            <tbody>
+              <tr><td>ドロップダウン・ラジオボタン・チェックボックス・複数選択・ステータス</td><td>定義した選択肢がすべて並びます（件数は出しません）</td></tr>
+              <tr><td>文字列（1行）・リンク・ユーザー選択・組織選択・グループ選択・作成者・更新者・ルックアップ</td><td>実際にある値が件数つきで並びます</td></tr>
+              <tr><td>数値・計算（数値）</td><td>値の一覧に加え、「〜以上」「〜以下」の範囲指定</td></tr>
+              <tr><td>日付・日時・作成日時・更新日時</td><td>期間ボタン（今日・昨日・今週・先週・今月・先月・今年・昨年）と、開始〜終了の指定</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="afp-note">文字列（複数行）・リッチエディター・添付ファイル・時刻・ラベルなどは、窓にできません。</p>
+        <div class="afp-shot-pair" style="margin-top:26px;">
+          <figure class="afp-shot">
+            <Picture src="/images/quick-filter-panel-02.png" alt="見込み時期（日付）の窓。今日・今週・今月・先月・今年の期間ボタンが並び、今月が選択されている。その下に日付の範囲の入力欄と、(空白) の候補がある" width="516" height="359" class="zoomable" />
+            <figcaption class="afp-shot-cap">日付の窓。<strong>期間ボタン</strong>を押すか、開始〜終了を入れます。</figcaption>
+          </figure>
+          <figure class="afp-shot">
+            <Picture src="/images/quick-filter-panel-03.png" alt="小計（数値）の窓。「〜以上」「〜以下」の範囲を入力する欄があり、50000 以上を入力している。その下に値の候補が並んでいる" width="516" height="1075" class="zoomable" />
+            <figcaption class="afp-shot-cap">数値の窓。値のチェックに加えて<strong>範囲</strong>で絞れます。併用すると「範囲内かつ選んだ値」です。</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 併用 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">クイックサーチ・集計サマリーバー・かんたんCSV出力と一緒に使うのがおすすめ</h2>
+        <p class="afp-lead">
+          同じ一覧に、<strong>クイックサーチ</strong>（キーワード検索）・<strong>集計サマリーバー</strong>（合計・件数の表示）・<strong>かんたんCSV出力</strong>（CSV の書き出し）を置くと、「キーワードで探す」「値で絞る」「合計を見る」「結果を書き出す」が<strong>一覧の上で完結</strong>します。ボタンや帯は重なりません。
+        </p>
+        <div class="qf-combo-box">
+          <div class="qf-combo-flow">
+            <div class="qf-combo-step">
+              <span class="qf-combo-plugin">クイックサーチ</span>
+              <strong>キーワードで探す</strong>
+              <p>会社名の一部など、文字を打って探します。</p>
+            </div>
+            <div class="qf-combo-arrow">+</div>
+            <div class="qf-combo-step">
+              <span class="qf-combo-plugin is-self">クイックフィルター</span>
+              <strong>値を選んで絞る</strong>
+              <p>確度や担当者など、選べる値で絞り込みます。</p>
+            </div>
+            <div class="qf-combo-arrow">+</div>
+            <div class="qf-combo-step">
+              <span class="qf-combo-plugin">集計サマリーバー</span>
+              <strong>合計・件数を見る</strong>
+              <p>絞り込んだ結果の小計・件数が、その場で更新されます。</p>
+            </div>
+            <div class="qf-combo-arrow">+</div>
+            <div class="qf-combo-step">
+              <span class="qf-combo-plugin">かんたんCSV出力</span>
+              <strong>結果を書き出す</strong>
+              <p>［CSV出力］を押すと、絞り込んだ結果だけが CSV になります。</p>
+            </div>
+          </div>
+          <div class="qf-combo-shot">
+            <figure class="afp-shot" style="margin:0 auto;">
+              <Picture src="/images/quick-filter-combo-02.png" alt="4 つのプラグインを同じ一覧に置いた画面。上段にクイックサーチの検索欄（「株式会社」と入力）と［CSV出力］ボタン、その下に集計サマリーバーの小計（合計）632,250・件数 10、クイックフィルターの窓で確度 A・B と案件担当者 鈴木 花子が選ばれ、一覧も 10 件に絞られている" width="1400" height="655" class="zoomable" />
+              <figcaption class="afp-shot-cap">クイックサーチに「株式会社」、クイックフィルターで確度 A・B と案件担当者 鈴木 花子。集計サマリーバーは<strong>小計（合計）632,250・件数 10</strong> を表示しています。ここで［CSV出力］を押すと、この 10 件が CSV になります。</figcaption>
+            </figure>
+          </div>
+          <div class="afp-cautions" style="margin-top:24px;box-shadow:none;padding:0;">
+            <ul>
+              <li>条件は<strong>すべて AND</strong> で効きます。クイックフィルターの候補と件数は、クイックサーチで絞った範囲から数えます</li>
+              <li>集計サマリーバーは、クイックフィルターで絞り込んだ結果に合わせて件数・合計が更新されます</li>
+              <li>かんたんCSV出力は、クイックフィルター（とクイックサーチ）で絞り込んだ結果を、そのまま CSV に書き出します</li>
+              <li>4 つのプラグインを同じ一覧に入れて、<strong>ボタンや帯が重ならず、条件・件数・合計と CSV に出るレコードが REST API の結果と一致する</strong>ことを確認しています</li>
+            </ul>
+          </div>
+          <div class="qf-combo-links">
+            <a href="/plugins/quick-search/" class="qf-combo-link">クイックサーチ for kintone を見る →</a>
+            <a href="/plugins/summary-bar/" class="qf-combo-link">集計サマリーバー for kintone を見る →</a>
+            <a href="/plugins/csv-export/" class="qf-combo-link">かんたんCSV出力 for kintone を見る →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 利用者が窓を足す -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">利用者が、自分で窓を足せる（プレミアム）</h2>
+        <p class="afp-lead">
+          帯の末尾の<strong>［＋ 絞り込みを追加］</strong>から、このアプリのフィールドを選んで窓を足せます。足した窓は<strong>その利用者のブラウザにだけ</strong>保存され、× で外せます。1 つの一覧につき最大 10 個です。管理者が設定でオフにすることもできます。
+        </p>
+        <figure class="afp-shot">
+          <Picture src="/images/quick-filter-add-01.png" alt="［＋ 絞り込みを追加］を押したパネル。「絞り込むフィールドを選んでください」の下に、フィールド名の検索欄と、FAX・TEL・メールアドレス・ユーザー数・会社名・更新者・更新日時などのフィールドが種類つきで並んでいる" width="1400" height="507" class="zoomable" />
+          <figcaption class="afp-shot-cap">フィールド名で検索して選びます。追加した窓は、ほかの利用者の画面には出ません。</figcaption>
+        </figure>
+        <h3 class="afp-h3">テーブルの値・別アプリの値でも絞り込めます（プレミアム）</h3>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>テーブル</h3>
+            <p>窓にテーブル内の項目を選びます。「その値を含む行が 1 つでもあるレコード」が表示されます。件数は行ではなく、レコードの数です。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ルックアップ先</h3>
+            <p>このアプリが参照している別アプリの項目（例：取引先アプリの「業種」）で、このアプリのレコードを絞り込みます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>関連レコード先</h3>
+            <p>このアプリを参照している別アプリの項目（例：明細アプリの「品目」）で、このアプリのレコードを絞り込みます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 設定 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定は、一覧と窓を選ぶだけ</h2>
+        <p class="afp-lead">
+          設定画面で、帯を出す<strong>一覧</strong>と、並べる<strong>窓のフィールド</strong>を選びます。「設定セット」は、どの一覧にどの窓を出すかのひとまとまりです。プレミアムでは設定セットを複数作れて、<strong>一覧ごとに別の窓</strong>を出せます。左のライブプレビューで、帯の見た目をその場で確かめられます。
+        </p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/quick-filter-config-01.png" alt="クイックフィルターの設定画面の全体。上に製品名とバージョン、左に設定セットの一覧とライブプレビュー、中央に設定セット名・表示する一覧・利用者による追加と、確度・製品名・案件担当者名・見込み時期などの絞り込みの窓の設定、右に KIZUNA Works の案内が並んでいる" width="1600" height="1437" class="zoomable" />
+          <figcaption class="afp-shot-cap">設定画面の全体。窓ごとに<strong>表示名・候補の並び順・（空白）を候補に出すか</strong>を決められます。数値は範囲指定、日付は出す期間ボタンも選べます。</figcaption>
+        </figure>
+        <div class="afp-cautions">
+          <ul>
+            <li>全体設定で、<strong>絞り込み結果の件数の表示</strong>・<strong>選択の保持</strong>・候補一覧の最大の高さ・<strong>帯の配色</strong>（KIZUNA標準・シンプル・グリーン・ウォーム・カスタム）を変えられます</li>
+            <li>フォームの定義（選択肢の追加やフィールドの変更）を変えたときは、設定画面を開いて<strong>［保存］し直して</strong>ください。選択肢系の窓は、保存した時点の選択肢を使います</li>
+            <li>保存すると「アプリの設定」画面に戻ります。［アプリを更新］で反映します</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card"><h3>値を選ぶだけの絞り込み</h3><p>窓を開くと値が件数つきで並びます。チェックを入れて閉じると、一覧が絞り込まれます。</p></div>
+          <div class="afp-feat-card"><h3>複数の窓が同時に効く</h3><p>窓どうしは AND、同じ窓の複数の値は OR です。ほかの窓の選択に合わせて、候補と件数も更新されます。</p></div>
+          <div class="afp-feat-card"><h3>種類に合わせた窓</h3><p>選択肢・文字列・ユーザー・数値・日付のそれぞれに合った窓を出します。</p></div>
+          <div class="afp-feat-card"><h3>数値の範囲と日付の期間</h3><p>数値は「〜以上」「〜以下」、日付は今日・今週・今月などの期間ボタンで絞れます。</p></div>
+          <div class="afp-feat-card"><h3>候補の検索と「選んだ値以外」</h3><p>候補を検索し、表示中をまとめてチェックできます。選んだ値を除外する絞り込みもできます。</p></div>
+          <div class="afp-feat-card"><h3>結果の件数と選択の記憶</h3><p>帯の右端に「絞り込み結果 ○件」を表示します。選択は一覧ごとに記憶し、［すべて解除］で外せます。</p></div>
+          <div class="afp-feat-card"><h3>標準の絞り込みと併用</h3><p>標準の［絞り込み］の条件は残り、重ねて効きます。クイックサーチ・集計サマリーバー・かんたんCSV出力とも同じ一覧に置けます。</p></div>
+          <div class="afp-feat-card"><h3>テーブル・別アプリの値 🔒</h3><p>テーブル内の項目や、ルックアップ先・関連レコード先の別アプリの項目でも絞り込めます。</p></div>
+          <div class="afp-feat-card"><h3>利用者による窓の追加 🔒</h3><p>［＋ 絞り込みを追加］から、利用者が自分で窓を足せます。足した窓はその人のブラウザにだけ保存されます。</p></div>
+          <div class="afp-feat-card"><h3>複数の設定セット 🔒</h3><p>一覧ごとに別の窓の組み合わせを出せます。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- インストール -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="afp-steps steps-list">
+          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-quick-filter-v1.0.0.zip</code> を保存します。</span></li>
+          <li><span>kintone の<strong>「kintoneシステム管理」→「プラグイン」</strong>を開き、<strong>「読み込む」</strong>から zip を読み込みます。</span></li>
+          <li><span>絞り込みを付けたいアプリで<strong>「アプリの設定」→「プラグイン」→「プラグインの追加」</strong>から追加します。</span></li>
+          <li><span>歯車アイコンから設定画面を開き、<strong>帯を出す一覧と、窓にするフィールド</strong>を選びます。</span></li>
+          <li><span><strong>［保存］</strong>を押して、「アプリの設定」画面で<strong>［アプリを更新］</strong>します。一覧の上に窓が並びます。</span></li>
+        </ol>
+        <div class="afp-note">すでに入れているアプリへの上書きアップデートは、同じ手順で zip を読み込み直すだけです（設定は保持されます）。</div>
+      </div>
+    </section>
+
+    <!-- プラン -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料のままでも、<strong>先頭の設定セット 1 つ</strong>で、<strong>このアプリのフィールドの窓を 3 個まで</strong>使えます（値の選択・件数つきの候補・窓どうしの同時絞り込み・選択の記憶・解除は、すべて無料の範囲です）。<strong>テーブル・別アプリの窓</strong>、<strong>4 個目以降の窓</strong>、<strong>2 つ目以降の設定セット</strong>、<strong>利用者による窓の追加</strong>が、プレミアム年間サポーターで解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ 値を選んで絞り込む（件数つきの候補・同時絞り込み）</li>
+              <li>✅ 先頭の設定セット 1 つ</li>
+              <li>✅ このアプリのフィールドの窓を 3 個まで</li>
+              <li>✅ 数値の範囲・日付の期間ボタン・候補の検索</li>
+              <li>✅ 選択の記憶・［すべて解除］・帯の配色</li>
+              <li>✅ 利用期限なし（一覧・設定画面に控えめな広告あり）</li>
+            </ul>
+            <a href="/downloads/kw-quick-filter-v1.0.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>テーブル内の値</strong>で絞り込む</li>
+              <li>✅ <strong>ルックアップ先・関連レコード先</strong>の別アプリの値で絞り込む</li>
+              <li>✅ <strong>窓の数の制限なし</strong>（4 個目以降も使える）</li>
+              <li>✅ <strong>複数の設定セット</strong>（一覧ごとに別の窓）</li>
+              <li>✅ 利用者が窓を足せる<strong>［＋ 絞り込みを追加］</strong></li>
+              <li>✅ <strong>プレミアム全製品</strong>と、ちょこっとプラグイン全製品が使えます（一覧・設定画面の広告なし）</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta is-primary">プレミアム年間サポーターを見る →</a>
+          </div>
+        </div>
+
+        <ResellerCard />
+        <div class="afp-note">単品販売はありません。無料の範囲を超える窓や設定セットも設定画面では作れますが、無料プランでは一覧で 🔒 付きのグレー表示になり、条件には使われません。期限が切れても<strong>設定は消えません</strong>。無料の範囲（先頭の設定セットのこのアプリのフィールドの窓 3 個まで）だけが有効になり、加入（更新）すればそのまま再開します。</div>
+      </div>
+    </section>
+
+    <!-- 動作環境 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">動作環境と注意事項</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li>対象は、<strong>PC 版のレコード一覧の標準の「一覧」形式のビュー</strong>です。カスタマイズビュー・カレンダー・グラフ、およびモバイル版では動きません。ゲストスペース内のアプリにも導入できます</li>
+            <li>候補は、初めて窓を開いたときに全件から集め、ブラウザに保存して使い回します。件数が多いと初回は少し時間がかかります（途中で［中止］もできます）。更新・追加は自動で差分だけ取り直し、古いままのときは候補パネルの［最新にする］で取り直せます</li>
+            <li>同じテーブルの窓を 2 つ以上置いたとき、「同じ行で両方を満たす」絞り込みにはなりません。それぞれを満たす行があるレコードが表示されます（kintone の絞り込みの仕様です）</li>
+            <li>一度に選べる値には上限があります。選択が多すぎて一覧に反映できないときは案内が出るので、さらに絞り込んでください</li>
+            <li>閲覧権限のないレコード・フィールドは、候補にも表示されません。クイックフィルターは表示の絞り込みで、アクセス権を変えるものではありません</li>
+            <li>別のゲストスペースにあるアプリは、別アプリの窓には使えません</li>
+            <li>選択、利用者が足した窓、候補の保存は、そのブラウザの中だけに置きます。別のブラウザや別のパソコンには引き継がれません</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <PremiumFaqSection
+      pluginId="kw-quick-filter"
+      pageUrl="https://kizuna-works.jp/plugins/quick-filter/"
+      headingClass="afp-h2"
+    />
+
+    <!-- セキュリティ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-quick-filter" />
+        <ShareButtons title="クイックフィルター for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>値を選ぶだけで、一覧が絞れる</h2>
+      <p>クイックフィルターはプレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料のままでも、このアプリのフィールドの窓を 3 個までお使いいただけます。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="qf-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('qf-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      // The download link appears in the hero and in the plan card, so track both.
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: 'kw-quick-filter-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-quick-filter-v1.0.0.zip'
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

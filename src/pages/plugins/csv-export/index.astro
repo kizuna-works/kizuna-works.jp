@@ -7,6 +7,7 @@ import SupporterCTA from '../../../components/SupporterCTA.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import PluginFaqSection from '../../../components/PluginFaqSection.astro';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <Layout
@@ -867,6 +868,10 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
       transition: border-color 0.2s;
     }
     .combo-link:hover { border-bottom-color: var(--color-green); }
+    .combo-shot { margin: 28px 0 0; }
+    .combo-shot img { display: block; width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 10px; }
+    .combo-shot figcaption { font-size: 13px; color: var(--color-text-light); line-height: 1.7; text-align: center; margin-top: 10px; }
+    .combo-note { font-size: 14px; line-height: 1.8; color: #333333; text-align: center; margin: 20px 0 0; }
 
     @media (max-width: 768px) {
       .related-posts-grid { grid-template-columns: 1fr; }
@@ -883,7 +888,12 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         white-space: normal;
       }
       .config-screenshots { grid-template-columns: 1fr; }
-      .combo-arrow { transform: rotate(90deg); }
+      /* Stack the steps; a rotated arrow box overflowed the viewport, so swap the glyph instead. */
+      .combo-flow { flex-direction: column; align-items: stretch; }
+      .combo-step { flex: 0 0 auto; max-width: none; }
+      .combo-arrow { justify-content: center; font-size: 0; }
+      .combo-arrow::after { content: '↓'; font-size: 26px; }
+      .combo-box { padding: 24px 16px; }
       .update-box { padding: 24px 20px 28px; }
       .update-title { font-size: 17px; }
     }
@@ -1118,6 +1128,46 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
         </div>
         <div class="combo-cta">
           <a href="/plugins/quick-search/" class="combo-link">クイックサーチ for kintone を見る →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Combo: quick filter -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">クイックフィルターとの併用もおすすめ</h2>
+        <p class="section-subtitle">一覧の上の窓から値を選んで絞り込むクイックフィルター。確度や担当者で絞った結果を、そのまま CSV に書き出せます。</p>
+        <div class="combo-box">
+          <div class="combo-flow">
+            <div class="combo-step">
+              <span class="combo-plugin">クイックフィルター</span>
+              <span class="combo-num">1</span>
+              <strong>値を選んで絞り込む</strong>
+              <p>一覧の上の窓を開き、件数つきの候補から値を選ぶだけ。条件を組み立てる必要はありません。</p>
+            </div>
+            <div class="combo-arrow">→</div>
+            <div class="combo-step">
+              <span class="combo-plugin">かんたんCSV出力</span>
+              <span class="combo-num">2</span>
+              <strong>テンプレートを選んで出力</strong>
+              <p>「CSV出力」ボタンから出力。クイックフィルターで絞り込んだ結果にそのまま連動します。</p>
+            </div>
+            <div class="combo-arrow">→</div>
+            <div class="combo-step">
+              <span class="combo-plugin">完成</span>
+              <span class="combo-num">3</span>
+              <strong>絞った結果だけをCSVに</strong>
+              <p>担当者別・確度別の一覧なども、窓で値を選び直すだけで次々に書き出せます。</p>
+            </div>
+          </div>
+          <figure class="combo-shot">
+            <Picture class="zoomable" src="/images/quick-filter-combo-02.png" alt="クイックフィルター・クイックサーチ・集計サマリーバー・かんたんCSV出力を同じ一覧に置いた画面。クイックフィルターの窓で確度 A・B と案件担当者 鈴木 花子が選ばれ、クイックサーチに「株式会社」と入力されて一覧が 10 件に絞られている。右上に［CSV出力］ボタンがある" width="1400" height="655" />
+            <figcaption>クイックフィルターで確度 A・B と案件担当者 鈴木 花子、クイックサーチで「株式会社」を指定した一覧。［CSV出力］を押すと、この 10 件が CSV になります（画像をクリックすると拡大表示します）。</figcaption>
+          </figure>
+          <p class="combo-note">クイックフィルター・クイックサーチ・集計サマリーバーと同じ一覧に入れて、CSV に出るレコードが絞り込み結果と一致することを確認しています。</p>
+          <div class="combo-cta">
+            <a href="/plugins/quick-filter/" class="combo-link">クイックフィルター for kintone（プレミアム）を見る →</a>
+          </div>
         </div>
       </div>
     </section>

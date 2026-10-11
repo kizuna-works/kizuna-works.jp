@@ -953,8 +953,20 @@ import Picture from '../../../components/Picture.astro';
     }
     .combo-link:hover { border-bottom-color: var(--color-green); }
 
+    .combo-shot { margin: 28px 0 0; }
+    .combo-shot img { display: block; width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 10px; }
+    .combo-shot figcaption { font-size: 13px; color: var(--color-text-light); line-height: 1.7; text-align: center; margin-top: 10px; }
+    .combo-note { font-size: 14px; line-height: 1.8; color: var(--color-text-main); text-align: center; margin: 20px 0 0; }
+    .combo-cta-multi { display: flex; flex-wrap: wrap; gap: 8px 28px; justify-content: center; }
+
     @media (max-width: 768px) {
-      .combo-arrow { transform: rotate(90deg); }
+      /* Stack the steps; a rotated arrow box overflowed the viewport, so swap the glyph instead. */
+      .combo-flow { flex-direction: column; align-items: stretch; }
+      .combo-step { flex: 0 0 auto; max-width: none; }
+      .combo-arrow { justify-content: center; }
+      .combo-arrow:not(.is-plus) { font-size: 0; }
+      .combo-arrow:not(.is-plus)::after { content: '↓'; font-size: 26px; }
+      .combo-box { padding: 24px 16px; }
     }
   </style>
 
@@ -1096,6 +1108,45 @@ import Picture from '../../../components/Picture.astro';
           <div class="combo-cta">
             <a href="/plugins/csv-export/" class="combo-link">かんたんCSV出力 for kintone を見る →</a>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Combo: quick filter + summary bar -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">クイックフィルター・集計サマリーバーとの併用もおすすめ</h2>
+      <p class="section-subtitle">キーワードで探すクイックサーチに、値を選んで絞るクイックフィルターと、合計・件数を出す集計サマリーバーを重ねると、「探す・絞る・数える」が一覧の上で完結します。</p>
+      <div class="combo-box">
+        <div class="combo-flow">
+          <div class="combo-step">
+            <span class="combo-plugin">クイックサーチ</span>
+            <span class="combo-num">1</span>
+            <strong>キーワードで探す</strong>
+            <p>会社名の一部など、文字を打って複数のフィールドをまとめて探します。</p>
+          </div>
+          <div class="combo-arrow is-plus">+</div>
+          <div class="combo-step">
+            <span class="combo-plugin">クイックフィルター</span>
+            <span class="combo-num">2</span>
+            <strong>値を選んで絞る</strong>
+            <p>確度や担当者など、件数つきの候補から値を選んで絞り込みます。</p>
+          </div>
+          <div class="combo-arrow is-plus">+</div>
+          <div class="combo-step">
+            <span class="combo-plugin">集計サマリーバー</span>
+            <span class="combo-num">3</span>
+            <strong>合計・件数を見る</strong>
+            <p>絞り込んだ結果の合計・件数が、その場で更新されます。</p>
+          </div>
+        </div>
+        <figure class="combo-shot">
+          <Picture class="zoomable" src="/images/quick-filter-combo-01.png" alt="3 つのプラグインを同じ一覧に置いた画面。クイックサーチに「株式会社」と入力し、クイックフィルターで確度 A・B と案件担当者 鈴木 花子を選ぶと、集計サマリーバーが小計（合計）632,250・件数 10 を表示し、一覧も 10 件に絞られている" width="1400" height="655" />
+          <figcaption>クイックサーチに「株式会社」、クイックフィルターで確度 A・B と案件担当者 鈴木 花子。集計サマリーバーは小計（合計）632,250・件数 10 を表示しています（画像をクリックすると拡大表示します）。</figcaption>
+        </figure>
+        <p class="combo-note">条件はすべて AND で効きます。クイックフィルターの候補と件数は、クイックサーチで絞った範囲から数えます。3 つの帯は重なりません。</p>
+        <div class="combo-cta combo-cta-multi">
+          <a href="/plugins/quick-filter/" class="combo-link">クイックフィルター for kintone（プレミアム）を見る →</a>
+          <a href="/plugins/summary-bar/" class="combo-link">集計サマリーバー for kintone を見る →</a>
         </div>
       </div>
     </section>
