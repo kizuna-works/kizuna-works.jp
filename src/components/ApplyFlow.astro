@@ -1,0 +1,318 @@
+---
+// ApplyFlow.astro — "from application to license" diagram shown above SupporterForm.
+// The application is not a contract: it becomes one only after the applicant confirms
+// via the email link, pays, and the payment is confirmed. Keep the step texts in sync
+// with the license GAS (ApplicationConfirm.js: 48h link / LicenseManager.js: issue after payment).
+---
+
+<section class="af-section" aria-labelledby="af-title">
+  <div class="af-inner">
+    <h2 id="af-title" class="af-title">お申し込みからご利用開始までの流れ</h2>
+    <p class="af-lead">
+      お申し込みの確定とお支払いは、別の手順です。<strong>お支払いが確認できるまで、ライセンスは発行されません。</strong>
+    </p>
+
+    <div class="af-groups">
+      <div class="af-group af-group-apply">
+        <p class="af-group-label">お申し込み<span class="af-group-note">この段階では契約・課金は発生しません</span></p>
+        <ol class="af-steps">
+          <li class="af-step">
+            <span class="af-num" aria-hidden="true">1</span>
+            <div class="af-body">
+              <h3 class="af-step-title">フォームを送信</h3>
+              <p class="af-step-desc">このページ下の<a href="#sf-form">申込フォーム</a>から送信します。</p>
+            </div>
+          </li>
+          <li class="af-step af-step-key">
+            <span class="af-num" aria-hidden="true">2</span>
+            <div class="af-body">
+              <h3 class="af-step-title">確認メールから申込を確定</h3>
+              <p class="af-step-desc">届いたメールのリンクを開き「申込を確定する」を押します（<strong>48時間以内</strong>）。届かないときは迷惑メールのフォルダもご確認ください。</p>
+            </div>
+          </li>
+          <li class="af-step">
+            <span class="af-num" aria-hidden="true">3</span>
+            <div class="af-body">
+              <h3 class="af-step-title">お支払いのご案内が届く</h3>
+              <p class="af-step-desc">銀行振込は見積書・請求書の PDF、Square 決済は決済リンクをメールでお送りします。</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="af-group af-group-pay">
+        <p class="af-group-label">お支払い・ライセンス発行</p>
+        <ol class="af-steps" start="4">
+          <li class="af-step">
+            <span class="af-num" aria-hidden="true">4</span>
+            <div class="af-body">
+              <h3 class="af-step-title">お振込み・お支払い</h3>
+              <p class="af-step-desc">請求書の内容でお振込み、または決済リンクからお支払いください。</p>
+            </div>
+          </li>
+          <li class="af-step af-step-goal">
+            <span class="af-num" aria-hidden="true">5</span>
+            <div class="af-body">
+              <h3 class="af-step-title">ライセンス発行・ご利用開始</h3>
+              <p class="af-step-desc">ご入金の確認後、3営業日以内にライセンスを発行し、領収書の PDF を添えてお知らせします。</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <ul class="af-notes">
+      <li>確認メールのリンクを押さないと、お申し込みは確定しません（48時間を過ぎたら、もう一度お申し込みください）。</li>
+      <li>見積書・請求書が届いた時点では、まだ契約ではありません。お振込みがなければ、そのままで結構です。</li>
+      <li>プレミアム年間サポーターは、90日たってもご入金がない場合に確認のご連絡を1度お送りし、その後お申し込みを取り消します。</li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* Self-contained styles, `af-` prefixed to avoid collisions with the page. */
+  .af-section {
+    padding: 60px 5% 0;
+    word-break: auto-phrase;
+  }
+
+  .af-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .af-title {
+    font-size: 1.5rem;
+    color: #1B3A6B;
+    text-align: center;
+    margin: 0 0 12px;
+  }
+
+  .af-lead {
+    text-align: center;
+    color: #333333;
+    line-height: 1.8;
+    margin: 0 0 28px;
+  }
+
+  .af-lead strong {
+    color: #B42318;
+  }
+
+  .af-groups {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .af-group {
+    border-radius: 12px;
+    padding: 16px 16px 20px;
+    min-width: 0;
+  }
+
+  /* Arrow between the two groups (step 3 -> step 4) */
+  .af-group-apply::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -17px;
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 11px solid #2E8B2E;
+    transform: translateY(-50%);
+  }
+
+  .af-group-apply {
+    position: relative;
+    flex: 3;
+    background-color: #EEF3FA;
+    border: 2px dashed #9DB2D3;
+  }
+
+  .af-group-pay {
+    flex: 2;
+    background-color: #EDF7ED;
+    border: 2px solid #2E8B2E;
+  }
+
+  .af-group-label {
+    margin: 0 0 14px;
+    font-weight: 700;
+    color: #1B3A6B;
+    font-size: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+  }
+
+  .af-group-pay .af-group-label {
+    color: #1F6B1F;
+  }
+
+  .af-group-note {
+    font-weight: 500;
+    font-size: 0.82rem;
+    color: #64748b;
+  }
+
+  .af-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 22px;
+  }
+
+  .af-step {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 18px 14px 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Arrow between steps (right on desktop, down on mobile) */
+  .af-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -17px;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 10px solid #1B3A6B;
+    transform: translateY(-50%);
+  }
+
+  .af-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #1B3A6B;
+    color: #FFFFFF;
+    font-weight: 900;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+  }
+
+  .af-step-key .af-num {
+    background-color: #D97706;
+  }
+
+  .af-step-goal .af-num {
+    background-color: #2E8B2E;
+  }
+
+  .af-body {
+    min-width: 0;
+  }
+
+  .af-step-title {
+    font-size: 1rem;
+    color: #1B3A6B;
+    margin: 0 0 8px;
+    line-height: 1.5;
+  }
+
+  .af-step-desc {
+    font-size: 0.86rem;
+    color: #555555;
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .af-step-desc a {
+    color: #1B3A6B;
+    font-weight: 700;
+  }
+
+  .af-step-key {
+    outline: 2px solid #F5B85C;
+  }
+
+  .af-notes {
+    margin: 20px 0 0;
+    padding: 14px 18px 14px 34px;
+    background-color: #FFFBEB;
+    border: 1px solid #FCD34D;
+    border-radius: 10px;
+    color: #333333;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    list-style: disc;
+  }
+
+  .af-notes li + li {
+    margin-top: 4px;
+  }
+
+  /* Tablet: stack the two groups, keep steps in a row */
+  @media (max-width: 960px) {
+    .af-groups {
+      flex-direction: column;
+      gap: 24px;
+    }
+    .af-group-apply::after {
+      top: auto;
+      bottom: -21px;
+      right: auto;
+      left: 50%;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 11px solid #2E8B2E;
+      border-bottom: 0;
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Mobile: vertical timeline */
+  @media (max-width: 640px) {
+    .af-section {
+      padding: 40px 5% 0;
+    }
+    .af-title {
+      font-size: 1.25rem;
+    }
+    .af-lead {
+      text-align: left;
+    }
+    .af-steps {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .af-step {
+      flex-direction: row;
+      align-items: flex-start;
+      text-align: left;
+      gap: 12px;
+    }
+    .af-num {
+      margin-bottom: 0;
+    }
+    .af-step:not(:last-child)::after {
+      top: auto;
+      bottom: -16px;
+      right: auto;
+      left: 31px;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 10px solid #1B3A6B;
+      border-bottom: 0;
+      transform: none;
+    }
+  }
+</style>

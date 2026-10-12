@@ -50,7 +50,7 @@ const faqs = [
   },
   {
     q: '申し込むとすぐに使えますか？',
-    a: 'お申し込み後、ご入力のメールアドレス宛に利用開始のご案内メールをお送りします。体験ライセンスはご入力の kintone ドメインに対して有効になります。',
+    a: 'お申し込み後、ご入力のメールアドレス宛に確認メールをお送りします。メールのリンクを開いて「申込を確定する」を押すと（48時間以内）、その場で体験が始まり、利用開始のご案内メールが届きます。体験ライセンスはご入力の kintone ドメインに対して有効になります。確認メールが届かないときは、迷惑メールのフォルダもご確認ください。',
   },
 ];
 
@@ -71,6 +71,18 @@ const jsonLd = {
         { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
         { '@type': 'ListItem', position: 2, name: 'kintoneプラグイン', item: 'https://kizuna-works.jp/plugins/' },
         { '@type': 'ListItem', position: 3, name: 'プレミアム年間サポーター 30日間無料体験', item: pageUrl },
+      ],
+    },
+    {
+      '@type': 'HowTo',
+      '@id': pageUrl + '#how-it-works',
+      name: 'プレミアム年間サポーター 30日間無料体験の始め方',
+      description: '4ステップで全プラグインを30日間、広告なし・全機能で試せます。カード登録・お支払いの手続きはありません。',
+      step: [
+        { '@type': 'HowToStep', position: 1, name: '申し込む', text: '会社名・メール・kintone ドメインを入力するだけ。カード登録は不要です。' },
+        { '@type': 'HowToStep', position: 2, name: '確認メールで確定', text: '届いたメールのリンクを開き「申込を確定する」を押します（48時間以内）。届かないときは迷惑メールのフォルダもご確認ください。' },
+        { '@type': 'HowToStep', position: 3, name: 'すぐに使い始める', text: '確定と同時に体験が始まり、ご案内メールが届きます。対象ドメインで全プラグインが広告なし・全機能で使えます。' },
+        { '@type': 'HowToStep', position: 4, name: '30日後に決める', text: '気に入ったら続けるだけ。何もしなければ自動的に無料版に戻ります。自動課金はありません。' },
       ],
     },
     {
@@ -109,7 +121,7 @@ const jsonLd = {
         </p>
         <a href="#trial-form" class="pt-hero-cta">無料で体験を始める</a>
         <p class="pt-hero-note">
-          お申し込み後すぐにご案内メールをお送りします。期間終了後は自動的に無料版に戻ります（勝手に課金されません）。
+          お申し込み後に届く確認メールから確定すると、すぐに使い始められます。期間終了後は自動的に無料版に戻ります（勝手に課金されません）。
         </p>
       </div>
     </section>
@@ -118,20 +130,25 @@ const jsonLd = {
     <section class="pt-section">
       <div class="pt-inner">
         <h2 class="pt-h2">無料体験の仕組み</h2>
-        <p class="pt-lead">3ステップで、今日から全プラグインを試せます。</p>
+        <p class="pt-lead">4ステップで、今日から全プラグインを試せます。お支払いの手続きはありません。</p>
         <div class="pt-steps">
           <div class="pt-step">
             <div class="pt-step-num">1</div>
             <h3 class="pt-step-title">申し込む</h3>
             <p class="pt-step-desc">会社名・メール・kintone ドメインを入力するだけ。カード登録は不要です。</p>
           </div>
-          <div class="pt-step">
+          <div class="pt-step pt-step-key">
             <div class="pt-step-num">2</div>
-            <h3 class="pt-step-title">すぐに使い始める</h3>
-            <p class="pt-step-desc">ご案内メールが届いたら、対象ドメインで全プラグインが広告なし・全機能で使えます。</p>
+            <h3 class="pt-step-title">確認メールで確定</h3>
+            <p class="pt-step-desc">届いたメールのリンクを開き「申込を確定する」を押します（48時間以内）。届かないときは迷惑メールのフォルダもご確認ください。</p>
           </div>
           <div class="pt-step">
             <div class="pt-step-num">3</div>
+            <h3 class="pt-step-title">すぐに使い始める</h3>
+            <p class="pt-step-desc">確定と同時に体験が始まり、ご案内メールが届きます。対象ドメインで全プラグインが広告なし・全機能で使えます。</p>
+          </div>
+          <div class="pt-step">
+            <div class="pt-step-num">4</div>
             <h3 class="pt-step-title">30日後に決める</h3>
             <p class="pt-step-desc">気に入ったら続けるだけ。何もしなければ自動的に無料版に戻ります。自動課金はありません。</p>
           </div>
@@ -364,8 +381,22 @@ const jsonLd = {
   /* Steps */
   .pt-steps {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .pt-step-key {
+    outline: 2px solid #F5B85C;
+  }
+
+  .pt-step-key .pt-step-num {
+    background-color: #D97706;
+  }
+
+  @media (max-width: 1024px) {
+    .pt-steps {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   .pt-step {
