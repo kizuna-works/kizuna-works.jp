@@ -275,7 +275,8 @@ c:\kizuna-works.jp\
 │   │   ├── config.ts           # コンテンツコレクションのスキーマ定義（blog / news コレクション）
 │   │   ├── news/               # お知らせエントリ Markdown 置き場（category: release/update/incident/notice）
 │   │   │   ├── plugin-lookup-filter-v130.md   # ルックアップ絞り込み v1.3.0 のお知らせ（2026-10-10 14:00・［取得］の画面を kintone の設定どおりに・文字列以外も検索・プレビュー）
-│   │   │   └── plugin-lookup-suggest-v320.md  # ルックアップサジェスト v3.2.0 のお知らせ（2026-10-10 14:10・候補を kintone の設定どおりに・文字列以外も検索・設定画面の見直し）
+│   │   │   ├── plugin-lookup-suggest-v320.md  # ルックアップサジェスト v3.2.0 のお知らせ（2026-10-10 14:10・候補を kintone の設定どおりに・文字列以外も検索・設定画面の見直し）
+│   │   │   └── plugin-lookup-suggest-v321.md  # ルックアップサジェスト v3.2.1 のお知らせ（2026-10-13 20:00・「+」を含む語の検索の改善）
 │   │   └── blog/               # ブログ記事 Markdown/MDX ファイル置き場
 │   │       ├── kintone-teichaku-shinai-riyu.md      # 「kintoneが定着しない本当の理由」記事
 │   │       ├── conditional-numbering-plugin.md      # 「条件分岐自動採番プラグインの機能と設定ガイド」記事（frontmatter `noindex: true`＝導入済ユーザー向けマニュアルのため検索インデックス対象外・sitemapからも除外）
@@ -1262,7 +1263,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-suggest-v3.0.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置・v3.0.0＝ルックアップの「絞り込みの初期設定」を候補にも適用〔標準の選択画面に出ない候補が出て選べてしまう不具合の修正〕／絞り込んだ条件をリストに表示／ルックアップ絞り込みとの連携の受け口）
 │   │   ├── kw-lookup-suggest-v3.0.2.zip  # ルックアップサジェスト for kintone 配布ファイル（旧版・2026-10-03・v3.0.2：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
 │   │   ├── kw-lookup-suggest-v3.1.0.zip  # ルックアップサジェスト for kintone 配布ファイル（旧版・2026-10-05・v3.1.0：スペースに表示するルックアップは、詳細画面では案内を出さずスペースを隠す〔設定で案内を出せる〕）
-│   │   ├── kw-lookup-suggest-v3.2.0.zip  # ルックアップサジェスト for kintone 配布ファイル（最新・2026-10-10・v3.2.0：候補を kintone の設定どおりの項目・並びに／文字列以外も検索／設定画面の見直し）
+│   │   ├── kw-lookup-suggest-v3.2.0.zip  # ルックアップサジェスト for kintone 配布ファイル（旧版・2026-10-10・v3.2.0：候補を kintone の設定どおりの項目・並びに／文字列以外も検索／設定画面の見直し）
+│   │   ├── kw-lookup-suggest-v3.2.1.zip  # ルックアップサジェスト for kintone 配布ファイル（最新・2026-10-13・v3.2.1：「+」を含む語を入力したときに候補が出ない不具合の改善）
 │   │   ├── kw-lookup-sync-v1.0.0.zip                             # ルックアップ自動同期 for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=参照先1組で全機能）
 │   │   ├── kw-lookup-sync-v1.0.1.zip                             # ルックアップ自動同期 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-lookup-sync-v2.0.2.zip                             # ルックアップ自動同期 for kintone v2.0.2 配布ファイル（重複しうるキー対応＝方式1/方式2・入力補完・PC/モバイル）
