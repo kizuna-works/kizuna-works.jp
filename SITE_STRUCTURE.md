@@ -276,8 +276,7 @@ c:\kizuna-works.jp\
 │   │   ├── news/               # お知らせエントリ Markdown 置き場（category: release/update/incident/notice）
 │   │   │   ├── plugin-lookup-filter-v130.md   # ルックアップ絞り込み v1.3.0 のお知らせ（2026-10-10 14:00・［取得］の画面を kintone の設定どおりに・文字列以外も検索・プレビュー）
 │   │   │   ├── plugin-lookup-suggest-v320.md  # ルックアップサジェスト v3.2.0 のお知らせ（2026-10-10 14:10・候補を kintone の設定どおりに・文字列以外も検索・設定画面の見直し）
-│   │   │   ├── plugin-lookup-suggest-v321.md  # ルックアップサジェスト v3.2.1 のお知らせ（2026-10-13 20:00・「+」を含む語の検索の改善）
-│   │   │   └── plugin-lookup-suggest-v322.md  # ルックアップサジェスト v3.2.2 のお知らせ（2026-10-13 21:00・レコードの多いアプリでも「+」を含む語で候補が出る・表示が速く）
+│   │   │   └── plugin-lookup-suggest-v322.md  # ルックアップサジェスト v3.2.2 のお知らせ（2026-10-13 21:00・一部の記号を含む語でも候補が出る。v3.2.1 のお知らせはこれに統合して削除）
 │   │   └── blog/               # ブログ記事 Markdown/MDX ファイル置き場
 │   │       ├── kintone-teichaku-shinai-riyu.md      # 「kintoneが定着しない本当の理由」記事
 │   │       ├── conditional-numbering-plugin.md      # 「条件分岐自動採番プラグインの機能と設定ガイド」記事（frontmatter `noindex: true`＝導入済ユーザー向けマニュアルのため検索インデックス対象外・sitemapからも除外）
