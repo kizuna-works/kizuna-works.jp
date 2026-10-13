@@ -390,6 +390,8 @@ c:\kizuna-works.jp\
 │   │   ├── quick-search-period-filter.png  # クイックサーチ v1.2.0 スクショ — 一覧の「期間▾」ドロップダウン（対象フィールド選択＋プリセット＋範囲指定・動作画面イメージ④）
 │   │   ├── quick-search-period-config.png  # クイックサーチ v1.2.0 スクショ — 設定画面の期間フィルタ設定（設定画面イメージ④）
 │   │   ├── quick-search-config-related.png # クイックサーチ v1.3.0 スクショ — 設定画面の全体（検索対象フィールドの下に関連レコード一覧の項目・右にサイドバー・製品ページUPDATEボックス用）
+│   │   ├── quick-search-help-panel.png     # クイックサーチ v1.4.0 スクショ — 検索バー右端の「?」ボタンを押した書き方パネル
+│   │   ├── quick-search-config-help.png      # クイックサーチ v1.4.0 スクショ — 設定画面「検索の書き方とヘルプボタン」の節
 │   │   ├── quick-search-related-search.png # クイックサーチ v1.3.0 スクショ — 顧客管理の一覧で案件名「ポータル」を検索した結果（関連レコードでヒット・UPDATEボックス用）
 │   │   ├── quick-search-related-detail.png # クイックサーチ v1.3.0 スクショ — ヒットした顧客の関連レコード一覧「案件一覧」（主担当の列はぼかし・UPDATEボックス用）
 │   │   ├── file-icon-marker-icon.png       # 添付ファイルアイコン表示プラグイン アイコン（200×200）
