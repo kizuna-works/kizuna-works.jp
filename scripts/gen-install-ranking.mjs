@@ -70,7 +70,22 @@ async function fetchRanking() {
   return null;
 }
 
-const ranking = await fetchRanking();
+// 公開済みの製品だけを残す（2026-10-14）
+// ------------------------------------------------------------------
+// GAS はプラグインマスタの全行を返す。公開前の製品（例：kw-bridge）も、ライセンス判定の
+// 試験のためにマスタへ先に登録することがあり、そのままだとランキングに載ってしまう。
+// HP に掲載している製品（plugins.ts の allPlugins）を「公開済み」とみなし、それ以外は外す。
+// 公開して plugins.ts に追加すれば、次のビルドから自動で載る。
+const { allPlugins } = await import('../src/data/plugins.ts');
+const publishedIds = new Set(allPlugins.map((p) => p.id));
+const onlyPublished = (list) => {
+  const dropped = list.filter((e) => !publishedIds.has(e.pluginId)).map((e) => e.pluginId);
+  if (dropped.length) console.log(`[install-ranking] 未公開のため除外: ${dropped.join(', ')}`);
+  return list.filter((e) => publishedIds.has(e.pluginId));
+};
+
+const fetched = await fetchRanking();
+const ranking = fetched && onlyPublished(fetched);
 
 if (ranking) {
   const payload = {
@@ -84,6 +99,11 @@ if (ranking) {
   console.log(`[install-ranking] 上位3件: ${ranking.slice(0, 3).map((p) => p.pluginId).join(', ')}`);
 } else if (fs.existsSync(OUT_PATH)) {
   const prev = JSON.parse(fs.readFileSync(OUT_PATH, 'utf8'));
+  // 既存スナップショットに未公開の製品が残っていれば、ここでも外す（順位は詰める）
+  const kept = onlyPublished(prev.ranking ?? []);
+  if (kept.length !== (prev.ranking ?? []).length) {
+    fs.writeFileSync(OUT_PATH, JSON.stringify({ ...prev, ranking: kept }, null, 2) + '\n');
+  }
   console.warn(
     `[install-ranking] 取得できなかったため既存スナップショットを使用します` +
     `（${prev.fetchedAt} 取得・${prev.ranking?.length ?? 0} 件）。順位は更新されません。`
