@@ -146,8 +146,10 @@ function resolveLastmod(url) {
 export default defineConfig({
   site: 'https://kizuna-works.jp',
   // Merged news entries: the old URL keeps working and points to the merged one.
+  // Wrong plugin homepage_url shipped in kw-record-lock manifests up to v1.2.1.
   redirects: {
-    '/news/plugin-input-template-v110': '/news/plugin-input-template-v120/'
+    '/news/plugin-input-template-v110': '/news/plugin-input-template-v120/',
+    '/plugins/kw-record-lock': '/plugins/record-lock/'
   },
   integrations: [
     mdx(),
