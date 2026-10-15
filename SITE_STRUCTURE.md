@@ -834,6 +834,10 @@ c:\kizuna-works.jp\
 │   │   ├── pdf-edit-areas-list.png       # 設定画面：署名欄の一覧（お客様署名欄／弊社確認欄の2行＋署名欄を追加）＋ .webp
 │   │   ├── pdf-edit-areas-preview.png    # 設定画面：見本PDFの上に2つの署名欄（選択中＝緑／未選択＝灰の破線）＋ .webp
 │   │   ├── pdf-edit-sign-choose.png      # 編集画面：「どの署名欄に置きますか？」の選択ダイアログ＋ .webp
+│   │   ├── pdf-edit-sign-guide-01.png    # スマホ：サイン画面の案内（1 / 2「会社名をご記入ください」・v1.4.0）
+│   │   ├── pdf-edit-sign-guide-02.png    # スマホ：「どの署名欄にサインしますか？」の選択画面（つないだ欄は「会社名 → お名前」）
+│   │   ├── pdf-edit-sign-guide-03.png    # PC設定画面：署名欄の行の「サイン画面の案内」と「次の欄へ続けて書く」
+│   │   ├── pdf-edit-sign-guide-04.png    # スマホ：サイン画面の案内（2 / 2「お名前をご記入ください」・［◀ 戻る］［完了］）
 │   │   ├── pdf-edit-stamp-size.png       # 設定画面の「押印画像の登録」：スキャンした印影（96KB・赤字）と大きい画像の案内（v1.3.0 のアップデート情報）＋ .webp
 │   │   ├── barcode-assist-icon.png        # バーコードアシスト 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
 │   │   ├── barcode-assist-scan-01.png     # バーコードアシスト スキャン中の画面（カメラ映像＋緑の読取枠＋読取件数＋直前の結果＋直前を取消/完了）＋ .webp
