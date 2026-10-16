@@ -1764,6 +1764,32 @@ export const premiumPlugins: Plugin[] = [
     releaseDate: '2026-10-11',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-horizontal-sheet',
+    pluginId: 'iifejidiignphlclhmjdaknfgjlmkhjf',
+    name: '横並びシート for kintone',
+    formName: '横並びシート for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'horizontal-sheet',
+    categories: ['一覧表示', '集計・計算', '装飾・配色'],
+    description:
+      'レコードを1列ずつ横に並べ、大・中・小の3段の分類見出しでまとめた表をカスタマイズビューに作ります。日付から年・月・日を切り出し、レコードの無い日は空の列に。セルはその場で編集でき、列の追加・並べ替え・分類ごとの集計列・条件付き書式も使えます。',
+    image: '/images/horizontal-sheet-banner.png',
+    imageWebp: '/images/horizontal-sheet-banner.webp',
+    imageAlt:
+      '横並びシート for kintone バナー — レコードを横に並べて、比べる・入れる。1レコード＝1列で並べ、大・中・小の3段の分類見出し、分類ごとの集計列、表の上でそのまま編集',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      'レコードを1列ずつ横に並べ、店舗別・月別の数字を3段の分類見出しでまとめて比べられます。表の上で編集でき、分類ごとの集計列も出せます。',
+    problemTitle: '店舗別・月別の数字を横に並べて比べられず、Excel に書き出している',
+    problemDesc:
+      'kintone の一覧は1レコード1行なので、店舗別・月別・業者別のレコードを横に並べて見比べられない。標準のクロス集計表は見るだけで、値の編集ができない。結局 Excel に書き出して表を作り直し、数字を直すたびに kintone と二重に管理することになる',
+    releaseDate: '2026-10-16',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**

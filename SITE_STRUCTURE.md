@@ -232,6 +232,8 @@ c:\kizuna-works.jp\
 │   │   │   │       └── index.astro # 【手順ページ】自社の Google Cloud で使う設定手順（/plugins/sheets-sync/google-cloud/）— スプレッドシート連携を顧客自身の Google Cloud プロジェクトで動かすための手順。①プロジェクト作成 ②Google Sheets API・Google Drive API・Google Picker API の 3 つを有効化（Drive API はゴミ箱の確認と接続アカウント表示に使う）③OAuth 同意画面（Workspace は「内部」／個人は「外部」＋本番環境に公開。テストのままだと 7 日で失効）④OAuth クライアント（リダイレクト URI は https://kizuna-works.jp/sheets-sync/callback.html の 1 本）⑤API キー（制限は Picker API のみ・HTTP リファラー制限は付けない）⑥設定画面へ 3 つを入力して接続。フォーム連携の同種ページを元にした同じ体裁。プラグイン設定画面の「自社の Google Cloud を使う」から直接リンクされる（config.js の SETUP_GUIDE_URL）
 │   │   │   ├── quick-filter/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】クイックフィルター 製品ページ（/plugins/quick-filter/）— 一覧の上の「絞り込みの窓」から値を選ぶだけで絞り込む。クイックサーチ・集計サマリーバーとの併用の節あり
+│   │   │   ├── horizontal-sheet/
+│   │   │   │   └── index.astro # 【プレミアムプラグイン】横並びシート 製品ページ（/plugins/horizontal-sheet/）— レコードを1列ずつ横に並べ、大・中・小の3段の分類見出しでまとめて比べる。日付の切り出し・空の列の表示・セルの編集と保存・列の追加と削除・集計列（プレミアム）・条件付き書式（プレミアム）・見た目の種類。無料は最初の1つの一覧・分類1段まで
 │   │   │   ├── lookup-add/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】ルックアップ新規登録 製品ページ（/plugins/lookup-add/）— ルックアップの候補に参照先のレコードが無いとき、［取得］の隣の［＋新規登録］から入力中の画面を離れずに登録し、そのまま取得まで完了させる。登録画面には 打った文字（キー項目へ）／入力中のレコードの値・同じ行の値・固定値（引き継ぐ値）／絞り込みの初期設定から決まる値 が入った状態で開く。登録前に似ているレコードを表示し（9種類の表記ゆれを吸収）、完全一致は登録を中止。登録方式は パネル／標準画面（別のタブ・小さなウィンドウ）。パネルの見た目3スタイル、ボタンの見せ方2種類。条件分岐自動採番 v2.2.0 以上と連携してパネルからの登録でも採番。サジェスト・絞り込みと同じルックアップ上で併用可。ヒーロー＋課題3＋before/after 2枚＋使い方3枚＋引き継ぎ表＋見た目1枚＋標準画面1枚＋方式の比較表＋設定5枚＋連携（3製品カード＋4製品同居1枚）＋インストール手順5＋プラン（無料/プレミアム）＋できないこと5＋FAQ11＋SecurityBox＋ShareButtons＋CTA。無料はルックアップ1つ、複数ルックアップと広告非表示がプレミアム。PC 版のみ・ゲストスペース対応
 │   │   │   ├── annotation/
@@ -748,6 +750,23 @@ c:\kizuna-works.jp\
 │   │   ├── quick-filter-combo-01.png        # クイックフィルター クイックサーチ・集計サマリーバーとの併用（小計 632,250・件数 10）。クイックサーチ・集計サマリーバーの製品ページの併用の節でも使用 ＋ .webp
 │   │   ├── quick-filter-combo-02.png        # クイックフィルター クイックサーチ・集計サマリーバー・かんたんCSV出力との4製品併用（［CSV出力］ボタンあり・10件）。クイックフィルターとかんたんCSV出力の製品ページで使用 ＋ .webp
 │   │   ├── quick-filter-config-01.png       # クイックフィルター 設定画面の全体（上帯・左の目次＋ライブプレビュー・中央の設定セットと窓・右サイドバー）＋ .webp
+│   │   ├── horizontal-sheet-banner.png          # 横並びシート for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・手動バナー。ユーザーが用意）＋ .webp ＋ -800.webp
+│   │   ├── horizontal-sheet-icon.png            # 横並びシート アイコン（200×200・プラグイン同梱アイコンから生成）＋ .webp
+│   │   ├── horizontal-sheet-overview.png        # 横並びシート 一覧全体（3段の分類見出し・左の行見出し・総合計の列）＋ .webp
+│   │   ├── horizontal-sheet-dates.png           # 横並びシート 日付の分類（月の下に日・曜日併記・土日の色分け）＋ .webp
+│   │   ├── horizontal-sheet-empty.png           # 横並びシート レコードの無い日の空の列と［＋］＋ .webp
+│   │   ├── horizontal-sheet-edit.png            # 横並びシート セルの編集中と未保存の表示＋ .webp
+│   │   ├── horizontal-sheet-delete.png          # 横並びシート 列見出しのごみ箱と削除の確認ダイアログ＋ .webp
+│   │   ├── horizontal-sheet-toolbar.png         # 横並びシート ツールバー（期間の切り替え・前後の期間の件数）＋ .webp
+│   │   ├── horizontal-sheet-aggregate.png       # 横並びシート 分類ごとの集計列（合計・平均・総合計）＋ .webp
+│   │   ├── horizontal-sheet-looks.png           # 横並びシート 見た目の種類の比較（標準・Excel風・カジュアル・スタイリッシュ）＋ .webp
+│   │   ├── horizontal-sheet-conditional.png     # 横並びシート 条件付き書式で色分けした表＋ .webp
+│   │   ├── horizontal-sheet-screen-01.png       # 横並びシート 設定画面の全体（左の目次＋ライブプレビュー・中央のタブ）＋ .webp
+│   │   ├── horizontal-sheet-config-01.png       # 横並びシート 設定画面：① 一覧と分類＋ .webp
+│   │   ├── horizontal-sheet-config-02.png       # 横並びシート 設定画面：② 行＋ .webp
+│   │   ├── horizontal-sheet-config-03.png       # 横並びシート 設定画面：③ 集計＋ .webp
+│   │   ├── horizontal-sheet-config-04.png       # 横並びシート 設定画面：④ 条件付き書式＋ .webp
+│   │   ├── horizontal-sheet-config-05.png       # 横並びシート 設定画面：⑤ 表示と見た目＋ .webp
 │   │   ├── lookup-add-banner.png        # ルックアップ新規登録 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・**手作りの差し替え版**。雛形は gen-plugin-banner.mjs の lookup-add 定義）＋ .webp / -800.webp
 │   │   ├── lookup-add-icon.png          # ルックアップ新規登録 アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
 │   │   ├── lookup-add-before.png        # 導入前：標準の［取得］で該当なし（行き止まり）＋ .webp
