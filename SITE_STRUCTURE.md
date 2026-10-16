@@ -123,7 +123,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── quick-side-view/
 │   │   │   │   └── index.astro # クイックサイドビュープラグイン製品ページ（/plugins/quick-side-view/）
 │   │   │   ├── record-lock/
-│   │   │   │   └── index.astro # レコードロックプラグイン製品ページ（/plugins/record-lock/）
+│   │   │   │   └── index.astro # レコードロックプラグイン製品ページ（/plugins/record-lock/）— v1.3.0 の UPDATE ボックス＝ロックアイコンを設定ごとに選択＋設定の並び替え（スクショ record-lock-v130-01〜04）。v1.2.x の内容は「ステータスごとに入力できる人と欄を変える」節と主な機能へ移動
 │   │   │   ├── field-comment/
 │   │   │   │   └── index.astro # フィールドコメントプラグイン製品ページ（/plugins/field-comment/）
 │   │   │   ├── theme-styler/
@@ -350,6 +350,10 @@ c:\kizuna-works.jp\
 │   │   ├── record-lock-mobile-01.png       # レコードロックプラグイン v1.2.0 スマホ（kintone モバイル版）の編集画面 — バナーとロックされた欄（UPDATE ボックス）
 │   │   ├── record-lock-v121-01.png         # レコードロックプラグイン v1.2.1 設定画面の条件の表 — ステータスの値をチェックボックスで選択、フィールド欄を「入力」で絞り込み、各行の［複製］（UPDATE ボックス）
 │   │   ├── record-lock-v121-02.png         # レコードロックプラグイン v1.2.1 ロック対象フィールドの一覧を「入力」で絞り込んだところ（UPDATE ボックス）
+│   │   ├── record-lock-v130-01.png         # レコードロックプラグイン v1.3.0 設定画面の全体 — 左の設定の一覧に［▲］［▼］、中央にロックアイコンの欄（UPDATE ボックス・.webp あり）
+│   │   ├── record-lock-v130-02.png         # レコードロックプラグイン v1.3.0 ロックアイコンの選択（4 分類 24 種類・アップロードした画像・アイコンなし）（UPDATE ボックス・.webp あり）
+│   │   ├── record-lock-v130-03.png         # レコードロックプラグイン v1.3.0 一覧画面 — 行ごとに違うロックアイコン（UPDATE ボックス・.webp あり）
+│   │   ├── record-lock-v130-04.png         # レコードロックプラグイン v1.3.0 詳細画面のバナー — アイコンと既定の文言（UPDATE ボックス・.webp あり）
 │   │   ├── conditional-form-setvalue-05.png  # 条件分岐フォーム v2.6.0 設定画面の動作欄 — 値をセットする行ごとの「開いたとき:」（入力済みでも上書きする／空欄のときだけ入れる）（v2.6.0 の UPDATE ボックス用。v2.7.0 で掲載終了・残置）
 │   │   ├── conditional-form-setvalue-06.png  # 条件分岐フォーム v2.6.0「適用する画面」で詳細を選んだときの注意書き（設定画面の使い方⑪）
 │   │   ├── conditional-form-setvalue-07.png  # 条件分岐フォーム v2.6.0 編集画面を開いた時点で確度100%・アクション内容が入っている（案件管理アプリ・抜粋。設定画面の使い方⑫）
@@ -1394,7 +1398,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-record-lock-v1.1.0.zip                             # レコードロック for kintone 配布ファイル（旧版・v1.1.0 ユーザーオートフィルの本人捺印をロック対象に追加＋除外グループ/組織が効かない不具合と編集・削除ボタンが隠れない不具合を修正）
 │   │   ├── kw-record-lock-v1.2.0.zip                             # レコードロック for kintone 配布ファイル（旧版・v1.2.0 ロック設定の複数化・「選んだフィールド以外すべて」・スマホ対応・設定画面 v2＋テーブルの中の欄／一覧からの削除／インライン編集がロックされない不具合を修正）
 │   │   ├── kw-record-lock-v1.2.1.zip                             # レコードロック for kintone 配布ファイル（旧版・v1.2.1 設定画面の改善：条件のフィールドを文字で絞り込み・「いずれかに一致」をチェックボックスで選択・条件行の複製・ロック対象フィールドの絞り込み）
-│   │   ├── kw-record-lock-v1.2.2.zip                             # レコードロック for kintone 配布ファイル（最新・2026-10-15・v1.2.2：プラグイン一覧の「説明」リンクの誤り〔/plugins/kw-record-lock/〕を修正）
+│   │   ├── kw-record-lock-v1.2.2.zip                             # レコードロック for kintone 配布ファイル（旧版・v1.2.2：プラグイン一覧の「説明」リンクの誤り〔/plugins/kw-record-lock/〕を修正）
+│   │   ├── kw-record-lock-v1.3.0.zip                             # レコードロック for kintone 配布ファイル（最新・2026-10-16・v1.3.0：ロックのアイコンを設定ごとに選択〔内蔵24種類・アイコンなし・お手持ちの画像〕＋設定の並びを▲▼で入れ替え）
 │   │   ├── kw-record-recovery-v1.0.0.zip                         # 削除レコード復元 for kintone 配布ファイル（旧版・手動配置・v1.0.0 初版）
 │   │   ├── kw-record-recovery-v1.0.1.zip                 # 削除レコード復元 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-recovery-v1.0.2.zip                 # 削除レコード復元 for kintone 配布ファイル（最新・手動配置・v1.0.2 重複禁止が未設定のルックアップでも安定して動作するよう改善）
