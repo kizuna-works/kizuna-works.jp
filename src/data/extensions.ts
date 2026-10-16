@@ -78,4 +78,20 @@ export const extensions: Extension[] = [
     audienceTag: '開発者・管理者向け',
     status: 'available',
   },
+  {
+    slug: 'kw-plugin-inventory-for-kintone',
+    name: 'KW Plugin Inventory for kintone',
+    description:
+      'kintone のドメイン内の全アプリに入っているプラグインと JavaScript / CSS カスタマイズを読み取り、1つのレポートにまとめる Chrome 拡張機能。未反映の変更・外部ドメインからの読み込み・使われていないカスタマイズなど、見直しが必要なものを10種類の判定で一覧にし、Excel / CSV / HTML / PDF などで出力できます。',
+    shortDescription:
+      '全アプリのプラグインと JavaScript / CSS を棚卸し。見直しが必要なものを自動で一覧にします。',
+    bannerImage: '/images/extensions/kw-plugin-inventory-banner.png',
+    bannerAlt: 'KW Plugin Inventory for kintone のバナー画像',
+    iconImage: '/images/extensions/kw-plugin-inventory-icon.png',
+    iconAlt: 'KW Plugin Inventory for kintone アイコン',
+    // ストア審査中のため未確定。承認後に Chrome ウェブストアの URL を入れ、status を 'available' にする。
+    chromeWebStoreUrl: '',
+    audienceTag: '管理者向け',
+    status: 'coming-soon',
+  },
 ];

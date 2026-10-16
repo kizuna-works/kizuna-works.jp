@@ -1,0 +1,1436 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+
+const PAGE_URL = 'https://kizuna-works.jp/extensions/kw-plugin-inventory-for-kintone/';
+
+// FAQ: the same array renders the visible accordion and the FAQPage JSON-LD,
+// so the two can never drift apart (Google requires them to match exactly).
+const faqs = [
+  {
+    q: 'kintone の標準機能とは何が違いますか？',
+    a: 'kintone のシステム管理の［プラグイン］画面でも、どのプラグインがどのアプリに追加されているかは確認でき、CSV でも出力できます。KW Plugin Inventory for kintone はそれに加えて、JavaScript／CSS カスタマイズまで含めて全アプリを1つのレポートにまとめること、未反映の変更・外部ドメインからの読み込み・「アプリの管理者だけ」に適用したままの設定など見直しが必要なものを自動で判定すること、KIZUNA Works 製プラグインに新しい版があるかを確認すること、Excel や PDF などの整形済みの形式で出力できることが異なります。引き継ぎ資料や監査、情報システム部門への報告にそのまま使えます。',
+  },
+  {
+    q: 'kintone の設定が変わることはありますか？',
+    a: 'ありません。kintone へのリクエストは読み取り（GET）のみで、設定は一切変更しません。レコードのデータ（業務データ）も読み取りません。',
+  },
+  {
+    q: '取得した情報はどこかに送信されますか？',
+    a: '送信しません。取得した情報はお使いのブラウザ内だけで処理します。外部との通信は、当方が公開している最新版の一覧（https://kizuna-works.jp/versions.json）の取得のみで、設定でオフにできます。',
+  },
+  {
+    q: 'cybozu.com 共通管理者でなくても使えますか？',
+    a: '使えます。その場合は、実行した方にアプリ管理権限のあるアプリが対象になります。権限がなく読めなかったアプリは「取得不可」として一覧に出ます。なお、どのアプリにも使われていないプラグインの判定は、cybozu.com 共通管理者が実行して最後まで取得できたときだけ行います。',
+  },
+  {
+    q: 'ゲストスペースのアプリも対象になりますか？',
+    a: '対象になります。ゲストスペースのアプリは、自動でゲストスペースの送信先に切り替えて取得します。設定画面のゲストスペースIDは、それでも取得できない場合の補助です。',
+  },
+  {
+    q: 'アプリが多いと時間がかかりますか？',
+    a: '当社の検証環境（81アプリ・71プラグイン）では、約420回の読み取りで、約1分以内に取得が完了しました。同時実行数は設定で1〜5（既定3）から選べます。途中で［中止］を押すと、取得できた分までを表示します。',
+  },
+  {
+    q: 'Microsoft Edge でも使えますか？',
+    a: 'Google Chrome 専用です。Microsoft Edge は対象外です。',
+  },
+  {
+    q: '料金はかかりますか？',
+    a: '完全無料です。課金・アカウント登録・ライセンス認証はありません。',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${PAGE_URL}#faq`,
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Layout
+  title="kintone のプラグイン・カスタマイズ棚卸し Chrome拡張機能 - KW Plugin Inventory | KIZUNA Works"
+  description="kintoneの全アプリのプラグインとJavaScript/CSSカスタマイズを読み取り、未反映の変更・外部ドメインからの読込・使われていないカスタマイズなど見直しが必要なものを自動で一覧にする無料Chrome拡張機能。Excel・PDF出力に対応し、引き継ぎや監査に使えます。"
+  ogTitle="kintone のプラグイン・カスタマイズ棚卸し Chrome拡張機能 - KW Plugin Inventory | KIZUNA Works"
+  ogDescription="kintoneの全アプリのプラグインとJavaScript/CSSカスタマイズを読み取り、未反映の変更・外部ドメインからの読込・使われていないカスタマイズなど見直しが必要なものを自動で一覧にする無料Chrome拡張機能。Excel・PDF出力に対応し、引き継ぎや監査に使えます。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/extensions/kw-plugin-inventory-for-kintone/"
+  ogImage="https://kizuna-works.jp/images/extensions/kw-plugin-inventory-banner.png"
+  canonical="https://kizuna-works.jp/extensions/kw-plugin-inventory-for-kintone/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/extensions/kw-plugin-inventory-for-kintone/",
+          "url": "https://kizuna-works.jp/extensions/kw-plugin-inventory-for-kintone/",
+          "name": "kintone のプラグイン・カスタマイズ棚卸し Chrome拡張機能 - KW Plugin Inventory | KIZUNA Works",
+          "description": "kintoneの全アプリのプラグインとJavaScript/CSSカスタマイズを読み取り、見直しが必要なものを一覧にする無料Chrome拡張機能。",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "Chrome拡張機能", "item": "https://kizuna-works.jp/extensions/" },
+            { "@type": "ListItem", "position": 3, "name": "KW Plugin Inventory for kintone", "item": "https://kizuna-works.jp/extensions/kw-plugin-inventory-for-kintone/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "KW Plugin Inventory for kintone",
+          "description": "kintoneのドメイン内の全アプリに入っているプラグインとJavaScript/CSSカスタマイズを読み取り、見直しが必要なものを一覧にするChrome拡張機能。未反映の変更・外部ドメインからの読み込みなど10種類の判定と、Excel・CSV・HTML・Markdown・JSON・PDFの出力に対応します。",
+          "applicationCategory": "BusinessApplication",
+          "applicationSubCategory": "BrowserExtension",
+          "operatingSystem": "Chrome",
+          "url": "https://kizuna-works.jp/extensions/kw-plugin-inventory-for-kintone/",
+          "image": "https://kizuna-works.jp/images/extensions/kw-plugin-inventory-banner.png",
+          "screenshot": [
+            "https://kizuna-works.jp/images/extensions/kw-plugin-inventory/01-summary.png",
+            "https://kizuna-works.jp/images/extensions/kw-plugin-inventory/02-issues.png",
+            "https://kizuna-works.jp/images/extensions/kw-plugin-inventory/03-customize.png",
+            "https://kizuna-works.jp/images/extensions/kw-plugin-inventory/04-plugins.png",
+            "https://kizuna-works.jp/images/extensions/kw-plugin-inventory/05-export.png"
+          ],
+          "softwareVersion": "1.0.0",
+          "inLanguage": "ja",
+          "dateModified": "2026-10-16",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/PreOrder",
+            "description": "完全無料。Chrome ウェブストアで公開準備中です。"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://kizuna-works.jp/images/logo.png",
+              "width": 677,
+              "height": 369
+            }
+          },
+          "featureList": [
+            "ドメイン内の全アプリのプラグインとJavaScript/CSSカスタマイズを1つのレポートにまとめる",
+            "見直しが必要なものを10種類の判定（未使用・無効・未インストール・更新あり・未反映・外部ドメインからの読込など）で一覧にする",
+            "カスタマイズのPC/モバイル・JS/CSS・読込順・指定方法・ファイル名またはURL・サイズを一覧表示",
+            "KIZUNA Works製プラグインの更新の有無を表示",
+            "Excel（5シート）・CSV（ZIP）・HTML・Markdown・JSON・PDFで出力",
+            "前回の結果をドメインごとに保存して開き直せる",
+            "ゲストスペースのアプリに対応",
+            "読み取り専用（GETのみ）で、取得した情報を外部に送信しない"
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "KW Plugin Inventory for kintone の使い方",
+          "description": "Chrome 拡張機能で kintone の全アプリのプラグインとカスタマイズを棚卸しし、レポートを保存する手順。",
+          "inLanguage": "ja",
+          "tool": [
+            { "@type": "HowToTool", "name": "Google Chrome" },
+            { "@type": "HowToTool", "name": "KW Plugin Inventory for kintone Chrome 拡張機能" }
+          ],
+          "step": [
+            {
+              "@type": "HowToStep",
+              "position": 1,
+              "name": "拡張機能をインストール",
+              "text": "Chrome ウェブストアから「KW Plugin Inventory for kintone」をインストールします。"
+            },
+            {
+              "@type": "HowToStep",
+              "position": 2,
+              "name": "kintone を開く",
+              "text": "kintone にログインして、どこかの画面を開きます。"
+            },
+            {
+              "@type": "HowToStep",
+              "position": 3,
+              "name": "棚卸しを開始",
+              "text": "ツールバーのアイコンをクリックして［棚卸しを開始］を押します。kintone のページ上で右クリックし「このドメインを棚卸し（KW Plugin Inventory）」を選んでも開始できます。"
+            },
+            {
+              "@type": "HowToStep",
+              "position": 4,
+              "name": "レポートを確認",
+              "text": "新しいタブでレポートが開き、進み具合が表示されます。取得が終わったら、要対応のタブから見直しが必要なものを確認します。"
+            },
+            {
+              "@type": "HowToStep",
+              "position": 5,
+              "name": "出力して保存",
+              "text": "［出力］で Excel・CSV・HTML・Markdown・JSON を選んで保存するか、［PDFで保存］で印刷画面から PDF に保存します。"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  </Fragment>
+  <style is:global>
+    body { background-color: #FFFFFF; }
+
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray: #999999;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(27,58,107,0.82) 0%, rgba(42,82,152,0.78) 100%),
+        url('/images/extensions-bg.webp') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 128px;
+      height: 128px;
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      background-color: #FFFFFF;
+      padding: 12px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-badge.coming-soon { background-color: #f59e0b; }
+
+    .hero-version {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      opacity: 0.95;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0.92;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #36a336;
+      transform: translateY(-2px);
+    }
+
+    .btn-disabled {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.2);
+      color: var(--color-white);
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: not-allowed;
+      border: 2px dashed rgba(255,255,255,0.4);
+    }
+
+    .section-wrapper {
+      padding: 80px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-bg { background-color: var(--color-bg); }
+
+    .section-title {
+      text-align: center;
+      color: var(--color-navy);
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 16px;
+      margin-bottom: 48px;
+    }
+
+    .usecase-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .usecase-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 28px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .usecase-icon { font-size: 36px; flex-shrink: 0; }
+
+    .usecase-title {
+      color: var(--color-navy);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .usecase-desc {
+      color: var(--color-text-light);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 28px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .feature-num {
+      display: inline-block;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 36px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .feature-title {
+      font-size: 18px;
+      color: var(--color-navy);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .format-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .gallery-row {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: flex-start;
+    }
+
+    .gallery-row.equal {
+      grid-template-columns: 1fr 1fr;
+      margin-top: 32px;
+    }
+
+    .gallery-card {
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.14);
+    }
+
+    .gallery-image-wrap {
+      background-color: #fafafa;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+    }
+
+    .gallery-image-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .gallery-image-wrap--narrow img {
+      max-width: 280px;
+    }
+
+    .gallery-content {
+      padding: 20px 24px 24px;
+    }
+
+    .gallery-title {
+      color: var(--color-navy);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .gallery-desc {
+      color: var(--color-text-light);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .step-img {
+      display: inline-block;
+      vertical-align: middle;
+      max-height: 32px;
+      border-radius: 4px;
+      margin: 0 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
+    .format-card {
+      background-color: var(--color-white);
+      border-radius: 10px;
+      padding: 20px 18px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border-top: 4px solid var(--color-green);
+    }
+
+    .format-label {
+      color: var(--color-navy);
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .format-desc {
+      color: var(--color-text-light);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      counter-reset: step-counter;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .steps-list li:last-child { border-bottom: none; }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .target-table {
+      width: 100%;
+      max-width: 880px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: var(--color-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(27,58,107,0.08);
+      font-size: 13px;
+    }
+
+    .target-table th {
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      padding: 12px 14px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .target-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--color-gray-light);
+      vertical-align: top;
+    }
+
+    .target-table tbody tr:last-child td { border-bottom: none; }
+
+    .target-table code {
+      background: #eef2ff;
+      color: var(--color-navy);
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-family: 'Consolas', monospace;
+    }
+
+    .target-table .tag-admin {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    .target-table .tag-anyone {
+      display: inline-block;
+      background: #d1fae5;
+      color: #065f46;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    .privacy-box {
+      background-color: #f0fdf4;
+      border-left: 5px solid var(--color-green);
+      padding: 24px 28px;
+      border-radius: 8px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .privacy-box h3 {
+      color: var(--color-navy);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .privacy-box ul {
+      margin: 0 0 0 24px;
+      padding: 0;
+    }
+
+    .privacy-box li {
+      color: var(--color-text);
+      font-size: 14px;
+      line-height: 1.85;
+      margin-bottom: 4px;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .notes-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .notes-list li::before {
+      content: '※';
+      position: absolute;
+      left: 0;
+      color: #94a3b8;
+    }
+
+    .section-title-left {
+      color: var(--color-navy);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .related-card {
+      display: block;
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 24px 22px;
+      border-left: 4px solid var(--color-green);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .related-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+    }
+
+    .related-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-green);
+      background-color: #e6f4e6;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .related-title {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+
+    .related-desc {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .donation-banner {
+      background: #ffffff;
+      padding: 36px 5%;
+      border-top: 1px solid #e2e8f0;
+    }
+    .donation-banner-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .donation-banner-icon {
+      font-size: 42px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .donation-banner-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .donation-banner-title {
+      display: block;
+      color: #1B3A6B;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+    .donation-banner-desc {
+      color: #4a5568;
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .donation-banner-btn {
+      flex-shrink: 0;
+      display: inline-block;
+      background: #2E8B2E;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 13px 28px;
+      border-radius: 24px;
+      text-decoration: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .donation-banner-btn:hover {
+      background: #1B3A6B;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(46, 139, 46, 0.25);
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .bottom-cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta-desc {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    /* Update Notice Section */
+    .update-section {
+      background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
+      border-top: 4px solid var(--color-green);
+      padding: 48px 5%;
+    }
+    .update-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .update-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .update-tag {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .update-version {
+      display: inline-block;
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .update-date {
+      color: var(--color-text-light);
+      font-size: 14px;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .update-summary {
+      color: var(--color-text);
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .update-examples {
+      background-color: var(--color-white);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .update-examples h4 {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .update-examples ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .update-examples li {
+      padding: 8px 0;
+      font-size: 14px;
+      color: var(--color-text);
+      line-height: 1.7;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+    .update-examples li:last-child {
+      border-bottom: none;
+    }
+    .update-examples code {
+      background-color: #F0F4F8;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--color-navy);
+      font-family: 'Courier New', monospace;
+    }
+    .update-sample {
+      background-color: var(--color-white);
+      border-radius: 8px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .update-sample h4 {
+      color: var(--color-navy);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .update-sample pre {
+      background-color: #1B3A6B;
+      color: #e2e8f0;
+      padding: 16px 18px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.7;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+    }
+    .update-sample-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 60px 5%; }
+      .hero-title { font-size: 28px; }
+      .hero-subtitle { font-size: 16px; }
+      .hero-copy { font-size: 15px; }
+      .section-wrapper { padding: 60px 5%; }
+      .section-title { font-size: 24px; }
+      .usecase-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .format-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-row, .gallery-row.equal { grid-template-columns: 1fr; gap: 24px; }
+      .related-grid { grid-template-columns: 1fr; }
+      .bottom-cta-title { font-size: 22px; }
+      .target-table { font-size: 12px; }
+      .target-table th, .target-table td { padding: 8px; }
+      .update-title { font-size: 18px; }
+      .update-summary { font-size: 15px; }
+      .update-examples, .update-sample { padding: 16px 18px; }
+    }
+    @media (max-width: 640px) {
+      .donation-banner { padding: 28px 5%; }
+      .donation-banner-inner { flex-direction: column; text-align: center; gap: 16px; }
+      .donation-banner-icon { font-size: 36px; }
+    }
+
+    /* Page-specific additions for KW Plugin Inventory */
+    .hero picture { display: block; }
+
+    .gallery-image-wrap picture { display: block; width: 100%; }
+
+    .gallery-single {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .gallery-single .gallery-card { width: 100%; }
+
+    .format-grid--three { grid-template-columns: repeat(3, 1fr); }
+
+    .table-scroll {
+      max-width: 880px;
+      margin: 0 auto;
+      overflow-x: auto;
+      border-radius: 12px;
+    }
+
+    .table-scroll .target-table th { white-space: nowrap; }
+
+    .table-scroll .target-table td:nth-child(2) { min-width: 8.5em; }
+
+    .target-table td.cat-cell {
+      min-width: 8.5em;
+      font-weight: 700;
+      color: var(--color-navy);
+      white-space: nowrap;
+    }
+
+    .compare-box {
+      max-width: 880px;
+      margin: 0 auto;
+      background-color: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 28px 32px;
+    }
+
+    .compare-box p {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+
+    .compare-box ol {
+      margin: 0 0 0 24px;
+      padding: 0;
+    }
+
+    .compare-box li {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.85;
+      margin-bottom: 6px;
+    }
+
+    .faq-list {
+      max-width: 880px;
+      margin: 0 auto;
+      display: grid;
+      gap: 10px;
+    }
+
+    .faq-item {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .faq-item[open] {
+      border-color: var(--color-navy);
+      box-shadow: 0 4px 12px rgba(27,58,107,0.08);
+    }
+
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 22px;
+      color: var(--color-navy);
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 1.5;
+      position: relative;
+      padding-right: 48px;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+
+    .faq-item summary::after {
+      content: '+';
+      position: absolute;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-green);
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .faq-item[open] summary::after { content: '\2212'; }
+
+    .faq-answer {
+      padding: 0 22px 20px;
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    @media (max-width: 768px) {
+      .format-grid--three { grid-template-columns: 1fr 1fr; }
+      .compare-box { padding: 22px 20px; }
+      .faq-item summary { font-size: 15px; }
+    }
+  </style>
+  <main>
+    <section class="hero fade-in">
+      <Picture
+        src="/images/extensions/kw-plugin-inventory-icon.png"
+        alt="KW Plugin Inventory for kintone アイコン"
+        class="hero-icon"
+        width="128"
+        height="128"
+        loading="eager"
+      />
+      <div>
+        <span class="hero-badge">Chrome ウェブストア 公開準備中</span>
+        <span class="hero-version">v1.0.0</span>
+      </div>
+      <h1 class="hero-title">KW Plugin Inventory for kintone</h1>
+      <p class="hero-subtitle">どのアプリに、何が入っている？ プラグインとカスタマイズを、全アプリまとめて棚卸し。</p>
+      <p class="hero-copy">
+        KW Plugin Inventory for kintone は、kintone のドメイン内の全アプリに入っているプラグインと JavaScript／CSS カスタマイズを読み取り、見直しが必要なものを一覧にする Chrome 拡張機能です。<br>
+        読み取りのみで kintone の設定は変更せず、取得した情報は外部に送信しません。完全無料です。
+      </p>
+      <p class="hero-copy">
+        <strong>Chrome ウェブストアで公開準備中です。</strong>公開次第、このページと<a href="/news/" style="color: var(--color-white); font-weight: 700; text-decoration: underline;">お知らせ</a>でご案内します。
+      </p>
+    </section>
+
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">こんな場面で</h2>
+        <p class="section-subtitle">アプリが増えるほど、どこに何が入っているかを確かめるには設定画面を1つずつ開くしかなくなります。</p>
+        <div class="usecase-grid">
+          <div class="usecase-card">
+            <div class="usecase-icon">📋</div>
+            <div>
+              <h3 class="usecase-title">担当者の引き継ぎ・退職前の棚卸し</h3>
+              <p class="usecase-desc">どのアプリにどのプラグインとカスタマイズが入っているかを、1つのレポートにまとめます。Excel や PDF で出力して、そのまま引き継ぎ資料にできます。</p>
+            </div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-icon">🛡️</div>
+            <div>
+              <h3 class="usecase-title">セキュリティ点検</h3>
+              <p class="usecase-desc">URL 指定で外部のサイトからスクリプトを読み込んでいるアプリと、その読込先のドメインを一覧にします。読込先が信頼できるか、社内規程に沿っているかの確認に使えます。</p>
+            </div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-icon">🔄</div>
+            <div>
+              <h3 class="usecase-title">kintone のアップデート前の影響確認</h3>
+              <p class="usecase-desc">JavaScript／CSS カスタマイズを入れているアプリと、そのファイル名・URL・読込順をまとめて確認できます。動作確認が必要なアプリの洗い出しに。</p>
+            </div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-icon">🧹</div>
+            <div>
+              <h3 class="usecase-title">使っていないプラグインの整理</h3>
+              <p class="usecase-desc">どのアプリにも使われていないプラグイン、無効のまま追加されているプラグイン、「適用しない」のまま残っているカスタマイズを見つけます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">kintone の標準機能との違い</h2>
+      <p class="section-subtitle">できることとできないことを、正直にお伝えします。</p>
+      <div class="compare-box">
+        <p>kintone のシステム管理の［プラグイン］画面でも、どのプラグインがどのアプリに追加されているかは確認でき、CSV でも出力できます。プラグインの利用状況を見るだけなら、標準機能で足ります。</p>
+        <p>KW Plugin Inventory for kintone が役に立つのは、次の4点です。</p>
+        <ol>
+          <li><strong>JavaScript／CSS カスタマイズまで含めて</strong>、全アプリを1つのレポートにまとめます。</li>
+          <li>未反映の変更・外部ドメインからの読み込み・「アプリの管理者だけ」に適用したままの設定など、<strong>見直しが必要なものを自動で判定</strong>します。</li>
+          <li><strong>KIZUNA Works 製プラグインに新しい版があるか</strong>を確認し、製品ページへのリンクを表示します。</li>
+          <li>Excel・PDF などの<strong>整形済みの形式で出力</strong>できるので、引き継ぎ・監査・情報システム部門への報告にそのまま使えます。</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">主な機能</h2>
+        <p class="section-subtitle">ボタン1つで全アプリを読み取り、見直しが必要なものから確認できるレポートにします。</p>
+        <div class="features-grid">
+          <div class="feature-card">
+            <span class="feature-num">1</span>
+            <h3 class="feature-title">全アプリを1つのレポートに</h3>
+            <p class="feature-desc">ツールバーのアイコン、または kintone のページ上の右クリックメニューから開始。新しいタブでレポートが開き、進み具合を表示します。［中止］すると、取得できた分までを表示します。</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">2</span>
+            <h3 class="feature-title">見直しが必要なものを10種類で判定</h3>
+            <p class="feature-desc">未使用・無効のまま・未インストール・更新あり・未反映・外部ドメインから読込・管理者だけに適用・取得不可などを「要対応」として、推奨する対応と一緒に一覧にします。</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">3</span>
+            <h3 class="feature-title">カスタマイズの中身まで一覧</h3>
+            <p class="feature-desc">PC／モバイル、JS／CSS、読込順、指定方法（ファイル／URL）、ファイル名または URL、サイズ、外部読込先、未反映の有無を、アプリをまたいで一覧にします。</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">4</span>
+            <h3 class="feature-title">探しやすい画面</h3>
+            <p class="feature-desc">要対応／プラグイン一覧／アプリ別／カスタマイズ／取得不可のタブ。サマリーカードを押すとその判定で絞り込み。検索・区分とスペースの絞り込み・並べ替え・200行ごとのページ送りに対応します。</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">5</span>
+            <h3 class="feature-title">6つの形式で出力</h3>
+            <p class="feature-desc">Excel・CSV・HTML・Markdown・JSON に加え、印刷画面から PDF に保存できます。2形式以上を選ぶと1つの ZIP にまとめます。</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">6</span>
+            <h3 class="feature-title">前回の結果をあとから開ける</h3>
+            <p class="feature-desc">ドメインごとに最新1件の結果をブラウザ内に保存し、ポップアップの［前回の結果を開く］で開き直せます。保存は設定でオフにでき、削除もできます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">実際の操作画面</h2>
+      <p class="section-subtitle">画面のデータはすべて説明用の架空のものです。画像をクリックすると拡大できます。</p>
+      <div class="gallery-single">
+        <div class="gallery-card">
+          <div class="gallery-image-wrap">
+            <Picture class="lightbox-image" src="/images/extensions/kw-plugin-inventory/01-summary.png" alt="レポート画面。上部にドメイン名・取得日時・実行者と出力・PDFで保存・再取得・設定のボタン、その下にアプリ・プラグイン・未使用・無効・未インストール・更新あり・カスタマイズあり・外部読込先・未反映・取得不可の件数を示すサマリーカードが並び、要対応タブが開いている" width="1280" height="800" />
+          </div>
+          <div class="gallery-content">
+            <h3 class="gallery-title">📊 サマリーと要対応タブ</h3>
+            <p class="gallery-desc">取得が終わると、アプリ数・プラグイン数・未使用・無効・未インストール・更新あり・カスタマイズあり・外部読込先・未反映・取得不可の件数をサマリーカードで表示します。カードを押すと、その判定で一覧を絞り込めます。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-row equal">
+        <div class="gallery-card">
+          <div class="gallery-image-wrap">
+            <Picture class="lightbox-image" src="/images/extensions/kw-plugin-inventory/02-issues.png" alt="要対応の一覧。区分・対象・内容・推奨対応の列があり、未使用プラグイン・無効のまま・未インストール・更新あり・プラグインの未反映・使われていないカスタマイズ・管理者だけに適用・外部ドメインから読込・カスタマイズの未反映・取得不可の行が並んでいる" width="1280" height="800" />
+          </div>
+          <div class="gallery-content">
+            <h3 class="gallery-title">⚠️ 要対応の一覧</h3>
+            <p class="gallery-desc">区分・対象・内容・推奨対応を1行にまとめます。対象のアプリはリンクになっているので、そのままアプリを開いて確認できます。</p>
+          </div>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-image-wrap">
+            <Picture class="lightbox-image" src="/images/extensions/kw-plugin-inventory/03-customize.png" alt="カスタマイズの一覧。アプリID・アプリ名・適用範囲・端末・種別・読込順・指定方法・ファイル名またはURL・サイズ・外部読込先・未反映の列があり、URL指定の行の外部読込先に cdn.jsdelivr.net、1行の未反映欄に「あり」と表示されている" width="1280" height="800" />
+          </div>
+          <div class="gallery-content">
+            <h3 class="gallery-title">🧾 カスタマイズの一覧</h3>
+            <p class="gallery-desc">全アプリの JavaScript／CSS を1つの表で確認できます。URL 指定で外部のサイトから読み込んでいるものは読込先のドメインを、「アプリを更新」していない変更は未反映の欄に表示します。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-row equal">
+        <div class="gallery-card">
+          <div class="gallery-image-wrap">
+            <Picture class="lightbox-image" src="/images/extensions/kw-plugin-inventory/04-plugins.png" alt="プラグイン一覧。名前・バージョン・ストア製・KIZUNA製・最新版・利用アプリ数・判定の列があり、KIZUNA製プラグインの2行の最新版の欄に「（更新あり）」と製品ページへのリンク、判定の欄に「更新あり（KIZUNA 製）」と表示されている" width="1280" height="800" />
+          </div>
+          <div class="gallery-content">
+            <h3 class="gallery-title">🧩 プラグイン一覧</h3>
+            <p class="gallery-desc">インストール済みのプラグインごとに、バージョンと利用アプリ数を表示します。KIZUNA Works 製プラグインに新しい版があるときは「更新あり」と最新版を表示し、製品ページへのリンクを付けます。</p>
+          </div>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-image-wrap">
+            <Picture class="lightbox-image" src="/images/extensions/kw-plugin-inventory/05-export.png" alt="出力メニューを開いたレポート画面。Excel（.xlsx）・CSV（5ファイルを ZIP）・HTML（1ファイル完結）・Markdown（.md）・JSON のチェックボックスと保存ボタンが表示されている" width="1280" height="800" />
+          </div>
+          <div class="gallery-content">
+            <h3 class="gallery-title">💾 出力メニュー</h3>
+            <p class="gallery-desc">Excel／CSV／HTML／Markdown／JSON から必要な形式を選んで保存します。2形式以上を選ぶと1つの ZIP にまとめます。PDF は［PDFで保存］から印刷画面で保存します。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">要対応の判定（10種類）</h2>
+        <p class="section-subtitle">見直しが必要なものを、区分ごとに「要対応」タブへまとめます。</p>
+        <div class="table-scroll">
+          <table class="target-table">
+            <thead>
+              <tr><th>区分</th><th>内容</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-cell">未使用プラグイン</td><td>どのアプリにも使われていないプラグイン。cybozu.com 共通管理者が実行し、最後まで取得できたときだけ判定します</td></tr>
+              <tr><td class="cat-cell">無効のまま</td><td>アプリに追加されているが、無効になっているプラグイン</td></tr>
+              <tr><td class="cat-cell">未インストール</td><td>アプリに追加されているのに、インストールされていないプラグイン</td></tr>
+              <tr><td class="cat-cell">更新あり</td><td>KIZUNA Works 製プラグインに新しい版があるもの（製品ページへのリンク付き）</td></tr>
+              <tr><td class="cat-cell">プラグインの未反映</td><td>プラグインの追加・削除・有効／無効を変えたまま「アプリを更新」していないアプリ</td></tr>
+              <tr><td class="cat-cell">使われていないカスタマイズ</td><td>適用範囲が「適用しない」なのに、ファイルが残っているアプリ</td></tr>
+              <tr><td class="cat-cell">管理者だけに適用</td><td>適用範囲が「アプリの管理者だけ」のままのアプリ</td></tr>
+              <tr><td class="cat-cell">外部ドメインから読込</td><td>URL 指定で外部のサイトからスクリプトを読み込んでいるアプリ</td></tr>
+              <tr><td class="cat-cell">カスタマイズの未反映</td><td>ファイル・適用範囲を変えたまま「アプリを更新」していないアプリ</td></tr>
+              <tr><td class="cat-cell">取得不可</td><td>権限がなく、設定を読み取れなかったアプリ</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">出力形式</h2>
+      <p class="section-subtitle">ファイル名は <code>{'plugin-inventory_{サブドメイン}_{年月日-時分}'}</code> の形式です。</p>
+      <div class="format-grid format-grid--three">
+        <div class="format-card">
+          <div class="format-label">Excel</div>
+          <p class="format-desc">.xlsx・5シート（サマリー／プラグイン一覧／アプリ別／要対応／カスタマイズ）。見出し行の固定・フィルター付き</p>
+        </div>
+        <div class="format-card">
+          <div class="format-label">CSV</div>
+          <p class="format-desc">5ファイルを ZIP にまとめて出力。文字コードは UTF-8（BOM 付き）または Shift_JIS を設定で選択</p>
+        </div>
+        <div class="format-card">
+          <div class="format-label">HTML</div>
+          <p class="format-desc">1ファイルで完結。レポート画面と同じ表示です</p>
+        </div>
+        <div class="format-card">
+          <div class="format-label">Markdown</div>
+          <p class="format-desc">社内 Wiki やドキュメントへの貼り付けに</p>
+        </div>
+        <div class="format-card">
+          <div class="format-label">JSON</div>
+          <p class="format-desc">取得結果をデータとして扱いたいときに</p>
+        </div>
+        <div class="format-card">
+          <div class="format-label">PDF</div>
+          <p class="format-desc">印刷画面で「PDFに保存」。A4 横・表紙とページ番号付き</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">対象になるアプリ</h2>
+        <p class="section-subtitle">実行する方の権限によって、対象になるアプリが変わります。</p>
+        <div class="table-scroll">
+          <table class="target-table">
+            <thead>
+              <tr><th>実行する方</th><th>対象になるアプリ</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="tag-admin">cybozu.com 共通管理者</span></td><td>ドメイン内の全アプリ</td></tr>
+              <tr><td><span class="tag-anyone">それ以外の方</span></td><td>実行した方にアプリ管理権限のあるアプリ</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="notes-list" style="margin-top: 24px;">
+          <li>ゲストスペースのアプリにも対応しています。自動でゲストスペースの送信先に切り替えて取得します。</li>
+          <li>権限がなく設定を読み取れなかったアプリは、「取得不可」のタブに表示します。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">使い方</h2>
+      <p class="section-subtitle">kintone にログインした状態で、ボタンを押すだけです。</p>
+      <ol class="steps-list">
+        <li><span>Chrome ウェブストアから「KW Plugin Inventory for kintone」をインストール（公開準備中）</span></li>
+        <li><span>kintone にログインして、どこかの画面を開く</span></li>
+        <li><span>ツールバーのアイコンをクリックして［棚卸しを開始］を押す（kintone のページ上で右クリック →「このドメインを棚卸し（KW Plugin Inventory）」でも開始できます）</span></li>
+        <li><span>新しいタブでレポートが開き、進み具合が表示されます。取得が終わったら「要対応」タブから確認します</span></li>
+        <li><span>［出力］で形式を選んで保存するか、［PDFで保存］で印刷画面から PDF に保存します</span></li>
+      </ol>
+    </section>
+
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">設定</h2>
+        <p class="section-subtitle">拡張機能の設定画面で、次の項目を変更できます。</p>
+        <div class="table-scroll">
+          <table class="target-table">
+            <thead>
+              <tr><th>項目</th><th>内容</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>同時実行数</td><td>1〜5（既定 3）</td></tr>
+              <tr><td>カスタマイズも取得する</td><td>JavaScript／CSS カスタマイズを取得するかどうか</td></tr>
+              <tr><td>未反映の変更を確認する</td><td>「アプリを更新」していない変更があるかを確認するかどうか</td></tr>
+              <tr><td>KIZUNA 製プラグインの更新を確認する</td><td>オフにすると、外部との通信（versions.json の取得）を行いません</td></tr>
+              <tr><td>CSV の文字コード</td><td>UTF-8（BOM 付き）または Shift_JIS</td></tr>
+              <tr><td>ゲストスペースID</td><td>ゲストスペースのアプリを取得するための補助の入力欄</td></tr>
+              <tr><td>前回結果を保存する</td><td>ドメインごとに最新1件をブラウザ内に保存するかどうか（保存した結果は削除できます）</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">プライバシー・セキュリティ</h2>
+      <p class="section-subtitle">アプリの構成やカスタマイズの情報は、扱いに注意すべき情報です。何をして、何をしないかを明示します。</p>
+      <div class="privacy-box">
+        <h3>✅ しないこと</h3>
+        <ul>
+          <li>kintone の設定の変更（リクエストは読み取りの GET のみ）</li>
+          <li>レコードのデータ（業務データ）の読み取り</li>
+          <li>取得した情報の外部への送信</li>
+          <li>リモートコード（外部から読み込んで実行するスクリプト）の使用</li>
+        </ul>
+        <h3 style="margin-top: 20px;">📥 ブラウザ内だけで処理するもの</h3>
+        <ul>
+          <li>アプリ名・プラグインの設定・カスタマイズの設定（レポートの表示と出力に使用）</li>
+          <li>前回の結果（ドメインごとに最新1件。設定でオフ・削除可）</li>
+          <li>設定（Chrome の同期機能を使っている場合は、同じ Google アカウントの Chrome 間で同期されます）</li>
+        </ul>
+        <h3 style="margin-top: 20px;">🌐 外部との通信</h3>
+        <ul>
+          <li>当方が公開している最新版の一覧（<code>https://kizuna-works.jp/versions.json</code>）の取得のみ。設定でオフにできます</li>
+          <li>Excel・ZIP・文字コード変換のライブラリ（SheetJS CE 0.20.3／JSZip 3.10.1／encoding-japanese 2.2.0）は拡張機能に同梱しています。コードの難読化もしていません</li>
+        </ul>
+      </div>
+      <p style="text-align: center; margin-top: 32px;">
+        <a href="/extensions/kw-plugin-inventory-for-kintone/privacy/" style="color: var(--color-green); font-weight: 700;">→ プライバシーポリシーの詳細を見る</a>
+      </p>
+    </section>
+
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title-left">動作環境</h2>
+        <ul class="notes-list">
+          <li>Google Chrome 専用です。Microsoft Edge は対象外です。</li>
+          <li>対象は cybozu.com（セキュアアクセスを含む）と kintone.com の kintone です。cybozu.cn には対応していません。</li>
+          <li>当社の検証環境（81アプリ・71プラグイン）では、約420回の読み取りで、約1分以内に取得が完了しました。所要時間はアプリ数や通信環境によって変わります。</li>
+          <li>本拡張機能が使う権限：scripting／activeTab／contextMenus／storage、ホスト権限 *.cybozu.com／*.kintone.com／kizuna-works.jp。それぞれの用途は<a href="/extensions/kw-plugin-inventory-for-kintone/privacy/" style="color: var(--color-green); font-weight: 700;">プライバシーポリシー</a>に記載しています。</li>
+          <li>kintone は、サイボウズ株式会社の登録商標です。本拡張機能は KIZUNA Works が独自に開発したものであり、サイボウズ株式会社が提供・保証するものではありません。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title">よくある質問</h2>
+      <p class="section-subtitle">KW Plugin Inventory for kintone について、よくいただく質問です。</p>
+      <div class="faq-list">
+        {faqs.map((f) => (
+          <details class="faq-item">
+            <summary>{f.q}</summary>
+            <div class="faq-answer">{f.a}</div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">関連情報</h2>
+        <p class="section-subtitle">kintone の運用・管理に役立つ KIZUNA Works のコンテンツです。</p>
+        <div class="related-grid">
+          <a href="/extensions/kw-app-exporter-for-kintone/" class="related-card">
+            <span class="related-label">拡張機能</span>
+            <div class="related-title">KW App Exporter for kintone</div>
+            <p class="related-desc">1つのアプリの設定情報を HTML / JSON / Excel / Markdown で一括エクスポート。アプリ単位の仕様書づくりに。</p>
+          </a>
+          <a href="/extensions/kw-plugin-updater-for-kintone/" class="related-card">
+            <span class="related-label">拡張機能</span>
+            <div class="related-title">KW Plugin Updater for kintone</div>
+            <p class="related-desc">導入済みの KIZUNA Works プラグインの更新を、バッジと通知でお知らせする拡張機能。</p>
+          </a>
+          <a href="/plugins/update/" class="related-card">
+            <span class="related-label">ガイド</span>
+            <div class="related-title">プラグインの更新方法</div>
+            <p class="related-desc">プラグインを最新版に入れ替える手順をまとめた全製品共通のページ。「更新あり」と判定されたときに。</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bottom-cta fade-in">
+      <h2 class="bottom-cta-title">ご質問・ご要望</h2>
+      <p class="bottom-cta-desc">機能リクエストや不具合報告など、お気軽にお問い合わせください。</p>
+      <a href="/contact/" class="btn-primary">お問い合わせ</a>
+    </section>
+  </main>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { root: null, rootMargin: '0px', threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    });
+  </script>
+</Layout>

@@ -264,10 +264,14 @@ c:\kizuna-works.jp\
 │   │   │   │   ├── index.astro          # KW App Exporter for kintone ランディングページ（/extensions/kw-app-exporter-for-kintone/）
 │   │   │   │   └── privacy/
 │   │   │   │       └── index.astro      # KW App Exporter for kintone プライバシーポリシー（/extensions/kw-app-exporter-for-kintone/privacy/）
-│   │   │   └── kw-plugin-updater-for-kintone/
-│   │   │       ├── index.astro          # KW Plugin Updater for kintone ランディングページ（/extensions/kw-plugin-updater-for-kintone/）— 導入済みプラグインの更新チェック。Chrome ウェブストアで公開中
+│   │   │   ├── kw-plugin-updater-for-kintone/
+│   │   │   │   ├── index.astro          # KW Plugin Updater for kintone ランディングページ（/extensions/kw-plugin-updater-for-kintone/）— 導入済みプラグインの更新チェック。Chrome ウェブストアで公開中
+│   │   │   │   └── privacy/
+│   │   │   │       └── index.astro      # KW Plugin Updater for kintone プライバシーポリシー（/extensions/kw-plugin-updater-for-kintone/privacy/）
+│   │   │   └── kw-plugin-inventory-for-kintone/
+│   │   │       ├── index.astro          # KW Plugin Inventory for kintone ランディングページ（/extensions/kw-plugin-inventory-for-kintone/）— 全アプリのプラグインと JS/CSS カスタマイズの棚卸し（要対応10種類の判定・Excel/CSV/HTML/Markdown/JSON/PDF 出力）。標準機能との違い・判定一覧・出力形式・対象範囲・設定・FAQ（FAQPage は frontmatter の同じ配列から生成）。Chrome ウェブストア審査中＝公開準備中（extensions.ts は status 'coming-soon'・ストア URL 空）。画像＝/images/extensions/kw-plugin-inventory-{icon,banner}.png と kw-plugin-inventory/01〜05-*.png
 │   │   │       └── privacy/
-│   │   │           └── index.astro      # KW Plugin Updater for kintone プライバシーポリシー（/extensions/kw-plugin-updater-for-kintone/privacy/）
+│   │   │           └── index.astro      # KW Plugin Inventory for kintone プライバシーポリシー（/extensions/kw-plugin-inventory-for-kintone/privacy/）— 権限の用途は SECRET の STORE_LISTING.md と一致させる
 │   │   ├── glossary/
 │   │   │   ├── index.astro     # kintone 用語集（/glossary/）— カテゴリ・五十音順、JSで検索/絞り込み、DefinedTermSet JSON-LD 付き。hasPage の用語名は個別ページへリンク
 │   │   │   └── [id]/index.astro # 用語の個別ページ（/glossary/<id>/）— hasPage:true の語のみ生成。定義＋詳しく＋使いどころ＋FAQ＋関連リンク、DefinedTerm/FAQPage/BreadcrumbList JSON-LD 付き（長尾「kintone ○○とは」狙い）
