@@ -541,8 +541,12 @@ const freeFaqJsonLd = {
       margin: 4px 0 16px;
     }
 
+    /* min-width: 0 overrides the flex item's min-width:auto. Without it the open
+       fold grows to the table's 560px min-width and overflows the page on mobile;
+       with it the fold stays in the card and only .free-scope-wrap scrolls. */
     .lead-fold {
       flex: 1 1 280px;
+      min-width: 0;
       border: 1px solid #dbe3ec;
       border-radius: 10px;
       background: #f8fafc;
