@@ -1747,7 +1747,7 @@ export const premiumPlugins: Plugin[] = [
     slug: 'quick-filter',
     categories: ['検索・閲覧', '一覧表示'],
     description:
-      '一覧の上にフィールドごとの絞り込みの窓を並べ、件数つきの候補から値を選ぶだけで絞り込めます。複数の窓は同時に効き、テーブル内やルックアップ先・関連レコード先の値でも絞り込め、選択は一覧ごとに記憶されます。',
+      '一覧の上にフィールドごとの絞り込みの窓を並べ、件数つきの候補から値を選ぶだけで絞り込めます。複数の窓は同時に効き、複数行の文字列の行やキーワード入力でも絞り込め、テーブル内やルックアップ先・関連レコード先の値にも対応します。選択は一覧ごとに記憶されます。',
     image: '/images/quick-filter-banner.png',
     imageWebp: '/images/quick-filter-banner.webp',
     imageAlt:
@@ -1757,12 +1757,12 @@ export const premiumPlugins: Plugin[] = [
     status: 'available',
     tier: 'premium',
     cardDescription:
-      '一覧の上に並んだ窓から、値を選ぶだけで絞り込めます。候補は件数つきで、複数の窓は同時に効き、テーブルや別アプリの値でも絞り込めます。',
+      '一覧の上に並んだ窓から、値を選ぶだけで絞り込めます。候補は件数つきで、複数の窓は同時に効き、長いメモ欄はキーワードでも絞れます。テーブルや別アプリの値にも対応します。',
     problemTitle: '一覧を絞るたびに、フィールド・条件・値を選び直している',
     problemDesc:
       '担当者やステータスで絞りたいだけなのに、kintone 標準の絞り込みでは毎回フィールドと条件と値を組み立てる。そのフィールドにどんな値があるのか分からないまま入力して、表記の違いで 0 件になることもある',
     releaseDate: '2026-10-11',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
   },
   {
     id: 'kw-horizontal-sheet',

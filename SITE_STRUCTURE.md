@@ -758,6 +758,9 @@ c:\kizuna-works.jp\
 │   │   ├── quick-filter-combo-01.png        # クイックフィルター クイックサーチ・集計サマリーバーとの併用（小計 632,250・件数 10）。クイックサーチ・集計サマリーバーの製品ページの併用の節でも使用 ＋ .webp
 │   │   ├── quick-filter-combo-02.png        # クイックフィルター クイックサーチ・集計サマリーバー・かんたんCSV出力との4製品併用（［CSV出力］ボタンあり・10件）。クイックフィルターとかんたんCSV出力の製品ページで使用 ＋ .webp
 │   │   ├── quick-filter-config-01.png       # クイックフィルター 設定画面の全体（上帯・左の目次＋ライブプレビュー・中央の設定セットと窓・右サイドバー）＋ .webp
+│   │   ├── quick-filter-mtext-01.png        # クイックフィルター v1.1.0 — 文字列（複数行）の窓の候補パネル（改行で分けた1行ずつ・件数つき）＋ .webp
+│   │   ├── quick-filter-keyword-01.png      # クイックフィルター v1.1.0 — キーワード入力の窓のパネル＋ .webp
+│   │   ├── quick-filter-config-02.png       # クイックフィルター v1.1.0 — 設定画面の「入力のしかた」（候補から選ぶ／キーワードを入力）＋ .webp
 │   │   ├── horizontal-sheet-banner.png          # 横並びシート for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・手動バナー。ユーザーが用意）＋ .webp ＋ -800.webp
 │   │   ├── horizontal-sheet-icon.png            # 横並びシート アイコン（200×200・プラグイン同梱アイコンから生成）＋ .webp
 │   │   ├── horizontal-sheet-overview.png        # 横並びシート 一覧全体（3段の分類見出し・左の行見出し・総合計の列）＋ .webp
