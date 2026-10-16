@@ -39,8 +39,17 @@ const VIEWPORT = { width: 375, height: 812, deviceScaleFactor: 1, isMobile: true
 const CONCURRENCY = 6;
 const IS_CI = !!process.env.CI;
 
+// GitHub Actions ではエラーを注釈（::error::）でも出す。注釈は認証なしの
+// check-runs API で読めるので、ログを開けない環境からでも原因が分かる。
+const annotate = (msg) => {
+  if (process.env.GITHUB_ACTIONS) console.log(`::error title=check-mobile-overflow::${String(msg).replace(/\r?\n/g, '%0A')}`);
+};
+process.on('uncaughtException', (e) => { annotate(e.stack || e); console.error(e); process.exit(1); });
+process.on('unhandledRejection', (e) => { annotate((e && e.stack) || e); console.error(e); process.exit(1); });
+
 const skip = (msg) => {
   if (IS_CI) {
+    annotate(msg);
     console.error(`[check-mobile-overflow] NG: ${msg}`);
     process.exit(1);
   }
@@ -110,6 +119,8 @@ if (process.env.MOBILE_CHECK_ONLY) {
 
 // ---- ページ内で実行する測定 ---------------------------------------------------
 async function measure() {
+  // astro.config の redirects が出すページ（meta refresh だけで body が無い）は測る対象がない
+  if (!document.body) return { vw: 0, hits: [] };
   document.querySelectorAll('details').forEach((d) => { d.open = true; });
   // rAF は使わない：並列で開く裏のタブでは rAF が止まり、検査が永久に終わらない。
   // getBoundingClientRect() が同期でレイアウトを確定させるので、少し待つだけで足りる。
@@ -225,6 +236,7 @@ if (errors.length) {
 if (failures.length) {
   console.error(`\n[check-mobile-overflow] NG: ${VIEWPORT.width}px 幅で画面からはみ出す要素があります（${failures.length} ページ）`);
   for (const f of failures) {
+    annotate(`${f.url} — ` + f.hits.map((h) => `${h.sel} left=${h.left} width=${h.width} right=${h.right}`).join(' / '));
     console.error(`  ${f.url}`);
     for (const h of f.hits) console.error(`    ${h.sel}  left=${h.left} width=${h.width} right=${h.right}`);
   }
