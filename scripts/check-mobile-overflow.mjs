@@ -222,6 +222,16 @@ async function worker() {
 const started = Date.now();
 try {
   await Promise.all(Array.from({ length: Math.min(CONCURRENCY, pages.length) }, worker));
+  // NG のページは 1 タブで測り直し、2 回とも NG のものだけ残す。フォントの読み込み
+  // タイミング等による一過性の NG でデプロイが止まるのを防ぐ（本物のはみ出しは再現する）。
+  if (failures.length) {
+    const firstPass = failures.splice(0);
+    pages = firstPass.map((f) => f.url);
+    cursor = 0;
+    await worker();
+    const flaky = firstPass.filter((f) => !failures.some((g) => g.url === f.url));
+    if (flaky.length) console.warn(`[check-mobile-overflow] 測り直しで解消（一過性）: ${flaky.map((f) => f.url).join(', ')}`);
+  }
 } finally {
   await browser.close();
   server.close();
