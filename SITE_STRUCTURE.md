@@ -1425,7 +1425,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-sheet-edit-v1.4.1.zip                              # シート編集 for kintone 配布ファイル（旧版・手動配置・v1.4.1 ライセンス認証の内部改修）
 │   │   ├── kw-sheet-edit-v1.5.0.zip                      # シート編集 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-sheet-edit-v1.5.1.zip                      # シート編集 for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-sheet-edit-v1.5.2.zip                      # シート編集 for kintone 配布ファイル（最新・手動配置・v1.5.2 チェックボックス／複数選択セルの OK ボタンが見えず確定できなかったのを修正）
+│   │   ├── kw-sheet-edit-v1.5.2.zip                      # シート編集 for kintone 配布ファイル（旧版・手動配置・v1.5.2 チェックボックス／複数選択セルの OK ボタンが見えず確定できなかったのを修正）
+│   │   ├── kw-sheet-edit-v1.5.3.zip                      # シート編集 for kintone 配布ファイル（最新・v1.5.3 横並びシートが使う一覧を対象ビューで選べなくする＋保存後は「アプリの設定」へ戻る）
 │   │   ├── kw-sidebar-enhancer-v1.0.0.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・v1.0.0 初版）
 │   │   ├── kw-sidebar-enhancer-v1.0.2.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・手動配置・v1.0.2 で数値の桁区切り撤去／ラベルのHTML描画／設定画面の保存ボタン／タブ初期表示の高速化）
 │   │   ├── kw-sidebar-enhancer-v1.0.3.zip                        # サイドバー拡張 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.3 ライセンス認証の内部改修）
