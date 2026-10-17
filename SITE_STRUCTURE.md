@@ -1245,7 +1245,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-elapsed-assist-v1.0.5.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-elapsed-assist-v1.0.6.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-elapsed-assist-v1.0.7.zip                          # 経過計算アシスト for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-elapsed-assist-v1.0.8.zip                      # 経過計算アシスト for kintone 配布ファイル（最新・手動配置・v1.0.8 設定の保存後にアプリの設定画面へ戻るように（［アプリを更新］をすぐ押せる）／ゲストスペースで戻り先が存在しないパスになっていたのを修正）
+│   │   ├── kw-elapsed-assist-v1.0.8.zip                      # 経過計算アシスト for kintone 配布ファイル（旧版・手動配置・v1.0.8 設定の保存後にアプリの設定画面へ戻るように（［アプリを更新］をすぐ押せる）／ゲストスペースで戻り先が存在しないパスになっていたのを修正）
+│   │   ├── kw-elapsed-assist-v1.1.0.zip                      # 経過計算アシスト for kintone 配布ファイル（最新・2026-10-17・v1.1.0：連携用の内部の改善／一覧のバナーを共通版に／設定画面の案内欄を最新に）
 │   │   ├── kw-excel-paste-v1.0.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-excel-paste-v1.1.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-excel-paste-v1.1.1.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
