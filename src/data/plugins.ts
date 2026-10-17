@@ -1578,7 +1578,7 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       '一覧では予定の前後関係が読めず、誰がいつ空いているかも分からない。ホワイトボードやExcelの予定表に同じことを書き写し、会議室を二重に予約してしまう',
     releaseDate: '2026-08-22',
-    summaryVersion: '1.4.0',
+    summaryVersion: '1.5.0',
   },
   {
     id: 'kw-drive-connect',
