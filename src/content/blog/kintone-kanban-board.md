@@ -6,6 +6,7 @@ updatedDate: 2026-09-21
 author: "KIZUNA Works"
 tags: ["kintone", "カンバン", "進捗管理", "比較", "プラグイン"]
 ogImage: "/images/blog/kintone-kanban-board.png"
+relatedPlugins: ["card-board"]
 ---
 
 本記事は、kintoneの構築・カスタマイズ支援とプラグイン開発の実務経験を持つ筆者が、案件管理やタスク管理の現場で得た知見と各製品の公式情報をもとに、中立的に整理したものです。

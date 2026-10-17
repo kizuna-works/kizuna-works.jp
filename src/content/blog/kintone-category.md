@@ -5,6 +5,7 @@ pubDate: 2026-07-03
 author: "KIZUNA Works"
 tags: ["kintone", "カテゴリー", "一覧", "業務効率化", "kintone管理者"]
 ogImage: "/images/blog/kintone-category.png"
+relatedPlugins: ["quick-search", "list-styler", "summary-bar"]
 ---
 
 kintoneでレコードが増えてくると、「種類ごとにサッと切り替えて見たい」という場面が出てきます。そんなときに使えるのが標準の**カテゴリー機能**です。この記事では、次のことが分かります。

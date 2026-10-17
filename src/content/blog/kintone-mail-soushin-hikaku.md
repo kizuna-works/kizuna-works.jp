@@ -6,6 +6,7 @@ updatedDate: 2026-09-21
 author: "KIZUNA Works"
 tags: ["kintone", "メール送信", "メール通知", "メール共有オプション", "メールワイズ"]
 ogImage: "/images/blog/kintone-mail-soushin-hikaku.png"
+relatedPlugins: ["mail-assist", "csv-export"]
 ---
 
 本記事は、kintone構築・カスタマイズの実務経験を持つ筆者が、実際の導入支援で得た知見をもとに解説しています。

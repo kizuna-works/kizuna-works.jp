@@ -5,6 +5,7 @@ pubDate: 2026-07-25
 author: "KIZUNA Works"
 tags: ["kintone", "変更履歴", "監査ログ", "レコード", "プラグイン"]
 ogImage: "/images/blog/kintone-henkou-rireki.png"
+relatedPlugins: ["read-check", "quick-history-view", "record-recovery"]
 ---
 
 本記事は、kintoneの構築・カスタマイズやプラグイン開発の実務経験を持つ筆者が、kintoneに残る「履歴」の仕様と運用上の落とし穴を、公式ヘルプの記載と現場での検証をもとに整理したものです。

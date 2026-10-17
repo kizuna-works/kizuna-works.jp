@@ -5,6 +5,7 @@ pubDate: 2026-06-27
 author: "KIZUNA Works"
 tags: ["kintone", "コメント", "メンション", "通知", "プラグイン"]
 ogImage: "/images/blog/kintone-comment-tsukaikata.png"
+relatedPlugins: ["comment-control", "sticky-board"]
 ---
 
 本記事は、kintoneの構築・カスタマイズやプラグイン開発の実務経験を持つ筆者が、コメント機能の基本と運用でつまずきやすい点、その解決策を、公式情報と現場の知見をもとに整理したものです。

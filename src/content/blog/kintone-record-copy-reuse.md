@@ -6,6 +6,7 @@ updatedDate: 2026-08-02
 author: "KIZUNA Works"
 tags: ["kintone", "レコード", "業務効率化", "プラグイン", "kintoneカスタマイズ", "テンプレート"]
 ogImage: "/images/blog/kintone-record-copy-reuse.png"
+relatedPlugins: ["reuse-control", "input-template"]
 ---
 
 本記事は、kintoneの構築・カスタマイズやプラグイン開発の実務経験を持つ筆者が、レコードのコピー（再利用）運用でつまずきやすい点と、その解決方法を実務目線で整理したものです。

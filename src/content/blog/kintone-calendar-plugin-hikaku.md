@@ -5,6 +5,7 @@ pubDate: 2026-10-01
 author: "KIZUNA Works"
 tags: ["kintone", "カレンダー", "スケジュール管理", "比較", "プラグイン"]
 ogImage: "/images/blog/kintone-calendar-plugin-hikaku.png"
+relatedPlugins: ["calendar-view"]
 ---
 
 本記事は、kintoneの構築・カスタマイズ支援とプラグイン開発の実務経験をもとに、各製品の公式情報とkintoneの公式ヘルプを確認しながら中立的に整理したものです。

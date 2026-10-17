@@ -6,6 +6,7 @@ updatedDate: 2026-10-16
 author: "KIZUNA Works"
 tags: ["kintone", "プラグイン", "デザイン", "UI改善", "業務効率化"]
 ogImage: "/images/blog/kintone-design-plugin-osusume.png"
+relatedPlugins: ["field-styler", "accordion-tab", "form-deco"]
 ---
 
 毎日の業務で大活躍している「kintone（キントーン）」ですが、アプリの項目数が増えてくると「入力画面が縦に長すぎて使いにくい」「重要な項目がどこにあるのかパッと見て分からない」といったお悩みを抱えることはありませんか。kintoneはノーコードで手軽にアプリを作成できるのが魅力ですが、標準機能のままではすべての[フィールド](/glossary/field/)が同じデザインで縦に並んでしまうため、どうしても視認性が下がってしまう傾向があります。

@@ -6,6 +6,7 @@ updatedDate: 2026-09-21
 author: "KIZUNA Works"
 tags: ["kintone", "レコード一覧", "ビュー", "カスタマイズビュー", "アクセス権", "業務効率化"]
 ogImage: "/images/blog/kintone-record-list.png"
+relatedPlugins: ["view-control", "list-styler", "quick-search"]
 ---
 
 本記事は、kintoneの構築・カスタマイズ支援とプラグイン開発の実務経験を持つ筆者が、サイボウズ公式ヘルプの記載と実際の運用で得た知見をもとに整理したものです。

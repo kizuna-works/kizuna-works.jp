@@ -5,6 +5,7 @@ pubDate: 2026-08-30
 author: "KIZUNA Works"
 tags: ["kintone", "一括更新", "CSV", "プラグイン", "業務効率化"]
 ogImage: "/images/blog/kintone-ikkatsu-koushin.png"
+relatedPlugins: ["bulk-update", "sheet-edit", "excel-paste"]
 ---
 
 本記事は、kintoneの構築・カスタマイズとプラグイン開発の実務経験を持つ筆者が、サイボウズ公式ヘルプおよび kintone REST API リファレンスの記載と、実際の運用で得た知見をもとに整理したものです。仕様の数値はすべて一次情報で確認しています（確認日：2026年8月30日）。

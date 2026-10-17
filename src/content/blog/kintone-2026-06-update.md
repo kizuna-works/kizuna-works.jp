@@ -5,6 +5,7 @@ pubDate: 2026-06-15
 author: "KIZUNA Works"
 tags: ["kintone", "アップデート", "AI活用", "業務効率化", "DX推進"]
 ogImage: "/images/blog/kintone-2026-06-update.png"
+relatedPlugins: ["kw-conditional-numbering"]
 ---
 
 本記事は、kintoneの構築・カスタマイズやプラグイン開発の実務経験を持つ筆者が、サイボウズ公式のアップデート情報をもとに、2026年6月のkintone（キントーン）アップデートを現場目線で整理したものです。

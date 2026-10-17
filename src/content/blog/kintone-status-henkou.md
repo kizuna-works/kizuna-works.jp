@@ -5,6 +5,7 @@ pubDate: 2026-10-12
 author: "KIZUNA Works"
 tags: ["kintone", "プロセス管理", "ステータス", "一括変更", "プラグイン"]
 ogImage: "/images/blog/kintone-status-henkou.png"
+relatedPlugins: ["status-bulk-action", "sidebar-enhancer"]
 ---
 
 本記事は、kintoneの構築・カスタマイズとプラグイン開発の実務経験を持つ筆者が、**実際のkintone環境に申請アプリを作り、ステータスを進めたり戻したりしながら**確かめた挙動と、サイボウズ公式ヘルプ・kintone APIリファレンスの記載をもとに整理したものです（確認日：2026年10月11日）。

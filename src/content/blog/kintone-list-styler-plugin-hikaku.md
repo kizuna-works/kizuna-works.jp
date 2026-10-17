@@ -5,6 +5,7 @@ pubDate: 2026-06-07
 author: "KIZUNA Works"
 tags: ["kintone", "プラグイン", "一覧", "比較", "列固定"]
 ogImage: "/images/blog/kintone-list-styler-plugin-hikaku.png"
+relatedPlugins: ["list-styler", "field-styler"]
 ---
 
 本記事は、kintoneの構築・カスタマイズやプラグイン開発の実務経験を持つ筆者が、一覧画面の見やすさ改善に役立つプラグインを、各製品の公式情報と実際の運用知見をもとに中立的に整理したものです。

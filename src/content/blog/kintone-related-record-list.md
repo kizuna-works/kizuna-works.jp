@@ -5,6 +5,7 @@ pubDate: 2026-07-06
 author: "KIZUNA Works"
 tags: ["kintone", "関連レコード", "集計", "使い方", "業務効率化"]
 ogImage: "/images/blog/kintone-related-record-list.png"
+relatedPlugins: ["related-record-popup", "summary-bar", "dashboard"]
 ---
 
 本記事は、kintoneの構築・カスタマイズ支援を行う筆者が、公式仕様と実際の運用知見をもとに整理しています。

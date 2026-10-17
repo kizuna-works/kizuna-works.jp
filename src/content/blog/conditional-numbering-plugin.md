@@ -9,6 +9,7 @@ ogImage: "/images/blog/conditional-numbering-plugin.png"
 # Google 側で「クロール済み・未インデックス」となっていた。導入済みユーザー向けの
 # 設定マニュアルとしては有用なので記事は残し、検索インデックスからのみ外す。
 noindex: true
+relatedPlugins: ["kw-conditional-numbering"]
 ---
 
 kintoneの標準機能にも「レコード番号」はありますが、実務では<strong>「伝票番号に部門コードを入れたい」「月が変わったら連番をリセットしたい」「営業所ごとに独立した採番にしたい」</strong>といったニーズが出てきます。

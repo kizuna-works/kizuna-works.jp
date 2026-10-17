@@ -5,6 +5,7 @@ pubDate: 2026-08-11
 author: "KIZUNA Works"
 tags: ["kintone", "カスタマイズビュー", "一覧", "JavaScript"]
 ogImage: "/images/blog/kintone-custom-view.png"
+relatedPlugins: ["sheet-edit", "dashboard", "card-board"]
 ---
 
 本記事は、kintoneの構築・カスタマイズ支援とプラグイン開発の実務経験を持つ筆者が、実際に検証環境でカスタマイズビューを作りながら整理したものです。画面はすべて実機のスクリーンショットです。

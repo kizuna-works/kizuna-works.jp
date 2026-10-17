@@ -5,6 +5,7 @@ pubDate: 2026-05-18
 author: "KIZUNA Works"
 tags: ["kintone", "運用改善", "DX推進", "kintone管理者"]
 ogImage: "/images/blog/kintone-tsukainikunai-genin.png"
+relatedPlugins: ["field-styler", "lookup-suggest", "quick-search"]
 ---
 
 kintone（キントーン）を導入したものの、現場の社員から「前のやり方の方が早かった」「入力が面倒で使いにくい」といった意見が上がることがあります。業務効率化のために導入したシステムが、現場の負担になってしまうケースは珍しくありません。

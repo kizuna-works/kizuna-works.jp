@@ -6,6 +6,7 @@ updatedDate: 2026-08-09
 author: "KIZUNA Works"
 tags: ["kintone", "添付ファイル", "PDF", "ディスク容量", "プラグイン"]
 ogImage: "/images/blog/kintone-tempu-file.png"
+relatedPlugins: ["file-export", "file-icon-marker", "file-preview"]
 ---
 
 本記事は、kintoneの構築・カスタマイズ支援とプラグイン開発の実務経験を持つ筆者が、サイボウズ公式ヘルプの記載と実際の運用で得た知見をもとに整理したものです。

@@ -6,6 +6,7 @@ updatedDate: 2026-10-12
 author: "KIZUNA Works"
 tags: ["kintone", "自動採番", "条件分岐", "プラグイン", "ノーコード"]
 ogImage: "/images/blog/kintone-jido-saiban.png"
+relatedPlugins: ["kw-conditional-numbering", "record-recovery"]
 ---
 
 本記事は、kintoneの構築・カスタマイズやプラグイン開発の実務経験を持つ筆者が、採番（ルールに沿った番号の自動付与）の実現方法を、各製品の公式情報と運用知見をもとに中立的に整理したものです。

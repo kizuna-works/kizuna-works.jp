@@ -5,6 +5,7 @@ pubDate: 2026-04-20
 updatedDate: 2026-07-03
 ogImage: "/images/blog/kintone-2026-update.png"
 tags: ["kintone", "DX推進", "AI活用", "業務改善", "プラグイン"]
+relatedPlugins: ["kw-conditional-numbering"]
 ---
 
 日々の業務改善や社内のデジタルトランスフォーメーション（DX）を進めるうえで、kintone（キントーン）は欠かせないツールとなっていますよね。2026年現在もkintoneは進化を続けており、特に直近のアップデートや最新のAI連携トレンドをキャッチアップすることは、自社のシステムをさらに使いやすくするための重要なステップです。

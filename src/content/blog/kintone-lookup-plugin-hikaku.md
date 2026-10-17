@@ -5,6 +5,7 @@ pubDate: 2026-05-31
 author: "KIZUNA Works"
 tags: ["kintone", "ルックアップ", "プラグイン比較", "業務効率化"]
 ogImage: "/images/blog/kintone-lookup-plugin-hikaku.png"
+relatedPlugins: ["lookup-suggest", "quick-search", "quick-side-view"]
 ---
 
 本記事は、kintoneプラグイン開発・カスタマイズ支援の実務経験を持つ筆者が、各プラグインの公式情報と実際の運用知見をもとに整理しています。

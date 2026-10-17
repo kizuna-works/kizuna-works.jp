@@ -5,6 +5,7 @@ pubDate: 2026-10-12
 author: "KIZUNA Works"
 tags: ["kintone", "レコード番号", "採番", "アプリコード", "CSV"]
 ogImage: "/images/blog/kintone-record-bangou.png"
+relatedPlugins: ["kw-conditional-numbering", "record-recovery"]
 ---
 
 本記事は、kintoneの構築・カスタマイズとプラグイン開発の実務経験を持つ筆者が、**実際のkintone環境に問い合わせ管理アプリを作り、レコードの追加・削除やアプリコードの設定を試しながら**確かめた挙動と、サイボウズ公式ヘルプの記載をもとに整理したものです（確認日：2026年10月12日）。

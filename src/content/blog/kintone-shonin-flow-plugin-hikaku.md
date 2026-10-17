@@ -6,6 +6,7 @@ updatedDate: 2026-10-12
 author: "KIZUNA Works"
 tags: ["kintone", "プラグイン", "承認フロー", "プロセス管理", "ワークフロー"]
 ogImage: "/images/blog/kintone-shonin-flow-plugin-hikaku.png"
+relatedPlugins: ["status-bulk-action", "conditional-form", "record-lock"]
 ---
 
 本記事は、kintoneプラグイン開発とカスタマイズ支援の実務経験を持つ筆者が、**実際のkintone環境に稟議申請アプリを作り、承認フローを動かしながら**確かめた挙動をもとに整理したものです。他社製品は各社の公開情報を参照しています（確認日：2026年8月23日）。

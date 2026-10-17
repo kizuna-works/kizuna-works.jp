@@ -6,6 +6,7 @@ updatedDate: 2026-09-21
 author: "KIZUNA Works"
 tags: ["kintone", "BIツール", "データ可視化", "ダッシュボード", "集計", "業務効率化"]
 ogImage: "/images/blog/kintone-bi-tool-dashboard.png"
+relatedPlugins: ["dashboard", "summary-bar"]
 ---
 
 本記事は、kintoneの構築・カスタマイズやプラグイン開発の実務経験を持つ筆者が、BIツール（ビジネスインテリジェンス）の基本と導入の現実的な課題、そして kintone でどこまでデータの集計・可視化ができるのかを、公式情報と現場の知見をもとに整理したものです。

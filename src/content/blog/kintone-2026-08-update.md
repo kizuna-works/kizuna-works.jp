@@ -6,6 +6,7 @@ updatedDate: 2026-08-10
 author: "KIZUNA Works"
 tags: ["kintone", "アップデート", "ルックアップ", "JavaScript API", "モバイル"]
 ogImage: "/images/blog/kintone-2026-08-update.png"
+relatedPlugins: ["lookup-suggest", "lookup-sync"]
 ---
 
 本記事は、kintoneの構築・カスタマイズやプラグイン開発の実務経験を持つ筆者が、サイボウズ公式のアップデート情報とAPIアップデート情報をもとに、2026年8月のkintone（キントーン）アップデートを現場目線で整理したものです。

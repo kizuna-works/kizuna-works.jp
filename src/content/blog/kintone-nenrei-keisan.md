@@ -6,6 +6,7 @@ updatedDate: 2026-09-21
 author: "KIZUNA Works"
 tags: ["kintone", "年齢計算", "計算フィールド", "日付計算", "自動計算"]
 ogImage: "/images/blog/kintone-nenrei-keisan.png"
+relatedPlugins: ["elapsed-assist", "bulk-update"]
 ---
 
 本記事は、kintone（キントーン）の構築・カスタマイズとプラグイン開発の実務経験をもとに、**実際のkintone環境で式を1本ずつ通しながら**検証した結果をまとめたものです。掲載している式はすべて、この記事のために作った検証アプリで動作と数値を確かめています（検証日：2026年8月23日）。

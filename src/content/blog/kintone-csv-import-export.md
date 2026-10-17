@@ -5,6 +5,7 @@ pubDate: 2026-07-06
 author: "KIZUNA Works"
 tags: ["kintone", "CSV", "Excel", "業務効率化"]
 ogImage: "/images/blog/kintone-csv-import-export.png"
+relatedPlugins: ["csv-export", "excel-paste"]
 ---
 
 kintoneでデータを扱っていると、必ず一度は「Excelのデータをまとめて取り込みたい」「一覧を書き出して加工したい」という場面にぶつかります。ところが、いざCSVを触ってみると文字が化けたり、明細（サブテーブル）がうまく入らなかったりと、意外につまずきやすいのがこの領域です。

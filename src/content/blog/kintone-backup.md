@@ -5,6 +5,7 @@ pubDate: 2026-07-24
 author: "KIZUNA Works"
 tags: ["kintone", "バックアップ", "CSV", "データ保護", "プラグイン"]
 ogImage: "/images/blog/kintone-backup.png"
+relatedPlugins: ["record-recovery", "csv-export"]
 ---
 
 本記事は、kintoneの構築・カスタマイズ支援とプラグイン開発の実務経験を持つ筆者が、実際の運用で得た知見と、サイボウズ公式ヘルプの記載をもとに整理したものです。

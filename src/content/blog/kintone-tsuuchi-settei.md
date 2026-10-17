@@ -5,6 +5,7 @@ pubDate: 2026-08-01
 author: "KIZUNA Works"
 tags: ["kintone", "通知", "メール", "プロセス管理", "運用改善"]
 ogImage: "/images/blog/kintone-tsuuchi-settei.png"
+relatedPlugins: ["chat-notify", "read-check", "status-bulk-action"]
 ---
 
 本記事は、kintoneの構築・カスタマイズ支援とプラグイン開発の実務経験を持つ筆者が、サイボウズ公式ヘルプの記載と実際の運用で得た知見をもとに整理したものです。

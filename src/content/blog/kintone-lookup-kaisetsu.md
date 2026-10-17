@@ -6,6 +6,7 @@ updatedDate: 2026-09-13
 author: "KIZUNA Works"
 tags: ["kintone", "ルックアップ", "設定方法", "使い方"]
 ogImage: "/images/blog/kintone-lookup-kaisetsu.png"
+relatedPlugins: ["lookup-suggest", "lookup-sync", "lookup-filter"]
 ---
 
 本記事は、kintoneの構築・カスタマイズ支援を行う筆者が、公式仕様と実際の運用知見をもとに整理しています。

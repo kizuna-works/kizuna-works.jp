@@ -6,6 +6,7 @@ updatedDate: 2026-09-21
 author: "KIZUNA Works"
 tags: ["kintone", "プラグイン", "検索", "絞り込み", "DX"]
 ogImage: "/images/blog/kintone-kensaku-plugin-hikaku.png"
+relatedPlugins: ["quick-search", "lookup-suggest"]
 ---
 
 本記事は、kintoneプラグイン開発・カスタマイズ支援の実務経験を持つ筆者が、各プラグインの公式情報と実際の運用知見をもとに整理しています。

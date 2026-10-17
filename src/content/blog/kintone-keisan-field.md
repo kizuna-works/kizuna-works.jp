@@ -5,6 +5,7 @@ pubDate: 2026-07-17
 author: "KIZUNA Works"
 tags: ["kintone", "計算フィールド", "経過日数", "自動計算"]
 ogImage: "/images/blog/kintone-keisan-field.png"
+relatedPlugins: ["elapsed-assist"]
 ---
 
 本記事は、kintone（キントーン）の構築・カスタマイズの実務経験をもとに、計算フィールドの使い方と「思ったように更新されない」つまずきの直し方を整理したものです。

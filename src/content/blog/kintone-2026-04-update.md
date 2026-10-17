@@ -5,6 +5,7 @@ pubDate: 2026-04-23
 author: "KIZUNA Works"
 tags: ["kintone", "アップデート", "DX推進", "業務効率化", "AI活用"]
 ogImage: "/images/blog/kintone-2026-04-update.png"
+relatedPlugins: ["kw-conditional-numbering"]
 ---
 
 春の訪れとともに新生活や新しい環境での業務がスタートする時期ですが、皆様の組織でのデータ管理やアプリ運用は順調に進んでいますでしょうか。蓄積された情報をどう活かすか、あるいは増えすぎたアプリをどう管理するかといった悩みを抱えている方も多いはずです。

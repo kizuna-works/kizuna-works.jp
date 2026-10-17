@@ -5,6 +5,7 @@ pubDate: 2026-08-15
 author: "KIZUNA Works"
 tags: ["kintone", "集計", "グラフ", "サブテーブル", "プラグイン"]
 ogImage: "/images/blog/kintone-shukei.png"
+relatedPlugins: ["summary-bar", "table-assist", "related-enhancer"]
 ---
 
 本記事は、kintoneの構築・カスタマイズ支援とプラグイン開発の実務経験を持つ筆者が、サイボウズ公式ヘルプの記載と実機検証をもとに整理したものです。

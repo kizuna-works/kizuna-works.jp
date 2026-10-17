@@ -5,6 +5,7 @@ pubDate: 2026-05-23
 author: "KIZUNA Works"
 tags: ["kintone", "Excel", "脱Excel", "DX推進", "業務改善", "kintone管理者"]
 ogImage: "/images/blog/kintone-excel-iko-steps.png"
+relatedPlugins: ["field-comment", "field-styler", "sheet-edit"]
 ---
 
 kintone（キントーン）を導入する際、現場から最も多く上がるのが「今までのExcelの方が使いやすかった」という声です。本記事では、Excelに慣れた現場がkintoneに抵抗を感じる本質的な理由と、担当者が明日から実践できる3つの優しい移行ステップを解説します。あわせて KIZUNA Works が提供するプラグインで「Excel感」を残しつつ kintone へスムーズに移行する具体策も紹介します。

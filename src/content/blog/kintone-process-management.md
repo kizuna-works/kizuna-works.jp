@@ -6,6 +6,7 @@ updatedDate: 2026-09-21
 author: "KIZUNA Works"
 tags: ["kintone", "プロセス管理", "ワークフロー", "承認フロー", "業務効率化"]
 ogImage: "/images/blog/kintone-process-management.png"
+relatedPlugins: ["status-bulk-action", "conditional-form", "mail-assist"]
 ---
 
 本記事は、kintoneの構築・カスタマイズ支援とプラグイン開発の実務経験を持つ筆者が、実際の業務フロー設計で得た知見をもとにまとめています。

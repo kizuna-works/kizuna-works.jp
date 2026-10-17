@@ -5,6 +5,7 @@ pubDate: 2026-08-06
 author: "KIZUNA Works"
 tags: ["kintone", "テーブル", "サブテーブル", "集計", "プラグイン"]
 ogImage: "/images/blog/kintone-table-tsukaikata.png"
+relatedPlugins: ["table-assist", "excel-paste", "sheet-edit"]
 ---
 
 本記事は、kintoneの構築・カスタマイズ支援とプラグイン開発の実務経験を持つ筆者が、サイボウズ公式ヘルプの記載と自社検証環境での実機確認をもとに整理したものです。仕様の引用箇所は出典を明記しています。
