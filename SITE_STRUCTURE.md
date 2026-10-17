@@ -1163,7 +1163,9 @@ c:\kizuna-works.jp\
 │   │   ├── kw-card-board-v1.1.0.zip                                  # カードボード for kintone 配布ファイル（v1.1.0：時間の集計を〇時間〇分で表示・対象フィールドなしの表示）
 │   │   ├── kw-card-board-v1.1.1.zip                                  # カードボード for kintone 配布ファイル（最新・v1.1.1：表形式の一覧の案内・削除した一覧の設定が無料プランの枠を塞がない・カード表示の広告の帯）
 │   │   ├── kw-chat-notify-v1.0.0.zip                             # チャット通知 for kintone v1.0.0 配布ファイル（プレミアム・単品販売なし）
-│   │   ├── kw-chat-notify-v1.0.1.zip                             # チャット通知 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
+│   │   ├── kw-chat-notify-v1.0.1.zip                             # チャット通知 for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-chat-notify-v2.0.0.zip                             # チャット通知 for kintone 配布ファイル（旧版・参考保管・v2.0.0 LINE WORKS 対応）
+│   │   ├── kw-chat-notify-v2.1.0.zip                             # チャット通知 for kintone 配布ファイル（最新・2026-10-17・v2.1.0：連携用の内部の改善／一覧のバナーを共通版に／「バナー非表示」の案内をプレミアム年間サポーターに修正／設定画面の案内欄を最新に）
 │   │   ├── kw-comment-control-v1.0.0.zip                         # コメントコントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-comment-control-v1.0.1.zip                         # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.1＝閉じたコメント欄を手動で開けない不具合を修正）
 │   │   ├── kw-comment-control-v1.0.2.zip                         # コメントコントロール for kintone 配布ファイル（旧版・手動配置・v1.0.2＝APIリクエスト節約。一覧バッジのコメント取得をホバー時のみに変更・自分宛メンションの一覧色分けは任意オプション化）

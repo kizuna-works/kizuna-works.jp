@@ -1452,7 +1452,7 @@ export const premiumPlugins: Plugin[] = [
     problemTitle: 'kintone を開くまで、更新に気づけない',
     problemDesc: '大事なレコードが登録されても担当者が気づかず対応が遅れる。かといって全部通知すると誰も読まなくなる',
     releaseDate: '2026-07-29',
-    summaryVersion: '2.0.0',
+    summaryVersion: '2.1.0',
   },
   {
     id: 'kw-sidebar-enhancer',
