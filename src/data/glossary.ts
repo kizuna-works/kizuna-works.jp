@@ -452,7 +452,7 @@ export const glossary: Term[] = [
     seoDescription: 'kintoneのフィールドとは、レコードを構成する入力項目のこと。文字列・数値・日付・ルックアップなど20種類以上ある型の違いと、後の検索・集計まで見据えた選び方を実務目線でわかりやすく解説します。',
     relatedTerms: ['lookup', 'subtable', 'calc'],
     relatedPlugins: ['field-styler'],
-    relatedBlog: ['kintone-field-styler-plugin-guide'],
+    relatedBlog: ['kintone-field-shurui', 'kintone-field-styler-plugin-guide'],
     hasPage: true,
     longDescription: [
       'フィールドは、レコードを構成する1つひとつの入力項目です。文字列・数値・日付・ドロップダウン・ルックアップ・添付ファイルなど20種類以上の型があり、扱いたいデータに合わせて選びます。フォーム編集画面でドラッグ＆ドロップして配置し、各フィールドには重複を許さない「フィールドコード」が割り当てられます。',
