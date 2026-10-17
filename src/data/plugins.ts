@@ -984,7 +984,7 @@ export const plugins: Plugin[] = [
     problemDesc:
       'ドロップダウンやユーザー選択、日付は計算式で連結できない。自動計算にすると「値の重複を禁止する」も選べず、複合キーとして使えない',
     releaseDate: '2026-08-02',
-    summaryVersion: '1.0.1',
+    summaryVersion: '1.1.0',
   },
   {
     id: 'kw-view-control',
