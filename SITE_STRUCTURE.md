@@ -271,7 +271,7 @@ c:\kizuna-works.jp\
 │   │   │   │   └── privacy/
 │   │   │   │       └── index.astro      # KW Plugin Updater for kintone プライバシーポリシー（/extensions/kw-plugin-updater-for-kintone/privacy/）
 │   │   │   └── kw-plugin-inventory-for-kintone/
-│   │   │       ├── index.astro          # KW Plugin Inventory for kintone ランディングページ（/extensions/kw-plugin-inventory-for-kintone/）— 全アプリのプラグインと JS/CSS カスタマイズの棚卸し（要対応10種類の判定・Excel/CSV/HTML/Markdown/JSON/PDF 出力）。標準機能との違い・判定一覧・出力形式・対象範囲・設定・FAQ（FAQPage は frontmatter の同じ配列から生成）。Chrome ウェブストア審査中＝公開準備中（extensions.ts は status 'coming-soon'・ストア URL 空）。画像＝/images/extensions/kw-plugin-inventory-{icon,banner}.png と kw-plugin-inventory/01〜05-*.png
+│   │   │       ├── index.astro          # KW Plugin Inventory for kintone ランディングページ（/extensions/kw-plugin-inventory-for-kintone/）— 全アプリのプラグインと JS/CSS カスタマイズの棚卸し（要対応10種類の判定・Excel/CSV/HTML/Markdown/JSON/PDF 出力）。標準機能との違い・判定一覧・出力形式・対象範囲・設定・FAQ（FAQPage は frontmatter の同じ配列から生成）。Chrome ウェブストアで公開中（2026-10-17・extensions.ts は status 'available'）。画像＝/images/extensions/kw-plugin-inventory-{icon,banner}.png と kw-plugin-inventory/01〜05-*.png
 │   │   │       └── privacy/
 │   │   │           └── index.astro      # KW Plugin Inventory for kintone プライバシーポリシー（/extensions/kw-plugin-inventory-for-kintone/privacy/）— 権限の用途は SECRET の STORE_LISTING.md と一致させる
 │   │   ├── glossary/

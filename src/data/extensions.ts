@@ -89,9 +89,9 @@ export const extensions: Extension[] = [
     bannerAlt: 'KW Plugin Inventory for kintone のバナー画像',
     iconImage: '/images/extensions/kw-plugin-inventory-icon.png',
     iconAlt: 'KW Plugin Inventory for kintone アイコン',
-    // ストア審査中のため未確定。承認後に Chrome ウェブストアの URL を入れ、status を 'available' にする。
-    chromeWebStoreUrl: '',
+    chromeWebStoreUrl:
+      'https://chromewebstore.google.com/detail/omeedaflcbnkeijjgodldpdndikibdjo',
     audienceTag: '管理者向け',
-    status: 'coming-soon',
+    status: 'available',
   },
 ];
