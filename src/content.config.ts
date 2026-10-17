@@ -29,6 +29,9 @@ const blog = defineCollection({
 			// Auto table-of-contents from H2 headings. Shown by default on long posts;
 			// set false to suppress (e.g. a post with its own custom in-body TOC).
 			toc: z.boolean().optional(),
+			// Plugin slugs (/plugins/<slug>/) to feature in the article sidebar.
+			// Omitted: that sidebar section is not shown (the install-ranking box always is).
+			relatedPlugins: z.array(z.string()).optional(),
 			// Keep the post out of the search index (robots noindex + excluded from the
 			// sitemap in astro.config.mjs). For posts that exist as documentation for
 			// current users but target a phrase with no search demand, so Google would

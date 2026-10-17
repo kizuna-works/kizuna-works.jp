@@ -5,11 +5,12 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import Layout from './Layout.astro';
 import RelatedPosts from '../components/RelatedPosts.astro';
+import BlogSidebar from '../components/BlogSidebar.astro';
 
 type Heading = { depth: number; slug: string; text: string };
 type Props = CollectionEntry<'blog'>['data'] & { slug: string; toc?: boolean; headings?: Heading[] };
 
-const { title, description, pubDate, updatedDate, heroImage, ogImage, author, tags, slug, toc, noindex, headings = [] } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, ogImage, author, tags, slug, toc, noindex, relatedPlugins, headings = [] } = Astro.props;
 
 const formattedPubDate = pubDate.toLocaleDateString('ja-JP', {
   year: 'numeric',
@@ -82,10 +83,28 @@ const jsonLd = {
   <style is:global>
     body { background-color: #F0F4F8; }
 
+    /* Two-column layout: article on the left, sidebar on the right (stacks below 1024px) */
     .blog-post-wrapper {
-      max-width: 980px;
+      max-width: 1240px;
       margin: 50px auto;
       padding: 0 20px 80px;
+    }
+
+    .blog-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .blog-layout > * { min-width: 0; }
+
+    @media (max-width: 1023px) {
+      .blog-layout {
+        grid-template-columns: minmax(0, 1fr);
+        max-width: 860px;
+        margin: 0 auto;
+      }
     }
 
     .blog-post-card {
@@ -118,7 +137,7 @@ const jsonLd = {
     }
 
     .blog-post-content {
-      padding: 50px 60px;
+      padding: 44px 48px;
     }
 
     .blog-post-meta {
@@ -679,6 +698,7 @@ const jsonLd = {
   </style>
 
   <main class="blog-post-wrapper">
+   <div class="blog-layout">
     <article class="blog-post-card">
       {heroImage ? (
         <div class="blog-hero-image">
@@ -731,6 +751,8 @@ const jsonLd = {
         <a href="/blog/" class="blog-back-link">← ブログ一覧に戻る</a>
       </div>
     </article>
+    <BlogSidebar currentSlug={slug} tocItems={showToc ? tocItems : []} relatedPlugins={relatedPlugins} />
+   </div>
   </main>
 
   <div id="blog-lightbox" role="dialog" aria-modal="true" aria-label="画像の拡大表示">

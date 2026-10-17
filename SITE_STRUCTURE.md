@@ -39,6 +39,7 @@ c:\kizuna-works.jp\
 │   ├── components/             # 再利用可能なAstroコンポーネント
 │   │   ├── BlogCard.astro      # ブログ記事カード（ホームページ・ブログ一覧で使用）
 │   │   ├── RelatedPosts.astro  # ブログ記事末尾の関連記事自動表示（タグ重複数でスコアリング・上位3件）
+│   │   ├── BlogSidebar.astro   # ブログ記事の右サイドバー（2026-10-17）。目次（スクロール追従・現在の見出しを強調）／人気の記事 TOP5（src/data/blogSidebar.ts・表示中の記事は除いて繰り上げ）／プラグインのインストール数ランキング TOP10（install-ranking.json）／記事の関連プラグイン（frontmatter relatedPlugins）／Chrome拡張・無料ツール。スマホでは記事の下に回る
 │   │   ├── SupporterCTA.astro  # サポーターライセンス案内ページへの誘導カード（pluginIdでURL自動付与）
 │   │   ├── SupporterForm.astro # サポーターライセンス申込フォーム（URL ?plugin=<id> で自動選択対応）
 │   │   ├── ApplyFlow.astro     # 申込からライセンス発行までの流れの図（サポーター申込ページの「プランを選ぶ」直下。確定と支払いは別手順・支払い確認までライセンスは発行しない旨を明示）
@@ -62,6 +63,7 @@ c:\kizuna-works.jp\
 │   │   ├── resellers.ts        # 販売代理店マスタ（ResellerCard が参照）。1件でも登録すると全63製品ページに代理店カードが出る。**掲載は販売代理店契約の締結後**（契約書 第9条第4項）。現在は空配列＝非表示
 │   │   ├── licenseEndpoint.ts  # ライセンス GAS の /exec の URL（申込フォーム・/apply/ のページが使う）。環境変数 PUBLIC_LICENSE_GAS_URL があればそちら（試験用の GAS につなぐときだけ）
 │   │   ├── pricing.ts          # サポーターの料金とプランの表示の単一情報源。PRICE_REVISION_LIVE（年間サポーターの料金改定を公開したか）・改定日・プランごとの料金・申込の planType。製品ページのカード・サポーターページ・申込フォーム・一覧・規約・トップのお知らせがここを見る
+│   │   ├── blogSidebar.ts      # ブログサイドバーの「人気の記事」の slug 一覧（GSC のクリック上位から月1回手で見直す。6本目は表示中の記事を除いたときの繰り上げ用）
 │   │   └── install-ranking.json # インストール数ランキングのスナップショット（scripts/gen-install-ranking.mjs が prebuild で更新）。トップの Top3 と /plugins/ranking/ が両方これを読む＝順位が食い違わない。**手で編集しない**
 │   ├── layouts/                # 共通レイアウトコンポーネント
 │   │   ├── Layout.astro        # 全ページ共通レイアウト（GA4・プラグイン内バナーからの流入元の記録（utm_source=kizuna-plugin を localStorage kz_src に30日）・Noto Sans JP・ヘッダー・フッター）。AdSense は 2026-10-03 にやめた
@@ -283,6 +285,8 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-lookup-filter-v130.md   # ルックアップ絞り込み v1.3.0 のお知らせ（2026-10-10 14:00・［取得］の画面を kintone の設定どおりに・文字列以外も検索・プレビュー）
 │   │   │   ├── plugin-lookup-suggest-v320.md  # ルックアップサジェスト v3.2.0 のお知らせ（2026-10-10 14:10・候補を kintone の設定どおりに・文字列以外も検索・設定画面の見直し）
 │   │   │   └── plugin-lookup-suggest-v322.md  # ルックアップサジェスト v3.2.2 のお知らせ（2026-10-13 21:00・一部の記号を含む語でも候補が出る。v3.2.1 のお知らせはこれに統合して削除）
+│   │   │   ├── blog-kintone-record-sakujo-fukugen.md # ブログ記事「kintoneで削除したレコードは復元できる？」公開のお知らせ（2026-10-17 11:00）
+│   │   │   ├── site-blog-sidebar-update.md    # ブログ記事ページにサイドバーを追加したお知らせ（2026-10-17 10:00・category update）
 │   │   └── blog/               # ブログ記事 Markdown/MDX ファイル置き場
 │   │       ├── kintone-teichaku-shinai-riyu.md      # 「kintoneが定着しない本当の理由」記事
 │   │       ├── conditional-numbering-plugin.md      # 「条件分岐自動採番プラグインの機能と設定ガイド」記事（frontmatter `noindex: true`＝導入済ユーザー向けマニュアルのため検索インデックス対象外・sitemapからも除外）
@@ -310,6 +314,7 @@ c:\kizuna-works.jp\
 │   │       ├── kintone-ikkatsu-koushin.md            # 「【2026年版】kintone一括更新の方法とプラグイン比較｜標準の限界とCSVの注意点」記事（比較型。**40記事を需要クエリと突き合わせて残っていた唯一の空き枠**＝`kintone 一括更新` 24.3位・受け皿は製品ページ1枚だけ・bulk-update は 246表示/CTR 2.0%〔製品ページ平均 6.63%の1/3〕。仕様はすべて一次情報で確認＝①**一覧のインライン編集は1件ずつ**で複数まとめては不可（公式ヘルプに記載なし）・編集可能な型13種・関連レコードの条件指定/ルックアップ設定/テーブル内は不可・アプリ管理者が［レコード一覧でのインライン編集］を有効化する必要あり ②CSV更新キーは「同じアプリ内でほかのレコードと値が重複しないフィールド」で**レコード番号が使える**（重複禁止設定は必須と書かれていない）・権限は［ファイル読み込み］＋フィールドによりアプリ管理 ③**上限は Excel 1MB/1,000行/500列、CSV等 100MB/10万行、書き出しは1ファイル100MB** ④REST `PUT /records.json` は**一度に100件まで**・**失敗するとそのリクエストは丸ごとキャンセル**・`updateKey` は**重複禁止を設定した文字列1行または数値のみ**〔CSVはレコード番号可＝APIと条件が違う〕・更新不可フィールド9種。他社2製品は一次情報で確認＝一覧レコード一括更新/クリアプラグイン（**合同会社ぱんだ商会**・tis2010.jp・無料・複数フィールド同時が当社との差・制限事項は公式に記載なし）／rex0220 一括更新（有料・**価格は確証が取れなかったので記載しない**・更新項目セットの複数登録・計算式・並列処理・PC専用）。自社は かんたん一括更新／シート編集／エクセル一括貼り付け／ステータス一括実行／ルックアップ自動同期 を用途別に対応づけ。ステータスの一括実行は承認フロー記事へ切り分け。図解6枚 kintone-ikkatsu-koushin-{overview,inline-limit,csv-flow,updatekey,contrast,api-limit}.png ＋ 自社製品スクショ流用6枚 bulk-update-{list,popup,history}.png／sheet-edit-after-01.png／excel-paste-modeB-preview.png／status-bulk-action-groups.png ＋ ヒーローバナー kintone-ikkatsu-koushin.png。表4つ〔ファイル上限・製品比較・選び方マトリクス・つまずきの原因と確認場所〕。**図解の同梱フォント（Noto Sans JP サブセット WOFF）に `→`（U+2192）が無く豆腐になる**ため、`gen-blog-figures.mjs` に未収録文字を検知して exit 1 するガードを追加し、公開済みで化けていた kintone-tsuuchi-settei-triage.png／kintone-shonin-flow-plugin-hikaku-contrast.png／kintone-2026-06-update-ai-flow.png の3枚も矢印を言葉に置き換えて再生成した）
 │   │       ├── kintone-status-henkou.md              # 「【2026年版】kintoneのステータスを一括変更・戻す方法｜変更できない原因と履歴の確認」記事（悩み解決型。承認フロー比較記事＝製品比較と切り分け、運用で困ること〔一括変更・戻す・変更できない原因・履歴・一覧での把握〕に絞る。**検証テナントの稟議申請アプリ＋使い捨てアプリで実測**＝①作業者でなければアプリ管理者でも REST でも実行不可 ②設定に無い遷移は REST でもエラー ③プロセス管理を無効→有効にしてもステータスは残る ④**作業者を置かないステータスのアクションはレコードを見られる全員が実行できる**＝完了に戻すアクションを足すなら完了に作業者を置く ⑤管理者は［現在の作業者を変更］で自分に付け替えれば進められる ⑥ステータスの履歴の「作業した人」は実行者。公式ヘルプ＝一括変更は不可・戻すにはアクションを設定。REST `PUT /records/status.json` は1回100件・`getStatusHistory` は最大100件で REST の履歴 API は無い。実機スクショ7枚 kintone-status-henkou-{list,filter,graph,history,reassign,done-before,done-after}.png ＋ 図解5枚 kintone-status-henkou-{overview,revert-flow,revert-guard,cannot,admin-flow}.png ＋ 自社製品スクショ流用2枚 status-bulk-action-{list,groups}.png ＋ ヒーローバナー kintone-status-henkou.png。表2つ）
 │   │       ├── kintone-record-bangou.md              # 「【2026年版】kintoneのレコード番号はリセットできる？1から振り直す方法と変更できない理由」記事（仕様解説型。自動採番記事＝採番プラグイン比較と切り分け、レコード番号そのものの仕様〔欠番・リセット不可・1から振り直す・アプリコード・計算式・JS/REST/クエリ〕に絞る。**検証テナントの問い合わせ管理アプリで実測**＝①削除した番号は欠番・全件削除しても続きから ②REST で値を指定すると GAIA_UN10 ③計算式で使うと GAIA_IL01 ④アプリコード設定で値が「TOI-8」・$id と getId() は数値のまま・クエリは 8 でも "TOI-8" でも可 ⑤コメントに書いた TOI-8 は自動リンク。公式FAQ＝1から振り直すにはアプリ再利用＋CSV「レコードの追加のみ」。実機スクショ4枚 kintone-record-bangou-{list,appcode-list,appcode-setting,comment-link}.png ＋ 図解3枚 kintone-record-bangou-{overview,renumber-flow,vs-field}.png ＋ 条件分岐自動採番のスクショ流用1枚 ＋ ヒーローバナー kintone-record-bangou.png。表3つ）
+│   │       ├── kintone-record-sakujo-fukugen.md      # 「【2026年版】kintoneで削除したレコードは復元できる？ゴミ箱がない理由と、誤削除に備える方法」記事（仕様解説型・2026-10-17）。ゴミ箱なし・バックアップは誤削除に使えない・監査ログで消えたレコードを特定（画面の1件削除は補足にレコード番号が残る／一括削除は残らない）・CSVで戻すと失われるもの・削除権限の絞り方（アプリ／レコードのアクセス権）・一括削除は初期設定オフ。**検証テナントの撮影用アプリで実測**＝詳細画面の確認は「削除します。よろしいですか?」のみ・一括削除の確認に件数は出ない・削除権限が無い利用者には削除アイコン／メニューが出ない。実機スクショ11枚 kintone-record-sakujo-fukugen-{detail-01,detail-02,list-01,setting-01,setting-02,bulk-01,bulk-02,audit-01,audit-02,acl-01,acl-02}.png ＋ レコード復元プラグインのスクショ流用4枚 ＋ ヒーローバナー kintone-record-sakujo-fukugen.png（A2 案）
 │   │       └── kintone-calendar-plugin-hikaku.md     # 「【2026年版】kintoneカレンダー表示の方法とプラグイン比較｜無料で週・日表示と色分け」記事（比較型。標準のカレンダー形式の3つの限界と、カレンダープラグイン7製品の表示・人/部屋の軸・スマホ・価格を比較。図解は gen-blog-figures の kintone-calendar-plugin-hikaku-*）
 │   └── styles/
 │       └── global.css          # グローバルCSS（最小リセット・スティッキーフッター用）

@@ -1,0 +1,580 @@
+---
+// ブログ記事の右サイドバー（2026-10-17 新設）。
+// 上から：キャンペーン → この記事で紹介しているプラグイン → インストール数ランキング TOP10 → 人気の記事
+// →（追従）目次＋Chrome 拡張機能＋無料ツール。
+// 幅 1024px 未満では記事の下に回り、目次は本文側の目次と重複するので出さない。
+import { getCollection } from 'astro:content';
+import Picture from './Picture.astro';
+import { allPlugins, type Plugin } from '../data/plugins';
+import { extensions } from '../data/extensions';
+import installRanking from '../data/install-ranking.json';
+import { popularPostSlugs } from '../data/blogSidebar';
+
+type Heading = { depth: number; slug: string; text: string };
+
+interface Props {
+  currentSlug: string;
+  tocItems: Heading[];
+  relatedPlugins?: string[];
+}
+
+const { currentSlug, tocItems, relatedPlugins } = Astro.props;
+
+// --- Plugins -------------------------------------------------------------
+function iconFor(p: Plugin): string {
+  if (p.slug === 'kw-conditional-numbering') return '/images/conditional-numbering-icon.png';
+  return `/images/${p.slug}-icon.png`;
+}
+
+// A typo in relatedPlugins must stop the build, not silently drop the card.
+// No relatedPlugins: the section is simply omitted (the ranking below covers discovery).
+const sidebarPlugins: Plugin[] = (relatedPlugins ?? []).map((s) => {
+  const p = allPlugins.find((x) => x.slug === s);
+  if (!p) throw new Error(`[BlogSidebar] relatedPlugins: 「${s}」というプラグインの slug はありません（${currentSlug}）`);
+  return p;
+});
+
+// Same snapshot as /plugins/ranking/ and the home page Top 3, so the order never disagrees.
+const ranking = installRanking.ranking
+  .map((r) => allPlugins.find((x) => x.id === r.pluginId))
+  .filter((p): p is Plugin => Boolean(p) && p!.status === 'available')
+  .slice(0, 10);
+
+const sidebarExtensions = extensions.filter((e) => e.status === 'available');
+
+// --- Popular posts -------------------------------------------------------
+const posts = await getCollection('blog');
+const popular = popularPostSlugs
+  .filter((s) => s !== currentSlug)
+  .map((s) => posts.find((p) => p.id === s))
+  .filter((p): p is NonNullable<typeof p> => Boolean(p))
+  .slice(0, 5);
+---
+
+<aside class="blog-sidebar" aria-label="サイドバー">
+  <a class="bs-campaign" href="/plugins/premium-trial/">
+    <span class="bs-campaign-badge">30日間無料キャンペーン</span>
+    <span class="bs-campaign-title">全プラグインを30日間無料で</span>
+    <span class="bs-campaign-desc">プレミアム年間サポーターの全機能を、広告なしで使えます。カード登録不要・自動課金なし。</span>
+    <span class="bs-campaign-cta">無料体験を見る <span aria-hidden="true">→</span></span>
+  </a>
+
+  {sidebarPlugins.length > 0 && (
+    <section class="bs-box">
+      <h2 class="bs-heading">この記事で紹介しているプラグイン</h2>
+      <ul class="bs-plugins">
+        {sidebarPlugins.map((p) => (
+          <li>
+            <a href={`/plugins/${p.slug}/`} class="bs-plugin">
+              <Picture src={iconFor(p)} alt="" width="48" height="48" class="bs-plugin-icon" />
+              <span class="bs-plugin-body">
+                <span class="bs-plugin-name">{p.name.replace(/ for kintone$/, '')}</span>
+                <span class="bs-plugin-tier">{p.tier === 'premium' ? 'プレミアムプラグイン' : 'ちょこっとプラグイン'}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a href="/plugins/" class="bs-more">プラグイン一覧を見る →</a>
+    </section>
+  )}
+
+  {ranking.length > 0 && (
+    <section class="bs-box">
+      <h2 class="bs-heading">インストール数ランキング</h2>
+      <ol class="bs-ranking">
+        {ranking.map((p, i) => (
+          <li>
+            <a href={`/plugins/${p.slug}/`} class:list={['bs-rank-item', i < 3 && `is-top is-top${i + 1}`]}>
+              <span class="bs-rank-num">{i + 1}</span>
+              <Picture src={iconFor(p)} alt="" width="36" height="36" class="bs-rank-icon" />
+              <span class="bs-rank-name">{p.name.replace(/ for kintone$/, '')}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+      <a href="/plugins/ranking/" class="bs-more">ランキングをすべて見る →</a>
+    </section>
+  )}
+
+  {popular.length > 0 && (
+    <section class="bs-box">
+      <h2 class="bs-heading">人気の記事</h2>
+      <ol class="bs-posts">
+        {popular.map((p, i) => (
+          <li>
+            <a href={`/blog/${p.id}/`} class="bs-post">
+              <span class="bs-post-thumb">
+                <Picture src={p.data.ogImage} alt="" width="640" height="336" card />
+                <span class="bs-post-rank">{i + 1}</span>
+              </span>
+              <span class="bs-post-title">{p.data.title}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+      <a href="/blog/" class="bs-more">ブログ一覧を見る →</a>
+    </section>
+  )}
+
+  {sidebarExtensions.length > 0 && (
+      <section class="bs-box bs-ext">
+        <h2 class="bs-heading">無料のChrome拡張機能</h2>
+        <ul>
+          {sidebarExtensions.map((e) => (
+            <li>
+              <a href={`/extensions/${e.slug}/`} class="bs-ext-item">
+                <Picture src={e.iconImage} alt="" width="28" height="28" class="bs-ext-icon" />
+                <span class="bs-ext-name">{e.name.replace(/^KW /, '').replace(/ for kintone$/, '')}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+    <a class="bs-tools" href="/tools/">
+      <span class="bs-tools-title">無料Webツール</span>
+      <span class="bs-tools-desc">電子印鑑・PDF結合など、登録なしでブラウザから使えます</span>
+    </a>
+
+  {/* Only the TOC follows the scroll: anything else stacked here gets cut off on short screens */}
+  {tocItems.length >= 4 && (
+    <nav class="bs-box bs-toc bs-sticky" aria-label="目次（サイドバー）">
+      <h2 class="bs-heading">目次</h2>
+      <ol>
+        {tocItems.map((h) => (
+          <li><a href={`#${h.slug}`} data-toc-target={h.slug}>{h.text}</a></li>
+        ))}
+      </ol>
+    </nav>
+  )}
+</aside>
+
+<style>
+  .blog-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    min-width: 0;
+  }
+
+  .bs-box {
+    background: #FFFFFF;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    padding: 20px 20px 18px;
+  }
+
+  .bs-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    color: #1B3A6B;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .bs-heading::before {
+    content: "";
+    flex-shrink: 0;
+    width: 5px;
+    height: 17px;
+    background: #2E8B2E;
+    border-radius: 3px;
+  }
+
+  .bs-more {
+    display: block;
+    margin-top: 12px;
+    text-align: right;
+    color: #2E8B2E;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .bs-more:hover { color: #1B3A6B; text-decoration: underline; }
+
+  /* Campaign card */
+  .bs-campaign {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #12294d 0%, #1B3A6B 45%, #226b45 85%, #2E8B2E 100%);
+    color: #FFFFFF;
+    text-decoration: none;
+    box-shadow: 0 8px 22px rgba(27, 58, 107, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .bs-campaign:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(27, 58, 107, 0.28);
+  }
+
+  .bs-campaign-badge {
+    align-self: flex-start;
+    background: #FFFFFF;
+    color: #226b45;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 11px;
+    border-radius: 999px;
+  }
+
+  .bs-campaign-title {
+    font-size: 1.08rem;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .bs-campaign-desc {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  .bs-campaign-cta {
+    margin-top: 4px;
+    align-self: stretch;
+    text-align: center;
+    background: #FFFFFF;
+    color: #1B3A6B;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 9px 12px;
+    border-radius: 999px;
+  }
+
+  /* Plugin list */
+  .bs-plugins {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .bs-plugin {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .bs-plugin:hover { background: #f4f7fb; }
+
+  .bs-plugin :global(img),
+  .bs-plugin-icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    object-fit: contain;
+  }
+
+  .bs-plugin-body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .bs-plugin-name {
+    color: #1B3A6B;
+    font-weight: 700;
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .bs-plugin-tier {
+    color: #64748b;
+    font-size: 0.75rem;
+  }
+
+  /* Install ranking */
+  .bs-ranking {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bs-rank-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 6px;
+    border-bottom: 1px solid #edf1f6;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .bs-ranking li:last-child .bs-rank-item { border-bottom: 0; }
+
+  .bs-rank-item:hover { background: #f4f7fb; }
+
+  .bs-rank-num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: #e8edf4;
+    color: #5a6b82;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bs-rank-item.is-top .bs-rank-num { color: #FFFFFF; }
+  .bs-rank-item.is-top1 .bs-rank-num { background: #1B3A6B; }
+  .bs-rank-item.is-top2 .bs-rank-num { background: #2a5490; }
+  .bs-rank-item.is-top3 .bs-rank-num { background: #2E8B2E; }
+
+  .bs-rank-item :global(img) {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    object-fit: contain;
+  }
+
+  .bs-rank-name {
+    min-width: 0;
+    color: #1B3A6B;
+    font-size: 0.86rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .bs-rank-item:hover .bs-rank-name { color: #2E8B2E; }
+
+  /* Popular posts */
+  .bs-posts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .bs-post {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .bs-post-thumb {
+    position: relative;
+    flex-shrink: 0;
+    width: 112px;
+  }
+
+  .bs-post-thumb :global(img) {
+    display: block;
+    width: 112px;
+    height: auto;
+    aspect-ratio: 1200 / 630;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .bs-post-rank {
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: #2E8B2E;
+    color: #FFFFFF;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bs-post-title {
+    min-width: 0;
+    color: #333333;
+    font-size: 0.84rem;
+    font-weight: 500;
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .bs-post:hover .bs-post-title { color: #2E8B2E; text-decoration: underline; }
+
+  /* Sidebar TOC (the only sticky block) */
+
+  .bs-toc ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    /* Header (~90px) + TOC heading and padding: keep the whole box on screen */
+    max-height: max(200px, calc(100vh - 190px));
+    overflow-y: auto;
+    counter-reset: bs-toc;
+  }
+
+  .bs-toc li { counter-increment: bs-toc; }
+
+  .bs-toc a {
+    display: flex;
+    gap: 8px;
+    padding: 6px 8px;
+    border-left: 3px solid transparent;
+    border-radius: 0 6px 6px 0;
+    color: #4a5568;
+    font-size: 0.84rem;
+    line-height: 1.55;
+    text-decoration: none;
+  }
+
+  .bs-toc a::before {
+    content: counter(bs-toc);
+    flex-shrink: 0;
+    min-width: 1.2em;
+    color: #2E8B2E;
+    font-weight: 700;
+  }
+
+  .bs-toc a:hover { color: #1B3A6B; background: #f4f7fb; }
+
+  .bs-toc a.is-active {
+    border-left-color: #2E8B2E;
+    background: #eef6ef;
+    color: #1B3A6B;
+    font-weight: 700;
+  }
+
+  /* Chrome extensions */
+  .bs-ext { padding: 16px 18px 12px; }
+
+  .bs-ext .bs-heading { margin-bottom: 8px; }
+
+  .bs-ext ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .bs-ext-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+
+  .bs-ext-item:hover { background: #f4f7fb; }
+
+  .bs-ext-item :global(img) {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    object-fit: contain;
+  }
+
+  .bs-ext-name {
+    min-width: 0;
+    color: #1B3A6B;
+    font-size: 0.84rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .bs-ext-item:hover .bs-ext-name { color: #2E8B2E; }
+
+  .bs-tools {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 18px;
+    border: 2px solid #2E8B2E;
+    border-radius: 14px;
+    background: #FFFFFF;
+    text-decoration: none;
+  }
+
+  .bs-tools-title {
+    color: #1B3A6B;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .bs-tools-title::after { content: " →"; color: #2E8B2E; }
+
+  .bs-tools-desc {
+    color: #64748b;
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  .bs-tools:hover { background: #f3faf3; }
+
+  @media (min-width: 1024px) {
+    /* Stretch to the article's height so the sticky block has room to travel */
+    .blog-sidebar { align-self: stretch; }
+    .bs-sticky {
+      position: sticky;
+      top: 90px;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .bs-toc { display: none; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var links = document.querySelectorAll('.bs-toc a[data-toc-target]');
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    var map = {};
+    links.forEach(function (a) { map[a.getAttribute('data-toc-target')] = a; });
+    var targets = Object.keys(map)
+      .map(function (id) { return document.getElementById(id); })
+      .filter(Boolean);
+    var current = null;
+    function setActive(id) {
+      if (current === id) return;
+      if (current && map[current]) map[current].classList.remove('is-active');
+      current = id;
+      if (map[id]) map[id].classList.add('is-active');
+    }
+    // Pick the last heading that has scrolled above the upper third of the viewport.
+    function update() {
+      var line = window.innerHeight * 0.3;
+      var active = targets[0] ? targets[0].id : null;
+      for (var i = 0; i < targets.length; i++) {
+        if (targets[i].getBoundingClientRect().top <= line) active = targets[i].id;
+        else break;
+      }
+      setActive(active);
+    }
+    var io = new IntersectionObserver(update, { rootMargin: '0px 0px -70% 0px' });
+    targets.forEach(function (t) { io.observe(t); });
+    window.addEventListener('scroll', function () { window.requestAnimationFrame(update); }, { passive: true });
+    update();
+  })();
+</script>
