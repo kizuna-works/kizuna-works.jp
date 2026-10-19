@@ -284,7 +284,8 @@ c:\kizuna-works.jp\
 │   │   ├── news/               # お知らせエントリ Markdown 置き場（category: release/update/incident/notice）
 │   │   │   ├── plugin-lookup-filter-v130.md   # ルックアップ絞り込み v1.3.0 のお知らせ（2026-10-10 14:00・［取得］の画面を kintone の設定どおりに・文字列以外も検索・プレビュー）
 │   │   │   ├── plugin-lookup-suggest-v320.md  # ルックアップサジェスト v3.2.0 のお知らせ（2026-10-10 14:10・候補を kintone の設定どおりに・文字列以外も検索・設定画面の見直し）
-│   │   │   └── plugin-lookup-suggest-v322.md  # ルックアップサジェスト v3.2.2 のお知らせ（2026-10-13 21:00・一部の記号を含む語でも候補が出る。v3.2.1 のお知らせはこれに統合して削除）
+│   │   │   ├── plugin-lookup-suggest-v322.md  # ルックアップサジェスト v3.2.2 のお知らせ（2026-10-13 21:00・一部の記号を含む語でも候補が出る。v3.2.1 のお知らせはこれに統合して削除）
+│   │   │   └── plugin-lookup-suggest-v330.md  # ルックアップサジェスト v3.3.0 のお知らせ（2026-10-20 12:00・区切りの無い英数字のコードも途中から候補が出る）
 │   │   │   ├── blog-kintone-record-sakujo-fukugen.md # ブログ記事「kintoneで削除したレコードは復元できる？」公開のお知らせ（2026-10-17 11:00）
 │   │   │   ├── blog-kintone-2026-10-update.md # ブログ記事「kintone 2026年10月アップデート」公開のお知らせ（2026-10-17 15:00）
 │   │   │   ├── blog-kintone-field-shurui.md # ブログ記事「kintoneのフィールドの種類一覧」公開のお知らせ（2026-10-17 17:00）
