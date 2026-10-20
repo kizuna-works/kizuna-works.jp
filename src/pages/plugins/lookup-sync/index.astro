@@ -50,10 +50,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           "name": "ルックアップ自動同期 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.3.1",
-          "dateModified": "2026-10-05",
+          "softwareVersion": "2.3.2",
+          "dateModified": "2026-10-20",
           "url": "https://kizuna-works.jp/plugins/lookup-sync/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-sync-v2.3.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-sync-v2.3.2.zip",
           "image": "https://kizuna-works.jp/images/lookup-sync-banner.png",
           "offers": [
             {
@@ -314,7 +314,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       <img class="afp-hero-icon" src="/images/lookup-sync-icon.png" alt="ルックアップ自動同期 for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v2.3.1</span>
+        <span class="afp-hero-version">v2.3.2</span>
       </div>
       <h1>ルックアップ自動同期 for kintone</h1>
       <p class="afp-tagline">マスターを直せば、参照先も自動で最新に。</p>
@@ -358,7 +358,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           </div>
           <p class="update-note">
             最新版を kintone システム管理 →「プラグイン」→「読み込む」から上書きアップロードしてください。プラグインIDは変わらないため既存の設定は引き継がれます。<br>
-            ※ この機能は、マスターのキーに「値の重複を禁止する」が設定されたルックアップで使えます（テーブル内のルックアップは対象外）。「反映する」には参照先アプリの管理権限が必要です。<br>
+            ※ この機能は、マスターのキーに「値の重複を禁止する」が設定されたルックアップで使えます（テーブル内のルックアップは対象外）。「反映する」はアプリの設定を変更するため、参照先アプリの「アプリ管理」権限が必要です（「レコード閲覧」「レコード編集」の権限だけでは反映できません）。<br>
             ※ 方式1・方式2をお使いの場合は、設定画面に「参照先スクリプトの更新があります」と表示されます。「スクリプトを最新に再登録」を押して［保存］してください（動作は変わりません）。
           </p>
         </div>
@@ -639,7 +639,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
               <li>✅ 反映件数は無制限・利用期限なし</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-lookup-sync-v2.3.1.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-lookup-sync-v2.3.2.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="afp-plan-card recommended">
@@ -706,7 +706,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
           <ul>
             <li><strong>自動同期の推奨構成は「コピー元キーが一意キー（値の重複を禁止する設定）」のルックアップです。</strong>「値の重複を禁止する」が設定されていないキーでは、上の「重複しうるキーのルックアップを同期するには」の方式1・方式2を選びます。</li>
             <li>本プラグインは<strong>ルックアップ元（参照される側＝マスター）アプリ</strong>に追加します。参照している側のアプリではありません。</li>
-            <li>同期は<strong>ルックアップ設定に従って一括</strong>で行われます（kintone の仕様上、コピー項目は一括で取り直されるため）。一部の項目を外したい場合は「自動更新しない項目」（v2.3.0）を使います。外した項目は取得したときだけ値が入り、手入力でも変更できるようになります。</li>
+            <li>同期は<strong>ルックアップ設定に従って一括</strong>で行われます（kintone の仕様上、コピー項目は一括で取り直されるため）。一部の項目を外したい場合は「自動更新しない項目」（v2.3.0）を使います。外した項目は取得したときだけ値が入り、手入力でも変更できるようになります。手で変えられたくない場合は、<a href="/plugins/conditional-form/">条件分岐フォーム</a>などでその項目を読み取り専用にしてください。</li>
             <li>「自動更新しない項目」で外した項目は、<strong>CSV の読み込みや API など画面を通さずに登録したレコードでは空のまま</strong>になります。設定画面の「外した項目が空のレコードを埋める」で、空の項目だけをあとから埋められます。</li>
             <li>参照先アプリを後から追加した場合は<strong>「スキャン実行」の再実行が必要</strong>です。取り込み前の既存レコードは「今すぐ全件同期」で追従できます。</li>
             <li>同期には、実行ユーザーに<strong>参照先アプリのレコード閲覧・編集権限</strong>が必要です。権限のないアプリはスキャン・同期の対象外になります。</li>
@@ -798,10 +798,10 @@ import TrialBanner from '../../../components/TrialBanner.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-lookup-sync-v2.3.1.zip',
+            file_name: 'kw-lookup-sync-v2.3.2.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-lookup-sync-v2.3.1.zip'
+            link_url: '/downloads/kw-lookup-sync-v2.3.2.zip'
           });
         });
       }
