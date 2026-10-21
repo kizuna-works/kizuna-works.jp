@@ -238,6 +238,8 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】横並びシート 製品ページ（/plugins/horizontal-sheet/）— レコードを1列ずつ横に並べ、大・中・小の3段の分類見出しでまとめて比べる。日付の切り出し・空の列の表示・セルの編集と保存・列の追加と削除・集計列（プレミアム）・条件付き書式（プレミアム）・見た目の種類。無料は最初の1つの一覧・分類1段まで
 │   │   │   ├── lookup-add/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】ルックアップ新規登録 製品ページ（/plugins/lookup-add/）— ルックアップの候補に参照先のレコードが無いとき、［取得］の隣の［＋新規登録］から入力中の画面を離れずに登録し、そのまま取得まで完了させる。登録画面には 打った文字（キー項目へ）／入力中のレコードの値・同じ行の値・固定値（引き継ぐ値）／絞り込みの初期設定から決まる値 が入った状態で開く。登録前に似ているレコードを表示し（9種類の表記ゆれを吸収）、完全一致は登録を中止。登録方式は パネル／標準画面（別のタブ・小さなウィンドウ）。パネルの見た目3スタイル、ボタンの見せ方2種類。条件分岐自動採番 v2.2.0 以上と連携してパネルからの登録でも採番。サジェスト・絞り込みと同じルックアップ上で併用可。ヒーロー＋課題3＋before/after 2枚＋使い方3枚＋引き継ぎ表＋見た目1枚＋標準画面1枚＋方式の比較表＋設定5枚＋連携（3製品カード＋4製品同居1枚）＋インストール手順5＋プラン（無料/プレミアム）＋できないこと5＋FAQ11＋SecurityBox＋ShareButtons＋CTA。無料はルックアップ1つ、複数ルックアップと広告非表示がプレミアム。PC 版のみ・ゲストスペース対応
+│   │   │   ├── free-lookup/
+│   │   │   │   └── index.astro # 【プレミアムプラグイン】フリールックアップ 製品ページ（/plugins/free-lookup/）※2026-10-20 配布開始（v1.0.0）— 文字列（1行）の横に［取得］［クリア］を出し、自分のアプリを含む別アプリから値をコピー。区分で参照先を切り替え（プレミアム）・テーブルの行ごと・重複キーは候補から選択・{{フィールドコード}} で絞り込み・「↗ 開く」・条件分岐フォーム v2.10.0 以降と併用。FAQ は src/data/premium-faqs.ts を共有
 │   │   │   ├── annotation/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】注釈アシスト 製品ページ（/plugins/annotation/）※2026-09-25 配布開始（v1.0.0）／2026-10-06 v1.1.0（表示するステータス：プロセス管理のステータスをチェックで選び、［申請する］でステータスが変わるとその場で非表示／新しく置くときは配置モードが追加待ちで始まる／表示する相手の候補から停止中ユーザーを除外／設定画面の表記を「表示する」と kintone 標準用語に統一。ヒーロー直下に v1.1.0 の UPDATE ボックス〔申請前後の対比2枚＋設定1枚〕、表示する条件の節に「ステータスで出し分ける」を追加）— kintone のラベルフィールドでは置けない場所（標準ボタンの隣・画面の上部・ツールバー・ステータスバー・一覧の列見出し・テーブルの見出し・ページ送りの付近・画面に出ている文字の近く・フィールドの上下左右）へ、説明/注意書き/リンク/画像のカードを重ねて表示する。位置は設定画面から本物のレコード画面・一覧画面を配置モードで開き、置きたい場所をクリックして決める（近くの項目・見出し・文字を目印として覚えるので、フォームの並びを変えても追従する／フォームの編集は不要）。見せ方は 常に表示する／アイコンにマウスを乗せたとき／アイコンをクリックしたとき の3つから注釈ごとに選択。**重ねて描くため真下の操作部品は押せなくなるので、プロセス管理のボタン・ツールバー・［保存］・コメント欄・ページ送り等を覆うと配置モードが警告する**（赤い輪＋文言・保存は止めない）。閲覧者はカードを移動・リサイズでき、位置は保存しない（レコードを閉じると設定どおりに戻る）。見た目は配色プリセット12種類（情報・注意・警告・手順・メモ・強調・完了・質問・ふせん・黒板・ホワイトボード・ダーク）と形状10種類、色・枠線・影・幅・高さ・アイコン・見出しラベルの個別指定。**リンク色は既定が自動**（背景に合わせて 4.5:1 以上になる色を選ぶ。黒板・ダークでも読める）。［見た目の共通設定］は新しい注釈のひな形で、すでにある注釈は変わらない（［この見た目をすべての注釈に適用する］で明示的に揃える）。本文はツールバー付きエディター（太字・下線・箇条書き・番号リスト・リンク／HTML 編集も可・3000字）。注釈ごとに言語を追加すると閲覧者の kintone の表示言語で本文・リンク・画像を出し分け（8言語・未登録言語は既定言語を出す／出さないを選択）。表示する相手をユーザー・組織・グループで限定、印刷画面への表示も選択。**表示する条件**（レコードの値・見ている人〔所属組織・アプリ管理者か・編集できるか・作業者か〕・画面〔パソコン/モバイル〕・日時の組み合わせ）で出し分け、注釈ごとに［ヘルプ］をオンにすると画面の［ヘルプ］ボタンを押した人にだけ表示（オン/オフは利用者ごとに記憶・ボタンの色と形は選択可）。注釈の複製、別の画面への移動も可。設定画面は左に実際の見え方のライブプレビュー。ヒーロー＋課題3＋配置モード2枚＋貼れる場所の表＋見せ方3カード（スクショ3枚）＋一覧1枚＋多言語の日英対比2枚＋見た目1枚と選べるものの表＋設定3枚＋インストール手順5＋プラン（無料/プレミアム）＋できないこと6＋FAQ8＋SecurityBox＋ShareButtons＋CTA。無料は注釈1件・既定言語のみ、複数注釈と多言語出し分けと JSON 入出力がプレミアム。モバイル対応（画面上部にまとめて表示）・ゲストスペース対応
 │   │   │   ├── lookup-filter/
@@ -288,6 +290,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-lookup-suggest-v322.md  # ルックアップサジェスト v3.2.2 のお知らせ（2026-10-13 21:00・一部の記号を含む語でも候補が出る。v3.2.1 のお知らせはこれに統合して削除）
 │   │   │   ├── plugin-conditional-form-v3-0-0-update.md  # 条件分岐フォーム v3.0.0 のお知らせ（2026-10-20）
 │   │   │   └── plugin-lookup-suggest-v330.md  # ルックアップサジェスト v3.3.0 のお知らせ（2026-10-20 12:00・区切りの無い英数字のコードも途中から候補が出る）
+│   │   │   ├── free-lookup-release.md          # フリールックアップ v1.0.0 公開のお知らせ（2026-10-21）
 │   │   │   ├── blog-kintone-record-sakujo-fukugen.md # ブログ記事「kintoneで削除したレコードは復元できる？」公開のお知らせ（2026-10-17 11:00）
 │   │   │   ├── blog-kintone-2026-10-update.md # ブログ記事「kintone 2026年10月アップデート」公開のお知らせ（2026-10-17 15:00）
 │   │   │   ├── blog-kintone-field-shurui.md # ブログ記事「kintoneのフィールドの種類一覧」公開のお知らせ（2026-10-17 17:00）
@@ -554,12 +557,12 @@ c:\kizuna-works.jp\
 │   │   ├── file-preview-reftable-02.png    # 添付ファイルプレビュー v2.3.0 — 関連レコード一覧から開いたPDF(工程表)の全画面プレビュー ＋ .webp
 │   │   ├── file-preview-print-01.png       # 添付ファイルプレビュー v2.4.0 — PDF プレビュー中のツールバー（ページ番号「2 / 3 ページ」・印刷ボタン）＋ .webp
 │   │   ├── file-preview-print-02.png       # 添付ファイルプレビュー v2.4.0 — 設定画面「印刷ボタン」（表示する人をユーザー・組織・グループから選択）＋ .webp
-│   │   ├── sidebar-enhancer-banner.png     # サイドバー拡張 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp
-│   │   ├── input-template-banner.png       # 入力テンプレート for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── sidebar-enhancer-banner.png     # サイドバー拡張 for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp
+│   │   ├── input-template-banner.png       # 入力テンプレート for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── sticky-board-update-01.png      # 付箋ボード v1.1.0 — 会社名の項目に刺さった赤いピンから、離れた位置の付箋へ破線が伸びるレコード詳細画面
 │   │   ├── sticky-board-update-02.png      # 付箋ボード v1.1.0 — 一覧の会社名の前に付箋の件数マークが並び、件数バーの付箋に会社名・顧客No.のタグが付いた状態
 │   │   ├── sticky-board-update-03.png      # 付箋ボード v1.1.0 設定画面 — ピンの形の選択・10色プリセット＋カラーピッカー・見え方のプレビュー・項目を検索して選ぶ欄
-│   │   ├── table-assist-banner.png         # テーブルアシスト for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── table-assist-banner.png         # テーブルアシスト for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── table-assist-icon.png           # テーブルアシスト 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
 │   │   ├── table-assist-record-01.png      # テーブルアシスト レコード編集画面（見積明細7行中4行を選択チェック・行番号/掴みハンドル/↑↓/複製・一括操作バー・集計カード 選択金額762,900円/選択件数4件）＋ .webp
 │   │   ├── table-assist-record-02.png      # テーブルアシスト レコード詳細画面（選択行ハイライトと集計カードの表示のみ）＋ .webp
@@ -568,7 +571,7 @@ c:\kizuna-works.jp\
 │   │   ├── table-assist-config-03.png      # テーブルアシスト 設定画面（v1.1.0・3カラム全体像／行の追加位置・表示する行数）＋ .webp
 │   │   ├── table-assist-record-03.png      # テーブルアシスト レコード編集画面（v1.1.0・全12行中5行表示＋ページ送り＋末尾に行を追加＋非表示行を含む選択の注意）＋ .webp
 │   │   ├── table-assist-time-01.png         # テーブルアシスト v1.2.0 UPDATE 用スクショ — チェックした3行の作業時間の合計カード 4時間58分（926×454・.webp あり）
-│   │   ├── file-export-banner.png          # 添付ファイル出力 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── file-export-banner.png          # 添付ファイル出力 for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── file-export-icon.png            # 添付ファイル出力 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
 │   │   ├── file-export-detail-01.png       # 添付ファイル出力 レコード詳細画面のツールバー（アイコン列の左に「ファイルを選んで出力」ボタン・v1.1.0）＋ .webp
 │   │   ├── file-export-picker-01.png       # 添付ファイル出力 ファイル選択画面（添付13点の縮小画像グリッド・4点選択中・v1.1.0）＋ .webp
@@ -587,7 +590,7 @@ c:\kizuna-works.jp\
 │   │   ├── file-export-fim-01.png          # 添付ファイル出力×添付ファイルアイコン表示 連携（hover した行にだけ ⤓ ボタンが出る）＋ .webp
 │   │   ├── file-export-fim-02.png          # 添付ファイル出力×添付ファイルアイコン表示 連携（すべて/PDF/Office の行ごと出力メニュー）＋ .webp
 │   │   ├── image-compress-banner.png / -banner.webp / -banner-800.webp / image-compress-icon.png / image-compress-before-after.png / image-compress-notify.png / image-compress-subtable.png / image-compress-config-01〜05.png（＋各 .webp） # 画像圧縮プラグインの一覧カード・OGP・ランキング用アイコン・製品ページ掲載スクショ
-│   │   ├── table-preview-banner.png       # テーブルプレビュー for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── table-preview-banner.png       # テーブルプレビュー for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── table-preview-icon.png         # テーブルプレビュー 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
 │   │   ├── table-preview-list-01.png      # 製品ページ：一覧に足した列に件数と合計のバッジが縦に並ぶ（公式テンプレ「旅費精算申請」で撮影）＋ .webp
 │   │   ├── table-preview-popup-01.png     # 製品ページ：ホバーで開くポップアップ（旅費タブ・5行＋全タブの合計）＋ .webp
@@ -602,7 +605,7 @@ c:\kizuna-works.jp\
 │   │   ├── table-preview-sort-01.png      # 製品ページ UPDATE：ポップアップの明細を金額の降順に並べ替えた状態（▼ と ↕ のボタン・下に「全 5 行」）＋ .webp
 │   │   ├── table-preview-time-01.png        # テーブルプレビュー v1.2.0 UPDATE 用スクショ — 一覧のバッジ「計 〇時間〇分」と明細ポップアップの作業時間列（559×471・.webp あり）
 │   │   ├── table-preview-views-01.png     # 製品ページ UPDATE：設定画面「対象の一覧」（バッジと専用列を出すビューをチェックで選ぶ）＋ .webp
-│   │   ├── footprint-banner.png  # 足あと for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・scripts/gen-plugin-banner.mjs で生成）＋ .webp / -800.webp
+│   │   ├── footprint-banner.png  # 足あと for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630・scripts/gen-plugin-banner.mjs で生成）＋ .webp / -800.webp
 │   │   ├── footprint-icon.png  # 足あと 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
 │   │   ├── footprint-list-01.png  # 製品ページ：一覧の足あと列（公式テンプレ「案件管理」・期間「すべて」・切り替えボタンあり）＋ .webp
 │   │   ├── footprint-marks-footprints.png  # 製品ページ：足あと列の拡大（位置の見方と、マークの形「足あと」）＋ .webp
@@ -622,7 +625,7 @@ c:\kizuna-works.jp\
 │   │   ├── footprint-store-01.png  # 製品ページ UPDATE 欄：足あと管理アプリにアプリ名・タイトルが入った一覧（v1.2.0）＋ .webp
 │   │   ├── footprint-config-10.png  # 製品ページ UPDATE 欄：設定画面「このアプリの足あとを読める人」（v1.2.1）＋ .webp
 │   │   ├── footprint-config-08.png / footprint-config-09.png  # 製品ページ：設定画面「保管アプリに残す情報」／「④ ユーザーの足あと」（画面の全体・v1.2.0）＋ .webp
-│   │   ├── split-view-banner.png          # 分割ビュー for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── split-view-banner.png          # 分割ビュー for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── split-view-icon.png            # 分割ビュー 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
 │   │   ├── split-view-before.png          # 製品ページ：導入前の詳細画面（顧客情報で画面が埋まり案件情報が下端で切れている）＋ .webp
 │   │   ├── split-view-detail-01.png       # 製品ページ：導入後の詳細画面（左＝顧客情報／右＝案件情報・活動履歴／上部は共通エリア）＋ .webp
@@ -631,7 +634,7 @@ c:\kizuna-works.jp\
 │   │   ├── split-view-edit-01.png         # 製品ページ：編集画面の分割（左を見ながら右に入力）＋ .webp
 │   │   ├── split-view-config-01.png       # 製品ページ：設定画面①分割設定（境界スペース／幅／スクロール＋左に振り分けプレビュー）＋ .webp
 │   │   ├── split-view-config-02.png       # 製品ページ：設定画面②対象画面・表示（分割する画面＋ペイン見出しの配色プリセットとカスタム）＋ .webp
-│   │   ├── link-assist-banner.png         # リンクアシスト for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── link-assist-banner.png         # リンクアシスト for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── link-assist-icon.png           # リンクアシスト 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
 │   │   ├── link-assist-before.png         # 製品ページ：導入前の一覧（utm付き・www付き・末尾スラッシュのURLが並ぶ）＋ .webp
 │   │   ├── link-assist-list.png           # 製品ページ：導入後の一覧（表記がそろい、メールがリンク化）＋ .webp
@@ -643,7 +646,7 @@ c:\kizuna-works.jp\
 │   │   ├── link-assist-config-02.png      # 製品ページ：設定②除去する追跡パラメータ＋ .webp
 │   │   ├── link-assist-config-03.png      # 製品ページ：設定③URL正規化ルール（ライブ例つき）＋ .webp
 │   │   ├── link-assist-config-04.png      # 製品ページ：設定⑤リンクにするフィールド＋ .webp
-│   │   ├── clip-assist-banner.png         # コピーアシスト for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── clip-assist-banner.png         # コピーアシスト for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── clip-assist-icon.png           # コピーアシスト 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
 │   │   ├── clip-assist-list-01.png        # 製品ページ：一覧のコピーボタン＋行頭チェックボックス列（3行選択中）＋ .webp
 │   │   ├── clip-assist-list-02.png        # 製品ページ：コピー範囲の選択（選択した行／表示中／絞り込み結果の全件）＋ .webp
@@ -654,7 +657,7 @@ c:\kizuna-works.jp\
 │   │   ├── clip-assist-config-01.png      # 製品ページ：設定①一覧のコピー＋ .webp
 │   │   ├── clip-assist-config-02.png      # 製品ページ：設定②詳細画面のコピー（出力例つき）＋ .webp
 │   │   ├── clip-assist-config-03.png      # 製品ページ：設定③ボタンの見た目（プレビューつき）＋ .webp
-│   │   ├── lottery-roulette-banner.png    # 抽選ルーレット for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── lottery-roulette-banner.png    # 抽選ルーレット for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── lottery-roulette-icon.png      # 抽選ルーレット アイコン（200×200・ランキング／Top3／製品ページヒーロー）
 │   │   ├── lottery-roulette-record-button.png   # 製品ページ：レコード詳細の抽選ボタン
 │   │   ├── lottery-roulette-wheel-idle.png      # 製品ページ：円盤演出の待機表示
@@ -678,9 +681,9 @@ c:\kizuna-works.jp\
 │   │   ├── lottery-roulette-config-notify.png   # 製品ページ：設定画面④ 通知と記録
 │   │   ├── lottery-roulette-config-view.png     # 製品ページ：設定画面⑤ 表示と権限
 │   │   ├── lottery-roulette-fx-*.png            # 製品ページ：演出9種のギャラリー（wheel/capsule/cards/race/fireworks/amidakuji/spotlight/slot/countdown）
-│   │   ├── after-save-banner.png          # 保存後ナビ for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── after-save-banner.png          # 保存後ナビ for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── after-save-icon.png            # 保存後ナビ 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
-│   │   ├── autosave-assist-banner.png     # 自動保存アシスト for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── autosave-assist-banner.png     # 自動保存アシスト for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── autosave-assist-icon.png       # 自動保存アシスト 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
 │   │   ├── autosave-assist-edit.png       # 製品ページ：離席前（編集画面で対応記録を書きかけの状態）＋ .webp
 │   │   ├── autosave-assist-detail.png     # 製品ページ：自動保存後（詳細画面＋「放置されていたため自動保存しました」の通知）＋ .webp
@@ -695,8 +698,8 @@ c:\kizuna-works.jp\
 │   │   ├── after-save-config-01.png       # 保存後ナビ 設定画面（目次3項目＋この画面で有効にする＋既定の遷移先）＋ .webp
 │   │   ├── after-save-config-02.png       # 保存後ナビ 設定画面 条件ルール2件（未達→指定した一覧／開発部→詳細画面）＋ .webp
 │   │   ├── after-save-config-03.png       # 保存後ナビ 設定画面 共通設定（連続登録カウンターの文言と表示例）＋ .webp
-│   │   ├── barcode-assist-banner.png      # バーコードアシスト for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
-│   │   ├── calendar-view-banner.png       # カレンダービュー for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── barcode-assist-banner.png      # バーコードアシスト for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── calendar-view-banner.png       # カレンダービュー for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── calendar-view-icon.png         # カレンダービュー アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
 │   │   ├── calendar-view-calendar-01.png  # 月表示（サイドバー＋区分の色分け＋複数日の帯＋終日）
 │   │   ├── calendar-view-week-01.png      # 週表示（時間の重なりが横並び・終日行）
@@ -727,10 +730,10 @@ c:\kizuna-works.jp\
 │   │   ├── calendar-view-month-stacked-01.png # v1.4.0 UPDATE 用スクショ（v1.5.0 で UPDATE から外した・ファイルは残置） — 月表示。予定のバーが2段（上段タイトル・下段取引先）で表示されている（加工なし・.webp あり）
 │   │   ├── calendar-view-timeline-stacked-01.png # v1.4.0 UPDATE 用スクショ — タイムライン1日表示の2段表示（加工なし・.webp あり）
 │   │   ├── calendar-view-config-barlayout-01.png # v1.4.0 UPDATE 用スクショ — 設定画面［共通］タブの［バーに表示する項目］［バーの表示のしかた］（加工なし・.webp あり）
-│   │   ├── drive-connect-banner.png     # ドライブ連携 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── drive-connect-banner.png     # ドライブ連携 for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── drive-connect-icon.png       # ドライブ連携 アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
 │   │   ├── drive-connect-config-01.png  # 設定「② 転送ルール」（対象フィールド・保存先・リンク返却先＋フォルダ名の組み立てとプレビュー）＋ .webp
-│   │   ├── form-connect-banner.png      # フォーム連携 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── form-connect-banner.png      # フォーム連携 for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── form-connect-icon.png        # フォーム連携 アイコン（200×200・ランキング/Top3/製品ページヒーロー・プラグイン同梱アイコンから生成）＋ .webp
 │   │   ├── form-connect-config-01.png   # フォーム連携 設定画面：列とフィールドの対応づけ表（6列中4列が自動で当たった状態）＋ .webp
 │   │   ├── form-connect-config-03.png   # フォーム連携 設定画面：このプラグインが使うフィールド（回答ID等4つ）＋ .webp
@@ -742,7 +745,7 @@ c:\kizuna-works.jp\
 │   │   ├── form-connect-action-01.png   # フォーム連携 取り込む内容の確認（プレビュー・15件）＋ .webp
 │   │   ├── form-connect-action-02.png   # フォーム連携 取り込み中の進捗表示（何をしているかと進捗バー）＋ .webp
 │   │   ├── form-connect-action-03.png   # フォーム連携 一覧ツールバーの取り込みボタン（＋ボタンの左に配置）＋ .webp
-│   │   ├── sheets-sync-banner.png           # スプレッドシート連携 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・手動作成。gen-plugin-banner.mjs の定義は上書き防止のため無効化）＋ .webp / -800.webp
+│   │   ├── sheets-sync-banner.png           # スプレッドシート連携 for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630・手動作成。gen-plugin-banner.mjs の定義は上書き防止のため無効化）＋ .webp / -800.webp
 │   │   ├── sheets-sync-icon.png             # スプレッドシート連携 アイコン（200×200・プラグイン同梱アイコンから生成）＋ .webp
 │   │   ├── sheets-sync-screen-01.png        # スプレッドシート連携 設定画面の全体（目次＋シートの見え方プレビュー＋「③ 列の対応づけ」）＋ .webp
 │   │   ├── sheets-sync-config-01.png        # スプレッドシート連携 設定画面：① Google 接続（接続方式＋接続中のアカウント。掲載用にメールアドレスは example.com へ差し替え）＋ .webp
@@ -760,7 +763,7 @@ c:\kizuna-works.jp\
 │   │   ├── sheets-sync-detail-01.png        # スプレッドシート連携 レコード詳細画面の値エラーの案内＋ .webp
 │   │   ├── sheets-sync-sheet-01.png         # スプレッドシート連携 同期しているシート（A〜N 列・レコード番号と同期状態の列つき）＋ .webp
 │   │   ├── sheets-sync-sheet-02.png         # スプレッドシート連携 同期状態の列に「値エラー：」「確認：」の印が出たシート＋ .webp
-│   │   ├── quick-filter-banner.png          # クイックフィルター for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・手動バナー。gen-plugin-banner.mjs の定義は _quick-filter_DISABLED で無効化済み）＋ .webp / -800.webp
+│   │   ├── quick-filter-banner.png          # クイックフィルター for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630・手動バナー。gen-plugin-banner.mjs の定義は _quick-filter_DISABLED で無効化済み）＋ .webp / -800.webp
 │   │   ├── quick-filter-icon.png            # クイックフィルター アイコン（200×200）＋ .webp
 │   │   ├── quick-filter-before-01.png       # クイックフィルター Before：kintone 標準の［絞り込む］画面で確度 A・B＋案件担当者名を1行ずつ組み立てた状態 + .webp
 │   │   ├── quick-filter-after-01.png        # クイックフィルター After：同じ条件を一覧の上の窓で選んだ状態（絞り込み結果 11件）+ .webp
@@ -775,7 +778,7 @@ c:\kizuna-works.jp\
 │   │   ├── quick-filter-mtext-01.png        # クイックフィルター v1.1.0 — 文字列（複数行）の窓の候補パネル（改行で分けた1行ずつ・件数つき）＋ .webp
 │   │   ├── quick-filter-keyword-01.png      # クイックフィルター v1.1.0 — キーワード入力の窓のパネル＋ .webp
 │   │   ├── quick-filter-config-02.png       # クイックフィルター v1.1.0 — 設定画面の「入力のしかた」（候補から選ぶ／キーワードを入力）＋ .webp
-│   │   ├── horizontal-sheet-banner.png          # 横並びシート for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・手動バナー。ユーザーが用意）＋ .webp ＋ -800.webp
+│   │   ├── horizontal-sheet-banner.png          # 横並びシート for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630・手動バナー。ユーザーが用意）＋ .webp ＋ -800.webp
 │   │   ├── horizontal-sheet-icon.png            # 横並びシート アイコン（200×200・プラグイン同梱アイコンから生成）＋ .webp
 │   │   ├── horizontal-sheet-overview.png        # 横並びシート 一覧全体（3段の分類見出し・左の行見出し・総合計の列）＋ .webp
 │   │   ├── horizontal-sheet-dates.png           # 横並びシート 日付の分類（月の下に日・曜日併記・土日の色分け）＋ .webp
@@ -792,7 +795,7 @@ c:\kizuna-works.jp\
 │   │   ├── horizontal-sheet-config-03.png       # 横並びシート 設定画面：③ 集計＋ .webp
 │   │   ├── horizontal-sheet-config-04.png       # 横並びシート 設定画面：④ 条件付き書式＋ .webp
 │   │   ├── horizontal-sheet-config-05.png       # 横並びシート 設定画面：⑤ 表示と見た目＋ .webp
-│   │   ├── lookup-add-banner.png        # ルックアップ新規登録 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・**手作りの差し替え版**。雛形は gen-plugin-banner.mjs の lookup-add 定義）＋ .webp / -800.webp
+│   │   ├── lookup-add-banner.png        # ルックアップ新規登録 for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630・**手作りの差し替え版**。雛形は gen-plugin-banner.mjs の lookup-add 定義）＋ .webp / -800.webp
 │   │   ├── lookup-add-icon.png          # ルックアップ新規登録 アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
 │   │   ├── lookup-add-before.png        # 導入前：標準の［取得］で該当なし（行き止まり）＋ .webp
 │   │   ├── lookup-add-after.png         # 導入後：その場で登録して取得まで完了・ボタンが「登録したレコードを開く」に変わる＋ .webp
@@ -810,7 +813,16 @@ c:\kizuna-works.jp\
 │   │   ├── lookup-add-combo-filter.png  # 連携：ルックアップ絞り込みの条件が登録パネルに固定される＋ .webp
 │   │   ├── lookup-add-combo-numbering.png # 連携：条件分岐自動採番で「自動採番」と表示される＋ .webp
 │   │   ├── lookup-add-combo-all.png     # 連携：4製品を同じ画面に載せた例＋ .webp
-│   │   ├── annotation-banner.png        # 注釈アシスト for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・gen-plugin-banner.mjs で生成）＋ .webp / -800.webp
+│   │   ├── free-lookup-banner.png       # フリールックアップ for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630・gen-plugin-banner.mjs で生成した暫定版）
+│   │   ├── free-lookup-icon.png         # フリールックアップ アイコン（200×200・ランキング/Top3/製品ページヒーロー）
+│   │   ├── free-lookup-record.png       # フリールックアップ PC の編集画面：［取得］［クリア］と「↗ 開く」
+│   │   ├── free-lookup-dialog.png       # フリールックアップ 候補のダイアログ（探す参照先）
+│   │   ├── free-lookup-table.png        # フリールックアップ テーブルの行ごとの取得
+│   │   ├── free-lookup-config.png       # フリールックアップ 設定画面の全体
+│   │   ├── free-lookup-filter.png       # フリールックアップ 絞り込みの条件に {{フィールドコード}} を書く
+│   │   ├── free-lookup-import.png       # フリールックアップ 既存のルックアップから読み込む（置き換え待ち）の設定画面
+│   │   ├── free-lookup-mobile.png       # フリールックアップ スマートフォンの編集画面（以上 7 枚に各 .webp あり）
+│   │   ├── annotation-banner.png        # 注釈アシスト for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630・gen-plugin-banner.mjs で生成）＋ .webp / -800.webp
 │   │   ├── annotation-icon.png          # 注釈アシスト アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
 │   │   ├── annotation-use-01.png        # 使用：常に表示する注釈（レコード詳細の空きに「対応のきまり」カード）＋ .webp
 │   │   ├── annotation-use-02.png        # 使用：マウスを乗せたときに開く注釈（期限の隣の注意アイコン）＋ .webp
@@ -831,7 +843,7 @@ c:\kizuna-works.jp\
 │   │   ├── annotation-use-07.png        # 使用：［申請する］後（承認待ち）に同じ注釈が消えた詳細画面（v1.1.0 UPDATE）＋ .webp
 │   │   ├── annotation-config-10.png     # 設定⑩表示するステータス（未処理だけチェック・v1.1.0）＋ .webp
 │   │   ├── conditional-numbering-lookup-add.png # 条件分岐自動採番の「設定画面イメージ」4 枚目（ルックアップ新規登録の登録パネル内の自動採番・v2.2.0 の UPDATE から移設）＋ .webp
-│   │   ├── lookup-filter-banner.png     # ルックアップ絞り込み for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630・gen-plugin-banner.mjs で生成）＋ .webp / -800.webp
+│   │   ├── lookup-filter-banner.png     # ルックアップ絞り込み for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630・gen-plugin-banner.mjs で生成）＋ .webp / -800.webp
 │   │   ├── lookup-filter-icon.png       # ルックアップ絞り込み アイコン（200×200・ランキング/Top3/製品ページヒーロー・プラグイン同梱アイコン）＋ .webp
 │   │   ├── lookup-filter-before.png     # 導入前：kintone 標準のレコード選択画面（全90件・目的の商品が見えない）＋ .webp
 │   │   ├── lookup-filter-after.png      # 導入後：絞り込みモーダル（21件・条件ラベルつき）＋ .webp
@@ -852,7 +864,7 @@ c:\kizuna-works.jp\
 │   │   ├── drive-connect-config-02.png  # 設定「① Google 接続」（接続方式の選択と接続済みアカウント）＋ .webp
 │   │   ├── drive-connect-action-01.png  # レコード詳細：転送完了バナー（保存先フォルダ名つき）＋ .webp
 │   │   ├── drive-connect-action-02.png  # レコード詳細：転送ボタンと進捗表示（n / m 件）＋ .webp
-│   │   ├── pdf-edit-banner.png           # PDF編集アシスト for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── pdf-edit-banner.png           # PDF編集アシスト for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── pdf-edit-icon.png             # PDF編集アシスト アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
 │   │   ├── pdf-edit-detail-01.png        # レコード詳細のファイル名の横に出る編集アイコン
 │   │   ├── pdf-edit-editor-01.png        # 編集画面：契約書1ページ目に受付印を配置（選択ハンドルつき）
@@ -898,14 +910,14 @@ c:\kizuna-works.jp\
 │   │   ├── barcode-assist-config-05.png   # バーコードアシスト 設定画面⑤出す（ステップ1コード生成＋ステップ2 A4面付け＋左のライブプレビュー）＋ .webp
 │   │   ├── barcode-assist-config-06.png   # バーコードアシスト 設定画面⑥更新する（画面全体：照合するフィールド・書き換える項目・実行するアクション・v1.2.0 UPDATE）＋ .webp
 │   │   ├── barcode-assist-update-01.png   # バーコードアシスト まとめて更新の確認画面（更新する／対象外／見つからないコード・v1.2.0 UPDATE と⑤更新するの節）＋ .webp
-│   │   ├── text-join-banner.png            # 文字列結合 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── text-join-banner.png            # 文字列結合 for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── text-join-icon.png              # 文字列結合 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
 │   │   ├── text-join-record-01.png         # 製品ページ：レコード編集画面（案件キーと明細サマリが自動入力・残り文字数表示）＋ .webp
 │   │   ├── text-join-config-01.png         # 製品ページ：設定画面（ルール目次＋ライブプレビュー／パーツ／重複チェック／桁数ガード）＋ .webp
 │   │   ├── text-join-config-02.png         # 製品ページ：設定画面の明細集約パーツ（行内テンプレート＋行間の結合）＋ .webp
 │   │   ├── text-join-config-03.png         # 製品ページ：設定画面の一括反映タブ ＋ .webp
 │   │   ├── text-join-list-01.png           # 製品ページ：一括反映後の一覧（案件キー・明細サマリ列が埋まった状態）＋ .webp
-│   │   ├── view-control-banner.png          # 一覧コントロール for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── view-control-banner.png          # 一覧コントロール for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── view-control-icon.png            # 一覧コントロール 正方形アイコン（200×200 RGBA・ランキング/製品ページヒーロー用）＋ .webp
 │   │   ├── view-control-before-01.png       # 製品ページ：導入前の一覧切替（10件すべてが並ぶ）＋ .webp
 │   │   ├── view-control-after-01.png        # 製品ページ：導入後の一覧切替（営業一課には5件だけ）＋ .webp
@@ -937,7 +949,7 @@ c:\kizuna-works.jp\
 │   │   ├── sidebar-enhancer-readcheck.png  # 既読チェックとの共存（既読パネルを開いた状態・タブ順が固定される様子）＋ .webp
 │   │   ├── sidebar-enhancer-address-assist.png # 住所アシスト連携（郵便番号→住所→マップURL→サイドバーに地図・1440×1000）＋ .webp
 │   │   ├── sidebar-enhancer-config-{01..05}.png # 設定画面スクショ（機能別・v2 3カラム・実機・右サイドバー広告は除外）＋ 各 .webp
-│   │   ├── chat-notify-banner.png          # チャット通知 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）＋ .webp
+│   │   ├── chat-notify-banner.png          # チャット通知 for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp
 │   │   ├── chat-notify-icon.png            # チャット通知 for kintone アイコン（200×200・ヒーロー/ランキング用）
 │   │   ├── chat-notify-config-{01,02,03}.png # 設定画面スクショ（①送信先/②通知ルール/③共通設定・実機・右サイドバーは除外）
 │   │   ├── chat-notify-config-04.png       # 設定画面「カード表示（LINE WORKS）」セクション（v2.0.0・見出し/ボタンの設定）
@@ -950,7 +962,7 @@ c:\kizuna-works.jp\
 │   │   ├── chat-notify-lineworks-{01..05}.png # LINE WORKS の Incoming Webhook 取得手順スクショ（01=アプリ詳細/02=Bot選択/03=チャンネルID/04=Webhook追加/05=発行済み一覧。03〜05 はチャンネルID・Webhook URL をマスク済）
 │   │   ├── chat-notify-lineworks-msg-01.png # LINE WORKS に実際に届いた通知（見出し＋@All＋「レコードを開く」ボタンのカード）
 │   │   ├── chat-notify-{slack,teams,gchat}-msg-*.png # 各サービスに実際に届いた通知（teams-msg-01 は氏名をマスク済）
-│   │   ├── card-board-banner.png           # カードボード for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）
+│   │   ├── card-board-banner.png           # カードボード for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）
 │   │   ├── card-board-icon.png             # カードボード for kintone アイコン（200×200・ヒーロー用）
 │   │   ├── card-board-{board,dnd,realestate,catalog,individual,lanegrid}.png / .webp # カードボード製品ページ用スクショ（実機・PNG＋WebP。individual=不動産の個別モードギャラリー）
 │   │   ├── card-board-config-{1,2,3,4}.png / .webp # カードボード設定画面スクショ（①基本設定/②状態カード/③詳細カード/④カラーのタブ別・実機・PNG＋WebP）
@@ -976,8 +988,8 @@ c:\kizuna-works.jp\
 │   │   ├── related-enhancer-config-03.png  # 関連レコード拡張 v2.0.0 設定画面「＋ 新しい設定」の種類カード（撮影待ち・UPDATE 欄でも使用）
 │   │   ├── related-enhancer-config-app.png # 関連レコード拡張 v2.0.0 設定画面「アプリ全体の設定」（撮影待ち）
 │   │   ├── related-enhancer-config-agg.png / related-enhancer-config-style.png # 関連レコード拡張の設定画面（v2.0.0 の画面で置き換え予定。置き換え後は .webp も作り直す）
-│   │   ├── related-enhancer-banner.png     # 関連レコード拡張 for kintone 見出しバナー（OGP/グリッド/製品ページ共用・1200×630）
-│   │   ├── report-designer-banner.png      # 帳票デザイナー for kintone 見出しバナー（OGP/グリッド/製品ページ共用）
+│   │   ├── related-enhancer-banner.png     # 関連レコード拡張 for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）
+│   │   ├── report-designer-banner.png      # 帳票デザイナー for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用）
 │   │   ├── report-designer-icon.png        # 帳票デザイナー for kintone アイコン
 │   │   ├── report-designer-output-01.png   # 帳票デザイナー 出力例① 見積書（ダミーデータ・ヒーロー/完成イメージ）
 │   │   ├── report-designer-output-02.png   # 帳票デザイナー 出力例② 請求書（ダミーデータ）
@@ -1011,7 +1023,7 @@ c:\kizuna-works.jp\
 │   │   ├── report-designer-config-19.png   # 帳票デザイナー 設定画面 選択肢の表示形式（v1.6.0）
 │   │   ├── report-designer-config-20.png   # 帳票デザイナー 表を挿入のダイアログ（v1.6.0）
 │   │   ├── report-designer-list-16.png     # 帳票デザイナー 一覧帳票のテーブル展開（v1.6.0）
-│   │   ├── user-autofill-banner.png        # ユーザーオートフィル for kintone 見出しバナー（OGP/グリッド/news共用・1200×630）
+│   │   ├── user-autofill-banner.png        # ユーザーオートフィル for kintone 見出しバナー（Gemini で作成・OGP/グリッド/news共用・1200×630）
 │   │   ├── user-autofill-icon.png          # ユーザーオートフィル for kintone アイコン（200×200・ヒーロー用）
 │   │   ├── user-autofill-org-transcription.png # ユーザーオートフィル 機能スクショ（申請者→申請部署/役職/社員番号の自動転記）
 │   │   ├── user-autofill-profile-card.png  # ユーザーオートフィル 機能スクショ（プロフィールカード）
@@ -1020,7 +1032,7 @@ c:\kizuna-works.jp\
 │   │   ├── user-autofill-print-01.png      # ユーザーオートフィル 機能スクショ（v1.1.0＝稟議申請アプリの印刷用画面に決裁欄の捺印が並ぶ・UPDATEボックス/news共用）
 │   │   ├── user-autofill-selfstamp-01.png   # ユーザーオートフィル 機能スクショ（v1.2.0＝本人捺印。押印済み/自分の欄の「捺印」ボタン/他の人の未押印の3状態・UPDATEボックス/news共用）
 │   │   ├── user-autofill-config-warning.png  # ユーザーオートフィル 設定画面スクショ（v1.2.1＝設定したフィールドが作り直されて型が変わったときの注意帯と ⚠ 付き選択肢・news 用）
-│   │   ├── dashboard-banner.png            # ダッシュボード for kintone 見出しバナー（OGP/グリッド共用・1200×630）
+│   │   ├── dashboard-banner.png            # ダッシュボード for kintone 見出しバナー（Gemini で作成・OGP/グリッド共用・1200×630）
 │   │   ├── dashboard-icon.png              # ダッシュボード for kintone アイコン
 │   │   ├── dashboard-overview.png/.webp    # ダッシュボード 完成イメージ①（成績ダッシュボードの全景・製品ページ）
 │   │   ├── dashboard-overview-yojitsu.png/.webp # ダッシュボード 完成イメージ②（アプリ横断集計＝予実管理ダッシュボードの全景・製品ページ）
@@ -1035,7 +1047,7 @@ c:\kizuna-works.jp\
 │   │   ├── dashboard-drill-datetime-01.png  # ダッシュボード v1.5.2 UPDATE 用スクショ — 期間「今期」で受付日時の 2026-06 の棒を押して開いた一覧の「絞り込む」画面（≧ 2026-06-01 00:00・＜ 2026-07-01 00:00 で月末 23:59 まで含む・1266×790・.webp あり）
 │   │   ├── dashboard-table-02.png           # ダッシュボード v1.4.0 UPDATE 用スクショ（v1.5.0 で UPDATE 枠から外し未使用） — 設定画面の「集計の単位」でテーブル「生産明細」の行を選び、行項目＝[生産明細] 製品名・列項目＝年月・集計＝[生産明細] 金額の合計（1073×965・.webp あり）
 │   │   ├── dashboard/recipes/<id>.png/.webp # ダッシュボード設定レシピ集の完成イメージ（種別ごと・63対。テーブル集計の4対は SECRET/hp-shots/dashboard-filter/04-recipe-shots.mjs で生成）
-│   │   ├── attribute-filter-banner.png      # 属性制御フィルター for kintone 見出しバナー（OGP/グリッド共用・1200×630）
+│   │   ├── attribute-filter-banner.png      # 属性制御フィルター for kintone 見出しバナー（Gemini で作成・OGP/グリッド共用・1200×630）
 │   │   ├── attribute-filter-icon.png        # 属性制御フィルター for kintone アイコン（hero・200×200）
 │   │   ├── attribute-filter-before-user.png/.webp # Before：標準ユーザー選択で全員が候補に出る（製品ページBefore/After）
 │   │   ├── attribute-filter-after-user.png/.webp  # After：役職「課長」に絞り込まれた候補（製品ページBefore/After）
@@ -1051,7 +1063,7 @@ c:\kizuna-works.jp\
 │   │   ├── attribute-filter-update-map.png/.webp     # v2.1.0：所属組織ごとの対応表エディタ
 │   │   ├── attribute-filter-update-easy.png/.webp    # v2.1.0：フィールドON直後のかんたん設定
 │   │   ├── attribute-filter-update-preview.png/.webp # v2.1.0：ライブプレビュー（行ごとに適用/対象外）
-│   │   ├── lookup-sync-banner.png/.webp      # ルックアップ自動同期 for kintone 見出しバナー（OGP/グリッド共用・1200×630）
+│   │   ├── lookup-sync-banner.png/.webp      # ルックアップ自動同期 for kintone 見出しバナー（Gemini で作成・OGP/グリッド共用・1200×630）
 │   │   ├── lookup-sync-icon.png              # ルックアップ自動同期 for kintone アイコン（hero・200×200）
 │   │   ├── lookup-sync-master.png/.webp      # マスター（商品マスター一覧・120件）製品ページ「マスター→参照先」①
 │   │   ├── lookup-sync-inventory.png/.webp   # 参照先（在庫管理一覧・600件・コピー値が自動最新）製品ページ「マスター→参照先」②
@@ -1079,10 +1091,10 @@ c:\kizuna-works.jp\
 │   │   ├── field-styler-v250-subtable-limit.png # フィールドスタイラー v2.5.0 — 明細の品名列で文字数超過の行にエラーが出ている編集画面
 │   │   ├── field-styler-v250-line-limit.png     # フィールドスタイラー v2.5.0 — 対応メモの行数超過を入力欄の下で知らせている様子
 │   │   ├── field-styler-v250-config.png         # フィールドスタイラー v2.5.0 — 設定画面全体（テーブル内の列に文字制限・文字種制限が並ぶ）
-│   │   ├── input-assist-zoom-01.png        # 入力アシスト v2.1.0 — 明細表の狭い列で入力中の文字が欄からはみ出す様子（拡大入力の前）
 │   │   ├── field-styler-v260-label.png          # フィールドスタイラー v2.6.0 — 詳細画面でフィールド名に背景色・文字色・太字が付いた状態
 │   │   ├── field-styler-v260-config.png         # フィールドスタイラー v2.6.0 — 設定画面（フィールド名の装飾とカラーコード入力欄）
 │   │   ├── field-styler-v260-copy.png           # フィールドスタイラー v2.6.0 — 設定のコピー画面（コピー先とコピーする項目の選択）
+│   │   ├── input-assist-zoom-01.png        # 入力アシスト v2.1.0 — 明細表の狭い列で入力中の文字が欄からはみ出す様子（拡大入力の前）
 │   │   ├── input-assist-zoom-02.png        # 入力アシスト v2.1.0 — 拡大入力のダイアログ（見出しに行番号・全文表示・文字数・Tab/Esc の案内）
 │   │   ├── field-styler-bg.png / field-styler-bg.webp # フィールドスタイラーページ 背景
 │   │   ├── field-styler-config-list.png    # フィールドスタイラー 設定一覧画面
@@ -1239,6 +1251,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-annotation-v1.1.3.zip    # 注釈アシスト v1.1.3 配布物（最新・2026-10-14・開いたカードがスクロールで画面上部に貼り付いた kintone のツールバーの下に隠れる不具合を修正）
 │   │   ├── kw-lookup-add-v1.0.2.zip    # ルックアップ新規登録 v1.0.2（旧版・2026-09-14＝［＋新規登録］の表示を1つに保つよう置き方を見直し、設定画面に共通項目である旨を明記）
 │   │   ├── kw-lookup-add-v1.0.3.zip  # ルックアップ新規登録 for kintone 配布ファイル（最新・2026-10-03・v1.0.3：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に・「バナー非表示」の案内先をプレミアム年間サポーターに修正）
+│   │   ├── kw-free-lookup-v1.0.0.zip  # フリールックアップ for kintone 配布ファイル（最新・2026-10-21・v1.0.0 初版）
 │   │   ├── kw-lookup-filter-v1.1.0.zip # ルックアップ絞り込み v1.1.0（旧版・2026-09-24＝条件に合わない値で保存しようとしたときに「確認して保存」を選べる／保存時の検査は今回入れた・書き換えた値だけ）
 │   │   ├── kw-lookup-filter-v1.0.1.zip # ルックアップ絞り込み v1.0.1（旧版・参考保管）
 │   │   ├── kw-lookup-suggest-v3.0.1.zip # ルックアップサジェスト v3.0.1（同上）

@@ -114,6 +114,19 @@ const BANNERS = {
       ['条件に合わない値は', '保存を中止', '']
     ]
   },
+  'free-lookup': {
+    iconSrc: 'SECRET/kintone_plugin_workspace/kw-free-lookup/kw-free-lookup_icon_512.png',
+    iconSide: 'right',
+    catch: ['ルックアップの「できない」を、', '［取得］ボタンで解決。'],
+    name: 'フリールックアップ for kintone',
+    nameSize: 38,
+    bullets: [
+      ['', '同じアプリ', 'の別のレコードから取れる'],
+      ['区分ごとに', '参照先アプリを切り替え', ''],
+      ['コードが', '重複', 'しても候補から選べる'],
+      ['CSV で取り込んでも', '参照エラーなし', '']
+    ]
+  },
   'lookup-add': {
     iconSrc: 'SECRET/kintone_plugin_workspace/kw-lookup-add/kw-lookup-add_icon_512.png',
     iconSide: 'left',

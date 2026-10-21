@@ -1790,6 +1790,32 @@ export const premiumPlugins: Plugin[] = [
     releaseDate: '2026-10-16',
     summaryVersion: '1.0.0',
   },
+  {
+    id: 'kw-free-lookup',
+    pluginId: 'pgpecibgmogebgjfnbciihfikmiophjl',
+    name: 'フリールックアップ for kintone',
+    formName: 'フリールックアップ for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'free-lookup',
+    categories: ['自動入力', '検索・閲覧'],
+    description:
+      '文字列（1行）フィールドの横に［取得］［クリア］を出し、自分のアプリを含む別アプリのレコードから値をコピーします。区分で参照先アプリを切り替えたり取得時に選んだりでき、テーブルは行ごとに取得できます。キーが重複しても候補から選べます。',
+    image: '/images/free-lookup-banner.png',
+    imageWebp: '/images/free-lookup-banner.webp',
+    imageAlt:
+      'フリールックアップ for kintone バナー — 標準のルックアップでは届かない参照を、［取得］で。自分のアプリも参照先にでき、区分で参照先アプリを切り替え、テーブルの行ごとに取得、重複したキーも候補から選択',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      '自分のアプリも参照先にできる［取得］ボタン。区分で参照先アプリを切り替え、テーブルの行ごとに取得でき、重複のあるキーも候補から選べます。',
+    problemTitle: '標準のルックアップでは、自分のアプリや重複のあるキーを参照できない',
+    problemDesc:
+      '同じアプリの別レコードを参照したい、キーに重複があって取得できない、区分によって参照先のアプリを変えたい。標準のルックアップではどれもできない。CSV で読み込むと参照エラーになり、テーブルの行ごとに別のアプリから取ることも難しい',
+    releaseDate: '2026-10-21',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**

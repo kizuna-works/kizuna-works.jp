@@ -1,0 +1,770 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ResellerCard from '../../../components/ResellerCard.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<Layout
+  title="フリールックアップ for kintone｜自分のアプリも参照できる［取得］ボタン | KIZUNA Works"
+  description="kintone のルックアップでは難しい、自分のアプリの参照・重複したキーからの取得・区分による参照先アプリの切り替え・テーブルの行ごとの取得ができるプラグイン。CSV で読み込んでも参照エラーになりません。"
+  ogTitle="フリールックアップ for kintone｜自分のアプリも参照できる［取得］ボタン | KIZUNA Works"
+  ogDescription="文字列（1行）フィールドの横に［取得］を出し、別のアプリ（自分のアプリも可）から値をコピー。区分で参照先を切り替え、テーブルは行ごとに取得、重複したキーも候補から選べます。CSV で読み込んでも参照エラーになりません。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/free-lookup/"
+  ogImage="https://kizuna-works.jp/images/free-lookup-banner.png"
+  canonical="https://kizuna-works.jp/plugins/free-lookup/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/free-lookup/",
+          "url": "https://kizuna-works.jp/plugins/free-lookup/",
+          "name": "フリールックアップ for kintone｜自分のアプリも参照できる［取得］ボタン | KIZUNA Works",
+          "description": "フリールックアップ for kintone は、文字列（1行）フィールドの横に［取得］［クリア］を出し、別のアプリ（このアプリ自身も可）のレコードを探して、決めたフィールドへ値をコピーする kintone プラグイン。ルックアップフィールドを使わないため、自分のアプリの参照、重複したキーからの取得、区分による参照先アプリの切り替え、テーブルの行ごとの取得ができ、CSV で読み込んでも参照エラーにならない。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/free-lookup-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "フリールックアップ for kintone", "item": "https://kizuna-works.jp/plugins/free-lookup/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "フリールックアップ for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-10-21",
+          "url": "https://kizuna-works.jp/plugins/free-lookup/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-free-lookup-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/free-lookup-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "プレミアム年間サポーター（全プラグイン込み）",
+            "price": "16500",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "プレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料プランでもフリールックアップ1つ（参照先は固定のみ）で利用できます。"
+          },
+          "description": "フリールックアップ for kintone は、文字列（1行）フィールドの横に［取得］［クリア］を出し、別のアプリ（このアプリ自身も可）のレコードを探して、決めたフィールドへ値をコピーする。kintone のルックアップフィールドは使わない。キーに入れたキーワードで参照先を探し、1件ならそのままコピー、複数なら候補の一覧から選ぶ。探すフィールドは最大3つで、部分一致で1文字から探せる。参照先は区分などの値で切り替えられ、［取得］のときに利用者が選ぶこともできる。テーブルの中では行ごとに取得でき、参照先の絞り込みの初期設定はフィールド・条件・比べる値を選んで作り、このレコードの値・今日・ログインユーザーと比べられる。取得元のレコードを新しいタブで開くリンクも出せる。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "文字列（1行）フィールドの横に［取得］［クリア］を表示（ルックアップフィールドは不要）",
+            "別のアプリに加え、このアプリ自身のレコードも参照できる",
+            "区分などの値で参照先のアプリを切り替え（最大5つ）",
+            "［取得］のときに利用者が参照先のアプリを選ぶ",
+            "テーブルの行ごとに取得・クリア",
+            "キーが重複していても候補の一覧から選べる",
+            "探すフィールドを最大3つ選べる部分一致の検索（1文字から・空白区切りでAND）",
+            "CSV で読み込んでも参照エラーにならない（キーはただの文字列）",
+            "ルックアップのコピー先を書き換えられなくするプラグインと一緒に使っても、取得した値がそのまま入る",
+            "取得元のレコードを新しいタブで開く「↗ 開く」リンク",
+            "絞り込みの初期設定を選んで作れる（このレコードの値・今日・ログインユーザーと比較）",
+            "キーを書き換えたまま［取得］していなければ保存させない",
+            "条件分岐フォーム v3.0.0 以降と併用可（読み込み順は不問）",
+            "標準のルックアップと同じアプリ・同じテーブルの行で併用可",
+            "既存のルックアップを置き換えられる（設定とキーの値をボタンで写し、削除するまでは今のルックアップが動く）",
+            "パソコン・スマートフォン・ゲストスペース対応"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; flex-wrap: wrap; row-gap: 8px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
+    .afp-hero-points {
+      list-style: none; padding: 0; margin: 22px auto 0; max-width: 860px;
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; text-align: left;
+    }
+    .afp-hero-points li {
+      min-width: 0; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.32);
+      border-radius: 10px; padding: 12px 16px 12px 40px; position: relative; line-height: 1.6; font-size: 0.98rem;
+    }
+    .afp-hero-points li::before {
+      content: "\2713"; position: absolute; left: 14px; top: 12px;
+      color: #7ee07e; font-weight: 700;
+    }
+    .afp-hero-points li span { display: block; font-size: 0.84rem; opacity: 0.85; margin-top: 2px; }
+    @media (max-width: 700px) { .afp-hero-points { grid-template-columns: minmax(0, 1fr); } }
+    .afp-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+    .afp-hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 26px; border-radius: 26px;
+      font-weight: 700; font-size: 1rem; text-decoration: none; line-height: 1.3;
+    }
+    .afp-hero-btn.is-primary { background: #2E8B2E; color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.22); }
+    .afp-hero-btn.is-primary:hover { background: #35a035; }
+    .afp-hero-btn.is-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.6); }
+    .afp-hero-btn.is-ghost:hover { background: rgba(255,255,255,0.24); }
+    @media (max-width: 600px) { .afp-hero-btn { width: 100%; } }
+
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      margin: 0 0 26px;
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-ps-list { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+    .afp-ps { display: grid; grid-template-columns: 1fr 40px 1fr; align-items: stretch; gap: 0; }
+    .afp-ps-before, .afp-ps-after { min-width: 0; border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; line-height: 1.6; }
+    .afp-ps-before { background: #fff; border: 1px dashed #cbd5e1; color: #475569; }
+    .afp-ps-before .afp-ps-tag { color: #b91c1c; }
+    .afp-ps-before strong { color: #334155; font-size: 1rem; }
+    .afp-ps-after { background: #fff; border: 2px solid var(--color-green, #2E8B2E); box-shadow: var(--shadow-card); }
+    .afp-ps-after strong { color: var(--color-navy, #1B3A6B); font-size: 1.05rem; }
+    .afp-ps-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; color: #64748b; }
+    .afp-ps-after .afp-ps-tag { color: var(--color-green, #2E8B2E); }
+    .afp-ps-ex { font-size: 0.85rem; color: #64748b; }
+    .afp-ps-after a { align-self: flex-start; margin-top: 4px; font-size: 0.85rem; font-weight: 700; color: var(--color-green, #2E8B2E); text-decoration: none; }
+    .afp-ps-after a:hover { text-decoration: underline; }
+    .afp-ps-arrow { display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 700; color: var(--color-green, #2E8B2E); }
+    @media (max-width: 720px) {
+      .afp-ps { grid-template-columns: 1fr; }
+      .afp-ps-arrow { transform: rotate(90deg); height: 30px; }
+    }
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot + .afp-shot,
+    .afp-shot + .afp-cautions,
+    .afp-shot + .afp-note,
+    .afp-shot + .afp-grid-feats { margin-top: 26px; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+    .afp-shot-w340 { max-width: 340px; }
+    .afp-shot-w380 { max-width: 380px; }
+    .afp-shot-w420 { max-width: 420px; }
+    .afp-shot-w520 { max-width: 520px; }
+    .afp-shot-w560 { max-width: 560px; }
+    .afp-shot-w640 { max-width: 640px; }
+    .afp-shot-w720 { max-width: 720px; }
+    .afp-shot-w840 { max-width: 840px; }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+    .afp-cautions-title { margin: 0 0 6px; font-weight: 700; color: var(--color-navy); }
+    #replace, #switch, #search, #filter, #import { scroll-margin-top: 90px; }
+    .afp-replace-link { margin: 20px 0 0; font-size: 15px; }
+    .afp-replace-link a { color: var(--color-navy); font-weight: 700; }
+    /* Accordion for the replacement guide */
+    .afp-acc { background: #fff; border-radius: 10px; box-shadow: var(--shadow-card); margin: 14px 0; }
+    .afp-acc > summary {
+      list-style: none; cursor: pointer; padding: 18px 52px 18px 22px; position: relative;
+      font-weight: 700; color: var(--color-navy); font-size: 16px; line-height: 1.6;
+    }
+    .afp-acc > summary::-webkit-details-marker { display: none; }
+    .afp-acc > summary::after {
+      content: "+"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+      width: 26px; height: 26px; border-radius: 50%; background: #eef2f7;
+      display: flex; align-items: center; justify-content: center; font-size: 18px; line-height: 1;
+    }
+    .afp-acc[open] > summary::after { content: "\2212"; }
+    .afp-acc > summary:hover { background: #f7f9fc; border-radius: 10px; }
+    .afp-acc-body { padding: 0 22px 20px; min-width: 0; }
+    .afp-acc-body > ul { margin: 0; padding-left: 20px; }
+    .afp-acc-body > ul li { margin: 8px 0; line-height: 1.7; }
+    .afp-acc-body > .afp-note { margin: 0; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-zoomhint { text-align: center; font-size: 0.82rem; color: var(--color-text-muted); margin: 10px 0 0; }
+
+    .steps-list { list-style: none; padding: 0; margin: 8px 0 4px; counter-reset: afpstep; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <style is:global>
+    /* Page-specific additions */
+    .afp-h3 {
+      font-size: 1.15rem; color: var(--color-navy); margin: 34px 0 12px;
+      padding-left: 12px; border-left: 4px solid var(--color-green);
+    }
+    .afp-h3:first-of-type { margin-top: 8px; }
+    .afp-feat-no {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--color-green); margin-bottom: 6px;
+    }
+    .afp-note code, .afp-lead code, .afp-tablewrap code { background: #eef2f7; padding: 1px 6px; border-radius: 4px; font-size: 0.92em; word-break: break-all; }
+  </style>
+
+  <main>
+    <!-- ヒーロー -->
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/free-lookup-icon.png" alt="フリールックアップ for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1 class="afp-hero-title">フリールックアップ for kintone</h1>
+      <p class="afp-tagline">標準のルックアップで「できない」とあきらめていた参照が、できるようになります。</p>
+      <p class="afp-sub">コードを入れて<strong>［取得］を押すと、別のアプリから名前や住所などが自動で入る</strong>——使い方はルックアップと同じです。そのうえで、標準のルックアップにある制約を外しました。</p>
+      <ul class="afp-hero-points">
+        <li><strong>同じアプリ</strong>の別のレコードから取れる<span>例：社員名簿で、上長を同じ名簿から選ぶ</span></li>
+        <li>区分ごとに<strong>参照先のアプリを切り替え</strong><span>例：「取引先」なら取引先アプリ、「仕入先」なら仕入先アプリ</span></li>
+        <li>コードが<strong>重複していても</strong>候補から選べる<span>テーブルの行ごとの取得にも対応</span></li>
+        <li><strong>CSV で取り込んでも</strong>参照エラーにならない<span>今のルックアップと併用も、置き換えもできる</span></li>
+      </ul>
+      <div class="afp-hero-cta">
+        <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-free-lookup-v1.0.0.zip" download>無料でダウンロード</a>
+      </div>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 課題 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">標準のルックアップの「できない」を、こう解決します</h2>
+        <p class="afp-lead">kintone のルックアップは便利ですが、使えない場面があります。フリールックアップは<strong>ルックアップフィールドを使わず</strong>、［取得］のボタンを文字列（1行）フィールドの横に出して、別のアプリから値をコピーします。だから、標準の制約に縛られません。</p>
+        <div class="afp-ps-list">
+          <div class="afp-ps">
+            <div class="afp-ps-before"><span class="afp-ps-tag">標準では</span><strong>同じアプリの別のレコードを参照できない</strong><span class="afp-ps-ex">社員の上長を、同じ社員名簿から選べない</span></div>
+            <div class="afp-ps-arrow" aria-hidden="true">→</div>
+            <div class="afp-ps-after"><span class="afp-ps-tag">フリールックアップなら</span><strong>参照先に「このアプリ」を選べる</strong><span class="afp-ps-ex">開いているレコード自身は候補に出ません</span><a href="#switch">詳しく見る ↓</a></div>
+          </div>
+          <div class="afp-ps">
+            <div class="afp-ps-before"><span class="afp-ps-tag">標準では</span><strong>1 つのフィールドに参照先は 1 つだけ</strong><span class="afp-ps-ex">取引先と仕入先で、アプリを使い分けられない</span></div>
+            <div class="afp-ps-arrow" aria-hidden="true">→</div>
+            <div class="afp-ps-after"><span class="afp-ps-tag">フリールックアップなら</span><strong>区分の値で参照先のアプリを切り替える</strong><span class="afp-ps-ex">［取得］のときに利用者が選ぶこともできます</span><a href="#switch">詳しく見る ↓</a></div>
+          </div>
+          <div class="afp-ps">
+            <div class="afp-ps-before"><span class="afp-ps-tag">標準では</span><strong>キーが重複している参照先は使えない</strong><span class="afp-ps-ex">同じコードの商品が複数あると参照先にできない</span></div>
+            <div class="afp-ps-arrow" aria-hidden="true">→</div>
+            <div class="afp-ps-after"><span class="afp-ps-tag">フリールックアップなら</span><strong>重複していても、候補の一覧から選べる</strong><span class="afp-ps-ex">部分一致で 1 文字から探せます</span><a href="#search">詳しく見る ↓</a></div>
+          </div>
+          <div class="afp-ps">
+            <div class="afp-ps-before"><span class="afp-ps-tag">標準では</span><strong>このレコードの値で候補を絞れない</strong><span class="afp-ps-ex">絞り込みの初期設定は、決まった条件だけ</span></div>
+            <div class="afp-ps-arrow" aria-hidden="true">→</div>
+            <div class="afp-ps-after"><span class="afp-ps-tag">フリールックアップなら</span><strong>選んだ部署や区分に合う候補だけを出せる</strong><span class="afp-ps-ex">条件はプルダウンで選ぶだけ</span><a href="#filter">詳しく見る ↓</a></div>
+          </div>
+          <div class="afp-ps">
+            <div class="afp-ps-before"><span class="afp-ps-tag">標準では</span><strong>CSV で読み込むと参照エラーになることがある</strong><span class="afp-ps-ex">参照元に無い値は取り込めない</span></div>
+            <div class="afp-ps-arrow" aria-hidden="true">→</div>
+            <div class="afp-ps-after"><span class="afp-ps-tag">フリールックアップなら</span><strong>キーはただの文字列なので、そのまま入る</strong><span class="afp-ps-ex">一覧・詳細でもそのまま表示されます</span><a href="#import">詳しく見る ↓</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 標準ルックアップとの併用 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">標準のルックアップと、同じアプリで併用できる</h2>
+        <p class="afp-lead">今あるルックアップを置き換える必要はありません。<strong>標準のルックアップはそのまま使い続け、標準ではできないところだけをフリールックアップで足せます。</strong>同じ参照先アプリを、両方から参照してもかまいません。</p>
+        <div class="afp-cautions">
+          <ul>
+            <li>同じレコードの中で、標準のルックアップとフリールックアップを<strong>どちらの順に取得しても</strong>、そのまま保存できます。</li>
+            <li>フリールックアップが値をコピーしても、標準のルックアップの<strong>「取得済み」の状態は外れません</strong>。保存のときに［取得］を押し直すよう求められることはありません。</li>
+            <li>［クリア］も保存時の確認も、それぞれ<strong>別々に</strong>働きます。片方をクリアしても、もう片方の値は残ります。</li>
+            <li>テーブルの同じ行に両方を置けます。行を追加・削除しても、どちらも行ごとに取得できます。</li>
+            <li>パソコンとスマートフォンの、追加・編集・詳細画面で動作を確認しています。</li>
+          </ul>
+        </div>
+        <div class="afp-note">標準のルックアップのフィールドと、そのコピー先は、フリールックアップのキーやコピー先には選べません（kintone が値を書き換えるフィールドのため）。あとからフォームを変えて重なった場合は、プラグインの設定画面を開いたときに、どの設定を直せばよいかを表示します。</div>
+
+        <p class="afp-replace-link">今あるルックアップを、フリールックアップに<strong>置き換える</strong>こともできます。→ <a href="#replace">置き換えの手順を見る</a></p>
+      </div>
+    </section>
+
+    <!-- 基本の動き -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">キーのフィールドにキーワードを入れて、［取得］を押すだけ</h2>
+        <p class="afp-lead">キーのフィールドの右に［取得］［クリア］が出ます。キーワードを入れて［取得］を押すと、参照先のアプリを探します。<strong>1 件ならそのままコピー、複数なら候補の一覧が開きます</strong>。0 件のときは「当てはまるレコードがありません」と案内します。</p>
+        <p class="afp-zoomhint">画像をクリックすると拡大表示します</p>
+        <figure class="afp-shot afp-shot-w640">
+          <Picture src="/images/free-lookup-record.png" alt="見積書のレコード編集画面。取引先コードの入力欄の右に［取得］［クリア］のボタンと「↗ 開く」のリンクが並び、取引先名・電話番号・住所に取得した値が入っている。明細テーブルの商品コードの行にも［取得］［クリア］が出ている" width="940" height="870" class="zoomable" />
+          <figcaption class="afp-shot-cap">キーの右に<strong>［取得］［クリア］</strong>。取得したあとは、取得元を開く<strong>「↗ 開く」</strong>も出ます</figcaption>
+        </figure>
+        <div class="afp-tablewrap" style="margin-top:26px;">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>操作</th><th>動き</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>キーのフィールドにキーワードを入れて［取得］（または Enter）</td><td>参照先を探します。1 件ならコピー、複数なら候補の一覧、0 件なら案内を出します</td></tr>
+              <tr><td>キーを空のまま［取得］</td><td>参照先の全件の一覧が開きます</td></tr>
+              <tr><td>候補の一覧で選ぶ</td><td>上の検索欄で絞り込み、↑↓ キーと Enter、またはクリックで選びます</td></tr>
+              <tr><td>［クリア］</td><td>キーとコピー先を空にします</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note">探し方は、<strong>まず「コピー元のフィールド」が入力と完全に同じレコード</strong>を探し、無ければ、探すフィールドのどれかにキーワードが含まれるレコードを探します。全角・半角や大文字・小文字の違いは吸収します。</div>
+      </div>
+    </section>
+
+    <!-- 自分のアプリ・切り替え -->
+    <section class="afp-section alt" id="switch">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">自分のアプリも、区分ごとの別のアプリも参照できる</h2>
+        <p class="afp-lead">参照先には<strong>このアプリ自身も選べます</strong>（開いているレコード自身は候補に出ません）。さらにプレミアムでは、参照先を<strong>2 通りの方法</strong>で切り替えられます。</p>
+
+        <h3 class="afp-h3">値で切り替える</h3>
+        <p style="line-height:1.9;margin:0 0 12px;">ドロップダウンやラジオボタンの値ごとに、参照先のアプリを決めます（最大 5 つ）。たとえば「区分 = 取引先」なら取引先アプリ、「区分 = 仕入先」なら仕入先アプリから取得します。テーブルの中では、<strong>同じ行のフィールドの値</strong>で行ごとに切り替わります。切り替えの値が空のときは、「先に「区分」を選んでください。」と案内します。</p>
+
+        <h3 class="afp-h3">［取得］のときに利用者が選ぶ</h3>
+        <p style="line-height:1.9;margin:0 0 20px;">決まった区分が無いときは、［取得］で開く候補の一覧の上に<strong>「探す参照先」</strong>を並べます。利用者が参照先を選び直すと、入れたキーワードのまま、その参照先の候補に切り替わります。いまの参照先で見つからなかったときは、参照先を選び直せるように候補の一覧が開きます。</p>
+        <figure class="afp-shot afp-shot-w640">
+          <Picture src="/images/free-lookup-dialog.png" alt="［取得］で開いた候補の一覧。上に探す参照先を選ぶプルダウン（取引先マスタ）と検索欄があり、4 件の候補が取引先コード・取引先名・電話番号・住所の表で並んでいる" width="940" height="492" class="zoomable" />
+          <figcaption class="afp-shot-cap">候補の一覧の上で、<strong>探す参照先</strong>を選べます。選び直すと、入れたキーワードのまま切り替わります</figcaption>
+        </figure>
+        <div class="afp-note">参照先ごとに、「コピー元のフィールド」・探すフィールド・ほかのフィールドのコピーを設定できます。<strong>無料プランでは、参照先は固定のアプリ 1 つ</strong>です（このアプリ自身も可）。</div>
+      </div>
+    </section>
+
+    <!-- テーブル -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">テーブルの行ごとに取得できる</h2>
+        <p class="afp-lead">テーブル内の文字列（1行）フィールドをキーにすると、<strong>行ごとに［取得］［クリア］が出ます</strong>。押した行にだけ書き込み、行を足したり途中の行を消したりしても、押した行に書きます。コピー先は同じテーブル内のフィールドにします。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/free-lookup-table.png" alt="明細テーブルの各行の商品コードの横に［取得］［クリア］が出ている編集画面。行ごとに別の商品が取得され、同じ行の商品名・単価のフィールドに値が入っている" width="930" height="305" class="zoomable" />
+          <figcaption class="afp-shot-cap">行ごとにボタンが出ます。［＋］で足した行にも出ます</figcaption>
+        </figure>
+        <div class="afp-note">パソコンのテーブルでは、入力欄の右に［取得］［クリア］が並ぶ分だけ入力欄が縮みます。<strong>フォームの設定で、キーにしているテーブル内のフィールドの幅を広げてください</strong>。</div>
+      </div>
+    </section>
+
+    <!-- 重複・部分一致 -->
+    <section class="afp-section alt" id="search">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">キーが重複していても、1 文字からでも探せる</h2>
+        <p class="afp-lead">候補が複数あれば候補の一覧が開き、そこから選べます。<strong>キーが重複していても取得できます</strong>。探すフィールドは最大 3 つ選べ、<strong>部分一致で 1 文字から</strong>探せます。空白で区切ると AND 検索になります。コードの途中までしか分からないときも、探せます。</p>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>探すフィールドを最大 3 つ</h3>
+            <p>コピー元のフィールドに加えて、名称・読み仮名など、<strong>キーワードで探せるフィールド</strong>を選べます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ルックアップの選択時に表示するフィールドを選べる</h3>
+            <p>ルックアップの選択時に表示するフィールドを<strong>最大 5 つ</strong>選べます。重複した候補を見分けやすくなります。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ソートの初期設定を決められる</h3>
+            <p>候補の並びを指定できます。既定は、レコード番号の新しい順です。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 絞り込み -->
+    <section class="afp-section" id="filter">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">このレコードの値で、候補を絞る</h2>
+        <p class="afp-lead">絞り込みの初期設定は、<strong>フィールド・条件・比べる値をプルダウンで選ぶだけ</strong>で作れます。比べる値には決まった値のほか、<strong>このレコードの値</strong>・今日・ログインユーザーを選べるので、選んだ部署や区分に合う候補だけを出せます。クエリを書く必要はありません。</p>
+        <figure class="afp-shot afp-shot-w640">
+          <Picture src="/images/free-lookup-filter.png" alt="設定画面の絞り込みの初期設定。参照先の取引区分が、このレコードの取引区分のいずれかを含む、という条件を、フィールド・条件・比べる値のプルダウンで作っている" width="867" height="313" class="zoomable" />
+          <figcaption class="afp-shot-cap">条件は<strong>選ぶだけ</strong>。このレコードの値とも比べられます</figcaption>
+        </figure>
+        <div class="afp-tablewrap" style="margin-top:26px;">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>作り方の例（フィールド ／ 条件 ／ 比べる値）</th><th>意味</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>担当部署 ／ 次と等しい ／ このレコードの値：部署</td><td>このレコードの「部署」と同じ担当部署の候補だけ</td></tr>
+              <tr><td>区分 ／ 次のいずれかを含む ／ このレコードの値：取引区分</td><td>チェックボックス・複数選択で選んだ値のどれかに当たる候補</td></tr>
+              <tr><td>担当者 ／ 次のいずれかを含む ／ ログインユーザー</td><td>自分が担当の候補だけ</td></tr>
+              <tr><td>有効期限 ／ ≧（以降） ／ 今日</td><td>期限が切れていない候補だけ</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note">条件は 10 個まで足せて、「すべての条件を満たす」「いずれかの条件を満たす」を選べます。キーがテーブル内のフィールドなら、<strong>同じ行のフィールドの値</strong>も使えます。使う値が空のまま［取得］を押すと、「先に「部署」を入れてください。」と案内して探しません。括弧で組み合わせた複雑な条件は、「クエリで直接書く（上級者向け）」で kintone のクエリとして書けます。絞り込みの初期設定とソートの初期設定は、保存のときに参照先で試し、誤りがあれば知らせます。</div>
+      </div>
+    </section>
+
+    <!-- CSV, coexistence, open link, save guard -->
+    <section class="afp-section alt" id="import">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">毎日の運用で役立つ 4 つの特長</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">01</span>
+            <h3>CSV で読み込んでも参照エラーにならない</h3>
+            <p>キーは<strong>ルックアップではなく、ただの文字列</strong>です。CSV で読み込んだ値は、そのまま入ります。詳細画面や一覧でも、フィールドの値としてそのまま表示されます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">02</span>
+            <h3>コピー先を書き換えられなくするプラグインと一緒に使える</h3>
+            <p>ルックアップのコピー先を手で書き換えられないようにするプラグインを入れていても、<strong>取得した値はそのまま入ります</strong>。フリールックアップは kintone のルックアップフィールドを使わず、値を自分で書き込むためです。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">03</span>
+            <h3>取得元を開くリンク</h3>
+            <p>キーの横に<strong>「↗ 開く」</strong>が出て、押すと取得元のレコードが新しいタブで開きます。使うときは、レコード番号を入れておく<strong>文字列（1行）フィールドか数値フィールドをフォームに 1 つ追加</strong>し、設定画面の ④ で選びます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">04</span>
+            <h3>書き換えたままの保存を止める</h3>
+            <p>キーを書き換えて［取得］していなければ、保存させません（既定はオン。kintone のルックアップと同じ動きです）。コピー先を手で書き換えられなくする設定も、既定でオンです。</p>
+          </div>
+        </div>
+        <div class="afp-note">「↗ 開く」で開いたレコードを見られるかどうかは、そのアプリの<strong>閲覧権限</strong>で決まります。</div>
+      </div>
+    </section>
+
+    <!-- 条件分岐フォーム -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">条件分岐フォームと一緒に使える</h2>
+        <p class="afp-lead"><a href="/plugins/conditional-form/">条件分岐フォーム for kintone</a> <strong>v3.0.0 以降</strong>と組み合わせられます。<strong>読み込み順は、どちらが先でも動きます。</strong></p>
+        <div class="afp-cautions">
+          <ul>
+            <li>取得でコピーした値で条件が成り立つと、条件分岐フォームの<strong>「読み取り専用」「表示・非表示」「値のセット」</strong>が働きます。</li>
+            <li>取得した値を、条件分岐フォームの固定値で<strong>上書きしません</strong>。取得した値が優先されます（パソコン・スマートフォンとも同じ結果です）。</li>
+            <li>条件分岐フォームが読み取り専用や非表示にしたフィールドでは、フリールックアップの動きもそれに従います。</li>
+          </ul>
+        </div>
+        <div class="afp-note">条件分岐フォームが v3.0.0 より前だと、パソコンでは取得で条件が成り立ったときの「値のセット」が効かないことがあります。条件分岐フォームを <strong>v3.0.0 以降</strong>に更新してください。</div>
+      </div>
+    </section>
+
+    <!-- スマートフォン -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">スマートフォンでも同じように使える</h2>
+        <p class="afp-lead">キーの入力欄の下に、<strong>押しやすい大きさの［取得］［クリア］</strong>が出ます。候補の一覧は、行をタップして選びます。動きはパソコンと同じです。</p>
+        <figure class="afp-shot afp-shot-w340">
+          <Picture src="/images/free-lookup-mobile.png" alt="スマートフォンの編集画面。キーの入力欄の下に大きな［取得］［クリア］のボタンが出ている" width="1170" height="2532" class="zoomable" />
+          <figcaption class="afp-shot-cap">スマートフォンのレコード追加・編集画面</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 置き換え -->
+    <section class="afp-section" id="replace">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">今のルックアップを、フリールックアップに置き換える</h2>
+        <p class="afp-lead">運用中のルックアップを、フリールックアップに切り替えることもできます。<strong>ルックアップフィールドそのものには設定できない</strong>ため、キーにする文字列（1行）フィールドを新しく用意し、<strong>設定と値をプラグインのボタンで写してから</strong>、今のルックアップをフォームから外す流れです。設定し直したり、CSV で値を移したりする必要はありません。</p>
+        <details class="afp-acc">
+          <summary>置き換えると、何がどうなるか</summary>
+          <div class="afp-acc-body">
+              <ul>
+                <li><strong>今のルックアップフィールド</strong>：フォームから削除するまでは、今までどおり動きます。その間、フリールックアップは「置き換え待ち」で動きません（同じフィールドを両方が書き換えないためです）。削除は管理者が行い、<strong>プラグインがフィールドを消すことはありません</strong>。</li>
+                <li><strong>コピー先のフィールド</strong>（会社名・住所など、取得した値が入るフィールド）：そのまま使います。<strong>入っている値もそのまま残ります</strong>。</li>
+                <li><strong>キーの値</strong>（取引先コードなど）：［値を写す］ボタンで、全レコードの値を新しいフィールドへ写します。</li>
+                <li><strong>関連付けるアプリ・ほかのフィールドのコピー・ルックアップの選択時に表示するフィールド・絞り込みの初期設定・ソートの初期設定</strong>：［設定を写す］ボタンで、今のルックアップの設定がそのまま入ります。</li>
+              </ul>
+          </div>
+        </details>
+        <details class="afp-acc">
+          <summary>置き換えの手順（6 ステップ）</summary>
+          <div class="afp-acc-body">
+            <ol class="steps-list">
+              <li><span><strong>準備：</strong>フォームに、キーにする<strong>文字列（1行）フィールド</strong>（例：「取引先コード（新）」）を追加して、［アプリを更新］します。今のルックアップがテーブルの中にあるときは、同じテーブルに列を足します。</span></li>
+              <li><span>プラグインの設定で［＋新しい設定］を押し、「置き換えるルックアップ」で今のルックアップを選んで<strong>［設定を写す］</strong>を押します。</span></li>
+              <li><span>「キーのフィールド」で、1. で追加したフィールドを選びます。</span></li>
+              <li><span>表示される<strong>［「今のルックアップ」の値を「新しいフィールド」へ写す］</strong>を押します。件数を確かめてから実行され、今のルックアップに値があり、新しいフィールドが空のレコードだけに写します。何度押しても、同じ値が二重に入ることはありません。</span></li>
+              <li><span>設定を保存し、アプリの設定で［アプリを更新］します。<strong>この時点ではまだ今のルックアップが動いています</strong>。</span></li>
+              <li><span>フォームの設定から<strong>今のルックアップフィールドを削除</strong>し、［アプリを更新］します。ここからフリールックアップが動き始めます。<strong>コピー先のフィールドは削除しないでください</strong>。</span></li>
+            </ol>
+            <p>設定画面には、この手順が「済み／これから」の印つきで表示されるので、途中で作業を止めても続きが分かります。やめるときは［乗り換えをやめる］で元に戻せます。</p>
+            <figure class="afp-shot" style="margin-top:20px;">
+              <Picture src="/images/free-lookup-import.png" alt="プラグインの設定画面。黄色の枠に「ルックアップ「取引先コード（旧）」からの乗り換え中です（置き換え待ち）」と表示され、設定を写す・キーのフィールドを選ぶ・値を写す・保存してアプリを更新・ルックアップを削除の5つの手順が、済んだものに印が付いて並んでいる。値を写すボタンの下に、写したレコードの件数が緑で表示されている" width="1585" height="776" class="zoomable" />
+              <figcaption class="afp-shot-cap">設定画面に残りの手順が表示されます。［値を写す］を押すと、写したレコードの件数が出ます</figcaption>
+            </figure>
+          </div>
+        </details>
+        <details class="afp-acc">
+          <summary>置き換える前にご確認ください（更新日時・削除の注意）</summary>
+          <div class="afp-acc-body">
+            <div class="afp-note">
+              ・［値を写す］で書き換えたレコードは、<strong>更新者・更新日時が、実行した人と実行した日時に変わります</strong>。アプリの通知や Webhook を設定している場合は、それも動きます。<br />
+              ・今のルックアップを、計算式・一覧の絞り込み・関連レコードの条件・通知の条件などで使っている場合は、削除の前に新しいフィールドへ付け替えてください。<br />
+              ・<strong>削除したフィールドの値は元に戻せません</strong>。値を写し終えたことを確かめてから削除してください。
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 設定画面 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定画面</h2>
+        <p class="afp-lead">左が<strong>設定の一覧とライブプレビュー</strong>、中央が<strong>設定</strong>、右が KIZUNA Works のご案内です。プレビューには、キーのフィールドと［取得］［クリア］、候補の一覧、ほかのフィールドのコピーが<strong>実際の画面と同じ見た目</strong>で出ます。中央の ① 〜 ④ を上から設定します。</p>
+        <figure class="afp-shot afp-shot-w840">
+          <Picture src="/images/free-lookup-config.png" alt="フリールックアップの設定画面の全体。左に設定の一覧とライブプレビュー、中央にキーと参照先・探すフィールド・ほかのフィールドのコピー・動きの設定が並んでいる" width="1585" height="888" class="zoomable" />
+          <figcaption class="afp-shot-cap">設定画面の全体（左：一覧とプレビュー／中央：設定）</figcaption>
+        </figure>
+        <div class="afp-tablewrap" style="margin-top:26px;">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>設定</th><th>決めること</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>① キーと関連付けるアプリ</td><td>［取得］を出す文字列（1行）フィールド（キーのフィールド）、関連付けるアプリ（このアプリ自身も可）、関連付けるアプリの決め方（1 つのアプリ／値で切り替える／取得のときに選ぶ）、コピー元のフィールド</td></tr>
+              <tr><td>② 探すフィールド・表示するフィールド</td><td>探すフィールド（最大 3）、ルックアップの選択時に表示するフィールド（最大 5）、ソートの初期設定、絞り込みの初期設定</td></tr>
+              <tr><td>③ ほかのフィールドのコピー</td><td>関連付けるアプリのフィールド（コピー元）を、このアプリのどのフィールド（コピー先）へ入れるか。同じ名前のフィールドをまとめて対応づけることもできます</td></tr>
+              <tr><td>④ 動き</td><td>保存のガード、コピー先を編集できなくする、取得元を開く「↗ 開く」（レコード番号を入れるフィールドをフォームに追加して選びます）</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note">コピー先には、文字列（1行）・数値・ドロップダウン・ラジオボタン・チェックボックス・複数選択・日付・時刻・日時・ユーザー選択・組織選択・グループ選択などのフィールドを選べます。種類の違うフィールドへも入れられ、数値にできない文字や選択肢に無い値は空になります。</div>
+      </div>
+    </section>
+
+    <!-- インストール -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="steps-list">
+          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-free-lookup-v1.0.0.zip</code> を保存します。</span></li>
+          <li><span>kintone の<strong>「kintoneシステム管理」→「プラグイン」</strong>を開き、<strong>「読み込む」</strong>から zip を読み込みます。</span></li>
+          <li><span>使いたいアプリで<strong>「アプリの設定」→「プラグイン」→「プラグインの追加」</strong>から追加します。</span></li>
+          <li><span>先に、キーにする<strong>文字列（1行）フィールド</strong>と、値をコピーする先のフィールドをフォームに用意します。</span></li>
+          <li><span>歯車アイコンから設定画面を開き、左の<strong>「＋ 新しいフリールックアップ」</strong>を押して、① 〜 ④ を設定して保存します。</span></li>
+          <li><span>「アプリの設定」に戻ったら、<strong>［アプリを更新］</strong>を押すと有効になります。</span></li>
+        </ol>
+        <div class="afp-note">すでにお使いの場合は、同じ手順で新しい zip を読み込むと上書きされます。<strong>アプリごとの設定は保持されます</strong>。</div>
+      </div>
+    </section>
+
+    <!-- プラン -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料のままでも、<strong>フリールックアップ 1 つ</strong>（参照先は固定のアプリ）まで使えます。<strong>複数のフリールックアップ</strong>と、<strong>参照先の切り替え</strong>（値で切り替える／取得のときに利用者が選ぶ）が使えるようになるのが、プレミアム年間サポーターです（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ フリールックアップ <strong>1 つ</strong>（参照先は固定のアプリ・このアプリ自身も可）</li>
+              <li>✅ テーブルの行ごとの取得・候補の一覧・部分一致の検索</li>
+              <li>✅ 絞り込みの初期設定を選んで作る（このレコードの値とも比べる）</li>
+              <li>✅ 取得元を開く「↗ 開く」リンク・保存のガード</li>
+              <li>✅ パソコン・スマートフォン・ゲストスペース</li>
+              <li>✅ 利用期限なし（一覧画面にバナーが出ます）</li>
+            </ul>
+            <a href="/downloads/kw-free-lookup-v1.0.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>複数のフリールックアップ</strong>に設定できます</li>
+              <li>✅ <strong>値で参照先を切り替え</strong>（最大 5 つ）</li>
+              <li>✅ <strong>［取得］のときに利用者が参照先を選ぶ</strong></li>
+              <li>✅ 一覧画面のバナーなし</li>
+              <li>✅ <strong>プレミアム全製品</strong>と、ちょこっとプラグイン全製品が使えます</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta is-primary">プレミアム年間サポーターを見る →</a>
+          </div>
+        </div>
+
+        <p style="line-height:1.8;margin:0 0 24px;">年間サポーターの期限が切れても、設定は消えません。先頭の 1 つ（参照先を固定にしたもの）だけが動きます。ライセンスの確認ができないときは、無料プランと同じ扱いになりますが、取得そのものは止まりません。</p>
+
+        <ResellerCard />
+      </div>
+    </section>
+
+    <!-- 制約 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">できないこと・ご注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li>キーにできるのは<strong>文字列（1行）フィールド</strong>だけです。自動計算を設定したものと、ルックアップフィールド・そのコピー先は、キーにできません。</li>
+            <li>コピー先に選べないのは、計算フィールド・自動計算を設定した文字列（1行）フィールド・添付ファイルフィールド・ルックアップフィールドとそのコピー先です。<strong>キーがテーブルの外ならコピー先もテーブルの外、キーがテーブル内のフィールドなら、コピー先は同じテーブル内のフィールド</strong>にしてください。</li>
+            <li>［取得］［クリア］が使えるのは、レコードの<strong>追加・編集画面</strong>です。詳細画面・一覧・API による書き込みではコピーされません。</li>
+            <li>参照先は<strong>10,000 件</strong>までから探します。超えるときは先頭の 10,000 件から探し、そのことを案内します。絞り込みの初期設定で候補を減らしてください。</li>
+            <li>自分のアプリを参照するときは、保存前のレコードや、画面で書き換えただけの値は探せません（保存済みの値で探します）。</li>
+            <li>コピーのあとに参照先の値が変わっても、自動では反映されません。編集画面で［取得］を押し直してください。</li>
+            <li>参照先の閲覧権限は kintone の権限がそのまま適用され、権限が無いと取得できません。コピー先のうち、その利用者に編集の権限が無いフィールドにはコピーしません。</li>
+            <li>ゲストスペースのアプリでは、<strong>同じゲストスペースのアプリ</strong>を参照先に選んでください。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- よくある質問（表示と FAQPage JSON-LD は src/data/premium-faqs.ts を共有） -->
+    <PremiumFaqSection
+      pluginId="kw-free-lookup"
+      pageUrl="https://kizuna-works.jp/plugins/free-lookup/"
+      headingClass="afp-h2"
+      alt
+    />
+
+    <!-- セキュリティ -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-free-lookup" />
+        <ShareButtons title="フリールックアップ for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>ルックアップの「できない」を、［取得］で超える</h2>
+      <p>フリールックアップはプレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料のままでもフリールックアップ 1 つまでお使いいただけます。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="fl-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('fl-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      // ダウンロードは ヒーローとプランカードの2か所にあるので、まとめて計測する
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: 'kw-free-lookup-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-free-lookup-v1.0.0.zip'
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>
