@@ -57,10 +57,10 @@ import HeroDownload from '../../../components/HeroDownload.astro';
           "name": "文字列結合 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.1.0",
-          "dateModified": "2026-10-17",
+          "softwareVersion": "1.2.0",
+          "dateModified": "2026-10-22",
           "url": "https://kizuna-works.jp/plugins/text-join/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-text-join-v1.1.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-text-join-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/text-join-banner.png",
           "offers": {
             "@type": "Offer",
@@ -82,6 +82,7 @@ import HeroDownload from '../../../components/HeroDownload.astro';
             "値が空のパーツは前置き・後置き文字ごとスキップするので「【】」のような囲み文字が空のまま残らない",
             "テーブル（サブテーブル）の明細を「商品A×2／商品C×3…ほか1件」のように1つの文字列へ集約",
             "保存時に同じ結合結果のレコードがないか照会し、確認ダイアログまたは保存ブロックで重複を防止",
+            "計算・文字列（複数行）・リンク・リッチエディターを使っていても、入力して欄を離れた時点で保存前に結合結果を出力先へ反映",
             "桁数ガード（末尾の切り詰め・保存ブロック）と入力中の残り文字数表示",
             "既存レコードへの一括反映（値が変わらないレコードは更新しない）",
             "設定画面のライブプレビューでサンプル値または実データの結合結果をその場で確認",
@@ -687,11 +688,42 @@ import HeroDownload from '../../../components/HeroDownload.astro';
     .ea-example-table tbody tr:nth-child(even) { background: #f8fafc; }
     .ea-example-table td strong { color: var(--color-navy); }
 
+    /* Update box (version highlight) */
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-list { margin: 0 0 8px; padding-left: 1.4em; color: var(--color-text); font-size: 15px; line-height: 1.8; }
+    .update-list li { margin-bottom: 6px; }
+    .update-list strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+
     @media (max-width: 768px) {
       .related-posts-grid { grid-template-columns: 1fr; }
       .hero { padding: 60px 5%; }
       .hero-title { font-size: 28px; }
       .hero-copy { font-size: 15px; }
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
       .hero-icon { width: 140px; height: 140px; }
       .section-wrapper { padding: 60px 5%; }
       .problem-grid { grid-template-columns: 1fr; }
@@ -720,11 +752,34 @@ import HeroDownload from '../../../components/HeroDownload.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.1.0</span>
+        <span class="hero-version">v1.2.0</span>
       </div>
       <h1 class="hero-title">文字列結合 for kintone</h1>
       <p class="hero-copy">文字列結合 for kintone は、<strong>複数のフィールドの値を、型や書式を整えたうえで 1 つの文字列フィールドへ自動入力する</strong> kintone プラグインです。計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども結合でき、書き込まれるのは<strong>実データ</strong>なので、並び替え・絞り込み・集計・CSV 出力・ルックアップの複合キーにそのまま使えます。</p>
-      <HeroDownload href="/downloads/kw-text-join-v1.1.0.zip" />
+      <HeroDownload href="/downloads/kw-text-join-v1.2.0.zip" />
+    </section>
+
+    <!-- Update Info (v1.2.0) -->
+    <section class="section-wrapper fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.2.0：入力中の結合結果の反映を改善しました</h2>
+        </div>
+        <p class="update-desc">文字列結合を v1.2.0 にアップデートしました。</p>
+        <p class="update-desc"><strong>計算・文字列（複数行）・リンク・リッチエディターを結合に使っていても、保存前に結合結果が入ります。</strong>入力して欄を離れた時点で、出力先に結合結果が入ります。これまでは保存の時点で初めて結合されていました。</p>
+        <p class="update-desc">保存時に出力先の値を読むほかのプラグイン（保存時にフォルダーを作るもの、外部へ送るものなど）にも、結合後の値が渡ります。</p>
+        <ul class="update-list">
+          <li><strong>計算フィールドは値が変わった時点で入ります</strong> — テーブル内の計算（小計など）も対象です。</li>
+          <li><strong>入力を妨げません</strong> — 日本語の変換中や入力中の欄には書き込みません。PC 版・モバイル版の両方で動きます。</li>
+          <li><strong>保存して初めて決まる値は対象外です</strong> — レコード番号・作成日時などは、新規作成では保存前に値が無いため、従来どおり保存時に結合します。</li>
+          <li><strong>保存される値は常に正しい結果です</strong> — 計算の元を変えた直後に保存すると、まれに保存前の段階では古い計算値のことがあります。保存時に結合し直します。</li>
+          <li><strong>既存の設定はそのまま動きます</strong></li>
+        </ul>
+        <p class="update-note">
+          ※ プラグインは自動更新されません。お手数ですが、最新版をダウンロードし、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>してください。
+        </p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -782,6 +837,7 @@ import HeroDownload from '../../../components/HeroDownload.astro';
           <li><span><strong>型ごとの書式指定</strong> — 日付は「2026年8月2日」「20260802」<strong>和暦</strong>など、数値は<strong>ゼロ埋め</strong>・桁区切り・小数桁・単位、ユーザー選択は表示名／コード／「山田太郎(t-yamada)」、選択肢は区切り記号と並び順（選択順／選択肢の定義順）を選べます。</span></li>
           <li><span><strong>明細（テーブル）の集約結合</strong> — 行内テンプレート（例：商品名＋「×」＋数量）と行間の区切りで 1 つの文字列に。並べ替え・重複除去・最大行数・「…ほか&#123;N&#125;件」にも対応します。</span></li>
           <li><span><strong>結合結果の重複チェック</strong> — 保存時に同じ値のレコードがないか照会し、<strong>確認して続行</strong>か<strong>保存をブロック</strong>を選べます。kintone 標準の「値の重複を禁止する」と併用できます。</span></li>
+          <li><span><strong>計算・複数行・リンクも保存前に反映</strong> — これらの項目を結合に使っていても、入力して欄を離れた時点で出力先に結合結果が入ります。保存時にその値を読むほかのプラグインにも、結合後の値が渡ります。</span></li>
           <li><span><strong>桁数ガード</strong> — 上限を超えたら末尾を切り詰める／保存をブロックする、を選べます。絵文字を途中で割らない数え方（コードポイント）で数えます。</span></li>
           <li><span><strong>既存レコードへの一括反映</strong> — 導入前に登録済みのレコードや、CSV 読み込みで入れたレコードにもまとめて書き込めます。</span></li>
           <li><span><strong>設定画面のライブプレビュー</strong> — サンプル値または実データで、保存する前に結合結果を確認できます。</span></li>
@@ -863,7 +919,7 @@ import HeroDownload from '../../../components/HeroDownload.astro';
         <p class="section-subtitle">レコードの新規作成・編集画面で動作します。PC 版・モバイル版に対応しています。</p>
         <ol class="steps-list">
           <li><span>結合結果を書き込む<strong>文字列（1行）または文字列（複数行）フィールド</strong>をアプリに用意しておく</span></li>
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-text-join-v1.1.0.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-text-join-v1.2.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「文字列結合 for kintone」を追加</span></li>
           <li><span>プラグイン設定画面で<strong>ルールを追加</strong>し、出力先フィールドとパーツを設定して「保存」</span></li>
@@ -892,7 +948,7 @@ import HeroDownload from '../../../components/HeroDownload.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・レコード一覧に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-text-join-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-text-join-v1.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <SupporterPlanCard pluginId="kw-text-join" />
       <PremiumPlanCard />
@@ -909,7 +965,7 @@ import HeroDownload from '../../../components/HeroDownload.astro';
         <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
         <li>動作するのはレコードの新規作成・編集画面です。詳細画面では再計算せず、保存済みの値をそのまま表示します。</li>
         <li>出力先に指定できるのは<strong>文字列（1行）／文字列（複数行）</strong>です。実行中は読み取り専用になり、手入力できません。</li>
-        <li>kintone の仕様上、入力中に変更を検知できるフィールドの型は決まっています。<strong>文字列（複数行）・リンク・計算・作成日時・更新日時・ステータス</strong>などをパーツに使った場合、入力中は結合結果がすぐに変わりません（保存時には必ず計算し直すため、保存される値は正しくなります）。</li>
+        <li>入力して欄を離れた時点で結合結果が入るのは、計算・文字列（複数行）・リンク・リッチエディターです。<strong>レコード番号・作成日時・更新日時・作成者・更新者・ステータス</strong>など、保存して初めて決まる値は、新規作成では保存前に反映できません（保存時に結合されます）。計算の元を変えた直後に保存すると、まれに保存前の段階では古い計算値のことがあります。保存される値は常に正しい結果です。</li>
         <li>重複チェックは出力先が<strong>文字列（1行）</strong>のときだけ使えます（kintone の検索が複数行文字列の完全一致に対応していないため）。</li>
         <li>一覧画面のインライン編集と CSV 読み込みではプラグインが動作しません。設定画面の「一括反映」で反映してください。</li>
         <li>カスタマイズビュー・カレンダービューでは動作しません。添付ファイル・関連レコード一覧はパーツに使えません。</li>
@@ -1043,10 +1099,10 @@ import HeroDownload from '../../../components/HeroDownload.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-text-join-v1.1.0.zip',
+              file_name: 'kw-text-join-v1.2.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-text-join-v1.1.0.zip'
+              link_url: '/downloads/kw-text-join-v1.2.0.zip'
             });
           }
         });
