@@ -50,10 +50,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           "name": "ルックアップ新規登録 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.0.5",
+          "softwareVersion": "1.1.0",
           "dateModified": "2026-10-22",
           "url": "https://kizuna-works.jp/plugins/lookup-add/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-add-v1.0.5.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-add-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/lookup-add-banner.png",
           "offers": {
             "@type": "Offer",
@@ -63,16 +63,18 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             "availability": "https://schema.org/InStock",
             "description": "プレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料プランでもルックアップ1つで利用できます。"
           },
-          "description": "kintone のルックアップは参照先アプリにレコードが無いと先へ進めない。本プラグインは［取得］の隣に［＋新規登録］を置き、入力中の画面を離れずに参照先アプリのレコードを登録して、そのまま取得まで完了させる。登録画面には、ルックアップ欄に打った文字・入力中のレコードから引き継ぐ値・ルックアップの絞り込みの初期設定で決まる値が入った状態で開く。登録の前には表記ゆれを吸収して似ているレコードを表示し、完全一致のときは登録を止める。登録方式はパネル（この画面のまま入力）と標準画面（参照先アプリの新規作成画面を別のタブか小さなウィンドウで開き、保存を検知して取得まで自動完了）から選べる。",
+          "description": "kintone のルックアップは参照先アプリにレコードが無いと先へ進めない。本プラグインは［取得］の隣に［＋新規登録］を置き、入力中の画面を離れずに参照先アプリのレコードを登録して、そのまま取得まで完了させる。登録画面には、ルックアップ欄に打った文字・入力中のレコードから引き継ぐ値・ルックアップの絞り込みの初期設定で決まる値が入った状態で開く。登録の前には、キーなど照合する項目（最大3つ）を表記ゆれを吸収して照合し、似ているレコードを表示する。キーが完全一致のときは登録を止める。登録方式はパネル（この画面のまま入力）と標準画面（参照先アプリの新規作成画面を別のタブか小さなウィンドウで開き、保存を検知して取得まで自動完了）から選べる。",
           "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
           "featureList": [
             "ルックアップの［取得］の隣に［＋新規登録］を表示（フォームの編集は不要）",
             "入力中の画面を離れずに参照先アプリへレコードを登録",
             "登録したレコードをそのまま取得まで自動完了（コピー先の項目も反映）",
-            "ルックアップ欄に打った文字をキー項目へ引き継ぎ",
+            "ルックアップ欄に打った文字を登録画面へ引き継ぎ",
             "入力中のレコードの値・同じ行の値・固定値を参照先アプリの項目へ引き継ぎ",
             "絞り込みの初期設定で決まる値をあらかじめ固定し、登録直後に条件を検査",
-            "表記ゆれを吸収して似ているレコードを先に表示（完全一致は登録を中止）",
+            "表記ゆれを吸収して似ているレコードを先に表示（キーの完全一致は登録を中止）",
+            "照合する項目を最大3つ選択（既定はキー）。名前などの項目の完全一致は「一致」と表示",
+            "ルックアップ欄に入力した文字を入れる項目を選択（既定はキー）",
             "登録できる人をユーザー・組織・グループで限定",
             "登録方式はパネルと標準画面（別のタブ／小さなウィンドウ）から選択",
             "パネルの見た目を3スタイルから選択（標準／やわらか／すっきり）",
@@ -261,6 +263,26 @@ import ShareButtons from '../../../components/ShareButtons.astro';
     .la-ba figcaption { font-size: 0.86rem; color: #64748b; line-height: 1.7; margin-top: 8px; }
     @media (max-width: 767px) { .la-ba { grid-template-columns: 1fr; } }
 
+    /* Update box (version highlight) */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: #fff;
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: #fff; font-size: 12px; font-weight: 700;
+      letter-spacing: 0.05em; padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 14px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-list { margin: 0 0 14px; padding-left: 1.4em; font-size: 15px; line-height: 1.8; }
+    .update-list li { margin: 6px 0; }
+    .update-list strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 600px) { .update-box { padding: 24px 20px 28px; } }
+
     /* 連携する製品のカード */
     .la-combo { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 26px; }
     .la-combo-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 24px 24px; box-shadow: var(--shadow-card); display: flex; flex-direction: column; }
@@ -278,18 +300,41 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
         <RequestOriginBadge />
-        <span class="afp-hero-version">v1.0.5</span>
+        <span class="afp-hero-version">v1.1.0</span>
       </div>
       <h1 class="afp-hero-title">ルックアップ新規登録 for kintone</h1>
       <p class="afp-tagline">候補に無いなら、その場で登録。</p>
       <p class="afp-sub">kintone のルックアップは、<strong>参照先アプリにレコードが無いと先へ進めません</strong>。本プラグインは［取得］の隣に<strong>［＋新規登録］</strong>を置き、<strong>入力中の画面を離れずに参照先アプリを登録して、そのまま取得まで終わらせます</strong>。打った文字も、入力中のレコードの値も、絞り込みの条件も引き継いで入力欄に入るので、<strong>登録して戻ってくる手間がなくなります</strong>。</p>
       <div class="afp-hero-cta">
         <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
-        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-lookup-add-v1.0.5.zip" download>無料でダウンロード</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-lookup-add-v1.1.0.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
     <RequestOriginBadge as="note" />
+
+    <!-- UPDATE (v1.1.0) -->
+    <section class="afp-section" style="padding-bottom:0;">
+      <div class="afp-wrap">
+        <div class="update-box">
+          <div class="update-head">
+            <span class="update-tag">UPDATE</span>
+            <h2 class="update-title">v1.1.0：名前などの項目でも、似ているレコードを確認できるようになりました</h2>
+          </div>
+          <p class="update-desc">v1.0.5 までは、似ているレコードの照合は<strong>キーの値だけ</strong>を対象にしていました。キーを条件分岐自動採番で振るアプリでは、「株式会社サンプル商事」のような名前で探して登録するとき、名前の似たレコードを確認できませんでした。v1.1.0 では、設定画面に次の 2 つを追加しました。</p>
+          <ul class="update-list">
+            <li><strong>⑤ 重複の確認に「照合する項目」を追加しました。</strong>最大 3 つまで選べます（既定はキー）。選んだ項目ごとに、入力した値と参照先アプリの値を、表記ゆれを吸収して照合します。パネルを開いたときと、［登録］を押したときの両方で確認します。キーが完全一致したときは、従来どおり登録を止めます。キー以外の項目が完全一致したときは、候補に「一致」と表示するだけで、登録は止めません。同じ名前の別の会社もあるためです。その場合は［別のレコードとして登録する］で進めます。候補には、当たった項目と値（例：会社名：株式会社サンプル商事）を表示します。</li>
+            <li><strong>③ 参照先アプリに引き継ぐ値に「入力した文字を入れる項目」を追加しました。</strong>ルックアップの欄に文字を入力してから［＋］を押したとき、その文字を入れる項目を選べます（既定はキー）。選んだ項目は、パネルに必ず表示します。標準画面方式でも使えます。</li>
+          </ul>
+          <p class="update-desc">あわせて、次の点を改善しました。</p>
+          <ul class="update-list">
+            <li><strong>参照先アプリに条件分岐自動採番があるときの表示を改善しました。</strong>採番の準備が整ってから入力欄を表示するので、採番される項目の入力欄が一瞬出て消えることがなくなりました。</li>
+            <li><strong>入力した文字を入れる項目が自動で決まるときに、お知らせを出すようにしました。</strong>自動採番などで値が決まる項目だったときは、パネルに「入力した『サンプル商事』は、取引先コードが自動で決まる項目のため入れていません。」のように表示します。</li>
+          </ul>
+          <p class="update-note">設定画面では、参照先に条件分岐自動採番があるとき、③⑤で「名前などの項目を選んでください」と案内します。［重複の確認をためす］とプレビューも、新しい設定のとおりに動きます。更新するときは、新しい zip を読み込んで上書きしてください。アプリごとの設定は保持されます。</p>
+        </div>
+      </div>
+    </section>
 
     <!-- 課題 -->
     <section class="afp-section">
@@ -320,7 +365,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
     <section class="afp-section alt">
       <div class="afp-wrap">
         <h2 class="afp-h2">［取得］の隣の［＋］を押すだけ</h2>
-        <p class="afp-lead">ルックアップ欄に<strong>探していた名前を打ったまま</strong>［＋］を押すと、その文字が入った登録画面が開きます。登録すると<strong>ルックアップの取得まで自動で終わり</strong>、コピー先の項目も埋まります。</p>
+        <p class="afp-lead">ルックアップ欄に<strong>探していた値を打ったまま</strong>［＋］を押すと、その文字が入った登録画面が開きます（入る項目は既定でキー。名前などの項目にも変えられます）。登録すると<strong>ルックアップの取得まで自動で終わり</strong>、コピー先の項目も埋まります。</p>
         <div class="la-ba">
           <figure>
             <span class="la-ba-tag is-before">導入前</span>
@@ -355,7 +400,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           <Picture src="/images/lookup-add-similar.png" alt="似ているレコードの一覧。型番の似た商品が類似度つきで5件並び、それぞれに「これを取得する」ボタンがある" width="564" height="683" class="zoomable" />
           <figcaption class="afp-shot-cap">「株式会社／(株)」「全角／半角」などのゆれを吸収して照合します。候補には<strong>見分けるための項目（商品名・価格など）を最大3つ併記</strong>でき、<strong>同じものなら登録せずにそのまま取得できます</strong></figcaption>
         </figure>
-        <div class="afp-note"><strong>完全一致のときは登録できません。</strong>（表記のゆれを無視して同じなら、二重登録になるため）その場合は候補から取得します。別の会社であることが分かっているときは［それでも別のレコードとして登録する］で進めます。</div>
+        <div class="afp-note"><strong>照合の相手は、設定の「照合する項目」で決まります。</strong>既定はキーだけです。名前などの項目を最大 3 つまで足すと、キーが自動採番のアプリでも、似た名前のレコードを確認できます。<strong>キーが完全一致のときは登録できません。</strong>（表記のゆれを無視して同じなら、二重登録になるため）その場合は候補から取得します。キー以外の項目が完全一致したときは、候補に「一致」と出るだけで登録は止めません。別の会社であることが分かっているときは［別のレコードとして登録する］で進めます。</div>
 
         <h3 class="afp-h3">3. 足りない項目だけを埋めて、登録します</h3>
         <figure class="afp-shot afp-shot-w340">
@@ -376,7 +421,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
               <tr><th>入るもの</th><th>どこから</th><th>例</th></tr>
             </thead>
             <tbody>
-              <tr><td>キーの項目</td><td>ルックアップ欄に<strong>打った文字</strong></td><td>「トリオ商事」と打って［＋］→ 取引先名に入る</td></tr>
+              <tr><td>キーの項目（既定）／設定で選んだ項目</td><td>ルックアップ欄に<strong>打った文字</strong></td><td>既定：「A-1001」と打って［＋］→ キーの型番に入る<br />会社名を選んだとき：「株式会社サンプル商事」と打って［＋］→ 会社名に入る</td></tr>
               <tr><td>引き継ぐ値</td><td><strong>入力中のレコード</strong>の値／同じ行の値／固定値</td><td>受注の〈営業所〉→ 取引先の〈管理営業所〉</td></tr>
               <tr><td>条件で決まる値</td><td>ルックアップの<strong>絞り込みの初期設定</strong></td><td>「区分＝取引先」で絞っているなら、区分を固定</td></tr>
             </tbody>
@@ -444,9 +489,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 
         <h3 class="afp-h3">③ 参照先アプリに引き継ぐ値</h3>
         <figure class="afp-shot afp-shot-w560">
-          <Picture src="/images/lookup-add-config-03.png" alt="設定画面の③参照先アプリに引き継ぐ値。入れ先・どこから持ってくるか・変更させないかを表で設定する" width="798" height="527" class="zoomable" />
+          <Picture src="/images/lookup-add-config-03.png" alt="設定画面の③参照先アプリに引き継ぐ値。ルックアップの欄に入力した文字を入れる項目と、入れ先・どこから持ってくるか・変更させないかを設定する" width="989" height="445" class="zoomable" />
           <figcaption class="afp-shot-cap">kintone のルックアップとは<strong>向きが逆</strong>（このレコード → 新しく作るレコード）です。［変更させない］にすると、利用者は書き換えられません</figcaption>
         </figure>
+        <div class="afp-note"><strong>「入力した文字を入れる項目」</strong>（v1.1.0）で、ルックアップ欄に打った文字をどの項目に入れるかを選べます。既定はキーです。キーを自動採番で振るアプリでは、会社名などの項目を選びます。選んだ項目はパネルに必ず出ます。</div>
 
         <h3 class="afp-h3">④ 登録できる人</h3>
         <figure class="afp-shot afp-shot-w560">
@@ -462,9 +508,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 
         <h3 class="afp-h3">⑤ 重複の確認</h3>
         <figure class="afp-shot afp-shot-w560">
-          <Picture src="/images/lookup-add-config-05.png" alt="設定画面の⑤重複の確認。類似度のしきい値・件数・正規化ルールを設定し、試しに入力して結果を確かめられる" width="798" height="725" class="zoomable" />
+          <Picture src="/images/lookup-add-config-05.png" alt="設定画面の⑤重複の確認。照合する項目を最大3つ選び、類似度のしきい値・件数・同じとみなす表記ゆれを設定する" width="989" height="630" class="zoomable" />
           <figcaption class="afp-shot-cap">照合の厳しさ（類似度）と<strong>同じとみなす表記ゆれ 9 種類</strong>を選べます。候補に併記する項目を足すと、似た名前を見分けやすくなります</figcaption>
         </figure>
+        <div class="afp-note"><strong>「照合する項目」</strong>（v1.1.0）で、似ているレコードを探す相手の項目を最大 3 つまで選べます。既定はキーです（v1.0.5 まではキーだけが対象でした）。キーを自動採番で振るアプリでは、会社名などの項目を選んでください。キー以外の項目の完全一致は「一致」と表示し、登録は止めません。</div>
 
         <div class="afp-note">保存すると、<strong>参照先アプリの権限・プラグイン・絞り込みの条件と突き合わせて</strong>気になる点を警告します（登録できる人に追加権限が無い、利用者が編集できない必須項目がある、など）。参照先アプリの設定を変えたら、この画面を開いて保存し直してください。</div>
       </div>
@@ -493,6 +540,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             <div class="la-combo-role">登録するとき</div>
             <h3><a href="/plugins/kw-conditional-numbering/">条件分岐自動採番</a>（無料）</h3>
             <p>参照先アプリ側に入れておくと、<strong>パネルからの登録でも採番されます</strong>。その項目は入力欄を出さず「自動採番」とだけ表示します（v2.2.0 以上）。</p>
+            <p><strong>キーを採番する場合は、設定の③「入力した文字を入れる項目」と⑤「照合する項目」で、会社名などの項目を選んでください。</strong>既定ではどちらもキーが相手のため、選ばないと打った文字は登録画面に入らず、似ているレコードの確認も働きません。</p>
             <Picture src="/images/lookup-add-combo-numbering.png" alt="登録パネルの商品コードの行。入力欄ではなく、自動採番という緑のバッジだけが表示されている" width="547" height="67" class="zoomable" />
           </div>
         </div>
@@ -512,7 +560,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       <div class="afp-wrap">
         <h2 class="afp-h2">インストール手順</h2>
         <ol class="steps-list">
-          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-lookup-add-v1.0.5.zip</code> を保存します。</span></li>
+          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-lookup-add-v1.1.0.zip</code> を保存します。</span></li>
           <li><span>kintone の<strong>「kintoneシステム管理」→「プラグイン」</strong>を開き、<strong>「読み込む」</strong>から zip を読み込みます。</span></li>
           <li><span>ルックアップを設置しているアプリで<strong>「アプリの設定」→「プラグイン」→「プラグインの追加」</strong>から追加します。</span></li>
           <li><span>歯車アイコンから設定画面を開き、<strong>対象のルックアップを選んで</strong>保存します。右のプレビューで、利用者に見えるパネルを確かめられます。</span></li>
@@ -535,12 +583,12 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             <ul class="afp-plan-features">
               <li>✅ ［取得］の隣の［＋新規登録］と、取得までの自動完了</li>
               <li>✅ 打った文字・このレコードの値・条件で決まる値の引き継ぎ</li>
-              <li>✅ 似ているレコードの確認（完全一致は登録を中止）</li>
+              <li>✅ 似ているレコードの確認（照合する項目は最大3つ・キーの完全一致は登録を中止）</li>
               <li>✅ パネル／標準画面（別のタブ・小さなウィンドウ）</li>
               <li>✅ 条件分岐自動採番との連携・サブテーブル・ゲストスペース</li>
               <li>✅ 利用期限なし（ルックアップ1つ／設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-lookup-add-v1.0.5.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-lookup-add-v1.1.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">👑 全機能を解放</span>
@@ -634,10 +682,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
             gtag('event', 'file_download', {
-              file_name: 'kw-lookup-add-v1.0.5.zip',
+              file_name: 'kw-lookup-add-v1.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-lookup-add-v1.0.5.zip'
+              link_url: '/downloads/kw-lookup-add-v1.1.0.zip'
             });
           });
         });

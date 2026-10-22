@@ -1668,7 +1668,7 @@ export const premiumPlugins: Plugin[] = [
     bornFrom: 'supporter-request',
     categories: ['自動入力', '入力チェック'],
     description:
-      'ルックアップの候補に無いレコードを、入力中の画面を離れずに参照先アプリへ登録し、そのまま取得まで終わらせます。打った文字・このレコードの値・絞り込みの条件を引き継いで入力欄に入れ、似ているレコードを先に見せるので重複登録も防げます。',
+      'ルックアップの候補に無いレコードを、入力中の画面を離れずに参照先アプリへ登録し、そのまま取得まで終わらせます。打った文字・このレコードの値・絞り込みの条件を引き継いで入力欄に入れ、キーや会社名など選んだ項目で似ているレコードを先に見せるので重複登録も防げます。',
     image: '/images/lookup-add-banner.png',
     imageWebp: '/images/lookup-add-banner.webp',
     imageAlt:
@@ -1678,12 +1678,12 @@ export const premiumPlugins: Plugin[] = [
     status: 'available',
     tier: 'premium',
     cardDescription:
-      'ルックアップの候補に無いレコードを、入力中の画面から登録して取得まで終わらせます。似ているレコードを先に出して重複も防ぎます。',
+      'ルックアップの候補に無いレコードを、入力中の画面から登録して取得まで終わらせます。キーや会社名など選んだ項目で似ているレコードを先に出し、重複も防ぎます。',
     problemTitle: 'ルックアップで探しても、まだ参照先アプリに無い',
     problemDesc:
       '見積を入力している途中で取引先が参照先アプリに無いと気づき、別のアプリを開いて登録し、戻って探し直すことになる。入力中の内容が消えるのが怖くて、とりあえず空欄のまま保存してしまう',
     releaseDate: '2026-09-13',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
   },
   {
     id: 'kw-annotation',
