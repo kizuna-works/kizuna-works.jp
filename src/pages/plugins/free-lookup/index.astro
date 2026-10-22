@@ -11,7 +11,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
   title="フリールックアップ for kintone｜自分のアプリも参照できる［取得］ボタン | KIZUNA Works"
   description="kintone のルックアップでは難しい、自分のアプリの参照・重複したキーからの取得・区分による参照先アプリの切り替え・テーブルの行ごとの取得ができるプラグイン。CSV で読み込んでも参照エラーになりません。"
   ogTitle="フリールックアップ for kintone｜自分のアプリも参照できる［取得］ボタン | KIZUNA Works"
-  ogDescription="文字列（1行）フィールドの横に［取得］を出し、別のアプリ（自分のアプリも可）から値をコピー。区分で参照先を切り替え、テーブルは行ごとに取得、重複したキーも候補から選べます。CSV で読み込んでも参照エラーになりません。"
+  ogDescription="文字列（1行）フィールドの横に［取得］を出し、別のアプリ（自分のアプリも可）から値をコピー。区分で参照先を切り替え、すべてのアプリからまとめて探し、入力中に候補も出せます。テーブルは行ごとに取得、重複したキーも候補から選べます。CSV で読み込んでも参照エラーになりません。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/free-lookup/"
   ogImage="https://kizuna-works.jp/images/free-lookup-banner.png"
@@ -49,10 +49,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           "name": "フリールックアップ for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.1.0",
+          "softwareVersion": "1.2.0",
           "dateModified": "2026-10-22",
           "url": "https://kizuna-works.jp/plugins/free-lookup/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-free-lookup-v1.1.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-free-lookup-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/free-lookup-banner.png",
           "offers": {
             "@type": "Offer",
@@ -62,13 +62,16 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             "availability": "https://schema.org/InStock",
             "description": "プレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料プランでもフリールックアップ1つ（参照先は固定のみ）で利用できます。"
           },
-          "description": "フリールックアップ for kintone は、文字列（1行）フィールドの横に［取得］［クリア］を出し、別のアプリ（このアプリ自身も可）のレコードを探して、決めたフィールドへ値をコピーする。kintone のルックアップフィールドは使わない。キーに入れたキーワードで参照先を探し、1件ならそのままコピー、複数なら候補の一覧から選ぶ。探すフィールドは最大3つで、部分一致で1文字から探せる。件数の多いアプリでは、先頭の500件を表示し、入力したキーワードでkintone側から探す。参照先は区分などの値で切り替えられ、［取得］のときに利用者が選ぶこともできる。テーブルの中では行ごとに取得でき、参照先の絞り込みの初期設定はフィールド・条件・比べる値を選んで作り、このレコードの値・今日・ログインユーザーと比べられる。取得元のレコードを新しいタブで開くリンクも出せる。",
+          "description": "フリールックアップ for kintone は、文字列（1行）フィールドの横に［取得］［クリア］を出し、別のアプリ（このアプリ自身も可）のレコードを探して、決めたフィールドへ値をコピーする。kintone のルックアップフィールドは使わない。キーに入れたキーワードで参照先を探し、1件ならそのままコピー、複数なら候補の一覧から選ぶ。探すフィールドは最大3つで、部分一致で1文字から探せる。件数の多いアプリでは、先頭の500件を表示し、入力したキーワードでkintone側から探す。参照先は区分などの値で切り替えられ、［取得］のときに利用者が選ぶことも、すべての参照先からまとめて探すこともできる。キーに文字を入力している間、キーの下に候補を出す設定もある。テーブルの中では行ごとに取得でき、参照先の絞り込みの初期設定はフィールド・条件・比べる値を選んで作り、このレコードの値・今日・ログインユーザーと比べられる。取得元のレコードを新しいタブで開くリンクも出せる。",
           "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
           "featureList": [
             "文字列（1行）フィールドの横に［取得］［クリア］を表示（ルックアップフィールドは不要）",
             "別のアプリに加え、このアプリ自身のレコードも参照できる",
             "区分などの値で参照先のアプリを切り替え（最大5つ）",
             "［取得］のときに利用者が参照先のアプリを選ぶ",
+            "［取得］で、すべての関連付けるアプリからまとめて探す（候補の一覧の左端に参照先の列）",
+            "入力中に、キーのフィールドの下へ候補を出す（上から8件・↓↑とEnterまたはクリックで取得）",
+            "取得できたことが分かる案内と、参照先を変えて取り直したときに前の値が残らない動き",
             "テーブルの行ごとに取得・クリア",
             "キーが重複していても候補の一覧から選べる",
             "探すフィールドを最大3つ選べる部分一致の検索（1文字から・空白区切りでAND）",
@@ -332,37 +335,37 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       <img class="afp-hero-icon" src="/images/free-lookup-icon.png" alt="フリールックアップ for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.1.0</span>
+        <span class="afp-hero-version">v1.2.0</span>
       </div>
       <h1 class="afp-hero-title">フリールックアップ for kintone</h1>
       <p class="afp-tagline">標準のルックアップで「できない」とあきらめていた参照が、できるようになります。</p>
       <p class="afp-sub">コードを入れて<strong>［取得］を押すと、別のアプリから名前や住所などが自動で入る</strong>——使い方はルックアップと同じです。そのうえで、標準のルックアップにある制約を外しました。</p>
       <ul class="afp-hero-points">
         <li><strong>同じアプリ</strong>の別のレコードから取れる<span>例：社員名簿で、上長を同じ名簿から選ぶ</span></li>
-        <li>区分ごとに<strong>参照先のアプリを切り替え</strong><span>例：「取引先」なら取引先アプリ、「仕入先」なら仕入先アプリ</span></li>
+        <li>区分ごとに<strong>参照先のアプリを切り替え</strong><span>例：「取引先」なら取引先アプリ、「仕入先」なら仕入先アプリ。すべてのアプリからまとめて探すこともできます</span></li>
         <li>コードが<strong>重複していても</strong>候補から選べる<span>テーブルの行ごとの取得にも対応</span></li>
         <li><strong>CSV で取り込んでも</strong>参照エラーにならない<span>今のルックアップと併用も、置き換えもできる</span></li>
       </ul>
       <div class="afp-hero-cta">
         <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
-        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-free-lookup-v1.1.0.zip" download>無料でダウンロード</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-free-lookup-v1.2.0.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
 
-    <!-- UPDATE (v1.1.0) -->
+    <!-- UPDATE (v1.2.0) -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.1.0：件数の多いアプリでも、探しやすく・選びやすくなりました</h2>
+            <h2 class="update-title">v1.2.0：すべてのアプリからまとめて探せ、入力中に候補も出るようになりました</h2>
           </div>
-          <p class="update-desc">フリールックアップ for kintone を v1.1.0 にアップデートしました（2026年10月22日）。</p>
-          <p class="update-desc"><strong>件数の多いアプリでも、速く探せるようになりました。</strong>参照先が 500 件を超えるアプリでは、先頭の 500 件を表示し、入力したキーワードで kintone 側から探します。日本語などの 2 文字以上のキーワードは、1 万件を超えるアプリでも全件から探せます。</p>
-          <p class="update-desc"><strong>候補の一覧を見やすく改善しました。</strong>見出しの行と選択中の行の色、件数の表示（例：「1,200 件中 1－100 件を表示」）と［前へ］［次へ］（100 件ずつ）を加えました。表示するフィールドは最大 10 個まで選べます。開いた直後に先頭の行が選択された色になる表示も直しました。</p>
-          <p class="update-desc"><strong>設定画面でフィールドを選びやすく改善しました。</strong>選択肢をフォームの並び順で表示し、選択肢が多いときは、フィールド名・フィールドコード・アプリ名で絞り込めます。</p>
-          <p class="update-note">既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone システム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+          <p class="update-desc">フリールックアップ for kintone を v1.2.0 にアップデートしました（2026年10月22日）。</p>
+          <p class="update-desc"><strong>すべての関連付けるアプリから、まとめて探せるようになりました。</strong>［取得］のときに利用者が関連付けるアプリを選ぶ設定で、「すべての関連付けるアプリからまとめて探す」を選べます。候補の一覧の左端に「参照先」の列が付き、各アプリの表示するフィールドを見出しで合わせて並べます。キーと完全に同じレコードがあれば、そのレコードだけを出します。全部で 1 件なら、一覧を開かずにそのまま取得します。</p>
+          <p class="update-desc"><strong>入力中に、候補を出せるようになりました。</strong>「動き」の設定で選ぶと、キーに文字を打つ間、当てはまる候補を上から 8 件、キーの下に出します。↓↑ と Enter、またはクリック（タップ）で取得できます。日本語の変換中は出しません。</p>
+          <p class="update-desc"><strong>取得したことが分かり、取り直しやすく改善しました。</strong>取得できると、取得元のアプリ名つきの緑の案内を出します。参照先を変えて取り直したとき、前の参照先から入れた値が残らないようにしました。</p>
+          <p class="update-note">新しく作る設定は、まとめて探す・入力中の候補とも最初からオンです。保存済みの設定は、今までの動きのままで、設定を開いて選ぶと使えます。最新版（v1.2.0）をダウンロードして kintone システム管理 → プラグインから上書きアップロードしてください。設定はそのまま引き継がれます。</p>
         </div>
       </div>
     </section>
@@ -439,6 +442,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             </thead>
             <tbody>
               <tr><td>キーのフィールドにキーワードを入れて［取得］（または Enter）</td><td>参照先を探します。1 件ならコピー、複数なら候補の一覧、0 件なら案内を出します</td></tr>
+              <tr><td>キーに文字を入力している間（設定でオンにしたとき）</td><td>当てはまる候補を、上から 8 件、キーの下に出します。↓↑ と Enter、またはクリック（タップ）で取得します。何も選ばない Enter は、［取得］と同じです</td></tr>
               <tr><td>キーを空のまま［取得］</td><td>参照先の候補の一覧が開きます。件数の多いアプリでは先頭の 500 件を並べます</td></tr>
               <tr><td>候補の一覧で選ぶ</td><td>上の検索欄で絞り込み、↑↓ キーと Enter、またはクリックで選びます。100 件ずつ表示し、［前へ］［次へ］で移ります</td></tr>
               <tr><td>［クリア］</td><td>キーとコピー先を空にします</td></tr>
@@ -460,6 +464,8 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 
         <h3 class="afp-h3">［取得］のときに利用者が選ぶ</h3>
         <p style="line-height:1.9;margin:0 0 20px;">決まった区分が無いときは、［取得］で開く候補の一覧の上に<strong>「探す参照先」</strong>を並べます。利用者が参照先を選び直すと、入れたキーワードのまま、その参照先の候補に切り替わります。いまの参照先で見つからなかったときは、参照先を選び直せるように候補の一覧が開きます。</p>
+        <h3 class="afp-h3">すべての関連付けるアプリから、まとめて探す</h3>
+        <p style="line-height:1.9;margin:0 0 20px;">設定で「［取得］では、すべての関連付けるアプリからまとめて探す」を選ぶと、［取得］を押したときにすべての参照先を探します。候補の一覧の左端に<strong>「参照先」の列</strong>が付き、各参照先の表示するフィールドを見出しで合わせて並べます（同じ見出しは 1 列・その参照先に無い列は空欄）。キーと完全に同じレコードがあれば、そのレコードだけを出し、全部で 1 件ならそのまま取得します。一覧の上の「探す参照先」では、「すべて」から特定の参照先へ切り替えることもできます。新しく作る設定は最初からオンです。</p>
         <figure class="afp-shot afp-shot-w640">
           <Picture src="/images/free-lookup-dialog.png" alt="［取得］で開いた候補の一覧。上に探す参照先を選ぶプルダウン（取引先マスタ）と検索欄があり、4 件の候補が取引先コード・取引先名・電話番号・住所の表で並んでいる" width="940" height="492" class="zoomable" />
           <figcaption class="afp-shot-cap">候補の一覧の上で、<strong>探す参照先</strong>を選べます。選び直すと、入れたキーワードのまま切り替わります</figcaption>
@@ -498,6 +504,14 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           <div class="afp-feat-card">
             <h3>件数の多いアプリでも、速く探せる</h3>
             <p>参照先が 500 件を超えるアプリでは、先頭の 500 件を表示し、入力したキーワードで kintone 側から探します。日本語などの 2 文字以上のキーワードは、<strong>1 万件を超えるアプリでも全件から</strong>探せます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>入力中に、候補を出せる</h3>
+            <p>キーに文字を打つ間、<strong>当てはまる候補を上から 8 件</strong>、キーの下に出します。選んで Enter、またはクリックで取得できます。日本語の変換中は出ません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>取得できたことが分かる</h3>
+            <p>取得すると、取得元のアプリ名つきの<strong>緑の案内</strong>が出ます。参照先を変えて取り直したときも、前の参照先から入れた値は残りません。</p>
           </div>
           <div class="afp-feat-card">
             <h3>ソートの初期設定を決められる</h3>
@@ -656,7 +670,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
               <tr><td>① キーと関連付けるアプリ</td><td>［取得］を出す文字列（1行）フィールド（キーのフィールド）、関連付けるアプリ（このアプリ自身も可）、関連付けるアプリの決め方（1 つのアプリ／値で切り替える／取得のときに選ぶ）、コピー元のフィールド</td></tr>
               <tr><td>② 探すフィールド・表示するフィールド</td><td>探すフィールド（最大 3）、ルックアップの選択時に表示するフィールド（最大 10）、ソートの初期設定、絞り込みの初期設定</td></tr>
               <tr><td>③ ほかのフィールドのコピー</td><td>関連付けるアプリのフィールド（コピー元）を、このアプリのどのフィールド（コピー先）へ入れるか。同じ名前のフィールドをまとめて対応づけることもできます</td></tr>
-              <tr><td>④ 動き</td><td>保存のガード、コピー先を編集できなくする、取得元を開く「↗ 開く」（レコード番号を入れるフィールドをフォームに追加して選びます）</td></tr>
+              <tr><td>④ 動き</td><td>入力中の候補、保存のガード、コピー先を編集できなくする、取得元を開く「↗ 開く」（レコード番号を入れるフィールドをフォームに追加して選びます）</td></tr>
             </tbody>
           </table>
         </div>
@@ -669,7 +683,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       <div class="afp-wrap">
         <h2 class="afp-h2">インストール手順</h2>
         <ol class="steps-list">
-          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-free-lookup-v1.1.0.zip</code> を保存します。</span></li>
+          <li><span>上の<strong>「無料でダウンロード」</strong>から <code>kw-free-lookup-v1.2.0.zip</code> を保存します。</span></li>
           <li><span>kintone の<strong>「kintoneシステム管理」→「プラグイン」</strong>を開き、<strong>「読み込む」</strong>から zip を読み込みます。</span></li>
           <li><span>使いたいアプリで<strong>「アプリの設定」→「プラグイン」→「プラグインの追加」</strong>から追加します。</span></li>
           <li><span>先に、キーにする<strong>文字列（1行）フィールド</strong>と、値をコピーする先のフィールドをフォームに用意します。</span></li>
@@ -698,7 +712,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
               <li>✅ パソコン・スマートフォン・ゲストスペース</li>
               <li>✅ 利用期限なし（一覧画面にバナーが出ます）</li>
             </ul>
-            <a href="/downloads/kw-free-lookup-v1.1.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-free-lookup-v1.2.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">👑 全機能を解放</span>
@@ -708,7 +722,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             <ul class="afp-plan-features">
               <li>✅ <strong>複数のフリールックアップ</strong>に設定できます</li>
               <li>✅ <strong>値で参照先を切り替え</strong>（最大 5 つ）</li>
-              <li>✅ <strong>［取得］のときに利用者が参照先を選ぶ</strong></li>
+              <li>✅ <strong>［取得］のときに利用者が参照先を選ぶ</strong>（すべての参照先からまとめて探すこともできます）</li>
               <li>✅ 一覧画面のバナーなし</li>
               <li>✅ <strong>プレミアム全製品</strong>と、ちょこっとプラグイン全製品が使えます</li>
             </ul>
@@ -799,10 +813,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
             gtag('event', 'file_download', {
-              file_name: 'kw-free-lookup-v1.1.0.zip',
+              file_name: 'kw-free-lookup-v1.2.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-free-lookup-v1.1.0.zip'
+              link_url: '/downloads/kw-free-lookup-v1.2.0.zip'
             });
           });
         });
