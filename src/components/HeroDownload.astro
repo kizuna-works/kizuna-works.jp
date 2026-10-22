@@ -1,0 +1,65 @@
+---
+/**
+ * 製品ページのヒーロー（ページ上部）に置くダウンロードボタン。
+ * 料金欄のボタン（#btn-download）はそのまま残し、上部にも同じ zip を置く。
+ * href は配布 zip のパス（版上げのときは料金欄のボタンと一緒に書き換わる）。
+ */
+interface Props {
+  href: string;
+  label?: string;
+}
+const { href, label = '無料でダウンロード' } = Astro.props;
+const fileName = href.split('/').pop() ?? '';
+---
+<div class="hero-dl">
+  <a class="hero-dl-btn js-hero-dl" href={href} download data-file={fileName}>{label}</a>
+</div>
+
+<style>
+  /* Hero download button (kept in addition to the pricing-section button) */
+  .hero-dl {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 24px auto 0;
+    min-width: 0;
+  }
+  .hero-dl-btn {
+    display: inline-block;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 14px 32px;
+    border-radius: 999px;
+    background: #2E8B2E;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+  }
+  .hero-dl-btn:hover { background: #35a035; transition: background 0.15s ease; }
+  /* Free plugin heroes already leave 40px below the copy */
+  :global(.hero-copy) + .hero-dl { margin-top: -12px; }
+  @media (max-width: 768px) {
+    .hero-dl-btn { padding: 13px 24px; font-size: 15px; }
+  }
+</style>
+
+<script>
+  // Track hero download clicks the same way as the pricing-section button
+  document.querySelectorAll<HTMLAnchorElement>('.js-hero-dl').forEach((a) => {
+    a.addEventListener('click', () => {
+      const g = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
+      if (typeof g === 'function') {
+        g('event', 'file_download', {
+          file_name: a.dataset.file || '',
+          file_extension: 'zip',
+          link_text: a.textContent || '',
+          link_url: a.getAttribute('href') || '',
+          link_position: 'hero'
+        });
+      }
+    });
+  });
+</script>
