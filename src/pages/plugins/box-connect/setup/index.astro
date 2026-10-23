@@ -1,0 +1,556 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Box 側の準備手順｜Box連携 for kintone | KIZUNA Works"
+  description="kintone プラグイン「Box連携」を使うための Box 側の準備手順。連携用アプリの作成、アクセスレベルとスコープ、CORS ドメイン、Box 管理者の承認、フォルダへのサービスアカウントの招待までを順番に説明します。費用はかかりません。"
+  ogTitle="Box 側の準備手順｜Box連携 for kintone | KIZUNA Works"
+  ogDescription="Box連携を使うための Box 側の準備手順。連携用アプリの作成・承認・フォルダへの招待までを順番に。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/box-connect/setup/"
+  ogImage="https://kizuna-works.jp/images/box-connect-banner.png"
+  canonical="https://kizuna-works.jp/plugins/box-connect/setup/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/box-connect/setup/",
+          "url": "https://kizuna-works.jp/plugins/box-connect/setup/",
+          "name": "Box 側の準備手順｜Box連携 for kintone | KIZUNA Works",
+          "description": "kintone プラグイン「Box連携」を使うための、Box 側の準備手順。",
+          "dateModified": "2026-10-23",
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "Box連携 for kintone", "item": "https://kizuna-works.jp/plugins/box-connect/" },
+            { "@type": "ListItem", "position": 4, "name": "Box 側の準備手順", "item": "https://kizuna-works.jp/plugins/box-connect/setup/" }
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "Box連携 for kintone を使うための Box 側の準備手順",
+          "description": "kintone プラグイン「Box連携」を使うために、お客様の Box で行う準備の手順。",
+          "estimatedCost": { "@type": "MonetaryAmount", "currency": "JPY", "value": "0" },
+          "supply": [
+            { "@type": "HowToSupply", "name": "Box の開発者コンソールを使えるアカウント（2 段階認証を設定済み）" },
+            { "@type": "HowToSupply", "name": "Box 管理者（または共同管理者）の協力" },
+            { "@type": "HowToSupply", "name": "kintone のアプリ管理権限" }
+          ],
+          "step": [
+            { "@type": "HowToStep", "position": 1, "name": "連携用アプリを作る", "text": "Box の開発者コンソールで、アプリの種類を「サーバー」、認証方法を「クライアント資格情報」にして新規アプリを作成します。", "url": "https://kizuna-works.jp/plugins/box-connect/setup/#step1" },
+            { "@type": "HowToStep", "position": 2, "name": "アプリの設定をする", "text": "アプリアクセスレベルを「アプリ + Enterpriseアクセス」にし、スコープでファイルとフォルダの書き込みを選び、CORS ドメインに kintone のドメインを登録します。", "url": "https://kizuna-works.jp/plugins/box-connect/setup/#step2" },
+            { "@type": "HowToStep", "position": 3, "name": "接続に使う値を控える", "text": "クライアントID、クライアントシークレット、企業IDを控えます。", "url": "https://kizuna-works.jp/plugins/box-connect/setup/#step3" },
+            { "@type": "HowToStep", "position": 4, "name": "Box 管理者がアプリを承認する", "text": "Box 管理者がアプリを承認します。アプリの設定を後から変えたときは再承認が必要です。", "url": "https://kizuna-works.jp/plugins/box-connect/setup/#step4" },
+            { "@type": "HowToStep", "position": 5, "name": "プラグインに登録して接続する", "text": "プラグイン設定画面の「① 接続」にクライアントID・クライアントシークレット・企業IDを入力して接続テストして保存し、表示されたサービスアカウントのメールアドレスを控えます。", "url": "https://kizuna-works.jp/plugins/box-connect/setup/#step5" },
+            { "@type": "HowToStep", "position": 6, "name": "転送先フォルダにサービスアカウントを招待する", "text": "転送先のフォルダに、サービスアカウントのメールアドレスを「編集者」として招待します。", "url": "https://kizuna-works.jp/plugins/box-connect/setup/#step6" }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
+    .afp-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+    .afp-hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 26px; border-radius: 26px;
+      font-weight: 700; font-size: 1rem; text-decoration: none; line-height: 1.3;
+    }
+    .afp-hero-btn.is-primary { background: #2E8B2E; color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.22); }
+    .afp-hero-btn.is-primary:hover { background: #35a035; }
+    .afp-hero-btn.is-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.6); }
+    .afp-hero-btn.is-ghost:hover { background: rgba(255,255,255,0.24); }
+    @media (max-width: 600px) { .afp-hero-btn { width: 100%; } }
+
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    /* Update box (latest release) */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      /* リード文自体が白いカードなので、下に余白を入れないと次のカードとくっついて見える */
+      margin: 0 0 26px;
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0 0 12px; }
+    .afp-feature p:last-child { margin-bottom: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+    /* Cap narrow captures at the width the UI really has, so nothing is blown up
+       larger than the user will see it in kintone. */
+    .afp-shot-w420 { max-width: 420px; }
+    .afp-shot-w640 { max-width: 640px; }
+    .afp-shot-w840 { max-width: 840px; }
+
+    .afp-shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+    @media (max-width: 900px) { .afp-shot-pair { grid-template-columns: 1fr; } }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    /* Feature block: 使い方の画面 → その設定画面、の2枚組 */
+    .afp-usecfg { margin-top: 30px; }
+    .afp-usecfg-head {
+      display: inline-block; background: var(--color-navy); color: #fff; font-weight: 700;
+      font-size: 0.85rem; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px;
+    }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+  <style is:global>
+    /* このページで足すもの */
+    /* 設定の手順見出し。既存の .afp-plan-compare-head と同じ見た目にそろえる
+       （紺の文字＋緑の縦線）。新しい体裁を持ち込まないため。 */
+    .afp-h3 {
+      font-size: 1.15rem; color: var(--color-navy); margin: 34px 0 12px;
+      padding-left: 12px; border-left: 4px solid var(--color-green);
+    }
+    .afp-h3:first-of-type { margin-top: 8px; }
+    .afp-feat-no {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--color-green); margin-bottom: 6px;
+    }
+  </style>
+  <style is:global>
+    /* Coming-soon notice for this page only */
+    .dc-notice {
+      background: #fdf7e9;
+      border: 1px solid #f0d8a8;
+      border-left: 5px solid #d99a1f;
+      border-radius: 10px;
+      padding: 22px 26px;
+      color: #6b4e12;
+      line-height: 1.9;
+    }
+    .dc-notice-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
+    .dc-notice a { color: var(--color-navy); font-weight: 700; text-decoration: underline; }
+    .dc-soon {
+      display: inline-block; width: 100%; text-align: center;
+      padding: 14px 20px; border-radius: 8px;
+      background: #e2e8f0; color: #64748b; font-weight: 700;
+      cursor: default;
+    }
+    .afp-hero-btn.is-soon {
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.55);
+      color: #fff;
+      cursor: default;
+    }
+    @media (max-width: 768px) { .dc-notice { padding: 18px; } }
+  </style>
+
+  <style is:global>
+    /* Steps page only */
+    .gc-step { background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.08); padding:28px 30px; margin-bottom:22px; }
+    .gc-step-head { display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+    .gc-step-no {
+      flex:0 0 auto; width:38px; height:38px; border-radius:50%;
+      background:var(--color-navy); color:#fff; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .gc-step-title { font-size:1.15rem; color:var(--color-navy); font-weight:700; line-height:1.4; }
+    .gc-step p { line-height:1.9; margin-bottom:10px; }
+    .gc-step ol, .gc-step ul { margin:10px 0 10px 1.4em; line-height:1.95; }
+    .gc-step li { margin-bottom:6px; }
+    /* Inline code holds long unbreakable scope URLs (e.g. .../auth/drive.file).
+       Monospace fonts on Linux/Android are wider, so let them wrap anywhere. */
+    main code { overflow-wrap: anywhere; }
+    .gc-url {
+      display:block; background:#f4f7fb; border:1px solid #dbe5f0; border-radius:8px;
+      padding:10px 14px; margin:10px 0; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+      font-size:.9rem; word-break:break-all; color:#274b76;
+      white-space:pre-wrap; line-height:1.85;
+    }
+    .gc-branch { border-left:4px solid var(--color-green); background:#f3f9f3; border-radius:0 8px 8px 0; padding:16px 20px; margin:14px 0; }
+    .gc-branch-title { font-weight:700; color:#1f6b1f; margin-bottom:6px; }
+    .gc-time { color:var(--color-text-muted); font-size:.95rem; margin-bottom:26px; }
+    @media (max-width:768px) { .gc-step { padding:22px 18px; } }
+  </style>
+
+
+  <main>
+    <section class="afp-hero">
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+      </div>
+      <h1>Box 側の準備手順</h1>
+      <p class="afp-tagline">Box連携 for kintone</p>
+      <p class="afp-sub">Box連携は、お客様の Box に作る<strong>連携用のアプリ</strong>を通して Box に接続します。Box 側で行うのは、<strong>アプリの作成・Box 管理者による承認・転送先フォルダへの招待</strong>の 3 つです。このページの手順どおりに進めてください。</p>
+      <div class="afp-hero-cta">
+        <a class="afp-hero-btn is-primary" href="/plugins/box-connect/">← Box連携の製品ページへ</a>
+      </div>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- なぜ準備が必要か -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">なぜ Box 側の準備が必要なのか</h2>
+        <p class="afp-lead">Google ドライブ版（ドライブ連携）と違い、Box連携では当社が共通の接続を用意しません。お客様ご自身の Box に「連携用のアプリ」を作り、Box 管理者に承認していただく形になります。連携用のアプリは<strong>サービスアカウント</strong>という、アプリ専用の Box ユーザーとして動きます。</p>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">01</span>
+            <h3>触れるのは、招待されたフォルダだけ</h3>
+            <p>サービスアカウントは、招待されていないフォルダを見ることができません。転送先のフォルダだけに招待することで、連携が届く範囲を最小にできます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">02</span>
+            <h3>利用者は Box にログインしない</h3>
+            <p>接続するのはアプリ管理者の 1 人分の設定だけです。レコードを操作する一般の利用者が、Box にログインする必要はありません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">03</span>
+            <h3>当社のサーバーは経路に入らない</h3>
+            <p>ファイルは利用者のブラウザから Box へ直接送られます。認可コードを受け取るための当社のページもありません。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 用意するもの -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">用意するもの</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li><strong>会社の Box のご契約（Business 以上など、アプリを作って管理者が承認できる契約）</strong>、または <strong>Box 開発者アカウント</strong>。<strong>個人の無料アカウントでは使えません</strong>（左のメニューに「管理コンソール」が無いアカウントは対象外です）</li>
+            <li><strong>Box の開発者コンソールを使えるアカウント</strong>（アプリを作る担当者）。クライアントシークレットの表示に<strong>2 段階認証</strong>が必要なので、あらかじめ設定しておいてください</li>
+            <li><strong>Box 管理者（または共同管理者）の協力</strong>（アプリの承認に必要です。作る人が管理者を兼ねても構いません）</li>
+            <li><strong>kintone のドメイン</strong>（例：<code>https://サブドメイン.cybozu.com</code>。セキュアアクセスをお使いなら <code>.s.cybozu.com</code> のものも）</li>
+            <li><strong>転送先にする Box のフォルダ</strong>（部署の共有フォルダなど）</li>
+            <li><strong>控えた情報を保管する安全な場所</strong>（パスワード管理ツールなど。テキストファイルやメールには残さないでください）</li>
+            <li><strong>費用は不要です。</strong>Box のご契約のほかに、このための追加料金はかかりません</li>
+          </ul>
+        </div>
+        <p class="gc-time">作業は最初の 1 回だけです。</p>
+      </div>
+    </section>
+
+    <!-- 手順 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定手順</h2>
+        <div class="afp-note" style="margin-bottom:22px;">画面の名前は、日本語表示の Box の表記で書いています。表示言語や Box の更新によって、名前が少し異なることがあります。</div>
+
+        <div class="gc-step" id="step1">
+          <div class="gc-step-head"><span class="gc-step-no">1</span><span class="gc-step-title">連携用アプリを作る</span></div>
+          <p>Box にログインし、開発者コンソールを開きます。</p>
+          <code class="gc-url">https://app.box.com/developers/console</code>
+          <ol>
+            <li>ホームの右上にある［新規アプリ ＋］を押し、「アプリの新規作成」を開く</li>
+            <li><strong>アプリ名</strong>を入れる（例：<code>kintone Box 連携</code>）</li>
+            <li><strong>アプリタイプ</strong>で「<strong>サーバー</strong>」を選んで作成する</li>
+            <li>作成後の「構成」タブで、<strong>サーバー認証方法</strong>が「<strong>クライアント資格情報（推奨）</strong>」になっていることを確かめる（「JWT」ではありません）</li>
+          </ol>
+          <div class="afp-note" style="margin-top:14px;"><strong>認証方法は必ず「クライアント資格情報」にしてください。</strong>このプラグインは、ほかの認証方法には対応していません。</div>
+        </div>
+
+        <div class="gc-step" id="step2">
+          <div class="gc-step-head"><span class="gc-step-no">2</span><span class="gc-step-title">アプリの設定をする（構成タブ）</span></div>
+          <p>「構成」タブで、次のとおり設定します。</p>
+          <div class="afp-tablewrap">
+            <table class="afp-compare">
+              <thead><tr><th>項目</th><th>選ぶ値</th></tr></thead>
+              <tbody>
+                <tr><td>アプリアクセスレベル</td><td>「<strong>アプリ + Enterpriseアクセス</strong>」</td></tr>
+                <tr><td>アプリケーションスコープ</td><td>「コンテンツ操作」を開き、「<strong>Boxに格納されているすべてのファイルとフォルダへの書き込み</strong>」にチェックを入れる（読み取りは自動でチェックされます）。管理操作・開発者操作は<strong>不要</strong>です</td></tr>
+                <tr><td>追加の構成</td><td>「as-userヘッダー」「ユーザーアクセストークンを生成する」は<strong>オフのまま</strong></td></tr>
+                <tr><td>CORSドメイン</td><td>「許可する送信元」に、kintone のドメインを <code>https://サブドメイン.cybozu.com</code> の形で登録する（<strong>末尾に「/」を付けない</strong>）。セキュアアクセスをお使いなら <code>https://サブドメイン.s.cybozu.com</code> も登録する</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top:14px;">最後に［変更を保存］を押します。</p>
+          <div class="afp-note" style="margin-top:14px;"><strong>CORS ドメインの登録を忘れないでください。</strong>未登録だと、kintone の画面から Box を呼べず、接続テストが通信エラーになります。</div>
+        </div>
+
+        <div class="gc-step" id="step3">
+          <div class="gc-step-head"><span class="gc-step-no">3</span><span class="gc-step-title">接続に使う値を控える</span></div>
+          <p>次の 3 つを控えます。</p>
+          <div class="afp-tablewrap">
+            <table class="afp-compare">
+              <thead><tr><th>控える値</th><th>見つける場所</th></tr></thead>
+              <tbody>
+                <tr><td>クライアントID</td><td>「構成」タブの「アクセス」にある「クライアントID」</td></tr>
+                <tr><td>クライアントシークレット</td><td>同じ場所の［シークレットを取得］を押して表示します。<strong>押すと 2 段階認証の設定を求められます</strong>（SMS・認証アプリ・メール・セキュリティキーのいずれか）。「開発者トークン」は使いません</td></tr>
+                <tr><td>企業ID（Enterprise ID）</td><td>開発者コンソール右上のアカウントのメニュー、または管理コンソールのアカウント情報（Account &amp; Billing）。数字だけの値です</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li>クライアントシークレットは、プラグインの設定画面に一度入力すれば、以後は画面に表示されません。</li>
+            <li>シークレットが漏れた疑いがあるときは、開発者コンソールで作り直し、プラグインにも入力し直してください。</li>
+          </ul>
+        </div>
+
+        <div class="gc-step" id="step4">
+          <div class="gc-step-head"><span class="gc-step-no">4</span><span class="gc-step-title">Box 管理者がアプリを承認する</span></div>
+          <p><strong>アプリは、Box 管理者に承認されるまで使えません。</strong></p>
+          <div class="gc-branch">
+            <p class="gc-branch-title">アプリを作った人が Box 管理者でもある場合</p>
+            <p>「構成」タブに表示される承認のボタンから、その場で承認できます。</p>
+          </div>
+          <div class="gc-branch">
+            <p class="gc-branch-title">アプリを作った人が Box 管理者ではない場合</p>
+            <ol>
+              <li>作成者が、アプリの承認の依頼を Box 管理者へ送る（「承認」タブ、または「構成」タブの案内から）</li>
+              <li>Box 管理者に届いたメールから承認する</li>
+            </ol>
+            <p>Box 管理者が自分で承認する場合は、管理コンソールの「アプリ」→「プラットフォームアプリマネージャー」→「サーバー認証アプリ」で［アプリを追加］を押し、手順 3 で控えたクライアントIDを入力して承認します。</p>
+          </div>
+          <div class="afp-note" style="margin-top:14px;"><strong>アプリの設定（スコープ・アクセスレベル）を後から変えたときは、再承認が必要です。</strong>同じ画面でアプリ名の右の「…」から再承認してください。</div>
+        </div>
+
+        <div class="gc-step" id="step5">
+          <div class="gc-step-head"><span class="gc-step-no">5</span><span class="gc-step-title">プラグインに登録して接続する</span></div>
+          <p>kintone のアプリ設定 → プラグイン →「Box連携 for kintone」の歯車 →「① 接続」を開きます。</p>
+          <ol>
+            <li><strong>クライアントID</strong>・<strong>クライアントシークレット</strong>・<strong>企業ID</strong>を入力する（企業IDは数字のみ）</li>
+            <li>［接続テストして保存］を押す</li>
+            <li>「🟢 接続済：（サービスアカウントのメールアドレス）」に変われば完了</li>
+          </ol>
+          <p>表示された<strong>サービスアカウントのメールアドレス</strong>（<code>AutomationUser_…@boxdevedition.com</code> の形）を控えます。次の手順で使います。</p>
+        </div>
+
+        <div class="gc-step" id="step6">
+          <div class="gc-step-head"><span class="gc-step-no">6</span><span class="gc-step-title">転送先フォルダにサービスアカウントを招待する</span></div>
+          <ol>
+            <li>Box の画面で、転送先にするフォルダを開く</li>
+            <li>フォルダの［共有］→［ユーザーを招待］を開く</li>
+            <li>手順 5 で控えた<strong>サービスアカウントのメールアドレス</strong>を入力し、「<strong>編集者として招待</strong>」を選んで招待する</li>
+            <li><strong>共有リンクはオフのまま</strong>にしておく</li>
+          </ol>
+          <ul>
+            <li>サービスアカウントは、<strong>招待されていないフォルダを見ることができません</strong>。プラグインの設定画面でフォルダが一覧に出ないときは、この招待を確認してください。</li>
+            <li><strong>招待するのは、転送に必要な最小のフォルダだけ</strong>にしてください。招待したフォルダの中身は、プラグインから読み書きできます。</li>
+            <li>フォルダを開いたときの URL の末尾の数字（<code>/folder/123456789</code> の <code>123456789</code>）がフォルダIDです。プラグインの設定画面でフォルダを URL・ID で指定するときに使えます。</li>
+          </ul>
+        </div>
+
+        <div class="gc-step">
+          <div class="gc-step-head"><span class="gc-step-no">✓</span><span class="gc-step-title">転送ルールを設定する</span></div>
+          <p>あとは「② 転送ルール」で、対象の添付ファイルフィールド・保存先フォルダ・リンクの返却先を選び、「④ 動作確認」で接続テストを行って、保存してアプリを更新すれば、通常どおり使えます。使い方は<a href="/plugins/box-connect/">製品ページ</a>をご覧ください。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- つまずきやすいところ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">つまずきやすいところ</h2>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead><tr><th>症状</th><th>原因と対処</th></tr></thead>
+            <tbody>
+              <tr><td>「Box 管理者によるアプリの承認がまだです」と出る</td><td>Box 管理者がアプリを承認したか確認してください。アプリの設定（スコープ・アクセスレベル）を変えたあとは再承認が必要です（手順 4）</td></tr>
+              <tr><td>「クライアントID・シークレット・企業IDの組み合わせが正しくない」と出る</td><td>3 つの値が同じアプリ・同じ企業のものか確認してください。シークレットを作り直した場合は、プラグインにも入力し直してください（手順 3）</td></tr>
+              <tr><td>接続テストで通信エラーになる／「CORS Domains に、この kintone のドメインが登録されていません」と出る</td><td>Box のアプリの CORS ドメインに、kintone のドメインを <code>https://</code> から登録したか確認してください。末尾に「/」を付けないでください（手順 2）</td></tr>
+              <tr><td>フォルダが一覧に出ない／「見つかりません」と出る</td><td>サービスアカウントを、そのフォルダに「編集者」として招待したか確認してください（手順 6）</td></tr>
+              <tr><td>「保存先フォルダへの書き込み権限がありません」と出る</td><td>サービスアカウントの権限が「編集者」になっているか確認してください（手順 6）</td></tr>
+              <tr><td>「Box の容量が不足しています」「Box の契約で送れるファイルの大きさを超えています」と出る</td><td>Box の空き容量と、ご契約ごとの 1 ファイルの上限を確認してください</td></tr>
+              <tr><td>シークレットを表示しようとすると 2 段階認証を求められる</td><td>Box の仕様です。2 段階認証を設定してから、あらためて［シークレットを取得］を押してください</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">よくある質問</h2>
+        <div class="afp-faq">
+          <details class="afp-faq-item">
+            <summary>個人の無料の Box アカウントで使えますか？</summary>
+            <div class="afp-faq-answer">使えません。アプリを作って管理者が承認できる会社の Box のご契約（Business 以上など）、または Box 開発者アカウントで行ってください。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>費用はかかりますか？</summary>
+            <div class="afp-faq-answer">この準備のために、Box のご契約以外の費用はかかりません。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>サービスアカウントとは何ですか？</summary>
+            <div class="afp-faq-answer">連携用のアプリが動くときの、アプリ専用の Box ユーザーです。人のアカウントとは別に作られ、招待されたフォルダにしか触れません。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>転送先のフォルダを増やしたいときは？</summary>
+            <div class="afp-faq-answer">増やしたいフォルダに、同じサービスアカウントを「編集者」として招待してください。連携用のアプリを作り直す必要はありません。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>複数のアプリで使う場合、連携用のアプリも複数必要ですか？</summary>
+            <div class="afp-faq-answer">必要ありません。1 つの連携用アプリで控えたクライアントID・クライアントシークレット・企業IDを、複数の kintone アプリの設定画面にそれぞれ入力してお使いいただけます。</div>
+          </details>
+          <details class="afp-faq-item">
+            <summary>Box 側の設定を代行してもらえますか？</summary>
+            <div class="afp-faq-answer">当社がお客様の Box の設定を代行することはありません。Box 側の準備は、お客様の責任で行ってください。</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>Box連携 for kintone</h2>
+      <p>添付ファイルを Box へ転送し、kintone にはリンクだけを残すプラグインです。無料プランでも転送ルール1本・手動モードで利用でき、自動転送や一覧からの一括転送はプレミアム年間サポーターで使えます。</p>
+      <a class="afp-cta-btn" href="/plugins/box-connect/">製品ページを見る →</a>
+    </section>
+  </main>
+</Layout>

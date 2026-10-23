@@ -41,6 +41,18 @@ const BANNERS = {
       ['転送後は', 'kintone から削除', 'して容量を節約']
     ]
   },
+  'box-connect': {
+    iconSrc: 'SECRET/kintone_plugin_workspace/kw-box-connect/icon_800.png',
+    iconSide: 'right',
+    catch: ['添付は、Box へ。', 'kintone にはリンクだけ。'],
+    name: 'Box連携 for kintone',
+    nameSize: 46,
+    bullets: [
+      ['添付ファイルを', 'Box へ転送', ''],
+      ['レコードごとの', 'フォルダを自動生成', ''],
+      ['転送後の', 'kintone 側削除', 'も選べる']
+    ]
+  },
   'chat-notify': {
     iconSrc: 'SECRET/kintone_plugin_workspace/kw-chat-notify/kw-chat-notify_icon_512.png',
     iconSide: 'left',
