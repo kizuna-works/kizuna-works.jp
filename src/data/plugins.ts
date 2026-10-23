@@ -1589,7 +1589,7 @@ export const premiumPlugins: Plugin[] = [
     slug: 'drive-connect',
     categories: ['一括処理', '自動入力', '情報共有'],
     description:
-      'レコードの添付ファイルを Google ドライブへ転送し、kintone にはリンクだけを残します。レコード単位のフォルダを命名ルールごと自動生成し、差分検知で二重転送を防止。転送後に kintone 側を削除して容量を節約でき、一覧からの一括転送にも対応します。',
+      'レコードの添付ファイルを Google ドライブへ転送し、kintone にはリンクだけを残します。レコード単位のフォルダを命名ルールごと自動生成し、差分検知で二重転送を防止。転送後に kintone 側を削除して容量を節約でき、一覧からの一括転送にも対応。手動ボタンの形と色も設定できます。',
     image: '/images/drive-connect-banner.png',
     imageWebp: '/images/drive-connect-banner.webp',
     imageAlt:
@@ -1604,7 +1604,7 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       '容量を買い増すか、古いレコードから手で消すかの二択。ドライブへ手で上げて共有URLを貼る運用も、件数が増えるとフォルダの命名がばらついて追えなくなる',
     releaseDate: '2026-08-30',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
   },
   {
     id: 'kw-lookup-filter',
@@ -1815,6 +1815,32 @@ export const premiumPlugins: Plugin[] = [
       '同じアプリの別レコードを参照したい、キーに重複があって取得できない、区分によって参照先のアプリを変えたい。標準のルックアップではどれもできない。CSV で読み込むと参照エラーになり、テーブルの行ごとに別のアプリから取ることも難しい',
     releaseDate: '2026-10-21',
     summaryVersion: '1.2.0',
+  },
+  {
+    id: 'kw-box-connect',
+    pluginId: 'kjgflindgcfcddnjlnaifecpaaedjhkn',
+    name: 'Box連携 for kintone',
+    formName: 'Box連携 for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'box-connect',
+    categories: ['一括処理', '自動入力', '情報共有'],
+    description:
+      'レコードの添付ファイルを Box へ転送し、kintone にはリンクだけを残します。レコード単位のフォルダを命名ルールごと自動生成し、差分検知で二重転送を防止。転送後に kintone 側を削除して容量を節約でき、共有リンクの作成や一覧からの一括転送にも対応します。',
+    image: '/images/box-connect-banner.png',
+    imageWebp: '/images/box-connect-banner.webp',
+    imageAlt:
+      'Box連携 for kintone バナー — 添付は、Box へ。kintone にはリンクだけ。レコードごとのフォルダを自動作成・差分検知で二重転送なし・転送後の削除で容量を節約',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      '添付ファイルを Box へ転送し、kintone にはリンクだけを残します。フォルダの自動生成と差分検知つき。共有リンクの作成や、詳細画面でのフォルダの中身の表示にも対応。',
+    problemTitle: '添付ファイルが Box にも kintone にもあって、容量が足りない',
+    problemDesc:
+      '容量を買い増すか、古いレコードから手で消すかの二択。Box へ手で上げて共有URLを貼る運用も、件数が増えるとフォルダの命名がばらついて追えなくなる',
+    releaseDate: '2026-10-23',
+    summaryVersion: '1.0.0',
   },
 ];
 
