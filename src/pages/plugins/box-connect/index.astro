@@ -5,6 +5,7 @@ import Picture from '../../../components/Picture.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
+import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
 ---
 
 <Layout
@@ -49,10 +50,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           "name": "Box連携 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.0.0",
+          "softwareVersion": "1.1.0",
           "dateModified": "2026-10-23",
           "url": "https://kizuna-works.jp/plugins/box-connect/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-box-connect-v1.0.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-box-connect-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/box-connect-banner.png",
           "offers": {
             "@type": "Offer",
@@ -73,6 +74,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             "同名ファイルは別名で追加／新しいバージョンとして上書きから選択",
             "Box の共有リンクを作成して別のリンクフィールドへ格納",
             "詳細画面に Box フォルダの中身を一覧表示（子フォルダへ移動可）",
+            "添付ファイルが無いレコードでも、詳細画面を開いたときにフォルダだけ先に作成（自動転送）",
             "実行モードは 自動／自動（条件つき）／手動 から選択",
             "手動ボタンの形（5種）・色・文字の色・設置位置（4か所）を設定",
             "実行条件は最大5件・AND/OR で指定（一括転送でも尊重）",
@@ -115,7 +117,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.25);
     }
-    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; flex-wrap: wrap; row-gap: 8px; }
     .afp-badge-premium {
       display: inline-flex; align-items: center; gap: 6px;
       background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
@@ -313,17 +315,34 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       <img class="afp-hero-icon" src="/images/box-connect-icon.png" alt="Box連携 for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.0.0</span>
+        <RequestOriginBadge />
+        <span class="afp-hero-version">v1.1.0</span>
       </div>
       <h1>Box連携 for kintone</h1>
       <p class="afp-tagline">kintone の添付ファイルを Box へ転送し、レコードにはリンクだけを残す。</p>
       <p class="afp-sub">レコードに添付したファイルを <strong>Box へ転送</strong>し、kintone には<strong>リンクだけ</strong>を残します。転送に成功したファイルは kintone から削除できるので、<strong>ディスク容量を抑えながら</strong>、ファイルの実体は普段お使いの Box で一元管理できます。中継サーバーは不要です。</p>
       <div class="afp-hero-cta">
         <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
-        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-box-connect-v1.0.0.zip" download>無料でダウンロード</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-box-connect-v1.1.0.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
+    <RequestOriginBadge as="note" />
+
+    <!-- Update Info (v1.1.0) -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <div class="update-box">
+          <div class="update-head">
+            <span class="update-tag">UPDATE</span>
+            <h2 class="update-title">v1.1.0：添付ファイルが無くても、レコードごとのフォルダを先に作れるようになりました</h2>
+          </div>
+          <p class="update-desc">レコードごとのフォルダを先に用意して、あとからファイルを入れていく運用に使えます。自動転送のルールで「<strong>添付ファイルが無いとき：フォルダだけ作成する</strong>」を選ぶと、添付が無いレコードでも、詳細画面を開いたときに Box にフォルダを作り、リンクフィールドに書き込みます（共有リンクの設定があれば共有リンクも）。リンクフィールドに値があるレコードでは何もしないので、フォルダが重複することはありません。</p>
+          <p class="update-desc"><strong>フォルダの中身の表示を改善しました。</strong>「表示するフォルダ」に共有リンクが入る欄を選んでいても、フォルダの中身を表示できます。選んだ欄がフォルダの URL でないときは、原因が分かる案内を出します。設定の保存時も、フォルダの URL が入る欄を選ぶよう注意を出します。</p>
+          <p class="update-note">フォルダは詳細画面を開いたときに作られるため、CSV 読み込みや API など画面を通さずに登録したレコードは、詳細画面を開くまで作られません。手動モードと一覧の一括転送では、フォルダだけの作成は行いません。この設定は自動転送（プレミアム）で、レコード単位のフォルダ作成が ON のとき、テーブル外の添付ファイルに使えます。<br>既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+        </div>
+      </div>
+    </section>
 
     <!-- 課題 -->
     <section class="afp-section">
@@ -502,6 +521,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             <p>詳細画面のスペースに Box フォルダの中身を一覧表示します。20／50／100 件ずつ表示でき、子フォルダへ移動できます。表示のみで、名前の変更や削除はできません。</p>
           </div>
           <div class="afp-feat-card">
+            <h3>フォルダだけ先に作成 🔒</h3>
+            <p>添付ファイルが無いレコードでも、詳細画面を開いたときに Box のフォルダを作り、リンクフィールドに書き込みます。あとからファイルを入れていく運用に使えます。</p>
+          </div>
+          <div class="afp-feat-card">
             <h3>実行モード 🔒</h3>
             <p>自動／自動（条件つき）／手動 をルールごとに選べます。条件は最大5件・AND/OR で指定できます（自動系はプレミアム）。</p>
           </div>
@@ -540,7 +563,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
               <li>✅ サブテーブル内の添付ファイル</li>
               <li>✅ 利用期限なし（転送ルールは1本・手動モードのみ／設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-box-connect-v1.0.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-box-connect-v1.1.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">👑 全機能を解放</span>
@@ -578,6 +601,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
               <tr><td>転送後の kintone 側削除</td><td class="c">○</td><td class="c">○</td></tr>
               <tr><td>共有リンクの作成</td><td class="c">○</td><td class="c">○</td></tr>
               <tr><td>フォルダの中身の表示</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td><strong>添付ファイルが無いとき：フォルダだけ作成</strong></td><td class="c">—</td><td class="c">○</td></tr>
               <tr><td>サブテーブル対応</td><td class="c">○</td><td class="c">○</td></tr>
               <tr><td>ゲストスペース対応</td><td class="c">○</td><td class="c">○</td></tr>
               <tr><td>設定画面の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
@@ -670,10 +694,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
             gtag('event', 'file_download', {
-              file_name: 'kw-box-connect-v1.0.0.zip',
+              file_name: 'kw-box-connect-v1.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-box-connect-v1.0.0.zip'
+              link_url: '/downloads/kw-box-connect-v1.1.0.zip'
             });
           });
         });
