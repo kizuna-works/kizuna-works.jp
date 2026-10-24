@@ -566,6 +566,19 @@ export const securityProfiles: Record<string, SecurityProfile> = {
     ],
   },
 
+  // 外部への送信先は増えない。自ドメインの kintone REST API（組織の一覧・ルール表アプリ・
+  // 記録用アプリ・レコードの更新）だけを使う。レコードの値は外へ出ない。
+  'kw-record-acl-assist': {
+    extraComm: [
+      {
+        label: '組織の一覧・ルール表アプリ・記録用アプリ・レコードの更新（自ドメイン内）',
+        scope: 'internal',
+        detail:
+          'ご利用中の kintone ドメイン内の API だけを使います。見せる相手の計算のため、組織の一覧と親子関係（/v1/organizations.json）、ルール表アプリの対応表（GET /k/v1/records）を取得します。今あるレコードへの反映では、レコードを検索（GET /k/v1/records・カーソル）し、見せる相手のフィールドだけを更新（PUT /k/v1/records）します。設定画面では、ルール表アプリと変更の記録用アプリの作成（POST /k/v1/preview/app・アイコンの設定を含む）、フィールドの一覧、ユーザー・グループの一覧（/v1/users.json・/v1/groups.json）、アクセス権のルールの読み取り（GET /k/v1/preview/record/acl）も行います。いずれも外部へは送信しません。',
+      },
+    ],
+  },
+
   // Google と通信するが、向きは「外 → kintone」の一方向。レコードの値は一切
   // 出て行かないので outbound ではなく inbound で宣言する。
   'kw-form-connect': {

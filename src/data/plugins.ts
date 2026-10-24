@@ -1380,7 +1380,7 @@ export const premiumPlugins: Plugin[] = [
     problemTitle: 'マスターを直しても、コピー済みの値が古いまま',
     problemDesc: '会社名や単価を直しても、過去にルックアップした参照先レコードは古いまま。まとめて最新化したい',
     releaseDate: '2026-07-04',
-    summaryVersion: '2.3.0',
+    summaryVersion: '2.4.0',
   },
   {
     id: 'kw-related-enhancer',
@@ -1843,6 +1843,33 @@ export const premiumPlugins: Plugin[] = [
     releaseDate: '2026-10-23',
     summaryVersion: '1.1.0',
     bornFrom: 'supporter-request',
+  },
+  {
+    id: 'kw-record-acl-assist',
+    pluginId: 'jadehbhgagbpfhkffajflenobnnkcpla',
+    name: 'レコード権限アシスト for kintone',
+    formName: 'レコード権限アシスト for kintone',
+    subtitle: 'プレミアムプラグイン',
+    slug: 'record-acl-assist',
+    bornFrom: 'supporter-request',
+    categories: ['表示・編集制御', '自動入力', '一括処理'],
+    description:
+      'レコードの値から見せる相手を決め、アクセス権のルールが使うフィールドへ保存のたびに自動で入れます。上の組織や値ごとの対応表にも対応し、関わる組織が複数でもルール1本で全員が見られます。今あるレコードへは下見つきで一括反映。',
+    image: '/images/record-acl-assist-banner.png',
+    imageWebp: '/images/record-acl-assist-banner.webp',
+    imageAlt:
+      'レコード権限アシスト for kintone バナー — レコードの内容に合わせて、見られる組織・人を自動で設定。関わる組織が複数でも全員が見られる・上の組織にも自動で見せる・内容が変われば見られる人も自動で変わる',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'premium',
+    cardDescription:
+      '組織・ユーザー・グループ選択や選択肢の値から、見せる相手を自動で入れます。関わる組織が複数あっても、アクセス権のルール1本で全員が見られます。',
+    problemTitle: '複数の組織が関わるレコードで、アクセス権のルールが最初の1本しか使われず、片方の組織しか見られない',
+    problemDesc:
+      'kintone のレコードのアクセス権は、上から順に最初に当たったルールだけを使う。組織ごとにルールを並べると、複数の組織が関わるレコードでは片方の組織しか見られない。ルールを増やして調整しても、組織やレコードが増えるたびに見直しが要る',
+    releaseDate: '2026-10-24',
+    summaryVersion: '1.0.0',
   },
 ];
 

@@ -41,6 +41,18 @@ const BANNERS = {
       ['転送後は', 'kintone から削除', 'して容量を節約']
     ]
   },
+  'record-acl-assist': {
+    iconSrc: 'SECRET/kintone_plugin_workspace/kw-record-acl-assist/file-user_512.png',
+    iconSide: 'right',
+    catch: ['レコードの内容に合わせて、', '見られる組織・人を', '自動で設定。'],
+    name: 'レコード権限アシスト for kintone',
+    nameSize: 36,
+    bullets: [
+      ['関わる組織が複数でも', '全員が見られる', ''],
+      ['上の組織にも', '自動で見せる', ''],
+      ['内容が変われば', '見られる人も自動で変わる', '']
+    ]
+  },
   // ★ box-connect は 2026-10-23 に手動バナー（Gemini生成）へ差し替え済み。実行すると上書きされるため無効化。
   '_box-connect_DISABLED': {
     iconSrc: 'SECRET/kintone_plugin_workspace/kw-box-connect/icon_800.png',

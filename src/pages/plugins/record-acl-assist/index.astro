@@ -1,0 +1,726 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ResellerCard from '../../../components/ResellerCard.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
+---
+
+<Layout
+  title="レコード権限アシスト for kintone｜見られる組織・人を自動で設定 | KIZUNA Works"
+  description="kintone のレコードの内容に合わせて、見られる組織・人を自動で設定するプラグイン。組織・ユーザー・グループや選択肢の値から見せる相手を1つのフィールドへ入れ、アクセス権のルール1本で関わる全員が見られます。上の組織・対応表・一括反映にも対応。"
+  ogTitle="レコード権限アシスト for kintone｜見られる組織・人を自動で設定 | KIZUNA Works"
+  ogDescription="関わる組織が複数あっても、全員が見られるレコードに。内容が変われば、見られる人も自動で変わります。保存のたびに見せる相手を1つのフィールドへ入れ、アクセス権のルールは1本で済みます。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/record-acl-assist/"
+  ogImage="https://kizuna-works.jp/images/record-acl-assist-banner.png"
+  canonical="https://kizuna-works.jp/plugins/record-acl-assist/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/record-acl-assist/",
+          "url": "https://kizuna-works.jp/plugins/record-acl-assist/",
+          "name": "レコード権限アシスト for kintone｜見られる組織・人を自動で設定 | KIZUNA Works",
+          "description": "レコード権限アシスト for kintone は、レコードの内容に合わせて、見られる組織・人を自動で設定する kintone プラグイン。レコードのアクセス権が対象にするフィールドへ、保存のたびに見せる相手を入れる。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/record-acl-assist-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "レコード権限アシスト for kintone", "item": "https://kizuna-works.jp/plugins/record-acl-assist/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "レコード権限アシスト for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-10-24",
+          "url": "https://kizuna-works.jp/plugins/record-acl-assist/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-record-acl-assist-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/record-acl-assist-banner.png",
+          "offers": {
+            "@type": "Offer",
+            "name": "プレミアム年間サポーター（全プラグイン込み）",
+            "price": "16500",
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/InStock",
+            "description": "プレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料プランでも設定1つ（同じ型のフィールドを元にする範囲）で利用できます。"
+          },
+          "description": "kintone のレコードの内容に合わせて、見られる組織・人を自動で設定する kintone プラグイン。レコードのアクセス権は、上から順に最初に当たったルールだけを使うため、組織ごとにルールを並べると、複数の組織が関わるレコードでは片方の組織しか見られない。このプラグインは、レコードの値（組織・ユーザー・グループ選択、選択肢、文字列、テーブルの列）から見せる相手を決め、アクセス権のルールが対象にする1つのフィールドへ、保存のたびに自動で入れる。そのフィールドを使ったルール1本で、関わる全員が見られる。上の組織・下の組織への拡張、値ごとの対応表、今あるレコードへの一括反映（下見・CSV・中止つき）、保存前の警告、詳細画面の内訳表示、変更の記録、ズレの自動点検に対応し、ルックアップ自動同期と連携してマスタの変更にも追従する。アクセス権そのものは変更せず、通信は自ドメインの kintone REST API のみ。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "レコードの値から見せる相手を決め、アクセス権のルールが使うフィールドへ保存のたびに自動で入れる",
+            "関わる組織が複数あっても、アクセス権のルール1本で全員が見られる",
+            "組織・ユーザー・グループ選択の値をそのまま入れる",
+            "上の組織にも見せる（どこまで上か・ここで止める）",
+            "下の組織にも見せる",
+            "ドロップダウン・ラジオボタン・チェックボックス・文字列の値に応じて、対応表で見せる相手を決める（ルール表アプリを自動作成）",
+            "テーブルの列を元にする",
+            "いつも入れる相手・入れない相手・誰も入らないときの相手",
+            "入力画面で見せる相手のフィールドを手で書き換えられないようにする",
+            "保存する本人が見られなくなりそうなときの、保存前の確認",
+            "詳細画面の［見せる相手の内訳］で、値と入った理由を表示",
+            "今あるレコードへの一括反映（下見・CSV 書き出し・途中での中止）",
+            "組織構成の変化のお知らせ",
+            "変更の記録（記録用アプリを自動作成）",
+            "ズレの自動点検",
+            "ルックアップ自動同期との連携（マスタの変更で同期した参照先も、見せる相手を計算し直す）",
+            "設定画面にライブプレビュー",
+            "スマートフォンでの保存時にも計算",
+            "ゲストスペース対応（ユーザー・グループが対象）"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; flex-wrap: wrap; row-gap: 8px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 760px; line-height: 1.8; }
+    .afp-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+    .afp-hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 26px; border-radius: 26px;
+      font-weight: 700; font-size: 1rem; text-decoration: none; line-height: 1.3;
+    }
+    .afp-hero-btn.is-primary { background: #2E8B2E; color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.22); }
+    .afp-hero-btn.is-primary:hover { background: #35a035; }
+    .afp-hero-btn.is-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.6); }
+    .afp-hero-btn.is-ghost:hover { background: rgba(255,255,255,0.24); }
+    @media (max-width: 600px) { .afp-hero-btn { width: 100%; } }
+
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      /* リード文自体が白いカードなので、下に余白を入れないと次のカードとくっついて見える */
+      margin: 0 0 26px;
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0 0 12px; }
+    .afp-feature p:last-child { margin-bottom: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    /* 白いカードが続くときにくっついて見えないようにする */
+    .afp-shot + .afp-shot,
+    .afp-shot + .afp-cautions,
+    .afp-shot + .afp-note,
+    .afp-shot + .afp-grid-feats { margin-top: 26px; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+    /* Cap narrow captures at the width the UI really has, so nothing is blown up
+       larger than the user will see it in kintone. */
+    .afp-shot-w420 { max-width: 420px; }
+    .afp-shot-w640 { max-width: 640px; }
+    .afp-shot-w840 { max-width: 840px; }
+
+    .afp-shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+    @media (max-width: 900px) { .afp-shot-pair { grid-template-columns: 1fr; } }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .zoomable { cursor: zoom-in; }
+    .afp-faq { max-width: 860px; margin: 0 auto; }
+    .afp-faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+    .afp-faq-item > summary { list-style: none; cursor: pointer; padding: 16px 48px 16px 20px; font-weight: 700; color: var(--color-navy); font-size: 15px; line-height: 1.6; position: relative; }
+    .afp-faq-item > summary::-webkit-details-marker { display: none; }
+    .afp-faq-item > summary::before { content: "Q"; display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--color-navy); color: #fff; border-radius: 50%; font-size: 12px; margin-right: 10px; vertical-align: middle; }
+    .afp-faq-item > summary::after { content: "＋"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--color-green); font-weight: 700; }
+    .afp-faq-item[open] > summary::after { content: "－"; }
+    .afp-faq-answer { padding: 0 20px 18px 20px; font-size: 14px; line-height: 1.95; color: #333; }
+    .afp-faq-answer strong { color: var(--color-navy); }
+
+    .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    /* Feature block: 使い方の画面 → その設定画面、の2枚組 */
+    .afp-usecfg { margin-top: 30px; }
+    .afp-usecfg-head {
+      display: inline-block; background: var(--color-navy); color: #fff; font-weight: 700;
+      font-size: 0.85rem; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px;
+    }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+    }
+  </style>
+
+  <style is:global>
+    /* このページで足すもの */
+    /* 設定の手順見出し。既存の .afp-plan-compare-head と同じ見た目にそろえる
+       （紺の文字＋緑の縦線）。新しい体裁を持ち込まないため。 */
+    .afp-h3 {
+      font-size: 1.15rem; color: var(--color-navy); margin: 34px 0 12px;
+      padding-left: 12px; border-left: 4px solid var(--color-green);
+    }
+    .afp-h3:first-of-type { margin-top: 8px; }
+    .afp-feat-no {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--color-green); margin-bottom: 6px;
+    }
+  </style>
+
+  <main>
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/record-acl-assist-icon.png" alt="レコード権限アシスト for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <RequestOriginBadge />
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <h1>レコード権限アシスト for kintone</h1>
+      <p class="afp-tagline">レコードの内容に合わせて、見られる組織・人を自動で設定。</p>
+      <p class="afp-sub">関わる組織が複数あっても、<strong>全員が見られるレコード</strong>に。内容が変われば、<strong>見られる人も自動で変わります</strong>。レコードの値から「見せる相手」を 1 つのフィールドへ自動で入れるので、アクセス権のルールは <strong>1 本</strong>で済みます。</p>
+      <div class="afp-hero-cta">
+        <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-record-acl-assist-v1.0.0.zip" download>無料でダウンロード</a>
+      </div>
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+    <RequestOriginBadge as="note" />
+
+    <!-- 課題 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">複数の組織が関わるレコードを、片方の組織しか見られない</h2>
+        <p class="afp-lead">kintone のレコードのアクセス権は、<strong>上から順に見て、最初に当たったルールだけ</strong>を使います。組織ごとにルールを並べると、案件のように複数の組織が関わるレコードでは、先に当たったルールの組織しか見られません。</p>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">01</span>
+            <h3>ルールが「最初の 1 本」しか効かない</h3>
+            <p>営業部のルールが先に当たると、同じレコードに関わる開発部のルールは使われません。片方の組織だけが、レコードを見られません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">02</span>
+            <h3>ルールを足しても、見直しが終わらない</h3>
+            <p>組織の組み合わせごとにルールを作ると、数が増え、順番の調整も必要になります。組織やレコードが増えるたびに見直しが要ります。</p>
+          </div>
+          <div class="afp-feat-card">
+            <span class="afp-feat-no">03</span>
+            <h3>上の組織には、自動で見せられない</h3>
+            <p>アクセス権の「下位組織に継承」が効くのは、下の組織だけです。課を入れたレコードをその上の「部」にも見せるには、組織ごとにルールを足すか、値を手で入れることになります。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 解決 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">見せる相手を 1 つのフィールドへ自動で入れ、ルールは 1 本に</h2>
+        <p class="afp-lead">レコードを保存すると、担当部署・関係部署などの値から<strong>見せる相手を計算して、1 つのフィールドに入れます</strong>。そのフィールドを対象にしたアクセス権のルールを 1 本作るだけで、関わる全員が見られるようになります。</p>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>レコードの値（例）</th><th>見せる相手に入るもの</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>担当部署：営業1課</td><td>営業1課、その上の営業部</td></tr>
+              <tr><td>関係部署：開発2課</td><td>開発2課、その上の開発部</td></tr>
+              <tr><td>いつも入れる相手：管理部</td><td>管理部</td></tr>
+              <tr><td><strong>見せる相手のフィールド（結果）</strong></td><td><strong>営業1課・営業部・開発2課・開発部・管理部</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figure class="afp-shot" style="margin-top:26px; max-width:374px;">
+          <Picture src="/images/record-acl-assist-record-01.png" alt="レコード詳細画面。保存したあと、見せる相手を入れるフィールドに、担当部署・関係部署とその上の組織が自動で入っている" width="372" height="352" class="zoomable" />
+          <figcaption class="afp-shot-cap">保存すると、<strong>見せる相手のフィールドに組織が自動で入ります</strong>。手で入力する必要はありません</figcaption>
+        </figure>
+        <div class="afp-note">アクセス権の設定そのものは変更しません。<strong>入れるのは、アクセス権のルールが対象にするフィールドの値だけ</strong>です。誰が見られるかの判定は、これまでどおり kintone が行います。</div>
+      </div>
+    </section>
+
+    <!-- 内訳と警告 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">誰がなぜ入ったかが分かる。自分が見られなくなる保存は、先に止める</h2>
+        <p class="afp-lead">権限は、設定を間違えても画面上は何も起きないのが怖いところです。入った理由を見られるようにし、保存の前にも確認を出します。</p>
+        <figure class="afp-shot" style="max-width:442px;">
+          <Picture src="/images/record-acl-assist-detail-01.png" alt="レコード詳細画面の［見せる相手の内訳］。見せる相手に入った値ごとに、どのフィールドの値か・上の組織・いつも入れる相手といった入った理由が表で表示されている" width="440" height="348" class="zoomable" />
+          <figcaption class="afp-shot-cap">詳細画面の<strong>［見せる相手の内訳］</strong>で、値と<strong>入る理由</strong>を確認できます。保存されている値が計算結果と違うときは、その旨を表示します</figcaption>
+        </figure>
+        <figure class="afp-shot" style="margin-top:28px; max-width:460px;">
+          <Picture src="/images/record-acl-assist-warn-01.png" alt="保存前の確認ダイアログ。保存すると本人がこのレコードを見られなくなる可能性があることを知らせ、［保存する］と［戻る］を選べる" width="458" height="260" class="zoomable" />
+          <figcaption class="afp-shot-cap">本人が見られなくなりそうなときは、<strong>保存の前に確認</strong>を出します</figcaption>
+        </figure>
+        <div class="afp-grid-feats" style="margin-top:26px;">
+          <div class="afp-feat-card">
+            <h3>手で書き換えられないようにする</h3>
+            <p>追加・編集の画面で、見せる相手のフィールドを入力できないようにできます（おすすめ）。保存のたびに作り直すので、手で入れた値は残りません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>誰も入らないときの相手</h3>
+            <p>計算の結果が空になるレコードに、管理部などを入れられます。空のままだと、ルールによっては管理者を含めて誰も見られなくなります。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 範囲を広げる・絞る -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">範囲を広げる・絞る</h2>
+        <p class="afp-lead">元にした値だけでなく、上の組織や、値ごとに決めた相手も入れられます。入れたくない相手を外すこともできます。設定画面では、<strong>できることと例を先に読んでから設定</strong>できます。</p>
+        <figure class="afp-shot afp-shot-w640">
+          <Picture src="/images/record-acl-assist-config-02.png" alt="プラグイン設定画面の「② 範囲を広げる・絞る」タブ。「上の組織にも見せる」「下の組織にも見せる」が、できることと例つきのカードで並んでいる" width="1056" height="572" class="zoomable" />
+          <figcaption class="afp-shot-cap">機能ごとのカードに、<strong>できることと例</strong>を書いています。使っている機能には「使用中」と表示されます<br>画像をクリックすると拡大表示します</figcaption>
+        </figure>
+        <div class="afp-grid-feats" style="margin-top:26px;">
+          <div class="afp-feat-card">
+            <h3>上の組織にも見せる</h3>
+            <p>担当部署が「営業1課」なら「営業部」も入れて、部の人にも見せられます。何段上までか、どの組織で止めるかを指定できます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>下の組織にも見せる 🔒</h3>
+            <p>元にした組織の、下の組織も入れます。通知の宛先など、見せる相手のフィールドをほかの用途にも使うときに使います。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>値で相手を決める（対応表） 🔒</h3>
+            <p>「案件種別」が「公共」なら「公共営業部」を入れる、のように、ドロップダウン・チェックボックス・文字列などの値で相手を決めます。対応は、自動作成される kintone のアプリ（ルール表アプリ）に書くので、組織が変わったときも担当の方が直せます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>いつも入れる相手</h3>
+            <p>どのレコードにも必ず入れます。監査担当のグループには、すべてのレコードを見せる、といった使い方です。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>入れない相手</h3>
+            <p>元にしたフィールドや上の組織から入ってきても、外します。上の組織をたどると入ってしまう「役員室」は入れない、といった使い方です。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>テーブルの列を元にする 🔒</h3>
+            <p>テーブルの列の組織・ユーザー・グループ選択や選択肢の値を、全行ぶんまとめて元にできます。</p>
+          </div>
+        </div>
+        <div class="afp-note">計算の順番は決まっています。<strong>元にした値 → 上の組織 → 下の組織 → 対応表 → いつも入れる相手 → 入れない相手 → 空なら誰も入らないときの相手</strong>の順です。設定画面の左のライブプレビューで、試しの値を選んで、入る相手と理由を確かめられます。</div>
+      </div>
+    </section>
+
+    <!-- 今あるレコードへの反映 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">今あるレコードにも、下見をしてから反映</h2>
+        <p class="afp-lead">新しく保存するレコードには自動で入ります。<strong>使い始めたとき、設定や対応表を変えたとき、組織が変わったとき</strong>は、今あるレコードへまとめて入れ直します。実行の前に、変わる件数と中身を確かめられます。</p>
+        <figure class="afp-shot afp-shot-w640">
+          <Picture src="/images/record-acl-assist-config-03.png" alt="プラグイン設定画面の「③ 今あるレコードに反映」タブ。下見の結果として、変わる件数と、レコードごとの変更前・変更後が表示されている" width="1056" height="930" class="zoomable" />
+          <figcaption class="afp-shot-cap">下見では、<strong>変わる件数と、レコードごとの変更前→変更後</strong>を確認できます。CSV にも書き出せます<br>画像をクリックすると拡大表示します</figcaption>
+        </figure>
+        <ol class="afp-steps steps-list">
+          <li><span><strong>対象</strong>を、全件か、絞り込み条件（クエリ）から選びます。</span></li>
+          <li><span>［下見する］で、変わる件数と中身を確認します。実行の時点で計算し直すので、下見のあとにレコードが変わっても安全です。</span></li>
+          <li><span>［入れ直しを実行］で反映します。途中で［中止］もできます。</span></li>
+        </ol>
+        <div class="afp-note"><strong>実行する人が閲覧できるレコードだけ</strong>が対象です。レコードのアクセス権は管理者にも効くため、管理者用の対象を同じルールに入れておいてください。</div>
+        <div class="afp-note">組織が変わったときは、アプリ管理者が一覧を開いたときにお知らせを出します。<strong>上の組織を入れる設定は、組織の構成が変わると入れ直しが必要</strong>になるためです。</div>
+      </div>
+    </section>
+
+    <!-- 記録・点検・連携 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">記録・点検・連携</h2>
+        <figure class="afp-shot afp-shot-w640">
+          <Picture src="/images/record-acl-assist-config-04.png" alt="プラグイン設定画面の「④ 記録・点検・連携」タブ。変更を記録する・ズレを自動で点検する・ルックアップ自動同期と連携するの各カードが表示されている" width="1056" height="805" class="zoomable" />
+          <figcaption class="afp-shot-cap">変更の記録・ズレの点検・ルックアップ自動同期との連携を、ここで設定します<br>画像をクリックすると拡大表示します</figcaption>
+        </figure>
+        <div class="afp-grid-feats" style="margin-top:26px;">
+          <div class="afp-feat-card">
+            <h3>変更を記録する 🔒</h3>
+            <p>見せる相手のフィールドが変わったとき、記録用アプリ（自動作成）に「変更前・変更後・入った相手・外れた相手・きっかけ」を残します。「なぜこのレコードを見られなくなったのか」を後から調べられます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ズレを自動で点検する 🔒</h3>
+            <p>アプリ管理者が一覧を開いたとき（1 日 1 回）、見せる相手が計算結果と違うレコードを数え、1 件以上なら一覧の上にお知らせします。ルール表アプリを直したのに入れ直しを忘れていたときに気づけます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ルックアップ自動同期と連携する</h3>
+            <p><a href="/plugins/lookup-sync/">ルックアップ自動同期</a> v2.4.0 以降で、マスタの変更を同期したとき、同じ書き込みで見せる相手も計算し直します。取引先マスタの担当部署を変えたら、案件アプリの見せる相手も変わります。</p>
+          </div>
+        </div>
+        <div class="afp-note">同期では、参照先のアプリの画面が動きません。そのため、<strong>画面が動かない場面でも見せる相手を最新にする連携</strong>が必要です。連携は、ルックアップ自動同期の設定画面で、対象のアプリごとにオンにします。</div>
+      </div>
+    </section>
+
+    <!-- 設定 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定は、やりたいこと順の 4 タブ</h2>
+        <p class="afp-lead">① 誰に見せるか ／ ② 範囲を広げる・絞る ／ ③ 今あるレコードに反映 ／ ④ 記録・点検・連携。左には<strong>設定の目次とライブプレビュー</strong>があります。①の「はじめに」では、使い始めるまでの 4 つの手順が<strong>済んでいるかを自動で確かめて</strong>表示します。</p>
+        <figure class="afp-shot afp-shot-w640">
+          <Picture src="/images/record-acl-assist-config-01.png" alt="プラグイン設定画面の「① 誰に見せるか」タブ。「はじめに：使い始めるまでの 4 つの手順」に、各手順が「できています」「まだです」で表示され、その下に、見せる相手を入れるフィールドと元にするフィールドを選ぶ設定カードがある" width="1360" height="1332" class="zoomable" />
+          <figcaption class="afp-shot-cap">アクセス権のルールが作ってあるかも、<strong>自動で判定して表示</strong>します。この設定で何をしているかは、ふつうの文でも表示されます<br>画像をクリックすると拡大表示します</figcaption>
+        </figure>
+        <ol class="afp-steps steps-list">
+          <li><span>システム管理者で kintone にログインし、<strong>歯車アイコン → kintone システム管理 → プラグイン</strong> を開き、<strong>「読み込む」</strong>からプラグイン zip をアップロードします。</span></li>
+          <li><span>アプリに、<strong>見せる相手を入れるフィールド</strong>（組織選択・グループ選択・ユーザー選択のどれか。テーブルの外）を作り、アプリを更新します。</span></li>
+          <li><span><strong>アプリの設定 → プラグイン → 「+ プラグインを追加」</strong> から「レコード権限アシスト」を追加し、歯車アイコンから設定画面を開きます。</span></li>
+          <li><span><strong>「① 誰に見せるか」</strong>で、見せる相手を入れるフィールドと、元にするフィールド（担当部署・関係部署など）を選びます。必要なら「② 範囲を広げる・絞る」で上の組織などを指定します。</span></li>
+          <li><span>アプリの設定の<strong>「レコードのアクセス権」</strong>で、条件「すべてのレコード」・対象に「見せる相手のフィールド」を選んだルールを作ります（組織選択なら「子組織を含める」も）。管理者用の対象も同じルールに入れ、<strong>このルールより上に、同じレコードに当たるルールを置かない</strong>でください。</span></li>
+          <li><span><strong>「保存」</strong>を押してアプリを更新し、「③ 今あるレコードに反映」で、すでにあるレコードにも入れます。</span></li>
+        </ol>
+        <div class="afp-note">本番のアプリに入れる前に、<strong>検証用のアプリで、見られる範囲を確認</strong>してください。アクセス権のルールの作り方も、設定画面の「はじめに」に載せています。</div>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>保存時の自動計算</h3>
+            <p>追加・編集・一覧の編集・プロセス管理の操作で保存するとき、見せる相手を計算してフィールドに入れます。スマートフォンからの保存でも動きます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>上の組織にも見せる</h3>
+            <p>どこまで上か、どこで止めるかを指定できます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>下の組織にも見せる 🔒</h3>
+            <p>元にした組織の、下の組織も入れます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>値で相手を決める対応表 🔒</h3>
+            <p>選択肢・文字列・テーブルの列の値から、見せる相手を決めます。ルール表アプリは自動で作成します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>いつも入れる相手・入れない相手</h3>
+            <p>どのレコードにも入れる相手と、必ず外す相手を指定できます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>誰も入らないときの相手</h3>
+            <p>計算の結果が空になるレコードに入れる相手を指定できます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>入力画面でのロックと保存前の警告</h3>
+            <p>見せる相手のフィールドを手で書き換えられないようにし、本人が見られなくなりそうな保存は、確認を挟みます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>見せる相手の内訳</h3>
+            <p>詳細画面の［見せる相手の内訳］で、値と入る理由を表示します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>今あるレコードへの一括反映</h3>
+            <p>下見・CSV 書き出し・中止つきで、全件または絞り込んだレコードに入れ直します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>組織構成の変化のお知らせ</h3>
+            <p>入れ直したあとに組織が変わったことを、アプリ管理者が一覧を開いたときに知らせます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>変更の記録 🔒</h3>
+            <p>変更前・変更後・入った相手・外れた相手・きっかけを、記録用アプリに残します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ズレの自動点検 🔒</h3>
+            <p>計算結果と違うレコードの件数を、アプリ管理者に知らせます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ルックアップ自動同期との連携</h3>
+            <p>マスタの変更で同期した参照先のレコードも、見せる相手を計算し直します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ライブプレビュー</h3>
+            <p>設定画面で試しの値を選ぶと、入る相手と理由をその場で確かめられます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ゲストスペース対応</h3>
+            <p>ゲストスペース内のアプリでも使えます。ゲストスペースには組織選択フィールドを置けないため、対象はユーザー選択とグループ選択です。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- プラン -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料のままでも、<strong>設定 1 つ</strong>を、同じ型のフィールド（組織選択なら組織選択）を元にして使えます。権限の事故を防ぐ機能（上の組織・誰も入らないときの相手・保存前の警告・下見など）は、<strong>無料の範囲</strong>です。設定の複数化、値や表の列を元にすること、下の組織、変更の記録、ズレの自動点検が、プレミアム年間サポーターで解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ 保存時の自動計算（設定 1 つ）</li>
+              <li>✅ 組織・ユーザー・グループ選択の値をそのまま入れる</li>
+              <li>✅ 上の組織にも見せる・いつも入れる／入れない相手</li>
+              <li>✅ 誰も入らないときの相手・保存前の警告・入力画面のロック</li>
+              <li>✅ 見せる相手の内訳・今あるレコードへの一括反映（下見つき）</li>
+              <li>✅ 組織構成の変化のお知らせ・ルックアップ自動同期との連携</li>
+              <li>✅ 利用期限なし（設定画面に控えめな広告あり）</li>
+            </ul>
+            <a href="/downloads/kw-record-acl-assist-v1.0.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+          </div>
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>設定を複数</strong>持てる（見せる相手のフィールドごとに）</li>
+              <li>✅ <strong>選択肢・文字列・テーブルの列</strong>の値で相手を決める（対応表）</li>
+              <li>✅ <strong>下の組織</strong>にも見せる</li>
+              <li>✅ <strong>変更の記録</strong>・<strong>ズレの自動点検</strong></li>
+              <li>✅ プラグイン内の<strong>広告非表示</strong></li>
+              <li>✅ 販売中の<strong>全プラグイン</strong>も対象（契約期間中に新しく公開されるプラグインも追加料金なし）</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta">プレミアム年間サポーターを見る →</a>
+          </div>
+        </div>
+
+        <ResellerCard />
+
+        <h3 class="afp-plan-compare-head">機能の詳細比較</h3>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>機能</th><th class="c">無料プラン</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>動かせる設定の数</td><td class="c">1つ</td><td class="c">無制限</td></tr>
+              <tr><td><strong>選択肢・文字列・テーブルの列を元にする（対応表）</strong></td><td class="c">—</td><td class="c">○</td></tr>
+              <tr><td><strong>下の組織にも見せる</strong></td><td class="c">—</td><td class="c">○</td></tr>
+              <tr><td><strong>変更の記録</strong></td><td class="c">—</td><td class="c">○</td></tr>
+              <tr><td><strong>ズレの自動点検</strong></td><td class="c">—</td><td class="c">○</td></tr>
+              <tr><td>同じ型のフィールドを元にする</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>上の組織にも見せる（ここで止める）</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>いつも入れる相手・入れない相手</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>誰も入らないときの相手</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>入力画面でのロック・保存前の警告</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>見せる相手の内訳の表示</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>今あるレコードへの一括反映（下見・CSV・中止）</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>組織構成の変化のお知らせ</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>ルックアップ自動同期との連携</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>ライブプレビュー</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>モバイル（保存時の計算）・ゲストスペース対応</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>設定画面の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="afp-note" style="margin-top:20px;">プレミアムの期限が切れても<strong>設定は消えません</strong>。有効な設定の先頭 1 つが、無料の範囲で動く状態に戻り、再加入すればすぐ元へ戻ります。</div>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ご利用にあたっての注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li><strong>アクセス権そのものは、このプラグインでは変更しません。</strong>見せる相手のフィールドに値を入れるだけです。誰が見られるかの判定は kintone が行うため、導入前に、検証用のアプリで見られる範囲をご確認ください。</li>
+            <li><strong>アクセス権のルールは、条件に当たった最初のルールだけが使われます。</strong>見せる相手のフィールドを使うルールより上に、同じレコードに当たるルールを置かないでください。</li>
+            <li><strong>レコードのアクセス権は、アプリ管理者にも効きます。</strong>管理者用の対象（グループなど）を同じルールに入れてください。入れないと、管理者もレコードを見られず、今あるレコードへの反映もできません。</li>
+            <li><strong>見せる相手のフィールドは、保存のたびに作り直します。</strong>手で足した値は残りません。必ず入れたい相手は「いつも入れる相手」に指定してください。</li>
+            <li><strong>画面を通さずに登録・更新したレコードでは、計算されません。</strong>CSV の読み込み、REST API、他社プラグインの書き込みが該当します。「今あるレコードに反映」で入れ直してください。ズレの自動点検（プレミアム）でも気づけます。</li>
+            <li><strong>今あるレコードへの反映・ルックアップ自動同期との連携は、実行する人に見えるレコードだけが対象です。</strong>見えないレコードは入れ直されません。</li>
+            <li>保存前の警告は、一覧の編集とプロセス管理の操作では出ません。確認を挟めないためです。</li>
+            <li>見せる相手のフィールドを、フィールドのアクセス権で「閲覧のみ」にすることはおすすめしません。保存時に入れる値が受け付けられないおそれがあります。手で書き換えられないようにするには、設定の「入力画面での動き」をお使いください。</li>
+            <li>廃止された組織・存在しないグループやユーザーのコードは、kintone が黙って落とします。このプラグインは、組織の一覧と突き合わせて無効なコードを除き、お知らせします。</li>
+            <li>ゲストスペース内のアプリには、組織選択フィールドを置けません。対象はユーザー選択とグループ選択です。</li>
+            <li>ルール表アプリ・記録用アプリは、設定画面から自動で作成します。ルール表アプリを編集できる人は、見せる相手の対応を変えられるため、必要な人にだけ権限を付けてください。</li>
+            <li>プラグインの設定は「丸ごと保存」する仕組みのため、<strong>設定画面を2つ同時に開いて保存すると片方の変更が失われます</strong>。1つずつ保存してください。</li>
+            <li>アプリからプラグインを<strong>「利用を解除」すると設定が破棄されます</strong>。一時的に止めたいだけのときは「無効にする」をお使いください。</li>
+            <li>本プラグインはサイボウズ社の製品ではありません。kintone はサイボウズ株式会社の登録商標です。</li>
+            <li>推奨ブラウザは Google Chrome / Microsoft Edge です。</li>
+            <li>本プラグインの利用により生じた損害について、当社は責任を負いかねます。配布 zip に秘密鍵（ppk）は含まれません。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- よくある質問（表示と FAQPage JSON-LD は src/data/premium-faqs.ts を共有） -->
+    <PremiumFaqSection
+      pluginId="kw-record-acl-assist"
+      pageUrl="https://kizuna-works.jp/plugins/record-acl-assist/"
+      headingClass="afp-h2"
+    />
+
+    <!-- セキュリティ -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <SecurityBox pluginId="kw-record-acl-assist" />
+        <ShareButtons title="レコード権限アシスト for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>レコードの内容に合わせて、見られる組織・人を自動で設定。</h2>
+      <p>レコード権限アシストはプレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料プランでも、設定 1 つでお使いいただけます。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox" id="raa-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var lightbox = document.getElementById('raa-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+
+      // The download button appears in the hero and in the plan card, so track both
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: 'kw-record-acl-assist-v1.0.0.zip',
+              file_extension: 'zip',
+              link_text: '無料でダウンロード',
+              link_url: '/downloads/kw-record-acl-assist-v1.0.0.zip'
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

@@ -51,10 +51,10 @@ import HeroDownload from '../../../components/HeroDownload.astro';
           "name": "ルックアップ自動同期 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.3.2",
-          "dateModified": "2026-10-20",
+          "softwareVersion": "2.4.0",
+          "dateModified": "2026-10-24",
           "url": "https://kizuna-works.jp/plugins/lookup-sync/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-sync-v2.3.2.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-sync-v2.4.0.zip",
           "image": "https://kizuna-works.jp/images/lookup-sync-banner.png",
           "offers": [
             {
@@ -90,6 +90,7 @@ import HeroDownload from '../../../components/HeroDownload.astro';
             "ルックアップをクリアしたときに、同期で取得した項目も確認ダイアログでまとめて空に戻せる（方式2・v2.2.0）",
             "マスターを変えても書き換えたくない項目（配送先の住所・電話番号など）を自動更新から外せる。外した項目は取得したときだけマスターの値が入る（v2.3.0）",
             "画面を通さずに登録したレコード（CSV 読み込みなど）の、外した項目が空のものだけをあとからマスターの値で埋められる（v2.3.0）",
+            "レコード権限アシストとの連携：同期した参照先レコードの「見せる相手」も計算し直して、同期と同じ書き込みで更新する（v2.4.0）",
             "kintone 完結・外部送信なし・ゲストスペース対応"
           ]
         }
@@ -315,12 +316,12 @@ import HeroDownload from '../../../components/HeroDownload.astro';
       <img class="afp-hero-icon" src="/images/lookup-sync-icon.png" alt="ルックアップ自動同期 for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v2.3.2</span>
+        <span class="afp-hero-version">v2.4.0</span>
       </div>
       <h1>ルックアップ自動同期 for kintone</h1>
       <p class="afp-tagline">マスターを直せば、参照先も自動で最新に。</p>
       <p class="afp-sub">ルックアップ元（マスター）のレコードを更新すると、その値をコピーした参照先アプリの既存レコードを自動で追従更新。会社名・商品名のように重複しうるキーにも2つの同期方式で対応し、「マスターは直したのに、コピー済みの値が古いまま」を解消します。ルックアップをクリアしたときは、同期で取得した項目も確認のうえまとめて空へ戻せます。配送先の住所など、登録した時点の値を残したい項目は自動更新から外せます。</p>
-      <HeroDownload href="/downloads/kw-lookup-sync-v2.3.2.zip" />
+      <HeroDownload href="/downloads/kw-lookup-sync-v2.4.0.zip" />
     </section>
     <div class="afp-hero-gradient-line"></div>
 
@@ -464,6 +465,10 @@ import HeroDownload from '../../../components/HeroDownload.astro';
           <div class="afp-feat-card">
             <h3>複数参照・複数ルックアップ</h3>
             <p>1つのマスターを複数のアプリが参照していても、1つのアプリに複数のルックアップがあっても、対象ごとに個別検出・独立して同期します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>レコード権限アシストとの連携</h3>
+            <p>同期した参照先のレコードも、<a href="/plugins/record-acl-assist/">レコード権限アシスト</a>で決めた「見せる相手」を計算し直し、同期と同じ書き込みで更新します。対象のアプリごとにオンにします（v2.4.0）。</p>
           </div>
           <div class="afp-feat-card">
             <h3>必要なときだけ動く</h3>
@@ -641,7 +646,7 @@ import HeroDownload from '../../../components/HeroDownload.astro';
               <li>✅ 反映件数は無制限・利用期限なし</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-lookup-sync-v2.3.2.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-lookup-sync-v2.4.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="afp-plan-card recommended">
@@ -800,10 +805,10 @@ import HeroDownload from '../../../components/HeroDownload.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-lookup-sync-v2.3.2.zip',
+            file_name: 'kw-lookup-sync-v2.4.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-lookup-sync-v2.3.2.zip'
+            link_url: '/downloads/kw-lookup-sync-v2.4.0.zip'
           });
         });
       }
