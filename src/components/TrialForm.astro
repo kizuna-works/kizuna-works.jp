@@ -19,12 +19,15 @@ const p = isPro ? 'tfp' : 'tf';
 <section class="tf-section" id={isPro ? 'pro-trial-form' : 'trial-form'} data-prefix={p} data-plan-type={mode}>
   <div class="tf-inner">
     <div class="tf-card">
-      <h2 class="tf-title">{isPro ? 'KIZUNA Pro 拡張パックの無料体験を申し込む' : '無料体験を申し込む'}</h2>
+      <h2 class="tf-title">{isPro ? 'KIZUNA Pro 拡張パックの無料体験を申し込む' : 'KIZUNA Pro 年間サポーターの無料体験を申し込む'}</h2>
       <p class="tf-lead">
         {isPro
           ? 'プレミアム年間サポーターをご契約中のドメインが対象です。下記をご入力ください。カード登録は不要です。送信後に届く確認メールのリンクから確定すると、体験が始まります。'
-          : '下記をご入力ください。カード登録は不要です。送信後に届く確認メールのリンクから確定すると、体験が始まります。'}
+          : 'プレミアム年間サポーターをご契約でないドメインが対象です。下記をご入力ください。カード登録は不要です。送信後に届く確認メールのリンクから確定すると、体験が始まります。'}
       </p>
+      {!isPro && (
+        <p class="tf-lead tf-lead-switch">プレミアム年間サポーターをご契約中の方は、<a href="#pro-trial">KIZUNA Pro 拡張パックの無料体験</a>からお申し込みください。</p>
+      )}
 
       <form id={`${p}-form`} class="tf-form" novalidate data-endpoint={LICENSE_GAS_URL}>
         <div class="tf-group">
@@ -169,6 +172,15 @@ const p = isPro ? 'tfp' : 'tf';
     font-size: 0.95rem;
     line-height: 1.7;
     margin: 0 0 32px;
+  }
+
+  .tf-lead-switch {
+    margin-top: -20px;
+  }
+
+  .tf-lead-switch a {
+    color: #2E8B2E;
+    font-weight: 700;
   }
 
   .tf-group {

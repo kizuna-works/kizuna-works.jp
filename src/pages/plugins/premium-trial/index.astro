@@ -2,7 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import TrialForm from '../../../components/TrialForm.astro';
 import { plugins, proPlugins, premiumOnlyPlugins as premiumPlugins } from '../../../data/plugins';
-import { PRICE_REVISION_LIVE, PRO_ADDON, PRO_SET_PLAN, yen } from '../../../data/pricing';
+import { PRICE_REVISION_LIVE, PREMIUM_PLAN, PRO_ADDON, PRO_SET_PLAN, yen } from '../../../data/pricing';
 
 const availablePremium = premiumPlugins.filter((p) => p.status === 'available');
 const availableChokotto = plugins.filter((p) => p.status === 'available');
@@ -44,6 +44,10 @@ const faqs = [
   {
     q: 'プレミアム年間サポーターを契約中です。KIZUNA Pro だけ試せますか？',
     a: 'はい。プレミアム年間サポーターをご契約中の方は、KIZUNA Pro 拡張パックだけを30日間無料でお試しいただけます。カード登録は不要で、自動課金もありません。1つの kintone ドメインにつき1回までです。プレミアム未契約・体験済み・拡張パックをご契約中のドメインは対象外で、その場合もメールでお知らせします。',
+  },
+  {
+    q: 'プレミアム年間サポーターの無料体験中です。KIZUNA Pro プラグインも使えますか？',
+    a: 'はい。2026年10月25日から、プレミアム年間サポーターの無料体験中のドメインでも KIZUNA Pro プラグインをお使いいただけるようになりました。お申し込みは不要で、今の体験の終了日までご利用いただけます。',
   },
   {
     q: '前に体験を使いましたが、もう一度試せますか？',
@@ -133,8 +137,24 @@ const jsonLd = {
         <p class="pt-hero-sub">
           KIZUNA Pro 年間サポーターとして、KIZUNA Works のちょこっと＆プレミアム＆KIZUNA Pro プラグインすべてを30日間、広告なし・全機能制限なしでお試しいただけます。カード登録不要・自動課金なし。まずは全部使ってから決められます。
         </p>
-        <a href="#trial-form" class="pt-hero-cta">無料で体験を始める</a>
-        <p class="pt-hero-pro-link"><a href="#pro-trial">プレミアム年間サポーターをご契約中の方は、KIZUNA Pro 拡張パックだけを試せます →</a></p>
+        <div class="pt-choose">
+          <a href="#trial-form" class="pt-choose-card">
+            <span class="pt-choose-who">プレミアム年間サポーターをご契約でない方</span>
+            <span class="pt-choose-what">KIZUNA Pro 年間サポーターを30日間無料体験</span>
+            <span class="pt-choose-detail">ちょこっと＆プレミアム＆KIZUNA Pro プラグインすべて</span>
+            <span class="pt-choose-btn">無料で体験を始める</span>
+          </a>
+          <a href="#pro-trial" class="pt-choose-card pt-choose-card-pro">
+            <span class="pt-choose-who">プレミアム年間サポーターをご契約中の方</span>
+            <span class="pt-choose-what">KIZUNA Pro 拡張パックを30日間無料体験</span>
+            <span class="pt-choose-detail">KIZUNA Pro プラグインすべて</span>
+            <span class="pt-choose-btn">拡張パックを無料で試す</span>
+          </a>
+        </div>
+        <div class="pt-hero-notice">
+          <strong>プレミアム年間サポーターの無料体験中の方へ</strong>
+          2026年10月25日から、体験中のドメインでは KIZUNA Pro プラグインもお使いいただけるようになりました。<strong>お申し込みは不要</strong>で、今の体験の終了日までご利用いただけます。<a href="/plugins/kizuna-pro/">KIZUNA Pro プラグインの一覧</a>からインストールしてお試しください。
+        </div>
         <p class="pt-hero-note">
           お申し込み後に届く確認メールから確定すると、すぐに使い始められます。期間終了後は自動的に無料版に戻り、KIZUNA Pro プラグインのルールは止まります（設定は残ります・勝手に課金されません）。
         </p>
@@ -229,18 +249,27 @@ const jsonLd = {
     <section class="pt-section">
       <div class="pt-inner pt-inner-narrow">
         <h2 class="pt-h2">体験のあとは</h2>
-        <div class="pt-price-card">
-          <div class="pt-price-name">プレミアム年間サポーター</div>
-          <div class="pt-price-amount">¥16,500<span class="pt-price-unit"> / 年（税込）</span></div>
-          <div class="pt-price-sub">税抜 ¥15,000 ／ 月額換算 約 1,250 円 ・ ちょこっと＆プレミアムプラグインすべてが対象</div>
-          <p class="pt-price-logic">
-            {PRICE_REVISION_LIVE ? (
-              <><strong>プレミアムプラグインも使うならプレミアム年間サポーター</strong>です。ちょこっとプラグインだけなら年間サポーター（¥8,250/年）もお選びいただけます。</>
-            ) : (
-              <><strong>5プラグイン以上ご利用なら、年間サポーター（1プラグイン ¥3,300/年）を個別に買うよりお得</strong>です。プラグインが増えるほど、まとめて使えるプレミアムの価値が上がります。</>
-            )}
-          </p>
+        <div class="pt-prices">
+          <a class="pt-price-card pt-price-card-pro" href="/plugins/supporter/?plan=pro_set">
+            <div class="pt-price-name">{PRO_SET_PLAN.name}</div>
+            <div class="pt-price-amount">{yen(PRO_SET_PLAN.priceInTax)}<span class="pt-price-unit"> / 年（税込）</span></div>
+            <div class="pt-price-sub">税抜 {yen(PRO_SET_PLAN.priceExTax)} ／ 月額換算 約 {Math.round(PRO_SET_PLAN.priceExTax / 12).toLocaleString('ja-JP')} 円<br />{PRO_SET_PLAN.scope}が対象</div>
+            <span class="pt-price-btn">申し込みページへ</span>
+          </a>
+          <a class="pt-price-card" href="/plugins/supporter/?plan=all">
+            <div class="pt-price-name">{PREMIUM_PLAN.name}</div>
+            <div class="pt-price-amount">{yen(PREMIUM_PLAN.priceInTax)}<span class="pt-price-unit"> / 年（税込）</span></div>
+            <div class="pt-price-sub">税抜 {yen(PREMIUM_PLAN.priceExTax)} ／ 月額換算 約 {Math.round(PREMIUM_PLAN.priceExTax / 12).toLocaleString('ja-JP')} 円<br />{PREMIUM_PLAN.scope}が対象</div>
+            <span class="pt-price-btn">申し込みページへ</span>
+          </a>
         </div>
+        <p class="pt-price-logic">
+          {PRICE_REVISION_LIVE ? (
+            <><strong>KIZUNA Pro プラグインも続けて使うなら KIZUNA Pro 年間サポーター、プレミアムプラグインまでならプレミアム年間サポーター</strong>です。ちょこっとプラグインだけなら年間サポーター（¥8,250/年）もお選びいただけます。</>
+          ) : (
+            <><strong>5プラグイン以上ご利用なら、年間サポーター（1プラグイン ¥3,300/年）を個別に買うよりお得</strong>です。プラグインが増えるほど、まとめて使えるプレミアムの価値が上がります。</>
+          )}
+        </p>
 
         <div class="pt-scope">
           <div class="pt-scope-col pt-scope-yes">
@@ -262,7 +291,7 @@ const jsonLd = {
         </div>
 
         <p class="pt-note-small">
-          体験のあとも KIZUNA Pro プラグインを続けるときは、<a href="/plugins/supporter/?plan=pro_set"><strong>{PRO_SET_PLAN.name}</strong>（{yen(PRO_SET_PLAN.priceInTax)}/年・税込）</a>、またはプレミアム年間サポーターへの<a href="/plugins/supporter/?plan=pro_add"><strong>{PRO_ADDON.name}</strong>の追加</a>（{yen(PRO_ADDON.priceInTax)}/年・税込）にお申し込みください。
+          すでにプレミアム年間サポーターをご契約中の方は、<a href="/plugins/supporter/?plan=pro_add"><strong>{PRO_ADDON.name}</strong>の追加</a>（{yen(PRO_ADDON.priceInTax)}/年・税込）で、体験のあとも KIZUNA Pro プラグインを続けてお使いいただけます。
         </p>
 
         <p class="pt-note-small">
@@ -413,24 +442,6 @@ const jsonLd = {
     line-height: 1.9;
     margin: 0 0 32px;
     color: #e8eef7;
-  }
-
-  .pt-hero-cta {
-    display: inline-block;
-    background-color: #2E8B2E;
-    color: #FFFFFF;
-    font-size: 1.15rem;
-    font-weight: 700;
-    padding: 16px 48px;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-  }
-
-  .pt-hero-cta:hover {
-    background-color: #3aa63a;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
   }
 
   .pt-hero-note {
@@ -610,14 +621,55 @@ const jsonLd = {
     max-width: 720px;
   }
 
-  /* Pricing */
+  /* Pricing: Pro set and Premium side by side */
+  .pt-prices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
   .pt-price-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
     background-color: #FFFFFF;
     border: 2px solid #2E8B2E;
     border-radius: 12px;
-    padding: 36px 32px;
+    padding: 28px 20px 22px;
     text-align: center;
-    margin-bottom: 32px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .pt-price-card-pro {
+    border-color: #c9a227;
+  }
+
+  .pt-price-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(27, 58, 107, 0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .pt-price-btn {
+    display: block;
+    margin-top: auto;
+    background-color: #2E8B2E;
+    color: #FFFFFF;
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 10px 16px;
+  }
+
+  .pt-price-card-pro .pt-price-btn {
+    background-color: #1B3A6B;
+  }
+
+  @media (max-width: 640px) {
+    .pt-prices {
+      grid-template-columns: 1fr;
+    }
   }
 
   .pt-price-name {
@@ -628,7 +680,7 @@ const jsonLd = {
   }
 
   .pt-price-amount {
-    font-size: 2.5rem;
+    font-size: 2.1rem;
     font-weight: 900;
     color: #1B3A6B;
   }
@@ -649,7 +701,7 @@ const jsonLd = {
     font-size: 0.95rem;
     line-height: 1.9;
     color: #333;
-    margin: 0;
+    margin: 0 0 32px;
     text-align: left;
   }
 
@@ -780,14 +832,101 @@ const jsonLd = {
     font-weight: 700;
   }
 
-  .pt-hero-pro-link {
-    margin: 18px 0 0;
-    font-size: 0.92rem;
+  /* Hero: pick which trial applies */
+  .pt-choose {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    text-align: left;
   }
 
-  .pt-hero-pro-link a {
+  .pt-choose-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+    background-color: #FFFFFF;
+    color: #333333;
+    border-radius: 12px;
+    padding: 20px 20px 18px;
+    text-decoration: none;
+    border-top: 5px solid #2E8B2E;
+  }
+
+  .pt-choose-card-pro {
+    border-top-color: #c9a227;
+  }
+
+  .pt-choose-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .pt-choose-who {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #64748b;
+  }
+
+  .pt-choose-what {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #1B3A6B;
+    line-height: 1.5;
+  }
+
+  .pt-choose-detail {
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  .pt-choose-btn {
+    display: block;
+    text-align: center;
+    background-color: #2E8B2E;
+    color: #FFFFFF;
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: auto;
+  }
+
+  .pt-choose-detail {
+    margin-bottom: 10px;
+  }
+
+  .pt-choose-card-pro .pt-choose-btn {
+    background-color: #1B3A6B;
+  }
+
+  .pt-hero-notice {
+    margin: 20px 0 0;
+    padding: 14px 18px;
+    text-align: left;
+    background-color: rgba(240, 213, 138, 0.14);
+    border: 1px solid rgba(240, 213, 138, 0.6);
+    border-radius: 10px;
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: #FFFFFF;
+  }
+
+  .pt-hero-notice strong:first-child {
+    display: block;
+    color: #f0d58a;
+  }
+
+  .pt-hero-notice a {
     color: #FFFFFF;
     text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .pt-choose {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* Links */
