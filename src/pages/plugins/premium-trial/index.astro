@@ -179,7 +179,22 @@ const jsonLd = {
           KIZUNA Pro 年間サポーターと同じ状態を、そのまま30日間お試しいただけます。プレミアムプラグイン{premiumCount}個は無料プランで制限されている機能もすべて解放され、ちょこっとプラグイン{chokottoCount}個は広告が非表示になります。さらに、KIZUNA Pro プラグインもご利用いただけます。
         </p>
 
-        <h3 class="pt-plugins-sub">プレミアムプラグイン{premiumCount}個 ── 全機能が解放されます</h3>
+        <h3 class="pt-plugins-sub">KIZUNA Pro プラグイン ── 体験中は使えます</h3>
+        <div class="pt-plugins">
+          {availablePro.map((p) => (
+            <a class="pt-plugin-card" href={`/plugins/${p.slug}/`}>
+              <div class="pt-plugin-thumb">
+                <img src={p.image} alt={p.imageAlt} width={p.imageWidth} height={p.imageHeight} loading="lazy" />
+              </div>
+              <div class="pt-plugin-body">
+                <h3 class="pt-plugin-name">{p.name}</h3>
+                <p class="pt-plugin-desc">{p.cardDescription}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <h3 class="pt-plugins-sub pt-plugins-sub-2">プレミアムプラグイン{premiumCount}個 ── 全機能が解放されます</h3>
         <div class="pt-plugins">
           {availablePremium.map((p) => (
             <a class="pt-plugin-card" href={`/plugins/${p.slug}/`}>
@@ -200,21 +215,6 @@ const jsonLd = {
             <a class="pt-icon-item" href={`/plugins/${p.slug}/`} title={p.name}>
               <img class="pt-icon-img" src={iconPath(p.slug)} alt={`${p.name} のアイコン`} width="200" height="200" loading="lazy" />
               <span class="pt-icon-name">{p.name.replace(/ for kintone$/, '')}</span>
-            </a>
-          ))}
-        </div>
-
-        <h3 class="pt-plugins-sub pt-plugins-sub-2">KIZUNA Pro プラグイン ── 体験中は使えます</h3>
-        <div class="pt-plugins">
-          {availablePro.map((p) => (
-            <a class="pt-plugin-card" href={`/plugins/${p.slug}/`}>
-              <div class="pt-plugin-thumb">
-                <img src={p.image} alt={p.imageAlt} width={p.imageWidth} height={p.imageHeight} loading="lazy" />
-              </div>
-              <div class="pt-plugin-body">
-                <h3 class="pt-plugin-name">{p.name}</h3>
-                <p class="pt-plugin-desc">{p.cardDescription}</p>
-              </div>
             </a>
           ))}
         </div>
