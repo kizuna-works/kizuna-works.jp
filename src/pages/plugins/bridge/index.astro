@@ -332,6 +332,7 @@ const faqJsonLd = {
     .kbp-partner-tier { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 1px 8px; border-radius: 10px; margin-bottom: 6px; }
     .kbp-partner-tier.free { background: #e7f5e7; color: #1f5c1f; }
     .kbp-partner-tier.premium { background: #fdf4d9; color: #77590a; }
+    .kbp-partner-tier.pro { background: #1B3A6B; color: #f0d58a; }
     .kbp-partner-role { display: block; font-size: 0.88rem; line-height: 1.7; color: var(--kbp-text); }
 
     /* Feature summary list */
@@ -662,7 +663,9 @@ const faqJsonLd = {
                     <img class="kbp-partner-icon" src={iconOf(p)} alt="" width="48" height="48" loading="lazy" />
                     <span class="kbp-partner-body">
                       <span class="kbp-partner-name">{p.name}</span>
-                      {p.tier === 'premium' ? (
+                      {p.tier === 'pro' ? (
+                        <span class="kbp-partner-tier pro">KIZUNA Pro プラグイン</span>
+                      ) : p.tier === 'premium' ? (
                         <span class="kbp-partner-tier premium">プレミアムプラグイン</span>
                       ) : (
                         <span class="kbp-partner-tier free">ちょこっとプラグイン</span>
