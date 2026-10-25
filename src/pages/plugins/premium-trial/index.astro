@@ -1,11 +1,12 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import TrialForm from '../../../components/TrialForm.astro';
-import { plugins, premiumPlugins } from '../../../data/plugins';
-import { PRICE_REVISION_LIVE } from '../../../data/pricing';
+import { plugins, proPlugins, premiumOnlyPlugins as premiumPlugins } from '../../../data/plugins';
+import { PRICE_REVISION_LIVE, PRO_ADDON, PRO_SET_PLAN, yen } from '../../../data/pricing';
 
 const availablePremium = premiumPlugins.filter((p) => p.status === 'available');
 const availableChokotto = plugins.filter((p) => p.status === 'available');
+const availablePro = proPlugins.filter((p) => p.status === 'available');
 const premiumCount = availablePremium.length;
 const chokottoCount = availableChokotto.length;
 const totalCount = premiumCount + chokottoCount;
@@ -18,9 +19,9 @@ const iconPath = (slug: string): string =>
 
 const pageUrl = 'https://kizuna-works.jp/plugins/premium-trial/';
 const pageTitle =
-  'プレミアム年間サポーター 30日間無料体験 | KIZUNA Works';
+  'プレミアム年間サポーター 30日間無料体験（KIZUNA Pro 含む）| KIZUNA Works';
 const pageDesc =
-  'kintone プラグインのプレミアム年間サポーター（全プラグイン対象）を30日間無料でお試し。カード登録不要・自動課金なし。全プレミアムプラグインの全機能を広告なしで体験できます。個別サポーターからの乗り換えは初回1年+60日。';
+  'kintone プラグインのプレミアム年間サポーター（ちょこっと＆プレミアム＆KIZUNA Pro プラグインすべて）を30日間無料でお試し。カード登録不要・自動課金なし。全機能を広告なしで体験でき、契約中の方は KIZUNA Pro 拡張パックだけの体験も可能です。';
 
 // FAQ — keep the on-page Q&A and this JSON-LD identical.
 const faqs = [
@@ -34,11 +35,23 @@ const faqs = [
   },
   {
     q: '無料体験には何が含まれますか？',
-    a: 'プレミアム年間サポーターと同じ状態になり、ちょこっとプラグイン・プレミアムプラグインを問わず、販売中の全プラグインの全機能を広告非表示でご利用いただけます。なお、HP のサポーター一覧へのロゴ掲載は有料のプレミアム年間サポーター特典のため、体験には含まれません。',
+    a: 'プレミアム年間サポーターと同じ状態になり、ちょこっと＆プレミアムプラグインすべての全機能を広告非表示でご利用いただけます。さらに、体験中は KIZUNA Pro プラグイン（KIZUNAブリッジ for kintone など）もご利用いただけます。なお、HP のサポーター一覧へのロゴ掲載は有料のプレミアム年間サポーター特典のため、体験には含まれません。',
+  },
+  {
+    q: '体験が終わると、KIZUNA Pro プラグインはどうなりますか？',
+    a: '体験が終わると KIZUNA Pro プラグインのルールは止まりますが、設定は消えません。続けてお使いになるときは、KIZUNA Pro 年間サポーター（プレミアム年間サポーター＋KIZUNA Pro 拡張パック）、またはプレミアム年間サポーターへの KIZUNA Pro 拡張パックの追加にお申し込みください。申し込み後は、保存済みの設定のまま動きます。',
+  },
+  {
+    q: 'プレミアム年間サポーターを契約中です。KIZUNA Pro だけ試せますか？',
+    a: 'はい。プレミアム年間サポーターをご契約中の方は、KIZUNA Pro 拡張パックだけを30日間無料でお試しいただけます。カード登録は不要で、自動課金もありません。1つの kintone ドメインにつき1回までです。プレミアム未契約・体験済み・拡張パックをご契約中のドメインは対象外で、その場合もメールでお知らせします。',
+  },
+  {
+    q: '前に体験を使いましたが、もう一度試せますか？',
+    a: '新しい KIZUNA Pro プラグインが公開されたときは、前回の体験の終了から90日以上たっていれば、もう一度30日間お試しいただけます（体験の途中の方・拡張パックをご契約中の方は対象外です）。再体験の中身は、プレミアム年間サポーターをご契約中の方は KIZUNA Pro 拡張パックだけ、未契約の方はプレミアム年間サポーター＋KIZUNA Pro 拡張パックです。申し込みは、これまでと同じ申込欄から行います。結果はメールでお知らせします。',
   },
   {
     q: '誰でも体験できますか？',
-    a: '1つの kintone ドメインにつき体験は1回までです。すでにプレミアム年間サポーターをご契約中、または過去にプレミアムをご利用・体験済みのドメインは対象外です。' + (PRICE_REVISION_LIVE ? '年間サポーターをご利用中の方も体験いただけます。' : '個別の年間サポーターをご利用中の方は体験いただけます。'),
+    a: '1つの kintone ドメインにつき体験は1回までです（新しい KIZUNA Pro プラグインが出たときは、もう一度お試しいただけます）。すでにプレミアム年間サポーターをご契約中、または過去にプレミアムをご利用・体験済みのドメインは対象外です。' + (PRICE_REVISION_LIVE ? '年間サポーターをご利用中の方も体験いただけます。' : '個別の年間サポーターをご利用中の方は体験いただけます。'),
   },
   {
     q: PRICE_REVISION_LIVE
@@ -77,12 +90,12 @@ const jsonLd = {
       '@type': 'HowTo',
       '@id': pageUrl + '#how-it-works',
       name: 'プレミアム年間サポーター 30日間無料体験の始め方',
-      description: '4ステップで全プラグインを30日間、広告なし・全機能で試せます。カード登録・お支払いの手続きはありません。',
+      description: '4ステップでちょこっと＆プレミアム＆KIZUNA Pro プラグインすべてを30日間、広告なし・全機能で試せます。カード登録・お支払いの手続きはありません。',
       step: [
         { '@type': 'HowToStep', position: 1, name: '申し込む', text: '会社名・メール・kintone ドメインを入力するだけ。カード登録は不要です。' },
         { '@type': 'HowToStep', position: 2, name: '確認メールで確定', text: '届いたメールのリンクを開き「申込を確定する」を押します（48時間以内）。届かないときは迷惑メールのフォルダもご確認ください。' },
-        { '@type': 'HowToStep', position: 3, name: 'すぐに使い始める', text: '確定と同時に体験が始まり、ご案内メールが届きます。対象ドメインで全プラグインが広告なし・全機能で使えます。' },
-        { '@type': 'HowToStep', position: 4, name: '30日後に決める', text: '気に入ったら続けるだけ。何もしなければ自動的に無料版に戻ります。自動課金はありません。' },
+        { '@type': 'HowToStep', position: 3, name: 'すぐに使い始める', text: '確定と同時に体験が始まり、ご案内メールが届きます。対象ドメインでちょこっと＆プレミアム＆KIZUNA Pro プラグインすべてが広告なし・全機能で使えます。' },
+        { '@type': 'HowToStep', position: 4, name: '30日後に決める', text: '気に入ったら続けるだけ。何もしなければ自動的に無料版に戻り、KIZUNA Pro プラグインのルールは止まります（設定は残ります）。自動課金はありません。' },
       ],
     },
     {
@@ -117,11 +130,12 @@ const jsonLd = {
         <span class="pt-hero-badge">30日間無料・全機能制限なし</span>
         <h1 class="pt-hero-title">「全部使ってから決める」を、30日間。</h1>
         <p class="pt-hero-sub">
-          プレミアム年間サポーターとして、KIZUNA Works の全プラグインを30日間、広告なし・全機能制限なしでお試しいただけます。カード登録不要・自動課金なし。まずは全部使ってから決められます。
+          プレミアム年間サポーターとして、KIZUNA Works のちょこっと＆プレミアム＆KIZUNA Pro プラグインすべてを30日間、広告なし・全機能制限なしでお試しいただけます。カード登録不要・自動課金なし。まずは全部使ってから決められます。
         </p>
         <a href="#trial-form" class="pt-hero-cta">無料で体験を始める</a>
+        <p class="pt-hero-pro-link"><a href="#pro-trial">プレミアム年間サポーターをご契約中の方は、KIZUNA Pro 拡張パックだけを試せます →</a></p>
         <p class="pt-hero-note">
-          お申し込み後に届く確認メールから確定すると、すぐに使い始められます。期間終了後は自動的に無料版に戻ります（勝手に課金されません）。
+          お申し込み後に届く確認メールから確定すると、すぐに使い始められます。期間終了後は自動的に無料版に戻り、KIZUNA Pro プラグインのルールは止まります（設定は残ります・勝手に課金されません）。
         </p>
       </div>
     </section>
@@ -130,7 +144,7 @@ const jsonLd = {
     <section class="pt-section">
       <div class="pt-inner">
         <h2 class="pt-h2">無料体験の仕組み</h2>
-        <p class="pt-lead">4ステップで、今日から全プラグインを試せます。お支払いの手続きはありません。</p>
+        <p class="pt-lead">4ステップで、今日からちょこっと＆プレミアム＆KIZUNA Pro プラグインすべてを試せます。お支払いの手続きはありません。</p>
         <div class="pt-steps">
           <div class="pt-step">
             <div class="pt-step-num">1</div>
@@ -145,12 +159,12 @@ const jsonLd = {
           <div class="pt-step">
             <div class="pt-step-num">3</div>
             <h3 class="pt-step-title">すぐに使い始める</h3>
-            <p class="pt-step-desc">確定と同時に体験が始まり、ご案内メールが届きます。対象ドメインで全プラグインが広告なし・全機能で使えます。</p>
+            <p class="pt-step-desc">確定と同時に体験が始まり、ご案内メールが届きます。対象ドメインでちょこっと＆プレミアム＆KIZUNA Pro プラグインすべてが広告なし・全機能で使えます。</p>
           </div>
           <div class="pt-step">
             <div class="pt-step-num">4</div>
             <h3 class="pt-step-title">30日後に決める</h3>
-            <p class="pt-step-desc">気に入ったら続けるだけ。何もしなければ自動的に無料版に戻ります。自動課金はありません。</p>
+            <p class="pt-step-desc">気に入ったら続けるだけ。何もしなければ自動的に無料版に戻り、KIZUNA Pro のルールは止まります（設定は残ります）。自動課金はありません。</p>
           </div>
         </div>
       </div>
@@ -159,9 +173,9 @@ const jsonLd = {
     <!-- Premium plugins list -->
     <section class="pt-section pt-section-alt">
       <div class="pt-inner">
-        <h2 class="pt-h2">体験中は、全{totalCount}個のプラグインが広告なし・制限なしで使えます</h2>
+        <h2 class="pt-h2">体験中は、全{totalCount}個のプラグインと KIZUNA Pro プラグインが使えます</h2>
         <p class="pt-lead">
-          プレミアム年間サポーターと同じ状態を、そのまま30日間お試しいただけます。プレミアムプラグイン{premiumCount}個は無料プランで制限されている機能もすべて解放され、ちょこっとプラグイン{chokottoCount}個は広告が非表示になります。
+          プレミアム年間サポーターと同じ状態を、そのまま30日間お試しいただけます。プレミアムプラグイン{premiumCount}個は無料プランで制限されている機能もすべて解放され、ちょこっとプラグイン{chokottoCount}個は広告が非表示になります。さらに、KIZUNA Pro プラグインもご利用いただけます。
         </p>
 
         <h3 class="pt-plugins-sub">プレミアムプラグイン{premiumCount}個 ── 全機能が解放されます</h3>
@@ -189,8 +203,23 @@ const jsonLd = {
           ))}
         </div>
 
+        <h3 class="pt-plugins-sub pt-plugins-sub-2">KIZUNA Pro プラグイン ── 体験中は使えます</h3>
+        <div class="pt-plugins">
+          {availablePro.map((p) => (
+            <a class="pt-plugin-card" href={`/plugins/${p.slug}/`}>
+              <div class="pt-plugin-thumb">
+                <img src={p.image} alt={p.imageAlt} width={p.imageWidth} height={p.imageHeight} loading="lazy" />
+              </div>
+              <div class="pt-plugin-body">
+                <h3 class="pt-plugin-name">{p.name}</h3>
+                <p class="pt-plugin-desc">{p.cardDescription}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+
         <p class="pt-note-small">
-          これだけのプラグインが、体験中はすべて無料・広告なしで使えます。契約期間中にリリースされる新しいプラグインも、追加料金なしで対象です。各プラグインの詳細は<a href="/plugins/">プラグイン一覧</a>からご確認いただけます。
+          これだけのプラグインが、体験中はすべて無料・広告なしで使えます。体験中にリリースされる新しいプラグイン（KIZUNA Pro プラグインを含む）も対象です。各プラグインの詳細は<a href="/plugins/">プラグイン一覧</a>からご確認いただけます。
         </p>
       </div>
     </section>
@@ -202,7 +231,7 @@ const jsonLd = {
         <div class="pt-price-card">
           <div class="pt-price-name">プレミアム年間サポーター</div>
           <div class="pt-price-amount">¥16,500<span class="pt-price-unit"> / 年（税込）</span></div>
-          <div class="pt-price-sub">税抜 ¥15,000 ／ 月額換算 約 1,250 円 ・ 販売中の全プラグインが対象</div>
+          <div class="pt-price-sub">税抜 ¥15,000 ／ 月額換算 約 1,250 円 ・ ちょこっと＆プレミアムプラグインすべてが対象</div>
           <p class="pt-price-logic">
             {PRICE_REVISION_LIVE ? (
               <><strong>プレミアムプラグインも使うならプレミアム年間サポーター</strong>です。ちょこっとプラグインだけなら年間サポーター（¥8,250/年）もお選びいただけます。</>
@@ -216,8 +245,9 @@ const jsonLd = {
           <div class="pt-scope-col pt-scope-yes">
             <h3 class="pt-scope-title">体験に含まれるもの</h3>
             <ul>
-              <li>全プラグイン（ちょこっとプラグイン＋プレミアムプラグイン）の全機能</li>
+              <li>ちょこっとプラグイン＋プレミアムプラグインすべての全機能</li>
               <li>すべてのプラグインで広告が非表示</li>
+              <li>KIZUNA Pro プラグイン（KIZUNAブリッジ for kintone など）</li>
               <li>期間中にリリースされる新プラグイン</li>
             </ul>
           </div>
@@ -225,9 +255,14 @@ const jsonLd = {
             <h3 class="pt-scope-title">体験に含まれないもの</h3>
             <ul>
               <li>HP サポーター一覧へのロゴ掲載（有料プレミアム特典）</li>
+              <li>体験が終わったあとの KIZUNA Pro プラグインの動作（ルールは止まります。設定は残ります）</li>
             </ul>
           </div>
         </div>
+
+        <p class="pt-note-small">
+          体験のあとも KIZUNA Pro プラグインを続けるときは、<a href="/plugins/supporter/?plan=pro_set"><strong>{PRO_SET_PLAN.name}</strong>（{yen(PRO_SET_PLAN.priceInTax)}/年・税込）</a>、またはプレミアム年間サポーターへの<a href="/plugins/supporter/?plan=pro_add"><strong>{PRO_ADDON.name}</strong>の追加</a>（{yen(PRO_ADDON.priceInTax)}/年・税込）にお申し込みください。
+        </p>
 
         <p class="pt-note-small">
           {PRICE_REVISION_LIVE ? (
@@ -256,6 +291,24 @@ const jsonLd = {
 
     <!-- Trial form -->
     <TrialForm />
+
+    <!-- KIZUNA Pro add-on pack trial (for Premium subscribers) -->
+    <section class="pt-section pt-section-pro" id="pro-trial">
+      <div class="pt-inner pt-inner-narrow">
+        <span class="pt-pro-eyebrow">KIZUNA Pro</span>
+        <h2 class="pt-h2">プレミアム年間サポーターご契約中の方：KIZUNA Pro 拡張パックを30日間無料で試す</h2>
+        <p class="pt-lead">
+          すでにプレミアム年間サポーターをご契約中の方は、<strong>KIZUNA Pro 拡張パックだけ</strong>を30日間無料でお試しいただけます。アプリどうし・プラグインどうしをルールでつなぐ <a href="/plugins/bridge/">KIZUNAブリッジ for kintone</a> など、KIZUNA Pro プラグインがすべて使えます。カード登録不要・自動課金なしです。
+        </p>
+        <ul class="pt-pro-points">
+          <li>対象は、プレミアム年間サポーターをご契約中の kintone ドメインです（1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、もう一度お試しいただけます）。</li>
+          <li>結果はご担当者のメールでお知らせします。プレミアム未契約・体験済み・拡張パックをご契約中のドメインなど、対象外の場合もメールでご案内します。</li>
+          <li>体験が終わると KIZUNA Pro プラグインのルールは止まりますが、設定は残ります。続けるときは <a href="/plugins/supporter/?plan=pro_add">{PRO_ADDON.name}の追加</a>（{yen(PRO_ADDON.priceInTax)}/年・税込）にお申し込みください。</li>
+          <li>プレミアム年間サポーターをまだご契約でない方は、上の「無料体験」に KIZUNA Pro プラグインが含まれます。</li>
+        </ul>
+      </div>
+    </section>
+    <TrialForm mode="pro_trial" />
 
     <!-- Secondary links -->
     <section class="pt-section pt-links">
@@ -679,6 +732,53 @@ const jsonLd = {
     font-size: 0.92rem;
     line-height: 1.9;
     color: #555;
+  }
+
+  /* Pro trial */
+  .pt-section-pro {
+    background-color: #FFFFFF;
+    padding-bottom: 8px;
+  }
+
+  .pt-pro-eyebrow {
+    display: block;
+    text-align: center;
+    color: #B8862B;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+  }
+
+  .pt-pro-points {
+    margin: 0 auto;
+    padding: 20px 24px 20px 40px;
+    max-width: 720px;
+    background-color: #fffaf0;
+    border: 1px solid #eadcb2;
+    border-radius: 10px;
+  }
+
+  .pt-pro-points li {
+    font-size: 0.92rem;
+    line-height: 1.9;
+    color: #444;
+  }
+
+  .pt-section-pro a,
+  .pt-note-small a {
+    color: #2E8B2E;
+    font-weight: 700;
+  }
+
+  .pt-hero-pro-link {
+    margin: 18px 0 0;
+    font-size: 0.92rem;
+  }
+
+  .pt-hero-pro-link a {
+    color: #FFFFFF;
+    text-decoration: underline;
   }
 
   /* Links */

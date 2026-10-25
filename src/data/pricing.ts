@@ -38,10 +38,34 @@ export const INDIVIDUAL_PLAN = {
 /** プレミアム年間サポーター（改定の前後で同じ） */
 export const PREMIUM_PLAN = {
   name: 'プレミアム年間サポーター',
-  scope: '販売中の全プラグイン',
+  scope: 'ちょこっと＆プレミアムプラグインすべて',
   priceExTax: 15000,
   priceInTax: 16500,
 };
+
+/**
+ * KIZUNA Pro 拡張パック（プレミアム年間サポーターに追加するプラン。単品では売らない・年間サポーター（ちょこっと）には足せない）。
+ * 途中追加（pro_add）は GAS が残り月数で 1 年分／月割りを決めるので、ここの金額は 1 年分。
+ */
+export const PRO_ADDON = {
+  name: 'KIZUNA Pro 拡張パック',
+  scope: 'KIZUNA Pro プラグインすべて',
+  priceExTax: 10000,
+  priceInTax: 11000,
+};
+
+/** KIZUNA Pro 年間サポーター＝プレミアム年間サポーター＋KIZUNA Pro 拡張パック（セット） */
+export const PRO_SET_PLAN = {
+  name: 'KIZUNA Pro 年間サポーター',
+  scope: 'ちょこっと＆プレミアム＆KIZUNA Pro プラグインすべて',
+  priceExTax: PREMIUM_PLAN.priceExTax + PRO_ADDON.priceExTax,   // 25,000
+  priceInTax: PREMIUM_PLAN.priceInTax + PRO_ADDON.priceInTax,   // 27,500
+  monthlyInTax: 2292,   // 27,500 / 12 = 2,291.7
+};
+
+/** 拡張パックの標準の説明文（HP・Square 共通。ブリッジ限定に読める書き方にしない） */
+export const PRO_ADDON_DESCRIPTION =
+  'プレミアム年間サポーターに追加していただくプランです。KIZUNA Works の上位版のプラグイン「KIZUNA Pro プラグイン」をすべてお使いいただけます。アプリをまたぐ作業もプラグインの連携も自動化する「KIZUNAブリッジ for kintone」をはじめ、今後リリースされる KIZUNA Pro プラグインも追加料金なしで順次ご利用いただけます。';
 
 /** 今の年間サポーター（改定の前後で切り替わる） */
 export const SUPPORTER_PLAN = PRICE_REVISION_LIVE ? CHOKO_PLAN : INDIVIDUAL_PLAN;

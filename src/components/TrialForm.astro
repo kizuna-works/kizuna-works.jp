@@ -5,30 +5,41 @@ import { LICENSE_GAS_URL } from '../data/licenseEndpoint';
 // Only the fields needed to issue a domain-based trial license are collected.
 // The eligibility result (accepted / not eligible) is returned to the user by
 // email, because the no-cors POST cannot read the response.
+// mode="pro_trial" posts planType='pro_trial' (KIZUNA Pro add-on pack trial for
+// Premium subscribers). Both modes can sit on one page, so every element id is
+// prefixed per mode (tf / tfp).
+interface Props {
+  mode?: 'trial' | 'pro_trial';
+}
+const { mode = 'trial' } = Astro.props;
+const isPro = mode === 'pro_trial';
+const p = isPro ? 'tfp' : 'tf';
 ---
 
-<section class="tf-section" id="trial-form">
+<section class="tf-section" id={isPro ? 'pro-trial-form' : 'trial-form'} data-prefix={p} data-plan-type={mode}>
   <div class="tf-inner">
     <div class="tf-card">
-      <h2 class="tf-title">無料体験を申し込む</h2>
+      <h2 class="tf-title">{isPro ? 'KIZUNA Pro 拡張パックの無料体験を申し込む' : '無料体験を申し込む'}</h2>
       <p class="tf-lead">
-        下記をご入力ください。カード登録は不要です。送信後に届く確認メールのリンクから確定すると、体験が始まります。
+        {isPro
+          ? 'プレミアム年間サポーターをご契約中のドメインが対象です。下記をご入力ください。カード登録は不要です。送信後に届く確認メールのリンクから確定すると、体験が始まります。'
+          : '下記をご入力ください。カード登録は不要です。送信後に届く確認メールのリンクから確定すると、体験が始まります。'}
       </p>
 
-      <form id="tf-form" class="tf-form" novalidate data-endpoint={LICENSE_GAS_URL}>
+      <form id={`${p}-form`} class="tf-form" novalidate data-endpoint={LICENSE_GAS_URL}>
         <div class="tf-group">
-          <label for="tf-companyName" class="tf-label">
+          <label for={`${p}-companyName`} class="tf-label">
             会社・団体名<span class="tf-required">必須</span>
           </label>
-          <input type="text" id="tf-companyName" name="companyName" class="tf-input" autocomplete="organization" />
+          <input type="text" id={`${p}-companyName`} name="companyName" class="tf-input" autocomplete="organization" />
           <p class="tf-error" data-error-for="companyName"></p>
         </div>
 
         <div class="tf-group">
-          <label for="tf-email" class="tf-label">
+          <label for={`${p}-email`} class="tf-label">
             担当者メールアドレス<span class="tf-required">必須</span>
           </label>
-          <input type="email" id="tf-email" name="email" class="tf-input" autocomplete="email" />
+          <input type="email" id={`${p}-email`} name="email" class="tf-input" autocomplete="email" />
           <p class="tf-help">
             利用開始のご案内や、体験終了前のお知らせをこのアドレスにお送りします。
           </p>
@@ -36,12 +47,12 @@ import { LICENSE_GAS_URL } from '../data/licenseEndpoint';
         </div>
 
         <div class="tf-group">
-          <label for="tf-domain" class="tf-label">
+          <label for={`${p}-domain`} class="tf-label">
             kintone ドメイン（フルドメイン）<span class="tf-required">必須</span>
           </label>
           <input
             type="text"
-            id="tf-domain"
+            id={`${p}-domain`}
             name="domain"
             class="tf-input"
             placeholder="例：abc.cybozu.com"
@@ -50,57 +61,74 @@ import { LICENSE_GAS_URL } from '../data/licenseEndpoint';
           <p class="tf-help">
             kintone にログインしたときの URL を、そのまま貼り付けてください。<code>https://</code> や <code>/k/</code> は自動で取り除かれます。<br />
             ・サブドメインだけでは受け付けられません（例：<code>abc</code> ではなく <code>abc.cybozu.com</code>）<br />
-            ・体験ライセンスはこのドメインに対して発行されます
+            {isPro ? '・プレミアム年間サポーターをご契約中のドメインを入力してください' : '・体験ライセンスはこのドメインに対して発行されます'}
           </p>
-          <p class="tf-domain-confirm" id="tf-domain-confirm" hidden></p>
+          <p class="tf-domain-confirm" id={`${p}-domain-confirm`} hidden></p>
           <p class="tf-error" data-error-for="domain"></p>
         </div>
 
         <div class="tf-group tf-agree-group">
           <label class="tf-agree">
-            <input type="checkbox" id="tf-agree" name="agree" />
-            <span>
-              以下に同意して申し込みます：<strong>体験期間は30日間</strong>／<strong>カード登録不要・自動課金なし</strong>／期間終了後は自動的に無料版（広告表示）に戻る／<strong>1ドメインにつき体験は1回まで</strong>。体験で使えるのはプラグイン機能（全解放・広告非表示）で、サポーター一覧へのロゴ掲載は含まれません。
-            </span>
+            <input type="checkbox" id={`${p}-agree`} name="agree" />
+            {isPro ? (
+              <span>
+                以下に同意して申し込みます：<strong>体験期間は30日間</strong>／<strong>カード登録不要・自動課金なし</strong>／体験が終わると KIZUNA Pro プラグインのルールは止まります（設定は残ります）／<strong>1ドメインにつき体験は1回まで</strong>（新しい KIZUNA Pro プラグインが出たときは、条件を満たせばもう一度お試しいただけます）。対象はプレミアム年間サポーターをご契約中のドメインの KIZUNA Pro 拡張パックです。
+              </span>
+            ) : (
+              <span>
+                以下に同意して申し込みます：<strong>体験期間は30日間</strong>／<strong>カード登録不要・自動課金なし</strong>／期間終了後は自動的に無料版（広告表示）に戻る（KIZUNA Pro プラグインのルールは止まり、設定は残ります）／<strong>1ドメインにつき体験は1回まで</strong>（新しい KIZUNA Pro プラグインが出たときは、条件を満たせばもう一度お試しいただけます）。体験で使えるのはプラグイン機能（全解放・広告非表示）で、サポーター一覧へのロゴ掲載は含まれません。
+              </span>
+            )}
           </label>
           <p class="tf-error" data-error-for="agree"></p>
         </div>
 
-        <button type="submit" id="tf-submit" class="tf-submit">無料で体験を始める</button>
-        <p id="tf-waiting" class="tf-waiting" hidden>
+        <button type="submit" id={`${p}-submit`} class="tf-submit">{isPro ? 'KIZUNA Pro 拡張パックを無料で試す' : '無料で体験を始める'}</button>
+        <p id={`${p}-waiting`} class="tf-waiting" hidden>
           処理に時間がかかります（最大 30 秒ほど）。<br />
           画面が切り替わるまで、そのままお待ちください。
         </p>
       </form>
 
-      <div id="tf-review" class="tf-review" hidden>
+      <div id={`${p}-review`} class="tf-review" hidden>
         <h3 class="tf-review-title">入力内容の確認</h3>
         <p class="tf-review-lead">内容をご確認のうえ「この内容で送信する」を押してください。送信後、ご担当者メールアドレスへ確認メールをお送りします。</p>
         <table class="tf-review-table">
           <tbody>
-            <tr><th>お申し込み</th><td>プレミアム年間サポーター 30日間無料体験</td></tr>
-            <tr><th>会社・団体名</th><td id="tf-review-company"></td></tr>
-            <tr><th>ご担当者メール</th><td id="tf-review-email"></td></tr>
+            <tr><th>お申し込み</th><td>{isPro ? 'KIZUNA Pro 拡張パック 30日間無料体験' : 'プレミアム年間サポーター 30日間無料体験'}</td></tr>
+            <tr><th>会社・団体名</th><td id={`${p}-review-company`}></td></tr>
+            <tr><th>ご担当者メール</th><td id={`${p}-review-email`}></td></tr>
           </tbody>
         </table>
         <div class="tf-review-domain">
-          <div>入力されたドメイン：<code id="tf-review-dom-input"></code></div>
-          <div>体験を始めるドメイン：<strong id="tf-review-dom"></strong><span id="tf-review-dom-note" class="tf-review-note" hidden>（.cybozu.com などを補いました）</span></div>
-          <div><a id="tf-review-open" href="#" target="_blank" rel="noopener noreferrer"></a>（自社の kintone のログイン画面が開けば正しいです）</div>
+          <div>入力されたドメイン：<code id={`${p}-review-dom-input`}></code></div>
+          <div>体験を始めるドメイン：<strong id={`${p}-review-dom`}></strong><span id={`${p}-review-dom-note`} class="tf-review-note" hidden>（.cybozu.com などを補いました）</span></div>
+          <div><a id={`${p}-review-open`} href="#" target="_blank" rel="noopener noreferrer"></a>（自社の kintone のログイン画面が開けば正しいです）</div>
         </div>
         <div class="tf-review-btns">
-          <button type="button" id="tf-review-back" class="tf-review-back">戻って直す</button>
-          <button type="button" id="tf-review-send" class="tf-submit">この内容で送信する</button>
+          <button type="button" id={`${p}-review-back`} class="tf-review-back">戻って直す</button>
+          <button type="button" id={`${p}-review-send`} class="tf-submit">この内容で送信する</button>
         </div>
       </div>
 
-      <div id="tf-success" class="tf-message tf-message-success" hidden>
-        <strong>確認メールを <span id="tf-success-email"></span> へお送りしました。</strong><br />
-        メールのリンクから内容をご確認のうえ「申込を確定する」を押すと、無料体験が始まります（48時間以内）。<br />
-        メールが届かない場合は、迷惑メールのフォルダもご確認ください。<br />
-        （すでにプレミアムをご利用中・体験済みのドメインなど、対象外の場合は、確定のあとにその旨をご案内します。）
+      <div id={`${p}-success`} class="tf-message tf-message-success" hidden>
+        {isPro ? (
+          <>
+            <strong>確認メールを <span id={`${p}-success-email`}></span> へお送りしました。</strong><br />
+            メールのリンクから内容をご確認のうえ「申込を確定する」を押すと、KIZUNA Pro 拡張パックの30日間無料体験が始まります（48時間以内）。<br />
+            メールが届かない場合は、迷惑メールのフォルダもご確認ください。<br />
+            （プレミアム年間サポーターを未契約・体験の途中・拡張パックをご契約中のドメインなど、対象外の場合は、確定のあとにその理由をご案内します。）
+          </>
+        ) : (
+          <>
+            <strong>確認メールを <span id={`${p}-success-email`}></span> へお送りしました。</strong><br />
+            メールのリンクから内容をご確認のうえ「申込を確定する」を押すと、無料体験が始まります（48時間以内）。<br />
+            メールが届かない場合は、迷惑メールのフォルダもご確認ください。<br />
+            （すでにプレミアムをご利用中・体験済みのドメインなど、対象外の場合は、確定のあとにその旨をご案内します。）
+          </>
+        )}
       </div>
-      <div id="tf-error-msg" class="tf-message tf-message-error" hidden>
+      <div id={`${p}-error-msg`} class="tf-message tf-message-error" hidden>
         送信に失敗しました。時間をおいて再度お試しいただくか、info@kizuna-works.jp までご連絡ください。
       </div>
     </div>
@@ -361,14 +389,18 @@ import { LICENSE_GAS_URL } from '../data/licenseEndpoint';
 
 <script is:inline src="/js/kintone-domain.js"></script>
 <script is:inline>
-  (function () {
-    const form = document.getElementById('tf-form');
+  document.querySelectorAll('.tf-section').forEach(function (root) {
+    if (root.dataset.tfInit) return;
+    root.dataset.tfInit = '1';
+    const PFX = root.dataset.prefix;
+    const PLAN = root.dataset.planType;
+    const form = document.getElementById(PFX + '-form');
     if (!form) return;
 
-    const submitBtn = document.getElementById('tf-submit');
-    const successMsg = document.getElementById('tf-success');
-    const errorMsg = document.getElementById('tf-error-msg');
-    const waitingMsg = document.getElementById('tf-waiting');
+    const submitBtn = document.getElementById(PFX + '-submit');
+    const successMsg = document.getElementById(PFX + '-success');
+    const errorMsg = document.getElementById(PFX + '-error-msg');
+    const waitingMsg = document.getElementById(PFX + '-waiting');
     const ENDPOINT = form.dataset.endpoint;
     // Plugin banner attribution (set in Layout.astro for 30 days). Sent as `source`; empty when the visit did not come from a banner.
     const readKzSource = () => {
@@ -386,8 +418,8 @@ import { LICENSE_GAS_URL } from '../data/licenseEndpoint';
     // Shared with the supporter form, the confirmation page and the license GAS (same test vectors).
     const normalizeKintoneDomain = window.KZ.normalizeKintoneDomain;
 
-    const domainInput = document.getElementById('tf-domain');
-    const domainConfirm = document.getElementById('tf-domain-confirm');
+    const domainInput = document.getElementById(PFX + '-domain');
+    const domainConfirm = document.getElementById(PFX + '-domain-confirm');
 
     const refreshDomainConfirm = () => {
       if (!domainInput || !domainConfirm) return;
@@ -461,7 +493,7 @@ import { LICENSE_GAS_URL } from '../data/licenseEndpoint';
         companyName: form.companyName.value,
         domain: form.domain.value,
         email: form.email.value,
-        planType: 'trial',
+        planType: PLAN,
         applicationType: 'new',
         source: readKzSource(),
       };
@@ -471,32 +503,32 @@ import { LICENSE_GAS_URL } from '../data/licenseEndpoint';
     });
 
     // ---- review step (before sending) ------------------------------------
-    const review = document.getElementById('tf-review');
+    const review = document.getElementById(PFX + '-review');
     let pending = null;
     const showReview = (data) => {
       pending = data;
       const nd = normalizeKintoneDomain(data.domain);
-      document.getElementById('tf-review-company').textContent = data.companyName;
-      document.getElementById('tf-review-email').textContent = data.email;
-      document.getElementById('tf-review-dom-input').textContent = data.domain;
-      document.getElementById('tf-review-dom').textContent = nd.domain;
-      document.getElementById('tf-review-dom-note').hidden = !nd.completed;
-      const open = document.getElementById('tf-review-open');
+      document.getElementById(PFX + '-review-company').textContent = data.companyName;
+      document.getElementById(PFX + '-review-email').textContent = data.email;
+      document.getElementById(PFX + '-review-dom-input').textContent = data.domain;
+      document.getElementById(PFX + '-review-dom').textContent = nd.domain;
+      document.getElementById(PFX + '-review-dom-note').hidden = !nd.completed;
+      const open = document.getElementById(PFX + '-review-open');
       open.href = 'https://' + nd.domain + '/';
       open.textContent = 'https://' + nd.domain + '/ を開いて確かめる';
       form.hidden = true;
       review.hidden = false;
       review.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
-    document.getElementById('tf-review-back').addEventListener('click', () => {
+    document.getElementById(PFX + '-review-back').addEventListener('click', () => {
       review.hidden = true;
       form.hidden = false;
       form.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-    document.getElementById('tf-review-send').addEventListener('click', async () => {
+    document.getElementById(PFX + '-review-send').addEventListener('click', async () => {
       const data = pending;
       if (!data) return;
-      const sendBtn = document.getElementById('tf-review-send');
+      const sendBtn = document.getElementById(PFX + '-review-send');
       const originalLabel = sendBtn.textContent;
       sendBtn.disabled = true;
       sendBtn.textContent = '送信中...';
@@ -510,7 +542,7 @@ import { LICENSE_GAS_URL } from '../data/licenseEndpoint';
           body: JSON.stringify(data),
         });
         review.hidden = true;
-        document.getElementById('tf-success-email').textContent = data.email;
+        document.getElementById(PFX + '-success-email').textContent = data.email;
         successMsg.hidden = false;
       } catch (err) {
         console.error('Trial form submit error:', err);
@@ -520,5 +552,5 @@ import { LICENSE_GAS_URL } from '../data/licenseEndpoint';
         if (waitingMsg) waitingMsg.hidden = true;
       }
     });
-  })();
+  });
 </script>

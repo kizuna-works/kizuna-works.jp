@@ -50,7 +50,8 @@ const entries = allPlugins
     url: `${SITE}/plugins/${p.slug}/`,
     icon: resolveIcon(p.slug),
     categories: p.categories,
-    tier: p.tier === 'premium' ? 'premium' : 'standard',
+    // Older plugin builds only know standard/premium; a KIZUNA Pro product is paid, so it reads as premium there.
+    tier: p.tier === 'premium' || p.tier === 'pro' ? 'premium' : 'standard',
     releaseDate: p.releaseDate ?? null,
     rank: rankById.get(p.id) ?? null,
     summary: p.cardDescription,

@@ -43,12 +43,13 @@ c:\kizuna-works.jp\
 │   │   ├── SupporterCTA.astro  # サポーターライセンス案内ページへの誘導カード（pluginIdでURL自動付与）
 │   │   ├── SupporterForm.astro # サポーターライセンス申込フォーム（URL ?plugin=<id> で自動選択対応）
 │   │   ├── ApplyFlow.astro     # 申込からライセンス発行までの流れの図（サポーター申込ページの「プランを選ぶ」直下。確定と支払いは別手順・支払い確認までライセンスは発行しない旨を明示）
-│   │   ├── TrialForm.astro     # プレミアム無料体験の申込フォーム（会社名/メール/ドメインのみ・planType='trial' でGASへ送信）
+│   │   ├── TrialForm.astro     # プレミアム無料体験の申込フォーム（会社名/メール/ドメインのみ。mode='trial' は planType='trial'、mode='pro_trial' は KIZUNA Pro 拡張パックの体験（プレミアム契約中の方向け）で planType='pro_trial' を GAS へ送信。要素IDはモードごとに接頭辞を分け、1ページに2つ置ける）
 │   │   ├── TrialBanner.astro   # プレミアム無料体験LPへの誘導バナー（サポーターページ・プラグイン一覧で使用）
 │   │   ├── SecurityBox.astro   # プラグイン詳細ページの「安心ボックス」（外部通信・ライブラリ・秘匿情報を要約。plugin-security.ts 駆動）
 
 │   │   ├── PremiumFaqSection.astro # プレミアム製品ページの「よくある質問」（アコーディオン＋FAQPage JSON-LD を src/data/premium-faqs.ts から生成＝表示と構造化データが必ず一致）
 │   │   ├── ShareButtons.astro  # SNS共有ボタン（X/LINE/はてブは静的intentリンク・URLコピー/OS共有シートのみJS）。全プラグイン個別ページ末尾に設置。title="〇〇 for kintone"・URLはAstro.urlから自動導出
+│   │   ├── BridgeBadge.astro # 「ブリッジ連携」バッジ（as="badge" ヒーロー）と説明帯（as="note"）。plugins.ts の bridge フィールドがある製品だけ表示
 │   │   ├── PremiumPlanCard.astro # ちょこっと製品ページのプラン欄3枚目（プレミアム年間サポーター）。ページ側の `.pricing-card` 等をそのまま使い、紺のアクセントだけスコープ付きCSSで足す＝各ページの見た目に自動で馴染む。プレミアム製品ページでは使わない（年間サポーターを掲載しないため2枚のまま）
 │   │   ├── SupporterPlanCard.astro # ちょこっと製品ページのプラン欄2枚目（年間サポーター）。料金は src/data/pricing.ts から出し、PRICE_REVISION_LIVE で改定前（1 製品・¥3,300）と改定後（ちょこっとプラグインすべて・¥8,250）を切り替える。props は pluginId（申込フォームへ渡す）と features（ページごとの機能の行）
 │   │   ├── ResellerCard.astro  # プラン欄の下に出る「販売代理店からのご購入」カード（全63製品ページ共通）。掲載先は src/data/resellers.ts。登録0件のあいだは何も出力しない＝契約締結前に社名が出ない。ページ側CSSに依存せず自前のスコープ付きCSSで完結
@@ -110,7 +111,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── update/
 │   │   │   │   └── index.astro # プラグインの更新方法・広告が消えないときの対処（/plugins/update/）― 全製品共通の更新手順ページ。①冒頭で Chrome 拡張機能「KW Plugin Updater for kintone」を案内（更新に気づく手段・スクショ=extensions/kw-plugin-updater/01-popup-update.png・ストアと製品ページへのCTA）②設定画面サイドバーの「新しいバージョンがあります」カードで要否を判断（スクショ=plugin-update-notice.png）②上書きアップロード3ステップ（設定は保持・アプリ再追加や再デプロイ不要・1回で全アプリ反映）③サポーター加入済みでも旧版だと広告が出る原因と対処4手順。HowTo＋FAQPage＋BreadcrumbList JSON-LD。hero背景=plugins-bg.webp。導線＝共通FAQ（全製品ページ）／/plugins/supporter/ のFAQと注意事項／/plugins/ の導入手順／お知らせ
 │   │   │   ├── premium-trial/
-│   │   │   │   └── index.astro # プレミアム年間サポーター 30日間無料体験 LP（/plugins/premium-trial/）― 全プラグイン（ちょこっと＋プレミアム）が広告なし・全機能。カード不要・自動課金なし。TrialForm＋FAQPage JSON-LD。hero背景=premium-trial-bg.webp。件数はplugins.tsから動的
+│   │   │   │   └── index.astro # プレミアム年間サポーター 30日間無料体験 LP（/plugins/premium-trial/）― ちょこっと＋プレミアム＋KIZUNA Pro プラグインすべてが広告なし・全機能（2026-10-24〜）。カード不要・自動課金なし。節 #pro-trial＝プレミアム契約中の方が KIZUNA Pro 拡張パックだけを30日間試す（TrialForm mode='pro_trial'）。TrialForm＋FAQPage JSON-LD。hero背景=premium-trial-bg.webp。件数はplugins.tsから動的
 │   │   │   ├── field-styler/
 │   │   │   │   └── index.astro # フィールドスタイラー製品ページ（/plugins/field-styler/） — 背景色・フォント・文字色・文字数制限・太字・条件付きスタイル（最大10条件）・フォントサイズ・コピー・入力文字種制限・プレースホルダー・最大行数の全13機能（v2.6.0 でフィールド名の装飾・設定のコピーを追加）。v2.2.0＝サブテーブル（明細）内フィールドのスタイル＋行ごとの条件付き色分け。v2.3.0＝条件ごとに背景色/文字色を「変更しない」に。**v2.4.0＝テーブル外のフィールドも作成・編集画面に反映**（入力欄の中の文字にサイズ・色・太字・フォントが効く／条件付きも入力中に追従）＋文字数制限・入力文字種制限が入力中にも動作＋ゲストスペースで設定画面のフィールド候補が出ない不具合を修正。**v2.5.0＝文字数制限・入力文字種制限をサブテーブル（明細）内の列にも設定可能に**（超過した行にエラーを出して保存を止める）＋文字列複数行に「最大行数」を新設（上限で改行できなくなる／貼り付け超過は注意書き＋保存時に停止）＋フィールドを作り直して型が変わったときの追従を明細にも拡張（v2.5.0 のUPDATEボックス＋スクショ field-styler-v250-*＝掲載用の「案件管理」アプリで撮影。現在は未掲載）。**v2.6.0＝フィールド名（見出し）に背景色・文字色・太字**（グループ見出し・テーブル名・列名も）＋チェックボックス・複数選択の値の装飾＋設定のコピー＋カラーコード入力（UPDATEボックス＋スクショ field-styler-v260-label／config／copy）
 │   │   │   ├── kw-conditional-numbering/
@@ -245,6 +246,14 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】Box連携 製品ページ（/plugins/box-connect/）※2026-10-23 配布開始（v1.0.0）・同日 v1.1.0（UPDATE ボックス＝添付が無くてもフォルダだけ先に作成）— レコードの添付ファイルを Box の指定フォルダへ転送し、レコードにはリンクだけを残す。フォルダ自動生成・差分検知・転送後の kintone 側削除・共有リンク・フォルダの中身の表示・サブテーブル・一括転送。プレミアム年間サポーター（税込 ¥16,500/年）に含む。無料は転送ルール1本・手動モード
 │   │   │   │   └── setup/
 │   │   │   │       └── index.astro # 【手順ページ】Box 側の準備手順（/plugins/box-connect/setup/）— 連携用アプリの作成（サーバー・クライアント資格情報）・アクセスレベルとスコープ・CORS ドメイン・Box 管理者の承認・フォルダへのサービスアカウントの招待・プラグインへの接続の 6 手順。設定画面の「準備の手順を見る」の遷移先
+│   │   │   ├── bridge/
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】KIZUNAブリッジ for kintone 製品ページ（/plugins/bridge/）※公開準備中（v1.0.0・KIZUNA Pro 第1弾・単品販売なし）— 単品でできること／アプリ間連携／プラグイン間連携の3部構成。連携できるプラグイン一覧は plugins.ts の bridge フィールドから自動生成
+│   │   │   ├── kizuna-pro/
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン一覧（特集ページ）】/plugins/kizuna-pro/ 2026-10-25 公開（ブリッジと同時）— シリーズの説明・proPlugins（plugins.ts の tier:'pro'）から自動生成する製品カード＋製品ごとの「Pro だけ」の機能・プランと料金（pricing.ts）・30日間無料体験・FAQ（FAQPage）。トップの KIZUNA Pro 帯と /plugins/ の KIZUNA Pro 枠からリンク
+│   │   │   ├── search-pro/
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】サーチ Pro for kintone 製品ページ（/plugins/search-pro/）v1.0.0・単品販売なし・2026-10-25 ブリッジと同時公開 — サーチ Pro で新しくできること（ひとつの条件でつなぐ・条件の帯・保存した検索・集計カードからの絞り込み・CSVに条件・帯から一括処理・ブリッジからCSV添付）／4つの機能も、これ1つで／単品と一緒に使う（［単品の設定を読み込む］）の3部構成。ブリッジのページと同じ体裁（.kbp-*）。配布 zip は /downloads/kw-search-pro-v1.0.0.zip
+│   │   │   ├── lookup-pro/
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ルックアップ Pro for kintone 製品ページ（/plugins/lookup-pro/）v1.0.0・2026-10-25 公開（単品販売なし・ブリッジと同日公開）。PART 2 冒頭に「Pro だけ」のカード一覧、主な機能は「ルックアップ Pro だけの機能」と「5つの機能と共通の機能」に分ける
 │   │   │   ├── record-acl-assist/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】レコード権限アシスト 製品ページ（/plugins/record-acl-assist/）※2026-10-24 配布開始（v1.0.0・プレミアム第23弾・「リクエストから誕生」バッジ）— レコードの内容に合わせて見られる組織・人を自動で設定。最初に当たったルールだけが使われる問題を、見せる相手を 1 つのフィールドへ入れて解く。上の組織・対応表・一括反映・保存前の確認・見せる相手の内訳・変更の記録・ルックアップ自動同期との連携
 │   │   │   ├── annotation/
@@ -306,6 +315,9 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-box-connect-release.md    # Box連携 v1.0.0 公開のお知らせ（2026-10-23・プレミアム第22弾）
 │   │   │   ├── box-connect-v110-update.md       # Box連携 v1.1.0 アップデートのお知らせ（2026-10-23・フォルダだけ先に作成）
 │   │   │   ├── plugin-record-acl-assist-release.md # レコード権限アシスト v1.0.0 公開のお知らせ（2026-10-24・プレミアム第23弾）
+│   │   │   ├── plugin-bridge-release.md     # KIZUNAブリッジ v1.0.0 公開のお知らせ（2026-10-25T10:00・KIZUNA Pro プラグイン。公開日がずれたら pubDate を直す）
+│   │   │   ├── plugin-search-pro-release.md     # サーチ Pro v1.0.0 公開のお知らせ（2026-10-25・KIZUNA Pro プラグイン・ブリッジと同時公開）
+│   │   │   ├── plugin-lookup-pro-release.md     # ルックアップ Pro v1.0.0 公開のお知らせ（2026-10-25T10:30・KIZUNA Pro プラグイン・ブリッジと同日公開）
 │   │   │   ├── drive-connect-v110-update.md     # ドライブ連携 v1.1.0 アップデートのお知らせ（2026-10-23）
 │   │   │   ├── text-join-v120.md               # 文字列結合 v1.2.0 アップデートのお知らせ（2026-10-22 19:00・計算・複数行・リンクも保存前に結合結果が入る）
 │   │   │   ├── input-assist-v220.md            # 入力アシスト v2.2.0 公開のお知らせ（入力の変換・update）
@@ -851,6 +863,17 @@ c:\kizuna-works.jp\
 │   │   ├── box-connect-config-02.png    # 設定画面の「Box のフォルダを選択」ダイアログ（招待済みフォルダの一覧）
 │   │   ├── box-connect-action-01.png    # レコード詳細：転送完了の表示・［Box へ転送］ボタン・リンク欄・保存先フォルダの中身の一覧
 │   │   ├── box-connect-action-02.png    # レコード詳細：保存先フォルダの中身の一覧（スペースに表示）
+│   │   ├── bridge-banner.png                    # KIZUNAブリッジ for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）＋ .webp / -800.webp
+│   │   ├── bridge-icon.png                      # KIZUNAブリッジ アイコン（256×256・製品ページヒーロー）＋ .webp
+│   │   ├── bridge-config-*.png / bridge-record-*.png / bridge-calendar-01.png # 製品ページの機能説明スクショ（実機撮影済み・2026-10-24。12枚＋各 .webp）
+│   │   ├── kizuna-pro-hero-bg.jpg / .webp           # KIZUNA Pro のヒーロー背景（紺地に金の線・製品ページと特集 /plugins/kizuna-pro/ で共用）
+│   │   ├── kizuna-pro-band-bg.jpg / .webp           # トップの「KIZUNA Pro プラグインシリーズ」帯の背景（Gemini 生成の原本 3168×1344 jpg・配信は 2200px の webp）
+│   │   ├── search-pro-banner.png                # サーチ Pro for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）＋ .webp / -800.webp
+│   │   ├── search-pro-icon.png                  # サーチ Pro アイコン（200×200・製品ページヒーロー）＋ .webp
+│   │   ├── search-pro-list-01.png / search-pro-saved-01.png / search-pro-config-01.png / search-pro-config-csv-01.png # 製品ページの機能説明スクショ（実機撮影・2026-10-24。各 .webp）
+│   │   ├── lookup-pro-banner.png                # ルックアップ Pro for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）＋ .webp（ビルド後に生成）
+│   │   ├── lookup-pro-icon.png                  # ルックアップ Pro アイコン（200×200・製品ページヒーロー）＋ .webp
+│   │   ├── lookup-pro-config-overview.png / lookup-pro-config-quick-setup.png / lookup-pro-config-filter.png / lookup-pro-suggest.png / lookup-pro-dialog-filter.png / lookup-pro-add-panel.png / lookup-pro-free-lookup.png / lookup-pro-free-refresh.png # 製品ページの機能説明スクショ（実機撮影・2026-10-24。各 .webp）
 │   │   ├── record-acl-assist-banner.png         # レコード権限アシスト for kintone 見出しバナー（gen-plugin-banner.mjs で生成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── record-acl-assist-icon.png           # レコード権限アシスト アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
 │   │   ├── record-acl-assist-config-01.png      # 設定「① 誰に見せるか」（使い始めるまでの 4 つの手順・設定）
@@ -1194,7 +1217,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-attribute-filter-v2.0.0.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管・v2.0.0 適用条件と候補ルールの分離）
 │   │   ├── kw-attribute-filter-v2.1.0.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管・v2.1.0 保管アプリ不要の直接取得を既定化＋所属組織ごとの出し分けを対応表で記述）
 │   │   ├── kw-attribute-filter-v2.1.1.zip                        # 属性制御フィルター for kintone 配布ファイル（最新・手動配置・v2.1.1 対象フィールドを別の型で作り直したとき、そのフィールドの絞り込みと保存時チェックを行わない。設定画面に注意帯を表示し保存を拒否）
-│   │   ├── kw-link-assist-v1.0.0.zip      # リンクアシスト 配布用プラグイン zip
+│   │   ├── kw-link-assist-v1.0.1.zip      # リンクアシスト 配布用プラグイン zip（最新・v1.0.1 連携に備えた内部の改善・お知らせなし）
+│   │   ├── kw-link-assist-v1.0.0.zip      # リンクアシスト 配布用プラグイン zip（旧版）
 │   │   ├── kw-clip-assist-v1.0.0.zip      # コピーアシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-clip-assist-v1.0.1.zip      # コピーアシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-clip-assist-v1.0.2.zip     # コピーアシスト for kintone 配布ファイル（最新・手動配置・v1.0.2 当社製品を併用したときに一覧の選択列を1本にまとめ、チェックボックスの位置を統一）
@@ -1301,6 +1325,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-free-lookup-v1.2.0.zip  # フリールックアップ for kintone 配布ファイル（2026-10-22・v1.2.0）
 │   │   ├── kw-lookup-filter-v1.1.0.zip # ルックアップ絞り込み v1.1.0（旧版・2026-09-24＝条件に合わない値で保存しようとしたときに「確認して保存」を選べる／保存時の検査は今回入れた・書き換えた値だけ）
 │   │   ├── kw-lookup-filter-v1.0.1.zip # ルックアップ絞り込み v1.0.1（旧版・参考保管）
+│   │   ├── kw-bridge-v1.0.0.zip        # KIZUNAブリッジ for kintone 配布ファイル（最新・2026-10-24・v1.0.0＝新製品・連携の受け口）
 │   │   ├── kw-box-connect-v1.1.0.zip   # Box連携 for kintone 配布ファイル（最新・2026-10-23・v1.1.0＝添付が無くてもフォルダだけ先に作成）
 │   │   ├── kw-box-connect-v1.0.0.zip   # Box連携 v1.0.0（旧版・初版・プレミアム第22弾）
 │   │   ├── kw-record-acl-assist-v1.0.0.zip # レコード権限アシスト for kintone 配布ファイル（最新・2026-10-24・v1.0.0・プレミアム第23弾）
@@ -1486,7 +1511,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-toc-v1.2.2.zip                               # クイック目次 for kintone 配布ファイル（最新・手動配置・v1.2.2 目次メニューが kintone 標準のポップアップを覆う問題を修正）
 │   │   ├── kw-read-check-v1.0.0.zip                              # 既読チェック for kintone 配布ファイル（旧版・v1.0.0 初版）
 │   │   ├── kw-read-check-v1.0.1.zip                              # 既読チェック for kintone 配布ファイル（旧版・手動配置・v1.0.1 で折りたたみサイドバーの展開を公式APIへ変更＋サイドバータブの表示順を宣言的に固定）
-│   │   ├── kw-read-check-v1.0.2.zip                              # 既読チェック for kintone 配布ファイル（最新・手動配置・v1.0.2 ライセンス認証の内部改修）
+│   │   ├── kw-read-check-v1.0.3.zip                              # 既読チェック for kintone 配布ファイル（最新・v1.0.3 連携に備えた内部の改善・お知らせなし）
+│   │   ├── kw-read-check-v1.0.2.zip                              # 既読チェック for kintone 配布ファイル（旧版・手動配置・v1.0.2 ライセンス認証の内部改修）
 │   │   ├── kw-record-lock-v1.0.0.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-lock-v1.0.1.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-lock-v1.0.2.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
@@ -1567,14 +1593,16 @@ c:\kizuna-works.jp\
 │   │   ├── kw-table-assist-v1.0.2.zip                            # テーブルアシスト for kintone 配布ファイル（最新・手動配置・v1.0.2 行番号表示でフィールド幅設定が無視される／行追加で文字列(複数行)が潰れる／空欄のある行を複製できない、の3件を修正）
 │   │   ├── kw-table-assist-v1.2.0.zip                                # テーブルアシスト for kintone 配布ファイル（最新・v1.2.0：選んだ行の時間を合計・出力先に書く単位・書き込めないときの案内）
 │   │   ├── kw-image-compress-v1.0.0.zip # 画像圧縮 for kintone 配布物（旧版・v1.0.0）
-│   │   ├── kw-image-compress-v1.0.1.zip # 画像圧縮 for kintone 配布物（最新・v1.0.1 圧縮後に画面を自動で読み直す修正。プロセス管理が「ほかのユーザーが更新しました」で実行できない不具合の解消）
+│   │   ├── kw-image-compress-v1.0.2.zip # 画像圧縮 for kintone 配布物（最新・v1.0.2 連携に備えた内部の改善・お知らせなし）
+│   │   ├── kw-image-compress-v1.0.1.zip # 画像圧縮 for kintone 配布物（旧版・v1.0.1 圧縮後に画面を自動で読み直す修正。プロセス管理が「ほかのユーザーが更新しました」で実行できない不具合の解消）
 │   │   ├── kw-table-preview-v1.1.0.zip                          # テーブルプレビュー for kintone 配布ファイル（旧版・見出しクリックで明細の並べ替え／出ている行数の表示／出す一覧の選択）
 │   │   ├── kw-table-preview-v1.0.0.zip                          # テーブルプレビュー for kintone 配布ファイル（旧版・一覧に列を足して明細の件数と集計値をバッジ表示／ホバーでポップアップ／その場編集）
 │   │   ├── kw-table-preview-v1.2.0.zip                               # テーブルプレビュー for kintone 配布ファイル（旧版・v1.2.0：明細の時間を〇時間〇分で合計）
 │   │   ├── kw-table-preview-v1.2.1.zip  # テーブルプレビュー for kintone 配布ファイル（旧版・v1.2.1：一覧スタイラーのテーブル展開と同居したとき続きの行の列がずれる不具合を修正）
 │   │   ├── kw-table-preview-v1.2.2.zip  # テーブルプレビュー for kintone 配布ファイル（旧版・2026-10-03・v1.2.2：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
 │   │   ├── kw-table-preview-v1.2.3.zip  # テーブルプレビュー for kintone 配布ファイル（最新・2026-10-07・v1.2.3：テーブルに何も入れていないレコードを 0 件と数える・空の行があっても編集を保存できる）
-│   │   ├── kw-footprint-v1.2.3.zip  # 足あと for kintone 配布ファイル（最新・v1.2.3：スペース名が長い（59文字以上）と足あと管理アプリを自動作成できなかったのを修正＝アプリ名を64文字に収める・お知らせなし）
+│   │   ├── kw-footprint-v1.2.4.zip  # 足あと for kintone 配布ファイル（最新・v1.2.4：連携に備えた内部の改善・お知らせなし）
+│   │   ├── kw-footprint-v1.2.3.zip  # 足あと for kintone 配布ファイル（旧版・v1.2.3：スペース名が長い（59文字以上）と足あと管理アプリを自動作成できなかったのを修正＝アプリ名を64文字に収める・お知らせなし）
 │   │   ├── kw-footprint-v1.2.2.zip  # 足あと for kintone 配布ファイル（旧版・v1.2.2：設定画面の目次の小見出しが幅で切れて読めなかったのを修正・お知らせなし）
 │   │   ├── kw-footprint-v1.2.1.zip  # 足あと for kintone 配布ファイル（旧版・v1.2.1：このアプリの足あとを読める人＝「足あとを見られる人」に連動して足あと管理アプリのアクセス権にアプリごとの行・作成者で判定・呼び方を「足あと管理アプリ」に）
 │   │   ├── kw-footprint-v1.2.0.zip  # 足あと for kintone 配布ファイル（旧版・v1.2.0：閲覧した／一度も見ていないで絞り込み・保管アプリにアプリ名とタイトル（既定オフ）・ユーザーの足あとを独立した設定項目に）

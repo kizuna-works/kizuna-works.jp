@@ -1,0 +1,881 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import { plugins } from '../../../data/plugins';
+import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
+
+const VERSION = '1.0.0';
+const ZIP = `/downloads/kw-lookup-pro-v${VERSION}.zip`;
+const PAGE_URL = 'https://kizuna-works.jp/plugins/lookup-pro/';
+const DATE_MODIFIED = '2026-10-25';
+
+// The five single products this one bundles. Cards are built from plugins.ts so names and slugs never drift.
+const singleOf = (id: string) => plugins.find((p) => p.id === id);
+const iconOf = (slug: string) => `/images/${slug}-icon.png`;
+const BUNDLED = [
+  { id: 'kw-lookup-suggest', role: '入力中の候補表示' },
+  { id: 'kw-lookup-filter', role: '候補の絞り込み' },
+  { id: 'kw-lookup-add', role: 'マスターのその場登録' },
+  { id: 'kw-free-lookup', role: 'フリールックアップ' },
+  { id: 'kw-lookup-sync', role: 'マスター更新の自動反映' },
+];
+const bundled = BUNDLED.map((b) => ({ ...b, p: singleOf(b.id) })).filter((b) => !!b.p);
+
+// FAQ: the accordion and FAQPage JSON-LD are built from the same array so they always match.
+const faqs: { q: string; a: string }[] = [
+  {
+    q: 'ルックアップ Pro だけを購入できますか？',
+    a: `製品ごとの個別のご契約はありません。プレミアム年間サポーターに KIZUNA Pro 拡張パックを追加すると、ルックアップ Pro を含む KIZUNA Pro プラグインをすべてお使いいただけます。両方をまとめた「KIZUNA Pro 年間サポーター」（税込 ${yen(PRO_SET_PLAN.priceInTax)}/年）もあります。`,
+  },
+  {
+    q: '年間サポーター（ちょこっとプラグインすべて）に、KIZUNA Pro 拡張パックを追加できますか？',
+    a: 'できません。KIZUNA Pro 拡張パックは、プレミアム年間サポーターに追加していただくプランです。年間サポーターからは、KIZUNA Pro 年間サポーターへの切り替えでお使いいただけます。',
+  },
+  {
+    q: 'ルックアップサジェストなどのプラグインと、何が違いますか？',
+    a: '5つの機能（入力中の候補表示・候補の絞り込み・マスターのその場登録・フリールックアップ・マスター更新の自動反映）は、もとのプラグインと同じ内容です。ルックアップ Pro では、1つの設定画面で扱え、無料プランのような数の制限もありません。そのうえで、欄ごとの一覧、まとめて設定、絞り込みの条件のその場登録への引き継ぎ、フリールックアップの取得元の更新のお知らせが加わります。',
+  },
+  {
+    q: '同じアプリに、もとのプラグインが入っていても大丈夫ですか？',
+    a: '大丈夫です。同じ機能が両方に入っているときは、その機能はもとのプラグインが動き、ルックアップ Pro は動かしません（二重にボタンが出る・二重に取得する、を防ぐためです）。ほかの機能は、ルックアップ Pro が動かします。',
+  },
+  {
+    q: 'これまでのプラグインで作った設定を、ルックアップ Pro に引き継げますか？',
+    a: '引き継げます。もとのプラグインが入っているアプリでルックアップ Pro の設定画面を開くと、該当の機能のタブに［単品の設定を読み込む］が出ます。押して確認で OK を押すと、設定が写ります。読み込みは手動で、もとのプラグインの設定はそのまま残ります。内容を確かめて保存し、もとのプラグインをアプリから外してください。',
+  },
+  {
+    q: 'マスター更新の自動反映は、どのアプリに入れますか？',
+    a: 'ルックアップの参照先（マスター）側のアプリです。参照している側のアプリではありません。設定画面の［スキャン実行］で、このアプリを参照しているルックアップを自動で見つけます。',
+  },
+  {
+    q: 'フリールックアップの取得元の更新のお知らせは、どんなときに出ますか？',
+    a: 'レコードの詳細画面を開いたとき、コピーした値と取得元の値が違っていれば出ます。［最新の値にする］を押したときだけレコードを更新し、開いただけでは書き換えません。既定はオフで、「欄ごとの一覧」タブの［詳細画面で知らせる］にチェックを入れると使えます。テーブルの中のフリールックアップとスマートフォンは対象外です。',
+  },
+  {
+    q: '無料で試せますか？',
+    a: 'はい、30日間無料で試せます（カード登録不要・自動課金なし・1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、もう一度お試しいただけます）。プレミアム年間サポーターを未契約の方は、プレミアム年間サポーターの無料体験に KIZUNA Pro プラグインが含まれます。プレミアム年間サポーターをご契約中の方は、KIZUNA Pro 拡張パックだけを30日間無料でお試しいただけます。体験が終わると機能は止まりますが、設定は消えません。',
+  },
+  {
+    q: 'ご契約が切れたら、設定はどうなりますか？',
+    a: '設定は消えません。ご契約が確認できない間は、機能は動かず、設定画面にはご契約の案内だけが出ます。ご契約が戻れば、保存済みの設定のまま、すぐに動きます。',
+  },
+  {
+    q: 'スマートフォンでも使えますか？',
+    a: '入力中の候補表示・候補の絞り込み・フリールックアップは使えます。マスターのその場登録・マスター更新の自動反映・取得元の更新のお知らせは、パソコンのみです。設定画面もパソコンのみです。',
+  },
+  {
+    q: 'ゲストスペースのアプリでも使えますか？',
+    a: '使えます。',
+  },
+];
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Layout
+  heroBg="/images/kizuna-pro-hero-bg.webp"
+  title="ルックアップ Pro for kintone｜入力・絞り込み・登録・自動反映を1つに | KIZUNA Works"
+  description="ルックアップ Pro for kintone は、ルックアップの入力中の候補表示・候補の絞り込み・マスターのその場登録・フリールックアップ・マスター更新の自動反映を1つにまとめた KIZUNA Pro プラグイン。欄ごとの一覧とまとめて設定にも対応します。"
+  ogTitle="ルックアップ Pro for kintone｜入力・絞り込み・登録・自動反映を1つに | KIZUNA Works"
+  ogDescription="ルックアップサジェスト・ルックアップ絞り込み・ルックアップ新規登録・フリールックアップ・ルックアップ自動同期の5機能を1つに統合。欄ごとの一覧・まとめて設定・取得元の更新のお知らせに対応する KIZUNA Pro プラグインです。"
+  ogType="website"
+  ogUrl={PAGE_URL}
+  ogImage="https://kizuna-works.jp/images/lookup-pro-banner.png"
+  canonical={PAGE_URL}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': PAGE_URL,
+          url: PAGE_URL,
+          name: 'ルックアップ Pro for kintone｜入力・絞り込み・登録・自動反映を1つに | KIZUNA Works',
+          description: 'ルックアップ Pro for kintone は、kintone のルックアップの入力・絞り込み・登録・自動反映を1つのプラグインにまとめ、欄ごとの一覧で設定を確認できる kintone プラグイン（KIZUNA Pro プラグイン）。',
+          dateModified: DATE_MODIFIED,
+          primaryImageOfPage: { '@type': 'ImageObject', url: 'https://kizuna-works.jp/images/lookup-pro-banner.png', width: 1200, height: 630 },
+          isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: 'https://kizuna-works.jp/' },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+            { '@type': 'ListItem', position: 2, name: 'kintoneプラグイン', item: 'https://kizuna-works.jp/plugins/' },
+            { '@type': 'ListItem', position: 3, name: 'ルックアップ Pro for kintone', item: PAGE_URL },
+          ],
+        },
+        {
+          '@type': 'SoftwareApplication',
+          name: 'ルックアップ Pro for kintone',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'kintone',
+          // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
+          "softwareVersion": "1.0.0",
+          dateModified: DATE_MODIFIED,
+          url: PAGE_URL,
+          downloadUrl: `https://kizuna-works.jp${ZIP}`,
+          image: 'https://kizuna-works.jp/images/lookup-pro-banner.png',
+          offers: [
+            {
+              '@type': 'Offer',
+              name: PRO_SET_PLAN.name,
+              price: String(PRO_SET_PLAN.priceInTax),
+              priceCurrency: 'JPY',
+              availability: 'https://schema.org/InStock',
+              description: 'プレミアム年間サポーターと KIZUNA Pro 拡張パックのセット（年額）。KIZUNA Pro プラグインをすべて含みます。製品ごとの個別のご契約はありません。',
+            },
+            {
+              '@type': 'Offer',
+              name: PRO_ADDON.name,
+              price: String(PRO_ADDON.priceInTax),
+              priceCurrency: 'JPY',
+              availability: 'https://schema.org/InStock',
+              description: 'プレミアム年間サポーターに追加するプラン（年額）。',
+            },
+          ],
+          description: 'ルックアップ Pro for kintone は、kintone のルックアップについて、入力中の候補表示・候補の絞り込み・マスターのその場登録・フリールックアップ・マスター更新の自動反映の5つの機能を1つの設定画面で使えるプラグイン。ルックアップの欄ごとに5つの機能の設定の有無を確認できる「欄ごとの一覧」、入力中の候補表示とその場登録の設定をまとめて作る「まとめて設定」、絞り込みの条件に合わないマスターをその場登録させない引き継ぎ、フリールックアップの取得元が更新されたときに詳細画面で知らせる機能に対応。同じアプリにもとのプラグインが入っているときは、その機能はもとのプラグインが動く。もとのプラグインの設定は［単品の設定を読み込む］で引き継げる。',
+          publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
+          featureList: [
+            '入力中の候補表示：ルックアップに文字を入れると、その場で候補が出て、選ぶと取得まで終わる',
+            '候補の絞り込み：［取得］で出る候補を、同じレコードで入力済みの値で絞る（場面ごとに最大10通り）',
+            'マスターのその場登録：参照先のマスターに無いとき、［＋新規登録］でその場で登録して取得する',
+            'フリールックアップ：文字列（1行）フィールドの横に［取得］を出し、別のアプリから値をコピーする',
+            'マスター更新の自動反映：マスターを更新すると、ルックアップでコピーしている参照先の既存レコードも更新する',
+            '欄ごとの一覧：ルックアップの欄ごとに、5つの機能の設定の有無と見直しが必要な設定を確認する',
+            'まとめて設定：ルックアップの設定から、入力中の候補表示とその場登録の設定をまとめて作る',
+            '絞り込みの条件をその場登録に引き継ぎ、条件に合わないマスターを登録させない',
+            'フリールックアップの取得元が更新されたら、詳細画面で知らせて［最新の値にする］で更新する',
+            'これまでのプラグインの設定を読み込んで引き継ぐ',
+            'ゲストスペースのアプリに対応',
+          ],
+        },
+      ],
+    })} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --kbp-navy: #1B3A6B;
+      --kbp-ink: #0f1f3d;
+      --kbp-gold: #b8862b;
+      --kbp-gold-light: #e8c766;
+      --kbp-gold-soft: #f0d58a;
+      --kbp-green: #2E8B2E;
+      --kbp-text: #333333;
+      --kbp-muted: #64748b;
+    }
+
+    /* Hero: darker than the premium hero, gold accents mark the Pro series */
+    .kbp-hero {
+      /* Shared KIZUNA Pro hero background; sized by width, its baked bottom fade blends into this base gradient */
+      background:
+        url('/images/kizuna-pro-hero-bg.webp') center top / 100% auto no-repeat,
+        linear-gradient(90deg, #020816 0%, #050b1c 30%, #081427 50%, #09182f 70%, #0c1729 100%);
+      color: #fff;
+      padding: 60px 5% 54px;
+      text-align: center;
+      border-bottom: 4px solid var(--kbp-gold);
+    }
+    .kbp-hero-icon {
+      width: 136px; height: 136px; object-fit: contain; display: block; margin: 0 auto 18px;
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(232, 199, 102, 0.5);
+      border-radius: 26px; padding: 10px; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+    .kbp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+    .kbp-badge-pro {
+      display: inline-flex; align-items: center; gap: 6px; line-height: 1;
+      padding: 7px 16px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%);
+      color: #1a1405; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.08em;
+    }
+    .kbp-hero-version {
+      padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.45);
+      font-size: 0.85rem; font-weight: 700; line-height: 1;
+    }
+    .kbp-hero-title { font-size: clamp(1.7rem, 4.2vw, 2.6rem); margin: 0 0 12px; line-height: 1.3; }
+    .kbp-tagline { font-size: clamp(1.05rem, 2.4vw, 1.35rem); font-weight: 700; margin: 0 0 14px; color: var(--kbp-gold-soft); }
+    .kbp-sub { max-width: 860px; margin: 0 auto 26px; line-height: 1.9; font-size: 1rem; color: rgba(255, 255, 255, 0.92); }
+    .kbp-sub strong { color: #fff; }
+    .kbp-pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; max-width: 900px; margin: 0 auto 28px; }
+    .kbp-pillar {
+      display: block; padding: 16px 14px; border-radius: 12px; text-decoration: none; color: #fff;
+      background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(232, 199, 102, 0.45);
+    }
+    .kbp-pillar:hover { background: rgba(255, 255, 255, 0.14); }
+    .kbp-pillar-no { display: block; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--kbp-gold-soft); font-weight: 800; }
+    .kbp-pillar-name { display: block; font-size: 1.05rem; font-weight: 800; margin: 4px 0; }
+    .kbp-pillar-desc { display: block; font-size: 0.84rem; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
+    .kbp-hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .kbp-btn {
+      display: inline-block; padding: 14px 26px; border-radius: 10px; font-weight: 800; text-decoration: none;
+      font-size: 1rem; line-height: 1.3;
+    }
+    .kbp-btn.is-primary { background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; box-shadow: 0 6px 18px rgba(184, 134, 43, 0.35); }
+    .kbp-btn.is-ghost { border: 1px solid rgba(255, 255, 255, 0.6); color: #fff; }
+    .kbp-btn.is-ghost:hover { background: rgba(255, 255, 255, 0.1); }
+    .kbp-hero-note { margin: 14px auto 0; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); max-width: 760px; line-height: 1.7; }
+
+    /* Series strip */
+    .kbp-series { background: #fffaf0; border-bottom: 1px solid #eadcb2; }
+    .kbp-series-inner { max-width: 1100px; margin: 0 auto; padding: 20px 5%; display: flex; gap: 16px; align-items: center; }
+    .kbp-series-tag {
+      flex-shrink: 0; padding: 6px 12px; border-radius: 6px; font-weight: 800; font-size: 0.8rem; letter-spacing: 0.06em;
+      background: var(--kbp-ink); color: var(--kbp-gold-soft);
+    }
+    .kbp-series p { margin: 0; line-height: 1.8; font-size: 0.95rem; color: var(--kbp-text); min-width: 0; }
+
+    /* Sections */
+    .kbp-section { padding: 64px 5%; background: #fff; }
+    .kbp-section.alt { background: #F0F4F8; }
+    .kbp-wrap { max-width: 1100px; margin: 0 auto; }
+    .kbp-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; color: var(--kbp-gold); margin-bottom: 6px; }
+    .kbp-h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); color: var(--kbp-navy); margin: 0 0 14px; line-height: 1.4; }
+    .kbp-lead { margin: 0 0 34px; line-height: 1.9; color: var(--kbp-text); max-width: 900px; }
+    .kbp-h3 { font-size: 1.2rem; color: var(--kbp-navy); margin: 0 0 10px; line-height: 1.5; }
+
+    /* Part header for the three ways to use */
+    .kbp-part {
+      display: flex; align-items: center; gap: 16px; padding: 22px 26px; margin: 0 0 34px; border-radius: 14px;
+      background: linear-gradient(120deg, var(--kbp-ink) 0%, var(--kbp-navy) 100%); color: #fff;
+    }
+    .kbp-part-no {
+      flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; font-weight: 900; font-size: 1.4rem;
+    }
+    .kbp-part-body { min-width: 0; }
+    .kbp-part-title { margin: 0 0 4px; font-size: clamp(1.25rem, 2.8vw, 1.7rem); line-height: 1.35; }
+    .kbp-part-desc { margin: 0; line-height: 1.7; color: rgba(255, 255, 255, 0.88); font-size: 0.95rem; }
+
+    /* Feature rows: text + screenshot */
+    .kbp-feature { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; margin: 0 0 48px; }
+    .kbp-feature.flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    .kbp-feature.flip .kbp-feature-text { order: 2; }
+    .kbp-feature-text p { margin: 0 0 12px; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-feature-text ul { margin: 0 0 12px; padding-left: 1.2em; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-feature-text li { margin-bottom: 4px; }
+    .kbp-shot { margin: 0; min-width: 0; }
+    .kbp-shot img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid #dbe3ee; box-shadow: 0 6px 18px rgba(15, 31, 61, 0.1); cursor: zoom-in; background: #fff; }
+    .kbp-shot figcaption { margin-top: 8px; font-size: 0.84rem; color: var(--kbp-muted); line-height: 1.6; }
+    .kbp-example {
+      margin: 12px 0 0; padding: 12px 14px; border-radius: 8px; background: #f4f7fb; border-left: 4px solid var(--kbp-navy);
+      font-size: 0.92rem; line-height: 1.8; color: var(--kbp-text);
+    }
+    .kbp-example strong { color: var(--kbp-navy); }
+
+    /* Chips for triggers / actions */
+    .kbp-chips, .kbp-feature-text .kbp-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; padding: 0; list-style: none; }
+    .kbp-chips li { padding: 5px 12px; border-radius: 16px; background: #eef3fa; color: var(--kbp-navy); font-size: 0.85rem; font-weight: 700; }
+    .kbp-chips.gold li { background: #fbf3dc; color: #6b4a0e; }
+
+    /* Use case cards */
+    .kbp-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0 0 44px; }
+    .kbp-case { background: #fff; border: 1px solid #dbe3ee; border-radius: 12px; padding: 20px; min-width: 0; }
+    .kbp-case-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0 0 10px; }
+    .kbp-case-app { padding: 4px 10px; border-radius: 6px; background: var(--kbp-navy); color: #fff; font-size: 0.82rem; font-weight: 700; }
+    .kbp-case-arrow { color: var(--kbp-gold); font-weight: 900; }
+    .kbp-case h3 { font-size: 1rem; color: var(--kbp-navy); margin: 0 0 6px; line-height: 1.5; }
+    .kbp-case p { margin: 0; font-size: 0.9rem; line-height: 1.75; color: var(--kbp-text); }
+
+    /* Partner list */
+    .kbp-partner-group { margin: 0 0 36px; }
+    .kbp-partner-group > p { margin: 0 0 16px; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-partners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; list-style: none; margin: 0; padding: 0; }
+    .kbp-partner a {
+      display: flex; gap: 14px; align-items: flex-start; padding: 16px; height: 100%; box-sizing: border-box;
+      background: #fff; border: 1px solid #e3d6ae; border-radius: 12px; text-decoration: none; color: inherit;
+      transition: box-shadow 0.2s ease;
+    }
+    .kbp-partner a:hover { box-shadow: 0 6px 18px rgba(15, 31, 61, 0.12); }
+    .kbp-partner-icon { width: 48px; height: 48px; flex-shrink: 0; border-radius: 10px; object-fit: contain; background: #f4f7fb; }
+    .kbp-partner-body { min-width: 0; }
+    .kbp-partner-name { display: block; font-weight: 800; color: var(--kbp-navy); margin-bottom: 2px; }
+    .kbp-partner-tier { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 1px 8px; border-radius: 10px; margin-bottom: 6px; }
+    .kbp-partner-tier.free { background: #e7f5e7; color: #1f5c1f; }
+    .kbp-partner-tier.premium { background: #fdf4d9; color: #77590a; }
+    .kbp-partner-role { display: block; font-size: 0.88rem; line-height: 1.7; color: var(--kbp-text); }
+
+    /* Feature summary list */
+    .kbp-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 28px; list-style: none; margin: 0; padding: 0; }
+    .kbp-list li { position: relative; padding-left: 26px; line-height: 1.75; color: var(--kbp-text); }
+    .kbp-list li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--kbp-gold); font-weight: 900; }
+
+    /* Plans */
+    .kbp-plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 0 0 24px; }
+    .kbp-plan { background: #fff; border: 1px solid #dbe3ee; border-radius: 14px; padding: 26px; position: relative; min-width: 0; }
+    .kbp-plan.top { border: 2px solid var(--kbp-gold); box-shadow: 0 10px 30px rgba(184, 134, 43, 0.18); }
+    .kbp-plan-badge {
+      position: absolute; top: -13px; left: 22px; padding: 4px 12px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; font-size: 0.78rem; font-weight: 800;
+    }
+    .kbp-plan h3 { margin: 4px 0 6px; color: var(--kbp-navy); font-size: 1.2rem; }
+    .kbp-plan-price { margin: 0 0 4px; }
+    .kbp-plan-price .amt { font-size: 1.9rem; font-weight: 900; color: var(--kbp-ink); }
+    .kbp-plan-price .unit { font-size: 0.9rem; color: var(--kbp-muted); margin-left: 4px; }
+    .kbp-plan-sub { margin: 0 0 14px; font-size: 0.85rem; color: var(--kbp-muted); }
+    .kbp-plan ul { margin: 0 0 18px; padding-left: 1.2em; line-height: 1.85; color: var(--kbp-text); font-size: 0.93rem; }
+    .kbp-plan-cta { display: block; text-align: center; padding: 12px 16px; border-radius: 10px; background: var(--kbp-navy); color: #fff; font-weight: 800; text-decoration: none; }
+    .kbp-plan.top .kbp-plan-cta { background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; }
+    .kbp-trial { margin: 0 0 18px; padding: 18px 20px; border-radius: 10px; background: #f4faf4; border: 1px solid #cfe8cf; line-height: 1.85; font-size: 0.93rem; color: var(--kbp-text); }
+    .kbp-trial h3 { margin: 0 0 6px; font-size: 1.05rem; color: #1B3A6B; }
+    .kbp-trial p { margin: 0 0 8px; }
+    .kbp-trial ul { margin: 0 0 8px; padding-left: 1.3em; }
+    .kbp-trial a { color: #2E8B2E; font-weight: 700; }
+    .kbp-note { padding: 16px 18px; border-radius: 10px; background: #fffaf0; border: 1px solid #eadcb2; line-height: 1.85; font-size: 0.93rem; color: var(--kbp-text); }
+
+    /* Install steps */
+    .steps-list { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid #e2e8f0; line-height: 1.8; counter-increment: step; }
+    .steps-list li::before {
+      content: counter(step); flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: var(--kbp-navy); color: #fff; font-weight: 800;
+    }
+    .steps-list li > span { min-width: 0; }
+
+    /* Cautions */
+    .kbp-cautions ul { margin: 0; padding-left: 1.2em; line-height: 1.9; color: var(--kbp-text); }
+    .kbp-cautions li { margin-bottom: 6px; }
+
+    /* FAQ */
+    .kbp-faq { margin: 0; }
+    .kbp-faq details { background: #fff; border: 1px solid #dbe3ee; border-radius: 10px; margin: 0 0 10px; }
+    .kbp-faq summary { cursor: pointer; padding: 16px 18px; font-weight: 800; color: var(--kbp-navy); line-height: 1.6; }
+    .kbp-faq details p { margin: 0; padding: 0 18px 16px; line-height: 1.85; color: var(--kbp-text); }
+
+    /* Closing CTA */
+    .kbp-cta { background: linear-gradient(135deg, #0b1630 0%, #1B3A6B 100%); color: #fff; text-align: center; padding: 56px 5%; border-top: 4px solid var(--kbp-gold); }
+    .kbp-cta h2 { margin: 0 0 12px; font-size: clamp(1.3rem, 3vw, 1.8rem); line-height: 1.45; }
+    .kbp-cta p { margin: 0 auto 22px; max-width: 760px; line-height: 1.85; color: rgba(255, 255, 255, 0.88); }
+
+    /* Lightbox */
+    .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); display: none; align-items: center; justify-content: center; z-index: 10000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5); }
+    .lightbox-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
+
+    @media (max-width: 860px) {
+      .kbp-feature, .kbp-feature.flip { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+      .kbp-feature.flip .kbp-feature-text { order: 0; }
+      .kbp-cases { grid-template-columns: minmax(0, 1fr); }
+      .kbp-partners, .kbp-list, .kbp-plan-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .kbp-pillars { grid-template-columns: minmax(0, 1fr); }
+      .kbp-section { padding: 48px 5%; }
+      .kbp-part { padding: 18px; gap: 12px; }
+      .kbp-part-no { width: 44px; height: 44px; font-size: 1.1rem; }
+      .kbp-series-inner { flex-direction: column; align-items: flex-start; }
+      .kbp-btn { width: 100%; box-sizing: border-box; text-align: center; }
+    }
+
+    /* Lookup Pro additions */
+    .kbp-feature.klp-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+    .klp-singles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; list-style: none; margin: 0; padding: 0; }
+    .klp-singles a {
+      display: flex; gap: 12px; align-items: center; padding: 12px; height: 100%; box-sizing: border-box;
+      background: #fff; border: 1px solid #dbe3ee; border-radius: 12px; text-decoration: none; color: inherit;
+    }
+    .klp-singles a:hover { box-shadow: 0 6px 18px rgba(15, 31, 61, 0.12); }
+    .klp-single-icon { width: 48px; height: 48px; flex-shrink: 0; border-radius: 10px; object-fit: contain; background: #f4f7fb; }
+    .klp-single-body { min-width: 0; display: block; }
+    .klp-single-name { display: block; font-weight: 800; color: var(--kbp-navy); font-size: 0.92rem; line-height: 1.5; }
+    .klp-single-role { display: block; font-size: 0.82rem; line-height: 1.6; color: var(--kbp-muted); }
+    .kbp-series p a { color: var(--kbp-navy); font-weight: 700; }
+    /* Overview grid of the Pro-only features at the top of PART 2 */
+    .klp-new-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; list-style: none; margin: 0 0 44px; padding: 0; }
+    .klp-new-grid li { background: #fff; border: 1px solid #dbe3ee; border-top: 3px solid var(--kbp-gold); border-radius: 12px; padding: 18px 20px; min-width: 0; }
+    .klp-new-grid h3 { font-size: 1rem; color: var(--kbp-navy); margin: 8px 0 6px; line-height: 1.5; }
+    .klp-new-grid p { margin: 0 0 8px; font-size: 0.9rem; line-height: 1.75; color: var(--kbp-text); }
+    .klp-new-grid a { color: var(--kbp-navy); font-weight: 700; font-size: 0.85rem; }
+    .klp-new-tag { display: inline-block; padding: 2px 10px; border-radius: 999px; background: var(--kbp-navy); color: var(--kbp-gold-soft); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em; }
+    .kbp-h3 .klp-new-tag { vertical-align: 0.2em; margin-right: 8px; }
+    @media (max-width: 860px) {
+      .kbp-feature.klp-pair { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    }
+    @media (max-width: 640px) {
+      .klp-new-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .klp-singles { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="kbp-hero">
+      <img class="kbp-hero-icon" src="/images/lookup-pro-icon.png" alt="ルックアップ Pro for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="kbp-hero-badges">
+        <span class="kbp-badge-pro">KIZUNA Pro PLUGIN</span>
+        <span class="kbp-hero-version">v{VERSION}</span>
+      </div>
+      <h1 class="kbp-hero-title">ルックアップ Pro for kintone</h1>
+      <p class="kbp-tagline">ルックアップの入力・絞り込み・登録・自動反映を、1つのプラグインで。</p>
+      <p class="kbp-sub">ルックアップ Pro for kintone は、<strong>ルックアップの入力中の候補表示・候補の絞り込み・マスターのその場登録・フリールックアップ・マスター更新の自動反映を1つにまとめた</strong> kintone プラグインです。5つの機能が、<strong>1つの設定画面</strong>で扱えます。欄ごとの一覧やまとめて設定など、Pro だけの機能も加わります。</p>
+      <div class="kbp-pillars">
+        <a class="kbp-pillar" href="#five"><span class="kbp-pillar-no">PART 1</span><span class="kbp-pillar-name">5つの機能を1つに</span><span class="kbp-pillar-desc">候補表示・絞り込み・その場登録・フリールックアップ・自動反映</span></a>
+        <a class="kbp-pillar" href="#pro"><span class="kbp-pillar-no">PART 2</span><span class="kbp-pillar-name">ルックアップ Pro だけの機能</span><span class="kbp-pillar-desc">欄ごとの一覧・まとめて設定・条件の引き継ぎ・更新のお知らせ</span></a>
+        <a class="kbp-pillar" href="#single"><span class="kbp-pillar-no">PART 3</span><span class="kbp-pillar-name">設定し直さずに乗り換え</span><span class="kbp-pillar-desc">今の設定を、読み込むだけ</span></a>
+      </div>
+      <div class="kbp-hero-cta">
+        <a class="kbp-btn is-primary" href="#plan">プランと料金を見る →</a>
+        <a class="kbp-btn is-ghost js-dl" href={ZIP} download>プラグインをダウンロード</a>
+        <a class="kbp-btn is-ghost" href="/plugins/premium-trial/">30日間無料で試す</a>
+      </div>
+      <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
+    </section>
+
+    <!-- Series -->
+    <div class="kbp-series">
+      <div class="kbp-series-inner">
+        <span class="kbp-series-tag">KIZUNA Pro とは</span>
+        <p>ちょこっとプラグイン・プレミアムプラグインの上にある、KIZUNA Works の上位版のプラグインのシリーズです。<strong>KIZUNA Pro 拡張パック</strong>で、ルックアップ Pro をはじめ、<a href="/plugins/bridge/">KIZUNAブリッジ for kintone</a> など、今後リリースされる KIZUNA Pro プラグインもすべてお使いいただけます。</p>
+      </div>
+    </div>
+
+    <!-- Problem -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">PROBLEM</span>
+        <h2 class="kbp-h2">ルックアップまわりの設定が、ばらばらになっていませんか</h2>
+        <p class="kbp-lead">候補表示・絞り込み・マスターへの登録・マスター更新の反映を別々のプラグインで設定していると、どの欄に何を設定したのかが分かりにくくなります。ルックアップ Pro は、これらを<strong>1つの設定画面</strong>にまとめます。</p>
+        <div class="kbp-cases">
+          <div class="kbp-case">
+            <h3>どの欄に、何を設定したのか分からない</h3>
+            <p>「欄ごとの一覧」で、ルックアップの欄ごとに5つの機能の設定の有無を確認できます。フォームの変更で見直しが必要になった設定も、上に出ます。</p>
+          </div>
+          <div class="kbp-case">
+            <h3>同じ欄を、何度も選び直している</h3>
+            <p>「まとめて設定」で、kintone のルックアップの設定をもとに、入力中の候補表示とその場登録の設定をまとめて作れます。</p>
+          </div>
+          <div class="kbp-case">
+            <h3>条件に合わないマスターを、登録してしまう</h3>
+            <p>候補を絞り込む条件を、その場登録にも引き継ぎます。条件に合わないマスターは登録させません。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 1 -->
+    <section class="kbp-section alt" id="five">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">1</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">5つの機能を、1つのプラグインで</h2>
+            <p class="kbp-part-desc">設定した機能だけが動きます。5つの機能の内容は、もとのプラグインと同じです。無料プランのような数の制限はありません。</p>
+          </div>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">入力中の候補表示</h3>
+            <p>ルックアップに2文字以上入れると、直下に候補が出ます。選ぶと、取得とコピー先の反映までその場で終わります。</p>
+            <ul>
+              <li>文字列のほか、選択肢・数値・日付・ユーザー選択・組織選択・グループ選択でも探せます。</li>
+              <li>テーブルの中のルックアップにも使えます（パソコンのみ）。</li>
+            </ul>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/lookup-pro-suggest.png" alt="kintone のレコード追加画面で、ルックアップの取引先欄に「大阪」と入力すると、直下に候補4件が表示され、最下部に「絞り込み条件：管理営業所＝大阪」と出ている画面" width="820" height="395" class="zoomable" />
+            <figcaption>入力中に候補が出ます。絞り込みの条件も、候補の下に表示されます。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature flip">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">候補の絞り込み</h3>
+            <p>［取得］で出る候補を、同じレコードで入力済みの値で絞ります。</p>
+            <p class="kbp-example"><strong>例：</strong>選んだ営業所を管轄するマスターだけを、取引先の候補に出す。</p>
+            <ul>
+              <li>場面ごとに、絞り方を変えられます（最大10通り）。</li>
+              <li>マスターが数千件以上あっても、キーワードを入れると参照先の全件から探します。</li>
+              <li>先に選んだ値と、あとから変えた条件が食い違わないよう、値を自動でクリアするか、保存時に止めるかを選べます。</li>
+            </ul>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/lookup-pro-dialog-filter.png" alt="取引先を選択するダイアログ。「絞り込み条件：管理営業所＝大阪」と表示され、条件に合う取引先4件が一覧に並んでいる画面" width="825" height="450" class="zoomable" />
+            <figcaption>［取得］のダイアログ。条件に合うレコードだけが並びます。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">マスターのその場登録</h3>
+            <p>参照先のマスターに無いとき、入力を中断せずに登録できます。ルックアップの［取得］の隣に［＋新規登録］が出ます。</p>
+            <ul>
+              <li>フォームの編集（スペースの配置）は要りません。</li>
+              <li>打った文字に似ているレコードを先に見せ、完全に同じなら登録を止めます（二重登録の防止）。</li>
+              <li>登録できる人を限れます（パソコンの追加・編集画面のみ）。</li>
+            </ul>
+          </div>
+          <div class="kbp-feature-text">
+            <p class="kbp-example"><strong>例：</strong>取引先のルックアップで、新しいお取引先が参照先のマスターに無いとき、受注の入力を中断せずに［＋新規登録］から登録して、そのまま取得します。</p>
+            <p>フォームの編集（スペースの配置）は要りません。</p>
+          </div>
+        </div>
+
+        <div class="kbp-feature flip">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">フリールックアップ</h3>
+            <p>文字列（1行）フィールドの横に、［取得］と［クリア］を出します。別のアプリ（このアプリ自身も可）のレコードを探し、決めたフィールドに値をコピーします。kintone のルックアップフィールドは使いません。</p>
+            <ul>
+              <li>参照先は、固定／フィールドの値で切り替え／［取得］で選ぶ、のどれかにできます。</li>
+              <li>キーが重複していても、候補の一覧から選べます。</li>
+              <li>1文字から、部分一致で探せます。</li>
+              <li>テーブルの行ごとに取得できます。パソコン・スマートフォンの両方で使えます。</li>
+            </ul>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/lookup-pro-free-lookup.png" alt="kintone のレコード追加画面。「取引先コード入力」欄に C-0002 と入力され、横に［取得］［クリア］［開く］が並び、取得した取引先名が隣の欄にコピーされている画面" width="820" height="470" class="zoomable" />
+            <figcaption>文字列の欄の横に、［取得］と［クリア］が出ます。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">マスター更新の自動反映</h3>
+            <p>マスターのレコードを更新すると、そのマスターをルックアップで参照している<strong>参照先アプリの既存レコード</strong>も、自動で追従して更新します。</p>
+            <ul>
+              <li>マスター側のアプリに追加して使います。［スキャン実行］で、このアプリを参照しているルックアップを自動で見つけます。</li>
+              <li>自動（保存した直後に更新）と手動（保存のあとに対象を選んで実行）を選べます。</li>
+              <li>［今すぐ全件同期］で、導入前に作られたレコードや反映漏れを、まとめて最新にできます。</li>
+              <li>登録した時点の値を残したいフィールドは、「自動更新しない項目」で外せます。</li>
+            </ul>
+          </div>
+          <div class="kbp-feature-text">
+            <p class="kbp-example"><strong>例：</strong>取引先マスターの住所を直すと、その取引先を選んでいる受注レコードの住所も、自動で新しい住所になります。</p>
+            <p>「自動更新しない項目」の反映と、キーが重複しうるルックアップの方式の設定は、参照先アプリの設定を書き換えます。操作する方に、参照先アプリの「アプリ管理」権限が必要です。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 2 -->
+    <section class="kbp-section" id="pro">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">2</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">ルックアップ Pro だけの機能</h2>
+            <p class="kbp-part-desc">5つの機能が1つになることで、できることが増えます。次の4つはもとのプラグインには無く、ルックアップ Pro だけで使えます。</p>
+          </div>
+        </div>
+
+        <ul class="klp-new-grid">
+          <li><span class="klp-new-tag">Pro だけ</span><h3>欄ごとの一覧</h3><p>ルックアップの欄ごとに、5つの機能のどれを設定したかと、見直しが必要な設定を1つの表で確かめられます。</p><a href="#pro-list">詳しく見る ↓</a></li>
+          <li><span class="klp-new-tag">Pro だけ</span><h3>まとめて設定</h3><p>kintone のルックアップの設定をもとに、入力中の候補表示とその場登録の設定をまとめて作れます。</p><a href="#pro-bulk">詳しく見る ↓</a></li>
+          <li><span class="klp-new-tag">Pro だけ</span><h3>絞り込みの条件を、その場登録に引き継ぐ</h3><p>候補を絞り込んでいるルックアップでは、条件に合わないマスターをその場で登録させません。設定は要りません。</p><a href="#pro-carry">詳しく見る ↓</a></li>
+          <li><span class="klp-new-tag">Pro だけ</span><h3>取得元が更新されたら知らせる</h3><p>フリールックアップの取得元があとから変わったとき、詳細画面で知らせます。［最新の値にする］でそのまま更新できます。</p><a href="#pro-notice">詳しく見る ↓</a></li>
+        </ul>
+
+        <div class="kbp-feature" id="pro-list">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="klp-new-tag">Pro だけ</span>欄ごとの一覧</h3>
+            <p>設定画面の最初のタブです。このアプリのルックアップ（とフリールックアップ）の欄ごとに、どの機能が設定されているかを表で確認できます。欄の状態を押すと、その機能のタブに移ります。</p>
+            <p>次のような設定は、「見直しが必要な設定」として上に出ます。</p>
+            <ul>
+              <li>設定が指すフィールドが、フォームに無い（削除・コード変更）</li>
+              <li>候補表示の参照先アプリが、ルックアップの設定と変わっている</li>
+              <li>フリールックアップのコピー先が、標準のルックアップのコピー先と重なっている</li>
+            </ul>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/lookup-pro-config-overview.png" alt="ルックアップ Pro の設定画面の「欄ごとの一覧」タブ。ルックアップの欄ごとに、入力中の候補表示・候補の絞り込み・マスターのその場登録の「設定あり」「未設定」が表で並び、右に KIZUNA Works のご案内が表示されている" width="1425" height="955" class="zoomable" />
+            <figcaption>設定画面の最初のタブ「欄ごとの一覧」。上のタブで5つの機能を切り替えます。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature flip" id="pro-bulk">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="klp-new-tag">Pro だけ</span>まとめて設定</h3>
+            <p>「欄ごとの一覧」で、入力中の候補表示とその場登録が未設定のルックアップには、［まとめて設定］が出ます。</p>
+            <ol class="steps-list">
+              <li><span>［まとめて設定］を押し、確認で OK を押します。</span></li>
+              <li><span>kintone のルックアップの設定（参照先・キー・コピー先・表示するフィールド）をもとに、2つの機能の設定が作られます。</span></li>
+              <li><span>［保存］→［アプリを更新］を押します。</span></li>
+            </ol>
+            <p>製品ごとに同じ欄を選び直す手間が要りません。作られた設定は、各タブで直せます。候補の絞り込みは条件が要るので、まとめて設定には含みません。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/lookup-pro-config-quick-setup.png" alt="ルックアップ Pro の「欄ごとの一覧」タブ。まとめて設定を実行したあと、「入力中の候補表示」と「マスターのその場登録」の設定を足した旨の案内が表示され、該当の欄が「設定あり」になっている画面" width="1425" height="998" class="zoomable" />
+            <figcaption>［まとめて設定］のあと。2つの機能の設定が「設定あり」になります。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature" id="pro-carry">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="klp-new-tag">Pro だけ</span>絞り込みの条件を、その場登録に引き継ぐ</h3>
+            <p>候補の絞り込みと、マスターのその場登録の両方を設定したルックアップでは、<strong>絞り込みの条件に合わないマスターを登録させません</strong>。</p>
+            <p class="kbp-example"><strong>例：</strong>取引先のルックアップを「選んだ営業所が管轄するものだけ」に絞っているとき。［＋新規登録］のパネルでは、「管理営業所」が、このレコードの営業所に固定されます。</p>
+            <ul>
+              <li>設定は要りません。両方を設定すると、自動で働きます。</li>
+              <li>登録後の照合も、条件どおりに行います。</li>
+            </ul>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/lookup-pro-add-panel.png" alt="「取引先マスターに新規登録」のパネル。取引先名に入力があり、「区分」と「管理営業所」の欄に「条件で固定」の表示が付いて、取引先と大阪が選べない状態で表示されている" width="580" height="500" class="zoomable" />
+            <figcaption>絞り込みの条件で決まる欄は、「条件で固定」になります。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature flip" id="pro-notice">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="klp-new-tag">Pro だけ</span>フリールックアップの取得元が更新されたら知らせる</h3>
+            <p>フリールックアップで取得したあとに、取得元のレコードが更新されることがあります。レコードの<strong>詳細画面</strong>を開いたとき、コピーした値と取得元の値が違っていれば、知らせます。</p>
+            <ul>
+              <li>［最新の値にする］を押すと、そのレコードを更新します。開いただけでは書き換えません。</li>
+              <li>更新するときに、ほかの人が先に直していたときは、開き直すよう案内します。</li>
+              <li>「欄ごとの一覧」タブの［詳細画面で知らせる］にチェックを入れると使えます（既定はオフ）。</li>
+            </ul>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/lookup-pro-free-refresh.png" alt="kintone のレコード詳細画面。上部に「フリールックアップで取得した値が、取得元で変わっています」という帯と［最新の値にする］ボタンが表示されている画面" width="1440" height="655" class="zoomable" />
+            <figcaption>詳細画面の上に出る帯。［最新の値にする］で、そのレコードを更新します。</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 3 -->
+    <section class="kbp-section alt" id="single">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">3</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">今のプラグインから、設定ごと乗り換える</h2>
+            <p class="kbp-part-desc">お使いのプラグインの設定を読み込めるので、一から設定し直す必要はありません。入れ替えの途中も、処理が二重になりません。</p>
+          </div>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">ルックアップ Pro にまとめた5つのプラグイン</h3>
+            <p>同じアプリに両方入っているときは、<strong>その機能はもとのプラグインが動き</strong>、ルックアップ Pro はその機能だけ動かしません（二重にボタンが出る・二重に取得する、を防ぐためです）。ほかの機能は、ルックアップ Pro が動かします。</p>
+            <p>アプリからもとのプラグインを外すと、その機能は、ルックアップ Pro が動かします。</p>
+          </div>
+          <ul class="klp-singles">
+            {bundled.map((b) => (
+              <li>
+                <a href={`/plugins/${b.p!.slug}/`}>
+                  <img class="klp-single-icon" src={iconOf(b.p!.slug)} alt="" width="48" height="48" loading="lazy" />
+                  <span class="klp-single-body">
+                    <span class="klp-single-name">{b.p!.name}</span>
+                    <span class="klp-single-role">ルックアップ Pro の「{b.role}」</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="kbp-feature flip">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">［単品の設定を読み込む］で引き継ぐ</h3>
+            <ol class="steps-list">
+              <li><span>もとのプラグインが入っているアプリで、ルックアップ Pro の設定画面を開きます。</span></li>
+              <li><span>該当の機能のタブに出る<strong>［単品の設定を読み込む］</strong>を押し、確認で OK を押します。</span></li>
+              <li><span>内容を確かめて、［保存］→［アプリを更新］を押します。</span></li>
+              <li><span>もとのプラグインを、アプリから外します。</span></li>
+            </ol>
+            <p>読み込みは手動です。もとのプラグインの設定はそのまま残り、外すまでもとのプラグインが動き続けます。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/lookup-pro-config-filter.png" alt="ルックアップ Pro の設定画面の「候補の絞り込み」タブ。ルックアップフィールドの選択、条件で絞り込む設定、「この設定だと、こう出ます」の候補4件のプレビューが表示されている画面" width="1425" height="1690" class="zoomable" />
+            <figcaption>「候補の絞り込み」タブ。設定欄は、もとのプラグインの設定画面と同じ項目です。</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature summary -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">FEATURES</span>
+        <h2 class="kbp-h2">主な機能</h2>
+        <h3 class="kbp-h3">ルックアップ Pro だけの機能</h3>
+        <ul class="kbp-list">
+          <li>欄ごとの一覧：5つの機能の設定の有無と、見直しが必要な設定を確認</li>
+          <li>まとめて設定：入力中の候補表示とその場登録の設定を、ルックアップの設定からまとめて作る</li>
+          <li>絞り込みの条件を、その場登録に引き継ぐ</li>
+          <li>フリールックアップの取得元が更新されたら、詳細画面で知らせる</li>
+          <li>これまでのプラグインの設定を読み込んで引き継ぐ</li>
+        </ul>
+        <h3 class="kbp-h3">5つの機能と共通の機能</h3>
+        <ul class="kbp-list">
+          <li>入力中の候補表示：ルックアップに文字を入れると、その場で候補が出て、取得まで終わる</li>
+          <li>候補の絞り込み：［取得］で出る候補を、入力済みの値で絞る（場面ごとに最大10通り）</li>
+          <li>マスターのその場登録：マスターに無いとき、［＋新規登録］でその場で登録して取得する</li>
+          <li>フリールックアップ：文字列（1行）フィールドの横に［取得］を出し、別のアプリから値をコピー</li>
+          <li>マスター更新の自動反映：マスターを更新すると、参照先の既存レコードも更新</li>
+          <li>ゲストスペースのアプリに対応</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Plans -->
+    <section class="kbp-section alt" id="plan">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">PLAN</span>
+        <h2 class="kbp-h2">プランと料金</h2>
+        <p class="kbp-lead">ルックアップ Pro は KIZUNA Pro プラグインです。製品ごとの個別のご契約はありません。<strong>プレミアム年間サポーター</strong>と <strong>KIZUNA Pro 拡張パック</strong>のご契約でお使いいただけます。</p>
+        <div class="kbp-plan-grid">
+          <div class="kbp-plan top">
+            <span class="kbp-plan-badge">KIZUNA Pro 最上位</span>
+            <h3>{PRO_SET_PLAN.name}</h3>
+            <p class="kbp-plan-price"><span class="amt">{yen(PRO_SET_PLAN.priceInTax)}</span><span class="unit">/年（税込）</span></p>
+            <p class="kbp-plan-sub">税抜 {yen(PRO_SET_PLAN.priceExTax)}／プレミアム年間サポーター＋KIZUNA Pro 拡張パック</p>
+            <ul>
+              <li>ルックアップ Pro を含む KIZUNA Pro プラグインすべて</li>
+              <li>ちょこっと＆プレミアムプラグインすべて</li>
+              <li>プラグイン内の広告非表示</li>
+              <li>今後リリースされる KIZUNA Pro プラグインも追加料金なし</li>
+            </ul>
+            <a class="kbp-plan-cta" href="/plugins/supporter/?plan=pro_set">{PRO_SET_PLAN.name}を申し込む →</a>
+          </div>
+          <div class="kbp-plan">
+            <span class="kbp-plan-badge">プレミアムにご加入中の方</span>
+            <h3>{PRO_ADDON.name}</h3>
+            <p class="kbp-plan-price"><span class="amt">{yen(PRO_ADDON.priceInTax)}</span><span class="unit">/年（税込）</span></p>
+            <p class="kbp-plan-sub">税抜 {yen(PRO_ADDON.priceExTax)}／{PREMIUM_PLAN.name}に追加</p>
+            <ul>
+              <li>プレミアム年間サポーターに追加していただくプランです</li>
+              <li>KIZUNA Works の上位版のプラグイン「KIZUNA Pro プラグイン」をすべてお使いいただけます</li>
+              <li>アプリをまたぐ作業もプラグインの連携も自動化する「KIZUNAブリッジ for kintone」をはじめ、今後リリースされる KIZUNA Pro プラグインも追加料金なしで順次ご利用いただけます</li>
+            </ul>
+            <a class="kbp-plan-cta" href="/plugins/supporter/?plan=pro_add">{PRO_ADDON.name}を申し込む →</a>
+          </div>
+        </div>
+        <div class="kbp-trial" id="trial">
+          <h3>30日間、無料で試せます</h3>
+          <p>カード登録は不要で、自動課金もありません（1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、条件を満たせばもう一度お試しいただけます）。</p>
+          <ul>
+            <li><strong>プレミアム年間サポーターを未契約の方</strong>：<a href="/plugins/premium-trial/">プレミアム年間サポーターの無料体験</a>に KIZUNA Pro プラグインが含まれます。</li>
+            <li><strong>プレミアム年間サポーターをご契約中の方</strong>：<a href="/plugins/premium-trial/#pro-trial">KIZUNA Pro 拡張パックだけを30日間無料</a>で試せます。</li>
+          </ul>
+          <p>体験が終わると一覧の機能は止まりますが、設定は残ります。続けるときは上のプランからお申し込みください。</p>
+        </div>
+        <p class="kbp-note">年間サポーター（ちょこっとプラグインすべて）には、KIZUNA Pro 拡張パックを追加できません。ご契約が切れても<strong>設定は消えません</strong>。ご契約が確認できない間は一覧の機能が動かず、ご契約が戻れば保存済みの設定のまま動きます。</p>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">INSTALL</span>
+        <h2 class="kbp-h2">導入の手順</h2>
+        <ol class="steps-list">
+          <li><span>このページから <strong>kw-lookup-pro-v{VERSION}.zip</strong> をダウンロードします（解凍は不要です）。</span></li>
+          <li><span>kintone の［kintone システム管理］→［プラグイン］→［読み込む］で、zip ファイルを読み込みます。</span></li>
+          <li><span>使いたいアプリの［アプリの設定］→［プラグイン］→［プラグインの追加］で、ルックアップ Pro for kintone を追加します。マスター更新の自動反映は、<strong>マスター側のアプリ</strong>に追加します。</span></li>
+          <li><span>プラグインの設定画面を開き、ご契約が確認されると設定の画面が表示されます。上のタブから、使いたい機能を設定します。</span></li>
+          <li><span>［保存］を押し、「アプリの設定」の画面で［アプリを更新］を押して反映します。</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Cautions -->
+    <section class="kbp-section alt">
+      <div class="kbp-wrap">
+        <h2 class="kbp-h2">ご利用にあたっての注意</h2>
+        <div class="kbp-cautions">
+          <ul>
+            <li>マスターのその場登録・マスター更新の自動反映・フリールックアップの取得元の更新のお知らせは、パソコンのみです。設定画面もパソコンのみです。</li>
+            <li>マスター更新の自動反映で「自動更新しない項目」やキーが重複しうるルックアップの方式を設定すると、参照先アプリの設定（スクリプトの登録・フィールドの追加・アプリの更新）を書き換えます。操作する方に、参照先アプリの「アプリ管理」権限が必要です。</li>
+            <li>設定が指すフィールドを、フォームで削除したり、種類やコードを変えたりすると、「見直しが必要な設定」と表示されます。該当のタブで設定を選び直して保存してください。</li>
+            <li>フリールックアップの取得元の更新のお知らせは、取得元を開くための［レコード番号を入れる］フィールドの設定が必要です。テーブルの中のフリールックアップは対象外です。</li>
+            <li>プラグインの設定は「丸ごと保存」する仕組みのため、<strong>設定画面を2つ同時に開いて保存すると片方の変更が失われます</strong>。1つずつ保存してください。</li>
+            <li>アプリからプラグインを<strong>「利用を解除」すると設定が破棄されます</strong>。一時的に止めたいだけのときは「無効にする」をお使いください。</li>
+            <li>本プラグインはサイボウズ社の製品ではありません。kintone はサイボウズ株式会社の登録商標です。</li>
+            <li>推奨ブラウザは Google Chrome / Microsoft Edge です。</li>
+            <li>本プラグインの利用により生じた損害について、当社は責任を負いかねます。配布 zip に秘密鍵（ppk）は含まれません。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">FAQ</span>
+        <h2 class="kbp-h2">よくある質問</h2>
+        <div class="kbp-faq">
+          {faqs.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Security -->
+    <section class="kbp-section alt">
+      <div class="kbp-wrap">
+        <SecurityBox pluginId="kw-lookup-pro" />
+        <ShareButtons title="ルックアップ Pro for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="kbp-cta">
+      <h2>ルックアップの入力・絞り込み・登録・自動反映を、1つのプラグインで。</h2>
+      <p>ルックアップ Pro は、KIZUNA Pro プラグインです。{PRO_SET_PLAN.name}（税込 {yen(PRO_SET_PLAN.priceInTax)}/年）、またはプレミアム年間サポーターへの KIZUNA Pro 拡張パックの追加でお使いいただけます。</p>
+      <a class="kbp-btn is-primary" href="/plugins/supporter/?plan=pro_set">{PRO_SET_PLAN.name}を見る →</a>
+    </section>
+
+    <div class="lightbox" id="kbp-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline define:vars={{ zip: ZIP }}>
+    (function () {
+      var lightbox = document.getElementById('kbp-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: zip.split('/').pop(),
+              file_extension: 'zip',
+              link_text: 'プラグインをダウンロード',
+              link_url: zip
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

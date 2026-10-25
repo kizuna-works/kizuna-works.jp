@@ -89,6 +89,7 @@ const knownPluginPages = new Set([
   'premium-trial',
   'update',
   'problems',
+  'kizuna-pro',
 ]);
 const stale = [...linked.plugins].filter((s) => !knownPluginPages.has(s)).map((s) => `/plugins/${s}/`);
 

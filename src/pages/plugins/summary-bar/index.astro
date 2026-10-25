@@ -57,10 +57,10 @@ import HeroDownload from '../../../components/HeroDownload.astro';
           "name": "集計サマリーバー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.4.0",
-          "dateModified": "2026-09-28",
+          "softwareVersion": "2.4.1",
+          "dateModified": "2026-10-24",
           "url": "https://kizuna-works.jp/plugins/summary-bar/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-summary-bar-v2.4.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-summary-bar-v2.4.1.zip",
           "image": "https://kizuna-works.jp/images/summary-bar-banner.png",
           "offers": {
             "@type": "Offer",
@@ -93,7 +93,8 @@ import HeroDownload from '../../../components/HeroDownload.astro';
             "プレフィックス・サフィックス（¥ / 円 / % など）で数値を整形",
             "淡色テーマ8種＋カードごとの個別配色上書き",
             "カードの並べ替え（▲▼ボタン・ドラッグ）",
-            "GAS・外部サービス不要・kintone完結"
+            "GAS・外部サービス不要・kintone完結",
+            "サーチ Pro と一緒に使うと、集計カードを押して、そのカードの条件で一覧を絞り込める（KIZUNA Pro プラグイン）"
           ]
         }
       ]
@@ -767,11 +768,11 @@ import HeroDownload from '../../../components/HeroDownload.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.4.0</span>
+        <span class="hero-version">v2.4.1</span>
       </div>
       <h1 class="hero-title">集計サマリーバー for kintone</h1>
       <p class="hero-copy">レコード一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示する kintone プラグインです。絞り込みに連動して即時に再集計するので、グラフ画面に移動せず「今この一覧の数字」をひと目で把握できます。一覧ビューごとに別のカード構成を設定でき、集計値による色分けや段組みに対応。「今月の売上」「自分が担当の件数」のような絞り込みカードや、<strong>勤務時間・作業時間を「〇時間〇分」で合計・平均するカード</strong>も並べられます。</p>
-      <HeroDownload href="/downloads/kw-summary-bar-v2.4.0.zip" />
+      <HeroDownload href="/downloads/kw-summary-bar-v2.4.1.zip" />
     </section>
 
     <!-- Update Info (v2.4.0) -->
@@ -893,6 +894,7 @@ import HeroDownload from '../../../components/HeroDownload.astro';
           <li><span><strong>淡色テーマ8種＋個別配色</strong> — バー全体のカード配色を淡色テーマ 8 種から選べるほか、カードごとに背景・文字・ラベル・枠線の色を個別に上書きできます。</span></li>
           <li><span><strong>カードの並べ替え</strong> — 設定画面で ▲▼ ボタンまたはドラッグでカードの順番を変更可能。並び順がそのまま一覧上の表示順になります。</span></li>
           <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。プラグインアップロードのみで導入完了します。</span></li>
+          <li><span><strong><a href="/plugins/search-pro/">サーチ Pro</a>と一緒に使う</strong> — 集計カードを押すと、そのカードの条件で一覧を絞り込めます。絞り込みの条件は「条件の帯」にまとまります（KIZUNA Pro プラグイン）。</span></li>
         </ul>
       </div>
     </section>
@@ -1046,7 +1048,7 @@ import HeroDownload from '../../../components/HeroDownload.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">集計に使う数値（または計算）フィールドと、テーブル形式の一覧ビューがあるアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-summary-bar-v2.4.0.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-summary-bar-v2.4.1.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「集計サマリーバー」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>対象一覧</strong>を選び、「カード設定」タブで集計方法・対象フィールド・表示段などを設定して「保存」</span></li>
@@ -1071,7 +1073,7 @@ import HeroDownload from '../../../components/HeroDownload.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-summary-bar-v2.4.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-summary-bar-v2.4.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <SupporterPlanCard pluginId="kw-summary-bar" />
         <PremiumPlanCard />
@@ -1227,10 +1229,10 @@ import HeroDownload from '../../../components/HeroDownload.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-summary-bar-v2.4.0.zip',
+              file_name: 'kw-summary-bar-v2.4.1.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-summary-bar-v2.4.0.zip'
+              link_url: '/downloads/kw-summary-bar-v2.4.1.zip'
             });
           }
         });

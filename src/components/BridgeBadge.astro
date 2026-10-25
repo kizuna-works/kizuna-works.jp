@@ -1,0 +1,116 @@
+---
+/**
+ * Marks a plugin that works together with KIZUNA Bridge (the first KIZUNA Pro plugin).
+ * Driven by the `bridge` field in `src/data/plugins.ts`: pass `pluginId` and the
+ * component renders nothing unless that product has the field. This keeps the badge,
+ * the note text and the partner list on /plugins/bridge/ from drifting apart.
+ *
+ * `as="badge"` is the hero pill (translucent, for the dark hero gradient).
+ * `as="note"` is the one-line strip placed just below the hero.
+ *
+ * Public copy rule: say what the user can do together, never how the bridge talks
+ * to the product, and never name partner companies.
+ */
+import { allPlugins } from '../data/plugins';
+
+interface Props {
+  as?: 'badge' | 'note';
+  /** Product id in plugins.ts (e.g. 'kw-footprint'). */
+  pluginId: string;
+}
+
+const { as = 'badge', pluginId } = Astro.props;
+const note = allPlugins.find((p) => p.id === pluginId)?.bridge;
+---
+
+{!note ? null : as === 'badge' ? (
+  <a class="brb-badge" href="/plugins/bridge/" title="KIZUNAブリッジ for kintone と連携できます"><span class="brb-icon" aria-hidden="true">🔗</span><span>ブリッジ連携</span></a>
+) : (
+  <div class="brb-note">
+    <p>
+      <span class="brb-note-icon" aria-hidden="true">🔗</span>
+      <strong>ブリッジ連携</strong>
+      <span class="brb-note-text">{note}</span>
+      <span class="brb-note-sub"><a href="/plugins/bridge/">KIZUNAブリッジ for kintone</a>（KIZUNA Pro プラグイン）と組み合わせると使えます。</span>
+    </p>
+  </div>
+)}
+
+<style>
+  /* Hero pill: same footprint as the request-origin pill, gold edge marks the Pro series */
+  .brb-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(240, 200, 90, 0.85);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    padding: 6px 14px;
+    border-radius: 20px;
+    line-height: 1;
+    text-decoration: none;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .brb-badge:hover {
+    background: rgba(255, 255, 255, 0.26);
+  }
+
+  .brb-icon {
+    display: block;
+    line-height: 1;
+    font-size: 1.02em;
+  }
+
+  .brb-note {
+    max-width: 900px;
+    margin: 16px auto 0;
+    padding: 0 20px;
+  }
+
+  .brb-note p {
+    margin: 0;
+    padding: 14px 18px;
+    background: #fbf8ef;
+    border: 1px solid #eadcb2;
+    border-left: 4px solid #b8862b;
+    border-radius: 6px;
+    color: #333;
+    font-size: 0.97rem;
+    line-height: 1.8;
+  }
+
+  .brb-note-icon {
+    margin-right: 6px;
+  }
+
+  .brb-note strong {
+    color: #7a5512;
+  }
+
+  .brb-note-text {
+    margin-left: 8px;
+  }
+
+  /* Second sentence always starts its own line so the break never lands mid-phrase */
+  .brb-note-sub {
+    display: block;
+  }
+
+  .brb-note a {
+    color: #1B3A6B;
+    font-weight: 700;
+  }
+
+  @media (max-width: 600px) {
+    .brb-note-text {
+      display: block;
+      margin-left: 0;
+      margin-top: 4px;
+    }
+  }
+</style>

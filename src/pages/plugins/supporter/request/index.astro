@@ -1,6 +1,6 @@
 ---
 import Layout from '../../../../layouts/Layout.astro';
-import { plugins, premiumPlugins } from '../../../../data/plugins';
+import { plugins, premiumPlugins, premiumOnlyPlugins, proPlugins } from '../../../../data/plugins';
 
 // プラグインの設定画面から開かれたときは ?plugin=<id> が付く。
 // 送信する値は formName なので、id → formName の対応をページに持たせる。
@@ -402,10 +402,17 @@ const pluginNameById: Record<string, string> = {};
                 ))}
               </optgroup>
               <optgroup label="プレミアムプラグイン">
-                {premiumPlugins.map((plugin) => (
+                {premiumOnlyPlugins.map((plugin) => (
                   <option value={plugin.formName}>{plugin.formName}</option>
                 ))}
               </optgroup>
+              {proPlugins.length > 0 && (
+                <optgroup label="KIZUNA Pro プラグイン">
+                  {proPlugins.map((plugin) => (
+                    <option value={plugin.formName}>{plugin.formName}</option>
+                  ))}
+                </optgroup>
+              )}
             </select>
             <span id="req-plugin-count" class="req-filter-count" aria-live="polite"></span>
             <script type="application/json" id="req-plugin-map" is:inline set:html={JSON.stringify(pluginNameById)} />

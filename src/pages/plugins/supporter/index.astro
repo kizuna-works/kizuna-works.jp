@@ -3,8 +3,8 @@ import Layout from '../../../layouts/Layout.astro';
 import SupporterForm from '../../../components/SupporterForm.astro';
 import ApplyFlow from '../../../components/ApplyFlow.astro';
 import TrialBanner from '../../../components/TrialBanner.astro';
-import { plugins, premiumPlugins } from '../../../data/plugins';
-import { PRICE_REVISION_LIVE, PRICE_REVISION_DATE, CHOKO_PLAN, SUPPORTER_PLAN, SUPPORTER_PLAN_TYPE, yen } from '../../../data/pricing';
+import { plugins, premiumPlugins, premiumOnlyPlugins, proPlugins } from '../../../data/plugins';
+import { PRICE_REVISION_LIVE, PRICE_REVISION_DATE, CHOKO_PLAN, SUPPORTER_PLAN, SUPPORTER_PLAN_TYPE, PRO_SET_PLAN, PRO_ADDON, PRO_ADDON_DESCRIPTION, yen } from '../../../data/pricing';
 
 // Proof for the "いただいたご要望を開発に反映します" promise. Derived from the
 // catalogue so this list and the badges on /plugins/ can never disagree.
@@ -59,7 +59,7 @@ const ld = {
         },
         {
           "@type": "Offer",
-          "name": "プレミアム年間サポーターライセンス（販売中の全プラグイン対象・年額）",
+          "name": "プレミアム年間サポーターライセンス（ちょこっと＆プレミアムプラグインすべて対象・年額）",
           "price": "15000",
           "priceCurrency": "JPY",
           "url": "https://kizuna-works.jp/plugins/supporter/?plan=all",
@@ -67,6 +67,22 @@ const ld = {
           "priceSpecification": {
             "@type": "UnitPriceSpecification",
             "price": "15000",
+            "priceCurrency": "JPY",
+            "billingDuration": "P1Y",
+            "unitText": "year",
+            "valueAddedTaxIncluded": false
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "KIZUNA Pro 年間サポーターライセンス（プレミアム年間サポーター＋KIZUNA Pro 拡張パック・年額）",
+          "price": String(PRO_SET_PLAN.priceExTax),
+          "priceCurrency": "JPY",
+          "url": "https://kizuna-works.jp/plugins/supporter/?plan=pro_set",
+          "availability": "https://schema.org/InStock",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": String(PRO_SET_PLAN.priceExTax),
             "priceCurrency": "JPY",
             "billingDuration": "P1Y",
             "unitText": "year",
@@ -107,7 +123,7 @@ const ld = {
           "name": "年間サポーターとプレミアム年間サポーターの違いは何ですか？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "年間サポーター（¥3,300/年税込）はお申込み時に選択した 1 プラグインが対象で、対象プラグインの広告エリアが非表示になります。プレミアム年間サポーター（¥16,500/年税込）は販売中の全プラグインが対象で、契約期間中にリリースされる新プラグインも追加料金なしで利用できます。さらに HP サポーター一覧へのロゴ掲載特典が付きます。"
+            "text": "年間サポーター（¥3,300/年税込）はお申込み時に選択した 1 プラグインが対象で、対象プラグインの広告エリアが非表示になります。プレミアム年間サポーター（¥16,500/年税込）はちょこっと＆プレミアムプラグインすべてが対象で、契約期間中にリリースされる新プラグインも追加料金なしで利用できます。さらに HP サポーター一覧へのロゴ掲載特典が付きます。"
           }
         },
         {
@@ -207,14 +223,14 @@ if (PRICE_REVISION_LIVE) {
   offer.price = String(CHOKO_PLAN.priceExTax);
   offer.priceSpecification.price = String(CHOKO_PLAN.priceExTax);
   const faq = g.find((x) => x['@type'] === 'FAQPage').mainEntity;
-  faq[0].acceptedAnswer.text = "年間サポーター（¥8,250/年税込）はちょこっとプラグインすべてが対象で、ちょこっとプラグインすべての広告エリアが非表示になります。契約期間中にリリースされる新しいちょこっとプラグインも対象です。プレミアム年間サポーター（¥16,500/年税込）はプレミアムプラグインを含む販売中の全プラグインが対象で、契約期間中にリリースされる新プラグインも追加料金なしで利用できます。さらに HP サポーター一覧へのロゴ掲載特典が付きます。";
+  faq[0].acceptedAnswer.text = "年間サポーター（¥8,250/年税込）はちょこっとプラグインすべてが対象で、ちょこっとプラグインすべての広告エリアが非表示になります。契約期間中にリリースされる新しいちょこっとプラグインも対象です。プレミアム年間サポーター（¥16,500/年税込）はちょこっと＆プレミアムプラグインすべてが対象で、契約期間中にリリースされる新しいちょこっと・プレミアムプラグインも追加料金なしで利用できます。さらに HP サポーター一覧へのロゴ掲載特典が付きます。上位版の KIZUNA Pro プラグインは、プレミアム年間サポーターに KIZUNA Pro 拡張パックを加えた KIZUNA Pro 年間サポーター（¥27,500/年税込）でお使いいただけます。";
   faq[1].name = '途中で年間サポーターからプレミアム年間サポーターに切り替えられますか？';
   faq[1].acceptedAnswer.text = "できます。お問い合わせフォームからご連絡ください。ご契約中の年間サポーターの残りの期間に応じた差額で、プレミアム年間サポーターへ切り替えられます。残りが 9 か月以下なら残り 1 か月あたり ¥825（税込）で、今の有効期限までプレミアム年間サポーターになります。残りが 10 か月以上なら ¥8,250（税込）で、お支払いの日から 1 年間のプレミアム年間サポーターになります。";
   faq[6].acceptedAnswer.text = "プラグインの設定画面のサイドバーで確認できます。有効なドメインでは「サポーターライセンス有効」と有効期限・残り日数が表示されます。ここが「有効」になっていれば認証は正しく通っています。なお、年間サポーターとプレミアム年間サポーターの両方が有効な場合は最も遅い有効期限が表示されます。";
 }
 const metaDesc = PRICE_REVISION_LIVE
-  ? "kintone プラグイン「ちょこっとプラグイン」シリーズの年間サポーターライセンスお申込みページ。年間サポーターはちょこっとプラグインすべてが対象で ¥7,500/年（税抜）、プレミアム年間サポーターは全プラグイン対象で ¥15,000/年（税抜）。広告非表示・優先サポート付き。"
-  : 'kintone プラグイン「ちょこっとプラグイン」シリーズの年間サポーターライセンスお申込みページ。年間サポーターは 1 プラグイン ¥3,000/年（税抜）、プレミアム年間サポーターは全プラグイン対象で ¥15,000/年（税抜）。広告非表示・優先サポート付き。';
+  ? "kintone プラグイン「ちょこっとプラグイン」シリーズの年間サポーターライセンスお申込みページ。年間サポーターはちょこっとプラグインすべてが対象で ¥7,500/年（税抜）、プレミアム年間サポーターはちょこっと＆プレミアムプラグインすべて対象で ¥15,000/年（税抜）。上位版の KIZUNA Pro 年間サポーターは ¥25,000/年（税抜）。広告非表示・優先サポート付き。"
+  : 'kintone プラグイン「ちょこっとプラグイン」シリーズの年間サポーターライセンスお申込みページ。年間サポーターは 1 プラグイン ¥3,000/年（税抜）、プレミアム年間サポーターはちょこっと＆プレミアムプラグインすべて対象で ¥15,000/年（税抜）。広告非表示・優先サポート付き。';
 ---
 
 <Layout
@@ -510,7 +526,219 @@ const metaDesc = PRICE_REVISION_LIVE
       background-color: var(--color-green);
     }
 
+    /* KIZUNA Pro plan card: top tier, navy with a gold accent, full width above the 3-up grid */
+    .pro-plan-card {
+      position: relative;
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      margin: 0 0 32px;
+      padding: 40px 32px 32px;
+      background: linear-gradient(135deg, #1B3A6B 0%, #14305a 100%);
+      color: var(--color-white);
+      border: 2px solid #c9a227;
+      border-radius: 14px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .pro-plan-badge {
+      position: absolute;
+      top: -13px;
+      left: 32px;
+      background-color: #c9a227;
+      color: #1B3A6B;
+      padding: 4px 16px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .pro-plan-main {
+      flex: 0 0 280px;
+      min-width: 0;
+      text-align: center;
+    }
+
+    .pro-plan-name {
+      margin: 0 0 6px;
+      font-size: 1.3rem;
+      color: #f5d76e;
+    }
+
+    .pro-plan-formula {
+      margin: 0 0 14px;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .pro-plan-price .amount {
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: var(--color-white);
+    }
+
+    .pro-plan-price .unit {
+      margin-left: 4px;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .pro-plan-sub {
+      margin-top: 4px;
+      font-size: 0.82rem;
+      opacity: 0.85;
+    }
+
+    .pro-plan-body {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .pro-plan-features {
+      list-style: none;
+      margin: 0 0 20px;
+      padding: 0;
+    }
+
+    .pro-plan-features li {
+      position: relative;
+      padding: 6px 0 6px 22px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .pro-plan-features li::before {
+      content: '\2713';
+      position: absolute;
+      left: 0;
+      color: #f5d76e;
+      font-weight: 700;
+    }
+
+    .pro-plan-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .pro-plan-cta {
+      display: inline-block;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 13px 24px;
+      background-color: #c9a227;
+      color: #1B3A6B;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 8px;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+
+    .pro-plan-cta:hover {
+      background-color: #f5d76e;
+    }
+
+    .pro-plan-sublink {
+      color: #f5d76e;
+      font-size: 0.88rem;
+      text-decoration: underline;
+    }
+
+    /* Pack explanation block in the KIZUNA Pro section */
+    .pro-pack-box {
+      margin: 0 0 28px;
+      padding: 24px;
+      background-color: var(--color-white);
+      border: 2px solid #c9a227;
+      border-left-width: 6px;
+      border-radius: 10px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .pro-pack-title {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px 16px;
+      margin: 0 0 12px;
+      font-size: 1.2rem;
+      color: var(--color-navy);
+    }
+
+    .pro-pack-price {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #8a6d0b;
+    }
+
+    .pro-pack-price small {
+      margin-left: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+
+    .pro-pack-desc {
+      margin: 0 0 12px;
+      line-height: 1.8;
+    }
+
+    .pro-pack-notes {
+      margin: 0 0 18px;
+      padding-left: 1.2em;
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    .pro-pack-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pro-pack-btns .pro-plan-cta {
+      background-color: var(--color-navy);
+      color: var(--color-white);
+    }
+
+    .pro-pack-btns .pro-plan-cta:hover {
+      background-color: #14305a;
+    }
+
+    .pro-pack-add {
+      display: inline-block;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 12px 22px;
+      border: 2px solid #c9a227;
+      border-radius: 8px;
+      color: var(--color-navy);
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .pro-pack-add:hover {
+      background-color: #fbf5df;
+    }
+
     @media (max-width: 900px) {
+      .pro-plan-card {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+        padding: 36px 20px 24px;
+      }
+      .pro-plan-main {
+        flex: none;
+      }
+      .pro-plan-badge {
+        left: 20px;
+      }
       .plan-cards-grid {
         grid-template-columns: 1fr;
         gap: 32px;
@@ -812,8 +1040,8 @@ const metaDesc = PRICE_REVISION_LIVE
       <h2 class="plan-cards-heading">プランを選ぶ</h2>
       <p class="plan-cards-desc">
         {PRICE_REVISION_LIVE ? (
-          <>ご利用のプラグインに応じて、3 つのプランからお選びいただけます。<br />
-          <strong>ちょこっとプラグインだけなら年間サポーター、プレミアムプラグインも使うならプレミアム年間サポーター</strong>です。</>
+          <>ご利用のプラグインに応じてお選びいただけます。<br />
+          <strong>ちょこっとプラグインだけなら年間サポーター、プレミアムプラグインも使うならプレミアム年間サポーター、上位版の KIZUNA Pro プラグインも使うなら KIZUNA Pro 年間サポーター</strong>です。</>
         ) : (
           <>ご利用のプラグイン数に応じて、3 つのプランからお選びいただけます。<br />
           <strong>5 プラグイン以上ご利用ならプレミアム年間サポーターがお得</strong>です。</>
@@ -825,6 +1053,32 @@ const metaDesc = PRICE_REVISION_LIVE
           プラグインの画面に以前の料金（1 製品 税抜 ¥3,000）が表示されている場合があります。{PRICE_REVISION_DATE}からの料金は、このページのとおりです。
         </p>
       )}
+      <article class="pro-plan-card" id="pro-plan">
+        <span class="pro-plan-badge">最上位プラン</span>
+        <div class="pro-plan-main">
+          <h3 class="pro-plan-name">{PRO_SET_PLAN.name}</h3>
+          <p class="pro-plan-formula">プレミアム年間サポーター ＋ KIZUNA Pro 拡張パック</p>
+          <div class="pro-plan-price">
+            <span class="amount">{yen(PRO_SET_PLAN.priceInTax)}</span>
+            <span class="unit">/ 年（税込）</span>
+          </div>
+          <div class="pro-plan-sub">税抜 {yen(PRO_SET_PLAN.priceExTax)} ／ 月額換算 約 {PRO_SET_PLAN.monthlyInTax.toLocaleString('ja-JP')} 円</div>
+        </div>
+        <div class="pro-plan-body">
+          <ul class="pro-plan-features">
+            <li><strong>ちょこっと＆プレミアム＆KIZUNA Pro プラグインすべて</strong>が対象</li>
+            <li>上位版の <strong>KIZUNA Pro プラグイン</strong>（KIZUNAブリッジ for kintone など）も利用可能</li>
+            <li>今後リリースされる KIZUNA Pro プラグインも<strong>追加料金なし</strong>で順次ご利用いただけます</li>
+            <li>プレミアム年間サポーターの特典（広告エリア非表示・プラグイン作成リクエスト・改善要望の送付・HP ロゴ掲載）もそのまま</li>
+            <li>見積書・請求書・領収書は「KIZUNA Pro 年間サポーターライセンス」の 1 品目でお出しします</li>
+          </ul>
+          <div class="pro-plan-btns">
+            <a href="#sf-form" class="pro-plan-cta" data-select-plan="pro_set">KIZUNA Pro 年間サポーターに申し込む →</a>
+            <a href="#pro-pack" class="pro-plan-sublink">すでにプレミアム年間サポーターをご契約の方は、拡張パックを追加できます</a>
+          </div>
+        </div>
+      </article>
+
       <div class="plan-cards-grid">
         <article class="plan-card is-free">
           <h3 class="plan-card-name">無料プラン</h3>
@@ -878,10 +1132,10 @@ const metaDesc = PRICE_REVISION_LIVE
           </div>
           <div class="plan-card-sub">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
           <ul class="plan-card-features">
-            <li>販売中の<strong>全プラグイン</strong>が対象</li>
+            <li>ちょこっと＆プレミアムプラグイン<strong>すべて</strong>が対象</li>
             <li><strong>プレミアム限定プラグイン</strong>（帳票デザイナー など）も利用可能</li>
-            <li><strong>契約期間中にリリースされる新プラグイン</strong>も追加料金なしで対象</li>
-            <li>全プラグインの広告エリアが非表示</li>
+            <li><strong>契約期間中にリリースされる新しいちょこっと・プレミアムプラグイン</strong>も追加料金なしで対象</li>
+            <li>ちょこっと＆プレミアムプラグインすべての広告エリアが非表示</li>
             <li>プラグイン作成リクエスト・改善要望の送付</li>
             <li>サポーターの声を優先反映</li>
             <li>HP サポーター一覧に貴社ロゴ掲載（任意）</li>
@@ -893,6 +1147,43 @@ const metaDesc = PRICE_REVISION_LIVE
 
     <ApplyFlow />
 
+    <section class="content-section" id="pro-pack">
+      <h2>KIZUNA Pro 拡張パックと KIZUNA Pro プラグイン</h2>
+      <div class="pro-pack-box">
+        <h3 class="pro-pack-title">
+          {PRO_ADDON.name}
+          <span class="pro-pack-price">{yen(PRO_ADDON.priceInTax)} / 年（税込）<small>税抜 {yen(PRO_ADDON.priceExTax)}</small></span>
+        </h3>
+        <p class="pro-pack-desc">{PRO_ADDON_DESCRIPTION}</p>
+        <ul class="pro-pack-notes">
+          <li>拡張パックは、<strong>プレミアム年間サポーターをご契約中のドメインにだけ</strong>追加できます（年間サポーターには追加できません）。</li>
+          <li>プレミアム年間サポーターと同時に始めるなら、セットの「{PRO_SET_PLAN.name}」（{yen(PRO_SET_PLAN.priceInTax)} / 年・税込）が 1 回のお申し込みで済みます。</li>
+          <li>KIZUNA Pro プラグインは単品では販売していません。</li>
+          <li><strong>30日間の無料体験</strong>があります。プレミアム年間サポーターをご契約中の方は、<a href="/plugins/premium-trial/#pro-trial">KIZUNA Pro 拡張パックだけを無料で試せます</a>（カード登録不要・自動課金なし）。未契約の方は、<a href="/plugins/premium-trial/">プレミアム年間サポーターの無料体験</a>に KIZUNA Pro プラグインが含まれます。</li>
+        </ul>
+        <div class="pro-pack-btns">
+          <a href="#sf-form" class="pro-plan-cta" data-select-plan="pro_set">{PRO_SET_PLAN.name}に申し込む →</a>
+          <a href="#sf-form" class="pro-pack-add" data-select-plan="pro_add">契約中のプレミアムに拡張パックを追加する →</a>
+        </div>
+      </div>
+
+      {proPlugins.length > 0 && (
+        <>
+          <h3 class="supported-subhead">KIZUNA Pro プラグイン</h3>
+          <ul class="supported-plugins-list">
+            {proPlugins.map((p) => (
+              <li>
+                <a href={`/plugins/${p.slug}/`}>
+                  <span class="supported-plugin-name">{p.name}</span>
+                  <span class="supported-plugin-desc">{p.cardDescription}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </section>
+
     <section class="content-section">
       <h2>サポート対象のプラグイン</h2>
       <p class="section-desc">
@@ -900,11 +1191,11 @@ const metaDesc = PRICE_REVISION_LIVE
         プレミアム年間サポーターなら、以下のすべてを広告非表示でご利用いただけます。
       </p>
 
-      {premiumPlugins.length > 0 && (
+      {premiumOnlyPlugins.length > 0 && (
         <>
           <h3 class="supported-subhead">プレミアムプラグイン（プレミアム年間サポーター限定）</h3>
           <ul class="supported-plugins-list">
-            {premiumPlugins.map((p) => (
+            {premiumOnlyPlugins.map((p) => (
               <li>
                 <a href={`/plugins/${p.slug}/`}>
                   <span class="supported-plugin-name">👑 {p.name}</span>
@@ -932,14 +1223,15 @@ const metaDesc = PRICE_REVISION_LIVE
     <section class="content-section">
       <h2>サポーターの特典</h2>
       <ul class="perks-list">
-        <li><strong>プレミアム年間サポーター限定：</strong>プレミアムプラグイン「帳票デザイナー for kintone」を含む、販売中の<strong>全プラグインの全機能</strong>をご利用いただけます</li>
-        <li>プラグイン内の広告エリアが非表示になります（{PRICE_REVISION_LIVE ? '年間サポーターはちょこっとプラグインすべて' : '年間サポーターはそのプラグインのみ'}／プレミアム年間サポーターは販売中の全プラグインが対象）</li>
+        <li><strong>プレミアム年間サポーター限定：</strong>プレミアムプラグイン「帳票デザイナー for kintone」を含む、<strong>ちょこっと＆プレミアムプラグインすべての全機能</strong>をご利用いただけます</li>
+        <li><strong>KIZUNA Pro 年間サポーター（またはプレミアム年間サポーター＋KIZUNA Pro 拡張パック）：</strong>上位版の KIZUNA Pro プラグインもご利用いただけます</li>
+        <li>プラグイン内の広告エリアが非表示になります（{PRICE_REVISION_LIVE ? '年間サポーターはちょこっとプラグインすべて' : '年間サポーターはそのプラグインのみ'}／プレミアム年間サポーターはちょこっと＆プレミアムプラグインすべて／KIZUNA Pro 年間サポーターはそれに加えて KIZUNA Pro プラグインが対象）</li>
         <li>設定画面から無料ツール・プラグインへのリンクを利用できます</li>
         <li>プラグイン作成リクエストフォームをご利用いただけます</li>
         <li>既存プラグインへの改善要望をお送りいただけます</li>
         <li>サポーターの声を優先してプラグイン開発を進めます</li>
         {PRICE_REVISION_LIVE ? (
-          <li>契約期間中にリリースされる新しいプラグインも追加料金なしで対象になります（年間サポーターは新しいちょこっとプラグイン／プレミアム年間サポーターは新しいプラグインすべて）</li>
+          <li>契約期間中にリリースされる新しいプラグインも追加料金なしで対象になります（年間サポーターは新しいちょこっとプラグイン／プレミアム年間サポーターは新しいちょこっと・プレミアムプラグイン／KIZUNA Pro 年間サポーターは新しい KIZUNA Pro プラグインも）</li>
         ) : (
           <li><strong>プレミアム年間サポーター限定：</strong>契約期間中にリリースされる新しいちょこっとプラグインシリーズも追加料金なしでご利用いただけます</li>
         )}
@@ -971,14 +1263,22 @@ const metaDesc = PRICE_REVISION_LIVE
             {PRICE_REVISION_LIVE ? (
               <>
                 年間サポーター（¥8,250/年税込）は<strong>ちょこっとプラグインすべて</strong>が対象で、ちょこっとプラグインすべての広告エリアが非表示になります。契約期間中にリリースされる新しいちょこっとプラグインも対象です。<br />
-                プレミアム年間サポーター（¥16,500/年税込）は<strong>プレミアムプラグインを含む販売中の全プラグイン</strong>が対象で、契約期間中にリリースされる新プラグインも追加料金なしで利用できます。さらに HP サポーター一覧へのロゴ掲載特典が付きます。
+                プレミアム年間サポーター（¥16,500/年税込）は<strong>ちょこっと＆プレミアムプラグインすべて</strong>が対象で、契約期間中にリリースされる新プラグインも追加料金なしで利用できます。さらに HP サポーター一覧へのロゴ掲載特典が付きます。
               </>
             ) : (
               <>
                 年間サポーター（¥3,300/年税込）はお申込み時に選択した <strong>1 プラグイン</strong>が対象で、対象プラグインの広告エリアが非表示になります。<br />
-                プレミアム年間サポーター（¥16,500/年税込）は<strong>販売中の全プラグイン</strong>が対象で、契約期間中にリリースされる新プラグインも追加料金なしで利用できます。さらに HP サポーター一覧へのロゴ掲載特典が付きます。
+                プレミアム年間サポーター（¥16,500/年税込）は<strong>ちょこっと＆プレミアムプラグインすべて</strong>が対象で、契約期間中にリリースされる新プラグインも追加料金なしで利用できます。さらに HP サポーター一覧へのロゴ掲載特典が付きます。
               </>
             )}
+          </div>
+        </details>
+        <details class="supporter-faq">
+          <summary>KIZUNA Pro 年間サポーターと KIZUNA Pro 拡張パックは何が違いますか？</summary>
+          <div class="supporter-faq-answer">
+            <strong>KIZUNA Pro 年間サポーター</strong>（{yen(PRO_SET_PLAN.priceInTax)}/年税込）は、プレミアム年間サポーターと KIZUNA Pro 拡張パックをセットにしたプランで、1 回のお申し込みで始められます。<br />
+            <strong>KIZUNA Pro 拡張パック</strong>（{yen(PRO_ADDON.priceInTax)}/年税込）は、すでにプレミアム年間サポーターをご契約中のドメインに追加するプランです。年間サポーター（ちょこっとプラグインすべて）には追加できません。KIZUNA Pro プラグインの単品販売はありません。<br />
+            {PRO_ADDON_DESCRIPTION}
           </div>
         </details>
         <details class="supporter-faq">
@@ -1073,7 +1373,7 @@ const metaDesc = PRICE_REVISION_LIVE
         <li>ライセンスは登録ドメイン1つに対して有効です</li>
         <li>第三者への譲渡・転売は禁止しております</li>
         <li>お支払い確認後、3営業日以内にライセンスを発行いたします</li>
-        <li>プレミアム年間サポーターはご契約時点で販売中の全プラグインが対象です。ご契約期間中に新規リリースされたプラグインは追加料金なしで対象に含まれます</li>
+        <li>プレミアム年間サポーターはご契約時点でちょこっと＆プレミアムプラグインすべてが対象です。ご契約期間中に新規リリースされたちょこっと・プレミアムプラグインは追加料金なしで対象に含まれます。KIZUNA Pro プラグインは、KIZUNA Pro 拡張パックを加えた KIZUNA Pro 年間サポーターの対象です</li>
         {PRICE_REVISION_LIVE ? (
           <>
             <li>年間サポーターからプレミアム年間サポーターへの切り替えは、お問い合わせで承ります。ご契約中の年間サポーターの残りの期間に応じた差額をお支払いいただきます</li>

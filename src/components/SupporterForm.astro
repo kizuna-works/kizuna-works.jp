@@ -1,7 +1,7 @@
 ---
 import { LICENSE_GAS_URL } from '../data/licenseEndpoint';
 import { plugins } from '../data/plugins';
-import { PRICE_REVISION_LIVE, SUPPORTER_PLAN_TYPE } from '../data/pricing';
+import { PRICE_REVISION_LIVE, SUPPORTER_PLAN_TYPE, PRO_SET_PLAN, PRO_ADDON, yen } from '../data/pricing';
 
 interface Props {
   /**
@@ -38,16 +38,33 @@ if (pluginId && !fixedPlugin) {
                 <input type="radio" name="planType" value="all" />
                 <span>プレミアム年間サポーター</span>
               </label>
+              <label class="sf-radio sf-radio-pro">
+                <input type="radio" name="planType" value="pro_set" />
+                <span>KIZUNA Pro 年間サポーター</span>
+              </label>
+              <label class="sf-radio sf-radio-pro">
+                <input type="radio" name="planType" value="pro_add" />
+                <span>KIZUNA Pro 拡張パックを追加</span>
+              </label>
             </div>
             <p class="sf-help">
               {PRICE_REVISION_LIVE
-                ? '年間サポーター：ちょこっとプラグインすべてが対象・年額¥8,250（税込）／ プレミアム年間サポーター：プレミアムプラグインを含む販売中の全プラグインが対象・年額¥16,500（税込）。'
-                : '年間サポーター：1プラグイン対象・年額¥3,300（税込）／ プレミアム年間サポーター：販売中の全プラグインが対象・年額¥16,500（税込）。5プラグイン以上ご利用ならプレミアムがお得です。'}
+                ? '年間サポーター：ちょこっとプラグインすべてが対象・年額¥8,250（税込）／ プレミアム年間サポーター：ちょこっと＆プレミアムプラグインすべてが対象・年額¥16,500（税込）。'
+                : '年間サポーター：1プラグイン対象・年額¥3,300（税込）／ プレミアム年間サポーター：ちょこっと＆プレミアムプラグインすべてが対象・年額¥16,500（税込）。5プラグイン以上ご利用ならプレミアムがお得です。'}
+            </p>
+            <p class="sf-help">
+              KIZUNA Pro 年間サポーター：プレミアム年間サポーター＋KIZUNA Pro 拡張パックのセット・年額{yen(PRO_SET_PLAN.priceInTax)}（税込）／ KIZUNA Pro 拡張パックを追加：ご契約中のプレミアム年間サポーターに追加するプラン・年額{yen(PRO_ADDON.priceInTax)}（税込）。
+            </p>
+            <p class="sf-pro-note" id="sf-pro-add-note" hidden>
+              <strong>KIZUNA Pro 拡張パックは、すでにプレミアム年間サポーターをご契約中の kintone ドメインにだけ追加できます。</strong>
+              お申し込みのドメインにご契約が見つからない場合は、受け付けずにご案内します（年間サポーターには追加できません）。
+              ご契約の残りの期間が 9 か月以下なら月割り（1 か月あたり税込 ¥1,100）、10 か月以上なら 1 年分（税込 {yen(PRO_ADDON.priceInTax)}）になります。
+              まだプレミアム年間サポーターをご契約でない場合は、「KIZUNA Pro 年間サポーター」（セット）でお申し込みください。
             </p>
           </div>
         )}
 
-        <div class="sf-group">
+        <div class="sf-group" id="sf-group-applicationType">
           <label class="sf-label">
             申込種別<span class="sf-required">必須</span>
           </label>
@@ -121,8 +138,8 @@ if (pluginId && !fixedPlugin) {
           )}
           <p class="sf-help" id="sf-help-allPlan" hidden>
             {PRICE_REVISION_LIVE
-              ? '年間サポーターはちょこっとプラグインすべて、プレミアム年間サポーターは販売中の全プラグインが対象のため、プラグイン名の選択は不要です。'
-              : 'プレミアム年間サポーターは販売中の全プラグインが対象のため、プラグイン名の選択は不要です。'}
+              ? '年間サポーターはちょこっとプラグインすべて、プレミアム年間サポーターはちょこっと＆プレミアムプラグインすべてが対象のため、プラグイン名の選択は不要です。'
+              : 'プレミアム年間サポーターはちょこっと＆プレミアムプラグインすべてが対象のため、プラグイン名の選択は不要です。'}
           </p>
           <p class="sf-error" data-error-for="pluginName"></p>
         </div>
@@ -182,6 +199,14 @@ if (pluginId && !fixedPlugin) {
         確認メールを <strong id="sf-success-email"></strong> へお送りしました。<br />
         メールのリンクから内容をご確認のうえ「申込を確定する」を押すと、お申し込みが確定します（48時間以内）。<br />
         メールが届かない場合は、迷惑メールのフォルダもご確認ください。
+      </div>
+      <div id="sf-not-eligible" class="sf-message sf-message-warn" hidden>
+        <p class="sf-not-eligible-title">この内容では、KIZUNA Pro 拡張パックをお申し込みいただけませんでした。</p>
+        <p class="sf-not-eligible-detail" id="sf-not-eligible-detail"></p>
+        <div class="sf-not-eligible-btns">
+          <button type="button" id="sf-not-eligible-set" class="sf-submit" hidden>KIZUNA Pro 年間サポーターで申し込む</button>
+          <button type="button" id="sf-not-eligible-back" class="sf-review-back">入力に戻る</button>
+        </div>
       </div>
       <div id="sf-error-msg" class="sf-message sf-message-error" hidden>
         送信に失敗しました。時間をおいて再度お試しいただくか、info@kizuna-works.jpまでご連絡ください。
@@ -343,6 +368,51 @@ if (pluginId && !fixedPlugin) {
     color: #1B3A6B;
   }
 
+  /* Pro plans: navy and gold accent so the upper tier reads as a different grade */
+  .sf-radio-pro {
+    border-color: #c9a227;
+  }
+
+  .sf-radio-pro:has(input:checked) {
+    border-color: #1B3A6B;
+    background-color: #f3f6fb;
+    box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.35);
+  }
+
+  .sf-pro-note {
+    margin: 10px 0 0;
+    padding: 10px 14px;
+    background-color: #f3f6fb;
+    border-left: 4px solid #c9a227;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #1B3A6B;
+  }
+
+  .sf-message-warn {
+    background-color: #fff8e1;
+    color: #6d4c00;
+    border: 1px solid #ffe082;
+    text-align: left;
+  }
+
+  .sf-not-eligible-title {
+    margin: 0 0 10px;
+    font-weight: 700;
+  }
+
+  .sf-not-eligible-detail {
+    margin: 0 0 16px;
+    overflow-wrap: anywhere;
+  }
+
+  .sf-not-eligible-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
   .sf-radio:has(input:checked) {
     border-color: #2E8B2E;
     background-color: #f4faf4;
@@ -374,6 +444,10 @@ if (pluginId && !fixedPlugin) {
     background-color: #1B3A6B;
     transform: translateY(-2px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .sf-submit[hidden] {
+    display: none;
   }
 
   .sf-submit:disabled {
@@ -526,10 +600,26 @@ if (pluginId && !fixedPlugin) {
     };
 
     // Show/hide plugin name field depending on the selected plan.
+    const proAddNote = document.getElementById('sf-pro-add-note');
+    const appTypeGroup = document.getElementById('sf-group-applicationType');
+    const pluginHelpDefault = pluginHelp ? pluginHelp.textContent : '';
+    const PRO_PLUGIN_HELP = 'KIZUNA Pro のプランは、プラグイン名の選択は不要です。';
     const applyPlanVisibility = () => {
       if (isLockedPlugin) return; // plugin is fixed → no plan radio exists
       const planChecked = form.querySelector('input[name="planType"]:checked');
-      const isAll = !needsPlugin(planChecked ? planChecked.value : supporterPlan);
+      const planValue = planChecked ? planChecked.value : supporterPlan;
+      const isAll = !needsPlugin(planValue);
+      const isProAdd = planValue === 'pro_add';
+      if (proAddNote) proAddNote.hidden = !isProAdd;
+      // A pack added on its own has no renewal variant (the GAS treats renew only for the set).
+      if (appTypeGroup) {
+        appTypeGroup.hidden = isProAdd;
+        if (isProAdd) {
+          const newRadio = form.querySelector('input[name="applicationType"][value="new"]');
+          if (newRadio) newRadio.checked = true;
+        }
+      }
+      if (pluginHelp) pluginHelp.textContent = planValue.indexOf('pro_') === 0 ? PRO_PLUGIN_HELP : pluginHelpDefault;
       if (pluginGroup) {
         // Hide label / select but keep error slot tidy.
         const labelEl = pluginGroup.querySelector('label.sf-label');
@@ -545,7 +635,8 @@ if (pluginId && !fixedPlugin) {
     // Pre-fill from URL query params:
     //   ?plugin=<id>  : pre-select plugin (when in select mode) + force individual plan
     //   ?mode=renew   : switch the applicationType radio to 「更新申込」
-    //   ?plan=all     : pre-select 全プラグイン plan
+    //   ?plan=all     : pre-select the premium plan
+    //   ?plan=pro_set / ?plan=pro_add : pre-select the KIZUNA Pro set / the KIZUNA Pro pack add-on
     //   ?plan=chokotto / ?plan=individual : pre-select the annual supporter plan (either value maps to the current one)
     try {
       const params = new URLSearchParams(window.location.search);
@@ -567,6 +658,9 @@ if (pluginId && !fixedPlugin) {
       if (planParam === 'all') {
         const allRadio = form.querySelector('input[name="planType"][value="all"]');
         if (allRadio) allRadio.checked = true;
+      } else if (planParam === 'pro_set' || planParam === 'pro_add') {
+        const proRadio = form.querySelector('input[name="planType"][value="' + planParam + '"]');
+        if (proRadio) proRadio.checked = true;
       } else if (planParam === 'chokotto' || planParam === 'individual') {
         const supRadio = form.querySelector('input[name="planType"][value="' + supporterPlan + '"]');
         if (supRadio) supRadio.checked = true;
@@ -677,7 +771,11 @@ if (pluginId && !fixedPlugin) {
     const reviewRows = document.getElementById('sf-review-rows');
     let pending = null;
     const planLabel = (d) =>
-      d.planType === 'all'
+      d.planType === 'pro_set'
+        ? 'KIZUNA Pro 年間サポーター（プレミアム年間サポーター＋KIZUNA Pro 拡張パック）'
+        : d.planType === 'pro_add'
+          ? 'KIZUNA Pro 拡張パック（ご契約中のプレミアム年間サポーターに追加）'
+          : d.planType === 'all'
         ? 'プレミアム年間サポーター'
         : d.planType === 'chokotto'
           ? '年間サポーター（ちょこっとプラグインすべて）'
@@ -718,6 +816,31 @@ if (pluginId && !fixedPlugin) {
       form.hidden = false;
       form.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+    // Shown when the GAS replies { message: 'pro-add-not-eligible', code, detail } for a pack add-on.
+    const notEligible = document.getElementById('sf-not-eligible');
+    const showNotEligible = (reply) => {
+      review.hidden = true;
+      document.getElementById('sf-not-eligible-detail').textContent = reply.detail || '';
+      // Only when no premium plan was found does the set make sense as the alternative.
+      document.getElementById('sf-not-eligible-set').hidden = reply.code !== 'no-premium';
+      const sendBtn = document.getElementById('sf-review-send');
+      sendBtn.disabled = false;
+      sendBtn.textContent = 'この内容で送信する';
+      if (waitingMsg) waitingMsg.hidden = true;
+      notEligible.hidden = false;
+      notEligible.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    const backToForm = (planValue) => {
+      notEligible.hidden = true;
+      if (planValue) {
+        const r = form.querySelector('input[name="planType"][value="' + planValue + '"]');
+        if (r) { r.checked = true; applyPlanVisibility(); }
+      }
+      form.hidden = false;
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    document.getElementById('sf-not-eligible-back').addEventListener('click', () => backToForm(''));
+    document.getElementById('sf-not-eligible-set').addEventListener('click', () => backToForm('pro_set'));
     document.getElementById('sf-review-send').addEventListener('click', async () => {
       const data = pending;
       if (!data) return;
@@ -728,12 +851,25 @@ if (pluginId && !fixedPlugin) {
       if (waitingMsg) { review.appendChild(waitingMsg); waitingMsg.hidden = false; }
 
       try {
-        await fetch(ENDPOINT, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
+        if (data.planType === 'pro_add') {
+          // The GAS checks eligibility (an active premium plan on the domain) before it sends the confirmation mail,
+          // so this one must read the reply. text/plain POST avoids a CORS preflight, which Apps Script cannot answer.
+          const res = await fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(data) });
+          if (res.status !== 200) throw new Error('HTTP ' + res.status);
+          const reply = await res.json();
+          if (reply && reply.message === 'pro-add-not-eligible') {
+            showNotEligible(reply);
+            return;
+          }
+          if (!reply || reply.status !== 'ok') throw new Error((reply && reply.message) || 'failed');
+        } else {
+          await fetch(ENDPOINT, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+        }
         review.hidden = true;
         document.getElementById('sf-success-email').textContent = data.email;
         successMsg.hidden = false;

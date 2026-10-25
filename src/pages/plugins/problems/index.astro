@@ -545,6 +545,7 @@ const updated = allPlugins
 
     .pr-tier.free { background: #e7f5e7; color: #1f5c1f; }
     .pr-tier.premium { background: #fdf4d9; color: #77590a; }
+    .pr-tier.pro { background: #1B3A6B; color: #f0d58a; }
 
     .pr-cat {
       font-size: 11px;
@@ -748,7 +749,9 @@ const updated = allPlugins
                     <span class="pr-problem"><strong>{p.problemTitle}</strong> — {p.problemDesc}</span>
                     <span class="pr-meta">
                       <span class="pr-solve">{p.name}</span>
-                      {p.tier === 'premium' ? (
+                      {p.tier === 'pro' ? (
+                        <span class="pr-tier pro">KIZUNA Pro</span>
+                      ) : p.tier === 'premium' ? (
                         <span class="pr-tier premium">PREMIUM</span>
                       ) : (
                         <span class="pr-tier free">無料</span>

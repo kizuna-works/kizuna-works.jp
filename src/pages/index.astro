@@ -29,7 +29,9 @@ const featuredProblems = plugins
 // Newest first — for the homepage compact showcase.
 // allPlugins is [...standard, ...premium], so a plain reverse() would surface only
 // premium entries. Sort by releaseDate instead (stable: same-day ties keep data order).
-const pluginsNewestFirst = [...plugins].sort((a, b) =>
+// KIZUNA Pro plugins have no free plan, so they stay out of the "すべて完全無料" grid
+// and get their own strip below it.
+const pluginsNewestFirst = plugins.filter((p) => p.tier !== 'pro').sort((a, b) =>
   (b.releaseDate ?? '').localeCompare(a.releaseDate ?? '')
 );
 // Showcase grid: latest 6 plugins (newest first).
@@ -363,6 +365,107 @@ const pluginPosts = allPosts
       .home-campaign-cta {
         width: 100%;
         text-align: center;
+      }
+    }
+
+    /* =========================================
+       KIZUNA Pro series band (between the campaign band and the price notice)
+    ========================================= */
+    .home-pro {
+      background-color: #F0F4F8;
+      padding: 0 20px 44px;
+    }
+
+    .home-pro-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      /* Gold network sits on the right edge, so anchor the image there when cover crops it */
+      background:
+        url('/images/kizuna-pro-band-bg.webp') right center / cover no-repeat,
+        linear-gradient(90deg, #020816 0%, #081427 50%, #0c1f45 100%);
+      border: 2px solid #b8862b;
+      border-radius: 16px;
+      padding: 30px 40px;
+      box-shadow: 0 12px 30px rgba(15, 31, 61, 0.22);
+      color: #FFFFFF;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .home-pro-text {
+      flex: 1 1 520px;
+      min-width: 0;
+    }
+
+    .home-pro-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #e8c766 0%, #b8862b 100%);
+      color: #1a1405;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 4px 14px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .home-pro-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin: 0 0 10px;
+      line-height: 1.5;
+      color: #FFFFFF;
+    }
+
+    .home-pro-desc {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .home-pro-cta {
+      flex-shrink: 0;
+      display: inline-block;
+      background: linear-gradient(135deg, #e8c766 0%, #b8862b 100%);
+      color: #1a1405;
+      font-weight: 800;
+      font-size: 1.02rem;
+      padding: 14px 28px;
+      border-radius: 8px;
+    }
+
+    .home-pro-inner:hover .home-pro-cta {
+      background: #FFFFFF;
+      color: #1B3A6B;
+    }
+
+    @media (max-width: 768px) {
+      .home-pro-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 26px 22px;
+        /* Text spans the full width here, so dim the network behind it */
+        background:
+          linear-gradient(rgba(2, 8, 22, 0.55), rgba(2, 8, 22, 0.55)),
+          url('/images/kizuna-pro-band-bg.webp') right center / cover no-repeat,
+          #081427;
+      }
+      .home-pro-text {
+        flex: 0 0 auto;
+        width: 100%;
+      }
+      .home-pro-title {
+        font-size: 1.2rem;
+      }
+      .home-pro-cta {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
       }
     }
 
@@ -894,6 +997,80 @@ const pluginPosts = allPosts
     .plugin-card-origin::before {
       content: '💬';
       margin-right: 4px;
+    }
+
+    .plugin-card-bridge {
+      align-self: flex-start;
+      margin: 0 0 10px;
+      padding: 3px 10px;
+      border: 1px solid #b8862b;
+      border-radius: 12px;
+      color: #7a5512;
+      background: #fffaf0;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .plugin-card-bridge::before {
+      content: '🔗';
+      margin-right: 4px;
+    }
+
+    /* KIZUNA Pro strip under the showcase grid */
+    .pro-strip {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin: 28px 0 0;
+      padding: 18px 22px;
+      border-radius: 12px;
+      background: linear-gradient(120deg, #0f1f3d 0%, #1B3A6B 60%, #3a2f12 100%);
+      border: 1px solid #b8862b;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .pro-strip:hover {
+      box-shadow: 0 6px 20px rgba(15, 31, 61, 0.25);
+    }
+
+    .pro-strip-tag {
+      flex-shrink: 0;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #e8c766 0%, #b8862b 100%);
+      color: #1a1405;
+      font-weight: 800;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+    }
+
+    .pro-strip-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .pro-strip-body strong {
+      font-size: 1.05rem;
+    }
+
+    .pro-strip-go {
+      flex-shrink: 0;
+      font-weight: 700;
+      color: #f0d58a;
+    }
+
+    @media (max-width: 640px) {
+      .pro-strip {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
     }
 
     /* Premium plugins use a designed banner (1200×630) — show it fully without cropping */
@@ -1912,13 +2089,25 @@ const pluginPosts = allPosts
     <div class="home-campaign-inner">
       <div class="home-campaign-text">
         <span class="home-campaign-badge">30日間無料キャンペーン</span>
-        <h2 class="home-campaign-title">プレミアム年間サポーターを、30日間無料でお試し</h2>
+        <h2 class="home-campaign-title">KIZUNA Pro 年間サポーターを、30日間無料でお試し</h2>
         <p class="home-campaign-desc">
-          ちょこっとプラグインもプレミアムプラグインも、全プラグインが広告なし・全機能でお使いいただけます。カード登録不要・自動課金なし。まずは全部使ってから決められます。
+          ちょこっとプラグインもプレミアムプラグインも KIZUNA Pro プラグインも、すべて広告なし・全機能でお使いいただけます。カード登録不要・自動課金なし。まずは全部使ってから決められます。
         </p>
       </div>
       <a href="/plugins/premium-trial/" class="home-campaign-cta">無料体験の詳細を見る →</a>
     </div>
+  </section>
+
+  <!-- KIZUNA Pro series band -->
+  <section class="home-pro">
+    <a class="home-pro-inner" href="/plugins/kizuna-pro/">
+      <div class="home-pro-text">
+        <span class="home-pro-badge">KIZUNA Pro プラグインシリーズ</span>
+        <h2 class="home-pro-title">ひとつの機能から、ひとつの仕組みへ。</h2>
+        <p class="home-pro-desc">ちょこっとプラグイン・プレミアムプラグインでは届かない、より大きな業務の仕組みづくりを支える上位版のシリーズです。アプリをまたぐ作業を自動化する KIZUNAブリッジ、検索と集計をつなぐサーチ Pro、ルックアップをまとめたルックアップ Pro をご紹介します。</p>
+      </div>
+      <span class="home-pro-cta">KIZUNA Pro 特集を見る →</span>
+    </a>
   </section>
 
   {PRICE_REVISION.show && (
@@ -2052,11 +2241,20 @@ const pluginPosts = allPosts
               {p.bornFrom === 'supporter-request' && (
                 <span class="plugin-card-origin">リクエストから誕生</span>
               )}
+              {p.bridge && <span class="plugin-card-bridge">ブリッジ連携</span>}
               <span class="plugin-card-link">無料で見る →</span>
             </div>
           </a>
         ))}
       </div>
+      <a class="pro-strip" href="/plugins/bridge/">
+        <span class="pro-strip-tag">KIZUNA Pro</span>
+        <span class="pro-strip-body">
+          <strong>KIZUNAブリッジ for kintone</strong>
+          <span>アプリをまたぐ作業も、プラグインの連携も自動化する上位版のプラグインです。</span>
+        </span>
+        <span class="pro-strip-go">詳しく見る →</span>
+      </a>
       <div class="section-cta-center">
         <a href="/plugins/" class="btn btn-primary">kintoneプラグインをすべて見る →</a>
       </div>

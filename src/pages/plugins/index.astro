@@ -4,7 +4,7 @@ import SupporterCTA from '../../components/SupporterCTA.astro';
 import TrialBanner from '../../components/TrialBanner.astro';
 import Picture from '../../components/Picture.astro';
 import ExtensionNotice from '../../components/ExtensionNotice.astro';
-import { plugins, premiumPlugins, pluginsItemListJsonLd } from '../../data/plugins';
+import { plugins, premiumPlugins, premiumOnlyPlugins, proPlugins, pluginsItemListJsonLd } from '../../data/plugins';
 import type { Plugin } from '../../data/plugins';
 import { PRICE_REVISION_LIVE } from '../../data/pricing';
 import {
@@ -47,7 +47,8 @@ const searchText = (p: Plugin) =>
 
 // Product counts are derived so the copy never drifts from the actual lineup.
 const chokottoCount = plugins.length;
-const premiumCount = premiumPlugins.length;
+// KIZUNA Pro has no free plan, so the "無料" counts cover chokotto + premium only.
+const premiumCount = premiumOnlyPlugins.length;
 const totalCount = chokottoCount + premiumCount;
 
 // Derived, never hand-counted: the badge and this number must always agree.
@@ -1034,6 +1035,196 @@ const freeFaqJsonLd = {
       font-size: 1rem;
     }
 
+    /* KIZUNA Pro section: the top tier, shown above premium */
+    .pro-section {
+      padding-bottom: 24px;
+    }
+
+    .section-title.pro-title {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-left-color: #b8862b;
+    }
+
+    .pro-title-tag {
+      padding: 4px 12px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #e8c766 0%, #b8862b 100%);
+      color: #1a1405;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+
+    .pro-intro {
+      margin: -24px 0 28px;
+      padding-left: 21px;
+      color: var(--color-text-main);
+      font-size: 1.02rem;
+      line-height: 1.8;
+    }
+
+    .pro-intro strong {
+      color: var(--color-navy);
+    }
+
+    .pro-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .pro-card {
+      display: grid;
+      grid-template-columns: minmax(0, 46%) minmax(0, 1fr);
+      align-items: stretch;
+      border-radius: 14px;
+      overflow: hidden;
+      background: linear-gradient(120deg, #0f1f3d 0%, #1B3A6B 70%, #2a2410 100%);
+      border: 1px solid #b8862b;
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 8px 28px rgba(15, 31, 61, 0.22);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .pro-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 34px rgba(15, 31, 61, 0.3);
+    }
+
+    .pro-card[hidden] {
+      display: none;
+    }
+
+    /* The banner keeps its full 1200x630 frame; the spare height is filled by a blurred copy of itself. */
+    .pro-card-media {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      background: #0d1e45;
+    }
+
+    .pro-card-media::before {
+      content: '';
+      position: absolute;
+      inset: -40px;
+      z-index: -1;
+      background: var(--bg) center / cover no-repeat;
+      filter: blur(22px) brightness(0.5) saturate(1.15);
+    }
+
+    .pro-card-media picture {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Slight scale trims hairline edges baked into some banners. */
+    .pro-card-image {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1200 / 630;
+      display: block;
+      transform: scale(1.012);
+    }
+
+    .pro-card-content {
+      min-width: 0;
+      padding: 26px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pro-card-tag {
+      align-self: flex-start;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid #e8c766;
+      color: #f0d58a;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .pro-card-title {
+      margin: 0;
+      font-size: 1.4rem;
+      line-height: 1.4;
+    }
+
+    .pro-card-desc {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .pro-card-plan {
+      margin: 0;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #f0d58a;
+    }
+
+    .pro-card-button {
+      margin-top: auto;
+      align-self: flex-start;
+      padding: 10px 22px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #e8c766 0%, #b8862b 100%);
+      color: #1a1405;
+      font-weight: 800;
+    }
+
+    /* Equal row heights keep the banner margins identical across cards. */
+    @media (min-width: 761px) {
+      .pro-grid {
+        grid-auto-rows: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .pro-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .pro-card-content {
+        padding: 20px;
+      }
+    }
+
+    .badge-bridge {
+      background: #fffaf0;
+      color: #7a5512;
+      border: 1px solid #b8862b;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .badge-bridge::before {
+      content: '🔗';
+      font-size: 0.85rem;
+    }
+
+    .badge-bridge:hover {
+      background: #fff3d6;
+    }
+
     /* Premium plugins section */
     .premium-section {
       padding-bottom: 24px;
@@ -1290,14 +1481,52 @@ const freeFaqJsonLd = {
 
     <p class="pf-empty" id="pf-empty" hidden>該当するプラグインがありません。<button type="button" class="pf-empty-clear">絞り込みを解除する</button></p>
 
-    {premiumPlugins.length > 0 && (
+    {proPlugins.length > 0 && (
+      <section class="section-container pro-section" data-plugin-section>
+        <h2 class="section-title pro-title"><span class="pro-title-tag">KIZUNA Pro</span>KIZUNA Pro プラグイン</h2>
+        <p class="pro-intro">
+          KIZUNA Works の<strong>上位版</strong>の kintone プラグインです。<strong>プレミアム年間サポーター</strong>に <strong>KIZUNA Pro 拡張パック</strong>を追加していただくと、KIZUNA Pro プラグインをすべてお使いいただけます（セットの「KIZUNA Pro 年間サポーター」もあります）。<a href="/plugins/kizuna-pro/">KIZUNA Pro プラグインの特集ページ →</a>
+        </p>
+        <div class="pro-grid">
+          {proPlugins.map((plugin) => (
+            <a
+              class="pro-card"
+              href={`/plugins/${plugin.slug}/`}
+              data-plugin
+              data-cat-slugs={catSlugs(plugin)}
+              data-search={searchText(plugin)}
+            >
+              <div class="pro-card-media" style={`--bg:url(${plugin.image.replace(/.png$/i, '-800.webp')})`}>
+                <Picture
+                  src={plugin.image}
+                  alt={plugin.imageAlt}
+                  class="pro-card-image"
+                  width={plugin.imageWidth}
+                  height={plugin.imageHeight}
+                  card
+                />
+              </div>
+              <div class="pro-card-content">
+                <span class="pro-card-tag">KIZUNA Pro プラグイン</span>
+                <h3 class="pro-card-title">{plugin.name}</h3>
+                <p class="pro-card-desc">{plugin.description}</p>
+                <p class="pro-card-plan">プレミアム年間サポーター＋KIZUNA Pro 拡張パックでご利用いただけます</p>
+                <span class="pro-card-button">詳しく見る &rarr;</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {premiumOnlyPlugins.length > 0 && (
       <section class="section-container premium-section" data-plugin-section>
         <h2 class="section-title premium-title">プレミアムプラグイン</h2>
         <p class="premium-intro">
-          より高度な業務に応える kintone プラグインです。<strong>プレミアム年間サポーター</strong>（年額 ¥16,500 税込）にご加入いただくと、ここにあるプレミアムプラグインと販売中の全プラグインをご利用いただけます。今後もラインナップを拡充していきます。
+          より高度な業務に応える kintone プラグインです。<strong>プレミアム年間サポーター</strong>（年額 ¥16,500 税込）にご加入いただくと、ここにあるプレミアムプラグインとちょこっと＆プレミアムプラグインすべてをご利用いただけます。今後もラインナップを拡充していきます。
         </p>
         <div class="plugins-grid">
-          {premiumPlugins.map((plugin) => (
+          {premiumOnlyPlugins.map((plugin) => (
             <div
               class="plugin-card premium"
               data-plugin
@@ -1342,6 +1571,7 @@ const freeFaqJsonLd = {
                     <span class="badge-coming-soon">準備中</span>
                   )}
                   <span class="badge-free-tier">無料プランあり</span>
+                  {plugin.bridge && <a class="badge-bridge" href="/plugins/bridge/" title="KIZUNAブリッジ for kintone と連携できます">ブリッジ連携</a>}
                 </div>
                 <div class="plugin-pricing-row">
                   <span class="premium-plan-note">プレミアム年間サポーターに含む</span>
@@ -1401,6 +1631,7 @@ const freeFaqJsonLd = {
                 ) : (
                   <span class="badge-coming-soon">準備中</span>
                 )}
+                {plugin.bridge && <a class="badge-bridge" href="/plugins/bridge/" title="KIZUNAブリッジ for kintone と連携できます">ブリッジ連携</a>}
               </div>
               {plugin.status === 'available' && plugin.price !== undefined && (
                 <div class="plugin-pricing-row">

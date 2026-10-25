@@ -237,7 +237,8 @@ const ENDPOINT = LICENSE_GAS_URL;
       showResult('処理しています…', false);
       call({ formType: 'application-confirm', t: token, domain: domain }).then(function (r) {
         showResult(r.message, r.ok);
-        if (r.ok) showAfter(domain);
+        // A trial can come back ok with eligible === false (not eligible): done, but no kintone link.
+        if (r.ok) showAfter(r.eligible === false ? '' : domain);
         else q('ac-confirm').disabled = false;
       }).catch(function () {
         showResult('通信に失敗しました。時間をおいてもう一度お試しください。', false);

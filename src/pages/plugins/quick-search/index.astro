@@ -57,11 +57,11 @@ import HeroDownload from '../../../components/HeroDownload.astro';
           "name": "クイックサーチ for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.4.0",
-          "dateModified": "2026-10-13",
+          "softwareVersion": "1.4.1",
+          "dateModified": "2026-10-24",
           "releaseNotes": "v1.4.0（2026-10-13）: キーワードを「\"」で囲むと、スペースを含む語句をひとまとまりで検索できます。語の頭に「=」を付けると、値が完全に一致するものだけを検索します。AND で語を増やしすぎて kintone の「レコードの絞り込み条件が多すぎます」で一覧が表示できなくなるのを、検索前に防ぎます。検索バーの右端の「?」ボタンで、検索の書き方を確認できます。",
           "url": "https://kizuna-works.jp/plugins/quick-search/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-search-v1.4.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-search-v1.4.1.zip",
           "image": "https://kizuna-works.jp/images/quick-search-banner.png",
           "screenshot": [
             "https://kizuna-works.jp/images/quick-search-help-panel.png",
@@ -107,7 +107,8 @@ import HeroDownload from '../../../components/HeroDownload.astro';
             "キーワード検索と期間フィルタの組み合わせ（AND）絞り込み",
             "ビューフィルタ維持・全検索・クリアの 3 種類のボタン",
             "Enter キー対応 + 状態保持",
-            "ボタンカラーのカスタマイズ"
+            "ボタンカラーのカスタマイズ",
+            "サーチ Pro と一緒に使うと、検索・絞り込み・集計の条件が1つにまとまり、条件の帯で確認・解除できる（KIZUNA Pro プラグイン）"
           ]
         }
       ]
@@ -1000,11 +1001,11 @@ import HeroDownload from '../../../components/HeroDownload.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.4.0</span>
+        <span class="hero-version">v1.4.1</span>
       </div>
       <h1 class="hero-title">クイックサーチ for kintone</h1>
       <p class="hero-copy">kintone 一覧画面のフィルター/ソートアイコン横にインライン検索バーを追加。AND / OR 切替・スペース区切りの複数キーワードの横断検索に加え、<strong>「 " 」で囲んだ語句のひとまとまり検索と、「=」を付けた完全一致</strong>に対応。書き方は<strong>「?」ボタン</strong>でいつでも確認できます。関連レコード一覧の項目（案件名・担当者名など）や、本日・今週・今月などの期間絞り込みも使える、レコード絞り込みを高速化するプラグインです。</p>
-      <HeroDownload href="/downloads/kw-quick-search-v1.4.0.zip" />
+      <HeroDownload href="/downloads/kw-quick-search-v1.4.1.zip" />
     </section>
 
     <!-- Update Info (v1.4.0) -->
@@ -1065,6 +1066,7 @@ import HeroDownload from '../../../components/HeroDownload.astro';
         <li><span><strong>ボタンカラーのカスタマイズ</strong> — 各ボタンの色を管理画面のカラーピッカーで自由に指定可能。コーポレートカラーに合わせられます。</span></li>
         <li><span><strong>ビュー単位で表示制御</strong> — 検索バーを表示する一覧ビューを管理画面で個別選択。一部ビューだけに出すといった運用が可能。</span></li>
         <li><span><strong>JS カスタマイズ非依存</strong> — 検索バーは sync で DOM 投入され、他の JavaScript カスタマイズの async 処理に影響されません。</span></li>
+        <li><span><strong><a href="/plugins/search-pro/">サーチ Pro</a>と一緒に使う</strong> — 検索・絞り込み・集計の条件が 1 つにまとまり、効いている条件を「条件の帯」で確認・解除できます（KIZUNA Pro プラグイン）。</span></li>
       </ul>
       <h3 class="syntax-title">検索の書き方</h3>
       <div class="syntax-wrap">
@@ -1349,7 +1351,7 @@ import HeroDownload from '../../../components/HeroDownload.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告バナーが表示</li>
             </ul>
-            <a href="/downloads/kw-quick-search-v1.4.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-quick-search-v1.4.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <SupporterPlanCard pluginId="kw-quick-search" features={["全機能（AND/OR 切替・複数キーワード・横断検索・ボタンカラー）が利用可能","レコード一覧画面の<strong>広告バナーが完全非表示</strong>","プラグイン作成リクエスト・改善要望を送付可能","サポーターの声を優先して開発に反映"]} />
         <PremiumPlanCard />
@@ -1515,10 +1517,10 @@ import HeroDownload from '../../../components/HeroDownload.astro';
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           gtag('event', 'file_download', {
-            file_name: 'kw-quick-search-v1.4.0.zip',
+            file_name: 'kw-quick-search-v1.4.1.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-quick-search-v1.4.0.zip'
+            link_url: '/downloads/kw-quick-search-v1.4.1.zip'
           });
         });
       }

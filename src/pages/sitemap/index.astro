@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { PRICE_REVISION_LIVE } from '../../data/pricing';
-import { plugins, premiumPlugins } from '../../data/plugins';
+import { plugins, premiumOnlyPlugins as premiumPlugins, proPlugins } from '../../data/plugins';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog')).sort(
@@ -301,10 +301,25 @@ const dateFmt = (d: Date) =>
           </li>
           <li>
             <a href="/plugins/supporter/">年間サポーターライセンス</a>
-            <span class="sm-sub">{PRICE_REVISION_LIVE ? '年間サポーター（ちょこっとプラグインすべて・¥8,250/年）' : '年間サポーター（1 プラグイン・¥3,300/年）'}／プレミアム年間サポーター（全プラグイン・¥16,500/年）の 2 プラン</span>
+            <span class="sm-sub">{PRICE_REVISION_LIVE ? '年間サポーター（ちょこっとプラグインすべて・¥8,250/年）' : '年間サポーター（1 プラグイン・¥3,300/年）'}／プレミアム年間サポーター（ちょこっと＆プレミアムプラグインすべて・¥16,500/年）の 2 プラン</span>
           </li>
         </ul>
       </section>
+
+      {proPlugins.length > 0 && (
+        <section class="sm-card">
+          <h2>KIZUNA Pro プラグイン <span class="sm-h2-count">{proPlugins.length} 件</span></h2>
+          <p class="sm-h2-desc">プレミアム年間サポーターに KIZUNA Pro 拡張パックを追加するとお使いいただける、上位版の kintone プラグインの製品ページ。</p>
+          <ul class="sm-list">
+            {proPlugins.map(p => (
+              <li>
+                <a href={`/plugins/${p.slug}/`}>{p.name}</a>
+                <span class="sm-sub">{p.cardDescription}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section class="sm-card">
         <h2>プレミアムプラグイン <span class="sm-h2-count">{premiumPlugins.length} 件</span></h2>

@@ -53,8 +53,11 @@ export interface Plugin {
    * Premium plugins live in the separate `premiumPlugins` array so existing
    * consumers of `plugins` (homepage showcase, supporter individual select, etc.)
    * are unaffected.
+   * 'pro' = KIZUNA Pro プラグイン（プレミアム年間サポーター＋KIZUNA Pro 拡張パック）。
+   * Kept inside `premiumPlugins` because the build tooling and plugin-lint treat that
+   * array as "gated products"; pages split them with `proPlugins` / `premiumOnlyPlugins`.
    */
-  tier?: 'standard' | 'premium';
+  tier?: 'standard' | 'premium' | 'pro';
   /** Numeric price in JPY for the free badge row. Omit for coming-soon / premium. */
   price?: number;
   /**
@@ -105,6 +108,13 @@ export interface Plugin {
    * apart is what makes the badge worth trusting.
    */
   bornFrom?: 'supporter-request';
+  /**
+   * What this product does together with KIZUNA Bridge (one sentence, plain words).
+   * Set only when the PUBLISHED version of the product answers the bridge. Renders the
+   * 「ブリッジ連携」 badge and the partner list on /plugins/bridge/.
+   * Never name partner companies or describe how the bridge talks to the product.
+   */
+  bridge?: string;
 }
 
 export const plugins: Plugin[] = [
@@ -141,6 +151,7 @@ export const plugins: Plugin[] = [
     formName: '条件分岐自動採番 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'kw-conditional-numbering',
+    bridge: 'ブリッジが他のアプリに作った・変えたレコードにも、保存したときと同じように採番します。',
     categories: ['自動入力', '一括処理', '入力チェック'],
     description:
       '部署・担当者などフィールドの値で採番ルールを自動で切り替えるプラグイン。商品IDごとに001から振る枝番、最大3フィールドの同時採番、条件別の連番、CSVインポート後の一括採番、重複番号の振り直し、ルックアップ新規登録からの採番に対応します。',
@@ -286,6 +297,7 @@ export const plugins: Plugin[] = [
     formName: 'レコードロック for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'record-lock',
+    bridge: 'ブリッジが他のアプリのレコードを変える前に、ロックを確かめます。ロック中のレコード・欄は書きません。',
     categories: ['表示・編集制御'],
     description:
       'ステータス・日付・フィールド値などの条件を満たすレコードを自動でロック。ロック設定を複数作れ、ステータスごとに入力できる人と欄を変えられます。範囲はレコード全体・選んだ欄だけ・選んだ欄以外すべて。本人捺印のロック、ロックアイコンの選択、除外ユーザー、スマホにも対応。',
@@ -358,6 +370,7 @@ export const plugins: Plugin[] = [
     formName: '住所アシスト for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'address-assist',
+    bridge: 'ブリッジが他のアプリに書いたレコードでも、地図のリンクを作り直します。',
     categories: ['自動入力'],
     description:
       '郵便番号から住所、住所から郵便番号を双方向で自動入力し、Googleマップのプレビューをレコード詳細に埋め込み、住所のワンクリックコピーまで行うプラグイン。請求先・配送先など複数の住所セットやサブテーブルの行ごとの入力にも対応し、入力済みの住所を残す設定もあります。',
@@ -745,6 +758,7 @@ export const plugins: Plugin[] = [
     formName: 'かんたん一括更新 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'bulk-update',
+    bridge: 'ブリッジのルールから一括更新を実行できます。一括更新したレコードにもブリッジのルールが動きます。',
     categories: ['一括処理', '履歴・復元'],
     description:
       '標準のレコード一覧で絞り込んだ結果に、フィールドを1つ選んで値を一括更新・一括クリアできるプラグイン。数値は加算・減算にも対応し、クイックサーチ等の絞り込みに連動。実行直後のUndoに加え、変更前後を保管アプリに記録して設定画面の履歴からいつでも元に戻せます。',
@@ -819,6 +833,7 @@ export const plugins: Plugin[] = [
     formName: 'ステータス一括実行 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'status-bulk-action',
+    bridge: 'ブリッジのルールからステータスの一括実行を呼び出せます。一括で進めたレコードにもブリッジのルールが動きます。',
     categories: ['一括処理', '一覧表示'],
     description:
       'プロセス管理のステータス・作業者を、標準のレコード一覧からまとめて一括実行できるプラグイン。対象を現在ステータスごとにグループ分けしてアクションを選ぶだけで、まとめて次に進められます。次の作業者は遷移先の設定（選択／全員／作成者／フィールド指定など）に応じて自動判定。独自条件（勤務時間 ≧ 8:30 のような時間の条件も可）を満たさないレコードは事前に除外し、現在ステータスの滞留日数も一覧に色で可視化。モバイルでも実行できます。',
@@ -868,6 +883,7 @@ export const plugins: Plugin[] = [
     formName: '経過計算アシスト for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'elapsed-assist',
+    bridge: 'ブリッジが他のアプリに書いたレコードでも、経過日数を計算し直します。',
     categories: ['集計・計算', '自動入力'],
     description:
       '基準日フィールドから経過日数・経過年数・年齢・残日数・在籍期間（◯年◯ヶ月）など9パターンを自動計算するプラグイン。一覧・詳細を開くたびに「今日」時点の値を再計算して表示し、保存時には実フィールドへ書き込むので並び替え・絞り込み・集計にも使えます。',
@@ -943,6 +959,7 @@ export const plugins: Plugin[] = [
     formName: '既読チェック for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'read-check',
+    bridge: 'ブリッジが他のアプリのレコードを変えたときも、画面で保存したときと同じように編集の記録に残します。',
     categories: ['情報共有'],
     description:
       'レコードを開いた人を自動で記録できる kintone プラグイン。詳細画面を開くだけでログインユーザーを既読記録し、右サイドバーの「既読」タブ（コメント・変更履歴の並び）から誰が・いつ・何回読んだかを一覧表示。編集回数も別集計。レコード本体は汚さず保管アプリに分離。',
@@ -968,6 +985,7 @@ export const plugins: Plugin[] = [
     formName: '文字列結合 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'text-join',
+    bridge: 'ブリッジが他のアプリに書いたレコードでも、結合した値を作り直します。',
     categories: ['自動入力', '入力チェック', '一括処理'],
     description:
       '計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども含めて、複数フィールドの値を書式を整えたうえで1つの文字列フィールドへ自動入力するプラグイン。テーブル明細を1行にまとめる集約結合、結合結果の重複チェック、既存レコードへの一括反映にも対応します。',
@@ -1136,6 +1154,7 @@ export const plugins: Plugin[] = [
     name: 'リンクアシスト for kintone',
     formName: 'リンクアシスト for kintone',
     slug: 'link-assist',
+    bridge: 'ブリッジが他のアプリに書いたレコードでも、保存したときと同じように URL を整えます。',
     categories: ['入力チェック', '一覧表示'],
     description:
       '保存時にURLの追跡パラメータ（utm_source等）を除き、http/https・www有無・末尾スラッシュ・クエリ順序をそろえて重複登録を防ぎます。日本語URLはエンコードでリンクを機能させ、メール・電話・長いURLもリンクにします。',
@@ -1232,6 +1251,7 @@ export const plugins: Plugin[] = [
     name: '画像圧縮 for kintone',
     formName: '画像圧縮 for kintone',
     slug: 'image-compress',
+    bridge: 'ブリッジが他のアプリに書いたレコードの画像も、設定どおりに圧縮します。',
     bornFrom: 'supporter-request',
     categories: ['一括処理'],
     description:
@@ -1258,6 +1278,7 @@ export const plugins: Plugin[] = [
     formName: '足あと for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'footprint',
+    bridge: 'ブリッジが他のアプリに作った・変えたレコードも、変更の履歴に残します。',
     categories: ['情報共有', '履歴・復元', '一覧表示'],
     description:
       '一覧に足あと列を1本足し、誰が見て誰が直したかを閲覧・編集のマークで表示します。乗せると人と日時・直した項目が出て、詳細画面ではフィールドの横にもマーク。担当者など見てほしい人のうち、まだ見ていない人が分かり、そのレコードだけに絞り込めます。',
@@ -1285,6 +1306,86 @@ export const plugins: Plugin[] = [
  * 「プレミアムプラグイン」セクションでのみ表示する。今後ここに追加していく。
  */
 export const premiumPlugins: Plugin[] = [
+  {
+    id: 'kw-bridge',
+    pluginId: 'djieeeejenngldihbbjilfoiaigmgmji',
+    name: 'KIZUNAブリッジ for kintone',
+    formName: 'KIZUNAブリッジ for kintone',
+    subtitle: 'KIZUNA Pro プラグイン',
+    slug: 'bridge',
+    categories: ['自動入力', '入力チェック', '一括処理'],
+    description:
+      '保存やボタンをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める処理をルールで自動化し、当社のプラグインとも連携します。不在カレンダーでの営業日の計算や、当社プラグインをまとめて最新版にする更新機能も備えます。',
+    image: '/images/bridge-banner.png',
+    imageWebp: '/images/bridge-banner.webp',
+    imageAlt:
+      'KIZUNAブリッジ for kintone バナー — 保存したら、他のアプリも、当社プラグインも。条件に合うときだけ、自動で動かす。KIZUNA Pro プラグイン',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'pro',
+    cardDescription:
+      'アプリをまたぐ作業も、プラグインの連携も自動化する上位版。不在カレンダーでの営業日の計算や、当社プラグインをまとめて最新版にする更新もできます。',
+    problemTitle: 'アプリをまたぐ更新を、毎回手で転記している',
+    problemDesc:
+      '受注を保存したら在庫を減らす、案件が完了したら請求のレコードを作る、といったアプリをまたぐ処理を、手作業の転記やアプリごとの JavaScript カスタマイズに頼っている。条件や担当が変わるたびに直す手間もかかる',
+    releaseDate: '2026-10-25',
+    summaryVersion: '1.0.0',
+  },
+  {
+    id: 'kw-search-pro',
+    pluginId: 'fnibjdnjhlannncdmkkphekcdbnlhgoo',
+    name: 'サーチ Pro for kintone',
+    formName: 'サーチ Pro for kintone',
+    subtitle: 'KIZUNA Pro プラグイン',
+    slug: 'search-pro',
+    categories: ['検索・閲覧', '集計・計算', '出力・帳票'],
+    description:
+      '検索・絞り込み・集計・CSV出力を、ひとつの条件でつなぎます。効いている条件は帯に並べて×で外せ、よく使う条件は保存して呼び出せます。集計カードを押して絞り込み、絞った結果はそのまま一括処理へ。4つの機能も1つの設定画面で。',
+    image: '/images/search-pro-banner.png',
+    imageWebp: '/images/search-pro-banner.webp',
+    imageAlt:
+      'サーチ Pro for kintone バナー — 探す・絞る・集計する・書き出すを、1つに。KIZUNA Pro プラグイン',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'pro',
+    cardDescription:
+      '検索・絞り込み・集計・CSV出力をひとつの条件でつなぐ上位版。条件の帯・保存した検索・集計カードからの絞り込み・絞った結果の一括処理に対応します。',
+    problemTitle: '一覧で探す・絞る・集計する・書き出すが、ばらばらに動く',
+    problemDesc:
+      '検索すると絞り込みの選択が消える、絞り込んだ結果と集計の数字がそろわない、今どんな条件で見ているのか分からない。毎回同じ条件を作り直し、CSV にしても条件がどこにも残らない',
+    releaseDate: '2026-10-25',
+    summaryVersion: '1.0.0',
+    bridge: 'ブリッジのルールから、全員用の保存した検索の結果を CSV にして、レコードの添付ファイル欄に入れられます。',
+  },
+  {
+    id: 'kw-lookup-pro',
+    pluginId: 'niiiehblfbnfacbeimhecogljmalgkik',
+    name: 'ルックアップ Pro for kintone',
+    formName: 'ルックアップ Pro for kintone',
+    subtitle: 'KIZUNA Pro プラグイン',
+    slug: 'lookup-pro',
+    categories: ['自動入力', '検索・閲覧', '入力チェック'],
+    description:
+      '入力中の候補表示・候補の絞り込み・マスターのその場登録・フリールックアップ・マスター更新の自動反映の5機能を1つの設定画面で使えます。欄ごとの一覧で設定を確認し、まとめて設定で候補表示とその場登録を一括作成。絞り込みの条件をその場登録に引き継ぎ、フリールックアップの取得元が更新されたら詳細画面で知らせます。',
+    image: '/images/lookup-pro-banner.png',
+    imageWebp: '/images/lookup-pro-banner.webp',
+    imageAlt:
+      'ルックアップ Pro for kintone バナー — ルックアップの入力・絞り込み・登録・自動反映を、1つのプラグインで。KIZUNA Pro プラグイン',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'pro',
+    cardDescription:
+      'ルックアップの入力・絞り込み・登録・自動反映を1つにまとめた上位版。欄ごとの一覧で設定を確認でき、まとめて設定や、フリールックアップの取得元の更新のお知らせに対応します。',
+    problemTitle: 'ルックアップまわりの設定が、機能ごとにばらばらで把握できない',
+    problemDesc:
+      '候補表示・絞り込み・マスターへの登録・マスター更新の反映を別々に設定していて、どの欄に何を設定したか分からない。同じ欄を何度も選び直す手間がかかり、絞り込みの条件に合わないマスターを登録してしまう。取得元のマスターが変わっても、コピーした値に気づけない',
+    releaseDate: '2026-10-25',
+    summaryVersion: '1.0.0',
+    bridge: 'ブリッジが他のアプリに書いたレコードでも、フリールックアップはキーに一致する 1 件から値をコピーします。',
+  },
   {
     id: 'kw-report-designer',
     pluginId: 'cckpmebgmbdippgiicgldindkjlhhbci',
@@ -1389,6 +1490,7 @@ export const premiumPlugins: Plugin[] = [
     formName: '関連レコード拡張 for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'related-enhancer',
+    bridge: '別のアプリの保存・削除をきっかけに、このアプリの集計を保存し直します（明細を保存したら親の合計を更新するなど）。',
     categories: ['集計・計算', '検索・閲覧', '一覧表示'],
     description:
       '関連レコード一覧を集計・見た目・検索で強化し、一覧フィールドが無くてもサブテーブルの行を表にして集計できるプラグイン。別アプリのレコードを照合キーで集め、サブテーブルの中の項目が一致した行だけを表示・合計。グループ別小計・期間・条件書式・集計値の保存に対応（プレミアム）。集計カード・時間（〇時間〇分）の集計・ステータス絞り込みも備え、集計値はカードごとに別の数値フィールドへ保存（書き込み保存・一括保存）できます。複数のアプリの関連レコードを1か所にまとめる「まとめ一覧」にも対応（プレミアム）。',
@@ -1437,6 +1539,7 @@ export const premiumPlugins: Plugin[] = [
     formName: 'チャット通知 for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'chat-notify',
+    bridge: 'ブリッジが他のアプリに書いたレコードについても、書き込み先のアプリの通知ルールでチャットに通知します。',
     categories: ['通知・メール'],
     description:
       'レコードの追加・更新・削除・ステータス変更・手動送信・一括通知をきっかけに、Slack / Teams / Google Chat / LINE WORKS へ自動通知。最大5件の条件と変更検知で絞り込み、差し込みテンプレートで本文を組み立てます。',
@@ -1561,6 +1664,7 @@ export const premiumPlugins: Plugin[] = [
     formName: 'カレンダービュー for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'calendar-view',
+    bridge: 'ブリッジの不在カレンダーを、人ごとの予定表（タイムライン）や月のカレンダーで見られます。',
     categories: ['一覧表示', '検索・閲覧', '入力チェック'],
     description:
       'レコードの開始・終了を、カレンダー（年/月/週/日/リスト）と担当者・会議室ごとのタイムラインに切り替えて表示。予定のない担当者も空白の行で常に表示。予定のバーに表示する項目も選べ、タイトルとの2段表示もできます。ドラッグで日程変更、空いている時間の検索、標準の編集画面でも効く重複警告、繰り返し予定、祝日同梱。サブテーブルの行も予定にでき、行ごとに色分けできます。ビューのHTMLはボタン1つで作成します。',
@@ -1797,6 +1901,7 @@ export const premiumPlugins: Plugin[] = [
     formName: 'フリールックアップ for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'free-lookup',
+    bridge: 'ブリッジが他のアプリに書いたレコードでも、キーに一致する 1 件から値をコピーします。',
     bornFrom: 'supporter-request',
     categories: ['自動入力', '検索・閲覧'],
     description:
@@ -1879,6 +1984,16 @@ export const premiumPlugins: Plugin[] = [
  * 個別販売の選択肢（サポーター個別プラン）など、ちょこっと限定の箇所は `plugins` を使う。
  */
 export const allPlugins: Plugin[] = [...plugins, ...premiumPlugins];
+
+/**
+ * KIZUNA Pro プラグイン（tier 'pro'）。premiumPlugins の中にあるが、販売の単位が違う
+ * （プレミアム年間サポーター＋KIZUNA Pro 拡張パック）ので、ページでは別の枠に出す。
+ */
+export const proPlugins: Plugin[] = premiumPlugins.filter((p) => p.tier === 'pro');
+/** プレミアム年間サポーターに含まれるプレミアムプラグインだけ（KIZUNA Pro を除く）。 */
+export const premiumOnlyPlugins: Plugin[] = premiumPlugins.filter((p) => p.tier !== 'pro');
+/** KIZUNAブリッジと連携する製品（公開版が連携に答えるもの）。 */
+export const bridgePartnerPlugins: Plugin[] = allPlugins.filter((p) => !!p.bridge);
 
 export const pluginsItemListJsonLd = [...plugins, ...premiumPlugins].map((p, i) => ({
   '@type': 'ListItem',

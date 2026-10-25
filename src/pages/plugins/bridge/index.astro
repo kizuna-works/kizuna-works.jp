@@ -1,0 +1,861 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import { bridgePartnerPlugins } from '../../../data/plugins';
+import type { Plugin } from '../../../data/plugins';
+import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
+
+const VERSION = '1.0.0';
+const ZIP = `/downloads/kw-bridge-v${VERSION}.zip`;
+const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/';
+const DATE_MODIFIED = '2026-10-25';
+
+// Partner list: grouped by what the user can do together. Products are read from
+// plugins.ts (`bridge` field), so a new partner shows up here without touching
+// this page — anything not named in a group falls into the last one.
+const GROUPS: { key: string; title: string; lead: string; ids: string[] }[] = [
+  {
+    key: 'apply',
+    title: '書き込んだレコードにも、そのアプリのプラグインを当てる',
+    lead: 'ブリッジが他のアプリにレコードを作る・変えるときは、kintone の保存の画面を通りません。ルールで［書き込み先のアプリの採番・文字列結合なども当てる］をオンにすると、書き込み先のアプリに入っている当社のプラグインの処理を、画面で保存したときと同じように当てます。',
+    ids: [
+      'kw-conditional-numbering', 'kw-address-assist', 'kw-elapsed-assist', 'kw-text-join',
+      'kw-free-lookup', 'kw-link-assist', 'kw-image-compress', 'kw-footprint', 'kw-read-check',
+    ],
+  },
+  {
+    key: 'guard',
+    title: '書き込み先で通知する・ロックを守る',
+    lead: '書き込み先のアプリのチャット通知のルールで通知したり、ロックされているレコードを書き換えないようにしたりできます。どちらもルールごとにオンにします。',
+    ids: ['kw-chat-notify', 'kw-record-lock'],
+  },
+  {
+    key: 'run',
+    title: 'ルールから、当社のプラグインの機能を実行する',
+    lead: '動作［プラグインの機能を実行する］で、ほかのアプリに入っている当社のプラグインの処理を呼び出せます。逆に、そのプラグインで一括して変えたレコードにも、ブリッジのルールが動きます。',
+    ids: ['kw-bulk-update', 'kw-status-bulk-action'],
+  },
+  {
+    key: 'more',
+    title: '集計し直す・見やすく表示する',
+    lead: '別のアプリの変更をきっかけにした集計の保存し直しや、ブリッジの不在カレンダーの表示に使えます。',
+    ids: ['kw-related-enhancer', 'kw-calendar-view'],
+  },
+];
+const named = new Set(GROUPS.flatMap((g) => g.ids));
+const byId = new Map(bridgePartnerPlugins.map((p) => [p.id, p]));
+const partnerGroups = GROUPS.map((g, i) => {
+  const items = g.ids.map((id) => byId.get(id)).filter((p): p is Plugin => !!p);
+  if (i === GROUPS.length - 1) {
+    items.push(...bridgePartnerPlugins.filter((p) => !named.has(p.id)));
+  }
+  return { ...g, items };
+}).filter((g) => g.items.length > 0);
+const partnerCount = bridgePartnerPlugins.length;
+const iconOf = (p: Plugin) => `/images/${p.slug.replace(/^kw-/, '')}-icon.png`;
+
+// FAQ: the accordion and FAQPage JSON-LD are built from the same array so they always match.
+const faqs: { q: string; a: string }[] = [
+  {
+    q: 'KIZUNAブリッジ for kintone だけを購入できますか？',
+    a: `KIZUNAブリッジだけを個別にご契約いただくことはできません。プレミアム年間サポーターに KIZUNA Pro 拡張パックを追加すると、KIZUNAブリッジを含む KIZUNA Pro プラグインをすべてお使いいただけます。両方をまとめた「KIZUNA Pro 年間サポーター」（税込 ${yen(PRO_SET_PLAN.priceInTax)}/年）もあります。`,
+  },
+  {
+    q: '年間サポーター（ちょこっとプラグインすべて）に、KIZUNA Pro 拡張パックを追加できますか？',
+    a: 'できません。KIZUNA Pro 拡張パックは、プレミアム年間サポーターに追加していただくプランです。年間サポーターからは、KIZUNA Pro 年間サポーターへの切り替えでお使いいただけます。',
+  },
+  {
+    q: 'ブリッジを入れるのは、どのアプリですか？',
+    a: 'きっかけになるアプリ（保存やアクションが起きるアプリ）に入れます。書き込み先のアプリにブリッジを入れる必要はありません。ただし、書き込み先で当社のプラグインの処理を当てるときは、そのプラグインが書き込み先のアプリに入っている必要があります。',
+  },
+  {
+    q: '他のアプリへの書き込みは、誰の権限で行われますか？',
+    a: 'ルールを動かした人（保存やアクションをした人）の権限です。その人が書き込み先のアプリのレコードを閲覧・編集できないときは書き込まず、理由を知らせます。アクセス権を超えて書き込むことはありません。',
+  },
+  {
+    q: '連携できる当社のプラグインは、どれですか？',
+    a: `このページの「連携できるプラグイン」に一覧があります（現在 ${partnerCount} 製品）。各製品のページにも「ブリッジ連携」のバッジを付けています。連携には、それぞれの製品の最新版をお使いください。`,
+  },
+  {
+    q: '設定を間違えたまま動かしてしまうのが心配です。',
+    a: '設定画面の予行演習で、今のレコードを使って「どのルールが動き、何をどこへ書くか」を、実際には書き込まずに確かめられます。動いた結果は実行の記録に残り、失敗したものは記録から再実行できます。',
+  },
+  {
+    q: '無料で試せますか？',
+    a: 'はい、30日間無料で試せます（カード登録不要・自動課金なし・1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、もう一度お試しいただけます）。プレミアム年間サポーターを未契約の方は、プレミアム年間サポーターの無料体験に KIZUNA Pro プラグインが含まれます。プレミアム年間サポーターをご契約中の方は、KIZUNA Pro 拡張パックだけを30日間無料でお試しいただけます。体験が終わるとルールは止まりますが、設定は消えません。',
+  },
+  {
+    q: 'ご契約が切れたら、設定はどうなりますか？',
+    a: '設定は消えません。ご契約が確認できない間は、ルールは動かず、設定画面にはご契約の案内だけが出ます。ご契約が戻れば、保存済みの設定のまま、すぐに動きます。',
+  },
+  {
+    q: 'スマートフォンでも動きますか？',
+    a: 'レコードの保存・アクションをきっかけにしたルールは、kintone のモバイル版でも動きます。ブリッジの設定画面はパソコンでお使いください。',
+  },
+];
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Layout
+  heroBg="/images/kizuna-pro-hero-bg.webp"
+  title="KIZUNAブリッジ for kintone｜アプリをまたぐ作業とプラグインの連携を自動化 | KIZUNA Works"
+  description="KIZUNAブリッジ for kintone は、保存やアクションをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める処理をノーコードのルールで自動化する KIZUNA Pro プラグイン。当社のプラグインとも連携し、書き込み先での採番や通知までつなげます。"
+  ogTitle="KIZUNAブリッジ for kintone｜アプリをまたぐ作業とプラグインの連携を自動化 | KIZUNA Works"
+  ogDescription="保存やアクションをきっかけに、他のアプリへの書き込みや当社プラグインの処理を、ノーコードのルールで自動化。KIZUNA Works の上位版「KIZUNA Pro プラグイン」の第1弾です。予行演習・実行の記録・連携の流れつき。"
+  ogType="website"
+  ogUrl={PAGE_URL}
+  ogImage="https://kizuna-works.jp/images/bridge-banner.png"
+  canonical={PAGE_URL}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': PAGE_URL,
+          url: PAGE_URL,
+          name: 'KIZUNAブリッジ for kintone｜アプリをまたぐ作業とプラグインの連携を自動化 | KIZUNA Works',
+          description: 'KIZUNAブリッジ for kintone は、保存やアクションをきっかけに、他のアプリへの書き込みや当社プラグインの処理をルールで自動化する kintone プラグイン（KIZUNA Pro プラグイン）。',
+          dateModified: DATE_MODIFIED,
+          primaryImageOfPage: { '@type': 'ImageObject', url: 'https://kizuna-works.jp/images/bridge-banner.png', width: 1200, height: 630 },
+          isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: 'https://kizuna-works.jp/' },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+            { '@type': 'ListItem', position: 2, name: 'kintoneプラグイン', item: 'https://kizuna-works.jp/plugins/' },
+            { '@type': 'ListItem', position: 3, name: 'KIZUNAブリッジ for kintone', item: PAGE_URL },
+          ],
+        },
+        {
+          '@type': 'SoftwareApplication',
+          name: 'KIZUNAブリッジ for kintone',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'kintone',
+          // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
+          "softwareVersion": "1.0.0",
+          dateModified: DATE_MODIFIED,
+          url: PAGE_URL,
+          downloadUrl: `https://kizuna-works.jp${ZIP}`,
+          image: 'https://kizuna-works.jp/images/bridge-banner.png',
+          offers: [
+            {
+              '@type': 'Offer',
+              name: PRO_SET_PLAN.name,
+              price: String(PRO_SET_PLAN.priceInTax),
+              priceCurrency: 'JPY',
+              availability: 'https://schema.org/InStock',
+              description: 'プレミアム年間サポーターと KIZUNA Pro 拡張パックのセット（年額）。KIZUNA Pro プラグインをすべて含みます。製品ごとの個別のご契約はありません。',
+            },
+            {
+              '@type': 'Offer',
+              name: PRO_ADDON.name,
+              price: String(PRO_ADDON.priceInTax),
+              priceCurrency: 'JPY',
+              availability: 'https://schema.org/InStock',
+              description: 'プレミアム年間サポーターに追加するプラン（年額）。',
+            },
+          ],
+          description: 'KIZUNAブリッジ for kintone は、kintone のアプリをまたぐ作業と当社のプラグインの連携を、ノーコードのルールで自動化するプラグイン。画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン・CSV の読み込みと書き出しの前後をきっかけに、条件（このレコードの値と変更前の値・テーブル・ステータス・操作した人と組織・端末・日付・他のアプリのレコードの有無や件数・合計）に合えば、このレコードへの値の入力・集計・行の追加と削除、エラー・確認・お知らせ、他のアプリのレコードの取得・作成・更新・ステータスの変更・双方向の同期を行う。書き込み先のアプリに入っている当社のプラグインの処理（採番・地図リンク・経過日数・文字列結合・ルックアップのコピーなど）を当てる、チャット通知、レコードロックの確認、一括更新などの実行にも対応。予行演習・実行の記録と再実行・あとから流す・連携の流れ・不在カレンダーと営業日・当社プラグインの一括更新つき。',
+          publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
+          featureList: [
+            'きっかけ：画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン・CSV の読み込みと書き出しの前後',
+            '条件：このレコードの値と変更前の値・テーブル・ステータスと作業者・操作した人と組織・グループ・端末・日付と曜日・他のアプリ（ある・ない・件数・合計）。「かつ」「または」の入れ子',
+            'このレコード：値を入れる・空にする・集計・行を足す・行を消す',
+            '確認・止める：エラーで止める・確認してから進める・お知らせ',
+            '他のアプリ：取ってくる・作る・変える・ステータスを進める・双方向にそろえる',
+            '書き込み先のアプリの当社プラグインの処理を当てる（採番・文字列結合など）',
+            '書き込み先のアプリのチャット通知・レコードロックとの連携',
+            'ルールから当社のプラグインの機能を実行する',
+            '予行演習（書き込まずに結果を確認）',
+            '実行の記録と再実行・あとから流す',
+            '連携の流れ（アプリのつながりと連鎖の確認）',
+            '不在カレンダーと営業日の計算',
+            '当社のプラグインをまとめて最新版にする',
+            'ゲストスペース対応・モバイルのレコード画面に対応',
+          ],
+        },
+      ],
+    })} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --kbp-navy: #1B3A6B;
+      --kbp-ink: #0f1f3d;
+      --kbp-gold: #b8862b;
+      --kbp-gold-light: #e8c766;
+      --kbp-gold-soft: #f0d58a;
+      --kbp-green: #2E8B2E;
+      --kbp-text: #333333;
+      --kbp-muted: #64748b;
+    }
+
+    /* Hero: darker than the premium hero, gold accents mark the Pro series */
+    .kbp-hero {
+      /* Shared KIZUNA Pro hero background; sized by width, its baked bottom fade blends into this base gradient */
+      background:
+        url('/images/kizuna-pro-hero-bg.webp') center top / 100% auto no-repeat,
+        linear-gradient(90deg, #020816 0%, #050b1c 30%, #081427 50%, #09182f 70%, #0c1729 100%);
+      color: #fff;
+      padding: 60px 5% 54px;
+      text-align: center;
+      border-bottom: 4px solid var(--kbp-gold);
+    }
+    .kbp-hero-icon {
+      width: 136px; height: 136px; object-fit: contain; display: block; margin: 0 auto 18px;
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(232, 199, 102, 0.5);
+      border-radius: 26px; padding: 10px; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+    .kbp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+    .kbp-badge-pro {
+      display: inline-flex; align-items: center; gap: 6px; line-height: 1;
+      padding: 7px 16px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%);
+      color: #1a1405; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.08em;
+    }
+    .kbp-hero-version {
+      padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.45);
+      font-size: 0.85rem; font-weight: 700; line-height: 1;
+    }
+    .kbp-hero-title { font-size: clamp(1.7rem, 4.2vw, 2.6rem); margin: 0 0 12px; line-height: 1.3; }
+    .kbp-tagline { font-size: clamp(1.05rem, 2.4vw, 1.35rem); font-weight: 700; margin: 0 0 14px; color: var(--kbp-gold-soft); }
+    .kbp-sub { max-width: 860px; margin: 0 auto 26px; line-height: 1.9; font-size: 1rem; color: rgba(255, 255, 255, 0.92); }
+    .kbp-sub strong { color: #fff; }
+    .kbp-pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; max-width: 900px; margin: 0 auto 28px; }
+    .kbp-pillar {
+      display: block; padding: 16px 14px; border-radius: 12px; text-decoration: none; color: #fff;
+      background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(232, 199, 102, 0.45);
+    }
+    .kbp-pillar:hover { background: rgba(255, 255, 255, 0.14); }
+    .kbp-pillar-no { display: block; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--kbp-gold-soft); font-weight: 800; }
+    .kbp-pillar-name { display: block; font-size: 1.05rem; font-weight: 800; margin: 4px 0; }
+    .kbp-pillar-desc { display: block; font-size: 0.84rem; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
+    .kbp-hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .kbp-btn {
+      display: inline-block; padding: 14px 26px; border-radius: 10px; font-weight: 800; text-decoration: none;
+      font-size: 1rem; line-height: 1.3;
+    }
+    .kbp-btn.is-primary { background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; box-shadow: 0 6px 18px rgba(184, 134, 43, 0.35); }
+    .kbp-btn.is-ghost { border: 1px solid rgba(255, 255, 255, 0.6); color: #fff; }
+    .kbp-btn.is-ghost:hover { background: rgba(255, 255, 255, 0.1); }
+    .kbp-hero-note { margin: 14px auto 0; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); max-width: 760px; line-height: 1.7; }
+
+    /* Series strip */
+    .kbp-series { background: #fffaf0; border-bottom: 1px solid #eadcb2; }
+    .kbp-series-inner { max-width: 1100px; margin: 0 auto; padding: 20px 5%; display: flex; gap: 16px; align-items: center; }
+    .kbp-series-tag {
+      flex-shrink: 0; padding: 6px 12px; border-radius: 6px; font-weight: 800; font-size: 0.8rem; letter-spacing: 0.06em;
+      background: var(--kbp-ink); color: var(--kbp-gold-soft);
+    }
+    .kbp-series p { margin: 0; line-height: 1.8; font-size: 0.95rem; color: var(--kbp-text); min-width: 0; }
+
+    /* Sections */
+    .kbp-section { padding: 64px 5%; background: #fff; }
+    .kbp-section.alt { background: #F0F4F8; }
+    .kbp-wrap { max-width: 1100px; margin: 0 auto; }
+    .kbp-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; color: var(--kbp-gold); margin-bottom: 6px; }
+    .kbp-h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); color: var(--kbp-navy); margin: 0 0 14px; line-height: 1.4; }
+    .kbp-lead { margin: 0 0 34px; line-height: 1.9; color: var(--kbp-text); max-width: 900px; }
+    .kbp-h3 { font-size: 1.2rem; color: var(--kbp-navy); margin: 0 0 10px; line-height: 1.5; }
+
+    /* Part header for the three ways to use */
+    .kbp-part {
+      display: flex; align-items: center; gap: 16px; padding: 22px 26px; margin: 0 0 34px; border-radius: 14px;
+      background: linear-gradient(120deg, var(--kbp-ink) 0%, var(--kbp-navy) 100%); color: #fff;
+    }
+    .kbp-part-no {
+      flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; font-weight: 900; font-size: 1.4rem;
+    }
+    .kbp-part-body { min-width: 0; }
+    .kbp-part-title { margin: 0 0 4px; font-size: clamp(1.25rem, 2.8vw, 1.7rem); line-height: 1.35; }
+    .kbp-part-desc { margin: 0; line-height: 1.7; color: rgba(255, 255, 255, 0.88); font-size: 0.95rem; }
+
+    /* Feature rows: text + screenshot */
+    .kbp-feature { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; margin: 0 0 48px; }
+    .kbp-feature.flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    .kbp-feature.flip .kbp-feature-text { order: 2; }
+    .kbp-feature-text p { margin: 0 0 12px; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-feature-text ul { margin: 0 0 12px; padding-left: 1.2em; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-feature-text li { margin-bottom: 4px; }
+    .kbp-shot { margin: 0; min-width: 0; }
+    .kbp-shot img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid #dbe3ee; box-shadow: 0 6px 18px rgba(15, 31, 61, 0.1); cursor: zoom-in; background: #fff; }
+    .kbp-shot figcaption { margin-top: 8px; font-size: 0.84rem; color: var(--kbp-muted); line-height: 1.6; }
+    .kbp-example {
+      margin: 12px 0 0; padding: 12px 14px; border-radius: 8px; background: #f4f7fb; border-left: 4px solid var(--kbp-navy);
+      font-size: 0.92rem; line-height: 1.8; color: var(--kbp-text);
+    }
+    .kbp-example strong { color: var(--kbp-navy); }
+
+    /* Chips for triggers / actions */
+    .kbp-chips, .kbp-feature-text .kbp-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; padding: 0; list-style: none; }
+    .kbp-chips li { padding: 5px 12px; border-radius: 16px; background: #eef3fa; color: var(--kbp-navy); font-size: 0.85rem; font-weight: 700; }
+    .kbp-chips.gold li { background: #fbf3dc; color: #6b4a0e; }
+
+    /* Use case cards */
+    .kbp-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0 0 44px; }
+    .kbp-case { background: #fff; border: 1px solid #dbe3ee; border-radius: 12px; padding: 20px; min-width: 0; }
+    .kbp-case-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0 0 10px; }
+    .kbp-case-app { padding: 4px 10px; border-radius: 6px; background: var(--kbp-navy); color: #fff; font-size: 0.82rem; font-weight: 700; }
+    .kbp-case-arrow { color: var(--kbp-gold); font-weight: 900; }
+    .kbp-case h3 { font-size: 1rem; color: var(--kbp-navy); margin: 0 0 6px; line-height: 1.5; }
+    .kbp-case p { margin: 0; font-size: 0.9rem; line-height: 1.75; color: var(--kbp-text); }
+
+    /* Partner list */
+    .kbp-partner-group { margin: 0 0 36px; }
+    .kbp-partner-group > p { margin: 0 0 16px; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-partners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; list-style: none; margin: 0; padding: 0; }
+    .kbp-partner a {
+      display: flex; gap: 14px; align-items: flex-start; padding: 16px; height: 100%; box-sizing: border-box;
+      background: #fff; border: 1px solid #e3d6ae; border-radius: 12px; text-decoration: none; color: inherit;
+      transition: box-shadow 0.2s ease;
+    }
+    .kbp-partner a:hover { box-shadow: 0 6px 18px rgba(15, 31, 61, 0.12); }
+    .kbp-partner-icon { width: 48px; height: 48px; flex-shrink: 0; border-radius: 10px; object-fit: contain; background: #f4f7fb; }
+    .kbp-partner-body { min-width: 0; }
+    .kbp-partner-name { display: block; font-weight: 800; color: var(--kbp-navy); margin-bottom: 2px; }
+    .kbp-partner-tier { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 1px 8px; border-radius: 10px; margin-bottom: 6px; }
+    .kbp-partner-tier.free { background: #e7f5e7; color: #1f5c1f; }
+    .kbp-partner-tier.premium { background: #fdf4d9; color: #77590a; }
+    .kbp-partner-role { display: block; font-size: 0.88rem; line-height: 1.7; color: var(--kbp-text); }
+
+    /* Feature summary list */
+    .kbp-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 28px; list-style: none; margin: 0; padding: 0; }
+    .kbp-list li { position: relative; padding-left: 26px; line-height: 1.75; color: var(--kbp-text); }
+    .kbp-list li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--kbp-gold); font-weight: 900; }
+
+    /* Plans */
+    .kbp-plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 0 0 24px; }
+    .kbp-plan { background: #fff; border: 1px solid #dbe3ee; border-radius: 14px; padding: 26px; position: relative; min-width: 0; }
+    .kbp-plan.top { border: 2px solid var(--kbp-gold); box-shadow: 0 10px 30px rgba(184, 134, 43, 0.18); }
+    .kbp-plan-badge {
+      position: absolute; top: -13px; left: 22px; padding: 4px 12px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; font-size: 0.78rem; font-weight: 800;
+    }
+    .kbp-plan h3 { margin: 4px 0 6px; color: var(--kbp-navy); font-size: 1.2rem; }
+    .kbp-plan-price { margin: 0 0 4px; }
+    .kbp-plan-price .amt { font-size: 1.9rem; font-weight: 900; color: var(--kbp-ink); }
+    .kbp-plan-price .unit { font-size: 0.9rem; color: var(--kbp-muted); margin-left: 4px; }
+    .kbp-plan-sub { margin: 0 0 14px; font-size: 0.85rem; color: var(--kbp-muted); }
+    .kbp-plan ul { margin: 0 0 18px; padding-left: 1.2em; line-height: 1.85; color: var(--kbp-text); font-size: 0.93rem; }
+    .kbp-plan-cta { display: block; text-align: center; padding: 12px 16px; border-radius: 10px; background: var(--kbp-navy); color: #fff; font-weight: 800; text-decoration: none; }
+    .kbp-plan.top .kbp-plan-cta { background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; }
+    .kbp-trial { margin: 0 0 18px; padding: 18px 20px; border-radius: 10px; background: #f4faf4; border: 1px solid #cfe8cf; line-height: 1.85; font-size: 0.93rem; color: var(--kbp-text); }
+    .kbp-trial h3 { margin: 0 0 6px; font-size: 1.05rem; color: #1B3A6B; }
+    .kbp-trial p { margin: 0 0 8px; }
+    .kbp-trial ul { margin: 0 0 8px; padding-left: 1.3em; }
+    .kbp-trial a { color: #2E8B2E; font-weight: 700; }
+    .kbp-note { padding: 16px 18px; border-radius: 10px; background: #fffaf0; border: 1px solid #eadcb2; line-height: 1.85; font-size: 0.93rem; color: var(--kbp-text); }
+
+    /* Install steps */
+    .steps-list { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid #e2e8f0; line-height: 1.8; counter-increment: step; }
+    .steps-list li::before {
+      content: counter(step); flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: var(--kbp-navy); color: #fff; font-weight: 800;
+    }
+    .steps-list li > span { min-width: 0; }
+
+    /* Cautions */
+    .kbp-cautions ul { margin: 0; padding-left: 1.2em; line-height: 1.9; color: var(--kbp-text); }
+    .kbp-cautions li { margin-bottom: 6px; }
+
+    /* FAQ */
+    .kbp-faq { margin: 0; }
+    .kbp-faq details { background: #fff; border: 1px solid #dbe3ee; border-radius: 10px; margin: 0 0 10px; }
+    .kbp-faq summary { cursor: pointer; padding: 16px 18px; font-weight: 800; color: var(--kbp-navy); line-height: 1.6; }
+    .kbp-faq details p { margin: 0; padding: 0 18px 16px; line-height: 1.85; color: var(--kbp-text); }
+
+    /* Closing CTA */
+    .kbp-cta { background: linear-gradient(135deg, #0b1630 0%, #1B3A6B 100%); color: #fff; text-align: center; padding: 56px 5%; border-top: 4px solid var(--kbp-gold); }
+    .kbp-cta h2 { margin: 0 0 12px; font-size: clamp(1.3rem, 3vw, 1.8rem); line-height: 1.45; }
+    .kbp-cta p { margin: 0 auto 22px; max-width: 760px; line-height: 1.85; color: rgba(255, 255, 255, 0.88); }
+
+    /* Lightbox */
+    .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); display: none; align-items: center; justify-content: center; z-index: 10000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5); }
+    .lightbox-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
+
+    @media (max-width: 860px) {
+      .kbp-feature, .kbp-feature.flip { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+      .kbp-feature.flip .kbp-feature-text { order: 0; }
+      .kbp-cases { grid-template-columns: minmax(0, 1fr); }
+      .kbp-partners, .kbp-list, .kbp-plan-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .kbp-pillars { grid-template-columns: minmax(0, 1fr); }
+      .kbp-section { padding: 48px 5%; }
+      .kbp-part { padding: 18px; gap: 12px; }
+      .kbp-part-no { width: 44px; height: 44px; font-size: 1.1rem; }
+      .kbp-series-inner { flex-direction: column; align-items: flex-start; }
+      .kbp-btn { width: 100%; box-sizing: border-box; text-align: center; }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="kbp-hero">
+      <img class="kbp-hero-icon" src="/images/bridge-icon.png" alt="KIZUNAブリッジ for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="kbp-hero-badges">
+        <span class="kbp-badge-pro">KIZUNA Pro PLUGIN</span>
+        <span class="kbp-hero-version">v{VERSION}</span>
+      </div>
+      <h1 class="kbp-hero-title">KIZUNAブリッジ for kintone</h1>
+      <p class="kbp-tagline">アプリをまたぐ作業も、プラグインの連携も、自動化。</p>
+      <p class="kbp-sub">KIZUNAブリッジ for kintone は、<strong>保存やアクションをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める</strong>処理を、ノーコードのルールで自動化する kintone プラグインです。当社のプラグインとも連携し、<strong>書き込み先での採番や通知、一括更新の実行</strong>までつなげられます。さらに、担当者の不在や会社の休みを踏まえて日付を計算する<strong>不在カレンダー</strong>と、当社のプラグインをまとめて最新版にする<strong>プラグインの一括更新</strong>も備えます。KIZUNA Works の上位版「KIZUNA Pro プラグイン」の第1弾です。</p>
+      <div class="kbp-pillars">
+        <a class="kbp-pillar" href="#single"><span class="kbp-pillar-no">PART 1</span><span class="kbp-pillar-name">このアプリの中で</span><span class="kbp-pillar-desc">きっかけ・条件・動作のルールで、入力・確認・集計を自動に</span></a>
+        <a class="kbp-pillar" href="#apps"><span class="kbp-pillar-no">PART 2</span><span class="kbp-pillar-name">アプリ間連携</span><span class="kbp-pillar-desc">他のアプリへの取得・作成・更新・ステータス・双方向の同期</span></a>
+        <a class="kbp-pillar" href="#plugins"><span class="kbp-pillar-no">PART 3</span><span class="kbp-pillar-name">プラグイン間連携</span><span class="kbp-pillar-desc">当社の {partnerCount} 製品と組み合わせて、書き込み先でも同じ処理を</span></a>
+      </div>
+      <div class="kbp-hero-cta">
+        <a class="kbp-btn is-primary" href="#plan">プランと料金を見る →</a>
+        <a class="kbp-btn is-ghost js-dl" href={ZIP} download>プラグインをダウンロード</a>
+        <a class="kbp-btn is-ghost" href="/plugins/premium-trial/">30日間無料で試す</a>
+      </div>
+      <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
+    </section>
+
+    <!-- Series -->
+    <div class="kbp-series">
+      <div class="kbp-series-inner">
+        <span class="kbp-series-tag">KIZUNA Pro とは</span>
+        <p>ちょこっとプラグイン・プレミアムプラグインの上にある、KIZUNA Works の上位版のプラグインのシリーズです。<strong>KIZUNA Pro 拡張パック</strong>で、KIZUNAブリッジをはじめ、今後リリースされる KIZUNA Pro プラグインもすべてお使いいただけます。</p>
+      </div>
+    </div>
+
+    <!-- Problem -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">PROBLEM</span>
+        <h2 class="kbp-h2">アプリをまたぐ処理を、手で転記していませんか</h2>
+        <p class="kbp-lead">kintone は業務ごとにアプリを分けて作れるのが強みですが、アプリをまたぐ処理は標準の機能ではほとんど自動にできません。「受注を保存したら在庫を減らす」「案件が完了したら請求のレコードを作る」といった処理を、手作業の転記や、アプリごとに書いた JavaScript のカスタマイズに頼ると、条件や担当が変わるたびに直す手間がかかります。KIZUNAブリッジは、こうした処理を<strong>設定画面のルール</strong>に置き換えます。</p>
+        <div class="kbp-cases">
+          <div class="kbp-case">
+            <div class="kbp-case-flow"><span class="kbp-case-app">受注</span><span class="kbp-case-arrow">→</span><span class="kbp-case-app">在庫</span></div>
+            <h3>受注を保存したら、在庫の数を減らす</h3>
+            <p>受注の明細の商品ごとに、在庫アプリの該当レコードの数量を引きます。削除したときは戻します。</p>
+          </div>
+          <div class="kbp-case">
+            <div class="kbp-case-flow"><span class="kbp-case-app">案件</span><span class="kbp-case-arrow">→</span><span class="kbp-case-app">請求</span></div>
+            <h3>案件が「完了」になったら、請求のレコードを作る</h3>
+            <p>アクションの後をきっかけに、請求アプリへ顧客・金額・担当をコピーしたレコードを作ります。</p>
+          </div>
+          <div class="kbp-case">
+            <div class="kbp-case-flow"><span class="kbp-case-app">顧客</span><span class="kbp-case-arrow">⇄</span><span class="kbp-case-app">案件</span></div>
+            <h3>顧客の住所を、関係するアプリでそろえる</h3>
+            <p>どちらのアプリで直しても、もう片方の同じ顧客のレコードに反映します（双方向の同期）。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 1 -->
+    <section class="kbp-section alt" id="single">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">1</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">ブリッジだけでできること</h2>
+            <p class="kbp-part-desc">ブリッジを入れたアプリの中で、入力・確認・集計を自動にします。ルールは「きっかけ」「条件」「動作」の3つを選んで作ります。</p>
+          </div>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">ルールは、きっかけ・条件・動作を選ぶだけ</h3>
+            <p>コードは書きません。設定画面で、いつ（きっかけ）、どんなときに（条件）、何をするか（動作）を選んでルールを作ります。</p>
+            <ul class="kbp-chips">
+              <li>画面を開いた</li><li>値を変えた</li><li>保存の前・後</li><li>アクションの前・後</li><li>削除の前</li><li>ボタン</li><li>CSV の読み込み・書き出し</li>
+            </ul>
+            <p>条件には、このレコードの値と<strong>変更前の値</strong>、テーブル、ステータスと作業者、操作した人と組織・グループ、端末、日付・曜日などを使えます。「かつ」「または」を入れ子にして組み合わせられます。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/bridge-config-rule-01.png" alt="KIZUNAブリッジの設定画面のルールタブ。左に設定したルールの目次、中央にきっかけ・条件・動作を選んで作るルールの編集欄が表示されている" width="1400" height="1250" class="zoomable" />
+            <figcaption>設定画面の［ルール］タブ。左の目次でルールを選び、中央で編集します。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature flip">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">このレコードへの入力と、保存前の確認</h3>
+            <ul class="kbp-chips gold">
+              <li>値を入れる</li><li>空にする</li><li>集計</li><li>行を足す</li><li>行を消す</li><li>エラーで止める</li><li>確認してから進める</li><li>お知らせ</li>
+            </ul>
+            <p>条件に合えば値を入れる、テーブルの合計を出す、といった入力の自動化に加えて、<strong>条件に合わない保存やアクションを止める</strong>・<strong>確認してから進める</strong>こともできます。</p>
+            <p class="kbp-example"><strong>例：</strong>金額が 100 万円を超える見積を「承認依頼」に進めるときだけ、確認の画面を出す。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/bridge-record-confirm-01.png" alt="kintone のレコード画面で、ブリッジのルールによる確認の画面が表示されている。条件に合ったことと、このまま進めるかを選ぶボタンがある" width="900" height="545" class="zoomable" />
+            <figcaption>ルールの動作［確認してから進める］の画面。［キャンセル］を押すと保存やアクションを止めます。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">予行演習で、書き込む前に結果を確かめる</h3>
+            <p>今あるレコードを選んで、<strong>どのルールが動き、何をどこへ書くか</strong>を、実際には書き込まずに確かめられます。条件のどこで外れたかも表示するので、設定の見直しが早くなります。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/bridge-config-dryrun-01.png" alt="設定画面の予行演習の結果。選んだレコードで動くルール、条件の判定、書き込む予定の値が一覧で表示されている" width="1400" height="485" class="zoomable" />
+            <figcaption>予行演習の結果。書き込む予定の値と、条件の判定を確かめられます。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature flip">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">実行の記録と再実行・あとから流す</h3>
+            <p>ルールが動いた結果は<strong>実行の記録</strong>に残ります。権限や入力の不足で書き込めなかったものは、原因を直してから記録から再実行できます。</p>
+            <p>kintone 標準の CSV の読み込みなど、画面を通らずに入ったレコードには、<strong>あとから流す</strong>でルールをまとめて当てられます。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/bridge-config-log-01.png" alt="設定画面の実行の記録タブ。ルールが動いた日時・レコード・結果が並び、失敗したものに再実行のボタンがある" width="1400" height="1010" class="zoomable" />
+            <figcaption>［実行の記録］タブ。失敗したものだけを選んで再実行できます。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">不在カレンダーと営業日</h3>
+            <p>休暇や出張の予定を<strong>不在カレンダー</strong>に登録しておくと、レコードの詳細画面で担当者の不在を知らせたり、アクションの前に「次の作業者は不在です」と確かめたりできます。ルールの式では、全社の休業日を除いた<strong>営業日</strong>で期日を数えられます。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/bridge-config-absence-01.png" alt="設定画面の不在・在席タブ。不在カレンダーの作成と、詳細画面での知らせ方・アクション前の確認の設定が表示されている" width="1400" height="1010" class="zoomable" />
+            <figcaption>［不在・在席］タブ。不在カレンダーのアプリは設定画面から作れます。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature flip">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">当社のプラグインを、まとめて最新版に</h3>
+            <p>kintone のプラグインは自動では更新されません。［プラグインの更新］タブで、この kintone に読み込まれている KIZUNA Works のプラグインの版を一覧で確かめ、<strong>選んだものをまとめて最新版に上書き</strong>できます（kintone システム管理者のみ）。プラグインの設定はそのまま残ります。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/bridge-config-update-01.png" alt="設定画面のプラグインの更新タブ。当社のプラグインごとに入っているバージョンと最新版が並び、新しいバージョンがあるものにチェックが付いている" width="1400" height="1010" class="zoomable" />
+            <figcaption>［プラグインの更新］タブ。新しいバージョンがあるものには最初からチェックが付きます。</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 2 -->
+    <section class="kbp-section" id="apps">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">2</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">アプリ間連携でできること</h2>
+            <p class="kbp-part-desc">ブリッジを入れたアプリをきっかけに、他のアプリのレコードを読む・書く・そろえます。書き込み先のアプリにブリッジを入れる必要はありません。</p>
+          </div>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">他のアプリへ、取ってくる・作る・変える</h3>
+            <ul class="kbp-chips">
+              <li>取ってくる</li><li>レコードを作る</li><li>レコードを変える</li><li>ステータスを進める</li><li>双方向にそろえる</li>
+            </ul>
+            <p>どのアプリのどのレコードに、どのフィールドの値を書くかを、フィールドの対応表で決めます。数量を<strong>足す・引く</strong>書き方や、テーブルの行ごとに書く設定もできます。</p>
+            <p>条件にも他のアプリを使えます。「同じ顧客の未完了の案件が<strong>ある・ない</strong>」「明細の<strong>件数・合計</strong>が○○以上」のように判定できます。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/bridge-config-crossapp-01.png" alt="ルールの動作で、他のアプリのレコードを変える設定。書き込み先のアプリ、対象のレコードを決める条件、フィールドの対応表が表示されている" width="1400" height="1216" class="zoomable" />
+            <figcaption>動作［他のアプリのレコードを変える］。対象のレコードの決め方と、値の対応を設定します。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature flip">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">連携の流れで、つながりをひと目で</h3>
+            <p>このアプリが<strong>どのアプリを読み、どのアプリへ書き、どのアプリとそろえているか</strong>を図で表示します。書き込み先でまたルールが動く連鎖が輪になっていると、警告を出します。連携するプラグインの準備ができているかも、ここで確かめられます。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/bridge-config-flowmap-01.png" alt="設定画面の連携の流れタブ。中央のアプリから、読むアプリ・書くアプリ・そろえるアプリへの矢印と、連携するプラグインの準備の状態が表示されている" width="1400" height="1440" class="zoomable" />
+            <figcaption>［連携の流れ］タブ。アプリ名と、読む・書く・そろえるの向きが表示されます。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">結果は、その場で知らせる</h3>
+            <p>他のアプリへ書き込んだ件数や、書き込めなかったレコードとその理由を、保存のあとの画面で知らせます。書き込みは<strong>ルールを動かした人の権限</strong>で行うので、その人が編集できないレコードを書き換えることはありません。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/bridge-record-result-01.png" alt="レコードを保存したあとの画面に、他のアプリのレコードを更新した件数を知らせる表示が出ている" width="900" height="188" class="zoomable" />
+            <figcaption>保存のあとのお知らせ。書き込めなかったものは理由を添えて知らせます。</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 3 -->
+    <section class="kbp-section alt" id="plugins">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">3</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">プラグイン間連携でできること</h2>
+            <p class="kbp-part-desc">当社のプラグインと組み合わせると、ブリッジが書き込んだレコードにも、画面で保存したときと同じ処理を当てられます。連携できるのは現在 {partnerCount} 製品です。</p>
+          </div>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">ルールごとに、オンにするだけ</h3>
+            <p>他のアプリに書き込む動作の下に、連携のチェックが出ます。オンにすると、書き込み先のアプリに入っている当社のプラグインに処理を頼みます。採番した番号を文字列結合に使えるよう、<strong>当てる順番</strong>もそろえてあります。</p>
+            <p>終わると「○○の 2 件に、条件分岐自動採番を当てました」のように知らせます。当てられなかったものは理由を添えて知らせ、ブリッジの書き込みそのものは取り消しません。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/bridge-config-partner-01.png" alt="ルールの動作の下に、書き込み先のアプリの採番・文字列結合なども当てる、チャット通知も送る、レコードロックを守る、のチェックが並んでいる" width="1400" height="398" class="zoomable" />
+            <figcaption>他のアプリへの書き込みの下に出る、連携のチェック。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature flip">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">ルールから、プラグインの機能を実行する</h3>
+            <p>動作［プラグインの機能を実行する］では、連携するプラグインが「できること」を選ぶだけで、ほかのアプリでの一括更新やステータスの一括実行を呼び出せます。入力が必要な項目も、その場で設定できます。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/bridge-config-run-01.png" alt="ルールの動作でプラグインの機能を実行するを選び、連携するプラグインと実行する処理を選ぶ欄が表示されている" width="1400" height="1296" class="zoomable" />
+            <figcaption>動作［プラグインの機能を実行する］。プラグインと処理を選びます。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">不在カレンダーを、人ごとの予定表で</h3>
+            <p>カレンダービュー for kintone と組み合わせると、不在カレンダーを<strong>縦＝人・横＝日付</strong>のタイムラインや、月のカレンダーで見られます。全社の休業日は「全社の休業日」の行にまとまります。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/bridge-calendar-01.png" alt="カレンダービューで表示した不在カレンダー。縦に人、横に日付が並び、休暇や出張の予定が帯で表示されている" width="1400" height="640" class="zoomable" />
+            <figcaption>カレンダービューのタイムラインで表示した不在カレンダー（人ごとの表示はプレミアムの機能です）。</figcaption>
+          </figure>
+        </div>
+
+        <h3 class="kbp-h2" id="partners" style="margin-top:12px;">連携できるプラグイン</h3>
+        <p class="kbp-lead">次の当社のプラグインが KIZUNAブリッジと連携できます。製品ページには「ブリッジ連携」のバッジが付いています。連携には、それぞれの製品の最新版をお使いください。</p>
+        {partnerGroups.map((g) => (
+          <div class="kbp-partner-group">
+            <h4 class="kbp-h3">{g.title}</h4>
+            <p>{g.lead}</p>
+            <ul class="kbp-partners">
+              {g.items.map((p) => (
+                <li class="kbp-partner">
+                  <a href={`/plugins/${p.slug}/`}>
+                    <img class="kbp-partner-icon" src={iconOf(p)} alt="" width="48" height="48" loading="lazy" />
+                    <span class="kbp-partner-body">
+                      <span class="kbp-partner-name">{p.name}</span>
+                      {p.tier === 'premium' ? (
+                        <span class="kbp-partner-tier premium">プレミアムプラグイン</span>
+                      ) : (
+                        <span class="kbp-partner-tier free">ちょこっとプラグイン</span>
+                      )}
+                      <span class="kbp-partner-role">{p.bridge}</span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Feature summary -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">FEATURES</span>
+        <h2 class="kbp-h2">主な機能</h2>
+        <ul class="kbp-list">
+          <li>きっかけ：画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン（レコード画面と一覧）・CSV の読み込みと書き出しの前後</li>
+          <li>条件：このレコードの値と変更前の値・テーブル・ステータスと作業者・操作した人と組織・グループ・端末・日付と曜日・他のアプリ（ある・ない・件数・合計）</li>
+          <li>このレコード：値を入れる・空にする・集計・行を足す・行を消す</li>
+          <li>確認・止める：エラーで止める・確認してから進める・お知らせ</li>
+          <li>他のアプリ：取ってくる・作る・変える・ステータスを進める・双方向にそろえる</li>
+          <li>書き込み先のアプリの当社プラグインの処理を当てる（採番・地図リンク・経過日数・文字列結合 ほか）</li>
+          <li>書き込み先のアプリのチャット通知・レコードロックとの連携</li>
+          <li>ルールから当社のプラグインの機能を実行する</li>
+          <li>予行演習（書き込まずに結果を確認）</li>
+          <li>実行の記録と再実行・あとから流す</li>
+          <li>連携の流れ（つながりと連鎖の輪の警告）</li>
+          <li>不在カレンダーと営業日の計算</li>
+          <li>当社のプラグインをまとめて最新版にする</li>
+          <li>ゲストスペースのアプリ・モバイルのレコード画面に対応</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Plans -->
+    <section class="kbp-section alt" id="plan">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">PLAN</span>
+        <h2 class="kbp-h2">プランと料金</h2>
+        <p class="kbp-lead">KIZUNAブリッジは KIZUNA Pro プラグインです。製品ごとの個別のご契約はありません。<strong>プレミアム年間サポーター</strong>と <strong>KIZUNA Pro 拡張パック</strong>のご契約でお使いいただけます。</p>
+        <div class="kbp-plan-grid">
+          <div class="kbp-plan top">
+            <span class="kbp-plan-badge">KIZUNA Pro 最上位</span>
+            <h3>{PRO_SET_PLAN.name}</h3>
+            <p class="kbp-plan-price"><span class="amt">{yen(PRO_SET_PLAN.priceInTax)}</span><span class="unit">/年（税込）</span></p>
+            <p class="kbp-plan-sub">税抜 {yen(PRO_SET_PLAN.priceExTax)}／プレミアム年間サポーター＋KIZUNA Pro 拡張パック</p>
+            <ul>
+              <li>KIZUNAブリッジを含む KIZUNA Pro プラグインすべて</li>
+              <li>ちょこっと＆プレミアムプラグインすべて</li>
+              <li>プラグイン内の広告非表示</li>
+              <li>今後リリースされる KIZUNA Pro プラグインも追加料金なし</li>
+            </ul>
+            <a class="kbp-plan-cta" href="/plugins/supporter/?plan=pro_set">{PRO_SET_PLAN.name}を申し込む →</a>
+          </div>
+          <div class="kbp-plan">
+            <span class="kbp-plan-badge">プレミアムにご加入中の方</span>
+            <h3>{PRO_ADDON.name}</h3>
+            <p class="kbp-plan-price"><span class="amt">{yen(PRO_ADDON.priceInTax)}</span><span class="unit">/年（税込）</span></p>
+            <p class="kbp-plan-sub">税抜 {yen(PRO_ADDON.priceExTax)}／{PREMIUM_PLAN.name}に追加</p>
+            <ul>
+              <li>プレミアム年間サポーターに追加していただくプランです</li>
+              <li>KIZUNA Works の上位版のプラグイン「KIZUNA Pro プラグイン」をすべてお使いいただけます</li>
+              <li>アプリをまたぐ作業もプラグインの連携も自動化する「KIZUNAブリッジ for kintone」をはじめ、今後リリースされる KIZUNA Pro プラグインも追加料金なしで順次ご利用いただけます</li>
+            </ul>
+            <a class="kbp-plan-cta" href="/plugins/supporter/?plan=pro_add">{PRO_ADDON.name}を申し込む →</a>
+          </div>
+        </div>
+        <div class="kbp-trial" id="trial">
+          <h3>30日間、無料で試せます</h3>
+          <p>カード登録は不要で、自動課金もありません（1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、条件を満たせばもう一度お試しいただけます）。</p>
+          <ul>
+            <li><strong>プレミアム年間サポーターを未契約の方</strong>：<a href="/plugins/premium-trial/">プレミアム年間サポーターの無料体験</a>に KIZUNA Pro プラグインが含まれます。</li>
+            <li><strong>プレミアム年間サポーターをご契約中の方</strong>：<a href="/plugins/premium-trial/#pro-trial">KIZUNA Pro 拡張パックだけを30日間無料</a>で試せます。</li>
+          </ul>
+          <p>体験が終わるとルールは止まりますが、設定は残ります。続けるときは上のプランからお申し込みください。</p>
+        </div>
+        <p class="kbp-note">年間サポーター（ちょこっとプラグインすべて）には、KIZUNA Pro 拡張パックを追加できません。ご契約が切れても<strong>設定は消えません</strong>。ご契約が確認できない間はルールが動かず、ご契約が戻れば保存済みの設定のまま動きます。</p>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">INSTALL</span>
+        <h2 class="kbp-h2">導入の手順</h2>
+        <ol class="steps-list">
+          <li><span>このページから <strong>kw-bridge-v{VERSION}.zip</strong> をダウンロードします（解凍は不要です）。</span></li>
+          <li><span>kintone の［kintone システム管理］→［プラグイン］→［読み込む］で、zip ファイルを読み込みます。</span></li>
+          <li><span>きっかけにするアプリの［アプリの設定］→［プラグイン］→［追加する］で、KIZUNAブリッジ for kintone を追加します。</span></li>
+          <li><span>プラグインの設定画面を開き、ご契約が確認されると設定の画面が表示されます。［ルール］タブでルールを作り、予行演習で確かめます。</span></li>
+          <li><span>［保存する］を押し、［アプリを更新］で反映します。他のアプリと連携するプラグインは、書き込み先のアプリにも入れておきます。</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Cautions -->
+    <section class="kbp-section alt">
+      <div class="kbp-wrap">
+        <h2 class="kbp-h2">ご利用にあたっての注意</h2>
+        <div class="kbp-cautions">
+          <ul>
+            <li><strong>他のアプリへの書き込みは、ルールを動かした人の権限で行います。</strong>書き込み先のアプリのレコードを閲覧・編集できない人の操作では書き込みません。</li>
+            <li>1 回の実行で書き込み先のアプリに当てる当社のプラグインの処理・チャット通知・ロックの確認は、1 アプリにつき 100 件までです。</li>
+            <li>書き込み先のアプリで当社のプラグインの処理を当てる・通知する・ロックを確かめるときは、それぞれのプラグインが書き込み先のアプリに入っている必要があります。処理には数秒かかります。</li>
+            <li>連鎖して動いた書き込み先のルール・一覧のボタン・あとから流すでは、書き込み先のアプリのプラグインの処理を当てません。</li>
+            <li>kintone 標準の CSV の読み込みや、他社のツールからの書き込みは、きっかけになりません。必要なときは「あとから流す」をお使いください。</li>
+            <li>ブリッジの設定画面はパソコンでお使いください。モバイル版ではレコード画面のルールが動きます。</li>
+            <li>プラグインの設定は「丸ごと保存」する仕組みのため、<strong>設定画面を2つ同時に開いて保存すると片方の変更が失われます</strong>。1つずつ保存してください。</li>
+            <li>アプリからプラグインを<strong>「利用を解除」すると設定が破棄されます</strong>。一時的に止めたいだけのときは「無効にする」をお使いください。</li>
+            <li>本プラグインはサイボウズ社の製品ではありません。kintone はサイボウズ株式会社の登録商標です。</li>
+            <li>推奨ブラウザは Google Chrome / Microsoft Edge です。</li>
+            <li>本プラグインの利用により生じた損害について、当社は責任を負いかねます。配布 zip に秘密鍵（ppk）は含まれません。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">FAQ</span>
+        <h2 class="kbp-h2">よくある質問</h2>
+        <div class="kbp-faq">
+          {faqs.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Security -->
+    <section class="kbp-section alt">
+      <div class="kbp-wrap">
+        <SecurityBox pluginId="kw-bridge" />
+        <ShareButtons title="KIZUNAブリッジ for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="kbp-cta">
+      <h2>アプリをまたぐ作業も、プラグインの連携も、自動化。</h2>
+      <p>KIZUNAブリッジは、KIZUNA Pro プラグインの第1弾です。{PRO_SET_PLAN.name}（税込 {yen(PRO_SET_PLAN.priceInTax)}/年）、またはプレミアム年間サポーターへの KIZUNA Pro 拡張パックの追加でお使いいただけます。</p>
+      <a class="kbp-btn is-primary" href="/plugins/supporter/?plan=pro_set">{PRO_SET_PLAN.name}を見る →</a>
+    </section>
+
+    <div class="lightbox" id="kbp-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline define:vars={{ zip: ZIP }}>
+    (function () {
+      var lightbox = document.getElementById('kbp-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: zip.split('/').pop(),
+              file_extension: 'zip',
+              link_text: 'プラグインをダウンロード',
+              link_url: zip
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

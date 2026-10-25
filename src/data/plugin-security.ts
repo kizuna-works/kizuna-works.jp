@@ -568,6 +568,43 @@ export const securityProfiles: Record<string, SecurityProfile> = {
 
   // 外部への送信先は増えない。自ドメインの kintone REST API（組織の一覧・ルール表アプリ・
   // 記録用アプリ・レコードの更新）だけを使う。レコードの値は外へ出ない。
+  // KIZUNA Pro. Cross-app reads/writes stay inside the customer's kintone domain and run
+  // with the permissions of the person who triggered the rule. The only outside fetches
+  // are downloads from our own site (update tab); nothing is sent.
+  'kw-bridge': {
+    extraComm: [
+      {
+        label: '他のアプリのレコードの読み書き（自ドメイン内）',
+        scope: 'internal',
+        detail:
+          'ルールで決めた他のアプリのレコードの取得・作成・更新・ステータスの変更、不在カレンダーと記録用アプリの読み書き、設定画面でのアプリ・フィールドの情報の取得に、ご利用中の kintone ドメイン内の API（/k/v1/...）だけを使います。いずれもルールを動かした人の権限で行い、閲覧・編集できないレコードには書き込みません。条件の判定のため、ユーザー・組織・グループの一覧（/v1/users.json・/v1/organizations.json・/v1/groups.json）も取得します。書き込み先のアプリに入っている当社のプラグインへの処理の依頼も、同じ kintone の中で完結します。外部へは送信しません。',
+      },
+      {
+        label: 'プラグインの更新（当社サイトからの取得のみ）',
+        scope: 'external',
+        detail:
+          '［プラグインの更新］タブを開いたときに、当社サイト（kizuna-works.jp）の versions.json から当社プラグインの最新版を調べます。［更新］を押したときだけ、当社サイトの配布 zip を取得して、kintone にアップロードします（kintone システム管理者のみ）。どちらも「ダウンロード」で、レコードの値や設定を送信することはありません。',
+      },
+    ],
+  },
+
+  'kw-lookup-pro': {
+    extraComm: [
+      {
+        label: '参照先のレコードの読み取り・マスターへの登録（自ドメイン内）',
+        scope: 'internal',
+        detail:
+          'ご利用中の kintone ドメイン内の REST API だけを使います。入力中の候補・［取得］の一覧・フリールックアップの取得では、参照先のアプリのレコードを利用者本人の権限で読み取ります（GET /k/v1/records）。［＋新規登録］の［登録］を押したときだけマスターへレコードを 1 件追加し（POST /k/v1/record・添付を選んだときは /k/v1/file）、登録の直後に直したときはそのレコードだけを更新します。詳細画面で［最新の値にする］を押したときは、取得元の値を確かめてこのレコードを更新します（PUT /k/v1/record・revision 付き）。外部へは送信しません。',
+      },
+      {
+        label: '参照先レコードの自動反映・参照先アプリの設定（自ドメイン内）',
+        scope: 'internal',
+        detail:
+          'マスターを保存したときは、参照先アプリのレコードを検索（GET /k/v1/records）し、ルックアップのキーを入れ直して kintone にコピーし直させます（PUT /k/v1/records）。設定画面では、アプリ・フィールド・設定済みのプラグインの読み取りに加え、自動反映の設定でボタンを押したときだけ、参照先アプリのルックアップ設定の変更・参照先用スクリプトの登録・アプリの更新（/k/v1/preview/app/form/fields・/k/v1/preview/app/customize・/k/v1/preview/app/deploy・/k/v1/file）を行います。アプリ管理権限が必要です。外部へは送信しません。',
+      },
+    ],
+  },
+
   'kw-record-acl-assist': {
     extraComm: [
       {
@@ -726,6 +763,34 @@ export const securityProfiles: Record<string, SecurityProfile> = {
         scope: 'internal',
         detail:
           '設定画面で管理者が［「○○」の値を「△△」へ写す］を押し、確認で OK したときだけ、このアプリのレコードを読み（/k/v1/records.json）、今のルックアップの値を新しいキーのフィールドへ書き込みます（/k/v1/record.json・revision 付き）。書き込むのはこのアプリだけで、ほかのアプリには書きません。レコード画面の通常の操作では書き込み系の API を呼びません。',
+      },
+    ],
+  },
+
+  // KIZUNA Pro. Search / filter / summary / CSV on the record list. Only the customer's own
+  // kintone REST API is used (reads). The one write is the CSV attachment that KIZUNA Bridge
+  // asks for. Nothing leaves the domain except the license check and versions.json.
+  'kw-search-pro': {
+    libs: [
+      {
+        name: 'encoding-japanese',
+        version: '2.2.0',
+        license: 'MIT',
+        purpose: 'CSV の文字コード変換（Shift-JIS など）。実行時に外部から読み込まず、パッケージに同梱しています。',
+      },
+    ],
+    extraComm: [
+      {
+        label: '一覧・フォーム定義の読み取り（自ドメイン内）',
+        scope: 'internal',
+        detail:
+          'ご利用中の kintone ドメイン内の REST API だけを使います。検索の確認・絞り込みの窓の候補と件数・集計・CSV の元データ・条件の帯の件数のためにレコードを読み取り（/k/v1/records.json）、フィールド・レイアウト・ステータス・一覧の定義を読み取ります。レコードは、その利用者がもともと閲覧できる範囲だけです。一覧の検索・絞り込み・カード・CSV出力の操作では、レコードを書き換えません。',
+      },
+      {
+        label: 'CSV の添付（KIZUNAブリッジから頼まれたときだけ・自ドメイン内）',
+        scope: 'internal',
+        detail:
+          'KIZUNAブリッジ for kintone のルールから頼まれたときだけ、作った CSV をファイルとして kintone に預け（/k/v1/file.json）、指定されたレコードの添付ファイル欄に入れます（/k/v1/record.json）。操作した利用者の権限で行い、権限が足りないときは kintone 本体が拒否します。',
       },
     ],
   },
