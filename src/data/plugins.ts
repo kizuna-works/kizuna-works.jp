@@ -532,7 +532,7 @@ export const plugins: Plugin[] = [
     problemTitle: '添付ファイルの中身を見るのにダウンロードや画面遷移が面倒',
     problemDesc: '一覧・詳細・関連レコード一覧のファイル名クリックで、その場のモーダルで素早く中身を確認し、PDF・画像はそのまま印刷したい',
     releaseDate: '2026-06-05',
-    summaryVersion: '2.4.0',
+    summaryVersion: '2.5.0',
   },
   {
     id: 'kw-quick-toc',
