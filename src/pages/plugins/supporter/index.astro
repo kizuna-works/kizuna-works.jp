@@ -694,10 +694,26 @@ const metaDesc = PRICE_REVISION_LIVE
       font-size: 0.95rem;
     }
 
+    /* Two buttons share one row (equal width, equal height); stacked on phones */
     .pro-pack-btns {
       display: flex;
-      flex-wrap: wrap;
       gap: 12px;
+    }
+
+    .pro-pack-btns > a {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 14px;
+      padding-right: 14px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 640px) {
+      .pro-pack-btns { flex-direction: column; }
+      .pro-pack-btns > a { flex: none; }
     }
 
     .pro-pack-btns .pro-plan-cta {

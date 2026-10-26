@@ -50,6 +50,7 @@ c:\kizuna-works.jp\
 │   │   ├── PremiumFaqSection.astro # プレミアム製品ページの「よくある質問」（アコーディオン＋FAQPage JSON-LD を src/data/premium-faqs.ts から生成＝表示と構造化データが必ず一致）
 │   │   ├── ShareButtons.astro  # SNS共有ボタン（X/LINE/はてブは静的intentリンク・URLコピー/OS共有シートのみJS）。全プラグイン個別ページ末尾に設置。title="〇〇 for kintone"・URLはAstro.urlから自動導出
 │   │   ├── BridgeBadge.astro # 「ブリッジ連携」バッジ（as="badge" ヒーロー）と説明帯（as="note"）。plugins.ts の bridge フィールドがある製品だけ表示
+│   │   ├── BridgeRecipeCard.astro # KIZUNAブリッジの「使い方の例」カード1件（今の作業 → きっかけ・条件・動かす内容 → こうなります）。製品ページ（代表例）と /plugins/bridge/recipes/（全件）で共用。データは src/data/bridge-recipes.ts
 │   │   ├── PremiumPlanCard.astro # ちょこっと製品ページのプラン欄3枚目（プレミアム年間サポーター）。ページ側の `.pricing-card` 等をそのまま使い、紺のアクセントだけスコープ付きCSSで足す＝各ページの見た目に自動で馴染む。プレミアム製品ページでは使わない（年間サポーターを掲載しないため2枚のまま）
 │   │   ├── SupporterPlanCard.astro # ちょこっと製品ページのプラン欄2枚目（年間サポーター）。料金は src/data/pricing.ts から出し、PRICE_REVISION_LIVE で改定前（1 製品・¥3,300）と改定後（ちょこっとプラグインすべて・¥8,250）を切り替える。props は pluginId（申込フォームへ渡す）と features（ページごとの機能の行）
 │   │   ├── ResellerCard.astro  # プラン欄の下に出る「販売代理店からのご購入」カード（全63製品ページ共通）。掲載先は src/data/resellers.ts。登録0件のあいだは何も出力しない＝契約締結前に社名が出ない。ページ側CSSに依存せず自前のスコープ付きCSSで完結
@@ -65,6 +66,7 @@ c:\kizuna-works.jp\
 │   │   ├── plugin-security.ts  # プラグインごとのセキュリティ事実（外部通信・同梱ライブラリ）の単一情報源。SecurityBox が参照
 │   │   ├── resellers.ts        # 販売代理店マスタ（ResellerCard が参照）。1件でも登録すると全63製品ページに代理店カードが出る。**掲載は販売代理店契約の締結後**（契約書 第9条第4項）。現在は空配列＝非表示
 │   │   ├── licenseEndpoint.ts  # ライセンス GAS の /exec の URL（申込フォーム・/apply/ のページが使う）。環境変数 PUBLIC_LICENSE_GAS_URL があればそちら（試験用の GAS につなぐときだけ）
+│   │   ├── bridge-recipes.ts   # KIZUNAブリッジの使い方の例の単一情報源（場面・今の作業・ルール・結果・組み合わせるプラグイン）。featured の例は製品ページにも出る。**USAGE で確かめた、実在の機能だけで組めるルールしか書かない**
 │   │   ├── pricing.ts          # サポーターの料金とプランの表示の単一情報源。PRICE_REVISION_LIVE（年間サポーターの料金改定を公開したか）・改定日・プランごとの料金・申込の planType。製品ページのカード・サポーターページ・申込フォーム・一覧・規約・トップのお知らせがここを見る
 │   │   ├── blogSidebar.ts      # ブログサイドバーの「人気の記事」の slug 一覧（GSC のクリック上位から月1回手で見直す。6本目は表示中の記事を除いたときの繰り上げ用）
 │   │   └── install-ranking.json # インストール数ランキングのスナップショット（scripts/gen-install-ranking.mjs が prebuild で更新）。トップの Top3 と /plugins/ranking/ が両方これを読む＝順位が食い違わない。**手で編集しない**
@@ -248,7 +250,9 @@ c:\kizuna-works.jp\
 │   │   │   │   └── setup/
 │   │   │   │       └── index.astro # 【手順ページ】Box 側の準備手順（/plugins/box-connect/setup/）— 連携用アプリの作成（サーバー・クライアント資格情報）・アクセスレベルとスコープ・CORS ドメイン・Box 管理者の承認・フォルダへのサービスアカウントの招待・プラグインへの接続の 6 手順。設定画面の「準備の手順を見る」の遷移先
 │   │   │   ├── bridge/
-│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】KIZUNAブリッジ for kintone 製品ページ（/plugins/bridge/）v1.0.1（2026-10-26）・2026-10-25 公開（KIZUNA Pro 第1弾・単品販売なし）— 単品でできること／アプリ間連携／プラグイン間連携の3部構成。連携できるプラグイン一覧は plugins.ts の bridge フィールドから自動生成
+│   │   │   │   ├── index.astro # 【KIZUNA Pro プラグイン】KIZUNAブリッジ for kintone 製品ページ（/plugins/bridge/）v1.0.1（2026-10-26）・2026-10-25 公開（KIZUNA Pro 第1弾・単品販売なし）— 単品でできること／アプリ間連携／プラグイン間連携の3部構成。連携できるプラグイン一覧は plugins.ts の bridge フィールドから自動生成。冒頭の PROBLEM 節に使い方の例（代表6件・BridgeRecipeCard）と /plugins/bridge/recipes/ への導線
+│   │   │   │   └── recipes/
+│   │   │   │       └── index.astro # KIZUNAブリッジの使い方の例（/plugins/bridge/recipes/・2026-10-26）。全件を場面別に絞り込み（JS・未対応でも全件表示）・各例に #id のアンカー。JSON-LD は WebPage・BreadcrumbList・ItemList
 │   │   │   ├── kizuna-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン一覧（特集ページ）】/plugins/kizuna-pro/ 2026-10-25 公開（ブリッジと同時）— シリーズの説明・proPlugins（plugins.ts の tier:'pro'）から自動生成する製品カード＋製品ごとの「Pro だけ」の機能・プランと料金（pricing.ts）・30日間無料体験・FAQ（FAQPage）。トップの KIZUNA Pro 帯と /plugins/ の KIZUNA Pro 枠からリンク
 │   │   │   ├── search-pro/

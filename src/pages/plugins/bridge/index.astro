@@ -3,6 +3,8 @@ import Layout from '../../../layouts/Layout.astro';
 import Picture from '../../../components/Picture.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
+import BridgeRecipeCard from '../../../components/BridgeRecipeCard.astro';
+import { bridgeRecipes, featuredBridgeRecipes } from '../../../data/bridge-recipes';
 import { bridgePartnerPlugins } from '../../../data/plugins';
 import type { Plugin } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
@@ -308,13 +310,15 @@ const faqJsonLd = {
     .kbp-chips.gold li { background: #fbf3dc; color: #6b4a0e; }
 
     /* Use case cards */
-    .kbp-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0 0 44px; }
-    .kbp-case { background: #fff; border: 1px solid #dbe3ee; border-radius: 12px; padding: 20px; min-width: 0; }
-    .kbp-case-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0 0 10px; }
-    .kbp-case-app { padding: 4px 10px; border-radius: 6px; background: var(--kbp-navy); color: #fff; font-size: 0.82rem; font-weight: 700; }
-    .kbp-case-arrow { color: var(--kbp-gold); font-weight: 900; }
-    .kbp-case h3 { font-size: 1rem; color: var(--kbp-navy); margin: 0 0 6px; line-height: 1.5; }
-    .kbp-case p { margin: 0; font-size: 0.9rem; line-height: 1.75; color: var(--kbp-text); }
+    .kbp-recipes-head { font-size: 1.1rem; color: var(--kbp-navy); margin: 0 0 16px; line-height: 1.5; scroll-margin-top: 110px; }
+    .kbp-recipes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .kbp-recipes-more { text-align: center; margin: 24px 0 8px; }
+    .kbp-recipes-btn {
+      display: inline-block; max-width: 100%; box-sizing: border-box;
+      padding: 12px 26px; border-radius: 30px; border: 2px solid var(--kbp-navy);
+      color: var(--kbp-navy); font-weight: 700; text-decoration: none; background: #fff;
+    }
+    .kbp-recipes-btn:hover { background: var(--kbp-navy); color: #fff; }
 
     /* Partner list */
     .kbp-partner-group { margin: 0 0 36px; }
@@ -396,7 +400,7 @@ const faqJsonLd = {
     @media (max-width: 860px) {
       .kbp-feature, .kbp-feature.flip { grid-template-columns: minmax(0, 1fr); gap: 18px; }
       .kbp-feature.flip .kbp-feature-text { order: 0; }
-      .kbp-cases { grid-template-columns: minmax(0, 1fr); }
+      .kbp-recipes { grid-template-columns: minmax(0, 1fr); }
       .kbp-partners, .kbp-list, .kbp-plan-grid { grid-template-columns: minmax(0, 1fr); }
     }
     @media (max-width: 640px) {
@@ -447,22 +451,12 @@ const faqJsonLd = {
         <span class="kbp-eyebrow">PROBLEM</span>
         <h2 class="kbp-h2">アプリをまたぐ処理を、手で転記していませんか</h2>
         <p class="kbp-lead">kintone は業務ごとにアプリを分けて作れるのが強みですが、アプリをまたぐ処理は標準の機能ではほとんど自動にできません。「受注を保存したら在庫を減らす」「案件が完了したら請求のレコードを作る」といった処理を、手作業の転記や、アプリごとに書いた JavaScript のカスタマイズに頼ると、条件や担当が変わるたびに直す手間がかかります。KIZUNAブリッジは、こうした処理を<strong>設定画面のルール</strong>に置き換えます。</p>
-        <div class="kbp-cases">
-          <div class="kbp-case">
-            <div class="kbp-case-flow"><span class="kbp-case-app">受注</span><span class="kbp-case-arrow">→</span><span class="kbp-case-app">在庫</span></div>
-            <h3>受注を保存したら、在庫の数を減らす</h3>
-            <p>受注の明細の商品ごとに、在庫アプリの該当レコードの数量を引きます。削除したときは戻します。</p>
-          </div>
-          <div class="kbp-case">
-            <div class="kbp-case-flow"><span class="kbp-case-app">案件</span><span class="kbp-case-arrow">→</span><span class="kbp-case-app">請求</span></div>
-            <h3>案件が「完了」になったら、請求のレコードを作る</h3>
-            <p>アクションの後をきっかけに、請求アプリへ顧客・金額・担当をコピーしたレコードを作ります。</p>
-          </div>
-          <div class="kbp-case">
-            <div class="kbp-case-flow"><span class="kbp-case-app">顧客</span><span class="kbp-case-arrow">⇄</span><span class="kbp-case-app">案件</span></div>
-            <h3>顧客の住所を、関係するアプリでそろえる</h3>
-            <p>どちらのアプリで直しても、もう片方の同じ顧客のレコードに反映します（双方向の同期）。</p>
-          </div>
+        <h3 class="kbp-recipes-head" id="recipes">使い方の例：今の作業が、どんなルールで、どう変わるか</h3>
+        <div class="kbp-recipes">
+          {featuredBridgeRecipes.map((r) => <BridgeRecipeCard recipe={r} />)}
+        </div>
+        <div class="kbp-recipes-more">
+          <a class="kbp-recipes-btn" href="/plugins/bridge/recipes/">ほかの使い方の例も見る（全{bridgeRecipes.length}件）→</a>
         </div>
       </div>
     </section>

@@ -1,0 +1,135 @@
+---
+// One "how to use KIZUNA Bridge" example: today's manual work -> the rule -> the result.
+// Used by /plugins/bridge/ (featured only) and /plugins/bridge/recipes/ (all).
+import { allPlugins } from '../data/plugins';
+import { bridgeScenes } from '../data/bridge-recipes';
+import type { BridgeRecipe } from '../data/bridge-recipes';
+
+interface Props {
+  recipe: BridgeRecipe;
+  /** Set on the recipes page so each card can be opened by URL (#id). */
+  anchor?: boolean;
+}
+
+const { recipe, anchor = false } = Astro.props;
+const sceneLabel = new Map(bridgeScenes.map((s) => [s.key, s.label]));
+const partners = (recipe.partners ?? [])
+  .map((id) => allPlugins.find((p) => p.id === id))
+  .filter((p) => !!p);
+---
+
+<article
+  class="brc"
+  id={anchor ? recipe.id : undefined}
+  data-scenes={recipe.scenes.join(' ')}
+>
+  <div class="brc-head">
+    <div class="brc-flow" aria-label={recipe.flow.to ? `${recipe.flow.from}から${recipe.flow.to}へ` : `${recipe.flow.from}の中で`}>
+      <span class="brc-app">{recipe.flow.from}</span>
+      {recipe.flow.to && (
+        <>
+          <span class="brc-arrow" aria-hidden="true">{recipe.flow.both ? '⇄' : '→'}</span>
+          <span class="brc-app">{recipe.flow.to}</span>
+        </>
+      )}
+    </div>
+    <ul class="brc-scenes">
+      {recipe.scenes.map((s) => <li>{sceneLabel.get(s)}</li>)}
+    </ul>
+  </div>
+
+  <h3 class="brc-title">{recipe.title}</h3>
+
+  <p class="brc-now"><span class="brc-label">今は</span>{recipe.now}</p>
+
+  <dl class="brc-rule">
+    <div class="brc-row">
+      <dt><span class="brc-no">1</span>きっかけ</dt>
+      <dd>{recipe.trigger}</dd>
+    </div>
+    <div class="brc-row">
+      <dt><span class="brc-no">2</span>条件</dt>
+      <dd>{recipe.condition}</dd>
+    </div>
+    <div class="brc-row">
+      <dt><span class="brc-no">3</span>動かす内容</dt>
+      <dd>
+        {recipe.actions.length === 1 ? recipe.actions[0] : (
+          <ul class="brc-actions">{recipe.actions.map((a) => <li>{a}</li>)}</ul>
+        )}
+      </dd>
+    </div>
+  </dl>
+
+  <p class="brc-result"><span class="brc-label is-result">こうなります</span>{recipe.result}</p>
+
+  {partners.length > 0 && (
+    <p class="brc-partners">
+      <span class="brc-partners-label">組み合わせるプラグイン：</span>
+      {partners.map((p, i) => (
+        <>
+          {i > 0 && '、'}
+          <a href={`/plugins/${p!.slug}/`}>{p!.name}</a>
+        </>
+      ))}
+    </p>
+  )}
+</article>
+
+<style>
+  .brc {
+    background: #fff;
+    border: 1px solid #dbe3ee;
+    border-radius: 12px;
+    padding: 22px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scroll-margin-top: 110px;
+  }
+  .brc[hidden] { display: none; }
+  .brc:target { border-color: #b8862b; box-shadow: 0 0 0 3px rgba(184, 134, 43, 0.2); }
+  .brc-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+  .brc-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-width: 0; }
+  .brc-app {
+    display: inline-block; padding: 4px 12px; border-radius: 6px;
+    background: #1B3A6B; color: #fff; font-size: 0.82rem; font-weight: 700; line-height: 1.5;
+  }
+  .brc-arrow { color: #b8862b; font-weight: 800; }
+  .brc-scenes { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .brc-scenes li {
+    font-size: 0.74rem; padding: 2px 8px; border-radius: 10px;
+    background: #F0F4F8; color: #64748b; line-height: 1.6;
+  }
+  .brc-title { font-size: 1.05rem; color: #1B3A6B; margin: 0; line-height: 1.5; }
+  .brc-now, .brc-result { margin: 0; font-size: 0.9rem; line-height: 1.75; color: #333; }
+  .brc-label {
+    display: inline-block; margin-right: 8px; padding: 1px 8px; border-radius: 4px;
+    font-size: 0.74rem; font-weight: 700; background: #eef1f5; color: #64748b; vertical-align: 1px;
+  }
+  .brc-label.is-result { background: #e6f3e6; color: #2E8B2E; }
+  .brc-rule {
+    margin: 0; padding: 12px 14px; border-radius: 10px;
+    background: #fbf7ec; border: 1px solid #ecdcae;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .brc-row { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 10px; align-items: start; }
+  .brc-row dt { font-size: 0.8rem; font-weight: 700; color: #8a6420; display: flex; align-items: center; gap: 6px; line-height: 1.7; }
+  .brc-no {
+    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    width: 18px; height: 18px; border-radius: 50%; background: #b8862b; color: #fff; font-size: 0.7rem;
+  }
+  .brc-row dd { margin: 0; font-size: 0.88rem; line-height: 1.7; color: #333; min-width: 0; overflow-wrap: anywhere; }
+  .brc-actions { margin: 0; padding: 0; list-style: none; }
+  .brc-actions li { position: relative; padding-left: 1em; }
+  .brc-actions li::before { content: '\30FB'; position: absolute; left: 0; }
+  .brc-actions li + li { margin-top: 2px; }
+  .brc-partners { margin: 0; font-size: 0.82rem; line-height: 1.7; color: #64748b; }
+  .brc-partners a { color: #1B3A6B; font-weight: 700; }
+
+  @media (max-width: 640px) {
+    .brc { padding: 18px; }
+    .brc-row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  }
+</style>

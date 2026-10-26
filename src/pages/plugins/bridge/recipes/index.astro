@@ -1,0 +1,193 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import BridgeRecipeCard from '../../../../components/BridgeRecipeCard.astro';
+import { bridgeRecipes, bridgeScenes } from '../../../../data/bridge-recipes';
+
+const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/recipes/';
+const PRODUCT_URL = 'https://kizuna-works.jp/plugins/bridge/';
+const DATE_MODIFIED = '2026-10-26';
+const COUNT = bridgeRecipes.length;
+
+const TITLE = 'KIZUNAブリッジの使い方の例｜kintone のアプリ間連携を自動化するルール集 | KIZUNA Works';
+const DESCRIPTION = `KIZUNAブリッジ for kintone で自動化できる業務の例を${COUNT}件まとめました。受注を承認したら在庫を減らす、案件が完了したら請求を作る、日報の工数を案件ごとに合計するなど、今の手作業・ルールの設定・結果を1件ずつ紹介します。`;
+
+// Only scenes that actually have a recipe get a filter button.
+const scenes = bridgeScenes
+  .map((s) => ({ ...s, count: bridgeRecipes.filter((r) => r.scenes.includes(s.key)).length }))
+  .filter((s) => s.count > 0);
+---
+
+<Layout
+  title={TITLE}
+  description={DESCRIPTION}
+  ogTitle={TITLE}
+  ogDescription={DESCRIPTION}
+  ogType="website"
+  ogUrl={PAGE_URL}
+  ogImage="https://kizuna-works.jp/images/bridge-banner.png"
+  canonical={PAGE_URL}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': PAGE_URL,
+          url: PAGE_URL,
+          name: TITLE,
+          description: DESCRIPTION,
+          dateModified: DATE_MODIFIED,
+          about: { '@type': 'SoftwareApplication', name: 'KIZUNAブリッジ for kintone', url: PRODUCT_URL },
+          isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: 'https://kizuna-works.jp/' },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+            { '@type': 'ListItem', position: 2, name: 'kintoneプラグイン', item: 'https://kizuna-works.jp/plugins/' },
+            { '@type': 'ListItem', position: 3, name: 'KIZUNAブリッジ for kintone', item: PRODUCT_URL },
+            { '@type': 'ListItem', position: 4, name: '使い方の例', item: PAGE_URL },
+          ],
+        },
+        {
+          '@type': 'ItemList',
+          name: 'KIZUNAブリッジ for kintone の使い方の例',
+          numberOfItems: COUNT,
+          itemListElement: bridgeRecipes.map((r, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            name: r.title,
+            url: `${PAGE_URL}#${r.id}`,
+            description: `今は：${r.now} きっかけ：${r.trigger}。条件：${r.condition}。動かす内容：${r.actions.join('／')}。結果：${r.result}`,
+          })),
+        },
+      ],
+    })} />
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    .brr-hero {
+      background: linear-gradient(90deg, #020816 0%, #081427 50%, #0c1729 100%);
+      color: #fff;
+      padding: 48px 5% 40px;
+      text-align: center;
+      border-bottom: 4px solid #b8862b;
+    }
+    .brr-crumb { font-size: 0.82rem; margin: 0 0 14px; color: rgba(255, 255, 255, 0.75); }
+    .brr-crumb a { color: #f0d58a; text-decoration: none; }
+    .brr-crumb a:hover { text-decoration: underline; }
+    .brr-hero h1 { font-size: clamp(1.5rem, 3.8vw, 2.2rem); margin: 0 0 14px; line-height: 1.4; }
+    .brr-hero p { max-width: 820px; margin: 0 auto; line-height: 1.9; color: rgba(255, 255, 255, 0.92); }
+    .brr-hero strong { color: #fff; }
+
+    .brr-section { padding: 40px 5% 64px; }
+    .brr-wrap { max-width: 1100px; margin: 0 auto; }
+
+    .brr-howto {
+      background: #fff; border: 1px solid #dbe3ee; border-radius: 12px;
+      padding: 18px 22px; margin: 0 0 28px; line-height: 1.85; color: #333; font-size: 0.93rem;
+    }
+    .brr-howto h2 { font-size: 1.05rem; color: #1B3A6B; margin: 0 0 6px; }
+    .brr-howto p { margin: 0; }
+
+    .brr-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+    .brr-filter button {
+      font: inherit; font-size: 0.86rem; cursor: pointer;
+      padding: 7px 14px; border-radius: 20px;
+      border: 1px solid #c9d3e0; background: #fff; color: #1B3A6B;
+    }
+    .brr-filter button:hover { border-color: #1B3A6B; }
+    .brr-filter button[aria-pressed="true"] { background: #1B3A6B; border-color: #1B3A6B; color: #fff; }
+    .brr-filter .n { margin-left: 4px; opacity: 0.7; font-size: 0.78rem; }
+    .brr-count { margin: 0 0 18px; font-size: 0.85rem; color: #64748b; }
+
+    .brr-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+
+    .brr-cta {
+      margin-top: 40px; padding: 28px 24px; border-radius: 14px; text-align: center;
+      background: #0f1f3d; color: #fff;
+    }
+    .brr-cta h2 { font-size: 1.25rem; margin: 0 0 8px; }
+    .brr-cta p { margin: 0 0 18px; line-height: 1.8; color: rgba(255, 255, 255, 0.88); }
+    .brr-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .brr-btn {
+      display: inline-block; padding: 12px 22px; border-radius: 30px;
+      font-weight: 700; text-decoration: none;
+    }
+    .brr-btn.is-primary { background: linear-gradient(135deg, #e8c766 0%, #b8862b 100%); color: #1a1405; }
+    .brr-btn.is-ghost { border: 1px solid rgba(255, 255, 255, 0.6); color: #fff; }
+    .brr-btn.is-ghost:hover { background: rgba(255, 255, 255, 0.1); }
+
+    @media (max-width: 860px) {
+      .brr-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .brr-btn { width: 100%; box-sizing: border-box; text-align: center; }
+    }
+  </style>
+
+  <main>
+    <section class="brr-hero">
+      <p class="brr-crumb"><a href="/plugins/">kintoneプラグイン</a> ／ <a href="/plugins/bridge/">KIZUNAブリッジ for kintone</a> ／ 使い方の例</p>
+      <h1>KIZUNAブリッジの使い方の例</h1>
+      <p>KIZUNAブリッジ for kintone は、保存やアクションをきっかけに、他のアプリのレコードを作る・変える処理を、ノーコードのルールで自動化する kintone プラグインです。このページでは、<strong>今は手でやっている作業</strong>が、<strong>どんなルール</strong>で、<strong>どう変わるか</strong>を{COUNT}件の例で紹介します。</p>
+    </section>
+
+    <section class="brr-section">
+      <div class="brr-wrap">
+        <div class="brr-howto">
+          <h2>ルールは3つを選ぶだけ</h2>
+          <p>KIZUNAブリッジのルールは、<strong>1 きっかけ</strong>（いつ動かすか）・<strong>2 条件</strong>（どんなときに動かすか）・<strong>3 動かす内容</strong>（何をするか）を、設定画面で選んで作ります。下の例は、どれもこの3つの組み合わせです。アプリ名やフィールド名は例なので、お使いのアプリに合わせて読み替えてください。</p>
+        </div>
+
+        <div class="brr-filter" role="group" aria-label="場面で絞り込む">
+          <button type="button" data-scene="" aria-pressed="true">すべて<span class="n">{COUNT}</span></button>
+          {scenes.map((s) => (
+            <button type="button" data-scene={s.key} aria-pressed="false">{s.label}<span class="n">{s.count}</span></button>
+          ))}
+        </div>
+        <p class="brr-count" id="brr-count" aria-live="polite">{COUNT}件の例を表示しています。</p>
+
+        <div class="brr-grid" id="brr-grid">
+          {bridgeRecipes.map((r) => <BridgeRecipeCard recipe={r} anchor />)}
+        </div>
+
+        <div class="brr-cta">
+          <h2>KIZUNAブリッジ for kintone の機能と料金</h2>
+          <p>予行演習・実行の記録・連携の流れなど、ルールを安心して動かすための機能や、プランと料金は製品ページで紹介しています。30日間無料で試せます。</p>
+          <div class="brr-cta-btns">
+            <a class="brr-btn is-primary" href="/plugins/bridge/">製品ページを見る →</a>
+            <a class="brr-btn is-ghost" href="/plugins/premium-trial/">30日間無料で試す</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var grid = document.getElementById('brr-grid');
+      var count = document.getElementById('brr-count');
+      var buttons = document.querySelectorAll('.brr-filter button');
+      if (!grid || !buttons.length) return;
+      var cards = grid.querySelectorAll('.brc');
+      function apply(scene) {
+        var shown = 0;
+        cards.forEach(function (c) {
+          var hit = !scene || (' ' + c.getAttribute('data-scenes') + ' ').indexOf(' ' + scene + ' ') >= 0;
+          c.hidden = !hit;
+          if (hit) shown++;
+        });
+        buttons.forEach(function (b) {
+          b.setAttribute('aria-pressed', b.getAttribute('data-scene') === scene ? 'true' : 'false');
+        });
+        if (count) count.textContent = shown + '件の例を表示しています。';
+      }
+      buttons.forEach(function (b) {
+        b.addEventListener('click', function () { apply(b.getAttribute('data-scene') || ''); });
+      });
+    })();
+  </script>
+</Layout>
