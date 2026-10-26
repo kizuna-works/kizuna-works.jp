@@ -3,16 +3,19 @@
  * 製品ページのヒーロー（ページ上部）に置くダウンロードボタン。
  * 料金欄のボタン（#btn-download）はそのまま残し、上部にも同じ zip を置く。
  * href は配布 zip のパス（版上げのときは料金欄のボタンと一緒に書き換わる）。
+ * premium を付けると、プレミアム製品の形（「プレミアム年間サポーターを見る」＋「無料でダウンロード」）で出す。
  */
 interface Props {
   href: string;
   label?: string;
+  premium?: boolean;
 }
-const { href, label = '無料でダウンロード' } = Astro.props;
+const { href, label = '無料でダウンロード', premium = false } = Astro.props;
 const fileName = href.split('/').pop() ?? '';
 ---
-<div class="hero-dl">
-  <a class="hero-dl-btn js-hero-dl" href={href} download data-file={fileName}>{label}</a>
+<div class={premium ? 'hero-dl is-premium' : 'hero-dl'}>
+  {premium && <a class="hero-dl-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>}
+  <a class={premium ? 'hero-dl-btn is-ghost js-hero-dl' : 'hero-dl-btn js-hero-dl'} href={href} download data-file={fileName}>{label}</a>
 </div>
 
 <style>
@@ -22,6 +25,7 @@ const fileName = href.split('/').pop() ?? '';
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    gap: 12px;
     margin: 24px auto 0;
     min-width: 0;
   }
@@ -39,10 +43,16 @@ const fileName = href.split('/').pop() ?? '';
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
   }
   .hero-dl-btn:hover { background: #35a035; transition: background 0.15s ease; }
+  /* Secondary button on premium heroes (dark background) */
+  .hero-dl-btn.is-ghost { background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: none; }
+  .hero-dl-btn.is-ghost:hover { background: rgba(255, 255, 255, 0.24); }
   /* Free plugin heroes already leave 40px below the copy */
   :global(.hero-copy) + .hero-dl { margin-top: -12px; }
   @media (max-width: 768px) {
     .hero-dl-btn { padding: 13px 24px; font-size: 15px; }
+  }
+  @media (max-width: 600px) {
+    .hero-dl.is-premium .hero-dl-btn { width: 100%; text-align: center; }
   }
 </style>
 
