@@ -314,6 +314,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── free-lookup-v130-update.md       # フリールックアップ v1.3.0 アップデートのお知らせ（2026-10-23・1件に決める照合）
 │   │   │   ├── plugin-box-connect-release.md    # Box連携 v1.0.0 公開のお知らせ（2026-10-23・プレミアム第22弾）
 │   │   │   ├── box-connect-v110-update.md       # Box連携 v1.1.0 アップデートのお知らせ（2026-10-23・フォルダだけ先に作成）
+│   │   │   ├── box-connect-v111-update.md       # Box連携 v1.1.1 アップデートのお知らせ（2026-10-26・フォルダの印・処理中の表示）
 │   │   │   ├── plugin-record-acl-assist-release.md # レコード権限アシスト v1.0.0 公開のお知らせ（2026-10-24・プレミアム第23弾）
 │   │   │   ├── plugin-bridge-release.md     # KIZUNAブリッジ v1.0.0 公開のお知らせ（2026-10-25T10:00・KIZUNA Pro プラグイン。公開日がずれたら pubDate を直す）
 │   │   │   ├── plugin-search-pro-release.md     # サーチ Pro v1.0.0 公開のお知らせ（2026-10-25・KIZUNA Pro プラグイン・ブリッジと同時公開）
@@ -1331,7 +1332,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-filter-v1.1.0.zip # ルックアップ絞り込み v1.1.0（旧版・2026-09-24＝条件に合わない値で保存しようとしたときに「確認して保存」を選べる／保存時の検査は今回入れた・書き換えた値だけ）
 │   │   ├── kw-lookup-filter-v1.0.1.zip # ルックアップ絞り込み v1.0.1（旧版・参考保管）
 │   │   ├── kw-bridge-v1.0.1.zip        # KIZUNAブリッジ for kintone 配布ファイル（最新・2026-10-26・v1.0.1＝使用ドメイン台帳への初回記録・きっかけでカレンダービューを選べるように）
-│   │   ├── kw-box-connect-v1.1.0.zip   # Box連携 for kintone 配布ファイル（最新・2026-10-23・v1.1.0＝添付が無くてもフォルダだけ先に作成）
+│   │   ├── kw-box-connect-v1.1.1.zip   # Box連携 for kintone 配布ファイル（最新・2026-10-26・v1.1.1＝フォルダに印を付けて使い直し・処理中の表示）
+│   │   ├── kw-box-connect-v1.1.0.zip   # Box連携 v1.1.0（旧版・2026-10-23・添付が無くてもフォルダだけ先に作成）
 │   │   ├── kw-box-connect-v1.0.0.zip   # Box連携 v1.0.0（旧版・初版・プレミアム第22弾）
 │   │   ├── kw-record-acl-assist-v1.0.0.zip # レコード権限アシスト for kintone 配布ファイル（最新・2026-10-24・v1.0.0・プレミアム第23弾）
 │   │   ├── kw-lookup-suggest-v3.0.1.zip # ルックアップサジェスト v3.0.1（同上）
