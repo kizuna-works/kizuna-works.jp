@@ -247,13 +247,13 @@ c:\kizuna-works.jp\
 │   │   │   │   └── setup/
 │   │   │   │       └── index.astro # 【手順ページ】Box 側の準備手順（/plugins/box-connect/setup/）— 連携用アプリの作成（サーバー・クライアント資格情報）・アクセスレベルとスコープ・CORS ドメイン・Box 管理者の承認・フォルダへのサービスアカウントの招待・プラグインへの接続の 6 手順。設定画面の「準備の手順を見る」の遷移先
 │   │   │   ├── bridge/
-│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】KIZUNAブリッジ for kintone 製品ページ（/plugins/bridge/）※公開準備中（v1.0.0・KIZUNA Pro 第1弾・単品販売なし）— 単品でできること／アプリ間連携／プラグイン間連携の3部構成。連携できるプラグイン一覧は plugins.ts の bridge フィールドから自動生成
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】KIZUNAブリッジ for kintone 製品ページ（/plugins/bridge/）v1.0.1（2026-10-26）・2026-10-25 公開（KIZUNA Pro 第1弾・単品販売なし）— 単品でできること／アプリ間連携／プラグイン間連携の3部構成。連携できるプラグイン一覧は plugins.ts の bridge フィールドから自動生成
 │   │   │   ├── kizuna-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン一覧（特集ページ）】/plugins/kizuna-pro/ 2026-10-25 公開（ブリッジと同時）— シリーズの説明・proPlugins（plugins.ts の tier:'pro'）から自動生成する製品カード＋製品ごとの「Pro だけ」の機能・プランと料金（pricing.ts）・30日間無料体験・FAQ（FAQPage）。トップの KIZUNA Pro 帯と /plugins/ の KIZUNA Pro 枠からリンク
 │   │   │   ├── search-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】サーチ Pro for kintone 製品ページ（/plugins/search-pro/）v1.0.0・単品販売なし・2026-10-25 ブリッジと同時公開 — サーチ Pro で新しくできること（ひとつの条件でつなぐ・条件の帯・保存した検索・集計カードからの絞り込み・CSVに条件・帯から一括処理・ブリッジからCSV添付）／4つの機能も、これ1つで／単品と一緒に使う（［単品の設定を読み込む］）の3部構成。ブリッジのページと同じ体裁（.kbp-*）。配布 zip は /downloads/kw-search-pro-v1.0.0.zip
 │   │   │   ├── lookup-pro/
-│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ルックアップ Pro for kintone 製品ページ（/plugins/lookup-pro/）v1.0.0・2026-10-25 公開（単品販売なし・ブリッジと同日公開）。PART 2 冒頭に「Pro だけ」のカード一覧、主な機能は「ルックアップ Pro だけの機能」と「5つの機能と共通の機能」に分ける
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ルックアップ Pro for kintone 製品ページ（/plugins/lookup-pro/）v1.0.1（2026-10-26・使用ドメイン台帳への初回記録を読み込み時に送る）。v1.0.0 は 2026-10-25 公開（単品販売なし・ブリッジと同日公開）。PART 2 冒頭に「Pro だけ」のカード一覧、主な機能は「ルックアップ Pro だけの機能」と「5つの機能と共通の機能」に分ける
 │   │   │   ├── record-acl-assist/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】レコード権限アシスト 製品ページ（/plugins/record-acl-assist/）※2026-10-24 配布開始（v1.0.0・プレミアム第23弾・「リクエストから誕生」バッジ）— レコードの内容に合わせて見られる組織・人を自動で設定。最初に当たったルールだけが使われる問題を、見せる相手を 1 つのフィールドへ入れて解く。上の組織・対応表・一括反映・保存前の確認・見せる相手の内訳・変更の記録・ルックアップ自動同期との連携
 │   │   │   ├── annotation/
@@ -1327,7 +1327,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-free-lookup-v1.2.0.zip  # フリールックアップ for kintone 配布ファイル（2026-10-22・v1.2.0）
 │   │   ├── kw-lookup-filter-v1.1.0.zip # ルックアップ絞り込み v1.1.0（旧版・2026-09-24＝条件に合わない値で保存しようとしたときに「確認して保存」を選べる／保存時の検査は今回入れた・書き換えた値だけ）
 │   │   ├── kw-lookup-filter-v1.0.1.zip # ルックアップ絞り込み v1.0.1（旧版・参考保管）
-│   │   ├── kw-bridge-v1.0.0.zip        # KIZUNAブリッジ for kintone 配布ファイル（最新・2026-10-24・v1.0.0＝新製品・連携の受け口）
+│   │   ├── kw-bridge-v1.0.1.zip        # KIZUNAブリッジ for kintone 配布ファイル（最新・2026-10-26・v1.0.1＝使用ドメイン台帳への初回記録・きっかけでカレンダービューを選べるように）
 │   │   ├── kw-box-connect-v1.1.0.zip   # Box連携 for kintone 配布ファイル（最新・2026-10-23・v1.1.0＝添付が無くてもフォルダだけ先に作成）
 │   │   ├── kw-box-connect-v1.0.0.zip   # Box連携 v1.0.0（旧版・初版・プレミアム第22弾）
 │   │   ├── kw-record-acl-assist-v1.0.0.zip # レコード権限アシスト for kintone 配布ファイル（最新・2026-10-24・v1.0.0・プレミアム第23弾）
