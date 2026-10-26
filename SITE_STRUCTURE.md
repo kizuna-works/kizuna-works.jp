@@ -319,6 +319,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-bridge-release.md     # KIZUNAブリッジ v1.0.0 公開のお知らせ（2026-10-25T10:00・KIZUNA Pro プラグイン。公開日がずれたら pubDate を直す）
 │   │   │   ├── plugin-search-pro-release.md     # サーチ Pro v1.0.0 公開のお知らせ（2026-10-25・KIZUNA Pro プラグイン・ブリッジと同時公開）
 │   │   │   ├── plugin-lookup-pro-release.md     # ルックアップ Pro v1.0.0 公開のお知らせ（2026-10-25T10:30・KIZUNA Pro プラグイン・ブリッジと同日公開）
+│   │   │   ├── list-styler-v141-page-scroll.md  # 一覧スタイラー v1.4.1 アップデートのお知らせ（2026-10-26・横スクロールをページ全体に戻した）
 │   │   │   ├── calendar-view-v160-update.md    # カレンダービュー v1.6.0 アップデートのお知らせ（予定の追加方法を設定画面にまとめた・追加モーダルの項目・モーダルでルックアップ取得）
 │   │   │   ├── drive-connect-v110-update.md     # ドライブ連携 v1.1.0 アップデートのお知らせ（2026-10-23）
 │   │   │   ├── text-join-v120.md               # 文字列結合 v1.2.0 アップデートのお知らせ（2026-10-22 19:00・計算・複数行・リンクも保存前に結合結果が入る）
@@ -1425,7 +1426,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-list-styler-v1.2.1.zip                             # 一覧スタイラー for kintone 配布ファイル（旧版・参考保管／v1.2.1 明細の列に幅調整の掴み手を追加＋列幅が潰れる不具合を修正）
 │   │   ├── kw-list-styler-v1.3.0.zip                             # 一覧スタイラー for kintone 配布ファイル（最新・v1.3.0 条件の色をカラーピッカー/カラーコードで指定＋他プラグインの列を含む行全体に色＋日時の TODAY＋設定セットの開閉）
 │   │   ├── kw-list-styler-v1.3.1.zip  # 一覧スタイラー for kintone 配布ファイル（旧版・v1.3.1：列固定とテーブル展開が他製品の列を数えてずれる不具合を修正）
-│   │   ├── kw-list-styler-v1.4.0.zip  # 一覧スタイラー for kintone 配布ファイル（最新・v1.4.0：固定する列を選べる＋設定保存後に「アプリの設定」へ戻る）
+│   │   ├── kw-list-styler-v1.4.0.zip  # 一覧スタイラー for kintone 配布ファイル（旧版・v1.4.0：固定する列を選べる＋設定保存後に「アプリの設定」へ戻る）
+│   │   ├── kw-list-styler-v1.4.1.zip  # 一覧スタイラー for kintone 配布ファイル（最新・v1.4.1：横スクロールをページ全体に戻す）
 │   │   ├── kw-lookup-suggest-v1.0.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-lookup-suggest-v1.0.1.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-lookup-suggest-v1.0.2.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置）
