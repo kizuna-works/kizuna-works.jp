@@ -14,7 +14,7 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
 
 <Layout
   title="文字列結合 for kintone - 複数フィールドを1つの文字列に自動入力するプラグイン | KIZUNA Works"
-  description="計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども含めて、複数フィールドの値を書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。実データとして書き込むので並び替え・絞り込み・集計・ルックアップの複合キーに使えます。テーブル明細の集約結合、結合結果の重複チェック、既存レコードへの一括反映に対応。kintone完結・外部API不使用。"
+  description="計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども含めて、複数フィールドの値を書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。実データとして書き込むので並び替え・絞り込み・集計・ルックアップの複合キーに使えます。テーブル明細の集約結合、条件によるルールの使い分け、結合結果の重複チェック、既存レコードへの一括反映に対応。kintone完結・外部API不使用。"
   ogTitle="文字列結合 for kintone - 複数フィールドを1つの文字列に自動入力するプラグイン | KIZUNA Works"
   ogDescription="ドロップダウンもユーザー選択も明細行も、まとめて1つの文字列に自動入力。実データで書き込むので並び替え・絞り込み・複合キーに使えます。kintone完結・外部API不使用。"
   ogType="website"
@@ -32,7 +32,7 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
           "@id": "https://kizuna-works.jp/plugins/text-join/",
           "url": "https://kizuna-works.jp/plugins/text-join/",
           "name": "文字列結合 for kintone - 複数フィールドを1つの文字列に自動入力するプラグイン | KIZUNA Works",
-          "description": "複数フィールドの値を型や書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。テーブル明細の集約結合・重複チェック・既存レコードへの一括反映に対応。",
+          "description": "複数フィールドの値を型や書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。テーブル明細の集約結合・条件によるルールの使い分け・重複チェック・既存レコードへの一括反映に対応。",
           "primaryImageOfPage": {
             "@type": "ImageObject",
             "url": "https://kizuna-works.jp/images/text-join-banner.png",
@@ -58,10 +58,10 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
           "name": "文字列結合 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.2.0",
-          "dateModified": "2026-10-22",
+          "softwareVersion": "1.3.0",
+          "dateModified": "2026-10-26",
           "url": "https://kizuna-works.jp/plugins/text-join/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-text-join-v1.2.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-text-join-v1.3.0.zip",
           "image": "https://kizuna-works.jp/images/text-join-banner.png",
           "offers": {
             "@type": "Offer",
@@ -71,7 +71,7 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども含めて、複数フィールドの値を書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。テーブル明細の集約結合、結合結果の重複チェック、既存レコードへの一括反映に対応。",
+          "description": "計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども含めて、複数フィールドの値を書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。テーブル明細の集約結合、条件によるルールの使い分け、結合結果の重複チェック、既存レコードへの一括反映に対応。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -83,7 +83,9 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
             "値が空のパーツは前置き・後置き文字ごとスキップするので「【】」のような囲み文字が空のまま残らない",
             "テーブル（サブテーブル）の明細を「商品A×2／商品C×3…ほか1件」のように1つの文字列へ集約",
             "保存時に同じ結合結果のレコードがないか照会し、確認ダイアログまたは保存ブロックで重複を防止",
+            "ルールごとに「適用する条件」を設定。同じ出力先に複数のルールを置き、上から順に最初に条件に合ったルールで結合（どれにも合わなければ出力先を空に）",
             "計算・文字列（複数行）・リンク・リッチエディターを使っていても、入力して欄を離れた時点で保存前に結合結果を出力先へ反映",
+            "保存後にレコードを読み直し、計算フィールドや他のプラグインが保存時に入れる値（自動採番など）も結合結果へ反映",
             "桁数ガード（末尾の切り詰め・保存ブロック）と入力中の残り文字数表示",
             "既存レコードへの一括反映（値が変わらないレコードは更新しない）",
             "設定画面のライブプレビューでサンプル値または実データの結合結果をその場で確認",
@@ -753,31 +755,32 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.2.0</span>
+        <span class="hero-version">v1.3.0</span>
         <span style="display:inline-block; vertical-align:middle; margin-left:8px;"><BridgeBadge pluginId="kw-text-join" /></span>
       </div>
       <h1 class="hero-title">文字列結合 for kintone</h1>
-      <p class="hero-copy">文字列結合 for kintone は、<strong>複数のフィールドの値を、型や書式を整えたうえで 1 つの文字列フィールドへ自動入力する</strong> kintone プラグインです。計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども結合でき、書き込まれるのは<strong>実データ</strong>なので、並び替え・絞り込み・集計・CSV 出力・ルックアップの複合キーにそのまま使えます。</p>
-      <HeroDownload href="/downloads/kw-text-join-v1.2.0.zip" />
+      <p class="hero-copy">文字列結合 for kintone は、<strong>複数のフィールドの値を、型や書式を整えたうえで 1 つの文字列フィールドへ自動入力する</strong> kintone プラグインです。計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども結合でき、書き込まれるのは<strong>実データ</strong>なので、並び替え・絞り込み・集計・CSV 出力・ルックアップの複合キーにそのまま使えます。区分などの条件に応じて、結合の形を使い分けることもできます。</p>
+      <HeroDownload href="/downloads/kw-text-join-v1.3.0.zip" />
     </section>
     <BridgeBadge as="note" pluginId="kw-text-join" />
 
-    <!-- Update Info (v1.2.0) -->
+    <!-- Update Info (v1.3.0) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.2.0：入力中の結合結果の反映を改善しました</h2>
+          <h2 class="update-title">v1.3.0：条件による結合の使い分けと、保存後の結合を改善しました</h2>
         </div>
-        <p class="update-desc">文字列結合を v1.2.0 にアップデートしました。</p>
-        <p class="update-desc"><strong>計算・文字列（複数行）・リンク・リッチエディターを結合に使っていても、保存前に結合結果が入ります。</strong>入力して欄を離れた時点で、出力先に結合結果が入ります。これまでは保存の時点で初めて結合されていました。</p>
-        <p class="update-desc">保存時に出力先の値を読むほかのプラグイン（保存時にフォルダーを作るもの、外部へ送るものなど）にも、結合後の値が渡ります。</p>
+        <p class="update-desc">文字列結合を v1.3.0 にアップデートしました。</p>
+        <p class="update-desc"><strong>ルールごとに「適用する条件」を選べます。</strong>「常に適用」か「条件に合うときだけ適用」を選び、条件は「すべてに合う」「どれかに合う」で組み合わせます。同じ出力先に複数のルールを置くと、上のルールから順に確かめ、最初に条件に合ったルールで結合します。どれにも合わないときは、出力先を空にします。</p>
+        <p class="update-desc">たとえば、取引先の区分が「法人」なら会社名、それ以外なら氏名を出す。特定の欄に値があるときだけ、別の形式で番号を作る。こうした使い分けが、1 つの出力先で設定できます。</p>
         <ul class="update-list">
-          <li><strong>計算フィールドは値が変わった時点で入ります</strong> — テーブル内の計算（小計など）も対象です。</li>
-          <li><strong>入力を妨げません</strong> — 日本語の変換中や入力中の欄には書き込みません。PC 版・モバイル版の両方で動きます。</li>
-          <li><strong>保存して初めて決まる値は対象外です</strong> — レコード番号・作成日時などは、新規作成では保存前に値が無いため、従来どおり保存時に結合します。</li>
-          <li><strong>保存される値は常に正しい結果です</strong> — 計算の元を変えた直後に保存すると、まれに保存前の段階では古い計算値のことがあります。保存時に結合し直します。</li>
-          <li><strong>既存の設定はそのまま動きます</strong></li>
+          <li><strong>比べ方は項目の型で決まります</strong> — 文字列は「＝・≠・を含む・を含まない」、数値・計算は「＝・≠・＞・≧・＜・≦」、ドロップダウン・ラジオボタン・チェックボックス・複数選択は「のどれか・のどれでもない」。すべての型で「が空・が空でない」も選べます。</li>
+          <li><strong>ルールの順番を入れ替えられます</strong> — ［▲ 上へ］［▼ 下へ］で動かせます。目次には「条件あり」と表示され、ライブプレビューには「どのルールで結合したか」が出ます。</li>
+          <li><strong>使われないルールは保存時に知らせます</strong> — 上に同じ出力先の「常に適用」のルールがあると、下のルールは使われないため、保存時にエラーでお知らせします。</li>
+          <li><strong>保存した後に、結合し直します</strong> — 保存が済んだあとにレコードを読み直し、結合結果が違うときだけ書き直します。計算フィールドや、保存時にほかのプラグインが入れる値（自動採番など）も、最初の保存から結合結果に入ります。結果が同じなら書かないので、更新履歴は増えません。</li>
+          <li><strong>一括反映は「対象の出力先」ごとに実行します</strong> — 同じ出力先のルールをまとめて、条件に合ったルールで反映します（合わないレコードは空になります）。</li>
+          <li><strong>既存の設定はそのまま動きます</strong> — v1.2.0 までの設定は「常に適用」として動きます。</li>
         </ul>
         <p class="update-note">
           ※ プラグインは自動更新されません。お手数ですが、最新版をダウンロードし、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>してください。
@@ -840,7 +843,9 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
           <li><span><strong>型ごとの書式指定</strong> — 日付は「2026年8月2日」「20260802」<strong>和暦</strong>など、数値は<strong>ゼロ埋め</strong>・桁区切り・小数桁・単位、ユーザー選択は表示名／コード／「山田太郎(t-yamada)」、選択肢は区切り記号と並び順（選択順／選択肢の定義順）を選べます。</span></li>
           <li><span><strong>明細（テーブル）の集約結合</strong> — 行内テンプレート（例：商品名＋「×」＋数量）と行間の区切りで 1 つの文字列に。並べ替え・重複除去・最大行数・「…ほか&#123;N&#125;件」にも対応します。</span></li>
           <li><span><strong>結合結果の重複チェック</strong> — 保存時に同じ値のレコードがないか照会し、<strong>確認して続行</strong>か<strong>保存をブロック</strong>を選べます。kintone 標準の「値の重複を禁止する」と併用できます。</span></li>
+          <li><span><strong>条件によるルールの使い分け</strong> — ルールごとに「常に適用」か「条件に合うときだけ適用」を選べます。同じ出力先に複数のルールを置くと、上から順に確かめ、最初に条件に合ったルールで結合します。区分によって結合の形を変えたいときに使えます。</span></li>
           <li><span><strong>計算・複数行・リンクも保存前に反映</strong> — これらの項目を結合に使っていても、入力して欄を離れた時点で出力先に結合結果が入ります。保存時にその値を読むほかのプラグインにも、結合後の値が渡ります。</span></li>
+          <li><span><strong>保存後の結合し直し</strong> — 保存が済んだあとにレコードを読み直し、結果が違うときだけ書き直します。計算フィールドや自動採番など、保存時に決まる値も結合結果に入ります。</span></li>
           <li><span><strong>桁数ガード</strong> — 上限を超えたら末尾を切り詰める／保存をブロックする、を選べます。絵文字を途中で割らない数え方（コードポイント）で数えます。</span></li>
           <li><span><strong>既存レコードへの一括反映</strong> — 導入前に登録済みのレコードや、CSV 読み込みで入れたレコードにもまとめて書き込めます。</span></li>
           <li><span><strong>設定画面のライブプレビュー</strong> — サンプル値または実データで、保存する前に結合結果を確認できます。</span></li>
@@ -909,8 +914,8 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
       </div>
       <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
         <li><span><strong>パーツはドラッグで並べ替え</strong> — 上から順に結合されます。▲▼ ボタンでも動かせます。</span></li>
-        <li><span><strong>ルールは何本でも</strong> — 出力先フィールドごとにルールを作れます（同じフィールドを2つのルールの出力先にはできません）。</span></li>
-        <li><span><strong>設定ミスは保存時に止めます</strong> — 出力先の重複、自分の出力先をパーツに指定（自己参照）、他ルールの出力先の参照（循環）は保存できません。</span></li>
+        <li><span><strong>ルールは何本でも</strong> — 出力先フィールドごとにルールを作れます。同じ出力先に複数のルールを置くときは、各ルールに「適用する条件」を設定し、［▲ 上へ］［▼ 下へ］で順番を決めます。</span></li>
+        <li><span><strong>設定ミスは保存時に止めます</strong> — 上に「常に適用」の同じ出力先のルールがあって使われないルール、自分の出力先をパーツに指定（自己参照）、他ルールの出力先の参照（循環）は保存できません。</span></li>
       </ul>
       <p class="zoom-hint">画像をクリックすると拡大表示します</p>
     </section>
@@ -922,7 +927,7 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
         <p class="section-subtitle">レコードの新規作成・編集画面で動作します。PC 版・モバイル版に対応しています。</p>
         <ol class="steps-list">
           <li><span>結合結果を書き込む<strong>文字列（1行）または文字列（複数行）フィールド</strong>をアプリに用意しておく</span></li>
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-text-join-v1.2.0.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-text-join-v1.3.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「文字列結合 for kintone」を追加</span></li>
           <li><span>プラグイン設定画面で<strong>ルールを追加</strong>し、出力先フィールドとパーツを設定して「保存」</span></li>
@@ -951,7 +956,7 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・レコード一覧に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-text-join-v1.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-text-join-v1.3.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <SupporterPlanCard pluginId="kw-text-join" />
       <PremiumPlanCard />
@@ -968,7 +973,7 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
         <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
         <li>動作するのはレコードの新規作成・編集画面です。詳細画面では再計算せず、保存済みの値をそのまま表示します。</li>
         <li>出力先に指定できるのは<strong>文字列（1行）／文字列（複数行）</strong>です。実行中は読み取り専用になり、手入力できません。</li>
-        <li>入力して欄を離れた時点で結合結果が入るのは、計算・文字列（複数行）・リンク・リッチエディターです。<strong>レコード番号・作成日時・更新日時・作成者・更新者・ステータス</strong>など、保存して初めて決まる値は、新規作成では保存前に反映できません（保存時に結合されます）。計算の元を変えた直後に保存すると、まれに保存前の段階では古い計算値のことがあります。保存される値は常に正しい結果です。</li>
+        <li>入力して欄を離れた時点で結合結果が入るのは、計算・文字列（複数行）・リンク・リッチエディターです。<strong>レコード番号・作成日時・更新日時・作成者・更新者・ステータス</strong>など、保存して初めて決まる値は、新規作成では保存前に反映できません（保存時に結合されます）。計算の元を変えた直後に保存すると、まれに保存前の段階では古い計算値のことがあります。保存したあとにレコードを読み直して結合し直すので、保存される値は正しい結果になります。</li>
         <li>重複チェックは出力先が<strong>文字列（1行）</strong>のときだけ使えます（kintone の検索が複数行文字列の完全一致に対応していないため）。</li>
         <li>一覧画面のインライン編集と CSV 読み込みではプラグインが動作しません。設定画面の「一括反映」で反映してください。</li>
         <li>カスタマイズビュー・カレンダービューでは動作しません。添付ファイル・関連レコード一覧はパーツに使えません。</li>
@@ -1102,10 +1107,10 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-text-join-v1.2.0.zip',
+              file_name: 'kw-text-join-v1.3.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-text-join-v1.2.0.zip'
+              link_url: '/downloads/kw-text-join-v1.3.0.zip'
             });
           }
         });
