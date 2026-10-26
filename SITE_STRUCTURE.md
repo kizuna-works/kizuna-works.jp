@@ -324,6 +324,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── text-join-v130.md               # 文字列結合 v1.3.0 アップデートのお知らせ（2026-10-26 12:30・適用する条件でルールを使い分け／保存した後の結合し直し）
 │   │   │   ├── input-assist-v220.md            # 入力アシスト v2.2.0 公開のお知らせ（入力の変換・update）
 │   │   │   ├── blog-kintone-record-sakujo-fukugen.md # ブログ記事「kintoneで削除したレコードは復元できる？」公開のお知らせ（2026-10-17 11:00）
+│   │   │   ├── conditional-numbering-v240.md   # 条件分岐自動採番 v2.4.0 アップデートのお知らせ（2026-10-26 21:30・日付パーツの基準日／次に振られる連番の確認／条件のテキストが空のときの注意）
 │   │   │   ├── blog-kintone-2026-10-update.md # ブログ記事「kintone 2026年10月アップデート」公開のお知らせ（2026-10-17 15:00）
 │   │   │   ├── blog-kintone-field-shurui.md # ブログ記事「kintoneのフィールドの種類一覧」公開のお知らせ（2026-10-17 17:00）
 │   │   │   ├── site-blog-sidebar-update.md    # ブログ記事ページにサイドバーを追加したお知らせ（2026-10-17 10:00・category update）
@@ -379,11 +380,13 @@ c:\kizuna-works.jp\
 │   │   ├── musubi-preview.png              # Musubi（PDF結合・分割ツール）プレビュー画像
 │   │   ├── conditional-numbering-icon.png  # 条件分岐自動採番プラグイン アイコン
 │   │   ├── conditional-numbering-banner.png # 条件分岐自動採番プラグイン バナー
-│   │   ├── conditional-numbering-config-01.png  # 条件分岐自動採番 v2.3.0 設定画面の全体像（上帯・目次とライブプレビュー・タブ・サイドバー。製品ページ「設定画面イメージ」）。2026-10-08 に v2.1.0 の未使用スクショを差し替え
+│   │   ├── conditional-numbering-config-01.png  # 条件分岐自動採番 v2.4.0 設定画面の全体像（上帯・目次とライブプレビュー・タブ・フォーマット設定・サイドバー。製品ページ「設定画面イメージ」）。2026-10-26 に v2.3.0 版から差し替え
 │   │   ├── conditional-numbering-config-01.webp # 同 WebP 版
 │   │   ├── conditional-numbering-config-02.png  # 条件分岐自動採番 v2.3.0 の UPDATE 用（パーツ設定＋連番の数え方「枝番」＋採番サンプル）＋ .webp
 │   │   ├── conditional-numbering-list-01.png    # 条件分岐自動採番 v2.3.0 の UPDATE 用（SKU マスタの一覧＝商品IDごとの枝番）＋ .webp
 │   │   ├── form-deco-icon.png              # FormDecoプラグイン アイコン
+│   │   ├── conditional-numbering-update-01.png  # 条件分岐自動採番 v2.4.0 の UPDATE 用（日付パーツの「基準にする日付」）＋ .webp
+│   │   ├── conditional-numbering-update-02.png  # 条件分岐自動採番 v2.4.0 の UPDATE 用（連番管理タブの「次に振られる連番」）＋ .webp
 │   │   ├── form-deco-banner.png            # FormDecoプラグイン バナー（1200×675・OGP/グリッド共用）
 │   │   ├── lookup-suggest-icon.png         # ルックアップサジェストプラグイン アイコン
 │   │   ├── lookup-suggest-banner.png       # ルックアップサジェストプラグイン バナー（1200×675・OGP/グリッド共用）
@@ -1334,7 +1337,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-suggest-v3.0.1.zip # ルックアップサジェスト v3.0.1（同上）
 │   │   ├── kw-conditional-numbering-v2.2.0.zip # 条件分岐自動採番 v2.2.0 配布物
 │   │   ├── kw-conditional-numbering-v2.3.0.zip # 条件分岐自動採番 v2.3.0 配布物（旧版・枝番／採番中の進捗表示）
-│   │   ├── kw-conditional-numbering-v2.3.1.zip # 条件分岐自動採番 v2.3.1 配布物（最新・連携用の内部の改善）
+│   │   ├── kw-conditional-numbering-v2.3.1.zip # 条件分岐自動採番 v2.3.1 配布物（旧版・連携用の内部の改善）
+│   │   ├── kw-conditional-numbering-v2.4.0.zip # 条件分岐自動採番 v2.4.0 配布物（最新・日付パーツの基準日／次に振られる連番の確認／条件のテキストが空のときの注意）
 │   │   ├── kw-lookup-filter-v1.0.0.zip                          # ルックアップ絞り込み for kintone 配布ファイル（旧版・手動配置・プレミアム第14弾 初版）
 │   │   ├── kw-lookup-filter-v1.3.3.zip  # ルックアップ絞り込み for kintone 配布ファイル（最新・2026-10-25・v1.3.3：条件の変更でルックアップが自動で空になったあと、そのまま保存できる）
 │   │   ├── kw-lookup-filter-v1.3.2.zip  # ルックアップ絞り込み for kintone 配布ファイル（旧版・2026-10-20・v1.3.2：kintone 側で変えた絞り込みの初期設定と並びが、プラグイン設定を保存し直さなくても反映）
