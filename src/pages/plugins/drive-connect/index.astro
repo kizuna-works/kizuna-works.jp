@@ -10,7 +10,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 
 <Layout
   title="ドライブ連携 for kintone｜添付ファイルをGoogleドライブへ自動転送 | KIZUNA Works"
-  description="kintone の添付ファイルを Google ドライブへ転送し、レコードにはリンクだけを残すプラグイン。レコード単位のフォルダを命名ルールごと自動生成し、差分検知で二重転送を防止。転送後に kintone 側を削除してディスク容量を節約します。サブテーブルの添付・一覧からの一括転送にも対応。手動ボタンの形と色も設定できます。"
+  description="kintone の添付ファイルを Google ドライブへ転送し、レコードにはリンクだけを残すプラグイン。レコード単位のフォルダを命名ルールごと自動生成し、差分検知で二重転送を防止。転送後に kintone 側を削除してディスク容量を節約します。サブテーブルの添付・一覧からの一括転送にも対応。手動ボタンの形と色、フォルダ名を値の変更に合わせる設定もできます。"
   ogTitle="ドライブ連携 for kintone｜添付ファイルをGoogleドライブへ自動転送 | KIZUNA Works"
   ogDescription="添付は、ドライブへ。kintone にはリンクだけ。レコード単位のフォルダ自動生成、差分検知、転送後の削除で容量を節約。管理者が一度接続するだけで、利用者の Google ログインは不要です。"
   ogType="website"
@@ -50,10 +50,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           "name": "ドライブ連携 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.1.0",
+          "softwareVersion": "1.2.0",
           "dateModified": "2026-10-23",
           "url": "https://kizuna-works.jp/plugins/drive-connect/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-drive-connect-v1.1.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-drive-connect-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/drive-connect-banner.png",
           "offers": {
             "@type": "Offer",
@@ -70,6 +70,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             "転送に成功したファイルを kintone から削除してディスク容量を節約",
             "レコード単位のフォルダをパーツ方式の命名で自動生成",
             "空のフィールドは前後の区切り文字ごと省くフォルダ名の組み立て",
+            "フォルダ名に使うフィールドの値があとから変わったとき、ドライブのフォルダ名を最新の値に合わせる（選択式・既定は変えない）",
             "差分検知（ファイル名＋サイズ）で二重転送を防止",
             "実行モードは 自動／自動（条件つき）／手動 から選択",
             "手動ボタンの形（5種）と色・文字色を設定画面の見本を見ながら指定",
@@ -314,31 +315,30 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       <img class="afp-hero-icon" src="/images/drive-connect-icon.png" alt="ドライブ連携 for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.1.0</span>
+        <span class="afp-hero-version">v1.2.0</span>
       </div>
       <h1>ドライブ連携 for kintone</h1>
       <p class="afp-tagline">添付は、ドライブへ。kintone にはリンクだけ。</p>
       <p class="afp-sub">レコードに添付したファイルを <strong>Google ドライブへ転送</strong>し、kintone には<strong>リンクだけ</strong>を残します。転送に成功したファイルは kintone から削除できるので、<strong>ディスク容量を抑えながら</strong>、ファイルの実体は普段お使いのドライブで一元管理できます。中継サーバーは不要です。手動ボタンの形と色も設定できます。</p>
       <div class="afp-hero-cta">
         <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
-        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-drive-connect-v1.1.0.zip" download>無料でダウンロード</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-drive-connect-v1.2.0.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
 
-    <!-- Update Info (v1.1.0) -->
+    <!-- Update Info (v1.2.0) -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.1.0：手動ボタンの見た目を設定できるようになりました</h2>
+            <h2 class="update-title">v1.2.0：フォルダ名を、フィールドの値に合わせて変えられるようになりました</h2>
           </div>
-          <p class="update-desc">ドライブ連携を v1.1.0 にアップデートしました（2026-10-23）。</p>
-          <p class="update-desc"><strong>手動ボタンの見た目を設定できるようになりました。</strong>形は「角丸」「ピル（両端が丸い）」「四角」「枠線だけ」「アイコンだけ」の5種類から選べます。ボタンの色と文字の色は、カラーピッカーかカラーコードで指定します。設定画面の［見本］に、レコード画面と同じボタンがその場で表示されます。</p>
-          <p class="update-desc"><strong>編集できない利用者でも、ドライブに余計なフォルダが残らなくなりました。</strong>転送の前に、レコードとリンクの欄を編集できるかを確かめます。編集できない利用者が手動ボタンを押したときは、案内を出して何も作りません。</p>
-          <p class="update-desc"><strong>保存・キャンセルのあとは、「アプリの設定」画面に戻るようになりました。</strong>そのまま［アプリを更新］を押せます。</p>
-          <p class="update-note">最新版（v1.1.0）をダウンロードし、kintone の［システム管理］→［プラグイン］から上書きアップロードしてください。これまでの設定はそのまま引き継がれます。</p>
+          <p class="update-desc">ドライブ連携を v1.2.0 にアップデートしました（2026-10-26）。</p>
+          <p class="update-desc"><strong>レコード単位のフォルダの名前を、あとから合わせられます。</strong>フォルダ名に使うフィールドの値が、レコードの作成後に入力されたり変わったりすることがあります。転送ルールの「フィールドの値が変わったとき」で<strong>「フォルダ名を合わせる」</strong>を選ぶと、転送のタイミングで、Google ドライブのフォルダ名を最新の値に変更します。自動は詳細画面を開いたとき、手動はボタンを押したとき、一覧の一括転送でも同じです。</p>
+          <p class="update-desc">フォルダはリンクの欄で特定しているので、名前を変えてもフォルダの中身とリンクはそのまま使えます。添付ファイルが無いレコードでも、リンクの欄にフォルダがあれば名前を合わせます。Google ドライブは同じ名前のフォルダを置けるので、番号は付けません。名前を変えられなかったときも転送は止まらず、次の機会にもう一度試します。</p>
+          <p class="update-note">既定は「フォルダ名は変えない」です。これまでの設定はそのまま引き継がれ、動きは変わりません。<br>既存ユーザーの方は、最新版（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください。</p>
         </div>
       </div>
     </section>
@@ -400,6 +400,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             <li>ドライブで問題を起こす文字は自動で「_」に置き換え、長すぎる名前は 100 文字で切り詰めます。</li>
             <li>フォルダは<strong>名前ではなく ID で管理</strong>します。ドライブ側でフォルダ名を変えても、同じフォルダに送り続けます。</li>
             <li>フォルダを削除してしまった場合は、次の転送で作り直してリンクも更新します。</li>
+            <li>フォルダ名に使うフィールドの値があとから入力・変更されたときは、設定で「フォルダ名を合わせる」を選ぶと、転送のタイミングでフォルダ名を最新の値に変更します（既定は「変えない」）。リンクで特定したフォルダの名前を変えるので、中身とリンクはそのままです。</li>
           </ul>
         </div>
       </div>
@@ -487,6 +488,14 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             <p>フィールドと固定文字を並べて組み立てた名前のフォルダを、レコードごとに作成します。空のフィールドは区切り文字ごと省かれます。</p>
           </div>
           <div class="afp-feat-card">
+            <h3>フォルダ名の追従</h3>
+            <p>フォルダ名に使うフィールドの値があとから変わったときに、ドライブのフォルダ名を最新の値に合わせます（選択式・既定は変えない）。フォルダの中身とリンクはそのまま使えます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>保存後の戻り先</h3>
+            <p>設定の保存・キャンセルのあとは「アプリの設定」画面に戻ります。そのまま［アプリを更新］を押せます。</p>
+          </div>
+          <div class="afp-feat-card">
             <h3>差分検知</h3>
             <p>保存先のファイル名とサイズで突合し、未転送のファイルだけを送ります。何度実行してもドライブに重複が増えません。</p>
           </div>
@@ -532,7 +541,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
               <li>✅ サブテーブル内の添付ファイル・共有ドライブ</li>
               <li>✅ 利用期限なし（転送ルールは1本・手動モードのみ／設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-drive-connect-v1.1.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-drive-connect-v1.2.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">👑 全機能を解放</span>
@@ -660,10 +669,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
             gtag('event', 'file_download', {
-              file_name: 'kw-drive-connect-v1.1.0.zip',
+              file_name: 'kw-drive-connect-v1.2.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-drive-connect-v1.1.0.zip'
+              link_url: '/downloads/kw-drive-connect-v1.2.0.zip'
             });
           });
         });

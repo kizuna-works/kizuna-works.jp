@@ -11,7 +11,7 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
 
 <Layout
   title="Box連携 for kintone｜添付ファイルを Box へ自動転送 | KIZUNA Works"
-  description="kintone の添付ファイルを Box へ転送し、レコードにはリンクだけを残すプラグイン。レコード単位のフォルダを命名ルールごと自動生成し、差分検知で二重転送を防止。転送後に kintone 側を削除して容量を節約し、共有リンクの作成やフォルダの中身の表示にも対応します。"
+  description="kintone の添付ファイルを Box へ転送し、レコードにはリンクだけを残すプラグイン。レコード単位のフォルダを命名ルールごと自動生成し、差分検知で二重転送を防止。転送後に kintone 側を削除して容量を節約し、共有リンクの作成やフォルダの中身の表示にも対応。フィールドの値が変わったときにフォルダ名を合わせることもできます。"
   ogTitle="Box連携 for kintone｜添付ファイルを Box へ自動転送 | KIZUNA Works"
   ogDescription="添付は、Box へ。kintone にはリンクだけ。レコード単位のフォルダ自動生成、差分検知、転送後の削除で容量を節約。管理者が一度接続するだけで、利用者の Box ログインは不要です。"
   ogType="website"
@@ -51,10 +51,10 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
           "name": "Box連携 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.1.1",
+          "softwareVersion": "1.2.0",
           "dateModified": "2026-10-26",
           "url": "https://kizuna-works.jp/plugins/box-connect/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-box-connect-v1.1.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-box-connect-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/box-connect-banner.png",
           "offers": {
             "@type": "Offer",
@@ -71,6 +71,7 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
             "転送に成功したファイルを kintone から削除してディスク容量を節約",
             "レコード単位のフォルダをパーツ方式の命名で自動生成",
             "空のフィールドは前後の区切り文字ごと省くフォルダ名の組み立て",
+            "フォルダ名に使うフィールドの値があとから変わったとき、Box のフォルダ名を最新の値に合わせる（選択式・既定は変えない）",
             "差分検知（ファイル名＋サイズ）で二重転送を防止",
             "同名ファイルは別名で追加／新しいバージョンとして上書きから選択",
             "Box の共有リンクを作成して別のリンクフィールドへ格納",
@@ -317,31 +318,31 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
         <RequestOriginBadge />
-        <span class="afp-hero-version">v1.1.1</span>
+        <span class="afp-hero-version">v1.2.0</span>
       </div>
       <h1>Box連携 for kintone</h1>
       <p class="afp-tagline">kintone の添付ファイルを Box へ転送し、レコードにはリンクだけを残す。</p>
       <p class="afp-sub">レコードに添付したファイルを <strong>Box へ転送</strong>し、kintone には<strong>リンクだけ</strong>を残します。転送に成功したファイルは kintone から削除できるので、<strong>ディスク容量を抑えながら</strong>、ファイルの実体は普段お使いの Box で一元管理できます。中継サーバーは不要です。</p>
       <div class="afp-hero-cta">
         <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
-        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-box-connect-v1.1.1.zip" download>無料でダウンロード</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-box-connect-v1.2.0.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
     <RequestOriginBadge as="note" />
 
-    <!-- Update Info (v1.1.1) -->
+    <!-- Update Info (v1.2.0) -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.1.1：保存の直後に画面を移動しても、同じレコードのフォルダが増えにくくなりました</h2>
+            <h2 class="update-title">v1.2.0：フォルダ名を、フィールドの値に合わせて変えられるようになりました</h2>
           </div>
-          <p class="update-desc">保存したあと、詳細画面でフォルダの作成や転送が終わる前に画面を移動・再読み込みすると、Box にリンクの無いフォルダが残り、次に開いたときに「名前 (2)」のフォルダが作られることがありました。v1.1.1 では、作ったフォルダの説明欄に<strong>どのレコードのためのフォルダか</strong>を示す印（レコードの URL）を付けます。次に開いたときは、そのフォルダを使い直すので、同じレコードのフォルダは増えません。別のレコードの同じ名前のフォルダは使わず、これまでどおり「 (2)」を付けます。</p>
-          <p class="update-desc"><strong>処理中の表示を分かりやすくしました。</strong>Box への書き込みを始めるときに「Box にフォルダを作成しています…」「Box へ転送しています…」と「終わるまで、この画面を開いたままお待ちください。」を表示します（フォルダだけを作るときも表示します）。処理中に画面を離れようとすると、ブラウザの確認が出ます。転送済みで送るものが無いときは、表示も確認も出ません。</p>
-          <p class="update-desc"><strong>自動転送のルールが複数あるときの動きを改善しました。</strong>すべてのルールが終わってから画面を描き直します。</p>
-          <p class="update-note">v1.1.0 以前に作られたフォルダには印が付いていないため、使い直しの対象外です。印は Box のフォルダの説明欄に書かれます。Box 側で書き換えないでください。画面を一度も操作していないときは、ブラウザの仕様で離脱の確認が出ないことがあります。<br>既存ユーザーの方は、最新版（v1.1.1）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+          <p class="update-desc">Box連携を v1.2.0 にアップデートしました（2026-10-26）。</p>
+          <p class="update-desc"><strong>レコード単位のフォルダの名前を、あとから合わせられます。</strong>フォルダ名に使うフィールドの値が、レコードの作成後に入力されたり変わったりすることがあります。転送ルールの「フィールドの値が変わったとき」で<strong>「フォルダ名を合わせる」</strong>を選ぶと、転送のタイミングで、Boxのフォルダ名を最新の値に変更します。自動は詳細画面を開いたとき、手動はボタンを押したとき、一覧の一括転送でも同じです。</p>
+          <p class="update-desc">フォルダはリンクの欄で特定しているので、名前を変えてもフォルダの中身と共有リンクはそのまま使えます。添付ファイルが無いレコードでも、リンクの欄にフォルダがあれば名前を合わせます。同じ場所に同じ名前のフォルダがあるときは、末尾に「 (2)」を付けます。名前を変えられなかったときも転送は止まらず、次の機会にもう一度試します。</p>
+          <p class="update-note">既定は「フォルダ名は変えない」です。これまでの設定はそのまま引き継がれ、動きは変わりません。<br>既存ユーザーの方は、最新版（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください。</p>
         </div>
       </div>
     </section>
@@ -403,6 +404,7 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
             <li>Box で使えない文字は自動で「_」に置き換え、長すぎる名前は 100 文字で切り詰めます。</li>
             <li>フォルダは<strong>名前ではなく ID で管理</strong>します。Box 側でフォルダ名を変えても、同じフォルダに送り続けます。</li>
             <li>同じ名前のフォルダが既にあるときは、末尾に「 (2)」「 (3)」を付けて別のフォルダにします。既存のフォルダには入れません。</li>
+            <li>フォルダ名に使うフィールドの値があとから入力・変更されたときは、設定で「フォルダ名を合わせる」を選ぶと、転送のタイミングでフォルダ名を最新の値に変更します（既定は「変えない」）。リンクで特定したフォルダの名前を変えるので、中身と共有リンクはそのままです。</li>
             <li>作ったフォルダの説明欄に、そのレコードの URL を印として書きます。保存の直後に画面を移動してリンクが残らなかったときも、次に開くと同じレコードのフォルダを使い直します（v1.1.0 以前に作ったフォルダは対象外）。</li>
           </ul>
         </div>
@@ -512,6 +514,10 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
             <p>フィールドと固定文字を並べて組み立てた名前のフォルダを、レコードごとに作成します。空のフィールドは区切り文字ごと省かれます。</p>
           </div>
           <div class="afp-feat-card">
+            <h3>フォルダ名の追従</h3>
+            <p>フォルダ名に使うフィールドの値があとから変わったときに、Box のフォルダ名を最新の値に合わせます（選択式・既定は変えない）。フォルダの中身と共有リンクはそのまま使えます。</p>
+          </div>
+          <div class="afp-feat-card">
             <h3>差分検知・同名ファイルの扱い</h3>
             <p>保存先のファイル名とサイズで突合し、未転送のファイルだけを送ります。同名で中身が違うものは、別名で追加するか、新しいバージョンとして上書きするかを選べます。</p>
           </div>
@@ -566,7 +572,7 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
               <li>✅ サブテーブル内の添付ファイル</li>
               <li>✅ 利用期限なし（転送ルールは1本・手動モードのみ／設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-box-connect-v1.1.1.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-box-connect-v1.2.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">👑 全機能を解放</span>
@@ -699,10 +705,10 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
             gtag('event', 'file_download', {
-              file_name: 'kw-box-connect-v1.1.1.zip',
+              file_name: 'kw-box-connect-v1.2.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-box-connect-v1.1.1.zip'
+              link_url: '/downloads/kw-box-connect-v1.2.0.zip'
             });
           });
         });
