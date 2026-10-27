@@ -1,0 +1,1081 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import { allPlugins } from '../../../data/plugins';
+import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
+
+const VERSION = '1.0.0';
+const ZIP = `/downloads/kw-file-pro-v${VERSION}.zip`;
+const PAGE_URL = 'https://kizuna-works.jp/plugins/file-pro/';
+const DATE_MODIFIED = '2026-10-27';
+
+// The five single products this one bundles. Cards are built from plugins.ts so names and slugs never drift.
+const singleOf = (id: string) => allPlugins.find((p) => p.id === id);
+const iconOf = (slug: string) => `/images/${slug}-icon.png`;
+const BUNDLED = [
+  { id: 'kw-file-preview', role: 'プレビュー' },
+  { id: 'kw-file-icon-marker', role: 'アイコン表示' },
+  { id: 'kw-file-export', role: 'ZIP出力' },
+  { id: 'kw-image-compress', role: '画像圧縮' },
+  { id: 'kw-pdf-edit', role: 'PDFへの書き込み' },
+];
+const bundled = BUNDLED.map((b) => ({ ...b, p: singleOf(b.id) })).filter((b) => !!b.p);
+
+// FAQ: the accordion and FAQPage JSON-LD are built from the same array so they always match.
+const faqs: { q: string; a: string }[] = [
+  {
+    q: '添付ファイル Pro だけを購入できますか？',
+    a: `製品ごとの個別のご契約はありません。プレミアム年間サポーターに KIZUNA Pro 拡張パックを追加すると、添付ファイル Pro を含む KIZUNA Pro プラグインをすべてお使いいただけます。両方をまとめた「KIZUNA Pro 年間サポーター」（税込 ${yen(PRO_SET_PLAN.priceInTax)}/年）もあります。`,
+  },
+  {
+    q: '年間サポーター（ちょこっとプラグインすべて）に、KIZUNA Pro 拡張パックを追加できますか？',
+    a: 'できません。KIZUNA Pro 拡張パックは、プレミアム年間サポーターに追加していただくプランです。年間サポーターからは、KIZUNA Pro 年間サポーターへの切り替えでお使いいただけます。',
+  },
+  {
+    q: '添付ファイルプレビューなどのプラグインと、何が違いますか？',
+    a: '5つの機能（プレビュー・アイコン表示・ZIP出力・画像圧縮・PDFへの書き込み）は、もとのプラグインと同じ内容です。添付ファイル Pro では、1つの設定画面で扱えます。そのうえで、詳細画面の［このレコードの添付］、一覧の［添付の容量］と一括圧縮、ZIP に入れる画像だけを縮める機能、添付欄ごとの効き具合を確かめられる「まとめ」が加わります。',
+  },
+  {
+    q: '同じアプリに、もとのプラグインが入っていても大丈夫ですか？',
+    a: '大丈夫です。同じ機能が両方に入っているときは、その機能はもとのプラグインが動き、添付ファイル Pro は動かしません（二重に動くのを防ぐためです）。ほかの機能は、添付ファイル Pro が動かします。',
+  },
+  {
+    q: 'これまでのプラグインで作った設定を、添付ファイル Pro に引き継げますか？',
+    a: '引き継げます。もとのプラグインが入っているアプリで添付ファイル Pro の設定画面を開くと、該当の機能の設定欄に［単品の設定を読み込む］が出ます。押して確認で OK を押すと、設定が写ります。読み込みは手動で、もとのプラグインの設定はそのまま残ります。内容を確かめて保存し、もとのプラグインをアプリから外してください。',
+  },
+  {
+    q: '［このレコードの添付］では、何ができますか？',
+    a: 'レコードの詳細画面で、テーブルの中も含めた全部の添付を並べます。画像はサムネイルで並び、［見る］でレコードの全部の添付をまたいで続けて開けます。そのほかに、［PDFに書き込む］［ZIPで保存］［画像を圧縮］が使えます。書き込みと圧縮は、レコードを編集できる方だけに表示されます。',
+  },
+  {
+    q: '［添付の容量］では、何が分かりますか？',
+    a: '一覧で押すと、いまの絞り込みのレコードの添付の合計サイズ、大きい順の上位10件のレコード、圧縮でおよそ減る量が分かります。調べるのは押したときだけで、5,000件までです。画像の一括圧縮は、設定でオンにしたときだけ実行できます。',
+  },
+  {
+    q: '［添付を検索］では、何が探せますか？',
+    a: '添付のファイル名と、ファイルの中の語を探せます。テーブルの中の添付欄も対象です。kintone の検索と同じく語の単位で探すので、英数字は語の途中までの入力では当たりません。語を空にして探すと、いまの絞り込みの添付をすべて並べるギャラリーになります。表示は 500 レコード・2,000 点までです。',
+  },
+  {
+    q: '1 つの PDF にまとめるとき、ファイルは外部に送られますか？',
+    a: '送られません。ブラウザの中で組み立てます。PDF を組み立てる部品（pdf-lib）は当社サイトから読み込みますが、ファイルやレコードの値は送りません。パスワード付きの PDF は入れられません。300 点・合計 300MB までです。',
+  },
+  {
+    q: 'ファイル名をそろえると、すでにある添付の名前も変わりますか？',
+    a: '変わりません。その保存で新しく添付したファイルだけが対象です。保存の直後に差し替えるため、名前が変わるまで数秒かかり、レコードの更新が 1 回増えます。',
+  },
+  {
+    q: 'ZIP で画像を縮めると、レコードの画像も小さくなりますか？',
+    a: 'なりません。レコードの画像はそのままで、ZIP に入れるものだけが縮みます。透過の無い PNG は JPEG になり、名前は「写真_png.jpg」のように元の形式が残ります。縮めても小さくならないときは、元のファイルを入れます。',
+  },
+  {
+    q: '無料で試せますか？',
+    a: 'はい、30日間無料で試せます（カード登録不要・自動課金なし・1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、もう一度お試しいただけます）。プレミアム年間サポーターを未契約の方は、プレミアム年間サポーターの無料体験に KIZUNA Pro プラグインが含まれます。プレミアム年間サポーターをご契約中の方は、KIZUNA Pro 拡張パックだけを30日間無料でお試しいただけます。体験が終わると機能は止まりますが、設定は消えません。',
+  },
+  {
+    q: 'ご契約が切れたら、設定はどうなりますか？',
+    a: '設定は消えません。ご契約が確認できない間は、機能は動かず、設定画面にはご契約の案内だけが出ます。ご契約が戻れば、保存済みの設定のまま、すぐに動きます。',
+  },
+  {
+    q: 'スマートフォンでも使えますか？',
+    a: '画像圧縮と、PDF のサインは使えます。ほかの機能と、設定画面はパソコンのみです。',
+  },
+  {
+    q: 'ゲストスペースのアプリでも使えますか？',
+    a: '使えます。',
+  },
+];
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Layout
+  heroBg="/images/kizuna-pro-hero-bg.webp"
+  title="添付ファイル Pro for kintone｜見る・まとめる・軽くするを1つに | KIZUNA Works"
+  description="添付ファイル Pro for kintone は、添付ファイルのプレビュー・アイコン表示・ZIP出力・画像圧縮・PDFへの書き込みを1つにまとめた KIZUNA Pro プラグイン。レコードの添付の一覧表示・添付の検索・PDFにまとめる・ファイル名をそろえる・添付のきまりにも対応します。"
+  ogTitle="添付ファイル Pro for kintone｜見る・まとめる・軽くするを1つに | KIZUNA Works"
+  ogDescription="添付ファイルプレビュー・アイコン表示・ZIP出力・画像圧縮・PDF編集アシストの5機能を1つに統合。このレコードの添付・添付の容量・添付の検索・PDFにまとめる・ファイル名をそろえる・添付のきまりに対応する KIZUNA Pro プラグインです。"
+  ogType="website"
+  ogUrl={PAGE_URL}
+  ogImage="https://kizuna-works.jp/images/file-pro-banner.png"
+  canonical={PAGE_URL}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': PAGE_URL,
+          url: PAGE_URL,
+          name: '添付ファイル Pro for kintone｜見る・まとめる・軽くするを1つに | KIZUNA Works',
+          description: '添付ファイル Pro for kintone は、kintone の添付ファイルのプレビュー・アイコン表示・ZIP出力・画像圧縮・PDFへの書き込みを1つのプラグインにまとめ、添付の検索・PDFにまとめる・ファイル名をそろえる・添付のきまりもできる kintone プラグイン（KIZUNA Pro プラグイン）。',
+          dateModified: DATE_MODIFIED,
+          primaryImageOfPage: { '@type': 'ImageObject', url: 'https://kizuna-works.jp/images/file-pro-banner.png', width: 1200, height: 630 },
+          isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: 'https://kizuna-works.jp/' },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+            { '@type': 'ListItem', position: 2, name: 'kintoneプラグイン', item: 'https://kizuna-works.jp/plugins/' },
+            { '@type': 'ListItem', position: 3, name: '添付ファイル Pro for kintone', item: PAGE_URL },
+          ],
+        },
+        {
+          '@type': 'SoftwareApplication',
+          name: '添付ファイル Pro for kintone',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'kintone',
+          // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
+          "softwareVersion": "1.0.0",
+          dateModified: DATE_MODIFIED,
+          url: PAGE_URL,
+          downloadUrl: `https://kizuna-works.jp${ZIP}`,
+          image: 'https://kizuna-works.jp/images/file-pro-banner.png',
+          offers: [
+            {
+              '@type': 'Offer',
+              name: PRO_SET_PLAN.name,
+              price: String(PRO_SET_PLAN.priceInTax),
+              priceCurrency: 'JPY',
+              availability: 'https://schema.org/InStock',
+              description: 'プレミアム年間サポーターと KIZUNA Pro 拡張パックのセット（年額）。KIZUNA Pro プラグインをすべて含みます。製品ごとの個別のご契約はありません。',
+            },
+            {
+              '@type': 'Offer',
+              name: PRO_ADDON.name,
+              price: String(PRO_ADDON.priceInTax),
+              priceCurrency: 'JPY',
+              availability: 'https://schema.org/InStock',
+              description: 'プレミアム年間サポーターに追加するプラン（年額）。',
+            },
+          ],
+          description: '添付ファイル Pro for kintone は、kintone の添付ファイルについて、プレビュー・一覧のアイコン表示・ZIP出力・画像圧縮・PDFへの書き込みの5つの機能を1つの設定画面で使えるプラグイン。詳細画面でテーブルの中も含む全添付を並べる「このレコードの添付」、一覧で添付の合計・大きいレコード・圧縮でおよそ減る量を確認して一括圧縮できる「添付の容量」、ZIP に入れる画像だけを縮める機能、添付のファイル名と中の語から探す「添付を検索」、PDF・画像を1つの PDF にまとめる機能、保存時に名前を付け直す「ファイル名をそろえる」、形式・大きさ・点数を決める「添付のきまり」、添付欄ごとの効き具合を確かめられる「まとめ」に対応。同じアプリにもとのプラグインが入っているときは、その機能はもとのプラグインが動く。もとのプラグインの設定は［単品の設定を読み込む］で引き継げる。',
+          publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
+          featureList: [
+            'プレビュー：添付ファイルのリンクを押すと、画像・PDF・Word・Excel などをその場で開く',
+            'アイコン表示：一覧に、添付の有無・種類・件数をアイコンで出す',
+            'ZIP出力：一覧や詳細の添付ファイルを、まとめて ZIP で保存する',
+            '画像圧縮：保存した画像を、自動で軽くする',
+            'PDFへの書き込み：添付の PDF に、文字・図形・押印を書き込んで保存する',
+            'このレコードの添付：詳細画面で、テーブルの中も含む全添付を並べて、見る・PDFに書き込む・ZIPで保存・画像を圧縮',
+            '添付の容量：一覧で、いまの絞り込みの添付の合計・大きいレコード・圧縮でおよそ減る量を確認し、設定でオンにしたときだけ一括圧縮',
+            'ZIP で画像を縮小：ZIP に入れる画像だけを縮める（レコードの画像は変わらない）',
+            '添付を検索：一覧で、添付のファイル名とファイルの中の語から探し、サムネイルのカードで並べる（語を空にするとギャラリー）',
+            'PDFにまとめる：PDF と画像を並べ替えて1つの PDF にし、ダウンロードまたはレコードの添付欄へ保存',
+            'ファイル名をそろえる：添付欄ごとの型で、保存時に新しく添付したファイルの名前を付け直す',
+            '添付のきまり：添付欄ごとに、使える形式・1ファイルの上限・点数の上限を決めて、添付時と保存時に確かめる',
+            'まとめ：添付欄ごとに、5つの機能が効いているかを1つの表で確認し、対象欄をまとめてそろえる',
+            'これまでのプラグインの設定を読み込んで引き継ぐ',
+            'ゲストスペースのアプリに対応',
+          ],
+        },
+      ],
+    })} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --kbp-navy: #1B3A6B;
+      --kbp-ink: #0f1f3d;
+      --kbp-gold: #b8862b;
+      --kbp-gold-light: #e8c766;
+      --kbp-gold-soft: #f0d58a;
+      --kbp-green: #2E8B2E;
+      --kbp-text: #333333;
+      --kbp-muted: #64748b;
+    }
+
+    /* Hero: darker than the premium hero, gold accents mark the Pro series */
+    .kbp-hero {
+      /* Shared KIZUNA Pro hero background; sized by width, its baked bottom fade blends into this base gradient */
+      background:
+        url('/images/kizuna-pro-hero-bg.webp') center top / 100% auto no-repeat,
+        linear-gradient(90deg, #020816 0%, #050b1c 30%, #081427 50%, #09182f 70%, #0c1729 100%);
+      color: #fff;
+      padding: 60px 5% 54px;
+      text-align: center;
+      border-bottom: 4px solid var(--kbp-gold);
+    }
+    .kbp-hero-icon {
+      width: 136px; height: 136px; object-fit: contain; display: block; margin: 0 auto 18px;
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(232, 199, 102, 0.5);
+      border-radius: 26px; padding: 10px; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+    .kbp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+    .kbp-badge-pro {
+      display: inline-flex; align-items: center; gap: 6px; line-height: 1;
+      padding: 7px 16px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%);
+      color: #1a1405; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.08em;
+    }
+    .kbp-hero-version {
+      padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.45);
+      font-size: 0.85rem; font-weight: 700; line-height: 1;
+    }
+    .kbp-hero-title { font-size: clamp(1.7rem, 4.2vw, 2.6rem); margin: 0 0 12px; line-height: 1.3; }
+    .kbp-tagline { font-size: clamp(1.05rem, 2.4vw, 1.35rem); font-weight: 700; margin: 0 0 14px; color: var(--kbp-gold-soft); }
+    .kbp-sub { max-width: 860px; margin: 0 auto 26px; line-height: 1.9; font-size: 1rem; color: rgba(255, 255, 255, 0.92); }
+    .kbp-sub strong { color: #fff; }
+    .kbp-pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; max-width: 900px; margin: 0 auto 28px; }
+    .kbp-pillar {
+      display: block; padding: 16px 14px; border-radius: 12px; text-decoration: none; color: #fff;
+      background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(232, 199, 102, 0.45);
+    }
+    .kbp-pillar:hover { background: rgba(255, 255, 255, 0.14); }
+    .kbp-pillar-no { display: block; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--kbp-gold-soft); font-weight: 800; }
+    .kbp-pillar-name { display: block; font-size: 1.05rem; font-weight: 800; margin: 4px 0; }
+    .kbp-pillar-desc { display: block; font-size: 0.84rem; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
+    .kbp-hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .kbp-btn {
+      display: inline-block; padding: 14px 26px; border-radius: 10px; font-weight: 800; text-decoration: none;
+      font-size: 1rem; line-height: 1.3;
+    }
+    .kbp-btn.is-primary { background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; box-shadow: 0 6px 18px rgba(184, 134, 43, 0.35); }
+    .kbp-btn.is-ghost { border: 1px solid rgba(255, 255, 255, 0.6); color: #fff; }
+    .kbp-btn.is-ghost:hover { background: rgba(255, 255, 255, 0.1); }
+    .kbp-hero-note { margin: 14px auto 0; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); max-width: 760px; line-height: 1.7; }
+
+    /* Series strip */
+    .kbp-series { background: #fffaf0; border-bottom: 1px solid #eadcb2; }
+    .kbp-series-inner { max-width: 1100px; margin: 0 auto; padding: 20px 5%; display: flex; gap: 16px; align-items: center; }
+    .kbp-series-tag {
+      flex-shrink: 0; padding: 6px 12px; border-radius: 6px; font-weight: 800; font-size: 0.8rem; letter-spacing: 0.06em;
+      background: var(--kbp-ink); color: var(--kbp-gold-soft);
+    }
+    .kbp-series p { margin: 0; line-height: 1.8; font-size: 0.95rem; color: var(--kbp-text); min-width: 0; }
+
+    /* Sections */
+    .kbp-section { padding: 64px 5%; background: #fff; }
+    .kbp-section.alt { background: #F0F4F8; }
+    .kbp-wrap { max-width: 1100px; margin: 0 auto; }
+    .kbp-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; color: var(--kbp-gold); margin-bottom: 6px; }
+    .kbp-h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); color: var(--kbp-navy); margin: 0 0 14px; line-height: 1.4; }
+    .kbp-lead { margin: 0 0 34px; line-height: 1.9; color: var(--kbp-text); max-width: 900px; }
+    .kbp-h3 { font-size: 1.2rem; color: var(--kbp-navy); margin: 0 0 10px; line-height: 1.5; }
+
+    /* Part header for the three ways to use */
+    .kbp-part {
+      display: flex; align-items: center; gap: 16px; padding: 22px 26px; margin: 0 0 34px; border-radius: 14px;
+      background: linear-gradient(120deg, var(--kbp-ink) 0%, var(--kbp-navy) 100%); color: #fff;
+    }
+    .kbp-part-no {
+      flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; font-weight: 900; font-size: 1.4rem;
+    }
+    .kbp-part-body { min-width: 0; }
+    .kbp-part-title { margin: 0 0 4px; font-size: clamp(1.25rem, 2.8vw, 1.7rem); line-height: 1.35; }
+    .kbp-part-desc { margin: 0; line-height: 1.7; color: rgba(255, 255, 255, 0.88); font-size: 0.95rem; }
+
+    /* Feature rows: text + screenshot */
+    .kbp-feature { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; margin: 0 0 48px; }
+    .kbp-feature.flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    .kbp-feature.flip .kbp-feature-text { order: 2; }
+    .kbp-feature-text p { margin: 0 0 12px; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-feature-text ul { margin: 0 0 12px; padding-left: 1.2em; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-feature-text li { margin-bottom: 4px; }
+    .kbp-shot { margin: 0; min-width: 0; }
+    .kbp-shot img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid #dbe3ee; box-shadow: 0 6px 18px rgba(15, 31, 61, 0.1); cursor: zoom-in; background: #fff; }
+    .kbp-shot figcaption { margin-top: 8px; font-size: 0.84rem; color: var(--kbp-muted); line-height: 1.6; }
+    .kbp-example {
+      margin: 12px 0 0; padding: 12px 14px; border-radius: 8px; background: #f4f7fb; border-left: 4px solid var(--kbp-navy);
+      font-size: 0.92rem; line-height: 1.8; color: var(--kbp-text);
+    }
+    .kbp-example strong { color: var(--kbp-navy); }
+
+    /* Chips for triggers / actions */
+    .kbp-chips, .kbp-feature-text .kbp-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; padding: 0; list-style: none; }
+    .kbp-chips li { padding: 5px 12px; border-radius: 16px; background: #eef3fa; color: var(--kbp-navy); font-size: 0.85rem; font-weight: 700; }
+    .kbp-chips.gold li { background: #fbf3dc; color: #6b4a0e; }
+
+    /* Use case cards */
+    .kbp-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0 0 44px; }
+    .kbp-case { background: #fff; border: 1px solid #dbe3ee; border-radius: 12px; padding: 20px; min-width: 0; }
+    .kbp-case-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0 0 10px; }
+    .kbp-case-app { padding: 4px 10px; border-radius: 6px; background: var(--kbp-navy); color: #fff; font-size: 0.82rem; font-weight: 700; }
+    .kbp-case-arrow { color: var(--kbp-gold); font-weight: 900; }
+    .kbp-case h3 { font-size: 1rem; color: var(--kbp-navy); margin: 0 0 6px; line-height: 1.5; }
+    .kbp-case p { margin: 0; font-size: 0.9rem; line-height: 1.75; color: var(--kbp-text); }
+
+    /* Partner list */
+    .kbp-partner-group { margin: 0 0 36px; }
+    .kbp-partner-group > p { margin: 0 0 16px; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-partners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; list-style: none; margin: 0; padding: 0; }
+    .kbp-partner a {
+      display: flex; gap: 14px; align-items: flex-start; padding: 16px; height: 100%; box-sizing: border-box;
+      background: #fff; border: 1px solid #e3d6ae; border-radius: 12px; text-decoration: none; color: inherit;
+      transition: box-shadow 0.2s ease;
+    }
+    .kbp-partner a:hover { box-shadow: 0 6px 18px rgba(15, 31, 61, 0.12); }
+    .kbp-partner-icon { width: 48px; height: 48px; flex-shrink: 0; border-radius: 10px; object-fit: contain; background: #f4f7fb; }
+    .kbp-partner-body { min-width: 0; }
+    .kbp-partner-name { display: block; font-weight: 800; color: var(--kbp-navy); margin-bottom: 2px; }
+    .kbp-partner-tier { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 1px 8px; border-radius: 10px; margin-bottom: 6px; }
+    .kbp-partner-tier.free { background: #e7f5e7; color: #1f5c1f; }
+    .kbp-partner-tier.premium { background: #fdf4d9; color: #77590a; }
+    .kbp-partner-role { display: block; font-size: 0.88rem; line-height: 1.7; color: var(--kbp-text); }
+
+    /* Feature summary list */
+    .kbp-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 28px; list-style: none; margin: 0; padding: 0; }
+    .kbp-list li { position: relative; padding-left: 26px; line-height: 1.75; color: var(--kbp-text); }
+    .kbp-list li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--kbp-gold); font-weight: 900; }
+
+    /* Plans */
+    .kbp-plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 0 0 24px; }
+    .kbp-plan { background: #fff; border: 1px solid #dbe3ee; border-radius: 14px; padding: 26px; position: relative; min-width: 0; }
+    .kbp-plan.top { border: 2px solid var(--kbp-gold); box-shadow: 0 10px 30px rgba(184, 134, 43, 0.18); }
+    .kbp-plan-badge {
+      position: absolute; top: -13px; left: 22px; padding: 4px 12px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; font-size: 0.78rem; font-weight: 800;
+    }
+    .kbp-plan h3 { margin: 4px 0 6px; color: var(--kbp-navy); font-size: 1.2rem; }
+    .kbp-plan-price { margin: 0 0 4px; }
+    .kbp-plan-price .amt { font-size: 1.9rem; font-weight: 900; color: var(--kbp-ink); }
+    .kbp-plan-price .unit { font-size: 0.9rem; color: var(--kbp-muted); margin-left: 4px; }
+    .kbp-plan-sub { margin: 0 0 14px; font-size: 0.85rem; color: var(--kbp-muted); }
+    .kbp-plan ul { margin: 0 0 18px; padding-left: 1.2em; line-height: 1.85; color: var(--kbp-text); font-size: 0.93rem; }
+    .kbp-plan-cta { display: block; text-align: center; padding: 12px 16px; border-radius: 10px; background: var(--kbp-navy); color: #fff; font-weight: 800; text-decoration: none; }
+    .kbp-plan.top .kbp-plan-cta { background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; }
+    .kbp-trial { margin: 0 0 18px; padding: 18px 20px; border-radius: 10px; background: #f4faf4; border: 1px solid #cfe8cf; line-height: 1.85; font-size: 0.93rem; color: var(--kbp-text); }
+    .kbp-trial h3 { margin: 0 0 6px; font-size: 1.05rem; color: #1B3A6B; }
+    .kbp-trial p { margin: 0 0 8px; }
+    .kbp-trial ul { margin: 0 0 8px; padding-left: 1.3em; }
+    .kbp-trial a { color: #2E8B2E; font-weight: 700; }
+    .kbp-note { padding: 16px 18px; border-radius: 10px; background: #fffaf0; border: 1px solid #eadcb2; line-height: 1.85; font-size: 0.93rem; color: var(--kbp-text); }
+
+    /* Install steps */
+    .steps-list { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid #e2e8f0; line-height: 1.8; counter-increment: step; }
+    .steps-list li::before {
+      content: counter(step); flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: var(--kbp-navy); color: #fff; font-weight: 800;
+    }
+    .steps-list li > span { min-width: 0; }
+
+    /* Cautions */
+    .kbp-cautions ul { margin: 0; padding-left: 1.2em; line-height: 1.9; color: var(--kbp-text); }
+    .kbp-cautions li { margin-bottom: 6px; }
+
+    /* FAQ */
+    .kbp-faq { margin: 0; }
+    .kbp-faq details { background: #fff; border: 1px solid #dbe3ee; border-radius: 10px; margin: 0 0 10px; }
+    .kbp-faq summary { cursor: pointer; padding: 16px 18px; font-weight: 800; color: var(--kbp-navy); line-height: 1.6; }
+    .kbp-faq details p { margin: 0; padding: 0 18px 16px; line-height: 1.85; color: var(--kbp-text); }
+
+    /* Closing CTA */
+    .kbp-cta { background: linear-gradient(135deg, #0b1630 0%, #1B3A6B 100%); color: #fff; text-align: center; padding: 56px 5%; border-top: 4px solid var(--kbp-gold); }
+    .kbp-cta h2 { margin: 0 0 12px; font-size: clamp(1.3rem, 3vw, 1.8rem); line-height: 1.45; }
+    .kbp-cta p { margin: 0 auto 22px; max-width: 760px; line-height: 1.85; color: rgba(255, 255, 255, 0.88); }
+
+    /* Lightbox */
+    .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); display: none; align-items: center; justify-content: center; z-index: 10000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5); }
+    .lightbox-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
+
+    @media (max-width: 860px) {
+      .kbp-feature, .kbp-feature.flip { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+      .kbp-feature.flip .kbp-feature-text { order: 0; }
+      .kbp-cases { grid-template-columns: minmax(0, 1fr); }
+      .kbp-partners, .kbp-list, .kbp-plan-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .kbp-pillars { grid-template-columns: minmax(0, 1fr); }
+      .kbp-section { padding: 48px 5%; }
+      .kbp-part { padding: 18px; gap: 12px; }
+      .kbp-part-no { width: 44px; height: 44px; font-size: 1.1rem; }
+      .kbp-series-inner { flex-direction: column; align-items: flex-start; }
+      .kbp-btn { width: 100%; box-sizing: border-box; text-align: center; }
+    }
+
+    /* File Pro additions */
+    .kbp-feature.kfp-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+    .kfp-singles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; list-style: none; margin: 0; padding: 0; }
+    .kfp-singles a {
+      display: flex; gap: 12px; align-items: center; padding: 12px; height: 100%; box-sizing: border-box;
+      background: #fff; border: 1px solid #dbe3ee; border-radius: 12px; text-decoration: none; color: inherit;
+    }
+    .kfp-singles a:hover { box-shadow: 0 6px 18px rgba(15, 31, 61, 0.12); }
+    .kfp-single-icon { width: 48px; height: 48px; flex-shrink: 0; border-radius: 10px; object-fit: contain; background: #f4f7fb; }
+    .kfp-single-body { min-width: 0; display: block; }
+    .kfp-single-name { display: block; font-weight: 800; color: var(--kbp-navy); font-size: 0.92rem; line-height: 1.5; }
+    .kfp-single-role { display: block; font-size: 0.82rem; line-height: 1.6; color: var(--kbp-muted); }
+    .kbp-series p a { color: var(--kbp-navy); font-weight: 700; }
+    /* Overview grid of the Pro-only features at the top of PART 2 */
+    .kfp-new-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; list-style: none; margin: 0 0 44px; padding: 0; }
+    .kfp-new-grid li { background: #fff; border: 1px solid #dbe3ee; border-top: 3px solid var(--kbp-gold); border-radius: 12px; padding: 18px 20px; min-width: 0; }
+    .kfp-new-grid h3 { font-size: 1rem; color: var(--kbp-navy); margin: 8px 0 6px; line-height: 1.5; }
+    .kfp-new-grid p { margin: 0 0 8px; font-size: 0.9rem; line-height: 1.75; color: var(--kbp-text); }
+    .kfp-new-grid a { color: var(--kbp-navy); font-weight: 700; font-size: 0.85rem; }
+    .kfp-new-tag { display: inline-block; padding: 2px 10px; border-radius: 999px; background: var(--kbp-navy); color: var(--kbp-gold-soft); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em; }
+    .kbp-h3 .kfp-new-tag { vertical-align: 0.2em; margin-right: 8px; }
+    @media (max-width: 860px) {
+      .kbp-feature.kfp-pair { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    }
+    @media (max-width: 640px) {
+      .kfp-new-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .kfp-singles { grid-template-columns: minmax(0, 1fr); }
+    }
+    .kfp-new-grid li > ul { margin: 0; padding-left: 1.2em; font-size: 0.88rem; line-height: 1.75; color: var(--kbp-text); }
+    .kfp-new-grid li > ul li { position: static; border: 0; border-radius: 0; padding: 0; background: none; margin-bottom: 2px; }
+
+    /* Five bundled features: tabs on the left, description and screenshot on the right */
+    .kfp-tabs { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 24px; align-items: start; }
+    .kfp-tablist { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .kfp-tab { display: flex; align-items: center; gap: 12px; width: 100%; min-width: 0; padding: 12px 14px; border: 1px solid #dbe3ee; border-left: 4px solid transparent; border-radius: 10px; background: #fff; color: var(--kbp-navy); font: inherit; font-weight: 800; font-size: 0.95rem; text-align: left; cursor: pointer; }
+    .kfp-tab img { width: 40px; height: 40px; flex-shrink: 0; border-radius: 8px; object-fit: contain; background: #f4f7fb; }
+    .kfp-tab span { min-width: 0; }
+    .kfp-tab:hover { box-shadow: 0 4px 14px rgba(15, 31, 61, 0.1); }
+    .kfp-tab:focus-visible { outline: 3px solid var(--kbp-gold); outline-offset: 2px; }
+    .kfp-tab[aria-selected="true"] { border-left-color: var(--kbp-gold); background: var(--kbp-navy); color: #fff; box-shadow: 0 6px 18px rgba(15, 31, 61, 0.18); }
+    .kfp-panel { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 28px; align-items: start; background: #fff; border: 1px solid #dbe3ee; border-top: 3px solid var(--kbp-gold); border-radius: 12px; padding: 24px 26px; min-width: 0; }
+    .kfp-panel + .kfp-panel { margin-top: 16px; }
+    .kfp-tabs.is-ready .kfp-panel { grid-column: 2; grid-row: 1; margin-top: 0; }
+    .kfp-tabs.is-ready .kfp-panel[hidden] { display: none; }
+    .kfp-panel-text { min-width: 0; }
+    .kfp-panel h3 { font-size: 1.1rem; color: var(--kbp-navy); margin: 0 0 8px; line-height: 1.5; }
+    .kfp-panel p { margin: 0 0 10px; font-size: 0.92rem; line-height: 1.8; color: var(--kbp-text); }
+    .kfp-panel ul { margin: 0; padding-left: 1.2em; font-size: 0.88rem; line-height: 1.8; color: var(--kbp-text); }
+    .kfp-shot-narrow img { max-width: 360px; margin: 0 auto; }
+    @media (max-width: 900px) {
+      .kfp-tabs { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+      .kfp-tablist { flex-direction: row; flex-wrap: wrap; }
+      .kfp-tab { width: auto; flex: 1 1 140px; padding: 10px 12px; font-size: 0.88rem; }
+      .kfp-tab img { width: 32px; height: 32px; }
+      .kfp-tabs.is-ready .kfp-panel { grid-column: 1; grid-row: auto; }
+      .kfp-panel { grid-template-columns: minmax(0, 1fr); gap: 16px; padding: 18px 16px; }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="kbp-hero">
+      <img class="kbp-hero-icon" src="/images/file-pro-icon.png" alt="添付ファイル Pro for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="kbp-hero-badges">
+        <span class="kbp-badge-pro">KIZUNA Pro PLUGIN</span>
+        <span class="kbp-hero-version">v{VERSION}</span>
+      </div>
+      <h1 class="kbp-hero-title">添付ファイル Pro for kintone</h1>
+      <p class="kbp-tagline">見る・見分ける・まとめる・軽くする。添付ファイルの操作を、ひとつに。</p>
+      <p class="kbp-sub">添付ファイル Pro for kintone は、<strong>添付ファイルのプレビュー・一覧のアイコン表示・ZIP出力・画像圧縮・PDFへの書き込みを1つにまとめた</strong> kintone プラグインです。5つの機能が、<strong>1つの設定画面</strong>で扱えます。レコードの添付の一覧表示・添付の検索・PDFにまとめる・ファイル名をそろえるなど、Pro だけの機能も加わります。</p>
+      <div class="kbp-pillars">
+        <a class="kbp-pillar" href="#five"><span class="kbp-pillar-no">PART 1</span><span class="kbp-pillar-name">5つの機能を1つに</span><span class="kbp-pillar-desc">プレビュー・アイコン・ZIP・圧縮・PDFへの書き込み</span></a>
+        <a class="kbp-pillar" href="#pro"><span class="kbp-pillar-no">PART 2</span><span class="kbp-pillar-name">添付ファイル Pro だけの機能</span><span class="kbp-pillar-desc">このレコードの添付・添付の容量・検索・PDFにまとめる・ファイル名・きまり</span></a>
+        <a class="kbp-pillar" href="#single"><span class="kbp-pillar-no">PART 3</span><span class="kbp-pillar-name">設定し直さずに乗り換え</span><span class="kbp-pillar-desc">今の設定を、読み込むだけ</span></a>
+      </div>
+      <div class="kbp-hero-cta">
+        <a class="kbp-btn is-primary" href="#plan">プランと料金を見る →</a>
+        <a class="kbp-btn is-ghost js-dl" href={ZIP} download>プラグインをダウンロード</a>
+        <a class="kbp-btn is-ghost" href="/plugins/premium-trial/">30日間無料で試す</a>
+      </div>
+      <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
+    </section>
+
+    <!-- Series -->
+    <div class="kbp-series">
+      <div class="kbp-series-inner">
+        <span class="kbp-series-tag">KIZUNA Pro とは</span>
+        <p>ちょこっとプラグイン・プレミアムプラグインの上にある、KIZUNA Works の上位版のプラグインのシリーズです。<strong>KIZUNA Pro 拡張パック</strong>で、添付ファイル Pro をはじめ、<a href="/plugins/bridge/">KIZUNAブリッジ for kintone</a> など、今後リリースされる KIZUNA Pro プラグインもすべてお使いいただけます。</p>
+      </div>
+    </div>
+
+    <!-- Problem -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">PROBLEM</span>
+        <h2 class="kbp-h2">添付ファイルの扱いが、ばらばらになっていませんか</h2>
+        <p class="kbp-lead">見る・保存する・軽くする・PDFに書き込むを別々のプラグインで設定していると、どの欄に何が効いているのかが分かりにくくなります。添付ファイル Pro は、これらを<strong>1つの設定画面</strong>にまとめます。</p>
+        <div class="kbp-cases">
+          <div class="kbp-case">
+            <h3>レコードの添付を、全部見るのに手間がかかる</h3>
+            <p>「このレコードの添付」で、テーブルの中も含めた全部の添付を並べて、続けて見られます。見るだけでなく、PDFへの書き込み・ZIP・圧縮もそこから使えます。</p>
+          </div>
+          <div class="kbp-case">
+            <h3>どのレコードの添付が大きいのか、分からない</h3>
+            <p>一覧の「添付の容量」で、いまの絞り込みの合計と、大きいレコードの上位を確認できます。圧縮でおよそどれだけ減るかも出ます。</p>
+          </div>
+          <div class="kbp-case">
+            <h3>添付を探す・まとめる・名前をそろえるのが、手作業になる</h3>
+            <p>一覧の「添付を検索」で、ファイル名とファイルの中の語から探せます。見つけた PDF・画像は 1 つの PDF にまとめられ、保存したときのファイル名も型でそろえられます。</p>
+          </div>
+          <div class="kbp-case">
+            <h3>どの欄に、何が効いているのか分からない</h3>
+            <p>設定画面の「まとめ」で、添付欄ごとに5つの機能が効いているかを1つの表で確認できます。対象欄も、まとめてそろえられます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 1 -->
+    <section class="kbp-section alt" id="five">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">1</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">5つの機能を、1つのプラグインで</h2>
+            <p class="kbp-part-desc">設定した機能だけが動きます。5つの機能の内容は、もとのプラグインと同じです。</p>
+          </div>
+        </div>
+
+        <div class="kfp-tabs" data-kfp-tabs>
+          <div class="kfp-tablist" role="tablist" aria-label="5つの機能">
+            {bundled.map((b, i) => (
+              <button type="button" class="kfp-tab" role="tab" id={`kfp-tab-${i}`} aria-controls={`kfp-panel-${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+                <img src={iconOf(b.p!.slug)} alt="" width="40" height="40" loading="lazy" />
+                <span>{b.role}</span>
+              </button>
+            ))}
+          </div>
+
+          <div class="kfp-panel" role="tabpanel" id="kfp-panel-0" aria-labelledby="kfp-tab-0">
+            <div class="kfp-panel-text">
+              <h3>プレビュー</h3>
+              <p>添付ファイルのリンクを押すと、画像・PDF・Word・Excel などを、ダウンロードせずにその場で開きます。次のファイルへ送る操作もできます。</p>
+              <ul>
+                <li>詳細画面と一覧で使えます（パソコンのみ）。</li>
+                <li>対象の添付欄を選べます。</li>
+                <li>表示の大きさを「中」「小」にすると浮かぶ窓になり、開いたまま後ろの画面を見たり操作したりできます。</li>
+                <li>PDF や画像は別タブでも開けます。キー操作の案内も表示されます。</li>
+              </ul>
+            </div>
+            <figure class="kbp-shot">
+              <Picture src="/images/file-pro-preview-float.png" alt="kintone のレコード詳細画面で、添付の PDF を表示の大きさ「中」で開いたプレビュー。浮かぶ窓の左右に後ろの詳細画面が見え、上部に大・中・小の切り替え、前後の送り、［別タブで開く］［印刷］［編集］［ダウンロード］、下にファイルのサムネイルとキー操作の案内が並ぶ" width="1600" height="1046" class="zoomable" />
+              <figcaption>表示の大きさを「中」「小」にすると浮かぶ窓になり、後ろの画面も見られます</figcaption>
+            </figure>
+          </div>
+
+          <div class="kfp-panel" role="tabpanel" id="kfp-panel-1" aria-labelledby="kfp-tab-1">
+            <div class="kfp-panel-text">
+              <h3>アイコン表示</h3>
+              <p>一覧に、添付ファイルの有無・種類・件数をアイコンで出します。</p>
+              <ul>
+                <li>表示先のフィールドと、対象の添付欄を選びます。</li>
+                <li>アイコンを押すと、プレビューで開きます。</li>
+                <li>パソコンの一覧のみです。</li>
+              </ul>
+            </div>
+            <figure class="kbp-shot">
+              <Picture src="/images/file-pro-list-icons.png" alt="kintone のレコード一覧。契約書名の左に、添付の種類を示す PDF や写真のアイコンと件数が並んでいる" width="1600" height="664" class="zoomable" />
+              <figcaption>どのレコードにどんな添付があるかが、一覧で一目で分かります</figcaption>
+            </figure>
+          </div>
+
+          <div class="kfp-panel" role="tabpanel" id="kfp-panel-2" aria-labelledby="kfp-tab-2">
+            <div class="kfp-panel-text">
+              <h3>ZIP出力</h3>
+              <p>一覧や詳細の添付ファイルを、まとめて ZIP で保存します。</p>
+              <ul>
+                <li>テンプレートで、ZIP の中の名前の付け方を決めます。</li>
+                <li>一覧では、いまの絞り込みのレコードの添付をまとめて保存できます。</li>
+              </ul>
+            </div>
+            <figure class="kbp-shot kfp-shot-narrow">
+              <Picture src="/images/file-export-dialog-01.png" alt="「添付ファイルを出力」の窓。テンプレートに「取引先別 契約書」を選び、出力範囲は「絞り込み結果の全件」「表示されているレコード（12件）」「選択した行のみ」から選ぶ。下に対象フィールドと種別、［キャンセル］［内容を確認］のボタンがある" width="552" height="516" class="zoomable" />
+              <figcaption>テンプレートと出力範囲を選んで、ZIP で保存します</figcaption>
+            </figure>
+          </div>
+
+          <div class="kfp-panel" role="tabpanel" id="kfp-panel-3" aria-labelledby="kfp-tab-3">
+            <div class="kfp-panel-text">
+              <h3>画像圧縮</h3>
+              <p>レコードを保存したときに、添付の画像を自動で軽くします。</p>
+              <ul>
+                <li>圧縮の強さと、対象にする条件を決めます。</li>
+                <li>テーブルの中の添付も対象にできます。</li>
+                <li>パソコンとスマートフォンで動きます。</li>
+              </ul>
+            </div>
+            <figure class="kbp-shot">
+              <Picture src="/images/image-compress-before-after.png" alt="圧縮前と圧縮後のレコード詳細画面を左右に並べた比較。圧縮前は添付ファイルの写真が1枚 3MB、圧縮後は同じ写真が 175〜232KB になっている。テーブル（作業明細）の中の写真も 3MB から 186KB に軽くなっている" width="1268" height="294" class="zoomable" />
+              <figcaption>1枚 3MB の写真が、保存したあと 200KB 前後になります</figcaption>
+            </figure>
+          </div>
+
+          <div class="kfp-panel" role="tabpanel" id="kfp-panel-4" aria-labelledby="kfp-tab-4">
+            <div class="kfp-panel-text">
+              <h3>PDFへの書き込み</h3>
+              <p>添付の PDF に、文字・図形・押印などを書き込んで、保存します。</p>
+              <ul>
+                <li>詳細画面と一覧で使えます。</li>
+                <li>手書き・矢印・墨消しもできます。</li>
+                <li>スマートフォンでは、詳細画面でサインができます。</li>
+              </ul>
+            </div>
+            <figure class="kbp-shot">
+              <Picture src="/images/pdf-edit-editor-01.png" alt="編集画面。業務委託契約書の1ページ目の右上に赤い「承認」の押印画像が配置され、選択されて四隅にハンドルと回転用の点が出ている。上部には選択・手のひら・画像・手書き・テキスト・図形・矢印・墨消しのツールが並ぶ" width="1400" height="816" class="zoomable" />
+              <figcaption>契約書に押印の画像を置いたところ。ダウンロードせずに書き込めます</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 2 -->
+    <section class="kbp-section" id="pro">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">2</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">添付ファイル Pro だけの機能</h2>
+            <p class="kbp-part-desc">5つの機能が1つになることで、できることが増えます。次の8つはもとのプラグインには無く、添付ファイル Pro だけで使えます。</p>
+          </div>
+        </div>
+
+        <ul class="kfp-new-grid kfp-new-grid--pro">
+          <li><span class="kfp-new-tag">Pro だけ</span><h3>このレコードの添付</h3><p>詳細画面で、テーブルの中も含む全部の添付を並べて、見る・PDFに書き込む・ZIPで保存・画像を圧縮ができます。</p><a href="#pro-panel">詳しく見る ↓</a></li>
+          <li><span class="kfp-new-tag">Pro だけ</span><h3>添付の容量</h3><p>一覧で、いまの絞り込みの添付の合計と、大きいレコード、圧縮でおよそ減る量を確認できます。</p><a href="#pro-size">詳しく見る ↓</a></li>
+          <li><span class="kfp-new-tag">Pro だけ</span><h3>ZIP で画像を縮小</h3><p>ZIP に入れる画像だけを縮めます。レコードの画像は、そのままです。</p><a href="#pro-zip">詳しく見る ↓</a></li>
+          <li><span class="kfp-new-tag">Pro だけ</span><h3>添付を検索</h3><p>一覧で、添付のファイル名とファイルの中の語から探し、サムネイルのカードで並べます。</p><a href="#pro-find">詳しく見る ↓</a></li>
+          <li><span class="kfp-new-tag">Pro だけ</span><h3>PDFにまとめる</h3><p>PDF と画像を並べ替えて、1 つの PDF にします。</p><a href="#pro-merge">詳しく見る ↓</a></li>
+          <li><span class="kfp-new-tag">Pro だけ</span><h3>ファイル名をそろえる</h3><p>保存したときに、新しく添付したファイルの名前を型どおりに付け直します。</p><a href="#pro-rename">詳しく見る ↓</a></li>
+          <li><span class="kfp-new-tag">Pro だけ</span><h3>添付のきまり</h3><p>使える形式・大きさ・点数を欄ごとに決め、守れないファイルは添付させません。</p><a href="#pro-rules">詳しく見る ↓</a></li>
+          <li><span class="kfp-new-tag">Pro だけ</span><h3>まとめ</h3><p>添付欄ごとに、5つの機能が効いているかを1つの表で確認できます。対象欄も、まとめてそろえられます。</p><a href="#pro-summary">詳しく見る ↓</a></li>
+        </ul>
+
+        <div class="kbp-feature" id="pro-panel">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="kfp-new-tag">Pro だけ</span>このレコードの添付</h3>
+            <p>詳細画面のヘッダーの［このレコードの添付（N）］を押すと、そのレコードの添付を全部並べて見られます。テーブルの中の添付も含みます。</p>
+            <ul>
+              <li>画像はサムネイルで並び、欄の名前とサイズも出ます。</li>
+              <li>［見る］：プレビューで開きます。レコードの全部の添付をまたいで、続けて送れます。</li>
+              <li>［PDFに書き込む］：PDF の添付で、書き込める条件に合い、レコードを編集できるときだけ出ます。</li>
+              <li>［ZIPで保存］：このレコードの添付を、ZIP で保存します。</li>
+              <li>［PDFにまとめる］：PDF と画像を 1 つの PDF にします（下の「PDFにまとめる」）。</li>
+              <li>［画像を圧縮］：圧縮できる画像があり、レコードを編集できるときだけ出ます。何点・およそどれだけ減るかを見て、確認のあとに圧縮します。</li>
+            </ul>
+          </div>
+          <div class="kbp-feature-text">
+            <p class="kbp-example"><strong>例：</strong>見積書・契約書・写真が、本体の欄とテーブルの行に分かれて添付されたレコードでも、1つの窓で全部を確かめて、そのまま ZIP で取り出せます。</p>
+            <p>一覧のアイコンを押すと、そのレコードの添付をプレビューで開くこともできます。</p>
+            <figure class="kbp-shot">
+              <Picture src="/images/file-pro-panel.png" alt="kintone のレコード詳細画面で［このレコードの添付（4）］を押して開いた窓。PDF・スキャン画像・テーブルの行の現場写真の4件が、サムネイル・欄の名前・サイズと［見る］［PDFに書き込む］のボタンつきで並び、下に［ZIPで保存］［画像を圧縮（3 点・およそ 2.9 MB 減）］がある" width="1600" height="632" class="zoomable" />
+              <figcaption>詳細画面の［このレコードの添付］。テーブルの行の添付も、欄の名前つきで並びます。画像をクリックすると拡大表示します</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="kbp-feature flip" id="pro-size">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="kfp-new-tag">Pro だけ</span>添付の容量</h3>
+            <p>一覧の［添付の容量］を押すと、いまの絞り込みのレコードの添付を調べて、次を表示します。</p>
+            <ul>
+              <li>添付の合計サイズと、レコードの数</li>
+              <li>大きい順の上位10件のレコード（押すとそのレコードを開く）</li>
+              <li>圧縮の対象になりうる画像の点数と、圧縮でおよそ減る量</li>
+            </ul>
+            <p>調べるのは押したときだけで、5,000件までです。超えたときは、打ち切ったことを表示します。</p>
+          </div>
+          <div class="kbp-feature-text">
+            <p class="kbp-example"><strong>例：</strong>「今年度の案件」で絞り込んで［添付の容量］を押し、大きい添付を持つレコードを見つけて、画像を圧縮する。</p>
+            <p><strong>画像の一括圧縮</strong>は、設定でオンにしたときだけ、ここから実行できます（既定はオフ）。</p>
+            <ul>
+              <li>一覧を見られる人なら、誰でも実行できます。編集できないレコードは飛ばします。</li>
+              <li>圧縮は取り消せません。実行の前に確認が出て、途中で中止もできます。</li>
+            </ul>
+            <figure class="kbp-shot">
+              <Picture src="/images/file-pro-size.png" alt="kintone のレコード一覧で［添付の容量］を押した窓。調べたレコード 5 件・添付ファイル 14 点・合計 10.9 MB、添付が大きいレコードの上位、画像の圧縮でおよそ 8.7 MB 減る見込みが表示され、下に［対象の 5 件を圧縮する］ボタンがある" width="984" height="703" class="zoomable" />
+              <figcaption>一覧の［添付の容量］。一括圧縮のボタンは、設定でオンにしたときだけ出ます。画像をクリックすると拡大表示します</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="kbp-feature" id="pro-zip">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="kfp-new-tag">Pro だけ</span>ZIP で画像を縮小</h3>
+            <p>設定でオンにすると、ZIP に入れる画像だけを縮めます。<strong>レコードの画像は、そのままです</strong>。</p>
+            <ul>
+              <li>縮め方は、軽量（長辺 1280px）・標準（長辺 1600px）・高画質（長辺 2048px）から選びます。</li>
+              <li>透過の無い PNG は JPEG になります。同じフォルダの別のファイルと名前が重ならないよう、「写真_png.jpg」のように元の形式が名前に残ります。</li>
+              <li>縮めても小さくならないときは、元のファイルを入れます。</li>
+            </ul>
+          </div>
+          <div class="kbp-feature-text">
+            <p class="kbp-example"><strong>例：</strong>現場写真が多いレコードを ZIP にして、メールやチャットで共有する。レコードの原本の画質は、保ったまま。</p>
+          </div>
+        </div>
+
+        <div class="kbp-feature flip" id="pro-summary">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="kfp-new-tag">Pro だけ</span>まとめ</h3>
+            <p>設定画面の最初の項目です。</p>
+            <ul>
+              <li>アプリの添付ファイル欄（テーブルの中も含む）ごとに、5つの機能が効いているかを ○／－ で表示します。</li>
+              <li>欄を選んで、プレビュー・アイコン表示・PDFへの書き込みの対象を、まとめてそろえられます。</li>
+              <li>このページの Pro だけの機能を、使う・使わないで切り替えます。</li>
+            </ul>
+          </div>
+          <div class="kbp-feature-text">
+            <p class="kbp-example"><strong>例：</strong>添付欄を1つ増やしたとき、「まとめ」で、その欄を3つの機能の対象にそろえる。製品ごとに同じ欄を選び直す手間が要りません。</p>
+            <p>画像の自動圧縮と PDF の書き込みが、同じレコードでぶつからないよう、順番を守って動きます。</p>
+            <figure class="kbp-shot">
+              <Picture src="/images/file-pro-summary.png" alt="添付ファイル Pro for kintone の設定画面の「まとめ」。左に、まとめ・プレビュー・アイコン表示・ZIP出力・画像圧縮・PDFへの書き込みの目次。中央に、添付欄ごとに5つの機能が効いているかを ○ と － で示す表と、添付ファイル Pro だけの機能を切り替える5つのチェックボックス、ZIP に入れる画像の縮め方の選択" width="1600" height="1104" class="zoomable" />
+              <figcaption>設定画面の「まとめ」。添付欄ごとの効き具合が1つの表で分かります。画像をクリックすると拡大表示します</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="kbp-feature" id="pro-find">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="kfp-new-tag">Pro だけ</span>添付を検索</h3>
+            <p>一覧の［添付を検索］で、添付のファイル名と、ファイルの中の語から探せます。テーブルの中の添付欄も対象です。</p>
+            <ul>
+              <li>kintone の検索と同じく、語の単位で探します。英数字は、語の途中までの入力では当たりません。</li>
+              <li>欄を 1 つに絞れます。「いまの一覧の絞り込みの中で探す」（既定はオン）と、種類（画像・PDF・Office・その他）でも絞れます。</li>
+              <li>結果はサムネイルのカードで並びます。名前で当たったものには「名前」の印が付き、レコードへのリンクと欄の場所（テーブルなら何行目か）も出ます。</li>
+              <li>カードを押すとプレビューで開き、前後への送りはレコードをまたぎます。</li>
+              <li>語を空にして探すと、いまの絞り込みの添付をすべて並べるギャラリーになります。</li>
+            </ul>
+          </div>
+          <div class="kbp-feature-text">
+            <p class="kbp-example"><strong>例：</strong>「請求」という語を含む PDF を、今年度のレコードの中から探して、そのまま開く。</p>
+            <p>表示は 500 レコード・2,000 点までです。</p>
+            <figure class="kbp-shot">
+              <Picture src="/images/file-pro-find.png" alt="kintone のレコード一覧で［添付を検索］を押し、語を空にして探した窓。上に検索の語・添付欄の選択・［探す］と「いまの一覧の絞り込みの中で探す」、種類で絞るすべて・画像・PDF・Office・その他のボタン。その下に 5 件のレコードの添付 14 点が、契約書のスキャン画像や現場写真のサムネイル、PDF の印、ファイル名・レコード番号・欄の名前とサイズのカードで並び、下に［表示中の PDF・画像を 1 つの PDF にまとめる（14 点）］がある" width="1600" height="1536" class="zoomable" />
+              <figcaption>一覧の［添付を検索］。結果はサムネイルのカードで並びます。画像をクリックすると拡大表示します</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="kbp-feature flip" id="pro-merge">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="kfp-new-tag">Pro だけ</span>PDFにまとめる</h3>
+            <p>PDF と画像を、1 つの PDF にまとめます。</p>
+            <ul>
+              <li>詳細画面の［このレコードの添付］→［PDFにまとめる］：PDF と画像を選び（チェックで外せます。↑↓で並べ替え）、ファイル名を決めて、ダウンロードするか、このレコードの添付欄に保存します。保存は、レコードを編集できる方だけ選べます。</li>
+              <li>一覧の［添付を検索］の結果からも、PDF・画像を 1 つの PDF にまとめてダウンロードできます。</li>
+              <li>画像は A4 のページに収めます（横長の画像は横向きのページ）。</li>
+              <li>パスワード付きの PDF は入れられません。入れなかったファイルとして表示されます。</li>
+            </ul>
+          </div>
+          <div class="kbp-feature-text">
+            <p class="kbp-example"><strong>例：</strong>見積書の PDF と、現場写真と、スキャンした書類を、並べ替えて 1 つの PDF にして提出する。</p>
+            <p>ブラウザの中で組み立てるので、ファイルを外部へ送ることはありません。300 点・合計 300MB までです。</p>
+            <figure class="kbp-shot">
+              <Picture src="/images/file-pro-merge.png" alt="kintone のレコード詳細画面で開いた［PDFにまとめる］の窓。業務委託契約書.pdf・署名ページ_スキャン.jpg・請求書_2026-09.pdf・覚書_スキャン.jpg の 4 点にチェックが付き、各行の右に並べ替えの↑↓。下にファイル名「まとめ_1.pdf」の欄と、「ダウンロードする」「このレコードの添付に保存する」の選択と保存先の欄、［まとめる］ボタンがある" width="1260" height="760" class="zoomable" />
+              <figcaption>詳細画面の［PDFにまとめる］。画像をクリックすると拡大表示します</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="kbp-feature" id="pro-rename">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="kfp-new-tag">Pro だけ</span>ファイル名をそろえる</h3>
+            <p>添付欄ごとに名前の型を決めると、保存したときに、その保存で新しく添付したファイルの名前を型どおりに付け直します。</p>
+            <ul>
+              <li>すでにあったファイルの名前は変えません。拡張子は元のままです。</li>
+              <li>型に使える差し込み：{'{'}元のファイル名{'}'} {'{'}レコード番号{'}'} {'{'}今日{'}'}（YYYYMMDD）{'{'}欄の名前{'}'} {'{'}行番号{'}'} {'{'}連番{'}'}、任意のフィールドの値 {'{'}フィールドコード{'}'}（テーブル内の添付では同じ行の値）。</li>
+              <li>名前に使えない記号は「_」になります。同じ欄で名前が重なるときは「_2」「_3」が付きます。</li>
+            </ul>
+          </div>
+          <div class="kbp-feature-text">
+            <p class="kbp-example"><strong>例：</strong>「{'{'}レコード番号{'}'}_{'{'}元のファイル名{'}'}」と決めておくと、どの人が添付しても、名前の先頭にレコード番号が付く。</p>
+            <p>保存の直後に、ダウンロードして新しい名前でアップロードし直し、差し替えます。保存から数秒で名前が変わり、レコードの更新が 1 回増えます。終わると、詳細画面でお知らせします。パソコンとスマートフォンで動きます。</p>
+            <figure class="kbp-shot">
+              <Picture src="/images/file-pro-rename-config.png" alt="添付ファイル Pro for kintone の設定画面で、左の目次の「ファイル名をそろえる」を開いた様子。対象の添付欄に「契約書」を選び、名前の型に「{レコード番号}_{今日}_{元のファイル名}」、その下に差し込みのボタンと「フィールドの値を差し込む」の選択、「例：128_20261026_見積書.pdf」が表示されている" width="1600" height="1120" class="zoomable" />
+              <figcaption>設定画面の「ファイル名をそろえる」。画像をクリックすると拡大表示します</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="kbp-feature flip" id="pro-rules">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="kfp-new-tag">Pro だけ</span>添付のきまり</h3>
+            <p>添付欄ごとに、使える形式（拡張子）・1 ファイルの上限（MB）・その欄の点数の上限を決めます。対象の欄を選ばなければ、すべての添付欄が対象です。</p>
+            <ul>
+              <li>添付したとき（［参照］で選ぶ・ドロップ）にすぐ確かめ、守れないファイルは添付せず、理由を窓で表示します。</li>
+              <li>上限を超える画像は、オンにすると、縮めてから添付します。縮めても収まらないときは添付しません。</li>
+              <li>保存のときにも、形式と点数をもう一度確かめて、守れていなければ保存を止めます。</li>
+            </ul>
+          </div>
+          <div class="kbp-feature-text">
+            <p class="kbp-example"><strong>例：</strong>提出書類の欄は PDF だけ・1 ファイル 10MB まで・3 点まで、と決めておく。</p>
+            <p>パソコンの追加・編集画面で働きます（スマートフォンでは確かめません）。テーブルの中の欄の点数は、行ごとに数えます。</p>
+            <figure class="kbp-shot">
+              <Picture src="/images/file-pro-rules.png" alt="kintone のレコード編集画面で、契約書の添付欄に使えない形式のファイルを入れたときに出る「添付できないファイルがあります」の窓。「メモ.txt：使える形式は .pdf・.jpg・.png です」と理由が表示され、後ろに編集画面が見える" width="1600" height="1000" class="zoomable" />
+              <figcaption>守れないファイルを添付しようとしたときの窓。画像をクリックすると拡大表示します</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 3 -->
+    <section class="kbp-section alt" id="single">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">3</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">今のプラグインから、設定ごと乗り換える</h2>
+            <p class="kbp-part-desc">お使いのプラグインの設定を読み込めるので、一から設定し直す必要はありません。入れ替えの途中も、処理が二重になりません。</p>
+          </div>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">添付ファイル Pro にまとめた5つのプラグイン</h3>
+            <p>同じアプリに両方入っているときは、<strong>その機能はもとのプラグインが動き</strong>、添付ファイル Pro はその機能だけ動かしません（二重に動くのを防ぐためです）。ほかの機能は、添付ファイル Pro が動かします。</p>
+            <p>アプリからもとのプラグインを外すと、その機能は、添付ファイル Pro が動かします。</p>
+          </div>
+          <ul class="kfp-singles">
+            {bundled.map((b) => (
+              <li>
+                <a href={`/plugins/${b.p!.slug}/`}>
+                  <img class="kfp-single-icon" src={iconOf(b.p!.slug)} alt="" width="48" height="48" loading="lazy" />
+                  <span class="kfp-single-body">
+                    <span class="kfp-single-name">{b.p!.name}</span>
+                    <span class="kfp-single-role">添付ファイル Pro の「{b.role}」</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">［単品の設定を読み込む］で引き継ぐ</h3>
+            <ol class="steps-list">
+              <li><span>もとのプラグインが入っているアプリで、添付ファイル Pro の設定画面を開きます。</span></li>
+              <li><span>該当の機能の設定欄に出る<strong>［単品の設定を読み込む］</strong>を押し、確認で OK を押します。</span></li>
+              <li><span>内容を確かめて、［保存］→［アプリを更新］を押します。</span></li>
+              <li><span>もとのプラグインを、アプリから外します。</span></li>
+            </ol>
+            <p>読み込みは手動です。もとのプラグインの設定はそのまま残り、外すまでもとのプラグインが動き続けます。</p>
+          </div>
+          <div class="kbp-feature-text">
+            <p class="kbp-example"><strong>設定の入れ物は1つです。</strong>5つの機能の設定を合わせた大きさが上限（256KB）に収まる必要があります。押印画像を多く設定している PDF書き込みの設定は、保存するときに知らせます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature summary -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">FEATURES</span>
+        <h2 class="kbp-h2">主な機能</h2>
+        <h3 class="kbp-h3">添付ファイル Pro だけの機能</h3>
+        <ul class="kbp-list">
+          <li>このレコードの添付：テーブルの中も含む全添付を並べて、見る・PDFに書き込む・ZIPで保存・画像を圧縮</li>
+          <li>添付の容量：一覧で、添付の合計・大きいレコード・圧縮でおよそ減る量を確認</li>
+          <li>画像の一括圧縮：設定でオンにしたときだけ、添付の容量から実行</li>
+          <li>ZIP で画像を縮小：ZIP に入れる画像だけを縮める（レコードの画像は変わらない）</li>
+          <li>一覧のアイコンを押すと、そのレコードの添付をプレビューで開く</li>
+          <li>添付を検索：添付のファイル名とファイルの中の語から探し、サムネイルのカードで並べる（語を空にするとギャラリー）</li>
+          <li>PDFにまとめる：PDF・画像を 1 つの PDF にして、ダウンロードまたは添付欄へ保存</li>
+          <li>ファイル名をそろえる：保存時に、新しく添付したファイルの名前を型どおりに付け直す</li>
+          <li>添付のきまり：添付欄ごとに、使える形式・1ファイルの上限・点数の上限を決めて確かめる</li>
+          <li>まとめ：添付欄ごとの効き具合の表・対象欄をまとめてそろえる</li>
+          <li>これまでのプラグインの設定を読み込んで引き継ぐ</li>
+        </ul>
+        <h3 class="kbp-h3">5つの機能と共通の機能</h3>
+        <ul class="kbp-list">
+          <li>プレビュー：添付ファイルのリンクを押すと、その場で開く</li>
+          <li>アイコン表示：一覧に、添付の有無・種類・件数をアイコンで出す</li>
+          <li>ZIP出力：一覧や詳細の添付ファイルを、まとめて ZIP で保存</li>
+          <li>画像圧縮：保存した画像を、自動で軽くする</li>
+          <li>PDFへの書き込み：添付の PDF に、文字・図形・押印を書き込んで保存</li>
+          <li>ゲストスペースのアプリに対応</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Plans -->
+    <section class="kbp-section alt" id="plan">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">PLAN</span>
+        <h2 class="kbp-h2">プランと料金</h2>
+        <p class="kbp-lead">添付ファイル Pro は KIZUNA Pro プラグインです。製品ごとの個別のご契約はありません。<strong>プレミアム年間サポーター</strong>と <strong>KIZUNA Pro 拡張パック</strong>のご契約でお使いいただけます。</p>
+        <div class="kbp-plan-grid">
+          <div class="kbp-plan top">
+            <span class="kbp-plan-badge">KIZUNA Pro 最上位</span>
+            <h3>{PRO_SET_PLAN.name}</h3>
+            <p class="kbp-plan-price"><span class="amt">{yen(PRO_SET_PLAN.priceInTax)}</span><span class="unit">/年（税込）</span></p>
+            <p class="kbp-plan-sub">税抜 {yen(PRO_SET_PLAN.priceExTax)}／プレミアム年間サポーター＋KIZUNA Pro 拡張パック</p>
+            <ul>
+              <li>添付ファイル Pro を含む KIZUNA Pro プラグインすべて</li>
+              <li>ちょこっと＆プレミアムプラグインすべて</li>
+              <li>プラグイン内の広告非表示</li>
+              <li>今後リリースされる KIZUNA Pro プラグインも追加料金なし</li>
+            </ul>
+            <a class="kbp-plan-cta" href="/plugins/supporter/?plan=pro_set">{PRO_SET_PLAN.name}を申し込む →</a>
+          </div>
+          <div class="kbp-plan">
+            <span class="kbp-plan-badge">プレミアムにご加入中の方</span>
+            <h3>{PRO_ADDON.name}</h3>
+            <p class="kbp-plan-price"><span class="amt">{yen(PRO_ADDON.priceInTax)}</span><span class="unit">/年（税込）</span></p>
+            <p class="kbp-plan-sub">税抜 {yen(PRO_ADDON.priceExTax)}／{PREMIUM_PLAN.name}に追加</p>
+            <ul>
+              <li>プレミアム年間サポーターに追加していただくプランです</li>
+              <li>KIZUNA Works の上位版のプラグイン「KIZUNA Pro プラグイン」をすべてお使いいただけます</li>
+              <li>アプリをまたぐ作業もプラグインの連携も自動化する「KIZUNAブリッジ for kintone」をはじめ、今後リリースされる KIZUNA Pro プラグインも追加料金なしで順次ご利用いただけます</li>
+            </ul>
+            <a class="kbp-plan-cta" href="/plugins/supporter/?plan=pro_add">{PRO_ADDON.name}を申し込む →</a>
+          </div>
+        </div>
+        <div class="kbp-trial" id="trial">
+          <h3>30日間、無料で試せます</h3>
+          <p>カード登録は不要で、自動課金もありません（1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、条件を満たせばもう一度お試しいただけます）。</p>
+          <ul>
+            <li><strong>プレミアム年間サポーターを未契約の方</strong>：<a href="/plugins/premium-trial/">プレミアム年間サポーターの無料体験</a>に KIZUNA Pro プラグインが含まれます。</li>
+            <li><strong>プレミアム年間サポーターをご契約中の方</strong>：<a href="/plugins/premium-trial/#pro-trial">KIZUNA Pro 拡張パックだけを30日間無料</a>で試せます。</li>
+          </ul>
+          <p>体験が終わると機能は止まりますが、設定は残ります。続けるときは上のプランからお申し込みください。</p>
+        </div>
+        <p class="kbp-note">年間サポーター（ちょこっとプラグインすべて）には、KIZUNA Pro 拡張パックを追加できません。ご契約が切れても<strong>設定は消えません</strong>。ご契約が確認できない間は機能が動かず、ご契約が戻れば保存済みの設定のまま動きます。</p>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">INSTALL</span>
+        <h2 class="kbp-h2">導入の手順</h2>
+        <ol class="steps-list">
+          <li><span>このページから <strong>kw-file-pro-v{VERSION}.zip</strong> をダウンロードします（解凍は不要です）。</span></li>
+          <li><span>kintone の［kintone システム管理］→［プラグイン］→［読み込む］で、zip ファイルを読み込みます。</span></li>
+          <li><span>使いたいアプリの［アプリの設定］→［プラグイン］→［プラグインの追加］で、添付ファイル Pro for kintone を追加します。</span></li>
+          <li><span>プラグインの設定画面を開き、ご契約が確認されると設定の画面が表示されます。左の目次から、使いたい機能を設定します。</span></li>
+          <li><span>［保存］を押し、「アプリの設定」の画面で［アプリを更新］を押して反映します。</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Cautions -->
+    <section class="kbp-section alt">
+      <div class="kbp-wrap">
+        <h2 class="kbp-h2">ご利用にあたっての注意</h2>
+        <div class="kbp-cautions">
+          <ul>
+            <li>スマートフォンで使えるのは、画像圧縮・PDF のサイン・ファイル名をそろえる機能です。ほかの機能と、設定画面はパソコンのみです。</li>
+            <li>画像圧縮は取り消せません。圧縮前の画質には戻せません。変更履歴を記録する設定が有効なアプリでは、圧縮前の画像が履歴に残るため、ディスク使用量は減りません。「レコードの編集」の条件通知を設定しているアプリでは、圧縮のたびに通知が送信されます。</li>
+            <li>画像の一括圧縮は、既定ではオフです。オンにすると、一覧を見られる方なら誰でも実行できます（編集できないレコードは飛ばします）。必要なときだけオンにしてください。</li>
+            <li>添付の容量は、いまの絞り込みのレコードを5,000件まで調べます。添付の検索は 500 レコード・2,000 点まで、PDFにまとめるは 300 点・合計 300MB までです。</li>
+            <li>ファイル名をそろえるは、保存のたびにレコードの更新が 1 回増えます。新しく添付したファイルだけが対象です。</li>
+            <li>5つの機能の設定は、1つの入れ物（上限 256KB）に合わせて保存されます。押印画像を多く設定していると、単品では入った設定が入らないことがあります。</li>
+            <li>プラグインの設定は「丸ごと保存」する仕組みのため、<strong>設定画面を2つ同時に開いて保存すると片方の変更が失われます</strong>。1つずつ保存してください。</li>
+            <li>アプリからプラグインを<strong>「利用を解除」すると設定が破棄されます</strong>。一時的に止めたいだけのときは「無効にする」をお使いください。</li>
+            <li>本プラグインはサイボウズ社の製品ではありません。kintone はサイボウズ株式会社の登録商標です。</li>
+            <li>推奨ブラウザは Google Chrome / Microsoft Edge です。</li>
+            <li>本プラグインの利用により生じた損害について、当社は責任を負いかねます。配布 zip に秘密鍵（ppk）は含まれません。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">FAQ</span>
+        <h2 class="kbp-h2">よくある質問</h2>
+        <div class="kbp-faq">
+          {faqs.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Security -->
+    <section class="kbp-section alt">
+      <div class="kbp-wrap">
+        <SecurityBox pluginId="kw-file-pro" />
+        <ShareButtons title="添付ファイル Pro for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="kbp-cta">
+      <h2>見る・見分ける・まとめる・軽くする。添付ファイルの操作を、ひとつに。</h2>
+      <p>添付ファイル Pro は、KIZUNA Pro プラグインです。{PRO_SET_PLAN.name}（税込 {yen(PRO_SET_PLAN.priceInTax)}/年）、またはプレミアム年間サポーターへの KIZUNA Pro 拡張パックの追加でお使いいただけます。</p>
+      <a class="kbp-btn is-primary" href="/plugins/supporter/?plan=pro_set">{PRO_SET_PLAN.name}を見る →</a>
+    </section>
+
+    <div class="lightbox" id="kbp-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline define:vars={{ zip: ZIP }}>
+    (function () {
+      var tabs = document.querySelector('[data-kfp-tabs]');
+      if (tabs) {
+        var tabBtns = Array.prototype.slice.call(tabs.querySelectorAll('.kfp-tab'));
+        var select = function (idx, focus) {
+          tabBtns.forEach(function (btn, i) {
+            var on = i === idx;
+            btn.setAttribute('aria-selected', on ? 'true' : 'false');
+            btn.tabIndex = on ? 0 : -1;
+            var panel = document.getElementById(btn.getAttribute('aria-controls'));
+            if (panel) panel.hidden = !on;
+          });
+          if (focus) tabBtns[idx].focus();
+        };
+        tabBtns.forEach(function (btn, i) {
+          btn.addEventListener('click', function () { select(i, false); });
+          btn.addEventListener('keydown', function (e) {
+            var n = tabBtns.length, k = e.key, to = -1;
+            if (k === 'ArrowDown' || k === 'ArrowRight') to = (i + 1) % n;
+            else if (k === 'ArrowUp' || k === 'ArrowLeft') to = (i - 1 + n) % n;
+            else if (k === 'Home') to = 0;
+            else if (k === 'End') to = n - 1;
+            if (to >= 0) { e.preventDefault(); select(to, true); }
+          });
+        });
+        tabs.classList.add('is-ready');
+        select(0, false);
+      }
+      var lightbox = document.getElementById('kbp-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: zip.split('/').pop(),
+              file_extension: 'zip',
+              link_text: 'プラグインをダウンロード',
+              link_url: zip
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

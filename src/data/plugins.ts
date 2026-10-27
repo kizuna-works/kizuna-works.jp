@@ -1387,6 +1387,32 @@ export const premiumPlugins: Plugin[] = [
     bridge: 'ブリッジが他のアプリに書いたレコードでも、フリールックアップはキーに一致する 1 件から値をコピーします。',
   },
   {
+    id: 'kw-file-pro',
+    pluginId: 'lidjkapphnkccohbiiobeojdmpfdgijm',
+    name: '添付ファイル Pro for kintone',
+    formName: '添付ファイル Pro for kintone',
+    subtitle: 'KIZUNA Pro プラグイン',
+    slug: 'file-pro',
+    categories: ['検索・閲覧', '出力・帳票', '一括処理'],
+    description:
+      '添付ファイルのプレビュー・一覧のアイコン表示・ZIP出力・画像圧縮・PDFへの書き込みを1つの設定画面で使えます。詳細画面の［このレコードの添付］でテーブル内も含む全添付を並べ、一覧の［添付の容量］で合計と大きいレコードを確認して圧縮へ。ZIP に入れる画像だけを縮める、一覧の［添付を検索］でファイル名と中の語から探す、PDF・画像を1つの PDF にまとめる、保存したとき新しく添付したファイルの名前をそろえる、形式・大きさ・点数のきまりで添付を確かめる、にも対応します。',
+    image: '/images/file-pro-banner.png',
+    imageWebp: '/images/file-pro-banner.webp',
+    imageAlt:
+      '添付ファイル Pro for kintone バナー — 見る・見分ける・まとめる・軽くする。添付ファイルの操作を、ひとつに。KIZUNA Pro プラグイン',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'pro',
+    cardDescription:
+      '添付ファイルの閲覧・保存・圧縮・PDF書き込みを1つにまとめた上位版。詳細画面でレコードの添付を一覧でき、一覧では添付を検索・容量の確認と圧縮ができます。PDF へのまとめ、保存時のファイル名の統一、添付のきまりも設定できます。',
+    problemTitle: '添付ファイルの扱いが、機能ごとにばらばらで把握できない',
+    problemDesc:
+      '見る・保存する・軽くする・PDFに書き込むを別々のプラグインで設定していて、どの欄に何が効いているか分からない。レコードに添付が散らばり、全部を見るのに手間がかかる。容量が増えても、どのレコードが大きいのか分からない。添付の名前や形式が人によってばらばらで、探すのも、1つの PDF にまとめるのも手作業になる',
+    releaseDate: '2026-10-27',
+    summaryVersion: '1.0.0',
+  },
+  {
     id: 'kw-report-designer',
     pluginId: 'cckpmebgmbdippgiicgldindkjlhhbci',
     name: '帳票デザイナー for kintone',

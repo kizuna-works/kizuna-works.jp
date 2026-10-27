@@ -259,6 +259,8 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】サーチ Pro for kintone 製品ページ（/plugins/search-pro/）v1.0.0・単品販売なし・2026-10-25 ブリッジと同時公開 — サーチ Pro で新しくできること（ひとつの条件でつなぐ・条件の帯・保存した検索・集計カードからの絞り込み・CSVに条件・帯から一括処理・ブリッジからCSV添付）／4つの機能も、これ1つで／単品と一緒に使う（［単品の設定を読み込む］）の3部構成。ブリッジのページと同じ体裁（.kbp-*）。配布 zip は /downloads/kw-search-pro-v1.0.0.zip
 │   │   │   ├── lookup-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ルックアップ Pro for kintone 製品ページ（/plugins/lookup-pro/）v1.0.1（2026-10-26・使用ドメイン台帳への初回記録を読み込み時に送る）。v1.0.0 は 2026-10-25 公開（単品販売なし・ブリッジと同日公開）。PART 2 冒頭に「Pro だけ」のカード一覧、主な機能は「ルックアップ Pro だけの機能」と「5つの機能と共通の機能」に分ける
+│   │   │   ├── file-pro/
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】添付ファイル Pro for kintone 製品ページ（/plugins/file-pro/）v1.0.0（2026-10-27 公開）。単品販売なし。PART 1 に5つの機能（プレビュー・アイコン表示・ZIP出力・画像圧縮・PDFへの書き込み。タブで切り替え、各機能に画面写真。ZIP出力・画像圧縮・PDFへの書き込みの写真は単品の製品ページの file-export-dialog-01・image-compress-before-after・pdf-edit-editor-01 を流用）、PART 2 に Pro だけの機能（このレコードの添付・添付の容量と一括圧縮・ZIPで画像を縮小・添付を検索・PDFにまとめる・ファイル名をそろえる・添付のきまり・まとめ）、PART 3 に単品からの乗り換え。ルックアップ Pro と同じ体裁（.kbp-*／.kfp-*）。配布 zip は /downloads/kw-file-pro-v1.0.0.zip
 │   │   │   ├── record-acl-assist/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】レコード権限アシスト 製品ページ（/plugins/record-acl-assist/）※2026-10-24 配布開始（v1.0.0・プレミアム第23弾・「リクエストから誕生」バッジ）— レコードの内容に合わせて見られる組織・人を自動で設定。最初に当たったルールだけが使われる問題を、見せる相手を 1 つのフィールドへ入れて解く。上の組織・対応表・一括反映・保存前の確認・見せる相手の内訳・変更の記録・ルックアップ自動同期との連携
 │   │   │   ├── annotation/
@@ -326,6 +328,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-bridge-release.md     # KIZUNAブリッジ v1.0.0 公開のお知らせ（2026-10-25T10:00・KIZUNA Pro プラグイン。公開日がずれたら pubDate を直す）
 │   │   │   ├── plugin-search-pro-release.md     # サーチ Pro v1.0.0 公開のお知らせ（2026-10-25・KIZUNA Pro プラグイン・ブリッジと同時公開）
 │   │   │   ├── plugin-lookup-pro-release.md     # ルックアップ Pro v1.0.0 公開のお知らせ（2026-10-25T10:30・KIZUNA Pro プラグイン・ブリッジと同日公開）
+│   │   │   ├── plugin-file-pro-release.md       # 添付ファイル Pro v1.0.0 公開のお知らせ（2026-10-27・KIZUNA Pro プラグイン第4弾）
 │   │   │   ├── list-styler-v141-page-scroll.md  # 一覧スタイラー v1.4.1 アップデートのお知らせ（2026-10-26・横スクロールをページ全体に戻した）
 │   │   │   ├── calendar-view-v160-update.md    # カレンダービュー v1.6.0 アップデートのお知らせ（予定の追加方法を設定画面にまとめた・追加モーダルの項目・モーダルでルックアップ取得）
 │   │   │   ├── drive-connect-v110-update.md     # ドライブ連携 v1.1.0 アップデートのお知らせ（2026-10-23）
@@ -888,6 +891,17 @@ c:\kizuna-works.jp\
 │   │   ├── lookup-pro-banner.png                # ルックアップ Pro for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）＋ .webp（ビルド後に生成）
 │   │   ├── lookup-pro-icon.png                  # ルックアップ Pro アイコン（200×200・製品ページヒーロー）＋ .webp
 │   │   ├── lookup-pro-config-overview.png / lookup-pro-config-quick-setup.png / lookup-pro-config-filter.png / lookup-pro-suggest.png / lookup-pro-dialog-filter.png / lookup-pro-add-panel.png / lookup-pro-free-lookup.png / lookup-pro-free-refresh.png # 製品ページの機能説明スクショ（実機撮影・2026-10-24。各 .webp）
+│   │   ├── file-pro-banner.png                  # 添付ファイル Pro for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）＋ .webp / -800.webp
+│   │   ├── file-pro-icon.png                    # 添付ファイル Pro アイコン（200×200・製品ページヒーロー）＋ .webp
+│   │   ├── file-pro-panel.png                   # 添付ファイル Pro 製品ページ：詳細の［このレコードの添付］（1600×632）＋ .webp
+│   │   ├── file-pro-size.png                    # 添付ファイル Pro 製品ページ：一覧の［添付の容量］（984×703）＋ .webp
+│   │   ├── file-pro-summary.png                 # 添付ファイル Pro 製品ページ：設定画面の「まとめ」（1600×1104）＋ .webp
+│   │   ├── file-pro-preview-float.png           # 添付ファイル Pro 製品ページ：プレビューの浮かぶ窓（1600×1046）＋ .webp
+│   │   ├── file-pro-list-icons.png              # 添付ファイル Pro 製品ページ：一覧のアイコン表示（1600×664）＋ .webp
+│   │   ├── file-pro-find.png                    # 添付ファイル Pro 製品ページ：［添付を検索］の窓＋ .webp
+│   │   ├── file-pro-merge.png                   # 添付ファイル Pro 製品ページ：［PDFにまとめる］の窓＋ .webp
+│   │   ├── file-pro-rules.png                   # 添付ファイル Pro 製品ページ：添付できないファイルの窓＋ .webp
+│   │   ├── file-pro-rename-config.png           # 添付ファイル Pro 製品ページ：設定画面の「ファイル名をそろえる」＋ .webp
 │   │   ├── record-acl-assist-banner.png         # レコード権限アシスト for kintone 見出しバナー（gen-plugin-banner.mjs で生成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── record-acl-assist-icon.png           # レコード権限アシスト アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
 │   │   ├── record-acl-assist-config-01.png      # 設定「① 誰に見せるか」（使い始めるまでの 4 つの手順・設定）

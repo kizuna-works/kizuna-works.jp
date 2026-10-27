@@ -605,6 +605,45 @@ export const securityProfiles: Record<string, SecurityProfile> = {
     ],
   },
 
+  'kw-file-pro': {
+    libs: [
+      {
+        name: 'encoding-japanese',
+        version: '2.2.0',
+        license: 'MIT',
+        purpose: 'ZIP 内のファイル名を Shift-JIS にする場合の文字コード変換。実行時に外部から読み込まず、パッケージに同梱しています。',
+      },
+    ],
+    runtimeLibs: [
+      { name: 'PDF.js', version: '3.11.174', license: 'Apache-2.0', purpose: 'PDF の描画・ページの画像化・パスワード付き PDF のブラウザ内復号' },
+      { name: 'pdf-lib', version: '1.17.1', license: 'MIT', purpose: '書き込んだ PDF・「PDFにまとめる」で組み立てる PDF のブラウザ内生成（当社サイト kizuna-works.jp/libs から読み込み）' },
+      { name: '@pdf-lib/fontkit', version: '1.1.1', license: 'MIT', purpose: '追記する文字の字形の取り出し。テキストツールを最初に押したときだけ読み込みます' },
+      { name: 'Noto Sans JP / Noto Serif JP', version: 'SIL OFL 1.1', license: 'SIL OFL 1.1', purpose: '追記する日本語の書体。設定した書体の1本だけを読み込みます' },
+      { name: 'ExcelJS', version: '4.4.0', license: 'MIT', purpose: 'Excel(xlsx) の読み込み・書式再現' },
+      { name: 'SheetJS (xlsx)', version: '0.18.5', license: 'Apache-2.0', purpose: 'Excel の予備表示（値のみ）' },
+      { name: 'JSZip', version: '3.10.1', license: 'MIT/GPLv3', purpose: 'ZIP のブラウザ内生成・xlsx の解析' },
+      { name: 'Chart.js', version: '4.4.1', license: 'MIT', purpose: 'Excel グラフの再現描画' },
+      { name: 'docx-preview', version: '0.3.5', license: 'Apache-2.0', purpose: 'Word(docx) のページ再現表示' },
+      { name: 'mammoth', version: '1.6.0', license: 'BSD-2-Clause', purpose: 'Word の予備表示' },
+      { name: '@silurus/ooxml', version: '0.72.2', license: 'MIT', purpose: 'Word(docx) の高精細なページ表示' },
+      { name: '@aiden0z/pptx-renderer', version: '1.2.4', license: 'Apache-2.0', purpose: 'PowerPoint(pptx) のスライド表示' },
+      { name: 'SSF', version: '0.11.2', license: 'Apache-2.0', purpose: 'Excel 数値書式（¥・％・日付等）の適用' },
+      { name: 'crypto-js', version: '4.2.0', license: 'MIT', purpose: 'パスワード付き Office のブラウザ内復号（鍵導出・AES）' },
+      { name: 'cfb', version: '1.2.2', license: 'Apache-2.0', purpose: 'パスワード付き Office の複合ファイル解析' },
+      { name: 'React / ReactDOM', version: '18.3.1', license: 'MIT', purpose: 'Excel 高精細表示の実行基盤（切替時のみ読込）' },
+      { name: 'Fortune-sheet', version: '1.0.4', license: 'MIT', purpose: 'Excel 高精細表示（Excel 風グリッド描画）' },
+      { name: 'LuckyExcel', version: '1.0.1', license: 'MIT', purpose: 'Excel 高精細表示用のデータ変換' },
+    ],
+    extraComm: [
+      {
+        label: '添付ファイルの取得・圧縮・PDF の保存（自ドメイン内）',
+        scope: 'internal',
+        detail:
+          'ご利用中の kintone ドメイン内の REST API だけを使います。添付ファイルの取得（GET /k/v1/file）、フィールド・レイアウトの把握、一覧の ZIP 出力と［添付の容量］でのレコードの読み取り（GET /k/v1/records・カーソル）、編集できるかの判定（GET /k/v1/records/acl/evaluate）は、利用者本人の権限で読み取るだけです。書き込むのは、画像の圧縮（POST /k/v1/file・PUT /k/v1/record）と、PDF の書き込みの保存（POST /k/v1/file・PUT /k/v1/record・revision 付き）だけで、レコードを編集できる方の操作に限ります。画像の一括圧縮は、設定でオンにしたときだけ実行できます。ファイルの内容は、ブラウザの中で処理し、外部へは送信しません。',
+      },
+    ],
+  },
+
   'kw-record-acl-assist': {
     extraComm: [
       {
