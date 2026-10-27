@@ -9,10 +9,10 @@ import { bridgePartnerPlugins } from '../../../data/plugins';
 import type { Plugin } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 
-const VERSION = '1.0.1';
+const VERSION = '1.1.0';
 const ZIP = `/downloads/kw-bridge-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/';
-const DATE_MODIFIED = '2026-10-26';
+const DATE_MODIFIED = '2026-10-27';
 
 // Partner list: grouped by what the user can do together. Products are read from
 // plugins.ts (`bridge` field), so a new partner shows up here without touching
@@ -111,7 +111,7 @@ const faqJsonLd = {
 <Layout
   heroBg="/images/kizuna-pro-hero-bg.webp"
   title="KIZUNAブリッジ for kintone｜アプリをまたぐ作業とプラグインの連携を自動化 | KIZUNA Works"
-  description="KIZUNAブリッジ for kintone は、保存やアクションをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める処理をノーコードのルールで自動化する KIZUNA Pro プラグイン。当社のプラグインとも連携し、書き込み先での採番や通知までつなげます。"
+  description="KIZUNAブリッジ for kintone は、保存やアクションをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める処理をノーコードのルールで自動化する KIZUNA Pro プラグイン。当社のプラグインとも連携し、書き込み先での採番や通知、画面を通らずに保存したレコードへの採番の当て直しまでつなげます。"
   ogTitle="KIZUNAブリッジ for kintone｜アプリをまたぐ作業とプラグインの連携を自動化 | KIZUNA Works"
   ogDescription="保存やアクションをきっかけに、他のアプリへの書き込みや当社プラグインの処理を、ノーコードのルールで自動化。KIZUNA Works の上位版「KIZUNA Pro プラグイン」の第1弾です。予行演習・実行の記録・連携の流れつき。"
   ogType="website"
@@ -128,7 +128,7 @@ const faqJsonLd = {
           '@id': PAGE_URL,
           url: PAGE_URL,
           name: 'KIZUNAブリッジ for kintone｜アプリをまたぐ作業とプラグインの連携を自動化 | KIZUNA Works',
-          description: 'KIZUNAブリッジ for kintone は、保存やアクションをきっかけに、他のアプリへの書き込みや当社プラグインの処理をルールで自動化する kintone プラグイン（KIZUNA Pro プラグイン）。',
+          description: 'KIZUNAブリッジ for kintone は、保存やアクションをきっかけに、他のアプリへの書き込みや当社プラグインの処理（採番の当て直しを含む）をルールで自動化する kintone プラグイン（KIZUNA Pro プラグイン）。',
           dateModified: DATE_MODIFIED,
           primaryImageOfPage: { '@type': 'ImageObject', url: 'https://kizuna-works.jp/images/bridge-banner.png', width: 1200, height: 630 },
           isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: 'https://kizuna-works.jp/' },
@@ -147,7 +147,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.0.1",
+          "softwareVersion": "1.1.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -170,7 +170,7 @@ const faqJsonLd = {
               description: 'プレミアム年間サポーターに追加するプラン（年額）。',
             },
           ],
-          description: 'KIZUNAブリッジ for kintone は、kintone のアプリをまたぐ作業と当社のプラグインの連携を、ノーコードのルールで自動化するプラグイン。画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン・CSV の読み込みと書き出しの前後をきっかけに、条件（このレコードの値と変更前の値・テーブル・ステータス・操作した人と組織・端末・日付・他のアプリのレコードの有無や件数・合計）に合えば、このレコードへの値の入力・集計・行の追加と削除、エラー・確認・お知らせ、他のアプリのレコードの取得・作成・更新・ステータスの変更・双方向の同期を行う。書き込み先のアプリに入っている当社のプラグインの処理（採番・地図リンク・経過日数・文字列結合・ルックアップのコピーなど）を当てる、チャット通知、レコードロックの確認、一括更新などの実行にも対応。予行演習・実行の記録と再実行・あとから流す・連携の流れ・不在カレンダーと営業日・当社プラグインの一括更新つき。',
+          description: 'KIZUNAブリッジ for kintone は、kintone のアプリをまたぐ作業と当社のプラグインの連携を、ノーコードのルールで自動化するプラグイン。画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン・CSV の読み込みと書き出しの前後をきっかけに、条件（このレコードの値と変更前の値・テーブル・ステータス・操作した人と組織・端末・日付・他のアプリのレコードの有無や件数・合計）に合えば、このレコードへの値の入力・集計・行の追加と削除、エラー・確認・お知らせ、他のアプリのレコードの取得・作成・更新・ステータスの変更・双方向の同期を行う。書き込み先のアプリに入っている当社のプラグインの処理（採番・地図リンク・経過日数・文字列結合・ルックアップのコピーなど）を当てる、カレンダービューのモーダルや一括更新で保存したこのアプリのレコードへの採番などの当て直し、チャット通知、レコードロックの確認、一括更新などの実行にも対応。予行演習・実行の記録と再実行・あとから流す・連携の流れ・不在カレンダーと営業日・当社プラグインの一括更新つき。',
           publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
           featureList: [
             'きっかけ：画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン・CSV の読み込みと書き出しの前後',
@@ -180,6 +180,7 @@ const faqJsonLd = {
             '他のアプリ：取ってくる・作る・変える・ステータスを進める・双方向にそろえる',
             '書き込み先のアプリの当社プラグインの処理を当てる（採番・文字列結合など）',
             '書き込み先のアプリのチャット通知・レコードロックとの連携',
+            'このレコードに、採番などの当社プラグインの処理を当て直す（カレンダービューのモーダル・一括更新で保存したレコード向け）',
             'ルールから当社のプラグインの機能を実行する',
             '予行演習（書き込まずに結果を確認）',
             '実行の記録と再実行・あとから流す',
@@ -391,6 +392,17 @@ const faqJsonLd = {
     .kbp-cta h2 { margin: 0 0 12px; font-size: clamp(1.3rem, 3vw, 1.8rem); line-height: 1.45; }
     .kbp-cta p { margin: 0 auto 22px; max-width: 760px; line-height: 1.85; color: rgba(255, 255, 255, 0.88); }
 
+    /* Update box (latest version highlight) */
+    .update-box { max-width: 980px; margin: 0 auto; background: #fff; border: 1px solid #dbe3ee; border-left: 5px solid var(--kbp-green); border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06); padding: 32px 32px 36px; }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag { background-color: var(--kbp-green); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; padding: 4px 12px; border-radius: 6px; flex-shrink: 0; }
+    .update-title { color: var(--kbp-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--kbp-text); font-size: 15px; line-height: 1.8; margin: 0 0 20px; }
+    .update-desc strong { color: var(--kbp-navy); }
+    .update-note { color: var(--kbp-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    .update-shot { max-width: 640px; margin: 0 auto; }
+    .update-shot .zoom-hint { text-align: center; color: var(--kbp-muted); font-size: 12px; margin: 10px 0 0; }
+
     /* Lightbox */
     .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); display: none; align-items: center; justify-content: center; z-index: 10000; padding: 24px; cursor: zoom-out; }
     .lightbox.is-open { display: flex; }
@@ -404,6 +416,8 @@ const faqJsonLd = {
       .kbp-partners, .kbp-list, .kbp-plan-grid { grid-template-columns: minmax(0, 1fr); }
     }
     @media (max-width: 640px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
       .kbp-pillars { grid-template-columns: minmax(0, 1fr); }
       .kbp-section { padding: 48px 5%; }
       .kbp-part { padding: 18px; gap: 12px; }
@@ -423,7 +437,7 @@ const faqJsonLd = {
       </div>
       <h1 class="kbp-hero-title">KIZUNAブリッジ for kintone</h1>
       <p class="kbp-tagline">アプリをまたぐ作業も、プラグインの連携も、自動化。</p>
-      <p class="kbp-sub">KIZUNAブリッジ for kintone は、<strong>保存やアクションをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める</strong>処理を、ノーコードのルールで自動化する kintone プラグインです。当社のプラグインとも連携し、<strong>書き込み先での採番や通知、一括更新の実行</strong>までつなげられます。さらに、担当者の不在や会社の休みを踏まえて日付を計算する<strong>不在カレンダー</strong>と、当社のプラグインをまとめて最新版にする<strong>プラグインの一括更新</strong>も備えます。KIZUNA Works の上位版「KIZUNA Pro プラグイン」の第1弾です。</p>
+      <p class="kbp-sub">KIZUNAブリッジ for kintone は、<strong>保存やアクションをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める</strong>処理を、ノーコードのルールで自動化する kintone プラグインです。当社のプラグインとも連携し、<strong>書き込み先での採番や通知、一括更新の実行</strong>までつなげられます。カレンダービューのモーダルや一括更新で保存したレコードにも、<strong>採番などの処理を当て直せます</strong>。さらに、担当者の不在や会社の休みを踏まえて日付を計算する<strong>不在カレンダー</strong>と、当社のプラグインをまとめて最新版にする<strong>プラグインの一括更新</strong>も備えます。KIZUNA Works の上位版「KIZUNA Pro プラグイン」の第1弾です。</p>
       <div class="kbp-pillars">
         <a class="kbp-pillar" href="#single"><span class="kbp-pillar-no">PART 1</span><span class="kbp-pillar-name">このアプリの中で</span><span class="kbp-pillar-desc">きっかけ・条件・動作のルールで、入力・確認・集計を自動に</span></a>
         <a class="kbp-pillar" href="#apps"><span class="kbp-pillar-no">PART 2</span><span class="kbp-pillar-name">アプリ間連携</span><span class="kbp-pillar-desc">他のアプリへの取得・作成・更新・ステータス・双方向の同期</span></a>
@@ -435,6 +449,25 @@ const faqJsonLd = {
         <a class="kbp-btn is-ghost" href="/plugins/premium-trial/">30日間無料で試す</a>
       </div>
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
+    </section>
+
+    <!-- Update Info (v1.1.0) -->
+    <section class="kbp-section">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.1.0：カレンダービューなどで保存したレコードにも、採番などのプラグインの処理を当てられるようになりました</h2>
+        </div>
+        <p class="update-desc">カレンダービューのモーダル（追加・編集）、かんたん一括更新、ステータス一括実行で保存したレコードは、kintone の画面を通りません。そのため、保存したときに動くプラグイン（条件分岐自動採番の採番・文字列結合・住所アシスト・経過日数アシスト）の処理が効きませんでした。v1.1.0 では、ルールの動かす内容に<strong>［プラグインの処理を当てる（採番など）］</strong>を追加しました。このルールを入れると、同じアプリのレコードにそれらの処理を当て直します。たとえば、カレンダービューのモーダルで追加した予定に、条件分岐自動採番で番号を振れます。</p>
+        <p class="update-desc">使えるきっかけは、「当社のプラグインでレコードを変えたとき」「一覧のボタン」「CSV を読み込んだ後・書き出した後」です。一覧のボタンでは、絞り込みに合うレコード（番号が空の既存のレコードなど）へまとめて採番できます。</p>
+        <div class="update-shot">
+          <figure class="kbp-shot">
+            <Picture src="/images/bridge-calendar-numbering-01.png" alt="カレンダービューの月表示。追加した予定が並び、画面の右下に「KIZUNAブリッジ：このアプリの 1 件に、条件分岐自動採番を当てました」と知らせが出ている" width="800" height="511" class="zoomable" />
+          </figure>
+          <p class="zoom-hint">カレンダーで追加した予定に採番したときの知らせ。画像をクリックすると拡大表示します。</p>
+        </div>
+        <p class="update-note">条件分岐自動採番は、採番先が空のときだけ番号を振るので、同じレコードに何度当てても番号は変わりません。予定をドラッグで動かしただけでもルールは動くため、採番が目的のときは、条件に「採番するフィールドが空」を入れると動く回数を減らせます。1 回に当てられるのは 100 件までです。相手のプラグインは、連携に対応したバージョンが必要です（条件分岐自動採番 v2.3.1 以降・住所アシスト v1.3.1 以降・経過日数アシスト v1.1.0 以降・文字列結合 v1.1.0 以降。カレンダービューは v1.6.0 以降）。カレンダービューの繰り返し予定に使う場合は、カレンダービュー v1.6.1 以降をお使いください。<br>既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+      </div>
     </section>
 
     <!-- Series -->
@@ -619,6 +652,18 @@ const faqJsonLd = {
           <figure class="kbp-shot">
             <Picture src="/images/bridge-config-partner-01.png" alt="ルールの動作の下に、書き込み先のアプリの採番・文字列結合なども当てる、チャット通知も送る、レコードロックを守る、のチェックが並んでいる" width="1400" height="398" class="zoomable" />
             <figcaption>他のアプリへの書き込みの下に出る、連携のチェック。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">画面を通らずに保存したレコードにも、採番などを</h3>
+            <p>カレンダービューのモーダル、かんたん一括更新、ステータス一括実行で保存したレコードには、保存したときに動くプラグインの処理が効きません。動作<strong>［プラグインの処理を当てる（採番など）］</strong>を入れたルールは、そのあとで、同じアプリのレコードに採番・文字列結合・住所アシスト・経過日数アシストの処理を当て直します。</p>
+            <p>使えるきっかけは、当社のプラグインでレコードを変えたとき・一覧のボタン・CSV を読み込んだ後／書き出した後です。条件分岐自動採番は採番先が空のときだけ番号を振るので、何度当てても番号は変わりません。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/bridge-calendar-numbering-01.png" alt="カレンダービューの月表示。追加した予定が並び、画面の右下に条件分岐自動採番を当てたことを知らせる表示が出ている" width="800" height="511" class="zoomable" />
+            <figcaption>カレンダーで追加した予定に、採番を当てたときの知らせ。</figcaption>
           </figure>
         </div>
 
