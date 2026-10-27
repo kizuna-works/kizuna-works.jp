@@ -29,22 +29,22 @@ if (pluginId && !fixedPlugin) {
             <label class="sf-label">
               プラン<span class="sf-required">必須</span>
             </label>
-            <div class="sf-radio-row" role="radiogroup" aria-label="プラン">
+            <div class="sf-radio-row sf-radio-row-plan" role="radiogroup" aria-label="プラン">
               <label class="sf-radio">
                 <input type="radio" name="planType" value={SUPPORTER_PLAN_TYPE} checked />
-                <span>年間サポーター</span>
+                <span><span class="sf-nw">年間サポーター</span></span>
               </label>
               <label class="sf-radio">
                 <input type="radio" name="planType" value="all" />
-                <span>プレミアム年間サポーター</span>
-              </label>
-              <label class="sf-radio sf-radio-pro">
-                <input type="radio" name="planType" value="pro_set" />
-                <span>KIZUNA Pro 年間サポーター</span>
+                <span><span class="sf-nw">プレミアム</span><span class="sf-nw">年間サポーター</span></span>
               </label>
               <label class="sf-radio sf-radio-pro">
                 <input type="radio" name="planType" value="pro_add" />
-                <span>KIZUNA Pro 拡張パックを追加</span>
+                <span><span class="sf-nw">KIZUNA Pro</span> <span class="sf-nw">拡張パック</span><span class="sf-nw">を追加</span></span>
+              </label>
+              <label class="sf-radio sf-radio-pro">
+                <input type="radio" name="planType" value="pro_set" />
+                <span><span class="sf-nw">KIZUNA Pro</span> <span class="sf-nw">年間サポーター</span></span>
               </label>
             </div>
             <p class="sf-help">
@@ -53,7 +53,7 @@ if (pluginId && !fixedPlugin) {
                 : '年間サポーター：1プラグイン対象・年額¥3,300（税込）／ プレミアム年間サポーター：ちょこっと＆プレミアムプラグインすべてが対象・年額¥16,500（税込）。5プラグイン以上ご利用ならプレミアムがお得です。'}
             </p>
             <p class="sf-help">
-              KIZUNA Pro 年間サポーター：プレミアム年間サポーター＋KIZUNA Pro 拡張パックのセット・年額{yen(PRO_SET_PLAN.priceInTax)}（税込）／ KIZUNA Pro 拡張パックを追加：ご契約中のプレミアム年間サポーターに追加するプラン・年額{yen(PRO_ADDON.priceInTax)}（税込）。
+              KIZUNA Pro 拡張パックを追加：ご契約中のプレミアム年間サポーターに追加するプラン・年額{yen(PRO_ADDON.priceInTax)}（税込）／ KIZUNA Pro 年間サポーター：プレミアム年間サポーター＋KIZUNA Pro 拡張パックのセット・年額{yen(PRO_SET_PLAN.priceInTax)}（税込）。
             </p>
             <p class="sf-pro-note" id="sf-pro-add-note" hidden>
               <strong>KIZUNA Pro 拡張パックは、すでにプレミアム年間サポーターをご契約中の kintone ドメインにだけ追加できます。</strong>
@@ -317,6 +317,8 @@ if (pluginId && !fixedPlugin) {
     font-size: 0.85rem;
     margin: 8px 0 0;
     line-height: 1.6;
+    /* Strict breaking keeps the long-vowel mark from starting a line */
+    line-break: strict;
   }
 
   .sf-help code {
@@ -371,6 +373,20 @@ if (pluginId && !fixedPlugin) {
   /* Pro plans: navy and gold accent so the upper tier reads as a different grade */
   .sf-radio-pro {
     border-color: #c9a227;
+  }
+
+  /* Keep each phrase on one line so a label never wraps with a lone character */
+  .sf-nw {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  /* Plan row: four choices side by side, so a slightly smaller label keeps each phrase intact */
+  .sf-radio-row-plan .sf-radio {
+    min-width: 140px;
+    padding: 12px;
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 
   .sf-radio-pro:has(input:checked) {
