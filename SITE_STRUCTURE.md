@@ -326,6 +326,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── drive-connect-v120-update.md     # ドライブ連携 v1.2.0 アップデートのお知らせ（2026-10-26 23:00・フォルダ名を値に合わせる）
 │   │   │   ├── plugin-record-acl-assist-release.md # レコード権限アシスト v1.0.0 公開のお知らせ（2026-10-24・プレミアム第23弾）
 │   │   │   ├── bridge-v110-update.md        # KIZUNAブリッジ v1.1.0 アップデートのお知らせ（2026-10-27T11:00・保存したレコードへの採番などの当て直し）
+│   │   │   ├── bridge-v111-update.md        # KIZUNAブリッジ v1.1.1 アップデートのお知らせ（2026-10-27T21:00・ステータスを続けて進めたときの書き写し漏れを修正）
 │   │   │   ├── plugin-bridge-release.md     # KIZUNAブリッジ v1.0.0 公開のお知らせ（2026-10-25T10:00・KIZUNA Pro プラグイン。公開日がずれたら pubDate を直す）
 │   │   │   ├── plugin-search-pro-release.md     # サーチ Pro v1.0.0 公開のお知らせ（2026-10-25・KIZUNA Pro プラグイン・ブリッジと同時公開）
 │   │   │   ├── plugin-lookup-pro-release.md     # ルックアップ Pro v1.0.0 公開のお知らせ（2026-10-25T10:30・KIZUNA Pro プラグイン・ブリッジと同日公開）
@@ -1362,7 +1363,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-free-lookup-v1.2.0.zip  # フリールックアップ for kintone 配布ファイル（2026-10-22・v1.2.0）
 │   │   ├── kw-lookup-filter-v1.1.0.zip # ルックアップ絞り込み v1.1.0（旧版・2026-09-24＝条件に合わない値で保存しようとしたときに「確認して保存」を選べる／保存時の検査は今回入れた・書き換えた値だけ）
 │   │   ├── kw-lookup-filter-v1.0.1.zip # ルックアップ絞り込み v1.0.1（旧版・参考保管）
-│   │   ├── kw-bridge-v1.1.0.zip        # KIZUNAブリッジ for kintone 配布ファイル（最新・2026-10-27・v1.1.0＝動作［プラグインの処理を当てる（採番など）］を追加）
+│   │   ├── kw-bridge-v1.1.1.zip        # KIZUNAブリッジ for kintone 配布ファイル（最新・2026-10-27・v1.1.1＝「アクションを実行した後」でステータスを書き写すとき、2 回目以降の遷移が反映されない不具合を修正）
+│   │   ├── kw-bridge-v1.1.0.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-10-27・v1.1.0＝動作［プラグインの処理を当てる（採番など）］を追加）
 │   │   ├── kw-bridge-v1.0.1.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-10-26・v1.0.1＝使用ドメイン台帳への初回記録・きっかけでカレンダービューを選べるように）
 │   │   ├── kw-box-connect-v1.2.0.zip   # Box連携 for kintone 配布ファイル（最新・2026-10-26・v1.2.0＝フォルダ名を値に合わせる設定）
 │   │   ├── kw-box-connect-v1.1.1.zip   # Box連携 v1.1.1（旧版・2026-10-26・フォルダに印を付けて使い直し・処理中の表示）
