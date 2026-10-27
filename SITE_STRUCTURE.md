@@ -260,7 +260,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── lookup-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ルックアップ Pro for kintone 製品ページ（/plugins/lookup-pro/）v1.0.2（2026-10-27・登録パネルの［これを取得する］の表示と、採番できないときの理由表示を単品 v1.1.1 に合わせた）。v1.0.1 は 2026-10-26（使用ドメイン台帳への初回記録を読み込み時に送る）。v1.0.0 は 2026-10-25 公開（単品販売なし・ブリッジと同日公開）。PART 2 冒頭に「Pro だけ」のカード一覧、主な機能は「ルックアップ Pro だけの機能」と「5つの機能と共通の機能」に分ける
 │   │   │   ├── file-pro/
-│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】添付ファイル Pro for kintone 製品ページ（/plugins/file-pro/）v1.0.0（2026-10-27 公開）。単品販売なし。PART 1 に5つの機能（プレビュー・アイコン表示・ZIP出力・画像圧縮・PDFへの書き込み。タブで切り替え、各機能に画面写真。ZIP出力・画像圧縮・PDFへの書き込みの写真は単品の製品ページの file-export-dialog-01・image-compress-before-after・pdf-edit-editor-01 を流用）、PART 2 に Pro だけの機能（このレコードの添付・添付の容量と一括圧縮・ZIPで画像を縮小・添付を検索・PDFにまとめる・ファイル名をそろえる・添付のきまり・まとめ）、PART 3 に単品からの乗り換え。ルックアップ Pro と同じ体裁（.kbp-*／.kfp-*）。配布 zip は /downloads/kw-file-pro-v1.0.0.zip
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】添付ファイル Pro for kintone 製品ページ（/plugins/file-pro/）v1.1.0（v1.0.0 は 2026-10-27 公開。v1.1.0 は UPDATE ボックス・右に並べる／別ウインドウ／多言語）。単品販売なし。PART 1 に5つの機能（プレビュー・アイコン表示・ZIP出力・画像圧縮・PDFへの書き込み。タブで切り替え、各機能に画面写真。ZIP出力・画像圧縮・PDFへの書き込みの写真は単品の製品ページの file-export-dialog-01・image-compress-before-after・pdf-edit-editor-01 を流用）、PART 2 に Pro だけの機能（このレコードの添付・添付の容量と一括圧縮・ZIPで画像を縮小・添付を検索・PDFにまとめる・ファイル名をそろえる・添付のきまり・まとめ）、PART 3 に単品からの乗り換え。ルックアップ Pro と同じ体裁（.kbp-*／.kfp-*）。配布 zip は /downloads/kw-file-pro-v1.1.0.zip（v1.0.0 の zip も残す）
 │   │   │   ├── record-acl-assist/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】レコード権限アシスト 製品ページ（/plugins/record-acl-assist/）※2026-10-24 配布開始（v1.0.0・プレミアム第23弾・「リクエストから誕生」バッジ）— レコードの内容に合わせて見られる組織・人を自動で設定。最初に当たったルールだけが使われる問題を、見せる相手を 1 つのフィールドへ入れて解く。上の組織・対応表・一括反映・保存前の確認・見せる相手の内訳・変更の記録・ルックアップ自動同期との連携
 │   │   │   ├── annotation/
@@ -333,6 +333,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── list-styler-v141-page-scroll.md  # 一覧スタイラー v1.4.1 アップデートのお知らせ（2026-10-26・横スクロールをページ全体に戻した）
 │   │   │   ├── lookup-add-v111.md               # ルックアップ新規登録 v1.1.1 アップデートのお知らせ（2026-10-27・取得時の表示と採番できない理由の表示）
 │   │   │   ├── lookup-pro-v102.md               # ルックアップ Pro v1.0.2 アップデートのお知らせ（2026-10-27・同上を Pro の新規登録に反映）
+│   │   │   ├── file-pro-v110-update.md          # 添付ファイル Pro v1.1.0 アップデートのお知らせ（2026-10-27 12:30・プレビューを右に並べる・別ウインドウ・多言語）
 │   │   │   ├── calendar-view-v160-update.md    # カレンダービュー v1.6.0 アップデートのお知らせ（予定の追加方法を設定画面にまとめた・追加モーダルの項目・モーダルでルックアップ取得）
 │   │   │   ├── calendar-view-v161-repeat-numbering.md  # カレンダービュー v1.6.1 アップデートのお知らせ（繰り返し予定の番号が予定ごとに別々に振られるよう改善）
 │   │   │   ├── drive-connect-v110-update.md     # ドライブ連携 v1.1.0 アップデートのお知らせ（2026-10-23）
@@ -901,6 +902,7 @@ c:\kizuna-works.jp\
 │   │   ├── file-pro-size.png                    # 添付ファイル Pro 製品ページ：一覧の［添付の容量］（984×703）＋ .webp
 │   │   ├── file-pro-summary.png                 # 添付ファイル Pro 製品ページ：設定画面の「まとめ」（1600×1104）＋ .webp
 │   │   ├── file-pro-preview-float.png           # 添付ファイル Pro 製品ページ：プレビューの浮かぶ窓（1600×1046）＋ .webp
+│   │   ├── file-pro-preview-dock.png            # 添付ファイル Pro 製品ページ：v1.1.0 UPDATE ボックス・プレビューを右に並べた画面（1600×1000）＋ .webp
 │   │   ├── file-pro-list-icons.png              # 添付ファイル Pro 製品ページ：一覧のアイコン表示（1600×664）＋ .webp
 │   │   ├── file-pro-find.png                    # 添付ファイル Pro 製品ページ：［添付を検索］の窓＋ .webp
 │   │   ├── file-pro-merge.png                   # 添付ファイル Pro 製品ページ：［PDFにまとめる］の窓＋ .webp
