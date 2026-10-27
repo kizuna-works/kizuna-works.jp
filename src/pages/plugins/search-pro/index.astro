@@ -6,10 +6,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 import { plugins } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 const ZIP = `/downloads/kw-search-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/search-pro/';
-const DATE_MODIFIED = '2026-10-25';
+const DATE_MODIFIED = '2026-10-27';
 
 // The four free products this one bundles, plus the two it can start a bulk run in.
 const singleOf = (id: string) => plugins.find((p) => p.id === id);
@@ -43,7 +43,11 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: '同じアプリに、クイックサーチなどのプラグインが入っていても大丈夫ですか？',
-    a: '大丈夫です。同じ機能が両方に入っているときは、その機能はもとのプラグインが動き、サーチ Pro は動かしません（二重にボタンが出る・二重に集計する、を防ぐためです）。条件の帯と条件の一本化は、サーチ Pro に対応した最新版のプラグインで働きます。',
+    a: '大丈夫です。同じ機能が両方に入っているときは、もとのプラグインが有効で設定済みなら、その機能はもとのプラグインが動き、サーチ Pro は動かしません（二重にボタンが出る・二重に集計する、を防ぐためです）。もとのプラグインを外さず「無効」にしただけのときは、サーチ Pro がその機能を動かします。条件の帯と条件の一本化は、サーチ Pro に対応した最新版のプラグインで働きます。',
+  },
+  {
+    q: '使わない機能を、出さないようにできますか？',
+    a: 'できます。設定画面の目次の［使う］、または各機能の右上の［この機能を使う］で、機能ごとにオン・オフを選べます。使わない機能は一覧画面に出ず、保存のときも設定を確かめません。保存済みの設定は残るので、オンに戻せばそのまま使えます。設定そのものを消したいときは、［この機能の設定を消す］を押し、確認のあと［保存］で確定します。新しく入れたときは、すべての機能がオフから始まります。v1.0.0 の設定は、これまでどおり動きます。',
   },
   {
     q: 'これまでのプラグインで作った設定を、サーチ Pro に引き継げますか？',
@@ -66,6 +70,14 @@ const faqs: { q: string; a: string }[] = [
     a: '設定は消えません。ご契約が確認できない間は、一覧の機能は動かず、設定画面にはご契約の案内だけが出ます。ご契約が戻れば、保存済みの設定のまま、すぐに動きます。',
   },
   {
+    q: '表示は何語に対応していますか？',
+    a: 'kintone のユーザーごとの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示します。ほかの言語の方には英語で表示します。レコード一覧の機能と設定画面のすべてが対象です。フィールド名・一覧名など、kintone に登録した内容はそのまま表示します。',
+  },
+  {
+    q: 'kintone 標準の［絞り込み］で条件を足すと、サーチ Pro の条件はどうなりますか？',
+    a: 'サーチ Pro の条件の帯は消えずに残り、両方の条件で絞り込まれます。［すべて解除］を押すと、サーチ Pro の条件だけが外れ、kintone 標準の［絞り込み］で足した条件は残ります。',
+  },
+  {
     q: 'スマートフォンでも使えますか？',
     a: 'パソコンの一覧画面のみ対応です。',
   },
@@ -84,9 +96,9 @@ const faqJsonLd = {
 <Layout
   heroBg="/images/kizuna-pro-hero-bg.webp"
   title="サーチ Pro for kintone｜検索・絞り込み・集計・CSVを、ひとつの条件でつなぐ | KIZUNA Works"
-  description="サーチ Pro for kintone は、kintone の一覧の検索・絞り込み・集計・CSV出力をひとつの条件でつなぐ KIZUNA Pro プラグイン。効いている条件を帯で確認・解除、よく使う条件の保存、集計カードを押して絞り込み、絞った結果をそのまま CSV や一括処理へ。"
+  description="サーチ Pro for kintone は、kintone の一覧の検索・絞り込み・集計・CSV出力をひとつの条件でつなぐ KIZUNA Pro プラグイン。効いている条件を帯で確認・解除、よく使う条件の保存、集計カードを押して絞り込み、絞った結果をそのまま CSV や一括処理へ。使う機能は機能ごとに選べます。日本語・英語・中国語（簡体字）の表示にも対応します。"
   ogTitle="サーチ Pro for kintone｜検索・絞り込み・集計・CSVを、ひとつの条件でつなぐ | KIZUNA Works"
-  ogDescription="検索・絞り込み・集計・CSV出力が、ひとつの条件でつながる。条件の帯・保存した検索・集計カードから絞り込み・絞った結果を一括処理へ。プラグインを並べるだけではできない使い方ができる KIZUNA Pro プラグインです。"
+  ogDescription="検索・絞り込み・集計・CSV出力が、ひとつの条件でつながる。条件の帯・保存した検索・集計カードから絞り込み・絞った結果を一括処理へ。使う機能は機能ごとに選べ、日本語・英語・中国語（簡体字）の表示に対応する KIZUNA Pro プラグインです。"
   ogType="website"
   ogUrl={PAGE_URL}
   ogImage="https://kizuna-works.jp/images/search-pro-banner.png"
@@ -120,7 +132,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.0.0",
+          "softwareVersion": "1.1.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -143,7 +155,7 @@ const faqJsonLd = {
               description: 'プレミアム年間サポーターに追加するプラン（年額）。',
             },
           ],
-          description: 'サーチ Pro for kintone は、kintone のレコード一覧の検索・絞り込み・集計・CSV出力をひとつの条件でつなぐプラグイン。検索・絞り込み・集計の条件を1つにまとめ、効いている条件を「条件の帯」に並べて1つずつ外せる。集計カードを押してその条件で絞り込む、CSV のファイル名や先頭行に今の条件を入れる、検索や絞り込みに名前を付けて「保存した検索」にする（自分用・全員用）、絞り込んだレコードにかんたん一括更新・ステータス一括実行をかける、にも対応。検索バー・絞り込みの窓・集計カード・CSV出力の4つの機能も1つの設定画面で使える。同じアプリにクイックサーチなどのプラグインが入っているときは、その機能はもとのプラグインが動く。もとのプラグインの設定は［単品の設定を読み込む］で引き継げる。',
+          description: 'サーチ Pro for kintone は、kintone のレコード一覧の検索・絞り込み・集計・CSV出力をひとつの条件でつなぐプラグイン。検索・絞り込み・集計の条件を1つにまとめ、効いている条件を「条件の帯」に並べて1つずつ外せる。集計カードを押してその条件で絞り込む、CSV のファイル名や先頭行に今の条件を入れる、検索や絞り込みに名前を付けて「保存した検索」にする（自分用・全員用）、絞り込んだレコードにかんたん一括更新・ステータス一括実行をかける、にも対応。検索バー・絞り込みの窓・集計カード・CSV出力の4つの機能も1つの設定画面で使える。同じアプリにクイックサーチなどのプラグインが入っているときは、その機能はもとのプラグインが動く。もとのプラグインの設定は［単品の設定を読み込む］で引き継げる。kintone 標準の［絞り込み］で条件を足しても条件の帯は消えず、両方で絞り込める。kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示する。使う機能は機能ごとに選べ、使わない機能は一覧に出ない。',
           publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
           featureList: [
             '検索・絞り込み・集計の条件を1つにまとめる（kintone 標準の絞り込みも消えない）',
@@ -158,6 +170,8 @@ const faqJsonLd = {
             '集計カード：合計・平均・件数などを一覧の上に並べ、絞り込みに合わせて再集計する',
             'CSV出力：用途別のテンプレートで、絞り込んだ結果をワンクリックで CSV にする',
             'これまでのプラグインの設定を読み込んで引き継ぐ',
+            '使う機能を機能ごとに選べる（使わない機能は一覧に出ず、保存のときも設定を確かめない。設定を消すこともできる）',
+            '多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示',
             'ゲストスペースのアプリに対応（パソコンの一覧画面）',
           ],
         },
@@ -228,6 +242,16 @@ const faqJsonLd = {
     .kbp-btn.is-ghost { border: 1px solid rgba(255, 255, 255, 0.6); color: #fff; }
     .kbp-btn.is-ghost:hover { background: rgba(255, 255, 255, 0.1); }
     .kbp-hero-note { margin: 14px auto 0; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); max-width: 760px; line-height: 1.7; }
+
+    /* Update box (version highlight) */
+    .update-box { max-width: 980px; margin: 0 auto; background: #fff; border: 1px solid #dbe3ee; border-left: 5px solid var(--kbp-green); border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06); padding: 28px 28px 32px; min-width: 0; }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag { background: var(--kbp-green); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; padding: 4px 12px; border-radius: 6px; flex-shrink: 0; }
+    .update-title { color: var(--kbp-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--kbp-text); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--kbp-navy); }
+    .update-note { color: var(--kbp-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 700px) { .update-box { padding: 22px 18px 26px; } .update-title { font-size: 17px; } }
 
     /* Series strip */
     .kbp-series { background: #fffaf0; border-bottom: 1px solid #eadcb2; }
@@ -434,6 +458,35 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
+    <!-- Update Info (v1.1.0) -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <div class="update-box">
+          <div class="update-head">
+            <span class="update-tag">UPDATE</span>
+            <h2 class="update-title">v1.1.0：使う機能を選べるようになり、日本語・英語・中国語（簡体字）の表示に対応しました</h2>
+          </div>
+          <p class="update-desc">サーチ Pro for kintone を v1.1.0 にアップデートしました（2026年10月28日）。</p>
+          <h3 class="kbp-h3">使う機能を機能ごとに選べるようになりました</h3>
+          <ul class="kbp-list">
+            <li><strong>設定画面の目次の［使う］、右上の［この機能を使う］で、機能ごとにオン・オフを選べます。</strong>使わない機能は一覧画面に出ず、保存のときも設定を確かめません。保存済みの設定は残るので、オンに戻せばそのまま使えます。</li>
+            <li><strong>［この機能の設定を消す］を追加しました。</strong>確認のあと［保存］で確定します。</li>
+            <li><strong>もとのプラグインを外さず「無効」にしただけでも、サーチ Pro がその機能を動かします。</strong>もとのプラグインに任せるのは、有効で設定済みのときだけです。</li>
+            <li>新しく入れたときは、すべての機能がオフから始まります。v1.0.0 の設定は、これまでどおり動きます。</li>
+            <li>検索バー・絞り込みの窓・集計カードをどれも使わないときは、条件の帯と保存した検索も出ません。</li>
+          </ul>
+          <h3 class="kbp-h3">日本語・英語・中国語（簡体字）の表示に対応しました</h3>
+          <p class="update-desc">kintone のユーザーごとの言語設定に合わせて表示します。ほかの言語の方には英語で表示します。レコード一覧の機能と、設定画面のすべてが対象です。フィールド名・一覧名など、kintone に登録した内容はそのまま表示します。</p>
+          <h3 class="kbp-h3">条件の帯を改善しました</h3>
+          <ul class="kbp-list">
+            <li><strong>kintone 標準の［絞り込み］で条件を足しても、サーチ Pro の条件の帯が消えません。</strong>検索・絞り込みの窓・集計カードの条件と、標準の絞り込みの両方で絞り込まれます。</li>
+            <li><strong>［すべて解除］では、サーチ Pro の条件だけが外れます。</strong>標準の［絞り込み］で足した条件は残ります。</li>
+          </ul>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Series -->
     <div class="kbp-series">
       <div class="kbp-series-inner">
@@ -614,7 +667,7 @@ const faqJsonLd = {
         <div class="kbp-feature">
           <div class="kbp-feature-text">
             <h3 class="kbp-h3">サーチ Pro にまとめた4つのプラグイン</h3>
-            <p>同じアプリに両方入っているときは、<strong>その機能はもとのプラグインが動き</strong>、サーチ Pro はその機能だけ動かしません（二重にボタンが出る・二重に集計する、を防ぐためです）。ほかの機能は、サーチ Pro が動かします。</p>
+            <p>同じアプリに両方入っていて、もとのプラグインが有効で設定済みのときは、<strong>その機能はもとのプラグインが動き</strong>、サーチ Pro はその機能だけ動かしません（二重にボタンが出る・二重に集計する、を防ぐためです）。もとのプラグインを「無効」にするか、アプリから外すと、その機能はサーチ Pro が動かします。ほかの機能は、サーチ Pro が動かします。</p>
             <p>条件の帯・条件の一本化は、サーチ Pro が動かす機能と、サーチ Pro に対応した最新版のプラグインで働きます。</p>
           </div>
           <ul class="ksp-singles">
@@ -650,9 +703,9 @@ const faqJsonLd = {
               <li><span>もとのプラグインが入っているアプリで、サーチ Pro の設定画面を開きます。</span></li>
               <li><span>該当の機能の設定欄に出る<strong>［単品の設定を読み込む］</strong>を押し、確認で OK を押します。</span></li>
               <li><span>内容を確かめて、［保存］→［アプリを更新］を押します。</span></li>
-              <li><span>もとのプラグインを、アプリから外します。</span></li>
+              <li><span>もとのプラグインを、「無効」にするか、アプリから外します。</span></li>
             </ol>
-            <p>読み込みは手動です。もとのプラグインの設定はそのまま残り、外すまでもとのプラグインが動き続けます。もとのプラグインを外すと、その機能はサーチ Pro が動かします。</p>
+            <p>読み込みは手動です。もとのプラグインの設定はそのまま残り、無効にするか外すまで、もとのプラグインが動き続けます。もとのプラグインを「無効」にするか外すと、その機能はサーチ Pro が動かします。</p>
           </div>
           <figure class="kbp-shot">
             <Picture src="/images/search-pro-config-01.png" alt="サーチ Pro for kintone の設定画面。左に「検索バー」「絞り込みの窓」「集計カード」「CSV出力」「保存した検索・CSVの条件」の目次、中央に検索バーの設定、右に KIZUNA Works のご案内が表示されている" width="800" height="708" class="zoomable" />
@@ -681,7 +734,7 @@ const faqJsonLd = {
         <h3 class="kbp-h3">サーチ Pro だけの機能</h3>
         <ul class="kbp-list">
           <li>検索・絞り込み・集計の条件を1つにまとめる（kintone 標準の絞り込みも消えない）</li>
-          <li>条件の帯：効いている条件を並べて、×で1つずつ外せる</li>
+          <li>条件の帯：効いている条件を並べて、×で1つずつ外せる（kintone 標準の［絞り込み］で足した条件と併用できる）</li>
           <li>保存した検索（自分用・全員用）</li>
           <li>集計カードを押して、そのカードの条件で一覧を絞り込む</li>
           <li>CSV のファイル名・先頭行に、今の条件を入れる</li>
@@ -695,6 +748,8 @@ const faqJsonLd = {
           <li>集計カード：合計・平均・最大・最小・件数などを、絞り込みに合わせて再集計</li>
           <li>CSV出力：用途別のテンプレートで、絞り込んだ結果をワンクリックで出力</li>
           <li>これまでのプラグインの設定を読み込んで引き継ぐ</li>
+          <li>使う機能を機能ごとに選べる（使わない機能は一覧に出ず、保存のときも設定を確かめない）。設定を消すこともできる</li>
+          <li>多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示</li>
           <li>ゲストスペースのアプリに対応（パソコンの一覧画面のみ）</li>
         </ul>
       </div>

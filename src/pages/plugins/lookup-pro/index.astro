@@ -6,10 +6,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 import { plugins } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 
-const VERSION = '1.0.2';
+const VERSION = '1.1.0';
 const ZIP = `/downloads/kw-lookup-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/lookup-pro/';
-const DATE_MODIFIED = '2026-10-27';
+const DATE_MODIFIED = '2026-10-28';
 
 // The five single products this one bundles. Cards are built from plugins.ts so names and slugs never drift.
 const singleOf = (id: string) => plugins.find((p) => p.id === id);
@@ -39,11 +39,15 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: '同じアプリに、もとのプラグインが入っていても大丈夫ですか？',
-    a: '大丈夫です。同じ機能が両方に入っているときは、その機能はもとのプラグインが動き、ルックアップ Pro は動かしません（二重にボタンが出る・二重に取得する、を防ぐためです）。ほかの機能は、ルックアップ Pro が動かします。',
+    a: '大丈夫です。もとのプラグインが有効で設定済みのときは、その機能はもとのプラグインが動き、ルックアップ Pro は動かしません（二重にボタンが出る・二重に取得する、を防ぐためです）。もとのプラグインを「無効」にするか外せば、ルックアップ Pro が動かします。ほかの機能は、ルックアップ Pro が動かします。',
   },
   {
     q: 'これまでのプラグインで作った設定を、ルックアップ Pro に引き継げますか？',
-    a: '引き継げます。もとのプラグインが入っているアプリでルックアップ Pro の設定画面を開くと、該当の機能のタブに［単品の設定を読み込む］が出ます。押して確認で OK を押すと、設定が写ります。読み込みは手動で、もとのプラグインの設定はそのまま残ります。内容を確かめて保存し、もとのプラグインをアプリから外してください。',
+    a: '引き継げます。もとのプラグインが入っているアプリでルックアップ Pro の設定画面を開くと、該当の機能のタブに［単品の設定を読み込む］が出ます。押して確認で OK を押すと、設定が写ります。読み込みは手動で、もとのプラグインの設定はそのまま残ります。内容を確かめて保存し、もとのプラグインを「無効」にするか、アプリから外してください。',
+  },
+  {
+    q: '使わない機能を、止められますか？',
+    a: 'はい。設定画面の機能ごとのタブで［使う］を切り替えます。使わない機能は、レコード画面に何も出さず、保存のときに設定を確かめません。保存済みの設定は残るので、オンに戻せばそのまま使えます。設定そのものを消したいときは、［この機能の設定を消す］を使います。既存の設定は、すべての機能が「使う」のまま引き継がれます。',
   },
   {
     q: 'マスター更新の自動反映は、どのアプリに入れますか？',
@@ -84,9 +88,9 @@ const faqJsonLd = {
 <Layout
   heroBg="/images/kizuna-pro-hero-bg.webp"
   title="ルックアップ Pro for kintone｜入力・絞り込み・登録・自動反映を1つに | KIZUNA Works"
-  description="ルックアップ Pro for kintone は、ルックアップの入力中の候補表示・候補の絞り込み・マスターのその場登録・フリールックアップ・マスター更新の自動反映を1つにまとめた KIZUNA Pro プラグイン。欄ごとの一覧とまとめて設定にも対応します。"
+  description="ルックアップ Pro for kintone は、ルックアップの入力中の候補表示・候補の絞り込み・マスターのその場登録・フリールックアップ・マスター更新の自動反映を1つにまとめた KIZUNA Pro プラグイン。欄ごとの一覧とまとめて設定、日本語・英語・中国語（簡体字）の表示にも対応します。"
   ogTitle="ルックアップ Pro for kintone｜入力・絞り込み・登録・自動反映を1つに | KIZUNA Works"
-  ogDescription="ルックアップサジェスト・ルックアップ絞り込み・ルックアップ新規登録・フリールックアップ・ルックアップ自動同期の5機能を1つに統合。欄ごとの一覧・まとめて設定・取得元の更新のお知らせに対応する KIZUNA Pro プラグインです。"
+  ogDescription="ルックアップサジェスト・ルックアップ絞り込み・ルックアップ新規登録・フリールックアップ・ルックアップ自動同期の5機能を1つに統合。欄ごとの一覧・まとめて設定・取得元の更新のお知らせ、機能ごとに「使う」の選択、日本語・英語・中国語（簡体字）の表示に対応する KIZUNA Pro プラグインです。"
   ogType="website"
   ogUrl={PAGE_URL}
   ogImage="https://kizuna-works.jp/images/lookup-pro-banner.png"
@@ -120,7 +124,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.0.2",
+          "softwareVersion": "1.1.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -143,7 +147,7 @@ const faqJsonLd = {
               description: 'プレミアム年間サポーターに追加するプラン（年額）。',
             },
           ],
-          description: 'ルックアップ Pro for kintone は、kintone のルックアップについて、入力中の候補表示・候補の絞り込み・マスターのその場登録・フリールックアップ・マスター更新の自動反映の5つの機能を1つの設定画面で使えるプラグイン。ルックアップの欄ごとに5つの機能の設定の有無を確認できる「欄ごとの一覧」、入力中の候補表示とその場登録の設定をまとめて作る「まとめて設定」、絞り込みの条件に合わないマスターをその場登録させない引き継ぎ、フリールックアップの取得元が更新されたときに詳細画面で知らせる機能に対応。同じアプリにもとのプラグインが入っているときは、その機能はもとのプラグインが動く。もとのプラグインの設定は［単品の設定を読み込む］で引き継げる。',
+          description: 'ルックアップ Pro for kintone は、kintone のルックアップについて、入力中の候補表示・候補の絞り込み・マスターのその場登録・フリールックアップ・マスター更新の自動反映の5つの機能を1つの設定画面で使えるプラグイン。ルックアップの欄ごとに5つの機能の設定の有無を確認できる「欄ごとの一覧」、入力中の候補表示とその場登録の設定をまとめて作る「まとめて設定」、絞り込みの条件に合わないマスターをその場登録させない引き継ぎ、フリールックアップの取得元が更新されたときに詳細画面で知らせる機能に対応。同じアプリにもとのプラグインが入っているときは、その機能はもとのプラグインが動く。もとのプラグインの設定は［単品の設定を読み込む］で引き継げる。kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示する。',
           publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
           featureList: [
             '入力中の候補表示：ルックアップに文字を入れると、その場で候補が出て、選ぶと取得まで終わる',
@@ -156,6 +160,9 @@ const faqJsonLd = {
             '絞り込みの条件をその場登録に引き継ぎ、条件に合わないマスターを登録させない',
             'フリールックアップの取得元が更新されたら、詳細画面で知らせて［最新の値にする］で更新する',
             'これまでのプラグインの設定を読み込んで引き継ぐ',
+            '機能ごとに「使う」を選べる：使わない機能はレコード画面に何も出さず、保存済みの設定は残る。［この機能の設定を消す］で機能ごとに設定を消せる',
+            '絞り込みの比べ方：ユーザー・組織・グループ選択を条件に使うとき、取得元と「コード」で比べるか「名前」で比べるかを選べる',
+            '多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示',
             'ゲストスペースのアプリに対応',
           ],
         },
@@ -226,6 +233,16 @@ const faqJsonLd = {
     .kbp-btn.is-ghost { border: 1px solid rgba(255, 255, 255, 0.6); color: #fff; }
     .kbp-btn.is-ghost:hover { background: rgba(255, 255, 255, 0.1); }
     .kbp-hero-note { margin: 14px auto 0; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); max-width: 760px; line-height: 1.7; }
+
+    /* Update box (version highlight) */
+    .update-box { max-width: 980px; margin: 0 auto; background: #fff; border: 1px solid #dbe3ee; border-left: 5px solid var(--kbp-green); border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06); padding: 28px 28px 32px; min-width: 0; }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag { background: var(--kbp-green); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; padding: 4px 12px; border-radius: 6px; flex-shrink: 0; }
+    .update-title { color: var(--kbp-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--kbp-text); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--kbp-navy); }
+    .update-note { color: var(--kbp-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 700px) { .update-box { padding: 22px 18px 26px; } .update-title { font-size: 17px; } }
 
     /* Series strip */
     .kbp-series { background: #fffaf0; border-bottom: 1px solid #eadcb2; }
@@ -435,6 +452,32 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
+    <!-- Update Info (v1.1.0) -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <div class="update-box">
+          <div class="update-head">
+            <span class="update-tag">UPDATE</span>
+            <h2 class="update-title">v1.1.0：日本語・英語・中国語（簡体字）の表示に対応し、機能ごとに「使う」を選べるようにしました</h2>
+          </div>
+          <p class="update-desc">ルックアップ Pro for kintone を v1.1.0 にアップデートしました（2026年10月28日）。kintone のユーザーごとの言語設定に合わせて、<strong>日本語・英語・中国語（簡体字）</strong>で表示します。ほかの言語の方には英語で表示します。5つの機能のレコード画面と、設定画面のすべてが対象です。フィールド名・アプリ名など、kintone に登録した内容はそのまま表示します。</p>
+          <h3 class="kbp-h3">使い方を改善しました</h3>
+          <ul class="kbp-list">
+            <li><strong>機能ごとに「使う」を選べるようになりました。</strong>設定画面のタブの［使う］で切り替えます。使わない機能は、レコード画面に何も出さず、保存のときに設定を確かめません。保存済みの設定は残るので、オンに戻せばそのまま使えます。［この機能の設定を消す］で、機能ごとに設定を消すこともできます（確認あり）。</li>
+            <li><strong>単品のプラグインを外さずに、「無効」にするだけでも、ルックアップ Pro がその機能を動かします。</strong>単品に任せるのは、単品が有効で設定済みのときだけです。</li>
+            <li><strong>設定画面で、選択肢の多い選択欄の一覧が画面の外にはみ出さないようにしました。</strong>上下に収まらないときは一覧を縮め、中をスクロールして選べます。</li>
+          </ul>
+          <h3 class="kbp-h3">絞り込みの設定を改善しました</h3>
+          <ul class="kbp-list">
+            <li>ユーザー選択・組織選択・グループ選択を条件に使うとき、取得元と「コード」で比べるか「名前」で比べるかを選べるようになりました。既定は「コード」で、これまでの設定は変わりません。設定画面で候補が 0 件になるときは、もう一方で比べた件数を案内し、ボタン 1 つで切り替えられます。</li>
+            <li>設定画面で、ある条件の表示に失敗しても、ほかの条件の設定を続けられるようになりました。</li>
+            <li>日付の関数を使う条件を、設定画面で正しく読み込めるようになりました。</li>
+          </ul>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。保存済みの設定は、すべての機能を「使う」のまま引き継がれます。新しく入れたときは、使う機能を選ぶところから始まります。</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Series -->
     <div class="kbp-series">
       <div class="kbp-series-inner">
@@ -473,7 +516,7 @@ const faqJsonLd = {
           <span class="kbp-part-no">1</span>
           <div class="kbp-part-body">
             <h2 class="kbp-part-title">5つの機能を、1つのプラグインで</h2>
-            <p class="kbp-part-desc">設定した機能だけが動きます。5つの機能の内容は、もとのプラグインと同じです。無料プランのような数の制限はありません。</p>
+            <p class="kbp-part-desc">使う機能だけが動きます。5つの機能の内容は、もとのプラグインと同じです。無料プランのような数の制限はありません。</p>
           </div>
         </div>
 
@@ -661,8 +704,8 @@ const faqJsonLd = {
         <div class="kbp-feature">
           <div class="kbp-feature-text">
             <h3 class="kbp-h3">ルックアップ Pro にまとめた5つのプラグイン</h3>
-            <p>同じアプリに両方入っているときは、<strong>その機能はもとのプラグインが動き</strong>、ルックアップ Pro はその機能だけ動かしません（二重にボタンが出る・二重に取得する、を防ぐためです）。ほかの機能は、ルックアップ Pro が動かします。</p>
-            <p>アプリからもとのプラグインを外すと、その機能は、ルックアップ Pro が動かします。</p>
+            <p>同じアプリに両方入っていて、もとのプラグインが<strong>有効で設定済み</strong>のときは、その機能はもとのプラグインが動き、ルックアップ Pro はその機能だけ動かしません（二重にボタンが出る・二重に取得する、を防ぐためです）。ほかの機能は、ルックアップ Pro が動かします。</p>
+            <p>もとのプラグインを「無効」にするか、アプリから外すと、その機能は、ルックアップ Pro が動かします。外さなくても大丈夫です。</p>
           </div>
           <ul class="klp-singles">
             {bundled.map((b) => (
@@ -686,9 +729,9 @@ const faqJsonLd = {
               <li><span>もとのプラグインが入っているアプリで、ルックアップ Pro の設定画面を開きます。</span></li>
               <li><span>該当の機能のタブに出る<strong>［単品の設定を読み込む］</strong>を押し、確認で OK を押します。</span></li>
               <li><span>内容を確かめて、［保存］→［アプリを更新］を押します。</span></li>
-              <li><span>もとのプラグインを、アプリから外します。</span></li>
+              <li><span>もとのプラグインを、「無効」にするか、アプリから外します。</span></li>
             </ol>
-            <p>読み込みは手動です。もとのプラグインの設定はそのまま残り、外すまでもとのプラグインが動き続けます。</p>
+            <p>読み込みは手動です。もとのプラグインの設定はそのまま残り、無効にするか外すまで、もとのプラグインが動き続けます。</p>
           </div>
           <figure class="kbp-shot">
             <Picture src="/images/lookup-pro-config-filter.png" alt="ルックアップ Pro の設定画面の「候補の絞り込み」タブ。ルックアップフィールドの選択、条件で絞り込む設定、「この設定だと、こう出ます」の候補4件のプレビューが表示されている画面" width="1425" height="1690" class="zoomable" />
@@ -710,14 +753,16 @@ const faqJsonLd = {
           <li>絞り込みの条件を、その場登録に引き継ぐ</li>
           <li>フリールックアップの取得元が更新されたら、詳細画面で知らせる</li>
           <li>これまでのプラグインの設定を読み込んで引き継ぐ</li>
+          <li>機能ごとに「使う」を選べる。使わない機能は何も出さず、保存済みの設定は残る。［この機能の設定を消す］で設定を消せる</li>
         </ul>
         <h3 class="kbp-h3">5つの機能と共通の機能</h3>
         <ul class="kbp-list">
           <li>入力中の候補表示：ルックアップに文字を入れると、その場で候補が出て、取得まで終わる</li>
-          <li>候補の絞り込み：［取得］で出る候補を、入力済みの値で絞る（場面ごとに最大10通り）</li>
+          <li>候補の絞り込み：［取得］で出る候補を、入力済みの値で絞る（場面ごとに最大10通り。ユーザー・組織・グループ選択は、コードか名前かを選んで比べられる）</li>
           <li>マスターのその場登録：マスターに無いとき、［＋新規登録］でその場で登録して取得する</li>
           <li>フリールックアップ：文字列（1行）フィールドの横に［取得］を出し、別のアプリから値をコピー</li>
           <li>マスター更新の自動反映：マスターを更新すると、参照先の既存レコードも更新</li>
+          <li>多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示</li>
           <li>ゲストスペースのアプリに対応</li>
         </ul>
       </div>

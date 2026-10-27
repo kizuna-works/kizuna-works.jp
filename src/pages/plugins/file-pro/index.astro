@@ -7,10 +7,10 @@ import { allPlugins } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
 
-const VERSION = '1.1.0';
+const VERSION = '1.2.0';
 const ZIP = `/downloads/kw-file-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/file-pro/';
-const DATE_MODIFIED = '2026-10-27';
+const DATE_MODIFIED = '2026-10-28';
 
 // The five single products this one bundles. Cards are built from plugins.ts so names and slugs never drift.
 const singleOf = (id: string) => allPlugins.find((p) => p.id === id);
@@ -101,7 +101,7 @@ const faqJsonLd = {
 <Layout
   heroBg="/images/kizuna-pro-hero-bg.webp"
   title="添付ファイル Pro for kintone｜見る・まとめる・軽くするを1つに | KIZUNA Works"
-  description="添付ファイル Pro for kintone は、添付ファイルのプレビュー・アイコン表示・ZIP出力・画像圧縮・PDFへの書き込みを1つにまとめた KIZUNA Pro プラグイン。レコードの添付の一覧表示・添付の検索・PDFにまとめる・ファイル名をそろえる・添付のきまりにも対応。プレビューを画面の右に並べる・別ウインドウで開く、日本語・英語・中国語（簡体字）の表示にも対応します。"
+  description="添付ファイル Pro for kintone は、添付ファイルのプレビュー・アイコン表示・ZIP出力・画像圧縮・PDFへの書き込みを1つにまとめた KIZUNA Pro プラグイン。レコードの添付の一覧表示・添付の検索・PDFにまとめる・ファイル名をそろえる・添付のきまりにも対応。使う機能を機能ごとに選べます。プレビューを画面の右に並べる・別ウインドウで開く、日本語・英語・中国語（簡体字）の表示にも対応します。"
   ogTitle="添付ファイル Pro for kintone｜見る・まとめる・軽くするを1つに | KIZUNA Works"
   ogDescription="添付ファイルプレビュー・アイコン表示・ZIP出力・画像圧縮・PDF編集アシストの5機能を1つに統合。このレコードの添付・添付の容量・添付の検索・PDFにまとめる・ファイル名をそろえる・添付のきまりに対応する KIZUNA Pro プラグインです。"
   ogType="website"
@@ -137,7 +137,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.1.0",
+          "softwareVersion": "1.2.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -180,6 +180,8 @@ const faqJsonLd = {
             'プレビューを右に並べる：レコードを見ながら、プレビューを画面の右側に並べて表示。境目をドラッグして幅を変えられ、幅は記憶される',
             '別ウインドウで開く：プレビューを別のウインドウに出して、2 画面目に置ける',
             '多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示',
+            '使う機能の選択：設定画面で、機能ごとにオン・オフを選ぶ。オフの機能は入力の確認をせず、一覧・レコード画面に何も出さない（保存済みの設定は残る）',
+            '単品のプラグインを無効にしただけでも、その機能を動かす（単品に任せるのは、単品が有効で設定済みのときだけ）',
             'ゲストスペースのアプリに対応',
           ],
         },
@@ -500,26 +502,21 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.1.0) -->
+    <!-- Update Info (v1.2.0) -->
     <section class="kbp-section">
       <div class="kbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.1.0：プレビューを画面の右に並べて、レコードを見ながら使えるようになりました</h2>
+            <h2 class="update-title">v1.2.0：使う機能を選べるようにし、プレビューの右並べを改善しました</h2>
           </div>
-          <p class="update-desc">添付ファイル Pro for kintone を v1.1.0 にアップデートしました（2026年10月27日）。レコードの項目と見比べながら添付を確かめたいとき、プレビューを開くとレコードの画面が隠れてしまうことがありました。<strong>［右に並べる］</strong>を押すと、プレビューを画面の右側に並べて表示します。境目をドラッグして幅を変えられ、幅は記憶されます。kintone の画面に必要な幅（980px）は残すので、画面が広いほどプレビューも広く取れます。</p>
-          <div class="update-shot">
-            <Picture src="/images/file-pro-preview-dock.png" alt="kintone のレコード詳細画面の右側に、添付の PDF のプレビューを並べて表示した様子。左にレコードの項目、右にプレビューがあり、境目をドラッグして幅を変えられる" width="1600" height="1000" class="zoomable" />
-            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-          </div>
-          <h3 class="kbp-h3">ほかにも、次を改善しました</h3>
+          <p class="update-desc">添付ファイル Pro for kintone を v1.2.0 にアップデートしました（2026年10月28日）。</p>
           <ul class="kbp-list">
-            <li><strong>プレビューを別ウインドウで開けるようになりました。</strong>2 画面目に置いて使えます。元の画面で別のファイルを開くと、別ウインドウ側が切り替わります。</li>
-            <li><strong>日本語・英語・中国語（簡体字）で表示します。</strong>kintone のユーザーの言語設定に合わせて切り替わります。5 つの機能と Pro の機能、設定画面のすべてが対象です。</li>
-            <li><strong>表示の大きさ「中」「小」の窓を、右下のドラッグで大きくできます。</strong>大きさは記憶されます。詳細画面から編集画面に移っても、同じレコードならプレビューは開いたままです。</li>
+            <li><strong>使う機能を、機能ごとに選べるようになりました。</strong>設定画面の「使う機能」で、使わない機能をオフにできます。オフにした機能は入力の確認をせず、一覧にもレコード画面にも何も出しません。保存済みの設定は残るので、オンに戻せばそのまま使えます。［この機能の設定を消す］も追加しました（確認あり）。新しく入れたときは、すべての機能がオフから始まります。v1.1.0 の設定は、これまでどおり動きます。</li>
+            <li><strong>単品のプラグインを「無効」にしただけでも、添付ファイル Pro が動くようになりました。</strong>単品のプラグインを外さなくても、その機能を添付ファイル Pro が動かします。単品に任せるのは、単品が有効で設定済みのときだけです。</li>
+            <li><strong>プレビューを右に並べたときの操作を改善しました。</strong>横スクロールで、kintone の画面の隠れた部分まで見られます（一覧・詳細・編集）。右に並べている間は、ボタンが［通常表示に戻す］になります。別ウインドウで表示している間は、元の画面の右下に［通常表示に戻す］のバーが出ます。</li>
           </ul>
-          <p class="update-note">幅が 640px 以下の画面では、［右に並べる］は表示されません。<br>既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+          <p class="update-note">既存ユーザーの方は、最新版（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
           <BridgeUpdateNote />
         </div>
       </div>
@@ -590,8 +587,8 @@ const faqJsonLd = {
                 <li>対象の添付欄を選べます。</li>
                 <li>表示の大きさを「中」「小」にすると浮かぶ窓になり、開いたまま後ろの画面を見たり操作したりできます。</li>
                 <li>PDF や画像は別タブでも開けます。キー操作の案内も表示されます。</li>
-                <li>［右に並べる］で、レコードを見ながらプレビューを画面の右側に並べられます。境目をドラッグして幅を変えられます。</li>
-                <li>［別ウインドウ］で、プレビューを 2 画面目に置けます。</li>
+                <li>［右に並べる］で、レコードを見ながらプレビューを画面の右側に並べられます。境目をドラッグして幅を変えられます。隠れた部分は横にスクロールして見られ、［通常表示に戻す］で元の表示に戻ります。</li>
+                <li>［別ウインドウ］で、プレビューを 2 画面目に置けます。開いている間は、元の画面の［通常表示に戻す］で閉じられます。</li>
               </ul>
             </div>
             <figure class="kbp-shot">
@@ -925,6 +922,7 @@ const faqJsonLd = {
           <li>まとめ：添付欄ごとの効き具合の表・対象欄をまとめてそろえる</li>
           <li>プレビューを右に並べる：レコードを見ながら、プレビューを画面の右側に並べて表示（幅はドラッグで変えられ、記憶される）</li>
           <li>別ウインドウで開く：プレビューを 2 画面目に置ける</li>
+          <li>使う機能の選択：機能ごとにオン・オフを選べる。オフの機能は何も出さず、設定は残る。［この機能の設定を消す］にも対応</li>
           <li>多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示</li>
           <li>これまでのプラグインの設定を読み込んで引き継ぐ</li>
         </ul>
