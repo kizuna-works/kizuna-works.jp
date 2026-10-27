@@ -9,6 +9,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 import Picture from '../../../components/Picture.astro';
 import HeroDownload from '../../../components/HeroDownload.astro';
+import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
 ---
 
 <Layout
@@ -808,6 +809,7 @@ import HeroDownload from '../../../components/HeroDownload.astro';
         <p class="update-desc">集計結果を書き込む出力先は数値フィールドなので、新しい設定<strong>「出力先に書く単位」</strong>で<strong>分（既定）／時間／秒</strong>のどの数に直して書くかを選べます（例：49時間30分なら 分＝2970、時間＝49.5、秒＝178200）。v1.1.0 までは、時間の計算フィールドの値を「数値として読み取れない値」として集計から外していたため、<strong>保存のたびに出力先が空欄で上書きされていました</strong>。この不具合も v1.2.0 で解消しています。</p>
         <p class="update-desc">あわせて、集計値が<strong>黙って消えたり保存されなかったりしないための案内</strong>を加えました。集計対象の列を削除して同じフィールドコードで別の種類に作り直した場合は、そのルールの書き込みを止めて（既存の値はそのまま残します）「設定画面を開いて保存し直してください」と表示します。また、フィールドのアクセス権で<strong>出力先を編集できない利用者</strong>が保存しても kintone がその書き込みを黙って取り消すため、その利用者の編集・新規作成画面に「集計値は保存されません」と表示します。これらの案内は、<strong>スマートフォンでもパソコンと同じように表示</strong>されるようになりました。</p>
         <p class="update-note">すでにお使いの方は、最新版（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。上書き後は、これまで空欄で上書きされていた時間の集計の出力先に、値を変更したとき・保存したときに分の数が入るようになります。出力先を時間の数（49.5 など）で管理している場合は、設定画面で「出力先に書く単位」を「時間」に変えて保存してください。過去のレコードの集計値をまとめて直すには「② 一括反映」を実行してください。</p>
+        <BridgeUpdateNote />
       </div>
     </section>
 

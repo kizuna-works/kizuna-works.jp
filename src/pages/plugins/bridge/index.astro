@@ -85,6 +85,10 @@ const faqs: { q: string; a: string }[] = [
     a: '設定画面の予行演習で、今のレコードを使って「どのルールが動き、何をどこへ書くか」を、実際には書き込まずに確かめられます。動いた結果は実行の記録に残り、失敗したものは記録から再実行できます。',
   },
   {
+    q: '当社のプラグインを、まとめて最新版にできますか？',
+    a: 'できます。設定画面の［プラグインの更新］タブに、この kintone に読み込まれている KIZUNA Works のプラグインの、入っているバージョンと最新版が並びます。選んで更新すると、まとめて最新版に上書きします（1 本あたり約 3 秒）。プラグインの設定はそのまま残り、そのプラグインを使っているすべてのアプリにすぐ反映されます。実行できるのは kintone システム管理者だけです。',
+  },
+  {
     q: '無料で試せますか？',
     a: 'はい、30日間無料で試せます（カード登録不要・自動課金なし・1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、もう一度お試しいただけます）。プレミアム年間サポーターを未契約の方は、プレミアム年間サポーターの無料体験に KIZUNA Pro プラグインが含まれます。プレミアム年間サポーターをご契約中の方は、KIZUNA Pro 拡張パックだけを30日間無料でお試しいただけます。体験が終わるとルールは止まりますが、設定は消えません。',
   },
@@ -291,11 +295,16 @@ const faqJsonLd = {
 
     /* Feature rows: text + screenshot */
     .kbp-feature { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; margin: 0 0 48px; }
+    .kbp-feature[id] { scroll-margin-top: 110px; }
     .kbp-feature.flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
     .kbp-feature.flip .kbp-feature-text { order: 2; }
     .kbp-feature-text p { margin: 0 0 12px; line-height: 1.85; color: var(--kbp-text); }
     .kbp-feature-text ul { margin: 0 0 12px; padding-left: 1.2em; line-height: 1.85; color: var(--kbp-text); }
     .kbp-feature-text li { margin-bottom: 4px; }
+    .kbp-feature-text ul:not(.kbp-chips) { list-style: disc; }
+    /* Full-width row under a feature, so a long text column does not leave a gap under the shot */
+    .kbp-feature-wide { grid-column: 1 / -1; order: 3; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .kbp-feature-wide .kbp-example { margin: 0; }
     .kbp-shot { margin: 0; min-width: 0; }
     .kbp-shot img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid #dbe3ee; box-shadow: 0 6px 18px rgba(15, 31, 61, 0.1); cursor: zoom-in; background: #fff; }
     .kbp-shot figcaption { margin-top: 8px; font-size: 0.84rem; color: var(--kbp-muted); line-height: 1.6; }
@@ -412,6 +421,7 @@ const faqJsonLd = {
     @media (max-width: 860px) {
       .kbp-feature, .kbp-feature.flip { grid-template-columns: minmax(0, 1fr); gap: 18px; }
       .kbp-feature.flip .kbp-feature-text { order: 0; }
+      .kbp-feature-wide { grid-template-columns: minmax(0, 1fr); }
       .kbp-recipes { grid-template-columns: minmax(0, 1fr); }
       .kbp-partners, .kbp-list, .kbp-plan-grid { grid-template-columns: minmax(0, 1fr); }
     }
@@ -569,15 +579,29 @@ const faqJsonLd = {
           </figure>
         </div>
 
-        <div class="kbp-feature flip">
+        <div class="kbp-feature flip" id="plugin-update">
           <div class="kbp-feature-text">
             <h3 class="kbp-h3">当社のプラグインを、まとめて最新版に</h3>
             <p>kintone のプラグインは自動では更新されません。［プラグインの更新］タブで、この kintone に読み込まれている KIZUNA Works のプラグインの版を一覧で確かめ、<strong>選んだものをまとめて最新版に上書き</strong>できます（kintone システム管理者のみ）。プラグインの設定はそのまま残ります。</p>
+            <ul class="kbp-chips gold">
+              <li>1 本あたり約 3 秒</li>
+              <li>新しい版には最初からチェック</li>
+              <li>プラグインの設定はそのまま</li>
+            </ul>
+            <ul>
+              <li>入っているバージョンと最新版が並ぶので、<strong>どれが古いかがひと目で分かります</strong>。</li>
+              <li>選んで［選んだ ○ 本を最新版に更新する］を押すだけ。<strong>ZIP のダウンロードも、1 本ずつの読み込みも要りません</strong>。</li>
+              <li>上書きすると、そのプラグインを使っている<strong>すべてのアプリにすぐ反映</strong>されます。アプリの更新は要りません。</li>
+            </ul>
           </div>
           <figure class="kbp-shot">
             <Picture src="/images/bridge-config-update-01.png" alt="設定画面のプラグインの更新タブ。当社のプラグインごとに入っているバージョンと最新版が並び、新しいバージョンがあるものにチェックが付いている" width="1400" height="1010" class="zoomable" />
             <figcaption>［プラグインの更新］タブ。新しいバージョンがあるものには最初からチェックが付きます。</figcaption>
           </figure>
+          <div class="kbp-feature-wide">
+            <p class="kbp-example"><strong>たとえば 10 本を更新するとき：</strong>製品ページから ZIP をダウンロードして 1 本ずつ読み込むと 10〜30 分。［プラグインの更新］タブなら約 30 秒です。</p>
+            <p class="kbp-example">更新するかどうかは管理者が選びます（勝手には更新しません）。更新が出たことに気づくには、無料の Chrome 拡張機能 <a href="/extensions/kw-plugin-updater-for-kintone/">KW Plugin Updater for kintone</a> と組み合わせるのがおすすめです。手作業との比べ方は<a href="/plugins/update/#bulk">プラグインの更新方法</a>にもまとめています。</p>
+          </div>
         </div>
       </div>
     </section>

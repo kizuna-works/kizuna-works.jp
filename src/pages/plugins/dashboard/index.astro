@@ -15,6 +15,7 @@ const teaser = teaserIds
   .map((id) => recipes.find((r) => r.id === id))
   .filter((r): r is NonNullable<typeof r> => Boolean(r));
 import HeroDownload from '../../../components/HeroDownload.astro';
+import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
 ---
 
 <Layout
@@ -324,6 +325,7 @@ import HeroDownload from '../../../components/HeroDownload.astro';
           </div>
           <p class="update-desc">担当者（ユーザー選択）・部署（組織選択）・日単位で分類したグラフや表からも、該当するレコードの一覧を開けるようになりました。積み上げグラフは押した部分の系列まで絞り込み、「(なし)」を押すと空欄のレコードだけを開きます。集計キャッシュは、カードの設定や「今月」などの期間が変わると、「更新」で集計し直すよう表示します。</p>
           <p class="update-note">集計キャッシュをお使いの方は、上書きアップロードのあと「更新」で集計し直してください。<br>既存ユーザーの方は、最新版（v1.5.2）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。</p>
+          <BridgeUpdateNote />
         </div>
       </div>
     </section>

@@ -4,9 +4,9 @@ import Picture from '../../../components/Picture.astro';
 
 const title = 'プラグインの更新方法・広告が消えないときの対処 | KIZUNA Works';
 const description =
-  'KIZUNA Works の kintone プラグインの更新方法。最新版 ZIP を上書きアップロードするだけで完了し、アプリごとの設定は保持されます。更新が出たことに気づくための無料 Chrome 拡張機能と、年間サポーターなのに広告が表示される場合の対処も掲載。';
+  'KIZUNA Works の kintone プラグインの更新方法。最新版 ZIP を上書きアップロードするだけで、アプリごとの設定は保持されます。更新に気づく無料 Chrome 拡張機能、KIZUNAブリッジでまとめて更新する方法、広告が消えないときの対処も掲載。';
 const pageUrl = 'https://kizuna-works.jp/plugins/update/';
-const updated = '2026-08-15';
+const updated = '2026-10-27';
 const extensionUrl =
   'https://chromewebstore.google.com/detail/kw-plugin-updater-for-kin/pcmjebbhcbnfkdlfoengcllinnjfcfcj';
 ---
@@ -32,8 +32,8 @@ const extensionUrl =
           "@id": "https://kizuna-works.jp/plugins/update/",
           "url": "https://kizuna-works.jp/plugins/update/",
           "name": "プラグインの更新方法・広告が消えないときの対処 | KIZUNA Works",
-          "description": "kintone プラグインの更新手順と、更新が出たことに気づくための無料 Chrome 拡張機能、年間サポーター・プレミアム年間サポーターに加入しているのに広告が表示される場合の対処方法。",
-          "dateModified": "2026-08-15",
+          "description": "kintone プラグインの更新手順と、更新が出たことに気づくための無料 Chrome 拡張機能、KIZUNAブリッジで当社のプラグインをまとめて更新する方法、年間サポーター・プレミアム年間サポーターに加入しているのに広告が表示される場合の対処方法。",
+          "dateModified": "2026-10-27",
           "isPartOf": {
             "@type": "WebSite",
             "name": "KIZUNA Works",
@@ -372,6 +372,57 @@ const extensionUrl =
       margin: 0;
     }
 
+    /* Bulk update block: wide screenshot + comparison table */
+    .upd-wide {
+      margin: 0 0 28px;
+    }
+    .upd-wide img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    .upd-table-wrap {
+      overflow-x: auto;
+      min-width: 0;
+    }
+    .upd-table {
+      width: 100%;
+      min-width: 520px;
+      border-collapse: collapse;
+      background: var(--color-white);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .upd-table th,
+    .upd-table td {
+      border: 1px solid var(--color-gray-light);
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .upd-table thead th {
+      background: var(--color-bg);
+      color: var(--color-navy);
+      font-weight: 700;
+    }
+    .upd-table thead th:last-child {
+      background: var(--color-navy);
+      color: var(--color-white);
+    }
+    .upd-table tbody th {
+      color: var(--color-navy);
+      font-weight: 700;
+      white-space: nowrap;
+      width: 9em;
+    }
+    .upd-table td:last-child {
+      background: #f6fbf6;
+      font-weight: 600;
+    }
+
     .upd-faq { max-width: 920px; margin: 0 auto; }
     .upd-faq details {
       background: var(--color-white);
@@ -445,7 +496,7 @@ const extensionUrl =
     <section class="upd-hero">
       <h1>プラグインの更新方法・<br>広告が消えないときの対処</h1>
       <p>
-        KIZUNA Works の kintone プラグインの更新は、<strong>最新版の ZIP ファイルを kintone に上書きアップロードするだけ</strong>で完了します。アプリごとの設定はそのまま保持され、アプリへの再追加や再デプロイも不要です。更新が必要かどうかは<strong>プラグインの設定画面</strong>で確認できるほか、更新が出たこと自体に気づけるよう<strong>無料の Chrome 拡張機能</strong>もご用意しています。年間サポーター・プレミアム年間サポーターに加入しているのに広告が表示される場合の対処も、このページにまとめています。
+        KIZUNA Works の kintone プラグインの更新は、<strong>最新版の ZIP ファイルを kintone に上書きアップロードするだけ</strong>で完了します。アプリごとの設定はそのまま保持され、アプリへの再追加や再デプロイも不要です。更新が必要かどうかは<strong>プラグインの設定画面</strong>で確認できるほか、更新が出たこと自体に気づけるよう<strong>無料の Chrome 拡張機能</strong>もご用意しています。何本もお使いなら、<a href="#bulk"><strong>KIZUNAブリッジでまとめて更新</strong></a>することもできます。年間サポーター・プレミアム年間サポーターに加入しているのに広告が表示される場合の対処も、このページにまとめています。
       </p>
       <span class="upd-updated">最終更新：{updated}</span>
     </section>
@@ -562,6 +613,79 @@ const extensionUrl =
           <strong>複数のアプリで使っている場合も、アップロードは 1 回だけです。</strong>
           プラグインは kintone 環境（ドメイン）単位で管理されるため、1 回の上書きでそのプラグインを使っているすべてのアプリに反映されます。
         </div>
+      </div>
+    </section>
+
+    <!-- Bulk update with KIZUNA Bridge -->
+    <section class="upd-wrap" id="bulk">
+      <h2 class="upd-h2">たくさん入れているなら、まとめて更新</h2>
+      <p class="upd-sub">
+        上の手順は 1 本ずつです。当社のプラグインを何本もお使いの場合は、<strong>KIZUNAブリッジ</strong>の<strong>［プラグインの更新］タブ</strong>で、この kintone に入っている KIZUNA Works のプラグインを<strong>選んでまとめて最新版に上書き</strong>できます。ZIP のダウンロードも、1 本ずつの読み込みも要りません。
+      </p>
+
+      <figure class="upd-wide">
+        <Picture
+          src="/images/bridge-config-update-01.png"
+          alt="KIZUNAブリッジの設定画面のプラグインの更新タブ。当社のプラグインごとに入っているバージョンと最新版が並び、新しいバージョンがあるものにチェックが付いている"
+          width="1400"
+          height="1010"
+          class="lightbox-image"
+        />
+        <figcaption class="upd-caption">新しいバージョンがあるものには、最初からチェックが付いています。［選んだ ○ 本を最新版に更新する］を押すと、選んだものを順に上書きします。</figcaption>
+      </figure>
+
+      <div class="upd-table-wrap">
+        <table class="upd-table">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">1 本ずつ上書き</th>
+              <th scope="col">KIZUNAブリッジでまとめて</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">手順</th>
+              <td>製品ページから ZIP をダウンロードし、kintone システム管理で読み込む</td>
+              <td>設定画面のタブで選んで、ボタンを 1 回押す</td>
+            </tr>
+            <tr>
+              <th scope="row">かかる時間</th>
+              <td>1 本あたり 1〜3 分</td>
+              <td>1 本あたり約 3 秒</td>
+            </tr>
+            <tr>
+              <th scope="row">10 本を更新すると</th>
+              <td>10〜30 分</td>
+              <td>約 30 秒</td>
+            </tr>
+            <tr>
+              <th scope="row">アプリごとの設定</th>
+              <td>そのまま残る</td>
+              <td>そのまま残る</td>
+            </tr>
+            <tr>
+              <th scope="row">実行できる人</th>
+              <td>kintone システム管理者</td>
+              <td>kintone システム管理者</td>
+            </tr>
+            <tr>
+              <th scope="row">費用</th>
+              <td>無料</td>
+              <td><a href="/plugins/kizuna-pro/">KIZUNA Pro</a> のご契約中</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="upd-note">
+        <strong>自動では更新されません。</strong>
+        更新するかどうかは、一覧を見て管理者が選びます。更新の対象は KIZUNA Works のプラグインだけです。更新が出たことに気づくには、上の無料の Chrome 拡張機能と組み合わせるのがおすすめです。
+      </div>
+
+      <div class="upd-ext-links">
+        <a href="/plugins/bridge/#plugin-update">KIZUNAブリッジを見る</a>
+        <a href="/plugins/kizuna-pro/" class="ghost">KIZUNA Pro プラグインとは</a>
       </div>
     </section>
 

@@ -19,9 +19,11 @@ interface Props {
   gaLabel: string;
   /** Tint the block for pages whose surrounding section is white. */
   tone?: 'light' | 'white';
+  /** Follow-up row: the extension finds updates, KIZUNA Bridge applies them in bulk. */
+  bridge?: boolean;
 }
 
-const { heading, body, gaLabel, tone = 'light' } = Astro.props;
+const { heading, body, gaLabel, tone = 'light', bridge = true } = Astro.props;
 
 const ext = extensions.find((e) => e.slug === 'kw-plugin-updater-for-kintone');
 const storeUrl = ext?.chromeWebStoreUrl ?? '';
@@ -30,6 +32,7 @@ const pageUrl = '/extensions/kw-plugin-updater-for-kintone/';
 
 <section class:list={['ext-notice', `is-${tone}`]} aria-labelledby={`ext-notice-${gaLabel}`}>
   <div class="ext-notice-inner">
+    <div class="ext-notice-main">
     <div class="ext-notice-icon">
       <Picture
         src="/images/extensions/kw-plugin-updater-icon.png"
@@ -67,6 +70,17 @@ const pageUrl = '/extensions/kw-plugin-updater-for-kintone/';
         詳しく見る
       </a>
     </div>
+    </div>
+
+    {bridge && (
+      <div class="ext-notice-bridge">
+        <span class="ext-notice-bridge-step">更新が見つかったら</span>
+        <p class="ext-notice-bridge-text">
+          <strong>KIZUNAブリッジ</strong>の［プラグインの更新］タブなら、当社のプラグインを選んで<strong>まとめて最新版に上書き</strong>できます。1 本あたり約 3 秒、設定はそのまま残ります。
+        </p>
+        <a class="ext-notice-bridge-link" href="/plugins/bridge/#plugin-update" data-ext-cta={gaLabel} data-ext-cta-kind="bridge">KIZUNAブリッジの一括更新を見る →</a>
+      </div>
+    )}
   </div>
 </section>
 
@@ -96,15 +110,17 @@ const pageUrl = '/extensions/kw-plugin-updater-for-kintone/';
   .ext-notice-inner {
     max-width: 1000px;
     margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 24px;
     background: #FFFFFF;
     border: 1px solid #e2e8f0;
     border-left: 5px solid #2E8B2E;
     border-radius: 14px;
     padding: 24px 28px;
     box-shadow: 0 4px 16px rgba(27, 58, 107, 0.08);
+  }
+  .ext-notice-main {
+    display: flex;
+    align-items: center;
+    gap: 24px;
   }
   .ext-notice.is-white .ext-notice-inner {
     background: #F8FBF8;
@@ -199,17 +215,68 @@ const pageUrl = '/extensions/kw-plugin-updater-for-kintone/';
     color: #1B3A6B;
   }
 
+  /* Follow-up row: bulk update with KIZUNA Bridge */
+  .ext-notice-bridge {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px dashed #cbd5e1;
+  }
+  .ext-notice-bridge-step {
+    flex-shrink: 0;
+    background: #1B3A6B;
+    color: #FFFFFF;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 10px;
+  }
+  .ext-notice-bridge-text {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    color: #4a5568;
+    font-size: 0.88rem;
+    line-height: 1.75;
+  }
+  .ext-notice-bridge-text strong {
+    color: #1B3A6B;
+  }
+  .ext-notice-bridge-link {
+    flex-shrink: 0;
+    color: #1B3A6B;
+    font-size: 0.86rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid #1B3A6B;
+  }
+  .ext-notice-bridge-link:hover {
+    color: #2E8B2E;
+    border-color: #2E8B2E;
+  }
+
   @media (max-width: 860px) {
     .ext-notice {
       padding: 32px 5%;
     }
     .ext-notice-inner {
+      padding: 20px;
+    }
+    .ext-notice-main {
       flex-wrap: wrap;
       /* Top-align once it wraps: centering leaves the icon floating beside a tall
          text block instead of sitting next to the heading. */
       align-items: flex-start;
       gap: 16px;
-      padding: 20px;
+    }
+    .ext-notice-bridge {
+      flex-wrap: wrap;
+      gap: 8px 12px;
+    }
+    .ext-notice-bridge-text {
+      flex-basis: 100%;
     }
     .ext-notice-icon {
       width: 52px;

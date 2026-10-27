@@ -1,0 +1,166 @@
+---
+/**
+ * トップページの帯「KIZUNAブリッジ おすすめの機能」。
+ * KIZUNA Pro の帯の直下に置き、ブリッジの機能をひとつずつ紹介する。
+ * 紹介する機能を替えるときは FEATURES に足して CURRENT を書き換えるだけ
+ * （href はブリッジの製品ページで、その機能を売りとして説明している箇所のアンカー）。
+ */
+import Picture from './Picture.astro';
+
+interface BridgeFeature {
+  title: string;
+  desc: string;
+  points: string[];
+  href: string;
+  cta: string;
+  image: { src: string; alt: string; width: string; height: string };
+}
+
+const FEATURES: Record<string, BridgeFeature> = {
+  'plugin-update': {
+    title: '当社のプラグインを、まとめて最新版に',
+    desc: 'kintone のプラグインは自動では更新されません。KIZUNAブリッジの［プラグインの更新］タブなら、この kintone に入っている KIZUNA Works のプラグインの版を一覧で確かめ、選んだものをまとめて上書きできます。ZIP のダウンロードも、1 本ずつの読み込みも要りません。',
+    points: ['1 本あたり約 3 秒', '新しい版には最初からチェック', 'プラグインの設定はそのまま'],
+    href: '/plugins/bridge/#plugin-update',
+    cta: 'この機能を見る →',
+    image: {
+      src: '/images/bridge-config-update-01.png',
+      alt: 'KIZUNAブリッジの設定画面のプラグインの更新タブ。当社のプラグインごとに入っているバージョンと最新版が並び、新しいバージョンがあるものにチェックが付いている',
+      width: '1400',
+      height: '1010',
+    },
+  },
+};
+
+const CURRENT = 'plugin-update';
+const f = FEATURES[CURRENT];
+---
+
+<section class="bridge-band" aria-labelledby="bridge-band-title">
+  <a class="bridge-band-inner" href={f.href}>
+    <div class="bridge-band-text">
+      <span class="bridge-band-badge">KIZUNAブリッジ おすすめの機能</span>
+      <h2 class="bridge-band-title" id="bridge-band-title">{f.title}</h2>
+      <p class="bridge-band-desc">{f.desc}</p>
+      <ul class="bridge-band-points">
+        {f.points.map((p) => <li>{p}</li>)}
+      </ul>
+      <span class="bridge-band-cta">{f.cta}</span>
+    </div>
+    <div class="bridge-band-shot">
+      <Picture src={f.image.src} alt={f.image.alt} width={f.image.width} height={f.image.height} />
+    </div>
+  </a>
+</section>
+
+<style>
+  /* Rotating feature spotlight for KIZUNA Bridge (sits under the KIZUNA Pro band) */
+  .bridge-band {
+    background-color: #F0F4F8;
+    padding: 0 20px 44px;
+  }
+  .bridge-band-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    background: #FFFFFF;
+    border: 1px solid #e2e8f0;
+    border-left: 6px solid #b8862b;
+    border-radius: 16px;
+    padding: 28px 36px;
+    box-shadow: 0 8px 24px rgba(15, 31, 61, 0.1);
+    color: #333333;
+    text-decoration: none;
+  }
+  .bridge-band-text {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .bridge-band-badge {
+    display: inline-block;
+    background: #0c1f45;
+    color: #e8c766;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    padding: 4px 14px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .bridge-band-title {
+    color: #1B3A6B;
+    font-size: 1.35rem;
+    font-weight: 900;
+    line-height: 1.5;
+    margin: 0 0 10px;
+  }
+  .bridge-band-desc {
+    color: #4a5568;
+    font-size: 0.93rem;
+    line-height: 1.8;
+    margin: 0 0 14px;
+  }
+  .bridge-band-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0 0 18px;
+    padding: 0;
+  }
+  .bridge-band-points li {
+    background: #fbf5e6;
+    border: 1px solid #ecd9a8;
+    color: #6b4e12;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 14px;
+  }
+  .bridge-band-cta {
+    display: inline-block;
+    background: #1B3A6B;
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: 0.95rem;
+    padding: 12px 26px;
+    border-radius: 8px;
+  }
+  .bridge-band-inner:hover .bridge-band-cta {
+    background: #2E8B2E;
+    transition: background 0.2s ease;
+  }
+  .bridge-band-shot {
+    flex: 0 0 400px;
+    min-width: 0;
+  }
+  .bridge-band-shot :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(15, 31, 61, 0.12);
+  }
+
+  @media (max-width: 860px) {
+    .bridge-band-inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 20px;
+      padding: 24px 22px;
+    }
+    .bridge-band-shot {
+      flex: 0 0 auto;
+    }
+    .bridge-band-title {
+      font-size: 1.18rem;
+    }
+    .bridge-band-cta {
+      display: block;
+      text-align: center;
+    }
+  }
+</style>

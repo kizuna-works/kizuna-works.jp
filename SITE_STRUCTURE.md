@@ -50,11 +50,13 @@ c:\kizuna-works.jp\
 │   │   ├── PremiumFaqSection.astro # プレミアム製品ページの「よくある質問」（アコーディオン＋FAQPage JSON-LD を src/data/premium-faqs.ts から生成＝表示と構造化データが必ず一致）
 │   │   ├── ShareButtons.astro  # SNS共有ボタン（X/LINE/はてブは静的intentリンク・URLコピー/OS共有シートのみJS）。全プラグイン個別ページ末尾に設置。title="〇〇 for kintone"・URLはAstro.urlから自動導出
 │   │   ├── BridgeBadge.astro # 「ブリッジ連携」バッジ（as="badge" ヒーロー）と説明帯（as="note"）。plugins.ts の bridge フィールドがある製品だけ表示
+│   │   ├── BridgeFeatureBand.astro # トップページの帯「KIZUNAブリッジ おすすめの機能」（KIZUNA Pro 帯の直下）。ブリッジの機能をひとつずつ紹介し、製品ページのその機能の説明箇所へ遷移。FEATURES に足して CURRENT を書き換えると差し替わる（2026-10-27 初回＝プラグインの一括更新 → /plugins/bridge/#plugin-update）
+│   │   ├── BridgeUpdateNote.astro # 製品ページの UPDATE ボックス末尾の1行「まとめて更新」。KIZUNAブリッジの［プラグインの更新］タブ（/plugins/bridge/#plugin-update）へ誘導。UPDATE ボックスのある製品ページ51件に設置（2026-10-27）
 │   │   ├── BridgeRecipeCard.astro # KIZUNAブリッジの「使い方の例」カード1件（今の作業 → きっかけ・条件・動かす内容 → こうなります）。製品ページ（代表例）と /plugins/bridge/recipes/（全件）で共用。データは src/data/bridge-recipes.ts
 │   │   ├── PremiumPlanCard.astro # ちょこっと製品ページのプラン欄3枚目（プレミアム年間サポーター）。ページ側の `.pricing-card` 等をそのまま使い、紺のアクセントだけスコープ付きCSSで足す＝各ページの見た目に自動で馴染む。プレミアム製品ページでは使わない（年間サポーターを掲載しないため2枚のまま）
 │   │   ├── SupporterPlanCard.astro # ちょこっと製品ページのプラン欄2枚目（年間サポーター）。料金は src/data/pricing.ts から出し、PRICE_REVISION_LIVE で改定前（1 製品・¥3,300）と改定後（ちょこっとプラグインすべて・¥8,250）を切り替える。props は pluginId（申込フォームへ渡す）と features（ページごとの機能の行）
 │   │   ├── ResellerCard.astro  # プラン欄の下に出る「販売代理店からのご購入」カード（全63製品ページ共通）。掲載先は src/data/resellers.ts。登録0件のあいだは何も出力しない＝契約締結前に社名が出ない。ページ側CSSに依存せず自前のスコープ付きCSSで完結
-│   │   ├── ExtensionNotice.astro # Chrome拡張「KW Plugin Updater」の案内帯。トップ（プラグインセクション直後）・/plugins/（リードと絞り込みバーの間）・/plugins/ranking/（一覧直下）の3か所で使用。見出しと本文だけ props で差し替え、ストアURLは extensions.ts から取得。CTAクリックで GA4 の ext_updater_click（surface/link_kind）を送る
+│   │   ├── ExtensionNotice.astro # Chrome拡張「KW Plugin Updater」の案内帯。トップ（プラグインセクション直後）・/plugins/（リードと絞り込みバーの間）・/plugins/ranking/（一覧直下）の3か所で使用。見出しと本文だけ props で差し替え、ストアURLは extensions.ts から取得。CTAクリックで GA4 の ext_updater_click（surface/link_kind）を送る。下段に「更新が見つかったら」＝KIZUNAブリッジの一括更新（/plugins/bridge/#plugin-update）への1行（bridge={false} で非表示・2026-10-27）
 │   │   ├── RequestOriginBadge.astro # 「リクエストから誕生」バッジ（サポーターのリクエストで**新しく開発した**製品にだけ付ける）。`as="badge"` はヒーロー用の半透明ピル、`as="note"` はヒーロー直下の1行ボックス（サポーターページへ導線）。**一覧カードだけは `/plugins/index.astro` 側の `.badge-request-origin` を副題（「プレミアムプラグイン」等）の右に置き、ピルの枠とアイコンを外して紺の太字＋緑の下線にする**（枠が上のカテゴリチップと競合するため。枠とアイコンを落とした分の幅で全文が副題行に収まる＝3カラム時で余裕15px）。表示の有無は plugins.ts の `bornFrom: 'supporter-request'` が単一の情報源＝/plugins/ の件数・/plugins/supporter/ の実績一覧とズレない。**要望で機能追加しただけの製品には付けない**（それは製品ページの UPDATE ボックスの役割）
 │   │   ├── HeroDownload.astro # 製品ページのヒーロー（ページ上部）に置く「無料でダウンロード」ボタン（2026-10-22）。料金欄のボタン（#btn-download）は残し、上部にも同じ zip を置く。クリックは GA4 の file_download（link_position: hero）で計測。無料・プレミアム58ページで使用（ヒーローに元からボタンがあるプレミアム製品は対象外）。premium を付けると「プレミアム年間サポーターを見る（?plan=all）＋無料でダウンロード」の2ボタンで出す（2026-10-26・プレミアム10本）
 │   │   ├── ProPlanNote.astro  # プレミアム製品ページのプラン欄の下（ResellerCard の直前）に出す「上位版の KIZUNA Pro 年間サポーター」の一言（2026-10-26・プレミアム23ページ）。プラン名と金額は pricing.ts の PRO_SET_PLAN。自前のスコープ付きCSSで完結
@@ -75,7 +77,7 @@ c:\kizuna-works.jp\
 │   │   └── BlogPost.astro      # ブログ記事専用レイアウト
 │   ├── pages/                  # ページファイル（URLに対応）
 │   │   ├── go/[id].astro       # /go/<広告ID>/ ＝プラグイン内バナーの広告のクリック計測用の中継ページ。public/ads/ads.json の広告（当社サイト・他社サイトとも）ごとにビルド時に生成。GA4 に ad_click（ad_id・plugin_id）を記録して行き先へ移動（行き先はビルド時に固定・URLで受け取らない。当社サイトへは utm を付ける）。noindex・サイトマップ除外（astro.config.mjs の filter）
-│   │   ├── index.astro         # トップページ（/）
+│   │   ├── index.astro         # トップページ（/）― KIZUNA Pro 帯の直下に BridgeFeatureBand（KIZUNAブリッジ おすすめの機能）
 │   │   ├── about.astro         # 運営者情報ページ（/about/）― KIZUNA Works の事業紹介（kintone・Google Workspace・AIによるDX/業務効率化/自動化支援）・支援領域・提供コンテンツ・運営方針・お問い合わせ。フッターからリンク（AdSense E-E-A-T / 信頼性向上用）
 │   │   ├── contact.astro       # お問い合わせページ（/contact/）― Google Forms リンク。フォームの下に担当者変更ページ（/apply/contact-change/）への案内
 │   │   ├── apply/              # 申込・担当者変更の手続きページ。すべて noindex・サイトマップ除外（astro.config.mjs の filter）。ライセンス GAS（src/data/licenseEndpoint.ts）へ text/plain で POST
@@ -112,7 +114,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── supporter/
 │   │   │   │   └── index.astro # 年間サポーターライセンス案内＆申込フォーム（/plugins/supporter/）
 │   │   │   ├── update/
-│   │   │   │   └── index.astro # プラグインの更新方法・広告が消えないときの対処（/plugins/update/）― 全製品共通の更新手順ページ。①冒頭で Chrome 拡張機能「KW Plugin Updater for kintone」を案内（更新に気づく手段・スクショ=extensions/kw-plugin-updater/01-popup-update.png・ストアと製品ページへのCTA）②設定画面サイドバーの「新しいバージョンがあります」カードで要否を判断（スクショ=plugin-update-notice.png）②上書きアップロード3ステップ（設定は保持・アプリ再追加や再デプロイ不要・1回で全アプリ反映）③サポーター加入済みでも旧版だと広告が出る原因と対処4手順。HowTo＋FAQPage＋BreadcrumbList JSON-LD。hero背景=plugins-bg.webp。導線＝共通FAQ（全製品ページ）／/plugins/supporter/ のFAQと注意事項／/plugins/ の導入手順／お知らせ
+│   │   │   │   └── index.astro # プラグインの更新方法・広告が消えないときの対処（/plugins/update/）― 全製品共通の更新手順ページ。①冒頭で Chrome 拡張機能「KW Plugin Updater for kintone」を案内（更新に気づく手段・スクショ=extensions/kw-plugin-updater/01-popup-update.png・ストアと製品ページへのCTA）②設定画面サイドバーの「新しいバージョンがあります」カードで要否を判断（スクショ=plugin-update-notice.png）②上書きアップロード3ステップ（設定は保持・アプリ再追加や再デプロイ不要・1回で全アプリ反映）③サポーター加入済みでも旧版だと広告が出る原因と対処4手順。HowTo＋FAQPage＋BreadcrumbList JSON-LD。hero背景=plugins-bg.webp。導線＝共通FAQ（全製品ページ）／/plugins/supporter/ のFAQと注意事項／/plugins/ の導入手順／お知らせ。#bulk「たくさん入れているなら、まとめて更新」＝KIZUNAブリッジの［プラグインの更新］タブの画面写真と手作業との比較表（2026-10-27）
 │   │   │   ├── premium-trial/
 │   │   │   │   └── index.astro # プレミアム年間サポーター 30日間無料体験 LP（/plugins/premium-trial/）― ちょこっと＋プレミアム＋KIZUNA Pro プラグインすべてが広告なし・全機能（2026-10-24〜）。カード不要・自動課金なし。節 #pro-trial＝プレミアム契約中の方が KIZUNA Pro 拡張パックだけを30日間試す（TrialForm mode='pro_trial'）。TrialForm＋FAQPage JSON-LD。hero背景=premium-trial-bg.webp。件数はplugins.tsから動的
 │   │   │   ├── field-styler/

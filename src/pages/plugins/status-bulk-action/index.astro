@@ -9,6 +9,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 import HeroDownload from '../../../components/HeroDownload.astro';
 import BridgeBadge from '../../../components/BridgeBadge.astro';
+import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
 ---
 
 <Layout
@@ -421,6 +422,7 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
         <p class="update-desc">あわせて、表示形式が「日付」「日時」の計算フィールド（締日の計算など）も、日付フィールドと同じく<strong>以降／以前／範囲内</strong>の日付の条件として選べるようになりました。</p>
         <p class="update-desc"><strong>モバイル版の不具合も修正しました。</strong>これまでモバイル対応とご案内していましたが、v1.0.6 までは不具合によりモバイル版のレコード一覧にボタンが表示されず、一括実行をお使いいただけない状態でした。ご不便をおかけし申し訳ありません。v1.1.0 では、一覧を切り替えるメニューの下に画面幅いっぱいのボタンを表示し、絞り込み結果全体を対象に PC と同じ流れで一括実行できます。</p>
         <p class="update-note"><strong>上書き時のご注意：</strong>v1.0.6 までは、表示形式が「時間」の計算フィールドの条件を正しく読めず、条件を満たすレコードも<strong>必ず対象外</strong>になっていました。v1.1.0 からは条件どおりに判定するため、時間の条件を設定していた場合は、<strong>条件を満たすレコードが実際にステータスを進めるようになります</strong>。上書き後の最初の実行では、確認画面の対象件数と除外理由を確かめてから「実行する」を押してください。<br>設定はそのまま引き継がれ、保存し直す必要はありません（以前のしきい値「8」は 8 時間として判定します）。ただし、表示形式が「日付」「日時」の計算フィールドで v1.1.0 より前に保存した条件は、数値の条件のまま残り自動では切り替わりません。設定画面でその条件のフィールドを選び直し、日付を入れ直して保存してください。<br>既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。</p>
+        <BridgeUpdateNote />
       </div>
     </section>
 
