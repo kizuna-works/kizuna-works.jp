@@ -53,10 +53,10 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
           "name": "ルックアップ自動同期 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.4.0",
-          "dateModified": "2026-10-24",
+          "softwareVersion": "2.4.1",
+          "dateModified": "2026-10-29",
           "url": "https://kizuna-works.jp/plugins/lookup-sync/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-sync-v2.4.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-lookup-sync-v2.4.1.zip",
           "image": "https://kizuna-works.jp/images/lookup-sync-banner.png",
           "offers": [
             {
@@ -92,7 +92,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
             "ルックアップをクリアしたときに、同期で取得した項目も確認ダイアログでまとめて空に戻せる（方式2・v2.2.0）",
             "マスターを変えても書き換えたくない項目（配送先の住所・電話番号など）を自動更新から外せる。外した項目は取得したときだけマスターの値が入る（v2.3.0）",
             "画面を通さずに登録したレコード（CSV 読み込みなど）の、外した項目が空のものだけをあとからマスターの値で埋められる（v2.3.0）",
-            "レコード権限アシストとの連携：同期した参照先レコードの「見せる相手」も計算し直して、同期と同じ書き込みで更新する（v2.4.0）",
+            "レコード権限アシストとの連携：同期した参照先レコードの「見せる相手」も計算し直して、同期と同じ書き込みで更新する。組織・グループ・ユーザーを 1 つの設定で使う場合も、それぞれのフィールドへ入れ直す（v2.4.0・v2.4.1）",
             "kintone 完結・外部送信なし・ゲストスペース対応"
           ]
         }
@@ -261,6 +261,9 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
     .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
     .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
     .update-desc strong { color: var(--color-navy); }
+    .update-points { margin: 0 0 18px; padding-left: 1.3em; color: var(--color-text-main); font-size: 15px; line-height: 1.8; list-style: disc; }
+    .update-points li { margin: 0 0 6px; }
+    .update-points strong { color: var(--color-navy); }
     .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
     /* Screenshot inside the update box (same as dashboard / csv-export) */
     .update-shot { max-width: 640px; margin: 0 auto 20px; }
@@ -318,54 +321,29 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
       <img class="afp-hero-icon" src="/images/lookup-sync-icon.png" alt="ルックアップ自動同期 for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v2.4.0</span>
+        <span class="afp-hero-version">v2.4.1</span>
       </div>
       <h1>ルックアップ自動同期 for kintone</h1>
       <p class="afp-tagline">マスターを直せば、参照先も自動で最新に。</p>
       <p class="afp-sub">ルックアップ元（マスター）のレコードを更新すると、その値をコピーした参照先アプリの既存レコードを自動で追従更新。会社名・商品名のように重複しうるキーにも2つの同期方式で対応し、「マスターは直したのに、コピー済みの値が古いまま」を解消します。ルックアップをクリアしたときは、同期で取得した項目も確認のうえまとめて空へ戻せます。配送先の住所など、登録した時点の値を残したい項目は自動更新から外せます。</p>
-      <HeroDownload href="/downloads/kw-lookup-sync-v2.4.0.zip" premium />
+      <HeroDownload href="/downloads/kw-lookup-sync-v2.4.1.zip" premium />
     </section>
     <div class="afp-hero-gradient-line"></div>
 
-    <!-- Update Info: v2.3.0 自動更新しない項目 -->
+    <!-- Update Info: v2.4.1 -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v2.3.0：マスターを変えても書き換えたくない項目を、自動更新から外せるようになりました</h2>
+            <h2 class="update-title">v2.4.1：レコード権限アシストの、組織・グループ・ユーザーを 1 つの設定で使う使い方に対応しました</h2>
           </div>
-          <p class="update-desc">
-            取引先マスターの電話番号・住所を、受注の<strong>配送先</strong>として使っていませんか。取引先名や担当部門は過去の受注も最新にしたい一方で、配送先まで書き換わると<strong>実際に送った先と記録が食い違って</strong>しまいます。設定画面の<strong>「自動更新しない項目」</strong>で項目にチェックを付けて「反映する」を押すと、その項目は<strong>ルックアップで取得したときだけ</strong>マスターの値が入り、その後マスターを変更しても書き換わりません。チェックしなかった項目は、これまでどおり過去のレコードも含めて自動で更新されます。
-          </p>
-          <div class="update-shot">
-            <Picture
-              src="/images/lookup-sync-v230-freeze.png"
-              alt="ルックアップ自動同期 v2.3.0 の設定画面の「自動更新しない項目（任意）」欄 — 状態は設定済み（配送先電話・配送先住所）、取引先名と当社担当部門はチェックなし、配送先電話（電話番号）と配送先住所（住所）にチェック、「反映する（参照先アプリを更新）」ボタンと「外した項目が空のレコードを埋める」ボタン"
-              width="734"
-              height="439"
-              class="zoomable"
-            />
-            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-          </div>
-          <p class="update-desc">
-            反映すると、参照先アプリのルックアップ設定からその項目のコピーを外し、取得時に値を入れる仕組みを自動で登録します。手作業でアプリの設定を変える必要はありません。CSV ファイルの読み込みなど、画面を通さずに登録したレコードでは外した項目が空のままになるため、<strong>「外した項目が空のレコードを埋める」</strong>で空の項目だけをあとからマスターの値で埋められます（値が入っている項目は変更しません）。
-          </p>
-          <div class="update-shot">
-            <Picture
-              src="/images/lookup-sync-v230-config.png"
-              alt="ルックアップ自動同期 v2.3.0 の設定画面の全体 — 上にプラグイン名とバージョン 2.3.0、中央に対象アプリ・フィールドのスキャンと同期する対象（受注管理・コピーするフィールドは取引先名と当社担当部門・自動更新しない項目は配送先電話と配送先住所が設定済み・同期モードと今すぐ全件同期）、右にサポーターのサイドバー"
-              width="1425"
-              height="1222"
-              class="zoomable"
-            />
-            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-          </div>
-          <p class="update-note">
-            最新版を kintone システム管理 →「プラグイン」→「読み込む」から上書きアップロードしてください。プラグインIDは変わらないため既存の設定は引き継がれます。<br>
-            ※ この機能は、マスターのキーに「値の重複を禁止する」が設定されたルックアップで使えます（テーブル内のルックアップは対象外）。「反映する」はアプリの設定を変更するため、参照先アプリの「アプリ管理」権限が必要です（「レコード閲覧」「レコード編集」の権限だけでは反映できません）。<br>
-            ※ 方式1・方式2をお使いの場合は、設定画面に「参照先スクリプトの更新があります」と表示されます。「スクリプトを最新に再登録」を押して［保存］してください（動作は変わりません）。
-          </p>
+          <p class="update-desc">ルックアップ自動同期 for kintone を v2.4.1 にアップデートしました（2026年10月29日）。</p>
+          <ul class="update-points">
+            <li><strong>見せる相手を、複数のフィールドへ正しく入れ直せます。</strong><a href="/plugins/record-acl-assist/">レコード権限アシスト</a> v1.1.0 で、組織選択とグループ選択など、種類の違うフィールドを 1 つの設定で使えるようになりました。ルックアップの再コピーのあとも、それぞれのフィールドへ入れ直します。</li>
+            <li><strong>結果の「見せる相手を N 件で変更」の件数を改善しました。</strong>レコード単位で数えるので、フィールドが複数あっても実際の件数で表示されます。</li>
+          </ul>
+          <p class="update-note">既存ユーザーの方は、最新版（v2.4.1）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。方式1・方式2をお使いの場合は、設定画面に「参照先スクリプトの更新があります」と表示されたら、「スクリプトを最新に再登録」を押して［保存］してください。</p>
           <BridgeUpdateNote />
         </div>
       </div>
@@ -471,7 +449,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
           </div>
           <div class="afp-feat-card">
             <h3>レコード権限アシストとの連携</h3>
-            <p>同期した参照先のレコードも、<a href="/plugins/record-acl-assist/">レコード権限アシスト</a>で決めた「見せる相手」を計算し直し、同期と同じ書き込みで更新します。対象のアプリごとにオンにします（v2.4.0）。</p>
+            <p>同期した参照先のレコードも、<a href="/plugins/record-acl-assist/">レコード権限アシスト</a>で決めた「見せる相手」を計算し直し、同期と同じ書き込みで更新します。組織・グループ・ユーザーを 1 つの設定で使う場合も、それぞれのフィールドへ入れ直します。対象のアプリごとにオンにします（v2.4.0・v2.4.1）。</p>
           </div>
           <div class="afp-feat-card">
             <h3>必要なときだけ動く</h3>
@@ -649,7 +627,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
               <li>✅ 反映件数は無制限・利用期限なし</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-lookup-sync-v2.4.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-lookup-sync-v2.4.1.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="afp-plan-card recommended">
@@ -810,10 +788,10 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-lookup-sync-v2.4.0.zip',
+            file_name: 'kw-lookup-sync-v2.4.1.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-lookup-sync-v2.4.0.zip'
+            link_url: '/downloads/kw-lookup-sync-v2.4.1.zip'
           });
         });
       }

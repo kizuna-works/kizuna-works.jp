@@ -51,10 +51,10 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
           "name": "レコード権限アシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.0.0",
-          "dateModified": "2026-10-24",
+          "softwareVersion": "1.1.0",
+          "dateModified": "2026-10-29",
           "url": "https://kizuna-works.jp/plugins/record-acl-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-record-acl-assist-v1.0.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-record-acl-assist-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/record-acl-assist-banner.png",
           "offers": {
             "@type": "Offer",
@@ -64,17 +64,19 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
             "availability": "https://schema.org/InStock",
             "description": "プレミアム年間サポーター（税込 ¥16,500/年）に含まれます。単品販売はありません。無料プランでも設定1つ（同じ型のフィールドを元にする範囲）で利用できます。"
           },
-          "description": "kintone のレコードの内容に合わせて、見られる組織・人を自動で設定する kintone プラグイン。レコードのアクセス権は、上から順に最初に当たったルールだけを使うため、組織ごとにルールを並べると、複数の組織が関わるレコードでは片方の組織しか見られない。このプラグインは、レコードの値（組織・ユーザー・グループ選択、選択肢、文字列、テーブルの列）から見せる相手を決め、アクセス権のルールが対象にする1つのフィールドへ、保存のたびに自動で入れる。そのフィールドを使ったルール1本で、関わる全員が見られる。上の組織・下の組織への拡張、値ごとの対応表、今あるレコードへの一括反映（下見・CSV・中止つき）、保存前の警告、詳細画面の内訳表示、変更の記録、ズレの自動点検に対応し、ルックアップ自動同期と連携してマスタの変更にも追従する。アクセス権そのものは変更せず、通信は自ドメインの kintone REST API のみ。",
+          "description": "kintone のレコードの内容に合わせて、見られる組織・人を自動で設定する kintone プラグイン。レコードのアクセス権は、上から順に最初に当たったルールだけを使うため、組織ごとにルールを並べると、複数の組織が関わるレコードでは片方の組織しか見られない。このプラグインは、レコードの値（組織・ユーザー・グループ選択、選択肢、文字列、テーブルの列）から見せる相手を決め、アクセス権のルールが対象にする1つのフィールドへ、保存のたびに自動で入れる。そのフィールドを使ったルール1本で、関わる全員が見られる。1 つの設定で組織・グループ・ユーザーのフィールドへ種類ごとに入れる使い方、上の組織・下の組織への拡張、値ごとの対応表（書き方は対応表アプリの中にも表示）、今あるレコードへの一括反映（下見・CSV・中止つき）、保存前の警告、詳細画面の内訳表示、変更の記録、ズレの自動点検に対応し、ルックアップ自動同期と連携してマスタの変更にも追従する。アクセス権そのものは変更せず、通信は自ドメインの kintone REST API のみ。",
           "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
           "featureList": [
             "レコードの値から見せる相手を決め、アクセス権のルールが使うフィールドへ保存のたびに自動で入れる",
             "関わる組織が複数あっても、アクセス権のルール1本で全員が見られる",
             "組織・ユーザー・グループ選択の値をそのまま入れる",
+            "1 つの設定で、組織選択・グループ選択・ユーザー選択のフィールドへ種類ごとに入れる（最大 3 つ）",
             "上の組織にも見せる（どこまで上か・ここで止める）",
             "下の組織にも見せる",
             "ドロップダウン・ラジオボタン・チェックボックス・文字列の値に応じて、対応表で見せる相手を決める（ルール表アプリを自動作成）",
             "テーブルの列を元にする",
-            "いつも入れる相手・入れない相手・誰も入らないときの相手",
+            "いつも入れる相手・入れない相手・誰も入らないときの相手（組織・グループ・ユーザーを選べる）",
+            "対応表アプリの説明とレコード画面の先頭に、各項目の書き方と例を表示",
             "入力画面で見せる相手のフィールドを手で書き換えられないようにする",
             "保存する本人が見られなくなりそうなときの、保存前の確認",
             "詳細画面の［見せる相手の内訳］で、値と入った理由を表示",
@@ -150,6 +152,30 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
     @media (max-width: 600px) { .afp-hero-btn { width: 100%; } }
 
     .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    /* Update box (latest release) */
+    .update-box {
+      max-width: 980px; margin: 0 auto; background: var(--color-white);
+      border: 1px solid #e2e8f0; border-left: 5px solid var(--color-green);
+      border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag {
+      background-color: var(--color-green); color: var(--color-white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 6px; flex-shrink: 0;
+    }
+    .update-title { color: var(--color-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--color-text-main); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    .update-points { margin: 0 0 18px; padding-left: 1.3em; color: var(--color-text-main); font-size: 15px; line-height: 1.8; list-style: disc; }
+    .update-points li { margin: 0 0 6px; }
+    .update-points strong { color: var(--color-navy); }
+    @media (max-width: 768px) {
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
 
     .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
     .afp-section { padding: 56px 0; }
@@ -295,18 +321,37 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
         <RequestOriginBadge />
-        <span class="afp-hero-version">v1.0.0</span>
+        <span class="afp-hero-version">v1.1.0</span>
       </div>
       <h1>レコード権限アシスト for kintone</h1>
       <p class="afp-tagline">レコードの内容に合わせて、見られる組織・人を自動で設定。</p>
-      <p class="afp-sub">関わる組織が複数あっても、<strong>全員が見られるレコード</strong>に。内容が変われば、<strong>見られる人も自動で変わります</strong>。レコードの値から「見せる相手」を 1 つのフィールドへ自動で入れるので、アクセス権のルールは <strong>1 本</strong>で済みます。</p>
+      <p class="afp-sub">関わる組織が複数あっても、<strong>全員が見られるレコード</strong>に。内容が変われば、<strong>見られる人も自動で変わります</strong>。レコードの値から「見せる相手」を 1 つのフィールドへ自動で入れるので、アクセス権のルールは <strong>1 本</strong>で済みます。組織・グループ・ユーザーの入れ先を、1 つの設定でまとめて使えます。</p>
       <div class="afp-hero-cta">
         <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
-        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-record-acl-assist-v1.0.0.zip" download>無料でダウンロード</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-record-acl-assist-v1.1.0.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
     <RequestOriginBadge as="note" />
+
+    <!-- Update Info (v1.1.0) -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <div class="update-box">
+          <div class="update-head">
+            <span class="update-tag">UPDATE</span>
+            <h2 class="update-title">v1.1.0：組織・グループ・ユーザーのフィールドを、1 つの設定で使えるようになりました</h2>
+          </div>
+          <p class="update-desc">レコード権限アシスト for kintone を v1.1.0 にアップデートしました（2026年10月29日）。</p>
+          <ul class="update-points">
+            <li><strong>見せる相手を入れるフィールドを、種類ごとに 1 つずつ（最大 3 つ）選べます。</strong>組織選択「閲覧組織」に加えて、グループ選択「閲覧グループ」にも入れる、といった使い方です。対応表の「足す組織」「足すグループ」「足すユーザー」は、同じ種類のフィールドに入ります。「いつも入れる相手」「入れない相手」「誰も入らないときの相手」も、組織・グループ・ユーザーから選べます。2 つ目以降のフィールドはプレミアムです（無料プランでは最初のフィールドだけに入ります）。</li>
+            <li><strong>対応表アプリの中に、書き方が表示されます。</strong>アプリの説明とレコード画面の先頭に、各項目の書き方と例が出ます。新しく作る対応表アプリには自動で入ります。作成済みのアプリには、設定画面の［対応表アプリに使い方を入れる］で入れられます（アプリを更新します。書いてあった説明は、その下に残ります）。</li>
+            <li><strong>アクセス権の設定の確認と、内訳の表示を改善しました。</strong>手順③で、見せる相手のフィールドがすべて同じ 1 つのルールに入っているかも確認します。詳細画面の［見せる相手の内訳］は、フィールドごとに表示します。</li>
+          </ul>
+          <p class="update-note">既存ユーザーの方は、最新版（v1.1.0）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定（v1.0.0 の設定を含む）はそのまま引き継がれます。ルックアップ自動同期と連携している場合は、ルックアップ自動同期も v2.4.1 以降にしてください。</p>
+        </div>
+      </div>
+    </section>
 
     <!-- 課題 -->
     <section class="afp-section">
@@ -509,15 +554,19 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
           </div>
           <div class="afp-feat-card">
             <h3>値で相手を決める対応表 🔒</h3>
-            <p>選択肢・文字列・テーブルの列の値から、見せる相手を決めます。ルール表アプリは自動で作成します。</p>
+            <p>選択肢・文字列・テーブルの列の値から、見せる相手を決めます。ルール表アプリは自動で作成し、アプリの説明とレコード画面の先頭に書き方と例を表示します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>組織・グループ・ユーザーを 1 つの設定で 🔒</h3>
+            <p>見せる相手を入れるフィールドを、種類ごとに 1 つずつ（最大 3 つ）選べます。組織選択の「閲覧組織」に加えて、グループ選択の「閲覧グループ」にも入れられます。</p>
           </div>
           <div class="afp-feat-card">
             <h3>いつも入れる相手・入れない相手</h3>
-            <p>どのレコードにも入れる相手と、必ず外す相手を指定できます。</p>
+            <p>どのレコードにも入れる相手と、必ず外す相手を指定できます。組織・グループ・ユーザーを選べます。</p>
           </div>
           <div class="afp-feat-card">
             <h3>誰も入らないときの相手</h3>
-            <p>計算の結果が空になるレコードに入れる相手を指定できます。</p>
+            <p>すべての入れ先が空になるレコードに入れる相手を指定できます。</p>
           </div>
           <div class="afp-feat-card">
             <h3>入力画面でのロックと保存前の警告</h3>
@@ -563,7 +612,7 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
     <section class="afp-section">
       <div class="afp-wrap">
         <h2 class="afp-h2">プランについて</h2>
-        <p style="margin:-12px 0 30px;line-height:1.8;">無料のままでも、<strong>設定 1 つ</strong>を、同じ型のフィールド（組織選択なら組織選択）を元にして使えます。権限の事故を防ぐ機能（上の組織・誰も入らないときの相手・保存前の警告・下見など）は、<strong>無料の範囲</strong>です。設定の複数化、値や表の列を元にすること、下の組織、変更の記録、ズレの自動点検が、プレミアム年間サポーターで解放されます（単品販売はありません）。</p>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料のままでも、<strong>設定 1 つ</strong>を、同じ型のフィールド（組織選択なら組織選択）を元にして使えます。権限の事故を防ぐ機能（上の組織・誰も入らないときの相手・保存前の警告・下見など）は、<strong>無料の範囲</strong>です。設定の複数化、ほかの種類のフィールドにも入れること、値や表の列を元にすること、下の組織、変更の記録、ズレの自動点検が、プレミアム年間サポーターで解放されます（単品販売はありません）。</p>
 
         <div class="afp-plan-grid">
           <div class="afp-plan-card">
@@ -578,7 +627,7 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
               <li>✅ 組織構成の変化のお知らせ・ルックアップ自動同期との連携</li>
               <li>✅ 利用期限なし（設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-record-acl-assist-v1.0.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-record-acl-assist-v1.1.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">👑 全機能を解放</span>
@@ -587,6 +636,7 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
             <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
             <ul class="afp-plan-features">
               <li>✅ <strong>設定を複数</strong>持てる（見せる相手のフィールドごとに）</li>
+              <li>✅ <strong>組織・グループ・ユーザー</strong>の入れ先を 1 つの設定にまとめる</li>
               <li>✅ <strong>選択肢・文字列・テーブルの列</strong>の値で相手を決める（対応表）</li>
               <li>✅ <strong>下の組織</strong>にも見せる</li>
               <li>✅ <strong>変更の記録</strong>・<strong>ズレの自動点検</strong></li>
@@ -609,6 +659,7 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
             </thead>
             <tbody>
               <tr><td>動かせる設定の数</td><td class="c">1つ</td><td class="c">無制限</td></tr>
+              <tr><td><strong>組織・グループ・ユーザーの入れ先を 1 つの設定にまとめる</strong></td><td class="c">—</td><td class="c">○</td></tr>
               <tr><td><strong>選択肢・文字列・テーブルの列を元にする（対応表）</strong></td><td class="c">—</td><td class="c">○</td></tr>
               <tr><td><strong>下の組織にも見せる</strong></td><td class="c">—</td><td class="c">○</td></tr>
               <tr><td><strong>変更の記録</strong></td><td class="c">—</td><td class="c">○</td></tr>
@@ -716,10 +767,10 @@ import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
             gtag('event', 'file_download', {
-              file_name: 'kw-record-acl-assist-v1.0.0.zip',
+              file_name: 'kw-record-acl-assist-v1.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-record-acl-assist-v1.0.0.zip'
+              link_url: '/downloads/kw-record-acl-assist-v1.1.0.zip'
             });
           });
         });
