@@ -241,6 +241,14 @@ const faqJsonLd = {
     .update-title { color: var(--kbp-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
     .update-desc { color: var(--kbp-text); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
     .update-desc strong { color: var(--kbp-navy); }
+    .update-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid #e3eaf3; }
+    .update-list > li { position: relative; padding: 14px 4px 14px 34px; border-bottom: 1px solid #e3eaf3; line-height: 1.8; color: var(--kbp-text); min-width: 0; }
+    .update-list > li::before { content: '✓'; position: absolute; left: 4px; top: 18px; width: 20px; height: 20px; border-radius: 50%; background: var(--kbp-green); color: #fff; font-size: 12px; font-weight: 900; line-height: 20px; text-align: center; }
+    .update-list > li > strong:first-child { display: block; color: var(--kbp-navy); font-size: 16px; margin-bottom: 2px; }
+    .update-sub { list-style: disc; margin: 6px 0 0; padding-left: 1.3em; }
+    .update-sub li { padding: 1px 0; }
+    .update-sub li::marker { color: var(--kbp-green); }
+    .update-list + .kbp-h3 { margin-top: 26px; }
     .update-note { color: var(--kbp-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
     @media (max-width: 700px) { .update-box { padding: 22px 18px 26px; } .update-title { font-size: 17px; } }
 
@@ -462,13 +470,13 @@ const faqJsonLd = {
           </div>
           <p class="update-desc">ルックアップ Pro for kintone を v1.1.0 にアップデートしました（2026年10月28日）。kintone のユーザーごとの言語設定に合わせて、<strong>日本語・英語・中国語（簡体字）</strong>で表示します。ほかの言語の方には英語で表示します。5つの機能のレコード画面と、設定画面のすべてが対象です。フィールド名・アプリ名など、kintone に登録した内容はそのまま表示します。</p>
           <h3 class="kbp-h3">使い方を改善しました</h3>
-          <ul class="kbp-list">
+          <ul class="update-list">
             <li><strong>機能ごとに「使う」を選べるようになりました。</strong>設定画面のタブの［使う］で切り替えます。使わない機能は、レコード画面に何も出さず、保存のときに設定を確かめません。保存済みの設定は残るので、オンに戻せばそのまま使えます。［この機能の設定を消す］で、機能ごとに設定を消すこともできます（確認あり）。</li>
             <li><strong>単品のプラグインを外さずに、「無効」にするだけでも、ルックアップ Pro がその機能を動かします。</strong>単品に任せるのは、単品が有効で設定済みのときだけです。</li>
             <li><strong>設定画面で、選択肢の多い選択欄の一覧が画面の外にはみ出さないようにしました。</strong>上下に収まらないときは一覧を縮め、中をスクロールして選べます。</li>
           </ul>
           <h3 class="kbp-h3">絞り込みの設定を改善しました</h3>
-          <ul class="kbp-list">
+          <ul class="update-list">
             <li>ユーザー選択・組織選択・グループ選択を条件に使うとき、取得元と「コード」で比べるか「名前」で比べるかを選べるようになりました。既定は「コード」で、これまでの設定は変わりません。設定画面で候補が 0 件になるときは、もう一方で比べた件数を案内し、ボタン 1 つで切り替えられます。</li>
             <li>設定画面で、ある条件の表示に失敗しても、ほかの条件の設定を続けられるようになりました。</li>
             <li>日付の関数を使う条件を、設定画面で正しく読み込めるようになりました。</li>

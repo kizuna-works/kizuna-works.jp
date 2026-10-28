@@ -250,6 +250,14 @@ const faqJsonLd = {
     .update-title { color: var(--kbp-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
     .update-desc { color: var(--kbp-text); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
     .update-desc strong { color: var(--kbp-navy); }
+    .update-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid #e3eaf3; }
+    .update-list > li { position: relative; padding: 14px 4px 14px 34px; border-bottom: 1px solid #e3eaf3; line-height: 1.8; color: var(--kbp-text); min-width: 0; }
+    .update-list > li::before { content: '✓'; position: absolute; left: 4px; top: 18px; width: 20px; height: 20px; border-radius: 50%; background: var(--kbp-green); color: #fff; font-size: 12px; font-weight: 900; line-height: 20px; text-align: center; }
+    .update-list > li > strong:first-child { display: block; color: var(--kbp-navy); font-size: 16px; margin-bottom: 2px; }
+    .update-sub { list-style: disc; margin: 6px 0 0; padding-left: 1.3em; }
+    .update-sub li { padding: 1px 0; }
+    .update-sub li::marker { color: var(--kbp-green); }
+    .update-list + .kbp-h3 { margin-top: 26px; }
     .update-note { color: var(--kbp-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
     @media (max-width: 700px) { .update-box { padding: 22px 18px 26px; } .update-title { font-size: 17px; } }
 
@@ -468,7 +476,7 @@ const faqJsonLd = {
           </div>
           <p class="update-desc">サーチ Pro for kintone を v1.1.0 にアップデートしました（2026年10月28日）。</p>
           <h3 class="kbp-h3">使う機能を機能ごとに選べるようになりました</h3>
-          <ul class="kbp-list">
+          <ul class="update-list">
             <li><strong>設定画面の目次の［使う］、右上の［この機能を使う］で、機能ごとにオン・オフを選べます。</strong>使わない機能は一覧画面に出ず、保存のときも設定を確かめません。保存済みの設定は残るので、オンに戻せばそのまま使えます。</li>
             <li><strong>［この機能の設定を消す］を追加しました。</strong>確認のあと［保存］で確定します。</li>
             <li><strong>もとのプラグインを外さず「無効」にしただけでも、サーチ Pro がその機能を動かします。</strong>もとのプラグインに任せるのは、有効で設定済みのときだけです。</li>
@@ -478,7 +486,7 @@ const faqJsonLd = {
           <h3 class="kbp-h3">日本語・英語・中国語（簡体字）の表示に対応しました</h3>
           <p class="update-desc">kintone のユーザーごとの言語設定に合わせて表示します。ほかの言語の方には英語で表示します。レコード一覧の機能と、設定画面のすべてが対象です。フィールド名・一覧名など、kintone に登録した内容はそのまま表示します。</p>
           <h3 class="kbp-h3">条件の帯を改善しました</h3>
-          <ul class="kbp-list">
+          <ul class="update-list">
             <li><strong>kintone 標準の［絞り込み］で条件を足しても、サーチ Pro の条件の帯が消えません。</strong>検索・絞り込みの窓・集計カードの条件と、標準の絞り込みの両方で絞り込まれます。</li>
             <li><strong>［すべて解除］では、サーチ Pro の条件だけが外れます。</strong>標準の［絞り込み］で足した条件は残ります。</li>
           </ul>
