@@ -53,10 +53,10 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
           "name": "レコードロック for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.3.1",
-          "dateModified": "2026-10-20",
+          "softwareVersion": "1.4.0",
+          "dateModified": "2026-10-28",
           "url": "https://kizuna-works.jp/plugins/record-lock/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-record-lock-v1.3.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-record-lock-v1.4.0.zip",
           "offers": {
             "@type": "Offer",
             "name": "基本プラン（無料）",
@@ -65,7 +65,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintoneレコードを条件で自動ロックして編集を制限する無料プラグイン。ロック設定を複数作れ（上限なし）、ステータスごとにロックする範囲と対象者を変えられます。レコード全体・選んだフィールドだけ・選んだフィールド以外すべて・ユーザーオートフィルの本人捺印をロックでき、ロックのアイコンを設定ごとに選択、除外ユーザー／グループ／組織、スマホ（モバイル版）にも対応。会員登録なしで無料ダウンロードでき、利用期限もありません。",
+          "description": "kintoneレコードを条件で自動ロックして編集を制限する無料プラグイン。ロック設定を複数作れ（上限なし）、ステータスごとにロックする範囲と対象者を変えられます。レコード全体・選んだフィールドだけ・選んだフィールド以外すべて・ユーザーオートフィルの本人捺印をロックでき、ロックのアイコンを設定ごとに選択、除外ユーザー／グループ／組織（除外された人にもロック中であることを表示することも可能）、スマホ（モバイル版）にも対応。会員登録なしで無料ダウンロードでき、利用期限もありません。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -79,6 +79,9 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
             "ロック範囲：レコード全体／選んだフィールドだけ／選んだフィールド以外すべて",
             "テーブル（サブテーブル）の中の欄と行の追加・削除のロック",
             "除外ユーザー・グループ・組織の設定（設定ごと）",
+            "除外された人にも、詳細・編集画面のバナーと一覧の行の色・アイコンでロック中であることを表示（任意）",
+            "ロックの条件に当てはまる値にして保存（レコード全体のロックでも、ロックされていないレコードなら保存でき、保存後にロック）",
+            "条件の値の選び忘れを保存時に検知",
             "スマホ（kintone モバイル版）でのロック",
             "ロック中のレコードの削除を阻止",
             "ユーザーオートフィル for kintone の「本人捺印」のロック",
@@ -791,77 +794,62 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.3.1</span>
+        <span class="hero-version">v1.4.0</span>
         <span style="display:inline-block; vertical-align:middle; margin-left:8px;"><BridgeBadge pluginId="kw-record-lock" /></span>
       </div>
       <h1 class="hero-title">レコードロック for kintone</h1>
-      <p class="hero-copy">受注後・承認後・期限切れなどの条件を満たすレコードを自動的にロックし、編集を制限する kintone のレコード保護プラグインです。<strong>ロック設定を複数作れる</strong>ので、「経理承認中は経理だけが経理欄を入力できる」「完了したら管理者以外は変更できない」のように、<strong>ステータスごとに入力できる人と欄を変えられます</strong>。ロックのアイコンも設定ごとに選べ、スマホでもロックがかかります。</p>
-      <HeroDownload href="/downloads/kw-record-lock-v1.3.1.zip" />
+      <p class="hero-copy">受注後・承認後・期限切れなどの条件を満たすレコードを自動的にロックし、編集を制限する kintone のレコード保護プラグインです。<strong>ロック設定を複数作れる</strong>ので、「経理承認中は経理だけが経理欄を入力できる」「完了したら管理者以外は変更できない」のように、<strong>ステータスごとに入力できる人と欄を変えられます</strong>。ロックのアイコンも設定ごとに選べ、除外された人にもロック中であることを表示でき、スマホでもロックがかかります。</p>
+      <HeroDownload href="/downloads/kw-record-lock-v1.4.0.zip" />
     </section>
     <BridgeBadge as="note" pluginId="kw-record-lock" />
 
-    <!-- Update Highlight (v1.3.0) -->
+    <!-- Update Highlight (v1.4.0) -->
     <section class="update-section fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.3.0：ロックの種類に合わせて、一覧とバナーのアイコンを設定ごとに選べます</h2>
+          <h2 class="update-title">v1.4.0：除外された人にも、ロック中であることを表示できます</h2>
         </div>
         <p class="update-desc">
-          ロックのアイコンが鍵のままだと、「承認待ち」「処理中」のような<strong>工程の途中のロック</strong>には強すぎる印象になります。v1.3.0 では、<strong>ロックのアイコンを設定ごとに選べる</strong>ようにしました。アイコンは一覧画面の各行の左端と、詳細・編集画面のバナーに表示されます。
+          除外ユーザー・グループ・組織に指定した人は、ロックがかからないため、画面にもロックの表示が出ません。「このレコードは、今ロックされている状態だ」と気づけず、<strong>自分が編集してよい状態なのか判断しにくい</strong>ことがあります。v1.4.0 では、表示設定に<strong>「除外ユーザー・グループ・組織の人にも、ロック中であることを表示する」</strong>を追加しました。既定はオフで、これまでの動きは変わりません。
         </p>
         <ul class="update-list">
-          <li><strong>24 種類のアイコンから選べます</strong>。「ロック・保護」「入力の制限」「工程の途中」「状態・目印」の 4 分類で、各 6 種類です。「アイコンなし」も選べます。</li>
-          <li><strong>お手持ちの画像も使えます</strong>。PNG・JPEG・GIF・SVG・WebP を 32×32 に縮小して保存します（最大 10 枚・全設定で共有）。</li>
-          <li><strong>設定の並びを［▲］［▼］で入れ替えられます</strong>。1 つのレコードが複数の設定に当てはまるときは、一覧には並びが上の設定のアイコンを表示します。</li>
+          <li><strong>詳細・編集画面のバナー</strong>：設定した文言に「（あなたは編集できます）」を添えて表示します。文言が空欄のときは「このレコードはロックされています（あなたは編集できます）」になります。</li>
+          <li><strong>一覧</strong>：ロック中の行の色と、薄いロックアイコンを表示します。通常のロック行と並べて見分けられます。</li>
+          <li>除外された人は、これまでどおり編集できます。除外されていない別の設定にも当てはまるときは、通常のロック表示になります。</li>
         </ul>
-        <div class="update-shot update-shot--narrow">
-          <Picture
-            class="zoomable"
-            src="/images/record-lock-v130-02.png"
-            alt="設定画面の「ロックアイコン」欄でアイコンの選択肢を開いたところ。「ロック・保護」「入力の制限」「工程の途中」「状態・目印」の 4 分類に各 6 種類のアイコンが並び、「処理中」が選ばれている。その下に「アップロードした画像」の追加欄と「アイコンなし」がある"
-            width="771"
-            height="727"
-            loading="lazy"
-          />
-          <p class="update-shot-cap">設定ごとに、意味に合うアイコンを選べます（クリックで拡大できます）</p>
-        </div>
         <div class="update-shot update-shot--wide">
           <Picture
             class="zoomable"
-            src="/images/record-lock-v130-03.png"
-            alt="受注管理アプリのレコード一覧。各行の左端に、ロック設定ごとに違うアイコン（鍵・砂時計・時計・書類）が表示され、ロックされた行は背景が黄色になっている"
-            width="1300"
-            height="387"
-            loading="lazy"
-          />
-          <p class="update-shot-cap">一覧の各行の左端に、当てはまった設定のアイコンが出ます。「完了」は鍵、「承認待ち」は時計のように使い分けられます</p>
-        </div>
-        <div class="update-shot update-shot--wide">
-          <Picture
-            class="zoomable"
-            src="/images/record-lock-v130-04.png"
-            alt="レコード詳細画面の上部のバナー。時計のアイコンと「このレコードはロックされています」のメッセージが表示されている"
+            src="/images/record-lock-v140-02.png"
+            alt="除外されたユーザーが開いたレコード詳細画面の上部のバナー。「（あなたは編集できます）」が添えられたロック中のメッセージが表示されている"
             width="820"
             height="169"
             loading="lazy"
           />
-          <p class="update-shot-cap">詳細・編集画面のバナーにも同じアイコンが出ます。バナーの文言を空にすると「このレコードはロックされています」を表示します</p>
+          <p class="update-shot-cap">除外された人の詳細・編集画面。ロック中であることと、自分は編集できることが分かります</p>
         </div>
         <div class="update-shot update-shot--wide">
           <Picture
             class="zoomable"
-            src="/images/record-lock-v130-01.png"
-            alt="設定画面の全体。左の設定の一覧では選択中の設定に［▲］［▼］のボタンが付き、中央の設定にロックアイコンの欄がある"
-            width="1385"
-            height="1716"
+            src="/images/record-lock-v140-03.png"
+            alt="除外されたユーザーが開いたレコード一覧。ロック中の行に色と薄いロックアイコンが表示され、通常のロック行と並んでいる"
+            width="1300"
+            height="387"
             loading="lazy"
           />
-          <p class="update-shot-cap">左の一覧で選んだ設定に［▲］［▼］が出ます。先頭と末尾では押せません</p>
+          <p class="update-shot-cap">除外された人の一覧。行の色と薄いアイコンで、ロック中のレコードが分かります</p>
         </div>
+        <p class="update-desc">
+          あわせて、次の 2 点も改善しました。
+        </p>
+        <ul class="update-list">
+          <li><strong>ロックの条件に当てはまる値にして、保存できるようになりました。</strong>ロック範囲が「レコード全体」のとき、これまでのバージョンでは、編集画面や一覧のインライン編集で、ステータスを「承認済み」にする、「ロック」にチェックを入れる、のようにロック条件に当てはまる値にして保存しようとすると、保存が止まっていました。v1.4.0 では、編集画面（PC・モバイル）とインライン編集は「画面を開いたときの値」でロックかどうかを判定します。ロックされていないレコードは、条件に当てはまる値にして保存でき、保存後にロックされます。もともとロックされていたレコードは、これまでどおり保存できません。追加画面は入力値で判定するため、条件に当てはまる値では新規保存できません。</li>
+          <li><strong>条件の値の選び忘れに気づけるようになりました。</strong>チェックボックス・複数選択・ドロップダウンやステータスの「いずれかに一致」・ユーザーの「含む」など、値を複数選ぶ条件で、値を 1 つも選ばずに保存すると、その条件は一度も当てはまらず、ロックがかかりませんでした。v1.4.0 では［保存］で止め、該当の設定に切り替えて「値が選ばれていません」と表示します。左の一覧の小見出しにも「条件の値が未選択（ロックしません）」と出ます。停止中の設定は対象外です。</li>
+        </ul>
         <p class="update-note">
-          画像をクリックすると拡大表示します。<br />
-          最新版をダウンロードして、kintone の「システム管理 → プラグイン」から<strong>上書きアップロード</strong>してください。プラグインIDは変わらないため、既存の設定はそのまま引き継がれます。アイコンを選んでいない設定は、これまでと同じ鍵のアイコンで表示されます。
+          画像をクリックすると拡大表示します。設定画面の色の欄（バナー背景色・バナー文字色・一覧行の背景色）には、共通のカラーパレット（マイカラー・最近使った色）も付きました。<br />
+          最新版をダウンロードして、kintone の「システム管理 → プラグイン」から<strong>上書きアップロード</strong>してください。プラグインIDは変わらないため、既存の設定はそのまま引き継がれます。新しいチェックはオフの状態なので、使うときだけ設定画面の「③ 表示設定」でオンにしてください。
         </p>
         <BridgeUpdateNote />
       </div>
@@ -943,6 +931,9 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
         <li><span><strong>ロック範囲は3通り</strong> — レコード全体をロック（保存・削除も不可）／選んだフィールドだけロック／<strong>選んだフィールド以外をすべてロック</strong>（選んだ欄だけ入力できる）から選べます。テーブルは中の欄も、追加した行もロックされます。</span></li>
         <li><span><strong>本人捺印のロック</strong> — <a href="/plugins/user-autofill/">ユーザーオートフィル for kintone</a> の「本人捺印」を同じ条件でロックできます。承認が終わったレコードの印影を、誤ってクリックして取り消してしまう事故を防げます。押印済みの印影はそのまま表示されます。</span></li>
         <li><span><strong>除外ユーザー・グループ・組織</strong> — ロック条件を満たしていても、管理者など特定のユーザー／グループ／組織は編集可能。除外は設定ごとに指定できます。</span></li>
+        <li><span><strong>除外された人にもロック中を表示</strong> — 表示設定でオンにすると、除外された人の詳細・編集画面のバナー（「（あなたは編集できます）」付き）と、一覧の行の色・薄いロックアイコンにも、ロック中であることを表示します。除外された人は、これまでどおり編集できます。</span></li>
+        <li><span><strong>ロックの条件に当てはまる値にして保存</strong> — レコード全体のロックでも、ロックされていないレコードなら、ステータスを「承認済み」にする・「ロック」にチェックを入れるなど、条件に当てはまる値にして保存できます。保存後にロックされ、もともとロックされていたレコードは保存できません。</span></li>
+        <li><span><strong>条件の値の選び忘れを防止</strong> — 値を複数選ぶ条件で値が 1 つも選ばれていないと、［保存］で止めて、該当の設定と条件を知らせます。</span></li>
         <li><span><strong>スマホでもロック</strong> — kintone のモバイル版でも、バナーの表示・欄のロック・保存と削除の阻止が PC と同じように働きます。</span></li>
         <li><span><strong>視覚的なロック表示</strong> — レコード詳細画面の上部にバナー、レコード一覧画面の行背景色変更とアイコンでロック状態をひと目で識別。色やメッセージは設定からカスタマイズできます。</span></li>
         <li><span><strong>ロックのアイコンを設定ごとに選べる</strong> — 「ロック・保護」「入力の制限」「工程の途中」「状態・目印」の 4 分類 24 種類から選べ、「アイコンなし」やお手持ちの画像（PNG・JPEG・GIF・SVG・WebP を 32×32 に縮小・最大 10 枚）も使えます。承認待ちなど工程の途中のロックには、鍵ではなく時計や砂時計を使えます。一覧の各行の左端とバナーに表示され、バナーの文言を空にすると「このレコードはロックされています」を表示します。</span></li>
@@ -1048,7 +1039,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
           />
           <div class="screenshot-caption">
             <strong>③ 表示設定（全設定共通）</strong>
-            <p>バナーの背景色・文字色、一覧の行背景色は全設定で共通。ロックアイコンとバナーの文言は設定ごとに①で指定します。</p>
+            <p>バナーの背景色・文字色、一覧の行背景色は全設定で共通。色の欄にはマイカラーと最近使った色が付きます。ロックアイコンとバナーの文言は設定ごとに①で指定します。</p>
           </div>
         </div>
         <div class="screenshot-item">
@@ -1077,6 +1068,90 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
           <div class="screenshot-caption">
             <strong>⑤ ロック対象フィールドの絞り込み</strong>
             <p>フィールドの一覧も、文字を入力して絞り込めます。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <Picture
+            class="zoomable"
+            src="/images/record-lock-v130-02.png"
+            alt="設定画面の「ロックアイコン」欄でアイコンの選択肢を開いたところ。「ロック・保護」「入力の制限」「工程の途中」「状態・目印」の 4 分類に各 6 種類のアイコンが並び、「処理中」が選ばれている"
+            width="771"
+            height="727"
+            loading="lazy"
+          />
+          <div class="screenshot-caption">
+            <strong>⑥ ロックアイコンの選択（設定ごと）</strong>
+            <p>「ロック・保護」「入力の制限」「工程の途中」「状態・目印」の 4 分類 24 種類から選べます。「アイコンなし」や、お手持ちの画像（最大 10 枚）も使えます。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <Picture
+            class="zoomable"
+            src="/images/record-lock-v130-03.png"
+            alt="受注管理アプリのレコード一覧。各行の左端に、ロック設定ごとに違うアイコンが表示され、ロックされた行は背景が黄色になっている"
+            width="1300"
+            height="387"
+            loading="lazy"
+          />
+          <div class="screenshot-caption">
+            <strong>⑦ 一覧の各行のアイコン</strong>
+            <p>当てはまった設定のアイコンが各行の左端に出ます。「完了」は鍵、「承認待ち」は時計のように使い分けられます。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <Picture
+            class="zoomable"
+            src="/images/record-lock-v130-04.png"
+            alt="レコード詳細画面の上部のバナー。時計のアイコンと「このレコードはロックされています」のメッセージが表示されている"
+            width="820"
+            height="169"
+            loading="lazy"
+          />
+          <div class="screenshot-caption">
+            <strong>⑧ 詳細・編集画面のバナー</strong>
+            <p>バナーにも同じアイコンが出ます。バナーの文言を空にすると「このレコードはロックされています」を表示します。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <Picture
+            class="zoomable"
+            src="/images/record-lock-v130-01.png"
+            alt="設定画面の全体。左の設定の一覧では選択中の設定に［▲］［▼］のボタンが付き、中央の設定にロックアイコンの欄がある"
+            width="1385"
+            height="1716"
+            loading="lazy"
+          />
+          <div class="screenshot-caption">
+            <strong>⑨ 設定の並びの入れ替え</strong>
+            <p>左の一覧で選んだ設定に［▲］［▼］が出ます。先頭と末尾では押せません。複数の設定に当てはまるときは、並びが上の設定のアイコンを表示します。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <Picture
+            class="zoomable"
+            src="/images/record-lock-v140-01.png"
+            alt="設定画面の「③ 表示設定」タブ。「除外ユーザー・グループ・組織の人にも、ロック中であることを表示する」のチェックがオンになっている"
+            width="1385"
+            height="985"
+            loading="lazy"
+          />
+          <div class="screenshot-caption">
+            <strong>⑩ 除外された人への表示（全設定共通）</strong>
+            <p>「除外ユーザー・グループ・組織の人にも、ロック中であることを表示する」をオンにすると、除外された人の画面にもロック中の表示が出ます。既定はオフです。</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <Picture
+            class="zoomable"
+            src="/images/record-lock-v140-04.png"
+            alt="条件の値を選ばずに保存したときのエラー。「値が選ばれていません。値を選んでから保存してください。」と表示されている"
+            width="747"
+            height="1048"
+            loading="lazy"
+          />
+          <div class="screenshot-caption">
+            <strong>⑪ 値の選び忘れの警告</strong>
+            <p>値を複数選ぶ条件で値が選ばれていないと、保存を止めて、設定名・条件・フィールド名を表示します。</p>
           </div>
         </div>
       </div>
@@ -1137,7 +1212,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧に控えめな広告バナー表示あり</li>
             </ul>
-            <a href="/downloads/kw-record-lock-v1.3.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-record-lock-v1.4.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <SupporterPlanCard pluginId="kw-record-lock" />
         <PremiumPlanCard />
@@ -1286,10 +1361,10 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-record-lock-v1.3.1.zip',
+              file_name: 'kw-record-lock-v1.4.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-record-lock-v1.3.1.zip'
+              link_url: '/downloads/kw-record-lock-v1.4.0.zip'
             });
           }
         });
