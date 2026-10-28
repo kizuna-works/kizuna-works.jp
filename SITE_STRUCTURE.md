@@ -126,7 +126,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── lookup-suggest/
 │   │   │   │   └── index.astro # ルックアップサジェストプラグイン製品ページ（/plugins/lookup-suggest/）
 │   │   │   ├── quick-search/
-│   │   │   │   └── index.astro # クイックサーチプラグイン製品ページ（/plugins/quick-search/） — v1.5.0（2026-10-28）＝UPDATE ボックスを v1.5.0（設定画面の色の欄に共通カラーパレット）に差し替え
+│   │   │   │   └── index.astro # クイックサーチプラグイン製品ページ（/plugins/quick-search/） — v1.6.0（2026-10-29）＝UPDATE ボックスを v1.6.0（検索窓の大きさを選べる・プレースホルダーを表示しない設定）に差し替え
 │   │   │   ├── file-icon-marker/
 │   │   │   │   └── index.astro # 添付ファイルアイコン表示プラグイン製品ページ（/plugins/file-icon-marker/）
 │   │   │   ├── quick-side-view/
@@ -490,6 +490,9 @@ c:\kizuna-works.jp\
 │   │   ├── quick-search-config-help.png      # クイックサーチ v1.4.0 スクショ — 設定画面「検索の書き方とヘルプボタン」の節
 │   │   ├── quick-search-related-search.png # クイックサーチ v1.3.0 スクショ — 顧客管理の一覧で案件名「ポータル」を検索した結果（関連レコードでヒット・UPDATEボックス用）
 │   │   ├── quick-search-related-detail.png # クイックサーチ v1.3.0 スクショ — ヒットした顧客の関連レコード一覧「案件一覧」（主担当の列はぼかし・UPDATEボックス用）
+│   │   ├── quick-search-v160-config-size.jpg # クイックサーチ v1.6.0 スクショ — 設定画面「検索窓の大きさ」の節（UPDATE ボックス用）
+│   │   ├── quick-search-v160-bar-large.jpg # クイックサーチ v1.6.0 スクショ — 長さ「大」・高さ「大」の検索バー（既定の文言が最後まで表示）
+│   │   ├── quick-search-v160-bar-medium.jpg # クイックサーチ v1.6.0 スクショ — 長さ「小」・高さ「中」の検索バー
 │   │   ├── file-icon-marker-icon.png       # 添付ファイルアイコン表示プラグイン アイコン（200×200）
 │   │   ├── file-icon-marker-banner.png     # 添付ファイルアイコン表示プラグイン バナー（1200×675・OGP/グリッド共用）
 │   │   ├── file-icon-marker-before.png     # 添付ファイルアイコン表示プラグイン 導入前スクショ — 標準一覧画面では添付有無不可視
@@ -1552,7 +1555,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-search-v1.2.3.zip                            # クイックサーチ for kintone 配布ファイル（旧版・手動配置・v1.2.3 ライセンス認証の内部改修）
 │   │   ├── kw-quick-search-v1.2.4.zip  # クイックサーチ for kintone 配布ファイル（旧版・2026-10-03・v1.2.4：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
 │   │   ├── kw-quick-search-v1.3.0.zip  # クイックサーチ for kintone 配布ファイル（旧版・2026-10-06・v1.3.0：関連レコード一覧の項目も検索対象に・閲覧できない項目を自動で対象外に）
-│   │   ├── kw-quick-search-v1.5.0.zip  # クイックサーチ for kintone 配布ファイル（最新・2026-10-28・v1.5.0：設定画面のボタンの色の欄に共通カラーパレットを追加）
+│   │   ├── kw-quick-search-v1.5.0.zip  # クイックサーチ for kintone 配布ファイル（旧版・2026-10-28・v1.5.0：設定画面のボタンの色の欄に共通カラーパレットを追加）
+│   │   ├── kw-quick-search-v1.6.0.zip  # クイックサーチ for kintone 配布ファイル（最新・2026-10-29・v1.6.0：検索窓の大きさを選べる・プレースホルダーを表示しない設定）
 │   │   ├── kw-quick-side-view-v1.0.0.zip                         # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-side-view-v1.0.1.zip                         # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-side-view-v1.0.2.zip                         # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）

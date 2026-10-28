@@ -14,9 +14,9 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
 
 <Layout
   title="クイックサーチ for kintone - 一覧にインライン検索バーを追加して横断検索 | KIZUNA Works"
-  description="kintone一覧画面のフィルター/ソートアイコン横にインライン検索バーを設置する無料プラグイン。AND/OR切替・複数キーワードに加え、「語句」のひとまとまり検索と完全一致、関連レコード一覧の項目の横断検索、期間絞り込み、「?」ヘルプボタンに対応。"
+  description="kintone一覧画面のフィルター/ソートアイコン横にインライン検索バーを設置する無料プラグイン。AND/OR切替・複数キーワードに加え、「語句」のひとまとまり検索と完全一致、関連レコード一覧の項目の横断検索、期間絞り込み、「?」ヘルプボタンに対応。検索窓の大きさも選べます。"
   ogTitle="クイックサーチ for kintone - 一覧にインライン検索バーを追加して横断検索 | KIZUNA Works"
-  ogDescription="kintone一覧画面のフィルター/ソートアイコン横にインライン検索バーを設置する無料プラグイン。AND/OR切替・複数キーワードに加え、「語句」のひとまとまり検索と完全一致、関連レコード一覧の項目の横断検索、期間絞り込み、「?」ヘルプボタンに対応。"
+  ogDescription="kintone一覧画面のフィルター/ソートアイコン横にインライン検索バーを設置する無料プラグイン。AND/OR切替・複数キーワードに加え、「語句」のひとまとまり検索と完全一致、関連レコード一覧の項目の横断検索、期間絞り込み、「?」ヘルプボタンに対応。検索窓の大きさも選べます。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/quick-search/"
   ogImage="https://kizuna-works.jp/images/quick-search-banner.png"
@@ -32,7 +32,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
           "@id": "https://kizuna-works.jp/plugins/quick-search/",
           "url": "https://kizuna-works.jp/plugins/quick-search/",
           "name": "クイックサーチ for kintone - 一覧にインライン検索バーを追加して横断検索 | KIZUNA Works",
-          "description": "kintone一覧画面のフィルター/ソートアイコン横にインライン検索バーを設置する無料プラグイン。AND/OR切替・複数キーワードに加え、「語句」のひとまとまり検索と完全一致、関連レコード一覧の項目の横断検索、期間絞り込み、「?」ヘルプボタンに対応。",
+          "description": "kintone一覧画面のフィルター/ソートアイコン横にインライン検索バーを設置する無料プラグイン。AND/OR切替・複数キーワードに加え、「語句」のひとまとまり検索と完全一致、関連レコード一覧の項目の横断検索、期間絞り込み、「?」ヘルプボタンに対応。検索窓の大きさも選べます。",
           "primaryImageOfPage": {
             "@type": "ImageObject",
             "url": "https://kizuna-works.jp/images/quick-search-banner.png",
@@ -58,11 +58,11 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
           "name": "クイックサーチ for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.5.0",
-          "dateModified": "2026-10-28",
-          "releaseNotes": "v1.5.0（2026-10-28）: 設定画面のボタンの色の欄に、共通カラーパレット（カラーコード入力・マイカラー・最近使った色）を付けました。マイカラーと最近使った色は、KIZUNA Works のほかのプラグインと共有します。",
+          "softwareVersion": "1.6.0",
+          "dateModified": "2026-10-29",
+          "releaseNotes": "v1.6.0（2026-10-29）: 検索窓の長さ（小160px・中220px・大320px）と高さ（小28px・中36px・大48px）を設定画面で選べるようにしました。既定は従来と同じ大きさです。プレースホルダーを表示しない設定も追加しました。",
           "url": "https://kizuna-works.jp/plugins/quick-search/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-search-v1.5.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-search-v1.6.0.zip",
           "image": "https://kizuna-works.jp/images/quick-search-banner.png",
           "screenshot": [
             "https://kizuna-works.jp/images/quick-search-help-panel.png",
@@ -100,6 +100,8 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
             "語の頭に「=」を付けた完全一致検索（文字列（1行）・リンク・関連レコード一覧の項目・選択肢）",
             "条件が多すぎて一覧が表示できなくなるのを検索前に防ぐ",
             "検索の書き方を確認できる「?」ヘルプボタン（表示のオン/オフを設定可）",
+            "検索窓の長さと高さを大・中・小から選択（既定は従来と同じ大きさ）",
+            "プレースホルダーを表示しない（検索窓を空にする）設定",
             "テキスト系・選択肢系フィールドの横断検索",
             "関連レコード一覧に表示している項目（案件名・担当者名など）も検索対象に",
             "閲覧できない項目（フィールドのアクセス権・連携先アプリの閲覧権限）を利用者ごとに自動で検索対象から外す",
@@ -1002,27 +1004,40 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.5.0</span>
+        <span class="hero-version">v1.6.0</span>
       </div>
       <h1 class="hero-title">クイックサーチ for kintone</h1>
       <p class="hero-copy">kintone 一覧画面のフィルター/ソートアイコン横にインライン検索バーを追加。AND / OR 切替・スペース区切りの複数キーワードの横断検索に加え、<strong>「 " 」で囲んだ語句のひとまとまり検索と、「=」を付けた完全一致</strong>に対応。書き方は<strong>「?」ボタン</strong>でいつでも確認できます。関連レコード一覧の項目（案件名・担当者名など）や、本日・今週・今月などの期間絞り込みも使える、レコード絞り込みを高速化するプラグインです。</p>
-      <HeroDownload href="/downloads/kw-quick-search-v1.5.0.zip" />
+      <HeroDownload href="/downloads/kw-quick-search-v1.6.0.zip" />
     </section>
 
-    <!-- Update Info (v1.5.0) -->
+    <!-- Update Info (v1.6.0) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.5.0：設定画面の色の欄に、共通カラーパレットを付けました</h2>
+          <h2 class="update-title">v1.6.0：検索窓の大きさを選べるようになりました</h2>
         </div>
-        <p class="update-desc">クイックサーチを v1.5.0 にアップデートしました（2026-10-28）。設定画面「ボタンの色」の5つの色の欄に、<strong>共通カラーパレット</strong>を付けました。</p>
+        <p class="update-desc">クイックサーチを v1.6.0 にアップデートしました（2026-10-29）。設定画面の「検索窓の大きさ」で、検索窓の<strong>長さと高さ</strong>を大・中・小から選べます。</p>
         <ul class="update-points">
-          <li><strong>色の欄の下に、カラーコード入力・マイカラー・最近使った色：</strong>よく使う色を「☆マイカラーに登録」しておくと、次から選ぶだけで入れられます。</li>
-          <li><strong>ほかのプラグインと色を共有：</strong>マイカラー・最近使った色は、KIZUNA Works のほかのプラグインと共有します。</li>
-          <li><strong>これまでの設定はそのまま：</strong>検索バーの動作・見た目は変わりません。保存済みの設定も引き継がれます。</li>
+          <li><strong>長さ：</strong>小 160px／中 220px（既定）／大 320px。「大」にすると、既定のプレースホルダー「検索キーワード（スペース区切りで複数指定可）」が最後まで表示されます。画面の幅が狭いとき（900px 以下）は「中」の長さで表示します。</li>
+          <li><strong>高さ：</strong>小 28px（既定）／中 36px／大 48px（kintone のツールバーのボタンと同じ高さ）。AND／OR・検索・全検索・クリア・期間のボタンも同じ高さになります。</li>
+          <li><strong>プレースホルダーを表示しない設定：</strong>「プレースホルダーを表示しない（検索窓を空にする）」にチェックを入れると、検索窓を空にできます。</li>
         </ul>
-        <p class="update-note">色はブラウザごと（kintone のドメインごと）に保存され、別の PC・別のブラウザには引き継がれません。最新版（v1.5.0）をダウンロードして、kintone のシステム管理 → プラグインから上書きアップロードしてください（設定の再登録は不要です）。</p>
+        <div class="update-shot">
+          <Picture class="zoomable" src="/images/quick-search-v160-config-size.jpg" alt="クイックサーチ v1.6.0 の設定画面「検索窓の大きさ」。長さと高さを、それぞれ小・中・大から選べる" width="800" height="506" />
+          <p class="update-shot-cap">設定画面「検索窓の大きさ」</p>
+        </div>
+        <div class="update-shot">
+          <Picture class="zoomable" src="/images/quick-search-v160-bar-large.jpg" alt="長さ「大」・高さ「大」の検索バー。既定のプレースホルダー「検索キーワード（スペース区切りで複数指定可）」が最後まで表示されている" width="800" height="60" />
+          <p class="update-shot-cap">長さ「大」・高さ「大」（既定の文言が最後まで表示されます）</p>
+        </div>
+        <div class="update-shot">
+          <Picture class="zoomable" src="/images/quick-search-v160-bar-medium.jpg" alt="長さ「小」・高さ「中」の検索バー" width="680" height="54" />
+          <p class="update-shot-cap">長さ「小」・高さ「中」</p>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-note">既定は従来と同じ見た目なので、上書きアップロードしても既存の画面は変わりません。一覧上部の全幅帯に置く設定でも、同じ大きさが効きます。最新版（v1.6.0）をダウンロードして、kintone のシステム管理 → プラグインから上書きアップロードしてください（設定の再登録は不要です）。</p>
         <BridgeUpdateNote />
       </div>
     </section>
@@ -1038,6 +1053,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
         <li><span><strong>完全一致で検索</strong> — 語の頭に「=」を付けると、値が完全に一致するものだけを検索（例 <code>="商品A 赤"</code>）。文字列（1行）・リンク・関連レコード一覧の項目・選択肢が対象です。</span></li>
         <li><span><strong>条件が多すぎるときの保護</strong> — AND で語を増やしすぎて kintone が一覧を表示できなくなる前に、画面を移動せずに「キーワードを減らす」ことを案内します。</span></li>
         <li><span><strong>「?」ヘルプボタン</strong> — 検索バーの右端のボタンで、検索の書き方をいつでも確認できます。設定画面で表示のオン／オフを選べます。</span></li>
+        <li><span><strong>検索窓の大きさを選べる</strong> — 検索窓の長さ（160px・220px・320px）と高さ（28px・36px・48px）を、設定画面で大・中・小から選べます。既定は従来と同じ大きさです。プレースホルダーを表示しない設定もあります。</span></li>
         <li><span><strong>3 種類の検索ボタン</strong> — 「検索」（ビューフィルタ維持）/「全検索」（フィルタ無視）/「クリア」（元に戻す）を使い分け可能。</span></li>
         <li><span><strong>テキスト系・選択肢系の横断検索</strong> — 文字列・リッチエディタ・リンク・ルックアップ・ドロップダウン・チェックボックスなど、種類の異なるフィールドを 1 つのキーワードで一気に検索。</span></li>
         <li><span><strong>関連レコード一覧の中身も検索</strong> — 関連レコード一覧に表示している案件名・担当者名・活動内容などを検索対象に追加。キーワードがいずれかの関連レコードに含まれるレコードがヒットします（関連レコード一覧の絞り込み条件も反映）。</span></li>
@@ -1332,7 +1348,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告バナーが表示</li>
             </ul>
-            <a href="/downloads/kw-quick-search-v1.5.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-quick-search-v1.6.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <SupporterPlanCard pluginId="kw-quick-search" features={["全機能（AND/OR 切替・複数キーワード・横断検索・ボタンカラー）が利用可能","レコード一覧画面の<strong>広告バナーが完全非表示</strong>","プラグイン作成リクエスト・改善要望を送付可能","サポーターの声を優先して開発に反映"]} />
         <PremiumPlanCard />
@@ -1498,10 +1514,10 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
           gtag('event', 'file_download', {
-            file_name: 'kw-quick-search-v1.5.0.zip',
+            file_name: 'kw-quick-search-v1.6.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-quick-search-v1.5.0.zip'
+            link_url: '/downloads/kw-quick-search-v1.6.0.zip'
           });
         });
       }
