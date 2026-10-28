@@ -15,7 +15,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
 
 <Layout
   title="文字列結合 for kintone - 複数フィールドを1つの文字列に自動入力するプラグイン | KIZUNA Works"
-  description="計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども含めて、複数フィールドの値を書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。実データとして書き込むので並び替え・絞り込み・集計・ルックアップの複合キーに使えます。テーブル明細の集約結合、条件によるルールの使い分け、結合結果の重複チェック、既存レコードへの一括反映に対応。kintone完結・外部API不使用。"
+  description="計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども含めて、複数フィールドの値を書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。実データとして書き込むので並び替え・絞り込み・集計・ルックアップの複合キーに使えます。テーブル明細の集約結合、条件によるルールの使い分け、結合結果の重複チェック、既存レコードへの一括反映、出力先の値をワンクリックでコピーするボタンに対応。kintone完結・外部API不使用。"
   ogTitle="文字列結合 for kintone - 複数フィールドを1つの文字列に自動入力するプラグイン | KIZUNA Works"
   ogDescription="ドロップダウンもユーザー選択も明細行も、まとめて1つの文字列に自動入力。実データで書き込むので並び替え・絞り込み・複合キーに使えます。kintone完結・外部API不使用。"
   ogType="website"
@@ -33,7 +33,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
           "@id": "https://kizuna-works.jp/plugins/text-join/",
           "url": "https://kizuna-works.jp/plugins/text-join/",
           "name": "文字列結合 for kintone - 複数フィールドを1つの文字列に自動入力するプラグイン | KIZUNA Works",
-          "description": "複数フィールドの値を型や書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。テーブル明細の集約結合・条件によるルールの使い分け・重複チェック・既存レコードへの一括反映に対応。",
+          "description": "複数フィールドの値を型や書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。テーブル明細の集約結合・条件によるルールの使い分け・重複チェック・既存レコードへの一括反映・コピーボタンに対応。",
           "primaryImageOfPage": {
             "@type": "ImageObject",
             "url": "https://kizuna-works.jp/images/text-join-banner.png",
@@ -59,10 +59,10 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
           "name": "文字列結合 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.3.0",
-          "dateModified": "2026-10-26",
+          "softwareVersion": "1.4.0",
+          "dateModified": "2026-10-28",
           "url": "https://kizuna-works.jp/plugins/text-join/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-text-join-v1.3.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-text-join-v1.4.0.zip",
           "image": "https://kizuna-works.jp/images/text-join-banner.png",
           "offers": {
             "@type": "Offer",
@@ -72,7 +72,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども含めて、複数フィールドの値を書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。テーブル明細の集約結合、条件によるルールの使い分け、結合結果の重複チェック、既存レコードへの一括反映に対応。",
+          "description": "計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども含めて、複数フィールドの値を書式を整えたうえで1つの文字列フィールドへ自動入力する kintone プラグイン。テーブル明細の集約結合、条件によるルールの使い分け、結合結果の重複チェック、既存レコードへの一括反映、出力先の値をクリップボードへコピーするボタンに対応。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -89,6 +89,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
             "保存後にレコードを読み直し、計算フィールドや他のプラグインが保存時に入れる値（自動採番など）も結合結果へ反映",
             "桁数ガード（末尾の切り詰め・保存ブロック）と入力中の残り文字数表示",
             "既存レコードへの一括反映（値が変わらないレコードは更新しない）",
+            "コピーボタン（v1.4.0）：出力先の値をクリップボードへコピーするボタンをフォームのスペースに設置。文言・色を指定でき、表示条件は「常に表示」か「条件に合うとき」",
             "設定画面のライブプレビューでサンプル値または実データの結合結果をその場で確認",
             "GAS・外部サービス不要・kintone完結・PC／モバイル・ゲストスペース対応"
           ]
@@ -756,35 +757,34 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.3.0</span>
+        <span class="hero-version">v1.4.0</span>
         <span style="display:inline-block; vertical-align:middle; margin-left:8px;"><BridgeBadge pluginId="kw-text-join" /></span>
       </div>
       <h1 class="hero-title">文字列結合 for kintone</h1>
-      <p class="hero-copy">文字列結合 for kintone は、<strong>複数のフィールドの値を、型や書式を整えたうえで 1 つの文字列フィールドへ自動入力する</strong> kintone プラグインです。計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども結合でき、書き込まれるのは<strong>実データ</strong>なので、並び替え・絞り込み・集計・CSV 出力・ルックアップの複合キーにそのまま使えます。区分などの条件に応じて、結合の形を使い分けることもできます。</p>
-      <HeroDownload href="/downloads/kw-text-join-v1.3.0.zip" />
+      <p class="hero-copy">文字列結合 for kintone は、<strong>複数のフィールドの値を、型や書式を整えたうえで 1 つの文字列フィールドへ自動入力する</strong> kintone プラグインです。計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども結合でき、書き込まれるのは<strong>実データ</strong>なので、並び替え・絞り込み・集計・CSV 出力・ルックアップの複合キーにそのまま使えます。区分などの条件に応じて、結合の形を使い分けることもできます。組み立てた文を、ほかのシステムやメールへ貼り付けるための<strong>コピーボタン</strong>もフォームに置けます。</p>
+      <HeroDownload href="/downloads/kw-text-join-v1.4.0.zip" />
     </section>
     <BridgeBadge as="note" pluginId="kw-text-join" />
 
-    <!-- Update Info (v1.3.0) -->
+    <!-- Update Info (v1.4.0) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.3.0：条件による結合の使い分けと、保存後の結合を改善しました</h2>
+          <h2 class="update-title">v1.4.0：出力先の値をコピーするボタンを置けるようになりました</h2>
         </div>
-        <p class="update-desc">文字列結合を v1.3.0 にアップデートしました。</p>
-        <p class="update-desc"><strong>ルールごとに「適用する条件」を選べます。</strong>「常に適用」か「条件に合うときだけ適用」を選び、条件は「すべてに合う」「どれかに合う」で組み合わせます。同じ出力先に複数のルールを置くと、上のルールから順に確かめ、最初に条件に合ったルールで結合します。どれにも合わないときは、出力先を空にします。</p>
-        <p class="update-desc">たとえば、取引先の区分が「法人」なら会社名、それ以外なら氏名を出す。特定の欄に値があるときだけ、別の形式で番号を作る。こうした使い分けが、1 つの出力先で設定できます。</p>
+        <p class="update-desc">文字列結合を v1.4.0 にアップデートしました（2026-10-28）。</p>
+        <p class="update-desc"><strong>ルールごとに、出力先の値をクリップボードへコピーするボタンを、フォームのスペースに置けます。</strong>組み立てた文を、ほかのシステムやメールにそのまま貼り付けたいときに使います。</p>
+        <p class="update-desc">たとえば、社員番号と氏名を結合した宛名を、ボタン 1 つでコピーして貼り付けられます。</p>
         <ul class="update-list">
-          <li><strong>比べ方は項目の型で決まります</strong> — 文字列は「＝・≠・を含む・を含まない」、数値・計算は「＝・≠・＞・≧・＜・≦」、ドロップダウン・ラジオボタン・チェックボックス・複数選択は「のどれか・のどれでもない」。すべての型で「が空・が空でない」も選べます。</li>
-          <li><strong>ルールの順番を入れ替えられます</strong> — ［▲ 上へ］［▼ 下へ］で動かせます。目次には「条件あり」と表示され、ライブプレビューには「どのルールで結合したか」が出ます。</li>
-          <li><strong>使われないルールは保存時に知らせます</strong> — 上に同じ出力先の「常に適用」のルールがあると、下のルールは使われないため、保存時にエラーでお知らせします。</li>
-          <li><strong>保存した後に、結合し直します</strong> — 保存が済んだあとにレコードを読み直し、結合結果が違うときだけ書き直します。計算フィールドや、保存時にほかのプラグインが入れる値（自動採番など）も、最初の保存から結合結果に入ります。結果が同じなら書かないので、更新履歴は増えません。</li>
-          <li><strong>一括反映は「対象の出力先」ごとに実行します</strong> — 同じ出力先のルールをまとめて、条件に合ったルールで反映します（合わないレコードは空になります）。</li>
-          <li><strong>既存の設定はそのまま動きます</strong> — v1.2.0 までの設定は「常に適用」として動きます。</li>
+          <li><strong>ボタンの文言と色を指定できます</strong> — 色の欄には共通カラーパレット（マイカラー・最近使った色）が付きます。</li>
+          <li><strong>表示条件を選べます</strong> — 「常に表示」か「条件に合うとき」（フィールドの値・ステータスなど）です。ルールの適用条件とは別に持ちます。</li>
+          <li><strong>詳細・編集・新規の画面に出ます</strong> — モバイル・ゲストスペースにも対応しています。入力中の画面では、その時点の値をコピーします。</li>
+          <li><strong>同じスペースを 2 つのルールで使うことはできません</strong> — 保存時に止めます。</li>
+          <li><strong>設定画面の色の欄に、共通カラーパレットを付けました</strong> — KIZUNA Works のほかのプラグインと色を共有します。色はブラウザごとに保存され、別の PC・別のブラウザには引き継がれません。</li>
         </ul>
         <p class="update-note">
-          ※ プラグインは自動更新されません。お手数ですが、最新版をダウンロードし、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>してください。
+          ※ プラグインは自動更新されません。お手数ですが、最新版をダウンロードし、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>してください。設定はそのまま引き継がれます。
         </p>
         <BridgeUpdateNote />
       </div>
@@ -850,6 +850,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
           <li><span><strong>保存後の結合し直し</strong> — 保存が済んだあとにレコードを読み直し、結果が違うときだけ書き直します。計算フィールドや自動採番など、保存時に決まる値も結合結果に入ります。</span></li>
           <li><span><strong>桁数ガード</strong> — 上限を超えたら末尾を切り詰める／保存をブロックする、を選べます。絵文字を途中で割らない数え方（コードポイント）で数えます。</span></li>
           <li><span><strong>既存レコードへの一括反映</strong> — 導入前に登録済みのレコードや、CSV 読み込みで入れたレコードにもまとめて書き込めます。</span></li>
+          <li><span><strong>コピーボタン（v1.4.0）</strong> — 出力先の値をクリップボードへコピーするボタンを、フォームのスペースに置けます。文言と色を指定でき、表示は「常に表示」か「条件に合うとき」から選びます。詳細・編集・新規の画面、モバイル、ゲストスペースで使えます。</span></li>
           <li><span><strong>設定画面のライブプレビュー</strong> — サンプル値または実データで、保存する前に結合結果を確認できます。</span></li>
           <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は不要。<strong>レコード画面では通信しません</strong>。PC 版・モバイル版・ゲストスペースに対応します。</span></li>
         </ul>
@@ -929,7 +930,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
         <p class="section-subtitle">レコードの新規作成・編集画面で動作します。PC 版・モバイル版に対応しています。</p>
         <ol class="steps-list">
           <li><span>結合結果を書き込む<strong>文字列（1行）または文字列（複数行）フィールド</strong>をアプリに用意しておく</span></li>
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-text-join-v1.3.0.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-text-join-v1.4.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「文字列結合 for kintone」を追加</span></li>
           <li><span>プラグイン設定画面で<strong>ルールを追加</strong>し、出力先フィールドとパーツを設定して「保存」</span></li>
@@ -958,7 +959,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・レコード一覧に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-text-join-v1.3.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-text-join-v1.4.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <SupporterPlanCard pluginId="kw-text-join" />
       <PremiumPlanCard />
@@ -1109,10 +1110,10 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-text-join-v1.3.0.zip',
+              file_name: 'kw-text-join-v1.4.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-text-join-v1.3.0.zip'
+              link_url: '/downloads/kw-text-join-v1.4.0.zip'
             });
           }
         });
