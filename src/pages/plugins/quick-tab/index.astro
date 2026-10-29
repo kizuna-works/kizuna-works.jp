@@ -9,13 +9,14 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 import HeroDownload from '../../../components/HeroDownload.astro';
 import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <Layout
   title="クイックタブ for kintone - レコード画面をタブで自動整理するプラグイン | KIZUNA Works"
-  description="kintone のレコード詳細・作成・編集画面を、フォーム上のスペース要素を境界にタブへ自動分割して整理するプラグイン。フィールドの手動割当は不要。「すべて」タブ・必須エラー時のタブ自動追従・スクロール固定に対応し、スタイル20種×配色から選べます。kintone完結・外部API不使用。"
+  description="kintone のレコード詳細・作成・編集画面を、フォーム上のスペース要素を境界にタブへ自動分割して整理するプラグイン。フィールドの手動割当は不要。「すべて」タブ・必須エラー時のタブ自動追従・スクロール固定・どのタブでも常に表示するフッターに対応し、スタイル20種×配色から選べます。kintone完結・外部API不使用。"
   ogTitle="クイックタブ for kintone - レコード画面をタブで自動整理するプラグイン | KIZUNA Works"
-  ogDescription="kintone のレコード画面を、スペース要素を境界にタブへ自動分割。フィールドの手動割当は不要。「すべて」タブ・必須エラー追従・スクロール固定・スタイル20種に対応。kintone完結。"
+  ogDescription="kintone のレコード画面を、スペース要素を境界にタブへ自動分割。フィールドの手動割当は不要。「すべて」タブ・必須エラー追従・スクロール固定・常時表示のフッター・スタイル20種に対応。kintone完結。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/quick-tab/"
   ogImage="https://kizuna-works.jp/images/quick-tab-banner.png"
@@ -57,10 +58,10 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
           "name": "クイックタブ for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.5",
-          "dateModified": "2026-09-19",
+          "softwareVersion": "1.1.0",
+          "dateModified": "2026-10-30",
           "url": "https://kizuna-works.jp/plugins/quick-tab/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-tab-v1.0.5.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-tab-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/quick-tab-banner.png",
           "offers": {
             "@type": "Offer",
@@ -70,7 +71,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintone のレコード詳細・作成・編集画面を、フォーム上のスペース要素を境界にタブへ自動分割して整理する kintone プラグイン。フィールドの手動割当は不要。",
+          "description": "kintone のレコード詳細・作成・編集画面を、フォーム上のスペース要素を境界にタブへ自動分割して整理する kintone プラグイン。フィールドの手動割当は不要。どのタブでも常に表示するフッターも置けます。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -79,9 +80,11 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
           "featureList": [
             "フォーム上のスペース要素を境界にフィールドを自動でタブ分割（手動割当不要）",
             "タブバー設置スペース＋区切りスペースの2種で構成。最初の区切りより上は常時表示の共通エリア",
+            "選んだスペースから下の行を、どのタブでも常に表示するフッター（任意）",
             "全項目を一度に表示する「すべて」タブを自動追加（名前変更・表示位置の変更・ON/OFF）",
             "保存時に非表示タブの必須未入力があれば該当タブを自動で開く",
             "レコードを開いたときの初期表示タブを指定",
+            "色の欄に共通カラーパレット（カラーコード入力・マイカラー・最近使った色）",
             "スタイル（形）20種 × 配色10種 ＋ カスタム配色、文字サイズ・太字、ライブプレビュー",
             "タブバーの幅（スペース全幅／タブ長に合わせる）・配置（左/中央/右）",
             "スクロールしてもタブバーを画面上部に固定（コメント欄に被らないよう自動調整）",
@@ -772,26 +775,50 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.5</span>
+        <span class="hero-version">v1.1.0</span>
       </div>
       <h1 class="hero-title">クイックタブ for kintone</h1>
-      <p class="hero-copy">クイックタブ for kintone は、項目数の多いレコード詳細・作成・編集画面を、フォーム上の「スペース要素」を境界にタブへ自動分割して整理する kintone プラグインです。フィールドを1つずつ割り当てる必要はなく、スペースを置く位置だけで区切れます。全項目を見る「すべて」タブ、保存時に必須未入力のタブを自動で開く追従機能、スクロール固定にも対応。長い入力フォームを、タブでスッキリ。</p>
-      <HeroDownload href="/downloads/kw-quick-tab-v1.0.5.zip" />
+      <p class="hero-copy">クイックタブ for kintone は、項目数の多いレコード詳細・作成・編集画面を、フォーム上の「スペース要素」を境界にタブへ自動分割して整理する kintone プラグインです。フィールドを1つずつ割り当てる必要はなく、スペースを置く位置だけで区切れます。全項目を見る「すべて」タブ、保存時に必須未入力のタブを自動で開く追従機能、スクロール固定、どのタブでも常に表示するフッターにも対応。長い入力フォームを、タブでスッキリ。</p>
+      <HeroDownload href="/downloads/kw-quick-tab-v1.1.0.zip" />
     </section>
 
-    <!-- Update Highlight (v1.0.5) -->
+    <!-- Update Highlight (v1.1.0) -->
     <section class="update-section fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.0.5：タブバーが kintone 標準のポップアップより手前に出る問題を修正しました</h2>
+          <h2 class="update-title">v1.1.0：どのタブでも常に表示する「フッター」を置けるようになりました</h2>
+        </div>
+        <p class="update-desc">クイックタブ for kintone を v1.1.0 にアップデートしました（2026年10月30日）。</p>
+        <p class="update-desc"><strong>設定画面に「フッター開始スペース（任意）」を追加しました。</strong>選んだスペースから下にあるフィールドは、どのタブを開いていても常に表示されます。更新日時・登録担当・備考など、いつも見えていてほしいけれど、タブバーの上（最初の区切りより上の常時表示エリア）に置くほどではない項目に使えます。</p>
+        <div class="screenshot-pair">
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/quick-tab-action-07.png" alt="クイックタブで「業務情報」タブを開いた詳細画面。タブの中身の下に、備考・登録担当・作成日時・更新日時のフッターが表示されている" width="662" height="470" />
+            </div>
+            <figcaption>「業務情報」タブ：中身の下にフッター</figcaption>
+          </figure>
+          <figure>
+            <div class="screenshot-frame">
+              <Picture class="zoomable" src="/images/quick-tab-action-08.png" alt="同じレコードの「給与情報」タブ。タブの中身は変わり、備考・登録担当・作成日時・更新日時の同じフッターが表示されている" width="662" height="332" />
+            </div>
+            <figcaption>「給与情報」タブ：同じフッターがそのまま出る</figcaption>
+          </figure>
+        </div>
+        <div class="update-shot" style="margin-top:20px;">
+          <Picture class="zoomable" src="/images/quick-tab-config-05.png" alt="クイックタブの設定画面の「フッター開始スペース（任意）」欄。「タブ（区間）定義」の下にあり、使わない場合は「使わない」を選ぶ" width="989" height="219" />
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </div>
         <ul class="update-list">
-          <li><strong>スクロール固定が有効なとき、タブバーが kintone 標準のポップアップより手前に描画され、タブバーと重なった位置が操作できないことがある問題を修正しました</strong></li>
-          <li>該当する事象の例：<strong>プロセス管理のアクション（承認・申請など）を実行するときの作業者の選択欄が、タブバーに隠れて選択できない</strong> — 作業者の候補が多く、選択欄が縦に長いときに起こりやすい事象です</li>
+          <li>「使わない」（既定）なら、これまでと同じ動きです。</li>
+          <li>目印のスペースが単独の行なら、その行は画面に出ません。同じ行にフィールドを並べた場合は、その行ごとフッターとして出ます。</li>
+          <li>スペースは、フォームでいちばん下の区切りスペースより下の行に置きます。上にあると、保存のときに案内が出ます。</li>
+          <li>タブ（区切り）と別のグループの中に置いた場合は、効きません。</li>
+          <li>「すべて」タブ・必須エラーのタブ追従・スクロール固定は、これまでどおり使えます。</li>
         </ul>
-        <p class="update-desc">タブバーを手前に表示するのを<strong>実際に画面上部へ固定されている間だけ</strong>に限定し、その間もタブバーの重なり順を<strong>フォームの領域内に閉じ込める</strong>方式に変更しました。これにより、プロセス管理の作業者選択欄にかぎらず、<strong>kintone 標準のポップアップ・メニュー・ダイアログがタブバーに隠れることはなくなります</strong>。<strong>スクロール固定の見た目・動作はこれまでと変わりません。</strong></p>
-        <p class="update-note">発生していたのは「スクロール固定」が ON で、かつ画面をスクロールして kintone のツールバーが画面上部に固定されている状態のときです。最新版（v1.0.5）をダウンロードして、kintone の「システム管理 → プラグイン」から<strong>上書きアップロード</strong>するだけで適用できます。設定はそのまま引き継がれます。</p>
+        <p class="update-desc"><strong>設定を保存（またはキャンセル）したあと、「アプリの設定」画面に戻るようになりました。</strong>そのまま［アプリを更新］を押せます。</p>
+        <p class="update-desc"><strong>色の欄（背景色・アクティブ色・文字色）に、共通のカラーパレットを付けました。</strong>カラーコードの入力、マイカラーへの登録、最近使った色から選べます。マイカラーと最近使った色は、KIZUNA Works のほかのプラグインと共有です。色は kintone のドメインごとに、使っているブラウザへ保存します。別の PC・別のブラウザには引き継がれません。</p>
+        <p class="update-note">既存ユーザーの方は、最新バージョン（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれ、フッターは「使わない」のままです。</p>
         <BridgeUpdateNote />
       </div>
     </section>
@@ -871,8 +898,9 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
         <li><span><strong>「すべて」タブで全項目を一括表示</strong> — 全フィールドを一度に表示する「すべて」タブを自動で追加できます。名前の変更・表示位置（並び）の変更・ON/OFF が可能です。</span></li>
         <li><span><strong>共通エリア（常時表示）</strong> — タブバーより上、および最初の区切りより上に置いたフィールドは、どのタブを選んでも常に表示されます。基本項目や地図・メモなどを共通で見せたいときに便利です。</span></li>
         <li><span><strong>必須エラー時のタブ自動追従</strong> — 保存時に、非表示タブ内の必須項目が未入力だった場合は、そのタブを自動で開いてお知らせします。タブで隠れた項目も画面上に存在するため、kintone 標準の必須チェックはそのまま有効です。</span></li>
+        <li><span><strong>フッター（どのタブでも常に表示）</strong> — 設定したスペースから下にあるフィールドを、どのタブを開いていても常に表示します。更新日時・登録担当・備考など、いつも見えていてほしい項目をまとめられます。任意の設定で、使わなければこれまでどおりです。</span></li>
         <li><span><strong>初期表示タブの指定</strong> — レコードを開いたときに最初に開くタブ（「すべて」を含む）を設定できます。</span></li>
-        <li><span><strong>スタイル20種 × 配色10種＋カスタム</strong> — 角丸タブ・下線・ピル・セグメント・ボタン・塗りバー・ステップ・グラデーションなど20種の形と、10種の配色＋カスタムから選べます。文字サイズ・太字も指定でき、設定画面のライブプレビューで確認できます。</span></li>
+        <li><span><strong>スタイル20種 × 配色10種＋カスタム</strong> — 角丸タブ・下線・ピル・セグメント・ボタン・塗りバー・ステップ・グラデーションなど20種の形と、10種の配色＋カスタムから選べます。文字サイズ・太字も指定でき、設定画面のライブプレビューで確認できます。色の欄には、カラーコード入力・マイカラー・最近使った色の共通カラーパレットが付きます。</span></li>
         <li><span><strong>幅・配置・スクロール固定</strong> — タブバーの幅（スペース全幅／タブの長さに合わせる）と配置（左/中央/右）を選択。さらにスクロールしてもタブバーを画面上部に固定でき、コメント／履歴パネルに重ならないよう自動調整します。</span></li>
         <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。プラグインアップロードのみで導入できます。</span></li>
       </ul>
@@ -937,6 +965,22 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
             <p>スタイル（形）と配色を選び、色・文字サイズ・太字を調整。ライブプレビューで確認しながら、初期表示タブも指定できます。</p>
           </div>
         </div>
+
+        <div class="config-shot">
+          <Picture class="zoomable" src="/images/quick-tab-config-05.png" alt="クイックタブ設定画面④の続き — 「タブ（区間）定義」の下にある「フッター開始スペース（任意）」の欄" width="989" height="219" />
+          <div class="config-shot-caption">
+            <strong>⑤ フッター開始スペース（任意）</strong>
+            <p>選んだスペースから下の行を、どのタブでも常に表示します。フォームでいちばん下の区切りスペースより下の行に置いてください。使わない場合は「使わない」のままにします。</p>
+          </div>
+        </div>
+
+        <div class="config-shot">
+          <Picture class="zoomable" src="/images/quick-tab-config-04.png" alt="クイックタブ v1.1.0 の設定画面の全体像 — タブバー設置スペース、タブ（区間）定義、フッター開始スペース、「すべて」タブ、幅・配置、デザイン、初期表示タブ" width="1585" height="2404" />
+          <div class="config-shot-caption">
+            <strong>設定画面の全体像（v1.1.0）</strong>
+            <p>上から、タブバー設置スペース・タブ（区間）定義・フッター開始スペース・「すべて」タブ・幅と配置・デザイン・初期表示タブの順に並びます。</p>
+          </div>
+        </div>
       </div>
       <p class="zoom-hint">画像をクリックすると拡大表示します</p>
 
@@ -957,12 +1001,12 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">レコード詳細・作成・編集画面（PC 版）でご利用いただけます。フォームにスペースを置いて要素IDを付けてからご利用ください。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-quick-tab-v1.0.5.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-quick-tab-v1.1.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリのフォームに<strong>スペース要素</strong>を配置し、フォーム設定で<strong>要素ID</strong>を付与（タブバー用＋区切り用）。タブバー用のスペースは、タブが折り返さないよう<strong>横幅を広めに</strong>しておきます</span></li>
           <li><span>アプリの<strong>アプリ設定 → プラグイン</strong>で「クイックタブ for kintone」を追加</span></li>
-          <li><span>プラグイン設定画面で<strong>タブバー設置スペース・タブ定義・デザイン</strong>を設定して「保存」</span></li>
-          <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると、レコード画面にタブバーが表示されます</span></li>
+          <li><span>プラグイン設定画面で<strong>タブバー設置スペース・タブ定義・デザイン</strong>（必要ならフッター開始スペース）を設定して「保存」</span></li>
+          <li><span>保存すると「アプリの設定」画面に戻るので、<strong>「アプリを更新」</strong>(デプロイ)をクリックすると、レコード画面にタブバーが表示されます</span></li>
         </ol>
       </div>
     </section>
@@ -983,7 +1027,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-quick-tab-v1.0.5.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-quick-tab-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <SupporterPlanCard pluginId="kw-quick-tab" />
       <PremiumPlanCard />
@@ -1136,10 +1180,10 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-quick-tab-v1.0.5.zip',
+              file_name: 'kw-quick-tab-v1.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-quick-tab-v1.0.5.zip'
+              link_url: '/downloads/kw-quick-tab-v1.1.0.zip'
             });
           }
         });
