@@ -358,6 +358,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── input-assist-v220.md            # 入力アシスト v2.2.0 公開のお知らせ（入力の変換・update）
 │   │   │   ├── blog-kintone-record-sakujo-fukugen.md # ブログ記事「kintoneで削除したレコードは復元できる？」公開のお知らせ（2026-10-17 11:00）
 │   │   │   ├── conditional-numbering-v240.md   # 条件分岐自動採番 v2.4.0 アップデートのお知らせ（2026-10-26 21:30・日付パーツの基準日／次に振られる連番の確認／条件のテキストが空のときの注意）
+│   │   │   ├── bulk-update-v110.md             # かんたん一括更新 v1.1.0 アップデートのお知らせ（2026-10-29 11:30・［すべて除外］［すべて解除］・色の共通カラーパレット）
 │   │   │   ├── blog-kintone-2026-10-update.md # ブログ記事「kintone 2026年10月アップデート」公開のお知らせ（2026-10-17 15:00）
 │   │   │   ├── blog-kintone-field-shurui.md # ブログ記事「kintoneのフィールドの種類一覧」公開のお知らせ（2026-10-17 17:00）
 │   │   │   ├── site-blog-sidebar-update.md    # ブログ記事ページにサイドバーを追加したお知らせ（2026-10-17 10:00・category update）
@@ -605,6 +606,7 @@ c:\kizuna-works.jp\
 │   │   ├── csv-export-config-11.png/.webp  # かんたんCSV出力 設定画面スクショ⑪（v1.6.0）— テンプレート「作業報告用」を開いた設定画面の全体（行の並び順＝このテンプレートで指定する・訪問日→開始時刻）＋右サイドバー。設定画面の使い方⑦
 │   │   ├── csv-export-config-12.png/.webp  # かんたんCSV出力 設定画面スクショ⑫（v1.6.0）— 「行の並び順」の切り出し（3択＋1番目 訪問日・2番目 開始時刻）。UPDATE ボックス
 │   │   ├── csv-export-config-allow-01.png/.webp  # かんたんCSV出力 v1.7.0 UPDATEボックスのスクショ — テンプレートの［出力できる人を限定する］（ユーザー・組織・グループのタブとチップ。ダミー名・2026-10-29）
+│   │   ├── bulk-update-config-01.png/.webp  # かんたん一括更新 v1.1.0 UPDATEボックスのスクショ — 設定画面「対象から除外するフィールド」の［すべて除外］［すべて解除］（宛名・区分・数量・備考の汎用名）
 │   │   ├── csv-export-action-05.png/.webp  # かんたんCSV出力 動作スクショ⑤（v1.6.0）— 一覧を訪問日の昇順に並べ替えてCSV出力を押した画面。テンプレート選択ダイアログに「並び順：一覧画面の並び順（訪問日（昇順））」。UPDATE ボックス
 │   │   ├── quick-tab-icon.png              # クイックタブ for kintone プラグイン アイコン（200×200・ヒーロー画像用）
 │   │   ├── quick-tab-banner.png            # クイックタブ for kintone バナー（1200×675・OGP/グリッド/news共用）
@@ -1300,7 +1302,9 @@ c:\kizuna-works.jp\
 │   │   ├── kw-bulk-update-v1.0.3.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管・手動配置・v1.0.3 権限のない利用者でツールバーのボタン位置がずれる不具合の修正）
 │   │   ├── kw-bulk-update-v1.0.4.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管・v1.0.4：kintone の API リクエスト数を節約）
 │   │   ├── kw-bulk-update-v1.0.5.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管・v1.0.5：当社の他の製品との連携に備えた内部の改善）
-│   │   ├── kw-bulk-update-v1.0.6.zip                             # かんたん一括更新 for kintone 配布ファイル（最新・v1.0.6：当社の他の製品との連携に備えた内部の改善）
+│   │   ├── kw-bulk-update-v1.0.6.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管・v1.0.6：当社の他の製品との連携に備えた内部の改善）
+│   │   ├── kw-bulk-update-v1.0.7.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管・v1.0.7）
+│   │   ├── kw-bulk-update-v1.1.0.zip                             # かんたん一括更新 for kintone 配布ファイル（最新・v1.1.0：除外欄に［すべて除外］［すべて解除］・色の共通カラーパレット）
 │   │   ├── kw-card-board-v1.0.0.zip                              # カードボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第6弾・無料/プレミアム共通zip・無料=1ビューで全機能・複数ビューはプレミアム）
 │   │   ├── kw-card-board-v1.0.1.zip                              # カードボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-card-board-v1.1.0.zip                                  # カードボード for kintone 配布ファイル（v1.1.0：時間の集計を〇時間〇分で表示・対象フィールドなしの表示）

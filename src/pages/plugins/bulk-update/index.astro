@@ -9,6 +9,8 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 import HeroDownload from '../../../components/HeroDownload.astro';
 import BridgeBadge from '../../../components/BridgeBadge.astro';
+import Picture from '../../../components/Picture.astro';
+import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
 ---
 
 <Layout
@@ -57,10 +59,10 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
           "name": "かんたん一括更新 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.0.7",
-          "dateModified": "2026-10-24",
+          "softwareVersion": "1.1.0",
+          "dateModified": "2026-10-29",
           "url": "https://kizuna-works.jp/plugins/bulk-update/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-bulk-update-v1.0.7.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-bulk-update-v1.1.0.zip",
           "image": "https://kizuna-works.jp/images/bulk-update-banner.png",
           "offers": {
             "@type": "Offer",
@@ -85,6 +87,7 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
             "実行直後に1回だけ元に戻せるUndo",
             "変更前・変更後を保管アプリに記録し履歴から復元",
             "実行できるユーザーを制限（全員／管理者のみ／指定ユーザー・グループ）",
+            "対象から除外するフィールドを、［すべて除外］［すべて解除］でまとめて指定（更新するフィールドを絞って選び間違いを防止）",
             "ボタンの形・アイコン・色をカスタマイズ（ライブプレビュー）",
             "外部サーバー・APIキー不要・kintone完結",
             "サーチ Pro の条件の帯から、絞り込んだレコードに一括更新を開ける（KIZUNA Pro プラグイン）"
@@ -273,6 +276,66 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
     .config-shot-caption strong { display: block; color: var(--color-navy); font-size: 15px; font-weight: 700; margin-bottom: 6px; }
     .config-shot-caption p { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 0; }
 
+    /* Update box (version highlight) */
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 24px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+    /* Smaller, centered screenshot inside the update box */
+    .update-shot {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .update-shot .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin: 10px 0 0;
+    }
+
     .zoomable { cursor: zoom-in; }
     .lightbox {
       position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none;
@@ -303,6 +366,8 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
         white-space: normal;
       }
       .config-screenshots { grid-template-columns: 1fr; }
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
       .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
     }
   </style>
@@ -321,14 +386,34 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.0.7</span>
+        <span class="hero-version">v1.1.0</span>
         <span style="display:inline-block; vertical-align:middle; margin-left:8px;"><BridgeBadge pluginId="kw-bulk-update" /></span>
       </div>
       <h1 class="hero-title">かんたん一括更新 for kintone</h1>
       <p class="hero-copy">かんたん一括更新 for kintone は、標準のレコード一覧で<strong>絞り込んだ結果</strong>に対して、フィールドを1つ選んで値を<strong>一括更新・一括クリア</strong>できる kintone プラグインです。数値は加算・減算にも対応し、クイックサーチなどの絞り込みにそのまま連動。実行直後の<strong>Undo</strong>に加えて、変更前後を記録して設定画面の<strong>履歴からいつでも元に戻せます</strong>。外部サーバー不要で kintone 内で完結します。</p>
-      <HeroDownload href="/downloads/kw-bulk-update-v1.0.7.zip" />
+      <HeroDownload href="/downloads/kw-bulk-update-v1.1.0.zip" />
     </section>
     <BridgeBadge as="note" pluginId="kw-bulk-update" />
+
+    <!-- Update Info (v1.1.0) -->
+    <section class="section-wrapper fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.1.0：更新するフィールドを1つに絞って選べるようになりました</h2>
+        </div>
+        <p class="update-desc">かんたん一括更新 for kintone を v1.1.0 にアップデートしました（2026年10月29日）。</p>
+        <p class="update-desc"><strong>［すべて除外］［すべて解除］で、対象から除外するフィールドをまとめて指定できます。</strong>設定画面の「対象から除外するフィールド」で、チェック欄の上にある［すべて除外］を押すと、更新できるフィールドがすべてチェックされます。そこから更新したいフィールドだけチェックを外すと、一覧の［一括更新］の「対象フィールド」には、そのフィールドだけが出ます。フィールドが多いアプリでも、更新するフィールドを1つに絞って選び間違いを防げます。［すべて解除］で除外をまとめて外せます。</p>
+        <div class="update-shot">
+          <Picture class="zoomable" src="/images/bulk-update-config-01.png" alt="かんたん一括更新の設定画面「対象から除外するフィールド」。チェック欄の上に［すべて除外］［すべて解除］のボタンがあり、宛名・区分・数量・備考のチェック欄が並んでいる。その下に、自動的に除外されるフィールドがグレーで表示されている" width="780" height="402" />
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-note">グレーで表示される、自動的に除外されるフィールドは、まとめての操作の対象外です。除外は「チェックしたものを候補から外す」方式のため、すべて除外したあとでアプリに追加したフィールドは、自動では除外されず候補に出ます。ここで除外したフィールドは、KIZUNAブリッジから一括更新を頼むときにも対象外になります。</p>
+        <p class="update-desc"><strong>ボタンの色の欄に、共通のカラーパレットを付けました。</strong>カラーコードの入力、☆マイカラーへの登録、最近使った色から選べます。KIZUNA Works のほかのプラグインと色を共有します。色は kintone のドメインごとに、使っているブラウザへ保存します。別の PC・別のブラウザには引き継がれません。</p>
+        <p class="update-note">既存ユーザーの方は、最新バージョン（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+        <BridgeUpdateNote />
+      </div>
+    </section>
 
     <!-- Problem Section -->
     <section class="section-bg">
@@ -409,8 +494,8 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
         <li><span><strong>実行直後のUndo</strong> — 完了画面の「元に戻す」で、直前の一括操作を1回だけ取り消せます。</span></li>
         <li><span><strong>変更履歴からの復元</strong> — 変更前・変更後の値を保管アプリに記録し、設定画面の履歴一覧から過去の操作を実行前の値へ一括で戻せます（上書きで戻し、削除済みはスキップ）。</span></li>
         <li><span><strong>実行できるユーザーの制限</strong> — 全員／管理者のみ／指定ユーザー・グループから選べます。</span></li>
-        <li><span><strong>対象フィールドの除外</strong> — 候補から外したいフィールドを指定。計算・重複禁止・ステータス等の更新できないフィールドは自動的に除外されます。</span></li>
-        <li><span><strong>ボタンの見た目カスタマイズ</strong> — 形（角丸／ピル型／四角）・アイコン・色をボタンごとに設定でき、ライブプレビューで確認できます。</span></li>
+        <li><span><strong>対象フィールドの除外</strong> — 候補から外したいフィールドを指定。［すべて除外］［すべて解除］でまとめてチェックでき、更新したいフィールドだけに絞って選び間違いを防げます。計算・重複禁止・ステータス等の更新できないフィールドは自動的に除外されます。</span></li>
+        <li><span><strong>ボタンの見た目カスタマイズ</strong> — 形（角丸／ピル型／四角）・アイコン・色をボタンごとに設定でき、ライブプレビューで確認できます。色はカラーコード入力やマイカラー登録にも対応します。</span></li>
         <li><span><strong>kintone 完結</strong> — レコードの取得・更新はすべて kintone 内で行い、業務データを外部の第三者へ送信しません。</span></li>
         <li><span><strong><a href="/plugins/search-pro/">サーチ Pro</a>の条件の帯から開ける</strong> — サーチ Pro で絞り込んだレコードを対象に、帯の［一括更新］から一括更新の画面を開けます（KIZUNA Pro プラグイン）。</span></li>
       </ul>
@@ -454,7 +539,7 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">標準のレコード一覧（PC 版）でご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-bulk-update-v1.0.7.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-bulk-update-v1.1.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「かんたん一括更新 for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>実行できるユーザー</strong>や<strong>ボタンの表示</strong>を設定。変更履歴から戻せるようにするには<strong>実行ログを記録</strong>をONにして「保管アプリを作成」して「保存」</span></li>
@@ -479,7 +564,7 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 実行時の操作ポップアップに控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-bulk-update-v1.0.7.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-bulk-update-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <SupporterPlanCard pluginId="kw-bulk-update" />
         <PremiumPlanCard />
@@ -605,10 +690,10 @@ import BridgeBadge from '../../../components/BridgeBadge.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-bulk-update-v1.0.7.zip',
+              file_name: 'kw-bulk-update-v1.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-bulk-update-v1.0.7.zip'
+              link_url: '/downloads/kw-bulk-update-v1.1.0.zip'
             });
           }
         });
