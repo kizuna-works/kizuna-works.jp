@@ -604,6 +604,7 @@ c:\kizuna-works.jp\
 │   │   ├── csv-export-action-04.png/.webp  # かんたんCSV出力 動作スクショ④ — 「顧客別 案件一覧」CSVをExcelで開いた画面（案件を1件1行に展開・受注予定日がExcelの日付）（v1.5.0 UPDATE ボックス）
 │   │   ├── csv-export-config-11.png/.webp  # かんたんCSV出力 設定画面スクショ⑪（v1.6.0）— テンプレート「作業報告用」を開いた設定画面の全体（行の並び順＝このテンプレートで指定する・訪問日→開始時刻）＋右サイドバー。設定画面の使い方⑦
 │   │   ├── csv-export-config-12.png/.webp  # かんたんCSV出力 設定画面スクショ⑫（v1.6.0）— 「行の並び順」の切り出し（3択＋1番目 訪問日・2番目 開始時刻）。UPDATE ボックス
+│   │   ├── csv-export-config-allow-01.png/.webp  # かんたんCSV出力 v1.7.0 UPDATEボックスのスクショ — テンプレートの［出力できる人を限定する］（ユーザー・組織・グループのタブとチップ。ダミー名・2026-10-29）
 │   │   ├── csv-export-action-05.png/.webp  # かんたんCSV出力 動作スクショ⑤（v1.6.0）— 一覧を訪問日の昇順に並べ替えてCSV出力を押した画面。テンプレート選択ダイアログに「並び順：一覧画面の並び順（訪問日（昇順））」。UPDATE ボックス
 │   │   ├── quick-tab-icon.png              # クイックタブ for kintone プラグイン アイコン（200×200・ヒーロー画像用）
 │   │   ├── quick-tab-banner.png            # クイックタブ for kintone バナー（1200×675・OGP/グリッド/news共用）
@@ -916,6 +917,8 @@ c:\kizuna-works.jp\
 │   │   ├── search-pro-banner.png                # サーチ Pro for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）＋ .webp / -800.webp
 │   │   ├── search-pro-icon.png                  # サーチ Pro アイコン（200×200・製品ページヒーロー）＋ .webp
 │   │   ├── search-pro-list-01.png / search-pro-saved-01.png / search-pro-config-01.png / search-pro-config-csv-01.png # 製品ページの機能説明スクショ（実機撮影・2026-10-24。各 .webp）
+│   │   ├── search-pro-config-searchsize-01.png/.webp / search-pro-list-searchsize-01.png/.webp  # サーチ Pro v1.3.0 UPDATEボックスのスクショ — 検索窓の大きさ・プレースホルダー非表示（設定画面）と、長さ・高さ「大」の検索バー（一覧）（2026-10-29）
+│   │   ├── search-pro-config-csvallow-01.png/.webp  # サーチ Pro v1.3.0 製品ページ「CSV出力のテンプレート」節のスクショ — ［出力できる人を限定する］オンの設定画面（ダミー名・2026-10-29）
 │   │   ├── lookup-pro-banner.png                # ルックアップ Pro for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）＋ .webp（ビルド後に生成）
 │   │   ├── lookup-pro-icon.png                  # ルックアップ Pro アイコン（200×200・製品ページヒーロー）＋ .webp
 │   │   ├── lookup-pro-config-overview.png / lookup-pro-config-quick-setup.png / lookup-pro-config-filter.png / lookup-pro-suggest.png / lookup-pro-dialog-filter.png / lookup-pro-add-panel.png / lookup-pro-free-lookup.png / lookup-pro-free-refresh.png # 製品ページの機能説明スクショ（実機撮影・2026-10-24。各 .webp）
