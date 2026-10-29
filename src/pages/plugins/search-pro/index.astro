@@ -3,7 +3,7 @@ import Layout from '../../../layouts/Layout.astro';
 import Picture from '../../../components/Picture.astro';
 import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
-import { plugins } from '../../../data/plugins';
+import { plugins, premiumPlugins } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 
 const VERSION = '1.3.0';
@@ -11,8 +11,13 @@ const ZIP = `/downloads/kw-search-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/search-pro/';
 const DATE_MODIFIED = '2026-10-29';
 
-// The four free products this one bundles, plus the two it can start a bulk run in.
-const singleOf = (id: string) => plugins.find((p) => p.id === id);
+// The four products this one bundles, plus the two it can start a bulk run in.
+// Search both free and premium lists, and fail the build on a missing id instead of silently dropping the card.
+const singleOf = (id: string) => {
+  const p = [...plugins, ...premiumPlugins].find((x) => x.id === id);
+  if (!p) throw new Error(`search-pro: plugin "${id}" not found in plugins.ts`);
+  return p;
+};
 const iconOf = (slug: string) => `/images/${slug}-icon.png`;
 const BUNDLED = [
   { id: 'kw-quick-search', role: '検索バー' },
@@ -24,8 +29,8 @@ const BATCH = [
   { id: 'kw-bulk-update', role: '絞り込んだレコードをまとめて更新' },
   { id: 'kw-status-bulk-action', role: '絞り込んだレコードのステータスをまとめて進める' },
 ];
-const bundled = BUNDLED.map((b) => ({ ...b, p: singleOf(b.id) })).filter((b) => !!b.p);
-const batch = BATCH.map((b) => ({ ...b, p: singleOf(b.id) })).filter((b) => !!b.p);
+const bundled = BUNDLED.map((b) => ({ ...b, p: singleOf(b.id) }));
+const batch = BATCH.map((b) => ({ ...b, p: singleOf(b.id) }));
 
 // FAQ: the accordion and FAQPage JSON-LD are built from the same array so they always match.
 const faqs: { q: string; a: string }[] = [
@@ -55,11 +60,11 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: '保存した検索は、誰が使えますか？',
-    a: '自分用と全員用があります。自分用は利用者がブラウザに保存し（20件まで）、自分だけが使えます。全員用は管理者が設定画面で登録し（30件まで）、すべての利用者が使えます。',
+    a: '自分用と全員用があります。自分用は利用者が一覧の帯から自分のブラウザに保存し（20件まで）、自分だけが使えます。全員用は、管理者が一覧で自分用に保存した検索を、設定画面の［全員用にする］で写して登録します（30件まで）。すべての利用者が使えます。どちらも、保存した一覧にだけ出ます。kintone 標準の［絞り込み］で付けた条件は、保存した検索に含まれません。',
   },
   {
     q: '条件の帯から一括更新やステータス一括実行を開くには、何が必要ですか？',
-    a: '同じアプリに、かんたん一括更新・ステータス一括実行が入っているときに、入っている方のボタンが帯に出ます。条件が効いているときだけ出ます。',
+    a: '同じアプリに、かんたん一括更新・ステータス一括実行が入っているときに、入っている方のボタンが帯に出ます。条件が効いているときだけ出ます。ステータス一括実行を「チェックした行だけ」を対象にする設定にしているときは、［ステータス一括実行］は出ません。',
   },
   {
     q: '無料で試せますか？',
@@ -155,7 +160,7 @@ const faqJsonLd = {
               description: 'プレミアム年間サポーターに追加するプラン（年額）。',
             },
           ],
-          description: 'サーチ Pro for kintone は、kintone のレコード一覧の検索・絞り込み・集計・CSV出力をひとつの条件でつなぐプラグイン。検索・絞り込み・集計の条件を1つにまとめ、効いている条件を「条件の帯」に並べて1つずつ外せる。集計カードを押してその条件で絞り込む、CSV のファイル名や先頭行に今の条件を入れる、検索や絞り込みに名前を付けて「保存した検索」にする（自分用・全員用）、絞り込んだレコードにかんたん一括更新・ステータス一括実行をかける、にも対応。検索バー（検索窓の長さ・高さを大・中・小から選べる）・絞り込みの窓・集計カード・CSV出力の4つの機能も1つの設定画面で使える。CSV出力はテンプレートごとに、出力できる人（ユーザー・組織・グループ）を限定できる。同じアプリにクイックサーチなどのプラグインが入っているときは、その機能はもとのプラグインが動く。もとのプラグインの設定は［単品の設定を読み込む］で引き継げる。kintone 標準の［絞り込み］で条件を足しても条件の帯は消えず、両方で絞り込める。kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示する。使う機能は機能ごとに選べ、使わない機能は一覧に出ない。',
+          description: 'サーチ Pro for kintone は、kintone のレコード一覧の検索・絞り込み・集計・CSV出力をひとつの条件でつなぐプラグイン。検索・絞り込み・集計の条件を1つにまとめ、効いている条件を「条件の帯」に並べて1つずつ外せる。集計カードを押してその条件で絞り込む、CSV のファイル名や先頭行に今の条件を入れる、検索や絞り込みに名前を付けて「保存した検索」にする（自分用・全員用。保存した一覧に出る）、絞り込んだレコードにかんたん一括更新・ステータス一括実行をかける、にも対応。検索バー（検索窓の長さ・高さを大・中・小から選べる）・絞り込みの窓・集計カード・CSV出力の4つの機能も1つの設定画面で使える。CSV出力はテンプレートごとに、出力できる人（ユーザー・組織・グループ。組織は直接所属している人だけ）を限定できる。同じアプリにクイックサーチなどのプラグインが入っているときは、その機能はもとのプラグインが動く。もとのプラグインの設定は［単品の設定を読み込む］で引き継げる。kintone 標準の［絞り込み］で条件を足しても条件の帯は消えず、両方で絞り込める。kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示する。使う機能は機能ごとに選べ、使わない機能は一覧に出ない。',
           publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
           featureList: [
             '検索・絞り込み・集計の条件を1つにまとめる（kintone 標準の絞り込みも消えない）',
@@ -168,7 +173,7 @@ const faqJsonLd = {
             '検索バー：キーワード（AND／OR）・語句検索・完全一致で、複数のフィールドを横断して探す（検索窓の長さ・高さを大・中・小から選べる）',
             '絞り込みの窓：フィールドごとの窓で、値の一覧から選ぶだけで絞り込む（窓の数・設定セットの数に制限なし）',
             '集計カード：合計・平均・件数などを一覧の上に並べ、絞り込みに合わせて再集計する',
-            'CSV出力：用途別のテンプレートで、絞り込んだ結果をワンクリックで CSV にする。テンプレートごとに出力できる人（ユーザー・組織・グループ）を限定できる',
+            'CSV出力：用途別のテンプレートで、絞り込んだ結果をワンクリックで CSV にする。テンプレートごとに出力できる人（ユーザー・組織・グループ。組織は直接所属している人だけ）を限定できる',
             'これまでのプラグインの設定を読み込んで引き継ぐ',
             '使う機能を機能ごとに選べる（使わない機能は一覧に出ず、保存のときも設定を確かめない。設定を消すこともできる）',
             '多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示',
@@ -561,6 +566,8 @@ const faqJsonLd = {
               <li>検索しても、kintone 標準の［絞り込み］の条件や、窓の選択は消えません。</li>
               <li>条件を変えたときの画面の切り替えは、1回です。</li>
               <li>条件の組み合わせは、すべて AND で重なります。</li>
+              <li>［全検索］で探したときは、これまでどおり、一覧の条件と kintone 標準の［絞り込み］を外して、アプリ全体から探します。</li>
+              <li>一覧の条件を読み取れないとき（削除した選択肢が一覧の条件に残っているときなど）は、条件の一本化と条件の帯は働かず、各機能はもとのプラグインと同じ動きになります。</li>
             </ul>
           </div>
           <div class="kbp-feature-text">
@@ -579,9 +586,11 @@ const faqJsonLd = {
             <p>検索と絞り込みの組み合わせに名前を付けて、あとで呼び出せます。帯の［保存した検索］から使います。</p>
             <ul>
               <li><strong>自分用</strong>：利用者が自分のブラウザに保存します（20件まで）。自分だけが使えます。</li>
-              <li><strong>全員用</strong>：管理者が設定画面で登録します（30件まで）。すべての利用者が使えます。</li>
+              <li><strong>全員用</strong>：管理者が一覧で自分用に保存した検索を、設定画面の［全員用にする］で写して登録します（30件まで）。すべての利用者が使えます。</li>
+              <li>保存した検索は、保存した一覧にだけ出ます。</li>
+              <li>保存されるのは、検索語・窓の選択・カードの絞り込みです。kintone 標準の［絞り込み］で付けた条件は保存されません。</li>
             </ul>
-            <p class="kbp-example"><strong>例：</strong>「今月の未対応」を全員用に登録しておくと、誰でもワンクリックで同じ条件の一覧を開けます。</p>
+            <p class="kbp-example"><strong>例：</strong>「今月の未対応」を全員用にしておくと、その一覧を開いた誰でも、ワンクリックで同じ条件に絞り込めます。</p>
           </div>
           <figure class="kbp-shot">
             <Picture src="/images/search-pro-saved-01.png" alt="kintone のレコード一覧の条件の帯で［保存した検索］を開いた画面。「全員用」と「自分用」に分かれて保存済みの検索が並び、下に名前を付けて今の条件を保存する入力欄がある" width="800" height="321" class="zoomable" />
@@ -596,7 +605,7 @@ const faqJsonLd = {
             <p class="kbp-example"><strong>例：</strong>「商品A の売上」カードを押すと、商品A のレコードだけが一覧に残ります。</p>
             <ul>
               <li>カードごとの集計の絞り込みを設定していて、それを一覧の絞り込みにそのまま置き換えられるカードが押せます。</li>
-              <li>押せないカードにマウスを乗せると、押せない理由が出ます。</li>
+              <li>集計の絞り込みはあっても一覧の絞り込みに置き換えられないカードは、マウスを乗せると押せない理由が出ます。集計の絞り込みを設定していないカードは、何も出ません。</li>
             </ul>
           </div>
           <figure class="kbp-shot">
@@ -608,7 +617,7 @@ const faqJsonLd = {
         <div class="kbp-feature flip">
           <div class="kbp-feature-text">
             <h3 class="kbp-h3">CSV に、今の条件を入れる</h3>
-            <p>CSV のファイル名や先頭行に、今の条件（検索語・窓の選択）を入れられます。</p>
+            <p>CSV のファイル名や先頭行に、今の条件（検索語・窓の選択・カードの絞り込み）を入れられます。</p>
             <ul>
               <li><strong>ファイル名</strong>：テンプレートのファイル名に <code>{'{cond}'}</code> と書くと、今の条件に置き換わります。</li>
               <li><strong>先頭行</strong>：設定画面で、［CSV の先頭行に、今の条件を書く］にチェックを入れます（既定はオフ）。</li>
@@ -624,7 +633,7 @@ const faqJsonLd = {
           <div class="kbp-feature-text">
             <h3 class="kbp-h3">絞った結果を、そのまま一括処理へ</h3>
             <p>条件が効いているとき、帯に「この N 件に：［一括更新］［ステータス一括実行］」が出ます。絞り込んだレコードを対象に、一括処理の画面を開けます。</p>
-            <p>同じアプリに、<a href="/plugins/bulk-update/">かんたん一括更新</a>・<a href="/plugins/status-bulk-action/">ステータス一括実行</a>が入っているときに、入っている方のボタンが出ます。</p>
+            <p>同じアプリに、<a href="/plugins/bulk-update/">かんたん一括更新</a>・<a href="/plugins/status-bulk-action/">ステータス一括実行</a>が入っているときに、入っている方のボタンが出ます。ステータス一括実行を「チェックした行だけ」を対象にする設定にしているときは、［ステータス一括実行］は出ません。</p>
           </div>
           <div class="kbp-feature-text">
             <h3 class="kbp-h3">KIZUNAブリッジから、CSV をレコードに添付</h3>
@@ -653,7 +662,7 @@ const faqJsonLd = {
               <li>検索バー</li><li>絞り込みの窓</li><li>集計カード</li><li>CSV出力</li>
             </ul>
             <ul>
-              <li><strong>検索バー</strong>：キーワード（AND／OR）で、複数のフィールドを横断して探します。語句検索・完全一致にも対応し、検索窓の長さ・高さも選べます。</li>
+              <li><strong>検索バー</strong>：キーワード（AND／OR）で、複数のフィールドを横断して探します。語句検索にも対応し、語の頭に <code>=</code> を付けると完全一致で探せます。完全一致は、文字列（複数行）とリッチエディターの項目を対象外とします。検索窓の長さ・高さも選べます。</li>
               <li><strong>絞り込みの窓</strong>：フィールドごとの窓を開き、値の一覧から選ぶだけで絞り込めます。</li>
               <li><strong>集計カード</strong>：合計・平均・件数などを一覧の上に並べ、絞り込みに合わせて再集計します。</li>
               <li><strong>CSV出力</strong>：用途別のテンプレートで、絞り込んだ結果をワンクリックで CSV にします。テンプレートごとに、出力できる人を限定することもできます。</li>
@@ -682,6 +691,7 @@ const faqJsonLd = {
         <div class="kbp-feature">
           <div class="kbp-feature-text">
             <h3 class="kbp-h3">サーチ Pro にまとめた4つのプラグイン</h3>
+            <p>kintone では、1つのアプリに追加できるプラグインは<strong>20個まで</strong>です。4つのプラグインを別々に入れる代わりにサーチ Pro 1つで済むので、<strong>プラグインの枠を3つ空けられます</strong>。設定も、4つの設定画面を行き来せず、1つの設定画面で済みます。</p>
             <p>同じアプリに両方入っていて、もとのプラグインが有効で設定済みのときは、<strong>その機能はもとのプラグインが動き</strong>、サーチ Pro はその機能だけ動かしません（二重にボタンが出る・二重に集計する、を防ぐためです）。もとのプラグインを「無効」にするか、アプリから外すと、その機能はサーチ Pro が動かします。ほかの機能は、サーチ Pro が動かします。</p>
             <p>条件の帯・条件の一本化は、サーチ Pro が動かす機能と、サーチ Pro に対応した最新版のプラグインで働きます。</p>
           </div>
@@ -697,13 +707,22 @@ const faqJsonLd = {
                 </a>
               </li>
             ))}
+          </ul>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">帯から開けるプラグイン（サーチ Pro には含まれません）</h3>
+            <p>この2つはサーチ Pro には入っていません。同じアプリに入っているときに、条件の帯にボタンが出て、絞り込んだレコードにそのまま使えます。</p>
+          </div>
+          <ul class="ksp-singles">
             {batch.map((b) => (
               <li>
                 <a href={`/plugins/${b.p!.slug}/`}>
                   <img class="ksp-single-icon" src={iconOf(b.p!.slug)} alt="" width="48" height="48" loading="lazy" />
                   <span class="ksp-single-body">
                     <span class="ksp-single-name">{b.p!.name}</span>
-                    <span class="ksp-single-role">帯から開ける：{b.role}</span>
+                    <span class="ksp-single-role">{b.role}</span>
                   </span>
                 </a>
               </li>
@@ -731,7 +750,7 @@ const faqJsonLd = {
         <div class="kbp-feature">
           <div class="kbp-feature-text">
             <h3 class="kbp-h3">CSV出力のテンプレートも、同じ設定画面で</h3>
-            <p>出力する列・並び順・ヘッダー名・文字コード・ファイル名を、テンプレートごとに決めます。［出力できる人を限定する］をオンにすると、ユーザー・組織・グループを選んで、そのテンプレートを使える人を絞れます。一覧のツールバーの［CSV出力］から、テンプレートを選んで書き出せます。</p>
+            <p>出力する列・並び順・ヘッダー名・文字コード・ファイル名を、テンプレートごとに決めます。［出力できる人を限定する］をオンにすると、ユーザー・組織・グループを選んで、そのテンプレートを使える人を絞れます。組織は、その組織に直接所属している人が対象です（下位の組織に所属している人は含みません）。一覧のツールバーの［CSV出力］から、テンプレートを選んで書き出せます。</p>
             <p>出力できる人の限定は、一覧の［CSV出力］に出すテンプレートを切り替えるものです。レコードやフィールドを見られる人は、kintone のアクセス権で設定してください。KIZUNAブリッジのルールで CSV を添付する自動処理には、この限定はかかりません（ルールを設定した管理者の判断で動きます）。</p>
           </div>
           <figure class="kbp-shot">
@@ -766,7 +785,7 @@ const faqJsonLd = {
           <li>検索バー：キーワード（AND／OR）・語句検索・完全一致で、複数のフィールドを横断して検索。検索窓の長さ・高さを大・中・小から選べる</li>
           <li>絞り込みの窓：フィールドごとの窓で、値の一覧から選んで絞り込み（窓の数・設定セットの数に制限なし）</li>
           <li>集計カード：合計・平均・最大・最小・件数などを、絞り込みに合わせて再集計</li>
-          <li>CSV出力：用途別のテンプレートで、絞り込んだ結果をワンクリックで出力。テンプレートごとに、出力できる人（ユーザー・組織・グループ）を限定できる</li>
+          <li>CSV出力：用途別のテンプレートで、絞り込んだ結果をワンクリックで出力。テンプレートごとに、出力できる人（ユーザー・組織・グループ。組織は直接所属している人だけ）を限定できる</li>
           <li>色の欄に共通のカラーパレット（カラーコード入力・マイカラー・最近使った色）</li>
           <li>これまでのプラグインの設定を読み込んで引き継ぐ</li>
           <li>使う機能を機能ごとに選べる（使わない機能は一覧に出ず、保存のときも設定を確かめない）。設定を消すこともできる</li>
