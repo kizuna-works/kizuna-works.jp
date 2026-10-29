@@ -1717,7 +1717,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-theme-styler-v1.0.1.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-theme-styler-v1.1.0.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・手動配置・v1.1.0 詳細画面/明細ヘッダーの個別カラー指定＋設定画面v2レイアウト刷新）
 │   │   ├── kw-theme-styler-v1.1.1.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・手動配置・v1.1.1 ライセンス認証の内部改修）
-│   │   ├── kw-theme-styler-v1.2.0.zip                            # テーマスタイラー for kintone 配布ファイル（最新・手動配置・v1.2.0 色設定を「場所ごと」に再構成＋設定行とプレビューのハイライト連動）
+│   │   ├── kw-theme-styler-v1.2.0.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・手動配置・v1.2.0 色設定を「場所ごと」に再構成＋設定行とプレビューのハイライト連動）
+│   │   ├── kw-theme-styler-v1.2.1.zip                            # テーマスタイラー for kintone 配布ファイル（最新・手動配置・v1.2.1 タイトル帯の「左」「中央」がアプリ名と重ならないよう位置を調整）
 │   │   ├── kw-user-autofill-v1.0.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.0＝属性自動転記＋プロフィールカード／捺印モード）
 │   │   ├── kw-user-autofill-v1.0.1.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.1 ライセンス認証の内部改修＋設定画面レイアウト統一＋転記設定テーブルの潰れ対策）
 │   │   ├── kw-user-autofill-v1.1.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.1.0＝印刷用画面への捺印/カード表示に対応。app.record.print.show を追加・@media print で印刷色を保持）
