@@ -6,7 +6,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 import { plugins, premiumPlugins } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 
-const VERSION = '1.2.1';
+const VERSION = '1.3.0';
 const ZIP = `/downloads/kw-lookup-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/lookup-pro/';
 const DATE_MODIFIED = '2026-10-30';
@@ -136,7 +136,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.2.1",
+          "softwareVersion": "1.3.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -163,7 +163,7 @@ const faqJsonLd = {
           publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
           featureList: [
             '入力中の候補表示：ルックアップに文字を入れると、その場で候補が出て、選ぶと取得まで終わる',
-            '候補の絞り込み：［取得］で出る候補を、同じレコードで入力済みの値で絞る（場面ごとに最大10通り）',
+            '候補の絞り込み：［取得］で出る候補を、同じレコードで入力済みの値で絞る（場面ごとに最大10通り）。数値・計算の列は単位・桁区切りどおり、添付ファイルの画像はサムネイルで表示',
             'マスターのその場登録：参照先のマスターに無いとき、［＋新規登録］でその場で登録して取得する',
             'フリールックアップ：文字列（1行）フィールドの横に［取得］を出し、別のアプリから値をコピーする',
             'マスター更新の自動反映：マスターを更新すると、ルックアップでコピーしているルックアップを持つアプリの既存レコードも更新する（キーが重複禁止なら自動、重複しうるときは方式を選ぶ）',
@@ -473,31 +473,21 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.2.0) -->
+    <!-- Update Info (v1.3.0) -->
     <section class="kbp-section">
       <div class="kbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.2.0：ルックアップで取得したとき、取得元のテーブルの行をまとめて写せるようになりました</h2>
+            <h2 class="update-title">v1.3.0：［取得］の画面で、数値の書式と添付ファイルの画像が見られるようになりました</h2>
           </div>
-          <p class="update-desc">ルックアップ Pro for kintone を v1.2.0 にアップデートしました（2026年10月29日）。kintone のルックアップでは、取得元のレコードのテーブルをコピーできません。<strong>テーブルのコピー</strong>は、ルックアップで取得したときに、取得元のテーブルの全行を、このアプリのテーブルへ列の対応どおりに写します。</p>
-          <h3 class="kbp-h3">テーブルのコピーを追加しました</h3>
+          <p class="update-desc">ルックアップ Pro for kintone を v1.3.0 にアップデートしました（2026年10月30日）。候補の絞り込みで開く［取得］の画面を、kintone 標準に近づけました。</p>
+          <h3 class="kbp-h3">［取得］の画面の表示を改善しました</h3>
           <ul class="update-list">
-            <li><strong>対象は、テーブルの外の標準のルックアップと、テーブルの外のフリールックアップ（参照先が1つのもの）です。</strong>追加画面・編集画面で取得したときに写します（パソコン・スマートフォン）。フリールックアップから写すのは、もとのフリールックアップを無効にするか外したあとです。列の対応は、設定画面のタブ「テーブルのコピー」で選びます。［＋ 列を足す］と［同じ名前の列をつなぐ］が使えます。</li>
-            <li><strong>写せない組み合わせや値は、知らせます。</strong>型の合わない列の組み合わせは、設定画面で理由が出て保存できません。選択肢の列は、このアプリの選択肢に無い値を入れず、写したときに画面の下に知らせます。添付ファイルは写せません。</li>
-            <li><strong>テーブルに値が入っているときは、置き換えと［クリア］の前に確認します。</strong>取り直すと、テーブルの行は取得したレコードの行に置き換わります。［クリア］を押すと、テーブルも空にします。確認は設定で外せます（外すと、置き換えも［クリア］も確認なしで行います）。</li>
+            <li><strong>数値・計算の列は、単位記号・桁区切り・小数点以下の表示桁数どおりに表示します。</strong>例：¥1,234,567。設定画面のプレビューも同じです。キーワード検索は、数字だけで探せます（「,」や「¥」は打たなくて構いません）。</li>
+            <li><strong>添付ファイルの画像は、小さなサムネイルで表示します。</strong>画像以外のファイルは、ファイル名を表示します。</li>
           </ul>
-          <figure class="kbp-shot" style="max-width:640px;margin:20px auto 0;">
-            <Picture src="/images/lookup-pro-config-table-copy.png" alt="ルックアップ Pro の設定画面「テーブルのコピー」。ルックアップ「取引先」、取得元のテーブル「出荷商品」、このアプリのテーブル「明細」を選び、取得元の列とこのアプリの列を4組つないでいる画面" width="1400" height="900" class="zoomable" />
-            <figcaption>設定画面のタブ「テーブルのコピー」。取得元の列とこのアプリの列をつなぎます（画像をクリックすると拡大します）。</figcaption>
-          </figure>
-          <h3 class="kbp-h3">まとめたプラグインの改善を取り込みました</h3>
-          <ul class="update-list">
-            <li><strong>フリールックアップ（v1.3.2 相当）：</strong>開いたときに隠れていたキーの欄が、条件分岐フォームなどで後から表示されたときにも、［取得］［クリア］が付くようになりました。</li>
-            <li><strong>ルックアップ自動同期（v2.4.1 相当）：</strong>レコード権限アシストと連携するとき、組織・グループ・ユーザーを 1 つの設定で使う場合も、それぞれのフィールドへ入れ直すようになりました。</li>
-          </ul>
-          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.2.1）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。保存済みの設定は、そのまま引き継がれます。テーブルのコピーは、設定するまで何もしません。</p>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.3.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。保存済みの設定は、そのまま引き継がれます。</p>
         </div>
       </div>
     </section>
@@ -566,6 +556,7 @@ const faqJsonLd = {
             <p class="kbp-example"><strong>例：</strong>選んだ営業所を管轄するマスターだけを、取引先の候補に出す。</p>
             <ul>
               <li>場面ごとに、絞り方を変えられます（最大10通り）。</li>
+              <li>［取得］の画面では、数値・計算の列を単位記号・桁区切り・小数点以下の表示桁数どおりに表示し、添付ファイルの画像をサムネイルで表示します。</li>
               <li>マスターが数千件以上あっても、キーワードを入れると参照先から探します（最大1万件まで）。［取得］の一覧に並べる件数は、300・500・1000件から選べます。</li>
               <li>スマートフォンでは、テーブルの外のルックアップに使えます。</li>
               <li>先に選んだ値と、あとから変えた条件が食い違わないよう、値を自動でクリアするか、保存時に止めるかを選べます。</li>
