@@ -10,10 +10,10 @@ import type { Plugin } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.1.3';
+const VERSION = '1.1.4';
 const ZIP = `/downloads/kw-bridge-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/';
-const DATE_MODIFIED = '2026-10-31';
+const DATE_MODIFIED = '2026-11-01';
 
 // Partner list: grouped by what the user can do together. Products are read from
 // plugins.ts (`bridge` field), so a new partner shows up here without touching
@@ -83,7 +83,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: '設定を間違えたまま動かしてしまうのが心配です。',
-    a: '設定画面の予行演習で、今のレコードを使って「どのルールが動き、何をどこへ書くか」を、実際には書き込まずに確かめられます。他のアプリへ書き込めなかったもの（と数値の足し引き）は実行の記録に残り、失敗したものは記録から再実行できます。',
+    a: '設定画面の［ルールを試す］で、今のレコードを使って「どのルールが動き、何をどこへ書くか」を、実際には書き込まずに確かめられます。他のアプリへ書き込めなかったもの（と数値の足し引き）は実行の記録に残り、失敗したものは記録から再実行できます。',
   },
   {
     q: '当社のプラグインを、まとめて最新版にできますか？',
@@ -118,7 +118,7 @@ const faqJsonLd = {
   title="KIZUNAブリッジ for kintone｜アプリをまたぐ作業とプラグインの連携を自動化 | KIZUNA Works"
   description="KIZUNAブリッジ for kintone は、保存やアクションをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める処理をノーコードのルールで自動化する KIZUNA Pro プラグイン。当社のプラグインとも連携し、書き込み先での採番や通知、画面を通らずに保存したレコードへの採番の当て直しまでつなげます。"
   ogTitle="KIZUNAブリッジ for kintone｜アプリをまたぐ作業とプラグインの連携を自動化 | KIZUNA Works"
-  ogDescription="保存やアクションをきっかけに、他のアプリへの書き込みや当社プラグインの処理を、ノーコードのルールで自動化。KIZUNA Works の上位版「KIZUNA Pro プラグイン」の第1弾です。予行演習・実行の記録・連携の流れつき。"
+  ogDescription="保存やアクションをきっかけに、他のアプリへの書き込みや当社プラグインの処理を、ノーコードのルールで自動化。KIZUNA Works の上位版「KIZUNA Pro プラグイン」の第1弾です。ルールを試す機能・実行の記録・連携の流れつき。"
   ogType="website"
   ogUrl={PAGE_URL}
   ogImage="https://kizuna-works.jp/images/bridge-banner.png"
@@ -152,7 +152,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.1.3",
+          "softwareVersion": "1.1.4",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -175,7 +175,7 @@ const faqJsonLd = {
               description: 'プレミアム年間サポーターに追加するプラン（年額）。',
             },
           ],
-          description: 'KIZUNAブリッジ for kintone は、kintone のアプリをまたぐ作業と当社のプラグインの連携を、ノーコードのルールで自動化するプラグイン。画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン・ブリッジの CSV ボタンでの読み込みと書き出しの前後をきっかけに、条件（このレコードの値と変更前の値・テーブル・ステータス・操作した人と組織・端末・日付・他のアプリのレコードの有無や件数・合計）に合えば、このレコードへの値の入力・集計・行の追加と削除、エラー・確認・お知らせ、他のアプリのレコードの取得・作成・更新・ステータスの変更・双方向の同期を行う。書き込み先のアプリに入っている当社のプラグインの処理（時間帯で日時を決める・採番・地図リンク・経過日数・文字列結合・ルックアップのコピーなど）を当てる、カレンダービューのモーダルや一括更新で保存したこのアプリのレコードへの採番などの当て直し、チャット通知、レコードロックの確認、一括更新などの実行にも対応。予行演習・実行の記録と再実行・あとから流す・連携の流れ・不在カレンダーと営業日・当社プラグインの一括更新つき。',
+          description: 'KIZUNAブリッジ for kintone は、kintone のアプリをまたぐ作業と当社のプラグインの連携を、ノーコードのルールで自動化するプラグイン。画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン・ブリッジの CSV ボタンでの読み込みと書き出しの前後をきっかけに、条件（このレコードの値と変更前の値・テーブル・ステータス・操作した人と組織・端末・日付・他のアプリのレコードの有無や件数・合計）に合えば、このレコードへの値の入力・集計・行の追加と削除、エラー・確認・お知らせ、他のアプリのレコードの取得・作成・更新・ステータスの変更・双方向の同期を行う。書き込み先のアプリに入っている当社のプラグインの処理（時間帯で日時を決める・採番・地図リンク・経過日数・文字列結合・ルックアップのコピーなど）を当てる、カレンダービューのモーダルや一括更新で保存したこのアプリのレコードへの採番などの当て直し、チャット通知、レコードロックの確認、一括更新などの実行にも対応。ルールを試す機能・実行の記録と再実行・あとから流す・連携の流れ・不在カレンダーと営業日・当社プラグインの一括更新つき。',
           publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
           featureList: [
             'きっかけ：画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン・ブリッジの CSV ボタンでの読み込みと書き出しの前後',
@@ -187,7 +187,7 @@ const faqJsonLd = {
             '書き込み先のアプリのチャット通知・レコードロックとの連携',
             'このレコードに、採番などの当社プラグインの処理を当て直す（カレンダービューのモーダル・一括更新で保存したレコード向け）',
             'ルールから当社のプラグインの機能を実行する',
-            '予行演習（書き込まずに結果を確認）',
+            'ルールを試す（書き込まずに結果を確認）',
             '実行の記録と再実行・あとから流す',
             '連携の流れ（アプリのつながりと連鎖の確認）',
             '不在カレンダーと営業日の計算',
@@ -472,7 +472,7 @@ const faqJsonLd = {
         </div>
         <p class="update-desc">KIZUNAブリッジ for kintone を v1.1.3 にアップデートしました。</p>
         <p class="update-desc">ルールの条件<strong>「変更前の〇〇」</strong>で、日時フィールドは時刻まで比べるようにしました。同じ日のうちに時刻だけ変えたとき（例：10:00 から 11:00）も「が変わった」で判定されます。日をまたぐ変更や、日付・数値・文字列などのフィールドの判定は変わりません。</p>
-        <p class="update-desc">「から変わった」の値は、従来どおり日付で指定します。設定画面の予行演習の結果には、日時フィールドの変更前・変更後の時刻も表示されます。</p>
+        <p class="update-desc">「から変わった」の値は、従来どおり日付で指定します。設定画面でルールを試した結果には、日時フィールドの変更前・変更後の時刻も表示されます。</p>
         <p class="update-note">既存ユーザーの方は、最新版（v1.1.3）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
       </div>
     </section>
@@ -545,12 +545,12 @@ const faqJsonLd = {
 
         <div class="kbp-feature">
           <div class="kbp-feature-text">
-            <h3 class="kbp-h3">予行演習で、書き込む前に結果を確かめる</h3>
+            <h3 class="kbp-h3">ルールを試して、書き込む前に結果を確かめる</h3>
             <p>今あるレコードを選んで、<strong>どのルールが動き、何をどこへ書くか</strong>を、実際には書き込まずに確かめられます。条件のどこで外れたかも表示するので、設定の見直しが早くなります。</p>
           </div>
           <figure class="kbp-shot">
-            <Picture src="/images/bridge-config-dryrun-01.png" alt="設定画面の予行演習の結果。選んだレコードで動くルール、条件の判定、書き込む予定の値が一覧で表示されている" width="1400" height="485" class="zoomable" />
-            <figcaption>予行演習の結果。書き込む予定の値と、条件の判定を確かめられます。</figcaption>
+            <Picture src="/images/bridge-config-dryrun-01.png" alt="設定画面でルールを試した結果。選んだレコードで動くルール、条件の判定、書き込む予定の値が一覧で表示されている" width="1400" height="486" class="zoomable" />
+            <figcaption>ルールを試した結果。書き込む予定の値と、条件の判定を確かめられます。</figcaption>
           </figure>
         </div>
 
@@ -758,7 +758,7 @@ const faqJsonLd = {
           <li>書き込み先のアプリのチャット通知・レコードロックとの連携</li>
           <li>カレンダービューのモーダルや一括更新で保存したレコードに、採番などの処理を当て直す</li>
           <li>ルールから当社のプラグインの機能を実行する</li>
-          <li>予行演習（書き込まずに結果を確認）</li>
+          <li>ルールを試す（書き込まずに結果を確認）</li>
           <li>実行の記録と再実行・あとから流す</li>
           <li>連携の流れ（つながりと連鎖の輪の警告）</li>
           <li>不在カレンダーと営業日の計算</li>
@@ -823,7 +823,7 @@ const faqJsonLd = {
           <li><span>このページから <strong>kw-bridge-v{VERSION}.zip</strong> をダウンロードします（解凍は不要です）。</span></li>
           <li><span>kintone の［kintone システム管理］→［プラグイン］→［読み込む］で、zip ファイルを読み込みます。</span></li>
           <li><span>きっかけにするアプリの［アプリの設定］→［プラグイン］→［追加する］で、KIZUNAブリッジ for kintone を追加します。</span></li>
-          <li><span>プラグインの設定画面を開き、ご契約が確認されると設定の画面が表示されます。［ルール］タブでルールを作り、予行演習で確かめます。</span></li>
+          <li><span>プラグインの設定画面を開き、ご契約が確認されると設定の画面が表示されます。［ルール］タブでルールを作り、［ルールを試す］で確かめます。</span></li>
           <li><span>［保存する］を押し、［アプリを更新］で反映します。他のアプリと連携するプラグインは、書き込み先のアプリにも入れておきます。</span></li>
         </ol>
       </div>
