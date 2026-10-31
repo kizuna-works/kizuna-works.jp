@@ -1456,7 +1456,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-comment-v1.1.0.zip                           # フィールドコメント for kintone 配布ファイル（手動配置・v1.1.0 編集/新規画面対応＋アイコン10種＋カラーコード入力＋設定アコーディオン化）
 │   │   ├── kw-field-comment-v1.1.1.zip                           # フィールドコメント for kintone 配布ファイル（旧版・手動配置・v1.1.1 フィールド名非表示フィールドのコメント誤付着を修正＋入力欄直上に表示＋ラベル改称後も追従）
 │   │   ├── kw-field-comment-v1.1.2.zip                           # フィールドコメント for kintone 配布ファイル（旧版・手動配置・v1.1.2 ライセンス認証の内部改修）
-│   │   ├── kw-field-comment-v1.2.0.zip                           # フィールドコメント for kintone 配布ファイル（最新・手動配置・v1.2.0 グループの見出し・ラベルへのコメント＋同名フィールドでも正しい欄に表示）
+│   │   ├── kw-field-comment-v1.2.0.zip                           # フィールドコメント for kintone 配布ファイル（旧版・手動配置・v1.2.0 グループの見出し・ラベルへのコメント＋同名フィールドでも正しい欄に表示）
+│   │   ├── kw-field-comment-v1.3.0.zip                           # フィールドコメント for kintone 配布ファイル（最新・手動配置・v1.3.0 色の欄に共通カラーパレット＋日本語／英語／中国語（簡体字）表示）
 │   │   ├── kw-field-styler-v1.1.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-field-styler-v1.2.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-field-styler-v2.0.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
