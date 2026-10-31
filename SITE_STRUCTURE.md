@@ -50,6 +50,7 @@ c:\kizuna-works.jp\
 │   │   ├── PremiumFaqSection.astro # プレミアム製品ページの「よくある質問」（アコーディオン＋FAQPage JSON-LD を src/data/premium-faqs.ts から生成＝表示と構造化データが必ず一致）
 │   │   ├── ShareButtons.astro  # SNS共有ボタン（X/LINE/はてブは静的intentリンク・URLコピー/OS共有シートのみJS）。全プラグイン個別ページ末尾に設置。title="〇〇 for kintone"・URLはAstro.urlから自動導出
 │   │   ├── BridgeBadge.astro # 「ブリッジ連携」バッジ（as="badge" ヒーロー）と説明帯（as="note"）。plugins.ts の bridge フィールドがある製品だけ表示
+│   │   ├── MultilingualBadge.astro # 「🌐 多言語対応」バッジ（製品ページのヒーロー）。plugins.ts の multilingual: true がある製品だけ表示。全製品ページに入れてあり、無料製品の hero-version の隣は gap 付き（2026-10-31）
 │   │   ├── BridgeFeatureBand.astro # トップページの帯「KIZUNAブリッジ おすすめの機能」（KIZUNA Pro 帯の直下）。ブリッジの機能をひとつずつ紹介し、製品ページのその機能の説明箇所へ遷移。FEATURES に足して CURRENT を書き換えると差し替わる（2026-10-27 初回＝プラグインの一括更新 → /plugins/bridge/#plugin-update）
 │   │   ├── BridgeUpdateNote.astro # 製品ページの UPDATE ボックス末尾の1行「まとめて更新」。KIZUNAブリッジの［プラグインの更新］タブ（/plugins/bridge/#plugin-update）へ誘導。UPDATE ボックスのある製品ページ51件に設置（2026-10-27）
 │   │   ├── BridgeRecipeCard.astro # KIZUNAブリッジの「使い方の例」カード1件（今の作業 → きっかけ・条件・動かす内容 → こうなります）。製品ページ（代表例）と /plugins/bridge/recipes/（全件）で共用。データは src/data/bridge-recipes.ts
@@ -1840,6 +1841,7 @@ c:\kizuna-works.jp\
 │   ├── gen-image-derivatives.mjs # dist の HTML が参照する PNG から .webp / -800.webp を生成（Picture.astro 用）
 │   ├── gen-favicon.mjs         # src/assets/KIZUNA-Worksロゴデータlogo.png から public/favicon.ico（16/32/48）・public/images/favicon.png（192x192）・public/images/apple-touch-icon.png（180x180）を生成。Google 検索結果のアイコンは「正方形かつ48pxの倍数」でないと採用されず、ルートの /favicon.ico も見られるため両方を用意する。手動実行（`node scripts/gen-favicon.mjs`）
 │   ├── gen-blog-figures.mjs    # ブログ本文の図解を satori＋sharp でコード生成（オンブランド）
+│   ├── check-multilingual-badge.mjs # 配布中の最新 zip（public/downloads）に js/<prefix>-i18n.{desktop,mobile,config}.js があるかと plugins.ts の multilingual: true を突き合わせ、食い違い・製品ページの <MultilingualBadge> 抜けでビルドを中止（2026-10-31 追加）。prebuild で自動実行（単体は `npm run check:i18nbadge`）
 │   ├── gen-plugin-banner.mjs   # プラグインのカードバナー画像を生成
 │   ├── gen-tsukuroi-preview.mjs # Tsukuroi のプレビュー画像を生成
 │   └── generate-extension-banners.mjs # Chrome 拡張機能のバナー画像を生成

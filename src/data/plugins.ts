@@ -115,6 +115,12 @@ export interface Plugin {
    * Never name partner companies or describe how the bridge talks to the product.
    */
   bridge?: string;
+  /**
+   * Set only when the PUBLISHED version shows its screens in Japanese, English and
+   * Simplified Chinese (switching on the kintone user's language). Renders the
+   * 「多言語対応」 badge on the grid card and the product page hero.
+   */
+  multilingual?: true;
 }
 
 export const plugins: Plugin[] = [
@@ -125,6 +131,7 @@ export const plugins: Plugin[] = [
     formName: 'フィールドスタイラー for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'field-styler',
+    multilingual: true,
     categories: ['装飾・配色', '表示・編集制御'],
     description:
       '背景色・文字色・フォントサイズ・条件付きスタイル・入力制御など全13機能をノーコードで設定できるプラグイン。フィールド名（見出し）にも背景色・文字色・太字を付けられ、入力担当者が区分けをひと目で見分けられます。チェックボックス・複数選択の値の装飾、設定のまとめコピーにも対応。色の指定欄にはカラーパレット（マイカラー登録）が付き、日本語・英語・中国語（簡体字）の表示に対応。文字数制限・入力文字種制限はサブテーブル（明細）内の列にも設定できます。',
@@ -322,6 +329,7 @@ export const plugins: Plugin[] = [
     formName: 'フィールドコメント for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'field-comment',
+    multilingual: true,
     categories: ['入力チェック', '画面レイアウト'],
     description:
       'フィールド名やグループの見出し、フォームのラベルの横にヘルプアイコンや常時表示のコメントを追加するプラグイン。ホバー／クリック／常時表示の3モードで、編集・新規作成画面にも表示。見出しに1つ付ければ、まとまった項目の説明も1か所で伝えられます。色の欄はマイカラーを登録できるカラーパレット付きで、画面表示は日本語・英語・中国語（簡体字）に対応。',
@@ -346,6 +354,7 @@ export const plugins: Plugin[] = [
     formName: 'テーマスタイラー for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'theme-styler',
+    multilingual: true,
     categories: ['装飾・配色', '一覧表示'],
     description:
       'アプリのテーマカラーをヘッダー・行・罫線・フォーム背景まで一括で着色。色はアプリ名／レコード詳細画面／明細ヘッダーと場所ごとに指定でき、変わる場所は設定画面のプレビューで確認できます。タイトル帯には関連アプリ・社内ポータル・外部サイトへのリンクを集約。色の欄にはカラーパレット（マイカラー登録）が付き、設定画面は日本語・英語・中国語（簡体字）に対応。',
@@ -1339,6 +1348,7 @@ export const premiumPlugins: Plugin[] = [
     formName: 'サーチ Pro for kintone',
     subtitle: 'KIZUNA Pro プラグイン',
     slug: 'search-pro',
+    multilingual: true,
     categories: ['検索・閲覧', '集計・計算', '出力・帳票'],
     description:
       '検索・絞り込み・集計・CSV出力を、ひとつの条件でつなぎます。効いている条件は帯に並べて×で外せ、よく使う条件は保存して呼び出せます。集計カードを押して絞り込み、絞った結果はそのまま一括処理へ。4つの機能も1つの設定画面で。検索窓の長さ・高さも選べます。CSV は出力できる人（ユーザー・組織・グループ。組織は直接所属している人だけ）を限定できます。使う機能は機能ごとに選べます。表示は日本語・英語・中国語（簡体字）に対応します。',
@@ -1366,6 +1376,7 @@ export const premiumPlugins: Plugin[] = [
     formName: 'ルックアップ Pro for kintone',
     subtitle: 'KIZUNA Pro プラグイン',
     slug: 'lookup-pro',
+    multilingual: true,
     categories: ['自動入力', '検索・閲覧', '入力チェック'],
     description:
       '入力中の候補表示・候補の絞り込み・マスターのその場登録・フリールックアップ・マスター更新の自動反映の5機能を1つの設定画面で使えます。欄ごとの一覧で設定を確認し、まとめて設定で候補表示とその場登録を一括作成。絞り込みの条件をその場登録に引き継ぎ、フリールックアップの取得元が更新されたら詳細画面で知らせます。ルックアップで取得したとき、取得元のテーブルの行をこのアプリのテーブルへまとめて写す「テーブルのコピー」にも対応。機能ごとに「使う」を選べ、表示は日本語・英語・中国語（簡体字）に対応します。',
@@ -1393,6 +1404,7 @@ export const premiumPlugins: Plugin[] = [
     formName: '添付ファイル Pro for kintone',
     subtitle: 'KIZUNA Pro プラグイン',
     slug: 'file-pro',
+    multilingual: true,
     categories: ['検索・閲覧', '出力・帳票', '一括処理'],
     description:
       '添付ファイルのプレビュー・一覧のアイコン表示・ZIP出力・画像圧縮・PDFへの書き込みを1つの設定画面で使えます。詳細画面の［このレコードの添付］でテーブル内も含む全添付を並べ、一覧の［添付の容量］で合計と大きいレコード、圧縮でおよそ減る量を確認できます（画像の一括圧縮は、設定でオンにしたときだけ）。ZIP に入れる画像だけを縮める、一覧の［添付を検索］でファイル名と中の語（kintone の添付ファイルの検索で当たる範囲）から探す、PDF・画像を1つの PDF にまとめる、保存したとき新しく添付したファイルの名前をそろえる、形式・大きさ・点数のきまりで添付を確かめる、許可した人のほかは添付を保存できなくする「ダウンロードの制限」、にも対応します。使う機能は機能ごとに選べ、使わない機能は何も出しません。プレビューは画面の右に並べる・別ウインドウで開くことができ、表示は日本語・英語・中国語（簡体字）に対応します。',
@@ -1690,6 +1702,7 @@ export const premiumPlugins: Plugin[] = [
     formName: 'カレンダービュー for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'calendar-view',
+    multilingual: true,
     bridge: 'ブリッジの不在カレンダーを、人ごとの予定表（タイムライン）や月のカレンダーで見られます。カレンダー上で予定を動かした・追加したときも、ブリッジのルールが動きます。',
     categories: ['一覧表示', '検索・閲覧', '入力チェック'],
     description:
@@ -1822,6 +1835,7 @@ export const premiumPlugins: Plugin[] = [
     formName: '注釈アシスト for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'annotation',
+    multilingual: true,
     bornFrom: 'supporter-request',
     categories: ['情報共有', '入力チェック'],
     description:

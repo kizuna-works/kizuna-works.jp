@@ -1201,6 +1201,49 @@ const freeFaqJsonLd = {
       }
     }
 
+    .pro-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    /* Multilingual badge on the dark Pro card: outline in the card's light tone */
+    .pro-card-i18n {
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .pro-card-i18n::before {
+      content: '🌐 ';
+    }
+
+    /* Multilingual badge on light cards: outline pill next to the free/premium badges */
+    .badge-i18n {
+      background: #f0f6ff;
+      color: #1B3A6B;
+      border: 1px solid #1B3A6B;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .badge-i18n::before {
+      content: '🌐';
+      font-size: 0.85rem;
+    }
+
     .badge-bridge {
       background: #fffaf0;
       color: #7a5512;
@@ -1507,7 +1550,10 @@ const freeFaqJsonLd = {
                 />
               </div>
               <div class="pro-card-content">
-                <span class="pro-card-tag">KIZUNA Pro プラグイン</span>
+                <div class="pro-card-tags">
+                  <span class="pro-card-tag">KIZUNA Pro プラグイン</span>
+                  {plugin.multilingual && <span class="pro-card-i18n" title="日本語・英語・中国語（簡体字）で表示できます">多言語対応</span>}
+                </div>
                 <h3 class="pro-card-title">{plugin.name}</h3>
                 <p class="pro-card-desc">{plugin.description}</p>
                 <p class="pro-card-plan">プレミアム年間サポーター＋KIZUNA Pro 拡張パックでご利用いただけます</p>
@@ -1572,6 +1618,7 @@ const freeFaqJsonLd = {
                   )}
                   <span class="badge-free-tier">無料プランあり</span>
                   {plugin.bridge && <a class="badge-bridge" href="/plugins/bridge/" title="KIZUNAブリッジ for kintone と連携できます">ブリッジ連携</a>}
+                  {plugin.multilingual && <span class="badge-i18n" title="日本語・英語・中国語（簡体字）で表示できます">多言語対応</span>}
                 </div>
                 <div class="plugin-pricing-row">
                   <span class="premium-plan-note">プレミアム年間サポーターに含む</span>
@@ -1632,6 +1679,7 @@ const freeFaqJsonLd = {
                   <span class="badge-coming-soon">準備中</span>
                 )}
                 {plugin.bridge && <a class="badge-bridge" href="/plugins/bridge/" title="KIZUNAブリッジ for kintone と連携できます">ブリッジ連携</a>}
+                {plugin.multilingual && <span class="badge-i18n" title="日本語・英語・中国語（簡体字）で表示できます">多言語対応</span>}
               </div>
               {plugin.status === 'available' && plugin.price !== undefined && (
                 <div class="plugin-pricing-row">

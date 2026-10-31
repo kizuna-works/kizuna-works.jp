@@ -1,0 +1,56 @@
+---
+/**
+ * Marks a plugin whose screens can be shown in Japanese, English and Simplified Chinese.
+ * Driven by the `multilingual` field in `src/data/plugins.ts`: pass `pluginId` and the
+ * component renders nothing unless that product has the field, so the hero pill and the
+ * grid-card badge on /plugins/ always agree.
+ *
+ * Hero pill only (translucent, for the dark hero gradient). Grid cards use `.badge-i18n`
+ * in `plugins/index.astro`.
+ */
+import { allPlugins } from '../data/plugins';
+
+interface Props {
+  /** Product id in plugins.ts (e.g. 'kw-field-comment'). */
+  pluginId: string;
+  /** Add a left margin, for heroes whose badge row is not a flex container with a gap. */
+  gap?: boolean;
+}
+
+const { pluginId, gap = false } = Astro.props;
+const on = allPlugins.find((p) => p.id === pluginId)?.multilingual;
+---
+
+{on && (
+  <span class:list={['mlb-badge', { 'mlb-gap': gap }]} title="日本語・英語・中国語（簡体字）で表示できます。kintone のユーザーの言語設定で切り替わります"><span class="mlb-icon" aria-hidden="true">🌐</span><span>多言語対応</span></span>
+)}
+
+<style>
+  /* Hero pill: same footprint as the request-origin and bridge pills */
+  .mlb-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    padding: 6px 14px;
+    border-radius: 20px;
+    line-height: 1;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .mlb-gap {
+    margin-left: 8px;
+  }
+
+  .mlb-icon {
+    display: block;
+    line-height: 1;
+    font-size: 1.02em;
+  }
+</style>
