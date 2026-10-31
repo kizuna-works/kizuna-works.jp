@@ -797,10 +797,11 @@ export const plugins: Plugin[] = [
     formName: 'エクセル一括貼り付け for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'excel-paste',
+    multilingual: true,
     bornFrom: 'supporter-request',
     categories: ['一括処理', '自動入力'],
     description:
-      'Excel等の表を貼り付けるだけで一括入力できるプラグイン。サブテーブルへ複数行、一覧から複数レコードを一括作成。¥1,234・1,234円・▲などの金額表示もそのまま数値に。プレビューで取り込む値を確認でき、見出し行は自動マッピング。',
+      'Excel等の表を貼り付けるだけで一括入力できるプラグイン。サブテーブルへ複数行、一覧から複数レコードを一括作成。¥1,234・1,234円・▲などの金額表示もそのまま数値に。プレビューで取り込む値を確認でき、見出し行は自動マッピング。取り込まない列にはフィールドの初期値が入ります。',
     image: '/images/excel-paste-banner.png',
     imageAlt:
       'エクセル一括貼り付け for kintone プラグイン — Excelの表データを貼り付けてサブテーブルへ複数行、一覧から複数レコードを一括入力。プレビューで列とフィールドを対応、見出し行は自動マッピング',
@@ -809,11 +810,11 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      'Excelの表を貼り付けるだけで一括入力。サブテーブルへ複数行、一覧から複数レコードを作成。¥・円・▲付きの金額表示もそのまま数値に。',
+      'Excelの表を貼り付けるだけで一括入力。サブテーブルへ複数行、一覧から複数レコードを作成。¥・円・▲付きの金額表示もそのまま数値に、取り込まない列には初期値が入ります。',
     problemTitle: 'Excelの表をkintoneに1行ずつ手入力している',
     problemDesc: '見積・注文などの明細をExcelで先に作ってからkintoneへ転記していて、サブテーブルや複数レコードの入力や、金額の円マーク・桁区切りの手直しに毎回手間がかかる',
     releaseDate: '2026-07-05',
-    summaryVersion: '1.2.0',
+    summaryVersion: '1.3.0',
   },
   {
     id: 'kw-ambiguous-match',
