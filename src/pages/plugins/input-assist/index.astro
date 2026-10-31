@@ -59,10 +59,10 @@ import MultilingualBadge from '../../../components/MultilingualBadge.astro';
           "name": "入力アシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.2.0",
-          "dateModified": "2026-10-21",
+          "softwareVersion": "2.3.0",
+          "dateModified": "2026-10-31",
           "url": "https://kizuna-works.jp/plugins/input-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-input-assist-v2.2.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-input-assist-v2.3.0.zip",
           "image": "https://kizuna-works.jp/images/input-assist-banner.png",
           "offers": {
             "@type": "Offer",
@@ -72,7 +72,7 @@ import MultilingualBadge from '../../../components/MultilingualBadge.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintone の新規作成・編集画面で、入力欄に過去の入力値やほかのアプリのフィールド値を候補表示して選ぶだけで入力できる kintone プラグイン。狭い入力欄を大きなダイアログで開いて入力できる拡大入力（v2.1.0）と、貼り付けた値や手入力した値の表記ゆれをフィールドごとの辞書で自動的にそろえる入力の変換（v2.2.0）を備える。サジェストと拡大入力はサブテーブル内のフィールドにも対応。入力してほしい順に色で誘導する入力順ガイド、保存を止めない未入力チェック、入力中の重複チェックも備える。",
+          "description": "kintone の新規作成・編集画面で、入力欄に過去の入力値やほかのアプリのフィールド値を候補表示して選ぶだけで入力できる kintone プラグイン。狭い入力欄を大きなダイアログで開いて入力できる拡大入力（v2.1.0）と、貼り付けた値や手入力した値の表記ゆれをフィールドごとの辞書で自動的にそろえる入力の変換（v2.2.0。v2.3.0 で置き換える位置・辞書を使う条件・複数辞書を追加）を備える。サジェストと拡大入力はサブテーブル内のフィールドにも対応。入力してほしい順に色で誘導する入力順ガイド、保存を止めない未入力チェック、入力中の重複チェックも備える。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -90,6 +90,9 @@ import MultilingualBadge from '../../../components/MultilingualBadge.astro';
             "入力の変換：数値フィールドの金額表記（¥・円・桁区切りなど）を外し、漢数字を数字に",
             "入力の変換：変換したら入力欄の下に知らせを出し、［元に戻す］で戻せる",
             "入力の変換：置き換えルールを kintone のアプリのレコードで管理できる辞書アプリ（ボタン1つで作成）",
+            "入力の変換：置き換えをかける位置（先頭だけ・末尾だけ・N 文字目から M 文字）を選択",
+            "入力の変換：辞書ごとに使う条件（変換するフィールド自身・ほかのフィールド・テーブル内の同じ行の列の値）を指定",
+            "入力の変換：同じフィールドを複数の辞書に入れ、上から順に条件に合う辞書をかける",
             "入力サジェスト：同じフィールドに過去に入力された値を候補表示して入力",
             "入力サジェスト：ほかのアプリの指定フィールドの値を候補表示して入力（マスタ参照）",
             "サブテーブル内のフィールドもサジェスト対象にできる",
@@ -775,71 +778,83 @@ import MultilingualBadge from '../../../components/MultilingualBadge.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.2.0</span>
+        <span class="hero-version">v2.3.0</span>
         <MultilingualBadge pluginId="kw-input-assist" gap />
       </div>
       <h1 class="hero-title">入力アシスト for kintone</h1>
-      <p class="hero-copy">入力アシストは、kintone の入力欄に<strong>過去に入力された値</strong>や<strong>ほかのアプリの値</strong>を候補として表示し、選ぶだけで入力できる kintone プラグインです。<strong>サブテーブル内のフィールドにも対応</strong>。同じ値を毎回打ち直す手間と、打ち間違いによる表記のばらつきをまとめて減らせます。貼り付けた値や手入力した値の<strong>表記ゆれを辞書で自動的にそろえる「入力の変換」</strong>、狭い入力欄を大きなダイアログで開く「拡大入力」、入力してほしい順にフィールドを色で誘導する「入力順ガイド」、保存を止めずに入力漏れだけ知らせる「未入力チェック」、入力中に重複を警告する「重複チェック」を備え、新人やたまに使う担当者でも迷わず正しく入力できます。</p>
-      <HeroDownload href="/downloads/kw-input-assist-v2.2.0.zip" />
+      <p class="hero-copy">入力アシストは、kintone の入力欄に<strong>過去に入力された値</strong>や<strong>ほかのアプリの値</strong>を候補として表示し、選ぶだけで入力できる kintone プラグインです。<strong>サブテーブル内のフィールドにも対応</strong>。同じ値を毎回打ち直す手間と、打ち間違いによる表記のばらつきをまとめて減らせます。貼り付けた値や手入力した値の<strong>表記ゆれを辞書で自動的にそろえる「入力の変換」</strong>（置き換える位置や、辞書を使う条件も指定可）、狭い入力欄を大きなダイアログで開く「拡大入力」、入力してほしい順にフィールドを色で誘導する「入力順ガイド」、保存を止めずに入力漏れだけ知らせる「未入力チェック」、入力中に重複を警告する「重複チェック」を備え、新人やたまに使う担当者でも迷わず正しく入力できます。</p>
+      <HeroDownload href="/downloads/kw-input-assist-v2.3.0.zip" />
     </section>
 
-    <!-- Update highlight -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v2.2.0：貼り付けた値や手入力した値の表記ゆれを、自動でそろえられるようになりました</h2>
+          <h2 class="update-title">v2.3.0：入力の変換を、場所や条件に応じて使い分けられるようになりました</h2>
         </div>
         <p class="update-desc">
-          ほかのファイルや画面からコピーして貼り付けた値は、「3,000円」と「￥3,000」、「（株）」と「株式会社」、全角と半角のように、
-          <strong>表記がばらばら</strong>になりがちです。<strong>入力の変換（変換辞書）</strong>を追加しました。
-          フィールドごとに決めた変換ルール（辞書）で、貼り付けたとき・入力欄から出たとき・保存するときに、<strong>値を自動的にそろえます</strong>。
+          2026年10月31日に、入力アシストを v2.3.0 にアップデートしました。
+          入力の変換に次の 3 点を追加しました。
         </p>
         <div class="update-shot">
-          <p class="shot-label">▼ 設定画面の「入力の変換」：辞書を作り、対象フィールドと変換するタイミングを選びます</p>
+          <p class="shot-label">▼ 辞書ごとに「使う条件」、置き換えルールごとに「かける位置」を選べます</p>
           <div class="screenshot-frame">
             <Picture
-              class="zoomable" src="/images/input-assist-convert-01.png"
-              alt="入力アシストの設定画面「入力の変換（変換辞書）」のカード。「金額」「会社名」の辞書が並び、会社名の辞書を開いて対象のフィールドと、貼り付けたとき・入力欄から出たとき・保存するときのタイミングを選べる"
-              width="1071" height="1558"
-            />
-          </div>
-          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-        </div>
-        <div class="update-shot">
-          <p class="shot-label">▼ 貼り付けると値が変換され、入力欄の下に知らせが出ます</p>
-          <div class="screenshot-frame">
-            <Picture
-              class="zoomable" src="/images/input-assist-convert-02.png"
-              alt="kintone の入力欄に値を貼り付けると変換され、入力欄の下に「変換前 → 変換後」と［元に戻す］が表示されている"
-              width="800" height="167"
+              class="zoomable" src="/images/input-assist-convert-03.png"
+              alt="入力アシストの設定画面「入力の変換」。辞書の「この辞書を使う条件」と、置き換えルールの「かける位置」を選べる"
+              width="1800" height="1320"
             />
           </div>
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </div>
         <p class="update-desc">
-          辞書はいくつでも作れ、1 つの辞書に<strong>対象フィールドを複数</strong>指定できます（サブテーブル内の列も可）。
-          文字の整形（英数字・記号の全角／半角、半角カナを全角に、大文字／小文字、空白の扱い、前後の空白、ハイフンのゆれ、改行）と、
-          <strong>変換前→変換後の置き換えルール</strong>（含まれていたら置き換え／完全一致／正規表現）を組み合わせられます。
-          置き換えルールは▲▼で並べ替えられ、<strong>Excel から貼り付けて取り込む</strong>こともできます。
+          <strong>1. 置き換えを、先頭だけ・末尾だけ・位置を指定してかけられます。</strong>
+          置き換えルールごとに「どこでも」「先頭だけ」「末尾だけ」「位置を指定（N 文字目から M 文字）」を選べます。
+          たとえば、先頭の番号だけを消して、途中の数字は残せます（「12商品名2026」→「商品名2026」）。
+          ひな形に「先頭の番号を取る」も加えました。
+        </p>
+        <div class="update-shot">
+          <p class="shot-label">▼ 条件と置き換えルール表の拡大</p>
+          <div class="screenshot-frame">
+            <Picture
+              class="zoomable" src="/images/input-assist-convert-04.png"
+              alt="辞書の「この辞書を使う条件」と、置き換えルール表の「かける位置」の列を拡大した画面"
+              width="1261" height="1102"
+            />
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-desc">
+          <strong>2. 辞書を使う条件を決められます。</strong>
+          辞書ごとに「いつも使う」か「条件に合うときだけ使う」を選べます。
+          条件には、変換するフィールド自身の値（上の辞書で変換したあとの値）、ほかのフィールドの値、テーブル内の同じ行の列の値を使えます。
+          比べ方は、で始まる・で終わる・を含む・を含まない・と等しい・と等しくない・正規表現に一致・空である・空でない、から選べます。
+          複数の条件は「すべて」か「どれか 1 つ」で組み合わせます。
         </p>
         <p class="update-desc">
-          数値フィールドでは、金額の表記（¥・円・円也・金・末尾の .-・マイナスの ▲・桁区切りのカンマ）を外し、
-          漢数字（三千・1万2千 など）も数字にできます。変換したときは入力欄の下に知らせが出て、<strong>［元に戻す］で戻せます</strong>。
-          拡大入力で確定した値にも、同じ変換をかけます。
+          <strong>3. 同じフィールドを複数の辞書に入れられます。</strong>
+          上の辞書から順に、条件に合う辞書をすべてかけます。
+          「この辞書で変換したら、下にある辞書はかけない」を選べば、条件ごとの使い分けもできます。
+          辞書は▲▼で並べ替えられます。
         </p>
+        <div class="update-shot">
+          <p class="shot-label">▼ レコードの入力欄に貼り付けると、先頭の番号だけが取れた様子</p>
+          <div class="screenshot-frame">
+            <Picture
+              class="zoomable" src="/images/input-assist-convert-05.png"
+              alt="kintone の入力欄に貼り付けた値の先頭の番号だけが取り除かれ、入力欄の下に「変換前 → 変換後」と［元に戻す］が表示されている"
+              width="1056" height="258"
+            />
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
         <p class="update-desc">
-          置き換えルールは、kintone のアプリのレコードとして管理することもできます。<strong>［辞書アプリを作成する］</strong>を押すと、
-          「変換前」「変換後」「メモ」のフィールドを持つアプリがこのアプリと同じスペースに作られ、その辞書に設定されます。
-          ルールを足したり直したりするのは<strong>レコードを登録するだけ</strong>で、プラグインの設定を開き直す必要はありません。
-          同じ辞書アプリを、ほかのアプリの入力アシストからも使い回せます。
+          Excel からの貼り付け・Excel 用コピーでは、4 列目「かける位置」（先頭・末尾・位置）と、5・6 列目「何文字目から」「何文字」も扱えます（3 列の表はこれまでどおり）。
+          設定画面の対象フィールドを外す［×］も、押しやすくしました。
         </p>
         <p class="update-note">
-          辞書のひな形（金額・数量／電話番号・郵便番号／会社名／英数字のコード／丸数字を数字に／定型文の展開／空の辞書）から作れます。
-          設定画面のプレビューで、変換結果を試してから保存できます。<br>
-          辞書アプリを作成するには、アプリを作成する権限が必要です。ゲストスペースにも対応しています。モバイルは対象外です。<br>
-          すでにご利用中の方は、最新版の zip をダウンロードして<strong>同じプラグインを上書きアップロード</strong>してください（設定は引き継がれます）。
-          入力の変換は<strong>既定でOFF</strong>のため、これまでの動作は変わりません。プラグイン設定の「入力の変換」で有効にし、辞書を追加してご利用ください。
+          すでにご利用中の方は、最新バージョンの zip をダウンロードして<strong>同じプラグインを上書きアップロード</strong>してください（設定は引き継がれます）。
+          既存の設定は「どこでも」「いつも使う」として動くため、これまでの動作は変わりません。
         </p>
         <BridgeUpdateNote />
       </div>
@@ -989,6 +1004,8 @@ import MultilingualBadge from '../../../components/MultilingualBadge.astro';
         <li><span><strong>文字の整形と置き換えルール</strong> — 英数字・記号の全角／半角、半角カナを全角に、大文字／小文字、空白の扱い、前後の空白、ハイフンのゆれ、改行を整えます。さらに「変換前→変換後」を 1 行ずつ書く置き換えルール（含まれていたら置き換え／完全一致／正規表現）を使えます。▲▼で並べ替え、Excel から貼り付けて取り込み、Excel 用にコピーもできます。</span></li>
         <li><span><strong>数値フィールド向けの変換</strong> — ¥・円・円也・金・末尾の .-・マイナスの ▲・桁区切りのカンマを外し、漢数字（三千・1万2千 など）も数字にできます。変換したときは入力欄の下に知らせが出て、［元に戻す］で戻せます。</span></li>
         <li><span><strong>辞書アプリで置き換えルールを管理</strong> — ［辞書アプリを作成する］で、「変換前」「変換後」「メモ」のフィールドを持つアプリをこのアプリと同じスペースに作成。1 件のレコードが 1 つのルールになり、レコードを登録するだけでルールを足したり直したりできます。ほかのアプリの入力アシストからも使い回せます。ひな形（金額・数量／電話番号・郵便番号／会社名／英数字のコード／丸数字／定型文の展開）と、設定画面のプレビューも用意しています。</span></li>
+        <li><span><strong>置き換える位置と、辞書を使う条件</strong> — 置き換えルールごとに「どこでも／先頭だけ／末尾だけ／位置を指定（N 文字目から M 文字）」を選べます。たとえば先頭の番号だけを消し、途中の数字は残せます。辞書ごとに「いつも使う」か「条件に合うときだけ使う」を選べ、条件には変換するフィールド自身・ほかのフィールド・テーブル内の同じ行の列の値を使えます。</span></li>
+        <li><span><strong>同じフィールドを複数の辞書に</strong> — 上の辞書から順に、条件に合う辞書をすべてかけます。「この辞書で変換したら、下の辞書はかけない」で使い分けもできます。辞書は▲▼で並べ替えられます。</span></li>
         <li><span><strong>入力順ガイド（色で誘導）</strong> — 指定した順にフィールドを「待機（淡）／現在地（強調＋『入力してください』タグ）／入力済み（解除）」で色分け。先頭の未入力フィールドが現在地になります。</span></li>
         <li><span><strong>値が入ると自動で前進</strong> — 現在地のフィールドに値が入ると、強調が次の未入力フィールドへ自動で移動。ルックアップ取得や選択肢の確定にも追従します。</span></li>
         <li><span><strong>自動スクロール・自動フォーカス</strong> — 現在地が画面外なら自動スクロール。任意で現在地フィールドへカーソルを移動（自動フォーカス）もできます。</span></li>
@@ -1065,7 +1082,7 @@ import MultilingualBadge from '../../../components/MultilingualBadge.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコードの新規作成・編集画面があるアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-input-assist-v2.2.0.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-input-assist-v2.3.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「入力アシスト」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>入力順ガイドの対象フィールド・未入力チェックの対象・配色</strong>などを設定して「保存」</span></li>
@@ -1090,7 +1107,7 @@ import MultilingualBadge from '../../../components/MultilingualBadge.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-input-assist-v2.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-input-assist-v2.3.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <SupporterPlanCard pluginId="kw-input-assist" />
         <PremiumPlanCard />
@@ -1244,10 +1261,10 @@ import MultilingualBadge from '../../../components/MultilingualBadge.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-input-assist-v2.2.0.zip',
+              file_name: 'kw-input-assist-v2.3.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-input-assist-v2.2.0.zip'
+              link_url: '/downloads/kw-input-assist-v2.3.0.zip'
             });
           }
         });
