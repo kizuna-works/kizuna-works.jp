@@ -54,6 +54,10 @@ const ranked = sourceList.map((rp, i) => {
     iconPath: iconPathForPlugin(meta),
     iconAlt: `${rp.name} アイコン`,
     summary: meta?.cardDescription ?? meta?.description ?? '',
+    // Same marks as the /plugins/ cards. Spans, not links: the whole row is already a link.
+    fromRequest: meta?.bornFrom === 'supporter-request',
+    bridge: !!meta?.bridge,
+    multilingual: !!meta?.multilingual,
   };
 });
 
@@ -155,6 +159,13 @@ const rankedListJson = JSON.stringify(
                 <div class="ranking-body">
                   <h3 class="ranking-name">{p.name}</h3>
                   <p class="ranking-summary">{p.summary}</p>
+                  {(p.fromRequest || p.bridge || p.multilingual) && (
+                    <div class="ranking-badges">
+                      {p.fromRequest && <span class="ranking-badge rb-request" title="サポーターの方からのリクエストをもとに開発したプラグインです">リクエストから誕生</span>}
+                      {p.bridge && <span class="ranking-badge rb-bridge" title="KIZUNAブリッジ for kintone と連携できます">ブリッジ連携</span>}
+                      {p.multilingual && <span class="ranking-badge rb-i18n" title="日本語・英語・中国語（簡体字）で表示できます">多言語対応</span>}
+                    </div>
+                  )}
                 </div>
                 <span class="ranking-arrow" aria-hidden="true">→</span>
               </a>
@@ -334,6 +345,32 @@ const rankedListJson = JSON.stringify(
     line-height: 1.6;
     margin: 0;
   }
+  /* Badges under the summary: same colors as the /plugins/ card badges */
+  .ranking-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .ranking-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+  .rb-request { background: #FFFFFF; color: #1B3A6B; border-color: #1B3A6B; }
+  .rb-request::before { content: '💬'; }
+  .rb-bridge { background: #fffaf0; color: #7a5512; border-color: #b8862b; }
+  .rb-bridge::before { content: '🔗'; }
+  .rb-i18n { background: #f0f6ff; color: #1B3A6B; border-color: #1B3A6B; }
+  .rb-i18n::before { content: '🌐'; }
+
   .ranking-arrow {
     color: #2E8B2E;
     font-size: 1.4rem;
