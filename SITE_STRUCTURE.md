@@ -1510,7 +1510,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-form-deco-v1.0.2.zip                               # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-file-preview-v2.6.0.zip  # 添付ファイルプレビュー for kintone 配布ファイル（最新・2026-10-26・v2.6.0：「中」「小」を浮かぶ窓に・別タブで開く・キー操作の案内）
 │   │   ├── kw-form-deco-v1.0.3.zip                               # FormDeco for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
-│   │   ├── kw-form-deco-v1.1.0.zip                               # FormDeco for kintone 配布ファイル（最新・2026-10-31・v1.1.0：コールアウト・リンク/ボタン・折りたたみ見出し・上部に固定・改ページ・「画面と印刷」の出し分け・カラーパレット）
+│   │   ├── kw-form-deco-v1.1.0.zip                               # FormDeco for kintone 配布ファイル（旧版・2026-10-31・v1.1.0：コールアウト・リンク/ボタン・折りたたみ見出し・上部に固定・改ページ・「画面と印刷」の出し分け・カラーパレット）
+│   │   ├── kw-form-deco-v1.2.0.zip                               # FormDeco for kintone 配布ファイル（最新・2026-10-31・v1.2.0：設定画面が日本語/英語/中国語（簡体字）対応）
 │   │   ├── kw-input-assist-v1.0.0.zip                            # 入力アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-input-assist-v1.0.1.zip                            # 入力アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-input-assist-v1.0.2.zip                            # 入力アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
@@ -1773,7 +1774,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-user-autofill-v1.1.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.1.0＝印刷用画面への捺印/カード表示に対応。app.record.print.show を追加・@media print で印刷色を保持）
 │   │   ├── kw-user-autofill-v1.2.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.2.0＝本人捺印。詳細画面の「捺印」ボタン・押印日時の記録・記録用フィールドの自動非表示 setFieldShown・押印日表示・本人による取り消し）
 │   │   ├── kw-user-autofill-v1.2.1.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.2.1＝設定したフィールドを作り直して型が変わったときに意図しない値を書き込まないよう修正。設定画面でも該当フィールドを警告表示し保存を拒否）
-│   │   ├── kw-user-autofill-v1.3.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（最新・2026-10-31・v1.3.0＝印刷でもカード・印影の色を保持・色の欄にカラーパレット・保存後はアプリの設定へ戻る）
+│   │   ├── kw-user-autofill-v1.3.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（旧版・2026-10-31・v1.3.0＝印刷でもカード・印影の色を保持・色の欄にカラーパレット・保存後はアプリの設定へ戻る）
+│   │   ├── kw-user-autofill-v1.4.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（最新・2026-10-31・v1.4.0＝設定画面・レコード画面・印刷画面が日本語/英語/中国語（簡体字）対応）
 │   │   ├── kw-view-control-v1.0.0.zip                            # 一覧コントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-view-control-v1.0.1.zip                            # 一覧コントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-view-control-v1.0.2.zip                            # 一覧コントロール for kintone 配布ファイル（旧版・参考保管）

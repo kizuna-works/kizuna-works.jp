@@ -183,6 +183,7 @@ export const plugins: Plugin[] = [
     formName: 'FormDeco for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'form-deco',
+    multilingual: true,
     categories: ['装飾・配色'],
     description:
       'レコード詳細画面の罫線（区切り線）スタイルと、スペースフィールドの装飾（背景色・テキスト・画像）をノーコードで設定するプラグイン。フォーム上の項目の区切りや見出しを分かりやすく整え、入力画面の見た目と使いやすさを高めます。',
@@ -745,6 +746,7 @@ export const plugins: Plugin[] = [
     formName: 'ユーザーオートフィル for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'user-autofill',
+    multilingual: true,
     categories: ['自動入力'],
     description:
       'ユーザー選択で選んだ人の組織・役職・メール・社員番号などを対応フィールドへ自動転記。プロフィールカードや承認欄の捺印をスペースに表示し、印刷・PDFにも出力。担当者本人が押すまで印を出さない本人捺印にも対応。',
