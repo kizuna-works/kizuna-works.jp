@@ -10,7 +10,7 @@ import type { Plugin } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import MultilingualBadge from '../../../components/MultilingualBadge.astro';
 
-const VERSION = '1.1.2';
+const VERSION = '1.1.3';
 const ZIP = `/downloads/kw-bridge-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/';
 const DATE_MODIFIED = '2026-10-31';
@@ -152,7 +152,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.1.2",
+          "softwareVersion": "1.1.3",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -463,17 +463,17 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.1.2) -->
+    <!-- Update Info (v1.1.3) -->
     <section class="kbp-section">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.1.2：書き込み先のカレンダービューの「時間帯で日時を決める」にも対応しました</h2>
+          <h2 class="update-title">v1.1.3：日時フィールドの「変更前の値」の判定を改善しました</h2>
         </div>
-        <p class="update-desc">KIZUNAブリッジ for kintone を v1.1.2 にアップデートしました。</p>
-        <p class="update-desc">書き込み先のアプリにカレンダービュー for kintone（v1.8.0 以降）が入っていて、<strong>［時間帯で日時を決める］</strong>（日付と時間帯から開始・終了の日時を作る設定）を使っているときは、ブリッジで作成・更新したレコードにもその設定が当たります。当てる順番はカレンダービューが最初で、そのあとに採番・住所・経過日数・文字列結合です。</p>
-        <p class="update-desc">動作［プラグインの処理を当てる（採番など）］でも、時間帯の設定を当て直せます。実行結果の知らせと設定画面の［連携先の準備］には、カレンダービューが名前で表示されます。</p>
-        <p class="update-note">既存ユーザーの方は、最新版（v1.1.2）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
+        <p class="update-desc">KIZUNAブリッジ for kintone を v1.1.3 にアップデートしました。</p>
+        <p class="update-desc">ルールの条件<strong>「変更前の〇〇」</strong>で、日時フィールドは時刻まで比べるようにしました。同じ日のうちに時刻だけ変えたとき（例：10:00 から 11:00）も「が変わった」で判定されます。日をまたぐ変更や、日付・数値・文字列などのフィールドの判定は変わりません。</p>
+        <p class="update-desc">「から変わった」の値は、従来どおり日付で指定します。実行の記録の文には、日時フィールドの変更前・変更後の時刻も表示されます。</p>
+        <p class="update-note">既存ユーザーの方は、最新版（v1.1.3）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
       </div>
     </section>
 
