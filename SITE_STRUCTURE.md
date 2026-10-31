@@ -253,7 +253,7 @@ c:\kizuna-works.jp\
 │   │   │   │   └── setup/
 │   │   │   │       └── index.astro # 【手順ページ】Box 側の準備手順（/plugins/box-connect/setup/）— 連携用アプリの作成（サーバー・クライアント資格情報）・アクセスレベルとスコープ・CORS ドメイン・Box 管理者の承認・フォルダへのサービスアカウントの招待・プラグインへの接続の 6 手順。設定画面の「準備の手順を見る」の遷移先
 │   │   │   ├── bridge/
-│   │   │   │   ├── index.astro # 【KIZUNA Pro プラグイン】KIZUNAブリッジ for kintone 製品ページ（/plugins/bridge/）v1.1.0（2026-10-27・UPDATE ボックスと PART 3 に「プラグインの処理を当てる（採番など）」を追加）・2026-10-25 公開（KIZUNA Pro 第1弾・単品販売なし）— 単品でできること／アプリ間連携／プラグイン間連携の3部構成。連携できるプラグイン一覧は plugins.ts の bridge フィールドから自動生成。冒頭の PROBLEM 節に使い方の例（代表6件・BridgeRecipeCard）と /plugins/bridge/recipes/ への導線
+│   │   │   │   ├── index.astro # 【KIZUNA Pro プラグイン】KIZUNAブリッジ for kintone 製品ページ（/plugins/bridge/）v1.1.2（2026-10-31・UPDATE ボックスは v1.1.2＝カレンダービューの時間帯に対応。v1.1.0 は 2026-10-27・UPDATE ボックスと PART 3 に「プラグインの処理を当てる（採番など）」を追加）・2026-10-25 公開（KIZUNA Pro 第1弾・単品販売なし）— 単品でできること／アプリ間連携／プラグイン間連携の3部構成。連携できるプラグイン一覧は plugins.ts の bridge フィールドから自動生成。冒頭の PROBLEM 節に使い方の例（代表6件・BridgeRecipeCard）と /plugins/bridge/recipes/ への導線
 │   │   │   │   └── recipes/
 │   │   │   │       └── index.astro # KIZUNAブリッジの使い方の例（/plugins/bridge/recipes/・2026-10-26）。全件を場面別に絞り込み（JS・未対応でも全件表示）・各例に #id のアンカー。JSON-LD は WebPage・BreadcrumbList・ItemList
 │   │   │   ├── kizuna-pro/
@@ -337,6 +337,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-lookup-sync-v241.md # ルックアップ自動同期 v2.4.1 アップデートのお知らせ（2026-10-29・レコード権限アシスト v1.1.0 との連携に対応）
 │   │   │   ├── bridge-v110-update.md        # KIZUNAブリッジ v1.1.0 アップデートのお知らせ（2026-10-27T11:00・保存したレコードへの採番などの当て直し）
 │   │   │   ├── bridge-v111-update.md        # KIZUNAブリッジ v1.1.1 アップデートのお知らせ（2026-10-27T21:00・ステータスを続けて進めたときの書き写し漏れを修正）
+│   │   │   ├── bridge-v112-update.md        # KIZUNAブリッジ v1.1.2 アップデートのお知らせ（2026-10-31T15:00・書き込み先のカレンダービューの［時間帯で日時を決める］に対応）
 │   │   │   ├── plugin-bridge-release.md     # KIZUNAブリッジ v1.0.0 公開のお知らせ（2026-10-25T10:00・KIZUNA Pro プラグイン。公開日がずれたら pubDate を直す）
 │   │   │   ├── plugin-search-pro-release.md     # サーチ Pro v1.0.0 公開のお知らせ（2026-10-25・KIZUNA Pro プラグイン・ブリッジと同時公開）
 │   │   │   ├── plugin-lookup-pro-release.md     # ルックアップ Pro v1.0.0 公開のお知らせ（2026-10-25T10:30・KIZUNA Pro プラグイン・ブリッジと同日公開）
@@ -1420,7 +1421,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-free-lookup-v1.2.0.zip  # フリールックアップ for kintone 配布ファイル（2026-10-22・v1.2.0）
 │   │   ├── kw-lookup-filter-v1.1.0.zip # ルックアップ絞り込み v1.1.0（旧版・2026-09-24＝条件に合わない値で保存しようとしたときに「確認して保存」を選べる／保存時の検査は今回入れた・書き換えた値だけ）
 │   │   ├── kw-lookup-filter-v1.0.1.zip # ルックアップ絞り込み v1.0.1（旧版・参考保管）
-│   │   ├── kw-bridge-v1.1.1.zip        # KIZUNAブリッジ for kintone 配布ファイル（最新・2026-10-27・v1.1.1＝「アクションを実行した後」でステータスを書き写すとき、2 回目以降の遷移が反映されない不具合を修正）
+│   │   ├── kw-bridge-v1.1.2.zip        # KIZUNAブリッジ for kintone 配布ファイル（最新・2026-10-31・v1.1.2＝連携先にカレンダービュー v1.8.0 以降の［時間帯で日時を決める］を追加）
+│   │   ├── kw-bridge-v1.1.1.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-10-27・v1.1.1＝「アクションを実行した後」でステータスを書き写すとき、2 回目以降の遷移が反映されない不具合を修正）
 │   │   ├── kw-bridge-v1.1.0.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-10-27・v1.1.0＝動作［プラグインの処理を当てる（採番など）］を追加）
 │   │   ├── kw-bridge-v1.0.1.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-10-26・v1.0.1＝使用ドメイン台帳への初回記録・きっかけでカレンダービューを選べるように）
 │   │   ├── kw-box-connect-v1.2.0.zip   # Box連携 for kintone 配布ファイル（最新・2026-10-26・v1.2.0＝フォルダ名を値に合わせる設定）
