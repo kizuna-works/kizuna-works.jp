@@ -1060,7 +1060,7 @@ export const plugins: Plugin[] = [
     problemDesc:
       'kintone に SUMIF はなく、回避策は作業用の計算列を1本足して IF(CONTAINS(…)) を合計すること。その列は非表示にできず CSV にも出る。行の並べ替えもできず、明細が増えると画面が縦に伸びる一方で、新しい行は必ず下にしか足せない',
     releaseDate: '2026-08-06',
-    summaryVersion: '1.2.0',
+    summaryVersion: '1.3.0',
   },
   {
     id: 'kw-file-export',
