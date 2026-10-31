@@ -1488,7 +1488,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-styler-v2.5.2.zip  # フィールドスタイラー for kintone 配布ファイル（旧版・2026-10-03・v2.5.2：画面を開くたびのフォーム情報の取得をやめて API リクエスト数を節約・一覧の広告を共通版 v2 に）
 │   │   ├── kw-field-styler-v2.5.3.zip  # フィールドスタイラー for kintone 配布ファイル（旧版・2026-10-15・v2.5.3：プラグイン一覧の「説明」リンクを製品ページへ・共通部品〔広告・サポーター欄〕を最新版に）
 │   │   ├── kw-field-styler-v2.6.0.zip  # フィールドスタイラー for kintone 配布ファイル（旧版・2026-10-16・v2.6.0：フィールド名の装飾・チェックボックス/複数選択の値の装飾・設定のコピー・カラーコード入力）
-│   │   ├── kw-field-styler-v2.7.0.zip  # フィールドスタイラー for kintone 配布ファイル（最新・2026-10-31・v2.7.0：色の指定欄にカラーパレット・日本語/英語/中国語（簡体字）対応）
+│   │   ├── kw-field-styler-v2.7.0.zip  # フィールドスタイラー for kintone 配布ファイル（旧版・2026-10-31・v2.7.0：色の指定欄にカラーパレット・日本語/英語/中国語（簡体字）対応）
+│   │   ├── kw-field-styler-v2.8.0.zip  # フィールドスタイラー for kintone 配布ファイル（最新・2026-10-31・v2.8.0：設定ごとに「画面と印刷」の出し分け・kintone の印刷画面にも適用）
 │   │   ├── kw-file-icon-marker-v1.0.0.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-icon-marker-v1.0.1.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-icon-marker-v1.0.2.zip                        # 添付ファイルアイコン表示 for kintone 配布ファイル（旧版・参考保管）
@@ -1509,6 +1510,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-form-deco-v1.0.2.zip                               # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-file-preview-v2.6.0.zip  # 添付ファイルプレビュー for kintone 配布ファイル（最新・2026-10-26・v2.6.0：「中」「小」を浮かぶ窓に・別タブで開く・キー操作の案内）
 │   │   ├── kw-form-deco-v1.0.3.zip                               # FormDeco for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
+│   │   ├── kw-form-deco-v1.1.0.zip                               # FormDeco for kintone 配布ファイル（最新・2026-10-31・v1.1.0：コールアウト・リンク/ボタン・折りたたみ見出し・上部に固定・改ページ・「画面と印刷」の出し分け・カラーパレット）
 │   │   ├── kw-input-assist-v1.0.0.zip                            # 入力アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-input-assist-v1.0.1.zip                            # 入力アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-input-assist-v1.0.2.zip                            # 入力アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
@@ -1764,12 +1766,14 @@ c:\kizuna-works.jp\
 │   │   ├── kw-theme-styler-v1.1.1.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・手動配置・v1.1.1 ライセンス認証の内部改修）
 │   │   ├── kw-theme-styler-v1.2.0.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・手動配置・v1.2.0 色設定を「場所ごと」に再構成＋設定行とプレビューのハイライト連動）
 │   │   ├── kw-theme-styler-v1.2.1.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・手動配置・v1.2.1 タイトル帯の「左」「中央」がアプリ名と重ならないよう位置を調整）
-│   │   ├── kw-theme-styler-v1.3.0.zip                            # テーマスタイラー for kintone 配布ファイル（最新・2026-10-31・v1.3.0 色の欄にカラーパレット・設定画面が日本語/英語/中国語（簡体字）対応・［キャンセル］でアプリの設定へ戻る）
+│   │   ├── kw-theme-styler-v1.3.0.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・2026-10-31・v1.3.0 色の欄にカラーパレット・設定画面が日本語/英語/中国語（簡体字）対応・［キャンセル］でアプリの設定へ戻る）
+│   │   ├── kw-theme-styler-v1.4.0.zip                            # テーマスタイラー for kintone 配布ファイル（最新・2026-10-31・v1.4.0 テーマ・帯に「画面と印刷」の出し分け・kintone の印刷画面にも適用）
 │   │   ├── kw-user-autofill-v1.0.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.0＝属性自動転記＋プロフィールカード／捺印モード）
 │   │   ├── kw-user-autofill-v1.0.1.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.0.1 ライセンス認証の内部改修＋設定画面レイアウト統一＋転記設定テーブルの潰れ対策）
 │   │   ├── kw-user-autofill-v1.1.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.1.0＝印刷用画面への捺印/カード表示に対応。app.record.print.show を追加・@media print で印刷色を保持）
 │   │   ├── kw-user-autofill-v1.2.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.2.0＝本人捺印。詳細画面の「捺印」ボタン・押印日時の記録・記録用フィールドの自動非表示 setFieldShown・押印日表示・本人による取り消し）
 │   │   ├── kw-user-autofill-v1.2.1.zip                           # ユーザーオートフィル for kintone 配布ファイル（手動配置・v1.2.1＝設定したフィールドを作り直して型が変わったときに意図しない値を書き込まないよう修正。設定画面でも該当フィールドを警告表示し保存を拒否）
+│   │   ├── kw-user-autofill-v1.3.0.zip                           # ユーザーオートフィル for kintone 配布ファイル（最新・2026-10-31・v1.3.0＝印刷でもカード・印影の色を保持・色の欄にカラーパレット・保存後はアプリの設定へ戻る）
 │   │   ├── kw-view-control-v1.0.0.zip                            # 一覧コントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-view-control-v1.0.1.zip                            # 一覧コントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-view-control-v1.0.2.zip                            # 一覧コントロール for kintone 配布ファイル（旧版・参考保管）
