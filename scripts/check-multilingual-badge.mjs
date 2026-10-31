@@ -10,7 +10,9 @@
 //   read the inner contents.zip file list, and treat the product as multilingual when it
 //   ships its own message files (`js/<prefix>-i18n.desktop|mobile|config.js`). The shared
 //   KIZUNA Pro sidebar file `js/i18n.js` alone does not count. Then compare with the flag.
-//   Product pages must also render <MultilingualBadge>, otherwise the hero shows nothing.
+//   Product pages must also render the badge, otherwise the hero shows nothing. Since
+//   2026-11-01 the hero's second badge row is <HeroSubBadges pluginId="..." /> (it renders
+//   <MultilingualBadge> inside), so either tag with this product's id counts.
 //
 // Usage
 //   node scripts/check-multilingual-badge.mjs   # exit 1 on a mismatch (used by prebuild)
@@ -96,8 +98,9 @@ for (const { id, slug, flagged } of products) {
     errors.push(`${id} v${version} は多言語のファイルを含みませんが、plugins.ts に multilingual: true があります`);
   }
   const page = path.join(PAGES, slug, 'index.astro');
-  if (flagged && fs.existsSync(page) && !fs.readFileSync(page, 'utf8').includes('<MultilingualBadge')) {
-    errors.push(`${page} に <MultilingualBadge pluginId="${id}" /> がありません（製品ページにバッジが出ません）`);
+  const pageSrc = flagged && fs.existsSync(page) ? fs.readFileSync(page, 'utf8') : '';
+  if (pageSrc && !new RegExp(`<(HeroSubBadges|MultilingualBadge) pluginId="${id}"`).test(pageSrc)) {
+    errors.push(`${page} に <HeroSubBadges pluginId="${id}" /> がありません（製品ページにバッジが出ません）`);
   }
 }
 

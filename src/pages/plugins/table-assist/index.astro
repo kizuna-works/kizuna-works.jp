@@ -13,7 +13,7 @@ import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
 
 // Code example for the rows-changed event shown in the update box
 const ROWS_CHANGED_EXAMPLE = "document.addEventListener('kw-table-assist:rows-changed', function (e) {\n  var d = e.detail; // { tableCode, action, rowIndexes }\n  if (d.tableCode !== '明細') return;\n  var env = kintone.app.record.get();\n  env.record['明細'].value.forEach(function (row) {\n    row.value['自動入力'].disabled = true;\n  });\n  kintone.app.record.set(env);\n});";
-import MultilingualBadge from '../../../components/MultilingualBadge.astro';
+import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 ---
 
 <Layout
@@ -817,8 +817,8 @@ import MultilingualBadge from '../../../components/MultilingualBadge.astro';
       <div>
         <span class="hero-badge">無料配布中</span>
         <span class="hero-version">v1.3.0</span>
-        <MultilingualBadge pluginId="kw-table-assist" gap />
       </div>
+      <HeroSubBadges pluginId="kw-table-assist" />
       <h1 class="hero-title">テーブルアシスト for kintone</h1>
       <p class="hero-copy">テーブルアシスト for kintone は、<strong>テーブル（サブテーブル）の行を並べ替え・複製・まとめて操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ書き込む</strong> kintone プラグインです。標準にない「条件付きの合計」を、<strong>作業用の計算列も関数式もなし</strong>で実現します。行の「＋」は<strong>押した行の真上</strong>にも追加でき、行数の多い明細は<strong>先頭 N 行だけ表示</strong>して折りたためます。勤務時間・作業時間などの<strong>時間の列も「〇時間〇分」で集計</strong>でき、行の操作のあとに自分のカスタマイズを動かせる<strong>連携用イベント</strong>も用意しています。</p>
       <HeroDownload href="/downloads/kw-table-assist-v1.3.0.zip" />

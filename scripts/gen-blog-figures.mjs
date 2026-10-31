@@ -741,6 +741,52 @@ const FIGURES = [
       { title: 'レコード番号を変える', desc: '開始番号の指定も書き換えもリセットもできない。計算式にも使えない。' }
     ),
   },
+  {
+    name: 'kintone-jouken-bunki-overview',
+    w: 1000, h: 330,
+    el: overviewMethods([
+      { n: '1', name: '標準の工夫', desc: 'グループ・ラベル・アプリ分割で迷いを減らす。入れ忘れは止められない。', cost: '設定のみ' },
+      { n: '2', name: 'JavaScript', desc: 'setFieldShownで表示を切替。自由だが書く人と保守が要る。', cost: 'コード' },
+      { n: '3', name: 'プラグイン', desc: '条件と動作を選ぶだけ。必須・選択肢の絞り込みまで設定で。', cost: '設定のみ' },
+    ]),
+  },
+  {
+    name: 'kintone-jouken-bunki-standard',
+    w: 1000, h: 300,
+    el: contrastPanel(
+      { title: '人によって出し分ける', desc: 'フィールドのアクセス権で、ユーザー・組織・グループごとに閲覧や編集を制限できる。' },
+      { title: '入力値によって出し分ける', desc: '「区分が法人なら会社名を出す」のような設定は、フォームの設定にはない。' }
+    ),
+  },
+  {
+    name: 'kintone-jouken-bunki-js-flow',
+    w: 1000, h: 210,
+    el: flowCaptioned(['画面を開く\n(show)', '条件の値を変える\n(change)', 'setFieldShownで\n表示を切り替え', '保存時に確かめる\n(submit)'], C.navy, '表示の切り替えは show と change、必須のチェックは submit のイベントで書く'),
+  },
+  {
+    name: 'kintone-jouken-bunki-js-pitfalls',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: '隠した項目の値は残る', desc: '入力してから条件を変えても、値はそのまま保存される。', tag: '値のクリア', paid: true },
+      { n: '2', name: 'change が起きない型がある', desc: '計算・文字列（複数行）・リッチエディター・リンクは入力中に反応しない。', tag: '型を選ぶ', paid: true },
+      { n: '3', name: 'ラベル・罫線は要素IDが要る', desc: '2026年2月から隠せるようになった。フォームの設定で要素IDを付ける。', tag: '要素ID', paid: false },
+      { n: '4', name: 'モバイルは別に書く', desc: 'kintone.mobile.app.record.setFieldShown とモバイル用のイベントが要る。', tag: 'PCと別', paid: false },
+      { n: '5', name: '標準の必須とは合わせない', desc: '標準で必須にした項目は条件で任意に戻せない。必須は保存時に確かめる。', tag: '必須の設計', paid: true },
+    ]),
+  },
+  {
+    name: 'kintone-jouken-bunki-plugin-flow',
+    w: 1000, h: 210,
+    el: flowCaptioned(['条件を選ぶ\n例：確度が100%', '動作を選ぶ\n例：必須にする', '適用する画面\nを選ぶ', '保存して\nアプリを更新'], C.green, 'ルールを足すだけで、コードを書かずに条件分岐を増やせる'),
+  },
+  {
+    name: 'kintone-jouken-bunki-hide-vs-acl',
+    w: 1000, h: 300,
+    el: contrastPanel(
+      { title: '情報を守るならアクセス権', desc: 'フィールドのアクセス権は、閲覧できない人には値そのものを渡さない。給与や原価などに。' },
+      { title: '非表示は見た目だけ', desc: '隠した項目の値は保存され、CSVの書き出しやAPIでは読める。秘密を守る用途には使わない。' }
+    ),
+  },
 ];
 
 // The bundled Noto Sans JP WOFF is a subset without arrows and similar symbols;

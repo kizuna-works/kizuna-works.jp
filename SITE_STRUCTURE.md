@@ -39,7 +39,7 @@ c:\kizuna-works.jp\
 │   ├── components/             # 再利用可能なAstroコンポーネント
 │   │   ├── BlogCard.astro      # ブログ記事カード（ホームページ・ブログ一覧で使用）
 │   │   ├── RelatedPosts.astro  # ブログ記事末尾の関連記事自動表示（タグ重複数でスコアリング・上位3件）
-│   │   ├── BlogSidebar.astro   # ブログ記事の右サイドバー（2026-10-17）。目次（スクロール追従・現在の見出しを強調）／人気の記事 TOP5（src/data/blogSidebar.ts・表示中の記事は除いて繰り上げ）／プラグインのインストール数ランキング TOP10（install-ranking.json）／記事の関連プラグイン（frontmatter relatedPlugins）／Chrome拡張・無料ツール。スマホでは記事の下に回る
+│   │   ├── BlogSidebar.astro   # ブログ記事の右サイドバー（2026-10-17）。目次（スクロール追従・現在の見出しを強調）／人気の記事 TOP5（src/data/blogSidebar.ts・表示中の記事は除いて繰り上げ）／プラグインのインストール数ランキング TOP10（install-ranking.json）／KIZUNA Pro 30日間無料体験カード（PRO_SET_PLAN・/plugins/premium-trial/）／KIZUNAブリッジのカード（Pro の紺×金・/plugins/bridge/、2026-11-01）／記事の関連プラグイン（frontmatter relatedPlugins）／Chrome拡張・無料ツール。スマホでは記事の下に回る
 │   │   ├── SupporterCTA.astro  # サポーターライセンス案内ページへの誘導カード（pluginIdでURL自動付与）
 │   │   ├── SupporterForm.astro # サポーターライセンス申込フォーム（URL ?plugin=<id> で自動選択対応）
 │   │   ├── ApplyFlow.astro     # 申込からライセンス発行までの流れの図（サポーター申込ページの「プランを選ぶ」直下。確定と支払いは別手順・支払い確認までライセンスは発行しない旨を明示）
@@ -50,6 +50,7 @@ c:\kizuna-works.jp\
 │   │   ├── PremiumFaqSection.astro # プレミアム製品ページの「よくある質問」（アコーディオン＋FAQPage JSON-LD を src/data/premium-faqs.ts から生成＝表示と構造化データが必ず一致）
 │   │   ├── ShareButtons.astro  # SNS共有ボタン（X/LINE/はてブは静的intentリンク・URLコピー/OS共有シートのみJS）。全プラグイン個別ページ末尾に設置。title="〇〇 for kintone"・URLはAstro.urlから自動導出
 │   │   ├── BridgeBadge.astro # 「ブリッジ連携」バッジ（as="badge" ヒーロー）と説明帯（as="note"）。plugins.ts の bridge フィールドがある製品だけ表示
+│   │   ├── HeroSubBadges.astro # 製品ページのヒーロー2行目（2026-11-01）。1行目＝シリーズ PLUGIN＋バージョン、2行目＝この部品で「リクエストから誕生／多言語対応／ブリッジ連携」の順。plugins.ts の bornFrom・multilingual・bridge で出し分け、該当なしなら何も描かない。全75製品ページに設置
 │   │   ├── MultilingualBadge.astro # 「🌐 多言語対応」バッジ（製品ページのヒーロー）。plugins.ts の multilingual: true がある製品だけ表示。全製品ページに入れてあり、無料製品の hero-version の隣は gap 付き（2026-10-31）
 │   │   ├── BridgeFeatureBand.astro # トップページの帯「KIZUNAブリッジ おすすめの機能」（KIZUNA Pro 帯の直下）。ブリッジの機能をひとつずつ紹介し、製品ページのその機能の説明箇所へ遷移。FEATURES に足して CURRENT を書き換えると差し替わる（2026-10-27 初回＝プラグインの一括更新 → /plugins/bridge/#plugin-update）
 │   │   ├── BridgeUpdateNote.astro # 製品ページの UPDATE ボックス末尾の1行「まとめて更新」。KIZUNAブリッジの［プラグインの更新］タブ（/plugins/bridge/#plugin-update）へ誘導。UPDATE ボックスのある製品ページ51件に設置（2026-10-27）
@@ -1869,7 +1870,7 @@ c:\kizuna-works.jp\
 │   ├── gen-image-derivatives.mjs # dist の HTML が参照する PNG から .webp / -800.webp を生成（Picture.astro 用）
 │   ├── gen-favicon.mjs         # src/assets/KIZUNA-Worksロゴデータlogo.png から public/favicon.ico（16/32/48）・public/images/favicon.png（192x192）・public/images/apple-touch-icon.png（180x180）を生成。Google 検索結果のアイコンは「正方形かつ48pxの倍数」でないと採用されず、ルートの /favicon.ico も見られるため両方を用意する。手動実行（`node scripts/gen-favicon.mjs`）
 │   ├── gen-blog-figures.mjs    # ブログ本文の図解を satori＋sharp でコード生成（オンブランド）
-│   ├── check-multilingual-badge.mjs # 配布中の最新 zip（public/downloads）に js/<prefix>-i18n.{desktop,mobile,config}.js があるかと plugins.ts の multilingual: true を突き合わせ、食い違い・製品ページの <MultilingualBadge> 抜けでビルドを中止（2026-10-31 追加）。prebuild で自動実行（単体は `npm run check:i18nbadge`）
+│   ├── check-multilingual-badge.mjs # 配布中の最新 zip（public/downloads）に js/<prefix>-i18n.{desktop,mobile,config}.js があるかと plugins.ts の multilingual: true を突き合わせ、食い違い・製品ページの <HeroSubBadges>（または <MultilingualBadge>）抜けでビルドを中止（2026-10-31 追加）。prebuild で自動実行（単体は `npm run check:i18nbadge`）
 │   ├── gen-plugin-banner.mjs   # プラグインのカードバナー画像を生成
 │   ├── gen-tsukuroi-preview.mjs # Tsukuroi のプレビュー画像を生成
 │   └── generate-extension-banners.mjs # Chrome 拡張機能のバナー画像を生成

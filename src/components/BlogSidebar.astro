@@ -1,6 +1,6 @@
 ---
 // ブログ記事の右サイドバー（2026-10-17 新設）。
-// 上から：キャンペーン → この記事で紹介しているプラグイン → インストール数ランキング TOP10 → 人気の記事
+// 上から：KIZUNA Pro の無料体験 → KIZUNAブリッジ → この記事で紹介しているプラグイン → インストール数ランキング TOP10 → 人気の記事
 // →（追従）目次＋Chrome 拡張機能＋無料ツール。
 // 幅 1024px 未満では記事の下に回り、目次は本文側の目次と重複するので出さない。
 import { getCollection } from 'astro:content';
@@ -9,6 +9,7 @@ import { allPlugins, type Plugin } from '../data/plugins';
 import { extensions } from '../data/extensions';
 import installRanking from '../data/install-ranking.json';
 import { popularPostSlugs } from '../data/blogSidebar';
+import { PRO_SET_PLAN } from '../data/pricing';
 
 type Heading = { depth: number; slug: string; text: string };
 
@@ -53,10 +54,23 @@ const popular = popularPostSlugs
 
 <aside class="blog-sidebar" aria-label="サイドバー">
   <a class="bs-campaign" href="/plugins/premium-trial/">
-    <span class="bs-campaign-badge">30日間無料キャンペーン</span>
-    <span class="bs-campaign-title">ちょこっと＆プレミアム＆KIZUNA Pro プラグインすべてを30日間無料で</span>
-    <span class="bs-campaign-desc">プレミアム年間サポーターの全機能を、広告なしで使えます。カード登録不要・自動課金なし。</span>
+    <span class="bs-campaign-badge">KIZUNA Pro 30日間無料体験</span>
+    <span class="bs-campaign-title">{PRO_SET_PLAN.name}を<br />30日間無料でお試し</span>
+    <span class="bs-campaign-desc">{PRO_SET_PLAN.scope}が、広告なし・全機能で使えます。カード登録不要・自動課金なし。</span>
     <span class="bs-campaign-cta">無料体験を見る <span aria-hidden="true">→</span></span>
+  </a>
+
+  <a class="bs-bridge" href="/plugins/bridge/">
+    <span class="bs-bridge-head">
+      <Picture src="/images/bridge-icon.png" alt="" width="48" height="48" class="bs-bridge-icon" />
+      <span class="bs-bridge-headtext">
+        <span class="bs-bridge-badge">KIZUNA Pro プラグイン</span>
+        <span class="bs-bridge-name">KIZUNAブリッジ</span>
+      </span>
+    </span>
+    <span class="bs-bridge-tagline">アプリをまたぐ作業も、<br />プラグインの連携も、自動化。</span>
+    <span class="bs-bridge-desc">保存やボタンをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める処理を、ノーコードのルールで自動化します。</span>
+    <span class="bs-bridge-cta">KIZUNAブリッジを見る <span aria-hidden="true">→</span></span>
   </a>
 
   {sidebarPlugins.length > 0 && (
@@ -244,6 +258,88 @@ const popular = popularPostSlugs
     text-align: center;
     background: #FFFFFF;
     color: #1B3A6B;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 9px 12px;
+    border-radius: 999px;
+  }
+
+  /* KIZUNA Bridge card (Pro series colors: ink + gold, as on /plugins/bridge/) */
+  .bs-bridge {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 14px;
+    border: 1px solid rgba(232, 199, 102, 0.45);
+    background: linear-gradient(150deg, #0f1f3d 0%, #1B3A6B 100%);
+    color: #FFFFFF;
+    text-decoration: none;
+    box-shadow: 0 8px 22px rgba(15, 31, 61, 0.22);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .bs-bridge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(15, 31, 61, 0.3);
+  }
+
+  .bs-bridge-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .bs-bridge-head :global(img),
+  .bs-bridge-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 11px;
+    object-fit: contain;
+  }
+
+  .bs-bridge-headtext {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+
+  .bs-bridge-badge {
+    align-self: flex-start;
+    background: #b8862b;
+    color: #FFFFFF;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 9px;
+    border-radius: 999px;
+  }
+
+  .bs-bridge-name {
+    font-size: 1.08rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .bs-bridge-tagline {
+    color: #f0d58a;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.55;
+  }
+
+  .bs-bridge-desc {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  .bs-bridge-cta {
+    margin-top: 2px;
+    text-align: center;
+    background: linear-gradient(135deg, #e8c766 0%, #b8862b 100%);
+    color: #0f1f3d;
     font-weight: 700;
     font-size: 0.9rem;
     padding: 9px 12px;
