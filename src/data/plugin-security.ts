@@ -120,6 +120,11 @@ export interface SecurityProfile {
    * instead of the "実行時に外部ライブラリを読み込みません" claim.
    */
   runtimeLibs?: RuntimeLib[];
+  /**
+   * Optional sentence that replaces the default file-preview wording before the
+   * runtimeLibs list (the default talks about PDF/Excel/Word previews).
+   */
+  runtimeLibsNote?: string;
 }
 
 /**
@@ -640,6 +645,23 @@ export const securityProfiles: Record<string, SecurityProfile> = {
         scope: 'internal',
         detail:
           'ご利用中の kintone ドメイン内の REST API だけを使います。添付ファイルの取得（GET /k/v1/file）、フィールド・レイアウトの把握、一覧の ZIP 出力と［添付の容量］でのレコードの読み取り（GET /k/v1/records・カーソル）、編集できるかの判定（GET /k/v1/records/acl/evaluate）は、利用者本人の権限で読み取るだけです。書き込むのは、画像の圧縮（POST /k/v1/file・PUT /k/v1/record）と、PDF の書き込みの保存（POST /k/v1/file・PUT /k/v1/record・revision 付き）だけで、レコードを編集できる方の操作に限ります。画像の一括圧縮は、設定でオンにしたときだけ実行できます。ファイルの内容は、ブラウザの中で処理し、外部へは送信しません。',
+      },
+    ],
+  },
+
+  'kw-design-pro': {
+    runtimeLibs: [
+      { name: 'pdf-lib', version: '1.17.1', license: 'MIT', purpose: 'PDF をブラウザ内で作る' },
+      { name: 'html2canvas', version: '1.4.1', license: 'MIT', purpose: '印刷する内容をブラウザ内で画像にする' },
+      { name: 'PDF.js', version: '3.11.174', license: 'Apache-2.0', purpose: '帳票テンプレートの設定画面で、背景の PDF を読み込んで画像にする' },
+    ],
+    runtimeLibsNote: 'PDF を作って添付ファイルに保存するときと、帳票テンプレートの背景に PDF を読み込むときだけ、使うライブラリを当社サーバー（kizuna-works.jp）から SRI（改ざん検知ハッシュ）付きで読み込みます。改ざんリスクのある第三者 CDN は利用せず、レコードの値や PDF は外部に送信しません。それ以外の機能はライブラリを読み込まずに動きます。',
+    extraComm: [
+      {
+        label: '印刷レイアウトの保管・PDF の添付保存・保管アプリの作成（自ドメイン内）',
+        scope: 'internal',
+        detail:
+          'ご利用中の kintone ドメイン内の REST API だけを使います。フォームの並びと項目の型の把握、まとめ印刷でのレコードの読み取り、印刷レイアウトの保管アプリの読み書き、PDF の添付保存（POST /k/v1/file・PUT /k/v1/record）を行います。設定画面の［保管アプリを新しく作る］を押したときだけ、このアプリと同じスペースに保管アプリを作成します（アプリ管理権限が必要です）。印刷の内容や PDF は外部へ送信しません。',
       },
     ],
   },

@@ -1,0 +1,1126 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import { plugins, premiumPlugins } from '../../../data/plugins';
+import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
+import HeroSubBadges from '../../../components/HeroSubBadges.astro';
+import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
+
+const VERSION = '1.0.0';
+const ZIP = `/downloads/kw-design-pro-v${VERSION}.zip`;
+const PAGE_URL = 'https://kizuna-works.jp/plugins/design-pro/';
+const DATE_MODIFIED = '2026-11-02';
+
+// The six single products this one bundles. Cards are built from plugins.ts so names and slugs never drift.
+const singleOf = (id: string) => {
+  const p = [...plugins, ...premiumPlugins].find((x) => x.id === id);
+  if (!p) throw new Error(`design-pro: plugin "${id}" not found in plugins.ts`);
+  return p;
+};
+const iconOf = (slug: string) => `/images/${slug}-icon.png`;
+const BUNDLED = [
+  { id: 'kw-field-styler', role: 'フィールドスタイラー' },
+  { id: 'kw-form-deco', role: 'FormDeco' },
+  { id: 'kw-theme-styler', role: 'テーマスタイラー' },
+  { id: 'kw-comment-control', role: 'コメントコントロール' },
+  { id: 'kw-user-autofill', role: 'ユーザーオートフィル' },
+  { id: 'kw-report-designer', role: '帳票デザイナー' },
+];
+const bundled = BUNDLED.map((b) => ({ ...b, p: singleOf(b.id) }));
+
+// FAQ: the accordion and FAQPage JSON-LD are built from the same array so they always match.
+const faqs: { q: string; a: string }[] = [
+  {
+    q: 'デザイン Pro だけを購入できますか？',
+    a: `製品ごとの個別のご契約はありません。プレミアム年間サポーターに KIZUNA Pro 拡張パックを追加すると、デザイン Pro を含む KIZUNA Pro プラグインをすべてお使いいただけます。両方をまとめた「KIZUNA Pro 年間サポーター」（税込 ${yen(PRO_SET_PLAN.priceInTax)}/年）もあります。`,
+  },
+  {
+    q: '年間サポーター（ちょこっとプラグインすべて）に、KIZUNA Pro 拡張パックを追加できますか？',
+    a: 'できません。KIZUNA Pro 拡張パックは、プレミアム年間サポーターに追加していただくプランです。年間サポーターからは、KIZUNA Pro 年間サポーターへの切り替えでお使いいただけます。',
+  },
+  {
+    q: 'フィールドスタイラーなどの単品のプラグインと、何が違いますか？',
+    a: '6つの機能（フィールドスタイラー・FormDeco・テーマスタイラー・コメントコントロール・ユーザーオートフィル・帳票デザイナー）は、もとのプラグインと同じ内容です。デザイン Pro では、それらを1つの設定画面で扱えます。そのうえで、見せる項目を切り替える「表示パターン」、［印刷 ▼］で選ぶ印刷パターン、印刷プレビュー上の仕上げ、一覧からのまとめ印刷、PDF の添付保存が加わります。',
+  },
+  {
+    q: '同じアプリに、もとのプラグインが入っていても大丈夫ですか？',
+    a: '大丈夫です。もとのプラグインが有効で、設定が済んでいる機能は、もとのプラグインに任せ、デザイン Pro では動かしません（二重に動くのを防ぐためです）。ほかの機能は、デザイン Pro が動かします。もとのプラグインを外すか、無効にすると、デザイン Pro がその機能を動かします。',
+  },
+  {
+    q: 'これまでのプラグインで作った設定を、デザイン Pro に引き継げますか？',
+    a: '引き継げます。もとのプラグインが入っているアプリでデザイン Pro の設定画面を開くと、該当の機能の設定欄に［単品の設定を読み込む］が出ます。押して確認で OK を押すと、設定が読み込まれます。読み込みは手動で、もとのプラグインの設定はそのまま残ります。内容を確かめて保存し、もとのプラグインをアプリから外してください。帳票デザイナーを使っているアプリでは、1件用のテンプレートを「帳票テンプレート」の印刷パターンとして取り込めます。',
+  },
+  {
+    q: '「表示パターン」では、何ができますか？',
+    a: '「お客様提示用」「社内確認用」のように、見せる項目の組み合わせに名前を付けて登録し、レコード画面のボタンで切り替えます。詳細・編集・新規作成の画面で使え、パソコンとスマートフォンの両方に対応します。最初に開くパターンは、押したボタン、ステータス（作業者のとき別のパターンにもできます）、フィールドの値の条件、ユーザー・組織・グループ、既定のパターンの順に決まります。ボタンは、ユーザー・組織・グループで絞って表示することもできます。',
+  },
+  {
+    q: '表示パターンで隠した項目は、見られなくなりますか？',
+    a: 'いいえ。表示パターンは画面の見せ方を切り替える機能で、アクセス権ではありません。隠した項目も、［すべて］のボタン、CSV、API などでは見られます。見せたくない値の制御には、kintone のアクセス権をお使いください。',
+  },
+  {
+    q: '［印刷 ▼］では、何を選べますか？',
+    a: '印刷パターンを選びます。種類は3つです。「見たまま」は、いまの表示パターンの見た目に近い形で、フォームから自動で配置します。「仕上げたレイアウト」は、見たままの配置を印刷プレビュー上で整えたものです。「帳票テンプレート」は、帳票デザイナーで作ったテンプレートです。印刷パターンが1つだけのときは、メニューを出さずに印刷プレビューへ進みます。表示パターンやステータスごとに、出す印刷パターンを絞ることもできます。',
+  },
+  {
+    q: '印刷プレビュー上の「仕上げ」は、誰でもできますか？',
+    a: 'アプリの管理者だけが、［仕上げる］から設定できます。仕上げた内容は、専用の保管アプリに保存し、管理者でない方が印刷するときも、そのとおりに印刷されます。保管アプリは、設定画面の［保管アプリを新しく作る］で、このアプリと同じスペースに作れます。パソコンのみです。',
+  },
+  {
+    q: 'kintone のフォームのレイアウトは変わりますか？',
+    a: '変わりません。仕上げで動かすのは「印刷される位置」だけで、アプリのフォームには触れません。フォームに項目を足したときは、仕上げの一覧に「新」の印で出て、既定の位置で印刷に加わります。',
+  },
+  {
+    q: '一覧から、まとめて印刷できますか？',
+    a: 'できます。一覧の［まとめて印刷］で、いまの絞り込みの結果を、選んだ印刷パターンで印刷します。ステータスごとに印刷パターンを変える「ステータスに合わせる」も選べます。件数の上限は設定で決められ（既定は100件・最大300件）、超えるときは確認が出ます。パソコンのみです。',
+  },
+  {
+    q: 'PDF を作って添付ファイルに保存できますか？',
+    a: 'できます。印刷パターンごとに、保存先の添付ファイル欄と、上書き・追加を決めます。印刷プレビューのボタンが［PDF を保存して印刷］になり、保存してから印刷します。保存される PDF は、印刷内容を画像にして作るため、文字の検索やコピーはできず、容量はやや大きくなります。PDF の部品（pdf-lib・html2canvas）は当社サイトから読み込みますが、レコードの値は送りません。',
+  },
+  {
+    q: 'KIZUNAブリッジから使えますか？',
+    a: '使えます。KIZUNAブリッジのルールの動作［プラグインの機能を実行する］から、PDF の作成（添付ファイルへの保存）と、実行した本人の押印を呼び出せます。たとえば「承認」のアクションをきっかけに、承認した方の印を押し、控えの PDF を保存できます。',
+  },
+  {
+    q: '無料で試せますか？',
+    a: 'はい、30日間無料で試せます（カード登録不要・自動課金なし・1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、もう一度お試しいただけます）。プレミアム年間サポーターを未契約の方は、プレミアム年間サポーターの無料体験に KIZUNA Pro プラグインが含まれます。プレミアム年間サポーターをご契約中の方は、KIZUNA Pro 拡張パックだけを30日間無料でお試しいただけます。体験が終わると機能は止まりますが、設定は消えません。',
+  },
+  {
+    q: 'ご契約が切れたら、設定はどうなりますか？',
+    a: '設定は消えません。ご契約が確認できない間は、機能は動かず、設定画面にはご契約の案内だけが出ます。ご契約が戻れば、保存済みの設定のまま、すぐに動きます。',
+  },
+  {
+    q: 'スマートフォンでも使えますか？',
+    a: '表示パターンの切り替えは使えます。印刷・印刷プレビュー上の仕上げ・まとめ印刷は、パソコンのみです。そのほかの機能と設定画面は、もとのプラグインと同じです。',
+  },
+  {
+    q: 'ゲストスペースのアプリでも使えますか？',
+    a: '使えます。ただし、ゲストスペースでは組織・グループの所属を取得できないため、表示パターンの条件では、ユーザーを指定した条件だけが働きます。',
+  },
+];
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Layout
+  heroBg="/images/kizuna-pro-hero-bg.webp"
+  title="デザイン Pro for kintone｜画面の見せ方も、印刷も、ひとつに | KIZUNA Works"
+  description="デザイン Pro for kintone は、フィールドスタイラー・FormDeco・テーマスタイラー・コメントコントロール・ユーザーオートフィル・帳票デザイナーの6つを1つにまとめた KIZUNA Pro プラグイン。見せる項目を切り替える表示パターン、［印刷 ▼］で選ぶ印刷パターン、印刷プレビュー上の仕上げ、一覧からのまとめ印刷、PDF の添付保存に対応。使う機能を機能ごとに選べ、日本語・英語・中国語（簡体字）の表示にも対応します。"
+  ogTitle="デザイン Pro for kintone｜画面の見せ方も、印刷も、ひとつに | KIZUNA Works"
+  ogDescription="装飾・配色・承認印・帳票の6つのプラグインを1つに統合。表示パターンの切り替え、［印刷 ▼］で選ぶ印刷パターン、印刷プレビュー上の仕上げ、まとめ印刷、PDF の添付保存に対応する KIZUNA Pro プラグインです。"
+  ogType="website"
+  ogUrl={PAGE_URL}
+  ogImage="https://kizuna-works.jp/images/design-pro-banner.png"
+  canonical={PAGE_URL}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': PAGE_URL,
+          url: PAGE_URL,
+          name: 'デザイン Pro for kintone｜画面の見せ方も、印刷も、ひとつに | KIZUNA Works',
+          description: 'デザイン Pro for kintone は、kintone の画面の装飾・配色・承認印・帳票の6つの機能を1つのプラグインにまとめ、見せる項目を切り替える表示パターン、印刷パターン、印刷プレビュー上の仕上げ、まとめ印刷、PDF の添付保存もできる kintone プラグイン（KIZUNA Pro プラグイン）。',
+          dateModified: DATE_MODIFIED,
+          primaryImageOfPage: { '@type': 'ImageObject', url: 'https://kizuna-works.jp/images/design-pro-banner.png', width: 1200, height: 630 },
+          isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: 'https://kizuna-works.jp/' },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+            { '@type': 'ListItem', position: 2, name: 'kintoneプラグイン', item: 'https://kizuna-works.jp/plugins/' },
+            { '@type': 'ListItem', position: 3, name: 'デザイン Pro for kintone', item: PAGE_URL },
+          ],
+        },
+        {
+          '@type': 'SoftwareApplication',
+          name: 'デザイン Pro for kintone',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'kintone',
+          // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
+          "softwareVersion": "1.0.0",
+          dateModified: DATE_MODIFIED,
+          url: PAGE_URL,
+          downloadUrl: `https://kizuna-works.jp${ZIP}`,
+          image: 'https://kizuna-works.jp/images/design-pro-banner.png',
+          offers: [
+            {
+              '@type': 'Offer',
+              name: PRO_SET_PLAN.name,
+              price: String(PRO_SET_PLAN.priceInTax),
+              priceCurrency: 'JPY',
+              availability: 'https://schema.org/InStock',
+              description: 'プレミアム年間サポーターと KIZUNA Pro 拡張パックのセット（年額）。KIZUNA Pro プラグインをすべて含みます。製品ごとの個別のご契約はありません。',
+            },
+            {
+              '@type': 'Offer',
+              name: PRO_ADDON.name,
+              price: String(PRO_ADDON.priceInTax),
+              priceCurrency: 'JPY',
+              availability: 'https://schema.org/InStock',
+              description: 'プレミアム年間サポーターに追加するプラン（年額）。',
+            },
+          ],
+          description: 'デザイン Pro for kintone は、kintone のフィールドスタイラー・FormDeco・テーマスタイラー・コメントコントロール・ユーザーオートフィル・帳票デザイナーの6つの機能を1つの設定画面で使えるプラグイン。詳細・編集・新規で見せる項目をボタンで切り替える「表示パターン」（パソコン・スマートフォン）、詳細画面の［印刷 ▼］で選ぶ印刷パターン（見たまま・仕上げたレイアウト・帳票テンプレート）、印刷プレビュー上で項目の位置・幅・文字の大きさ・改ページを整える「仕上げ」、一覧からのまとめ印刷、PDF を作って添付ファイルに保存する機能に対応。KIZUNAブリッジのルールから、PDF の作成と本人の押印を実行できる。同じアプリにもとのプラグインが有効で設定済みのときは、その機能はもとのプラグインが動く。もとのプラグインの設定は［単品の設定を読み込む］で引き継げる。',
+          publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
+          featureList: [
+            'フィールドスタイラー：フィールドの背景色・文字色・フォント・太字・サイズ・条件付きスタイル・文字数制限・入力文字種制限・コピー・プレースホルダー',
+            'FormDeco：罫線の見た目、スペースへの見出し・画像・吹き出し・リンク、折りたたみ、固定表示、スペースの前での改ページ',
+            'テーマスタイラー：アプリのテーマ色の一括適用、アプリ名の帯のリンクボタン',
+            'コメントコントロール：コメント欄の開き方、一覧のコメント件数の色分け・ホバーで全文表示',
+            'ユーザーオートフィル：ユーザー属性の転記、プロフィールカード、捺印',
+            '帳票デザイナー：PDF や白紙の用紙に項目を配置したテンプレート、1件・まとめての印刷、PDF の添付保存、テンプレートを見られる人の指定',
+            '表示パターン：詳細・編集・新規で見せる項目をボタンで切り替える。最初に開くパターンを、ステータス・値の条件・ユーザー・組織・グループで決められる（アクセス権ではない）',
+            '印刷パターン：詳細画面の［印刷 ▼］で、見たまま・仕上げたレイアウト・帳票テンプレートから選んで印刷プレビューへ進む',
+            '印刷プレビュー上の仕上げ：項目の位置・幅・文字の大きさ・改ページを、印刷される位置として整える（アプリの管理者のみ）',
+            'まとめ印刷：一覧の絞り込みの結果を、選んだ印刷パターン（またはステータスに合った印刷パターン）で印刷',
+            'PDF の添付保存：印刷パターンごとに、PDF を作って添付ファイル欄に上書きまたは追加で保存',
+            'KIZUNAブリッジの受け口：ブリッジのルールから、PDF の作成（添付ファイルへの保存）と本人の押印を実行',
+            '印刷で色を出す・装飾ごとに「画面のみ／印刷のみ／両方」を選ぶ',
+            '共通カラーパレット：色を選ぶ欄に、マイカラーと最近使った色を表示',
+            '多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示。管理者が入力する文字も言語ごとに入力できる',
+            '使う機能の選択：設定画面で、機能ごとにオン・オフを選ぶ。オフの機能は何も出さない（保存済みの設定は残る）',
+            '単品のプラグインを無効にしただけでも、その機能を動かす（単品に任せるのは、単品が有効で設定済みのときだけ）',
+            'ゲストスペースのアプリに対応',
+          ],
+        },
+      ],
+    })} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --kbp-navy: #1B3A6B;
+      --kbp-ink: #0f1f3d;
+      --kbp-gold: #b8862b;
+      --kbp-gold-light: #e8c766;
+      --kbp-gold-soft: #f0d58a;
+      --kbp-green: #2E8B2E;
+      --kbp-text: #333333;
+      --kbp-muted: #64748b;
+    }
+
+    /* Hero: darker than the premium hero, gold accents mark the Pro series */
+    .kbp-hero {
+      /* Shared KIZUNA Pro hero background; sized by width, its baked bottom fade blends into this base gradient */
+      background:
+        url('/images/kizuna-pro-hero-bg.webp') center top / 100% auto no-repeat,
+        linear-gradient(90deg, #020816 0%, #050b1c 30%, #081427 50%, #09182f 70%, #0c1729 100%);
+      color: #fff;
+      padding: 60px 5% 54px;
+      text-align: center;
+      border-bottom: 4px solid var(--kbp-gold);
+    }
+    .kbp-hero-icon {
+      width: 136px; height: 136px; object-fit: contain; display: block; margin: 0 auto 18px;
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(232, 199, 102, 0.5);
+      border-radius: 26px; padding: 10px; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+    .kbp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+    .kbp-badge-pro {
+      display: inline-flex; align-items: center; gap: 6px; line-height: 1;
+      padding: 7px 16px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%);
+      color: #1a1405; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.08em;
+    }
+    .kbp-hero-version {
+      padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.45);
+      font-size: 0.85rem; font-weight: 700; line-height: 1;
+    }
+    .kbp-hero-title { font-size: clamp(1.7rem, 4.2vw, 2.6rem); margin: 0 0 12px; line-height: 1.3; }
+    .kbp-tagline { font-size: clamp(1.05rem, 2.4vw, 1.35rem); font-weight: 700; margin: 0 0 14px; color: var(--kbp-gold-soft); }
+    .kbp-sub { max-width: 860px; margin: 0 auto 26px; line-height: 1.9; font-size: 1rem; color: rgba(255, 255, 255, 0.92); }
+    .kbp-sub strong { color: #fff; }
+    .kbp-pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; max-width: 900px; margin: 0 auto 28px; }
+    .kbp-pillar {
+      display: block; padding: 16px 14px; border-radius: 12px; text-decoration: none; color: #fff;
+      background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(232, 199, 102, 0.45);
+    }
+    .kbp-pillar:hover { background: rgba(255, 255, 255, 0.14); }
+    .kbp-pillar-no { display: block; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--kbp-gold-soft); font-weight: 800; }
+    .kbp-pillar-name { display: block; font-size: 1.05rem; font-weight: 800; margin: 4px 0; }
+    .kbp-pillar-desc { display: block; font-size: 0.84rem; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
+    .kbp-hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .kbp-btn {
+      display: inline-block; padding: 14px 26px; border-radius: 10px; font-weight: 800; text-decoration: none;
+      font-size: 1rem; line-height: 1.3;
+    }
+    .kbp-btn.is-primary { background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; box-shadow: 0 6px 18px rgba(184, 134, 43, 0.35); }
+    .kbp-btn.is-ghost { border: 1px solid rgba(255, 255, 255, 0.6); color: #fff; }
+    .kbp-btn.is-ghost:hover { background: rgba(255, 255, 255, 0.1); }
+    .kbp-hero-note { margin: 14px auto 0; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); max-width: 760px; line-height: 1.7; }
+
+    /* Series strip */
+    .kbp-series { background: #fffaf0; border-bottom: 1px solid #eadcb2; }
+    .kbp-series-inner { max-width: 1100px; margin: 0 auto; padding: 20px 5%; display: flex; gap: 16px; align-items: center; }
+    .kbp-series-tag {
+      flex-shrink: 0; padding: 6px 12px; border-radius: 6px; font-weight: 800; font-size: 0.8rem; letter-spacing: 0.06em;
+      background: var(--kbp-ink); color: var(--kbp-gold-soft);
+    }
+    .kbp-series p { margin: 0; line-height: 1.8; font-size: 0.95rem; color: var(--kbp-text); min-width: 0; }
+
+    /* Sections */
+    .kbp-section { padding: 64px 5%; background: #fff; }
+    .kbp-section.alt { background: #F0F4F8; }
+    .kbp-wrap { max-width: 1100px; margin: 0 auto; }
+    .kbp-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; color: var(--kbp-gold); margin-bottom: 6px; }
+    .kbp-h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); color: var(--kbp-navy); margin: 0 0 14px; line-height: 1.4; }
+    .kbp-lead { margin: 0 0 34px; line-height: 1.9; color: var(--kbp-text); max-width: 900px; }
+    .kbp-h3 { font-size: 1.2rem; color: var(--kbp-navy); margin: 0 0 10px; line-height: 1.5; }
+
+    /* Part header for the three ways to use */
+    .kbp-part {
+      display: flex; align-items: center; gap: 16px; padding: 22px 26px; margin: 0 0 34px; border-radius: 14px;
+      background: linear-gradient(120deg, var(--kbp-ink) 0%, var(--kbp-navy) 100%); color: #fff;
+    }
+    .kbp-part-no {
+      flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; font-weight: 900; font-size: 1.4rem;
+    }
+    .kbp-part-body { min-width: 0; }
+    .kbp-part-title { margin: 0 0 4px; font-size: clamp(1.25rem, 2.8vw, 1.7rem); line-height: 1.35; }
+    .kbp-part-desc { margin: 0; line-height: 1.7; color: rgba(255, 255, 255, 0.88); font-size: 0.95rem; }
+
+    /* Feature rows: text + screenshot */
+    .kbp-feature { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; margin: 0 0 48px; }
+    .kbp-feature.flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    .kbp-feature.flip .kbp-feature-text { order: 2; }
+    .kbp-feature-text p { margin: 0 0 12px; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-feature-text ul { margin: 0 0 12px; padding-left: 1.2em; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-feature-text li { margin-bottom: 4px; }
+    .kbp-shot { margin: 0; min-width: 0; }
+    .kbp-shot img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid #dbe3ee; box-shadow: 0 6px 18px rgba(15, 31, 61, 0.1); cursor: zoom-in; background: #fff; }
+    .kbp-shot figcaption { margin-top: 8px; font-size: 0.84rem; color: var(--kbp-muted); line-height: 1.6; }
+    .kbp-example {
+      margin: 12px 0 0; padding: 12px 14px; border-radius: 8px; background: #f4f7fb; border-left: 4px solid var(--kbp-navy);
+      font-size: 0.92rem; line-height: 1.8; color: var(--kbp-text);
+    }
+    .kbp-example strong { color: var(--kbp-navy); }
+
+    /* Chips for triggers / actions */
+    .kbp-chips, .kbp-feature-text .kbp-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; padding: 0; list-style: none; }
+    .kbp-chips li { padding: 5px 12px; border-radius: 16px; background: #eef3fa; color: var(--kbp-navy); font-size: 0.85rem; font-weight: 700; }
+    .kbp-chips.gold li { background: #fbf3dc; color: #6b4a0e; }
+
+    /* Use case cards */
+    .kbp-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0 0 44px; }
+    .kbp-case { background: #fff; border: 1px solid #dbe3ee; border-radius: 12px; padding: 20px; min-width: 0; }
+    .kbp-case-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0 0 10px; }
+    .kbp-case-app { padding: 4px 10px; border-radius: 6px; background: var(--kbp-navy); color: #fff; font-size: 0.82rem; font-weight: 700; }
+    .kbp-case-arrow { color: var(--kbp-gold); font-weight: 900; }
+    .kbp-case h3 { font-size: 1rem; color: var(--kbp-navy); margin: 0 0 6px; line-height: 1.5; }
+    .kbp-case p { margin: 0; font-size: 0.9rem; line-height: 1.75; color: var(--kbp-text); }
+
+    /* Partner list */
+    .kbp-partner-group { margin: 0 0 36px; }
+    .kbp-partner-group > p { margin: 0 0 16px; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-partners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; list-style: none; margin: 0; padding: 0; }
+    .kbp-partner a {
+      display: flex; gap: 14px; align-items: flex-start; padding: 16px; height: 100%; box-sizing: border-box;
+      background: #fff; border: 1px solid #e3d6ae; border-radius: 12px; text-decoration: none; color: inherit;
+      transition: box-shadow 0.2s ease;
+    }
+    .kbp-partner a:hover { box-shadow: 0 6px 18px rgba(15, 31, 61, 0.12); }
+    .kbp-partner-icon { width: 48px; height: 48px; flex-shrink: 0; border-radius: 10px; object-fit: contain; background: #f4f7fb; }
+    .kbp-partner-body { min-width: 0; }
+    .kbp-partner-name { display: block; font-weight: 800; color: var(--kbp-navy); margin-bottom: 2px; }
+    .kbp-partner-tier { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 1px 8px; border-radius: 10px; margin-bottom: 6px; }
+    .kbp-partner-tier.free { background: #e7f5e7; color: #1f5c1f; }
+    .kbp-partner-tier.premium { background: #fdf4d9; color: #77590a; }
+    .kbp-partner-role { display: block; font-size: 0.88rem; line-height: 1.7; color: var(--kbp-text); }
+
+    /* Feature summary list */
+    .kbp-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 28px; list-style: none; margin: 0; padding: 0; }
+    .kbp-list li { position: relative; padding-left: 26px; line-height: 1.75; color: var(--kbp-text); }
+    .kbp-list li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--kbp-gold); font-weight: 900; }
+
+    /* Plans */
+    .kbp-plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 0 0 24px; }
+    .kbp-plan { background: #fff; border: 1px solid #dbe3ee; border-radius: 14px; padding: 26px; position: relative; min-width: 0; }
+    .kbp-plan.top { border: 2px solid var(--kbp-gold); box-shadow: 0 10px 30px rgba(184, 134, 43, 0.18); }
+    .kbp-plan-badge {
+      position: absolute; top: -13px; left: 22px; padding: 4px 12px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; font-size: 0.78rem; font-weight: 800;
+    }
+    .kbp-plan h3 { margin: 4px 0 6px; color: var(--kbp-navy); font-size: 1.2rem; }
+    .kbp-plan-price { margin: 0 0 4px; }
+    .kbp-plan-price .amt { font-size: 1.9rem; font-weight: 900; color: var(--kbp-ink); }
+    .kbp-plan-price .unit { font-size: 0.9rem; color: var(--kbp-muted); margin-left: 4px; }
+    .kbp-plan-sub { margin: 0 0 14px; font-size: 0.85rem; color: var(--kbp-muted); }
+    .kbp-plan ul { margin: 0 0 18px; padding-left: 1.2em; line-height: 1.85; color: var(--kbp-text); font-size: 0.93rem; }
+    .kbp-plan-cta { display: block; text-align: center; padding: 12px 16px; border-radius: 10px; background: var(--kbp-navy); color: #fff; font-weight: 800; text-decoration: none; }
+    .kbp-plan.top .kbp-plan-cta { background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; }
+    .kbp-trial { margin: 0 0 18px; padding: 18px 20px; border-radius: 10px; background: #f4faf4; border: 1px solid #cfe8cf; line-height: 1.85; font-size: 0.93rem; color: var(--kbp-text); }
+    .kbp-trial h3 { margin: 0 0 6px; font-size: 1.05rem; color: #1B3A6B; }
+    .kbp-trial p { margin: 0 0 8px; }
+    .kbp-trial ul { margin: 0 0 8px; padding-left: 1.3em; }
+    .kbp-trial a { color: #2E8B2E; font-weight: 700; }
+    .kbp-note { padding: 16px 18px; border-radius: 10px; background: #fffaf0; border: 1px solid #eadcb2; line-height: 1.85; font-size: 0.93rem; color: var(--kbp-text); }
+
+    /* Install steps */
+    .steps-list { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid #e2e8f0; line-height: 1.8; counter-increment: step; }
+    .steps-list li::before {
+      content: counter(step); flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: var(--kbp-navy); color: #fff; font-weight: 800;
+    }
+    .steps-list li > span { min-width: 0; }
+
+    /* Cautions */
+    .kbp-cautions ul { margin: 0; padding-left: 1.2em; line-height: 1.9; color: var(--kbp-text); }
+    .kbp-cautions li { margin-bottom: 6px; }
+
+    /* FAQ */
+    .kbp-faq { margin: 0; }
+    .kbp-faq details { background: #fff; border: 1px solid #dbe3ee; border-radius: 10px; margin: 0 0 10px; }
+    .kbp-faq summary { cursor: pointer; padding: 16px 18px; font-weight: 800; color: var(--kbp-navy); line-height: 1.6; }
+    .kbp-faq details p { margin: 0; padding: 0 18px 16px; line-height: 1.85; color: var(--kbp-text); }
+
+    /* Closing CTA */
+    .kbp-cta { background: linear-gradient(135deg, #0b1630 0%, #1B3A6B 100%); color: #fff; text-align: center; padding: 56px 5%; border-top: 4px solid var(--kbp-gold); }
+    .kbp-cta h2 { margin: 0 0 12px; font-size: clamp(1.3rem, 3vw, 1.8rem); line-height: 1.45; }
+    .kbp-cta p { margin: 0 auto 22px; max-width: 760px; line-height: 1.85; color: rgba(255, 255, 255, 0.88); }
+
+    /* Lightbox */
+    .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); display: none; align-items: center; justify-content: center; z-index: 10000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5); }
+    .lightbox-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
+
+    @media (max-width: 860px) {
+      .kbp-feature, .kbp-feature.flip { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+      .kbp-feature.flip .kbp-feature-text { order: 0; }
+      .kbp-cases { grid-template-columns: minmax(0, 1fr); }
+      .kbp-partners, .kbp-list, .kbp-plan-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .kbp-pillars { grid-template-columns: minmax(0, 1fr); }
+      .kbp-section { padding: 48px 5%; }
+      .kbp-part { padding: 18px; gap: 12px; }
+      .kbp-part-no { width: 44px; height: 44px; font-size: 1.1rem; }
+      .kbp-series-inner { flex-direction: column; align-items: flex-start; }
+      .kbp-btn { width: 100%; box-sizing: border-box; text-align: center; }
+    }
+
+    /* File Pro additions */
+    .kbp-feature.kfp-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+    .kfp-singles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; list-style: none; margin: 0; padding: 0; }
+    .kfp-singles a {
+      display: flex; gap: 12px; align-items: center; padding: 12px; height: 100%; box-sizing: border-box;
+      background: #fff; border: 1px solid #dbe3ee; border-radius: 12px; text-decoration: none; color: inherit;
+    }
+    .kfp-singles a:hover { box-shadow: 0 6px 18px rgba(15, 31, 61, 0.12); }
+    .kfp-single-icon { width: 48px; height: 48px; flex-shrink: 0; border-radius: 10px; object-fit: contain; background: #f4f7fb; }
+    .kfp-single-body { min-width: 0; display: block; }
+    .kfp-single-name { display: block; font-weight: 800; color: var(--kbp-navy); font-size: 0.92rem; line-height: 1.5; }
+    .kfp-single-role { display: block; font-size: 0.82rem; line-height: 1.6; color: var(--kbp-muted); }
+    .kbp-series p a { color: var(--kbp-navy); font-weight: 700; }
+    /* Overview grid of the Pro-only features at the top of PART 2 */
+    .kfp-new-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; list-style: none; margin: 0 0 44px; padding: 0; }
+    .kfp-new-grid li { background: #fff; border: 1px solid #dbe3ee; border-top: 3px solid var(--kbp-gold); border-radius: 12px; padding: 18px 20px; min-width: 0; }
+    .kfp-new-grid h3 { font-size: 1rem; color: var(--kbp-navy); margin: 8px 0 6px; line-height: 1.5; }
+    .kfp-new-grid p { margin: 0 0 8px; font-size: 0.9rem; line-height: 1.75; color: var(--kbp-text); }
+    .kfp-new-grid a { color: var(--kbp-navy); font-weight: 700; font-size: 0.85rem; }
+    .kfp-new-tag { display: inline-block; padding: 2px 10px; border-radius: 999px; background: var(--kbp-navy); color: var(--kbp-gold-soft); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em; }
+    .kbp-h3 .kfp-new-tag { vertical-align: 0.2em; margin-right: 8px; }
+    @media (max-width: 860px) {
+      .kbp-feature.kfp-pair { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    }
+    @media (max-width: 640px) {
+      .kfp-new-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .kfp-singles { grid-template-columns: minmax(0, 1fr); }
+    }
+    .kfp-new-grid li > ul { margin: 0; padding-left: 1.2em; font-size: 0.88rem; line-height: 1.75; color: var(--kbp-text); }
+    .kfp-new-grid li > ul li { position: static; border: 0; border-radius: 0; padding: 0; background: none; margin-bottom: 2px; }
+
+    /* Five bundled features: tabs on the left, description and screenshot on the right */
+    .kfp-tabs { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 24px; align-items: start; }
+    .kfp-tablist { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .kfp-tab { display: flex; align-items: center; gap: 12px; width: 100%; min-width: 0; padding: 12px 14px; border: 1px solid #dbe3ee; border-left: 4px solid transparent; border-radius: 10px; background: #fff; color: var(--kbp-navy); font: inherit; font-weight: 800; font-size: 0.95rem; text-align: left; cursor: pointer; }
+    .kfp-tab img { width: 40px; height: 40px; flex-shrink: 0; border-radius: 8px; object-fit: contain; background: #f4f7fb; }
+    .kfp-tab span { min-width: 0; }
+    .kfp-tab:hover { box-shadow: 0 4px 14px rgba(15, 31, 61, 0.1); }
+    .kfp-tab:focus-visible { outline: 3px solid var(--kbp-gold); outline-offset: 2px; }
+    .kfp-tab[aria-selected="true"] { border-left-color: var(--kbp-gold); background: var(--kbp-navy); color: #fff; box-shadow: 0 6px 18px rgba(15, 31, 61, 0.18); }
+    .kfp-panel { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 28px; align-items: start; background: #fff; border: 1px solid #dbe3ee; border-top: 3px solid var(--kbp-gold); border-radius: 12px; padding: 24px 26px; min-width: 0; }
+    .kfp-panel + .kfp-panel { margin-top: 16px; }
+    .kfp-tabs.is-ready .kfp-panel { grid-column: 2; grid-row: 1; margin-top: 0; }
+    .kfp-tabs.is-ready .kfp-panel[hidden] { display: none; }
+    .kfp-panel-text { min-width: 0; }
+    .kfp-panel h3 { font-size: 1.1rem; color: var(--kbp-navy); margin: 0 0 8px; line-height: 1.5; }
+    .kfp-panel p { margin: 0 0 10px; font-size: 0.92rem; line-height: 1.8; color: var(--kbp-text); }
+    .kfp-panel ul { margin: 0; padding-left: 1.2em; font-size: 0.88rem; line-height: 1.8; color: var(--kbp-text); }
+    .kfp-shot-narrow img { max-width: 360px; margin: 0 auto; }
+    @media (max-width: 900px) {
+      .kfp-tabs { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+      .kfp-tablist { flex-direction: row; flex-wrap: wrap; }
+      .kfp-tab { width: auto; flex: 1 1 140px; padding: 10px 12px; font-size: 0.88rem; }
+      .kfp-tab img { width: 32px; height: 32px; }
+      .kfp-tabs.is-ready .kfp-panel { grid-column: 1; grid-row: auto; }
+      .kfp-panel { grid-template-columns: minmax(0, 1fr); gap: 16px; padding: 18px 16px; }
+    }
+    /* Design Pro additions: text-only tab panel and stacked screenshots */
+    .kfp-panel--text { grid-template-columns: minmax(0, 1fr); }
+    .kfp-panel-shots { display: grid; gap: 16px; min-width: 0; }
+    .kfp-shot-narrow { max-width: 420px; margin-left: auto; margin-right: auto; }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="kbp-hero">
+      <img class="kbp-hero-icon" src="/images/design-pro-icon.png" alt="デザイン Pro for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="kbp-hero-badges">
+        <span class="kbp-badge-pro">KIZUNA Pro PLUGIN</span>
+        <span class="kbp-hero-version">v{VERSION}</span>
+      </div>
+      <HeroSubBadges pluginId="kw-design-pro" />
+      <h1 class="kbp-hero-title">デザイン Pro for kintone</h1>
+      <p class="kbp-tagline">画面を整えて、そのまま好きなレイアウトで印刷。</p>
+      <p class="kbp-sub">デザイン Pro for kintone は、<strong>フィールドスタイラー・FormDeco・テーマスタイラー・コメントコントロール・ユーザーオートフィル・帳票デザイナーの6つを1つにまとめた</strong> kintone プラグインです。6つの機能を、<strong>1つの設定画面</strong>で扱えます。見せる項目を切り替える表示パターン、印刷パターンの選択、印刷プレビュー上の仕上げ、まとめ印刷、PDF の添付保存など、Pro だけの機能も加わります。</p>
+      <div class="kbp-pillars">
+        <a class="kbp-pillar" href="#pro-patterns"><span class="kbp-pillar-no">POINT 1</span><span class="kbp-pillar-name">表示パターン</span><span class="kbp-pillar-desc">見せる項目を、役割や場面に合わせてボタンで切り替え</span></a>
+        <a class="kbp-pillar" href="#pro-print"><span class="kbp-pillar-no">POINT 2</span><span class="kbp-pillar-name">印刷パターンと仕上げ</span><span class="kbp-pillar-desc">見たまま・仕上げたレイアウト・帳票テンプレートから選んで印刷</span></a>
+        <a class="kbp-pillar" href="#pro-batch"><span class="kbp-pillar-no">POINT 3</span><span class="kbp-pillar-name">まとめ印刷と PDF 保存</span><span class="kbp-pillar-desc">一覧からまとめて印刷し、PDF を添付ファイルに保存</span></a>
+      </div>
+      <div class="kbp-hero-cta">
+        <a class="kbp-btn is-primary" href="#plan">プランと料金を見る →</a>
+        <a class="kbp-btn is-ghost js-dl" href={ZIP} download>プラグインをダウンロード</a>
+        <a class="kbp-btn is-ghost" href="/plugins/premium-trial/">30日間無料で試す</a>
+      </div>
+      <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
+    </section>
+    <RequestOriginBadge as="note" />
+
+    <!-- Series -->
+    <div class="kbp-series">
+      <div class="kbp-series-inner">
+        <span class="kbp-series-tag">KIZUNA Pro とは</span>
+        <p>ちょこっとプラグイン・プレミアムプラグインの上にある、KIZUNA Works の上位版のプラグインのシリーズです。<strong>KIZUNA Pro 拡張パック</strong>で、デザイン Pro をはじめ、<a href="/plugins/bridge/">KIZUNAブリッジ for kintone</a> など、今後リリースされる KIZUNA Pro プラグインもすべてお使いいただけます。</p>
+      </div>
+    </div>
+
+    <!-- Problem -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">PROBLEM</span>
+        <h2 class="kbp-h2">画面の見せ方や印刷を、場面に合わせて切り替えられず困っていませんか</h2>
+        <p class="kbp-lead">装飾・配色・帳票を別々のプラグインで設定していると、アプリのプラグインの枠（20個まで）が埋まり、どこに何を設定したかも分かりにくくなります。デザイン Pro は、これらを<strong>1つの設定画面</strong>にまとめ、見せ方と印刷を場面に合わせて切り替えられるようにします。</p>
+        <div class="kbp-cases">
+          <div class="kbp-case">
+            <h3>項目が多く、見たい項目が探しにくい</h3>
+            <p>「表示パターン」で、役割や場面ごとに見せる項目を切り替えられます。［すべて］のボタンで、いつでも標準の表示に戻せます。</p>
+          </div>
+          <div class="kbp-case">
+            <h3>画面のままの体裁で印刷したいのに、帳票を作り直すことになる</h3>
+            <p>［印刷 ▼］の「見たまま」で、フォームの並びと装飾から印刷用の配置を自動で作ります。足りないところは、印刷プレビュー上で整えられます。</p>
+          </div>
+          <div class="kbp-case">
+            <h3>客先用と社内用で、印刷の様式を出し分けたい</h3>
+            <p>印刷パターンを複数登録し、［印刷 ▼］から選んで印刷できます。表示パターンやステータスごとに、出すパターンを絞ることもできます。</p>
+          </div>
+          <div class="kbp-case">
+            <h3>一覧から、複数件をまとめて印刷・PDF にしたい</h3>
+            <p>一覧の［まとめて印刷］で、絞り込みの結果をまとめて印刷できます。印刷パターンごとに、PDF を作って添付ファイルへ保存することもできます。</p>
+          </div>
+          <div class="kbp-case">
+            <h3>装飾・帳票のプラグインで、枠が埋まってしまう</h3>
+            <p>6つのプラグインを、デザイン Pro 1つにできます。プラグインの枠を5つ空けられ、設定も1つの画面で済みます。</p>
+          </div>
+          <div class="kbp-case">
+            <h3>承認の流れに合わせて、見せ方や印を変えたい</h3>
+            <p>ステータスに合わせて、最初に開く表示パターンを変えられます。ブリッジのルールから、承認した本人の印を押し、PDF を保存することもできます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 1 -->
+    <section class="kbp-section alt" id="six">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">1</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">6つの機能を、1つのプラグインで</h2>
+            <p class="kbp-part-desc">設定した機能だけが動きます。6つの機能の内容は、もとのプラグインと同じです。印刷で色を出すことや、装飾ごとに「画面のみ／印刷のみ／両方」から選ぶこともできます。</p>
+          </div>
+        </div>
+
+        <div class="kfp-tabs" data-kfp-tabs>
+          <div class="kfp-tablist" role="tablist" aria-label="6つの機能">
+            {bundled.map((b, i) => (
+              <button type="button" class="kfp-tab" role="tab" id={`kfp-tab-${i}`} aria-controls={`kfp-panel-${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+                <img src={iconOf(b.p!.slug)} alt="" width="40" height="40" loading="lazy" />
+                <span>{b.role}</span>
+              </button>
+            ))}
+          </div>
+
+          <div class="kfp-panel" role="tabpanel" id="kfp-panel-0" aria-labelledby="kfp-tab-0">
+            <div class="kfp-panel-text">
+              <h3>フィールドスタイラー</h3>
+              <p>フィールドの見た目と入力のしかたを、設定画面から整えます。</p>
+              <ul>
+                <li>背景色・文字色・フォント・太字・サイズを指定できます。</li>
+                <li>値の条件に合わせて色などを変える「条件付きスタイル」にも対応します。</li>
+                <li>文字数の制限・入力できる文字の種類の制限・コピーボタン・プレースホルダーを設定できます。</li>
+                <li>テーブルの中のフィールドにも設定できます。</li>
+              </ul>
+            </div>
+            <div class="kfp-panel-shots">
+              <figure class="kbp-shot">
+                <Picture src="/images/design-pro-decor-detail.png" alt="kintone のレコード詳細画面。見積書の顧客名と件名が太字で、状況の「受注」が緑の背景で表示されている。上部に［見積書］のボタンがある" width="800" height="571" class="zoomable" />
+                <figcaption>詳細画面。装飾が効いた見積書</figcaption>
+              </figure>
+              <figure class="kbp-shot">
+                <Picture src="/images/design-pro-decor-list.png" alt="kintone のレコード一覧。状況の列が「受注」は緑・「提出済み」は青・「失注」は赤の背景で色分けされている" width="800" height="571" class="zoomable" />
+                <figcaption>一覧画面。値に合わせた色分け</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="kfp-panel" role="tabpanel" id="kfp-panel-1" aria-labelledby="kfp-tab-1">
+            <div class="kfp-panel-text">
+              <h3>FormDeco</h3>
+              <p>フォームの罫線とスペースを、見出しや案内のある見やすい画面に整えます。</p>
+              <ul>
+                <li>罫線の見た目を変えられます。</li>
+                <li>スペースに、見出し・画像・吹き出し（コールアウト）・リンクやボタンを表示できます。</li>
+                <li>見出しの下の折りたたみ、見出しの画面上部への固定、スペースの前での改ページもできます。</li>
+              </ul>
+            </div>
+            <div class="kfp-panel-shots">
+              <figure class="kbp-shot">
+                <Picture src="/images/blog/form-deco-after-text.png" alt="kintone のレコード詳細画面。「案件情報」の見出しの下に項目が並び、罫線が赤い点線になり、スペースに「詳細の入力忘れに気を付けましょう」の帯が表示されている" width="661" height="680" class="zoomable" />
+                <figcaption>見出し・罫線・スペースの帯で整えた詳細画面</figcaption>
+              </figure>
+              <figure class="kbp-shot">
+                <Picture src="/images/blog/form-deco-after-image.png" alt="kintone のレコード詳細画面。緑の二重線の罫線のあいだのスペースに、ロゴ画像が表示されている" width="449" height="387" class="zoomable" />
+                <figcaption>スペースに画像を表示</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="kfp-panel" role="tabpanel" id="kfp-panel-2" aria-labelledby="kfp-tab-2">
+            <div class="kfp-panel-text">
+              <h3>テーマスタイラー</h3>
+              <p>アプリごとに、テーマ色と、アプリ名の帯のリンクを整えます。</p>
+              <ul>
+                <li>アプリのテーマ色を一括で適用できます。グループの枠とテーブル名の帯も、テーマの色にそろえます。</li>
+                <li>アプリ名の帯に、よく使うページへのリンクボタンを並べられます。</li>
+              </ul>
+            </div>
+            <div class="kfp-panel-shots">
+              <figure class="kbp-shot">
+                <Picture src="/images/theme-styler-before.png" alt="テーマ色を赤にした kintone の案件管理アプリの一覧画面。アプリ名の帯と一覧の見出しが赤系になっている" width="1904" height="718" class="zoomable" />
+                <figcaption>適用前</figcaption>
+              </figure>
+              <figure class="kbp-shot">
+                <Picture src="/images/theme-styler-after.png" alt="テーマ色を水色に変えた同じ一覧画面。アプリ名の帯と一覧の見出しが水色になり、帯の右にリンクボタンが並んでいる" width="1894" height="715" class="zoomable" />
+                <figcaption>テーマ色を変え、アプリ名の帯にリンクボタンを並べた画面</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="kfp-panel" role="tabpanel" id="kfp-panel-3" aria-labelledby="kfp-tab-3">
+            <div class="kfp-panel-text">
+              <h3>コメントコントロール</h3>
+              <p>コメント欄の見せ方を整えます。</p>
+              <ul>
+                <li>レコード詳細のコメント欄の開き方を選べます。</li>
+                <li>一覧に、コメントの件数をバッジで表示し、件数に応じて色分けできます。</li>
+                <li>バッジにマウスを重ねると、コメントの全文を表示します。</li>
+              </ul>
+            </div>
+            <div class="kfp-panel-shots">
+              <figure class="kbp-shot">
+                <Picture src="/images/comment-control-list-after.png" alt="kintone の問い合わせ対応管理アプリの一覧画面。各行の左に、コメントの件数に応じて色分けされたバッジが表示されている" width="1920" height="794" class="zoomable" />
+                <figcaption>一覧に、コメント件数のバッジ</figcaption>
+              </figure>
+              <figure class="kbp-shot">
+                <Picture src="/images/comment-control-tooltip-01.png" alt="一覧のバッジにマウスを重ねた画面。そのレコードのコメントの全文が、投稿者と日時つきで黒い吹き出しに並んでいる" width="1920" height="794" class="zoomable" />
+                <figcaption>バッジにマウスを重ねると、コメントの全文</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="kfp-panel" role="tabpanel" id="kfp-panel-4" aria-labelledby="kfp-tab-4">
+            <div class="kfp-panel-text">
+              <h3>ユーザーオートフィル</h3>
+              <p>ユーザーの情報を、レコードに自動で入れます。</p>
+              <ul>
+                <li>ユーザーの属性を、ほかのフィールドへ転記できます。</li>
+                <li>ユーザーの名前に、プロフィールカードを表示できます。</li>
+                <li>承認欄などに、［捺印］で本人の印と日時を押せます。</li>
+              </ul>
+            </div>
+            <div class="kfp-panel-shots">
+              <figure class="kbp-shot">
+                <Picture src="/images/user-autofill-stamp.png" alt="申請者・承認者・最終承認者の欄に、それぞれ「鈴木」「絆」「佐藤」の朱色の丸い印が押されている" width="325" height="152" class="zoomable kfp-shot-narrow" />
+                <figcaption>［捺印］で押した印</figcaption>
+              </figure>
+              <figure class="kbp-shot">
+                <Picture src="/images/user-autofill-profile-card.png" alt="申請者の名前の欄に表示したプロフィールカード。顔のイラスト、名前、所属、役職、社員番号が並んでいる" width="594" height="200" class="zoomable kfp-shot-narrow" />
+                <figcaption>ユーザーの名前に出すプロフィールカード</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="kfp-panel" role="tabpanel" id="kfp-panel-5" aria-labelledby="kfp-tab-5">
+            <div class="kfp-panel-text">
+              <h3>帳票デザイナー</h3>
+              <p>お手持ちの PDF や白紙の用紙に、レコードの値を配置して、帳票にします。</p>
+              <ul>
+                <li>テンプレートを作り、1件ずつ、またはまとめて印刷できます。</li>
+                <li>印刷した PDF を、レコードの添付ファイルへ保存できます。</li>
+                <li>テンプレートを見られる人を、ユーザー・組織・グループで指定できます。テンプレートを保管するアプリを複数のアプリで共用するときに使います。</li>
+                <li>デザイン Pro では、このテンプレートを「帳票テンプレート」の印刷パターンとして［印刷 ▼］に並べられます。</li>
+              </ul>
+            </div>
+            <figure class="kbp-shot">
+              <Picture src="/images/design-pro-report.png" alt="帳票テンプレートで印刷した見積書。表題、顧客名、件名、お見積金額、明細の表、小計・消費税・合計、承認欄の印影が A4 の1枚に収まっている" width="794" height="1123" class="zoomable kfp-shot-narrow" />
+              <figcaption>帳票テンプレートで印刷した見積書（A4）。画像をクリックすると拡大表示します</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 2 -->
+    <section class="kbp-section" id="pro">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">2</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">デザイン Pro だけの機能</h2>
+            <p class="kbp-part-desc">6つの機能が1つになることで、できることが増えます。次の6つはもとのプラグインには無く、デザイン Pro だけで使えます。</p>
+          </div>
+        </div>
+
+        <ul class="kfp-new-grid kfp-new-grid--pro">
+          <li><span class="kfp-new-tag">Pro だけ</span><h3>表示パターン</h3><p>見せる項目の組み合わせに名前を付け、ボタンで切り替えます。詳細・編集・新規で使え、スマートフォンにも対応します。</p><a href="#pro-patterns">詳しく見る ↓</a></li>
+          <li><span class="kfp-new-tag">Pro だけ</span><h3>印刷パターン</h3><p>［印刷 ▼］で、見たまま・仕上げたレイアウト・帳票テンプレートから選んで印刷します。</p><a href="#pro-print">詳しく見る ↓</a></li>
+          <li><span class="kfp-new-tag">Pro だけ</span><h3>印刷プレビュー上の仕上げ</h3><p>項目の位置・幅・文字の大きさ・改ページを、印刷される位置として整えます。</p><a href="#pro-editor">詳しく見る ↓</a></li>
+          <li><span class="kfp-new-tag">Pro だけ</span><h3>まとめ印刷</h3><p>一覧の絞り込みの結果を、選んだ印刷パターンでまとめて印刷します。</p><a href="#pro-batch">詳しく見る ↓</a></li>
+          <li><span class="kfp-new-tag">Pro だけ</span><h3>PDF の添付保存</h3><p>印刷パターンごとに、PDF を作って添付ファイル欄に保存します。</p><a href="#pro-batch">詳しく見る ↓</a></li>
+          <li><span class="kfp-new-tag">Pro だけ</span><h3>KIZUNAブリッジから呼べる</h3><p>ブリッジのルールから、PDF の作成と、実行した本人の押印を呼び出せます。</p><a href="#pro-bridge">詳しく見る ↓</a></li>
+        </ul>
+
+        <div class="kbp-feature" id="pro-patterns">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="kfp-new-tag">Pro だけ</span>表示パターン</h3>
+            <p>「お客様提示用」「社内確認用」のように、見せる項目の組み合わせに名前を付けて登録します。レコード画面のボタンで、いつでも切り替えられます。</p>
+            <ul>
+              <li>詳細・編集・新規作成の画面で使えます。パソコンとスマートフォンの両方に対応します。</li>
+              <li>ボタンは、レコード画面のツールバー（右のメニューと同じ行）、または指定したスペースに並べます。ツールバーでは左寄せ・中央・右寄せを選べます。［すべて］で、標準の表示に戻せます。</li>
+              <li>ボタンのデザインを、ビジネス・カジュアル・スタイリッシュ・クールの4種類と好きな色から選べます。［印刷］［まとめて印刷］も同じデザインにそろいます。</li>
+              <li>編集・新規では、パターンに入っていない必須項目を自動で表示します。</li>
+              <li>ボタンを、ユーザー・組織・グループで絞って表示できます。</li>
+            </ul>
+            <p><strong>最初に開くパターン</strong>は、次の順に決まります。</p>
+            <ol>
+              <li>押したボタン</li>
+              <li>ステータス（作業者のときだけ別のパターンにもできます）</li>
+              <li>フィールドの値の条件</li>
+              <li>ユーザー・組織・グループ</li>
+              <li>既定のパターン</li>
+            </ol>
+            <p class="kbp-example"><strong>例：</strong>見積書で「お客様提示用」に社内の原価欄を入れず、「社内確認用」に全項目を入れておく。営業は「お客様提示用」で開き、必要なときだけ［社内確認用］に切り替える。</p>
+            <p>表示パターンは<strong>画面の見せ方を切り替える機能で、アクセス権ではありません</strong>。隠した項目も、［すべて］・CSV・API では見られます。</p>
+          </div>
+          <div class="kfp-panel-shots">
+            <figure class="kbp-shot">
+              <Picture src="/images/design-pro-patterns-cust.png" alt="kintone のレコード詳細画面。上部に［すべて］［お客様提示用］［社内確認用］［印刷 ▼］のボタンが並び、「お客様提示用」が選ばれている。担当者や状況の欄が隠れ、基本情報・明細・金額だけが表示されている" width="1400" height="900" class="zoomable" />
+              <figcaption>「お客様提示用」。担当者・状況などの項目を隠した表示</figcaption>
+            </figure>
+            <figure class="kbp-shot">
+              <Picture src="/images/design-pro-patterns-inner.png" alt="同じ見積書の詳細画面で「社内確認用」を選んだ表示。状況・担当者・担当者メールの欄も表示されている" width="1400" height="900" class="zoomable" />
+              <figcaption>「社内確認用」。状況・担当者の欄も表示。画像をクリックすると拡大表示します</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="kbp-feature flip" id="pro-print">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="kfp-new-tag">Pro だけ</span>印刷パターン（［印刷 ▼］）</h3>
+            <p>詳細画面のツールバーに［印刷 ▼］を1つ置きます。押すと印刷パターンが並び、選ぶと印刷プレビューへ進みます。印刷パターンは、名前を付けて複数登録できます。種類は3つです。</p>
+            <ul>
+              <li><strong>見たまま</strong>：いまの表示パターンの見た目に近い形で、フォームの並びと装飾から自動で配置します。社内の控え・確認用に向いています。</li>
+              <li><strong>仕上げたレイアウト</strong>：見たままの配置を、印刷プレビュー上で整えたものです。体裁を整えた社内帳票に向いています。</li>
+              <li><strong>帳票テンプレート</strong>：帳票デザイナーで作ったテンプレートです。客先に渡す見積書・請求書に向いています。</li>
+            </ul>
+            <p>印刷パターンが1つだけのときは、メニューを出さずに印刷プレビューへ進みます。表示パターンやステータスごとに、出す印刷パターンを絞ることもできます。</p>
+            <p>印刷プレビューでは、印刷パターンの切り替え・用紙（A4／A3・縦／横）・拡大縮小ができます。色は印刷でも出ます。</p>
+            <p class="kbp-example"><strong>例：</strong>「見積書（社内用）」は見たまま、「見積書（客先用）」は帳票テンプレートにして、1つの［印刷 ▼］から出し分ける。</p>
+          </div>
+          <div class="kfp-panel-shots">
+            <figure class="kbp-shot">
+              <Picture src="/images/design-pro-print-menu.png" alt="kintone のレコード詳細画面で［印刷 ▼］を押した表示。「見たまま」「見積書（テンプレート）」の2つの印刷パターンが一覧で並んでいる" width="1400" height="900" class="zoomable" />
+              <figcaption>［印刷 ▼］で印刷パターンを選ぶ</figcaption>
+            </figure>
+            <figure class="kbp-shot">
+              <Picture src="/images/design-pro-print-preview.png" alt="「見たまま」の印刷プレビュー。上部に印刷パターンと用紙のプルダウン、［ページ幅］［100%］、［仕上げる］［印刷］［閉じる］のボタンがあり、A4 の用紙の上に御見積書が画面のままの体裁で並んでいる" width="1400" height="900" class="zoomable" />
+              <figcaption>「見たまま」の印刷プレビュー。画像をクリックすると拡大表示します</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="kbp-feature" id="pro-editor">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="kfp-new-tag">Pro だけ</span>印刷プレビュー上の仕上げ</h3>
+            <p>印刷プレビューの［仕上げる］で、見たままの配置を整えます。動かすのは「印刷される位置」だけで、kintone のフォームには触れません。</p>
+            <ul>
+              <li>項目をクリックで選び、ドラッグで動かします。右下の角で大きさを変え、矢印キーで細かく動かせます。元に戻す（Ctrl+Z）にも対応します。</li>
+              <li>右のパネルで、項目の位置・幅・上の余白・文字の大きさ・太字・揃え・項目名を設定します。印刷しない項目も選べます。</li>
+              <li>「この前で改ページ」「次の行と同じページに収める」で、改ページを決めます。</li>
+              <li>テーブルは、列の選択・並び・幅・見出しを決められます。見出し行は、次のページでも繰り返します。</li>
+              <li>文字や画像（ロゴ）を、1ページ目だけ、または全ページに置けます。</li>
+              <li>「このレコードの値」と「見本データ」を切り替えて確かめられます。</li>
+            </ul>
+            <p>フォームに項目を足したときは、仕上げの一覧に「新」の印で出て、既定の位置で印刷に加わります。</p>
+            <p>［仕上げる］はアプリの管理者だけに表示されます。管理者でない方が印刷するときも、仕上げたとおりに印刷されます。仕上げた内容は、専用の保管アプリに保存します。パソコンのみです。</p>
+          </div>
+          <div class="kbp-feature-text">
+            <p class="kbp-example"><strong>例：</strong>「件名」を大きな文字にして枠を広げ、「備考」の前で改ページする。いちどの仕上げで、そのパターンで印刷するすべてのレコードに反映される。</p>
+            <figure class="kbp-shot">
+              <Picture src="/images/design-pro-editor.png" alt="印刷プレビュー上の仕上げの画面。上部に［元に戻す］［＋文字］［＋画像］［保存］［仕上げを終える］があり、A4 の用紙の上の「件名」が青い枠で選ばれている。右のパネルに、項目名・左・幅・上の余白・文字の大きさ・太字・揃え・この前で改ページなどの設定欄が並ぶ" width="1400" height="900" class="zoomable" />
+              <figcaption>仕上げ。選んだ項目の設定は、右のパネルで変えます。画像をクリックすると拡大表示します</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="kbp-feature flip" id="pro-batch">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="kfp-new-tag">Pro だけ</span>まとめ印刷・PDF の添付保存</h3>
+            <p><strong>まとめ印刷</strong>：一覧の［まとめて印刷］で、いまの絞り込みの結果を、選んだ印刷パターンでまとめて印刷します。</p>
+            <ul>
+              <li>ステータスごとに印刷パターンを変える「ステータスに合わせる」も選べます。</li>
+              <li>件数の上限は設定で決められます（既定は100件・最大300件）。超えるときは、先頭から何件を印刷するかの確認が出ます。</li>
+              <li>パソコンの一覧のみです。</li>
+            </ul>
+            <p><strong>PDF の添付保存</strong>：印刷パターンごとに、保存先の添付ファイル欄と、上書き・追加を決めます。</p>
+            <ul>
+              <li>印刷プレビューのボタンが［PDF を保存して印刷］になり、保存してから印刷します。</li>
+              <li>まとめ印刷でも、各レコードの添付ファイルに保存できます。</li>
+              <li>ファイル名は、印刷パターンごとに決められます。追加で同じ名前があるときは、「-1」「-2」を付けます。</li>
+              <li>保存される PDF は、印刷内容を画像にして作ります。文字の検索・コピーはできず、容量はやや大きくなります。</li>
+            </ul>
+          </div>
+          <div class="kbp-feature-text">
+            <figure class="kbp-shot">
+              <Picture src="/images/design-pro-batch-print.png" alt="kintone の見積書アプリのレコード一覧。フィルターとグラフのアイコンの右に［まとめて印刷 ▼］があり、押すと「見積書（テンプレート）」「見たまま」の印刷パターンが並ぶ" width="1400" height="680" class="zoomable" />
+              <figcaption>一覧の［まとめて印刷 ▼］。いまの絞り込みの結果を、選んだ印刷パターンでまとめて印刷します</figcaption>
+            </figure>
+            <p class="kbp-example"><strong>例：</strong>月末に、承認済みの見積書を一覧で絞り込み、［まとめて印刷］で一度に印刷する。同時に、各レコードの添付ファイル欄に、控えの PDF が保存される。</p>
+          </div>
+        </div>
+
+        <div class="kbp-feature" id="pro-bridge">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="kfp-new-tag">Pro だけ</span>KIZUNAブリッジから呼べる</h3>
+            <p><a href="/plugins/bridge/">KIZUNAブリッジ for kintone</a> のルールの動作［プラグインの機能を実行する］から、次の2つを呼び出せます。</p>
+            <ul>
+              <li><strong>PDF を作って添付ファイルに保存</strong>：PDF の添付保存を設定した印刷パターンで、レコードの PDF を作ります（1回に20件まで）。</li>
+              <li><strong>本人の印を押す</strong>：実行した本人の印を、承認欄に押します。押してあるレコードは、そのままです（1回に100件まで）。</li>
+            </ul>
+            <p class="kbp-example"><strong>例：</strong>「承認」のアクションをきっかけに、承認した方の印を押し、控えの PDF を添付ファイルに保存する。</p>
+          </div>
+          <div class="kbp-feature-text">
+            <p>KIZUNAブリッジも、同じ契約（プレミアム年間サポーター＋KIZUNA Pro 拡張パック）でお使いいただけます。追加のご契約は要りません。</p>
+            <figure class="kbp-shot">
+              <Picture src="/images/design-pro-config.png" alt="デザイン Pro for kintone の設定画面。左の目次に、はじめに・フィールドスタイラー・FormDeco・テーマスタイラー・コメントコントロール・ユーザーオートフィル・帳票デザイナー・表示パターン・印刷が並び、中央の「はじめに」に、使う機能のチェックと［設定を開く］のボタンがある。右に共通のサイドバー" width="1600" height="1000" class="zoomable" />
+              <figcaption>設定画面。左の目次から、使いたい機能を設定します。画像をクリックすると拡大表示します</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 3 -->
+    <section class="kbp-section alt" id="single">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">3</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">今のプラグインから、設定ごと乗り換える</h2>
+            <p class="kbp-part-desc">お使いのプラグインの設定を読み込めるので、一から設定し直す必要はありません。入れ替えの途中も、処理が二重になりません。</p>
+          </div>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">デザイン Pro にまとめた6つのプラグイン</h3>
+            <p>kintone では、1つのアプリに追加できるプラグインは<strong>20個まで</strong>です。6つのプラグインを別々に入れる代わりにデザイン Pro 1つで済むので、<strong>プラグインの枠を5つ空けられます</strong>。設定も、6つの設定画面を行き来せず、1つの設定画面で済みます。</p>
+            <p>同じアプリに両方入っていて、もとのプラグインが有効で設定が済んでいるときは、<strong>その機能はもとのプラグインに任せ</strong>、デザイン Pro では動かしません（二重に動くのを防ぐためです）。ほかの機能は、デザイン Pro が動かします。</p>
+            <p>アプリからもとのプラグインを外すか無効にすると、その機能をデザイン Pro が動かします。</p>
+          </div>
+          <ul class="kfp-singles">
+            {bundled.map((b) => (
+              <li>
+                <a href={`/plugins/${b.p!.slug}/`}>
+                  <img class="kfp-single-icon" src={iconOf(b.p!.slug)} alt="" width="48" height="48" loading="lazy" />
+                  <span class="kfp-single-body">
+                    <span class="kfp-single-name">{b.p!.name}</span>
+                    <span class="kfp-single-role">デザイン Pro の「{b.role}」</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">［単品の設定を読み込む］で引き継ぐ</h3>
+            <ol class="steps-list">
+              <li><span>もとのプラグインが入っているアプリで、デザイン Pro の設定画面を開きます。</span></li>
+              <li><span>該当の機能の設定欄に出る<strong>［単品の設定を読み込む］</strong>を押し、確認で OK を押します。</span></li>
+              <li><span>内容を確かめて、［保存］→［アプリを更新］を押します。</span></li>
+              <li><span>もとのプラグインを、アプリから外します。</span></li>
+            </ol>
+            <p>読み込みは手動です。もとのプラグインの設定はそのまま残り、外すまでもとのプラグインが動き続けます。</p>
+          </div>
+          <div class="kbp-feature-text">
+            <p class="kbp-example"><strong>帳票デザイナーのテンプレートも使えます。</strong>印刷の設定がまだ無いアプリで印刷を使い始めると、帳票デザイナーの1件用のテンプレートを「帳票テンプレート」の印刷パターンとして取り込みます（PDF の保存先・上書き／追加も引き継ぎます）。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature summary -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">FEATURES</span>
+        <h2 class="kbp-h2">主な機能</h2>
+        <h3 class="kbp-h3">デザイン Pro だけの機能</h3>
+        <ul class="kbp-list">
+          <li>表示パターン：詳細・編集・新規で見せる項目をボタンで切り替える（パソコン・スマートフォン。アクセス権ではない）</li>
+          <li>最初に開くパターン：押したボタン・ステータス・値の条件・ユーザー／組織／グループ・既定の順に決める</li>
+          <li>印刷パターン：［印刷 ▼］で、見たまま・仕上げたレイアウト・帳票テンプレートから選ぶ</li>
+          <li>見たまま印刷：フォームの並びと装飾から、印刷用の配置を自動で作る</li>
+          <li>印刷プレビュー上の仕上げ：項目の位置・幅・文字の大きさ・改ページ・テーブルの列を整える（アプリの管理者のみ）</li>
+          <li>まとめ印刷：一覧の絞り込みの結果を、選んだ印刷パターン、またはステータスに合わせた印刷パターンでまとめて印刷</li>
+          <li>PDF の添付保存：印刷パターンごとに、PDF を添付ファイル欄に上書き・追加で保存</li>
+          <li>KIZUNAブリッジの受け口：ブリッジのルールから、PDF の作成と本人の押印を実行</li>
+          <li>共通カラーパレット：色を選ぶ欄に、マイカラーと最近使った色を表示</li>
+          <li>使う機能の選択：機能ごとにオン・オフを選べる。オフの機能は何も出さず、設定は残る</li>
+          <li>多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示。管理者が入力する文字も言語ごとに入力できる</li>
+          <li>これまでのプラグインの設定を読み込んで引き継ぐ</li>
+        </ul>
+        <h3 class="kbp-h3">6つの機能と共通の機能</h3>
+        <ul class="kbp-list">
+          <li>フィールドスタイラー：背景色・文字色・フォント・条件付きスタイル・入力の制限など</li>
+          <li>FormDeco：罫線・スペースの見出し／画像／吹き出し／リンク・折りたたみ・固定表示・改ページ</li>
+          <li>テーマスタイラー：テーマ色の一括適用・アプリ名の帯のリンク</li>
+          <li>コメントコントロール：コメント欄の開き方・一覧のコメント件数バッジ</li>
+          <li>ユーザーオートフィル：ユーザー属性の転記・プロフィールカード・捺印</li>
+          <li>帳票デザイナー：PDF や白紙の用紙に項目を配置した帳票・1件／まとめ印刷・PDF の添付保存・テンプレートを見られる人の指定</li>
+          <li>印刷でも色を出せる・装飾ごとに「画面のみ／印刷のみ／両方」を選べる</li>
+          <li>ゲストスペースのアプリに対応</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Plans -->
+    <section class="kbp-section alt" id="plan">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">PLAN</span>
+        <h2 class="kbp-h2">プランと料金</h2>
+        <p class="kbp-lead">デザイン Pro は KIZUNA Pro プラグインです。製品ごとの個別のご契約はありません。<strong>プレミアム年間サポーター</strong>と <strong>KIZUNA Pro 拡張パック</strong>のご契約でお使いいただけます。</p>
+        <div class="kbp-plan-grid">
+          <div class="kbp-plan top">
+            <span class="kbp-plan-badge">KIZUNA Pro 最上位</span>
+            <h3>{PRO_SET_PLAN.name}</h3>
+            <p class="kbp-plan-price"><span class="amt">{yen(PRO_SET_PLAN.priceInTax)}</span><span class="unit">/年（税込）</span></p>
+            <p class="kbp-plan-sub">税抜 {yen(PRO_SET_PLAN.priceExTax)}／プレミアム年間サポーター＋KIZUNA Pro 拡張パック</p>
+            <ul>
+              <li>デザイン Pro を含む KIZUNA Pro プラグインすべて</li>
+              <li>ちょこっと＆プレミアムプラグインすべて</li>
+              <li>プラグイン内の広告非表示</li>
+              <li>今後リリースされる KIZUNA Pro プラグインも追加料金なし</li>
+            </ul>
+            <a class="kbp-plan-cta" href="/plugins/supporter/?plan=pro_set">{PRO_SET_PLAN.name}を申し込む →</a>
+          </div>
+          <div class="kbp-plan">
+            <span class="kbp-plan-badge">プレミアムにご加入中の方</span>
+            <h3>{PRO_ADDON.name}</h3>
+            <p class="kbp-plan-price"><span class="amt">{yen(PRO_ADDON.priceInTax)}</span><span class="unit">/年（税込）</span></p>
+            <p class="kbp-plan-sub">税抜 {yen(PRO_ADDON.priceExTax)}／{PREMIUM_PLAN.name}に追加</p>
+            <ul>
+              <li>プレミアム年間サポーターに追加していただくプランです</li>
+              <li>KIZUNA Works の上位版のプラグイン「KIZUNA Pro プラグイン」をすべてお使いいただけます</li>
+              <li>アプリをまたぐ作業もプラグインの連携も自動化する「KIZUNAブリッジ for kintone」をはじめ、今後リリースされる KIZUNA Pro プラグインも追加料金なしで順次ご利用いただけます</li>
+            </ul>
+            <a class="kbp-plan-cta" href="/plugins/supporter/?plan=pro_add">{PRO_ADDON.name}を申し込む →</a>
+          </div>
+        </div>
+        <div class="kbp-trial" id="trial">
+          <h3>30日間、無料で試せます</h3>
+          <p>カード登録は不要で、自動課金もありません（1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、条件を満たせばもう一度お試しいただけます）。</p>
+          <ul>
+            <li><strong>プレミアム年間サポーターを未契約の方</strong>：<a href="/plugins/premium-trial/">プレミアム年間サポーターの無料体験</a>に KIZUNA Pro プラグインが含まれます。</li>
+            <li><strong>プレミアム年間サポーターをご契約中の方</strong>：<a href="/plugins/premium-trial/#pro-trial">KIZUNA Pro 拡張パックだけを30日間無料</a>で試せます。</li>
+          </ul>
+          <p>体験が終わると機能は止まりますが、設定は残ります。続けるときは上のプランからお申し込みください。</p>
+        </div>
+        <p class="kbp-note">年間サポーター（ちょこっとプラグインすべて）には、KIZUNA Pro 拡張パックを追加できません。ご契約が切れても<strong>設定は消えません</strong>。ご契約が確認できない間は機能が動かず、ご契約が戻れば保存済みの設定のまま動きます。</p>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">INSTALL</span>
+        <h2 class="kbp-h2">導入の手順</h2>
+        <ol class="steps-list">
+          <li><span>このページから <strong>kw-design-pro-v{VERSION}.zip</strong> をダウンロードします（解凍は不要です）。</span></li>
+          <li><span>kintone の［kintone システム管理］→［プラグイン］→［読み込む］で、zip ファイルを読み込みます。</span></li>
+          <li><span>使いたいアプリの［アプリの設定］→［プラグイン］→［プラグインの追加］で、デザイン Pro for kintone を追加します。</span></li>
+          <li><span>プラグインの設定画面を開きます。ご契約が確認できると、設定の画面が表示されます。左の目次から、使いたい機能を設定します。</span></li>
+          <li><span>［保存］を押し、「アプリの設定」の画面で［アプリを更新］を押して反映します。</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Cautions -->
+    <section class="kbp-section alt">
+      <div class="kbp-wrap">
+        <h2 class="kbp-h2">ご利用にあたっての注意</h2>
+        <div class="kbp-cautions">
+          <ul>
+            <li>表示パターンと、ボタンを表示する人の絞り込みは、<strong>画面の見せ方の切り替えで、アクセス権ではありません</strong>。隠した項目も、［すべて］・CSV・API では見られます。見せたくない値は、kintone のアクセス権で制御してください。</li>
+            <li>表示パターンで隠せる項目は、フィールド・グループ・テーブルと、要素IDを付けたラベル・スペース・罫線です。要素IDの無いものは、いつも表示されます。テーブルは、列ごとではなく、全体で隠します。</li>
+            <li>スマートフォンで使えるのは、表示パターンの切り替えです。印刷・印刷プレビュー上の仕上げ・まとめ印刷は、パソコンのみです。</li>
+            <li>PDF の添付保存で作る PDF は、画像です。文字の検索・コピーはできず、容量はやや大きくなります。</li>
+            <li>まとめ印刷は、件数が多いとブラウザの負担が大きくなります。件数の上限を設定し、超えるときは確認が出ます。</li>
+            <li>仕上げた印刷レイアウトは、専用の保管アプリに保存します。保管アプリは、設定画面の［保管アプリを新しく作る］で作ります（アプリ管理権限が必要です）。</li>
+            <li>ゲストスペースでは、組織・グループの所属を取得できないため、表示パターンの条件では、ユーザーを指定した条件だけが働きます。</li>
+            <li>ユーザーオートフィルの捺印は、ゲストユーザーは押せません。</li>
+            <li>プラグインの設定は「丸ごと保存」する仕組みのため、<strong>設定画面を2つ同時に開いて保存すると片方の変更が失われます</strong>。1つずつ保存してください。</li>
+            <li>アプリからプラグインを<strong>「利用を解除」すると設定が破棄されます</strong>。一時的に止めたいだけのときは「無効にする」をお使いください。</li>
+            <li>本プラグインはサイボウズ社の製品ではありません。kintone はサイボウズ株式会社の登録商標です。</li>
+            <li>推奨ブラウザは Google Chrome / Microsoft Edge です。</li>
+            <li>本プラグインの利用により生じた損害について、当社は責任を負いかねます。配布 zip に秘密鍵（ppk）は含まれません。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">FAQ</span>
+        <h2 class="kbp-h2">よくある質問</h2>
+        <div class="kbp-faq">
+          {faqs.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Security -->
+    <section class="kbp-section alt">
+      <div class="kbp-wrap">
+        <SecurityBox pluginId="kw-design-pro" />
+        <ShareButtons title="デザイン Pro for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="kbp-cta">
+      <h2>画面を整えて、そのまま好きなレイアウトで印刷。</h2>
+      <p>デザイン Pro は、KIZUNA Pro プラグインです。{PRO_SET_PLAN.name}（税込 {yen(PRO_SET_PLAN.priceInTax)}/年）、またはプレミアム年間サポーターへの KIZUNA Pro 拡張パックの追加でお使いいただけます。</p>
+      <a class="kbp-btn is-primary" href="/plugins/supporter/?plan=pro_set">{PRO_SET_PLAN.name}を見る →</a>
+    </section>
+
+    <div class="lightbox" id="kbp-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline define:vars={{ zip: ZIP }}>
+    (function () {
+      var tabs = document.querySelector('[data-kfp-tabs]');
+      if (tabs) {
+        var tabBtns = Array.prototype.slice.call(tabs.querySelectorAll('.kfp-tab'));
+        var select = function (idx, focus) {
+          tabBtns.forEach(function (btn, i) {
+            var on = i === idx;
+            btn.setAttribute('aria-selected', on ? 'true' : 'false');
+            btn.tabIndex = on ? 0 : -1;
+            var panel = document.getElementById(btn.getAttribute('aria-controls'));
+            if (panel) panel.hidden = !on;
+          });
+          if (focus) tabBtns[idx].focus();
+        };
+        tabBtns.forEach(function (btn, i) {
+          btn.addEventListener('click', function () { select(i, false); });
+          btn.addEventListener('keydown', function (e) {
+            var n = tabBtns.length, k = e.key, to = -1;
+            if (k === 'ArrowDown' || k === 'ArrowRight') to = (i + 1) % n;
+            else if (k === 'ArrowUp' || k === 'ArrowLeft') to = (i - 1 + n) % n;
+            else if (k === 'Home') to = 0;
+            else if (k === 'End') to = n - 1;
+            if (to >= 0) { e.preventDefault(); select(to, true); }
+          });
+        });
+        tabs.classList.add('is-ready');
+        select(0, false);
+      }
+      var lightbox = document.getElementById('kbp-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: zip.split('/').pop(),
+              file_extension: 'zip',
+              link_text: 'プラグインをダウンロード',
+              link_url: zip
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

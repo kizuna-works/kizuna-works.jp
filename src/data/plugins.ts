@@ -1432,6 +1432,35 @@ export const premiumPlugins: Plugin[] = [
     summaryVersion: '1.3.0',
   },
   {
+    id: 'kw-design-pro',
+    pluginId: 'iljihgmgbhknfelbemhjdhlpngghchld',
+    name: 'デザイン Pro for kintone',
+    formName: 'デザイン Pro for kintone',
+    subtitle: 'KIZUNA Pro プラグイン',
+    slug: 'design-pro',
+    multilingual: true,
+    bornFrom: 'supporter-request',
+    categories: ['装飾・配色', '表示・編集制御', '出力・帳票'],
+    description:
+      'フィールドスタイラー・FormDeco・テーマスタイラー・コメントコントロール・ユーザーオートフィル・帳票デザイナーの6つの機能を、1つの設定画面で使えます。詳細・編集・新規で見せる項目を、役割や場面に合わせてボタンで切り替える「表示パターン」（PC・モバイル）、［印刷 ▼］から選ぶ印刷パターン（画面のままの「見たまま」・印刷プレビュー上で整える「仕上げたレイアウト」・帳票テンプレート）、項目の位置・幅・文字の大きさ・改ページを印刷プレビュー上で仕上げるエディタ、一覧から複数件をまとめて印刷、PDF を作って添付ファイルに保存、にも対応します。KIZUNAブリッジのルールから、PDF の作成と本人の押印も実行できます。使う機能は機能ごとに選べ、表示は日本語・英語・中国語（簡体字）に対応します。',
+    image: '/images/design-pro-banner.png',
+    imageWebp: '/images/design-pro-banner.webp',
+    imageAlt:
+      'デザイン Pro for kintone バナー — 画面を整えて、そのまま好きなレイアウトで印刷。装飾・配色・承認印など6つのプラグインを1本に、表示パターンの切り替え、印刷プレビューでの仕上げ。KIZUNA Pro プラグイン',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'pro',
+    cardDescription:
+      '画面の装飾と帳票の6つの機能を1つにまとめた上位版。見せる項目をボタンで切り替える表示パターン、［印刷 ▼］で選ぶ印刷パターン、印刷プレビュー上での仕上げ、一覧からのまとめ印刷、PDF の添付保存に対応します。使う機能を選べ、日本語・英語・中国語（簡体字）で表示できます。',
+    problemTitle: '画面の見せ方と印刷が、役割や場面ごとに揃えられない',
+    problemDesc:
+      '項目が多い詳細画面が縦に長く、役割や場面によって見たい項目が違うのに、全員に同じ画面が出る。装飾・配色・帳票を別々のプラグインで設定していて、プラグインの枠も足りない。画面のままの体裁で印刷したいのに、帳票をテンプレートから作り直すことになる。印刷の様式を客先用と社内用で出し分けたい。一覧から複数件をまとめて印刷したい。印刷した内容を PDF にして、レコードの添付ファイルに残したい',
+    releaseDate: '2026-11-02',
+    summaryVersion: '1.0.0',
+    bridge: 'ブリッジのルールから、デザイン Pro の PDF の作成（添付ファイルへの保存）と、実行した本人の押印を呼び出せます。',
+  },
+  {
     id: 'kw-report-designer',
     pluginId: 'cckpmebgmbdippgiicgldindkjlhhbci',
     name: '帳票デザイナー for kintone',

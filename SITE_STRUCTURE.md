@@ -265,6 +265,8 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ルックアップ Pro for kintone 製品ページ（/plugins/lookup-pro/）v1.3.0（2026-10-30・UPDATE ボックスは［取得］の画面の数値の書式と添付ファイルのサムネイル〔絞り込み v1.4.0 の取り込み〕）。v1.2.0 は 2026-10-29（UPDATE ボックスはテーブルのコピー〔取得元のテーブルの行を写す〕・PART 2 に「テーブルのコピー」を追加・説明の総点検で条件の書き漏れを修正〔その場登録の絞り込み条件・自動反映が動く条件・スマートフォンの範囲・フリールックアップの部分一致の上限ほか〕）。v1.1.0 は 2026-10-28（UPDATE ボックス・多言語（日本語／英語／中国語〔簡体字〕）・機能ごとに「使う」を選ぶ・単品を無効にしても動く・設定画面の選択欄の修正・絞り込みの比べ方〔コード／名前〕）。v1.0.2 は 2026-10-27（登録パネルの［これを取得する］の表示と、採番できないときの理由表示を単品 v1.1.1 に合わせた）。v1.0.1 は 2026-10-26（使用ドメイン台帳への初回記録を読み込み時に送る）。v1.0.0 は 2026-10-25 公開（単品販売なし・ブリッジと同日公開）。PART 2 冒頭に「Pro だけ」のカード一覧、主な機能は「ルックアップ Pro だけの機能」と「5つの機能と共通の機能」に分ける
 │   │   │   ├── file-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】添付ファイル Pro for kintone 製品ページ（/plugins/file-pro/）v1.3.0（v1.0.0 は 2026-10-27 公開。v1.3.0 は UPDATE ボックス・ダウンロードの制限／右に並べたときのボタンが隠れない改善。PART 2 に「ダウンロードの制限」を追加）。単品販売なし。PART 1 に5つの機能（プレビュー・アイコン表示・ZIP出力・画像圧縮・PDFへの書き込み。タブで切り替え、各機能に画面写真。ZIP出力・画像圧縮・PDFへの書き込みの写真は単品の製品ページの file-export-dialog-01・image-compress-before-after・pdf-edit-editor-01 を流用）、PART 2 に Pro だけの機能（このレコードの添付・添付の容量と一括圧縮・ZIPで画像を縮小・添付を検索・PDFにまとめる・ファイル名をそろえる・添付のきまり・まとめ）、PART 3 に単品からの乗り換え。ルックアップ Pro と同じ体裁（.kbp-*／.kfp-*）。配布 zip は /downloads/kw-file-pro-v1.3.0.zip（v1.0.0・v1.1.0・v1.2.0 の zip も残す）
+│   │   │   ├── design-pro/
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】デザイン Pro for kintone 製品ページ（/plugins/design-pro/）v1.0.0（第5弾・UPDATE ボックスなし・装飾など6つの機能＋表示パターン・印刷パターン・仕上げ・まとめ印刷・PDF の添付保存。配布 zip は public/downloads/kw-design-pro-v1.0.0.zip を想定）
 │   │   │   ├── record-acl-assist/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】レコード権限アシスト 製品ページ（/plugins/record-acl-assist/）※2026-10-24 配布開始（v1.0.0・プレミアム第23弾・「リクエストから誕生」バッジ）／2026-10-29 v1.1.0＝UPDATE ボックス（組織・グループ・ユーザーを 1 つの設定で使う・対応表アプリに書き方を表示）— レコードの内容に合わせて見られる組織・人を自動で設定。最初に当たったルールだけが使われる問題を、見せる相手を 1 つのフィールドへ入れて解く。上の組織・対応表・一括反映・保存前の確認・見せる相手の内訳・変更の記録・ルックアップ自動同期との連携
 │   │   │   ├── annotation/
@@ -345,6 +347,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-search-pro-release.md     # サーチ Pro v1.0.0 公開のお知らせ（2026-10-25・KIZUNA Pro プラグイン・ブリッジと同時公開）
 │   │   │   ├── plugin-lookup-pro-release.md     # ルックアップ Pro v1.0.0 公開のお知らせ（2026-10-25T10:30・KIZUNA Pro プラグイン・ブリッジと同日公開）
 │   │   │   ├── plugin-file-pro-release.md       # 添付ファイル Pro v1.0.0 公開のお知らせ（2026-10-27・KIZUNA Pro プラグイン第4弾）
+│   │   │   ├── plugin-design-pro-release.md     # デザイン Pro v1.0.0 公開のお知らせ（2026-11-02・KIZUNA Pro プラグイン第5弾）
 │   │   │   ├── list-styler-v141-page-scroll.md  # 一覧スタイラー v1.4.1 アップデートのお知らせ（2026-10-26・横スクロールをページ全体に戻した）
 │   │   │   ├── lookup-add-v111.md               # ルックアップ新規登録 v1.1.1 アップデートのお知らせ（2026-10-27・取得時の表示と採番できない理由の表示）
 │   │   │   ├── lookup-pro-v102.md               # ルックアップ Pro v1.0.2 アップデートのお知らせ（2026-10-27・同上を Pro の新規登録に反映）
@@ -966,6 +969,8 @@ c:\kizuna-works.jp\
 │   │   ├── file-pro-rename-config.png           # 添付ファイル Pro 製品ページ：設定画面の「ファイル名をそろえる」＋ .webp
 │   │   ├── record-acl-assist-banner.png         # レコード権限アシスト for kintone 見出しバナー（gen-plugin-banner.mjs で生成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── record-acl-assist-icon.png           # レコード権限アシスト アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
+│   │   ├── design-pro-banner.png / design-pro-icon.png   # デザイン Pro 見出しバナー（1200×630）・アイコン（200×200）＋ .webp（バナーは -800.webp も）
+│   │   ├── design-pro-patterns-cust.png / design-pro-patterns-inner.png / design-pro-print-menu.png / design-pro-print-preview.png / design-pro-editor.png / design-pro-config.png / design-pro-report.png / design-pro-decor-detail.png / design-pro-decor-list.png / design-pro-batch-print.png（一覧の［まとめて印刷 ▼］）   # デザイン Pro 製品ページのスクリーンショット＋ .webp
 │   │   ├── record-acl-assist-config-01.png      # 設定「① 誰に見せるか」（使い始めるまでの 4 つの手順・設定）
 │   │   ├── record-acl-assist-config-02.png      # 設定「② 範囲を広げる・絞る」（上の組織・対応表・いつも入れる／入れない相手）
 │   │   ├── record-acl-assist-config-03.png      # 設定「③ 今あるレコードに反映」（下見・変更前と変更後）
