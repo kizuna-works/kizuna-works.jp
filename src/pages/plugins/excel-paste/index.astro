@@ -12,8 +12,6 @@ import HeroDownload from '../../../components/HeroDownload.astro';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 import Picture from '../../../components/Picture.astro';
 
-// Code example for the rows-added event shown in the update box
-const ROWS_ADDED_EXAMPLE = "document.addEventListener('kw-excel-paste:rows-added', function (e) {\n  var d = e.detail; // { tableCode, rowIndexes, replaced }\n  if (d.tableCode !== '明細') return;\n  var env = kintone.app.record.get();\n  d.rowIndexes.forEach(function (i) {\n    env.record['明細'].value[i].value['自動入力'].disabled = true;\n  });\n  kintone.app.record.set(env);\n});";
 ---
 
 <Layout
@@ -306,28 +304,6 @@ const ROWS_ADDED_EXAMPLE = "document.addEventListener('kw-excel-paste:rows-added
     .update-list { margin: 0 0 8px; padding-left: 22px; color: var(--color-text); font-size: 15px; line-height: 1.8; }
     .update-list li { margin-bottom: 6px; }
     .update-note { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
-    /* Code sample inside the update box: scroll inside the block on narrow screens */
-    .update-code {
-      max-width: 100%;
-      min-width: 0;
-      overflow-x: auto;
-      margin: 0 0 24px;
-      padding: 14px 16px;
-      background: #f6f8fa;
-      border: 1px solid var(--color-gray-light);
-      border-radius: 8px;
-      font-size: 13px;
-      line-height: 1.6;
-    }
-    .update-code code { background: none; padding: 0; white-space: pre; color: var(--color-text); }
-    .update-desc code {
-      overflow-wrap: anywhere;
-      background: #eef1f4;
-      border-radius: 4px;
-      padding: 1px 6px;
-      font-size: 13px;
-      color: var(--color-navy);
-    }
     .update-shot { max-width: 640px; margin: 0 auto; }
     .update-shot .zoom-hint { text-align: center; color: var(--color-text-light); font-size: 12px; margin: 10px 0 0; }
 
@@ -387,20 +363,6 @@ const ROWS_ADDED_EXAMPLE = "document.addEventListener('kw-excel-paste:rows-added
       <HeroDownload href="/downloads/kw-excel-paste-v1.3.1.zip" />
     </section>
     <RequestOriginBadge as="note" />
-
-    <!-- Update Info (v1.3.1) -->
-    <section class="section-wrapper fade-in">
-      <div class="update-box">
-        <div class="update-head">
-          <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.3.1：貼り付けた行でも、編集不可にした列が保たれるようになりました</h2>
-        </div>
-        <p class="update-desc">JavaScript カスタマイズでサブテーブルの列を編集不可にしている場合、<strong>Excel から貼り付けて増えた行でも、その列は編集不可のまま</strong>になります。貼り付けた行は画面の最終行と同じ状態になり、既存の行はもとの状態のままです。新規作成・編集、「既存行の下に追加」・「置き換え」のどれでも同じです。設定画面の変更は要りません。</p>
-        <p class="update-desc">あわせて、貼り付けで行が増えたときに <code>kw-excel-paste:rows-added</code> というイベントを発行します。独自のカスタマイズで、貼り付けのあとに処理を足したいときにお使いください（使わなくても、編集不可は保たれます）。<code>detail</code> には、テーブルのフィールドコード（<code>tableCode</code>）、増えた行の位置（<code>rowIndexes</code>・貼り付け後の 0 始まり）、置き換えで貼り付けたか（<code>replaced</code>）が入ります。受け取る側で <code>kintone.app.record.get()</code>／<code>set()</code> を呼んで構いません。</p>
-        <pre class="update-code"><code>{ROWS_ADDED_EXAMPLE}</code></pre>
-        <p class="update-note">既存ユーザーの方は、最新バージョン（v1.3.1）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
-      </div>
-    </section>
 
     <!-- Problem Section -->
     <section class="section-bg">
