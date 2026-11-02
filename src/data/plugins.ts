@@ -1705,7 +1705,8 @@ export const premiumPlugins: Plugin[] = [
     problemTitle: '現物とレコードの突き合わせが手打ち',
     problemDesc: '棚卸・検品・出荷で型番を目視で読んで手入力し、ステータスも1件ずつ更新している。桁ずれや入力漏れが起き、ラベルの発行も別ソフトで二重管理になっている',
     releaseDate: '2026-08-10',
-    summaryVersion: '1.2.0',
+    summaryVersion: '1.3.0',
+    multilingual: true,
   },
   {
     id: 'kw-pdf-edit',
