@@ -481,7 +481,7 @@ export const plugins: Plugin[] = [
     slug: 'csv-export',
     categories: ['出力・帳票'],
     description:
-      '絞り込み結果を用途別テンプレート（列・ヘッダー名・文字コード・条件）でワンクリックCSV出力。一覧で並べ替えた順や指定した項目順で出せ、関連レコード一覧の内容・明細の行展開・最大500列に対応。テンプレートごとに出力できる人を限定でき、Shift-JIS/UTF-8で文字化けも防止。',
+      '絞り込み結果を用途別テンプレート（列・ヘッダー名・文字コード・条件）でワンクリックCSV出力。一覧で並べ替えた順や指定した項目順で出せ、関連レコード一覧の内容・明細の行展開・最大500列に対応。テンプレートごとに出力できる人を限定でき、日付・日時をExcelで桁を保って出すこともできます。Shift-JIS/UTF-8で文字化けも防止。',
     image: '/images/csv-export-banner.png',
     imageAlt:
       'かんたんCSV出力 for kintone プラグイン — レコード一覧の絞り込み結果を用途別テンプレートでワンクリックCSV出力',
@@ -490,12 +490,13 @@ export const plugins: Plugin[] = [
     status: 'available',
     price: 0,
     cardDescription:
-      '一覧の絞り込み結果を用途別テンプレートでワンクリックCSV出力。一覧で並べ替えた順や指定した項目順で出せ、関連レコード一覧の内容も一緒に出力できます。テンプレートごとに出力できる人も限定できます。',
+      '一覧の絞り込み結果を用途別テンプレートでワンクリックCSV出力。一覧で並べ替えた順や指定した項目順で出せ、関連レコード一覧の内容も一緒に出力できます。テンプレートごとに出力できる人も限定でき、日付・日時をExcelで桁を保って出す設定もあります。',
     problemTitle: 'いつものフォーマットでCSVを書き出したい',
     problemDesc: '毎回フィールドを選び直さず、絞り込んで並べ替えた結果を、関連レコードの内容も含めてテンプレートで一発出力したい',
     problemFeatured: true,
     releaseDate: '2026-06-03',
-    summaryVersion: '1.7.0',
+    multilingual: true,
+    summaryVersion: '1.8.0',
   },
   {
     id: 'kw-quick-tab',

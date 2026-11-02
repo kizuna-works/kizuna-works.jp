@@ -166,7 +166,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── summary-bar/
 │   │   │   │   └── index.astro # 集計サマリーバープラグイン製品ページ（/plugins/summary-bar/）v2.5.0（2026-10-31・UPDATE ボックス＝カードの配色の上書きの4色に共通カラーパレット・配色の欄を2列に）— 一覧ヘッダーに合計・平均・件数等の集計カードを表示・絞り込み連動再集計・条件付き色分け・段組み対応
 │   │   │   ├── csv-export/
-│   │   │   │   └── index.astro # かんたんCSV出力プラグイン製品ページ（/plugins/csv-export/）— 一覧の絞り込み結果を用途別テンプレート（列・ヘッダー名・文字コード）でワンクリックCSV出力・クイックサーチ連動・Shift-JIS/UTF-8(BOM)対応。**v1.7.0（2026-10-29）**＝テンプレートごとに出力できる人（ユーザー・組織・グループ）を限定・ボタン色の共通カラーパレット（UPDATE ボックスは v1.7.0 の最新 1 つに差し替え）。v1.6.0（2026-10-08）＝行の並び順（指定しない／一覧画面の並び順に従う＝見出しで並べ替えた順／テンプレートで最大5項目を指定）・テンプレート選択ダイアログに並び順を表示・一覧の条件を読み取れないとき全レコードを出していた不具合の修正。UPDATE ボックスを v1.6.0 に差し替え（新スクショ config-12＝行の並び順の切り出し、action-05＝見出しで並べ替えた一覧のテンプレート選択ダイアログ）。v1.5.0 の内容は「主な機能」「関連レコード一覧の内容も、1回で書き出し」「設定画面の使い方⑥」に内包。設定画面の使い方⑦に config-11（行の並び順を含む設定画面の全体）。撮影は REST で作った「訪問予定」アプリ（SECRET/hp-shots/csv-export/app-v160.json）。**v1.5.0（2026-10-02）**＝関連レコード一覧の連携先アプリの項目を列に選んで出力（行に展開／1セルにまとめる・1テンプレートにサブテーブルか関連レコードの一方）・2行目以降の親の値の繰り返しON/OFF・日付をExcelの日付で出力。UPDATE ボックスを v1.5.0 に差し替え（新スクショ config-10＝公式SFAパック「顧客管理」の設定画面、action-04＝出力CSVをExcelで開いた画面）。v1.4.0 の config-09 は「設定画面の使い方⑤」へ移動。関連レコードの出力は標準機能として常設：課題カード「関連レコードの内容は別に書き出して突き合わせ」・セクション「関連レコード一覧の内容も、1回で書き出し」（出し方2通り＋action-04）・設定画面の使い方⑥（config-10）・注意事項
+│   │   │   │   └── index.astro # かんたんCSV出力プラグイン製品ページ（/plugins/csv-export/）— 一覧の絞り込み結果を用途別テンプレート（列・ヘッダー名・文字コード）でワンクリックCSV出力・クイックサーチ連動・Shift-JIS/UTF-8(BOM)対応。**v1.8.0（2026-11-02）**＝日付・日時の出力方法（Excelで桁を保つ＝文字列として出力）・日本語/英語/中国語（簡体字）対応（plugins.ts は multilingual: true。UPDATE ボックスは v1.8.0 の最新 1 つに差し替え・スクショなし）。v1.7.0（2026-10-29）＝テンプレートごとに出力できる人（ユーザー・組織・グループ）を限定・ボタン色の共通カラーパレット（UPDATE ボックスは v1.7.0 の最新 1 つに差し替え）。v1.6.0（2026-10-08）＝行の並び順（指定しない／一覧画面の並び順に従う＝見出しで並べ替えた順／テンプレートで最大5項目を指定）・テンプレート選択ダイアログに並び順を表示・一覧の条件を読み取れないとき全レコードを出していた不具合の修正。UPDATE ボックスを v1.6.0 に差し替え（新スクショ config-12＝行の並び順の切り出し、action-05＝見出しで並べ替えた一覧のテンプレート選択ダイアログ）。v1.5.0 の内容は「主な機能」「関連レコード一覧の内容も、1回で書き出し」「設定画面の使い方⑥」に内包。設定画面の使い方⑦に config-11（行の並び順を含む設定画面の全体）。撮影は REST で作った「訪問予定」アプリ（SECRET/hp-shots/csv-export/app-v160.json）。**v1.5.0（2026-10-02）**＝関連レコード一覧の連携先アプリの項目を列に選んで出力（行に展開／1セルにまとめる・1テンプレートにサブテーブルか関連レコードの一方）・2行目以降の親の値の繰り返しON/OFF・日付をExcelの日付で出力。UPDATE ボックスを v1.5.0 に差し替え（新スクショ config-10＝公式SFAパック「顧客管理」の設定画面、action-04＝出力CSVをExcelで開いた画面）。v1.4.0 の config-09 は「設定画面の使い方⑤」へ移動。関連レコードの出力は標準機能として常設：課題カード「関連レコードの内容は別に書き出して突き合わせ」・セクション「関連レコード一覧の内容も、1回で書き出し」（出し方2通り＋action-04）・設定画面の使い方⑥（config-10）・注意事項
 │   │   │   ├── quick-tab/
 │   │   │   │   └── index.astro # クイックタブプラグイン製品ページ（/plugins/quick-tab/）— レコード詳細/作成/編集のフィールドをスペース要素を境界にタブ自動分割・「すべて」タブ・必須エラー追従・スクロール固定・スタイル20種×配色（スクショはクリックで拡大オーバーレイ）
 │   │   │   ├── file-preview/
@@ -313,9 +313,9 @@ c:\kizuna-works.jp\
 │   ├── content/
 │   │   ├── config.ts           # コンテンツコレクションのスキーマ定義（blog / news コレクション）
 │   │   ├── news/               # お知らせエントリ Markdown 置き場（category: release/update/incident/notice）
+│   │   │   ├── plugin-report-designer-v180.md   # 帳票デザイナー v1.8.0 のお知らせ（2026-11-02・テンプレートを見られる人の限定）
 │   │   │   ├── plugin-lookup-filter-v130.md   # ルックアップ絞り込み v1.3.0 のお知らせ（2026-10-10 14:00・［取得］の画面を kintone の設定どおりに・文字列以外も検索・プレビュー）
 │   │   │   ├── plugin-lookup-filter-v140.md   # ルックアップ絞り込み v1.4.0 のお知らせ（2026-10-30 16:00・［取得］の画面の数値の書式と添付サムネイル・コード／名前で比べる・設定画面の改善）
-│   │   │   ├── plugin-report-designer-v180.md   # 帳票デザイナー v1.8.0 のお知らせ（2026-11-02・テンプレートを見られる人の限定）
 │   │   │   ├── plugin-lookup-filter-v132.md   # ルックアップ絞り込み v1.3.2 のお知らせ（2026-10-20 14:00・絞り込みの初期設定とソートを保存し直さなくても反映）
 │   │   │   ├── plugin-lookup-suggest-v320.md  # ルックアップサジェスト v3.2.0 のお知らせ（2026-10-10 14:10・候補を kintone の設定どおりに・文字列以外も検索・設定画面の見直し）
 │   │   │   ├── plugin-lookup-suggest-v322.md  # ルックアップサジェスト v3.2.2 のお知らせ（2026-10-13 21:00・一部の記号を含む語でも候補が出る。v3.2.1 のお知らせはこれに統合して削除）
@@ -362,6 +362,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── quick-filter-v120.md             # クイックフィルター v1.2.0 アップデートのお知らせ（2026-10-31 14:10・帯の配色の色の欄に共通カラーパレット）
 │   │   │   ├── summary-bar-v2-5-0-update.md     # 集計サマリーバー v2.5.0 アップデートのお知らせ（2026-10-31 14:20・カードの配色の上書きに共通カラーパレット）
 │   │   │   ├── plugin-csv-export-v1-7-0-update.md # かんたんCSV出力 v1.7.0 アップデートのお知らせ（2026-10-29 10:20・出力できる人の限定・カラーパレット）
+│   │   │   ├── plugin-csv-export-v1-8-0-update.md # かんたんCSV出力 v1.8.0 アップデートのお知らせ（2026-11-02 19:30・日付・日時の出力方法・多言語対応）
 │   │   │   ├── file-pro-v110-update.md          # 添付ファイル Pro v1.1.0 アップデートのお知らせ（2026-10-27 12:30・プレビューを右に並べる・別ウインドウ・多言語）
 │   │   │   ├── file-pro-v120-update.md          # 添付ファイル Pro v1.2.0 アップデートのお知らせ（2026-10-28 09:40・使う機能の選択・単品を無効にしても動く・右に並べたときの操作）
 │   │   │   ├── file-pro-v130-update.md          # 添付ファイル Pro v1.3.0 アップデートのお知らせ（2026-10-28 10:30・ダウンロードの制限・プレビューを右に並べたときの表示の改善）
@@ -968,10 +969,10 @@ c:\kizuna-works.jp\
 │   │   ├── file-pro-merge.png                   # 添付ファイル Pro 製品ページ：［PDFにまとめる］の窓＋ .webp
 │   │   ├── file-pro-rules.png                   # 添付ファイル Pro 製品ページ：添付できないファイルの窓＋ .webp
 │   │   ├── file-pro-rename-config.png           # 添付ファイル Pro 製品ページ：設定画面の「ファイル名をそろえる」＋ .webp
-│   │   ├── record-acl-assist-banner.png         # レコード権限アシスト for kintone 見出しバナー（gen-plugin-banner.mjs で生成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
-│   │   ├── record-acl-assist-icon.png           # レコード権限アシスト アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
 │   │   ├── design-pro-banner.png / design-pro-icon.png   # デザイン Pro 見出しバナー（1200×630）・アイコン（200×200）＋ .webp（バナーは -800.webp も）
 │   │   ├── design-pro-patterns-cust.png / design-pro-patterns-inner.png / design-pro-print-menu.png / design-pro-print-preview.png / design-pro-editor.png / design-pro-config.png / design-pro-report.png / design-pro-decor-detail.png / design-pro-decor-list.png / design-pro-batch-print.png（一覧の［まとめて印刷 ▼］）   # デザイン Pro 製品ページのスクリーンショット＋ .webp
+│   │   ├── record-acl-assist-banner.png         # レコード権限アシスト for kintone 見出しバナー（gen-plugin-banner.mjs で生成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
+│   │   ├── record-acl-assist-icon.png           # レコード権限アシスト アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
 │   │   ├── record-acl-assist-config-01.png      # 設定「① 誰に見せるか」（使い始めるまでの 4 つの手順・設定）
 │   │   ├── record-acl-assist-config-02.png      # 設定「② 範囲を広げる・絞る」（上の組織・対応表・いつも入れる／入れない相手）
 │   │   ├── record-acl-assist-config-03.png      # 設定「③ 今あるレコードに反映」（下見・変更前と変更後）
@@ -1134,12 +1135,12 @@ c:\kizuna-works.jp\
 │   │   ├── related-enhancer-choice-01.png  # 関連レコード拡張 v1.3.0 UPDATE 用スクショ①（v1.4.0 で製品ページは掲載終了・v1.3.0 のお知らせで使用） — 顧客の案件一覧の上に、ステータス・案件区分で絞り込んだ集計カード（受注金額の合計・商談中の見込み・新規案件の件数）（791×948・.webp あり）
 │   │   ├── related-enhancer-choice-02.png  # 関連レコード拡張 v1.3.0 UPDATE 用スクショ② — 集計設定の画面全体で、ステータスをチェックで選んで条件を指定（1630×1199・.webp あり）
 │   │   ├── related-enhancer-mrl-01.png / related-enhancer-mrl-02.png / related-enhancer-mrl-config-01.png / related-enhancer-mrl-config-02.png / related-enhancer-mrl-config-03.png  # 関連レコード拡張 v2.2.0 スクショ（各 .webp あり）— まとめ一覧の表示（アプリごと／ひとつの一覧・UPDATE 欄）／設定画面の全体・「① 参照先と条件」・「② 表示」（「まとめ一覧のつくりかた」節）。撮影用アプリ「問い合わせ」「資料」「よくある質問」「費用」
+│   │   ├── related-enhancer-v250-group-copies.png (+ .webp)  # 関連レコード拡張 v2.5.0 UPDATE 用スクショ — 設定画面のグループ別集計のコピー先カード2つ（照らし合わせ・手動／置き換え）（検証アプリの画面・758×1439）
 │   │   ├── related-enhancer-v240-group.png (+ .webp)  # 関連レコード拡張 v2.4.0 UPDATE 用スクショ — 関連サブテーブル一覧のグループ（区分→社員コードの2段）と「グループ別集計を保存」ボタン（検証アプリの画面を表の領域だけ切り出し・850×450）
 │   │   ├── related-enhancer-v210-config.png / related-enhancer-v210-write.png / related-enhancer-v210-detail.png / related-enhancer-v210-fields.png  # 関連レコード拡張 v2.1.0 スクショ（各 .webp あり）— 設定画面の全体（「設定画面」欄）／「② 書き込み保存」のカードごとの保存先の切り出し（UPDATE 欄）／詳細画面（UPDATE 欄）／フォームの設定で集計値の保存先の数値フィールドを追加した画面（UPDATE 欄と「設定画面」欄の CSV 書き出し手順）
 │   │   ├── related-enhancer-stl-01.png     # 関連レコード拡張 v2.0.0「関連サブテーブル一覧」スクショ① — 案件の詳細画面に、その案件の作業行だけを集めた表・作業者ごとの小計・総計・集計カード（撮影待ち・UPDATE 欄と「実際の画面」で使用）
 │   │   ├── related-enhancer-stl-02.png     # 関連レコード拡張 v2.0.0 スクショ② — グループ2段＋期間の切り替え（撮影待ち）
 │   │   ├── related-enhancer-stl-03.png     # 関連レコード拡張 v2.0.0 スクショ③ — 編集画面で表の行をこのアプリのサブテーブルへコピー（撮影待ち）
-│   │   ├── related-enhancer-v250-group-copies.png (+ .webp)  # 関連レコード拡張 v2.5.0 UPDATE 用スクショ — 設定画面のグループ別集計のコピー先カード2つ（照らし合わせ・手動／置き換え）（検証アプリの画面・758×1439）
 │   │   ├── related-enhancer-config-01.png  # 関連レコード拡張 v2.0.0 設定画面の全体像（関連サブテーブル一覧「① 取得条件」・上帯/目次/タブ/右の案内。撮影待ち）
 │   │   ├── related-enhancer-config-02.png  # 関連レコード拡張 v2.0.0 設定画面「③ 集計・グループ」（撮影待ち）
 │   │   ├── related-enhancer-config-03.png  # 関連レコード拡張 v2.0.0 設定画面「＋ 新しい設定」の種類カード（撮影待ち・UPDATE 欄でも使用）
@@ -1170,12 +1171,12 @@ c:\kizuna-works.jp\
 │   │   ├── report-designer-config-12.png   # 帳票デザイナー 設定画面全体（STEP1保管アプリ／STEP2帳票テンプレート・v1.4.0）
 │   │   ├── report-designer-config-13.png   # 帳票デザイナー 明細を置くダイアログ（テーブル選択＋下に並べる/右に並べる・v1.4.0）
 │   │   ├── report-designer-config-14.png   # 帳票デザイナー インスペクタ「対象のテーブル」（v1.4.0）
+│   │   ├── report-designer-viewers-01.png  # 帳票デザイナー 設定画面 STEP1「テンプレートを見られる人」（v1.8.0・UPDATE ボックス用・.webp あり）
 │   │   ├── report-designer-config-15.png   # 帳票デザイナー 他のアプリから取り込むダイアログ（v1.4.0）
 │   │   ├── report-designer-config-16.png   # 帳票デザイナー 配置エディタ 2つの明細を上下に配置（v1.4.0）
 │   │   ├── report-designer-config-17.png   # 帳票デザイナー インスペクタ「この表を出すページ」（v1.4.0）
 │   │   ├── report-designer-output-05.png   # 帳票デザイナー 出力例⑤ 御見積書（商品明細＋作業明細を1枚に・v1.4.0）
 │   │   ├── report-designer-config-18.png   # 帳票デザイナー 設定STEP4「PDFを添付フィールドへ自動保存」＋連番の設定（v1.5.0）
-│   │   ├── report-designer-viewers-01.png  # 帳票デザイナー 設定画面 STEP1「テンプレートを見られる人」（v1.8.0・UPDATE ボックス用・.webp あり）
 │   │   ├── report-designer-record-01.png   # 帳票デザイナー レコードの添付欄に連番つきの帳票PDFが3件並ぶ（v1.5.0）
 │   │   ├── report-designer-print-16.png    # 帳票デザイナー 印刷結果（図形・表・罫線・チェック欄・選択肢表示・v1.6.0）
 │   │   ├── report-designer-config-19.png   # 帳票デザイナー 設定画面 選択肢の表示形式（v1.6.0）
