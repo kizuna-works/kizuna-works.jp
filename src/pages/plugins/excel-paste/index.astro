@@ -9,9 +9,11 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
 import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 import HeroDownload from '../../../components/HeroDownload.astro';
-import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 import Picture from '../../../components/Picture.astro';
+
+// Code example for the rows-added event shown in the update box
+const ROWS_ADDED_EXAMPLE = "document.addEventListener('kw-excel-paste:rows-added', function (e) {\n  var d = e.detail; // { tableCode, rowIndexes, replaced }\n  if (d.tableCode !== '明細') return;\n  var env = kintone.app.record.get();\n  d.rowIndexes.forEach(function (i) {\n    env.record['明細'].value[i].value['自動入力'].disabled = true;\n  });\n  kintone.app.record.set(env);\n});";
 ---
 
 <Layout
@@ -60,10 +62,10 @@ import Picture from '../../../components/Picture.astro';
           "name": "エクセル一括貼り付け for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.3.0",
-          "dateModified": "2026-10-31",
+          "softwareVersion": "1.3.1",
+          "dateModified": "2026-11-02",
           "url": "https://kizuna-works.jp/plugins/excel-paste/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-excel-paste-v1.3.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-excel-paste-v1.3.1.zip",
           "image": "https://kizuna-works.jp/images/excel-paste-banner.png",
           "offers": {
             "@type": "Offer",
@@ -91,6 +93,7 @@ import Picture from '../../../components/Picture.astro';
             "Excelから取り込まない列にはフィールドの初期値を入力（テーブルの［＋］と同じ値・v1.3.0）",
             "初期値だけの1行目は空の行として扱い、貼り付けた行が1行目から入る（v1.3.0）",
             "日本語・英語・中国語（簡体字）表示に対応（v1.3.0）",
+            "貼り付けた行にも、JavaScript で編集不可にした列を保つ。行が増えたときの連携用イベント kw-excel-paste:rows-added（v1.3.1）",
             "ボタンの色に共通カラーパレット（マイカラー・最近使った色）",
             "数値・日付・選択肢の型変換とエラー検出（存在しない日付も検出）",
             "重複禁止フィールドは該当行のみ失敗・再実行が可能",
@@ -303,6 +306,28 @@ import Picture from '../../../components/Picture.astro';
     .update-list { margin: 0 0 8px; padding-left: 22px; color: var(--color-text); font-size: 15px; line-height: 1.8; }
     .update-list li { margin-bottom: 6px; }
     .update-note { color: var(--color-text-light); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    /* Code sample inside the update box: scroll inside the block on narrow screens */
+    .update-code {
+      max-width: 100%;
+      min-width: 0;
+      overflow-x: auto;
+      margin: 0 0 24px;
+      padding: 14px 16px;
+      background: #f6f8fa;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .update-code code { background: none; padding: 0; white-space: pre; color: var(--color-text); }
+    .update-desc code {
+      overflow-wrap: anywhere;
+      background: #eef1f4;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: var(--color-navy);
+    }
     .update-shot { max-width: 640px; margin: 0 auto; }
     .update-shot .zoom-hint { text-align: center; color: var(--color-text-light); font-size: 12px; margin: 10px 0 0; }
 
@@ -354,35 +379,26 @@ import Picture from '../../../components/Picture.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.3.0</span>
+        <span class="hero-version">v1.3.1</span>
       </div>
       <HeroSubBadges pluginId="kw-excel-paste" />
       <h1 class="hero-title">エクセル一括貼り付け for kintone</h1>
       <p class="hero-copy">エクセル一括貼り付け for kintone は、Excel などの表データを<strong>貼り付けるだけで一括入力</strong>できる kintone プラグインです。レコードの作成・編集画面では<strong>サブテーブルへ複数行</strong>をまとめて流し込み（1つのアプリに<strong>複数のテーブル</strong>があってもテーブルごとに設定でき、貼り付け先は自動判別）、レコード一覧画面では<strong>貼り付けだけで複数レコードを一括作成</strong>。貼り付け前にプレビューで列とフィールドの対応を確認でき、Excelの<strong>見出し行を含めれば自動マッピング</strong>されます。<strong>¥1,234・1,234円・▲10,000</strong> のような金額の表示も、そのまま数値として取り込めます。Excel に無い列には<strong>フィールドの初期値</strong>が入ります。CSVファイル不要・外部サーバー不要で kintone 内で完結します。</p>
-      <HeroDownload href="/downloads/kw-excel-paste-v1.3.0.zip" />
+      <HeroDownload href="/downloads/kw-excel-paste-v1.3.1.zip" />
     </section>
     <RequestOriginBadge as="note" />
 
-    <!-- Update Info (v1.3.0) -->
+    <!-- Update Info (v1.3.1) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.3.0：Excel に無い列にはフィールドの初期値が入るようになりました</h2>
+          <h2 class="update-title">v1.3.1：貼り付けた行でも、編集不可にした列が保たれるようになりました</h2>
         </div>
-        <p class="update-desc">サブテーブルへ貼り付けると、Excel から取り込まない列は空欄になり、フィールドに初期値を設定していても入りませんでした。v1.3.0 では、<strong>取り込まない列のフィールドに、kintone のフィールド設定の初期値が入ります</strong>。テーブルの［＋］で行を足したときと同じ値です。初期値でオンのチェックボックスは、オンのままです。初期値が「レコード登録時の日付／時刻」なら貼り付けた時点、ユーザー選択の「ログインユーザー」なら貼り付けた人が入ります。Excel から取り込む列は、従来どおり Excel の値です（空欄は空のまま）。ルックアップと計算は、従来どおり kintone が作ります。一覧からの一括作成は、これまでも初期値が入っています。</p>
-        <div class="update-shot">
-          <Picture class="zoomable" src="/images/excel-paste-v130-defaults.png" alt="エクセル一括貼り付け v1.3.0 — 品名と数量の2列だけを Excel から貼り付けたテーブル。取り込まなかったチェックボックス・複数選択・ドロップダウン・文字列の列に、フィールドの初期値が入っている" width="1386" height="282" />
-          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-        </div>
-        <p class="update-desc">あわせて、次の3点を改善しました。</p>
-        <ul class="update-list">
-          <li>「既存の行の下に追加」で、新規作成画面にある初期値だけの1行目を空の行として扱い、貼り付けた行が1行目から入るようになりました。</li>
-          <li>サブテーブルが複数あるアプリで、必須の列を含むテーブルに貼り付けても反応しないことがあった点を改善しました。</li>
-          <li>設定画面のボタンの色の欄に、共通のカラーパレット（カラーコード入力・マイカラー・最近使った色）を追加しました。あわせて、kintone の表示言語に合わせて、設定画面とプラグインの表示を日本語・英語・中国語（簡体字）で表示します（右の案内欄は日本語のままです）。</li>
-        </ul>
-        <p class="update-note">パレットの色はブラウザごとに保存され、別の PC・ブラウザには引き継がれません。当社の他の製品との連携に備えた内部の改善も行っています。<br>既存ユーザーの方は、最新版（v1.3.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
-        <BridgeUpdateNote />
+        <p class="update-desc">JavaScript カスタマイズでサブテーブルの列を編集不可にしている場合、<strong>Excel から貼り付けて増えた行でも、その列は編集不可のまま</strong>になります。貼り付けた行は画面の最終行と同じ状態になり、既存の行はもとの状態のままです。新規作成・編集、「既存行の下に追加」・「置き換え」のどれでも同じです。設定画面の変更は要りません。</p>
+        <p class="update-desc">あわせて、貼り付けで行が増えたときに <code>kw-excel-paste:rows-added</code> というイベントを発行します。独自のカスタマイズで、貼り付けのあとに処理を足したいときにお使いください（使わなくても、編集不可は保たれます）。<code>detail</code> には、テーブルのフィールドコード（<code>tableCode</code>）、増えた行の位置（<code>rowIndexes</code>・貼り付け後の 0 始まり）、置き換えで貼り付けたか（<code>replaced</code>）が入ります。受け取る側で <code>kintone.app.record.get()</code>／<code>set()</code> を呼んで構いません。</p>
+        <pre class="update-code"><code>{ROWS_ADDED_EXAMPLE}</code></pre>
+        <p class="update-note">既存ユーザーの方は、最新バージョン（v1.3.1）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
       </div>
     </section>
 
@@ -474,6 +490,7 @@ import Picture from '../../../components/Picture.astro';
         <li><span><strong>貼り付け前プレビュー</strong> — 反映・作成の前に内容を一覧表示。各列をどのフィールドに入れるかをその場で確認・調整できます。</span></li>
         <li><span><strong>見出し行の自動マッピング</strong> — Excelの見出し行（列名）を含めて貼り付けると、列名を kintone のフィールド名と照合して自動で割り当て。見出し行はデータに含めません（列順が違ってもOK）。</span></li>
         <li><span><strong>取り込まない列には初期値が入る（v1.3.0）</strong> — サブテーブルへ貼り付けたとき、Excel から取り込まない列のフィールドに、kintone のフィールド設定の初期値が入ります（テーブルの［＋］で行を足したときと同じ値）。初期値だけの1行目は空の行として扱い、貼り付けた行が1行目から入ります。</span></li>
+        <li><span><strong>貼り付けた行も編集不可を保つ（v1.3.1）</strong> — JavaScript カスタマイズで編集不可にした列は、貼り付けて増えた行でも編集不可のままです。貼り付けで行が増えたときは <code>kw-excel-paste:rows-added</code> イベントも発行します。</span></li>
         <li><span><strong>金額の表示のまま貼り付け（v1.2.0）</strong> — Excel で通貨・会計の表示にした金額（¥1,234・1,234円・▲1,234・(1,234)・会計表示のゼロ）を、円記号や桁区切りを外して数値として取り込みます。Google スプレッドシートの通貨表示にも対応します。</span></li>
         <li><span><strong>取り込む値をプレビューで確認</strong> — 記号を外したセルには「→ 取り込む値」を表示し、読み替えた件数を案内します。反映・作成の前に、どの値が入るかを確かめられます。</span></li>
         <li><span><strong>1セルの貼り付けにも対応</strong> — サブテーブルの数値の欄に Excel のセルを1つだけ貼り付けたときも、金額の表示を数値にして入力します（プレビューは出ません）。</span></li>
@@ -534,7 +551,7 @@ import Picture from '../../../components/Picture.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコードの作成・編集画面（サブテーブル）と一覧画面（PC 版）でご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-excel-paste-v1.3.0.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-excel-paste-v1.3.1.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「エクセル一括貼り付け for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>モードA</strong>（対象サブテーブル）・<strong>モードB</strong>（一覧ボタンの有効化・実行できるユーザー等）を設定して「保存」</span></li>
@@ -559,7 +576,7 @@ import Picture from '../../../components/Picture.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 設定画面のサイドバーに控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-excel-paste-v1.3.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-excel-paste-v1.3.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <SupporterPlanCard pluginId="kw-excel-paste" />
         <PremiumPlanCard />
@@ -686,10 +703,10 @@ import Picture from '../../../components/Picture.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-excel-paste-v1.3.0.zip',
+              file_name: 'kw-excel-paste-v1.3.1.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-excel-paste-v1.3.0.zip'
+              link_url: '/downloads/kw-excel-paste-v1.3.1.zip'
             });
           }
         });
