@@ -10,10 +10,10 @@ import type { Plugin } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.1.4';
+const VERSION = '1.2.0';
 const ZIP = `/downloads/kw-bridge-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/';
-const DATE_MODIFIED = '2026-11-01';
+const DATE_MODIFIED = '2026-11-03';
 
 // Partner list: grouped by what the user can do together. Products are read from
 // plugins.ts (`bridge` field), so a new partner shows up here without touching
@@ -152,7 +152,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.1.4",
+          "softwareVersion": "1.2.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -187,6 +187,7 @@ const faqJsonLd = {
             '書き込み先のアプリのチャット通知・レコードロックとの連携',
             'このレコードに、採番などの当社プラグインの処理を当て直す（カレンダービューのモーダル・一括更新で保存したレコード向け）',
             'ルールから当社のプラグインの機能を実行する',
+            'ルールの順番をあとから入れ替える（選んだルールの行の ↑↓）',
             'ルールを試す（書き込まずに結果を確認）',
             '実行の記録と再実行・あとから流す',
             '連携の流れ（アプリのつながりと連鎖の確認）',
@@ -463,17 +464,21 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.1.3) -->
+    <!-- Update Info (v1.2.0) -->
     <section class="kbp-section">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.1.3：日時フィールドの「変更前の値」の判定を改善しました</h2>
+          <h2 class="update-title">v1.2.0：ルールの順番をあとから入れ替えられるようになりました</h2>
         </div>
-        <p class="update-desc">KIZUNAブリッジ for kintone を v1.1.3 にアップデートしました。</p>
-        <p class="update-desc">ルールの条件<strong>「変更前の〇〇」</strong>で、日時フィールドは時刻まで比べるようにしました。同じ日のうちに時刻だけ変えたとき（例：10:00 から 11:00）も「が変わった」で判定されます。日をまたぐ変更や、日付・数値・文字列などのフィールドの判定は変わりません。</p>
-        <p class="update-desc">「から変わった」の値は、従来どおり日付で指定します。設定画面でルールを試した結果には、日時フィールドの変更前・変更後の時刻も表示されます。</p>
-        <p class="update-note">既存ユーザーの方は、最新版（v1.1.3）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
+        <p class="update-desc">KIZUNAブリッジ for kintone を v1.2.0 にアップデートしました。</p>
+        <p class="update-desc">ルールを作ったあとに、「このルールより前に動かしたい」ルールが出てくることがあります。これまでは作り直す必要がありましたが、<strong>設定画面の［ルール］タブで、選んでいるルールの行の右端に［↑］［↓］が出る</strong>ようになりました。押すたびに 1 つずつ動き、［保存する］で反映されます。</p>
+        <p class="update-desc">ルールは、左の一覧の上から順に実行されます。同じきっかけで同じフィールドに書くルールがあるときは、順番で最後に残る値が変わります。ルールを入れ替えても、実行の記録やあとから流すはそのまま使えます。</p>
+        <figure class="update-shot">
+          <Picture src="/images/bridge-config-reorder-01.png" alt="設定画面のルールタブ。左の一覧で選んだルールの行の右端に、順番を入れ替える上向き・下向きの矢印のボタンが表示されている" width="1400" height="1250" class="zoomable" />
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </figure>
+        <p class="update-note">既存ユーザーの方は、最新版（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
       </div>
     </section>
 
@@ -520,11 +525,12 @@ const faqJsonLd = {
               <li>画面を開いた</li><li>値を変えた</li><li>保存の前・後</li><li>アクションの前・後</li><li>削除の前</li><li>ボタン</li><li>CSV の読み込み・書き出し（ブリッジのボタン）</li>
             </ul>
             <p>条件には、このレコードの値と<strong>変更前の値</strong>、テーブル、ステータスと作業者、操作した人と組織・グループ、端末、日付・曜日などを使えます。「かつ」「または」を入れ子にして組み合わせられます（入れ子は 1 段まで）。</p>
+            <p>ルールは、左の一覧の<strong>上から順に</strong>実行されます。順番は、あとから入れ替えられます。選んだルールの行の右端に［↑］［↓］が出るので、押して動かし、［保存する］で反映します。</p>
             <p>CSV のきっかけは、一覧の上に出すブリッジの［CSV を読み込む］［CSV を書き出す］のボタン（パソコン）を使ったときに動きます。kintone 標準のファイルの読み込み・書き出しでは動きません。</p>
           </div>
           <figure class="kbp-shot">
             <Picture src="/images/bridge-config-rule-01.png" alt="KIZUNAブリッジの設定画面のルールタブ。左に設定したルールの目次、中央にきっかけ・条件・動作を選んで作るルールの編集欄が表示されている" width="1400" height="1250" class="zoomable" />
-            <figcaption>設定画面の［ルール］タブ。左の目次でルールを選び、中央で編集します。</figcaption>
+            <figcaption>設定画面の［ルール］タブ。左の目次でルールを選び、中央で編集します。選んだルールの行の［↑］［↓］で順番を入れ替えられます。</figcaption>
           </figure>
         </div>
 
@@ -758,6 +764,7 @@ const faqJsonLd = {
           <li>書き込み先のアプリのチャット通知・レコードロックとの連携</li>
           <li>カレンダービューのモーダルや一括更新で保存したレコードに、採番などの処理を当て直す</li>
           <li>ルールから当社のプラグインの機能を実行する</li>
+          <li>ルールの順番をあとから入れ替える（選んだルールの行の ↑↓・保存で反映）</li>
           <li>ルールを試す（書き込まずに結果を確認）</li>
           <li>実行の記録と再実行・あとから流す</li>
           <li>連携の流れ（つながりと連鎖の輪の警告）</li>
@@ -823,7 +830,7 @@ const faqJsonLd = {
           <li><span>このページから <strong>kw-bridge-v{VERSION}.zip</strong> をダウンロードします（解凍は不要です）。</span></li>
           <li><span>kintone の［kintone システム管理］→［プラグイン］→［読み込む］で、zip ファイルを読み込みます。</span></li>
           <li><span>きっかけにするアプリの［アプリの設定］→［プラグイン］→［追加する］で、KIZUNAブリッジ for kintone を追加します。</span></li>
-          <li><span>プラグインの設定画面を開き、ご契約が確認されると設定の画面が表示されます。［ルール］タブでルールを作り、［ルールを試す］で確かめます。</span></li>
+          <li><span>プラグインの設定画面を開き、ご契約が確認されると設定の画面が表示されます。［ルール］タブでルールを作り（順番を変えたいときは、選んだルールの行の［↑］［↓］で入れ替えます）、［ルールを試す］で確かめます。</span></li>
           <li><span>［保存する］を押し、［アプリを更新］で反映します。他のアプリと連携するプラグインは、書き込み先のアプリにも入れておきます。</span></li>
         </ol>
       </div>

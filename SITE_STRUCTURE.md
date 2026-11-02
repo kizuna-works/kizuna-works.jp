@@ -254,7 +254,7 @@ c:\kizuna-works.jp\
 │   │   │   │   └── setup/
 │   │   │   │       └── index.astro # 【手順ページ】Box 側の準備手順（/plugins/box-connect/setup/）— 連携用アプリの作成（サーバー・クライアント資格情報）・アクセスレベルとスコープ・CORS ドメイン・Box 管理者の承認・フォルダへのサービスアカウントの招待・プラグインへの接続の 6 手順。設定画面の「準備の手順を見る」の遷移先
 │   │   │   ├── bridge/
-│   │   │   │   ├── index.astro # 【KIZUNA Pro プラグイン】KIZUNAブリッジ for kintone 製品ページ（/plugins/bridge/）v1.1.3（2026-10-31・UPDATE ボックスは v1.1.3＝日時フィールドの「変更前の値」を時刻まで比べる。v1.1.2＝カレンダービューの時間帯に対応。v1.1.0 は 2026-10-27・UPDATE ボックスと PART 3 に「プラグインの処理を当てる（採番など）」を追加）・2026-10-25 公開（KIZUNA Pro 第1弾・単品販売なし）— 単品でできること／アプリ間連携／プラグイン間連携の3部構成。連携できるプラグイン一覧は plugins.ts の bridge フィールドから自動生成。冒頭の PROBLEM 節に使い方の例（代表6件・BridgeRecipeCard）と /plugins/bridge/recipes/ への導線
+│   │   │   │   ├── index.astro # 【KIZUNA Pro プラグイン】KIZUNAブリッジ for kintone 製品ページ（/plugins/bridge/）v1.2.0（2026-11-03・UPDATE ボックスは v1.2.0＝ルールの順番をあとから入れ替えられる（選んだルールの行の↑↓）。前の版：v1.1.3＝日時フィールドの「変更前の値」を時刻まで比べる。v1.1.2＝カレンダービューの時間帯に対応。v1.1.0 は 2026-10-27・UPDATE ボックスと PART 3 に「プラグインの処理を当てる（採番など）」を追加）・2026-10-25 公開（KIZUNA Pro 第1弾・単品販売なし）— 単品でできること／アプリ間連携／プラグイン間連携の3部構成。連携できるプラグイン一覧は plugins.ts の bridge フィールドから自動生成。冒頭の PROBLEM 節に使い方の例（代表6件・BridgeRecipeCard）と /plugins/bridge/recipes/ への導線
 │   │   │   │   └── recipes/
 │   │   │   │       └── index.astro # KIZUNAブリッジの使い方の例（/plugins/bridge/recipes/・2026-10-26）。全件を場面別に絞り込み（JS・未対応でも全件表示）・各例に #id のアンカー。JSON-LD は WebPage・BreadcrumbList・ItemList
 │   │   │   ├── kizuna-pro/
@@ -343,6 +343,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── bridge-v110-update.md        # KIZUNAブリッジ v1.1.0 アップデートのお知らせ（2026-10-27T11:00・保存したレコードへの採番などの当て直し）
 │   │   │   ├── bridge-v111-update.md        # KIZUNAブリッジ v1.1.1 アップデートのお知らせ（2026-10-27T21:00・ステータスを続けて進めたときの書き写し漏れを修正）
 │   │   │   ├── bridge-v113-update.md        # KIZUNAブリッジ v1.1.3 アップデートのお知らせ（2026-10-31T16:00・条件「変更前の値」で日時フィールドは時刻まで比べる）
+│   │   │   ├── bridge-v120-update.md        # KIZUNAブリッジ v1.2.0 アップデートのお知らせ（2026-11-03T11:00・ルールの順番をあとから入れ替えられる）
 │   │   │   ├── bridge-v112-update.md        # KIZUNAブリッジ v1.1.2 アップデートのお知らせ（2026-10-31T15:00・書き込み先のカレンダービューの［時間帯で日時を決める］に対応）
 │   │   │   ├── plugin-bridge-release.md     # KIZUNAブリッジ v1.0.0 公開のお知らせ（2026-10-25T10:00・KIZUNA Pro プラグイン。公開日がずれたら pubDate を直す）
 │   │   │   ├── plugin-search-pro-release.md     # サーチ Pro v1.0.0 公開のお知らせ（2026-10-25・KIZUNA Pro プラグイン・ブリッジと同時公開）
@@ -948,7 +949,7 @@ c:\kizuna-works.jp\
 │   │   ├── box-connect-action-02.png    # レコード詳細：保存先フォルダの中身の一覧（スペースに表示）
 │   │   ├── bridge-banner.png                    # KIZUNAブリッジ for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）＋ .webp / -800.webp
 │   │   ├── bridge-icon.png                      # KIZUNAブリッジ アイコン（256×256・製品ページヒーロー）＋ .webp
-│   │   ├── bridge-config-*.png / bridge-record-*.png / bridge-calendar-01.png # 製品ページの機能説明スクショ（＋ bridge-calendar-numbering-01.png＝v1.1.0 の UPDATE ボックス・採番を当てたときの知らせ・800×511）（実機撮影済み・2026-10-24。12枚＋各 .webp）
+│   │   ├── bridge-config-*.png / bridge-record-*.png / bridge-calendar-01.png # 製品ページの機能説明スクショ（＋ bridge-calendar-numbering-01.png＝v1.1.0 の UPDATE ボックス・採番を当てたときの知らせ・800×511／bridge-config-reorder-01.png＝v1.2.0 の UPDATE ボックス・ルールの順番の入れ替え・1400×1250＋.webp）（実機撮影済み・2026-10-24。12枚＋各 .webp）
 │   │   ├── kizuna-pro-hero-bg.jpg / .webp           # KIZUNA Pro のヒーロー背景（紺地に金の線・製品ページと特集 /plugins/kizuna-pro/ で共用）
 │   │   ├── kizuna-pro-band-bg.jpg / .webp           # トップの「KIZUNA Pro プラグインシリーズ」帯の背景（Gemini 生成の原本 3168×1344 jpg・配信は 2200px の webp）
 │   │   ├── search-pro-banner.png                # サーチ Pro for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）＋ .webp / -800.webp
@@ -1445,7 +1446,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-free-lookup-v1.2.0.zip  # フリールックアップ for kintone 配布ファイル（2026-10-22・v1.2.0）
 │   │   ├── kw-lookup-filter-v1.1.0.zip # ルックアップ絞り込み v1.1.0（旧版・2026-09-24＝条件に合わない値で保存しようとしたときに「確認して保存」を選べる／保存時の検査は今回入れた・書き換えた値だけ）
 │   │   ├── kw-lookup-filter-v1.0.1.zip # ルックアップ絞り込み v1.0.1（旧版・参考保管）
-│   │   ├── kw-bridge-v1.1.4.zip        # KIZUNAブリッジ for kintone 配布ファイル（最新・2026-11-01・v1.1.4＝設定画面の「予行演習」を「ルールを試す」に改称・動作の変更なし）
+│   │   ├── kw-bridge-v1.2.0.zip        # KIZUNAブリッジ for kintone 配布ファイル（最新・2026-11-03・v1.2.0＝設定画面でルールの順番を↑↓で入れ替えられる）
+│   │   ├── kw-bridge-v1.1.4.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-11-01・v1.1.4＝設定画面の「予行演習」を「ルールを試す」に改称・動作の変更なし）
 │   │   ├── kw-bridge-v1.1.3.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-10-31・v1.1.3＝条件「変更前の値」で日時フィールドは時刻まで比べる）
 │   │   ├── kw-bridge-v1.1.2.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧版・参考保管・v1.1.2＝連携先にカレンダービュー v1.8.0 以降の［時間帯で日時を決める］を追加）
 │   │   ├── kw-bridge-v1.1.1.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-10-27・v1.1.1＝「アクションを実行した後」でステータスを書き写すとき、2 回目以降の遷移が反映されない不具合を修正）
