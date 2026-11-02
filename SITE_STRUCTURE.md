@@ -313,6 +313,7 @@ c:\kizuna-works.jp\
 │   │   ├── news/               # お知らせエントリ Markdown 置き場（category: release/update/incident/notice）
 │   │   │   ├── plugin-lookup-filter-v130.md   # ルックアップ絞り込み v1.3.0 のお知らせ（2026-10-10 14:00・［取得］の画面を kintone の設定どおりに・文字列以外も検索・プレビュー）
 │   │   │   ├── plugin-lookup-filter-v140.md   # ルックアップ絞り込み v1.4.0 のお知らせ（2026-10-30 16:00・［取得］の画面の数値の書式と添付サムネイル・コード／名前で比べる・設定画面の改善）
+│   │   │   ├── plugin-report-designer-v180.md   # 帳票デザイナー v1.8.0 のお知らせ（2026-11-02・テンプレートを見られる人の限定）
 │   │   │   ├── plugin-lookup-filter-v132.md   # ルックアップ絞り込み v1.3.2 のお知らせ（2026-10-20 14:00・絞り込みの初期設定とソートを保存し直さなくても反映）
 │   │   │   ├── plugin-lookup-suggest-v320.md  # ルックアップサジェスト v3.2.0 のお知らせ（2026-10-10 14:10・候補を kintone の設定どおりに・文字列以外も検索・設定画面の見直し）
 │   │   │   ├── plugin-lookup-suggest-v322.md  # ルックアップサジェスト v3.2.2 のお知らせ（2026-10-13 21:00・一部の記号を含む語でも候補が出る。v3.2.1 のお知らせはこれに統合して削除）
@@ -1168,6 +1169,7 @@ c:\kizuna-works.jp\
 │   │   ├── report-designer-config-17.png   # 帳票デザイナー インスペクタ「この表を出すページ」（v1.4.0）
 │   │   ├── report-designer-output-05.png   # 帳票デザイナー 出力例⑤ 御見積書（商品明細＋作業明細を1枚に・v1.4.0）
 │   │   ├── report-designer-config-18.png   # 帳票デザイナー 設定STEP4「PDFを添付フィールドへ自動保存」＋連番の設定（v1.5.0）
+│   │   ├── report-designer-viewers-01.png  # 帳票デザイナー 設定画面 STEP1「テンプレートを見られる人」（v1.8.0・UPDATE ボックス用・.webp あり）
 │   │   ├── report-designer-record-01.png   # 帳票デザイナー レコードの添付欄に連番つきの帳票PDFが3件並ぶ（v1.5.0）
 │   │   ├── report-designer-print-16.png    # 帳票デザイナー 印刷結果（図形・表・罫線・チェック欄・選択肢表示・v1.6.0）
 │   │   ├── report-designer-config-19.png   # 帳票デザイナー 設定画面 選択肢の表示形式（v1.6.0）
@@ -1696,7 +1698,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-report-designer-v1.2.0.zip   # 帳票デザイナー v1.2.0（フィールド検索・まとめて配置・配置済みリスト・保存前チェック・3桁区切り）
 │   │   ├── kw-report-designer-v1.3.0.zip   # 帳票デザイナー v1.3.0（決裁欄の印影を1クリック配置・押印枠へ自動位置合わせ・表示条件に操作している人・ボタン方式・印刷プレビュー）
 │   │   ├── kw-report-designer-v1.4.0.zip   # 帳票デザイナー v1.4.0（1枚に複数テーブルの明細・他のアプリの帳票を取り込む・用紙外の行による白紙ページを修正）
-│   │   ├── kw-report-designer-v1.7.0.zip   # 帳票デザイナー v1.7.0（最新・枠に収まらないときの扱い・明細に付いていく・表のマスの結合）。v1.5.0・v1.6.0 の zip も同フォルダに保管
+│   │   ├── kw-report-designer-v1.7.0.zip   # 帳票デザイナー v1.7.0（枠に収まらないときの扱い・明細に付いていく・表のマスの結合）。v1.5.0・v1.6.0 の zip も同フォルダに保管
+│   │   ├── kw-report-designer-v1.8.0.zip   # 帳票デザイナー v1.8.0（最新・テンプレートを見られる人の限定）
 │   │   ├── kw-reuse-control-v1.0.0.zip                           # レコード再利用コントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-reuse-control-v1.0.1.zip                           # レコード再利用コントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-reuse-control-v1.0.2.zip                           # レコード再利用コントロール for kintone 配布ファイル（旧版・参考保管）
