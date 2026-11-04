@@ -454,6 +454,7 @@ export const plugins: Plugin[] = [
     formName: '集計サマリーバー for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'summary-bar',
+    multilingual: true,
     categories: ['集計・計算', '一覧表示'],
     description:
       '一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示するプラグイン。絞り込みに連動して即時に再集計し、勤務時間などの時間も「〇時間〇分」で集計できます。カードごとの条件集計や、集計値による条件付きの色分けにも対応。カードごとの配色の上書きには、マイカラーが使えます。',
@@ -470,7 +471,7 @@ export const plugins: Plugin[] = [
     problemDesc: 'グラフ画面に移動せず、一覧の上でそのまま集計を確認したい。勤務時間などの時間も「〇時間〇分」で合計したい',
     problemFeatured: true,
     releaseDate: '2026-05-30',
-    summaryVersion: '2.5.0',
+    summaryVersion: '2.6.0',
   },
   {
     id: 'kw-csv-export',
@@ -1376,7 +1377,7 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       '検索すると絞り込みの選択が消える、絞り込んだ結果と集計の数字がそろわない、今どんな条件で見ているのか分からない。毎回同じ条件を作り直し、CSV にしても条件がどこにも残らない',
     releaseDate: '2026-10-25',
-    summaryVersion: '1.4.0',
+    summaryVersion: '1.5.0',
     bridge: 'ブリッジのルールから、全員用の保存した検索の結果を CSV にして、レコードの添付ファイル欄に入れられます。',
   },
   {
@@ -1930,9 +1931,10 @@ export const premiumPlugins: Plugin[] = [
     formName: 'クイックフィルター for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'quick-filter',
+    multilingual: true,
     categories: ['検索・閲覧', '一覧表示'],
     description:
-      '一覧の上にフィールドごとの絞り込みの窓を並べ、件数つきの候補から値を選ぶだけで絞り込めます。複数の窓は同時に効き、複数行の文字列の行やキーワード入力でも絞り込め、テーブル内やルックアップ先・関連レコード先の値にも対応します。選択は一覧ごとに記憶されます。帯の配色のカスタムには、マイカラーが使えます。',
+      '一覧の上にフィールドごとの絞り込みの窓を並べ、件数つきの候補から値を選ぶだけで絞り込めます。複数の窓は同時に効き、複数行の文字列の行やキーワード入力でも絞り込め、テーブル内やルックアップ先・関連レコード先の値にも対応します。日付は期間ボタンでも絞れ、テーブル内の日付にも使えます。選択は一覧ごとに記憶されます。帯の配色のカスタムには、マイカラーが使えます。',
     image: '/images/quick-filter-banner.png',
     imageWebp: '/images/quick-filter-banner.webp',
     imageAlt:
@@ -1947,7 +1949,7 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       '担当者やステータスで絞りたいだけなのに、kintone 標準の絞り込みでは毎回フィールドと条件と値を組み立てる。そのフィールドにどんな値があるのか分からないまま入力して、表記の違いで 0 件になることもある',
     releaseDate: '2026-10-11',
-    summaryVersion: '1.2.0',
+    summaryVersion: '1.3.0',
   },
   {
     id: 'kw-horizontal-sheet',

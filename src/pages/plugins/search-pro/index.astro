@@ -7,10 +7,10 @@ import { plugins, premiumPlugins } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.4.0';
+const VERSION = '1.5.0';
 const ZIP = `/downloads/kw-search-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/search-pro/';
-const DATE_MODIFIED = '2026-10-31';
+const DATE_MODIFIED = '2026-11-04';
 
 // The four products this one bundles, plus the two it can start a bulk run in.
 // Search both free and premium lists, and fail the build on a missing id instead of silently dropping the card.
@@ -138,7 +138,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.4.0",
+          "softwareVersion": "1.5.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -258,6 +258,9 @@ const faqJsonLd = {
     .update-title { color: var(--kbp-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
     .update-desc { color: var(--kbp-text); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
     .update-desc strong { color: var(--kbp-navy); }
+    .update-shot { max-width: 640px; margin: 22px auto 20px; }
+    .update-shot img { width: 100%; height: auto; display: block; border: 1px solid #e2e8f0; border-radius: 8px; cursor: zoom-in; }
+    .update-shot .zoom-hint { text-align: center; color: #64748b; font-size: 12px; margin: 10px 0 0; }
     .update-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid #e3eaf3; }
     .update-list > li { position: relative; padding: 14px 4px 14px 34px; border-bottom: 1px solid #e3eaf3; line-height: 1.8; color: var(--kbp-text); min-width: 0; }
     .update-list > li::before { content: '✓'; position: absolute; left: 4px; top: 18px; width: 20px; height: 20px; border-radius: 50%; background: var(--kbp-green); color: #fff; font-size: 12px; font-weight: 900; line-height: 20px; text-align: center; }
@@ -475,31 +478,27 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.4.0) -->
+    <!-- Update Info (v1.5.0) -->
     <section class="kbp-section">
       <div class="kbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.4.0：ユーザー・組織・グループの欄も検索できるようになりました</h2>
+            <h2 class="update-title">v1.5.0：テーブル内の日付の窓にも期間ボタンが出るようになりました</h2>
           </div>
-          <p class="update-desc">サーチ Pro for kintone を v1.4.0 にアップデートしました（2026年10月31日）。</p>
-          <h3 class="kbp-h3">ユーザー・組織・グループの欄を検索できます</h3>
+          <p class="update-desc">サーチ Pro for kintone を v1.5.0 にアップデートしました（2026年11月4日）。</p>
+          <h3 class="kbp-h3">テーブルの中の日付も、期間ボタンで絞れます</h3>
           <ul class="update-list">
-            <li>検索バーの検索対象に、<strong>ユーザー選択・組織選択・グループ選択・作成者・更新者</strong>の欄を選べます。</li>
-            <li>入力したキーワードを、ユーザー・組織・グループの名前またはコードに部分一致させて、該当した人が入っているレコードを探します。語の頭に「=」を付けると、名前かコードの完全一致です。</li>
-            <li>組織は、下位の組織も含めて探します。</li>
-            <li>効いている条件は「条件の帯」に並び、保存した検索としても使えます。</li>
-            <li>フィールドの閲覧権限が無い欄や、ユーザー・組織・グループの一覧を読み込めなかったときは、その欄を外して検索バーの横に理由を出し、ほかの欄で検索を続けます。</li>
+            <li>絞り込みの窓で、テーブル（サブテーブル）内の日付・日時の欄にも、期間ボタン（今日・昨日・今週・先週・今月・先月・今年・昨年）が出ます。</li>
+            <li>ボタンを押すだけで、その期間の行を含むレコードに絞れます。</li>
+            <li>設定画面の窓に「期間ボタン：」の選択欄が出ます。使う期間を選べます。</li>
+            <li>テーブル内の窓は、これまでどおり有料の機能です。</li>
           </ul>
-          <h3 class="kbp-h3">色の欄にカラーパレットが付きました</h3>
-          <ul class="update-list">
-            <li>絞り込みの窓の「帯の配色」（カスタム）と、集計カードの「このカードだけ配色を上書きする」の色の欄に、カラーコード入力・☆マイカラーに登録・マイカラー・最近使った色が付きました。</li>
-            <li>集計カードの配色の欄は、2列に並べ直しました。</li>
-            <li>マイカラーは、当社のほかのプラグインと共有されます。色は kintone のドメインごとに、お使いのブラウザへ保存されるため、別の PC・別のブラウザには引き継がれません。</li>
-          </ul>
-          <p class="update-desc">新しい設定の表示は、英語・中国語（簡体字）にも対応しています。</p>
-          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.4.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+          <div class="update-shot">
+            <Picture src="/images/search-pro-v150-table-period-01.jpg" alt="kintone のレコード一覧。絞り込みの窓「日付」を開くと、今日・昨日・今週・先週・今月・先月・今年・昨年の期間ボタンと、開始日・終了日の入力欄が並ぶ。「日付」はテーブル内の欄" width="800" height="366" class="zoomable" />
+            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+          </div>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.5.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
         </div>
       </div>
     </section>
