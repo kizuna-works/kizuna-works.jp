@@ -15,9 +15,9 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
 <Layout
   title="クイックタブ for kintone - レコード画面をタブで自動整理するプラグイン | KIZUNA Works"
-  description="kintone のレコード詳細・作成・編集画面を、フォーム上のスペース要素を境界にタブへ自動分割して整理するプラグイン。フィールドの手動割当は不要。「すべて」タブ・必須エラー時のタブ自動追従・スクロール固定・どのタブでも常に表示するフッター・編集や保存のあとも開いていたタブを表示する設定に対応し、スタイル20種×配色から選べます。kintone完結・外部API不使用。"
+  description="kintone のレコード詳細・作成・編集画面を、フォーム上のスペース要素を境界にタブへ自動分割して整理するプラグイン。フィールドの手動割当は不要。「すべて」タブ・必須エラー時のタブ自動追従・スクロール固定・どのタブでも常に表示するフッター・編集や保存のあとも開いていたタブを表示する設定・フィールドの値に応じてタブを隠す条件に対応し、スタイル20種×配色から選べます。kintone完結・外部API不使用。"
   ogTitle="クイックタブ for kintone - レコード画面をタブで自動整理するプラグイン | KIZUNA Works"
-  ogDescription="kintone のレコード画面を、スペース要素を境界にタブへ自動分割。フィールドの手動割当は不要。「すべて」タブ・必須エラー追従・スクロール固定・常時表示のフッター・編集後も開いていたタブを維持・スタイル20種に対応。kintone完結。"
+  ogDescription="kintone のレコード画面を、スペース要素を境界にタブへ自動分割。フィールドの手動割当は不要。「すべて」タブ・必須エラー追従・スクロール固定・常時表示のフッター・編集後も開いていたタブを維持・条件でタブを非表示・スタイル20種に対応。kintone完結。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/quick-tab/"
   ogImage="https://kizuna-works.jp/images/quick-tab-banner.png"
@@ -59,10 +59,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "クイックタブ for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.2.0",
-          "dateModified": "2026-10-30",
+          "softwareVersion": "1.3.0",
+          "dateModified": "2026-11-04",
           "url": "https://kizuna-works.jp/plugins/quick-tab/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-tab-v1.2.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-tab-v1.3.0.zip",
           "image": "https://kizuna-works.jp/images/quick-tab-banner.png",
           "offers": {
             "@type": "Offer",
@@ -86,6 +86,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "保存時に非表示タブの必須未入力があれば該当タブを自動で開く",
             "レコードを開いたときの初期表示タブを指定",
             "編集・保存のあとも、開いていたタブのまま表示（設定でOFFにできます）",
+            "タブごとに、フィールドの値に応じてそのタブを非表示にする条件（最大5件・すべて／いずれか・6種の演算子）",
             "色の欄に共通カラーパレット（カラーコード入力・マイカラー・最近使った色）",
             "スタイル（形）20種 × 配色10種 ＋ カスタム配色、文字サイズ・太字、ライブプレビュー",
             "タブバーの幅（スペース全幅／タブ長に合わせる）・配置（左/中央/右）",
@@ -220,6 +221,13 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
     }
     .update-list li { margin-bottom: 10px; }
     .update-list strong { color: var(--color-navy); }
+    .update-shot { max-width: 640px; margin-left: auto; margin-right: auto; text-align: center; }
+    .update-shot img { max-width: 100%; height: auto; border: 1px solid var(--color-gray-light); border-radius: 8px; }
+    .update-sub {
+      font-size: 16px;
+      color: var(--color-navy);
+      margin: 26px 0 10px;
+    }
     .update-note {
       color: var(--color-text-light);
       font-size: 13px;
@@ -777,35 +785,60 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.2.0</span>
+        <span class="hero-version">v1.3.0</span>
       </div>
       <HeroSubBadges pluginId="kw-quick-tab" />
       <h1 class="hero-title">クイックタブ for kintone</h1>
-      <p class="hero-copy">クイックタブ for kintone は、項目数の多いレコード詳細・作成・編集画面を、フォーム上の「スペース要素」を境界にタブへ自動分割して整理する kintone プラグインです。フィールドを1つずつ割り当てる必要はなく、スペースを置く位置だけで区切れます。全項目を見る「すべて」タブ、保存時に必須未入力のタブを自動で開く追従機能、スクロール固定、どのタブでも常に表示するフッター、編集・保存のあとも開いていたタブを表示する設定にも対応。長い入力フォームを、タブでスッキリ。</p>
-      <HeroDownload href="/downloads/kw-quick-tab-v1.2.0.zip" />
+      <p class="hero-copy">クイックタブ for kintone は、項目数の多いレコード詳細・作成・編集画面を、フォーム上の「スペース要素」を境界にタブへ自動分割して整理する kintone プラグインです。フィールドを1つずつ割り当てる必要はなく、スペースを置く位置だけで区切れます。全項目を見る「すべて」タブ、保存時に必須未入力のタブを自動で開く追従機能、スクロール固定、どのタブでも常に表示するフッター、編集・保存のあとも開いていたタブを表示する設定、フィールドの値に応じてタブを隠す条件にも対応。長い入力フォームを、タブでスッキリ。</p>
+      <HeroDownload href="/downloads/kw-quick-tab-v1.3.0.zip" />
     </section>
 
-    <!-- Update Highlight (v1.2.0) -->
+    <!-- Update Highlight (v1.3.0) -->
     <section class="update-section fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.2.0：編集・保存のあとも、開いていたタブを表示できるようになりました</h2>
+          <h2 class="update-title">v1.3.0：フィールドの値に応じて、タブを非表示にできるようになりました</h2>
         </div>
-        <p class="update-desc">クイックタブ for kintone を v1.2.0 にアップデートしました（2026年10月30日）。</p>
-        <p class="update-desc"><strong>設定画面の「初期表示タブ」の欄に、「編集・保存のあとも、開いていたタブを表示する」を追加しました。</strong>同じレコードで詳細画面と編集画面を行き来したとき（編集・保存・キャンセル）に、開いていたタブのまま表示します。「すべて」タブも同じです。初期値は ON です。</p>
-        <div class="update-shot" style="margin-top:20px;">
-          <Picture class="zoomable" src="/images/quick-tab-config-06.png" alt="クイックタブの設定画面の「初期表示タブ」の欄。タブの選択の下に「編集・保存のあとも、開いていたタブを表示する」のチェックがある" width="989" height="275" />
+        <p class="update-desc">クイックタブ for kintone を v1.3.0 にアップデートしました（2026年11月4日）。</p>
+        <p class="update-desc"><strong>「個人のお客様」と「法人のお客様」のように、入力する内容がお客様の区分で違うのに、タブが全部並んでいて、関係ないタブまで見えて迷う。</strong>そのまま入力すると、入力漏れや誤入力のもとになります。</p>
+        <p class="update-desc"><strong>タブごとに「このとき隠す」条件を決めておくと、区分を選んだ時点で、関係ないタブが消えます。</strong></p>
+
+        <h3 class="update-sub">設定のしかた</h3>
+        <ol class="update-list">
+          <li>設定画面のタブの表で、隠したいタブの［条件を設定］を押します。</li>
+          <li>項目・演算子・値を選びます。例：「個人のお客様」タブは、「区分」が「法人」と等しいとき隠す。「法人のお客様」タブは、「区分」が「個人」と等しいとき隠す。</li>
+          <li>条件を増やすときは［＋ 条件を追加］を押します。1つのタブにつき最大5件で、「すべて満たすとき」「いずれかを満たすとき」を選べます。</li>
+          <li>プラグインの設定を保存します。</li>
+        </ol>
+        <p class="update-desc">演算子は、「等しい」「等しくない」「含む」「含まない」「空」「空でない」から選べます。</p>
+        <div class="update-shot" style="margin-top:12px;">
+          <Picture class="zoomable" src="/images/quick-tab-update-v130-01.png" alt="クイックタブの設定画面。タブの表の下に条件の入力欄が開き、「個人のお客様」タブに「区分 と等しい 法人」の条件が設定されている" width="1214" height="887" />
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </div>
+
+        <h3 class="update-sub">入力画面での動き</h3>
+        <p class="update-desc">区分が未選択のときは、すべてのタブが表示されます。「個人」を選ぶと法人用のタブが消え、「法人」を選ぶと個人用のタブが消えます。選び直せば、すぐに切り替わります（文字列の項目は、入力欄から出たとき）。詳細画面は、表示したときの値で判定します。</p>
+        <div class="update-shot" style="margin-top:12px;">
+          <Picture class="zoomable" src="/images/quick-tab-update-v130-02.png" alt="入力画面で区分が未選択のとき。タブバーに「基本情報」「個人のお客様」「法人のお客様」の3つのタブが表示されている" width="1650" height="659" />
+          <p class="zoom-hint">区分が未選択：タブは3つとも表示</p>
+        </div>
+        <div class="update-shot" style="margin-top:12px;">
+          <Picture class="zoomable" src="/images/quick-tab-update-v130-03.png" alt="区分に「個人」を選んだとき。「法人のお客様」タブが消えている" width="1650" height="659" />
+          <p class="zoom-hint">区分が「個人」：法人用のタブが消える</p>
+        </div>
+        <div class="update-shot" style="margin-top:12px;">
+          <Picture class="zoomable" src="/images/quick-tab-update-v130-04.png" alt="区分に「法人」を選んだとき。「個人のお客様」タブが消えている" width="1650" height="659" />
+          <p class="zoom-hint">区分が「法人」：個人用のタブが消える（画像をクリックすると拡大表示します）</p>
+        </div>
+
+        <h3 class="update-sub">気をつける点</h3>
         <ul class="update-list">
-          <li>新規作成で保存したときは、作成中に開いていたタブで、新しいレコードの詳細を開きます。</li>
-          <li>一覧から開いたとき、前後のレコードへ移ったときは、初期表示タブで開きます。</li>
-          <li>保存時の必須エラーで切り替わったタブも、そのまま維持されます。</li>
-          <li>チェックを外すと、今までどおり毎回初期表示タブで開きます。</li>
-          <li>開いていたタブの記録は、ブラウザのそのタブの中だけに持ち、外へは送りません。スマートフォン表示は対象外です。</li>
+          <li>条件で隠したタブの中の必須項目が空のままだと、保存できません。必須項目を含むタブを隠すときは、隠れても空のままでよいかをご確認ください。</li>
+          <li>すべてのタブが隠れたときは、タブバーごと消えます（共通エリアとフッターは表示されます）。</li>
+          <li>「編集・保存のあとも、開いていたタブを表示する」設定は、表示中のタブだけを覚えます。</li>
         </ul>
-        <p class="update-note">既存ユーザーの方は、最新バージョン（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。以前に保存した設定も、チェックが ON のものとして動きます。</p>
+        <p class="update-note">既存ユーザーの方は、最新バージョン（v1.3.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。以前に保存した設定は、そのまま動きます（条件は未設定の状態です）。</p>
         <BridgeUpdateNote />
       </div>
     </section>
@@ -888,6 +921,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <li><span><strong>フッター（どのタブでも常に表示）</strong> — 設定したスペースから下にあるフィールドを、どのタブを開いていても常に表示します。更新日時・登録担当・備考など、いつも見えていてほしい項目をまとめられます。任意の設定で、使わなければこれまでどおりです。</span></li>
         <li><span><strong>初期表示タブの指定</strong> — レコードを開いたときに最初に開くタブ（「すべて」を含む）を設定できます。</span></li>
         <li><span><strong>編集・保存のあとも、開いていたタブを表示</strong> — 同じレコードで詳細画面と編集画面を行き来したとき（編集・保存・キャンセル）に、開いていたタブのまま表示します。設定でOFFにすると、毎回初期表示タブで開きます。</span></li>
+        <li><span><strong>条件でタブを非表示</strong> — タブごとに、フィールドの値に応じてそのタブを隠せます。条件は最大5件で、「すべて満たすとき」「いずれかを満たすとき」を選べます。入力画面では、条件に使った項目の値を変えるとすぐにタブが出入りします。</span></li>
         <li><span><strong>スタイル20種 × 配色10種＋カスタム</strong> — 角丸タブ・下線・ピル・セグメント・ボタン・塗りバー・ステップ・グラデーションなど20種の形と、10種の配色＋カスタムから選べます。文字サイズ・太字も指定でき、設定画面のライブプレビューで確認できます。色の欄には、カラーコード入力・マイカラー・最近使った色の共通カラーパレットが付きます。</span></li>
         <li><span><strong>幅・配置・スクロール固定</strong> — タブバーの幅（スペース全幅／タブの長さに合わせる）と配置（左/中央/右）を選択。さらにスクロールしてもタブバーを画面上部に固定でき、コメント／履歴パネルに重ならないよう自動調整します。</span></li>
         <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。プラグインアップロードのみで導入できます。</span></li>
@@ -971,10 +1005,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         </div>
 
         <div class="config-shot">
-          <Picture class="zoomable" src="/images/quick-tab-config-04.png" alt="クイックタブ v1.2.0 の設定画面の全体像 — タブバー設置スペース、タブ（区間）定義、フッター開始スペース、「すべて」タブ、幅・配置、デザイン、初期表示タブ" width="1585" height="2501" />
+          <Picture class="zoomable" src="/images/quick-tab-config-04.png" alt="クイックタブ v1.2.0 時点の設定画面の全体像 — タブバー設置スペース、タブ（区間）定義、フッター開始スペース、「すべて」タブ、幅・配置、デザイン、初期表示タブ" width="1585" height="2501" />
           <div class="config-shot-caption">
-            <strong>設定画面の全体像（v1.2.0）</strong>
-            <p>上から、タブバー設置スペース・タブ（区間）定義・フッター開始スペース・「すべて」タブ・幅と配置・デザイン・初期表示タブ（開いていたタブを表示するチェックを含む）の順に並びます。</p>
+            <strong>設定画面の全体像（v1.2.0 時点）</strong>
+            <p>※ タブの表の「非表示の条件」の列は v1.3.0 で追加しました（上の UPDATE の画像を参照）。上から、タブバー設置スペース・タブ（区間）定義・フッター開始スペース・「すべて」タブ・幅と配置・デザイン・初期表示タブ（開いていたタブを表示するチェックを含む）の順に並びます。</p>
           </div>
         </div>
       </div>
@@ -997,7 +1031,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">レコード詳細・作成・編集画面（PC 版）でご利用いただけます。フォームにスペースを置いて要素IDを付けてからご利用ください。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-quick-tab-v1.2.0.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-quick-tab-v1.3.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリのフォームに<strong>スペース要素</strong>を配置し、フォーム設定で<strong>要素ID</strong>を付与（タブバー用＋区切り用）。タブバー用のスペースは、タブが折り返さないよう<strong>横幅を広めに</strong>しておきます</span></li>
           <li><span>アプリの<strong>アプリ設定 → プラグイン</strong>で「クイックタブ for kintone」を追加</span></li>
@@ -1023,7 +1057,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-quick-tab-v1.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-quick-tab-v1.3.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <SupporterPlanCard pluginId="kw-quick-tab" />
       <PremiumPlanCard />
@@ -1176,10 +1210,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-quick-tab-v1.2.0.zip',
+              file_name: 'kw-quick-tab-v1.3.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-quick-tab-v1.2.0.zip'
+              link_url: '/downloads/kw-quick-tab-v1.3.0.zip'
             });
           }
         });
