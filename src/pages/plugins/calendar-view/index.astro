@@ -54,10 +54,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "カレンダービュー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "2.0.0",
-          "dateModified": "2026-11-03",
+          "softwareVersion": "2.1.0",
+          "dateModified": "2026-11-04",
           "url": "https://kizuna-works.jp/plugins/calendar-view/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-calendar-view-v2.0.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-calendar-view-v2.1.0.zip",
           "image": "https://kizuna-works.jp/images/calendar-view-banner.png",
           "offers": [
             {
@@ -109,6 +109,8 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "サブテーブルの行・他アプリの予定を背景として重ねて表示",
             "予定の複製（Ctrl＋ドラッグ・［複製］ボタン）・複製と削除を［元に戻す］で取り消し",
             "週・日・タイムライン1日の時刻間隔（5分〜2時間）を利用者ごとに切り替え・バーに表示する項目の並べ替え",
+            "編集モーダルで添付ファイルを受け取れる・既存の予定のコメントを新しい順に最大10件表示",
+            "タイムラインの行を、最初の予定の開始日時が早い順に並べる（既定はオフ）",
             "キーボード操作（今日・期間の移動・表示の切り替え・追加・元に戻す）",
             "モバイル対応（カレンダー全粒度とタイムラインの1日・iPhone／Android の kintone アプリとブラウザ）",
             "多言語対応（kintone の個人設定の言語に合わせて日本語・英語・中国語簡体字で表示）",
@@ -337,58 +339,35 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       <img class="afp-hero-icon" src="/images/calendar-view-icon.png" alt="カレンダービュー for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v2.0.0</span>
+        <span class="afp-hero-version">v2.1.0</span>
       </div>
       <HeroSubBadges pluginId="kw-calendar-view" />
       <h1>カレンダービュー for kintone</h1>
       <p class="afp-tagline">同じ予定を、カレンダーでも、担当者ごとの時間軸でも。</p>
-      <p class="afp-sub">カレンダービュー for kintone は、kintone のレコードをカレンダー表示するプラグインです。レコードが持つ<strong>開始・終了</strong>を、カレンダー（年・月・週・日・リスト）と<strong>タイムライン</strong>（縦＝担当者・会議室 × 横＝時間）に、画面上のボタンで切り替えて表示します。ドラッグで日程を変更でき、<strong>空いている時間</strong>も条件から探せます。予定のない担当者・会議室も、タイムラインに空白の行として常に表示できます。ダブルブッキングの警告は kintone 標準の編集画面でも働きます。予定のバーは、タイトルと項目の2段にも切り替えられます。リソースが未設定の予定を集める行には、「全社共通」のような名前を付けられます。予定の追加方法は、モーダル・簡易登録・kintone 標準の追加画面から選べます。サブテーブルの行も1行ずつ予定にでき、行ごとに色を分けられます。表示は、kintone の個人設定の言語に合わせて日本語・英語・中国語（簡体字）になります。日付と時間帯を選ぶだけで開始・終了が決まる使い方や、タイムラインの3か月・1年表示にも対応しています。予定の複製と、削除の取り消しもできます。</p>
+      <p class="afp-sub">カレンダービュー for kintone は、kintone のレコードをカレンダー表示するプラグインです。レコードが持つ<strong>開始・終了</strong>を、カレンダー（年・月・週・日・リスト）と<strong>タイムライン</strong>（縦＝担当者・会議室 × 横＝時間）に、画面上のボタンで切り替えて表示します。ドラッグで日程を変更でき、<strong>空いている時間</strong>も条件から探せます。予定のない担当者・会議室も、タイムラインに空白の行として常に表示できます。ダブルブッキングの警告は kintone 標準の編集画面でも働きます。予定のバーは、タイトルと項目の2段にも切り替えられます。リソースが未設定の予定を集める行には、「全社共通」のような名前を付けられます。予定の追加方法は、モーダル・簡易登録・kintone 標準の追加画面から選べます。サブテーブルの行も1行ずつ予定にでき、行ごとに色を分けられます。表示は、kintone の個人設定の言語に合わせて日本語・英語・中国語（簡体字）になります。日付と時間帯を選ぶだけで開始・終了が決まる使い方や、タイムラインの3か月・1年表示にも対応しています。予定の複製と、削除の取り消しもできます。編集モーダルでは添付ファイルを受け取れ、コメントも読めます。タイムラインの行は、開始が早い順にも並べられます。</p>
       <div class="afp-hero-cta">
         <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
-        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-calendar-view-v2.0.0.zip" download>無料でダウンロード</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-calendar-view-v2.1.0.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
     <BridgeBadge as="note" pluginId="kw-calendar-view" />
 
-    <!-- Update Info (v2.0.0) -->
+    <!-- Update Info (v2.1.0) -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v2.0.0：時刻間隔の切り替え・短い予定の見やすさ・項目の並べ替えを改善しました</h2>
+            <h2 class="update-title">v2.1.0：編集モーダルの添付ファイルとコメント・タイムラインの並び順・時刻間隔の表示位置を改善しました</h2>
           </div>
-          <p class="update-desc">カレンダービュー for kintone を v2.0.0 にアップデートしました（2026年11月2日）。</p>
+          <p class="update-desc">カレンダービュー for kintone を v2.1.0 にアップデートしました（2026年11月4日）。</p>
           <ul class="update-points">
-            <li><strong>時刻間隔を、利用者が切り替えられるようになりました。</strong>週・日の表示と、タイムラインの1日のツールバーに［時刻間隔］（5分〜2時間）を追加しました。切り替えは利用者ごとで、その人のブラウザに覚えます。設定画面の「時刻間隔」は、全員の初期値になります。</li>
-            <li><strong>短い予定も読みやすくなりました。</strong>短い予定も、時刻と件名が1行で読める高さで表示します（最低 22px）。直後の予定は横に並び、被りません。マウスを載せたときのポップアップも出しやすくなりました。</li>
-            <li><strong>バーに表示する項目を、並べ替えられるようになりました。</strong>設定画面の［バーに表示する項目］と「表示の切り替えごとの項目」で、選んだ項目の並び順を［↑］［↓］で入れ替えられます。外して付け直す必要はありません。</li>
+            <li><strong>編集モーダルで、添付ファイルとコメントを見られるようになりました。</strong>モーダルの項目に選んだ添付ファイル欄は、ファイル名と［保存］ボタンで出ます。画像・PDF・テキストは新しいタブで開き、それ以外は保存します。既存の予定を開いたとき、コメントがあれば新しい順に最大10件を表示します。古いコメントは詳細画面で読めます。</li>
+            <li><strong>タイムラインの行を、開始が早い順に並べられるようになりました。</strong>手順3の「タイムライン」のカードに［行の並び順］を追加しました。オンにすると、最初の予定の開始日時が早い行を上に出します。研修のスケジュールを、上から時系列で追えます。既定はオフで、これまでの並び（設定した順・選択肢の順・名前の順）のままです。</li>
+            <li><strong>時刻間隔を変えても、見ていた時刻が先頭のままになりました。</strong>週・日の表示とタイムラインの1日で［時刻間隔］を変えても、それまで見ていた時刻を先頭に保ちます。1日全体が見える状態から間隔を狭めたときに、見えている範囲に予定が無ければ、いちばん早い予定の位置へ寄せます。</li>
           </ul>
-          <div class="update-shot">
-            <Picture src="/images/calendar-view-v200-slot-01.png" alt="週表示。ツールバーの［時刻間隔］を15分にした画面で、10分の予定「朝礼」と直後の予定が横に並んでいる" width="1400" height="517" class="zoomable" />
-            <p class="zoom-hint">週表示で［時刻間隔］を15分にした例。短い予定と直後の予定が横に並びます</p>
-          </div>
-          <div class="update-shot" style="margin-top:20px;">
-            <Picture src="/images/calendar-view-v200-order-01.png" alt="設定画面の［バーに表示する項目］。選んだ項目が並び、それぞれに［↑］［↓］のボタンがある" width="915" height="535" class="zoomable" />
-            <p class="zoom-hint">選んだ項目は［↑］［↓］で並べ替えます（画像をクリックすると拡大表示します）</p>
-          </div>
-          <p class="update-desc" style="margin-top:14px;">このほか、次の点も改善しています。</p>
-          <ul class="update-points">
-            <li>モーダルの［複製］で開く、複製した予定のモーダルの上部に「複製した予定です（保存済み）」の案内と［複製を取り消す］ボタンを出すようにしました。右下のボタンは［閉じる］です。複製は押した時点で保存される点は変わりません。［複製を取り消す］を押すと、複製した予定を削除して複製前の状態に戻せます。</li>
-            <li>設定画面の項目の選択欄と並べ替えリストで、見切れる長い項目名にマウスを載せると、全文とフィールドコードが出るようにしました。</li>
-            <li>設定画面の色の欄に、共通カラーパレット（カラーコード入力・マイカラー・最近使った色）を追加しました。KIZUNA Works のほかのプラグインの設定画面と色を共有します（kintone のドメインごと・ブラウザごとに保存）。</li>
-            <li>新しい文言を、英語・中国語（簡体字）に対応しました。</li>
-          </ul>
-          <div class="update-shot" style="margin-top:20px;">
-            <Picture src="/images/calendar-view-v200-dup-01.png" alt="複製した直後のモーダル。上部に「複製した予定です（保存済み）」の案内と［複製を取り消す］ボタンがあり、右下のボタンは［閉じる］" width="627" height="704" class="zoomable" />
-            <p class="zoom-hint">複製した直後のモーダル</p>
-          </div>
-          <div class="update-shot" style="margin-top:20px;">
-            <Picture src="/images/calendar-view-v200-palette-01.png" alt="設定画面の色の欄の下に表示される共通カラーパレット" width="915" height="69" class="zoomable" />
-            <p class="zoom-hint">色の欄の下に共通カラーパレットが付きます</p>
-          </div>
-          <p class="update-note">既存ユーザーの方は、最新バージョン（v2.0.0）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。新しい設定項目はありません。</p>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v2.1.0）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。新しい設定項目は［行の並び順］だけで、既定はオフです。</p>
           <BridgeUpdateNote />
         </div>
       </div>
@@ -606,7 +585,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           </div>
           <div class="afp-feat-card">
             <h3>タイムライン表示 🔒</h3>
-            <p>縦＝担当者・会議室・設備 × 横＝時間。1日（時刻刻み）・1か月（日刻み）・3か月（週ごとの見出し）・1年（月ごとの見出し）。3か月・1年は横スクロールで、バーは実際の長さに比例します。縦軸はドロップダウンで切り替え（最大5つ登録）。リソースが未設定の予定を集める行には、好きな名前を付けられます。</p>
+            <p>縦＝担当者・会議室・設備 × 横＝時間。1日（時刻刻み）・1か月（日刻み）・3か月（週ごとの見出し）・1年（月ごとの見出し）。3か月・1年は横スクロールで、バーは実際の長さに比例します。縦軸はドロップダウンで切り替え（最大5つ登録）。リソースが未設定の予定を集める行には、好きな名前を付けられます。行は、最初の予定の開始日時が早い順にも並べられます（既定はオフ）。</p>
           </div>
           <div class="afp-feat-card">
             <h3>予定のないリソースも常に表示 🔒</h3>
@@ -630,7 +609,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           </div>
           <div class="afp-feat-card">
             <h3>その場で登録・編集</h3>
-            <p>日付や時間帯のクリックで登録モーダル。追加方法は3つから選べ、出す項目は追加と編集で別に選べます。ルックアップもモーダルから取得できます。開始・終了の時刻は「時」「分」のプルダウンで選びます。右クリックまたはモーダルの［複製］から複製、削除（［元に戻す］で取り消せます）、詳細画面も開けます。担当者などユーザー選択の欄は、名前かログイン名で検索して何人でも選べます。外側のクリックや Esc で閉じるときは、内容を変えているときだけ確認が出ます。</p>
+            <p>日付や時間帯のクリックで登録モーダル。追加方法は3つから選べ、出す項目は追加と編集で別に選べます。ルックアップもモーダルから取得できます。開始・終了の時刻は「時」「分」のプルダウンで選びます。右クリックまたはモーダルの［複製］から複製、削除（［元に戻す］で取り消せます）、詳細画面も開けます。担当者などユーザー選択の欄は、名前かログイン名で検索して何人でも選べます。外側のクリックや Esc で閉じるときは、内容を変えているときだけ確認が出ます。添付ファイル欄はファイル名と［保存］ボタンで出て、既存の予定のコメントは新しい順に最大10件読めます。</p>
           </div>
           <div class="afp-feat-card">
             <h3>区分（ラベル）で色分け</h3>
@@ -716,7 +695,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               <li>✅ 繰り返し予定・祝日と非稼働日の色分け</li>
               <li>✅ 利用期限なし（設定できるビューは1件・レイヤーは1件／設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-calendar-view-v2.0.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-calendar-view-v2.1.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">👑 全機能を解放</span>
@@ -864,10 +843,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
             gtag('event', 'file_download', {
-              file_name: 'kw-calendar-view-v2.0.0.zip',
+              file_name: 'kw-calendar-view-v2.1.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-calendar-view-v2.0.0.zip'
+              link_url: '/downloads/kw-calendar-view-v2.1.0.zip'
             });
           });
         });
