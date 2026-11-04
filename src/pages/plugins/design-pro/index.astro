@@ -8,10 +8,10 @@ import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricin
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
 
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 const ZIP = `/downloads/kw-design-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/design-pro/';
-const DATE_MODIFIED = '2026-11-02';
+const DATE_MODIFIED = '2026-11-04';
 
 // The six single products this one bundles. Cards are built from plugins.ts so names and slugs never drift.
 const singleOf = (id: string) => {
@@ -151,7 +151,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.0.0",
+          "softwareVersion": "1.1.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -177,7 +177,7 @@ const faqJsonLd = {
           description: 'デザイン Pro for kintone は、kintone のフィールドスタイラー・FormDeco・テーマスタイラー・コメントコントロール・ユーザーオートフィル・帳票デザイナーの6つの機能を1つの設定画面で使えるプラグイン。詳細・編集・新規で見せる項目をボタンで切り替える「表示パターン」（パソコン・スマートフォン）、詳細画面の［印刷 ▼］で選ぶ印刷パターン（見たまま・仕上げたレイアウト・帳票テンプレート）、印刷プレビュー上で項目の位置・幅・文字の大きさ・改ページを整える「仕上げ」、一覧からのまとめ印刷、PDF を作って添付ファイルに保存する機能に対応。KIZUNAブリッジのルールから、PDF の作成と本人の押印を実行できる。同じアプリにもとのプラグインが有効で設定済みのときは、その機能はもとのプラグインが動く。もとのプラグインの設定は［単品の設定を読み込む］で引き継げる。',
           publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
           featureList: [
-            'フィールドスタイラー：フィールドの背景色・文字色・フォント・太字・サイズ・条件付きスタイル・文字数制限・入力文字種制限・コピー・プレースホルダー',
+            'フィールドスタイラー：フィールドの背景色・文字色・フォント・太字・サイズ・条件付きスタイル（今月・先月・来月の判定を含む）・リンク欄の値の装飾・文字数制限・入力文字種制限・コピー・プレースホルダー',
             'FormDeco：罫線の見た目、スペースへの見出し・画像・吹き出し・リンク、折りたたみ、固定表示、スペースの前での改ページ',
             'テーマスタイラー：アプリのテーマ色の一括適用、アプリ名の帯のリンクボタン',
             'コメントコントロール：コメント欄の開き方、一覧のコメント件数の色分け・ホバーで全文表示',
@@ -396,6 +396,16 @@ const faqJsonLd = {
     .kbp-cta h2 { margin: 0 0 12px; font-size: clamp(1.3rem, 3vw, 1.8rem); line-height: 1.45; }
     .kbp-cta p { margin: 0 auto 22px; max-width: 760px; line-height: 1.85; color: rgba(255, 255, 255, 0.88); }
 
+    /* Update box (version highlight) */
+    .update-box { max-width: 980px; margin: 0 auto; background: #fff; border: 1px solid #dbe3ee; border-left: 5px solid var(--kbp-green); border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06); padding: 28px 28px 32px; min-width: 0; }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag { background: var(--kbp-green); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; padding: 4px 12px; border-radius: 6px; flex-shrink: 0; }
+    .update-title { color: var(--kbp-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--kbp-text); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--kbp-navy); }
+    .update-note { color: var(--kbp-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 700px) { .update-box { padding: 22px 18px 26px; } .update-title { font-size: 17px; } }
+
     /* Lightbox */
     .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); display: none; align-items: center; justify-content: center; z-index: 10000; padding: 24px; cursor: zoom-out; }
     .lightbox.is-open { display: flex; }
@@ -508,6 +518,24 @@ const faqJsonLd = {
     </section>
     <RequestOriginBadge as="note" />
 
+    <!-- Update Info (v1.1.0) -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <div class="update-box">
+          <div class="update-head">
+            <span class="update-tag">UPDATE</span>
+            <h2 class="update-title">v1.1.0：フィールドスタイラーで、今月・先月・来月の色分けとリンク欄の装飾が使えます</h2>
+          </div>
+          <p class="update-desc">デザイン Pro for kintone を v1.1.0 にアップデートしました（2026年11月4日）。フィールドスタイラー v2.9.0 の内容を取り込んでいます。</p>
+          <h3 class="kbp-h3">今月・先月・来月の日付に色を付けられるよう改善しました</h3>
+          <p class="update-desc">条件付きスタイルの比較値に、<code>THIS_MONTH</code>（今月）・<code>LAST_MONTH</code>（先月）・<code>NEXT_MONTH</code>（来月）を指定できます。日付・日時・作成日時・更新日時の欄を、その月の月初から月末の範囲で判定します。比較値の欄の ⏰ から「今月／先月／来月」を選べます。</p>
+          <h3 class="kbp-h3">リンク欄の値に装飾を設定できるよう改善しました</h3>
+          <p class="update-desc">リンク欄の値に、背景色・文字色・太字・フォント・文字サイズ・条件付きスタイルを設定できます。条件付きスタイルは一覧にも適用できます。テーブル内のリンク列は、これまでどおり列名の装飾だけです。</p>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Series -->
     <div class="kbp-series">
       <div class="kbp-series-inner">
@@ -578,7 +606,8 @@ const faqJsonLd = {
               <p>フィールドの見た目と入力のしかたを、設定画面から整えます。</p>
               <ul>
                 <li>背景色・文字色・フォント・太字・サイズを指定できます。</li>
-                <li>値の条件に合わせて色などを変える「条件付きスタイル」にも対応します。</li>
+                <li>値の条件に合わせて色などを変える「条件付きスタイル」にも対応します。今月・先月・来月の日付で判定することもできます。</li>
+                <li>リンク欄の値にも、色・太字・文字サイズなどを設定できます。</li>
                 <li>文字数の制限・入力できる文字の種類の制限・コピーボタン・プレースホルダーを設定できます。</li>
                 <li>テーブルの中のフィールドにも設定できます。</li>
               </ul>
@@ -925,7 +954,7 @@ const faqJsonLd = {
         </ul>
         <h3 class="kbp-h3">6つの機能と共通の機能</h3>
         <ul class="kbp-list">
-          <li>フィールドスタイラー：背景色・文字色・フォント・条件付きスタイル・入力の制限など</li>
+          <li>フィールドスタイラー：背景色・文字色・フォント・条件付きスタイル（今月・先月・来月の判定を含む）・リンク欄の値の装飾・入力の制限など</li>
           <li>FormDeco：罫線・スペースの見出し／画像／吹き出し／リンク・折りたたみ・固定表示・改ページ</li>
           <li>テーマスタイラー：テーマ色の一括適用・アプリ名の帯のリンク</li>
           <li>コメントコントロール：コメント欄の開き方・一覧のコメント件数バッジ</li>
