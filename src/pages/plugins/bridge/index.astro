@@ -10,10 +10,10 @@ import type { Plugin } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.2.0';
+const VERSION = '1.3.0';
 const ZIP = `/downloads/kw-bridge-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/';
-const DATE_MODIFIED = '2026-11-03';
+const DATE_MODIFIED = '2026-11-04';
 
 // Partner list: grouped by what the user can do together. Products are read from
 // plugins.ts (`bridge` field), so a new partner shows up here without touching
@@ -116,9 +116,9 @@ const faqJsonLd = {
 <Layout
   heroBg="/images/kizuna-pro-hero-bg.webp"
   title="KIZUNAブリッジ for kintone｜アプリをまたぐ作業とプラグインの連携を自動化 | KIZUNA Works"
-  description="KIZUNAブリッジ for kintone は、保存やアクションをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める処理をノーコードのルールで自動化する KIZUNA Pro プラグイン。当社のプラグインとも連携し、書き込み先での採番や通知、画面を通らずに保存したレコードへの採番の当て直しまでつなげます。"
+  description="KIZUNAブリッジ for kintone は、保存やアクションをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める処理をノーコードのルールで自動化する KIZUNA Pro プラグイン。当社のプラグインとも連携し、書き込み先での採番や通知、画面を通らずに保存したレコードへの採番の当て直しまでつなげます。新規作成・編集の画面に置くボタンで、値をその場で入れることもできます。"
   ogTitle="KIZUNAブリッジ for kintone｜アプリをまたぐ作業とプラグインの連携を自動化 | KIZUNA Works"
-  ogDescription="保存やアクションをきっかけに、他のアプリへの書き込みや当社プラグインの処理を、ノーコードのルールで自動化。KIZUNA Works の上位版「KIZUNA Pro プラグイン」の第1弾です。ルールを試す機能・実行の記録・連携の流れつき。"
+  ogDescription="保存やアクションをきっかけに、他のアプリへの書き込みや当社プラグインの処理を、ノーコードのルールで自動化。KIZUNA Works の上位版「KIZUNA Pro プラグイン」の第1弾です。ルールを試す機能・実行の記録・連携の流れ・新規作成と編集の画面に置けるボタンつき。"
   ogType="website"
   ogUrl={PAGE_URL}
   ogImage="https://kizuna-works.jp/images/bridge-banner.png"
@@ -133,7 +133,7 @@ const faqJsonLd = {
           '@id': PAGE_URL,
           url: PAGE_URL,
           name: 'KIZUNAブリッジ for kintone｜アプリをまたぐ作業とプラグインの連携を自動化 | KIZUNA Works',
-          description: 'KIZUNAブリッジ for kintone は、保存やアクションをきっかけに、他のアプリへの書き込みや当社プラグインの処理（採番の当て直しを含む）をルールで自動化する kintone プラグイン（KIZUNA Pro プラグイン）。',
+          description: 'KIZUNAブリッジ for kintone は、保存やアクションをきっかけに、他のアプリへの書き込みや当社プラグインの処理（採番の当て直しを含む）をルールで自動化する kintone プラグイン（KIZUNA Pro プラグイン）。新規作成・編集の画面に置くボタンで値を入れることもできる。',
           dateModified: DATE_MODIFIED,
           primaryImageOfPage: { '@type': 'ImageObject', url: 'https://kizuna-works.jp/images/bridge-banner.png', width: 1200, height: 630 },
           isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: 'https://kizuna-works.jp/' },
@@ -152,7 +152,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.2.0",
+          "softwareVersion": "1.3.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -175,7 +175,7 @@ const faqJsonLd = {
               description: 'プレミアム年間サポーターに追加するプラン（年額）。',
             },
           ],
-          description: 'KIZUNAブリッジ for kintone は、kintone のアプリをまたぐ作業と当社のプラグインの連携を、ノーコードのルールで自動化するプラグイン。画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン・ブリッジの CSV ボタンでの読み込みと書き出しの前後をきっかけに、条件（このレコードの値と変更前の値・テーブル・ステータス・操作した人と組織・端末・日付・他のアプリのレコードの有無や件数・合計）に合えば、このレコードへの値の入力・集計・行の追加と削除、エラー・確認・お知らせ、他のアプリのレコードの取得・作成・更新・ステータスの変更・双方向の同期を行う。書き込み先のアプリに入っている当社のプラグインの処理（時間帯で日時を決める・採番・地図リンク・経過日数・文字列結合・ルックアップのコピーなど）を当てる、カレンダービューのモーダルや一括更新で保存したこのアプリのレコードへの採番などの当て直し、チャット通知、レコードロックの確認、一括更新などの実行にも対応。ルールを試す機能・実行の記録と再実行・あとから流す・連携の流れ・不在カレンダーと営業日・当社プラグインの一括更新つき。',
+          description: 'KIZUNAブリッジ for kintone は、kintone のアプリをまたぐ作業と当社のプラグインの連携を、ノーコードのルールで自動化するプラグイン。画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン（詳細・新規作成・編集の画面・一覧の上）・ブリッジの CSV ボタンでの読み込みと書き出しの前後をきっかけに、条件（このレコードの値と変更前の値・テーブル・ステータス・操作した人と組織・端末・日付・他のアプリのレコードの有無や件数・合計）に合えば、このレコードへの値の入力・集計・行の追加と削除、エラー・確認・お知らせ、他のアプリのレコードの取得・作成・更新・ステータスの変更・双方向の同期を行う。書き込み先のアプリに入っている当社のプラグインの処理（時間帯で日時を決める・採番・地図リンク・経過日数・文字列結合・ルックアップのコピーなど）を当てる、カレンダービューのモーダルや一括更新で保存したこのアプリのレコードへの採番などの当て直し、チャット通知、レコードロックの確認、一括更新などの実行にも対応。ルールを試す機能・実行の記録と再実行・あとから流す・連携の流れ・不在カレンダーと営業日・当社プラグインの一括更新つき。',
           publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
           featureList: [
             'きっかけ：画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン・ブリッジの CSV ボタンでの読み込みと書き出しの前後',
@@ -187,6 +187,7 @@ const faqJsonLd = {
             '書き込み先のアプリのチャット通知・レコードロックとの連携',
             'このレコードに、採番などの当社プラグインの処理を当て直す（カレンダービューのモーダル・一括更新で保存したレコード向け）',
             'ルールから当社のプラグインの機能を実行する',
+            '新規作成・編集の画面にボタンを置き、画面の値をその場で書き換える（ボタンアクション。ヘッダー・スペース・フィールドのそばに配置、実際の画面を開いてドラッグで位置決め、種類・形・大きさ・色・書体を選べる）',
             'ルールの順番をあとから入れ替える（選んだルールの行の ↑↓）',
             'ルールを試す（書き込まずに結果を確認）',
             '実行の記録と再実行・あとから流す',
@@ -450,7 +451,7 @@ const faqJsonLd = {
       <HeroSubBadges pluginId="kw-bridge" />
       <h1 class="kbp-hero-title">KIZUNAブリッジ for kintone</h1>
       <p class="kbp-tagline">アプリをまたぐ作業も、プラグインの連携も、自動化。</p>
-      <p class="kbp-sub">KIZUNAブリッジ for kintone は、<strong>保存やアクションをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める</strong>処理を、ノーコードのルールで自動化する kintone プラグインです。当社のプラグインとも連携し、<strong>書き込み先での採番や通知、一括更新の実行</strong>までつなげられます。パソコンでカレンダービューのモーダルや一括更新から保存したレコードにも、<strong>採番などの処理を当て直せます</strong>。さらに、担当者の不在や会社の休みを踏まえて日付を計算する<strong>不在カレンダー</strong>と、当社のプラグインをまとめて最新版にする<strong>プラグインの一括更新</strong>も備えます。KIZUNA Works の上位版「KIZUNA Pro プラグイン」の第1弾です。</p>
+      <p class="kbp-sub">KIZUNAブリッジ for kintone は、<strong>保存やアクションをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める</strong>処理を、ノーコードのルールで自動化する kintone プラグインです。当社のプラグインとも連携し、<strong>書き込み先での採番や通知、一括更新の実行</strong>までつなげられます。パソコンでカレンダービューのモーダルや一括更新から保存したレコードにも、<strong>採番などの処理を当て直せます</strong>。<strong>新規作成・編集の画面に置くボタン</strong>で、日付や値をその場で入れることもできます。さらに、担当者の不在や会社の休みを踏まえて日付を計算する<strong>不在カレンダー</strong>と、当社のプラグインをまとめて最新版にする<strong>プラグインの一括更新</strong>も備えます。KIZUNA Works の上位版「KIZUNA Pro プラグイン」の第1弾です。</p>
       <div class="kbp-pillars">
         <a class="kbp-pillar" href="#single"><span class="kbp-pillar-no">PART 1</span><span class="kbp-pillar-name">このアプリの中で</span><span class="kbp-pillar-desc">きっかけ・条件・動作のルールで、入力・確認・集計を自動に</span></a>
         <a class="kbp-pillar" href="#apps"><span class="kbp-pillar-no">PART 2</span><span class="kbp-pillar-name">アプリ間連携</span><span class="kbp-pillar-desc">他のアプリへの取得・作成・更新・ステータス・双方向の同期</span></a>
@@ -464,21 +465,27 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.2.0) -->
+    <!-- Update Info (v1.3.0) -->
     <section class="kbp-section">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.2.0：ルールの順番をあとから入れ替えられるようになりました</h2>
+          <h2 class="update-title">v1.3.0：新規作成・編集の画面にボタンを置けるようになりました</h2>
         </div>
-        <p class="update-desc">KIZUNAブリッジ for kintone を v1.2.0 にアップデートしました。</p>
-        <p class="update-desc">ルールを作ったあとに、「このルールより前に動かしたい」ルールが出てくることがあります。これまでは作り直す必要がありましたが、<strong>設定画面の［ルール］タブで、選んでいるルールの行の右端に［↑］［↓］が出る</strong>ようになりました。押すたびに 1 つずつ動き、［保存する］で反映されます。</p>
-        <p class="update-desc">ルールは、左の一覧の上から順に実行されます。同じきっかけで同じフィールドに書くルールがあるときは、順番で最後に残る値が変わります。ルールを入れ替えても、実行の記録やあとから流すはそのまま使えます。</p>
+        <p class="update-desc">KIZUNAブリッジ for kintone を v1.3.0 にアップデートしました。</p>
+        <p class="update-desc">ルールのきっかけ［ボタンを押したとき］のボタンを、レコードの詳細だけでなく、<strong>新規作成・編集の画面</strong>にも置けるようになりました。ボタンを押すと、<strong>開いている画面の値をその場で書き換えます。保存はしません</strong>。内容を確かめてから、［保存］を押せます。</p>
+        <p class="update-desc">例：日付のフィールドに、ボタンで「先月末日」「先月 20 日」「日付 A ＋ 60 日」を入れる。値を入れる・空にする・合計を入れる・テーブルの行を足す・消す・他のアプリから取ってきて入れる・お知らせが使えます。編集権限のないフィールドには値を入れず、その旨を知らせます。</p>
+        <p class="update-desc">ボタンの見た目を選べます。種類（塗りつぶし・枠線だけ・影付き・グラデーション）、形（四角・角丸・丸型）、大きさ（小・中・大）、ボタンの色、文字の色、書体、文字の太さ、文字の大きさです。設定画面では、見本を先頭に 1 項目 1 行で並びます。書体は、見る人のパソコンに入っているものだけ使えます（無いときは標準の書体）。</p>
         <figure class="update-shot">
-          <Picture src="/images/bridge-config-reorder-01.png" alt="設定画面のルールタブ。左の一覧で選んだルールの行の右端に、順番を入れ替える上向き・下向きの矢印のボタンが表示されている" width="1400" height="1250" class="zoomable" />
+          <Picture src="/images/kw-bridge-v130-button.png" alt="ブリッジの設定画面のボタンの見た目の欄。見本を先頭に、種類・形・大きさ・色・書体・文字の太さ・文字の大きさが 1 項目 1 行で並んでいる" width="1353" height="849" class="zoomable" />
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </figure>
-        <p class="update-note">既存ユーザーの方は、最新版（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
+        <p class="update-desc">ボタンの置き場所は、実際の画面を見ながら決められます。設定画面の［レコード画面を開いて位置を決める］を押すと、新規作成の画面が別のタブで開きます。ボタンをドラッグして（矢印キーでも動かせます）、フィールドのそば（右・左・上・下・右上）・スペース・画面の上部に置き、帯の［この位置にする］を押すと、設定画面に反映されます。確定は、設定画面の［保存］→［アプリを更新］です。PC の画面で、アプリの管理者が使います。</p>
+        <figure class="update-shot">
+          <Picture src="/images/kw-bridge-v130-drag.png" alt="開いたレコード画面の下に帯が出て、ボタンをフィールドのそばへドラッグして置いている。帯に置き場所が表示されている" width="1280" height="900" class="zoomable" />
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </figure>
+        <p class="update-note">既存ユーザーの方は、最新版（v1.3.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
       </div>
     </section>
 
@@ -522,10 +529,11 @@ const faqJsonLd = {
             <h3 class="kbp-h3">ルールは、きっかけ・条件・動作を選ぶだけ</h3>
             <p>コードは書きません。設定画面で、いつ（きっかけ）、どんなときに（条件）、何をするか（動作）を選んでルールを作ります。</p>
             <ul class="kbp-chips">
-              <li>画面を開いた</li><li>値を変えた</li><li>保存の前・後</li><li>アクションの前・後</li><li>削除の前</li><li>ボタン</li><li>CSV の読み込み・書き出し（ブリッジのボタン）</li>
+              <li>画面を開いた</li><li>値を変えた</li><li>保存の前・後</li><li>アクションの前・後</li><li>削除の前</li><li>ボタン（詳細・新規作成・編集・一覧の上）</li><li>CSV の読み込み・書き出し（ブリッジのボタン）</li>
             </ul>
             <p>条件には、このレコードの値と<strong>変更前の値</strong>、テーブル、ステータスと作業者、操作した人と組織・グループ、端末、日付・曜日などを使えます。「かつ」「または」を入れ子にして組み合わせられます（入れ子は 1 段まで）。</p>
             <p>ルールは、左の一覧の<strong>上から順に</strong>実行されます。順番は、あとから入れ替えられます。選んだルールの行の右端に［↑］［↓］が出るので、押して動かし、［保存する］で反映します。</p>
+            <p><strong>ボタンは、新規作成・編集の画面にも置けます。</strong>押すと、開いている画面の値をその場で書き換えます（保存はしません）。置き場所は、ヘッダー・フォームのスペース・フィールドのそばから選び、実際のレコード画面を開いてドラッグで決められます。種類・形・大きさ・色・書体なども選べます。例：日付のフィールドに、ボタンで「先月末日」を入れる。</p>
             <p>CSV のきっかけは、一覧の上に出すブリッジの［CSV を読み込む］［CSV を書き出す］のボタン（パソコン）を使ったときに動きます。kintone 標準のファイルの読み込み・書き出しでは動きません。</p>
           </div>
           <figure class="kbp-shot">
