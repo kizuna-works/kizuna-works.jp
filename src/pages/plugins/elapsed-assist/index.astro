@@ -11,13 +11,14 @@ import HeroDownload from '../../../components/HeroDownload.astro';
 import BridgeBadge from '../../../components/BridgeBadge.astro';
 import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <Layout
   title="kintone で年齢・経過日数を自動計算する無料プラグイン｜経過計算アシスト | KIZUNA Works"
-  description="kintone の基準日フィールドから経過日数・経過年数・年齢・残日数・在籍期間（◯年◯ヶ月）など9パターンを自動計算するプラグイン。一覧・詳細を開くたびに「今日」時点の値を再計算表示し、保存時に実フィールドへ書き込むので並び替え・絞り込み・集計にも使えます。kintone完結・外部API不使用。"
+  description="kintone で開始日時を入れると、終了日時へ「開始＋1時間」などを自動で入れるプラグイン。基準日から経過日数・年齢・在籍期間など9パターンの自動計算も可能で、一覧・詳細を開くたびに今日の値を再計算表示し、保存時に実フィールドへ書き込みます。kintone完結・外部API不使用。"
   ogTitle="kintone で年齢・経過日数を自動計算する無料プラグイン｜経過計算アシスト | KIZUNA Works"
-  ogDescription="基準日から経過日数・年齢・在籍期間などを自動計算。開くたびに今日の値を再計算表示し、保存時に実フィールドへ書き込み。並び替え・集計にも使える。kintone完結。"
+  ogDescription="開始日時を入れると終了日時へ「開始＋1時間」などを自動入力。基準日から経過日数・年齢・在籍期間も自動計算し、開くたびに今日の値を表示。kintone完結。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/elapsed-assist/"
   ogImage="https://kizuna-works.jp/images/elapsed-assist-banner.png"
@@ -33,7 +34,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "@id": "https://kizuna-works.jp/plugins/elapsed-assist/",
           "url": "https://kizuna-works.jp/plugins/elapsed-assist/",
           "name": "kintone で年齢・経過日数を自動計算する無料プラグイン｜経過計算アシスト | KIZUNA Works",
-          "description": "kintone の基準日フィールドから経過日数・経過年数・年齢・残日数・在籍期間など9パターンを自動計算し、一覧・詳細を開くたびに今日時点の値を表示、保存時に実フィールドへ書き込むプラグイン。",
+          "description": "kintone で開始（日付・日時・時刻）を入れると終了へ「開始＋N（分／時間／日）」を自動で入れ、基準日フィールドから経過日数・年齢・在籍期間など9パターンを自動計算するプラグイン。",
           "primaryImageOfPage": {
             "@type": "ImageObject",
             "url": "https://kizuna-works.jp/images/elapsed-assist-banner.png",
@@ -59,10 +60,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "経過計算アシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.1.0",
-          "dateModified": "2026-11-03",
+          "softwareVersion": "1.2.0",
+          "dateModified": "2026-11-04",
           "url": "https://kizuna-works.jp/plugins/elapsed-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-elapsed-assist-v1.1.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-elapsed-assist-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/elapsed-assist-banner.png",
           "offers": {
             "@type": "Offer",
@@ -72,13 +73,14 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintone の基準日フィールドから経過日数・経過年数・年齢・残日数・在籍期間（◯年◯ヶ月）など9パターンを自動計算し、一覧・詳細を開くたびに今日時点の値を再計算して表示、保存時に実フィールドへ書き込む kintone プラグイン。",
+          "description": "kintone で開始（日付・日時・時刻）を入れると終了へ「開始＋N（分／時間／日）」を自動で入れ、基準日フィールドから経過日数・経過年数・年齢・残日数・在籍期間（◯年◯ヶ月）など9パターンを自動計算し、一覧・詳細を開くたびに今日時点の値を再計算して表示、保存時に実フィールドへ書き込む kintone プラグイン。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
             "url": "https://kizuna-works.jp"
           },
           "featureList": [
+            "時間加算ルール：開始（日付・日時・時刻）を入れると、終了へ「開始＋N（分／時間／日）」を自動入力（追加・編集画面）。手で入れた値・既定値は上書きしない",
             "基準日フィールドから9パターンを自動計算（経過日数・経過月数・経過年数・年齢・期間「◯年◯ヶ月」・残日数・次回記念日までの日数・稼働日ベースの日数・学年）",
             "一覧・詳細を開くたびに「今日」時点の値を再計算して表示（レコード件数に関係なく追加API通信なし）",
             "レコード保存時に計算値を実フィールドへ書き込み（並び替え・絞り込み・集計に利用可能）",
@@ -218,6 +220,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       line-height: 1.7;
       margin: 18px 0 0;
     }
+    .update-shot { max-width: 640px; margin: 0 auto; }
     .hero-copy {
       font-size: 17px;
       max-width: 720px;
@@ -783,29 +786,37 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.1.0</span>
+        <span class="hero-version">v1.2.0</span>
       </div>
       <HeroSubBadges pluginId="kw-elapsed-assist" />
       <h1 class="hero-title">経過計算アシスト for kintone</h1>
-      <p class="hero-copy">経過計算アシスト for kintone は、基準となる日付フィールドから経過日数・経過年数・年齢・残日数・在籍期間（◯年◯ヶ月）などを自動計算する kintone プラグインです。一覧・詳細を開くたびに「今日」時点の値を再計算して表示し、保存時には実フィールドへ書き込むので、並び替え・絞り込み・集計にもそのまま使えます。標準の計算フィールドと違い、いつ開いても“今日の数字”になります。</p>
-      <HeroDownload href="/downloads/kw-elapsed-assist-v1.1.0.zip" />
+      <p class="hero-copy">経過計算アシスト for kintone は、開始の日時を入れると終了の日時へ「開始＋1時間」などを自動で入れ、さらに、基準となる日付フィールドから経過日数・経過年数・年齢・残日数・在籍期間（◯年◯ヶ月）などを自動計算する kintone プラグインです。一覧・詳細を開くたびに「今日」時点の値を再計算して表示し、保存時には実フィールドへ書き込むので、並び替え・絞り込み・集計にもそのまま使えます。標準の計算フィールドと違い、いつ開いても“今日の数字”になります。</p>
+      <HeroDownload href="/downloads/kw-elapsed-assist-v1.2.0.zip" />
     </section>
     <BridgeBadge as="note" pluginId="kw-elapsed-assist" />
 
-    <!-- Update Info (v1.0.7) -->
+    <!-- Update Info (v1.2.0) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.0.7：一括再計算ボタンの表示を、利用者の権限に合わせました</h2>
+          <h2 class="update-title">v1.2.0：開始を入れると、終了が自動で入るようになりました</h2>
         </div>
+        <p class="update-desc">予約・会議・作業時間の登録で、開始を入れたあとに終了を毎回手で入れ直していませんか。「時間加算ルール」を設定すると、<strong>開始（日付・日時・時刻）を入れた時点で、終了へ「開始＋N（分／時間／日）」が最初から入ります</strong>。例：予約の開始日時を入れると、1時間後の終了日時が入ります。</p>
         <ul class="update-list">
-          <li><strong>レコードを編集できない利用者には、一括再計算ボタンを表示しなくなりました</strong>（設定は不要です）</li>
-          <li><strong>レコードを追加する権限がない利用者の画面で、ボタンの位置がずれる不具合を修正しました</strong>（v1.0.6）</li>
+          <li><strong>設定は「＋ 時間加算のルールを追加」から</strong>：開始のフィールド・加算する長さ・単位・終了のフィールドを選ぶだけです。単位は日時＝分・時間・日、時刻＝分・時間、日付＝日。同じ開始欄に複数の終了欄を指定することもできます</li>
+          <li><strong>手で入れた終了は、上書きしません</strong>：終了が空のとき、または自動で入れた値のままのときだけ入れます。手で入れた値・フィールドの既定値・編集画面で終了に値があるレコードは変えません。終了を空にしてから開始を直すと、再び入ります</li>
+          <li><strong>経過計算のルールと一緒に使えます</strong>：保存時の書き込み・一括再計算・停止条件は従来どおりです。あわせて、設定画面の色の欄に、マイカラー・最近使った色を選べるカラーパレットが付きました</li>
         </ul>
-        <p class="update-desc">一括再計算はレコードを書き換える機能のため、<strong>編集権限のない利用者が押しても必ず失敗します</strong>。押せないボタンが見えている状態を解消しました。判定は一覧に表示中のレコードのアクセス権で行うので、「一部のレコードだけ編集できる」場合はボタンが表示され、編集できるレコードだけが更新されます。管理者の画面での見え方・操作は変わりません。</p>
-        <p class="update-desc">あわせて v1.0.6 では、<strong>ボタンの表示位置に「＋追加ボタンの左」を選んでいるとき、レコード追加権限のない利用者の画面ではボタンが別の場所へ移動してしまう不具合</strong>を修正しました。kintone は追加権限のない利用者に「＋」ボタンを表示しないため、その位置を基準にしていたボタンが集計ボタンの右へずれ、同じ場所に表示される検索バーなどと並んでしまう状態でした。権限に関係なく、設定した位置に表示されます。</p>
-        <p class="update-note">最新版（v1.1.0）をダウンロードして、kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。計算結果や記録用フィールドへの影響はありません。</p>
+        <div class="update-shot">
+          <Picture class="zoomable" src="/images/elapsed-assist-config-05.png" alt="経過計算アシストの設定画面。「時間加算」のルールで、開始のフィールドに開始日時、加算する長さに「1 時間」、終了のフィールドに終了日時が選ばれている。下に［＋ 経過計算のルールを追加］と［＋ 時間加算のルールを追加］のボタンがある" width="1280" height="900" />
+          <p class="zoom-hint">設定画面：開始・加算する長さ・終了を選ぶだけ（画像をクリックすると拡大表示します）</p>
+        </div>
+        <div class="update-shot" style="margin-top:24px;">
+          <Picture class="zoomable" src="/images/elapsed-assist-use-01.png" alt="kintone のレコード追加画面。開始日時に 2026-11-10 14:00 を入れると、終了日時に 2026-11-10 15:00 が自動で入っている" width="1280" height="900" />
+          <p class="zoom-hint">追加画面：開始を 14:00 にすると、終了に 15:00 が入る（画像をクリックすると拡大表示します）</p>
+        </div>
+        <p class="update-note">最新版（v1.2.0）をダウンロードして、kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれ、時間加算は設定画面でルールを足したときから動きます。時間加算は追加・編集画面（PC版）で動き、計算結果や記録用フィールドへの影響はありません。</p>
         <BridgeUpdateNote />
       </div>
     </section>
@@ -861,6 +872,17 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           <figcaption>詳細：入社日から在籍期間「◯年◯ヶ月」を表示</figcaption>
         </figure>
       </div>
+    </section>
+
+    <!-- Time add -->
+    <section class="section-wrapper fade-in">
+      <h2 class="section-title-left">開始を入れるだけで、終了も自動で入る</h2>
+      <ul class="feature-list">
+        <li><span><strong>時間加算ルール</strong> — 開始（日付・日時・時刻）を入れると、終了（同じ型の別フィールド）へ「開始＋N（分／時間／日）」を自動で入れます。予約の開始日時から1時間後の終了日時を入れる、といった使い方です。</span></li>
+        <li><span><strong>手で入れた値は守る</strong> — 終了が空のとき、または自動で入れた値のままのときだけ書きます。手で入れた値・フィールドの既定値は上書きしません。</span></li>
+        <li><span><strong>単位は型に合わせて</strong> — 日時＝分・時間・日、時刻＝分・時間、日付＝日。時刻で24:00以降になる場合は入れません。</span></li>
+        <li><span><strong>複数のルールも、経過計算とも同居</strong> — 同じ開始欄に別の終了欄を指すルールを複数登録できます。レコードの追加・編集画面で、入力中に動きます（PC版）。</span></li>
+      </ul>
     </section>
 
     <!-- Patterns -->
@@ -988,7 +1010,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコード一覧・詳細・作成・編集画面（PC 版）でご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-elapsed-assist-v1.1.0.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-elapsed-assist-v1.2.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「経過計算アシスト for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>計算ルール</strong>（基準日 × 計算パターン × 出力先）を登録し、必要に応じて停止条件・一括再計算ボタンを設定して「保存」</span></li>
@@ -1016,7 +1038,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-elapsed-assist-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-elapsed-assist-v1.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <SupporterPlanCard pluginId="kw-elapsed-assist" />
         <PremiumPlanCard />
@@ -1169,10 +1191,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-elapsed-assist-v1.1.0.zip',
+              file_name: 'kw-elapsed-assist-v1.2.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-elapsed-assist-v1.1.0.zip'
+              link_url: '/downloads/kw-elapsed-assist-v1.2.0.zip'
             });
           }
         });
