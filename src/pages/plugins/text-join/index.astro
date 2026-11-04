@@ -60,10 +60,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "文字列結合 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.4.0",
-          "dateModified": "2026-10-28",
+          "softwareVersion": "1.5.0",
+          "dateModified": "2026-11-04",
           "url": "https://kizuna-works.jp/plugins/text-join/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-text-join-v1.4.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-text-join-v1.5.0.zip",
           "image": "https://kizuna-works.jp/images/text-join-banner.png",
           "offers": {
             "@type": "Offer",
@@ -81,7 +81,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           },
           "featureList": [
             "ドロップダウン・ユーザー選択・日付・チェックボックスなど、計算フィールドでは扱えない型も結合して1つの文字列フィールドへ自動入力",
-            "型ごとの書式指定（和暦・yyyyMMdd・ゼロ埋め・桁区切り・単位・表示名/コード・選択肢の並び順・改行の置換）",
+            "型ごとの書式指定（和暦・年だけ／月だけ・yyyyMMdd・ゼロ埋め・桁区切り・単位・表示名/コード・選択肢の並び順・改行の置換）",
             "値が空のパーツは前置き・後置き文字ごとスキップするので「【】」のような囲み文字が空のまま残らない",
             "テーブル（サブテーブル）の明細を「商品A×2／商品C×3…ほか1件」のように1つの文字列へ集約",
             "保存時に同じ結合結果のレコードがないか照会し、確認ダイアログまたは保存ブロックで重複を防止",
@@ -582,6 +582,18 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
     }
     .screenshot-pair .screenshot-frame { margin: 0 auto; }
 
+    /* Smaller, centered screenshot inside the update box */
+    .update-shot {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .update-shot .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin: 10px 0 0;
+    }
+
     /* Config Screenshots Grid */
     .config-screenshots {
       display: grid;
@@ -758,32 +770,32 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.4.0</span>
+        <span class="hero-version">v1.5.0</span>
       </div>
       <HeroSubBadges pluginId="kw-text-join" />
       <h1 class="hero-title">文字列結合 for kintone</h1>
       <p class="hero-copy">文字列結合 for kintone は、<strong>複数のフィールドの値を、型や書式を整えたうえで 1 つの文字列フィールドへ自動入力する</strong> kintone プラグインです。計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども結合でき、書き込まれるのは<strong>実データ</strong>なので、並び替え・絞り込み・集計・CSV 出力・ルックアップの複合キーにそのまま使えます。区分などの条件に応じて、結合の形を使い分けることもできます。組み立てた文を、ほかのシステムやメールへ貼り付けるための<strong>コピーボタン</strong>もフォームに置けます。</p>
-      <HeroDownload href="/downloads/kw-text-join-v1.4.0.zip" />
+      <HeroDownload href="/downloads/kw-text-join-v1.5.0.zip" />
     </section>
     <BridgeBadge as="note" pluginId="kw-text-join" />
 
-    <!-- Update Info (v1.4.0) -->
+    <!-- Update Info (v1.5.0) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.4.0：出力先の値をコピーするボタンを置けるようになりました</h2>
+          <h2 class="update-title">v1.5.0：日付を「年だけ」「月だけ」で結合できるようになりました</h2>
         </div>
-        <p class="update-desc">文字列結合を v1.4.0 にアップデートしました（2026-10-28）。</p>
-        <p class="update-desc"><strong>ルールごとに、出力先の値をクリップボードへコピーするボタンを、フォームのスペースに置けます。</strong>組み立てた文を、ほかのシステムやメールにそのまま貼り付けたいときに使います。</p>
-        <p class="update-desc">たとえば、社員番号と氏名を結合した宛名を、ボタン 1 つでコピーして貼り付けられます。</p>
+        <p class="update-desc">文字列結合を v1.5.0 にアップデートしました（2026-11-04）。</p>
+        <p class="update-desc"><strong>日付・日時・作成日時・更新日時の書式に、年だけ・月だけの形を追加しました。</strong>年度ごと、月ごとに管理番号やグループ名を作りたいときに使えます。</p>
         <ul class="update-list">
-          <li><strong>ボタンの文言と色を指定できます</strong> — 色の欄には共通カラーパレット（マイカラー・最近使った色）が付きます。</li>
-          <li><strong>表示条件を選べます</strong> — 「常に表示」か「条件に合うとき」（フィールドの値・ステータスなど）です。ルールの適用条件とは別に持ちます。</li>
-          <li><strong>詳細・編集・新規の画面に出ます</strong> — モバイル・ゲストスペースにも対応しています。入力中の画面では、その時点の値をコピーします。</li>
-          <li><strong>同じスペースを 2 つのルールで使うことはできません</strong> — 保存時に止めます。</li>
-          <li><strong>設定画面の色の欄に、共通カラーパレットを付けました</strong> — KIZUNA Works のほかのプラグインと色を共有します。色はブラウザごとに保存され、別の PC・別のブラウザには引き継がれません。</li>
+          <li><strong>選べる書式</strong> — 「2026年」「2026年8月」「2026/08」「2026」「8月」です。</li>
+          <li><strong>「分」を後ろに足せます</strong> — 固定文字パーツ「分」を並べると、「2026年分」「2026年8月分」のような文字列も作れます。</li>
         </ul>
+        <div class="update-shot">
+          <Picture class="zoomable" src="/images/text-join-update-v150-01.png" alt="文字列結合 設定画面 — 日付フィールドのパーツの書式プルダウンを開いた状態。従来の2026/08/02・2026年8月2日などに加えて、2026年・2026年8月・2026/08・2026・8月が選べ、左のライブプレビューに「2026年」と出ている" width="1920" height="878" />
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
         <p class="update-note">
           ※ プラグインは自動更新されません。お手数ですが、最新版をダウンロードし、kintone のシステム管理 → プラグインから<strong>上書きアップロード</strong>してください。設定はそのまま引き継がれます。
         </p>
@@ -843,7 +855,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <p class="section-subtitle">パーツを並べるだけ。プログラミング知識は不要です。</p>
         <ul class="feature-list">
           <li><span><strong>ほぼ全フィールド型を結合</strong> — 文字列・数値・日付・日時・時刻・ドロップダウン・ラジオボタン・チェックボックス・複数選択・ユーザー／組織／グループ選択・リンク・計算・レコード番号・作成者／更新者・ステータスなどをパーツとして並べられます。</span></li>
-          <li><span><strong>型ごとの書式指定</strong> — 日付は「2026年8月2日」「20260802」<strong>和暦</strong>など、数値は<strong>ゼロ埋め</strong>・桁区切り・小数桁・単位、ユーザー選択は表示名／コード／「山田太郎(t-yamada)」、選択肢は区切り記号と並び順（選択順／選択肢の定義順）を選べます。</span></li>
+          <li><span><strong>型ごとの書式指定</strong> — 日付は「2026年8月2日」「20260802」<strong>和暦</strong>のほか、<strong>年だけ・月だけ</strong>（「2026年」「2026年8月」「8月」など）も、数値は<strong>ゼロ埋め</strong>・桁区切り・小数桁・単位、ユーザー選択は表示名／コード／「山田太郎(t-yamada)」、選択肢は区切り記号と並び順（選択順／選択肢の定義順）を選べます。</span></li>
           <li><span><strong>明細（テーブル）の集約結合</strong> — 行内テンプレート（例：商品名＋「×」＋数量）と行間の区切りで 1 つの文字列に。並べ替え・重複除去・最大行数・「…ほか&#123;N&#125;件」にも対応します。</span></li>
           <li><span><strong>結合結果の重複チェック</strong> — 保存時に同じ値のレコードがないか照会し、<strong>確認して続行</strong>か<strong>保存をブロック</strong>を選べます。kintone 標準の「値の重複を禁止する」と併用できます。</span></li>
           <li><span><strong>条件によるルールの使い分け</strong> — ルールごとに「常に適用」か「条件に合うときだけ適用」を選べます。同じ出力先に複数のルールを置くと、上から順に確かめ、最初に条件に合ったルールで結合します。区分によって結合の形を変えたいときに使えます。</span></li>
@@ -931,7 +943,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <p class="section-subtitle">レコードの新規作成・編集画面で動作します。PC 版・モバイル版に対応しています。</p>
         <ol class="steps-list">
           <li><span>結合結果を書き込む<strong>文字列（1行）または文字列（複数行）フィールド</strong>をアプリに用意しておく</span></li>
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-text-join-v1.4.0.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-text-join-v1.5.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「文字列結合 for kintone」を追加</span></li>
           <li><span>プラグイン設定画面で<strong>ルールを追加</strong>し、出力先フィールドとパーツを設定して「保存」</span></li>
@@ -960,7 +972,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・レコード一覧に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-text-join-v1.4.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-text-join-v1.5.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <SupporterPlanCard pluginId="kw-text-join" />
       <PremiumPlanCard />
@@ -1111,10 +1123,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-text-join-v1.4.0.zip',
+              file_name: 'kw-text-join-v1.5.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-text-join-v1.4.0.zip'
+              link_url: '/downloads/kw-text-join-v1.5.0.zip'
             });
           }
         });
