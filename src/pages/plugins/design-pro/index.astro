@@ -8,10 +8,10 @@ import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricin
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
 
-const VERSION = '1.1.0';
+const VERSION = '1.2.0';
 const ZIP = `/downloads/kw-design-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/design-pro/';
-const DATE_MODIFIED = '2026-11-04';
+const DATE_MODIFIED = '2026-11-06';
 
 // The six single products this one bundles. Cards are built from plugins.ts so names and slugs never drift.
 const singleOf = (id: string) => {
@@ -78,7 +78,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: 'PDF を作って添付ファイルに保存できますか？',
-    a: 'できます。印刷パターンごとに、保存先の添付ファイル欄と、上書き・追加を決めます。印刷プレビューのボタンが［PDF を保存して印刷］になり、保存してから印刷します。保存される PDF は、印刷内容を画像にして作るため、文字の検索やコピーはできず、容量はやや大きくなります。PDF の部品（pdf-lib・html2canvas）は当社サイトから読み込みますが、レコードの値は送りません。',
+    a: 'できます。印刷パターンごとに、保存先の添付ファイル欄と、上書き・追加を決めます。印刷プレビューのボタンが［PDF を保存して印刷］になり、保存してから印刷します。［保存したあと、印刷画面を開く］をオフにすると、ボタンが［PDF を保存］になり、保存だけで終わります。保存される PDF は、印刷内容を画像にして作るため、文字の検索やコピーはできず、容量はやや大きくなります。PDF の部品（pdf-lib・html2canvas）は当社サイトから読み込みますが、レコードの値は送りません。',
   },
   {
     q: 'KIZUNAブリッジから使えますか？',
@@ -151,7 +151,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.1.0",
+          "softwareVersion": "1.2.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -174,7 +174,7 @@ const faqJsonLd = {
               description: 'プレミアム年間サポーターに追加するプラン（年額）。',
             },
           ],
-          description: 'デザイン Pro for kintone は、kintone のフィールドスタイラー・FormDeco・テーマスタイラー・コメントコントロール・ユーザーオートフィル・帳票デザイナーの6つの機能を1つの設定画面で使えるプラグイン。詳細・編集・新規で見せる項目をボタンで切り替える「表示パターン」（パソコン・スマートフォン）、詳細画面の［印刷 ▼］で選ぶ印刷パターン（見たまま・仕上げたレイアウト・帳票テンプレート）、印刷プレビュー上で項目の位置・幅・文字の大きさ・改ページを整える「仕上げ」、一覧からのまとめ印刷、PDF を作って添付ファイルに保存する機能に対応。KIZUNAブリッジのルールから、PDF の作成と本人の押印を実行できる。同じアプリにもとのプラグインが有効で設定済みのときは、その機能はもとのプラグインが動く。もとのプラグインの設定は［単品の設定を読み込む］で引き継げる。',
+          description: 'デザイン Pro for kintone は、kintone のフィールドスタイラー・FormDeco・テーマスタイラー・コメントコントロール・ユーザーオートフィル・帳票デザイナーの6つの機能を1つの設定画面で使えるプラグイン。詳細・編集・新規で見せる項目をボタンで切り替える「表示パターン」（パソコン・スマートフォン）、詳細画面の［印刷 ▼］で選ぶ印刷パターン（見たまま・仕上げたレイアウト・帳票テンプレート）、印刷プレビュー上で項目の位置・幅・文字の大きさ・改ページを整える「仕上げ」、一覧からのまとめ印刷、PDF を作って添付ファイルに保存する機能（保存だけで印刷画面を開かない設定も可）に対応。KIZUNAブリッジのルールから、PDF の作成と本人の押印を実行できる。同じアプリにもとのプラグインが有効で設定済みのときは、その機能はもとのプラグインが動く。もとのプラグインの設定は［単品の設定を読み込む］で引き継げる。',
           publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
           featureList: [
             'フィールドスタイラー：フィールドの背景色・文字色・フォント・太字・サイズ・条件付きスタイル（今月・先月・来月の判定を含む）・リンク欄の値の装飾・文字数制限・入力文字種制限・コピー・プレースホルダー',
@@ -182,12 +182,12 @@ const faqJsonLd = {
             'テーマスタイラー：アプリのテーマ色の一括適用、アプリ名の帯のリンクボタン',
             'コメントコントロール：コメント欄の開き方、一覧のコメント件数の色分け・ホバーで全文表示',
             'ユーザーオートフィル：ユーザー属性の転記、プロフィールカード、捺印',
-            '帳票デザイナー：PDF や白紙の用紙に項目を配置したテンプレート、1件・まとめての印刷、PDF の添付保存、テンプレートを見られる人の指定',
+            '帳票デザイナー：PDF や白紙の用紙に項目を配置したテンプレート、1件・まとめての印刷、PDF の添付保存（帳票ごとに印刷画面を開かず保存だけで終えることも選べる）、テンプレートを見られる人の指定、テンプレート編集の方眼線とグリッド間隔（1mm・2mm・5mm）',
             '表示パターン：詳細・編集・新規で見せる項目をボタンで切り替える。最初に開くパターンを、ステータス・値の条件・ユーザー・組織・グループで決められる（アクセス権ではない）',
             '印刷パターン：詳細画面の［印刷 ▼］で、見たまま・仕上げたレイアウト・帳票テンプレートから選んで印刷プレビューへ進む',
             '印刷プレビュー上の仕上げ：項目の位置・幅・文字の大きさ・改ページを、印刷される位置として整える（アプリの管理者のみ）',
             'まとめ印刷：一覧の絞り込みの結果を、選んだ印刷パターン（またはステータスに合った印刷パターン）で印刷',
-            'PDF の添付保存：印刷パターンごとに、PDF を作って添付ファイル欄に上書きまたは追加で保存',
+            'PDF の添付保存：印刷パターンごとに、PDF を作って添付ファイル欄に上書きまたは追加で保存。保存したあとに印刷画面を開くかも選べる（オフなら保存だけで終わる）',
             'KIZUNAブリッジの受け口：ブリッジのルールから、PDF の作成（添付ファイルへの保存）と本人の押印を実行',
             '印刷で色を出す・装飾ごとに「画面のみ／印刷のみ／両方」を選ぶ',
             '共通カラーパレット：色を選ぶ欄に、マイカラーと最近使った色を表示',
@@ -404,6 +404,13 @@ const faqJsonLd = {
     .update-desc { color: var(--kbp-text); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
     .update-desc strong { color: var(--kbp-navy); }
     .update-note { color: var(--kbp-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    .update-list { list-style: none; margin: 0 0 20px; padding: 0; border-top: 1px solid #e3eaf3; }
+    .update-list > li { position: relative; padding: 14px 4px 14px 34px; border-bottom: 1px solid #e3eaf3; line-height: 1.8; color: var(--kbp-text); min-width: 0; }
+    .update-list > li::before { content: '✓'; position: absolute; left: 4px; top: 18px; width: 20px; height: 20px; border-radius: 50%; background: var(--kbp-green); color: #fff; font-size: 12px; font-weight: 900; line-height: 20px; text-align: center; }
+    .update-list > li > strong:first-child { display: block; color: var(--kbp-navy); font-size: 16px; margin-bottom: 2px; }
+    .update-shot { max-width: 640px; margin: 0 auto 20px; min-width: 0; }
+    .update-shot img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid #dbe3ee; box-shadow: 0 6px 18px rgba(15, 31, 61, 0.1); cursor: zoom-in; background: #fff; }
+    .update-shot .zoom-hint { text-align: center; color: var(--kbp-muted); font-size: 12px; margin: 10px 0 0; }
     @media (max-width: 700px) { .update-box { padding: 22px 18px 26px; } .update-title { font-size: 17px; } }
 
     /* Lightbox */
@@ -503,7 +510,7 @@ const faqJsonLd = {
       <HeroSubBadges pluginId="kw-design-pro" />
       <h1 class="kbp-hero-title">デザイン Pro for kintone</h1>
       <p class="kbp-tagline">画面を整えて、そのまま好きなレイアウトで印刷。</p>
-      <p class="kbp-sub">デザイン Pro for kintone は、<strong>フィールドスタイラー・FormDeco・テーマスタイラー・コメントコントロール・ユーザーオートフィル・帳票デザイナーの6つを1つにまとめた</strong> kintone プラグインです。6つの機能を、<strong>1つの設定画面</strong>で扱えます。見せる項目を切り替える表示パターン、印刷パターンの選択、印刷プレビュー上の仕上げ、まとめ印刷、PDF の添付保存など、Pro だけの機能も加わります。</p>
+      <p class="kbp-sub">デザイン Pro for kintone は、<strong>フィールドスタイラー・FormDeco・テーマスタイラー・コメントコントロール・ユーザーオートフィル・帳票デザイナーの6つを1つにまとめた</strong> kintone プラグインです。6つの機能を、<strong>1つの設定画面</strong>で扱えます。見せる項目を切り替える表示パターン、印刷パターンの選択、印刷プレビュー上の仕上げ、まとめ印刷、PDF の添付保存（印刷画面を開かず保存だけで終えることもできます）など、Pro だけの機能も加わります。</p>
       <div class="kbp-pillars">
         <a class="kbp-pillar" href="#pro-patterns"><span class="kbp-pillar-no">POINT 1</span><span class="kbp-pillar-name">表示パターン</span><span class="kbp-pillar-desc">見せる項目を、役割や場面に合わせてボタンで切り替え</span></a>
         <a class="kbp-pillar" href="#pro-print"><span class="kbp-pillar-no">POINT 2</span><span class="kbp-pillar-name">印刷パターンと仕上げ</span><span class="kbp-pillar-desc">見たまま・仕上げたレイアウト・帳票テンプレートから選んで印刷</span></a>
@@ -518,20 +525,44 @@ const faqJsonLd = {
     </section>
     <RequestOriginBadge as="note" />
 
-    <!-- Update Info (v1.1.0) -->
+    <!-- Update Info (v1.2.0) -->
     <section class="kbp-section">
       <div class="kbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.1.0：フィールドスタイラーで、今月・先月・来月の色分けとリンク欄の装飾が使えます</h2>
+            <h2 class="update-title">v1.2.0：印刷画面を開かず、PDF を添付ファイルに保存するだけで終えられます</h2>
           </div>
-          <p class="update-desc">デザイン Pro for kintone を v1.1.0 にアップデートしました（2026年11月4日）。フィールドスタイラー v2.9.0 の内容を取り込んでいます。</p>
-          <h3 class="kbp-h3">今月・先月・来月の日付に色を付けられるよう改善しました</h3>
-          <p class="update-desc">条件付きスタイルの比較値に、<code>THIS_MONTH</code>（今月）・<code>LAST_MONTH</code>（先月）・<code>NEXT_MONTH</code>（来月）を指定できます。日付・日時・作成日時・更新日時の欄を、その月の月初から月末の範囲で判定します。比較値の欄の ⏰ から「今月／先月／来月」を選べます。</p>
-          <h3 class="kbp-h3">リンク欄の値に装飾を設定できるよう改善しました</h3>
-          <p class="update-desc">リンク欄の値に、背景色・文字色・太字・フォント・文字サイズ・条件付きスタイルを設定できます。条件付きスタイルは一覧にも適用できます。テーブル内のリンク列は、これまでどおり列名の装飾だけです。</p>
-          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+          <p class="update-desc">デザイン Pro for kintone を v1.2.0 にアップデートしました（2026年11月6日）。帳票デザイナー v1.9.0 の内容を取り込んでいます。</p>
+
+          <h3 class="kbp-h3">印刷パターンの PDF 保存で、印刷画面を開くかを選べるよう改善しました</h3>
+          <p class="update-desc">印刷パターンの PDF の添付保存に、「<strong>保存したあと、印刷画面を開く</strong>」を追加しました。</p>
+          <ul class="update-list">
+            <li><strong>オン（既定）</strong>これまでどおり、PDF を保存してから印刷画面を開きます</li>
+            <li><strong>オフ</strong>ボタンが［PDF を保存］になり、保存だけで終わります。保存できたら画面を読み込み直します</li>
+            <li>まとめて印刷は、対象のすべてのレコードが「保存だけ」の印刷パターンで、全件を保存できたときだけ印刷画面を開きません。「n 件に PDF を保存しました」と表示して終わります</li>
+            <li>保存できなかったときは、これまでどおり「印刷だけ続けますか？」と確認します</li>
+          </ul>
+          <div class="update-shot">
+            <Picture class="zoomable" src="/images/design-pro-update-print-pdf-01.png" alt="デザイン Pro の設定画面の「印刷」。印刷パターンの PDF の添付保存で、保存のしかたの右にある「保存したあと、印刷画面を開く」のチェックが外れている" width="1500" height="1000" />
+            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+          </div>
+
+          <h3 class="kbp-h3">帳票の印刷でも、印刷画面を開くかを帳票ごとに選べるよう改善しました</h3>
+          <p class="update-desc">帳票デザイナーのテンプレート編集の「保存先フィールド」の下に、「<strong>印刷ボタンを押したら印刷画面を開く</strong>」を追加しました。チェックを外すと、PDF を保存するだけで終わります。自動保存が有効で、保存先を選んだ帳票で使えます。</p>
+          <div class="update-shot">
+            <Picture class="zoomable" src="/images/report-designer-printdialog-01.png" alt="帳票デザイナーのテンプレート編集。保存先フィールドの下の「印刷ボタンを押したら印刷画面を開く」のチェックが外れている" width="1500" height="1250" />
+            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+          </div>
+
+          <h3 class="kbp-h3">テンプレート編集で、方眼線を見ながら配置できるよう改善しました</h3>
+          <p class="update-desc">「<strong>方眼を表示</strong>」で、用紙の上に方眼線を出せます（画面だけで、印刷・PDF・プレビューには出ません）。間隔は 1mm・2mm・5mm から選べます。Alt を押しながらドラッグすると、押している間だけ吸着しません。設定画面の色の欄には、カラーパレットも加わりました。</p>
+          <div class="update-shot">
+            <Picture class="zoomable" src="/images/report-designer-grid-01.png" alt="全画面の配置エディタ。方眼を表示をオン、間隔を 2mm にして、用紙の上に方眼線が出ている" width="1500" height="1000" />
+            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+          </div>
+
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれ、設定しなければこれまでの動作は変わりません。</p>
         </div>
       </div>
     </section>
@@ -717,7 +748,7 @@ const faqJsonLd = {
               <p>お手持ちの PDF や白紙の用紙に、レコードの値を配置して、帳票にします。</p>
               <ul>
                 <li>テンプレートを作り、1件ずつ、またはまとめて印刷できます。</li>
-                <li>印刷した PDF を、レコードの添付ファイルへ保存できます。</li>
+                <li>印刷した PDF を、レコードの添付ファイルへ保存できます。印刷画面を開かず、保存だけで終えることもできます。</li>
                 <li>テンプレートを見られる人を、ユーザー・組織・グループで指定できます。テンプレートを保管するアプリを複数のアプリで共用するときに使います。</li>
                 <li>デザイン Pro では、このテンプレートを「帳票テンプレート」の印刷パターンとして［印刷 ▼］に並べられます。</li>
               </ul>
@@ -845,8 +876,8 @@ const faqJsonLd = {
             </ul>
             <p><strong>PDF の添付保存</strong>：印刷パターンごとに、保存先の添付ファイル欄と、上書き・追加を決めます。</p>
             <ul>
-              <li>印刷プレビューのボタンが［PDF を保存して印刷］になり、保存してから印刷します。</li>
-              <li>まとめ印刷でも、各レコードの添付ファイルに保存できます。</li>
+              <li>印刷プレビューのボタンが［PDF を保存して印刷］になり、保存してから印刷します。<strong>［保存したあと、印刷画面を開く］をオフにすると、ボタンが［PDF を保存］になり、保存だけで終わります。</strong></li>
+              <li>まとめ印刷でも、各レコードの添付ファイルに保存できます。すべてのレコードが保存だけの設定のときは、印刷画面を開かずに終わります。</li>
               <li>ファイル名は、印刷パターンごとに決められます。追加で同じ名前があるときは、「-1」「-2」を付けます。</li>
               <li>保存される PDF は、印刷内容を画像にして作ります。文字の検索・コピーはできず、容量はやや大きくなります。</li>
             </ul>
@@ -945,7 +976,7 @@ const faqJsonLd = {
           <li>見たまま印刷：フォームの並びと装飾から、印刷用の配置を自動で作る</li>
           <li>印刷プレビュー上の仕上げ：項目の位置・幅・文字の大きさ・改ページ・テーブルの列を整える（アプリの管理者のみ）</li>
           <li>まとめ印刷：一覧の絞り込みの結果を、選んだ印刷パターン、またはステータスに合わせた印刷パターンでまとめて印刷</li>
-          <li>PDF の添付保存：印刷パターンごとに、PDF を添付ファイル欄に上書き・追加で保存</li>
+          <li>PDF の添付保存：印刷パターンごとに、PDF を添付ファイル欄に上書き・追加で保存。保存したあとに印刷画面を開くかも選べる</li>
           <li>KIZUNAブリッジの受け口：ブリッジのルールから、PDF の作成と本人の押印を実行</li>
           <li>共通カラーパレット：色を選ぶ欄に、マイカラーと最近使った色を表示</li>
           <li>使う機能の選択：機能ごとにオン・オフを選べる。オフの機能は何も出さず、設定は残る</li>
@@ -959,7 +990,7 @@ const faqJsonLd = {
           <li>テーマスタイラー：テーマ色の一括適用・アプリ名の帯のリンク</li>
           <li>コメントコントロール：コメント欄の開き方・一覧のコメント件数バッジ</li>
           <li>ユーザーオートフィル：ユーザー属性の転記・プロフィールカード・捺印</li>
-          <li>帳票デザイナー：PDF や白紙の用紙に項目を配置した帳票・1件／まとめ印刷・PDF の添付保存・テンプレートを見られる人の指定</li>
+          <li>帳票デザイナー：PDF や白紙の用紙に項目を配置した帳票・1件／まとめ印刷・PDF の添付保存（印刷画面を開かず保存だけも可）・テンプレート編集の方眼線とグリッド間隔・テンプレートを見られる人の指定</li>
           <li>印刷でも色を出せる・装飾ごとに「画面のみ／印刷のみ／両方」を選べる</li>
           <li>ゲストスペースのアプリに対応</li>
         </ul>
