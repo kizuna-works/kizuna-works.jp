@@ -379,7 +379,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── calendar-view-v180-update.md  # カレンダービュー v1.8.0 アップデートのお知らせ（時間帯で日時を決める・タイムラインの3か月／1年・ユーザー選択の検索と複数選択ほか）
 │   │   │   ├── calendar-view-v200-update.md  # カレンダービュー v2.0.0 アップデートのお知らせ（同日の v1.9.0・v1.9.1 の内容とまとめて1本：予定の複製・削除の元に戻す・表示ごとのバー項目・［予定へ自動移動］・スマートフォンのリストの折り返し／時刻間隔の各自切り替え・短い予定の見やすさ・バー項目の並べ替え・複製した直後のモーダルの案内と［複製を取り消す］・共通カラーパレット）
 │   │   │   ├── calendar-view-v210-update.md  # カレンダービュー v2.1.0 アップデートのお知らせ（編集モーダルの添付ファイルとコメント・タイムラインの［行の並び順］・時刻間隔を変えても見ていた時刻が先頭のまま）
-│   │   │   ├── calendar-view-v220-update.md  # カレンダービュー v2.2.0 アップデートのお知らせ（予定のモーダル上部のコメント件数・リスト表示でコメントがある予定に印・リストの列の幅をドラッグで変更）
+│   │   │   ├── calendar-view-v230-update.md  # カレンダービュー v2.3.0 アップデートのお知らせ（同日の v2.2.0 の内容を含む1本：他アプリ（レイヤー）の予定との重複判定・ユーザーごとの色分け・追加モーダルの［詳細画面で入力］・ゲストユーザー・テーブルの初期1行・コメント件数とリストの印・リストの列幅）
 │   │   │   ├── elapsed-assist-v120-update.md  # 経過計算アシスト v1.2.0 アップデートのお知らせ（時間加算ルール：開始を入れると終了へ「開始＋N」を自動入力）
 │   │   │   ├── accordion-tab-v2-1-0-update.md  # アコーディオンタブ v2.1.0 アップデートのお知らせ（セクションごとに表示するフィールドを選べる）
 │   │   │   ├── drive-connect-v110-update.md     # ドライブ連携 v1.1.0 アップデートのお知らせ（2026-10-23）
@@ -869,7 +869,8 @@ c:\kizuna-works.jp\
 │   │   ├── calendar-view-config-barlayout-01.png # v1.4.0 UPDATE 用スクショ — 設定画面［共通］タブの［バーに表示する項目］［バーの表示のしかた］（加工なし・.webp あり）
 │   │   ├── calendar-view-v190-dup-01.png / calendar-view-v190-undo-01.png / calendar-view-v190-list-01.png / calendar-view-v190-config-bygrain-01.png (+ .webp) # v1.9.0 UPDATE 用スクショ — モーダルの［複製］／削除の［元に戻す］／リストの列表示と［予定へ自動移動］／設定画面「表示の切り替えごとの項目」
 │   │   ├── calendar-view-v200-slot-01.png / calendar-view-v200-dup-01.png / calendar-view-v200-order-01.png / calendar-view-v200-palette-01.png (+ .webp) # v2.0.0 UPDATE 用スクショ — 週表示の［時刻間隔］と短い予定／複製した直後のモーダル／［バーに表示する項目］の並べ替え／色の欄の共通カラーパレット（加工なし）
-│   │   ├── calendar-view-v220-list-01.png / calendar-view-v220-modal-01.png / calendar-view-v220-config-01.png # v2.2.0 UPDATE 用スクショ — リスト表示（列名の見出しとコメントの印）／予定のモーダルのコメント件数／設定「リストのコメント表示」(+ .webp)（加工なし）
+│   │   ├── calendar-view-v220-list-01.png / calendar-view-v220-modal-01.png / calendar-view-v220-config-01.png # v2.2.0 UPDATE 用スクショ（v2.3.0 で製品ページの使い方の節へ移設） — リスト表示（列名の見出しとコメントの印）／予定のモーダルのコメント件数／設定「リストのコメント表示」(+ .webp)（加工なし）
+│   │   ├── calendar-view-v230-01-layer-dup.png / calendar-view-v230-02-user-color.png / calendar-view-v230-03-standard.png / calendar-view-v230-04-list-width.png # v2.3.0 UPDATE 用スクショ — レイヤー（他アプリ）の予定との重複の警告／ユーザーごとの色分けと凡例／追加モーダルの［詳細画面で入力］／リストの列幅（撮影後に配置・.webp あり）
 │   │   ├── drive-connect-banner.png     # ドライブ連携 for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── drive-connect-icon.png       # ドライブ連携 アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
 │   │   ├── drive-connect-config-01.png  # 設定「② 転送ルール」（対象フィールド・保存先・リンク返却先＋フォルダ名の組み立てとプレビュー）＋ .webp
@@ -1652,7 +1653,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-calendar-view-v1.6.0.zip                   # カレンダービュー for kintone 配布ファイル（旧版・v1.6.0：予定の追加方法を設定画面「編集と動作」にまとめた・追加モーダルの項目を別に選べる・モーダルでルックアップ取得・連携に備えた内部の改善。お知らせ・UPDATE 枠あり）
 │   │   ├── kw-calendar-view-v1.8.0.zip                   # カレンダービュー for kintone 配布ファイル（最新・v1.8.0：時間帯で日時を決める・タイムラインに3か月／1年・ユーザー選択の検索と複数選択・凡例にラベルの色・年表示の開始月・予定の無い期間への移動・ゲストスペースの詳細画面リンクの修正。お知らせ・UPDATE 枠あり。配布 zip は公開手順で配置）
 │   │   ├── kw-calendar-view-v2.0.0.zip                   # カレンダービュー for kintone 配布ファイル（最新・v2.0.0：時刻間隔の各自切り替え・短い予定の高さ・バー項目の並べ替え・複製した直後のモーダルの案内と［複製を取り消す］・共通カラーパレット）
-│   │   ├── kw-calendar-view-v2.2.0.zip                   # カレンダービュー for kintone 配布ファイル（最新・v2.2.0：コメント件数の表示・リストのコメントの印・リストの列幅のドラッグ変更）
+│   │   ├── kw-calendar-view-v2.2.0.zip                   # カレンダービュー for kintone 配布ファイル（旧版・v2.2.0：コメント件数の表示・リストのコメントの印・リストの列幅のドラッグ変更）
+│   │   ├── kw-calendar-view-v2.3.0.zip                   # カレンダービュー for kintone 配布ファイル（最新・v2.3.0：レイヤーの予定との重複判定・ユーザーごとの色分け・［詳細画面で入力］・ゲストユーザー・テーブルの初期1行・リストの列幅）
 │   │   ├── kw-calendar-view-v1.7.0.zip                   # カレンダービュー for kintone 配布ファイル（旧版・v1.7.0：日本語・英語・中国語（簡体字）で表示・終了と開始がちょうど同じ時刻は重複にしない・予定の追加／編集画面とクイック登録の閉じ方。お知らせ・UPDATE 枠あり）
 │   │   ├── kw-pdf-edit-v1.0.0.zip                              # PDF編集アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-pdf-edit-v1.2.6.zip                              # PDF編集アシスト for kintone 配布ファイル（旧版・v1.2.6 署名欄の複数登録＋別のサインを追加）
