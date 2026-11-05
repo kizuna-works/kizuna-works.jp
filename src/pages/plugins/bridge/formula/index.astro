@@ -1,0 +1,275 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import BridgeDocStyles from '../../../../components/BridgeDocStyles.astro';
+import BridgeLightbox from '../../../../components/BridgeLightbox.astro';
+import Picture from '../../../../components/Picture.astro';
+import ShareButtons from '../../../../components/ShareButtons.astro';
+
+const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/formula/';
+const PRODUCT_URL = 'https://kizuna-works.jp/plugins/bridge/';
+const DATE_MODIFIED = '2026-11-06';
+
+const TITLE = 'KIZUNAブリッジの計算式と日付の指定｜当月末日・先月末日・○か月後の末日 | KIZUNA Works';
+const DESCRIPTION =
+  'KIZUNAブリッジ for kintone で、日付を「当月1日」「先月末日」「59か月後の末日」などに自動で入れる方法。関数を書かずに選ぶだけの「日付を指定」と、もっと複雑な指定のための計算式の書き方・関数の一覧です。';
+
+// Function list. Names are the same as the "差し込む…" menu of the settings screen.
+const funcs: { cat: string; rows: [string, string, string][] }[] = [
+  {
+    cat: '日付',
+    rows: [
+      ['今日()', 'TODAY', '今日の日付'],
+      ['現在()', 'NOW', '今の日時'],
+      ['日付加算(日付, 日数)', 'DATE_ADD', '日数を足す（負の数で引く）'],
+      ['月加算(日付, 月数)', 'MONTH_ADD', '月を足す（その月に同じ日が無いときは月末）'],
+      ['月初(日付[, 月数])', 'BOMONTH', 'その月の1日（月数で前後の月にずらせる）'],
+      ['月末(日付[, 月数])', 'EOMONTH', 'その月の末日（月数で前後の月にずらせる。月末(今日(), -1) で先月末日）'],
+      ['日数(開始, 終了)', 'DAYS', '日数の差'],
+      ['月数(開始, 終了)', 'MONTHS', '満の月数'],
+      ['年齢(生年月日)', 'AGE', '今日の満年齢'],
+      ['曜日(日付)', 'WEEKDAY', '月〜日'],
+      ['日付書式(日付, "YYYY/MM/DD")', 'DATE_FORMAT', '書式 YYYY MM DD M D E（曜日）で文字にする'],
+      ['営業日加算(日付, 日数)', 'WORKDAY', '土日と休業日を飛ばして足す（負の数で引く）'],
+      ['営業日数(開始, 終了)', 'NETWORKDAYS', '両端を含む営業日の数'],
+    ],
+  },
+  {
+    cat: '文字',
+    rows: [
+      ['左(文字, 数)', 'LEFT', '先頭から'],
+      ['右(文字, 数)', 'RIGHT', '末尾から'],
+      ['中(文字, 開始, 数)', 'MID', '途中から'],
+      ['文字数(文字)', 'LEN', '文字の数'],
+      ['バイト数(文字)', 'LENB', 'UTF-8 のバイト数'],
+      ['行(文字, 行番号)', 'LINES', '複数行の n 行目'],
+      ['置換(文字, "前", "後")', 'REPLACE', 'すべて置き換える'],
+      ['含む(文字, "語")', 'CONTAINS', '含めば TRUE'],
+      ['半角(文字)', 'ASC', '英数・記号・カナを半角に'],
+      ['左埋め(文字, 桁, "0")', 'LPAD', '左を埋めて桁をそろえる'],
+      ['右埋め(文字, 桁, " ")', 'RPAD', '右を埋めて桁をそろえる'],
+      ['文字列(値)', 'TO_STRING', '文字にする'],
+    ],
+  },
+  {
+    cat: '数値',
+    rows: [
+      ['四捨五入(数, 桁)', 'ROUND', '桁は省略できます'],
+      ['切り捨て(数, 桁)', 'ROUNDDOWN', '桁は省略できます'],
+      ['切り上げ(数, 桁)', 'ROUNDUP', '桁は省略できます'],
+      ['数値(値)', 'TO_NUMBER', '数にする（数でなければ 0）'],
+    ],
+  },
+  {
+    cat: '条件',
+    rows: [
+      ['IF(条件, 真のとき, 偽のとき)', 'IF', '条件で値を切り替える'],
+      ['AND(条件, 条件)', 'AND', 'すべて成り立つとき TRUE'],
+      ['OR(条件, 条件)', 'OR', 'どれかが成り立つとき TRUE'],
+      ['否定(条件)', 'NOT', '成り立たないとき TRUE'],
+    ],
+  },
+  {
+    cat: 'テーブル',
+    rows: [
+      ['合計(テーブル.列)', 'SUM', 'テーブルの列の合計'],
+      ['最大(テーブル.列)', 'MAX', '最大'],
+      ['最小(テーブル.列)', 'MIN', '最小'],
+      ['平均(テーブル.列)', 'AVG', '平均'],
+      ['行数(テーブル)', 'ROWS', '行の数'],
+    ],
+  },
+  {
+    cat: 'その他',
+    rows: [['ログインユーザー()', 'LOGINUSER', '開いている人の名前']],
+  },
+];
+---
+
+<Layout
+  heroBg="/images/kizuna-pro-hero-bg.webp"
+  title={TITLE}
+  description={DESCRIPTION}
+  ogTitle={TITLE}
+  ogDescription={DESCRIPTION}
+  ogType="website"
+  ogUrl={PAGE_URL}
+  ogImage="https://kizuna-works.jp/images/bridge-banner.png"
+  canonical={PAGE_URL}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': PAGE_URL,
+          url: PAGE_URL,
+          name: TITLE,
+          description: DESCRIPTION,
+          dateModified: DATE_MODIFIED,
+          about: { '@type': 'SoftwareApplication', name: 'KIZUNAブリッジ for kintone', url: PRODUCT_URL },
+          isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: 'https://kizuna-works.jp/' },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+            { '@type': 'ListItem', position: 2, name: 'kintoneプラグイン', item: 'https://kizuna-works.jp/plugins/' },
+            { '@type': 'ListItem', position: 3, name: 'KIZUNAブリッジ for kintone', item: PRODUCT_URL },
+            { '@type': 'ListItem', position: 4, name: '計算式と日付の指定', item: PAGE_URL },
+          ],
+        },
+      ],
+    })} />
+  </Fragment>
+
+  <BridgeDocStyles />
+  <BridgeLightbox />
+
+  <main>
+    <section class="bd-hero">
+      <p class="bd-crumb"><a href="/plugins/">kintoneプラグイン</a> ／ <a href="/plugins/bridge/">KIZUNAブリッジ for kintone</a> ／ 計算式と日付の指定</p>
+      <h1>KIZUNAブリッジの計算式と日付の指定</h1>
+      <p><strong>日付は、関数を書かなくても指定できます。</strong>「当月1日」「先月末日」「59か月後の末日」などは、選ぶだけで入ります。選び方は<a href="#date">日付の早見表</a>にあります。</p>
+      <p>文字をつなぐ、営業日を数えるなど、もっと複雑な指定は<a href="#basic">計算式</a>で書きます。</p>
+    </section>
+
+    <section class="bd-section">
+      <div class="bd-wrap">
+        <div class="bd-card">
+          <ul class="bd-toc" aria-label="このページの内容">
+            <li><a href="#date">日付の早見表</a></li>
+            <li><a href="#basic">計算式の書き方</a></li>
+            <li><a href="#funcs">関数の一覧</a></li>
+          </ul>
+        </div>
+
+        <div class="bd-card">
+          <h2 id="date">日付の早見表</h2>
+          <p>日付・日時のフィールドに値を入れるときは、値の種類で［日付を指定］を選びます。次の4つの欄を選ぶだけです。</p>
+          <h3>日付を指定で選ぶ</h3>
+          <div class="bd-scroll">
+            <table class="bd-table">
+              <thead><tr><th>入れたい日</th><th>基準</th><th>月をずらす</th><th>日の位置</th><th>さらに</th></tr></thead>
+              <tbody>
+                <tr><td>当月1日</td><td>今日</td><td>0</td><td>1日（月初）</td><td>0</td></tr>
+                <tr><td>当月末日</td><td>今日</td><td>0</td><td>末日（月末）</td><td>0</td></tr>
+                <tr><td>先月末日</td><td>今日</td><td>1 か月前</td><td>末日（月末）</td><td>0</td></tr>
+                <tr><td>翌月1日</td><td>今日</td><td>1 か月後</td><td>1日（月初）</td><td>0</td></tr>
+                <tr><td>59か月後の末日</td><td>今日</td><td>59 か月後</td><td>末日（月末）</td><td>0</td></tr>
+                <tr><td>3日後</td><td>今日</td><td>0</td><td>基準と同じ日</td><td>3 日後</td></tr>
+                <tr><td>契約日の1か月後</td><td>契約日（フィールド）</td><td>1 か月後</td><td>基準と同じ日</td><td>0</td></tr>
+                <tr><td>契約日の前月末日</td><td>契約日（フィールド）</td><td>1 か月前</td><td>末日（月末）</td><td>0</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figure class="bd-shot">
+            <Picture src="/images/bridge-v140-date-lastmonth-01.png" alt="値の種類で［日付を指定］を選んだ入力欄。基準に今日、月をずらすに 1 か月前、日の位置に末日（月末）を選び、右に結果の見本が表示されている" width="737" height="401" class="zoomable" />
+            <figcaption>先月末日の選び方。画像をクリックすると拡大表示します</figcaption>
+          </figure>
+          <ul>
+            <li>計算の順番は、基準 → 月をずらす → 日の位置 → さらに日をずらす、です。</li>
+            <li>月をずらした先にその日が無いときは、その月の末日にします。</li>
+            <li>基準のフィールドが空のときは、結果も空です。</li>
+            <li>欄の右に「例：今日（…）なら …」と結果の見本が出るので、選んだあとに確かめられます。</li>
+            <li>営業日（土日や休業日を飛ばす日数）は、［日付を指定］では選べません。下の計算式で書きます。</li>
+          </ul>
+
+          <h3>計算式で書く</h3>
+          <p>もっと複雑な指定をしたいときは、値の種類で［計算式］を選び、次のように書きます。</p>
+          <div class="bd-scroll">
+            <table class="bd-table">
+              <thead><tr><th>入れたい日</th><th>計算式</th></tr></thead>
+              <tbody>
+                <tr><td>当月1日</td><td><code>月初(今日())</code></td></tr>
+                <tr><td>当月末日</td><td><code>月末(今日())</code></td></tr>
+                <tr><td>先月末日</td><td><code>月末(今日(), -1)</code></td></tr>
+                <tr><td>翌月1日</td><td><code>月初(今日(), 1)</code></td></tr>
+                <tr><td>59か月後の末日</td><td><code>月末(今日(), 59)</code></td></tr>
+                <tr><td>3日後</td><td><code>日付加算(今日(), 3)</code></td></tr>
+                <tr><td>3営業日後</td><td><code>営業日加算(今日(), 3)</code></td></tr>
+                <tr><td>先月末日の翌日</td><td><code>日付加算(月末(今日(), -1), 1)</code></td></tr>
+                <tr><td>契約日の前月末日</td><td><code>{'月末({契約日}, -1)'}</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>結果の確認例</h3>
+          <p>次の式は、検証用の kintone で実際に動かして結果を確かめています（通常のスペースとゲストスペースのどちらでも同じ結果でした）。</p>
+          <div class="bd-scroll">
+            <table class="bd-table">
+              <thead><tr><th>条件</th><th>計算式</th><th>結果</th></tr></thead>
+              <tbody>
+                <tr><td>今日が 2026-11-05</td><td><code>月初(今日())</code></td><td>2026-11-01</td></tr>
+                <tr><td>今日が 2026-11-05</td><td><code>月末(今日(), -1)</code></td><td>2026-10-31</td></tr>
+                <tr><td>今日が 2026-11-05</td><td><code>月末(今日(), 59)</code></td><td>2031-10-31</td></tr>
+                <tr><td>日付Aが 2026-03-15</td><td><code>{'月末({日付A}, -1)'}</code></td><td>2026-02-28</td></tr>
+                <tr><td>日付Aが 2026-03-15</td><td><code>{'月末({日付A}, 59)'}</code></td><td>2031-02-28</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="bd-card">
+          <h2 id="basic">計算式の書き方</h2>
+          <p>値の種類で［計算式］を選ぶと、式を書く欄が出ます。書き終えると、欄の下に結果の見本が出ます。式が読めないときは、保存の前に理由が出ます。</p>
+          <figure class="bd-shot">
+            <Picture src="/images/bridge-v140-formula-01.png" alt="値の種類で［計算式］を選んだ入力欄。式を書く欄、［差し込む…］のボタン、［？］のリンク、欄の下に結果の見本が表示されている" width="737" height="620" class="zoomable" />
+            <figcaption>計算式の入力欄。画像をクリックすると拡大表示します</figcaption>
+          </figure>
+          <h3>フィールド</h3>
+          <p>フィールドは <code>{'{フィールド名}'}</code> で書きます。フィールドコードでも書けます。欄の横の［差し込む…］から選ぶと、名前を間違えません。</p>
+          <h3>文字</h3>
+          <p>文字は <code>"…"</code>（半角のダブルクォート）で囲みます。文字をつなぐには <code>&amp;</code> を使います。</p>
+          <pre><code>{'{受注番号} & "から引当"'}</code></pre>
+          <h3>演算子</h3>
+          <div class="bd-scroll">
+            <table class="bd-table">
+              <thead><tr><th>演算子</th><th>意味</th></tr></thead>
+              <tbody>
+                <tr><td><code>+</code> <code>-</code> <code>*</code> <code>/</code></td><td>足す・引く・かける・割る</td></tr>
+                <tr><td><code>&amp;</code></td><td>文字をつなぐ</td></tr>
+                <tr><td><code>=</code> <code>&lt;&gt;</code></td><td>等しい・等しくない</td></tr>
+                <tr><td><code>&gt;</code> <code>&gt;=</code> <code>&lt;</code> <code>&lt;=</code></td><td>大きい・以上・小さい・以下</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>日本語名と英語名</h3>
+          <p>関数は、日本語名と英語名のどちらでも書けます。たとえば <code>月末(今日(), -1)</code> と <code>EOMONTH(TODAY(), -1)</code> は同じ意味です。</p>
+          <div class="bd-note"><p>営業日の関数は、土日と、不在カレンダーに登録した全社の休業日を飛ばして数えます。ルールを動かす人に、不在カレンダーの閲覧の権限が必要です。</p></div>
+        </div>
+
+        <div class="bd-card">
+          <h2 id="funcs">関数の一覧</h2>
+          <p>設定画面の［差し込む…］にも、同じ一覧が出ます。</p>
+          {funcs.map((g) => (
+            <>
+              <h3>{g.cat}</h3>
+              <div class="bd-scroll">
+                <table class="bd-table">
+                  <thead><tr><th>日本語名の書き方</th><th>英語名</th><th>内容</th></tr></thead>
+                  <tbody>
+                    {g.rows.map((r) => (
+                      <tr><td><code>{r[0]}</code></td><td><code>{r[1]}</code></td><td>{r[2]}</td></tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          ))}
+        </div>
+
+        <div class="bd-card">
+          <h2>つぎに読むページ</h2>
+          <div class="bd-link-row">
+            <a class="bd-btn is-primary" href="/plugins/bridge/guide/">設定の手引き</a>
+            <a class="bd-btn is-line" href="/plugins/bridge/recipes/">使い方の例</a>
+            <a class="bd-btn is-line" href="/plugins/bridge/">製品ページ</a>
+          </div>
+        </div>
+
+        <ShareButtons title="KIZUNAブリッジ for kintone の計算式と日付の指定" />
+      </div>
+    </section>
+  </main>
+</Layout>

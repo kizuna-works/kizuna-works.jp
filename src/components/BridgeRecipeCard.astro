@@ -63,6 +63,13 @@ const partners = (recipe.partners ?? [])
 
   <p class="brc-result"><span class="brc-label is-result">こうなります</span>{recipe.result}</p>
 
+  {recipe.setup && recipe.setup.length > 0 && (
+    <details class="brc-setup">
+      <summary>設定のしかた</summary>
+      <ol>{recipe.setup.map((x) => <li>{x}</li>)}</ol>
+    </details>
+  )}
+
   {partners.length > 0 && (
     <p class="brc-partners">
       <span class="brc-partners-label">組み合わせるプラグイン：</span>
@@ -125,6 +132,10 @@ const partners = (recipe.partners ?? [])
   .brc-actions li { position: relative; padding-left: 1em; }
   .brc-actions li::before { content: '\30FB'; position: absolute; left: 0; }
   .brc-actions li + li { margin-top: 2px; }
+  .brc-setup { border: 1px solid #dbe3ee; border-radius: 8px; background: #fff; min-width: 0; }
+  .brc-setup summary { cursor: pointer; padding: 8px 12px; font-size: 0.85rem; font-weight: 700; color: #1B3A6B; }
+  .brc-setup ol { margin: 0; padding: 0 14px 12px 32px; font-size: 0.85rem; line-height: 1.75; color: #333; }
+  .brc-setup li { margin: 0 0 4px; }
   .brc-partners { margin: 0; font-size: 0.82rem; line-height: 1.7; color: #64748b; }
   .brc-partners a { color: #1B3A6B; font-weight: 700; }
 

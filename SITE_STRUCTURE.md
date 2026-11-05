@@ -55,6 +55,7 @@ c:\kizuna-works.jp\
 │   │   ├── BridgeFeatureBand.astro # トップページの帯「KIZUNAブリッジ おすすめの機能」（KIZUNA Pro 帯の直下）。ブリッジの機能をひとつずつ紹介し、製品ページのその機能の説明箇所へ遷移。FEATURES に足して CURRENT を書き換えると差し替わる（2026-10-27 初回＝プラグインの一括更新 → /plugins/bridge/#plugin-update）
 │   │   ├── BridgeUpdateNote.astro # 製品ページの UPDATE ボックス末尾の1行「まとめて更新」。KIZUNAブリッジの［プラグインの更新］タブ（/plugins/bridge/#plugin-update）へ誘導。UPDATE ボックスのある製品ページ51件に設置（2026-10-27）
 │   │   ├── BridgeRecipeCard.astro # KIZUNAブリッジの「使い方の例」カード1件（今の作業 → きっかけ・条件・動かす内容 → こうなります）。製品ページ（代表例）と /plugins/bridge/recipes/（全件）で共用。データは src/data/bridge-recipes.ts
+│   │   ├── BridgeDocStyles.astro # KIZUNAブリッジの手引きページ2つ（/plugins/bridge/guide/・/plugins/bridge/formula/）の共通 CSS（is:global）。表は .bd-scroll の中に置く（モバイルの横はみ出し対策）
 │   │   ├── PremiumPlanCard.astro # ちょこっと製品ページのプラン欄3枚目（プレミアム年間サポーター）。ページ側の `.pricing-card` 等をそのまま使い、紺のアクセントだけスコープ付きCSSで足す＝各ページの見た目に自動で馴染む。プレミアム製品ページでは使わない（年間サポーターを掲載しないため2枚のまま）
 │   │   ├── SupporterPlanCard.astro # ちょこっと製品ページのプラン欄2枚目（年間サポーター）。料金は src/data/pricing.ts から出し、PRICE_REVISION_LIVE で改定前（1 製品・¥3,300）と改定後（ちょこっとプラグインすべて・¥8,250）を切り替える。props は pluginId（申込フォームへ渡す）と features（ページごとの機能の行）
 │   │   ├── ResellerCard.astro  # プラン欄の下に出る「販売代理店からのご購入」カード（全63製品ページ共通）。掲載先は src/data/resellers.ts。登録0件のあいだは何も出力しない＝契約締結前に社名が出ない。ページ側CSSに依存せず自前のスコープ付きCSSで完結
@@ -70,7 +71,7 @@ c:\kizuna-works.jp\
 │   │   ├── plugin-security.ts  # プラグインごとのセキュリティ事実（外部通信・同梱ライブラリ）の単一情報源。SecurityBox が参照
 │   │   ├── resellers.ts        # 販売代理店マスタ（ResellerCard が参照）。1件でも登録すると全63製品ページに代理店カードが出る。**掲載は販売代理店契約の締結後**（契約書 第9条第4項）。現在は空配列＝非表示
 │   │   ├── licenseEndpoint.ts  # ライセンス GAS の /exec の URL（申込フォーム・/apply/ のページが使う）。環境変数 PUBLIC_LICENSE_GAS_URL があればそちら（試験用の GAS につなぐときだけ）
-│   │   ├── bridge-recipes.ts   # KIZUNAブリッジの使い方の例の単一情報源（場面・今の作業・ルール・結果・組み合わせるプラグイン）。featured の例は製品ページにも出る。**USAGE で確かめた、実在の機能だけで組めるルールしか書かない**
+│   │   ├── bridge-recipes.ts   # KIZUNAブリッジの使い方の例の単一情報源（場面・今の作業・ルール・結果・組み合わせるプラグイン）。featured の例は製品ページにも出る。**USAGE で確かめた、実在の機能だけで組めるルールしか書かない**（2026-11-06：各例に setup「設定のしかた」を持てる。日付を指定・ドロップダウンの空のレシピ3件を追加）
 │   │   ├── pricing.ts          # サポーターの料金とプランの表示の単一情報源。PRICE_REVISION_LIVE（年間サポーターの料金改定を公開したか）・改定日・プランごとの料金・申込の planType。製品ページのカード・サポーターページ・申込フォーム・一覧・規約・トップのお知らせがここを見る
 │   │   ├── blogSidebar.ts      # ブログサイドバーの「人気の記事」の slug 一覧（GSC のクリック上位から月1回手で見直す。6本目は表示中の記事を除いたときの繰り上げ用）
 │   │   └── install-ranking.json # インストール数ランキングのスナップショット（scripts/gen-install-ranking.mjs が prebuild で更新）。トップの Top3 と /plugins/ranking/ が両方これを読む＝順位が食い違わない。**手で編集しない**
@@ -254,9 +255,13 @@ c:\kizuna-works.jp\
 │   │   │   │   └── setup/
 │   │   │   │       └── index.astro # 【手順ページ】Box 側の準備手順（/plugins/box-connect/setup/）— 連携用アプリの作成（サーバー・クライアント資格情報）・アクセスレベルとスコープ・CORS ドメイン・Box 管理者の承認・フォルダへのサービスアカウントの招待・プラグインへの接続の 6 手順。設定画面の「準備の手順を見る」の遷移先
 │   │   │   ├── bridge/
-│   │   │   │   ├── index.astro # 【KIZUNA Pro プラグイン】KIZUNAブリッジ for kintone 製品ページ（/plugins/bridge/）v1.3.0（2026-11-04・UPDATE ボックスは v1.3.0＝ボタンアクション〔新規作成・編集の画面にボタンを置き、画面の値をその場で書き換える。置き場所はヘッダー・スペース・フィールドのそば。実際のレコード画面を別タブで開いてドラッグで位置決め。見た目は種類・形・大きさ・色・書体・文字の太さ・文字の大きさ〕・スクショ kw-bridge-v130-button.webp／kw-bridge-v130-drag.webp・多言語対応）。前の版：v1.2.0＝ルールの順番をあとから入れ替えられる（選んだルールの行の↑↓）。v1.1.3＝日時フィールドの「変更前の値」を時刻まで比べる。v1.1.2＝カレンダービューの時間帯に対応。v1.1.0 は 2026-10-27・UPDATE ボックスと PART 3 に「プラグインの処理を当てる（採番など）」を追加）・2026-10-25 公開（KIZUNA Pro 第1弾・単品販売なし）— 単品でできること／アプリ間連携／プラグイン間連携の3部構成。連携できるプラグイン一覧は plugins.ts の bridge フィールドから自動生成。冒頭の PROBLEM 節に使い方の例（代表6件・BridgeRecipeCard）と /plugins/bridge/recipes/ への導線
-│   │   │   │   └── recipes/
-│   │   │   │       └── index.astro # KIZUNAブリッジの使い方の例（/plugins/bridge/recipes/・2026-10-26）。全件を場面別に絞り込み（JS・未対応でも全件表示）・各例に #id のアンカー。JSON-LD は WebPage・BreadcrumbList・ItemList
+│   │   │   │   ├── index.astro # 【KIZUNA Pro プラグイン】KIZUNAブリッジ for kintone 製品ページ（/plugins/bridge/）v1.4.0（2026-11-06・UPDATE ボックスは v1.4.0＝日付を指定・配置画面のグリッド線とガイド・ルールの複製／FAQ に設定の質問を追加／旧 v1.3.0＝ボタンアクション〔新規作成・編集の画面にボタンを置き、画面の値をその場で書き換える。置き場所はヘッダー・スペース・フィールドのそば。実際のレコード画面を別タブで開いてドラッグで位置決め。見た目は種類・形・大きさ・色・書体・文字の太さ・文字の大きさ〕・スクショ kw-bridge-v130-button.webp／kw-bridge-v130-drag.webp・多言語対応）。前の版：v1.2.0＝ルールの順番をあとから入れ替えられる（選んだルールの行の↑↓）。v1.1.3＝日時フィールドの「変更前の値」を時刻まで比べる。v1.1.2＝カレンダービューの時間帯に対応。v1.1.0 は 2026-10-27・UPDATE ボックスと PART 3 に「プラグインの処理を当てる（採番など）」を追加）・2026-10-25 公開（KIZUNA Pro 第1弾・単品販売なし）— 単品でできること／アプリ間連携／プラグイン間連携の3部構成。連携できるプラグイン一覧は plugins.ts の bridge フィールドから自動生成。冒頭の PROBLEM 節に使い方の例（代表6件・BridgeRecipeCard）と /plugins/bridge/recipes/ への導線
+│   │   │   │   ├── recipes/
+│   │   │   │   │   └── index.astro # KIZUNAブリッジの使い方の例（/plugins/bridge/recipes/・2026-10-26）。全件を場面別に絞り込み（JS・未対応でも全件表示）・各例に #id のアンカー。JSON-LD は WebPage・BreadcrumbList・ItemList
+│   │   │   │   ├── guide/
+│   │   │   │   │   └── index.astro # KIZUNAブリッジの設定の手引き（/plugins/bridge/guide/・2026-11-06）。ルールの作り方・きっかけ #trigger・条件 #condition・動かす内容 #action・値の入れ方 #value（値を入力／フィールドの値／日付を指定／計算式）・ルールの複製。設定画面の［？］（HELP_URL）のリンク先。JSON-LD は WebPage・BreadcrumbList・HowTo
+│   │   │   │   └── formula/
+│   │   │   │       └── index.astro # KIZUNAブリッジの計算式と日付の指定（/plugins/bridge/formula/・2026-11-06）。日付の早見表 #date（日付を指定の選び方を先に、計算式はあと）・計算式の書き方 #basic・関数の一覧 #funcs。設定画面の［？］のリンク先
 │   │   │   ├── kizuna-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン一覧（特集ページ）】/plugins/kizuna-pro/ 2026-10-25 公開（ブリッジと同時）— シリーズの説明・proPlugins（plugins.ts の tier:'pro'）から自動生成する製品カード＋製品ごとの「Pro だけ」の機能・プランと料金（pricing.ts）・30日間無料体験・FAQ（FAQPage）。トップの KIZUNA Pro 帯と /plugins/ の KIZUNA Pro 枠からリンク
 │   │   │   ├── search-pro/
@@ -345,6 +350,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── bridge-v111-update.md        # KIZUNAブリッジ v1.1.1 アップデートのお知らせ（2026-10-27T21:00・ステータスを続けて進めたときの書き写し漏れを修正）
 │   │   │   ├── bridge-v113-update.md        # KIZUNAブリッジ v1.1.3 アップデートのお知らせ（2026-10-31T16:00・条件「変更前の値」で日時フィールドは時刻まで比べる）
 │   │   │   ├── bridge-v130-update.md        # KIZUNAブリッジ v1.3.0 アップデートのお知らせ（2026-11-04T18:00・新規作成・編集の画面にボタンを置ける）
+│   │   │   ├── bridge-v140-update.md        # KIZUNAブリッジ v1.4.0 アップデートのお知らせ（2026-11-06・日付を選ぶだけで指定・配置画面のグリッド線とガイド・ルールの複製・ドロップダウンの空の条件）
 │   │   │   ├── bridge-v120-update.md        # KIZUNAブリッジ v1.2.0 アップデートのお知らせ（2026-11-03T11:00・ルールの順番をあとから入れ替えられる）
 │   │   │   ├── bridge-v112-update.md        # KIZUNAブリッジ v1.1.2 アップデートのお知らせ（2026-10-31T15:00・書き込み先のカレンダービューの［時間帯で日時を決める］に対応）
 │   │   │   ├── plugin-bridge-release.md     # KIZUNAブリッジ v1.0.0 公開のお知らせ（2026-10-25T10:00・KIZUNA Pro プラグイン。公開日がずれたら pubDate を直す）
@@ -987,6 +993,7 @@ c:\kizuna-works.jp\
 │   │   ├── bridge-banner.png                    # KIZUNAブリッジ for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）＋ .webp / -800.webp
 │   │   ├── bridge-icon.png                      # KIZUNAブリッジ アイコン（256×256・製品ページヒーロー）＋ .webp
 │   │   ├── bridge-config-*.png / bridge-record-*.png / bridge-calendar-01.png # 製品ページの機能説明スクショ（＋ bridge-calendar-numbering-01.png＝v1.1.0 の UPDATE ボックス・採番を当てたときの知らせ・800×511／bridge-config-reorder-01.png＝v1.2.0 の UPDATE ボックス・ルールの順番の入れ替え・1400×1250＋.webp／kw-bridge-v130-button.png・kw-bridge-v130-drag.png＝v1.3.0 の UPDATE ボックス・ボタンの見た目の欄（1353×849）とレコード画面での位置決め（1280×900）＋.webp）（実機撮影済み・2026-10-24。12枚＋各 .webp）
+│   │   ├── bridge-v140-*-01.png/.webp # KIZUNAブリッジ v1.4.0 のスクショ7枚（date-contract・date-lastmonth・place-grid・duplicate・edit-top・edit-bottom・formula）。製品ページの UPDATE ボックスと guide／formula ページで使用。差し替え時は同名で上書き（元は test/v140/_hp/*.jpg）
 │   │   ├── kizuna-pro-hero-bg.jpg / .webp           # KIZUNA Pro のヒーロー背景（紺地に金の線・製品ページと特集 /plugins/kizuna-pro/ で共用）
 │   │   ├── kizuna-pro-band-bg.jpg / .webp           # トップの「KIZUNA Pro プラグインシリーズ」帯の背景（Gemini 生成の原本 3168×1344 jpg・配信は 2200px の webp）
 │   │   ├── search-pro-banner.png                # サーチ Pro for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）＋ .webp / -800.webp
@@ -1139,6 +1146,8 @@ c:\kizuna-works.jp\
 │   │   ├── input-template-06-edit-options.png # 製品ページ：編集画面の上書き範囲／テーブルの扱いの選択＋ .webp
 │   │   ├── input-template-07-mobile.png    # 製品ページ：モバイル版の全画面モーダル ＋ .webp
 │   │   ├── input-template-09-login-user.png  # 製品ページ UPDATE ボックス（v1.2.0）：保存ダイアログで担当者＝ログインユーザー＋このレコードの値・部署＝優先する組織・作業者＝ログインユーザー・作業日＝本日から3日後・メモ＝空欄 ＋ .webp
+│   │   ├── input-template-10-exclude-config.png # 製品ページ UPDATE ボックス（v1.5.0）：設定画面の「テンプレートに記録しないフィールド」（900×1145）＋ .webp
+│   │   ├── input-template-11-exclude-save-modal.png # 製品ページ UPDATE ボックス（v1.5.0）：保存の画面の「テンプレートにできない項目」に「管理者が除外しています」（620×860）＋ .webp
 │   │   ├── input-template-08-table-rules.png # 旧 UPDATE ボックス（v1.1.0・現在は未使用）：保存ダイアログの「列ごとの値の決め方」（作業日＝本日・開始日時＝本日の 09:30・期限＝翌月の末日）＋ .webp
 │   │   ├── input-template-config-01-basic.png # 製品ページ：設定画面（基本設定・保管アプリ・ボタン／サイドバー除外）＋ .webp
 │   │   ├── input-template-config-02-list.png  # 製品ページ：設定画面（共通テンプレート一覧カード／サイドバー除外）＋ .webp
@@ -1490,7 +1499,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-free-lookup-v1.2.0.zip  # フリールックアップ for kintone 配布ファイル（2026-10-22・v1.2.0）
 │   │   ├── kw-lookup-filter-v1.1.0.zip # ルックアップ絞り込み v1.1.0（旧版・2026-09-24＝条件に合わない値で保存しようとしたときに「確認して保存」を選べる／保存時の検査は今回入れた・書き換えた値だけ）
 │   │   ├── kw-lookup-filter-v1.0.1.zip # ルックアップ絞り込み v1.0.1（旧版・参考保管）
-│   │   ├── kw-bridge-v1.2.0.zip        # KIZUNAブリッジ for kintone 配布ファイル（最新・2026-11-03・v1.2.0＝設定画面でルールの順番を↑↓で入れ替えられる）
+│   │   ├── kw-bridge-v1.4.0.zip        # KIZUNAブリッジ for kintone 配布ファイル（最新・2026-11-06・v1.4.0＝日付を指定・配置画面のグリッド線とガイド・ルールの複製・ドロップダウンの空の条件）
+│   │   ├── kw-bridge-v1.2.0.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-11-03・v1.2.0＝設定画面でルールの順番を↑↓で入れ替えられる）
 │   │   ├── kw-bridge-v1.1.4.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-11-01・v1.1.4＝設定画面の「予行演習」を「ルールを試す」に改称・動作の変更なし）
 │   │   ├── kw-bridge-v1.1.3.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-10-31・v1.1.3＝条件「変更前の値」で日時フィールドは時刻まで比べる）
 │   │   ├── kw-bridge-v1.1.2.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧版・参考保管・v1.1.2＝連携先にカレンダービュー v1.8.0 以降の［時間帯で日時を決める］を追加）
@@ -1594,7 +1604,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-input-assist-v2.3.0.zip  # 入力アシスト for kintone 配布ファイル（最新・2026-10-31・v2.3.0：入力の変換にかける位置・辞書を使う条件・複数辞書を追加）
 │   │   ├── kw-input-template-v1.0.0.zip                          # 入力テンプレート for kintone v1.0.0 配布ファイル（プレミアム第9弾・単品販売なし・共通/個人2階層・動的な日付・保管アプリはスペース内で共有）
 │   │   ├── kw-input-template-v1.0.1.zip                          # 入力テンプレート for kintone 配布ファイル（旧版・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
-│   │   ├── kw-input-template-v1.4.0.zip                          # 入力テンプレート for kintone 配布ファイル（最新・2026-10-28＝「コピーボタン」を追加（コピー元→コピー先の組をまとめてコピー・追加／編集画面・置き場所4種・上書きの扱い3種・ルックアップは自動取得・無料は1個まで）／設定画面の色の欄に共通カラーパレット）
+│   │   ├── kw-input-template-v1.5.0.zip                          # 入力テンプレート for kintone 配布ファイル（最新・2026-11-06＝設定画面に「テンプレートに記録しないフィールド」を追加（フィールド・テーブルの列・テーブル全体を選ぶと、記録せず当てるときも書き込まない・コピーボタンには効かない）／ゲストスペースで組織を限定した共通テンプレートが表示されないことがあった点を改善）。v1.4.1（ユーザー・組織・グループ選択のコピー時の表示名）は v1.4.1 zip に収録
+│   │   ├── kw-input-template-v1.4.0.zip                          # 入力テンプレート for kintone 配布ファイル（旧版・2026-10-28＝「コピーボタン」を追加（コピー元→コピー先の組をまとめてコピー・追加／編集画面・置き場所4種・上書きの扱い3種・ルックアップは自動取得・無料は1個まで）／設定画面の色の欄に共通カラーパレット）
 │   │   ├── kw-input-template-v1.3.0.zip                          # 入力テンプレート for kintone 配布ファイル（旧版・2026-10-08＝個人テンプレートを本人が選択画面の「個人」タブから削除できる／スマホの選択画面の横ずれ修正）
 │   │   ├── kw-input-template-v1.2.0.zip                          # 入力テンプレート for kintone 配布ファイル（旧版・2026-09-25＝ユーザー選択に「ログインユーザー」・組織選択に「優先する組織」／テーブルの列を「空欄にする」／「本日から○日後」／表示名で入る）
 │   │   ├── kw-input-template-v1.1.0.zip                          # 入力テンプレート for kintone 配布ファイル（旧版・2026-09-25＝「テンプレートにする」でテーブルの日付・時刻・日時を列ごとに「本日」「現在日時」などで保存／選択画面のプレビューに表示）

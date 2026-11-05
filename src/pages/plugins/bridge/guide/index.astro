@@ -1,0 +1,290 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import BridgeDocStyles from '../../../../components/BridgeDocStyles.astro';
+import BridgeLightbox from '../../../../components/BridgeLightbox.astro';
+import Picture from '../../../../components/Picture.astro';
+import ShareButtons from '../../../../components/ShareButtons.astro';
+
+const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/guide/';
+const PRODUCT_URL = 'https://kizuna-works.jp/plugins/bridge/';
+const DATE_MODIFIED = '2026-11-06';
+
+const TITLE = 'KIZUNAブリッジの設定の手引き｜ルールの作り方・きっかけ・条件・値の入れ方 | KIZUNA Works';
+const DESCRIPTION =
+  'KIZUNAブリッジ for kintone の設定の手引きです。ルールの作り方、きっかけ・条件・動かす内容の一覧、値の入れ方（値を入力・フィールドの値・日付を指定・計算式）を、設定画面の言葉のまま説明します。';
+
+const steps = [
+  'プラグインの設定画面で、タブ［ルール］を開きます。',
+  '左の［＋ 新しいルール］を押し、ルールの名前を入れます。',
+  '「1 きっかけ」「2 条件」「3 動かす内容」の順に設定します。',
+  '上の「このルールでやること」に、ルールの内容が文章で出ます。意図どおりか読んで確かめます。',
+  '下の［ルールを試す］で、どのアプリにも書き込まずに結果を確かめます。',
+  '画面下の［保存する］を押し、アプリを更新します。',
+];
+---
+
+<Layout
+  heroBg="/images/kizuna-pro-hero-bg.webp"
+  title={TITLE}
+  description={DESCRIPTION}
+  ogTitle={TITLE}
+  ogDescription={DESCRIPTION}
+  ogType="website"
+  ogUrl={PAGE_URL}
+  ogImage="https://kizuna-works.jp/images/bridge-banner.png"
+  canonical={PAGE_URL}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': PAGE_URL,
+          url: PAGE_URL,
+          name: TITLE,
+          description: DESCRIPTION,
+          dateModified: DATE_MODIFIED,
+          about: { '@type': 'SoftwareApplication', name: 'KIZUNAブリッジ for kintone', url: PRODUCT_URL },
+          isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: 'https://kizuna-works.jp/' },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+            { '@type': 'ListItem', position: 2, name: 'kintoneプラグイン', item: 'https://kizuna-works.jp/plugins/' },
+            { '@type': 'ListItem', position: 3, name: 'KIZUNAブリッジ for kintone', item: PRODUCT_URL },
+            { '@type': 'ListItem', position: 4, name: '設定の手引き', item: PAGE_URL },
+          ],
+        },
+        {
+          '@type': 'HowTo',
+          name: 'KIZUNAブリッジ for kintone でルールを作る',
+          step: steps.map((t, i) => ({ '@type': 'HowToStep', position: i + 1, text: t })),
+        },
+      ],
+    })} />
+  </Fragment>
+
+  <BridgeDocStyles />
+  <BridgeLightbox />
+
+  <main>
+    <section class="bd-hero">
+      <p class="bd-crumb"><a href="/plugins/">kintoneプラグイン</a> ／ <a href="/plugins/bridge/">KIZUNAブリッジ for kintone</a> ／ 設定の手引き</p>
+      <h1>KIZUNAブリッジの設定の手引き</h1>
+      <p>KIZUNAブリッジ for kintone は、<strong>きっかけ・条件・動かす内容</strong>の3つを選ぶだけで、アプリをまたぐ作業を自動にする kintone プラグインです。このページでは、設定画面の言葉のまま、ルールの作り方と各項目の選び方を説明します。</p>
+      <p>日付の入れ方は<a href="#value">値の入れ方</a>、計算式の書き方は<a href="/plugins/bridge/formula/">計算式と日付の指定</a>のページにあります。</p>
+    </section>
+
+    <section class="bd-section">
+      <div class="bd-wrap">
+        <div class="bd-card">
+          <ul class="bd-toc" aria-label="このページの内容">
+            <li><a href="#rule">ルールの作り方</a></li>
+            <li><a href="#trigger">きっかけ</a></li>
+            <li><a href="#condition">条件</a></li>
+            <li><a href="#action">動かす内容</a></li>
+            <li><a href="#value">値の入れ方</a></li>
+            <li><a href="#dup">ルールの複製</a></li>
+          </ul>
+        </div>
+
+        <div class="bd-card">
+          <h2 id="rule">ルールの作り方</h2>
+          <ol>
+            {steps.map((t) => <li>{t}</li>)}
+          </ol>
+          <figure class="bd-shot">
+            <Picture src="/images/bridge-v140-edit-top-01.png" alt="ルールの編集画面の前半。「1 きっかけ」の枠に、ボタンの名前・置く場所・どの画面・レコード画面で位置を決めるボタンが並び、その下にボタンの見た目（見本・種類・形・大きさ・色）の設定がある" width="1000" height="643" class="zoomable" />
+            <figcaption>ルールの編集画面（上半分）。画像をクリックすると拡大表示します</figcaption>
+          </figure>
+          <figure class="bd-shot">
+            <Picture src="/images/bridge-v140-edit-bottom-01.png" alt="ルールの編集画面の後半。ボタンの見た目の続き（書体・文字・動かす端末）のあとに「2 条件」の枠（いつも／条件に合うときだけ）と「3 動かす内容」の枠の始まりが表示されている" width="1000" height="643" class="zoomable" />
+            <figcaption>ルールの編集画面（下半分）。画像をクリックすると拡大表示します</figcaption>
+          </figure>
+          <ul>
+            <li>ルールは、左の一覧の上から順に実行します。順番は、選んだルールの行の［↑］［↓］で入れ替えられます。</li>
+            <li>ルールごとに、［動かす］のオン・オフがあります。オフにしても設定は消えません。</li>
+            <li>全タブの変更は、画面下の［保存する］でまとめて保存します。保存のあとは「アプリの設定」の画面に戻ります。</li>
+          </ul>
+          <p>具体的な例は、<a href="/plugins/bridge/recipes/">使い方の例</a>にあります。各例に「設定のしかた」を付けています。</p>
+        </div>
+
+        <div class="bd-card">
+          <h2 id="trigger">きっかけ（いつ動かすか）</h2>
+          <p>ルールを動かす場面を選びます。使える動かす内容は、きっかけで決まります。</p>
+          <div class="bd-scroll">
+            <table class="bd-table">
+              <thead><tr><th>きっかけ</th><th>動くとき</th><th>使いどころ</th><th>保存・実行を止められる</th></tr></thead>
+              <tbody>
+                <tr><td>画面を開いたとき</td><td>レコードの画面を開いた瞬間</td><td>値の自動入力</td><td></td></tr>
+                <tr><td>フィールドの値を変えたとき</td><td>選んだフィールドの値を変えた瞬間</td><td>マスタから値を取ってくる</td><td></td></tr>
+                <tr><td>保存する前</td><td>保存ボタンを押したとき、保存される前</td><td>入力のチェック</td><td>止められる</td></tr>
+                <tr><td>保存した後</td><td>保存が終わったあと</td><td>他のアプリへの書き込み</td><td></td></tr>
+                <tr><td>アクションを実行する前</td><td>プロセス管理のボタンを押したとき、進む前</td><td>添付の確認</td><td>止められる</td></tr>
+                <tr><td>アクションを実行した後</td><td>ステータスが進んだあと</td><td>台帳への反映</td><td></td></tr>
+                <tr><td>削除する前</td><td>削除する前</td><td>消してはいけないレコードを守る</td><td>止められる</td></tr>
+                <tr><td>ボタンを押したとき</td><td>ブリッジが置くボタンを押したとき</td><td>好きなときに動かす</td><td></td></tr>
+                <tr><td>CSV を読み込む前／読み込んだ後／書き出す前／書き出した後</td><td>ブリッジの CSV のボタンで読み込む・書き出すとき</td><td>読み込む行・書き出す値の調整</td><td>前の2つは止められる</td></tr>
+                <tr><td>KIZUNA Works のプラグインでレコードを変えたとき</td><td>当社の一括処理などのあと</td><td>変わったレコードへの処理</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li>「どの画面」（新規作成・再利用・編集・詳細）と「動かす端末」（PC・モバイル）を選べます。</li>
+            <li>「フィールドの値を変えたとき」に選べるフィールドは、kintone が変更のイベントに対応している種類だけです。</li>
+            <li>アクションのきっかけは、アプリでプロセス管理を使っているときだけ選べます。</li>
+            <li>「ボタンを押したとき」は、置く場所を［レコードの画面］か［一覧の上］から選びます。レコードの画面は、詳細だけでなく新規作成・編集の画面にも置けます。置き場所は、［レコード画面を開いて位置を決める］で実際の画面を見ながらドラッグして決めます。配置画面では、グリッド線とガイド線で位置をそろえられます。</li>
+          </ul>
+        </div>
+
+        <div class="bd-card">
+          <h2 id="condition">条件（どんなときに動かすか）</h2>
+          <p>［いつも］を選ぶと、きっかけが起きるたびに毎回動かします。［条件に合うときだけ］を選ぶと、条件に合うときだけ動かします。条件は［＋ 条件］で足し、［＋ グループ］で「すべて」と「どれか」を入れ子にできます（入れ子は1段まで）。</p>
+          <h3>判定に使えるもの</h3>
+          <div class="bd-scroll">
+            <table class="bd-table">
+              <thead><tr><th>分類</th><th>内容</th></tr></thead>
+              <tbody>
+                <tr><td>このレコードのフィールド</td><td>文字列・数値・日付・選択肢・チェックボックス・ユーザー・組織・グループ・添付ファイルなど</td></tr>
+                <tr><td>変更前の値</td><td>保存・アクションのときの、変更前の値。「変わった」「変わっていない」「から変わった」</td></tr>
+                <tr><td>テーブル</td><td>どれかの行／すべての行／行数／列の合計</td></tr>
+                <tr><td>プロセス管理</td><td>ステータス・作業者・実行したアクション</td></tr>
+                <tr><td>操作している人</td><td>ユーザー・組織・グループ</td></tr>
+                <tr><td>日付・端末</td><td>使っている端末（PC・モバイル）・今日の曜日・今日の日付</td></tr>
+                <tr><td>他のアプリのレコード</td><td>あるか・ないか／件数／合計</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>フィールドの型ごとの比べ方</h3>
+          <div class="bd-scroll">
+            <table class="bd-table">
+              <thead><tr><th>型</th><th>選べる比べ方</th></tr></thead>
+              <tbody>
+                <tr><td>文字列（1行）</td><td>と同じ／と違う／を含む／を含まない／で始まる／が空／が空でない</td></tr>
+                <tr><td>文字列（複数行）</td><td>を含む／を含まない／が空／が空でない</td></tr>
+                <tr><td>数値</td><td>＝／≠／＞／≧（以上）／＜／≦（以下）／が空／が空でない</td></tr>
+                <tr><td>日付</td><td>と同じ日／より前／より後／今日から○日以内／が空／が空でない。比べる日付は、<a href="#value">日付を指定</a>でも決められます</td></tr>
+                <tr><td>ドロップダウン・ラジオボタン</td><td>のどれか／のどれでもない／が空／が空でない（テーブルの列でも同じ。値の入力欄は、「が空」「が空でない」では出ません）</td></tr>
+                <tr><td>チェックボックス</td><td>のどれかを含む／をすべて含む／何も選ばれていない</td></tr>
+                <tr><td>ユーザー</td><td>のどれか／＝操作している人／が空</td></tr>
+                <tr><td>組織・グループ</td><td>のどれか／のどれでもない／が空</td></tr>
+                <tr><td>添付ファイル</td><td>添付がある／添付がない</td></tr>
+                <tr><td>ステータス</td><td>のどれか／のどれでもない</td></tr>
+                <tr><td>変更前の値</td><td>が変わった／が変わっていない／から変わった</td></tr>
+                <tr><td>他のアプリのレコード</td><td>がある／がない（件数・合計も比べられます）</td></tr>
+                <tr><td>端末・曜日・操作</td><td>のどれか／のどれでもない</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bd-note"><p>ドロップダウンとラジオボタンの「が空」「が空でない」は、フィールドを対象にした条件で選べます。ステータスは、いつも値があるので対象外です。端末・曜日・操作などの条件にも出ません。</p></div>
+        </div>
+
+        <div class="bd-card">
+          <h2 id="action">動かす内容（何をするか）</h2>
+          <p>［＋ 動かす内容を足す］で足し、上から順に行います。</p>
+          <div class="bd-scroll">
+            <table class="bd-table">
+              <thead><tr><th>分類</th><th>動かす内容</th><th>内容</th></tr></thead>
+              <tbody>
+                <tr><td rowspan="6">このレコード</td><td>値を入れる</td><td>フィールドに値を入れる（値の入れ方は<a href="#value">下</a>）</td></tr>
+                <tr><td>値を空にする</td><td>フィールドを空にする</td></tr>
+                <tr><td>明細を集計して入れる</td><td>テーブルの列の合計・最大・行数を、数値フィールドに入れる</td></tr>
+                <tr><td>明細に行を足す</td><td>列と値を決めて行を足す。同じ値の行があるときは足さない設定もできる</td></tr>
+                <tr><td>明細の行を消す</td><td>すべての行、または列の値で選んだ行を消す</td></tr>
+                <tr><td>プラグインの処理を当てる（採番など）</td><td>このアプリに入っている当社のプラグインの処理を、このレコードに当て直す</td></tr>
+                <tr><td rowspan="3">確認・止める</td><td>エラーを出して止める</td><td>メッセージを出して、保存・アクション・削除を止める。出す場所はフィールドか画面の上</td></tr>
+                <tr><td>確認してから進める</td><td>メッセージを出して、［OK］のときだけ進める</td></tr>
+                <tr><td>お知らせを出す</td><td>メッセージを出す</td></tr>
+                <tr><td rowspan="7">他のアプリ</td><td>値を取ってくる</td><td>条件に合うレコードの値を、このレコードに写す</td></tr>
+                <tr><td>レコードを更新する</td><td>条件に合うレコードの値を、入れる・足す・引く・空にする</td></tr>
+                <tr><td>レコードを作る</td><td>他のアプリに、値を決めてレコードを作る</td></tr>
+                <tr><td>ステータスを進める</td><td>他のアプリ（またはこのアプリ）のレコードのアクションを実行する</td></tr>
+                <tr><td>決めた項目を双方向に揃える</td><td>フィールドの組を決めて、そろえる</td></tr>
+                <tr><td>レコードにプラグインの処理をかけ直す</td><td>書き込み先のアプリの当社のプラグインの処理を当てる</td></tr>
+                <tr><td>プラグインの機能を実行する</td><td>ほかのアプリに入っている当社のプラグインの処理を呼び出す</td></tr>
+                <tr><td>その他</td><td>保存後に開く画面</td><td>「保存した後」のきっかけだけ。一覧／新規作成の画面／このレコード</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li>このレコードの値を変える動作は、「画面を開いたとき」「フィールドの値を変えたとき」「保存する前」「アクションを実行する前」で使えます。</li>
+            <li>他のアプリへ書く動作は、保存が確定してから書くため、「保存した後」「アクションを実行した後」「ボタンを押したとき」などで使えます。</li>
+            <li>組み合わせが合わないときは、ルールの上に理由が出ます。</li>
+            <li>他のアプリを探すときは、「そのアプリのフィールドが、このレコードのフィールドと同じ」を1つ以上決めます。</li>
+          </ul>
+        </div>
+
+        <div class="bd-card">
+          <h2 id="value">値の入れ方</h2>
+          <p>「値を入れる」などの入れる値は、<strong>値の種類</strong>の選択で決めます。日付のフィールドに入れるときは、関数を書かずに選ぶだけの［日付を指定］が使えます。</p>
+
+          <h3>値を入力（固定値）</h3>
+          <p>決めた値をそのまま入れます。日付のフィールドでは「今日」「今日から○日後」も選べます。</p>
+
+          <h3>このレコードのフィールドの値</h3>
+          <p>このレコードの別のフィールドの値を入れます。テーブルの行ごとに回すときは、その行の列も選べます。</p>
+
+          <h3>日付を指定（選ぶだけ）</h3>
+          <p>入れる先が日付・日時のフィールドのときだけ出ます。次の4つの欄を選びます。関数は書きません。</p>
+          <div class="bd-scroll">
+            <table class="bd-table">
+              <thead><tr><th>欄</th><th>選ぶもの</th></tr></thead>
+              <tbody>
+                <tr><td>基準</td><td>［今日］、または日付・日時のフィールド（テーブルの行の中では、その行の列も選べます）</td></tr>
+                <tr><td>月をずらす</td><td>数（0〜600）と［か月後］［か月前］</td></tr>
+                <tr><td>日の位置</td><td>［基準と同じ日］［1日（月初）］［末日（月末）］</td></tr>
+                <tr><td>さらに</td><td>数（0〜3650）と［日後］［日前］</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li>計算の順番は、基準 → 月をずらす → 日の位置 → さらに日をずらす、です。</li>
+            <li>月をずらした先にその日が無いときは、その月の末日にします。</li>
+            <li>基準のフィールドが空のときは、結果も空です。</li>
+            <li>欄の右に「例：今日（…）なら …」と結果の見本が出ます。基準がフィールドのときは、例のレコードの値で計算します。</li>
+            <li>日時のフィールドに入れると、日本時間の 0:00 になります。</li>
+            <li>他のアプリの更新・作成、テーブルの行を足す、日付の条件の値でも使えます。</li>
+          </ul>
+          <figure class="bd-shot">
+            <Picture src="/images/bridge-v140-date-contract-01.png" alt="値の種類で［日付を指定］を選んだ入力欄。基準に契約日、月をずらすに 59 か月後、日の位置に末日（月末）を選び、右に結果の見本が表示されている" width="737" height="402" class="zoomable" />
+            <figcaption>契約日の59か月後の末日を指定した例。画像をクリックすると拡大表示します</figcaption>
+          </figure>
+          <p>「当月1日」「先月末日」「59か月後の末日」などの選び方は、<a href="/plugins/bridge/formula/#date">日付の早見表</a>にあります。</p>
+
+          <h3>計算式（もっと複雑な指定をしたいとき）</h3>
+          <p>文字をつなぐ、条件で値を変える、営業日を数えるなど、選ぶだけでは足りないときに使います。フィールドは <code>{'{フィールド名}'}</code> で書きます。入力欄の下にも結果の見本が出ます。</p>
+          <pre><code>{'{受注番号} & "から引当"'}
+日付加算(今日(), 3)
+月末(今日(), -1)</code></pre>
+          <p>書き方・関数の一覧は、<a href="/plugins/bridge/formula/">計算式と日付の指定</a>のページにまとめています。</p>
+
+          <div class="bd-note"><p>設定画面の値の種類の横にある［？］から、この説明を開けます。</p></div>
+        </div>
+
+        <div class="bd-card">
+          <h2 id="dup">ルールの複製</h2>
+          <p>似たルールを作るときは、ルールの編集画面の右上の［複製］を押します。</p>
+          <ul>
+            <li>元のルールの直後に、名前が「元の名前（コピー）」のルールが入り、選ばれた状態になります。</li>
+            <li>複製したルールは<strong>無効（オフ）</strong>です。中身を確かめてから、［動かす］をオンにします。</li>
+            <li>ボタンの置き場所は、元のルールと同じ位置を引き継ぎます。</li>
+            <li>保存するまで設定には反映しません。保存せずに設定画面を閉じると、複製は残りません。</li>
+          </ul>
+        </div>
+
+        <div class="bd-card">
+          <h2>つぎに読むページ</h2>
+          <div class="bd-link-row">
+            <a class="bd-btn is-primary" href="/plugins/bridge/formula/">計算式と日付の指定</a>
+            <a class="bd-btn is-line" href="/plugins/bridge/recipes/">使い方の例</a>
+            <a class="bd-btn is-line" href="/plugins/bridge/">製品ページ</a>
+          </div>
+        </div>
+
+        <ShareButtons title="KIZUNAブリッジ for kintone の設定の手引き" />
+      </div>
+    </section>
+  </main>
+</Layout>

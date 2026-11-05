@@ -1,0 +1,30 @@
+---
+// Click-to-enlarge for img.zoomable on the Bridge reference pages (guide / formula).
+---
+<div class="bd-lightbox" id="bd-lightbox" aria-hidden="true"><button type="button" class="bd-lightbox-close" aria-label="閉じる">×</button><img src="" alt="" /></div>
+<style is:global>
+  .zoomable { cursor: zoom-in; }
+  .bd-lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); display: none; align-items: center; justify-content: center; z-index: 10000; padding: 24px; cursor: zoom-out; }
+  .bd-lightbox.is-open { display: flex; }
+  .bd-lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5); }
+  .bd-lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255, 255, 255, 0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+  .bd-shot { margin: 0 auto 16px; max-width: 640px; }
+  .bd-shot img { display: block; width: 100%; height: auto; border: 1px solid #dbe3ee; border-radius: 8px; }
+  .bd-shot figcaption { text-align: center; color: #64748b; font-size: 12px; margin: 8px 0 0; }
+</style>
+<script is:inline>
+  (function () {
+    var lb = document.getElementById('bd-lightbox');
+    var li = lb ? lb.querySelector('img') : null;
+    if (!lb || !li) return;
+    function close() { lb.classList.remove('is-open'); lb.setAttribute('aria-hidden', 'true'); li.src = ''; }
+    document.querySelectorAll('img.zoomable').forEach(function (img) {
+      img.addEventListener('click', function () {
+        li.src = img.currentSrc || img.src; li.alt = img.alt || '拡大画像';
+        lb.classList.add('is-open'); lb.setAttribute('aria-hidden', 'false');
+      });
+    });
+    lb.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  })();
+</script>

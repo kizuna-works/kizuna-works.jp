@@ -9,6 +9,7 @@ import TrialBanner from '../../../components/TrialBanner.astro';
 import HeroDownload from '../../../components/HeroDownload.astro';
 import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <Layout
@@ -53,10 +54,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "入力テンプレート for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.4.0",
-          "dateModified": "2026-10-28",
+          "softwareVersion": "1.5.0",
+          "dateModified": "2026-11-06",
           "url": "https://kizuna-works.jp/plugins/input-template/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-input-template-v1.4.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-input-template-v1.5.0.zip",
           "image": "https://kizuna-works.jp/images/input-template-banner.png",
           "offers": [
             {
@@ -94,6 +95,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "テーブルの列ごとに「空欄にする」を選べ、お手本の値を使わずに全行を空欄で保存",
             "「テンプレートにする」でも日付を「本日から○日後」で指定",
             "編集画面では「空欄のみ埋める／すべて上書き」「末尾に追加／既存行を置換」を選択",
+            "設定画面の「テンプレートに記録しないフィールド」で選んだフィールド・テーブルの列は、テンプレートに記録せず、当てるときも書き込まない（コピーボタンには効かない）（v1.5.0）",
             "共通テンプレートごとに表示するユーザー・組織・グループを指定",
             "対象アプリのフォームは一切変更せず、テンプレートは保管アプリへ分離",
             "テンプレートボタンの設置位置を kintone標準ボタンの横／ヘッダーメニュー左／ヘッダーメニュー右 から選択",
@@ -276,6 +278,11 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
     .update-list strong { color: var(--color-navy); }
     .update-shot { max-width: 640px; margin: 0 auto; }
     .update-shot img { width: 100%; height: auto; display: block; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; }
+    .update-shots { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: flex-start; margin: 4px 0 24px; }
+    .update-shots .update-shot { margin: 0; min-width: 0; flex: 0 1 auto; }
+    .update-shots .update-shot-wide { width: min(100%, 420px); }
+    .update-shots .update-shot-narrow { width: min(100%, 300px); }
+    .update-shots figcaption { text-align: center; color: var(--color-text-muted); font-size: 12px; line-height: 1.6; margin: 8px 0 0; }
     .update-shot .zoom-hint { text-align: center; color: var(--color-text-muted); font-size: 12px; margin: 10px 0 0; }
     @media (max-width: 768px) {
       .update-box { padding: 24px 20px 28px; }
@@ -311,36 +318,48 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       <img class="afp-hero-icon" src="/images/input-template-icon.png" alt="入力テンプレート for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.4.0</span>
+        <span class="afp-hero-version">v1.5.0</span>
       </div>
       <HeroSubBadges pluginId="kw-input-template" />
       <h1>入力テンプレート for kintone</h1>
       <p class="afp-tagline">いつもの入力を、ワンタップで。</p>
-      <p class="afp-sub">あらかじめ登録した「値のセット」を選ぶだけで、複数フィールドとテーブル明細をまとめて入力。日付は「本日」、担当者は「ログインユーザー」で持てるので、毎回その日・その人で入ります。管理者が配る共通テンプレートと、現場が自分で増やせる個人テンプレートの2階層で、「毎回おなじことを打っている」を終わらせます。フィールドの値をまとめてコピーする「コピーボタン」も使えます。</p>
-      <HeroDownload href="/downloads/kw-input-template-v1.4.0.zip" premium />
+      <p class="afp-sub">あらかじめ登録した「値のセット」を選ぶだけで、複数フィールドとテーブル明細をまとめて入力。日付は「本日」、担当者は「ログインユーザー」で持てるので、毎回その日・その人で入ります。管理者が配る共通テンプレートと、現場が自分で増やせる個人テンプレートの2階層で、「毎回おなじことを打っている」を終わらせます。フィールドの値をまとめてコピーする「コピーボタン」も使えます。レコードごとに違う値を入れる欄は、テンプレートに記録しないよう除外できます。</p>
+      <HeroDownload href="/downloads/kw-input-template-v1.5.0.zip" premium />
     </section>
     <div class="afp-hero-gradient-line"></div>
 
-    <!-- Update Info (v1.4.0) -->
+    <!-- Update Info (v1.5.0) -->
     <section class="afp-section afp-update-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.4.0：ボタン1つでフィールドの値をまとめてコピーできる「コピーボタン」を追加しました</h2>
+            <h2 class="update-title">v1.5.0：テンプレートに記録しないフィールドを選べるようになりました</h2>
           </div>
-          <p class="update-desc">請求先を納品先へ、担当者を確認者へ。同じ値を何か所にも入れ直す作業を、押すだけで済ませられます。テンプレートの保管アプリを作らなくても、コピーボタンだけで使えます。</p>
+          <p class="update-desc">入力テンプレートを v1.5.0 にアップデートしました。レコードごとに違う値を入れる欄を、テンプレートの値で上書きしてしまう事故を防げます。</p>
           <ul class="update-list">
-            <li><strong>「コピー元 → コピー先」の組をまとめてコピー</strong>：レコードの追加画面・編集画面で使えます。ボタンごとに、追加・編集のどちらに出すか選べます。</li>
-            <li><strong>置き場所を選べます</strong>：フォームのスペース／フィールドの右／フィールドの下／保存ボタンの横。スマートフォンでは、フィールドの右は下に、保存ボタンの横はヘッダーの下に出ます。</li>
-            <li><strong>コピー先に値があるとき</strong>：確認してから上書き（既定。キャンセルすると空欄の項目だけにコピー）／確認せずに上書き／空欄のときだけ、から選べます。</li>
-            <li><strong>コピー元が空の組は何もしません</strong>：コピー先の値を消しません。</li>
-            <li><strong>型が違っても、意味が保てる組み合わせは変換します</strong>：全角数字・カンマ付きの文字列から数値、日時から日付、文字列から日付・時刻、ドロップダウンからチェックボックスなど。選択肢にない値などは写さず、画面でお知らせします。</li>
-            <li><strong>コピー先がルックアップなら、コピーしたあと自動で取得します</strong>。ルックアップのコピー先フィールドと、テーブル内のフィールドはコピー先に選べません。</li>
-            <li><strong>テンプレートがまだ無いときは登録の方法を案内します</strong>：「テンプレート」ボタンは登録済みのテンプレートを選ぶボタンです。1件も無いときは、詳細画面の「テンプレートにする」と設定画面の「共通テンプレート」の2つの登録方法を表示します。</li>
-            <li><strong>設定画面の「保管アプリを開く」を修正しました</strong>：リンク先が存在しない画面になり、エラーになっていました。</li>
+            <li><strong>設定画面の「テンプレートに記録しないフィールド」で選びます</strong>：フィールド、テーブルの列、テーブル全体を選べます。別のプラグインや外部サービスとの連携が書き込むリンク、管理用の番号などに使えます。</li>
+            <li><strong>すでに保存したテンプレートにも効きます</strong>：テンプレートに値が入っていても、当てるときには書き込まず、レコードの今の値が残ります。共通・個人、追加・編集のどの画面でも同じです。</li>
+            <li><strong>「テンプレートにする」の画面でも分かります</strong>：除外したフィールドは「テンプレートにできない項目」に「管理者が除外しています」と表示されます。</li>
+            <li><strong>コピーボタンには効きません</strong>：コピーボタンは、設定したとおりに写します。</li>
+            <li><strong>初期状態では何も除外しません</strong>：これまでと同じ動きで、以前の設定のままお使いいただけます。</li>
           </ul>
-          <p class="update-note">無料プランではコピーボタンを1個（一番上）まで、プレミアム年間サポーターは無制限です。2個目以降も設定・保存でき、加入すると表示されます。設定画面の色の欄には、KIZUNA Works 共通のカラーパレット（マイカラー・最近使った色）が付きました。色はブラウザに保存され、別の PC・別のブラウザには引き継がれません。PC・モバイル・ゲストスペースに対応しています。最新版は kintone システム管理の「プラグイン」から上書きアップロードしてください。保存済みの設定はそのまま引き継がれます。</p>
+          <div class="update-shots">
+            <figure class="update-shot update-shot-wide">
+              <Picture class="zoomable" src="/images/input-template-10-exclude-config.png" alt="入力テンプレートの設定画面。「テンプレートに記録しないフィールド」の欄に、フィールドの一覧がチェックボックスで並び、テーブルはテーブル名の下に列が並んで、テーブル全体のチェックもある。記録できない型のフィールドは「もともと記録されません」と薄く表示される" width="900" height="1145" />
+              <figcaption>設定画面の「テンプレートに記録しないフィールド」</figcaption>
+            </figure>
+            <figure class="update-shot update-shot-narrow">
+              <Picture class="zoomable" src="/images/input-template-11-exclude-save-modal.png" alt="「テンプレートとして保存」の画面。下の「テンプレートにできない項目」に、除外したフィールドが「管理者が除外しています」という理由つきで表示されている" width="620" height="860" />
+              <figcaption>「テンプレートにできない項目」に理由が出ます</figcaption>
+            </figure>
+          </div>
+          <p class="update-desc" style="margin:0 0 8px;text-align:center;font-size:12px;color:var(--color-text-muted);">画像をクリックすると拡大表示します</p>
+          <p class="update-desc" style="margin-bottom:8px;"><strong>ゲストスペースでの共通テンプレートの表示を改善しました</strong></p>
+          <ul class="update-list">
+            <li>ゲストスペースのアプリで、組織を限定して共有した共通テンプレートが、対象の組織のユーザーに表示されないことがありました。表示されるようにしました。</li>
+          </ul>
+          <p class="update-note">PC・モバイル・ゲストスペースに対応しています。最新版は kintone システム管理の「プラグイン」から上書きアップロードしてください。保存済みの設定はそのまま引き継がれます。</p>
           <BridgeUpdateNote />
         </div>
       </div>
@@ -484,6 +503,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             <p>押すだけで、決めておいた「コピー元 → コピー先」のフィールドをまとめてコピーします。追加・編集画面で使え、置き場所は4種類から選べます。コピー先に値があるときの扱い（確認して上書き／上書き／空欄のときだけ）も選べ、コピー先がルックアップなら自動で取得します。</p>
           </div>
           <div class="afp-feat-card">
+            <h3>テンプレートに記録しないフィールド</h3>
+            <p>設定画面で選んだフィールド・テーブルの列は、テンプレートに記録されず、当てるときも書き込みません。連携が書き込むリンクや管理用の番号を、ほかのレコードの値で上書きする事故を防げます。コピーボタンには効きません。</p>
+          </div>
+          <div class="afp-feat-card">
             <h3>表示対象の絞り込み</h3>
             <p>共通テンプレートごとに表示するユーザー・組織・グループを指定できます。指定しなければ全員に表示されます。</p>
           </div>
@@ -577,7 +600,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               <li>✅ 表示対象の絞り込み・編集画面での適用</li>
               <li>✅ 利用期限なし（レコード一覧画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-input-template-v1.4.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-input-template-v1.5.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="afp-plan-card recommended">
@@ -733,10 +756,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-input-template-v1.4.0.zip',
+            file_name: 'kw-input-template-v1.5.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-input-template-v1.4.0.zip'
+            link_url: '/downloads/kw-input-template-v1.5.0.zip'
           });
         });
       }
