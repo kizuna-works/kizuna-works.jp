@@ -675,6 +675,9 @@ c:\kizuna-works.jp\
 │   │   ├── quick-tab-update-v130-02.png      # クイックタブ v1.3.0 UPDATE スクショ02 — 入力画面・区分が未選択でタブ3つ（1650×659）
 │   │   ├── quick-tab-update-v130-03.png      # クイックタブ v1.3.0 UPDATE スクショ03 — 区分が「個人」で「法人のお客様」タブが消える（1650×659）
 │   │   ├── quick-tab-update-v130-04.png      # クイックタブ v1.3.0 UPDATE スクショ04 — 区分が「法人」で「個人のお客様」タブが消える（1650×659）
+│   │   ├── quick-tab-update-v140-01.png      # クイックタブ v1.4.0 UPDATE スクショ01 — 設定画面のタブの［条件］パネルの「閲覧できるユーザー」の欄（1280×900）
+│   │   ├── quick-tab-update-v140-02.png      # クイックタブ v1.4.0 UPDATE スクショ02 — 対象の人の画面・「担当者用」タブが出る（720×300）
+│   │   ├── quick-tab-update-v140-03.png      # クイックタブ v1.4.0 UPDATE スクショ03 — 対象外の人の画面・「担当者用」タブが出ない（720×300）
 │   │   ├── file-preview-icon.png           # 添付ファイルプレビュー for kintone プラグイン アイコン（200×200・ヒーロー画像用）
 │   │   ├── file-preview-banner.png         # 添付ファイルプレビュー for kintone バナー（1200×675・OGP/グリッド/news共用）
 │   │   ├── file-preview-list.png           # 添付ファイルプレビュー 共通一覧スクショ — 添付列にファイル名リンクがある一覧
@@ -1702,7 +1705,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-tab-v1.0.5.zip                               # クイックタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-tab-v1.1.0.zip                               # クイックタブ for kintone 配布ファイル（旧版・参考保管・v1.1.0：フッター開始スペース・設定保存後に「アプリの設定」へ戻る・色の欄に共通カラーパレット）
 │   │   ├── kw-quick-tab-v1.2.0.zip                               # クイックタブ for kintone 配布ファイル（旧版・参考保管・v1.2.0：編集・保存のあとも開いていたタブを表示する設定）
-│   │   ├── kw-quick-tab-v1.3.0.zip                               # クイックタブ for kintone 配布ファイル（最新・2026-11-04・v1.3.0：条件でタブを非表示・多言語対応）
+│   │   ├── kw-quick-tab-v1.3.0.zip                               # クイックタブ for kintone 配布ファイル（旧版・参考保管・v1.3.0：条件でタブを非表示・多言語対応）
+│   │   ├── kw-quick-tab-v1.4.0.zip                               # クイックタブ for kintone 配布ファイル（最新・2026-11-05・v1.4.0：タブごとに閲覧できるユーザー・組織・グループを指定）
 │   │   ├── kw-quick-toc-v1.0.0.zip                               # クイック目次 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-toc-v1.0.1.zip                               # クイック目次 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-toc-v1.0.2.zip                               # クイック目次 for kintone 配布ファイル（旧版・参考保管）
