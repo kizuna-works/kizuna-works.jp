@@ -352,7 +352,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-file-pro-release.md       # 添付ファイル Pro v1.0.0 公開のお知らせ（2026-10-27・KIZUNA Pro プラグイン第4弾）
 │   │   │   ├── plugin-design-pro-release.md     # デザイン Pro v1.0.0 公開のお知らせ（2026-11-02・KIZUNA Pro プラグイン第5弾）
 │   │   │   ├── list-styler-v141-page-scroll.md  # 一覧スタイラー v1.4.1 アップデートのお知らせ（2026-10-26・横スクロールをページ全体に戻した）
-│   │   │   ├── list-styler-v150-merge-empty.md  # 一覧スタイラー v1.5.0 アップデートのお知らせ（2026-11-05・レコードの列の縦結合・色の条件に空欄）
+│   │   │   ├── list-styler-v160-month.md        # 一覧スタイラー v1.6.0 アップデートのお知らせ（2026-11-05・日付の条件に今月／先月／来月。同日の v1.5.0 のお知らせを統合）
 │   │   │   ├── lookup-add-v111.md               # ルックアップ新規登録 v1.1.1 アップデートのお知らせ（2026-10-27・取得時の表示と採番できない理由の表示）
 │   │   │   ├── lookup-pro-v102.md               # ルックアップ Pro v1.0.2 アップデートのお知らせ（2026-10-27・同上を Pro の新規登録に反映）
 │   │   │   ├── lookup-pro-v130-update.md        # ルックアップ Pro v1.3.0 アップデートのお知らせ（2026-10-30 16:10・［取得］の画面の数値の書式と添付サムネイル）
@@ -388,6 +388,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── text-join-v140.md               # 文字列結合 v1.4.0 アップデートのお知らせ（2026-10-28 10:50・コピーボタン／色の欄に共通カラーパレット）
 │   │   │   ├── text-join-v150.md               # 文字列結合 v1.5.0 アップデートのお知らせ（2026-11-04 15:00・日付の年だけ・月だけの書式）
 │   │   │   ├── sheet-edit-v160.md              # シート編集 v1.6.0 アップデートのお知らせ（2026-11-04 12:00・条件ルール＝色付け・編集不可）
+│   │   │   ├── sheet-edit-v170.md              # シート編集 v1.7.0 アップデートのお知らせ（2026-11-05・日付の条件に今月／先月／来月）
 │   │   │   ├── record-lock-v140.md             # レコードロック v1.4.0 アップデートのお知らせ
 │   │   │   ├── input-assist-v220.md            # 入力アシスト v2.2.0 公開のお知らせ（入力の変換・update）
 │   │   │   ├── input-assist-v230.md            # 入力アシスト v2.3.0 公開のお知らせ（入力の変換：かける位置・使う条件・複数辞書・update）
@@ -599,6 +600,7 @@ c:\kizuna-works.jp\
 │   │   ├── sheet-edit-v160-rules-grid.png  # シート編集 v1.6.0 スクショ — 条件ルールで色付けした一覧（受注の行は緑・顧客名が空欄の行は赤・サブテーブル展開行にも色）＋ .webp（製品ページ UPDATE ボックス用）
 │   │   ├── sheet-edit-v160-lock.png        # シート編集 v1.6.0 スクショ — 編集不可セルを編集しようとして「条件により編集できません」を表示（製品ページ UPDATE ボックス用）＋ .webp
 │   │   ├── sheet-edit-v160-config-rules.png # シート編集 v1.6.0 スクショ — 設定画面「条件ルール（色付け・編集不可）」（製品ページ 設定画面の使い方④）＋ .webp
+│   │   ├── sheet-edit-v170-month.png        # シート編集 v1.7.0 スクショ — 条件ルールの値に THIS_MONTH を入れた設定画面（製品ページ UPDATE・別担当が撮影中）＋ .webp
 │   │   ├── quick-history-view-icon.png     # クイック履歴ビュー for kintone プラグイン アイコン（ヒーロー画像用・kintone プラグイン本体と同じアイコン）
 │   │   ├── quick-history-view-banner.png   # クイック履歴ビュー for kintone バナー（1200×675・OGP/グリッド共用）
 │   │   ├── quick-history-view-setup-01.png # クイック履歴ビュー 事前準備スクショ① — 履歴 JSON 保存用「文字列(複数行)」フィールドをフォームに配置
@@ -745,6 +747,7 @@ c:\kizuna-works.jp\
 │   │   ├── list-styler-v150-merge-list.png     # 一覧スタイラー 製品ページ：明細以外の列を縦に結合した一覧（v1.5.0 UPDATE）＋ .webp
 │   │   ├── list-styler-v150-merge-setting.png  # 一覧スタイラー 製品ページ：設定画面の「レコードの列を縦に結合」（v1.5.0 UPDATE）＋ .webp
 │   │   ├── list-styler-v150-empty-rule.png     # 一覧スタイラー 製品ページ：色の条件に「が空欄」を選んだ設定画面（v1.5.0 UPDATE）＋ .webp
+│   │   ├── list-styler-v160-month.png          # 一覧スタイラー 製品ページ：日付の値に THIS_MONTH を入れた設定画面（v1.6.0 UPDATE・別担当が撮影中）＋ .webp
 │   │   ├── footprint-marks-footprints.png  # 製品ページ：足あと列の拡大（位置の見方と、マークの形「足あと」）＋ .webp
 │   │   ├── footprint-marks-paw.png / -eye / -pencil / -stamp / -dot / -eye-pencil.png  # 製品ページ：マークの形ごとの足あと列（6種＋閲覧＝目・編集＝えんぴつの組み合わせ）＋ .webp
 │   │   ├── footprint-tiers.png  # 製品ページ：新しさの4段階（設定画面のライブプレビューから切り出し）＋ .webp
@@ -1596,7 +1599,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-list-styler-v1.3.1.zip  # 一覧スタイラー for kintone 配布ファイル（旧版・v1.3.1：列固定とテーブル展開が他製品の列を数えてずれる不具合を修正）
 │   │   ├── kw-list-styler-v1.4.0.zip  # 一覧スタイラー for kintone 配布ファイル（旧版・v1.4.0：固定する列を選べる＋設定保存後に「アプリの設定」へ戻る）
 │   │   ├── kw-list-styler-v1.4.1.zip  # 一覧スタイラー for kintone 配布ファイル（旧版・v1.4.1：横スクロールをページ全体に戻す）
-│   │   ├── kw-list-styler-v1.5.0.zip  # 一覧スタイラー for kintone 配布ファイル（最新・v1.5.0：レコードの列の縦結合・色の条件に空欄・多言語・カラーパレット）
+│   │   ├── kw-list-styler-v1.5.0.zip  # 一覧スタイラー for kintone 配布ファイル（v1.5.0：レコードの列の縦結合・色の条件に空欄・多言語・カラーパレット）
+│   │   ├── kw-list-styler-v1.6.0.zip  # 一覧スタイラー for kintone 配布ファイル（最新・v1.6.0：日付の条件に今月／先月／来月）
 │   │   ├── kw-lookup-suggest-v1.0.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-lookup-suggest-v1.0.1.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-lookup-suggest-v1.0.2.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置）
@@ -1769,6 +1773,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-sheet-edit-v1.5.1.zip                      # シート編集 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-sheet-edit-v1.5.2.zip                      # シート編集 for kintone 配布ファイル（旧版・手動配置・v1.5.2 チェックボックス／複数選択セルの OK ボタンが見えず確定できなかったのを修正）
 │   │   ├── kw-sheet-edit-v1.5.3.zip                      # シート編集 for kintone 配布ファイル（最新・v1.5.3 横並びシートが使う一覧を対象ビューで選べなくする＋保存後は「アプリの設定」へ戻る）
+│   │   ├── kw-sheet-edit-v1.6.0.zip                      # シート編集 for kintone 配布ファイル（v1.6.0：条件ルール）
+│   │   ├── kw-sheet-edit-v1.7.0.zip                      # シート編集 for kintone 配布ファイル（最新・v1.7.0：日付の条件に今月／先月／来月）
 │   │   ├── kw-sidebar-enhancer-v1.0.0.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・v1.0.0 初版）
 │   │   ├── kw-sidebar-enhancer-v1.0.2.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・手動配置・v1.0.2 で数値の桁区切り撤去／ラベルのHTML描画／設定画面の保存ボタン／タブ初期表示の高速化）
 │   │   ├── kw-sidebar-enhancer-v1.0.3.zip                        # サイドバー拡張 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.3 ライセンス認証の内部改修）
