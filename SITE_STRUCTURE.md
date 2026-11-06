@@ -135,7 +135,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── quick-side-view/
 │   │   │   │   └── index.astro # クイックサイドビュープラグイン製品ページ（/plugins/quick-side-view/）
 │   │   │   ├── record-lock/
-│   │   │   │   └── index.astro # レコードロックプラグイン製品ページ（/plugins/record-lock/）— v1.4.0 の UPDATE ボックス＝除外された人にもロック中を表示（スクショ record-lock-v140-02・03）＋ロック条件に当てはまる値で保存・値の選び忘れの警告。v1.3.0 以前の内容は「主な機能」「設定画面イメージ（⑥〜⑨）」へ移動
+│   │   │   │   └── index.astro # レコードロックプラグイン製品ページ（/plugins/record-lock/）— v1.5.0 の UPDATE ボックス＝ロック中のレコードで変更履歴の「このバージョンに戻す」を表示しない＋ゲストスペースで除外グループ・組織が効く（スクショなし）。v1.4.0 以前の内容は「主な機能」「設定画面イメージ（⑥〜⑨）」へ移動
 │   │   │   ├── field-comment/
 │   │   │   │   └── index.astro # フィールドコメントプラグイン製品ページ（/plugins/field-comment/）
 │   │   │   ├── theme-styler/
@@ -400,6 +400,8 @@ c:\kizuna-works.jp\
 │   │   │   ├── sheet-edit-v160.md              # シート編集 v1.6.0 アップデートのお知らせ（2026-11-04 12:00・条件ルール＝色付け・編集不可）
 │   │   │   ├── sheet-edit-v170.md              # シート編集 v1.7.0 アップデートのお知らせ（2026-11-05・日付の条件に今月／先月／来月）
 │   │   │   ├── record-lock-v140.md             # レコードロック v1.4.0 アップデートのお知らせ
+│   │   │   ├── record-lock-v150.md             # レコードロック v1.5.0 アップデートのお知らせ
+│   │   │   ├── sidebar-enhancer-v1-1-0-update.md # サイドバー拡張 v1.1.0 アップデートのお知らせ（変更履歴の制限 F-06・ゲストスペースの組織・グループ指定）
 │   │   │   ├── input-assist-v220.md            # 入力アシスト v2.2.0 公開のお知らせ（入力の変換・update）
 │   │   │   ├── input-assist-v230.md            # 入力アシスト v2.3.0 公開のお知らせ（入力の変換：かける位置・使う条件・複数辞書・update）
 │   │   │   ├── blog-kintone-record-sakujo-fukugen.md # ブログ記事「kintoneで削除したレコードは復元できる？」公開のお知らせ（2026-10-17 11:00）
@@ -1163,6 +1165,8 @@ c:\kizuna-works.jp\
 │   │   ├── sidebar-enhancer-readcheck.png  # 既読チェックとの共存（既読パネルを開いた状態・タブ順が固定される様子）＋ .webp
 │   │   ├── sidebar-enhancer-address-assist.png # 住所アシスト連携（郵便番号→住所→マップURL→サイドバーに地図・1440×1000）＋ .webp
 │   │   ├── sidebar-enhancer-config-{01..05}.png # 設定画面スクショ（機能別・v2 3カラム・実機・右サイドバー広告は除外）＋ 各 .webp
+│   │   ├── sidebar-enhancer-config-06.png  # v1.1.0 UPDATE ボックス用：F-06「変更履歴の制限」の設定画面（1484×1134）＋ .webp
+│   │   ├── sidebar-enhancer-history-{hidden,shown}.png # v1.1.0 UPDATE ボックス用：変更履歴（指定外の人は「このバージョンに戻す」が出ない／指定した人は出る・417×566）＋ 各 .webp
 │   │   ├── chat-notify-banner.png          # チャット通知 for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp
 │   │   ├── chat-notify-icon.png            # チャット通知 for kintone アイコン（200×200・ヒーロー/ランキング用）
 │   │   ├── chat-notify-config-{01,02,03}.png # 設定画面スクショ（①送信先/②通知ルール/③共通設定・実機・右サイドバーは除外）
@@ -1757,7 +1761,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-record-lock-v1.2.2.zip                             # レコードロック for kintone 配布ファイル（旧版・v1.2.2：プラグイン一覧の「説明」リンクの誤り〔/plugins/kw-record-lock/〕を修正）
 │   │   ├── kw-record-lock-v1.3.0.zip                             # レコードロック for kintone 配布ファイル（旧版・v1.3.0：ロックのアイコンを設定ごとに選択〔内蔵24種類・アイコンなし・お手持ちの画像〕＋設定の並びを▲▼で入れ替え）
 │   │   ├── kw-record-lock-v1.3.1.zip                             # レコードロック for kintone 配布ファイル（旧版・v1.3.1：連携用の内部の改善）
-│   │   ├── kw-record-lock-v1.4.0.zip                             # レコードロック for kintone 配布ファイル（最新・2026-10-28・v1.4.0：除外された人にもロック中を表示・ロック条件に当てはまる値で保存・値の選び忘れの警告・共通カラーパレット）
+│   │   ├── kw-record-lock-v1.4.0.zip                             # レコードロック for kintone 配布ファイル（旧版・2026-10-28・v1.4.0：除外された人にもロック中を表示・ロック条件に当てはまる値で保存・値の選び忘れの警告・共通カラーパレット）
+│   │   ├── kw-record-lock-v1.5.0.zip                             # レコードロック for kintone 配布ファイル（最新・2026-11-06・v1.5.0：ロック中のレコードで変更履歴の「このバージョンに戻す」を表示しない・ゲストスペースの除外グループ／組織の修正）
 │   │   ├── kw-record-recovery-v1.0.0.zip                         # 削除レコード復元 for kintone 配布ファイル（旧版・手動配置・v1.0.0 初版）
 │   │   ├── kw-record-recovery-v1.0.1.zip                 # 削除レコード復元 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-recovery-v1.0.2.zip                 # 削除レコード復元 for kintone 配布ファイル（最新・手動配置・v1.0.2 重複禁止が未設定のルックアップでも安定して動作するよう改善）
@@ -1810,7 +1815,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-sheet-edit-v1.7.0.zip                      # シート編集 for kintone 配布ファイル（最新・v1.7.0：日付の条件に今月／先月／来月）
 │   │   ├── kw-sidebar-enhancer-v1.0.0.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・v1.0.0 初版）
 │   │   ├── kw-sidebar-enhancer-v1.0.2.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・手動配置・v1.0.2 で数値の桁区切り撤去／ラベルのHTML描画／設定画面の保存ボタン／タブ初期表示の高速化）
-│   │   ├── kw-sidebar-enhancer-v1.0.3.zip                        # サイドバー拡張 for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.3 ライセンス認証の内部改修）
+│   │   ├── kw-sidebar-enhancer-v1.0.3.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・手動配置・プレミアムプラグイン・v1.0.3 ライセンス認証の内部改修）
+│   │   ├── kw-sidebar-enhancer-v1.1.0.zip                        # サイドバー拡張 for kintone 配布ファイル（最新・プレミアムプラグイン・v1.1.0 変更履歴の制限（F-06）／ゲストスペースの組織・グループ指定／多言語対応）
 │   │   ├── kw-status-bulk-action-v1.0.0.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-status-bulk-action-v1.0.1.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-status-bulk-action-v1.0.2.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
