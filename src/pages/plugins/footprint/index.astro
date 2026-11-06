@@ -59,11 +59,11 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "足あと for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.2.4",
+          "softwareVersion": "1.3.0",
           "datePublished": "2026-10-01",
-          "dateModified": "2026-10-24",
+          "dateModified": "2026-11-06",
           "url": "https://kizuna-works.jp/plugins/footprint/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-footprint-v1.2.4.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-footprint-v1.3.0.zip",
           "image": "https://kizuna-works.jp/images/footprint-banner.png",
           "offers": {
             "@type": "Offer",
@@ -96,6 +96,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "足あと管理アプリにアプリ名を残し、どのアプリの足あとか足あと管理アプリを開いただけで分かる。レコードのタイトルも設定で残せる（v1.2.0・既定は残さない）",
             "記録するのは誰が・いつ・どのフィールドをだけで、値の中身は記録しない。計算フィールドとルックアップのコピー先には付けない",
             "足あとは同じスペースの足あと管理アプリに記録し、対象アプリのレコードは書き換えない。足あと管理アプリはボタン1つで作成でき、既読チェック for kintone の保管アプリも共用できる",
+            "設定した足あと管理アプリを開けないときは設定画面で警告し、このスペースの足あと管理アプリを使う／作成するボタンで切り替えられる。ゲストスペースのアプリには、そのゲストスペースの足あと管理アプリを使う（v1.3.0）",
             "モバイル版での閲覧・保存も記録（表示はPC版）・ゲストスペース対応"
           ]
         }
@@ -859,30 +860,32 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.2.4</span>
+        <span class="hero-version">v1.3.0</span>
       </div>
       <HeroSubBadges pluginId="kw-footprint" />
       <h1 class="hero-title">足あと for kintone</h1>
       <p class="hero-copy">足あと for kintone は、<strong>レコードを誰が見て、誰がどのフィールドを直したか</strong>を、一覧と詳細画面に「足あと」として出す kintone プラグインです。一覧に列を1本足して、<strong>見た人がいれば閲覧マーク、直した人がいれば編集マーク</strong>を並べます。マウスを乗せると<strong>人と日時・直した項目</strong>が出て、詳細画面では<strong>直されたフィールドの横</strong>にもマークが付きます。足あとは<strong>新しいほど濃く、古いほど薄く</strong>なるので、最近動いたレコードがひと目で分かります。担当者など<strong>見てほしい人のうち、まだ見ていない人</strong>もレコードごとに分かります。記録するのは「誰が・いつ・どのフィールドを」だけで、<strong>値の中身は記録しません</strong>。</p>
-      <HeroDownload href="/downloads/kw-footprint-v1.2.4.zip" />
+      <HeroDownload href="/downloads/kw-footprint-v1.3.0.zip" />
     </section>
     <BridgeBadge as="note" pluginId="kw-footprint" />
 
-    <!-- Update v1.2.1 -->
+    <!-- Update v1.3.0 -->
     <section class="update-section">
       <div class="update-box fade-in">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.2.1：誰がどのレコードを見たかを、ほかの利用者に知られないようにしました</h2>
+          <h2 class="update-title">v1.3.0：足あと管理アプリを開けないときに、設定画面でお知らせするよう改善しました</h2>
         </div>
-        <p class="update-desc">人事のお知らせのように、<strong>誰がどのお知らせを見たか</strong>そのものが知られたくない情報になるアプリがあります。見たことが知られると思えば、大事な案内を開いてもらえなくなることもあります。足あとは同じスペースの足あと管理アプリにまとめて記録するため、これまでは足あと管理アプリを開けば、だれでもほかの人の足あとを読めました。</p>
-        <p class="update-desc">v1.2.1 からは、<strong>「足あとを見られる人」を指定したアプリの足あとは、足あと管理アプリでも、指定した人・足あと管理者・本人（自分の足あとだけ）しか読めません</strong>。設定を保存したときに、足あと管理アプリのレコードのアクセス権へ、<strong>そのアプリの分だけ</strong>条件つきの行を足します。設定する場所は「足あとを見られる人」の 1 か所だけなので、画面の表示とデータの読める人がずれることはありません。全員に足あとを見せているほかのアプリは、これまでどおりです。</p>
-        <figure class="update-shot">
-          <div class="screenshot-frame"><Picture class="zoomable" src="/images/footprint-config-10.png" alt="足あと for kintone v1.2.1 — 設定画面「① 足あと管理アプリ」の「このアプリの足あとを読める人」。足あとを見られる人を指定しているので、足あと管理アプリでこのアプリの足あとを読めるのは本人（自分の足あとだけ）・足あと管理者・足あとを見られる人に指定した人だけ、と表示" width="1095" height="625" /></div>
-          <figcaption class="update-cap">設定画面の「このアプリの足あとを読める人」 — 「足あとを見られる人」の指定から決まります（画像をクリックすると拡大表示します）</figcaption>
-        </figure>
-        <p class="update-desc">あわせて、足あとの行は<strong>kintone の「作成者」と記録された人が一致するものだけ</strong>を数えるようにしました。ほかの人の名前で足あと管理アプリに行を足しても、足あとには数えません（作成者は、アプリの管理権限が無いと指定できません）。画面や説明で「足あと管理アプリ」と呼んでいたものは、<strong>「足あと管理アプリ」</strong>に呼び方をそろえました。</p>
-        <p class="update-note">すでに「足あとを見られる人」を指定しているアプリは、v1.2.1 に上書きしたあと、プラグインの設定画面を開いて［保存］し、［アプリを更新］を押してください（目次に「保存して読める人を反映」と出ます）。既読チェック for kintone と共用している足あと管理アプリでは、既読チェックが既読の一覧を全員に表示するため、この制限は使えません。バージョンアップは zip をダウンロードし、kintone システム管理の「プラグイン」から上書きアップロードしてください（アプリごとの設定は保持されます）。</p>
+        <p class="update-desc">設定されている足あと管理アプリを、このアプリから開けないときに、設定画面で警告を出します。開けないのは、別のスペースのアプリ（ゲストスペースからは通常スペースのアプリを使えません）、削除されたアプリ、足あと管理アプリでないアプリです。以前は「使っています」と表示されたまま、足あとが記録されていないことがありました。アプリを再利用して作ったときなどに、元のアプリの設定が残る場合に起きます。</p>
+        <p class="update-desc">警告の下の<strong>［このスペースの足あと管理アプリを使う］</strong>か<strong>［足あと管理アプリを作成する］</strong>で、そのスペースの足あと管理アプリに切り替えられます。ゲストスペースのアプリには、そのゲストスペースの足あと管理アプリを使います。開けないまま保存するときは、確認を出します。</p>
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/footprint-v130-storage-warning.png" alt="足あと for kintone v1.3.0 の設定画面 — 「足あと管理アプリ」の欄に「設定されている足あと管理アプリを、このアプリから開けません」という黄色の警告と理由が出て、その下に［このスペースの足あと管理アプリを使う］ボタンが表示されている。左の目次にも「開けない管理アプリ」と出ている" width="1453" height="1000" />
+          </div>
+          <p class="shot-note">画像をクリックすると拡大表示します。</p>
+        </div>
+        <p class="update-desc">あわせて、ゲストスペースで、所属組織・グループによる条件（記録する人・足あとを見られる人）が効かないことがある不具合を修正しました。設定画面の色の欄に、共通のカラーパレットも付きました。</p>
+        <p class="update-note">バージョンアップは zip をダウンロードし、kintone システム管理の「プラグイン」から上書きアップロードしてください（アプリごとの設定は保持されます）。</p>
       </div>
     </section>
 
@@ -1218,6 +1221,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <li><span><strong>組織を階層で選べる</strong>（v1.1.0）／組織を選ぶ欄は、親子を字下げした階層で表示します。絞り込むと「営業部 ＞ 営業一課」のように経路が出ます</span></li>
         <li><span><strong>値は記録しない</strong>／記録するのは誰が・いつ・どのフィールドをだけ。計算フィールドとルックアップのコピー先には足あとを付けません</span></li>
         <li><span><strong>対象アプリを書き換えない</strong>／足あとは同じスペースの足あと管理アプリに記録します。足あと管理アプリはボタン1つで作成でき、既読チェック for kintone の保管アプリも共用できます</span></li>
+        <li><span><strong>開けない足あと管理アプリを設定画面でお知らせ</strong>（v1.3.0）／別のスペースのアプリ・削除されたアプリなどが設定されているときに警告し、このスペースの足あと管理アプリへ切り替えられます。ゲストスペースのアプリには、そのゲストスペースの足あと管理アプリを使います</span></li>
         <li><span><strong>モバイルの操作も記録</strong>／モバイル版で開いた・保存した操作も足あとに残ります（表示は PC 版）。ゲストスペースにも対応しています</span></li>
       </ul>
     </section>
@@ -1228,7 +1232,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">足あとの表示は PC 版のレコード一覧・詳細画面で動作します。設定にはアプリの管理権限が必要です。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-footprint-v1.2.4.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-footprint-v1.3.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>対象アプリの<strong>アプリ設定 → プラグイン</strong>で「足あと for kintone」を追加</span></li>
           <li><span>プラグイン設定画面で<strong>［足あと管理アプリを作成する］</strong>を押し（初回だけ）、表示の設定を選んで「保存」</span></li>
@@ -1256,7 +1260,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-footprint-v1.2.4.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-footprint-v1.3.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <SupporterPlanCard pluginId="kw-footprint" />
       <PremiumPlanCard />
@@ -1385,10 +1389,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-footprint-v1.2.4.zip',
+              file_name: 'kw-footprint-v1.3.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-footprint-v1.2.4.zip'
+              link_url: '/downloads/kw-footprint-v1.3.0.zip'
             });
           }
         });
