@@ -1099,7 +1099,8 @@ export const plugins: Plugin[] = [
     problemDesc:
       'kintone に一括ダウンロードの機能はなく、レコードを開いて 1 件ずつ落とすしかない。まとめて ZIP に固める方法では、解いたあとの振り分けが残り、1 レコードに 10 点ある写真から報告書用の数枚だけを選ぶこともできない',
     releaseDate: '2026-08-08',
-    summaryVersion: '1.1.0',
+    summaryVersion: '1.2.0',
+    multilingual: true,
   },
   {
     id: 'kw-after-save',
@@ -1744,7 +1745,8 @@ export const premiumPlugins: Plugin[] = [
     problemTitle: '添付PDFへの押印や現場でのサインのたび、kintoneの外へ出ている',
     problemDesc: '押印のために印刷してスキャンし直している。現場でお客様の署名をもらうのに確認書を紙で持ち出している。お客様欄と自社欄の2か所に署名する帳票で、2人目のサインを毎回動かしている。会社名・氏名・日付など書いてほしい項目が複数あり、何を書くかを口頭で説明している。金額や個人情報を白く塗って隠したつもりでも、元の文字はファイルに残っている',
     releaseDate: '2026-08-21',
-    summaryVersion: '1.4.0',
+    summaryVersion: '1.5.0',
+    multilingual: true,
   },
   {
     id: 'kw-calendar-view',
