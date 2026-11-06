@@ -269,7 +269,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── lookup-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ルックアップ Pro for kintone 製品ページ（/plugins/lookup-pro/）v1.3.0（2026-10-30・UPDATE ボックスは［取得］の画面の数値の書式と添付ファイルのサムネイル〔絞り込み v1.4.0 の取り込み〕）。v1.2.0 は 2026-10-29（UPDATE ボックスはテーブルのコピー〔取得元のテーブルの行を写す〕・PART 2 に「テーブルのコピー」を追加・説明の総点検で条件の書き漏れを修正〔その場登録の絞り込み条件・自動反映が動く条件・スマートフォンの範囲・フリールックアップの部分一致の上限ほか〕）。v1.1.0 は 2026-10-28（UPDATE ボックス・多言語（日本語／英語／中国語〔簡体字〕）・機能ごとに「使う」を選ぶ・単品を無効にしても動く・設定画面の選択欄の修正・絞り込みの比べ方〔コード／名前〕）。v1.0.2 は 2026-10-27（登録パネルの［これを取得する］の表示と、採番できないときの理由表示を単品 v1.1.1 に合わせた）。v1.0.1 は 2026-10-26（使用ドメイン台帳への初回記録を読み込み時に送る）。v1.0.0 は 2026-10-25 公開（単品販売なし・ブリッジと同日公開）。PART 2 冒頭に「Pro だけ」のカード一覧、主な機能は「ルックアップ Pro だけの機能」と「5つの機能と共通の機能」に分ける
 │   │   │   ├── file-pro/
-│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】添付ファイル Pro for kintone 製品ページ（/plugins/file-pro/）v1.4.0（v1.4.0 は版上げのみ・多言語対応／v1.0.0 は 2026-10-27 公開。v1.3.0 は UPDATE ボックス・ダウンロードの制限／右に並べたときのボタンが隠れない改善。PART 2 に「ダウンロードの制限」を追加）。単品販売なし。PART 1 に5つの機能（プレビュー・アイコン表示・ZIP出力・画像圧縮・PDFへの書き込み。タブで切り替え、各機能に画面写真。ZIP出力・画像圧縮・PDFへの書き込みの写真は単品の製品ページの file-export-dialog-01・image-compress-before-after・pdf-edit-editor-01 を流用）、PART 2 に Pro だけの機能（このレコードの添付・添付の容量と一括圧縮・ZIPで画像を縮小・添付を検索・PDFにまとめる・ファイル名をそろえる・添付のきまり・まとめ）、PART 3 に単品からの乗り換え。ルックアップ Pro と同じ体裁（.kbp-*／.kfp-*）。配布 zip は /downloads/kw-file-pro-v1.4.0.zip（v1.0.0・v1.1.0・v1.2.0・v1.3.0・v1.3.1 の zip も残す）
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】添付ファイル Pro for kintone 製品ページ（/plugins/file-pro/）v1.5.0（UPDATE ボックスは v1.5.0：プレビューの拡大・縮小）（旧：v1.4.0（v1.4.0 は版上げのみ・多言語対応／v1.0.0 は 2026-10-27 公開。v1.3.0 は UPDATE ボックス・ダウンロードの制限／右に並べたときのボタンが隠れない改善。PART 2 に「ダウンロードの制限」を追加）。単品販売なし。PART 1 に5つの機能（プレビュー・アイコン表示・ZIP出力・画像圧縮・PDFへの書き込み。タブで切り替え、各機能に画面写真。ZIP出力・画像圧縮・PDFへの書き込みの写真は単品の製品ページの file-export-dialog-01・image-compress-before-after・pdf-edit-editor-01 を流用）、PART 2 に Pro だけの機能（このレコードの添付・添付の容量と一括圧縮・ZIPで画像を縮小・添付を検索・PDFにまとめる・ファイル名をそろえる・添付のきまり・まとめ）、PART 3 に単品からの乗り換え。ルックアップ Pro と同じ体裁（.kbp-*／.kfp-*）。配布 zip は /downloads/kw-file-pro-v1.4.0.zip（v1.0.0・v1.1.0・v1.2.0・v1.3.0・v1.3.1 の zip も残す）
 │   │   │   ├── design-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】デザイン Pro for kintone 製品ページ（/plugins/design-pro/）v1.2.0（2026-11-06・第5弾・UPDATE ボックス＝印刷パターンの PDF 保存で印刷画面を開くかを選べる・取り込んだ帳票デザイナー v1.9.0 の帳票ごとの印刷画面の選択と方眼線。スクショ 3 枚＝design-pro-update-print-pdf-01 と帳票デザイナーの report-designer-printdialog-01・grid-01 を流用。装飾など6つの機能＋表示パターン・印刷パターン・仕上げ・まとめ印刷・PDF の添付保存。配布 zip は public/downloads/kw-design-pro-v1.2.0.zip）
 │   │   │   ├── record-acl-assist/
@@ -381,6 +381,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── file-pro-v110-update.md          # 添付ファイル Pro v1.1.0 アップデートのお知らせ（2026-10-27 12:30・プレビューを右に並べる・別ウインドウ・多言語）
 │   │   │   ├── file-pro-v120-update.md          # 添付ファイル Pro v1.2.0 アップデートのお知らせ（2026-10-28 09:40・使う機能の選択・単品を無効にしても動く・右に並べたときの操作）
 │   │   │   ├── file-pro-v130-update.md          # 添付ファイル Pro v1.3.0 アップデートのお知らせ（2026-10-28 10:30・ダウンロードの制限・プレビューを右に並べたときの表示の改善）
+│   │   │   ├── file-pro-v150-zoom.md            # 添付ファイル Pro v1.5.0 アップデートのお知らせ（プレビューの PDF・画像を拡大・縮小）
 │   │   │   ├── calendar-view-v160-update.md    # カレンダービュー v1.6.0 アップデートのお知らせ（予定の追加方法を設定画面にまとめた・追加モーダルの項目・モーダルでルックアップ取得）
 │   │   │   ├── calendar-view-v161-repeat-numbering.md  # カレンダービュー v1.6.1 アップデートのお知らせ（繰り返し予定の番号が予定ごとに別々に振られるよう改善）
 │   │   │   ├── calendar-view-v170-multilingual.md  # カレンダービュー v1.7.0 アップデートのお知らせ（日本語・英語・中国語簡体字で表示・終了と開始が同じ時刻は重複にしない・追加／編集画面の閉じ方）
@@ -704,6 +705,7 @@ c:\kizuna-works.jp\
 │   │   ├── file-preview-reftable-02.png    # 添付ファイルプレビュー v2.3.0 — 関連レコード一覧から開いたPDF(工程表)の全画面プレビュー ＋ .webp
 │   │   ├── file-preview-print-01.png       # 添付ファイルプレビュー v2.4.0 — PDF プレビュー中のツールバー（ページ番号「2 / 3 ページ」・印刷ボタン）＋ .webp
 │   │   ├── file-preview-print-02.png       # 添付ファイルプレビュー v2.4.0 — 設定画面「印刷ボタン」（表示する人をユーザー・組織・グループから選択）＋ .webp
+│   │   ├── file-preview-zoom-01.png        # 添付ファイルプレビュー v2.7.0 — PDF を拡大して表示したプレビュー画面（UPDATE ボックス用・1400x900）
 │   │   ├── sidebar-enhancer-banner.png     # サイドバー拡張 for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp
 │   │   ├── input-template-banner.png       # 入力テンプレート for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── sticky-board-update-01.png      # 付箋ボード v1.1.0 — 会社名の項目に刺さった赤いピンから、離れた位置の付箋へ破線が伸びるレコード詳細画面
@@ -1018,6 +1020,7 @@ c:\kizuna-works.jp\
 │   │   ├── file-pro-summary.png                 # 添付ファイル Pro 製品ページ：設定画面の「まとめ」（1600×1104）＋ .webp
 │   │   ├── file-pro-preview-float.png           # 添付ファイル Pro 製品ページ：プレビューの浮かぶ窓（1600×1046）＋ .webp
 │   │   ├── file-pro-preview-dock.png            # 添付ファイル Pro 製品ページ：v1.1.0 UPDATE ボックス・プレビューを右に並べた画面（1600×1000）＋ .webp
+│   │   ├── file-pro-zoom-01.png                 # 添付ファイル Pro 製品ページ：v1.5.0 UPDATE ボックス用 — PDF を 125% に拡大したプレビュー画面（1400x900）
 │   │   ├── file-pro-list-icons.png              # 添付ファイル Pro 製品ページ：一覧のアイコン表示（1600×664）＋ .webp
 │   │   ├── file-pro-find.png                    # 添付ファイル Pro 製品ページ：［添付を検索］の窓＋ .webp
 │   │   ├── file-pro-merge.png                   # 添付ファイル Pro 製品ページ：［PDFにまとめる］の窓＋ .webp
@@ -1600,6 +1603,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-form-deco-v1.0.1.zip                               # FormDeco for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-form-deco-v1.0.2.zip                               # FormDeco for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-file-preview-v2.6.0.zip  # 添付ファイルプレビュー for kintone 配布ファイル（最新・2026-10-26・v2.6.0：「中」「小」を浮かぶ窓に・別タブで開く・キー操作の案内）
+│   │   ├── kw-file-preview-v2.7.0.zip  # 添付ファイルプレビュー for kintone 配布ファイル（最新・2026-11-06・v2.7.0：PDF・画像の拡大・縮小）
+│   │   ├── kw-file-pro-v1.5.0.zip      # 添付ファイル Pro for kintone 配布ファイル（最新・2026-11-06・v1.5.0：プレビューの PDF・画像の拡大・縮小）
 │   │   ├── kw-form-deco-v1.0.3.zip                               # FormDeco for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-form-deco-v1.1.0.zip                               # FormDeco for kintone 配布ファイル（旧版・2026-10-31・v1.1.0：コールアウト・リンク/ボタン・折りたたみ見出し・上部に固定・改ページ・「画面と印刷」の出し分け・カラーパレット）
 │   │   ├── kw-form-deco-v1.2.0.zip                               # FormDeco for kintone 配布ファイル（最新・2026-10-31・v1.2.0：設定画面が日本語/英語/中国語（簡体字）対応）
