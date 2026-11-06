@@ -139,11 +139,11 @@ export const bridgeRecipes: BridgeRecipe[] = [
     featured: true,
     flow: { from: '案件', to: '請求' },
     now: '一覧でまとめてステータスを進めると、1件ずつ完了にしたときの処理が抜けてしまう。',
-    trigger: 'かんたん一括更新・ステータス一括実行で変えたとき',
+    trigger: 'かんたん一括更新・ステータス一括実行・カードボードで変えたとき',
     condition: 'ステータスが「完了」',
     actions: ['他のアプリにレコードを作る：請求アプリに、顧客・金額・担当をコピーする'],
     result: 'ステータス一括実行でまとめて完了にしても、1件ずつ完了にしたときと同じように請求のレコードができます。',
-    partners: ['kw-status-bulk-action', 'kw-bulk-update'],
+    partners: ['kw-status-bulk-action', 'kw-bulk-update', 'kw-card-board'],
   },
   {
     id: 'stock-ship-rows',

@@ -10,7 +10,7 @@ import type { Plugin } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.5.0';
+const VERSION = '1.5.1';
 const ZIP = `/downloads/kw-bridge-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/';
 const DATE_MODIFIED = '2026-11-06';
@@ -180,7 +180,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.5.0",
+          "softwareVersion": "1.5.1",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -519,7 +519,8 @@ const faqJsonLd = {
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </figure>
         <p class="update-desc"><strong>条件と設定画面を改善しました。</strong>条件に、チェックボックスの［1つ以上選ばれている］と、ユーザー選択・組織選択・グループ選択の［が空でない］を追加しました。あわせて、ゲストスペースでの組織の条件、横に広い画面での設定画面の選択欄の表示、英語・中国語の選択肢の表示も改善しました。</p>
-        <p class="update-note">既存ユーザーの方は、最新版（v1.5.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
+        <p class="update-desc"><strong>きっかけ［KIZUNA Works のプラグインでレコードを変えたとき］の［どのプラグイン］に、「カードボード」を加えました（v1.5.1）。</strong>カードボードでカードをドラッグして変えたレコードに、ブリッジのルールを動かせます。カードボードは v1.2.0 以降が必要です。</p>
+        <p class="update-note">既存ユーザーの方は、最新版（v1.5.1）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
       </div>
     </section>
 
@@ -732,7 +733,7 @@ const faqJsonLd = {
           <div class="kbp-feature-text">
             <h3 class="kbp-h3">画面を通らずに保存したレコードにも、採番などを</h3>
             <p>カレンダービューのモーダル、かんたん一括更新、ステータス一括実行で保存したレコードには、保存したときに動くプラグインの処理が効きません。動作<strong>［プラグインの処理を当てる（採番など）］</strong>を入れたルールは、そのあとで、同じアプリのレコードに採番・文字列結合・住所アシスト・経過日数アシストの処理を当て直します。</p>
-            <p>使えるきっかけは、当社のプラグインでレコードを変えたとき・一覧のボタン・ブリッジの CSV ボタンで読み込んだ後／書き出した後です。一覧のボタンでは、番号が空の既存のレコードなどへまとめて採番できます。条件分岐自動採番は採番先が空のときだけ番号を振るので、何度当てても番号は変わりません。</p>
+            <p>使えるきっかけは、当社のプラグイン（かんたん一括更新・ステータス一括実行・カレンダービュー・カードボード）でレコードを変えたとき・一覧のボタン・ブリッジの CSV ボタンで読み込んだ後／書き出した後です。一覧のボタンでは、番号が空の既存のレコードなどへまとめて採番できます。条件分岐自動採番は採番先が空のときだけ番号を振るので、何度当てても番号は変わりません。</p>
             <p>1 回に当てられるのは 100 件までです。101 件以上のときは 1 件も当てずに知らせるので、一覧のボタンは 100 件以下に絞り込んでから押してください。モバイルの画面でカレンダービューに追加した予定には採番されません（条件分岐自動採番がモバイルに対応していないため）。その場合は、パソコンの一覧のボタンで当ててください。相手のプラグインは、連携に対応したバージョンが必要です（条件分岐自動採番 v2.3.1 以降・住所アシスト v1.3.1 以降・経過日数アシスト v1.1.0 以降・文字列結合 v1.1.0 以降。カレンダービューは v1.6.0 以降、繰り返し予定に使うときは v1.6.1 以降）。カレンダービューの［時間帯で日時を決める］を当てるときは v1.8.0 以降が要ります。</p>
           </div>
           <figure class="kbp-shot">
