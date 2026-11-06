@@ -394,6 +394,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── elapsed-assist-v120-update.md  # 経過計算アシスト v1.2.0 アップデートのお知らせ（時間加算ルール：開始を入れると終了へ「開始＋N」を自動入力）
 │   │   │   ├── elapsed-assist-v140-update.md  # 経過計算アシスト v1.4.0 アップデートのお知らせ（時間加算ルールに「N か月後の末日」・テーブルの行ごとにも動く。同日の v1.3.0 のお知らせを統合）
 │   │   │   ├── calendar-view-v240-update.md  # カレンダービュー v2.4.0 アップデートのお知らせ（同日の v2.3.1 の内容を含む1本：テーブルの行のカレンダーからの追加・削除・複製／レイヤーの値ごとの色分け／欄の出し分け／モーダルの初期値・ゲストスペース・保存エラーの欄名／テーブルの行の重複チェック）
+│   │   │   ├── calendar-view-v250-update.md  # カレンダービュー v2.5.0 アップデートのお知らせ（重複チェックを重なった項目ごとに判定しすべての操作で働かせる／設定画面の並び順から項目を外す・元の切り替えで使えない設定を外す／終了が空の予定・複数担当者の移動・テーブル行の元に戻す・編集削除の権限）
 │   │   │   ├── accordion-tab-v2-1-0-update.md  # アコーディオンタブ v2.1.0 アップデートのお知らせ（セクションごとに表示するフィールドを選べる）
 │   │   │   ├── drive-connect-v110-update.md     # ドライブ連携 v1.1.0 アップデートのお知らせ（2026-10-23）
 │   │   │   ├── text-join-v120.md               # 文字列結合 v1.2.0 アップデートのお知らせ（2026-10-22 19:00・計算・複数行・リンクも保存前に結合結果が入る）
@@ -894,7 +895,7 @@ c:\kizuna-works.jp\
 │   │   ├── calendar-view-v200-slot-01.png / calendar-view-v200-dup-01.png / calendar-view-v200-order-01.png / calendar-view-v200-palette-01.png (+ .webp) # v2.0.0 UPDATE 用スクショ — 週表示の［時刻間隔］と短い予定／複製した直後のモーダル／［バーに表示する項目］の並べ替え／色の欄の共通カラーパレット（加工なし）
 │   │   ├── calendar-view-v220-list-01.png / calendar-view-v220-modal-01.png / calendar-view-v220-config-01.png # v2.2.0 UPDATE 用スクショ（v2.3.0 で製品ページの使い方の節へ移設） — リスト表示（列名の見出しとコメントの印）／予定のモーダルのコメント件数／設定「リストのコメント表示」(+ .webp)（加工なし）
 │   │   ├── calendar-view-v230-01-layer-dup.png / calendar-view-v230-02-user-color.png / calendar-view-v230-03-standard.png / calendar-view-v230-04-list-width.png # v2.3.0 UPDATE 用スクショ — レイヤー（他アプリ）の予定との重複の警告／ユーザーごとの色分けと凡例／追加モーダルの［詳細画面で入力］／リストの列幅（撮影後に配置・.webp あり）
-│   │   ├── calendar-view-v240-01-add-row.png / calendar-view-v240-02-layer-color.png / calendar-view-v240-03-showif.png # v2.4.0 UPDATE 用スクショ — 案件を選んで行を追加／レイヤーの値ごとの色分け／欄の出し分け（.webp あり）
+│   │   ├── calendar-view-v240-01-add-row.png / calendar-view-v240-02-layer-color.png / calendar-view-v240-03-showif.png # v2.4.0 UPDATE 用スクショ — 案件を選んで行を追加／レイヤーの値ごとの色分け／欄の出し分け（.webp あり）（v2.5.0 で UPDATE から外した・ファイルは残置）
 │   │   ├── calendar-view-v240-04-initial-values.png / calendar-view-v240-05-guest-note.png / calendar-view-v240-06-save-error.png / calendar-view-v240-07-config-rowedit.png / calendar-view-v240-08-config-showif.png / calendar-view-v240-09-config-layer-color.png # v2.4.0 撮影済み・製品ページ未掲載（初期値／ゲストの注記／保存エラー／設定画面3点。必要になったら掲載）
 │   │   ├── drive-connect-banner.png     # ドライブ連携 for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── drive-connect-icon.png       # ドライブ連携 アイコン（200×200・ランキング/Top3/製品ページヒーロー）＋ .webp
@@ -1703,7 +1704,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-calendar-view-v1.8.0.zip                   # カレンダービュー for kintone 配布ファイル（最新・v1.8.0：時間帯で日時を決める・タイムラインに3か月／1年・ユーザー選択の検索と複数選択・凡例にラベルの色・年表示の開始月・予定の無い期間への移動・ゲストスペースの詳細画面リンクの修正。お知らせ・UPDATE 枠あり。配布 zip は公開手順で配置）
 │   │   ├── kw-calendar-view-v2.0.0.zip                   # カレンダービュー for kintone 配布ファイル（最新・v2.0.0：時刻間隔の各自切り替え・短い予定の高さ・バー項目の並べ替え・複製した直後のモーダルの案内と［複製を取り消す］・共通カラーパレット）
 │   │   ├── kw-calendar-view-v2.2.0.zip                   # カレンダービュー for kintone 配布ファイル（旧版・v2.2.0：コメント件数の表示・リストのコメントの印・リストの列幅のドラッグ変更）
-│   │   ├── kw-calendar-view-v2.4.0.zip                   # カレンダービュー for kintone 配布ファイル（最新・v2.4.0：テーブルの行のカレンダーからの追加・削除・複製／レイヤーの値ごとの色分け／欄の出し分け／モーダルの初期値・ゲストスペース・保存エラーの欄名）
+│   │   ├── kw-calendar-view-v2.5.0.zip                   # カレンダービュー for kintone 配布ファイル（最新・v2.5.0：重複チェックを重なった項目ごとに判定しすべての操作で働かせる／設定画面の並び順から項目を外す／終了が空の予定の表示・複数担当者の移動・テーブル行の元に戻す・編集削除の権限）
+│   │   ├── kw-calendar-view-v2.4.0.zip                   # カレンダービュー for kintone 配布ファイル（旧・v2.4.0：テーブルの行のカレンダーからの追加・削除・複製／レイヤーの値ごとの色分け／欄の出し分け／モーダルの初期値・ゲストスペース・保存エラーの欄名）
 │   │   ├── kw-calendar-view-v2.3.1.zip                   # カレンダービュー for kintone 配布ファイル（旧・v2.3.1：テーブルの行を予定にしたカレンダーの重複チェック。公開前に v2.4.0 へ差し替え）
 │   │   ├── kw-calendar-view-v2.3.0.zip                   # カレンダービュー for kintone 配布ファイル（旧・v2.3.0：レイヤーの予定との重複判定・ユーザーごとの色分け・［詳細画面で入力］・ゲストユーザー・テーブルの初期1行・リストの列幅）
 │   │   ├── kw-calendar-view-v1.7.0.zip                   # カレンダービュー for kintone 配布ファイル（旧版・v1.7.0：日本語・英語・中国語（簡体字）で表示・終了と開始がちょうど同じ時刻は重複にしない・予定の追加／編集画面とクイック登録の閉じ方。お知らせ・UPDATE 枠あり）

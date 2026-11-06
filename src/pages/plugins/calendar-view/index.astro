@@ -14,7 +14,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
 <Layout
   title="kintone のカレンダー表示プラグイン｜カレンダービュー（月・週・担当者別） | KIZUNA Works"
-  description="kintone のレコードの開始・終了を、カレンダー（年/月/週/日/リスト）とタイムライン（担当者・会議室ごとの時間軸）に切り替えて表示できるプラグイン。ドラッグで日程変更、空いている時間の検索、予定のない担当者・会議室も常に表示、予定のバーに表示する項目の選択（2段表示も可）、標準の編集画面でも効くダブルブッキング警告、繰り返し予定、日本の祝日を同梱。サブテーブルの行も予定にでき、行ごとの色分けと、カレンダーからの行の追加・削除・複製ができます。他アプリの予定との重複判定、ログインユーザーの予定の強調、担当者ごとの自動の色分けにも対応。日本語・英語・中国語（簡体字）で表示できます。ビューのHTMLはボタン1つで自動生成します。"
+  description="kintone のレコードの開始・終了を、カレンダー（年/月/週/日/リスト）とタイムライン（担当者・会議室ごとの時間軸）に切り替えて表示できるプラグイン。ドラッグで日程変更、空いている時間の検索、予定のない担当者・会議室も常に表示、予定のバーに表示する項目の選択（2段表示も可）、項目ごとの設定どおり、どの操作でも効くダブルブッキング警告、繰り返し予定、日本の祝日を同梱。サブテーブルの行も予定にでき、行ごとの色分けと、カレンダーからの行の追加・削除・複製ができます。他アプリの予定との重複判定、ログインユーザーの予定の強調、担当者ごとの自動の色分けにも対応。日本語・英語・中国語（簡体字）で表示できます。ビューのHTMLはボタン1つで自動生成します。"
   ogTitle="kintone のカレンダー表示プラグイン｜カレンダービュー（月・週・担当者別） | KIZUNA Works"
   ogDescription="同じ予定を、カレンダーでも、担当者・会議室ごとの時間軸でも。予定のない担当者も空白の行で表示。ドラッグで日程変更、空き枠の検索、他アプリの予定とも判定するダブルブッキング警告、担当者ごとの色分け、繰り返し予定、祝日同梱。日本語・英語・中国語（簡体字）で表示。カスタマイズビューはボタン1つで作成します。"
   ogType="website"
@@ -54,10 +54,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "カレンダービュー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "2.4.0",
+          "softwareVersion": "2.5.0",
           "dateModified": "2026-11-06",
           "url": "https://kizuna-works.jp/plugins/calendar-view/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-calendar-view-v2.4.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-calendar-view-v2.5.0.zip",
           "image": "https://kizuna-works.jp/images/calendar-view-banner.png",
           "offers": [
             {
@@ -88,7 +88,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "予定のドラッグで日程変更・端のドラッグで時間の伸縮・Ctrl＋ドラッグで複製",
             "タイムラインでは担当者と日時を同時に変更",
             "空き枠を探す（対象・所要時間・期間を選ぶと候補が出て、押すとその枠で登録）",
-            "ダブルブッキング警告（ビュー操作＋kintone 標準の追加・編集画面の保存時・終了と開始がちょうど同じ時刻は重複にしない）",
+            "ダブルブッキング警告（重なった項目ごとに判定・ドラッグ／モーダル／複製／元に戻す／繰り返し予定／kintone 標準の画面と一覧の編集で判定・警告に重なった項目名を表示・終了と開始がちょうど同じ時刻は重複にしない）",
             "リソースごとに警告のみ／禁止を切り替え",
             "時間帯で日時を決める（日付と時間帯の選択肢から開始・終了を自動入力）",
             "担当者などのユーザー選択欄を、名前・ログイン名で検索して何人でも選択",
@@ -352,54 +352,35 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       <img class="afp-hero-icon" src="/images/calendar-view-icon.png" alt="カレンダービュー for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v2.4.0</span>
+        <span class="afp-hero-version">v2.5.0</span>
       </div>
       <HeroSubBadges pluginId="kw-calendar-view" />
       <h1>カレンダービュー for kintone</h1>
       <p class="afp-tagline">同じ予定を、カレンダーでも、担当者ごとの時間軸でも。</p>
-      <p class="afp-sub">カレンダービュー for kintone は、kintone のレコードをカレンダー表示するプラグインです。レコードが持つ<strong>開始・終了</strong>を、カレンダー（年・月・週・日・リスト）と<strong>タイムライン</strong>（縦＝担当者・会議室 × 横＝時間）に、画面上のボタンで切り替えて表示します。ドラッグで日程を変更でき、<strong>空いている時間</strong>も条件から探せます。予定のない担当者・会議室も、タイムラインに空白の行として常に表示できます。ダブルブッキングの警告は kintone 標準の編集画面でも働きます。予定のバーは、タイトルと項目の2段にも切り替えられます。リソースが未設定の予定を集める行には、「全社共通」のような名前を付けられます。予定の追加方法は、モーダル・簡易登録・kintone 標準の追加画面から選べます。サブテーブルの行も1行ずつ予定にでき、行ごとに色を分けられます。表示は、kintone の個人設定の言語に合わせて日本語・英語・中国語（簡体字）になります。日付と時間帯を選ぶだけで開始・終了が決まる使い方や、タイムラインの3か月・1年表示にも対応しています。予定の複製と、削除の取り消しもできます。編集モーダルでは添付ファイルを受け取れ、コメントも読めます。タイムラインの行は、開始が早い順にも並べられます。リストでは、コメントがある予定に印を付けられ、列の幅もドラッグで変えられます。ダブルブッキングの警告は、他のアプリの予定とも判定できます。色は、ログインユーザーの予定を目立たせたり、担当者ごとに自動で分けたりできます。追加モーダルから、入力した値ごと標準の追加画面へ移ることもできます。テーブルの行を予定にしているときは、カレンダーから既存の案件へ行の追加・削除・複製ができます。重ねるレイヤーの予定は値ごとに色分けでき、追加・編集モーダルに出す欄は選択肢の値に応じて切り替えられます。</p>
+      <p class="afp-sub">カレンダービュー for kintone は、kintone のレコードをカレンダー表示するプラグインです。レコードが持つ<strong>開始・終了</strong>を、カレンダー（年・月・週・日・リスト）と<strong>タイムライン</strong>（縦＝担当者・会議室 × 横＝時間）に、画面上のボタンで切り替えて表示します。ドラッグで日程を変更でき、<strong>空いている時間</strong>も条件から探せます。予定のない担当者・会議室も、タイムラインに空白の行として常に表示できます。ダブルブッキングの警告は、ドラッグ・モーダル・繰り返し予定・kintone 標準の編集画面のどれでも、項目ごとの設定どおりに働きます。予定のバーは、タイトルと項目の2段にも切り替えられます。リソースが未設定の予定を集める行には、「全社共通」のような名前を付けられます。予定の追加方法は、モーダル・簡易登録・kintone 標準の追加画面から選べます。サブテーブルの行も1行ずつ予定にでき、行ごとに色を分けられます。表示は、kintone の個人設定の言語に合わせて日本語・英語・中国語（簡体字）になります。日付と時間帯を選ぶだけで開始・終了が決まる使い方や、タイムラインの3か月・1年表示にも対応しています。予定の複製と、削除の取り消しもできます。編集モーダルでは添付ファイルを受け取れ、コメントも読めます。タイムラインの行は、開始が早い順にも並べられます。リストでは、コメントがある予定に印を付けられ、列の幅もドラッグで変えられます。ダブルブッキングの警告は、他のアプリの予定とも判定できます。色は、ログインユーザーの予定を目立たせたり、担当者ごとに自動で分けたりできます。追加モーダルから、入力した値ごと標準の追加画面へ移ることもできます。テーブルの行を予定にしているときは、カレンダーから既存の案件へ行の追加・削除・複製ができます。重ねるレイヤーの予定は値ごとに色分けでき、追加・編集モーダルに出す欄は選択肢の値に応じて切り替えられます。</p>
       <div class="afp-hero-cta">
         <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
-        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-calendar-view-v2.4.0.zip" download>無料でダウンロード</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-calendar-view-v2.5.0.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
     <BridgeBadge as="note" pluginId="kw-calendar-view" />
 
-    <!-- Update Info (v2.4.0) -->
+    <!-- Update Info (v2.5.0) -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v2.4.0：カレンダーから行を追加でき、レイヤーの色分けと欄の出し分けを加えました</h2>
+            <h2 class="update-title">v2.5.0：重複チェックを、項目ごとの設定どおり、すべての操作で働くよう改善しました</h2>
           </div>
-          <p class="update-desc">カレンダービュー for kintone を v2.4.0 にアップデートしました（2026年11月6日）。</p>
+          <p class="update-desc">カレンダービュー for kintone を v2.5.0 にアップデートしました。</p>
           <ul class="update-points">
-            <li><strong>テーブルの行を、カレンダーから追加・削除・複製できます。</strong>テーブルの行を予定にしている設定で、設定画面の［予定の追加］から有効にします。空き時間をクリックすると、モーダルの［追加する案件］で案件を検索して選べ（検索に使うフィールドは最大3つ）、その案件のテーブルの末尾に行が足されます。新しい案件のレコードは作らず、既存の案件にだけ足します。予定を右クリックすると削除でき（［元に戻す］で戻せます）、Ctrl（Mac は option）＋ドラッグで複製できます（［複製を取り消す］で消せます）。</li>
+            <li><strong>重複（ダブルブッキング）チェックを、項目ごとの設定どおり、すべての操作で働くよう改善しました。</strong>重なった項目ごとに判定するので、会議室だけが重なる予定は、会議室を「警告のみ」にしていればそのまま登録できます（担当者を「禁止」にしていれば、担当者が重なるときは止まります）。警告には、重なった項目の名前が出ます。ドラッグ・モーダル・複製・［元に戻す］・繰り返し予定（2回目以降と「以降すべて」）・kintone 標準の画面と一覧でのインライン編集のどれでも判定します。重なりを調べられなかったときは、禁止の項目が関わる予定の保存を止めます。</li>
+            <li><strong>設定画面を、より使いやすく改善しました。</strong>「追加で出す項目」「編集で出す項目」を、並び順の欄の［外す］で外せます。予定の元（レコード／テーブル）を切り替えたときは、使えなくなった設定を外して知らせます。削除されたり型が変わったりしたフィールドが指定されたままのときは、保存時に知らせます。</li>
+            <li><strong>予定の表示と移動を、より正確に改善しました。</strong>終了日時が空の予定も表示します。担当者が複数いる予定をタイムラインで移すと、移した人だけが入れ替わります。テーブルの行の予定は、［元に戻す］で正しい行に戻り、テーブルの外の担当者もドラッグで変えられます。編集・削除の権限が無い予定には、ドラッグや削除のメニューを出しません。プロセス管理が有効なアプリでも、ビューの自動作成で「自分の作業」の一覧が残ります。</li>
           </ul>
-          <div class="update-shot">
-            <Picture src="/images/calendar-view-v240-01-add-row.png" alt="空き時間をクリックして開いた予定追加モーダルで、「追加する案件」から案件を選び、相談履歴テーブルの行として追加する画面" width="644" height="548" class="zoomable" />
-            <p class="zoom-hint">空き時間をクリックして、案件を選んで行を追加（画像をクリックすると拡大表示します）</p>
-          </div>
-          <ul class="update-points" style="margin-top:20px;">
-            <li><strong>重ねるレイヤーの予定を、値ごとに色分けできます。</strong>設定画面のレイヤーの行で、ドロップダウン・ラジオボタンのフィールドを選ぶと、選択肢ごとに色を決められます。予定の左端の帯と薄い背景で見分けられ、凡例には「レイヤー名：値」が出ます。</li>
-          </ul>
-          <div class="update-shot">
-            <Picture src="/images/calendar-view-v240-02-layer-color.png" alt="月表示で、重ねたレイヤーの予定が担当者の値ごとに色分けされ、左端の帯と薄い背景、凡例で見分けられる画面" width="1400" height="723" class="zoomable" />
-            <p class="zoom-hint">レイヤーの予定を担当者の値ごとに色分け</p>
-          </div>
-          <ul class="update-points" style="margin-top:20px;">
-            <li><strong>モーダルに出す欄を、選択肢の値で切り替えられます。</strong>設定画面の［欄の出し分け］で、値ごとに出す欄を決めます（最大10ルール）。たとえば、種別が「定例ミーティング」のときは顧客番号の欄を出さない、といった使い方ができます。隠した欄は、保存も入力チェックもしません。</li>
-          </ul>
-          <div class="update-shot">
-            <Picture src="/images/calendar-view-v240-03-showif.png" alt="種別を「定例ミーティング」にすると、追加モーダルから顧客番号の欄が消える欄の出し分けの画面" width="644" height="494" class="zoomable" />
-            <p class="zoom-hint">種別の値に応じて、追加モーダルの欄が切り替わる</p>
-          </div>
-          <ul class="update-points" style="margin-top:20px;">
-            <li><strong>追加モーダルを、より使いやすくしました。</strong>フォームに設定した初期値が入った状態でモーダルが開き、［詳細画面で入力］で標準の追加画面へ移っても初期値が消えません。ゲストスペースでは、ユーザー欄にゲストの追加方法を案内し、候補をスペースのメンバーに絞ります。保存に失敗したときは、メッセージに欄名が出ます。</li>
-          </ul>
-          <p class="update-note">既存ユーザーの方は、最新バージョン（v2.4.0）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。行の追加・削除・複製、レイヤーの値ごとの色分け、欄の出し分けは、既定ではオフです。</p>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v2.5.0）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。</p>
           <BridgeUpdateNote />
         </div>
       </div>
@@ -663,7 +644,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           </div>
           <div class="afp-feat-card">
             <h3>ダブルブッキング警告</h3>
-            <p>ビュー上の操作と、kintone 標準の追加・編集画面の保存時に判定。使わない／警告のみ／禁止をリソースごとに設定できます。終了と開始がちょうど同じ時刻は重複にしません。他のアプリ（レイヤー）の予定とも判定できます。</p>
+            <p>使わない／警告のみ／禁止をリソースごとに設定でき、重なった項目ごとに判定します（担当者は禁止・会議室は警告のみ、という運用ができます）。ドラッグ・モーダル・複製・元に戻す・繰り返し予定・kintone 標準の画面と一覧での編集のどれでも判定し、警告には重なった項目名が出ます。重なりを調べられなかったときは、禁止の項目が関わる予定の保存を止めます。終了と開始がちょうど同じ時刻は重複にしません。他のアプリ（レイヤー）の予定とも判定できます。</p>
           </div>
           <div class="afp-feat-card">
             <h3>その場で登録・編集</h3>
@@ -753,11 +734,11 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               <li>✅ ドラッグで日程変更・時間の伸縮・元に戻す</li>
               <li>✅ 区分（ラベル）の色分け・条件で色を変える</li>
               <li>✅ 左サイドバーでの絞り込み</li>
-              <li>✅ ダブルブッキング警告（標準の編集画面でも判定）</li>
+              <li>✅ ダブルブッキング警告（すべての操作で判定）</li>
               <li>✅ 繰り返し予定・祝日と非稼働日の色分け</li>
               <li>✅ 利用期限なし（設定できるビューは1件・レイヤーは1件／設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-calendar-view-v2.4.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-calendar-view-v2.5.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">👑 全機能を解放</span>
@@ -799,7 +780,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               <tr><td>ドラッグでの日程変更・時間の伸縮・元に戻す</td><td class="c">○</td><td class="c">○</td></tr>
               <tr><td>区分（ラベル）の色分け・条件で色を変える・凡例</td><td class="c">○</td><td class="c">○</td></tr>
               <tr><td>左サイドバーでの絞り込み</td><td class="c">○</td><td class="c">○</td></tr>
-              <tr><td>ダブルブッキング警告（標準の編集画面でも判定）</td><td class="c">○</td><td class="c">○</td></tr>
+              <tr><td>ダブルブッキング警告（すべての操作で判定）</td><td class="c">○</td><td class="c">○</td></tr>
               <tr><td>繰り返し予定・祝日同梱・非稼働日マスタ</td><td class="c">○</td><td class="c">○</td></tr>
               <tr><td>モバイル対応・ゲストスペース対応</td><td class="c">○</td><td class="c">○</td></tr>
               <tr><td>設定画面・カレンダー内の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
@@ -905,10 +886,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
             gtag('event', 'file_download', {
-              file_name: 'kw-calendar-view-v2.4.0.zip',
+              file_name: 'kw-calendar-view-v2.5.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-calendar-view-v2.4.0.zip'
+              link_url: '/downloads/kw-calendar-view-v2.5.0.zip'
             });
           });
         });
