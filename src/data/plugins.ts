@@ -2041,12 +2041,14 @@ export const premiumPlugins: Plugin[] = [
     status: 'available',
     tier: 'premium',
     cardDescription:
-      '添付ファイルを Box へ転送し、kintone にはリンクだけを残します。フォルダの自動生成と差分検知つき。共有リンクの作成や、詳細画面でのフォルダの中身の表示にも対応。添付が無くてもフォルダだけ先に作成でき、値が変わったときはフォルダ名も合わせられます。',
+      '添付ファイルを Box へ転送し、kintone にはリンクだけを残します。フォルダの自動生成と差分検知つき。共有リンクの作成や、詳細画面でのフォルダの中身の表示にも対応。添付が無くてもフォルダだけ先に作成でき、値が変わったときはフォルダ名も合わせられ、一括転送のボタンを使える人も選べます。',
     problemTitle: '添付ファイルが Box にも kintone にもあって、容量が足りない',
     problemDesc:
       '容量を買い増すか、古いレコードから手で消すかの二択。Box へ手で上げて共有URLを貼る運用も、件数が増えるとフォルダの命名がばらついて追えなくなる',
     releaseDate: '2026-10-23',
-    summaryVersion: '1.2.0',
+    summaryVersion: '1.3.0',
+    multilingual: true,
+    bridge: 'ブリッジのルールから、レコードの添付ファイルを Box へ転送できます。',
     bornFrom: 'supporter-request',
   },
   {
