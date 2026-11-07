@@ -444,6 +444,7 @@ export const glossary: Term[] = [
   },
   {
     id: 'field',
+    supersededBy: { path: '/blog/kintone-field-shurui/', label: 'kintoneのフィールドの種類一覧' },
     term: 'フィールド',
     reading: 'ふぃーるど',
     category: 'basic',
@@ -658,6 +659,7 @@ export const glossary: Term[] = [
   // ----- システムフィールド -----
   {
     id: 'record-number',
+    supersededBy: { path: '/blog/kintone-record-bangou/', label: 'kintoneのレコード番号はリセットできる？' },
     term: 'レコード番号',
     reading: 'れこーどばんごう',
     category: 'field',
