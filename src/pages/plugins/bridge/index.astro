@@ -13,49 +13,88 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 const VERSION = '1.6.1';
 const ZIP = `/downloads/kw-bridge-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/';
-const DATE_MODIFIED = '2026-11-07';
+const DATE_MODIFIED = '2026-11-08';
 
-// Partner list: grouped by what the user can do together. Products are read from
-// plugins.ts (`bridge` field), so a new partner shows up here without touching
-// this page — anything not named in a group falls into the last one.
-const GROUPS: { key: string; title: string; lead: string; ids: string[] }[] = [
+// Partner overview. The partner products themselves come from plugins.ts (`bridge`
+// field); this map adds, per product, which way it works with the bridge and what
+// the user gets in each direction. It drives both the overview table and the
+// grouped partner cards, so the two cannot disagree.
+//   write   : runs on records the bridge wrote to another app (numbering, notify, lock...)
+//   trigger : changing records with that product fires bridge rules
+//   run     : a bridge rule calls that product's feature
+//   view    : shows the bridge's absence calendar
+// A partner missing from this map fails the build on purpose, so a new partner
+// is never listed without saying what it does together with the bridge.
+type PartnerMode = 'write' | 'trigger' | 'run' | 'view';
+const PARTNER_MODES: Record<string, { what: Partial<Record<PartnerMode, string>>; guard?: boolean; version: string }> = {
+  'kw-conditional-numbering': { what: { write: '番号を振る' }, version: 'v2.3.1 以降' },
+  'kw-text-join': { what: { write: '結合した値を作り直す' }, version: 'v1.1.0 以降' },
+  'kw-address-assist': { what: { write: '地図のリンクを作り直す' }, version: 'v1.3.1 以降' },
+  'kw-elapsed-assist': { what: { write: '経過日数を計算し直す' }, version: 'v1.1.0 以降' },
+  'kw-table-assist': { what: { write: 'テーブルの集計値と行番号を書く' }, version: '最新版' },
+  'kw-free-lookup': { what: { write: 'キーに一致する1件から値をコピーする' }, version: 'v1.0.0 以降' },
+  'kw-lookup-pro': { what: { write: '値やテーブルの行をコピーする' }, version: 'v1.0.0 以降（テーブルのコピーは v1.2.0 以降）' },
+  'kw-link-assist': { what: { write: 'URL を整える' }, version: 'v1.0.1 以降' },
+  'kw-image-compress': { what: { write: '添付した画像を圧縮する' }, version: 'v1.0.2 以降' },
+  'kw-footprint': { what: { write: '変更の履歴に残す' }, version: 'v1.2.4 以降' },
+  'kw-read-check': { what: { write: '編集の記録に残す' }, version: 'v1.0.3 以降' },
+  'kw-chat-notify': { what: { write: '通知ルールでチャットに知らせる' }, guard: true, version: 'v2.1.0 以降' },
+  'kw-record-lock': { what: { write: 'ロック中のレコード・欄は書き換えない' }, guard: true, version: 'v1.3.1 以降' },
+  'kw-calendar-view': {
+    what: { write: '日付と時間帯から開始・終了の日時を作る', trigger: '予定を動かした・追加したとき', view: '人ごとの予定表・月のカレンダーで見る' },
+    version: 'v1.8.0 以降',
+  },
+  'kw-bulk-update': { what: { trigger: '一括更新したとき', run: '一括更新を実行する' }, version: 'v1.0.6 以降' },
+  'kw-status-bulk-action': { what: { trigger: 'ステータスを一括で進めたとき', run: 'ステータスを一括で進める' }, version: 'v1.1.3 以降' },
+  'kw-card-board': { what: { trigger: 'カードをドラッグして値やステータスを変えたとき' }, version: 'v1.2.0 以降' },
+  'kw-related-enhancer': { what: { run: '別のアプリの集計を保存し直す' }, version: 'v2.3.0 以降' },
+  'kw-search-pro': { what: { run: '保存した検索の結果を CSV にして添付する' }, version: 'v1.0.0 以降' },
+  'kw-design-pro': { what: { run: 'PDF を作って添付する・本人の印を押す' }, version: '最新版' },
+  'kw-box-connect': { what: { run: '添付ファイルを Box へ送る' }, version: '最新版' },
+};
+for (const p of bridgePartnerPlugins) {
+  if (!PARTNER_MODES[p.id]) {
+    throw new Error(`[bridge] ${p.id} has a bridge field in plugins.ts but no entry in PARTNER_MODES of /plugins/bridge/`);
+  }
+}
+const byId = new Map(bridgePartnerPlugins.map((p) => [p.id, p]));
+const partnerRows = Object.entries(PARTNER_MODES)
+  .map(([id, m]) => ({ p: byId.get(id), ...m }))
+  .filter((r): r is typeof r & { p: Plugin } => !!r.p);
+const MODE_COLUMNS: { key: PartnerMode; label: string; desc: string }[] = [
+  { key: 'write', label: '① 書き込んだ先でも動く', desc: 'ブリッジが他のアプリに作った・変えたレコードに、そのアプリの製品の処理を当てます' },
+  { key: 'trigger', label: '② その製品の操作でルールが動く', desc: 'その製品でレコードを変えたときも、ブリッジのルールを動かせます' },
+  { key: 'run', label: '③ ルールから呼び出す', desc: 'ブリッジのルールの動作として、その製品の機能を実行します' },
+  { key: 'view', label: '④ 不在カレンダーを見る', desc: 'ブリッジの不在カレンダーを、その製品の画面で表示します' },
+];
+const GROUPS: { key: string; title: string; lead: string; pick: (r: (typeof partnerRows)[number]) => boolean }[] = [
   {
     key: 'apply',
-    title: '書き込んだレコードにも、そのアプリのプラグインを当てる',
+    title: '① 書き込んだレコードにも、そのアプリのプラグインを当てる',
     lead: 'ブリッジが他のアプリにレコードを作る・変えるときは、kintone の保存の画面を通りません。ルールで［書き込み先のアプリの採番・文字列結合なども当てる］をオンにすると、書き込み先のアプリに入っている当社のプラグインの処理を、画面で保存したときと同じように当てます。',
-    ids: [
-      'kw-calendar-view', 'kw-conditional-numbering', 'kw-address-assist', 'kw-elapsed-assist', 'kw-text-join',
-      'kw-free-lookup', 'kw-lookup-pro', 'kw-link-assist', 'kw-image-compress', 'kw-footprint', 'kw-read-check',
-    ],
+    pick: (r) => !!r.what.write && !r.guard,
   },
   {
     key: 'guard',
-    title: '書き込み先で通知する・ロックを守る',
+    title: '① 書き込み先で通知する・ロックを守る',
     lead: '書き込み先のアプリのチャット通知のルールで通知したり、ロックされているレコードを書き換えないようにしたりできます。どちらもルールごとにオンにします。',
-    ids: ['kw-chat-notify', 'kw-record-lock'],
+    pick: (r) => !!r.guard,
+  },
+  {
+    key: 'trigger',
+    title: '② その製品でまとめて・画面の外で変えたときも、ルールを動かす',
+    lead: '一括更新やカードのドラッグ、カレンダー上の操作で変えたレコードは、kintone の保存の画面を通らないため、ふつうはルールが動きません。ルールのきっかけで［KIZUNA Works のプラグインでレコードを変えたとき］を選ぶと、1件ずつ画面で保存したときと同じように、ブリッジのルールが動きます。',
+    pick: (r) => !!r.what.trigger,
   },
   {
     key: 'run',
-    title: 'ルールから、当社のプラグインの機能を実行する',
-    lead: '動作［プラグインの機能を実行する］で、ほかのアプリに入っている当社のプラグインの処理（一括更新・ステータスの一括実行・保存した検索の結果の CSV 出力など）を呼び出せます。かんたん一括更新・ステータス一括実行で一括して変えたレコードには、逆にブリッジのルールが動きます。',
-    ids: ['kw-bulk-update', 'kw-status-bulk-action', 'kw-search-pro', 'kw-design-pro'],
-  },
-  {
-    key: 'more',
-    title: '集計し直す・見やすく表示する',
-    lead: '別のアプリの変更をきっかけにした集計の保存し直しや、ブリッジの不在カレンダーの表示に使えます。',
-    ids: ['kw-related-enhancer'],
+    title: '③ ルールから、当社のプラグインの機能を実行する',
+    lead: 'ルールの動作で、ほかのアプリに入っている当社のプラグインの機能（一括更新・ステータスの一括実行・検索結果の CSV・PDF の作成・Box への転送・集計の保存し直し）を呼び出せます。',
+    pick: (r) => !!r.what.run,
   },
 ];
-const named = new Set(GROUPS.flatMap((g) => g.ids));
-const byId = new Map(bridgePartnerPlugins.map((p) => [p.id, p]));
-const partnerGroups = GROUPS.map((g, i) => {
-  const items = g.ids.map((id) => byId.get(id)).filter((p): p is Plugin => !!p);
-  if (i === GROUPS.length - 1) {
-    items.push(...bridgePartnerPlugins.filter((p) => !named.has(p.id)));
-  }
-  return { ...g, items };
-}).filter((g) => g.items.length > 0);
+const partnerGroups = GROUPS.map((g) => ({ ...g, items: partnerRows.filter(g.pick).map((r) => r.p) }))
+  .filter((g) => g.items.length > 0);
 const partnerCount = bridgePartnerPlugins.length;
 const iconOf = (p: Plugin) => `/images/${p.slug.replace(/^kw-/, '')}-icon.png`;
 
@@ -79,7 +118,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: '連携できる当社のプラグインは、どれですか？',
-    a: `このページの「連携できるプラグイン」に一覧があります（現在 ${partnerCount} 製品）。各製品のページにも「ブリッジ連携」のバッジを付けています。連携には、それぞれの製品の最新版をお使いください。`,
+    a: `このページの「組み合わせ早見表」に、製品ごとに何ができるかと必要な版をまとめています（現在 ${partnerCount} 製品）。各製品のページにも「ブリッジ連携」のバッジを付けています。連携には、それぞれの製品の最新版をお使いください。`,
   },
   {
     q: '設定を間違えたまま動かしてしまうのが心配です。',
@@ -362,6 +401,28 @@ const faqJsonLd = {
     .kbp-chips.gold li { background: #fbf3dc; color: #6b4a0e; }
 
     /* Use case cards */
+    /* Partner overview table (PART 3) */
+    .kbp-matrix-block { margin: 0 0 40px; min-width: 0; scroll-margin-top: 110px; }
+    .kbp-matrix-block > p { margin: 0 0 12px; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-matrix-legend { margin: 0 0 16px; padding-left: 1.2em; line-height: 1.8; font-size: 0.92rem; color: var(--kbp-text); }
+    .kbp-matrix-scroll { overflow-x: auto; min-width: 0; border: 1px solid #dbe3ee; border-radius: 10px; background: #fff; -webkit-overflow-scrolling: touch; }
+    .kbp-matrix { width: 100%; min-width: 900px; table-layout: fixed; border-collapse: collapse; font-size: 0.88rem; line-height: 1.6; }
+    .kbp-matrix col.c-name { width: 15%; }
+    .kbp-matrix col.c-mode { width: 18.5%; }
+    .kbp-matrix col.c-ver { width: 11%; }
+    .kbp-matrix th, .kbp-matrix td { padding: 10px 12px; border-bottom: 1px solid #e6ecf3; text-align: left; vertical-align: top; }
+    .kbp-matrix thead th { background: var(--kbp-navy); color: #fff; font-weight: 700; font-size: 0.82rem; }
+    .kbp-matrix tbody th { font-weight: 700; background: #f7f9fc; position: sticky; left: 0; z-index: 1; }
+    .kbp-matrix tbody th a { color: var(--kbp-navy); text-decoration: none; }
+    .kbp-matrix tbody th a:hover { color: var(--kbp-green); text-decoration: underline; }
+    .kbp-matrix td.is-on { color: var(--kbp-text); background: #fbf7ec; }
+    .kbp-matrix td.is-off { color: #b6c0cc; text-align: center; }
+    .kbp-matrix-mark { color: var(--kbp-gold); margin-right: 4px; font-size: 0.75rem; }
+    .kbp-matrix-ver { color: var(--kbp-muted); font-size: 0.82rem; }
+    .kbp-matrix tbody tr:last-child th, .kbp-matrix tbody tr:last-child td { border-bottom: 0; }
+    .kbp-matrix-block > p.kbp-matrix-swipe { display: none; margin: 0 0 6px; font-size: 0.8rem; color: var(--kbp-muted); text-align: right; }
+    @media (max-width: 960px) { .kbp-matrix-block > p.kbp-matrix-swipe { display: block; } }
+    .kbp-matrix-note { margin: 12px 0 0; font-size: 0.86rem; line-height: 1.8; color: var(--kbp-muted); }
     .kbp-recipes-head { font-size: 1.1rem; color: var(--kbp-navy); margin: 0 0 16px; line-height: 1.5; scroll-margin-top: 110px; }
     .kbp-recipes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
     .kbp-recipes-more { text-align: center; margin: 24px 0 8px; }
@@ -718,6 +779,43 @@ const faqJsonLd = {
             <h2 class="kbp-part-title">プラグイン間連携でできること</h2>
             <p class="kbp-part-desc">当社のプラグインと組み合わせると、ブリッジが書き込んだレコードにも、画面で保存したときと同じ処理を当てられます。連携できるのは現在 {partnerCount} 製品です。</p>
           </div>
+        </div>
+
+        <div class="kbp-matrix-block" id="matrix">
+          <h3 class="kbp-h3">組み合わせ早見表：どの製品と、何ができるか</h3>
+          <p>連携には4つの形があります。お使いの製品の行を見ると、ブリッジと組み合わせて何ができるかが分かります。</p>
+          <ul class="kbp-matrix-legend">
+            {MODE_COLUMNS.map((c) => <li><strong>{c.label}</strong>：{c.desc}</li>)}
+          </ul>
+          <p class="kbp-matrix-swipe">表は横にスクロールできます →</p>
+          <div class="kbp-matrix-scroll">
+            <table class="kbp-matrix">
+              <colgroup>
+                <col class="c-name" />
+                {MODE_COLUMNS.map(() => <col class="c-mode" />)}
+                <col class="c-ver" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col">製品</th>
+                  {MODE_COLUMNS.map((c) => <th scope="col">{c.label}</th>)}
+                  <th scope="col">必要な版</th>
+                </tr>
+              </thead>
+              <tbody>
+                {partnerRows.map((r) => (
+                  <tr>
+                    <th scope="row"><a href={`/plugins/${r.p.slug}/`}>{r.p.name.replace(/ for kintone$/, '')}</a></th>
+                    {MODE_COLUMNS.map((c) => (
+                      r.what[c.key] ? <td class="is-on"><span class="kbp-matrix-mark" aria-hidden="true">●</span>{r.what[c.key]}</td> : <td class="is-off" aria-label="なし">－</td>
+                    ))}
+                    <td class="kbp-matrix-ver">{r.version}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="kbp-matrix-note">連携には、相手の製品の最新版をおすすめします。①の処理は、相手の製品が<strong>書き込み先のアプリ</strong>に入っているときに当てます。各製品の詳しい役割は、このページの下の<a href="#partners">連携できるプラグイン</a>にあります。</p>
         </div>
 
         <div class="kbp-feature">
