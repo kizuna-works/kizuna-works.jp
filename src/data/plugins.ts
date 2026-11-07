@@ -1573,7 +1573,8 @@ export const premiumPlugins: Plugin[] = [
     problemTitle: 'マスターを直しても、コピー済みの値が古いまま',
     problemDesc: '会社名や単価を直しても、過去にルックアップした参照先レコードは古いまま。まとめて最新化したい',
     releaseDate: '2026-07-04',
-    summaryVersion: '2.4.0',
+    summaryVersion: '2.5.0',
+    multilingual: true,
   },
   {
     id: 'kw-related-enhancer',
