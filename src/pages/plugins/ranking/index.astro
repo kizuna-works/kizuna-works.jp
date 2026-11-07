@@ -159,13 +159,12 @@ const rankedListJson = JSON.stringify(
                 <div class="ranking-body">
                   <h3 class="ranking-name">{p.name}</h3>
                   <p class="ranking-summary">{p.summary}</p>
-                  {(p.fromRequest || p.bridge || p.multilingual) && (
-                    <div class="ranking-badges">
-                      {p.fromRequest && <span class="ranking-badge rb-request" title="サポーターの方からのリクエストをもとに開発したプラグインです">リクエストから誕生</span>}
-                      {p.bridge && <span class="ranking-badge rb-bridge" title="KIZUNAブリッジ for kintone と連携できます">ブリッジ連携</span>}
-                      {p.multilingual && <span class="ranking-badge rb-i18n" title="日本語・英語・中国語（簡体字）で表示できます">多言語対応</span>}
-                    </div>
-                  )}
+                  {/* Always rendered so cards without badges keep the same height */}
+                  <div class="ranking-badges">
+                    {p.fromRequest && <span class="ranking-badge rb-request" title="サポーターの方からのリクエストをもとに開発したプラグインです">リクエストから誕生</span>}
+                    {p.bridge && <span class="ranking-badge rb-bridge" title="KIZUNAブリッジ for kintone と連携できます">ブリッジ連携</span>}
+                    {p.multilingual && <span class="ranking-badge rb-i18n" title="日本語・英語・中国語（簡体字）で表示できます">多言語対応</span>}
+                  </div>
                 </div>
                 <span class="ranking-arrow" aria-hidden="true">→</span>
               </a>
@@ -351,6 +350,7 @@ const rankedListJson = JSON.stringify(
     flex-wrap: wrap;
     gap: 6px;
     margin-top: 8px;
+    min-height: 24px;
   }
   .ranking-badge {
     display: inline-flex;
