@@ -50,7 +50,7 @@ const PARTNER_MODES: Record<string, { what: Partial<Record<PartnerMode, string>>
   'kw-related-enhancer': { what: { run: '別のアプリの集計を保存し直す' }, version: 'v2.3.0 以降' },
   'kw-search-pro': { what: { run: '保存した検索の結果を CSV にして添付する' }, version: 'v1.0.0 以降' },
   'kw-design-pro': { what: { run: 'PDF を作って添付する・本人の印を押す' }, version: '最新版' },
-  'kw-box-connect': { what: { run: '添付ファイルを Box へ送る' }, version: '最新版' },
+  'kw-box-connect': { what: { run: '添付ファイルを Box へ送る' }, version: 'v1.3.0 以降' },
 };
 for (const p of bridgePartnerPlugins) {
   if (!PARTNER_MODES[p.id]) {
@@ -61,6 +61,8 @@ const byId = new Map(bridgePartnerPlugins.map((p) => [p.id, p]));
 const partnerRows = Object.entries(PARTNER_MODES)
   .map(([id, m]) => ({ p: byId.get(id), ...m }))
   .filter((r): r is typeof r & { p: Plugin } => !!r.p);
+// Recipes that use each partner, linked from the matrix rows
+const recipesFor = (id: string) => bridgeRecipes.filter((x) => x.partners?.includes(id));
 const MODE_COLUMNS: { key: PartnerMode; label: string; desc: string }[] = [
   { key: 'write', label: '① 書き込んだ先でも動く', desc: 'ブリッジが他のアプリに作った・変えたレコードに、そのアプリの製品の処理を当てます' },
   { key: 'trigger', label: '② その製品の操作でルールが動く', desc: 'その製品でレコードを変えたときも、ブリッジのルールを動かせます' },
@@ -422,6 +424,8 @@ const faqJsonLd = {
     .kbp-matrix tbody tr:last-child th, .kbp-matrix tbody tr:last-child td { border-bottom: 0; }
     .kbp-matrix-block > p.kbp-matrix-swipe { display: none; margin: 0 0 6px; font-size: 0.8rem; color: var(--kbp-muted); text-align: right; }
     @media (max-width: 960px) { .kbp-matrix-block > p.kbp-matrix-swipe { display: block; } }
+    .kbp-matrix-ex { display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: 4px; font-weight: 400; font-size: 0.78rem; }
+    .kbp-matrix tbody th .kbp-matrix-ex a { color: var(--kbp-green); text-decoration: underline; }
     .kbp-matrix-note { margin: 12px 0 0; font-size: 0.86rem; line-height: 1.8; color: var(--kbp-muted); }
     .kbp-recipes-head { font-size: 1.1rem; color: var(--kbp-navy); margin: 0 0 16px; line-height: 1.5; scroll-margin-top: 110px; }
     .kbp-recipes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
@@ -805,7 +809,9 @@ const faqJsonLd = {
               <tbody>
                 {partnerRows.map((r) => (
                   <tr>
-                    <th scope="row"><a href={`/plugins/${r.p.slug}/`}>{r.p.name.replace(/ for kintone$/, '')}</a></th>
+                    <th scope="row"><a href={`/plugins/${r.p.slug}/`}>{r.p.name.replace(/ for kintone$/, '')}</a>{recipesFor(r.p.id).length > 0 && (
+                      <span class="kbp-matrix-ex">{recipesFor(r.p.id).map((x, i, all) => <a href={`/plugins/bridge/recipes/#${x.id}`} title={x.title}>{all.length > 1 ? `使い方の例${i + 1}` : '使い方の例'}</a>)}</span>
+                    )}</th>
                     {MODE_COLUMNS.map((c) => (
                       r.what[c.key] ? <td class="is-on"><span class="kbp-matrix-mark" aria-hidden="true">●</span>{r.what[c.key]}</td> : <td class="is-off" aria-label="なし">－</td>
                     ))}
@@ -815,7 +821,7 @@ const faqJsonLd = {
               </tbody>
             </table>
           </div>
-          <p class="kbp-matrix-note">連携には、相手の製品の最新版をおすすめします。①の処理は、相手の製品が<strong>書き込み先のアプリ</strong>に入っているときに当てます。各製品の詳しい役割は、このページの下の<a href="#partners">連携できるプラグイン</a>にあります。</p>
+          <p class="kbp-matrix-note">連携には、相手の製品の最新版をおすすめします。①の処理は、相手の製品が<strong>書き込み先のアプリ</strong>に入っているときに当てます。製品名の下の「使い方の例」から、その製品と組み合わせたルールの例を開けます。各製品の詳しい役割は、このページの下の<a href="#partners">連携できるプラグイン</a>にあります。</p>
         </div>
 
         <div class="kbp-feature">
