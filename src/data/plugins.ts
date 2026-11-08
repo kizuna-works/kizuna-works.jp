@@ -1622,7 +1622,8 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       '申請先組織や承認者を、所属組織・役職・申請種別に応じた候補だけに絞りたい。部署ごとに選べる先が違うのも設定で表現でき、候補外の人が入ったまま保存されるのも防ぎたい',
     releaseDate: '2026-07-01',
-    summaryVersion: '2.1.0',
+    summaryVersion: '2.2.0',
+    multilingual: true,
   },
   {
     id: 'kw-lookup-sync',
