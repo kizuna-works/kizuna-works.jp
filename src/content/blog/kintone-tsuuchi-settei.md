@@ -2,6 +2,7 @@
 title: "kintone通知の設定ガイド｜「通知が来ない」原因と埋もれさせない仕組み【2026年版】"
 description: "kintoneの通知は「アプリの条件通知」「レコードの条件通知」「リマインダーの条件通知」の3種類。設定手順と、通知が来ない・メールが届かないときの切り分け方を公式仕様に沿って整理し、件名を変えられない標準の限界とチャット連携・既読管理での解決策まで解説します。"
 pubDate: 2026-08-01
+updatedDate: 2026-11-08
 author: "KIZUNA Works"
 tags: ["kintone", "通知", "メール", "プロセス管理", "運用改善"]
 ogImage: "/images/blog/kintone-tsuuchi-settei.png"
@@ -182,7 +183,7 @@ kintoneを見に行かせるのではなく、通知を相手のいる場所に�
 
 ![kintoneからチャットへ通知する流れ。レコードを追加・更新すると設定した条件に合致した場合にTeams・Slackへ自動投稿される。本文に項目を差し込んだ通知を普段使うチャットへ送れることを示した図](/images/blog/kintone-tsuuchi-settei-chat.png)
 
-弊社の[チャット通知 for kintone](/plugins/chat-notify/)は、レコードの追加・更新・削除やステータス変更をきっかけに、Slack・Microsoft Teams・Google Chat へ自動投稿するプラグインです。標準通知との違いは、**本文を自分で組み立てられる**点にあります。
+弊社の[チャット通知 for kintone](/plugins/chat-notify/)は、レコードの追加・更新・削除やステータス変更をきっかけに、Slack・Microsoft Teams・Google Chat・LINE WORKS・Chatwork へ自動投稿するプラグインです。標準通知との違いは、**本文を自分で組み立てられる**点にあります。
 
 ![Microsoft Teamsのチャンネルに届いたkintoneの通知。「【要確認】高額案件です（更新）」の見出しに続いて会社名と金額、担当メモ、レコードへのリンクが並んでいる](/images/chat-notify-teams-msg-01.png)
 
@@ -219,7 +220,7 @@ kintoneを見に行かせるのではなく、通知を相手のいる場所に�
 | 担当者に「あなたの番です」と知らせたい | プロセス管理＋アプリの条件通知（通知先＝作業者） |
 | 高額案件・クレームだけ責任者に知らせたい | レコードの条件通知（通知内容に用件を書く） |
 | 納期や期限の前に思い出させたい | リマインダーの条件通知（500件の上限に注意） |
-| kintoneを見ない相手に気づかせたい | チャット通知でTeams・Slackへ |
+| kintoneを見ない相手に気づかせたい | チャット通知でTeams・Slack・Chatworkなどへ |
 | 周知が読まれたか確認したい | 既読チェックで既読を記録 |
 
 ### 通知が多すぎて誰も見ていない場合
@@ -273,7 +274,7 @@ kintoneのアカウントを持たない相手には、標準の通知メール�
 
 ### 関連記事・サービス
 
-- [チャット通知 for kintone](/plugins/chat-notify/) — Slack・Teams・Google Chat へ条件付きで自動通知
+- [チャット通知 for kintone](/plugins/chat-notify/) — Slack・Teams・Google Chat・LINE WORKS・Chatwork へ条件付きで自動通知
 - [既読チェック for kintone](/plugins/read-check/) — 誰がいつ読んだかを記録して可視化
 - [ステータス一括実行 for kintone](/plugins/status-bulk-action/) — 滞留日数の可視化とステータスの一括処理
 - [kintoneのメール送信・受信・通知を徹底比較](/blog/kintone-mail-soushin-hikaku/) — 社外へ送る場合の手段の違い
