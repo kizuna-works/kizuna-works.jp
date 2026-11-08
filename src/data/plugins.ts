@@ -581,7 +581,8 @@ export const plugins: Plugin[] = [
     problemTitle: '縦に長いレコードのスクロールが大変',
     problemDesc: '左の目次から目的のセクションへワンクリックで移動したい',
     releaseDate: '2026-06-05',
-    summaryVersion: '1.2.1',
+    summaryVersion: '1.3.0',
+    multilingual: true,
   },
   {
     id: 'kw-list-styler',
