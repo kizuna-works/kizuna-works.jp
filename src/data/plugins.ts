@@ -1144,7 +1144,8 @@ export const plugins: Plugin[] = [
     problemDesc:
       '連続入力なのに毎回「戻る→追加」の2手が要る。追加権限だけのユーザーは保存できているのに詳細画面を開けずエラー画面に着き、現場からは不具合として報告される',
     releaseDate: '2026-08-11',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-lottery-roulette',
