@@ -1169,7 +1169,8 @@ export const plugins: Plugin[] = [
     problemDesc:
       '手が空いている人に頼むつもりが結局いつも同じ人に偏る。順番も誰が最後だったか台帳を見ないと分からず、決め方が不透明だと納得も得にくい',
     releaseDate: '2026-08-11',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-autosave-assist',
