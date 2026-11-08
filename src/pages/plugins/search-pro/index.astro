@@ -20,12 +20,9 @@ const singleOf = (id: string) => {
   return p;
 };
 const iconOf = (slug: string) => `/images/${slug}-icon.png`;
-const BUNDLED = [
-  { id: 'kw-quick-search', role: '検索バー' },
-  { id: 'kw-quick-filter', role: '絞り込みの窓' },
-  { id: 'kw-summary-bar', role: '集計カード' },
-  { id: 'kw-csv-export', role: 'CSV出力' },
-];
+// Single source: `bundles` on this product in plugins.ts (also drives the 「KIZUNA Pro 版あり」 badge).
+const BUNDLED = premiumPlugins.find((x) => x.id === 'kw-search-pro')?.bundles ?? [];
+if (BUNDLED.length === 0) throw new Error('search-pro: bundles is empty in plugins.ts');
 const BATCH = [
   { id: 'kw-bulk-update', role: '絞り込んだレコードをまとめて更新' },
   { id: 'kw-status-bulk-action', role: '絞り込んだレコードのステータスをまとめて進める' },

@@ -20,14 +20,9 @@ const singleOf = (id: string) => {
   return p;
 };
 const iconOf = (slug: string) => `/images/${slug}-icon.png`;
-const BUNDLED = [
-  { id: 'kw-field-styler', role: 'フィールドスタイラー' },
-  { id: 'kw-form-deco', role: 'FormDeco' },
-  { id: 'kw-theme-styler', role: 'テーマスタイラー' },
-  { id: 'kw-comment-control', role: 'コメントコントロール' },
-  { id: 'kw-user-autofill', role: 'ユーザーオートフィル' },
-  { id: 'kw-report-designer', role: '帳票デザイナー' },
-];
+// Single source: `bundles` on this product in plugins.ts (also drives the 「KIZUNA Pro 版あり」 badge).
+const BUNDLED = premiumPlugins.find((x) => x.id === 'kw-design-pro')?.bundles ?? [];
+if (BUNDLED.length === 0) throw new Error('design-pro: bundles is empty in plugins.ts');
 const bundled = BUNDLED.map((b) => ({ ...b, p: singleOf(b.id) }));
 
 // FAQ: the accordion and FAQPage JSON-LD are built from the same array so they always match.

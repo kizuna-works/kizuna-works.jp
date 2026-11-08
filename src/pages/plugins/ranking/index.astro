@@ -4,7 +4,7 @@
 // 集計方針：count 降順 → 同数時はリリース日が古い方を上位（＝新しい方を下位）→ プラグインID 昇順
 // ダウンロード数（実数）は出さない。順位のみ表示する仕様。
 import Layout from '../../../layouts/Layout.astro';
-import { allPlugins as plugins, type Plugin } from '../../../data/plugins';
+import { allPlugins as plugins, type Plugin, proEditionOf, proEditionTitle } from '../../../data/plugins';
 import installRanking from '../../../data/install-ranking.json';
 import ExtensionNotice from '../../../components/ExtensionNotice.astro';
 
@@ -54,10 +54,12 @@ const ranked = sourceList.map((rp, i) => {
     iconPath: iconPathForPlugin(meta),
     iconAlt: `${rp.name} アイコン`,
     summary: meta?.cardDescription ?? meta?.description ?? '',
-    // Same marks as the /plugins/ cards. Spans, not links: the whole row is already a link.
+    // Same marks as the /plugins/ cards. Spans, except the Pro edition badge, which is a
+    // real link raised above the row's stretched name link.
     fromRequest: meta?.bornFrom === 'supporter-request',
     bridge: !!meta?.bridge,
     multilingual: !!meta?.multilingual,
+    pro: meta ? proEditionOf(meta.id) : undefined,
   };
 });
 
@@ -142,7 +144,7 @@ const rankedListJson = JSON.stringify(
         <ol class="ranking-list" aria-label="プラグインダウンロードランキング">
           {ranked.map((p) => (
             <li class={`ranking-row rank-${p.rank <= 3 ? p.rank : 'n'}`}>
-              <a href={p.href} class="ranking-row-link">
+              <div class="ranking-row-link">
                 <span class="ranking-rank" aria-label={`第${p.rank}位`}>
                   <span class="ranking-rank-num">{p.rank}</span>
                   <span class="ranking-rank-suffix">位</span>
@@ -157,17 +159,18 @@ const rankedListJson = JSON.stringify(
                   onerror="this.src='/images/favicon.png';"
                 />
                 <div class="ranking-body">
-                  <h3 class="ranking-name">{p.name}</h3>
+                  <h3 class="ranking-name"><a href={p.href} class="ranking-name-link">{p.name}</a></h3>
                   <p class="ranking-summary">{p.summary}</p>
                   {/* Always rendered so cards without badges keep the same height */}
                   <div class="ranking-badges">
                     {p.fromRequest && <span class="ranking-badge rb-request" title="サポーターの方からのリクエストをもとに開発したプラグインです">リクエストから誕生</span>}
                     {p.bridge && <span class="ranking-badge rb-bridge" title="KIZUNAブリッジ for kintone と連携できます">ブリッジ連携</span>}
                     {p.multilingual && <span class="ranking-badge rb-i18n" title="日本語・英語・中国語（簡体字）で表示できます">多言語対応</span>}
+                    {p.pro && <a class="ranking-badge rb-pro" href={`/plugins/${p.pro.slug}/`} title={proEditionTitle(p.pro)}>KIZUNA Pro 版あり</a>}
                   </div>
                 </div>
                 <span class="ranking-arrow" aria-hidden="true">→</span>
-              </a>
+              </div>
             </li>
           ))}
         </ol>
@@ -285,7 +288,10 @@ const rankedListJson = JSON.stringify(
     box-shadow: 0 8px 20px rgba(27,58,107,0.10);
     border-color: #1B3A6B;
   }
+  /* The row is clickable through the stretched name link below, not an outer <a>,
+     so the Pro edition badge can be a link of its own */
   .ranking-row-link {
+    position: relative;
     display: grid;
     grid-template-columns: 80px 64px 1fr 32px;
     align-items: center;
@@ -338,6 +344,23 @@ const rankedListJson = JSON.stringify(
     margin: 0 0 4px 0;
     line-height: 1.4;
   }
+  .ranking-name-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .ranking-name-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .ranking-name-link:focus-visible {
+    outline: none;
+  }
+  .ranking-row:focus-within {
+    border-color: #1B3A6B;
+    box-shadow: 0 0 0 3px rgba(27,58,107,0.25);
+  }
   .ranking-summary {
     font-size: 0.9rem;
     color: #64748b;
@@ -370,6 +393,16 @@ const rankedListJson = JSON.stringify(
   .rb-bridge::before { content: '🔗'; }
   .rb-i18n { background: #f0f6ff; color: #1B3A6B; border-color: #1B3A6B; }
   .rb-i18n::before { content: '🌐'; }
+  .rb-pro {
+    position: relative;
+    z-index: 1;
+    background: #1B3A6B;
+    color: #f0d58a;
+    border-color: #b8862b;
+    text-decoration: none;
+  }
+  .rb-pro::after { content: '→'; }
+  .rb-pro:hover { background: #0f1f3d; color: #ffe7a3; }
 
   .ranking-arrow {
     color: #2E8B2E;

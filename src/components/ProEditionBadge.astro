@@ -1,0 +1,54 @@
+---
+/**
+ * 「KIZUNA Pro 版あり」 hero pill: links a standalone plugin to the KIZUNA Pro product
+ * that bundles it. Driven by `bundles` on the Pro entries in `src/data/plugins.ts`
+ * (via `proEditionOf`), so the badge, the grid card, the ranking row and the 収録 list
+ * on the Pro page always agree. Renders nothing for products no Pro bundles.
+ *
+ * Copy rule (2026-11-08 user decision): say 「Pro 版あり」, never 「統合」 — the standalone
+ * product stays available, and 「統合」 reads as if it had been retired into a paid one.
+ */
+import { proEditionOf, proEditionTitle } from '../data/plugins';
+
+interface Props {
+  /** Product id in plugins.ts (e.g. 'kw-lookup-suggest'). */
+  pluginId: string;
+}
+
+const { pluginId } = Astro.props;
+const pro = proEditionOf(pluginId);
+---
+
+{pro && (
+  <a class="peb-badge" href={`/plugins/${pro.slug}/`} title={proEditionTitle(pro)}><span>KIZUNA Pro 版あり</span><span class="peb-arrow" aria-hidden="true">→</span></a>
+)}
+
+<style>
+  /* Hero pill: solid gold like the Pro card button, so it reads apart from the gold-edged bridge pill */
+  .peb-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #e8c766 0%, #b8862b 100%);
+    border: 1px solid #e8c766;
+    color: #1a1405;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    padding: 6px 14px;
+    border-radius: 20px;
+    line-height: 1;
+    text-decoration: none;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .peb-badge:hover {
+    filter: brightness(1.08);
+  }
+
+  .peb-arrow {
+    display: block;
+    line-height: 1;
+  }
+</style>

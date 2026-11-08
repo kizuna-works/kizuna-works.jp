@@ -2,15 +2,16 @@
 /**
  * Second badge row of a product hero (2026-11-01 user instruction).
  * Row 1 = series badge + version (written by each page); row 2 = this component,
- * always in the order: request-origin / multilingual / bridge.
+ * always in the order: request-origin / multilingual / Pro edition / bridge.
  *
  * Every badge here is driven by `src/data/plugins.ts` (`bornFrom`, `multilingual`,
- * `bridge`), so pass only `pluginId`. Renders nothing when none applies, so a page
- * without these badges keeps its spacing.
+ * Pro `bundles`, `bridge`), so pass only `pluginId`. Renders nothing when none applies,
+ * so a page without these badges keeps its spacing.
  */
-import { allPlugins } from '../data/plugins';
+import { allPlugins, proEditionOf } from '../data/plugins';
 import RequestOriginBadge from './RequestOriginBadge.astro';
 import MultilingualBadge from './MultilingualBadge.astro';
+import ProEditionBadge from './ProEditionBadge.astro';
 import BridgeBadge from './BridgeBadge.astro';
 
 interface Props {
@@ -22,13 +23,14 @@ const { pluginId } = Astro.props;
 const p = allPlugins.find((x) => x.id === pluginId);
 if (!p) throw new Error(`[HeroSubBadges] 「${pluginId}」という製品 id は plugins.ts にありません`);
 const request = p.bornFrom === 'supporter-request';
-const any = request || Boolean(p.multilingual) || Boolean(p.bridge);
+const any = request || Boolean(p.multilingual) || Boolean(proEditionOf(pluginId)) || Boolean(p.bridge);
 ---
 
 {any && (
   <div class="hsb-row">
     {request && <RequestOriginBadge />}
     <MultilingualBadge pluginId={pluginId} />
+    <ProEditionBadge pluginId={pluginId} />
     <BridgeBadge pluginId={pluginId} />
   </div>
 )}

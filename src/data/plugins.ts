@@ -121,6 +121,14 @@ export interface Plugin {
    * 「多言語対応」 badge on the grid card and the product page hero.
    */
   multilingual?: true;
+  /**
+   * KIZUNA Pro products only: the standalone plugins this Pro product bundles, with the
+   * role each one plays inside it. Single source for the 「収録」 list on the Pro page and
+   * the 「KIZUNA Pro 版あり」 badge on every bundled product (grid card, product hero,
+   * ranking). List only products whose features the Pro ships as-is — partners that are
+   * merely called from the Pro (e.g. bulk update from Search Pro) do not belong here.
+   */
+  bundles?: { id: string; role: string }[];
 }
 
 export const plugins: Plugin[] = [
@@ -1418,6 +1426,12 @@ export const premiumPlugins: Plugin[] = [
     releaseDate: '2026-10-25',
     summaryVersion: '1.5.0',
     bridge: 'ブリッジのルールから、全員用の保存した検索の結果を CSV にして、レコードの添付ファイル欄に入れられます。',
+    bundles: [
+      { id: 'kw-quick-search', role: '検索バー' },
+      { id: 'kw-quick-filter', role: '絞り込みの窓' },
+      { id: 'kw-summary-bar', role: '集計カード' },
+      { id: 'kw-csv-export', role: 'CSV出力' },
+    ],
   },
   {
     id: 'kw-lookup-pro',
@@ -1446,6 +1460,13 @@ export const premiumPlugins: Plugin[] = [
     releaseDate: '2026-10-25',
     summaryVersion: '1.3.0',
     bridge: 'ブリッジが他のアプリに書いたレコードでも、フリールックアップはキーに一致する 1 件から値をコピーします。テーブルのコピーも、キーに一致する取得元が 1 件なら、取得元のテーブルの行を写します。',
+    bundles: [
+      { id: 'kw-lookup-suggest', role: '入力中の候補表示' },
+      { id: 'kw-lookup-filter', role: '候補の絞り込み' },
+      { id: 'kw-lookup-add', role: 'マスターのその場登録' },
+      { id: 'kw-free-lookup', role: 'フリールックアップ' },
+      { id: 'kw-lookup-sync', role: 'マスター更新の自動反映' },
+    ],
   },
   {
     id: 'kw-file-pro',
@@ -1473,6 +1494,13 @@ export const premiumPlugins: Plugin[] = [
       '見る・保存する・軽くする・PDFに書き込むを別々のプラグインで設定していて、どの欄に何が効いているか分からない。レコードに添付が散らばり、全部を見るのに手間がかかる。容量が増えても、どのレコードが大きいのか分からない。添付の名前や形式が人によってばらばらで、探すのも、1つの PDF にまとめるのも手作業になる。見せてよいが持ち出されたくない添付も、だれでも保存できてしまう',
     releaseDate: '2026-10-27',
     summaryVersion: '1.5.0',
+    bundles: [
+      { id: 'kw-file-preview', role: 'プレビュー' },
+      { id: 'kw-file-icon-marker', role: 'アイコン表示' },
+      { id: 'kw-file-export', role: 'ZIP出力' },
+      { id: 'kw-image-compress', role: '画像圧縮' },
+      { id: 'kw-pdf-edit', role: 'PDFへの書き込み' },
+    ],
   },
   {
     id: 'kw-design-pro',
@@ -1502,6 +1530,14 @@ export const premiumPlugins: Plugin[] = [
     releaseDate: '2026-11-02',
     summaryVersion: '1.2.0',
     bridge: 'ブリッジのルールから、デザイン Pro の PDF の作成（添付ファイルへの保存）と、実行した本人の押印を呼び出せます。',
+    bundles: [
+      { id: 'kw-field-styler', role: 'フィールドスタイラー' },
+      { id: 'kw-form-deco', role: 'FormDeco' },
+      { id: 'kw-theme-styler', role: 'テーマスタイラー' },
+      { id: 'kw-comment-control', role: 'コメントコントロール' },
+      { id: 'kw-user-autofill', role: 'ユーザーオートフィル' },
+      { id: 'kw-report-designer', role: '帳票デザイナー' },
+    ],
   },
   {
     id: 'kw-report-designer',
@@ -2126,6 +2162,38 @@ export const proPlugins: Plugin[] = premiumPlugins.filter((p) => p.tier === 'pro
 export const premiumOnlyPlugins: Plugin[] = premiumPlugins.filter((p) => p.tier !== 'pro');
 /** KIZUNAブリッジと連携する製品（公開版が連携に答えるもの）。 */
 export const bridgePartnerPlugins: Plugin[] = allPlugins.filter((p) => !!p.bridge);
+
+/**
+ * The KIZUNA Pro product that bundles the given standalone plugin (via `bundles`), or
+ * undefined. Drives the 「KIZUNA Pro 版あり」 badge so it can never disagree with the
+ * 収録 list on the Pro page.
+ */
+export function proEditionOf(pluginId: string): Plugin | undefined {
+  return proPlugins.find((pro) => pro.bundles?.some((b) => b.id === pluginId));
+}
+
+/** Tooltip for the 「KIZUNA Pro 版あり」 badge, e.g. 「デザイン Pro for kintone にこの機能が入っています（ほかの5つの機能とあわせて1本で使えます）」. */
+export function proEditionTitle(pro: Plugin): string {
+  const others = (pro.bundles?.length ?? 1) - 1;
+  const tail = others > 0 ? `（ほかの${others}つの機能とあわせて1本で使えます）` : '';
+  return `${pro.name} にこの機能が入っています${tail}`;
+}
+
+// Fail the build when a Pro bundles an unknown id or two Pros claim the same plugin:
+// either would make the badge point at the wrong page without anyone noticing.
+{
+  const seen = new Map<string, string>();
+  for (const pro of proPlugins) {
+    for (const b of pro.bundles ?? []) {
+      if (!allPlugins.some((p) => p.id === b.id)) {
+        throw new Error(`[plugins.ts] ${pro.id} の bundles にある「${b.id}」は plugins.ts にありません`);
+      }
+      const prev = seen.get(b.id);
+      if (prev) throw new Error(`[plugins.ts] 「${b.id}」が ${prev} と ${pro.id} の両方の bundles にあります`);
+      seen.set(b.id, pro.id);
+    }
+  }
+}
 
 export const pluginsItemListJsonLd = [...plugins, ...premiumPlugins].map((p, i) => ({
   '@type': 'ListItem',

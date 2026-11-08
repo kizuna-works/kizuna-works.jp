@@ -4,7 +4,7 @@ import SupporterCTA from '../../components/SupporterCTA.astro';
 import TrialBanner from '../../components/TrialBanner.astro';
 import Picture from '../../components/Picture.astro';
 import ExtensionNotice from '../../components/ExtensionNotice.astro';
-import { plugins, premiumPlugins, premiumOnlyPlugins, proPlugins, pluginsItemListJsonLd } from '../../data/plugins';
+import { plugins, premiumPlugins, premiumOnlyPlugins, proPlugins, pluginsItemListJsonLd, proEditionOf, proEditionTitle } from '../../data/plugins';
 import type { Plugin } from '../../data/plugins';
 import { PRICE_REVISION_LIVE } from '../../data/pricing';
 import {
@@ -1244,7 +1244,10 @@ const freeFaqJsonLd = {
       font-size: 0.85rem;
     }
 
+    /* Links on the card sit above the stretched title link (z-index 0) so they stay clickable */
     .badge-bridge {
+      position: relative;
+      z-index: 1;
       background: #fffaf0;
       color: #7a5512;
       border: 1px solid #b8862b;
@@ -1266,6 +1269,33 @@ const freeFaqJsonLd = {
 
     .badge-bridge:hover {
       background: #fff3d6;
+    }
+
+    /* Links a bundled plugin to its KIZUNA Pro product: navy pill with Pro gold, apart from the bridge badge */
+    .badge-pro-edition {
+      position: relative;
+      z-index: 1;
+      background: #1B3A6B;
+      color: #f0d58a;
+      border: 1px solid #b8862b;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .badge-pro-edition::after {
+      content: '→';
+    }
+
+    .badge-pro-edition:hover {
+      background: #0f1f3d;
+      color: #ffe7a3;
     }
 
     /* Premium plugins section */
@@ -1619,6 +1649,7 @@ const freeFaqJsonLd = {
                   <span class="badge-free-tier">無料プランあり</span>
                   {plugin.bridge && <a class="badge-bridge" href="/plugins/bridge/" title="KIZUNAブリッジ for kintone と連携できます">ブリッジ連携</a>}
                   {plugin.multilingual && <span class="badge-i18n" title="日本語・英語・中国語（簡体字）で表示できます">多言語対応</span>}
+                  {(() => { const pro = proEditionOf(plugin.id); return pro && <a class="badge-pro-edition" href={`/plugins/${pro.slug}/`} title={proEditionTitle(pro)}>KIZUNA Pro 版あり</a>; })()}
                 </div>
                 <div class="plugin-pricing-row">
                   <span class="premium-plan-note">プレミアム年間サポーターに含む</span>
@@ -1680,6 +1711,7 @@ const freeFaqJsonLd = {
                 )}
                 {plugin.bridge && <a class="badge-bridge" href="/plugins/bridge/" title="KIZUNAブリッジ for kintone と連携できます">ブリッジ連携</a>}
                 {plugin.multilingual && <span class="badge-i18n" title="日本語・英語・中国語（簡体字）で表示できます">多言語対応</span>}
+                {(() => { const pro = proEditionOf(plugin.id); return pro && <a class="badge-pro-edition" href={`/plugins/${pro.slug}/`} title={proEditionTitle(pro)}>KIZUNA Pro 版あり</a>; })()}
               </div>
               {plugin.status === 'available' && plugin.price !== undefined && (
                 <div class="plugin-pricing-row">
