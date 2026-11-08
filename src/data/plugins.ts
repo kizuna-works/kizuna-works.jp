@@ -757,7 +757,8 @@ export const plugins: Plugin[] = [
     problemTitle: 'コメント欄が毎回開いて画面が狭い・自分宛の見落としが起きる',
     problemDesc: '詳細を開くたびコメント欄が場所を取り、一覧ではどれにコメントが付いているか・自分宛があるか分からず毎回開いて確認している',
     releaseDate: '2026-06-27',
-    summaryVersion: '1.0.3',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-user-autofill',
