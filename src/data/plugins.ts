@@ -1191,7 +1191,8 @@ export const plugins: Plugin[] = [
       '電話や来客で席を立った間にセッションが切れ、長い対応記録がまるごと消える。書き直しになるうえ、編集中のまま放置されたレコードにも気づけない',
     problemFeatured: true,
     releaseDate: '2026-08-14',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-link-assist',
