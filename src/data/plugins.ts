@@ -1329,6 +1329,33 @@ export const plugins: Plugin[] = [
     summaryVersion: '1.3.0',
     multilingual: true,
   },
+  {
+    id: 'kw-date-assist',
+    pluginId: 'fmigofnchnfflpjlkblohkmmlljojdca',
+    name: '日付入力アシスト for kintone',
+    formName: '日付入力アシスト for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'date-assist',
+    multilingual: true,
+    bornFrom: 'supporter-request',
+    categories: ['自動入力'],
+    description:
+      '日付・日時・時刻フィールドの入力を速くする kintone プラグイン。前月・翌月の日付もそのまま選べる6週表示のカレンダー、「先月末」「翌月第3営業日」などをワンクリックで入れる候補ボタンと▼メニュー、1108・R8.11.8・+3 のような略記入力に対応します。時刻は、現在時刻・9:00・現在時刻から30分後などの候補と、930・午後3時・+1h のような略記で入力できます。候補は基準・月・日・営業日・休日の調整を組み合わせて作り、別の日付フィールドを基準にもできます。会社の休日・出勤日・祝日、カレンダービューの非稼働日マスタを営業日の計算に反映。テーブル内の欄にも対応し、モバイルでは「よく使う日付」「よく使う時刻」メニューから入力できます。',
+    image: '/images/date-assist-banner.png',
+    imageAlt:
+      '日付入力アシスト for kintone プラグイン — 前月・翌月の日付も選べるカレンダーと、先月末・翌月第3営業日などをワンクリックで入れる候補ボタン、1108 や R8.11.8 のような略記入力に対応する',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      '前月・翌月も選べるカレンダーと、先月末・翌月第3営業日などをワンクリックで入れる候補ボタン。時刻の候補と 930・+1h の略記、1108・R8.11.8 の日付の略記にも対応。',
+    problemTitle: 'カレンダーで前月の日付が選べず、毎回月を戻している',
+    problemDesc:
+      '請求日に先月末を入れるたびに標準カレンダーの月を戻し、翌月第3営業日のような日付は数えて選んでいる。支払期限を請求日から手計算する手間も毎回かかる。時刻も、9:00 や現在時刻を毎回打ち込んでいる',
+    releaseDate: '2026-11-08',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**

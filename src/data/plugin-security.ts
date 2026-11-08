@@ -372,6 +372,15 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-date-assist': {
+    extraComm: [
+      {
+        label: 'テーブル内の欄の特定・休日マスタの取得（自ドメイン内）',
+        detail:
+          '候補の計算・カレンダーの表示・略記の変換は、ブラウザ内の処理だけで行い、日付を入れるときは kintone の画面内の仕組み（record.get / record.set）を使います。祝日のデータはプラグインに同梱しているため、取得のための通信はありません。自ドメインの kintone REST API を使うのは次の場合だけです。①レコード画面でテーブル内の日付欄の位置を特定するとき（/k/v1/app/form/fields・/k/v1/app/form/layout の GET）。テーブル内に対象の欄を設定したときのみで、画面ごとに1回です。②設定画面の休日タブで「カレンダービューの非稼働日マスタ」を使う設定にしたとき、レコード画面を開いた最初の1回だけ、今日の前後13か月分の休日を取得します（/k/v1/records の GET・日付と「毎年」の列だけ）。③設定画面で、フィールドの一覧・並び順と、マスタアプリの日付フィールドを取得します（/k/v1/preview/app/form/fields・/k/v1/preview/app/form/layout・/k/v1/app/form/fields の GET）。いずれもご利用中の kintone ドメイン内で完結し、外部の第三者へは送信しません。アプリのフォーム定義（フィールドの追加・変更・削除）は一切行いません。第三者CDN・外部サーバーは利用しません。',
+      },
+    ],
+  },
   'kw-text-join': {
     extraComm: [
       {
