@@ -10,7 +10,7 @@ import type { Plugin } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.6.1';
+const VERSION = '1.7.0';
 const ZIP = `/downloads/kw-bridge-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/';
 const DATE_MODIFIED = '2026-11-08';
@@ -47,6 +47,7 @@ const PARTNER_MODES: Record<string, { what: Partial<Record<PartnerMode, string>>
   'kw-bulk-update': { what: { trigger: '一括更新したとき', run: '一括更新を実行する' }, version: 'v1.0.6 以降' },
   'kw-status-bulk-action': { what: { trigger: 'ステータスを一括で進めたとき', run: 'ステータスを一括で進める' }, version: 'v1.1.3 以降' },
   'kw-card-board': { what: { trigger: 'カードをドラッグして値やステータスを変えたとき' }, version: 'v1.2.0 以降' },
+  'kw-sticky-board': { what: { trigger: '付箋を貼った・確認しました・対応済みにしたとき（チャット通知で知らせる）' }, version: 'v1.3.0 以降' },
   'kw-related-enhancer': { what: { run: '別のアプリの集計を保存し直す' }, version: 'v2.3.0 以降' },
   'kw-search-pro': { what: { run: '保存した検索の結果を CSV にして添付する' }, version: 'v1.0.0 以降' },
   'kw-design-pro': { what: { run: 'PDF を作って添付する・本人の印を押す' }, version: '最新版' },
@@ -225,7 +226,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.6.1",
+          "softwareVersion": "1.7.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -248,7 +249,7 @@ const faqJsonLd = {
               description: 'プレミアム年間サポーターに追加するプラン（年額）。',
             },
           ],
-          description: 'KIZUNAブリッジ for kintone は、kintone のアプリをまたぐ作業と当社のプラグインの連携を、ノーコードのルールで自動化するプラグイン。画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン（詳細・新規作成・編集の画面・一覧の上）・ブリッジの CSV ボタンでの読み込みと書き出しの前後をきっかけに、条件（このレコードの値と変更前の値・テーブル・ステータス・操作した人と組織・端末・日付・他のアプリのレコードの有無や件数・合計）に合えば、このレコードへの値の入力・集計・行の追加と削除、エラー・確認・お知らせ、他のアプリのレコードの取得・作成・更新・ステータスの変更・双方向の同期を行う。書き込み先のアプリに入っている当社のプラグインの処理（時間帯で日時を決める・採番・地図リンク・経過日数・文字列結合・ルックアップのコピーなど）を当てる、カレンダービューのモーダルや一括更新で保存したこのアプリのレコードへの採番などの当て直し、チャット通知、レコードロックの確認、一括更新などの実行にも対応。日付は関数を書かずに選ぶだけで指定でき（当月1日・先月末日・59か月後の末日など）、ルールの複製にも対応。テーブルの列へ行ごとに値を入れる、テーブルの列の変更をきっかけにして変えた行だけを対象にする、新しく足した行だけを対象にする、宛先（ユーザー・組織・グループ）を付けてコメントを書く（kintone の通知が届く）こともできる。ルールを試す機能・実行の記録と再実行・あとから流す・連携の流れ・不在カレンダーと営業日・当社プラグインの一括更新つき。',
+          description: 'KIZUNAブリッジ for kintone は、kintone のアプリをまたぐ作業と当社のプラグインの連携を、ノーコードのルールで自動化するプラグイン。画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン（詳細・新規作成・編集の画面・一覧の上）・ブリッジの CSV ボタンでの読み込みと書き出しの前後をきっかけに、条件（このレコードの値と変更前の値・テーブル・ステータス・操作した人と組織・端末・日付・他のアプリのレコードの有無や件数・合計）に合えば、このレコードへの値の入力・集計・行の追加と削除、エラー・確認・お知らせ、他のアプリのレコードの取得・作成・更新・ステータスの変更・双方向の同期を行う。書き込み先のアプリに入っている当社のプラグインの処理（時間帯で日時を決める・採番・地図リンク・経過日数・文字列結合・ルックアップのコピーなど）を当てる、カレンダービューのモーダルや一括更新で保存したこのアプリのレコードへの採番などの当て直し、チャット通知（他のプラグインが書き込んだレコードを送ることも可）、レコードロックの確認、一括更新などの実行にも対応。日付は関数を書かずに選ぶだけで指定でき（当月1日・先月末日・59か月後の末日など）、ルールの複製にも対応。テーブルの列へ行ごとに値を入れる、テーブルの列の変更をきっかけにして変えた行だけを対象にする、新しく足した行だけを対象にする、宛先（ユーザー・組織・グループ）を付けてコメントを書く（kintone の通知が届く）こともできる。ルールを試す機能・実行の記録と再実行・あとから流す・連携の流れ・不在カレンダーと営業日・当社プラグインの一括更新つき。',
           publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
           featureList: [
             'きっかけ：画面を開いた・値を変えた・保存の前後・アクションの前後・削除の前・ボタン・ブリッジの CSV ボタンでの読み込みと書き出しの前後',
@@ -265,6 +266,7 @@ const faqJsonLd = {
             '他のアプリ：取ってくる・作る・変える・ステータスを進める・双方向にそろえる',
             '書き込み先のアプリの当社プラグインの処理を当てる（時間帯で日時を決める・採番・文字列結合など）',
             '書き込み先のアプリのチャット通知・レコードロックとの連携',
+            '他のプラグイン（付箋ボードなど）が書き込んだレコードを、書き込み先のアプリのチャット通知で送る',
             'このレコードに、採番などの当社プラグインの処理を当て直す（カレンダービューのモーダル・一括更新で保存したレコード向け）',
             'ルールから当社のプラグインの機能を実行する',
             '新規作成・編集の画面にボタンを置き、画面の値をその場で書き換える（ボタンアクション。ヘッダー・スペース・フィールドのそばに配置、実際の画面を開いてドラッグで位置決め、種類・形・大きさ・色・書体を選べる）',
@@ -555,7 +557,7 @@ const faqJsonLd = {
       <HeroSubBadges pluginId="kw-bridge" />
       <h1 class="kbp-hero-title">KIZUNAブリッジ for kintone</h1>
       <p class="kbp-tagline">アプリをまたぐ作業も、プラグインの連携も、自動化。</p>
-      <p class="kbp-sub">KIZUNAブリッジ for kintone は、<strong>保存やアクションをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める</strong>処理を、ノーコードのルールで自動化する kintone プラグインです。当社のプラグインとも連携し、<strong>書き込み先での採番や通知、一括更新の実行</strong>までつなげられます。パソコンでカレンダービューのモーダルや一括更新から保存したレコードにも、<strong>採番などの処理を当て直せます</strong>。<strong>新規作成・編集の画面に置くボタン</strong>で、日付や値をその場で入れることもできます。日付のフィールドには、<strong>「先月末日」「59か月後の末日」などを、関数を書かずに選ぶだけで</strong>入れられます（<a href="/plugins/bridge/guide/">設定の手引き</a>・<a href="/plugins/bridge/formula/#date">日付の早見表</a>）。テーブルの行ごとの入力（<strong>列を変えると、その行だけを計算</strong>）や、<strong>宛先を付けたコメントで担当者に知らせる</strong>こともできます。さらに、担当者の不在や会社の休みを踏まえて日付を計算する<strong>不在カレンダー</strong>と、当社のプラグインをまとめて最新版にする<strong>プラグインの一括更新</strong>も備えます。KIZUNA Works の上位版「KIZUNA Pro プラグイン」の第1弾です。</p>
+      <p class="kbp-sub">KIZUNAブリッジ for kintone は、<strong>保存やアクションをきっかけに、他のアプリのレコードを作る・変える・ステータスを進める</strong>処理を、ノーコードのルールで自動化する kintone プラグインです。当社のプラグインとも連携し、<strong>書き込み先での採番や通知、一括更新の実行</strong>までつなげられます。パソコンでカレンダービューのモーダルや一括更新から保存したレコードにも、<strong>採番などの処理を当て直せます</strong>。<strong>新規作成・編集の画面に置くボタン</strong>で、日付や値をその場で入れることもできます。日付のフィールドには、<strong>「先月末日」「59か月後の末日」などを、関数を書かずに選ぶだけで</strong>入れられます（<a href="/plugins/bridge/guide/">設定の手引き</a>・<a href="/plugins/bridge/formula/#date">日付の早見表</a>）。テーブルの行ごとの入力（<strong>列を変えると、その行だけを計算</strong>）や、<strong>宛先を付けたコメントで担当者に知らせる</strong>ことや、付箋ボードなど<strong>他のプラグインが書き込んだレコードをチャット通知で送る</strong>こともできます。さらに、担当者の不在や会社の休みを踏まえて日付を計算する<strong>不在カレンダー</strong>と、当社のプラグインをまとめて最新版にする<strong>プラグインの一括更新</strong>も備えます。KIZUNA Works の上位版「KIZUNA Pro プラグイン」の第1弾です。</p>
       <div class="kbp-pillars">
         <a class="kbp-pillar" href="#single"><span class="kbp-pillar-no">PART 1</span><span class="kbp-pillar-name">このアプリの中で</span><span class="kbp-pillar-desc">きっかけ・条件・動作のルールで、入力・確認・集計を自動に</span></a>
         <a class="kbp-pillar" href="#apps"><span class="kbp-pillar-no">PART 2</span><span class="kbp-pillar-name">アプリ間連携</span><span class="kbp-pillar-desc">他のアプリへの取得・作成・更新・ステータス・双方向の同期</span></a>
@@ -569,26 +571,22 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.6.0) -->
+    <!-- Update Info (v1.7.0) -->
     <section class="kbp-section">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.6.0：テーブルの列を変えたとき、その行だけを計算できるようにしました</h2>
+          <h2 class="update-title">v1.7.0：他のプラグインが書き込んだレコードを、チャット通知で送れるようにしました</h2>
         </div>
-        <p class="update-desc">KIZUNAブリッジ for kintone を v1.6.0 にアップデートしました。</p>
-        <p class="update-desc"><strong>テーブルの列を変えたときに、動かせます。</strong>きっかけ［フィールドの値を変えたとき］の［どのフィールド］に、「テーブル名 ＞ 列名」を選べます。これまでは、テーブルの中のどの列を変えても動くテーブル全体しか選べませんでした。</p>
-        <p class="update-desc"><strong>変えた行だけを、計算できます。</strong>行ごとに行う動作（値を入れる・空にする・他のアプリから取得）の［対象の行］に、［変えた行だけ］を加えました。たとえば、行の開始日を入れると、同じ行の締め日に開始日の月の末日が入ります。ほかの行で手で直した値は、そのまま残ります。</p>
+        <p class="update-desc">KIZUNAブリッジ for kintone を v1.7.0 にアップデートしました。</p>
+        <p class="update-desc"><strong>動かす内容に［書き込まれたレコードをチャット通知で送る］を加えました。</strong>きっかけ［KIZUNA Works のプラグインでレコードを変えたとき］で選べます。他のプラグインが書き込んだレコードを、書き込み先のアプリに入れたチャット通知で Slack・Teams・Google Chat・LINE WORKS・Chatwork へ送ります。送るかどうか・本文は、そのアプリのチャット通知の通知ルールで決めます。</p>
         <figure class="update-shot">
-          <Picture src="/images/bridge-v160-config-01.png" alt="ルールの設定画面。きっかけはフィールドの値を変えたとき、どのフィールドに「案件明細 ＞ 開始日」を選び、値を入れる動作で案件明細の締め日に開始日の月の末日を指定、対象の行に変えた行だけを選んでいる" width="759" height="1081" class="zoomable" />
+          <Picture src="/images/bridge-v170-cnotify.png" alt="ルールの設定画面。きっかけはKIZUNA Works のプラグインでレコードを変えたとき、どのプラグインに付箋ボードを選んでいる。このルールでやることは「付箋ボードで変えたとき、書き込まれたレコードをチャット通知で送る」と表示されている" width="1366" height="1000" class="zoomable" />
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </figure>
-        <figure class="update-shot">
-          <Picture src="/images/bridge-v160-record-01.png" alt="テーブルの3行に開始日を入れた画面。2行目と3行目の締め日には、それぞれの行の開始日の月の末日が入り、1行目の締め日は手で直した値のまま残っている" width="850" height="214" class="zoomable" />
-          <p class="zoom-hint">画像をクリックすると拡大表示します（1 行目は手で直した締め日が残っています）</p>
-        </figure>
-        <p class="update-desc"><strong>同じ列を、複数のルールで見張れるようにしました。</strong>テーブルの列をきっかけにしたルールと、テーブルをきっかけにしたルールが同じ列を見張るとき、両方のルールが動きます。</p>
-        <p class="update-note">既存ユーザーの方は、最新版（v1.6.1）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
+        <p class="update-desc"><strong>付箋ボードの付箋を、チャットへ送れます。</strong>付箋ボード（v1.3.0 以降）は付箋を別のアプリ（保管アプリ）に書き込みます。書き込み先が別のアプリのときは、ルールの条件は使いません。送る付箋の絞り込みは、保管アプリのチャット通知の条件で行います（例：対応済みになったときだけ）。かんたん一括更新のように同じアプリへ書き込むプラグインでは、ルールの条件で絞れます。</p>
+        <p class="update-desc"><strong>［どのプラグイン］に 3 製品を加えました。</strong>付箋ボード・エクセル一括貼り付け・関連レコード拡張で書き込まれたレコードにも、ルールを当てられます。</p>
+        <p class="update-note">既存ユーザーの方は、最新版（v1.7.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
       </div>
     </section>
 
@@ -919,6 +917,7 @@ const faqJsonLd = {
           <li>他のアプリ：取ってくる・作る・変える・ステータスを進める・双方向にそろえる</li>
           <li>書き込み先のアプリの当社プラグインの処理を当てる（時間帯で日時を決める・採番・地図リンク・経過日数・文字列結合 ほか）</li>
           <li>書き込み先のアプリのチャット通知・レコードロックとの連携</li>
+          <li>他のプラグイン（付箋ボードなど）が書き込んだレコードを、書き込み先のアプリのチャット通知で送る</li>
           <li>カレンダービューのモーダルや一括更新で保存したレコードに、採番などの処理を当て直す</li>
           <li>ルールから当社のプラグインの機能を実行する</li>
           <li>ルールの順番をあとから入れ替える（選んだルールの行の ↑↓・保存で反映）</li>

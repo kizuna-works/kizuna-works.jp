@@ -426,6 +426,23 @@ export const bridgeRecipes: BridgeRecipe[] = [
     ],
   },
   {
+    id: 'plugin-sticky-chat',
+    title: '付箋が対応済みになったら、チャットに知らせる',
+    scenes: ['plugin'],
+    flow: { from: '案件', to: '付箋の保管アプリ' },
+    now: '付箋を貼ったり対応済みにしたりしても、チャットには流れないので、相手が気づかないことがある。',
+    trigger: 'KIZUNA Works のプラグインでレコードを変えたとき（付箋ボード）',
+    condition: 'なし（付箋ボードは別のアプリに書き込むため、条件は使われません）',
+    actions: ['書き込まれたレコードをチャット通知で送る'],
+    result: '付箋を貼った・［確認しました］を押した・対応済みにした（未対応に戻すを含む）ことが、保管アプリのチャット通知から Slack・Teams・Google Chat・LINE WORKS・Chatwork へ届きます。「対応済みになったときだけ」のような絞り込みは、保管アプリのチャット通知の条件で行います。',
+    partners: ['kw-sticky-board', 'kw-chat-notify'],
+    setup: [
+      '付箋の保管アプリに、チャット通知を入れ、送り先と通知ルール（作成・更新）を設定します。',
+      '付箋を使うアプリのブリッジで、「1 きっかけ」に［KIZUNA Works のプラグインでレコードを変えたとき］を選び、どのプラグインは［付箋ボード］にします。',
+      '「3 動かす内容」で［書き込まれたレコードをチャット通知で送る］を選びます。',
+    ],
+  },
+  {
     id: 'billing-changed-row',
     title: '明細の数量を変えたら、その行の金額だけを計算し直す',
     scenes: ['billing', 'daily'],
