@@ -1264,7 +1264,8 @@ export const plugins: Plugin[] = [
     problemDesc:
       '顧客情報を見て明細へスクロールし、また戻る。入力しながら別のセクションを参照したいのに、スクロールすると入力欄が画面から消える。かといって運用中のフォームは組み替えられない',
     releaseDate: '2026-09-01',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-table-preview',
