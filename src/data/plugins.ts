@@ -991,7 +991,8 @@ export const plugins: Plugin[] = [
     problemDesc: 'kintone には削除レコードを復元する標準機能がなく、うっかり消すと内容も添付ファイルも失われてしまう',
     problemFeatured: true,
     releaseDate: '2026-07-24',
-    summaryVersion: '1.0.1',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-read-check',
