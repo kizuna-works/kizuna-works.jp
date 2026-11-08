@@ -430,7 +430,8 @@ export const plugins: Plugin[] = [
     problemTitle: 'いつ誰が何を変えたか分からない',
     problemDesc: 'レコードの変更前後を自動で記録し、詳細画面で時系列の変更履歴テーブルとして見たい',
     releaseDate: '2026-05-24',
-    summaryVersion: '1.0.3',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-related-record-popup',

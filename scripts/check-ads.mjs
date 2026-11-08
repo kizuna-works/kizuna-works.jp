@@ -34,6 +34,10 @@ if (data.schema !== 1) err('', 'schema は 1 にしてください（ad.js v2 �
 // 広告が複数あるときは、一覧画面を開くたびに次の1件になる。
 if (data.rotation !== undefined) err('', 'rotation は使えません（表示中に広告を切り替える形は採らない）。広告が複数あれば、一覧画面を開くたびに順に替わります');
 if (!Array.isArray(data.banners)) err('', 'banners は配列にしてください');
+// Hours until the banner shows again after the close button (ad.js 2026-11-09+: default 3, accepted range 1-24)
+if (data.reshowHours !== undefined && !(typeof data.reshowHours === 'number' && data.reshowHours >= 1 && data.reshowHours <= 24)) {
+  err('', 'reshowHours は 1〜24 の数値にしてください（×で閉じてからまた出すまでの時間。書かなければ 3 時間。範囲外は ad.js が無視して 3 時間になります）');
+}
 
 const pluginIds = new Set();
 try {
