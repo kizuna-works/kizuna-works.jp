@@ -1070,7 +1070,8 @@ export const plugins: Plugin[] = [
     problemDesc:
       '部署別・担当別に一覧を作った結果、切替ドロップダウンが20件超。kintone では一覧にアクセス権を設定できず、既定の一覧もアプリに1つしか決められない',
     releaseDate: '2026-08-04',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-table-assist',
