@@ -281,7 +281,8 @@ export const plugins: Plugin[] = [
     problemTitle: '添付ファイルの中身が一覧で分からない',
     problemDesc: '詳細画面を毎回開いて確認している',
     releaseDate: '2026-05-03',
-    summaryVersion: '1.0.4',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-quick-side-view',
