@@ -139,16 +139,16 @@ export const securityProfiles: Record<string, SecurityProfile> = {
     outbound: {
       title: '設定した本文を、指定のチャットへ送信します',
       detail:
-        'このプラグインは「kintone の内容をチャットに届ける」ことが目的のため、業務データが kintone の外に出ます。送信先は、管理者ご自身が登録した Webhook URL（Slack / Microsoft Teams / Google Chat）だけです。送られるのは、通知ルールの本文テンプレートに書いた内容（差し込んだフィールドの値・レコードURL・操作者名など）と、その送信結果です。当社のサーバーを経由せず、kintone から各サービスへ直接送信します（中継サーバーはありません）。テンプレートに書いていないフィールドは送信されません。',
+        'このプラグインは「kintone の内容をチャットに届ける」ことが目的のため、業務データが kintone の外に出ます。送信先は、管理者ご自身が登録した Webhook URL（Slack / Microsoft Teams / Google Chat / LINE WORKS）と、Chatwork のルーム（API トークンで投稿）だけです。送られるのは、通知ルールの本文テンプレートに書いた内容（差し込んだフィールドの値・レコードURL・操作者名など）と、その送信結果です。当社のサーバーを経由せず、kintone から各サービスへ直接送信します（中継サーバーはありません）。テンプレートに書いていないフィールドは送信されません。',
       control:
         '何を送るかは本文テンプレートで、いつ送るかはトリガーと条件（最大5件）で管理者が決められます。ルールを無効にすれば送信は止まります。送信の成否は同じスペース内の保管アプリに記録され、失敗時は kintone のベル通知でお知らせします。',
     },
     extraComm: [
       {
-        label: 'チャットサービスへの通知送信（Slack / Microsoft Teams / Google Chat）',
+        label: 'チャットサービスへの通知送信（Slack / Microsoft Teams / Google Chat / LINE WORKS / Chatwork）',
         scope: 'external',
         detail:
-          '管理者が登録した Webhook URL へ、通知本文を JSON で POST します。通信は kintone のプロキシ（kintone.plugin.app.proxy）を経由し、当社サーバーは介在しません。送信先・送信内容・送信条件はすべて管理者の設定次第です。',
+          '管理者が登録した Webhook URL へ、通知本文を JSON で POST します。Chatwork へは、管理者が登録したルーム宛てに API（api.chatwork.com）で投稿し、API トークンは外部連携の設定（アプリ管理者だけが扱える領域）に保存してレコード画面からは参照できない形で使います。通信は kintone のプロキシ（kintone.plugin.app.proxy）を経由し、当社サーバーは介在しません。送信先・送信内容・送信条件はすべて管理者の設定次第です。',
       },
       {
         label: '送信履歴の記録（自ドメイン内）',

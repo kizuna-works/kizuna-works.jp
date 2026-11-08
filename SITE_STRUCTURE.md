@@ -216,7 +216,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── sidebar-enhancer/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】サイドバー拡張 製品ページ（/plugins/sidebar-enhancer/）— レコード詳細画面の右サイドバー（コメント/変更履歴の隣）に独自タブを最大5つ増設。**フォームのレイアウトは一切変更しない**ため運用中アプリへ後付け可。①起票=値を引き継いで他アプリ/自アプリへ新規レコード作成（全フィールド型・サブテーブル除く／表示項目と並び順を選択／固定値／引き継ぎ値のロック／保存後4種）②リンク=フィールドのURLをiframe表示＋Googleマップ共有URLをoutput=embedへ自動変換（拒否サイトは別タブボタンへ）③進捗=遷移履歴の縦ステッパー（実行者・日時）＋滞留日数をしきい値と色で段階警告＋導入前は「記録なし」の第3状態④確認=ステータス別チェックリストの消化/完了率/遷移ブロック（保管アプリへ分離・編集は全員可で引き継ぎ可）⑤ガイド=入力ルール/手順/FAQをMarkdownで常設。ヒーロー＋課題＋全体像＋5機能＋主な機能6＋他プラグイン併用（既読チェックのタブ順固定・住所アシスト連携で郵便番号→住所→マップURL→地図）＋設定画面4ステップ＋プラン＋手順＋注意＋SecurityBox＋ShareButtons＋FAQ9＋CTA。単品販売なし＝プレミアム年間サポーターに含む。**PC版のみ（モバイル非対応）**
 │   │   │   ├── chat-notify/
-│   │   │   │   └── index.astro # 【プレミアムプラグイン】チャット通知 製品ページ（/plugins/chat-notify/）— レコードの追加/更新/削除/ステータス変更/手動送信/一括通知をきっかけに Slack・Microsoft Teams・Google Chat・LINE WORKS へ自動通知。中継サーバー不要（kintoneからWebhookへ直接POST）。最大5件の条件(AND/OR)・変更検知3モード・差し込みテンプレート・全員メンション(Slack/GoogleChat/LINEWORKS)・LINE WORKS はカード表示＋「レコードを開く」ボタン(v2.0.0)・送信履歴/失敗時ベル通知。ヒーロー＋UPDATE(v2.0.0)＋実際に届く通知(4サービス＋一括)＋主な機能9＋設定3タブ＋手動/一括＋Webhook取得手順(Slack方法A/B・Teams・GoogleChat・LINEWORKS のアコーディオン)＋プラン＋手順＋注意＋SecurityBox＋ShareButtons＋FAQ9。単品販売なし＝プレミアム年間サポーターに含む。**PC版のみ（モバイルは通知が飛ばない）**
+│   │   │   │   └── index.astro # 【プレミアムプラグイン】チャット通知 製品ページ（/plugins/chat-notify/）— レコードの追加/更新/削除/ステータス変更/手動送信/一括通知をきっかけに Slack・Microsoft Teams・Google Chat・LINE WORKS・Chatwork へ自動通知。中継サーバー不要（kintoneからWebhookへ直接POST）。最大5件の条件(AND/OR)・変更検知3モード・差し込みテンプレート・全員メンション(Slack/GoogleChat/LINEWORKS/Chatwork)・LINE WORKS はカード表示＋「レコードを開く」ボタン(v2.0.0)・送信履歴/失敗時ベル通知。ヒーロー＋UPDATE(v2.2.0 Chatwork 対応)＋実際に届く通知(4サービス＋一括)＋主な機能9＋設定3タブ＋手動/一括＋Webhook取得手順(Slack方法A/B・Teams・GoogleChat・LINEWORKS・Chatwork のアコーディオン)＋プラン＋手順＋注意＋SecurityBox＋ShareButtons＋FAQ9。単品販売なし＝プレミアム年間サポーターに含む。**PC版のみ（モバイルは通知が飛ばない）**
 │   │   │   ├── card-board/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】カードボード製品ページ（/plugins/card-board/）— 一覧を「状態カード＋詳細カード」の2段カンバンに切替＝D&Dでステータス/選択肢/文字列を変更・状態別の件数/集計を俯瞰・連動(カンバン)/個別(ギャラリー)モード・添付サムネ・レーン区切り線・初期に開く状態・絞り込み/並び順を反映。ヒーロー＋実画面(営業/不動産/カタログ)＋2モード＋主な機能＋設定画面＋無料/プレミアム比較(無料1ビュー)＋手順（表形式の一覧を用意する手順を含む・v1.1.1）＋UPDATE（v1.2.0：KIZUNAブリッジ連携・多言語対応・標準のグラフと一覧の表示の改善。最新の1つだけ）＋ブリッジ連携・多言語の機能カード＋UPDATE ボックス v1.1.1（設定できる一覧の案内・スクショ1枚）＋FAQ（カスタマイズビューは対象外）＋SecurityBox＋ShareButtons。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。kintone完結
 │   │   │   ├── input-template/
@@ -409,6 +409,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── text-join-v140.md               # 文字列結合 v1.4.0 アップデートのお知らせ（2026-10-28 10:50・コピーボタン／色の欄に共通カラーパレット）
 │   │   │   ├── text-join-v150.md               # 文字列結合 v1.5.0 アップデートのお知らせ（2026-11-04 15:00・日付の年だけ・月だけの書式）
 │   │   │   ├── plugin-date-assist-release.md   # 日付入力アシスト v1.0.0 公開のお知らせ（2026-11-08・新プラグイン）
+│   │   │   ├── chat-notify-v2-2-0-update.md    # チャット通知 v2.2.0 アップデートのお知らせ（2026-11-08 19:00・送信先に Chatwork を追加・多言語対応）
 │   │   │   ├── sheet-edit-v160.md              # シート編集 v1.6.0 アップデートのお知らせ（2026-11-04 12:00・条件ルール＝色付け・編集不可）
 │   │   │   ├── sheet-edit-v170.md              # シート編集 v1.7.0 アップデートのお知らせ（2026-11-05・日付の条件に今月／先月／来月）
 │   │   │   ├── record-lock-v140.md             # レコードロック v1.4.0 アップデートのお知らせ
@@ -1207,6 +1208,7 @@ c:\kizuna-works.jp\
 │   │   ├── chat-notify-slack-b-{01..06}.png # Slack 方法B（App ディレクトリ・旧方式）の手順スクショ。b-06 は Webhook URL をマスク済
 │   │   ├── chat-notify-teams-{01..04}.png  # Teams ワークフローでの Webhook 作成手順スクショ
 │   │   ├── chat-notify-gchat-{02,03}.png   # Google Chat の Webhook 追加手順スクショ
+│   │   ├── chat-notify-v220-{dest,rule}.{png,webp} # v2.2.0 の UPDATE 用スクショ（送信先タブの Chatwork カードと取得手順／通知ルールタブの全員メンションと見出し）
 │   │   ├── chat-notify-lineworks-{01..05}.png # LINE WORKS の Incoming Webhook 取得手順スクショ（01=アプリ詳細/02=Bot選択/03=チャンネルID/04=Webhook追加/05=発行済み一覧。03〜05 はチャンネルID・Webhook URL をマスク済）
 │   │   ├── chat-notify-lineworks-msg-01.png # LINE WORKS に実際に届いた通知（見出し＋@All＋「レコードを開く」ボタンのカード）
 │   │   ├── chat-notify-{slack,teams,gchat}-msg-*.png # 各サービスに実際に届いた通知（teams-msg-01 は氏名をマスク済）
@@ -1455,7 +1457,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-chat-notify-v1.0.0.zip                             # チャット通知 for kintone v1.0.0 配布ファイル（プレミアム・単品販売なし）
 │   │   ├── kw-chat-notify-v1.0.1.zip                             # チャット通知 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-chat-notify-v2.0.0.zip                             # チャット通知 for kintone 配布ファイル（旧版・参考保管・v2.0.0 LINE WORKS 対応）
-│   │   ├── kw-chat-notify-v2.1.0.zip                             # チャット通知 for kintone 配布ファイル（最新・2026-10-17・v2.1.0：連携用の内部の改善／一覧のバナーを共通版に／「バナー非表示」の案内をプレミアム年間サポーターに修正／設定画面の案内欄を最新に）
+│   │   ├── kw-chat-notify-v2.1.0.zip                             # チャット通知 for kintone 配布ファイル（旧版・参考保管・2026-10-17・v2.1.0：連携用の内部の改善／一覧のバナーを共通版に／「バナー非表示」の案内をプレミアム年間サポーターに修正／設定画面の案内欄を最新に）
+│   │   ├── kw-chat-notify-v2.2.0.zip                             # チャット通知 for kintone 配布ファイル（最新・2026-11-08・v2.2.0：送信先に Chatwork を追加／多言語対応）
 │   │   ├── kw-comment-control-v1.0.0.zip                         # コメントコントロール for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-comment-control-v1.0.1.zip                         # コメントコントロール for kintone 配布ファイル（手動配置・v1.0.1＝閉じたコメント欄を手動で開けない不具合を修正）
 │   │   ├── kw-comment-control-v1.0.2.zip                         # コメントコントロール for kintone 配布ファイル（旧版・手動配置・v1.0.2＝APIリクエスト節約。一覧バッジのコメント取得をホバー時のみに変更・自分宛メンションの一覧色分けは任意オプション化）
