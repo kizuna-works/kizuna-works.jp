@@ -1243,7 +1243,8 @@ export const plugins: Plugin[] = [
     problemDesc:
       '一覧の10件を Excel に渡したいだけなのに、書き出し→ダウンロード→開くの3手順。画面からドラッグしてコピーすると1つのセルに固まり、電話番号の先頭ゼロは消え、金額は文字列になって合計できない',
     releaseDate: '2026-08-22',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-split-view',
