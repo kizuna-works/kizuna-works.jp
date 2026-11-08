@@ -456,7 +456,8 @@ export const plugins: Plugin[] = [
     problemTitle: '関連レコード確認のたびに詳細を開きたくない',
     problemDesc: '一覧画面のままホバーで関連レコードを素早く確認したい',
     releaseDate: '2026-05-29',
-    summaryVersion: '1.0.4',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-summary-bar',
