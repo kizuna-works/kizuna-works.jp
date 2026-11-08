@@ -964,7 +964,8 @@ export const plugins: Plugin[] = [
     problemTitle: '再利用のたびに不要な項目を手で消している',
     problemDesc: '似た案件をテンプレとして再利用したいのに、標準では全項目がコピーされ、要らない項目を毎回手作業で消している',
     releaseDate: '2026-07-20',
-    summaryVersion: '1.0.1',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-record-recovery',
