@@ -1500,7 +1500,7 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       '見る・保存する・軽くする・PDFに書き込むを別々のプラグインで設定していて、どの欄に何が効いているか分からない。レコードに添付が散らばり、全部を見るのに手間がかかる。容量が増えても、どのレコードが大きいのか分からない。添付の名前や形式が人によってばらばらで、探すのも、1つの PDF にまとめるのも手作業になる。見せてよいが持ち出されたくない添付も、だれでも保存できてしまう',
     releaseDate: '2026-10-27',
-    summaryVersion: '1.5.0',
+    summaryVersion: '1.6.0',
     bundles: [
       { id: 'kw-file-preview', role: 'プレビュー' },
       { id: 'kw-file-icon-marker', role: 'アイコン表示' },
