@@ -56,10 +56,10 @@ import Picture from '../../../components/Picture.astro';
             "https://kizuna-works.jp/images/extensions/kw-app-exporter/06-customize.png",
             "https://kizuna-works.jp/images/extensions/kw-app-exporter/07-app-acl.png"
           ],
-          "softwareVersion": "1.2.0",
+          "softwareVersion": "1.3.0",
           "inLanguage": "ja",
-          "dateModified": "2026-09-19",
-          "releaseNotes": "v1.2.0（2026-09-19）: アプリのアクセス権限・フィールドのアクセス権限が HTML と Excel で空欄になっていた不具合を修正し、「アプリ管理」「下位組織への継承」を追加。アプリに追加されているプラグイン（名前・バージョン・有効/無効・プラグインID）と、JavaScript / CSS カスタマイズの設定（適用範囲・PC / モバイル別の読み込み順）をエクスポートできるようにしました。「ファイルの中身も同梱する」を選ぶと、アップロード済みの JavaScript / CSS ファイルを実体ごと ZIP にまとめて保存できます。",
+          "dateModified": "2026-11-09",
+          "releaseNotes": "v1.3.0（2026-11-09）: アプリのカテゴリー設定（階層・並び順）をエクスポートできるようにしました。ポップアップの高さを調整し、エクスポート実行ボタンまでスクロールせずに押せるようにしました。v1.2.0（2026-09-19）: アプリのアクセス権限・フィールドのアクセス権限が HTML と Excel で空欄になっていた不具合を修正し、「アプリ管理」「下位組織への継承」を追加。アプリに追加されているプラグイン（名前・バージョン・有効/無効・プラグインID）と、JavaScript / CSS カスタマイズの設定（適用範囲・PC / モバイル別の読み込み順）をエクスポートできるようにしました。「ファイルの中身も同梱する」を選ぶと、アップロード済みの JavaScript / CSS ファイルを実体ごと ZIP にまとめて保存できます。",
           "downloadUrl": "https://chromewebstore.google.com/detail/kw-app-exporter-for-kinto/kojeebklgjlejjpfadmaaobdmbmjcfld",
           "installUrl": "https://chromewebstore.google.com/detail/kw-app-exporter-for-kinto/kojeebklgjlejjpfadmaaobdmbmjcfld",
           "offers": {
@@ -81,12 +81,13 @@ import Picture from '../../../components/Picture.astro';
             }
           },
           "featureList": [
-            "アプリ設定情報を10カテゴリ一括取得（フィールド・レイアウト・一覧・権限・プロセス・プラグイン・JavaScript/CSS）",
+            "アプリ設定情報を11カテゴリ一括取得（フィールド・レイアウト・一覧・権限・プロセス・カテゴリー・プラグイン・JavaScript/CSS）",
             "HTML / JSON / Excel / Markdown の4形式で出力",
             "追加されているプラグインの名前・バージョン・有効/無効・プラグインIDを一覧化",
             "JavaScript / CSS カスタマイズの適用範囲とPC / モバイル別の読み込み順を出力",
             "カスタマイズファイルの中身をZIPに同梱（読み込み順の連番フォルダー＋README付き）",
             "アクセス権限はアプリ管理・下位組織への継承まで出力",
+            "アプリのカテゴリー設定（階層・並び順）を出力",
             "GROUP / テーブル配下フィールドの親子関係を出力に反映（└ インデント表示）",
             "取得できない項目は自動スキップして他項目を出力",
             "ポップアップから出力対象と形式を選んでワンクリック実行",
@@ -127,7 +128,7 @@ import Picture from '../../../components/Picture.astro';
               "@type": "HowToStep",
               "position": 4,
               "name": "出力項目と形式を選択",
-              "text": "エクスポート対象（アプリ基本情報・フィールド構成・レイアウト・一覧設定・プロセス管理・アプリ／フィールド／レコードの各アクセス権限の 8 項目）と出力形式（HTML / JSON / Excel / Markdown）を選択します。"
+              "text": "エクスポート対象（アプリ基本情報・フィールド構成・レイアウト・一覧設定・プロセス管理・カテゴリー・アプリ／フィールド／レコードの各アクセス権限など）と出力形式（HTML / JSON / Excel / Markdown）を選択します。"
             },
             {
               "@type": "HowToStep",
@@ -924,12 +925,12 @@ import Picture from '../../../components/Picture.astro';
       />
       <div>
         <span class="hero-badge">Chrome Web Store 公開中</span>
-        <span class="hero-version">v1.2.0</span>
+        <span class="hero-version">v1.3.0</span>
       </div>
       <h1 class="hero-title">KW App Exporter for kintone</h1>
       <p class="hero-subtitle">kintone アプリの「設定情報そのもの」を、ワンクリックでエクスポート。</p>
       <p class="hero-copy">
-        フィールド構成・レイアウト・一覧・権限・プロセス管理に加え、追加されているプラグインと
+        フィールド構成・レイアウト・一覧・権限・プロセス管理・カテゴリーに加え、追加されているプラグインと
         JavaScript / CSS カスタマイズまで、kintone アプリの設定情報を HTML / JSON / Excel / Markdown 形式で一括書き出し。<br>
         カスタマイズファイルの中身は ZIP に同梱。アプリの引き継ぎ・ドキュメント化・差分比較を、画面遷移なしで完結させる管理者向けツール。
       </p>
@@ -941,44 +942,26 @@ import Picture from '../../../components/Picture.astro';
       <div class="update-inner">
         <div class="update-header">
           <span class="update-tag">UPDATE</span>
-          <span class="update-version">v1.2.0</span>
-          <span class="update-date">2026年9月19日リリース</span>
+          <span class="update-version">v1.3.0</span>
+          <span class="update-date">2026年11月9日リリース</span>
         </div>
-        <h2 class="update-title">プラグインと JavaScript / CSS カスタマイズもエクスポート対象に — アクセス権限が空欄になる不具合も修正</h2>
+        <h2 class="update-title">カテゴリー設定もエクスポート対象に — ポップアップは実行ボタンまでスクロールなしで操作可能に</h2>
         <p class="update-summary">
-          v1.2.0 では、アプリに追加されている<strong>プラグイン</strong>と、適用されている <strong>JavaScript / CSS カスタマイズ</strong>を書き出せるようになりました。<br>
-          あわせて、<strong>アプリ／フィールドのアクセス権限が HTML と Excel で空欄になっていた不具合</strong>を修正しています。引き継ぎ資料に「このアプリは何で動いているか」まで残せます。
+          v1.3.0 では、アプリに設定されている<strong>カテゴリー</strong>（階層・並び順）を書き出せるようになりました。<br>
+          あわせて、項目が増えて縦に長くなっていた<strong>ポップアップの高さを調整</strong>し、「エクスポート実行」ボタンまでスクロールせずに押せるようにしています。
         </p>
 
         <div class="update-examples">
-          <h4>🆕 v1.2.0 で追加・変更された内容</h4>
+          <h4>🆕 v1.3.0 で追加・変更された内容</h4>
           <ul>
-            <li>🧩 <strong>プラグイン</strong>：追加されているプラグインの名前・バージョン・有効/無効・プラグイン ID を一覧化</li>
-            <li>📜 <strong>JavaScript / CSS カスタマイズ</strong>：適用範囲と、PC / モバイル別の読み込み順・ファイル名 / URL を出力</li>
-            <li>🗜️ <strong>ファイルの中身を ZIP に同梱</strong>：アップロード済みの JavaScript / CSS を実体ごと保存。読み込み順が分かる連番フォルダーと README 付き</li>
-            <li>🔧 <strong>不具合修正</strong>：アプリアクセス権限・フィールドアクセス権限が、HTML と Excel で内容が空欄になっていたのを修正</li>
-            <li>➕ <strong>権限の表示を拡充</strong>：「アプリ管理」「下位組織への継承」を追加し、アプリの作成者やユーザー種別を日本語で表示</li>
+            <li>🗂️ <strong>カテゴリー</strong>：アプリのカテゴリー設定を、階層・親カテゴリー・並び順つきで HTML / JSON / Excel / Markdown に出力</li>
+            <li>🪟 <strong>ポップアップの高さを調整</strong>：全項目を表示した状態でも、スクロールなしで「エクスポート実行」まで届くように余白を整理</li>
           </ul>
         </div>
 
-        <div class="update-shot">
-          <Picture class="zoomable" src="/images/extensions/kw-app-exporter/05-plugins.png" alt="エクスポートした HTML のプラグインタブ。プラグイン名・バージョン・状態（有効）・プラグインID・入手元の列を持つ表に、アプリへ追加された14件のプラグインが一覧表示されている" width="1869" height="574" />
-          <p class="update-shot-caption">追加されているプラグインを、バージョン付きで一覧化します。</p>
-        </div>
-
-        <div class="update-shot">
-          <Picture class="zoomable" src="/images/extensions/kw-app-exporter/06-customize.png" alt="エクスポートした HTML の JavaScript/CSS カスタマイズタブ。適用範囲「すべてのユーザー」の下に、対象（PC）・種別（JS/CSS）・読み込み順・指定方法（URL/ファイル）・ファイル名やURL・サイズの列を持つ表が表示されている" width="1869" height="699" />
-          <p class="update-shot-caption">適用範囲と読み込み順が、そのまま資料になります。URL 指定と自前ファイルも区別して表示します。</p>
-        </div>
-
-        <div class="update-shot">
-          <Picture class="zoomable" src="/images/extensions/kw-app-exporter/07-app-acl.png" alt="エクスポートした HTML のアプリアクセス権限タブ。エンティティ・タイプ・下位組織・アプリ管理・閲覧・追加・編集・削除・インポート・エクスポートの列があり、アプリの作成者と everyone の行にチェックマークが入っている" width="1848" height="256" />
-          <p class="update-shot-caption">空欄になっていたアクセス権限が、正しく出力されるようになりました（「アプリ管理」「下位組織」の列も追加）。</p>
-        </div>
-        <p class="zoom-hint">画像をクリックすると拡大表示します。</p>
-
         <p class="update-note">
-          Chrome ウェブストアからの自動更新で v1.2.0 になります。すぐに反映したい場合は、<code>chrome://extensions</code> を開いて「更新」を押してください。
+          カテゴリーの取得には、kintone のアップデートオプション「検討中の新機能」で「カテゴリーの設定を取得または更新するREST API」を有効にしている必要があります。有効でない環境やカテゴリー機能を使っていないアプリでは、その旨を出力に記載し、他の項目は通常どおり出力します。<br>
+          Chrome ウェブストアからの自動更新で v1.3.0 になります。すぐに反映したい場合は、<code>chrome://extensions</code> を開いて「更新」を押してください。
         </p>
       </div>
     </section>
@@ -1032,7 +1015,7 @@ import Picture from '../../../components/Picture.astro';
         <div class="feature-card">
           <span class="feature-num">2</span>
           <h3 class="feature-title">10 種類の設定情報を一括取得</h3>
-          <p class="feature-desc">アプリ基本情報・フィールド構成・レイアウト・一覧設定・プロセス管理・アプリ／フィールド／レコードの各アクセス権限に加え、追加されているプラグインと JavaScript / CSS カスタマイズを、選択した分だけまとめて取得します。</p>
+          <p class="feature-desc">アプリ基本情報・フィールド構成・レイアウト・一覧設定・プロセス管理・カテゴリー・アプリ／フィールド／レコードの各アクセス権限に加え、追加されているプラグインと JavaScript / CSS カスタマイズを、選択した分だけまとめて取得します。</p>
         </div>
         <div class="feature-card">
           <span class="feature-num">3</span>
@@ -1090,8 +1073,8 @@ import Picture from '../../../components/Picture.astro';
             <img src="/images/extensions/kw-app-exporter/02-html-export.png" alt="HTML エクスポート結果の画面。ヘッダーにアプリ名・ID・出力日時、その下にタブUI（アプリ基本情報・フィールド構成・レイアウト・一覧設定・プロセス管理・各アクセス権限）、選択中のフィールド構成タブにはフィールドコード・名称・タイプ・必須・ユニーク・選択肢の一覧テーブルが表示されている" width="1482" height="781" loading="lazy">
           </div>
           <div class="gallery-content">
-            <h3 class="gallery-title">📄 HTML 出力 - タブ切替で 10 カテゴリを 1 ファイルに</h3>
-            <p class="gallery-desc">アプリ基本情報・フィールド構成・レイアウト・一覧設定・プロセス管理・各アクセス権限・プラグイン・JavaScript / CSS カスタマイズを、タブ切替で確認できるスタンドアロン HTML として出力。各セルをクリックでクリップボードにコピー可能。印刷にも対応しているため、そのまま仕様書として共有できます。</p>
+            <h3 class="gallery-title">📄 HTML 出力 - タブ切替で 11 カテゴリを 1 ファイルに</h3>
+            <p class="gallery-desc">アプリ基本情報・フィールド構成・レイアウト・一覧設定・プロセス管理・カテゴリー・各アクセス権限・プラグイン・JavaScript / CSS カスタマイズを、タブ切替で確認できるスタンドアロン HTML として出力。各セルをクリックでクリップボードにコピー可能。印刷にも対応しているため、そのまま仕様書として共有できます。</p>
           </div>
         </div>
       </div>
@@ -1120,7 +1103,7 @@ import Picture from '../../../components/Picture.astro';
 
     <section class="section-wrapper fade-in">
       <h2 class="section-title">エクスポート対象</h2>
-      <p class="section-subtitle">下表の 10 カテゴリから、必要な項目だけを選んで出力できます。</p>
+      <p class="section-subtitle">下表の 11 カテゴリから、必要な項目だけを選んで出力できます。</p>
       <table class="target-table">
         <thead>
           <tr>
@@ -1135,6 +1118,7 @@ import Picture from '../../../components/Picture.astro';
           <tr><td>レイアウト</td><td><code>app/form/layout.json</code></td><td><span class="tag-anyone">一般ユーザー可</span></td></tr>
           <tr><td>一覧設定</td><td><code>app/views.json</code></td><td><span class="tag-anyone">一般ユーザー可</span></td></tr>
           <tr><td>プロセス管理</td><td><code>app/status.json</code></td><td><span class="tag-anyone">一般ユーザー可</span></td></tr>
+          <tr><td>カテゴリー</td><td><code>app/categories.json</code></td><td><span class="tag-admin">検討中の新機能の有効化が必要</span></td></tr>
           <tr><td>アプリアクセス権限</td><td><code>app/acl.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
           <tr><td>フィールドアクセス権限</td><td><code>field/acl.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
           <tr><td>レコードアクセス権限</td><td><code>record/acl.json</code></td><td><span class="tag-admin">アプリ管理者</span></td></tr>
