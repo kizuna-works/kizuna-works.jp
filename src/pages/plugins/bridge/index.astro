@@ -10,10 +10,10 @@ import type { Plugin } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.8.0';
+const VERSION = '1.9.0';
 const ZIP = `/downloads/kw-bridge-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/';
-const DATE_MODIFIED = '2026-11-09';
+const DATE_MODIFIED = '2026-11-10';
 
 // Partner overview. The partner products themselves come from plugins.ts (`bridge`
 // field); this map adds, per product, which way it works with the bridge and what
@@ -46,6 +46,7 @@ const PARTNER_MODES: Record<string, { what: Partial<Record<PartnerMode, string>>
   },
   'kw-bulk-update': { what: { trigger: '一括更新したとき', run: '一括更新を実行する' }, version: 'v1.0.6 以降' },
   'kw-status-bulk-action': { what: { trigger: 'ステータスを一括で進めたとき', run: 'ステータスを一括で進める' }, version: 'v1.1.3 以降' },
+  'kw-sheet-edit': { what: { trigger: 'シート編集で保存したとき' }, version: 'v1.8.0 以降' },
   'kw-card-board': { what: { trigger: 'カードをドラッグして値やステータスを変えたとき' }, version: 'v1.2.0 以降' },
   'kw-sticky-board': { what: { trigger: '付箋を貼った・確認しました・対応済みにしたとき（チャット通知で知らせる）' }, version: 'v1.3.0 以降' },
   'kw-related-enhancer': { what: { run: '別のアプリの集計を保存し直す' }, version: 'v2.3.0 以降' },
@@ -226,7 +227,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.8.0",
+          "softwareVersion": "1.9.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
