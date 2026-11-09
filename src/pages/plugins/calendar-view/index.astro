@@ -14,7 +14,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
 <Layout
   title="kintone のカレンダー表示プラグイン｜カレンダービュー（月・週・担当者別） | KIZUNA Works"
-  description="kintone のレコードの開始・終了を、カレンダー（年/月/週/日/リスト）とタイムライン（担当者・会議室ごとの時間軸）に切り替えて表示できるプラグイン。ドラッグで日程変更、空いている時間の検索、予定のない担当者・会議室も常に表示、予定のバーに表示する項目の選択（2段表示も可）、項目ごとの設定どおり、どの操作でも効くダブルブッキング警告、繰り返し予定、日本の祝日を同梱。サブテーブルの行も予定にでき、行ごとの色分けと、カレンダーからの行の追加・削除・複製と、新しいレコードの追加ができます。他アプリの予定との重複判定、ログインユーザーの予定の強調、担当者ごとの自動の色分けにも対応。日本語・英語・中国語（簡体字）で表示できます。ビューのHTMLはボタン1つで自動生成します。"
+  description="kintone のレコードの開始・終了を、カレンダー（年/月/週/日/リスト）とタイムライン（担当者・会議室ごとの時間軸）に切り替えて表示できるプラグイン。ドラッグで日程変更、空いている時間の検索、予定のない担当者・会議室も常に表示、予定のバーに表示する項目の選択（2段表示も可）、項目ごとの設定どおり、どの操作でも効くダブルブッキング警告、繰り返し予定、日本の祝日を同梱。サブテーブルの行も予定にでき、行ごとの色分けと、カレンダーからの行の追加・削除・複製と、新しいレコードの追加ができます。他アプリの予定との重複判定、ログインユーザーの予定の強調、担当者ごとの自動の色分けにも対応。削除は標準の詳細画面でも行え、削除の通知も送れます。日本語・英語・中国語（簡体字）で表示できます。ビューのHTMLはボタン1つで自動生成します。"
   ogTitle="kintone のカレンダー表示プラグイン｜カレンダービュー（月・週・担当者別） | KIZUNA Works"
   ogDescription="同じ予定を、カレンダーでも、担当者・会議室ごとの時間軸でも。予定のない担当者も空白の行で表示。ドラッグで日程変更、空き枠の検索、他アプリの予定とも判定するダブルブッキング警告、担当者ごとの色分け、繰り返し予定、祝日同梱。日本語・英語・中国語（簡体字）で表示。カスタマイズビューはボタン1つで作成します。"
   ogType="website"
@@ -54,10 +54,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "カレンダービュー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "2.6.0",
-          "dateModified": "2026-11-07",
+          "softwareVersion": "2.7.0",
+          "dateModified": "2026-11-09",
           "url": "https://kizuna-works.jp/plugins/calendar-view/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-calendar-view-v2.6.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-calendar-view-v2.7.0.zip",
           "image": "https://kizuna-works.jp/images/calendar-view-banner.png",
           "offers": [
             {
@@ -128,10 +128,12 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "kintone 標準の追加画面で保存したあと、開く前のカレンダーの表示（月・週など・クリックした日）へ戻る（設定でオン・PC／モバイル／ゲストスペース）",
             "終日の予定（0:00〜0:00・終了が空）をその日1日の予定として重複判定・終日の予定とは重複を調べない設定",
             "表示や保存のときの kintone への通信の回数を削減",
+            "予定の削除のしかたを選択（カレンダー上で削除／kintone 標準のレコード詳細画面を開いて削除）",
+            "カレンダー上で削除したときに、指定した URL へ kintone の Webhook「レコードの削除」と同じ形の通知を送る（設定でオン・https・10件まで）",
             "キーボード操作（今日・期間の移動・表示の切り替え・追加・元に戻す）",
             "モバイル対応（カレンダー全粒度とタイムラインの1日・iPhone／Android の kintone アプリとブラウザ）",
             "多言語対応（kintone の個人設定の言語に合わせて日本語・英語・中国語簡体字で表示）",
-            "ゲストスペース対応・外部サーバーへのデータ送信なし"
+            "ゲストスペース対応・外部への送信は、設定でオンにした削除の通知だけ"
           ]
         }
       ]
@@ -356,45 +358,38 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       <img class="afp-hero-icon" src="/images/calendar-view-icon.png" alt="カレンダービュー for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v2.6.0</span>
+        <span class="afp-hero-version">v2.7.0</span>
       </div>
       <HeroSubBadges pluginId="kw-calendar-view" />
       <h1>カレンダービュー for kintone</h1>
       <p class="afp-tagline">同じ予定を、カレンダーでも、担当者ごとの時間軸でも。</p>
-      <p class="afp-sub">カレンダービュー for kintone は、kintone のレコードをカレンダー表示するプラグインです。レコードが持つ<strong>開始・終了</strong>を、カレンダー（年・月・週・日・リスト）と<strong>タイムライン</strong>（縦＝担当者・会議室 × 横＝時間）に、画面上のボタンで切り替えて表示します。ドラッグで日程を変更でき、<strong>空いている時間</strong>も条件から探せます。予定のない担当者・会議室も、タイムラインに空白の行として常に表示できます。ダブルブッキングの警告は、ドラッグ・モーダル・繰り返し予定・kintone 標準の編集画面のどれでも、項目ごとの設定どおりに働きます。予定のバーは、タイトルと項目の2段にも切り替えられます。リソースが未設定の予定を集める行には、「全社共通」のような名前を付けられます。予定の追加方法は、モーダル・簡易登録・kintone 標準の追加画面から選べます。サブテーブルの行も1行ずつ予定にでき、行ごとに色を分けられます。表示は、kintone の個人設定の言語に合わせて日本語・英語・中国語（簡体字）になります。日付と時間帯を選ぶだけで開始・終了が決まる使い方や、タイムラインの3か月・1年表示にも対応しています。予定の複製と、削除の取り消しもできます。編集モーダルでは添付ファイルを受け取れ、コメントも読めます。タイムラインの行は、開始が早い順にも並べられます。リストでは、コメントがある予定に印を付けられ、列の幅もドラッグで変えられます。ダブルブッキングの警告は、他のアプリの予定とも判定できます。色は、ログインユーザーの予定を目立たせたり、担当者ごとに自動で分けたりできます。追加モーダルから、入力した値ごと標準の追加画面へ移ることもできます。テーブルの行を予定にしているときは、カレンダーから既存のレコードへ行の追加・削除・複製ができ、新しいレコードの作成もできます。標準の追加画面で保存したあとは、カレンダーに戻せます。重ねるレイヤーの予定は値ごとに色分けでき、追加・編集モーダルに出す欄は選択肢の値に応じて切り替えられます。</p>
+      <p class="afp-sub">カレンダービュー for kintone は、kintone のレコードをカレンダー表示するプラグインです。レコードが持つ<strong>開始・終了</strong>を、カレンダー（年・月・週・日・リスト）と<strong>タイムライン</strong>（縦＝担当者・会議室 × 横＝時間）に、画面上のボタンで切り替えて表示します。ドラッグで日程を変更でき、<strong>空いている時間</strong>も条件から探せます。予定のない担当者・会議室も、タイムラインに空白の行として常に表示できます。ダブルブッキングの警告は、ドラッグ・モーダル・繰り返し予定・kintone 標準の編集画面のどれでも、項目ごとの設定どおりに働きます。予定のバーは、タイトルと項目の2段にも切り替えられます。リソースが未設定の予定を集める行には、「全社共通」のような名前を付けられます。予定の追加方法は、モーダル・簡易登録・kintone 標準の追加画面から選べます。サブテーブルの行も1行ずつ予定にでき、行ごとに色を分けられます。表示は、kintone の個人設定の言語に合わせて日本語・英語・中国語（簡体字）になります。日付と時間帯を選ぶだけで開始・終了が決まる使い方や、タイムラインの3か月・1年表示にも対応しています。予定の複製と、削除の取り消しもできます。編集モーダルでは添付ファイルを受け取れ、コメントも読めます。タイムラインの行は、開始が早い順にも並べられます。リストでは、コメントがある予定に印を付けられ、列の幅もドラッグで変えられます。ダブルブッキングの警告は、他のアプリの予定とも判定できます。色は、ログインユーザーの予定を目立たせたり、担当者ごとに自動で分けたりできます。追加モーダルから、入力した値ごと標準の追加画面へ移ることもできます。テーブルの行を予定にしているときは、カレンダーから既存のレコードへ行の追加・削除・複製ができ、新しいレコードの作成もできます。標準の追加画面で保存したあとは、カレンダーに戻せます。削除は、カレンダー上で行うか、標準の詳細画面を開いて行うかを選べ、カレンダー上で削除したときは指定の URL へ削除の通知も送れます。重ねるレイヤーの予定は値ごとに色分けでき、追加・編集モーダルに出す欄は選択肢の値に応じて切り替えられます。</p>
       <div class="afp-hero-cta">
         <a class="afp-hero-btn is-primary" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを見る →</a>
-        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-calendar-view-v2.6.0.zip" download>無料でダウンロード</a>
+        <a class="afp-hero-btn is-ghost js-dl" href="/downloads/kw-calendar-view-v2.7.0.zip" download>無料でダウンロード</a>
       </div>
     </section>
     <div class="afp-hero-gradient-line"></div>
     <BridgeBadge as="note" pluginId="kw-calendar-view" />
 
-    <!-- Update Info (v2.6.0) -->
+    <!-- Update Info (v2.7.0) -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v2.6.0：カレンダーから新しいレコードを追加でき、標準の画面で保存したあとはカレンダーに戻れます</h2>
+            <h2 class="update-title">v2.7.0：予定の削除のしかたを選べ、削除を外部サービスへ通知できます</h2>
           </div>
-          <p class="update-desc">カレンダービュー for kintone を v2.6.0 にアップデートしました。</p>
+          <p class="update-desc">カレンダービュー for kintone を v2.7.0 にアップデートしました。</p>
           <ul class="update-points">
-            <li><strong>テーブルの行を予定にしたカレンダーから、新しいレコードを追加できます。</strong>設定「予定の追加」で「見つからないときは、新しいレコードとして追加できるようにする」をオンにすると、追加モーダルの「追加先のレコード」に［新しいレコードとして追加］が出ます。押すと、追加先を探すフィールドなどを入力して、新しいレコードとテーブルの 1 行目をまとめて作れます。該当するレコードがまだ無い予約も、そのまま入れられます。</li>
+            <li><strong>予定の削除のしかたを選べます。</strong>カレンダー上の削除は kintone の REST API で行うため、kintone の仕様で、アプリに設定した Webhook（レコードの削除）が送られません。設定「7 編集と動作」の「予定の削除」で、「kintone 標準のレコード詳細画面を開いて削除する」を選ぶと、モーダルの［削除］や右クリックの［削除する］で確認のあと詳細画面が開き、そこで削除すると Webhook がそのまま送られます。既定は、これまでどおりカレンダー上で削除します。</li>
+            <li><strong>カレンダー上で削除したときに、指定した URL へ削除の通知を送れます。</strong>「削除の通知」をオンにして URL（https・10 件まで）を登録すると、kintone の Webhook「レコードの削除」と同じ形の JSON を送ります。1 件ずつの削除、繰り返し予定の削除、［元に戻す］による作成・複製の取り消しが対象です。送れなかったときは、警告を 1 回表示します。既定はオフです。</li>
           </ul>
           <div class="update-shot">
-            <Picture src="/images/calendar-view-v260-01-newrec.png" alt="追加モーダルの「追加先のレコード」で［新しいレコードとして追加］を押し、追加先を探すフィールドなどの入力欄が出た画面" width="644" height="599" class="zoomable" />
-            <p class="zoom-hint">［新しいレコードとして追加］で、新しいレコードと 1 行目を一緒に作成（画像をクリックすると拡大表示します）</p>
+            <Picture src="/images/calendar-view-v270-01-config.png" alt="設定画面「7 編集と動作」に増えた「予定の削除」の行。「カレンダー上で削除する」「kintone 標準のレコード詳細画面を開いて削除する」の選択と、削除の通知を送るチェックボックス、送り先の URL を入れる欄" width="1400" height="1433" class="zoomable" />
+            <p class="zoom-hint">設定画面「7 編集と動作」の「予定の削除」（画像をクリックすると拡大表示します）</p>
           </div>
-          <ul class="update-points" style="margin-top:20px;">
-            <li><strong>kintone 標準の追加画面で保存したあと、カレンダーに戻れます。</strong>設定「7 編集と動作」の「標準の画面で保存したあと、カレンダーに戻る」をオンにすると、カレンダーから標準の追加画面を開いて保存したとき、開く前の表示（月・週など、クリックした日）に戻ります。PC・モバイル・ゲストスペースで使えます。</li>
-            <li><strong>重複チェックと、表示・保存のときの通信を改善しました。</strong>終日の予定（0:00〜0:00 や終了が空の予定）を、その日 1 日の予定として判定します。終日の予定の上に時間の予定を入れていく使い方のときは、「終日の予定とは重複を調べない」（既定はオフ）で外せます。表示や保存のときの通信の回数も減らしました。</li>
-          </ul>
-          <div class="update-shot">
-            <Picture src="/images/calendar-view-v260-02-settings.png" alt="設定画面「7 編集と動作」に増えた、「標準の画面で保存したあと、カレンダーに戻る」と「終日の予定とは重複を調べない」の2つのチェックボックス" width="694" height="1022" class="zoomable" />
-            <p class="zoom-hint">設定画面「7 編集と動作」の新しいチェックボックス（画像をクリックすると拡大表示します）</p>
-          </div>
-          <p class="update-note">既存ユーザーの方は、最新バージョン（v2.6.0）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。</p>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v2.7.0）をダウンロードして kintone のシステム管理 →「プラグイン」から上書きアップロードするだけで適用できます。プラグインIDは変わらないため、各アプリに保存済みの設定はそのまま引き継がれます。削除のしかたと削除の通知は、既定ではこれまでどおり（カレンダー上で削除・通知なし）です。</p>
           <BridgeUpdateNote />
         </div>
       </div>
@@ -623,7 +618,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           <Picture src="/images/calendar-view-config-06.png" alt="設定画面の重複（ダブルブッキング）警告カード。使わない・警告のみ・禁止の選択と、担当者・会議室ごとに動作を変えられる欄" width="1400" height="375" class="zoomable" />
           <figcaption class="afp-shot-cap">重複警告はリソースごとに切り替えられます</figcaption>
         </figure>
-        <div class="afp-note">手順7ではこのほか、モーダルに出す項目・削除ボタンの有無・取得件数の上限・モバイル表示を決められます。いま使えている範囲（無料／プレミアム）も同じ画面で確認できます。</div>
+        <div class="afp-note">手順7ではこのほか、モーダルに出す項目・削除ボタンの有無・予定の削除のしかたと削除の通知・取得件数の上限・モバイル表示を決められます。いま使えている範囲（無料／プレミアム）も同じ画面で確認できます。</div>
       </div>
     </section>
 
@@ -663,6 +658,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           <div class="afp-feat-card">
             <h3>その場で登録・編集</h3>
             <p>日付や時間帯のクリックで登録モーダル。追加方法は3つから選べ、出す項目は追加と編集で別に選べます。ルックアップもモーダルから取得できます。開始・終了の時刻は、候補の一覧から選ぶほか、10:07 のように直接入力もできます。右クリックまたはモーダルの［複製］から複製、削除（［元に戻す］で取り消せます）、詳細画面も開けます。担当者などユーザー選択の欄は、名前かログイン名で検索して何人でも選べ、ゲストスペースではゲストユーザーも選べます。追加モーダルの［詳細画面で入力］で、入力値ごと標準の追加画面へ移れます。モーダルから登録しても、テーブルには初期値で1行が入ります。外側のクリックや Esc で閉じるときは、内容を変えているときだけ確認が出ます。添付ファイル欄はファイル名と［保存］ボタンで出て、既存の予定のコメントは新しい順に最大10件読め、見出しの横にはコメントの件数が出ます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>予定の削除と削除の通知</h3>
+            <p>削除は、カレンダー上で行うか、kintone 標準のレコード詳細画面を開いて行うかを選べます。カレンダー上で削除したときは、指定した URL（https・10 件まで）へ、kintone の Webhook「レコードの削除」と同じ形の通知を送れます（既定はオフ）。</p>
           </div>
           <div class="afp-feat-card">
             <h3>区分（ラベル）で色分け</h3>
@@ -752,7 +751,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               <li>✅ 繰り返し予定・祝日と非稼働日の色分け</li>
               <li>✅ 利用期限なし（設定できるビューは1件・レイヤーは1件／設定画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-calendar-view-v2.6.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-calendar-view-v2.7.0.zip" download class="afp-plan-cta js-dl" id="btn-download">無料でダウンロード</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">👑 全機能を解放</span>
@@ -826,6 +825,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <h2 class="afp-h2">ご利用にあたっての注意</h2>
         <div class="afp-cautions">
           <ul>
+            <li><strong>削除の通知を使うと、削除したレコードの番号・アプリ名・削除した人の名前などが、登録した URL へ送られます</strong>（フィールドの値は送りません）。送り先は管理者が決めます。既定はオフで、オフのときは何も送りません。</li>
             <li>開始・終了に使えるのは<strong>日付または日時のフィールド</strong>です。文字列フィールドに入れた日付は対象になりません。</li>
             <li>プラグインが描画するのは<strong>カスタマイズビューの中だけ</strong>です（標準の一覧表示やレコード画面のレイアウトは変わりません）。ダブルブッキング警告のみ、標準の追加・編集画面の保存時に割り込みます。</li>
             <li>サブテーブルの行を予定として表示する設定にした場合、<strong>行の追加・削除・複製は、設定でオンにしたときだけ</strong>できます（既定はオフ）。行は既存のレコードのテーブルの末尾に足します。「見つからないときは、新しいレコードとして追加できるようにする」をオンにすると、新しいレコードも作れます（レコードの追加権限が必要です）。どちらもスマートフォンでは使えません。</li>
@@ -900,10 +900,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
             gtag('event', 'file_download', {
-              file_name: 'kw-calendar-view-v2.6.0.zip',
+              file_name: 'kw-calendar-view-v2.7.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-calendar-view-v2.6.0.zip'
+              link_url: '/downloads/kw-calendar-view-v2.7.0.zip'
             });
           });
         });
