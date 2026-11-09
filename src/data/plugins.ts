@@ -1348,7 +1348,7 @@ export const plugins: Plugin[] = [
     problemDesc:
       '上司や担当者が確認したかは聞いてみるしかなく、担当者のうち誰がまだ見ていないのかも分からない。誰がどの項目を直したかもレコードを1件ずつ開いて変更履歴をたどるしかなく、最近動いた案件と放置された案件の区別も一覧ではつかない',
     releaseDate: '2026-10-01',
-    summaryVersion: '1.3.0',
+    summaryVersion: '1.3.1',
     multilingual: true,
   },
   {
