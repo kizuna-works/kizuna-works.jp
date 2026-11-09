@@ -726,6 +726,7 @@ c:\kizuna-works.jp\
 │   │   ├── file-preview-print-01.png       # 添付ファイルプレビュー v2.4.0 — PDF プレビュー中のツールバー（ページ番号「2 / 3 ページ」・印刷ボタン）＋ .webp
 │   │   ├── file-preview-print-02.png       # 添付ファイルプレビュー v2.4.0 — 設定画面「印刷ボタン」（表示する人をユーザー・組織・グループから選択）＋ .webp
 │   │   ├── file-preview-zoom-01.png        # 添付ファイルプレビュー v2.7.0 — PDF を拡大して表示したプレビュー画面（UPDATE ボックス用・1400x900）
+│   │   ├── file-preview-config-openmode.png    # 添付ファイルプレビュー v2.8.0 — 設定画面「ファイル名をクリックしたときの開き方」（UPDATE ボックス用・.webp あり）
 │   │   ├── sidebar-enhancer-banner.png     # サイドバー拡張 for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp
 │   │   ├── input-template-banner.png       # 入力テンプレート for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
 │   │   ├── sticky-board-update-01.png      # 付箋ボード v1.1.0 — 会社名の項目に刺さった赤いピンから、離れた位置の付箋へ破線が伸びるレコード詳細画面
@@ -1051,6 +1052,7 @@ c:\kizuna-works.jp\
 │   │   ├── file-pro-preview-float.png           # 添付ファイル Pro 製品ページ：プレビューの浮かぶ窓（1600×1046）＋ .webp
 │   │   ├── file-pro-preview-dock.png            # 添付ファイル Pro 製品ページ：v1.1.0 UPDATE ボックス・プレビューを右に並べた画面（1600×1000）＋ .webp
 │   │   ├── file-pro-zoom-01.png                 # 添付ファイル Pro 製品ページ：v1.5.0 UPDATE ボックス用 — PDF を 125% に拡大したプレビュー画面（1400x900）
+│   │   ├── file-pro-config-openmode.png         # 添付ファイル Pro 製品ページ：v1.7.0 UPDATE ボックス用 — 設定画面「ファイル名をクリックしたときの開き方」（.webp あり）
 │   │   ├── file-pro-list-icons.png              # 添付ファイル Pro 製品ページ：一覧のアイコン表示（1600×664）＋ .webp
 │   │   ├── file-pro-find.png                    # 添付ファイル Pro 製品ページ：［添付を検索］の窓＋ .webp
 │   │   ├── file-pro-merge.png                   # 添付ファイル Pro 製品ページ：［PDFにまとめる］の窓＋ .webp
