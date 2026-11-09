@@ -2021,7 +2021,8 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       '協力会社や取引先とは Google スプレッドシートで進捗を共有しているが、社内は kintone で管理している。同じ内容を両方に打ち、どちらが新しいか分からなくなる。CSV を往復させると、相手が同時に直した値を上書きして消してしまう',
     releaseDate: '2026-09-29',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-quick-filter',
