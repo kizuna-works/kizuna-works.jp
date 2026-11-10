@@ -358,6 +358,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── bridge-v113-update.md        # KIZUNAブリッジ v1.1.3 アップデートのお知らせ（2026-10-31T16:00・条件「変更前の値」で日時フィールドは時刻まで比べる）
 │   │   │   ├── bridge-v130-update.md        # KIZUNAブリッジ v1.3.0 アップデートのお知らせ（2026-11-04T18:00・新規作成・編集の画面にボタンを置ける）
 │   │   │   ├── bridge-v170-update.md        # KIZUNAブリッジ v1.7.0 アップデートのお知らせ（2026-11-08T23:00・書き込まれたレコードをチャット通知で送る）
+│   │   │   ├── sticky-board-v140.md         # 付箋ボード v1.4.0 アップデートのお知らせ（2026-11-11・付箋の中で返信し合える・組織／グループから宛先・並べて表示）
 │   │   │   ├── sticky-board-v131.md         # 付箋ボード v1.3.1 アップデートのお知らせ（2026-11-10・英語・中国語表示の kintone で［保管アプリを作成］が進み、作成者・日時の表示などが動く）
 │   │   │   ├── sticky-board-v130.md         # 付箋ボード v1.3.0 アップデートのお知らせ（2026-11-08T23:00・KIZUNAブリッジと組み合わせてチャットへ通知）
 │   │   │   ├── bridge-v160-update.md        # KIZUNAブリッジ v1.6.0 アップデートのお知らせ（2026-11-07・テーブルの列をきっかけに選べる・対象の行［変えた行だけ］）
@@ -752,6 +753,9 @@ c:\kizuna-works.jp\
 │   │   ├── sticky-board-update-03.png      # 付箋ボード v1.1.0 設定画面 — ピンの形の選択・10色プリセット＋カラーピッカー・見え方のプレビュー・項目を検索して選ぶ欄
 │   │   ├── sticky-board-update-04.png      # 付箋ボード v1.2.0 — 宛先の人の画面。宛先チップ（確認済みに ✓）と［確認しました］ボタン
 │   │   ├── sticky-board-v130-board.png/.webp # 付箋ボード v1.3.0 — レコード詳細に貼った付箋（1366×455）。製品ページの UPDATE ボックスで使用
+│   │   ├── sticky-board-v140-thread.png/.webp        # 付箋ボード v1.4.0 — 付箋のスレッドの窓（返信が古い順に並ぶ）。製品ページの UPDATE ボックスで使用│   │   ├── sticky-board-v140-tile.png/.webp          # 付箋ボード v1.4.0 — ［並べて表示］の窓（カテゴリごとの列）。UPDATE ボックスで使用│   │   ├── sticky-board-v140-orggroup.png/.webp      # 付箋ボード v1.4.0 — 宛先を組織・グループから足す画面。UPDATE ボックスで使用│   │   ├── sticky-board-v140-reply-summary.png/.webp # 付箋ボード v1.4.0 — 付箋の返信の要約（未読の印つき）。現在は製品ページ未使用
+│   │   ├── sticky-board-v140-tile.png/.webp          # 付箋ボード v1.4.0 — ［並べて表示］の窓（カテゴリごとの列に付箋を日付順で並べる）。製品ページの UPDATE ボックスで使用
+│   │   ├── sticky-board-v140-orggroup.png/.webp      # 付箋ボード v1.4.0 — 宛先の［組織・グループから追加］。製品ページの UPDATE ボックスで使用
 │   │   ├── bridge-v170-cnotify.png/.webp # KIZUNAブリッジ v1.7.0 — どのプラグインに付箋ボードを選んだ設定画面（1366×1373）。製品ページの UPDATE ボックスで使用
 │   │   ├── sticky-board-update-05.png      # 付箋ボード v1.2.0 — 貼った人の画面。「確認した人：○○」の通知ボックスと［既読にする］
 │   │   ├── table-assist-banner.png         # テーブルアシスト for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）＋ .webp / -800.webp
@@ -1948,7 +1952,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-sticky-board-v1.0.1.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.0.1 でゲストスペース対応）
 │   │   ├── kw-sticky-board-v1.0.2.zip                            # 付箋ボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-sticky-board-v1.1.0.zip                            # 付箋ボード for kintone 配布ファイル（手動配置・v1.1.0 ピンと線／一覧の付箋マーク／カードのタグ表示／サイドバー開閉の位置ずれ修正）
-│   │   ├── kw-sticky-board-v1.3.1.zip  # 付箋ボード for kintone 配布ファイル（最新・2026-11-10・v1.3.1＝英語・中国語表示の kintone で［保管アプリを作成］が進まない不具合と、作成者・日時の表示などが動かない不具合を修正）
+│   │   ├── kw-sticky-board-v1.4.0.zip  # 付箋ボード for kintone 配布ファイル（最新・2026-11-11・v1.4.0＝付箋への返信・組織／グループから宛先・並べて表示）
+│   │   ├── kw-sticky-board-v1.3.1.zip  # 付箋ボード for kintone 配布ファイル（旧版・2026-11-10・v1.3.1＝英語・中国語表示の kintone で［保管アプリを作成］が進まない不具合と、作成者・日時の表示などが動かない不具合を修正）
 │   │   ├── kw-sticky-board-v1.3.0.zip  # 付箋ボード for kintone 配布ファイル（旧版・v1.3.0＝KIZUNAブリッジと組み合わせてチャットへ通知）
 │   │   ├── kw-sticky-board-v1.1.1.zip  # 付箋ボード for kintone 配布ファイル（旧・v1.1.1：一覧の付箋マークが隣の列に入り得る不具合を修正）
 │   │   ├── kw-table-assist-v1.0.0.zip                            # テーブルアシスト for kintone 配布ファイル（旧版・参考保管）
