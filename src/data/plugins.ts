@@ -1996,7 +1996,7 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       '「この欄は空欄のまま保存しないで」「回答したらステータスを進めて」と一言書きたいのに、kintone のラベルはフォームの中にしか置けない。ボタンの隣にも画面の上部にも置けないので、結局マニュアルに書いて、読まれないまま同じ間違いが繰り返される',
     releaseDate: '2026-09-25',
-    summaryVersion: '1.6.0',
+    summaryVersion: '1.7.0',
   },
   {
     id: 'kw-sheets-sync',
