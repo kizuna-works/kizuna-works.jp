@@ -6,7 +6,8 @@
  *   - <base>-800.webp  … 幅1000px超の画像だけ。カード表示（実寸400px前後）用の縮小版
  *
  * 参照されていない PNG は対象外（public/images には未使用の素材も多いため）。
- * 元の PNG は変更しない。og:image は PNG のまま使うので消さないこと。
+ * 元の PNG は消さない（og:image は PNG のまま使う）。新しく WebP を作る PNG だけは、
+ * 画素を変えずにロスレスで圧縮し直す（scripts/optimize-png.mjs。2026-11-10〜）。
  *
  * 使い方: npm run build してから node scripts/gen-image-derivatives.mjs
  *         引数に文字列を渡すと、その語を含むパスだけに絞れる。
@@ -14,6 +15,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
+import { optimizePng } from './optimize-png.mjs';
 
 const ROOT = process.cwd();
 const DIST = path.join(ROOT, 'dist');
@@ -51,6 +53,7 @@ let madeWebp = 0;
 let madeSmall = 0;
 let savedWebp = 0;
 let skipped = 0;
+let optimizedPng = 0;
 
 for (const rel of targets) {
   const src = path.join(PUBLIC, rel);
@@ -64,6 +67,10 @@ for (const rel of targets) {
   // 同寸法の WebP
   const webp = `${base}.webp`;
   if (!fs.existsSync(webp)) {
+    // New image: also recompress the PNG losslessly (pixel-identical) so the
+    // Pages artifact stays small. See scripts/optimize-png.mjs.
+    const r = await optimizePng(src);
+    if (r.status === 'done') optimizedPng++;
     await sharp(src).webp({ quality: 82 }).toFile(webp);
     savedWebp += fs.statSync(src).size - fs.statSync(webp).size;
     madeWebp++;
@@ -87,4 +94,5 @@ for (const rel of targets) {
 console.log(`参照PNG ${targets.length} 件`);
 console.log(`  .webp 新規生成: ${madeWebp} 件（既存スキップ ${skipped} 件）`);
 console.log(`  -${SMALL_WIDTH}.webp 新規生成: ${madeSmall} 件`);
+console.log(`  新しい PNG のロスレス再圧縮: ${optimizedPng} 件`);
 console.log(`  WebP 化による削減: ${Math.round(savedWebp / 1024 / 1024 * 10) / 10} MB 相当`);

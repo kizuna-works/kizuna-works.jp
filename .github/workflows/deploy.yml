@@ -38,6 +38,18 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # deploy-pages waits at most 10 minutes for Pages to finish; on busy days a large
+      # artifact can exceed that ("Timeout reached"). Retry once with the same artifact
+      # instead of failing the run (2026-11-10).
       - name: Deploy to GitHub Pages
-        id: deployment
+        id: first
+        continue-on-error: true
         uses: actions/deploy-pages@v5
+      - name: Deploy to GitHub Pages (retry)
+        id: retry
+        if: steps.first.outcome == 'failure'
+        uses: actions/deploy-pages@v5
+      - name: Report deployment URL
+        id: deployment
+        shell: bash
+        run: echo "page_url=${{ steps.first.outputs.page_url || steps.retry.outputs.page_url }}" >> "$GITHUB_OUTPUT"
