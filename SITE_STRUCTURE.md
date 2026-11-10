@@ -376,6 +376,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── lookup-pro-v120-update.md        # ルックアップ Pro v1.2.0 アップデートのお知らせ（2026-10-29 17:30・テーブルのコピー）
 │   │   │   ├── plugin-design-pro-v120.md        # デザイン Pro v1.2.0 のお知らせ（2026-11-06・PDF 保存で印刷画面を開くかを選べる・帳票デザイナー v1.9.0 を取り込み）
 │   │   │   ├── card-board-v120-update.md        # カードボード v1.2.0 のお知らせ（2026-11-06・KIZUNAブリッジ連携・多言語対応・集計表グラフが出ない不具合の修正）／KIZUNAブリッジ v1.5.1（きっかけ「どのプラグイン」にカードボード）
+│   │   │   ├── card-board-v130-update.md        # カードボード v1.3.0 のお知らせ（2026-11-10・連動モードで下段のレーンへ直接ドロップ・ドラッグ中の自動スクロール・状態カード上段の固定）
 │   │   │   ├── lookup-pro-v110-update.md        # ルックアップ Pro v1.1.0 アップデートのお知らせ（2026-10-28 09:50・多言語・機能ごとに「使う」を選ぶ・単品を無効にしても動く・選択欄の修正・絞り込みの比べ方）
 │   │   │   ├── search-pro-v110-update.md        # サーチ Pro v1.1.0 アップデートのお知らせ（2026-10-28 09:30・多言語・条件の帯と標準の絞り込みの併用）
 │   │   │   ├── search-pro-v120-update.md        # サーチ Pro v1.2.0 アップデートのお知らせ（2026-10-29 10:30・CSV の出力できる人の限定・カラーパレット）
@@ -1253,6 +1254,7 @@ c:\kizuna-works.jp\
 │   │   ├── card-board-config-v111-01.png        # カードボード v1.1.1 UPDATE 用スクショ（v1.2.0 で UPDATE ボックスを差し替えたため現在は未掲載） — 表形式の一覧が無いアプリの設定画面（左の目次の位置に「表示形式が『表形式』の一覧を追加して［アプリを更新］」の案内）。撮影＝公式テンプレート名の「案件管理」＋カスタマイズ形式の一覧だけ・無料プラン表示。WebP あり
 │   │   ├── card-board-v120-bridge-01.png / .webp  # カードボード v1.2.0 UPDATE 用スクショ — KIZUNAブリッジの設定画面（きっかけ「KIZUNA Works のプラグインでレコードを変えたとき」・どのプラグイン「カードボード」）。ドメイン・ID は黒塗り。お知らせ card-board-v120-update.md でも使用
 │   │   ├── card-board-v120-en-01.png / .webp      # カードボード v1.2.0 UPDATE 用スクショ — 英語表示のカードボード（Table／Card・11 items など）。お知らせ card-board-v120-update.md でも使用
+│   │   ├── card-board-v130-{01,02,03,04}.png / .webp  # カードボード v1.3.0 用スクショ（01=下段レーンへドラッグ中・02=上段固定でスクロール・03=設定画面の全体像・04=D&D カードの切り出し。01・02・04 は UPDATE ボックス、03 は設定画面の節）
 │   │   ├── mail-assist-config-09.png / .webp   # メールアシスト v1.8.0 UPDATE 用スクショ — テンプレート編集で宛先(To)に承認者・確認者、CC に申請者・関係者のユーザー選択を並べた画面（撮影用アプリ「案件承認」・右上のアカウント名は非表示）
 │   │   ├── mail-assist-config-10.png / .webp   # メールアシスト v1.9.0 UPDATE 用スクショ — 休暇申請の設定画面で［ほかのアプリから取り込む］を開き、発注案件のテンプレート2個（承認依頼に ⚠ kakunin（CC））が候補に出た画面（右上のアカウント名は非表示）
 │   │   ├── status-bulk-action-time-01.png   # ステータス一括実行 v1.1.0 UPDATE 用スクショ — 実行内容の確認画面で時間の条件（勤務時間 ≧ 8時間30分）による除外理由を表示（656×493・.webp あり）
@@ -1486,7 +1488,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-card-board-v1.0.1.zip                              # カードボード for kintone 配布ファイル（最新・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-card-board-v1.1.0.zip                                  # カードボード for kintone 配布ファイル（v1.1.0：時間の集計を〇時間〇分で表示・対象フィールドなしの表示）
 │   │   ├── kw-card-board-v1.1.1.zip                                  # カードボード for kintone 配布ファイル（v1.1.1：表形式の一覧の案内・削除した一覧の設定が無料プランの枠を塞がない・カード表示の広告の帯）
-│   │   ├── kw-card-board-v1.2.0.zip                                  # カードボード for kintone 配布ファイル（最新・2026-11-06・v1.2.0：KIZUNAブリッジ連携・多言語対応・カラーパレット・標準の集計表グラフ／一覧の表示の改善）
+│   │   ├── kw-card-board-v1.2.0.zip                                  # カードボード for kintone 配布ファイル（2026-11-06・v1.2.0：KIZUNAブリッジ連携・多言語対応・カラーパレット・標準の集計表グラフ／一覧の表示の改善）
+│   │   ├── kw-card-board-v1.3.0.zip                                  # カードボード for kintone 配布ファイル（最新・2026-11-10・v1.3.0：連動モードで下段のレーンへ直接ドロップ・ドラッグ中の自動スクロール・状態カード上段の固定）
 │   │   ├── kw-chat-notify-v1.0.0.zip                             # チャット通知 for kintone v1.0.0 配布ファイル（プレミアム・単品販売なし）
 │   │   ├── kw-chat-notify-v1.0.1.zip                             # チャット通知 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-chat-notify-v2.0.0.zip                             # チャット通知 for kintone 配布ファイル（旧版・参考保管・v2.0.0 LINE WORKS 対応）
@@ -2101,7 +2104,9 @@ c:\kizuna-works.jp\
 │   ├── check-update-box.mjs    # 製品ページのアップデート情報（.update-box）の中に複数列のリスト（2列のグリッド等）があればビルドを中止。長さの違う項目が横に並んで余白ができ、項目の区切りも見えなくなるため 1 列の .update-list を使う（2026-10-28 追加・見本は file-pro）。prebuild で自動実行（単体は `npm run check:updatebox`）
 │   ├── check-mobile-overflow.mjs # モバイルのはみ出しゲート。dist の全ページを 375px で開き（<details> は全部開く）、画面外へはみ出す要素があればビルドを中止する。body の overflow-x:clip で切り落とされ scrollWidth に出ないはみ出しを要素ごとに測る。postbuild で自動実行（GitHub Actions でも走る）・単体は `npm run check:mobile`。puppeteer-core＋インストール済み Chrome を使う（Chrome が無い環境はローカルなら警告して通し、CI では失敗）
 │   ├── prune-old-downloads.mjs # 公開物から旧版のプラグイン zip を外す（postbuild・check-mobile-overflow の前）。dist/downloads だけを消し、public/downloads は触らない。製品ごとに新しい 2 版と、どこかのページが参照している zip は残す（2 版残すのは、ブリッジの一括更新が最大 6 時間キャッシュした versions.json で最新版を取りに来るため）。2026-11-07、公開物が約 440MB になり deploy-pages が上限の 10 分で打ち切られて公開が 2 回失敗したため追加
-│   ├── gen-image-derivatives.mjs # dist の HTML が参照する PNG から .webp / -800.webp を生成（Picture.astro 用）
+│   ├── prune-unused-images.mjs # 公開物からどこにも参照されていない画像を外す（postbuild・prune-old-downloads の次）。dist/images だけを消し、public/images は触らない。ビルド済みの HTML/CSS/JS/JSON 等にパス・ステム・ファイル名のどれかが出る画像と、プラグイン・メールが読む logo／ogp／ads は残す。HTML が 300 未満の部分ビルドでは何もしない。2026-11-10、デプロイの時間切れ対策で追加
+│   ├── optimize-png.mjs # public/images の PNG を画素を変えずにロスレスで圧縮し直す（3% 以上小さくなり、画素が一致したものだけ書き換える。16bit・ICC 付きは対象外）。2026-11-10 に全件へ適用。gen-image-derivatives.mjs が新しい PNG に使う
+│   ├── gen-image-derivatives.mjs # dist の HTML が参照する PNG から .webp / -800.webp を生成（Picture.astro 用）。新しく WebP を作る PNG は optimize-png.mjs でロスレス再圧縮もする
 │   ├── gen-favicon.mjs         # src/assets/KIZUNA-Worksロゴデータlogo.png から public/favicon.ico（16/32/48）・public/images/favicon.png（192x192）・public/images/apple-touch-icon.png（180x180）を生成。Google 検索結果のアイコンは「正方形かつ48pxの倍数」でないと採用されず、ルートの /favicon.ico も見られるため両方を用意する。手動実行（`node scripts/gen-favicon.mjs`）
 │   ├── gen-blog-figures.mjs    # ブログ本文の図解を satori＋sharp でコード生成（オンブランド）
 │   ├── check-multilingual-badge.mjs # 配布中の最新 zip（public/downloads）に js/<prefix>-i18n.{desktop,mobile,config}.js があるかと plugins.ts の multilingual: true を突き合わせ、食い違い・製品ページの <HeroSubBadges>（または <MultilingualBadge>）抜けでビルドを中止（2026-10-31 追加）。prebuild で自動実行（単体は `npm run check:i18nbadge`）

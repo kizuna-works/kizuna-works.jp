@@ -53,10 +53,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "カードボード for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.2.0",
-          "dateModified": "2026-11-06",
+          "softwareVersion": "1.3.0",
+          "dateModified": "2026-11-10",
           "url": "https://kizuna-works.jp/plugins/card-board/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-card-board-v1.2.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-card-board-v1.3.0.zip",
           "image": "https://kizuna-works.jp/images/card-board-banner.png",
           "offers": [
             {
@@ -76,7 +76,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、複数ビューへの適用が無制限・広告非表示になり、ちょこっと＆プレミアムプラグインすべても利用できます。単品販売はありません。"
             }
           ],
-          "description": "kintone のレコード一覧を「状態カード（上部）＋詳細カード（下部）」の2段カンバンに切り替えるプラグイン。詳細カードを状態カードへドラッグ&ドロップしてステータス・選択肢・文字列の値を変更でき、状態別の件数・集計値を全幅で俯瞰できる。連動（カンバン）/個別（ギャラリー）モード・添付サムネイル・ライブプレビュー付き設定に対応する。カードのドラッグで KIZUNAブリッジのルールを動かせ、日本語・英語・中国語（簡体字）で表示できる。",
+          "description": "kintone のレコード一覧を「状態カード（上部）＋詳細カード（下部）」の2段カンバンに切り替えるプラグイン。詳細カードを状態カードへドラッグ&ドロップしてステータス・選択肢・文字列の値を変更でき、状態別の件数・集計値を全幅で俯瞰できる。連動（カンバン）/個別（ギャラリー）モード・添付サムネイル・ライブプレビュー付き設定に対応する。連動モードでは下段のレーンへ直接ドロップでき、ドラッグ中は画面が自動でスクロールし、状態カードを画面の上に固定する設定もある。カードのドラッグで KIZUNAブリッジのルールを動かせ、日本語・英語・中国語（簡体字）で表示できる。",
           "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
           "featureList": [
             "レコード一覧を「状態カード＋詳細カード」の2段カンバンUIに切替表示",
@@ -90,6 +90,9 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "対象一覧ビューの絞り込み条件・並び順がそのままカードボードに反映（集計も連動して再計算）",
             "設定画面はライブプレビュー付き。複数の一覧ビューへ設定を保存・適用（プレミアム）",
             "ドラッグ&ドロップはkintoneの権限・プロセス管理の遷移制約に準拠",
+            "連動モードでは、詳細カードを上段の状態カードだけでなく、下段の状態のレーンへ直接ドロップして値を変更",
+            "ドラッグ中に画面の上端・下端へ寄せると自動でスクロール（連動・個別の両モード）",
+            "状態カード（上段）を、スクロールしても画面の上に固定する設定（既定オフ）",
             "KIZUNAブリッジ連携：カードのドラッグでフィールドやステータスを変えたとき、ブリッジのルールを動かせる（ブリッジ v1.5.1 以降）",
             "日本語・英語・中国語（簡体字）に対応",
             "設定画面の色の欄に共通のカラーパレット",
@@ -346,51 +349,35 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       <img class="afp-hero-icon" src="/images/card-board-icon.png" alt="カードボード for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.2.0</span>
+        <span class="afp-hero-version">v1.3.0</span>
       </div>
       <HeroSubBadges pluginId="kw-card-board" />
       <h1>カードボード for kintone</h1>
       <p class="afp-tagline">一覧を、動かせるカードボードに。</p>
-      <p class="afp-sub">レコード一覧を「状態カード＋詳細カード」の2段カンバンに切り替え。詳細カードをドラッグ&ドロップするだけでステータスを変更でき、状態別の件数・合計を一目で俯瞰できます。勤務時間などの時間も「〇時間〇分」で集計できます。カードのドラッグで KIZUNAブリッジのルールを動かせ、日本語・英語・中国語（簡体字）にも対応。「表の一覧では進捗が掴めない」を解消します。</p>
-      <HeroDownload href="/downloads/kw-card-board-v1.2.0.zip" premium />
+      <p class="afp-sub">レコード一覧を「状態カード＋詳細カード」の2段カンバンに切り替え。詳細カードを状態カードや下段のレーンへドラッグ&ドロップするだけでステータスを変更でき、ドラッグ中は画面が自動でスクロール。状態別の件数・合計を一目で俯瞰できます。勤務時間などの時間も「〇時間〇分」で集計できます。カードのドラッグで KIZUNAブリッジのルールを動かせ、日本語・英語・中国語（簡体字）にも対応。「表の一覧では進捗が掴めない」を解消します。</p>
+      <HeroDownload href="/downloads/kw-card-board-v1.3.0.zip" premium />
     </section>
     <div class="afp-hero-gradient-line"></div>
 
-    <!-- Update Info (v1.2.0) -->
+    <!-- Update Info (v1.3.0) -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.2.0：KIZUNAブリッジと多言語に対応し、標準のグラフと一覧の表示を改善しました</h2>
+            <h2 class="update-title">v1.3.0：カードが多くても、下の方のカードを別の状態へ動かしやすくなりました</h2>
           </div>
-          <p class="update-desc">カードボード for kintone を v1.2.0 にアップデートしました。</p>
-          <p class="update-desc"><strong>カードのドラッグで、KIZUNAブリッジのルールを動かせます。</strong>カードをドラッグしてフィールドの値やステータスを変えたとき、ブリッジのルールを動かせます。ブリッジのルールの［きっかけ］に「KIZUNA Works のプラグインでレコードを変えたとき」を選び、［どのプラグイン］で「カードボード」を選びます。変えたレコードへのお知らせや、他のアプリへの書き込みを、ノーコードでつなげられます。KIZUNAブリッジ v1.5.1 以降が必要です。</p>
+          <p class="update-desc">カードボード for kintone を v1.3.0 にアップデートしました。</p>
+          <p class="update-desc">カードが多いと、下の方のカードをつかんだときに上段の状態カードが画面の外にあり、ドラッグしたまま届きませんでした。次の 3 点を改善しました。</p>
+          <p class="update-desc"><strong>連動モードで、下段のレーンへ直接ドロップできるようになりました。</strong>詳細カードを、隣の状態のレーン（下段の列）に落とすだけで値が変わります。上段の状態カードへのドロップも、従来どおり使えます。レーンの上にカーソルが来ると、そのレーンと上段の状態カードに点線の枠が付きます。</p>
           <div class="update-shot">
             <div class="screenshot-frame">
               <picture>
-                <source srcset="/images/card-board-v120-bridge-01.webp" type="image/webp" />
+                <source srcset="/images/card-board-v130-01.webp" type="image/webp" />
                 <img
                   class="zoomable"
-                  src="/images/card-board-v120-bridge-01.png"
-                  alt="KIZUNAブリッジの設定画面。ルール「カードボードで変えたら通知」のきっかけに「KIZUNA Works のプラグインでレコードを変えたとき」、どのプラグインに「カードボード」を選び、動かす内容にお知らせを設定している"
-                  loading="lazy"
-                  width="1400"
-                  height="1649"
-                />
-              </picture>
-            </div>
-            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-          </div>
-          <p class="update-desc"><strong>日本語・英語・中国語（簡体字）で表示できます。</strong>ボードの操作ボタンやメッセージ、設定画面が、kintone の表示言語に合わせて切り替わります。設定画面の色の欄には、共通のカラーパレットも加わりました。</p>
-          <div class="update-shot">
-            <div class="screenshot-frame">
-              <picture>
-                <source srcset="/images/card-board-v120-en-01.webp" type="image/webp" />
-                <img
-                  class="zoomable"
-                  src="/images/card-board-v120-en-01.png"
-                  alt="英語で表示したカードボード。表示の切り替えボタンが「Table」「Card」と表示され、状態カードの件数が「11 items」「15 items」「16 items」と表示されている"
+                  src="/images/card-board-v130-01.png"
+                  alt="連動モードで詳細カードを隣のレーン「進行中」へドラッグしている画面。ドロップ先のレーンと、上段の「進行中」の状態カードに点線の枠が付いている"
                   loading="lazy"
                   width="1400"
                   height="900"
@@ -399,8 +386,41 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             </div>
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
-          <p class="update-desc"><strong>標準のグラフと一覧の表示を改善しました。</strong>同じアプリの kintone 標準の「集計表（表形式）」グラフが表示されるようになりました。カードボードを設定していない一覧では、開いた直後に標準の一覧が一瞬隠れることがなくなりました。カード表示から表表示に戻したときも、左端の詳細アイコンまで標準どおりに表示されます。</p>
-          <p class="update-note">既存ユーザーの方は、最新版（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+          <p class="update-desc"><strong>ドラッグ中に、画面が自動でスクロールするようになりました。</strong>連動・個別のどちらのモードでも、カーソルを画面の上端・下端へ寄せると、その方向へスクロールします。端に近いほど速く動き、離すと止まります。</p>
+          <p class="update-desc"><strong>状態カード（上段）を、画面の上に固定できるようになりました。</strong>設定画面の［① 基本設定］で「下へスクロールしても、状態カード（上段）を画面の上に固定する」にチェックを入れると、スクロールしても上段が kintone のヘッダーの下に残ります。既定はオフです。</p>
+          <div class="update-shot">
+            <div class="screenshot-frame">
+              <picture>
+                <source srcset="/images/card-board-v130-04.webp" type="image/webp" />
+                <img
+                  class="zoomable"
+                  src="/images/card-board-v130-04.png"
+                  alt="設定画面の「ドラッグ&ドロップによる値変更」カード。「下へスクロールしても、状態カード（上段）を画面の上に固定する」のチェックボックスが加わっている"
+                  loading="lazy"
+                  width="1326"
+                  height="349"
+                />
+              </picture>
+            </div>
+            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+          </div>
+          <div class="update-shot">
+            <div class="screenshot-frame">
+              <picture>
+                <source srcset="/images/card-board-v130-02.webp" type="image/webp" />
+                <img
+                  class="zoomable"
+                  src="/images/card-board-v130-02.png"
+                  alt="状態カードの固定をオンにして下へスクロールした画面。上段の状態カードが kintone のヘッダーの直下に残り、その下にカードが続いている"
+                  loading="lazy"
+                  width="1400"
+                  height="680"
+                />
+              </picture>
+            </div>
+            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+          </div>
+          <p class="update-note">既存ユーザーの方は、最新版（v1.3.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
           <BridgeUpdateNote />
         </div>
       </div>
@@ -484,7 +504,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           </div>
           <div class="afp-feature-text">
             <h3>連動モード（カンバン）</h3>
-            <p>全状態のレーンを横並びで表示し、各状態カードの真下に該当カードを縦積み。ステージを動かす業務（営業パイプライン・タスク・採用・問い合わせ対応など）に最適です。列数の指定・レーンの区切り線・状態別の集計値表示に対応。ドラッグ&ドロップで一気に前へ進められます。</p>
+            <p>全状態のレーンを横並びで表示し、各状態カードの真下に該当カードを縦積み。ステージを動かす業務（営業パイプライン・タスク・採用・問い合わせ対応など）に最適です。列数の指定・レーンの区切り線・状態別の集計値表示に対応。ドラッグ&ドロップで一気に前へ進められ、上段の状態カードにも、下段のレーンにも落とせます。</p>
           </div>
         </div>
         <div class="afp-feature reverse">
@@ -525,7 +545,15 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           </div>
           <div class="afp-feat-card">
             <h3>ドラッグ&ドロップで値変更</h3>
-            <p>詳細カードを状態カードへドロップするだけで、ステータス・選択肢・文字列の値を変更。プロセス管理は遷移制約に準拠し、次の作業者の自動判定・選択モーダルにも対応。失敗時は元に戻して通知します。</p>
+            <p>詳細カードを状態カードへドロップするだけで、ステータス・選択肢・文字列の値を変更。連動モードでは、<strong>下段のレーンへ直接ドロップ</strong>しても変わります。プロセス管理は遷移制約に準拠し、次の作業者の自動判定・選択モーダルにも対応。失敗時は元に戻して通知します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ドラッグ中の自動スクロール</h3>
+            <p>カードが多くても大丈夫。ドラッグ中に<strong>画面の上端・下端へカーソルを寄せると自動でスクロール</strong>し、画面の外にある状態カードやレーンへ届きます（連動・個別の両モード）。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>状態カード（上段）の固定</h3>
+            <p>設定でチェックを入れると、<strong>スクロールしても上段の状態カードが画面の上に残ります</strong>（既定はオフ）。下の方のカードを、そのまま上段へドロップできます。</p>
           </div>
           <div class="afp-feat-card">
             <h3>連動 / 個別モード</h3>
@@ -573,12 +601,20 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <h2 class="afp-h2">設定はタブで4ステップ・ライブプレビュー付き</h2>
         <p style="text-align:center;margin:-8px auto 34px;max-width:760px;line-height:1.8;color:var(--color-text-muted);">左の「ビュー目次」でカードボードにするビューを選び、①→④のタブを順に設定するだけ。変更は左下の<strong>ライブプレビュー</strong>に即反映されるので、実際のカードを見ながら仕上げられます。設定できるビューは無料プランで1つ、プレミアムで無制限です。</p>
 
+                <figure class="afp-shot" style="margin:0 auto 40px;">
+          <picture>
+            <source srcset="/images/card-board-v130-03.webp" type="image/webp" />
+            <img class="zoomable" src="/images/card-board-v130-03.png" alt="カードボードの設定画面（v1.3.0）の全体像。左にビュー目次、中央にタブごとの設定、下にライブプレビューが並ぶ" width="1400" height="1000" loading="lazy" />
+          </picture>
+          <figcaption class="afp-shot-cap">設定画面の全体像（v1.3.0）</figcaption>
+        </figure>
+
         <div class="afp-cfgstep">
           <div class="afp-cfgstep-head">
             <div class="afp-cfgstep-badge">1</div>
             <div class="afp-cfgstep-body">
               <h3>基本設定 — グルーピングと表示モードを決める</h3>
-              <p>まず「どのフィールドで状態を分けるか」を選びます。<strong>グルーピング元</strong>にプロセス管理ステータス・ドロップダウン・ラジオ・文字列を指定し、<strong>表示モード</strong>を「カンバン（全レーン）」か「個別（1状態ずつギャラリー）」から選択。列数・<strong>レーンの区切り線</strong>・<strong>初期に開く状態</strong>もここで設定します。</p>
+              <p>まず「どのフィールドで状態を分けるか」を選びます。<strong>グルーピング元</strong>にプロセス管理ステータス・ドロップダウン・ラジオ・文字列を指定し、<strong>表示モード</strong>を「カンバン（全レーン）」か「個別（1状態ずつギャラリー）」から選択。列数・<strong>レーンの区切り線</strong>・<strong>初期に開く状態</strong>、<strong>状態カード（上段）の固定</strong>もここで設定します。</p>
             </div>
           </div>
           <figure class="afp-shot">
@@ -659,7 +695,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               <li>✅ 連動/個別モード・添付サムネイル・ライブ編集</li>
               <li>✅ 利用期限なし（レコード一覧画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-card-board-v1.2.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-card-board-v1.3.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="afp-plan-card recommended">
@@ -810,10 +846,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-card-board-v1.2.0.zip',
+            file_name: 'kw-card-board-v1.3.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-card-board-v1.2.0.zip'
+            link_url: '/downloads/kw-card-board-v1.3.0.zip'
           });
         });
       }
