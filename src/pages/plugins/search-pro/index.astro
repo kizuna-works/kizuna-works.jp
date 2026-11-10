@@ -7,10 +7,10 @@ import { plugins, premiumPlugins } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.6.0';
+const VERSION = '1.7.0';
 const ZIP = `/downloads/kw-search-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/search-pro/';
-const DATE_MODIFIED = '2026-11-09';
+const DATE_MODIFIED = '2026-11-10';
 
 // The four products this one bundles, plus the two it can start a bulk run in.
 // Search both free and premium lists, and fail the build on a missing id instead of silently dropping the card.
@@ -99,7 +99,7 @@ const faqJsonLd = {
 <Layout
   heroBg="/images/kizuna-pro-hero-bg.webp"
   title="サーチ Pro for kintone｜検索・絞り込み・集計・CSVを、ひとつの条件でつなぐ | KIZUNA Works"
-  description="サーチ Pro for kintone は、kintone の一覧の検索・絞り込み・集計・CSV出力をひとつの条件でつなぐ KIZUNA Pro プラグイン。効いている条件を帯で確認・解除、よく使う条件の保存、集計カードを押して絞り込み、絞った結果をそのまま CSV や一括処理へ。検索窓の長さ・高さを選べ、ユーザー・組織・グループの名前でも探せます。CSV は出力できる人を限定できます。使う機能は機能ごとに選べます。日本語・英語・中国語（簡体字）の表示にも対応します。"
+  description="サーチ Pro for kintone は、kintone の一覧の検索・絞り込み・集計・CSV出力をひとつの条件でつなぐ KIZUNA Pro プラグイン。効いている条件を帯で確認・解除、よく使う条件の保存、集計カードを押して絞り込み、絞った結果をそのまま CSV や一括処理へ。検索窓の長さ・高さを選べ、ユーザー・組織・グループの名前や添付ファイル名でも探せます。CSV は出力できる人を限定できます。使う機能は機能ごとに選べます。日本語・英語・中国語（簡体字）の表示にも対応します。"
   ogTitle="サーチ Pro for kintone｜検索・絞り込み・集計・CSVを、ひとつの条件でつなぐ | KIZUNA Works"
   ogDescription="検索・絞り込み・集計・CSV出力が、ひとつの条件でつながる。条件の帯・保存した検索・集計カードから絞り込み・絞った結果を一括処理へ。使う機能は機能ごとに選べ、日本語・英語・中国語（簡体字）の表示に対応する KIZUNA Pro プラグインです。"
   ogType="website"
@@ -135,7 +135,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.6.0",
+          "softwareVersion": "1.7.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -170,6 +170,7 @@ const faqJsonLd = {
             'KIZUNAブリッジ for kintone から、保存した検索の結果を CSV にして添付ファイル欄に入れる',
             '検索バー：キーワード（AND／OR）・語句検索・完全一致で、複数のフィールドを横断して探す（検索窓の長さ・高さを大・中・小から選べる）',
             '検索バー：ユーザー選択・組織選択・グループ選択・作成者・更新者の欄を、名前またはコードで検索（条件の帯・保存した検索でも使える）',
+            '検索バー：添付ファイルの欄を、ファイル名の一部で検索（文字を読み取れる PDF などは中身の文字でも該当。関連レコード一覧の参照先の添付ファイル欄も選べる。完全一致の対象外）',
             '絞り込みの窓の帯の配色・集計カードの配色の上書きの色の欄に、共通のカラーパレット（カラーコード入力・マイカラー・最近使った色）',
             '絞り込みの窓：フィールドごとの窓で、値の一覧から選ぶだけで絞り込む（窓の数・設定セットの数に制限なし）',
             '絞り込みの窓の初期値：窓ごとに初期値を設定すると、一覧を開いたときにその値で絞り込んだ状態で表示される（利用者は窓で変更・解除できる）',
@@ -476,38 +477,27 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.6.0) -->
+    <!-- Update Info (v1.7.0) -->
     <section class="kbp-section">
       <div class="kbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.6.0：絞り込みの窓に、一覧を開いたときの初期値を設定できるようになりました</h2>
+            <h2 class="update-title">v1.7.0：検索で、添付ファイルのファイル名を探せるようになりました</h2>
           </div>
-          <p class="update-desc">サーチ Pro for kintone を v1.6.0 にアップデートしました（2026年11月9日）。クイックフィルター v1.4.0 を取り込んでいます。</p>
-          <h3 class="kbp-h3">窓ごとに「初期値」を設定できます</h3>
+          <p class="update-desc">サーチ Pro for kintone を v1.7.0 にアップデートしました（2026年11月10日）。クイックサーチ v1.8.0 を取り込んでいます。</p>
+          <h3 class="kbp-h3">検索バーの検索対象に、添付ファイルを選べます</h3>
           <ul class="update-list">
-            <li>たとえば、会計年度の窓に今年度を初期値にしておくと、一覧を開いた時点で今年度のレコードだけが表示されます。</li>
-            <li>利用者は窓で値を変えたり、×で解除したりできます。同じタブの中では、変えた選択がそのまま残ります。新しいタブで開くと初期値に戻ります。</li>
-            <li>条件つきの URL で開いたときは、初期値は効きません。</li>
-            <li>選択肢・文字列・数値（値と範囲）・キーワード・日付（期間・日付）の窓に設定できます。ユーザー・組織などの窓と、別アプリの値で絞る窓には設定できません。</li>
-            <li>初期値にした選択肢をあとから削除しても、一覧は止まりません。</li>
+            <li>社名・品名・日付など、ファイル名に入っている言葉で、元のレコードを探せます。</li>
+            <li>文字を読み取れる PDF などは、ファイルの中の文字でも見つかります。スキャンした画像には文字が無いので、ファイル名が手がかりになります。</li>
+            <li>関連レコード一覧の参照先にある添付ファイルの欄も、検索対象にできます。</li>
+            <li>語の頭に「=」を付けた完全一致の検索では、添付ファイルの欄は対象外です（文字列（複数行）・リッチエディターと同じです）。</li>
           </ul>
           <div class="update-shot">
-            <Picture src="/images/search-pro-v160-initial-config-01.png" alt="サーチ Pro の設定画面。絞り込みの窓の区分の行に「初期値」の欄があり、選択肢 A にチェックが入っている。その下に「一覧を開いたときに、この値で絞り込みます。利用者は窓で変更できます。」の説明が出る" width="769" height="214" class="zoomable" />
+            <Picture src="/images/quick-search-v180-list.png" alt="一覧の検索バーに「注文書」と入力して検索した画面。添付ファイルの欄に注文書_B社.pdf と注文書_D社.pdf があるレコード 2 件だけに絞り込まれている" width="1280" height="700" class="zoomable" />
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
-          <div class="update-shot">
-            <Picture src="/images/search-pro-v160-initial-list-01.png" alt="kintone のレコード一覧。区分の窓に A が選ばれた状態で一覧が開き、区分が A のレコードだけが表示されている" width="1400" height="486" class="zoomable" />
-            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-          </div>
-          <h3 class="kbp-h3">次の点を改善しました</h3>
-          <ul class="update-list">
-            <li>前回の選択が残った状態で、同じ条件を含むリンクや一覧の条件と重なっても、条件が二重に付かなくなりました。</li>
-            <li>設定画面の文字を、読みやすい濃さにしました。</li>
-            <li>窓の×を、押しやすい大きさにしました。</li>
-          </ul>
-          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.6.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.7.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。添付ファイルを検索したいときは、設定画面の検索バーの検索対象でその欄を選んでください。</p>
         </div>
       </div>
     </section>
@@ -667,7 +657,7 @@ const faqJsonLd = {
               <li>検索バー</li><li>絞り込みの窓</li><li>集計カード</li><li>CSV出力</li>
             </ul>
             <ul>
-              <li><strong>検索バー</strong>：キーワード（AND／OR）で、複数のフィールドを横断して探します。語句検索にも対応し、語の頭に <code>=</code> を付けると完全一致で探せます。完全一致は、文字列（複数行）とリッチエディターの項目を対象外とします。ユーザー選択・組織選択・グループ選択・作成者・更新者の欄は、名前またはコードで探せます（組織は下位の組織も含みます）。検索窓の長さ・高さも選べます。</li>
+              <li><strong>検索バー</strong>：キーワード（AND／OR）で、複数のフィールドを横断して探します。語句検索にも対応し、語の頭に <code>=</code> を付けると完全一致で探せます。完全一致は、文字列（複数行）とリッチエディターの項目を対象外とします。ユーザー選択・組織選択・グループ選択・作成者・更新者の欄は、名前またはコードで探せます（組織は下位の組織も含みます）。添付ファイルの欄は、ファイル名の一部で探せます（文字を読み取れる PDF などは中身の文字でも当たります。完全一致の対象外）。検索窓の長さ・高さも選べます。</li>
               <li><strong>絞り込みの窓</strong>：フィールドごとの窓を開き、値の一覧から選ぶだけで絞り込めます。窓ごとの初期値も決められます。</li>
               <li><strong>集計カード</strong>：合計・平均・件数などを一覧の上に並べ、絞り込みに合わせて再集計します。</li>
               <li><strong>CSV出力</strong>：用途別のテンプレートで、絞り込んだ結果をワンクリックで CSV にします。テンプレートごとに、出力できる人を限定することもできます。</li>
@@ -787,7 +777,7 @@ const faqJsonLd = {
         </ul>
         <h3 class="kbp-h3">4つの機能と共通の機能</h3>
         <ul class="kbp-list">
-          <li>検索バー：キーワード（AND／OR）・語句検索・完全一致で、複数のフィールドを横断して検索。ユーザー選択・組織選択・グループ選択・作成者・更新者の欄は名前やコードで検索。検索窓の長さ・高さを大・中・小から選べる</li>
+          <li>検索バー：キーワード（AND／OR）・語句検索・完全一致で、複数のフィールドを横断して検索。ユーザー選択・組織選択・グループ選択・作成者・更新者の欄は名前やコードで検索。添付ファイルの欄はファイル名の一部で検索。検索窓の長さ・高さを大・中・小から選べる</li>
           <li>絞り込みの窓：フィールドごとの窓で、値の一覧から選んで絞り込み（窓の数・設定セットの数に制限なし）。窓ごとに初期値を決めると、一覧を開いたときからその値で絞り込んだ状態で表示</li>
           <li>集計カード：合計・平均・最大・最小・件数などを、絞り込みに合わせて再集計</li>
           <li>CSV出力：用途別のテンプレートで、絞り込んだ結果をワンクリックで出力。テンプレートごとに、出力できる人（ユーザー・組織・グループ。組織は直接所属している人だけ）を限定できる</li>
