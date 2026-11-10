@@ -1835,7 +1835,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-toc-v1.2.2.zip                               # クイック目次 for kintone 配布ファイル（最新・手動配置・v1.2.2 目次メニューが kintone 標準のポップアップを覆う問題を修正）
 │   │   ├── kw-read-check-v1.0.0.zip                              # 既読チェック for kintone 配布ファイル（旧版・v1.0.0 初版）
 │   │   ├── kw-read-check-v1.0.1.zip                              # 既読チェック for kintone 配布ファイル（旧版・手動配置・v1.0.1 で折りたたみサイドバーの展開を公式APIへ変更＋サイドバータブの表示順を宣言的に固定）
-│   │   ├── kw-read-check-v1.0.3.zip                              # 既読チェック for kintone 配布ファイル（最新・v1.0.3 連携に備えた内部の改善・お知らせなし）
+│   │   ├── kw-read-check-v1.0.3.zip                              # 既読チェック for kintone 配布ファイル（旧版・v1.0.3 連携に備えた内部の改善・お知らせなし）
+│   │   ├── kw-read-check-v1.0.4.zip                              # 既読チェック for kintone 配布ファイル（最新・v1.0.4 英語・中国語表示の kintone で保管アプリの作成が止まる点を改善・版上げのみ・お知らせなし）
 │   │   ├── kw-read-check-v1.0.2.zip                              # 既読チェック for kintone 配布ファイル（旧版・手動配置・v1.0.2 ライセンス認証の内部改修）
 │   │   ├── kw-record-lock-v1.0.0.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-lock-v1.0.1.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管）
