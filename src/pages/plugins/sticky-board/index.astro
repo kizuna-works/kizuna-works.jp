@@ -59,10 +59,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "付箋ボード for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.3.0",
-          "dateModified": "2026-11-08",
+          "softwareVersion": "1.3.1",
+          "dateModified": "2026-11-10",
           "url": "https://kizuna-works.jp/plugins/sticky-board/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-sticky-board-v1.3.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-sticky-board-v1.3.1.zip",
           "image": "https://kizuna-works.jp/images/sticky-board-banner.png",
           "offers": {
             "@type": "Offer",
@@ -362,42 +362,29 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.3.0</span>
+        <span class="hero-version">v1.3.1</span>
       </div>
       <HeroSubBadges pluginId="kw-sticky-board" />
       <h1 class="hero-title">付箋ボード for kintone</h1>
       <p class="hero-copy">付箋ボード for kintone は、レコード詳細画面にカテゴリ付きの付箋メモを自由な位置で貼り付け、レコード一覧の上部でカテゴリ別の未対応件数を集計表示する kintone プラグインです。標準の通知やコメントでは埋もれがちな「画面内での申し送り・気づき・備忘」を、貼る → 一覧で気づく → 対応する、の流れで取りこぼしません。<strong>v1.3.0 では、KIZUNAブリッジと組み合わせて、付箋を貼った・確認しました・対応済みにしたことを、チャットへ知らせられるようになりました。</strong>レコードに付箋、一覧で気づく。通知とコメントの、いいとこ取り。</p>
-      <HeroDownload href="/downloads/kw-sticky-board-v1.3.0.zip" />
+      <HeroDownload href="/downloads/kw-sticky-board-v1.3.1.zip" />
     </section>
 
-    <!-- Update Info (v1.3.0) -->
+    <!-- Update Info (v1.3.1) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.3.0：付箋をチャットに知らせられるようになりました</h2>
+          <h2 class="update-title">v1.3.1：英語・中国語表示の kintone での動作を改善しました</h2>
         </div>
-        <p class="update-desc">付箋ボード for kintone を v1.3.0 にアップデートしました。</p>
-        <p class="update-desc">付箋を貼っても、相手がチャットを見ていると<strong>気づいてもらえない</strong>ことがありました。<strong>KIZUNAブリッジ</strong>（v1.7.0 以降）と組み合わせると、付箋を<strong>貼った</strong>・<strong>［確認しました］</strong>を押した・<strong>対応済み</strong>にした（未対応に戻すを含む）ことを、Slack・Teams・Google Chat・LINE WORKS・Chatwork へ送れます。</p>
-        <p class="update-desc">どの付箋を送るか、本文に何を入れるかは、付箋の保管アプリに入れた<strong>チャット通知</strong>の通知ルールで決めます。たとえば「対応済みになったときだけ」送る、といった絞り込みができます。移動・リサイズ・本文の編集・既読・削除では送りません。KIZUNAブリッジが入っていないアプリでは、動きは今までどおりです。</p>
-        <div class="update-shot">
-          <div class="screenshot-frame">
-            <picture>
-              <source srcset="/images/sticky-board-v130-board.webp" type="image/webp" />
-              <img
-                class="zoomable"
-                src="/images/sticky-board-v130-board.png"
-                alt="付箋ボード v1.3.0 — レコード詳細に貼った付箋。付箋の［対応済み］などの操作が、チャットへの通知の対象になる"
-                loading="lazy"
-                width="1366"
-                height="455"
-              />
-            </picture>
-          </div>
-          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-        </div>
-        <p class="update-desc">使うには、付箋を使うアプリに KIZUNAブリッジのルール（きっかけ［KIZUNA Works のプラグインでレコードを変えたとき］・どのプラグイン［付箋ボード］・動かす内容［書き込まれたレコードをチャット通知で送る］）を作ります。手順は<a href="/plugins/bridge/">KIZUNAブリッジのページ</a>をご覧ください。</p>
-        <p class="update-note">既存ユーザーの方は、最新バージョン（v1.3.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください。設定と既存の付箋はそのまま引き継がれます。</p>
+        <p class="update-desc">付箋ボード for kintone を v1.3.1 にアップデートしました。</p>
+        <p class="update-desc">英語・中国語で kintone を使っている環境（US 版など）で、次の点を改善しました。</p>
+        <ul class="update-desc">
+          <li><strong>［保管アプリを作成］が最後まで進む</strong>ようになりました。これまでは「The field (code: 作成者) not found」と出て止まることがありました。</li>
+          <li><strong>付箋の作成者・日時の表示、個人付箋、期限切れの自動削除</strong>が、表示言語に関わらず動くようになりました。</li>
+          <li><strong>途中までで止まった保管アプリ</strong>は、［保管アプリを作成］を押し直すと不足分が補われます。</li>
+        </ul>
+        <p class="update-note">既存ユーザーの方は、最新バージョン（v1.3.1）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください。設定と既存の付箋はそのまま引き継がれます。</p>
         <BridgeUpdateNote />
       </div>
     </section>
@@ -517,6 +504,22 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           <li><span><strong>保管アプリのワンクリック自動生成</strong> — 付箋データの保存先アプリを設定画面のボタンから同じスペース内に自動生成。フィールド・アクセス権（個人付箋の秘匿）・アイコンまで自動で構成します。</span></li>
           <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。付箋の保存・集計はすべて自ドメインの kintone REST API で完結します。</span></li>
         </ul>
+        <div class="update-shot" style="margin-top:24px">
+                  <div class="screenshot-frame">
+                    <picture>
+                      <source srcset="/images/sticky-board-v130-board.webp" type="image/webp" />
+                      <img
+                        class="zoomable"
+                        src="/images/sticky-board-v130-board.png"
+                        alt="付箋ボード v1.3.0 — レコード詳細に貼った付箋。付箋の［対応済み］などの操作が、チャットへの通知の対象になる"
+                        loading="lazy"
+                        width="1366"
+                        height="455"
+                      />
+                    </picture>
+                  </div>
+                  <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+                </div>
       </div>
     </section>
 
@@ -591,7 +594,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">レコード詳細・編集・一覧画面（PC 版）でご利用いただけます。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-sticky-board-v1.3.0.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-sticky-board-v1.3.1.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「付箋ボード for kintone」を追加</span></li>
           <li><span>プラグイン設定画面で<strong>「付箋保管アプリを自動作成」</strong>を実行し、件数バー対象一覧やカテゴリを設定して「保存」（保管アプリの自動作成にはアプリ作成権限が必要です）</span></li>
@@ -616,7 +619,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-sticky-board-v1.3.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-sticky-board-v1.3.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <SupporterPlanCard pluginId="kw-sticky-board" />
       <PremiumPlanCard />
@@ -743,10 +746,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-sticky-board-v1.3.0.zip',
+              file_name: 'kw-sticky-board-v1.3.1.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-sticky-board-v1.3.0.zip'
+              link_url: '/downloads/kw-sticky-board-v1.3.1.zip'
             });
           }
         });
