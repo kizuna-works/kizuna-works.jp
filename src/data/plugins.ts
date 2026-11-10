@@ -2115,7 +2115,7 @@ export const premiumPlugins: Plugin[] = [
     slug: 'box-connect',
     categories: ['一括処理', '自動入力', '情報共有'],
     description:
-      'レコードの添付ファイルを Box へ転送し、kintone にはリンクだけを残します。レコード単位のフォルダを命名ルールごと自動生成し、差分検知で二重転送を防止。転送後に kintone 側を削除して容量を節約でき、共有リンクの作成や一覧からの一括転送にも対応。添付ファイルが無いレコードでも、フォルダだけ先に作れます。フォルダ名に使う値が変わったときは、フォルダ名を合わせることもできます。',
+      'レコードの添付ファイルを Box へ転送し、kintone にはリンクだけを残します。レコード単位のフォルダを命名ルールごと自動生成し、差分検知で二重転送を防止。転送後に kintone 側を削除して容量を節約でき、共有リンクの作成や一覧からの一括転送にも対応。添付ファイルが無いレコードでも、フォルダだけ先に作れます。フォルダ名に使う値が変わったときは、フォルダ名を合わせることもできます。詳細画面のボタンで、Box にあると確かめた添付だけをレコードごとに確認して削除できます。',
     image: '/images/box-connect-banner.png',
     imageWebp: '/images/box-connect-banner.webp',
     imageAlt:
@@ -2125,12 +2125,12 @@ export const premiumPlugins: Plugin[] = [
     status: 'available',
     tier: 'premium',
     cardDescription:
-      '添付ファイルを Box へ転送し、kintone にはリンクだけを残します。フォルダの自動生成と差分検知つきで、共有リンクの作成や詳細画面でのフォルダの中身の表示にも対応。添付が無くてもフォルダだけ先に作れます。',
+      '添付ファイルを Box へ転送し、kintone にはリンクだけを残します。フォルダの自動生成と差分検知つきで、共有リンクの作成や詳細画面でのフォルダの中身の表示にも対応。添付が無くてもフォルダだけ先に作れ、Box にあると確かめた添付だけを詳細画面から削除することもできます。',
     problemTitle: '添付ファイルが Box にも kintone にもあって、容量が足りない',
     problemDesc:
       '容量を買い増すか、古いレコードから手で消すかの二択。Box へ手で上げて共有URLを貼る運用も、件数が増えるとフォルダの命名がばらついて追えなくなる',
     releaseDate: '2026-10-23',
-    summaryVersion: '1.3.0',
+    summaryVersion: '1.4.0',
     multilingual: true,
     bridge: 'ブリッジのルールから、レコードの添付ファイルを Box へ転送できます。',
     bornFrom: 'supporter-request',
