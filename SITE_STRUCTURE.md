@@ -1852,7 +1852,9 @@ c:\kizuna-works.jp\
 │   │   ├── kw-record-lock-v1.5.0.zip                             # レコードロック for kintone 配布ファイル（最新・2026-11-06・v1.5.0：ロック中のレコードで変更履歴の「このバージョンに戻す」を表示しない・ゲストスペースの除外グループ／組織の修正）
 │   │   ├── kw-record-recovery-v1.0.0.zip                         # 削除レコード復元 for kintone 配布ファイル（旧版・手動配置・v1.0.0 初版）
 │   │   ├── kw-record-recovery-v1.0.1.zip                 # 削除レコード復元 for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-record-recovery-v1.0.2.zip                 # 削除レコード復元 for kintone 配布ファイル（最新・手動配置・v1.0.2 重複禁止が未設定のルックアップでも安定して動作するよう改善）
+│   │   ├── kw-record-recovery-v1.0.2.zip                 # 削除レコード復元 for kintone 配布ファイル（旧版・手動配置・v1.0.2 重複禁止が未設定のルックアップでも安定して動作するよう改善）
+│   │   ├── kw-record-recovery-v1.1.0.zip                 # 削除レコード復元 for kintone 配布ファイル（旧版・v1.1.0 多言語対応・色の欄にカラーパレット・広告表示の更新）
+│   │   ├── kw-record-recovery-v1.1.1.zip                 # 削除レコード復元 for kintone 配布ファイル（最新・v1.1.1 英語・中国語表示の kintone で保管アプリを作成できない点を改善）
 │   │   ├── kw-related-enhancer-v1.0.0.zip                        # 関連レコード拡張 for kintone 配布ファイル（手動配置・プレミアムプラグイン第5弾・無料/プレミアム共通zip・無料=1対象で集計/見た目/検索・F-04/05/06はプレミアム限定）
 │   │   ├── kw-related-enhancer-v1.0.1.zip                        # 関連レコード拡張 for kintone 配布ファイル（旧版・手動配置・プレミアムプラグイン・v1.0.1 ライセンス認証の内部改修）
 │   │   ├── kw-related-enhancer-v1.0.2.zip                        # 関連レコード拡張 for kintone 配布ファイル（旧版・手動配置・プレミアムプラグイン・v1.0.2 集計結果の書き戻し後に画面を自動で読み直す修正）
