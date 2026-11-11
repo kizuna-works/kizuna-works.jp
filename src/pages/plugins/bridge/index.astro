@@ -10,10 +10,10 @@ import type { Plugin } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.9.0';
+const VERSION = '1.9.1';
 const ZIP = `/downloads/kw-bridge-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/';
-const DATE_MODIFIED = '2026-11-10';
+const DATE_MODIFIED = '2026-11-11';
 
 // Partner overview. The partner products themselves come from plugins.ts (`bridge`
 // field); this map adds, per product, which way it works with the bridge and what
@@ -158,7 +158,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: 'テーブルの開始日を入れたら、同じ行の終了日を自動で入れられますか？',
-    a: 'はい。きっかけを［フィールドの値を変えたとき］にして、［どのフィールド］に「テーブル名 ＞ 開始日」を選びます。動作は［値を入れる］で、入れるフィールドにその行の終了日、［対象の行］に［変えた行だけ］を選びます。開始日を入れた行だけが計算され、ほかの行で手で直した値はそのまま残ります。',
+    a: 'はい。きっかけを［フィールドの値を変えたとき］にして、［どのフィールド］に「テーブル名 ＞ 開始日」を選びます。動作は［値を入れる］で、入れるフィールドにその行の終了日、［対象の行］に［変えた行だけ］を選びます。開始日を入れた行だけが計算され、ほかの行で手で直した値はそのまま残ります。Excel 一括貼り付けや行の複製と一緒に使っても、貼り付けた値は消えません。',
   },
   {
     q: 'レコードに宛先を付けてコメントを書き、担当者へ通知できますか？',
@@ -227,7 +227,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.9.0",
+          "softwareVersion": "1.9.1",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -572,22 +572,18 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.7.0) -->
+    <!-- Update Info (v1.9.1) -->
     <section class="kbp-section">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.7.0：他のプラグインが書き込んだレコードを、チャット通知で送れるようにしました</h2>
+          <h2 class="update-title">v1.9.1：テーブルの列を変えたときのルールを、ほかのプラグインと一緒に使いやすく改善しました</h2>
         </div>
-        <p class="update-desc">KIZUNAブリッジ for kintone を v1.7.0 にアップデートしました。</p>
-        <p class="update-desc"><strong>動かす内容に［書き込まれたレコードをチャット通知で送る］を加えました。</strong>きっかけ［KIZUNA Works のプラグインでレコードを変えたとき］で選べます。他のプラグインが書き込んだレコードを、書き込み先のアプリに入れたチャット通知で Slack・Teams・Google Chat・LINE WORKS・Chatwork へ送ります。送るかどうか・本文は、そのアプリのチャット通知の通知ルールで決めます。</p>
-        <figure class="update-shot">
-          <Picture src="/images/bridge-v170-cnotify.png" alt="ルールの設定画面。きっかけはKIZUNA Works のプラグインでレコードを変えたとき、どのプラグインに付箋ボードを選んでいる。このルールでやることは「付箋ボードで変えたとき、書き込まれたレコードをチャット通知で送る」と表示されている" width="1366" height="1000" class="zoomable" />
-          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-        </figure>
-        <p class="update-desc"><strong>付箋ボードの付箋を、チャットへ送れます。</strong>付箋ボード（v1.3.0 以降）は付箋を別のアプリ（保管アプリ）に書き込みます。書き込み先が別のアプリのときは、ルールの条件は使いません。送る付箋の絞り込みは、保管アプリのチャット通知の条件で行います（例：対応済みになったときだけ）。かんたん一括更新のように同じアプリへ書き込むプラグインでは、ルールの条件で絞れます。</p>
-        <p class="update-desc"><strong>［どのプラグイン］に 3 製品を加えました。</strong>付箋ボード・エクセル一括貼り付け・関連レコード拡張で書き込まれたレコードにも、ルールを当てられます。</p>
-        <p class="update-note">既存ユーザーの方は、最新版（v1.7.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
+        <p class="update-desc">KIZUNAブリッジ for kintone を v1.9.1 にアップデートしました。</p>
+        <p class="update-desc"><strong>Excel 一括貼り付けや行の複製と一緒に使っても、貼り付けた値が残るよう改善しました。</strong>きっかけ［フィールドの値を変えたとき］のルールがテーブルへ書き込むとき、テーブルの行を作り直さず、ルールが変えた欄だけを書き込みます。貼り付けた他の列の値が消えたり、一部の行にだけ書き込まれたりしません。</p>
+        <p class="update-desc"><strong>貼り付けや複製をしても、重くならないよう改善しました。</strong>続けて起きた変更は、まとめて 1 回で処理します。</p>
+        <p class="update-desc"><strong>［変えた行だけ］の対象を、より正確に改善しました。</strong>ほかのプラグインがまとめて書き換えた行も対象になるので、貼り付けや複製をしたすべての行に値が入ります。保存済みの行を並べ替えただけのときは、変えた行とみなしません。手で入れた値は上書きされません。</p>
+        <p class="update-note">既存ユーザーの方は、最新版（v1.9.1）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
       </div>
     </section>
 
@@ -652,7 +648,7 @@ const faqJsonLd = {
               <li>値を入れる</li><li>空にする</li><li>集計</li><li>行を足す</li><li>行を消す</li><li>コメントを書く</li><li>エラーで止める</li><li>確認してから進める</li><li>お知らせ</li>
             </ul>
             <p>条件に合えば値を入れる、テーブルの合計を出す、といった入力の自動化に加えて、<strong>条件に合わない保存やアクションを止める</strong>・<strong>確認してから進める</strong>こともできます。</p>
-            <p><strong>テーブルの列にも、行ごとに入れられます。</strong>値を入れる・空にするの［入れるフィールド］に、テーブルの列を選べます。その行の値を使って計算するので、「各行の開始日の月の末日を、同じ行の締め日へ」のような入力を、行の数だけ手で直す必要がなくなります。すでに値があるときは、［上書きする］か［空のときだけ入れる］を選べます。一覧の一括実行でも動きます。きっかけ［フィールドの値を変えたとき］でテーブルの列を選び、［対象の行］を［変えた行だけ］にすると、列を変えた行だけを計算します。</p>
+            <p><strong>テーブルの列にも、行ごとに入れられます。</strong>値を入れる・空にするの［入れるフィールド］に、テーブルの列を選べます。その行の値を使って計算するので、「各行の開始日の月の末日を、同じ行の締め日へ」のような入力を、行の数だけ手で直す必要がなくなります。すでに値があるときは、［上書きする］か［空のときだけ入れる］を選べます。一覧の一括実行でも動きます。きっかけ［フィールドの値を変えたとき］でテーブルの列を選び、［対象の行］を［変えた行だけ］にすると、列を変えた行だけを計算します。Excel 一括貼り付けや行の複製のように、ほかのプラグインがまとめて書き換えた行も対象になり、貼り付けた他の列の値は残ります。保存済みの行を並べ替えただけのときは、変えた行とはみなしません。</p>
             <p><strong>コメントを書いて、宛先に知らせます。</strong>動作［コメントを書く］は、このレコードに、宛先（ユーザー・組織・グループ）を付けてコメントを書きます。kintone の通知が宛先の人に届きます。宛先は、固定で選ぶ・このレコードのフィールドから取る・テーブルの行の列から取る、のどれでも指定できます。重複した宛先は除き、10 件を超えるときは 10 件ずつに分けて書きます。コメントを書けなくても、保存は止めず、お知らせで知らせます。きっかけは、保存した後・プロセス管理のアクションの後・ボタン・一覧の一括実行です。</p>
             <p class="kbp-example"><strong>例：</strong>金額が 100 万円を超える見積を「承認依頼」に進めるときだけ、確認の画面を出す。</p>
           </div>
