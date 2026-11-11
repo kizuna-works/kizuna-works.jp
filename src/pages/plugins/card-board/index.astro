@@ -8,6 +8,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 import TrialBanner from '../../../components/TrialBanner.astro';
 import HeroDownload from '../../../components/HeroDownload.astro';
 import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
+import Picture from '../../../components/Picture.astro';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 ---
 
@@ -53,10 +54,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "カードボード for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "1.3.0",
-          "dateModified": "2026-11-10",
+          "softwareVersion": "1.4.0",
+          "dateModified": "2026-11-12",
           "url": "https://kizuna-works.jp/plugins/card-board/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-card-board-v1.3.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-card-board-v1.4.0.zip",
           "image": "https://kizuna-works.jp/images/card-board-banner.png",
           "offers": [
             {
@@ -76,7 +77,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、複数ビューへの適用が無制限・広告非表示になり、ちょこっと＆プレミアムプラグインすべても利用できます。単品販売はありません。"
             }
           ],
-          "description": "kintone のレコード一覧を「状態カード（上部）＋詳細カード（下部）」の2段カンバンに切り替えるプラグイン。詳細カードを状態カードへドラッグ&ドロップしてステータス・選択肢・文字列の値を変更でき、状態別の件数・集計値を全幅で俯瞰できる。連動（カンバン）/個別（ギャラリー）モード・添付サムネイル・ライブプレビュー付き設定に対応する。連動モードでは下段のレーンへ直接ドロップでき、ドラッグ中は画面が自動でスクロールし、状態カードを画面の上に固定する設定もある。カードのドラッグで KIZUNAブリッジのルールを動かせ、日本語・英語・中国語（簡体字）で表示できる。",
+          "description": "kintone のレコード一覧を「状態カード（上部）＋詳細カード（下部）」の2段カンバンに切り替えるプラグイン。詳細カードを状態カードへドラッグ&ドロップしてステータス・選択肢・文字列の値を変更でき、状態別の件数・集計値を全幅で俯瞰できる。連動（カンバン）/個別（ギャラリー）モード・添付サムネイル・ライブプレビュー付き設定に対応する。連動モードでは下段のレーンへ直接ドロップでき、ドラッグ中は画面が自動でスクロールし、状態カードを画面の上に固定する設定もある。カードに添付ファイル名を並べ、クリックで添付ファイルプレビューを開ける。カードのドラッグで KIZUNAブリッジのルールを動かせ、日本語・英語・中国語（簡体字）で表示できる。",
           "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
           "featureList": [
             "レコード一覧を「状態カード＋詳細カード」の2段カンバンUIに切替表示",
@@ -93,6 +94,9 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "連動モードでは、詳細カードを上段の状態カードだけでなく、下段の状態のレーンへ直接ドロップして値を変更",
             "ドラッグ中に画面の上端・下端へ寄せると自動でスクロール（連動・個別の両モード）",
             "状態カード（上段）を、スクロールしても画面の上に固定する設定（既定オフ）",
+            "詳細カードの表示項目にカーソルを合わせると、フィールド名を表示（文字が切れているときはフィールド名と値・設定でオフにできる）",
+            "添付ファイルのフィールドを表示項目に置き、カードにファイル名を並べる",
+            "カードのファイル名をクリックすると、添付ファイルプレビュー（v2.9.0 以降）または添付ファイル Pro（v1.8.0 以降）のプレビューがその場で開く（レコードを開かずに中身を確認）",
             "KIZUNAブリッジ連携：カードのドラッグでフィールドやステータスを変えたとき、ブリッジのルールを動かせる（ブリッジ v1.5.1 以降）",
             "日本語・英語・中国語（簡体字）に対応",
             "設定画面の色の欄に共通のカラーパレット",
@@ -349,78 +353,47 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       <img class="afp-hero-icon" src="/images/card-board-icon.png" alt="カードボード for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v1.3.0</span>
+        <span class="afp-hero-version">v1.4.0</span>
       </div>
       <HeroSubBadges pluginId="kw-card-board" />
       <h1>カードボード for kintone</h1>
       <p class="afp-tagline">一覧を、動かせるカードボードに。</p>
-      <p class="afp-sub">レコード一覧を「状態カード＋詳細カード」の2段カンバンに切り替え。詳細カードを状態カードや下段のレーンへドラッグ&ドロップするだけでステータスを変更でき、ドラッグ中は画面が自動でスクロール。状態別の件数・合計を一目で俯瞰できます。勤務時間などの時間も「〇時間〇分」で集計できます。カードのドラッグで KIZUNAブリッジのルールを動かせ、日本語・英語・中国語（簡体字）にも対応。「表の一覧では進捗が掴めない」を解消します。</p>
-      <HeroDownload href="/downloads/kw-card-board-v1.3.0.zip" premium />
+      <p class="afp-sub">レコード一覧を「状態カード＋詳細カード」の2段カンバンに切り替え。詳細カードを状態カードや下段のレーンへドラッグ&ドロップするだけでステータスを変更でき、ドラッグ中は画面が自動でスクロール。状態別の件数・合計を一目で俯瞰できます。勤務時間などの時間も「〇時間〇分」で集計できます。カードに添付ファイル名を並べ、クリックでプレビューも開けます。カードのドラッグで KIZUNAブリッジのルールを動かせ、日本語・英語・中国語（簡体字）にも対応。「表の一覧では進捗が掴めない」を解消します。</p>
+      <HeroDownload href="/downloads/kw-card-board-v1.4.0.zip" premium />
     </section>
     <div class="afp-hero-gradient-line"></div>
 
-    <!-- Update Info (v1.3.0) -->
+    <!-- Update Info (v1.4.0) -->
     <section class="afp-section">
       <div class="afp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.3.0：カードが多くても、下の方のカードを別の状態へ動かしやすくなりました</h2>
+            <h2 class="update-title">v1.4.0：カードの添付ファイルを、レコードを開かずに確認できるように改善しました</h2>
           </div>
-          <p class="update-desc">カードボード for kintone を v1.3.0 にアップデートしました。</p>
-          <p class="update-desc">カードが多いと、下の方のカードをつかんだときに上段の状態カードが画面の外にあり、ドラッグしたまま届きませんでした。次の 3 点を改善しました。</p>
-          <p class="update-desc"><strong>連動モードで、下段のレーンへ直接ドロップできるようになりました。</strong>詳細カードを、隣の状態のレーン（下段の列）に落とすだけで値が変わります。上段の状態カードへのドロップも、従来どおり使えます。レーンの上にカーソルが来ると、そのレーンと上段の状態カードに点線の枠が付きます。</p>
+          <p class="update-desc">カードボード for kintone を v1.4.0 にアップデートしました。</p>
+          <p class="update-desc"><strong>添付ファイルのフィールドを、カードの表示項目に置けるようになりました。</strong>設定画面の「フィールドを追加」の候補に添付ファイルが加わり、カードにファイル名が並びます。</p>
           <div class="update-shot">
             <div class="screenshot-frame">
-              <picture>
-                <source srcset="/images/card-board-v130-01.webp" type="image/webp" />
-                <img
-                  class="zoomable"
-                  src="/images/card-board-v130-01.png"
-                  alt="連動モードで詳細カードを隣のレーン「進行中」へドラッグしている画面。ドロップ先のレーンと、上段の「進行中」の状態カードに点線の枠が付いている"
-                  loading="lazy"
-                  width="1400"
-                  height="900"
-                />
-              </picture>
+              <Picture class="zoomable" src="/images/card-board-update-v140-01.png" alt="カードボードの画面。カードに「見積書.pdf」「現場写真.jpg」などの添付ファイル名が並んでいる" width="1400" height="690" />
             </div>
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
-          <p class="update-desc"><strong>ドラッグ中に、画面が自動でスクロールするようになりました。</strong>連動・個別のどちらのモードでも、カーソルを画面の上端・下端へ寄せると、その方向へスクロールします。端に近いほど速く動き、離すと止まります。</p>
-          <p class="update-desc"><strong>状態カード（上段）を、画面の上に固定できるようになりました。</strong>設定画面の［① 基本設定］で「下へスクロールしても、状態カード（上段）を画面の上に固定する」にチェックを入れると、スクロールしても上段が kintone のヘッダーの下に残ります。既定はオフです。</p>
+          <p class="update-desc"><strong>カードのファイル名をクリックすると、その場でプレビューが開きます。</strong>同じアプリに添付ファイルプレビュー（v2.9.0 以降）または添付ファイル Pro（v1.8.0 以降）が入っていれば、レコードを開かずに中身を確認できます。開き方やダウンロードの制限は、プレビュー側の設定のとおりです。どちらも入っていないアプリでは、ファイル名の表示だけになります。</p>
           <div class="update-shot">
             <div class="screenshot-frame">
-              <picture>
-                <source srcset="/images/card-board-v130-04.webp" type="image/webp" />
-                <img
-                  class="zoomable"
-                  src="/images/card-board-v130-04.png"
-                  alt="設定画面の「ドラッグ&ドロップによる値変更」カード。「下へスクロールしても、状態カード（上段）を画面の上に固定する」のチェックボックスが加わっている"
-                  loading="lazy"
-                  width="1326"
-                  height="349"
-                />
-              </picture>
+              <Picture class="zoomable" src="/images/card-board-update-v140-02.png" alt="カードのファイル名をクリックして開いた PDF のプレビュー。下にほかの添付ファイルのサムネイルが並んでいる" width="1400" height="900" />
             </div>
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
+          <p class="update-desc"><strong>詳細カードの表示項目にカーソルを合わせると、フィールド名が表示されます。</strong>文字が切れているときは、フィールド名と値を表示します。設定画面の詳細カードのオプションで、オフにできます（既定はオン）。</p>
           <div class="update-shot">
             <div class="screenshot-frame">
-              <picture>
-                <source srcset="/images/card-board-v130-02.webp" type="image/webp" />
-                <img
-                  class="zoomable"
-                  src="/images/card-board-v130-02.png"
-                  alt="状態カードの固定をオンにして下へスクロールした画面。上段の状態カードが kintone のヘッダーの直下に残り、その下にカードが続いている"
-                  loading="lazy"
-                  width="1400"
-                  height="680"
-                />
-              </picture>
+              <Picture class="zoomable" src="/images/card-board-update-v140-03.png" alt="設定画面の詳細カードのレイアウト。添付ファイルのファイル名の注記と、「表示項目にカーソルを合わせたとき、フィールド名を表示する」のチェックボックスが表示されている" width="1400" height="1000" />
             </div>
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
-          <p class="update-note">既存ユーザーの方は、最新版（v1.3.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+          <p class="update-note">既存ユーザーの方は、最新版（v1.4.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
           <BridgeUpdateNote />
         </div>
       </div>
@@ -452,6 +425,18 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             <img class="zoomable" src="/images/card-board-dnd.png" alt="カードボードのドラッグ&ドロップ操作 — 「提案」ステージの案件カードをつかんで「交渉」ステージへドラッグしており、移動先の状態カードが点線でハイライトされている。ドロップするとステージ（ステータス）が変わる" width="1400" height="640" loading="lazy" />
           </picture>
           <figcaption class="afp-shot-cap">詳細カードを状態カードへドラッグ&ドロップ → その状態へ値が変わる（プロセス管理の遷移制約に準拠）</figcaption>
+        </figure>
+        <figure class="afp-shot" style="margin-top:28px;">
+          <Picture class="zoomable" src="/images/card-board-v130-01.png" alt="連動モードで詳細カードを隣のレーン「進行中」へドラッグしている画面。ドロップ先のレーンと、上段の「進行中」の状態カードに点線の枠が付いている" width="1400" height="900" />
+          <figcaption class="afp-shot-cap">連動モードでは、下段のレーンへ直接ドロップできます（ドロップ先に点線の枠が付きます）</figcaption>
+        </figure>
+        <figure class="afp-shot" style="margin-top:28px;">
+          <Picture class="zoomable" src="/images/card-board-v130-02.png" alt="状態カードの固定をオンにして下へスクロールした画面。上段の状態カードが kintone のヘッダーの直下に残り、その下にカードが続いている" width="1400" height="680" />
+          <figcaption class="afp-shot-cap">状態カード（上段）を固定すると、スクロールしても画面の上に残ります</figcaption>
+        </figure>
+        <figure class="afp-shot" style="margin-top:28px;">
+          <Picture class="zoomable" src="/images/card-board-v130-04.png" alt="設定画面の「ドラッグ&ドロップによる値変更」カード。「下へスクロールしても、状態カード（上段）を画面の上に固定する」のチェックボックスが加わっている" width="1326" height="349" />
+          <figcaption class="afp-shot-cap">設定画面の［① 基本設定］で、上段の固定を選べます（既定はオフ）</figcaption>
         </figure>
         <figure class="afp-shot" style="margin-top:28px;">
           <picture>
@@ -562,6 +547,14 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           <div class="afp-feat-card">
             <h3>添付サムネイル</h3>
             <p>詳細カードに添付ファイルの画像を<strong>サムネイル表示</strong>。配置（上/下/左/右）・表示方法（cover＝埋める / contain＝全体表示）・サイズ・背景色を指定でき、遅延読込＋キャッシュで軽快に表示します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>カードの添付ファイルをその場でプレビュー</h3>
+            <p>添付ファイルのフィールドを表示項目に置くと、カードにファイル名が並びます（v1.4.0〜）。ファイル名をクリックすると、<strong>レコードを開かずに</strong>添付ファイルプレビュー（v2.9.0 以降）／添付ファイル Pro（v1.8.0 以降）のプレビューが開きます。開き方・ダウンロードの制限はプレビュー側の設定どおりです。どちらも入っていないアプリでは、ファイル名の表示だけです。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>項目名をカーソルで確認</h3>
+            <p>詳細カードの表示項目にカーソルを合わせると<strong>フィールド名</strong>を表示します。文字が切れているときは、フィールド名と値を表示します（v1.4.0〜・設定でオフにできます）。</p>
           </div>
           <div class="afp-feat-card">
             <h3>ライブビュー編集</h3>
@@ -695,7 +688,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               <li>✅ 連動/個別モード・添付サムネイル・ライブ編集</li>
               <li>✅ 利用期限なし（レコード一覧画面に控えめな広告あり）</li>
             </ul>
-            <a href="/downloads/kw-card-board-v1.3.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-card-board-v1.4.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
           </div>
 
           <div class="afp-plan-card recommended">
@@ -846,10 +839,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       if (dl && typeof gtag === 'function') {
         dl.addEventListener('click', function () {
           gtag('event', 'file_download', {
-            file_name: 'kw-card-board-v1.3.0.zip',
+            file_name: 'kw-card-board-v1.4.0.zip',
             file_extension: 'zip',
             link_text: '無料でダウンロード',
-            link_url: '/downloads/kw-card-board-v1.3.0.zip'
+            link_url: '/downloads/kw-card-board-v1.4.0.zip'
           });
         });
       }
