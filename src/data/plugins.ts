@@ -258,7 +258,7 @@ export const plugins: Plugin[] = [
     problemTitle: '複数フィールドを横断検索',
     problemDesc: '標準の絞り込みパネルでは操作が面倒。「商品A 赤」のような語句や完全一致で探せない。関連レコードの案件名や担当者名、ユーザー選択の欄の名前や、添付ファイルのファイル名からも、元のレコードを探せない',
     releaseDate: '2026-05-03',
-    summaryVersion: '1.9.0',
+    summaryVersion: '1.9.1',
   },
   {
     id: 'kw-file-icon-marker',
@@ -1440,7 +1440,7 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       '検索すると絞り込みの選択が消える、絞り込んだ結果と集計の数字がそろわない、今どんな条件で見ているのか分からない。毎回同じ条件を作り直し、CSV にしても条件がどこにも残らない',
     releaseDate: '2026-10-25',
-    summaryVersion: '1.8.0',
+    summaryVersion: '1.8.1',
     bridge: 'ブリッジのルールから、全員用の保存した検索の結果を CSV にして、レコードの添付ファイル欄に入れられます。',
     bundles: [
       { id: 'kw-quick-search', role: '検索バー' },

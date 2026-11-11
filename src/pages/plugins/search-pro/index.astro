@@ -7,7 +7,7 @@ import { plugins, premiumPlugins } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.8.0';
+const VERSION = '1.8.1';
 const ZIP = `/downloads/kw-search-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/search-pro/';
 const DATE_MODIFIED = '2026-11-11';
@@ -135,7 +135,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.8.0",
+          "softwareVersion": "1.8.1",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -478,16 +478,22 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.8.0) -->
+    <!-- Update Info (v1.8.1) -->
     <section class="kbp-section">
       <div class="kbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.8.0：検索バーの「期間」の対象の日付フィールドを、好きな順に並べ替えられるようになりました</h2>
+            <h2 class="update-title">v1.8.1：検索対象の項目が多くても検索できるように改善しました</h2>
           </div>
-          <p class="update-desc">サーチ Pro for kintone を v1.8.0 にアップデートしました（2026年11月11日）。クイックサーチ v1.9.0 を取り込んでいます。</p>
-          <h3 class="kbp-h3">よく使う日付フィールドを、「期間」の上に置けます</h3>
+          <p class="update-desc">サーチ Pro for kintone を v1.8.1 にアップデートしました（2026年11月11日）。クイックサーチ v1.9.1 を取り込んでいます。</p>
+          <h3 class="kbp-h3">検索対象の項目が多くても、検索できます</h3>
+          <ul class="update-list">
+            <li>検索対象のフィールドを多く選んでいると、1 語でも「検索条件が長すぎるため検索できません」と出ることがありました。</li>
+            <li>条件が長すぎるときだけ、そのキーワードが入っていない項目を条件から外して一覧を開きます。結果は外す前と同じです。</li>
+            <li>このときは、kintone の API を検索 1 回につき 2 回使います（アプリごとの 1 日の上限に数えられます）。条件が収まる普段の検索では、この確認は行いません。</li>
+          </ul>
+          <h3 class="kbp-h3">よく使う日付フィールドを、「期間」の上に置けます（v1.8.0）</h3>
           <ul class="update-list">
             <li>設定画面の「並び順」で、つまみのドラッグまたは［↑］［↓］で並べ替えます。</li>
             <li>一覧の検索バーの「期間」のドロップダウンはその順に並び、一番上が最初に選ばれます。</li>
@@ -502,7 +508,7 @@ const faqJsonLd = {
             <Picture src="/images/quick-search-v190-list.png" alt="一覧の検索バーの「期間」のドロップダウン。設定した並び順のとおりに日付フィールドが並び、一番上が選ばれている" width="568" height="347" class="zoomable" />
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
-          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.8.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。保存済みの順のままなので、並べ替えるまで一覧の並びは変わりません。</p>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.8.1）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。保存済みの順のままなので、並べ替えるまで一覧の並びは変わりません。</p>
         </div>
       </div>
     </section>
