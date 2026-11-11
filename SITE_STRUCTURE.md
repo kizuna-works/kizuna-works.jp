@@ -336,7 +336,8 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-conditional-form-v3-2-0-update.md  # 条件分岐フォーム v3.2.0 のお知らせ（2026-10-22 20:00・計算フィールドなどを条件にしたルールが入力中に反応）
 │   │   │   ├── plugin-conditional-form-v3-1-0-update.md  # 条件分岐フォーム v3.1.0 のお知らせ（2026-10-22）
 │   │   │   ├── plugin-conditional-form-v3-0-0-update.md  # 条件分岐フォーム v3.0.0 のお知らせ（2026-10-20）
-│   │   │   └── plugin-lookup-suggest-v330.md  # ルックアップサジェスト v3.3.0 のお知らせ（2026-10-20 12:00・区切りの無い英数字のコードも途中から候補が出る）
+│   │   │   ├── plugin-lookup-suggest-v330.md  # ルックアップサジェスト v3.3.0 のお知らせ（2026-10-20 12:00・区切りの無い英数字のコードも途中から候補が出る）
+│   │   │   └── plugin-lookup-suggest-v340.md  # ルックアップサジェスト v3.4.0 のお知らせ（2026-11-11 15:00・入力中の候補を ↓↑・Enter キーで選べる）
 │   │   │   ├── free-lookup-release.md          # フリールックアップ v1.0.0 公開のお知らせ（2026-10-21）
 │   │   │   ├── free-lookup-v110-update.md       # フリールックアップ v1.1.0 アップデートのお知らせ（2026-10-22）
 │   │   │   ├── free-lookup-v120-update.md       # フリールックアップ v1.2.0 アップデートのお知らせ（2026-10-22・まとめて探す／入力中の候補）
@@ -571,6 +572,8 @@ c:\kizuna-works.jp\
 │   │   ├── lookup-suggest-config-04.png    # ルックアップサジェスト v3.2.0 設定画面 — 「kintone のルックアップの設定に従う」の一覧（番号付き）と項目ごとの検索の印
 │   │   ├── lookup-suggest-config-05.png    # ルックアップサジェスト v3.2.0 設定画面 — 「ここで選ぶ」の「表示する順番」（▲▼で並べ替え）
 │   │   ├── lookup-suggest-config-06.png    # ルックアップサジェスト v3.2.0 設定画面 — ルックアップごとのアコーディオン（見出しに名前と要約・すべて開く／すべて閉じる）
+│   │   ├── lookup-suggest-v340-keyboard-space.png  # ルックアップサジェスト v3.4.0 UPDATE — スペース表示の候補を ↓ キーで選んだ状態（強調）＋ .webp
+│   │   ├── lookup-suggest-v340-keyboard-table.png  # ルックアップサジェスト v3.4.0 UPDATE — テーブル内の欄に浮かせた候補を ↓ キーで選んだ状態＋ .webp
 │   │   ├── quick-search-v190-config.png    # クイックサーチ v1.9.0 UPDATE スクショ — 設定画面の「並び順」（1081×272）
 │   │   ├── quick-search-v190-list.png      # クイックサーチ v1.9.0 UPDATE スクショ — 一覧の「期間」ドロップダウン（568×347）
 │   │   ├── quick-search-v180-list.png      # クイックサーチ v1.8.0 UPDATE スクショ — 添付のファイル名「注文書」で 2 件に絞り込んだ一覧（1280×700）
@@ -1763,7 +1766,9 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-suggest-v3.1.0.zip  # ルックアップサジェスト for kintone 配布ファイル（旧版・2026-10-05・v3.1.0：スペースに表示するルックアップは、詳細画面では案内を出さずスペースを隠す〔設定で案内を出せる〕）
 │   │   ├── kw-lookup-suggest-v3.2.0.zip  # ルックアップサジェスト for kintone 配布ファイル（旧版・2026-10-10・v3.2.0：候補を kintone の設定どおりの項目・並びに／文字列以外も検索／設定画面の見直し）
 │   │   ├── kw-lookup-suggest-v3.2.1.zip  # ルックアップサジェスト for kintone 配布ファイル（2026-10-13・v3.2.1：「+」を含む語を入力したときに候補が出ない不具合の改善）
-│   │   ├── kw-lookup-suggest-v3.2.2.zip  # ルックアップサジェスト for kintone 配布ファイル（最新・2026-10-13・v3.2.2：「+」を含む語の検索で、レコードの多いアプリでも目的のレコードが候補に出る・表示が速く）
+│   │   ├── kw-lookup-suggest-v3.2.2.zip  # ルックアップサジェスト for kintone 配布ファイル（2026-10-13・v3.2.2：「+」を含む語の検索で、レコードの多いアプリでも目的のレコードが候補に出る・表示が速く）
+│   │   ├── kw-lookup-suggest-v3.3.0.zip  # ルックアップサジェスト for kintone 配布ファイル（旧版・2026-10-20・v3.3.0：区切りの無い英数字のコードも途中から候補が出る）
+│   │   ├── kw-lookup-suggest-v3.4.0.zip  # ルックアップサジェスト for kintone 配布ファイル（最新・2026-11-11・v3.4.0：入力中の候補を ↓↑・Enter キーで選べる・多言語対応）
 │   │   ├── kw-lookup-sync-v1.0.0.zip                             # ルックアップ自動同期 for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=参照先1組で全機能）
 │   │   ├── kw-lookup-sync-v1.0.1.zip                             # ルックアップ自動同期 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-lookup-sync-v2.0.2.zip                             # ルックアップ自動同期 for kintone v2.0.2 配布ファイル（重複しうるキー対応＝方式1/方式2・入力補完・PC/モバイル）
