@@ -7,7 +7,7 @@ import { plugins, premiumPlugins } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.4.0';
+const VERSION = '1.5.0';
 const ZIP = `/downloads/kw-lookup-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/lookup-pro/';
 const DATE_MODIFIED = '2026-11-11';
@@ -133,7 +133,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.4.0",
+          "softwareVersion": "1.5.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -159,10 +159,10 @@ const faqJsonLd = {
           description: 'ルックアップ Pro for kintone は、kintone のルックアップについて、入力中の候補表示・候補の絞り込み・マスターのその場登録・フリールックアップ・マスター更新の自動反映の5つの機能を1つの設定画面で使えるプラグイン。ルックアップの欄ごとに入力中の候補表示・候補の絞り込み・マスターのその場登録の設定の有無を確認できる「欄ごとの一覧」、入力中の候補表示とその場登録の設定をまとめて作る「まとめて設定」、絞り込みの条件を引き継いでその場登録で条件に合うマスターしか登録できなくする機能（条件を固定できるとき）、フリールックアップの取得元が更新されたときに詳細画面で知らせる機能、ルックアップで取得したときに取得元のテーブルの行をこのアプリのテーブルへ写す「テーブルのコピー」に対応。同じアプリにもとのプラグインが入っているときは、その機能はもとのプラグインが動く。もとのプラグインの設定は［単品の設定を読み込む］で引き継げる。kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示する。',
           publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
           featureList: [
-            '入力中の候補表示：ルックアップに文字を入れると、その場で候補が出て、↓↑ キーと Enter キーだけでも選べて、選ぶと取得まで終わる',
+            '入力中の候補表示：ルックアップに文字を入れると、その場で候補が出て、↓↑ キーと Enter キーだけでも選べて、選ぶと取得まで終わる。候補の数値・日時は参照先のフィールドの設定どおりに表示',
             '候補の絞り込み：［取得］で出る候補を、同じレコードで入力済みの値で絞る（場面ごとに最大10通り）。数値・計算の列は単位・桁区切りどおり、添付ファイルの画像はサムネイルで表示',
             'マスターのその場登録：参照先のマスターに無いとき、［＋新規登録］でその場で登録して取得する',
-            'フリールックアップ：文字列（1行）フィールドの横に［取得］を出し、別のアプリから値をコピーする',
+            'フリールックアップ：文字列（1行）フィールドの横に［取得］を出し、別のアプリから値をコピーする（候補の一覧の数値・日時は参照先のフィールドの設定どおりに表示。このアプリ自身を参照するときは、開いているレコード自体が候補に出ないことを案内）',
             'マスター更新の自動反映：マスターを更新すると、ルックアップでコピーしているルックアップを持つアプリの既存レコードも更新する（キーが重複禁止なら自動、重複しうるときは方式を選ぶ）',
             '欄ごとの一覧：ルックアップの欄ごとに、候補表示・絞り込み・その場登録の設定の有無と、見直しが必要な設定を確認する',
             'まとめて設定：ルックアップの設定から、入力中の候補表示とその場登録の設定をまとめて作る',
@@ -476,31 +476,28 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.4.0) -->
+    <!-- Update Info (v1.5.0) -->
     <section class="kbp-section">
       <div class="kbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.4.0：入力中の候補を、キーボードだけで選べるようになりました</h2>
+            <h2 class="update-title">v1.5.0：候補の一覧の数値と日時を、参照先アプリの設定どおりに表示します</h2>
           </div>
-          <p class="update-desc">ルックアップ Pro for kintone を v1.4.0 にアップデートしました（2026年11月11日・ルックアップサジェスト v3.4.0 を取り込み）。入力中に出る候補を、↓ ↑ キーと Enter キーで選べます。</p>
-          <h3 class="kbp-h3">入力中の候補を、キーボードで選べるようにしました</h3>
+          <p class="update-desc">ルックアップ Pro for kintone を v1.5.0 にアップデートしました（フリールックアップ v1.4.0・ルックアップサジェスト v3.5.0 を取り込み）。</p>
+          <h3 class="kbp-h3">候補に出る数値と日時が、参照先で見ているとおりに並びます</h3>
           <ul class="update-list">
-            <li><strong>↓ ↑ キーで候補を移り、Enter キーで確定します。</strong>選んでいる候補は、色と左の線で分かります。確定すると、ルックアップの取得まで進みます。</li>
-            <li><strong>Esc キーで選択を外します。</strong>テーブル内の浮かせた一覧は閉じます。</li>
-            <li><strong>通常のルックアップ欄と、テーブル内の欄のどちらでも使えます。</strong>候補を選んでいないときの Enter は、これまでどおり kintone 標準の動きです。日本語の変換中のキー操作は、変換に使われます。</li>
+            <li><strong>数値・計算（数値の書式）</strong>は、桁区切り・小数点以下の表示桁数・単位記号（前／後ろ）を、参照先のフィールドの設定どおりに表示します。</li>
+            <li><strong>日時・作成日時・更新日時・計算の日時</strong>は、ユーザーのタイムゾーンで「YYYY-MM-DD HH:mm」と表示します。</li>
+            <li>変わるのは表示だけです。絞り込み・キーワードの当たり方・取得・コピーされる値は、これまでどおりです。</li>
+            <li>フリールックアップでこのアプリ自身を参照するとき、開いているレコード自体は候補に出ません。そのことが分かるよう、「開いているこのレコード自体は候補に表示されません。」と案内を出します。</li>
           </ul>
           <figure class="update-shot">
-            <p class="shot-label">スペースフィールドに表示した候補</p>
-            <Picture class="zoomable" src="/images/lookup-suggest-v340-keyboard-space.png" alt="ルックアップ欄に入力すると、スペースフィールドに候補が並び、↓キーで選んだ 1 件が色と左の線で強調されている画面" width="470" height="309" />
-          </figure>
-          <figure class="update-shot">
-            <p class="shot-label">テーブル内の欄に浮かせた候補</p>
-            <Picture class="zoomable" src="/images/lookup-suggest-v340-keyboard-table.png" alt="テーブル内のルックアップ欄の直下に浮かせた候補が表示され、↓キーで選んだ 1 件が強調されている画面" width="292" height="290" />
+            <p class="shot-label">フリールックアップの候補の一覧</p>
+            <Picture class="zoomable" src="/images/lookup-pro-v150-display.png" alt="フリールックアップで開いた候補の一覧。金額に円と桁区切り、重量に kg の単位、計算の列に小数点以下の桁数、日時に 2026-01-01 18:00 の形式が表示されている" width="960" height="430" />
           </figure>
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.4.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定の変更は要りません。保存済みの設定は、そのまま引き継がれます。</p>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.5.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定の変更は要りません。保存済みの設定は、そのまま引き継がれます。</p>
         </div>
       </div>
     </section>
@@ -816,10 +813,10 @@ const faqJsonLd = {
         </ul>
         <h3 class="kbp-h3">5つの機能と共通の機能</h3>
         <ul class="kbp-list">
-          <li>入力中の候補表示：ルックアップに文字を入れると、その場で候補が出て、↓↑ キーと Enter キーでも選べて、取得まで終わる</li>
+          <li>入力中の候補表示：ルックアップに文字を入れると、その場で候補が出て、↓↑ キーと Enter キーでも選べて、取得まで終わる。候補の数値・日時は参照先の設定どおりに表示</li>
           <li>候補の絞り込み：［取得］で出る候補を、入力済みの値で絞る（場面ごとに最大10通り。ユーザー・組織・グループ選択は、コードか名前かを選んで比べられる）</li>
           <li>マスターのその場登録：マスターに無いとき、［＋新規登録］でその場で登録して取得する</li>
-          <li>フリールックアップ：文字列（1行）フィールドの横に［取得］を出し、別のアプリから値をコピー</li>
+          <li>フリールックアップ：文字列（1行）フィールドの横に［取得］を出し、別のアプリから値をコピー。候補の一覧の数値・日時は参照先の設定どおりに表示</li>
           <li>マスター更新の自動反映：マスターを更新すると、ルックアップを持つアプリの既存レコードも更新（キーが重複禁止なら自動。重複しうるときは方式を選ぶ）</li>
           <li>多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示</li>
           <li>ゲストスペースのアプリに対応</li>
