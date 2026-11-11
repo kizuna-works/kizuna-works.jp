@@ -9,13 +9,14 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 import HeroDownload from '../../../components/HeroDownload.astro';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <Layout
   title="レコード再利用コントロール for kintone - 再利用時にコピーする項目を選べるプラグイン | KIZUNA Works"
-  description="kintone の「レコードを再利用する」で、フィールドごと・サブテーブルの列ごとに『残す（コピーする）』項目を選べるプラグイン。設定した項目だけを引き継ぎ、それ以外は再利用画面を開くと同時に自動で空欄化。ルックアップの入れ替えや、空にしたサブテーブルの初期値クリアにも対応。通常の新規作成には影響しません。kintone完結・外部API不使用。"
+  description="kintone の「レコードを再利用する」で、フィールドごと・サブテーブルの列ごとに『残す（コピーする）』項目を選べるプラグイン。設定した項目だけを引き継ぎ、それ以外は再利用画面を開くと同時に自動で空欄化。ユーザー・組織・グループごとに「残す」項目のパターンを使い分けることもできます。ルックアップの入れ替えや、空にしたサブテーブルの初期値クリアにも対応。通常の新規作成には影響しません。kintone完結・外部API不使用。"
   ogTitle="レコード再利用コントロール for kintone - 再利用時にコピーする項目を選べるプラグイン | KIZUNA Works"
-  ogDescription="kintoneの再利用で「残す」項目だけを引き継ぎ、それ以外は自動で空欄に。再利用のたびに不要な項目を手で消す手間をなくします。kintone完結・外部API不使用。"
+  ogDescription="kintoneの再利用で「残す」項目だけを引き継ぎ、それ以外は自動で空欄に。人（ユーザー・組織・グループ）ごとに残す項目を変えることもできます。再利用のたびに不要な項目を手で消す手間をなくします。kintone完結・外部API不使用。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/reuse-control/"
   ogImage="https://kizuna-works.jp/images/reuse-control-banner.png"
@@ -57,10 +58,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "レコード再利用コントロール for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.1.0",
-          "dateModified": "2026-11-09",
+          "softwareVersion": "1.2.0",
+          "dateModified": "2026-11-11",
           "url": "https://kizuna-works.jp/plugins/reuse-control/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-reuse-control-v1.1.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-reuse-control-v1.2.0.zip",
           "image": "https://kizuna-works.jp/images/reuse-control-banner.png",
           "offers": {
             "@type": "Offer",
@@ -70,7 +71,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintone の「レコードを再利用する」で、フィールドごと・サブテーブルの列ごとに『残す（コピーする）』項目を選び、それ以外を再利用画面の表示と同時に自動で空欄化する kintone プラグイン。ルックアップの入れ替えや、空にしたサブテーブルの初期値クリアにも対応。",
+          "description": "kintone の「レコードを再利用する」で、フィールドごと・サブテーブルの列ごとに『残す（コピーする）』項目を選び、それ以外を再利用画面の表示と同時に自動で空欄化する kintone プラグイン。ユーザー・組織・グループごとに「残す」項目のパターンを使い分けられます。ルックアップの入れ替えや、空にしたサブテーブルの初期値クリアにも対応。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -78,6 +79,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           },
           "featureList": [
             "「残す」にチェックした項目だけを再利用時に引き継ぎ、それ以外は再利用画面の表示と同時に自動で空欄化（ホワイトリスト方式）",
+            "「残す」項目の組み合わせを「パターン」として複数作成し、対象者（ユーザー・組織・グループ。組織は下位組織を含められる）ごとに使い分け。上から順に調べ、最初に当てはまったパターンを使用（どれにも当てはまらない人は既定のパターン）",
             "サブテーブルはテーブル単位で「残す／空にする」を選択、残す場合は列単位でクリアも可能",
             "ルックアップも他項目と同様にクリア可能（再利用画面で別のキーを取得し直して保存）",
             "「初期値もクリアする」で、空にしたサブテーブルの追加行に入る初期値（今日の日付など）も入れない",
@@ -612,6 +614,79 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       margin: 0;
     }
 
+    /* Update box (version highlight) */
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 24px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-light);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+    /* Smaller, centered screenshot inside the update box */
+    .update-shot {
+      max-width: 640px;
+      margin: 0 auto 20px;
+    }
+    .update-shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 8px;
+    }
+    .update-shot figcaption {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin: 8px 0 0;
+    }
+    .update-box .zoom-hint {
+      text-align: center;
+      color: var(--color-text-light);
+      font-size: 12px;
+      margin: 0;
+    }
+
     /* Zoomable images + lightbox overlay (small screenshots open enlarged) */
     .zoomable { cursor: zoom-in; }
     .lightbox {
@@ -700,6 +775,8 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       }
       .config-screenshots { grid-template-columns: 1fr; }
       .screenshot-pair.cols-2 { grid-template-columns: 1fr; }
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
     }
   </style>
 
@@ -717,12 +794,35 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.1.0</span>
+        <span class="hero-version">v1.2.0</span>
       </div>
       <HeroSubBadges pluginId="kw-reuse-control" />
       <h1 class="hero-title">レコード再利用コントロール for kintone</h1>
-      <p class="hero-copy">レコード再利用コントロール for kintone は、kintone 標準の「レコードを再利用する」で、<strong>「残す（コピーする）」項目だけを引き継ぎ、それ以外を再利用画面の表示と同時に自動で空欄化</strong>する kintone プラグインです。取引先ごと・案件ごとに入力し直す項目を、再利用のたびに手で消す手間がなくなります。通常の新規作成（＝再利用でない追加）には一切影響しません。</p>
-      <HeroDownload href="/downloads/kw-reuse-control-v1.1.0.zip" />
+      <p class="hero-copy">レコード再利用コントロール for kintone は、kintone 標準の「レコードを再利用する」で、<strong>「残す（コピーする）」項目だけを引き継ぎ、それ以外を再利用画面の表示と同時に自動で空欄化</strong>する kintone プラグインです。取引先ごと・案件ごとに入力し直す項目を、再利用のたびに手で消す手間がなくなります。<strong>ユーザー・組織・グループごとに「残す」項目を変える</strong>こともできます。通常の新規作成（＝再利用でない追加）には一切影響しません。</p>
+      <HeroDownload href="/downloads/kw-reuse-control-v1.2.0.zip" />
+    </section>
+
+    <!-- Update Info (v1.2.0) -->
+    <section class="section-wrapper fade-in">
+      <div class="update-box">
+        <div class="update-head">
+          <span class="update-tag">UPDATE</span>
+          <h2 class="update-title">v1.2.0：人によって「残す」項目を変えられるようになりました</h2>
+        </div>
+        <p class="update-desc">レコード再利用コントロール for kintone を v1.2.0 にアップデートしました（2026年11月11日）。</p>
+        <p class="update-desc"><strong>「残す」項目の組み合わせを「パターン」として複数作れます。</strong>パターンごとに対象者（ユーザー・組織・グループ）を指定します。組織は［下位組織を含む］を選べます。再利用した人が当てはまるパターンを上から順に調べ、最初に当てはまったものを使います。どれにも当てはまらない人には「既定のパターン」を使います。たとえば、入力担当によって、取引先を残したい人と消したい人を分けられます。</p>
+        <p class="update-desc">パターンの並び順は［↑］［↓］で変更できます。［複製］で、似たパターンをすぐに作れます。PC・モバイル・ゲストスペースに対応しています。</p>
+        <figure class="update-shot">
+          <Picture class="zoomable" src="/images/reuse-control-v120-01.png" alt="レコード再利用コントロール 設定画面 — パターンの一覧に「営業アシスタント」（組織）と「事務」（グループ）と「既定のパターン」があり、選んだパターンの名前と対象者（ユーザー・組織・グループ）を指定している。下の「通常フィールド」の表は、選んだパターンの内容に切り替わっている" width="1366" height="1750" />
+          <figcaption>パターンを2つ作った例：パターンを選ぶと、下の「残す」項目の表がそのパターンの内容に切り替わります</figcaption>
+        </figure>
+        <figure class="update-shot">
+          <Picture class="zoomable" src="/images/reuse-control-v120-02.png" alt="レコード再利用コントロール 設定画面 — 「既定のパターン」を選んだ状態。どのパターンにも当てはまらない人に使うことが表示され、下の「通常フィールド」「サブテーブル」の表は既定のパターンの内容になっている" width="1366" height="1750" />
+          <figcaption>既定のパターン：どのパターンにも当てはまらない人に使います</figcaption>
+        </figure>
+        <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        <p class="update-note">これまでの設定は、そのまま「既定のパターン」になります。パターンを追加しなければ、動きは変わりません。<br>パターンの数に上限はありません。kintone の設定の保存容量を超えるときだけ、保存前にお知らせします。<br>既存ユーザーの方は、最新バージョン（v1.2.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
+      </div>
     </section>
 
     <!-- Problem Section -->
@@ -778,6 +878,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <p class="section-subtitle">「残すものだけチェック」のシンプルな設定。プログラミング知識は不要です。</p>
         <ul class="feature-list">
           <li><span><strong>フィールド単位のホワイトリスト</strong> — 「残す（コピーする）」項目にチェックを付けるだけ。チェックを外した項目は、再利用画面を開くと同時に自動で空欄になります（既定はすべて OFF）。</span></li>
+          <li><span><strong>人によって残す項目を変える（パターン）</strong> — 「残す」項目の組み合わせを「パターン」として複数作り、対象者（ユーザー・組織・グループ）を指定できます。再利用した人が当てはまるパターンを上から順に調べ、最初に当てはまったものを使います。どれにも当てはまらない人は「既定のパターン」を使います。</span></li>
           <li><span><strong>サブテーブル（表）の制御</strong> — テーブルごとに「行を残す／空にする」を選べます。残す場合は、<strong>列単位</strong>で個別にクリアも可能。明細は作り直したいが、一部の列だけ引き継ぎたい、にも対応します。</span></li>
           <li><span><strong>ルックアップの入れ替え</strong> — ルックアップも他の項目と同じくクリアできます。クリアした場合は、再利用画面で<strong>新しいキーを取得し直して</strong>保存すれば、別の参照先に差し替えられます。</span></li>
           <li><span><strong>初期値もクリア</strong> — 空にしたサブテーブルの追加行に入る初期値（今日の日付など）も入れずに、空のままにできます（後述）。</span></li>
@@ -816,7 +917,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
     <section class="section-bg">
       <div class="section-wrapper fade-in">
         <h2 class="section-title">設定画面</h2>
-        <p class="section-subtitle">「通常フィールド」「サブテーブル（表）」「初期値の扱い」の3ブロックだけのシンプルな設定。チェックした項目が引き継がれ、外した項目は自動で空欄になります。画像はクリックで拡大できます。</p>
+        <p class="section-subtitle">「パターン」「通常フィールド」「サブテーブル（表）」「初期値の扱い」のブロックだけのシンプルな設定。チェックした項目が引き継がれ、外した項目は自動で空欄になります。画像はクリックで拡大できます。</p>
         <div class="screenshot-pair">
           <figure>
             <div class="screenshot-frame">
@@ -826,6 +927,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           </figure>
         </div>
         <ul class="feature-list" style="max-width:900px;margin:28px auto 0;">
+          <li><span><strong>パターン</strong> — 対象者（ユーザー・組織・グループ）ごとに、残す項目の組み合わせを分けられます。パターンを追加しなければ、これまでどおり1つの設定（既定のパターン）で動きます。</span></li>
           <li><span><strong>通常フィールド</strong> — 「残す」項目にチェック。「すべて残す／すべてクリア」で一括切り替えもできます。レコード番号・作成者・計算・添付ファイルなど、もともと再利用でコピーされない項目は表示されません。</span></li>
           <li><span><strong>サブテーブル（表）</strong> — 「表の行を残す」で行の維持／空にするを切り替え。残す場合は列ごとにクリアも選べます。</span></li>
           <li><span><strong>初期値の扱い</strong> — 「初期値もクリアする」で、空にした表の空行に入る初期値（今日の日付など）も入れずに空のままにします。</span></li>
@@ -839,7 +941,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコード追加画面（標準の「レコードを再利用する」から開いた画面）で動作します。PC 版・モバイル版に対応しています。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-reuse-control-v1.1.0.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-reuse-control-v1.2.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「レコード再利用コントロール for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>「残す」項目にチェック</strong>し、サブテーブル・初期値の扱いを必要に応じて設定して「保存」</span></li>
@@ -867,7 +969,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-reuse-control-v1.1.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-reuse-control-v1.2.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <SupporterPlanCard pluginId="kw-reuse-control" />
         <PremiumPlanCard />
@@ -1016,10 +1118,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-reuse-control-v1.1.0.zip',
+              file_name: 'kw-reuse-control-v1.2.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-reuse-control-v1.1.0.zip'
+              link_url: '/downloads/kw-reuse-control-v1.2.0.zip'
             });
           }
         });
