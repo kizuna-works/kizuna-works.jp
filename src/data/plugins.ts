@@ -787,7 +787,7 @@ export const plugins: Plugin[] = [
     problemTitle: '担当者の部署・連絡先を毎回手入力・承認欄を手書きしている',
     problemDesc: '日報や申請で報告者＝自分の部署・役職・連絡先を毎回調べて入力し、組織は文字列でばらつき、承認欄は手書きやハンコで運用している。印刷すると承認欄が空欄のまま出てくるうえ、本人が確認したのかも分からない',
     releaseDate: '2026-06-29',
-    summaryVersion: '1.4.0',
+    summaryVersion: '1.4.1',
   },
   {
     id: 'kw-bulk-update',
