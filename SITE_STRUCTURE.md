@@ -1494,7 +1494,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-barcode-assist-v1.0.0.zip                          # バーコードアシスト for kintone 配布ファイル（旧版・参考保管・初版）
 │   │   ├── kw-barcode-assist-v1.1.0.zip                          # バーコードアシスト for kintone 配布ファイル（旧版・参考保管・v1.1.0 未登録コード警告）
 │   │   ├── kw-barcode-assist-v1.2.0.zip                          # バーコードアシスト for kintone 配布ファイル（旧版・参考保管・v1.2.0 まとめて更新・ハンディスキャナ・GS1 の分解・DataMatrix/PDF417・ラベル用紙の型番選択・電波の届かない場所での読み取り）
-│   │   ├── kw-barcode-assist-v1.3.0.zip                          # バーコードアシスト for kintone 配布ファイル（最新・v1.3.0 多言語対応［日本語・英語・中国語］・新規作成画面のテーブルで空の行から入力・サマリ配色にカラーパレット）
+│   │   ├── kw-barcode-assist-v1.3.0.zip                          # バーコードアシスト for kintone 配布ファイル（旧版・参考保管・v1.3.0 多言語対応［日本語・英語・中国語］・新規作成画面のテーブルで空の行から入力・サマリ配色にカラーパレット）
+│   │   ├── kw-barcode-assist-v1.3.1.zip                          # バーコードアシスト for kintone 配布ファイル（最新・v1.3.1 読み取りの書き戻しで他の書き込みを消さないよう修正・「スキャンで探す」ボタンの配色）
 │   │   ├── kw-bulk-update-v1.0.0.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-bulk-update-v1.0.1.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-bulk-update-v1.0.2.zip                             # かんたん一括更新 for kintone 配布ファイル（旧版・参考保管）
