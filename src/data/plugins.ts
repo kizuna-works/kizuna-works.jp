@@ -1690,7 +1690,7 @@ export const premiumPlugins: Plugin[] = [
     formName: 'カードボード for kintone',
     subtitle: 'プレミアムプラグイン',
     slug: 'card-board',
-    bridge: 'カードをドラッグしてフィールドの値やステータスを変えたときも、ブリッジのルールが動きます。',
+    bridge: 'カードをドラッグしてフィールドの値やステータスを変えたときも、ブリッジのルールが動きます。カードの添付ファイル名をクリックすると、添付ファイルプレビュー・添付ファイル Pro のプレビューがその場で開きます。',
     multilingual: true,
     categories: ['一覧表示', '集計・計算'],
     description:
