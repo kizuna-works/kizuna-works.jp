@@ -429,6 +429,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── sheet-edit-v160.md              # シート編集 v1.6.0 アップデートのお知らせ（2026-11-04 12:00・条件ルール＝色付け・編集不可）
 │   │   │   ├── sheet-edit-v170.md              # シート編集 v1.7.0 アップデートのお知らせ（2026-11-05・日付の条件に今月／先月／来月）
 │   │   │   ├── sheet-edit-v180.md              # シート編集 v1.8.0 アップデートのお知らせ（2026-11-10・列の絞り込みが全件に効く・日付の期間・ログインユーザー・左の列の固定）
+│   │   │   ├── sheet-edit-v190.md              # シート編集 v1.9.0 アップデートのお知らせ（2026-11-11・2つ目のテーブルの表示・列ごとの幅と折り返し・絞り込みに来月／のいずれでもない／含まない）
 │   │   │   ├── record-lock-v140.md             # レコードロック v1.4.0 アップデートのお知らせ
 │   │   │   ├── record-lock-v150.md             # レコードロック v1.5.0 アップデートのお知らせ
 │   │   │   ├── sidebar-enhancer-v1-1-0-update.md # サイドバー拡張 v1.1.0 アップデートのお知らせ（変更履歴の制限 F-06・ゲストスペースの組織・グループ指定）
@@ -654,6 +655,8 @@ c:\kizuna-works.jp\
 │   │   ├── sheet-edit-v180-subtable-filter.png # シート編集 v1.8.0 スクショ — テーブルの列の▾で絞り込む（製品ページ UPDATE ボックス・.webp 併置）
 │   │   ├── sheet-edit-v180-config.png # シート編集 v1.8.0 スクショ — 設定画面（ログインユーザーと左から固定する列）（製品ページ UPDATE ボックス・.webp 併置）
 │   │   ├── sheet-edit-v180-freeze-columns.png # シート編集 v1.8.0 スクショ — 左の2列を固定した一覧（製品ページ UPDATE ボックス・.webp 併置）
+│   │   ├── sheet-edit-v190-ref-table.png # シート編集 v1.9.0 スクショ — 2つ目のテーブルの列を行番号でそろえて横に並べた一覧（製品ページ UPDATE ボックス・.webp 併置）
+│   │   ├── sheet-edit-v190-wrap.png # シート編集 v1.9.0 スクショ — 備考の列を幅指定で折り返して全文表示した一覧（製品ページ UPDATE ボックス・.webp 併置）
 │   │   ├── quick-history-view-icon.png     # クイック履歴ビュー for kintone プラグイン アイコン（ヒーロー画像用・kintone プラグイン本体と同じアイコン）
 │   │   ├── quick-history-view-banner.png   # クイック履歴ビュー for kintone バナー（1200×675・OGP/グリッド共用）
 │   │   ├── quick-history-view-setup-01.png # クイック履歴ビュー 事前準備スクショ① — 履歴 JSON 保存用「文字列(複数行)」フィールドをフォームに配置
@@ -1935,6 +1938,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-sheet-edit-v1.6.0.zip                      # シート編集 for kintone 配布ファイル（v1.6.0：条件ルール）
 │   │   ├── kw-sheet-edit-v1.7.0.zip                      # シート編集 for kintone 配布ファイル（最新・v1.7.0：日付の条件に今月／先月／来月）
 │   │   ├── kw-sheet-edit-v1.7.1.zip  # 配布ファイル（最新・2026-11-07・v1.7.1：版上げ）
+│   │   ├── kw-sheet-edit-v1.9.0.zip  # 配布ファイル（最新・2026-11-11・v1.9.0：2つ目のテーブルの表示・列ごとの幅と折り返し・絞り込みの拡充・フィルハンドルの自動スクロール）
 │   │   ├── kw-sidebar-enhancer-v1.0.0.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・v1.0.0 初版）
 │   │   ├── kw-sidebar-enhancer-v1.0.2.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・手動配置・v1.0.2 で数値の桁区切り撤去／ラベルのHTML描画／設定画面の保存ボタン／タブ初期表示の高速化）
 │   │   ├── kw-sidebar-enhancer-v1.0.3.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・手動配置・プレミアムプラグイン・v1.0.3 ライセンス認証の内部改修）
