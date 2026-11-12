@@ -55,10 +55,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "チャット通知 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "kintone",
-          "softwareVersion": "2.2.0",
-          "dateModified": "2026-11-08",
+          "softwareVersion": "2.3.0",
+          "dateModified": "2026-11-12",
           "url": "https://kizuna-works.jp/plugins/chat-notify/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-chat-notify-v2.2.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-chat-notify-v2.3.0.zip",
           "image": "https://kizuna-works.jp/images/chat-notify-banner.png",
           "offers": [
             {
@@ -78,7 +78,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、通知ルールが無制限・広告非表示になり、ちょこっと＆プレミアムプラグインすべても利用できます。単品販売はありません。"
             }
           ],
-          "description": "kintone のレコード追加・更新・削除・ステータス変更・手動送信・一括通知をきっかけに、Slack / Microsoft Teams / Google Chat / LINE WORKS / Chatwork へ自動でメッセージを送るプラグイン。中継サーバーを立てずに kintone から Webhook へ直接送信する。条件による絞り込み、変更検知、差し込みテンプレート、送信履歴と失敗時のベル通知に対応する。LINE WORKS では見出しと「レコードを開く」ボタン付きのカード表示に、Chatwork では API トークンによる投稿・全員メンション・見出し付きの枠表示に対応する。",
+          "description": "kintone のレコード追加・更新・削除・ステータス変更・手動送信・一括通知をきっかけに、Slack / Microsoft Teams / Google Chat / LINE WORKS / Chatwork へ自動でメッセージを送るプラグイン。中継サーバーを立てずに kintone から Webhook へ直接送信する。条件による絞り込み、変更検知、差し込みテンプレート、送信履歴と失敗時のベル通知に対応する。LINE WORKS では見出しと「レコードを開く」ボタン付きのカード表示に、Chatwork では API トークンによる投稿・全員メンション・見出し付きの枠表示に対応する。本文に差し込む数値・日時は、フィールドの設定どおりの書式で表示できる。",
           "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
           "featureList": [
             "Slack（Incoming Webhooks）／Microsoft Teams（ワークフロー）／Google Chat（Webhook）／LINE WORKS（Incoming Webhook アプリ）／Chatwork（API トークン）へ通知",
@@ -92,6 +92,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "URLを貼るだけでサービス種別を自動判定し、保存後はマスク表示",
             "LINE WORKS では見出しと「レコードを開く」ボタン付きのカード表示に対応（スマートフォンから1タップでレコードを開ける）",
             "Chatwork では見出し付きの枠で投稿でき、API トークンはレコード画面から参照できない領域に保存",
+            "本文に差し込む数値・日時を、桁区切り・小数点以下の桁数・単位記号・タイムゾーンまで kintone のフィールドの設定どおりに表示（設定で従来どおりも選べる）",
             "中継サーバー不要。kintone から Webhook へ直接送信（当社サーバーを経由しない）"
           ]
         }
@@ -308,7 +309,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       <img class="afp-hero-icon" src="/images/chat-notify-icon.png" alt="チャット通知 for kintone アイコン" width="200" height="200" loading="eager" />
       <div class="afp-hero-badges">
         <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
-        <span class="afp-hero-version">v2.2.0</span>
+        <span class="afp-hero-version">v2.3.0</span>
       </div>
       <HeroSubBadges pluginId="kw-chat-notify" />
       <h1>チャット通知 for kintone</h1>
@@ -316,7 +317,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       <p class="afp-sub">
         レコードの追加・更新・削除・ステータス変更をきっかけに、<strong><span class="nb">Slack</span> / <span class="nb">Microsoft Teams</span> / <span class="nb">Google Chat</span> / <span class="nb">LINE WORKS</span> / <span class="nb">Chatwork</span></strong> へ自動でメッセージを送ります。中継サーバーは不要。条件で絞り込み、本文も自由に組み立てられます。
       </p>
-      <HeroDownload href="/downloads/kw-chat-notify-v2.2.0.zip" premium />
+      <HeroDownload href="/downloads/kw-chat-notify-v2.3.0.zip" premium />
     </section>
     <div class="afp-hero-gradient-line"></div>
     <BridgeBadge as="note" pluginId="kw-chat-notify" />
@@ -327,28 +328,29 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v2.2.0：Chatwork に対応しました</h2>
+            <h2 class="update-title">v2.3.0：数値と日時の表示を改善しました</h2>
           </div>
           <p class="update-desc">
-            これまでの Slack / Microsoft Teams / Google Chat / LINE WORKS に加えて、<strong>Chatwork</strong> のグループチャットへ通知を送れるようになりました。
-            送信先に<strong>ルーム</strong>（ルームID またはルームの URL）と <strong>API トークン</strong>を登録するだけです。
-            API トークンはプラグインの外部連携の設定（アプリ管理者だけが扱える領域）に保存し、レコード画面からは参照できません。
+            通知本文とカードのタイトルに差し込む<strong>数値・日時</strong>を、kintone のフィールドの設定どおりに表示できるようになりました。
+            設定画面の「共通設定」に<strong>「差し込む値の書式」</strong>を追加しています。
           </p>
           <p class="update-desc">
-            <strong>全員メンション（[toall]）</strong>と、本文を<strong>見出し付きの枠</strong>で表示する設定に対応しました。見出しはルールごとに入り切りでき、空欄ならアプリ名になります。
-            テンプレートに <code>[To:アカウントID]</code> と書けば、個人宛ての通知にもできます。
+            <strong>数値</strong>：桁区切りは設定したフィールドだけに付き、小数点以下の表示桁数（切り捨て）と単位記号の前／後ろも設定どおりです（例：円1,234,567.89／1500.5kg）。<br />
+            <strong>日時</strong>：日時・作成日時・更新日時・計算（日時）を、ユーザーのタイムゾーンで「YYYY/MM/DD HH:mm」と表示します。<br />
+            保存時の通知・手動送信・一括通知・ブリッジ経由の通知のすべてで同じ表示になります。
           </p>
           <div class="update-shot">
-            <Picture class="zoomable" src="/images/chat-notify-v220-dest.png" alt="チャット通知の設定画面（送信先タブ）。サービスに Chatwork を選んだ送信先カードで、ルームと API トークンを入力する。下に Chatwork の API トークンとルームID の取得方法が番号つきで案内されている" width="1366" height="900" />
-            <p class="update-shot-cap">送信先に Chatwork を選ぶと、ルームと API トークンの欄と取得手順が表示されます</p>
+            <Picture class="zoomable" src="/images/chat-notify-v230-01-config.png" alt="チャット通知の設定画面（共通設定タブ）の「差し込む値の書式」。数値・日時の書式で「フィールドの設定どおり」を選んでいる" width="807" height="155" />
+            <p class="update-shot-cap">共通設定の「差し込む値の書式」で選びます</p>
           </div>
-          <div class="update-shot">
-            <Picture class="zoomable" src="/images/chat-notify-v220-rule.png" alt="チャット通知の設定画面（通知ルールタブ）。メンションで全員（[toall]）を選び、Chatwork 用の見出しの設定（見出しを付けるのチェックと見出しの入力欄）が表示されている" width="1366" height="900" />
-            <p class="update-shot-cap">通知ルールでは、全員メンションと見出しの設定ができます</p>
+          <div class="update-shot" style="max-width: 300px;">
+            <Picture class="zoomable" src="/images/chat-notify-v230-02-preview.png" alt="本文プレビュー。金額が円1,234,567.89、重量が1500.5kg、納期が2026/12/15 09:00 と、フィールドの設定どおりに表示されている" width="300" height="256" />
+            <p class="update-shot-cap">本文のプレビューも、送られる内容と同じ表示になります</p>
           </div>
           <p class="update-note">
             画像をクリックすると拡大表示します。<br />
-            すでにご利用中の方は、<strong>システム管理 → プラグイン から v2.2.0 の zip を上書きアップロード</strong>してください。既存の設定はそのまま引き継がれます。
+            新しく作る設定の既定は「フィールドの設定どおり」です。すでに保存してある設定は「従来どおり」のままで、本文は変わりません。切り替えたいときだけ選び直してください。変わるのは通知に差し込む表示だけで、レコードの値は変わりません。<br />
+            すでにご利用中の方は、<strong>システム管理 → プラグイン から v2.3.0 の zip を上書きアップロード</strong>してください。既存の設定はそのまま引き継がれます。
           </p>
           <BridgeUpdateNote />
         </div>
@@ -424,6 +426,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           <div class="afp-feat-card">
             <h3>差し込みテンプレート</h3>
             <p>フィールド値に加え、レコードURL・操作種別・操作者・操作日時・旧/新ステータスを本文に埋め込めます。文字数の切り詰めも可能です。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>数値・日時をフィールドの設定どおりに</h3>
+            <p>桁区切り・小数点以下の桁数・単位記号・日時のタイムゾーンを、kintone のフィールドの設定どおりに差し込みます。「従来どおり」も選べます。</p>
           </div>
           <div class="afp-feat-card">
             <h3>カード表示とボタン（LINE WORKS）</h3>
@@ -731,7 +737,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               <li>送信履歴・エラー通知</li>
               <li>プラグイン内に広告が表示されます</li>
             </ul>
-            <a class="afp-plan-cta" href="/downloads/kw-chat-notify-v2.2.0.zip" download>ダウンロード（v2.2.0）</a>
+            <a class="afp-plan-cta" href="/downloads/kw-chat-notify-v2.3.0.zip" download>ダウンロード（v2.3.0）</a>
           </div>
           <div class="afp-plan-card recommended">
             <span class="afp-plan-badge">ちょこっと＆プレミアムが使えます</span>
@@ -786,7 +792,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       <div class="afp-wrap">
         <h2 class="afp-h2">インストール手順</h2>
         <ol class="steps-list">
-          <li><span>上のボタンから <strong>kw-chat-notify-v2.2.0.zip</strong> をダウンロードします。</span></li>
+          <li><span>上のボタンから <strong>kw-chat-notify-v2.3.0.zip</strong> をダウンロードします。</span></li>
           <li><span>kintone の <strong>システム管理 → プラグイン</strong> で「読み込む」を押し、zip ファイルを選びます。</span></li>
           <li><span>通知したいアプリの <strong>アプリの設定 → プラグイン</strong> で「チャット通知」を追加します。</span></li>
           <li><span>「設定」を開き、<strong>① 送信先</strong> タブで Webhook URL を登録します（テスト送信で疎通を確認できます）。</span></li>

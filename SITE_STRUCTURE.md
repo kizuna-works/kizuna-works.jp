@@ -437,6 +437,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-date-assist-v1-2-0-update.md # 日付入力アシスト v1.2.0 アップデートのお知らせ（2026-11-10・選べる日のマスタ・［クリア］・カレンダー位置の改善）
 │   │   │   ├── plugin-date-assist-v1-1-0-update.md # 日付入力アシスト v1.1.0 アップデートのお知らせ（2026-11-09・前日（満了日）・前後50年・左メニュー・候補の↑↓×・設定のエクスポート／インポート）
 │   │   │   ├── chat-notify-v2-2-0-update.md    # チャット通知 v2.2.0 アップデートのお知らせ（2026-11-08 19:00・送信先に Chatwork を追加・多言語対応）
+│   │   │   ├── chat-notify-v230-update.md      # チャット通知 v2.3.0 アップデートのお知らせ（2026-11-12 12:00・差し込む数値・日時をフィールドの設定どおりに表示・多言語はバッジのみ）
 │   │   │   ├── sheet-edit-v160.md              # シート編集 v1.6.0 アップデートのお知らせ（2026-11-04 12:00・条件ルール＝色付け・編集不可）
 │   │   │   ├── sheet-edit-v170.md              # シート編集 v1.7.0 アップデートのお知らせ（2026-11-05・日付の条件に今月／先月／来月）
 │   │   │   ├── sheet-edit-v180.md              # シート編集 v1.8.0 アップデートのお知らせ（2026-11-10・列の絞り込みが全件に効く・日付の期間・ログインユーザー・左の列の固定）
@@ -1293,6 +1294,7 @@ c:\kizuna-works.jp\
 │   │   ├── chat-notify-v220-{dest,rule}.{png,webp} # v2.2.0 の UPDATE 用スクショ（送信先タブの Chatwork カードと取得手順／通知ルールタブの全員メンションと見出し）
 │   │   ├── chat-notify-lineworks-{01..05}.png # LINE WORKS の Incoming Webhook 取得手順スクショ（01=アプリ詳細/02=Bot選択/03=チャンネルID/04=Webhook追加/05=発行済み一覧。03〜05 はチャンネルID・Webhook URL をマスク済）
 │   │   ├── chat-notify-lineworks-msg-01.png # LINE WORKS に実際に届いた通知（見出し＋@All＋「レコードを開く」ボタンのカード）
+│   │   ├── chat-notify-v230-{01-config,02-preview}.{png,webp} # v2.3.0 の UPDATE 用スクショ（共通設定「差し込む値の書式」／本文プレビュー・加工なし）
 │   │   ├── chat-notify-{slack,teams,gchat}-msg-*.png # 各サービスに実際に届いた通知（teams-msg-01 は氏名をマスク済）
 │   │   ├── card-board-banner.png           # カードボード for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）
 │   │   ├── card-board-icon.png             # カードボード for kintone アイコン（200×200・ヒーロー用）

@@ -1719,7 +1719,7 @@ export const premiumPlugins: Plugin[] = [
     bridge: 'ブリッジが他のアプリに書いたレコードについても、書き込み先のアプリの通知ルールでチャットに通知します。',
     categories: ['通知・メール'],
     description:
-      'レコードの追加・更新・削除・ステータス変更・手動送信・一括通知をきっかけに、Slack / Teams / Google Chat / LINE WORKS / Chatwork へ自動通知。最大5件の条件と変更検知で絞り込み、差し込みテンプレートで本文を組み立てます。',
+      'レコードの追加・更新・削除・ステータス変更・手動送信・一括通知をきっかけに、Slack / Teams / Google Chat / LINE WORKS / Chatwork へ自動通知。最大5件の条件と変更検知で絞り込み、差し込みテンプレートで本文を組み立て、数値・日時はフィールドの設定どおりの書式で差し込めます。',
     image: '/images/chat-notify-banner.png',
     imageAlt:
       'チャット通知 for kintone プラグイン — レコードの追加・更新・ステータス変更をきっかけに Slack・Microsoft Teams・Google Chat・LINE WORKS / Chatwork へ自動通知',
@@ -1728,11 +1728,11 @@ export const premiumPlugins: Plugin[] = [
     status: 'available',
     tier: 'premium',
     cardDescription:
-      'レコードの追加・更新・削除・ステータス変更・手動送信・一括通知をきっかけに、Slack / Teams / Google Chat / LINE WORKS / Chatwork へ自動通知。条件と変更検知で絞り込み、差し込みテンプレートで本文を組み立てます。',
+      'レコードの追加・更新・削除・ステータス変更・手動送信・一括通知をきっかけに、Slack / Teams / Google Chat / LINE WORKS / Chatwork へ自動通知。条件と変更検知で絞り込み、差し込みテンプレートで本文を組み立て、数値・日時はフィールドの設定どおりの書式で差し込めます。',
     problemTitle: 'kintone を開くまで、更新に気づけない',
     problemDesc: '大事なレコードが登録されても担当者が気づかず対応が遅れる。かといって全部通知すると誰も読まなくなる',
     releaseDate: '2026-07-29',
-    summaryVersion: '2.2.0',
+    summaryVersion: '2.3.0',
     multilingual: true,
   },
   {
