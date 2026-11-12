@@ -8,10 +8,10 @@ import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricin
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
 
-const VERSION = '1.3.1';
+const VERSION = '1.3.2';
 const ZIP = `/downloads/kw-design-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/design-pro/';
-const DATE_MODIFIED = '2026-11-10';
+const DATE_MODIFIED = '2026-11-12';
 
 // The six single products this one bundles. Cards are built from plugins.ts so names and slugs never drift.
 const singleOf = (id: string) => {
@@ -146,7 +146,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.3.1",
+          "softwareVersion": "1.3.2",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -520,44 +520,34 @@ const faqJsonLd = {
     </section>
     <RequestOriginBadge as="note" />
 
-    <!-- Update Info (v1.2.0) -->
+    <!-- Update Info (v1.3.2) -->
     <section class="kbp-section">
       <div class="kbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.2.0：印刷画面を開かず、PDF を添付ファイルに保存するだけで終えられます</h2>
+            <h2 class="update-title">v1.3.2：帳票の日時と数値の表示、ゲストスペースでの動作を改善しました</h2>
           </div>
-          <p class="update-desc">デザイン Pro for kintone を v1.2.0 にアップデートしました（2026年11月6日）。帳票デザイナー v1.9.0 の内容を取り込んでいます。</p>
+          <p class="update-desc">デザイン Pro for kintone を v1.3.2 にアップデートしました（2026年11月12日）。帳票デザイナー v1.9.2 とユーザーオートフィル v1.4.1 の内容を取り込んでいます。</p>
 
-          <h3 class="kbp-h3">印刷パターンの PDF 保存で、印刷画面を開くかを選べるよう改善しました</h3>
-          <p class="update-desc">印刷パターンの PDF の添付保存に、「<strong>保存したあと、印刷画面を開く</strong>」を追加しました。</p>
+          <h3 class="kbp-h3">帳票に出る日時と数値を、フィールドの設定どおりに改善しました</h3>
           <ul class="update-list">
-            <li><strong>オン（既定）</strong>これまでどおり、PDF を保存してから印刷画面を開きます</li>
-            <li><strong>オフ</strong>ボタンが［PDF を保存］になり、保存だけで終わります。保存できたら画面を読み込み直します</li>
-            <li>まとめて印刷は、対象のすべてのレコードが「保存だけ」の印刷パターンで、全件を保存できたときだけ印刷画面を開きません。「n 件に PDF を保存しました」と表示して終わります</li>
-            <li>保存できなかったときは、これまでどおり「印刷だけ続けますか？」と確認します</li>
+            <li><strong>作成日時・更新日時・計算（日時）</strong>2026-11-12T03:46:00Z のような形で出ていたのを、日時フィールドと同じ YYYY/MM/DD HH:mm の形にしました</li>
+            <li><strong>日時のタイムゾーン</strong>PC の時計ではなく、kintone のユーザー設定のタイムゾーンで出します</li>
+            <li><strong>小数点以下の表示桁数</strong>kintone と同じ切り捨てにしました（以前は四捨五入）</li>
           </ul>
           <div class="update-shot">
-            <Picture class="zoomable" src="/images/design-pro-update-print-pdf-01.png" alt="デザイン Pro の設定画面の「印刷」。印刷パターンの PDF の添付保存で、保存のしかたの右にある「保存したあと、印刷画面を開く」のチェックが外れている" width="1500" height="1000" />
+            <Picture class="zoomable" src="/images/report-designer-v192-01-display.png" alt="帳票の出力例。請求金額・重量・税込金額の数値と、納品日時・登録日時が YYYY/MM/DD HH:mm の形で出ている" width="800" height="569" />
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
 
-          <h3 class="kbp-h3">帳票の印刷でも、印刷画面を開くかを帳票ごとに選べるよう改善しました</h3>
-          <p class="update-desc">帳票デザイナーのテンプレート編集の「保存先フィールド」の下に、「<strong>印刷ボタンを押したら印刷画面を開く</strong>」を追加しました。チェックを外すと、PDF を保存するだけで終わります。自動保存が有効で、保存先を選んだ帳票で使えます。</p>
-          <div class="update-shot">
-            <Picture class="zoomable" src="/images/report-designer-printdialog-01.png" alt="帳票デザイナーのテンプレート編集。保存先フィールドの下の「印刷ボタンを押したら印刷画面を開く」のチェックが外れている" width="1500" height="1250" />
-            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-          </div>
+          <h3 class="kbp-h3">ゲストスペースのアプリで、所属組織が表示されるよう改善しました</h3>
+          <p class="update-desc">ユーザーオートフィルのプロフィールカードの「所属」などが、ゲストスペースのアプリでも表示されます。設定画面を狭いウィンドウで開いたときも、転記設定の選択欄が画面内に収まります。</p>
 
-          <h3 class="kbp-h3">テンプレート編集で、方眼線を見ながら配置できるよう改善しました</h3>
-          <p class="update-desc">「<strong>方眼を表示</strong>」で、用紙の上に方眼線を出せます（画面だけで、印刷・PDF・プレビューには出ません）。間隔は 1mm・2mm・5mm から選べます。Alt を押しながらドラッグすると、押している間だけ吸着しません。設定画面の色の欄には、カラーパレットも加わりました。</p>
-          <div class="update-shot">
-            <Picture class="zoomable" src="/images/report-designer-grid-01.png" alt="全画面の配置エディタ。方眼を表示をオン、間隔を 2mm にして、用紙の上に方眼線が出ている" width="1500" height="1000" />
-            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-          </div>
+          <h3 class="kbp-h3">ゲストスペースなどがある環境でも、画面を開いたときのエラーが出ないよう改善しました</h3>
+          <p class="update-desc">印刷の「仕上げたレイアウト」の保管アプリを選ぶ候補は、<strong>スペースに属さないアプリと、同じスペースのアプリ</strong>だけになります（ゲストスペースのページでは、同じゲストスペースのアプリだけです）。他のスペースのアプリは候補に出ません。あわせて、設定画面と詳細画面を開いたときに、ブラウザのコンソールにエラーが出ないようにしました。</p>
 
-          <p class="update-note">既存ユーザーの方は、最新バージョンをダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれ、設定しなければこれまでの動作は変わりません。</p>
+          <p class="update-note">既存ユーザーの方は、最新バージョンをダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
         </div>
       </div>
     </section>
