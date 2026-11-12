@@ -7,10 +7,10 @@ import { plugins, premiumPlugins } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.5.0';
+const VERSION = '1.5.1';
 const ZIP = `/downloads/kw-lookup-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/lookup-pro/';
-const DATE_MODIFIED = '2026-11-11';
+const DATE_MODIFIED = '2026-11-12';
 
 // The five single products this one bundles. Cards are built from plugins.ts so names and slugs never drift.
 const singleOf = (id: string) => {
@@ -133,7 +133,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.5.0",
+          "softwareVersion": "1.5.1",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -476,28 +476,22 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.5.0) -->
+    <!-- Update Info (v1.5.1) -->
     <section class="kbp-section">
       <div class="kbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.5.0：候補の一覧の数値と日時を、参照先アプリの設定どおりに表示します</h2>
+            <h2 class="update-title">v1.5.1：レコード詳細画面の「開く」リンクを、安定して表示するようにしました</h2>
           </div>
-          <p class="update-desc">ルックアップ Pro for kintone を v1.5.0 にアップデートしました（フリールックアップ v1.4.0・ルックアップサジェスト v3.5.0 を取り込み）。</p>
-          <h3 class="kbp-h3">候補に出る数値と日時が、参照先で見ているとおりに並びます</h3>
+          <p class="update-desc">ルックアップ Pro for kintone を v1.5.1 にアップデートしました（フリールックアップ v1.4.1 を取り込み）。</p>
+          <h3 class="kbp-h3">「取得元のレコードを開く」リンクを改善しました</h3>
           <ul class="update-list">
-            <li><strong>数値・計算（数値の書式）</strong>は、桁区切り・小数点以下の表示桁数・単位記号（前／後ろ）を、参照先のフィールドの設定どおりに表示します。</li>
-            <li><strong>日時・作成日時・更新日時・計算の日時</strong>は、ユーザーのタイムゾーンで「YYYY-MM-DD HH:mm」と表示します。</li>
-            <li>変わるのは表示だけです。絞り込み・キーワードの当たり方・取得・コピーされる値は、これまでどおりです。</li>
-            <li>フリールックアップでこのアプリ自身を参照するとき、開いているレコード自体は候補に出ません。そのことが分かるよう、「開いているこのレコード自体は候補に表示されません。」と案内を出します。</li>
+            <li>レコード詳細画面で、「開く」リンクが出たり出なかったりすることがありましたが、安定して表示されます。</li>
+            <li>ライセンスの確認に一時的に失敗したときも、有料の設定の「開く」リンクが表示されます。</li>
+            <li>前後のレコードへ移動しても、そのレコードの値のリンクだけが表示されます。</li>
           </ul>
-          <figure class="update-shot">
-            <p class="shot-label">フリールックアップの候補の一覧</p>
-            <Picture class="zoomable" src="/images/lookup-pro-v150-display.png" alt="フリールックアップで開いた候補の一覧。金額に円と桁区切り、重量に kg の単位、計算の列に小数点以下の桁数、日時に 2026-01-01 18:00 の形式が表示されている" width="960" height="430" />
-          </figure>
-          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.5.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定の変更は要りません。保存済みの設定は、そのまま引き継がれます。</p>
+          <p class="update-note">リンクの見た目・開く先・設定は変わりません。既存ユーザーの方は、最新バージョン（v1.5.1）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定の変更は要りません。保存済みの設定は、そのまま引き継がれます。</p>
         </div>
       </div>
     </section>
