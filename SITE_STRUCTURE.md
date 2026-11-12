@@ -451,6 +451,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── blog-kintone-record-sakujo-fukugen.md # ブログ記事「kintoneで削除したレコードは復元できる？」公開のお知らせ（2026-10-17 11:00）
 │   │   │   ├── conditional-numbering-v240.md   # 条件分岐自動採番 v2.4.0 アップデートのお知らせ（2026-10-26 21:30・日付パーツの基準日／次に振られる連番の確認／条件のテキストが空のときの注意）
 │   │   │   ├── conditional-numbering-v250.md   # 条件分岐自動採番 v2.5.0 アップデートのお知らせ（2026-10-29 11:10・番号を振るタイミングを条件を満たしたときに選べる／レコードが多いアプリでの保存の高速化／ルール削除・追加後の設定が戻る点の改善）
+│   │   │   ├── conditional-numbering-v260.md   # 条件分岐自動採番 v2.6.0 アップデートのお知らせ（2026-11-12 11:00・アクセス権で一部しか見られない人が保存してもアプリ全体の最大値から採番できる読み込み範囲の選択）
 │   │   │   ├── plugin-mail-assist-v200.md      # メールアシスト v2.0.0 アップデートのお知らせ（2026-11-12 13:00・差し込む数値・日時をフィールドの設定どおりに表示・多言語はバッジのみ）
 │   │   │   ├── bulk-update-v110.md             # かんたん一括更新 v1.1.0 アップデートのお知らせ（2026-10-29 11:30・［すべて除外］［すべて解除］・色の共通カラーパレット）
 │   │   │   ├── blog-kintone-2026-10-update.md # ブログ記事「kintone 2026年10月アップデート」公開のお知らせ（2026-10-17 15:00）
@@ -510,6 +511,7 @@ c:\kizuna-works.jp\
 │   │   ├── conditional-numbering-banner.png # 条件分岐自動採番プラグイン バナー
 │   │   ├── conditional-numbering-config-01.png  # 条件分岐自動採番 v2.5.0 設定画面の全体像（上帯・目次とライブプレビュー・タブ・フォーマット設定・サイドバー。製品ページ「設定画面イメージ」）。2026-10-29 に v2.4.0 版から差し替え
 │   │   ├── conditional-numbering-config-01.webp # 同 WebP 版
+│   │   ├── conditional-numbering-v260-scope.png # 条件分岐自動採番 v2.6.0 設定画面「番号を決めるときに読むレコード」（APIトークン欄・保存済み・注意枠。製品ページ UPDATE ボックス）
 │   │   ├── conditional-numbering-config-02.png  # 条件分岐自動採番 v2.3.0 の UPDATE 用（パーツ設定＋連番の数え方「枝番」＋採番サンプル）＋ .webp
 │   │   ├── conditional-numbering-list-01.png    # 条件分岐自動採番 v2.3.0 の UPDATE 用（SKU マスタの一覧＝商品IDごとの枝番）＋ .webp
 │   │   ├── form-deco-icon.png              # FormDecoプラグイン アイコン

@@ -342,6 +342,15 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-conditional-numbering': {
+    extraComm: [
+      {
+        label: 'アプリ全体のレコードの読み取り（APIトークン・任意設定・自ドメイン内）',
+        detail:
+          '既定では追加の通信はありません。設定画面で「番号を決めるときに読むレコード」を「アプリのすべてのレコード（APIトークンを使う）」にしたときだけ、番号の最大値を調べるために、ご利用中の kintone ドメイン内の REST API（/k/v1/records の GET）を、管理者が登録したレコード閲覧だけの APIトークンで呼び出します。読み込みは kintone のサーバー経由（kintone.plugin.app.proxy）で行い、保存する人の閲覧権限を通りません。APIトークンはプラグインの秘匿領域（setProxyConfig）にだけ保存し、利用者の画面側の JavaScript、プラグインの設定、画面上には出ません。開発者ツールを使える利用者は、このトークンを通して見られないレコードを読み出せる可能性があるため、機密性の高いアプリでは影響を確かめてから使ってください。いずれもご利用中の kintone ドメイン内で完結し、外部の第三者へは送信しません。',
+      },
+    ],
+  },
   'kw-elapsed-assist': {
     extraComm: [
       {
