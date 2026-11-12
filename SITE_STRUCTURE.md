@@ -328,6 +328,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-lookup-filter-v132.md   # ルックアップ絞り込み v1.3.2 のお知らせ（2026-10-20 14:00・絞り込みの初期設定とソートを保存し直さなくても反映）
 │   │   │   ├── plugin-lookup-suggest-v320.md  # ルックアップサジェスト v3.2.0 のお知らせ（2026-10-10 14:10・候補を kintone の設定どおりに・文字列以外も検索・設定画面の見直し）
 │   │   │   ├── plugin-report-designer-v190.md   # 帳票デザイナー v1.9.0 のお知らせ（2026-11-06・印刷画面を開くかを帳票ごとに選べる・方眼線とグリッド間隔）
+│   │   │   ├── plugin-report-designer-v192.md   # 帳票デザイナー v1.9.2 のお知らせ（2026-11-12・日時と数値の表示をフィールドの設定どおりに改善）
 │   │   │   ├── plugin-lookup-suggest-v322.md  # ルックアップサジェスト v3.2.2 のお知らせ（2026-10-13 21:00・一部の記号を含む語でも候補が出る。v3.2.1 のお知らせはこれに統合して削除）
 │   │   │   ├── plugin-conditional-form-v3-5-0-update.md  # 条件分岐フォーム v3.5.0 のお知らせ（2026-10-29 18:00・条件なしで常に適用／条件を20件まで／入力形式チェックの改善）
 │   │   │   ├── plugin-conditional-form-v3-8-0-update.md  # 条件分岐フォーム v3.8.0 のお知らせ（2026-11-11 22:00・テーブル内のフィールドも表示／非表示にできる）
@@ -1370,6 +1371,7 @@ c:\kizuna-works.jp\
 │   │   ├── report-designer-config-20.png   # 帳票デザイナー 表を挿入のダイアログ（v1.6.0）
 │   │   ├── report-designer-printdialog-01.png  # 帳票デザイナー テンプレート編集「印刷ボタンを押したら印刷画面を開く」オフ（v1.9.0・UPDATE ボックス用・.webp あり）
 │   │   ├── report-designer-grid-01.png     # 帳票デザイナー 全画面の配置エディタ 方眼表示・間隔2mm（v1.9.0・UPDATE ボックス用・.webp あり）
+│   │   ├── report-designer-v192-01-display.png  # 帳票デザイナー 日時・数値の表示例（v1.9.2・UPDATE ボックス用・.webp あり）
 │   │   ├── report-designer-list-16.png     # 帳票デザイナー 一覧帳票のテーブル展開（v1.6.0）
 │   │   ├── user-autofill-banner.png        # ユーザーオートフィル for kintone 見出しバナー（Gemini で作成・OGP/グリッド/news共用・1200×630）
 │   │   ├── user-autofill-icon.png          # ユーザーオートフィル for kintone アイコン（200×200・ヒーロー用）
@@ -1971,7 +1973,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-report-designer-v1.3.0.zip   # 帳票デザイナー v1.3.0（決裁欄の印影を1クリック配置・押印枠へ自動位置合わせ・表示条件に操作している人・ボタン方式・印刷プレビュー）
 │   │   ├── kw-report-designer-v1.4.0.zip   # 帳票デザイナー v1.4.0（1枚に複数テーブルの明細・他のアプリの帳票を取り込む・用紙外の行による白紙ページを修正）
 │   │   ├── kw-report-designer-v1.7.0.zip   # 帳票デザイナー v1.7.0（枠に収まらないときの扱い・明細に付いていく・表のマスの結合）。v1.5.0・v1.6.0 の zip も同フォルダに保管
-│   │   ├── kw-report-designer-v1.9.1.zip   # 帳票デザイナー v1.9.1（最新・patch・英語・中国語表示の kintone で保管アプリの［対応させる］が止まる点を改善）
+│   │   ├── kw-report-designer-v1.9.2.zip   # 帳票デザイナー v1.9.2（最新・patch・作成日時・更新日時・計算（日時）を YYYY/MM/DD HH:mm で・日時をユーザー設定のタイムゾーンで・小数点以下は切り捨て）
+│   │   ├── kw-report-designer-v1.9.1.zip   # 帳票デザイナー v1.9.1（過去の版・patch・英語・中国語表示の kintone で保管アプリの［対応させる］が止まる点を改善）
 │   │   ├── kw-report-designer-v1.9.0.zip   # 帳票デザイナー v1.9.0（過去の版・印刷画面を開くかを帳票ごとに選べる／方眼線とグリッド間隔1・2・5mm・Altで吸着解除／多言語対応／カラーパレット）
 │   │   ├── kw-report-designer-v1.8.0.zip   # 帳票デザイナー v1.8.0（テンプレートを見られる人の限定）
 │   │   ├── kw-reuse-control-v1.0.0.zip                           # レコード再利用コントロール for kintone 配布ファイル（旧版・参考保管）
