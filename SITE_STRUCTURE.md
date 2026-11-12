@@ -396,6 +396,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── field-styler-v290.md             # フィールドスタイラー v2.9.0 アップデートのお知らせ（2026-11-04 14:00・今月・先月・来月の色分け／リンク欄の値の装飾）
 │   │   │   ├── search-pro-v180-update.md # サーチ Pro v1.8.1 アップデートのお知らせ（2026-11-11 15:10・検索対象の項目が多くても検索できる・v1.8.0 の期間の並び順を含む。同日の続けての版上げのため v1.8.0 のお知らせを書き換え）
 │   │   │   ├── search-pro-v170-update.md        # サーチ Pro v1.7.0 アップデートのお知らせ（2026-11-10 14:10・検索で添付ファイルのファイル名を探せる）
+│   │   │   ├── search-quick-search-filter-update-1112.md # サーチ Pro v1.8.2・クイックサーチ v1.9.2・クイックフィルター v1.4.1 アップデートのお知らせ（2026-11-12・3 製品まとめて・続けて検索しても HTTP 431 のエラーにならない）
 │   │   │   ├── search-pro-v160-update.md        # サーチ Pro v1.6.0 アップデートのお知らせ（2026-11-09 22:40・絞り込みの窓の初期値）
 │   │   │   ├── quick-filter-v140.md             # クイックフィルター v1.4.0 アップデートのお知らせ（2026-11-09 22:30・窓ごとの初期値）
 │   │   │   ├── search-pro-v150-update.md        # サーチ Pro v1.5.0 アップデートのお知らせ（2026-11-04 10:10・テーブル内の日付の窓にも期間ボタン）
@@ -1878,6 +1879,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-history-view-v1.0.3.zip                      # クイック履歴ビュー for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-quick-filter-v1.4.0.zip  # クイックフィルター for kintone 配布ファイル（最新・2026-11-09・v1.4.0：窓ごとの初期値）
 │   │   ├── kw-quick-filter-v1.3.0.zip  # クイックフィルター for kintone 配布ファイル（2026-11-04・v1.3.0：テーブル内の日付の窓に期間ボタン・多言語対応）
+│   │   ├── kw-quick-filter-v1.4.1.zip  # クイックフィルター for kintone 配布ファイル（最新・2026-11-12・v1.4.1：続けて検索しても HTTP 431 にならない）
 │   │   ├── kw-quick-filter-v1.2.0.zip  # クイックフィルター for kintone 配布ファイル（最新・2026-10-31・v1.2.0：帯の配色（カスタム）の色の欄に共通カラーパレット）
 │   │   ├── kw-quick-search-v1.0.0.zip                            # クイックサーチ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-search-v1.1.0.zip                            # クイックサーチ for kintone 配布ファイル（旧版・参考保管）
@@ -1892,6 +1894,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-search-v1.6.0.zip  # クイックサーチ for kintone 配布ファイル（旧版・2026-10-29・v1.6.0：検索窓の大きさを選べる・プレースホルダーを表示しない設定）
 │   │   ├── kw-quick-search-v1.7.0.zip  # クイックサーチ for kintone 配布ファイル（最新・2026-10-31・v1.7.0：ユーザー選択・組織選択・グループ選択・作成者・更新者の検索／日本語・英語・中国語（簡体字）に対応）
 │   │   ├── kw-quick-side-view-v1.0.0.zip                         # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
+│   │   ├── kw-quick-search-v1.9.2.zip  # クイックサーチ for kintone 配布ファイル（最新・2026-11-12・v1.9.2：続けて検索しても HTTP 431 にならない・自動翻訳で［AND］［OR］が訳されない）
 │   │   ├── kw-quick-side-view-v1.0.1.zip                         # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-side-view-v1.0.2.zip                         # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-quick-side-view-v1.0.3.zip                 # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
@@ -2067,6 +2070,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-search-pro-v1.7.0.zip    # サーチ Pro for kintone 配布ファイル（最新・2026-11-10・v1.7.0：検索で添付ファイルのファイル名を探せる（クイックサーチ v1.8.0 を取り込み））
 │   │   ├── kw-search-pro-v1.6.0.zip    # サーチ Pro for kintone 配布ファイル（2026-11-09・v1.6.0：絞り込みの窓の初期値（クイックフィルター v1.4.0 を取り込み））
 │   │   ├── kw-search-pro-v1.5.1.zip  # 配布ファイル（2026-11-07・v1.5.1：版上げ）
+│   │   ├── kw-search-pro-v1.8.2.zip    # サーチ Pro for kintone 配布ファイル（最新・2026-11-12・v1.8.2：続けて検索しても HTTP 431 にならない・前回の検索条件が残らない・自動翻訳で［AND］［OR］が訳されない）
 │   │   ├── kw-summary-bar-v1.0.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-summary-bar-v2.0.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-summary-bar-v2.1.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
