@@ -208,7 +208,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── report-designer/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】帳票デザイナー製品ページ（/plugins/report-designer/）— 手持ちPDFを背景に kintone データ（フィールド/固定テキスト/画像（ロゴ・印影）/サブテーブル明細）をドラッグ配置して帳票化。自動繰り返し＋自動改ページ＋要素ごとの表示ページ／日付自動入力・表示条件・PDF保存先・集計表紙／1件印刷＋一覧まとめ印刷（最大100件）＋PDF自動保存。設定ガイドをアコーディオン組込。**v1.5.0＝添付へ追加保存した帳票PDFのファイル名に連番（-1／(1)）・ファイル名の時刻トークン・保存先が削除/型変更なら理由を表示・まとめ印刷中に足された添付を落とさない**（過去の版）。**v1.9.0（2026-11-06）＝印刷ボタンを押したら印刷画面を開くかを帳票ごとに選べる（オフで添付保存だけ）・テンプレート編集の方眼線とグリッド間隔（1/2/5mm）・Alt で吸着解除・多言語バッジ**（UPDATEボックスは最新の v1.9.0 のみ・スクショ report-designer-printdialog-01 / report-designer-grid-01）。v1.8.0＝テンプレートを見られる人の限定（過去の版・report-designer-viewers-01.png は製品ページから外れた）。**v1.7.0（2026-10-16）＝枠に収まらないときの扱い（下へ伸ばす／枠で切る／文字を小さくして収める）・明細に付いていく・表のマスの結合**（UPDATEボックスは最新の v1.7.0 のみ・スクショなし）。**v1.6.0＝図形・表を挿入・罫線と塗り・チェック欄・選択肢の☑☐/○表示・{{field:}}差し込み・作業者欄・一覧帳票のテーブル展開・幅/高さをそろえる**（過去の版・「主な機能」に内包。スクショ report-designer-print-16/config-19/config-20/list-16 は製品ページから外れた）。単品販売なし＝プレミアム年間サポーターに含む（CTAは /plugins/supporter/?plan=all）。kintone完結
 │   │   │   ├── dashboard/
-│   │   │   │   ├── index.astro # 【プレミアムプラグイン】ダッシュボード製品ページ（/plugins/dashboard/）— グラフ/数値カード/クロス集計表を1枚に集約し一覧のカスタマイズビューに常設の集計ダッシュボードを描画。期間連動再集計・ドリルダウン・配色・ライブプレビュー／有償＝アプリ横断集計・ポータルiframe埋め込み・集計キャッシュ。設定レシピ集への導線あり。単品販売なし＝プレミアム年間サポーターに含む。kintone完結（グラフはChart.js自社配信/SRI）
+│   │   │   │   ├── index.astro # 【プレミアムプラグイン】ダッシュボード製品ページ（/plugins/dashboard/）— グラフ/数値カード/クロス集計表を1枚に集約し一覧のカスタマイズビューに常設の集計ダッシュボードを描画。期間連動再集計（締め日で区切った月・四半期・半期・期に対応）・ドリルダウン・配色・ライブプレビュー／有償＝アプリ横断集計・ポータルiframe埋め込み・集計キャッシュ。設定レシピ集への導線あり。単品販売なし＝プレミアム年間サポーターに含む。kintone完結（グラフはChart.js自社配信/SRI）
 │   │   │   │   └── recipes/
 │   │   │   │       └── index.astro # ダッシュボード設定レシピ集（/plugins/dashboard/recipes/）— ウィジェット種別ごとに「目的→設定手順→完成イメージ」を掲載。アコーディオン＋種別/目的タグ/検索フィルタ。データは src/data/recipes.ts、画像は /images/dashboard/recipes/。64レシピ（2026-10-03 にテーブル集計の4件を追加し、手順の言葉を v1.5.0 の画面の表記に統一）
 │   │   │   ├── attribute-filter/
@@ -396,8 +396,8 @@ c:\kizuna-works.jp\
 │   │   │   ├── search-pro-v130-update.md        # サーチ Pro v1.3.0 アップデートのお知らせ（2026-10-29 10:40・検索窓の長さ・高さの選択）
 │   │   │   ├── field-styler-v290.md             # フィールドスタイラー v2.9.0 アップデートのお知らせ（2026-11-04 14:00・今月・先月・来月の色分け／リンク欄の値の装飾）
 │   │   │   ├── search-pro-v180-update.md # サーチ Pro v1.8.1 アップデートのお知らせ（2026-11-11 15:10・検索対象の項目が多くても検索できる・v1.8.0 の期間の並び順を含む。同日の続けての版上げのため v1.8.0 のお知らせを書き換え）
-│   │   │   ├── search-pro-v170-update.md        # サーチ Pro v1.7.0 アップデートのお知らせ（2026-11-10 14:10・検索で添付ファイルのファイル名を探せる）
 │   │   │   ├── search-quick-search-filter-update-1112.md # サーチ Pro v1.8.2・クイックサーチ v1.9.2・クイックフィルター v1.4.1 アップデートのお知らせ（2026-11-12・3 製品まとめて・続けて検索しても HTTP 431 のエラーにならない）
+│   │   │   ├── search-pro-v170-update.md        # サーチ Pro v1.7.0 アップデートのお知らせ（2026-11-10 14:10・検索で添付ファイルのファイル名を探せる）
 │   │   │   ├── search-pro-v160-update.md        # サーチ Pro v1.6.0 アップデートのお知らせ（2026-11-09 22:40・絞り込みの窓の初期値）
 │   │   │   ├── quick-filter-v140.md             # クイックフィルター v1.4.0 アップデートのお知らせ（2026-11-09 22:30・窓ごとの初期値）
 │   │   │   ├── search-pro-v150-update.md        # サーチ Pro v1.5.0 アップデートのお知らせ（2026-11-04 10:10・テーブル内の日付の窓にも期間ボタン）
@@ -1300,9 +1300,9 @@ c:\kizuna-works.jp\
 │   │   ├── chat-notify-teams-{01..04}.png  # Teams ワークフローでの Webhook 作成手順スクショ
 │   │   ├── chat-notify-gchat-{02,03}.png   # Google Chat の Webhook 追加手順スクショ
 │   │   ├── chat-notify-v220-{dest,rule}.{png,webp} # v2.2.0 の UPDATE 用スクショ（送信先タブの Chatwork カードと取得手順／通知ルールタブの全員メンションと見出し）
+│   │   ├── chat-notify-v230-{01-config,02-preview}.{png,webp} # v2.3.0 の UPDATE 用スクショ（共通設定「差し込む値の書式」／本文プレビュー・加工なし）
 │   │   ├── chat-notify-lineworks-{01..05}.png # LINE WORKS の Incoming Webhook 取得手順スクショ（01=アプリ詳細/02=Bot選択/03=チャンネルID/04=Webhook追加/05=発行済み一覧。03〜05 はチャンネルID・Webhook URL をマスク済）
 │   │   ├── chat-notify-lineworks-msg-01.png # LINE WORKS に実際に届いた通知（見出し＋@All＋「レコードを開く」ボタンのカード）
-│   │   ├── chat-notify-v230-{01-config,02-preview}.{png,webp} # v2.3.0 の UPDATE 用スクショ（共通設定「差し込む値の書式」／本文プレビュー・加工なし）
 │   │   ├── chat-notify-{slack,teams,gchat}-msg-*.png # 各サービスに実際に届いた通知（teams-msg-01 は氏名をマスク済）
 │   │   ├── card-board-banner.png           # カードボード for kintone 見出しバナー（Gemini で作成・OGP/グリッド/製品ページ共用・1200×630）
 │   │   ├── card-board-icon.png             # カードボード for kintone アイコン（200×200・ヒーロー用）
@@ -1393,6 +1393,9 @@ c:\kizuna-works.jp\
 │   │   ├── dashboard-portal-layout.png/.webp # ダッシュボード v1.1.0 ポータルレイアウト構成画面（製品ページUPDATEボックス・お知らせOGP・1100×634）
 │   │   ├── dashboard-config-totals.png/.webp # ダッシュボード v1.2.0 設定画面のクロス集計表 表示オプション（行合計／列合計の個別切替・製品ページUPDATEボックス）
 │   │   ├── dashboard-config-search-01.png/.webp # ダッシュボード v1.6.0 設定画面 v2（目次＋フィールド検索・製品ページUPDATEボックス・1500×1050）
+│   │   ├── dashboard-closing-day-01.png/.webp # ダッシュボード v1.7.0 設定画面の締め日・期初月・期の名前・月の名前（製品ページUPDATEボックス・1350×1560）
+│   │   ├── dashboard-term-select-01.png/.webp # ダッシュボード v1.7.0 期間セレクタ「期を選ぶ」の期の一覧（製品ページUPDATEボックス・1335×234）
+│   │   ├── dashboard-closing-day-chart-01.png/.webp # ダッシュボード v1.7.0 締め日で区切った月別・四半期別・期別のグラフ（製品ページUPDATEボックス・1335×956）
 │   │   ├── dashboard-time-01.png            # ダッシュボード「主な機能」の時間の集計（v1.3.0 の UPDATE 枠から移設）— 勤務時間の合計カード 304時間39分・部署別の勤務時間の棒グラフ（軸は時間）・部署×月の作業時間のクロス集計（1280×587・.webp あり）
 │   │   ├── dashboard-portal-multi-01.png    # ダッシュボード 主な機能「別々のアプリのダッシュボードを、同じポータルに」の画像（v1.3.1 の UPDATE 枠から移設） — 全社ポータルに別々のアプリの2つのダッシュボード（地域×月の売上／種別×月の問い合わせ件数・月は時系列順）を上下に並べた（1280×1000・.webp あり）
 │   │   ├── dashboard-table-01.png           # ダッシュボード「主な機能」のテーブルの明細の集計（v1.4.0 の UPDATE 枠から移設） — 月次生産実績の生産明細テーブルを集計したボード（製品×月の生産金額のクロス集計表・合計カード・製品別の積み上げ棒・工場別の不良数）（2100×1176・.webp あり）
@@ -1882,8 +1885,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-history-view-v1.0.2.zip                      # クイック履歴ビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-quick-history-view-v1.0.3.zip                      # クイック履歴ビュー for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-quick-filter-v1.4.0.zip  # クイックフィルター for kintone 配布ファイル（最新・2026-11-09・v1.4.0：窓ごとの初期値）
-│   │   ├── kw-quick-filter-v1.3.0.zip  # クイックフィルター for kintone 配布ファイル（2026-11-04・v1.3.0：テーブル内の日付の窓に期間ボタン・多言語対応）
 │   │   ├── kw-quick-filter-v1.4.1.zip  # クイックフィルター for kintone 配布ファイル（最新・2026-11-12・v1.4.1：続けて検索しても HTTP 431 にならない）
+│   │   ├── kw-quick-filter-v1.3.0.zip  # クイックフィルター for kintone 配布ファイル（2026-11-04・v1.3.0：テーブル内の日付の窓に期間ボタン・多言語対応）
 │   │   ├── kw-quick-filter-v1.2.0.zip  # クイックフィルター for kintone 配布ファイル（最新・2026-10-31・v1.2.0：帯の配色（カスタム）の色の欄に共通カラーパレット）
 │   │   ├── kw-quick-search-v1.0.0.zip                            # クイックサーチ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-search-v1.1.0.zip                            # クイックサーチ for kintone 配布ファイル（旧版・参考保管）
@@ -1897,8 +1900,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-quick-search-v1.5.0.zip  # クイックサーチ for kintone 配布ファイル（旧版・2026-10-28・v1.5.0：設定画面のボタンの色の欄に共通カラーパレットを追加）
 │   │   ├── kw-quick-search-v1.6.0.zip  # クイックサーチ for kintone 配布ファイル（旧版・2026-10-29・v1.6.0：検索窓の大きさを選べる・プレースホルダーを表示しない設定）
 │   │   ├── kw-quick-search-v1.7.0.zip  # クイックサーチ for kintone 配布ファイル（最新・2026-10-31・v1.7.0：ユーザー選択・組織選択・グループ選択・作成者・更新者の検索／日本語・英語・中国語（簡体字）に対応）
-│   │   ├── kw-quick-side-view-v1.0.0.zip                         # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-search-v1.9.2.zip  # クイックサーチ for kintone 配布ファイル（最新・2026-11-12・v1.9.2：続けて検索しても HTTP 431 にならない・自動翻訳で［AND］［OR］が訳されない）
+│   │   ├── kw-quick-side-view-v1.0.0.zip                         # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-side-view-v1.0.1.zip                         # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-quick-side-view-v1.0.2.zip                         # クイックサイドビュー for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
 │   │   ├── kw-quick-side-view-v1.0.3.zip                 # クイックサイドビュー for kintone 配布ファイル（旧版・参考保管）
@@ -2073,9 +2076,9 @@ c:\kizuna-works.jp\
 │   │   ├── kw-search-pro-v1.5.0.zip    # サーチ Pro for kintone 配布ファイル（2026-11-04・v1.5.0：テーブル内の日付の窓に期間ボタン）
 │   │   ├── kw-search-pro-v1.4.0.zip    # サーチ Pro for kintone 配布ファイル（最新・2026-10-31・v1.4.0：ユーザー・組織・グループの検索・絞り込みの窓と集計カードの色の欄に共通カラーパレット）
 │   │   ├── kw-search-pro-v1.7.0.zip    # サーチ Pro for kintone 配布ファイル（最新・2026-11-10・v1.7.0：検索で添付ファイルのファイル名を探せる（クイックサーチ v1.8.0 を取り込み））
+│   │   ├── kw-search-pro-v1.8.2.zip    # サーチ Pro for kintone 配布ファイル（最新・2026-11-12・v1.8.2：続けて検索しても HTTP 431 にならない・前回の検索条件が残らない・自動翻訳で［AND］［OR］が訳されない）
 │   │   ├── kw-search-pro-v1.6.0.zip    # サーチ Pro for kintone 配布ファイル（2026-11-09・v1.6.0：絞り込みの窓の初期値（クイックフィルター v1.4.0 を取り込み））
 │   │   ├── kw-search-pro-v1.5.1.zip  # 配布ファイル（2026-11-07・v1.5.1：版上げ）
-│   │   ├── kw-search-pro-v1.8.2.zip    # サーチ Pro for kintone 配布ファイル（最新・2026-11-12・v1.8.2：続けて検索しても HTTP 431 にならない・前回の検索条件が残らない・自動翻訳で［AND］［OR］が訳されない）
 │   │   ├── kw-summary-bar-v1.0.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-summary-bar-v2.0.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-summary-bar-v2.1.0.zip                             # 集計サマリーバー for kintone 配布ファイル（旧版・参考保管）
