@@ -15,9 +15,9 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
 <Layout
   title="入力アシスト for kintone - 入力サジェスト・表記ゆれの自動変換・入力順ガイド | KIZUNA Works"
-  description="kintone の入力欄に過去の入力値やほかのアプリの値を候補表示して入力でき、貼り付けた値や手入力した値の表記ゆれをフィールドごとの辞書で自動的にそろえるプラグイン。置き換える位置や辞書を使う条件も指定可。サブテーブル内も対応。入力順ガイド、未入力チェック、重複チェックも。"
+  description="kintone の入力欄に過去の入力値やほかのアプリの値を候補表示して入力でき、貼り付けた値や手入力した値の表記ゆれをフィールドごとの辞書で自動的にそろえるプラグイン。置き換える位置や辞書を使う条件も指定可。サブテーブル内も対応。入力順ガイド・未入力チェック（ステータスごとに絞り込み可）、重複チェックも。"
   ogTitle="入力アシスト for kintone - 入力サジェスト・表記ゆれの自動変換・入力順ガイド | KIZUNA Works"
-  ogDescription="kintone の入力欄に過去の入力値やほかのアプリの値を候補表示して入力でき、貼り付けた値や手入力した値の表記ゆれをフィールドごとの辞書で自動的にそろえるプラグイン。置き換える位置や辞書を使う条件も指定可。サブテーブル内も対応。入力順ガイド、未入力チェック、重複チェックも。"
+  ogDescription="kintone の入力欄に過去の入力値やほかのアプリの値を候補表示して入力でき、貼り付けた値や手入力した値の表記ゆれをフィールドごとの辞書で自動的にそろえるプラグイン。置き換える位置や辞書を使う条件も指定可。サブテーブル内も対応。入力順ガイド・未入力チェック（ステータスごとに絞り込み可）、重複チェックも。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/input-assist/"
   ogImage="https://kizuna-works.jp/images/input-assist-banner.png"
@@ -59,10 +59,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "入力アシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.3.2",
-          "dateModified": "2026-11-10",
+          "softwareVersion": "2.4.0",
+          "dateModified": "2026-11-12",
           "url": "https://kizuna-works.jp/plugins/input-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-input-assist-v2.3.2.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-input-assist-v2.4.0.zip",
           "image": "https://kizuna-works.jp/images/input-assist-banner.png",
           "offers": {
             "@type": "Offer",
@@ -72,7 +72,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintone の新規作成・編集画面で、入力欄に過去の入力値やほかのアプリのフィールド値を候補表示して選ぶだけで入力できる kintone プラグイン。狭い入力欄を大きなダイアログで開いて入力できる拡大入力（v2.1.0）と、貼り付けた値や手入力した値の表記ゆれをフィールドごとの辞書で自動的にそろえる入力の変換（v2.2.0。v2.3.0 で置き換える位置・辞書を使う条件・複数辞書を追加）を備える。サジェストと拡大入力はサブテーブル内のフィールドにも対応。入力してほしい順に色で誘導する入力順ガイド、保存を止めない未入力チェック、入力中の重複チェックも備える。",
+          "description": "kintone の新規作成・編集画面で、入力欄に過去の入力値やほかのアプリのフィールド値を候補表示して選ぶだけで入力できる kintone プラグイン。狭い入力欄を大きなダイアログで開いて入力できる拡大入力（v2.1.0）と、貼り付けた値や手入力した値の表記ゆれをフィールドごとの辞書で自動的にそろえる入力の変換（v2.2.0。v2.3.0 で置き換える位置・辞書を使う条件・複数辞書を追加）を備える。サジェストと拡大入力はサブテーブル内のフィールドにも対応。入力してほしい順に色で誘導する入力順ガイド、保存を止めない未入力チェック（どちらも v2.4.0 でプロセス管理のステータスごとに対象項目を絞れる）、入力中の重複チェックも備える。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -108,6 +108,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "標準必須とは別物として共存（保存をブロックしない）",
             "保存後の詳細画面でも未入力を警告色＋タグで表示",
             "入力中の重複チェック（「値の重複を禁止する」フィールドを自動対象・同一アプリ内照会）",
+            "入力順ガイドと未入力チェックを項目ごとにステータスで絞り込み（プロセス管理が有効なアプリ）",
             "配色は入力順ガイドと未入力チェックで別プリセット（同じ色は選べない）",
             "GAS・外部サービス不要・kintone完結"
           ]
@@ -778,83 +779,76 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.3.2</span>
+        <span class="hero-version">v2.4.0</span>
       </div>
       <HeroSubBadges pluginId="kw-input-assist" />
       <h1 class="hero-title">入力アシスト for kintone</h1>
-      <p class="hero-copy">入力アシストは、kintone の入力欄に<strong>過去に入力された値</strong>や<strong>ほかのアプリの値</strong>を候補から選んで入力でき、貼り付けた値や手入力した値の<strong>表記ゆれを辞書で自動的にそろえる</strong> kintone プラグインです。<strong>サブテーブル内のフィールドにも対応</strong>。同じ値を毎回打ち直す手間と、表記のばらつきをまとめて減らせます。「入力の変換」では、「（株）」を「株式会社」に、全角の英数字を半角に、「3,000円」を 3000 に、といった置き換えをフィールドごとの辞書で自動で行います（置き換える位置や、辞書を使う条件も指定可）。ほかに、狭い入力欄を大きなダイアログで開く「拡大入力」、入力してほしい順にフィールドを色で誘導する「入力順ガイド」、保存を止めずに入力漏れだけ知らせる「未入力チェック」、入力中に重複を警告する「重複チェック」を備え、新人やたまに使う担当者でも迷わず正しく入力できます。</p>
-      <HeroDownload href="/downloads/kw-input-assist-v2.3.2.zip" />
+      <p class="hero-copy">入力アシストは、kintone の入力欄に<strong>過去に入力された値</strong>や<strong>ほかのアプリの値</strong>を候補から選んで入力でき、貼り付けた値や手入力した値の<strong>表記ゆれを辞書で自動的にそろえる</strong> kintone プラグインです。<strong>サブテーブル内のフィールドにも対応</strong>。同じ値を毎回打ち直す手間と、表記のばらつきをまとめて減らせます。「入力の変換」では、「（株）」を「株式会社」に、全角の英数字を半角に、「3,000円」を 3000 に、といった置き換えをフィールドごとの辞書で自動で行います（置き換える位置や、辞書を使う条件も指定可）。ほかに、狭い入力欄を大きなダイアログで開く「拡大入力」、入力してほしい順にフィールドを色で誘導する「入力順ガイド」、保存を止めずに入力漏れだけ知らせる「未入力チェック」、入力中に重複を警告する「重複チェック」を備え（入力順ガイドと未入力チェックは、プロセス管理のステータスごとに項目を絞れます）、新人やたまに使う担当者でも迷わず正しく入力できます。</p>
+      <HeroDownload href="/downloads/kw-input-assist-v2.4.0.zip" />
     </section>
 
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v2.3.0：入力の変換を、場所や条件に応じて使い分けられるようになりました</h2>
+          <h2 class="update-title">v2.4.0：入力順ガイドと未入力チェックを、項目ごとにステータスで絞れるようになりました</h2>
         </div>
         <p class="update-desc">
-          2026年10月31日に、入力アシストを v2.3.0 にアップデートしました。
-          入力の変換に次の 3 点を追加しました。
+          2026年11月12日に、入力アシストを v2.4.0 にアップデートしました。
+          プロセス管理を使うアプリで、新規作成のときは空欄でよい項目に、ガイドや未入力の警告が出ないようにできます。
+        </p>
+        <p class="update-desc">
+          <strong>1. 項目ごとに、表示するステータスを選べます。</strong>
+          入力順ガイドの各行と、未入力チェックの各項目に［適用：すべて］ボタンが付きます。
+          押すと、「すべてのステータス」「新規作成」、プロセス管理の各ステータスから、チェックボックスで選べます。
+          「新規作成」はレコードを追加する画面です（再利用して作成する画面も含みます）。
+          新規作成だけ、新規作成と特定のステータス、特定のステータスだけ、のどれも指定できます。
+          このボタンは、プロセス管理が有効なアプリの設定画面にだけ表示されます。
         </p>
         <div class="update-shot">
-          <p class="shot-label">▼ 辞書ごとに「使う条件」、置き換えルールごとに「かける位置」を選べます</p>
+          <p class="shot-label">▼ 各項目の［適用］ボタン。項目 C は「新規作成」と「受付」を選んだ例</p>
           <div class="screenshot-frame">
             <Picture
-              class="zoomable" src="/images/input-assist-convert-03.png"
-              alt="入力アシストの設定画面「入力の変換」。辞書の「この辞書を使う条件」と、置き換えルールの「かける位置」を選べる"
-              width="1800" height="1320"
+              class="zoomable" src="/images/input-assist-status-02.png"
+              alt="入力アシストの設定画面。入力順ガイドの項目 C の［適用：新規作成・受付］を押すと、すべてのステータス・新規作成・未処理・受付・確認中・完了のチェックボックスが開く"
+              width="815" height="1005"
             />
           </div>
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </div>
         <p class="update-desc">
-          <strong>1. 置き換えを、先頭だけ・末尾だけ・位置を指定してかけられます。</strong>
-          置き換えルールごとに「どこでも」「先頭だけ」「末尾だけ」「位置を指定（N 文字目から M 文字）」を選べます。
-          たとえば、先頭の番号だけを消して、途中の数字は残せます（「12商品名2026」→「商品名2026」）。
-          ひな形に「先頭の番号を取る」も加えました。
+          <strong>2. ガイドの順番・「未入力」の表示・保存時の確認が、今のステータスの項目だけで動きます。</strong>
+          ガイドの番号と進む順番は、そのステータスで対象になる項目だけで数えます。
+          詳細画面の「未入力」の表示も、レコードの今のステータスで絞られます。
+          対象の項目が 1 つもないステータスでは、ガイドも保存時の確認も出ません。
         </p>
         <div class="update-shot">
-          <p class="shot-label">▼ 条件と置き換えルール表の拡大</p>
+          <p class="shot-label">▼ ステータス「受付」のレコードの編集画面</p>
           <div class="screenshot-frame">
             <Picture
-              class="zoomable" src="/images/input-assist-convert-04.png"
-              alt="辞書の「この辞書を使う条件」と、置き換えルール表の「かける位置」の列を拡大した画面"
-              width="1261" height="1102"
+              class="zoomable" src="/images/input-assist-status-03.png"
+              alt="ステータスが受付のレコードの編集画面。項目 A に「入力してください」、項目 C に「未入力」が表示され、項目 B・D には何も出ていない"
+              width="700" height="437"
             />
           </div>
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </div>
         <p class="update-desc">
-          <strong>2. 辞書を使う条件を決められます。</strong>
-          辞書ごとに「いつも使う」か「条件に合うときだけ使う」を選べます。
-          条件には、変換するフィールド自身の値（上の辞書で変換したあとの値）、ほかのフィールドの値、テーブル内の同じ行の列の値を使えます。
-          比べ方は、で始まる・で終わる・を含む・を含まない・と等しい・と等しくない・正規表現に一致・空である・空でない、から選べます。
-          複数の条件は「すべて」か「どれか 1 つ」で組み合わせます。
+          この画面の設定は次のとおりです。
+          ガイドは、項目 A＝すべて、項目 B・D＝新規作成のみ、項目 C＝新規作成と受付。
+          未入力チェックは、項目 A＝確認中のみ、項目 C＝すべて。
+          「受付」では、ガイドは項目 A から始まり、項目 B・D は対象外です。
+          項目 A は未入力チェックの対象外なので、「未入力」は項目 C だけに出ます。
         </p>
         <p class="update-desc">
-          <strong>3. 同じフィールドを複数の辞書に入れられます。</strong>
-          上の辞書から順に、条件に合う辞書をすべてかけます。
-          「この辞書で変換したら、下にある辞書はかけない」を選べば、条件ごとの使い分けもできます。
-          辞書は▲▼で並べ替えられます。
-        </p>
-        <div class="update-shot">
-          <p class="shot-label">▼ レコードの入力欄に貼り付けると、先頭の番号だけが取れた様子</p>
-          <div class="screenshot-frame">
-            <Picture
-              class="zoomable" src="/images/input-assist-convert-05.png"
-              alt="kintone の入力欄に貼り付けた値の先頭の番号だけが取り除かれ、入力欄の下に「変換前 → 変換後」と［元に戻す］が表示されている"
-              width="1056" height="258"
-            />
-          </div>
-          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-        </div>
-        <p class="update-desc">
-          Excel からの貼り付け・Excel 用コピーでは、4 列目「かける位置」（先頭・末尾・位置）と、5・6 列目「何文字目から」「何文字」も扱えます（3 列の表はこれまでどおり）。
-          設定画面の対象フィールドを外す［×］も、押しやすくしました。
+          <strong>3. ステータス名を変えたときは、設定画面でお知らせします。</strong>
+          保存済みのステータスがプロセス管理に見つからないときは、ボタンの横に警告が出ます。ステータスを選び直してください。
         </p>
         <p class="update-note">
           すでにご利用中の方は、最新バージョンの zip をダウンロードして<strong>同じプラグインを上書きアップロード</strong>してください（設定は引き継がれます）。
-          既存の設定は「どこでも」「いつも使う」として動くため、これまでの動作は変わりません。
+          既存の設定は「すべてのステータス」として動くため、これまでの動作は変わりません。
+          プロセス管理を無効にしたアプリでは、ステータスの絞り込みは効かず、すべての項目が対象になります。
+          プロセス管理のアクションを実行するときの確認は、今回の対象外です。
         </p>
         <BridgeUpdateNote />
       </div>
@@ -1055,6 +1049,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <li><span><strong>未入力チェック（保存時に確認）</strong> — 指定フィールドを警告色＋「未入力」タグで表示。未入力のまま保存しようとすると確認ダイアログ（未入力項目の一覧つき・「このまま保存／戻って入力」）を表示します。<strong>保存はブロックしません</strong>。</span></li>
         <li><span><strong>標準必須と共存</strong> — kintone 標準の必須（保存ブロック）とは別物として共存。「あとで埋めたい」運用にもなじみます。</span></li>
         <li><span><strong>詳細画面でも未入力を表示</strong> — 保存後のレコード詳細画面でも、未入力の対象フィールドを警告色＋「未入力」タグで表示。後から入力漏れに気づけます。</span></li>
+        <li><span><strong>項目ごとにステータスで絞る</strong> — プロセス管理が有効なアプリでは、入力順ガイドと未入力チェックの対象項目ごとに、表示するステータスを選べます（すべて／新規作成／プロセス管理の各ステータス）。新規作成のときは空欄でよい項目に警告を出さない運用ができます。ガイドの順番、詳細画面の「未入力」、保存時の確認は、今のステータスで対象になる項目だけで判定します。</span></li>
         <li><span><strong>入力中の重複チェック</strong> — kintone の「値の重複を禁止する」が設定されたフィールドを自動対象に、入力中に同じアプリ内の既存レコードと同じ値がないかを確認。重複していればその場で警告し、保存時の重複エラー前に気づけます。</span></li>
         <li><span><strong>配色はガイド／チェックで別指定</strong> — 入力順ガイドと未入力チェックの色をそれぞれプリセット（ピンク系／ブルー系／緑系／オレンジ系／グレー系）またはカスタムから選択。区別のため同じ色は選べません。ライブプレビュー付き。</span></li>
         <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は不要。重複チェックも自分の kintone アプリ内で完結し、業務データを外部へ送信しません。</span></li>
@@ -1125,7 +1120,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">レコードの新規作成・編集画面があるアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-input-assist-v2.3.2.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-input-assist-v2.4.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「入力アシスト」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>入力順ガイドの対象フィールド・未入力チェックの対象・配色</strong>などを設定して「保存」</span></li>
@@ -1150,7 +1145,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-input-assist-v2.3.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-input-assist-v2.4.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <SupporterPlanCard pluginId="kw-input-assist" />
         <PremiumPlanCard />
@@ -1304,10 +1299,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-input-assist-v2.3.2.zip',
+              file_name: 'kw-input-assist-v2.4.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-input-assist-v2.3.2.zip'
+              link_url: '/downloads/kw-input-assist-v2.4.0.zip'
             });
           }
         });
