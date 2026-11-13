@@ -8,10 +8,10 @@ import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricin
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 import RequestOriginBadge from '../../../components/RequestOriginBadge.astro';
 
-const VERSION = '1.4.0';
+const VERSION = '1.5.0';
 const ZIP = `/downloads/kw-design-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/design-pro/';
-const DATE_MODIFIED = '2026-11-12';
+const DATE_MODIFIED = '2026-11-13';
 
 // The six single products this one bundles. Cards are built from plugins.ts so names and slugs never drift.
 const singleOf = (id: string) => {
@@ -146,7 +146,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.4.0",
+          "softwareVersion": "1.5.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -174,9 +174,9 @@ const faqJsonLd = {
           featureList: [
             'フィールドスタイラー：フィールドの背景色・文字色・フォント・太字・サイズ・条件付きスタイル（今月・先月・来月の判定を含む）・リンク欄の値の装飾・文字数制限・入力文字種制限・コピー・プレースホルダー（複数行は改行可）・設定画面のプレビュー',
             'FormDeco：罫線の見た目、スペースへの見出し・画像・吹き出し・リンク、折りたたみ、固定表示、スペースの前での改ページ',
-            'テーマスタイラー：アプリのテーマ色の一括適用、アプリ名の帯のリンクボタン',
+            'テーマスタイラー：アプリのテーマ色の一括適用（レコード画面と一覧で開くテーブルの見出しを含む）、アプリ名の帯のリンクボタン',
             'コメントコントロール：コメント欄の開き方、一覧のコメント件数の色分け・ホバーで全文表示',
-            'ユーザーオートフィル：ユーザー属性の転記、プロフィールカード、捺印',
+            'ユーザーオートフィル：ユーザー属性の転記（テーブルの行では、行のユーザー選択から同じ行の欄へ転記）、プロフィールカード、捺印',
             '帳票デザイナー：PDF や白紙の用紙に項目を配置したテンプレート、1件・まとめての印刷、PDF の添付保存（帳票ごとに印刷画面を開かず保存だけで終えることも選べる）、テンプレートを見られる人の指定、テンプレート編集の方眼線とグリッド間隔（1mm・2mm・5mm）',
             '表示パターン：詳細・編集・新規で見せる項目をボタンで切り替える。最初に開くパターンを、ステータス・値の条件・ユーザー・組織・グループで決められる（アクセス権ではない）',
             '印刷パターン：詳細画面の［印刷 ▼］で、見たまま・仕上げたレイアウト・帳票テンプレートから選んで印刷プレビューへ進む',
@@ -520,22 +520,32 @@ const faqJsonLd = {
     </section>
     <RequestOriginBadge as="note" />
 
-    <!-- Update Info (v1.4.0) -->
+    <!-- Update Info (v1.5.0) -->
     <section class="kbp-section">
       <div class="kbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.4.0：プレースホルダーの入力欄が広がり、設定画面でプレビューを確認できます</h2>
+            <h2 class="update-title">v1.5.0：テーブルの行ごとに、選んだ人の情報を転記できるようになりました</h2>
           </div>
-          <p class="update-desc">デザイン Pro for kintone を v1.4.0 にアップデートしました。フィールドスタイラー v2.10.0 の内容を取り込んでいます。</p>
+          <p class="update-desc">デザイン Pro for kintone を v1.5.0 にアップデートしました。ユーザーオートフィル v1.5.0 とテーマスタイラー v1.4.2 を取り込んでいます。</p>
 
-          <h3 class="kbp-h3">フィールドスタイラーの設定画面を改善しました</h3>
-          <ul class="update-list">
-            <li><strong>プレースホルダーの入力欄</strong>行いっぱいの幅になり、長い案内文も見切れません。文字列（複数行）は改行を入れられ、追加・編集画面と、詳細画面で値が空のときの表示にも改行どおりに出ます</li>
-            <li><strong>プレビュー</strong>フィールドの編集欄に、詳細画面と追加・編集画面の見本が出ます。フィールド名の装飾・値の装飾・プレースホルダー・コピーボタン・条件付きの書式を、入力と同時に確かめられます</li>
-            <li><strong>プレースホルダーが付く欄</strong>同じフィールド名の欄が複数ある場合や、設定後にフィールド名を変えた場合も、設定したフィールドに付きます</li>
-          </ul>
+          <h3 class="kbp-h3">テーブル内のユーザー選択から、同じ行の欄へ転記できます</h3>
+          <p class="update-desc">テーブルの行でユーザーを選ぶと、<strong>同じ行の欄に組織・メール・社員番号などが自動で入ります</strong>。ユーザーオートフィルの設定画面の「テーブル内のユーザー選択から転記」で、テーブルと元にするユーザー選択を選び、属性と転記先を指定します。これまでのユーザー選択フィールドからの転記と同時に設定できます。</p>
+          <div class="update-shot">
+            <Picture class="zoomable" src="/images/user-autofill-v150-01.png" alt="ユーザーオートフィルの設定画面。「テーブル内のユーザー選択から転記」で、テーブルと元にするユーザー選択、属性と転記先の欄を設定している" width="1440" height="1800" />
+            <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+          </div>
+          <div class="update-shot">
+            <Picture class="zoomable" src="/images/user-autofill-v150-02.png" alt="テーブルの2つの行でそれぞれ別のユーザーを選び、同じ行の氏名とメールの欄にその人の情報が入った編集画面" width="888" height="331" />
+            <p class="zoom-hint">行ごとに、選んだ人の情報がその行の欄へ入ります</p>
+          </div>
+
+          <h3 class="kbp-h3">一覧で開くテーブルの見出しを、読みやすく改善しました</h3>
+          <p class="update-desc">一覧画面でレコードのテーブルを開いたとき、見出しが白くなって文字が読めないことがありました。見出しの色は、設定の「サブテーブル（明細）の見出し行」の色が使われます（自動のときはテーマの色）。</p>
+
+          <h3 class="kbp-h3">帳票の保存で、保管アプリが未設定のときの案内を改善しました</h3>
+          <p class="update-desc">印刷の「仕上げたレイアウト」を保存するとき、保管アプリが設定されていない場合は「保管アプリが設定されていません」と表示されます。</p>
 
           <p class="update-note">既存ユーザーの方は、最新バージョンをダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
         </div>
@@ -659,6 +669,7 @@ const faqJsonLd = {
               <p>アプリごとに、テーマ色と、アプリ名の帯のリンクを整えます。</p>
               <ul>
                 <li>アプリのテーマ色を一括で適用できます。グループの枠とテーブル名の帯も、テーマの色にそろえます。</li>
+                <li>レコード画面と、一覧で開くテーブルの見出しの色も、そろえられます。</li>
                 <li>アプリ名の帯に、よく使うページへのリンクボタンを並べられます。</li>
               </ul>
             </div>
@@ -701,7 +712,7 @@ const faqJsonLd = {
               <h3>ユーザーオートフィル</h3>
               <p>ユーザーの情報を、レコードに自動で入れます。</p>
               <ul>
-                <li>ユーザーの属性を、ほかのフィールドへ転記できます。</li>
+                <li>ユーザーの属性を、ほかのフィールドへ転記できます。テーブルの行では、行のユーザー選択から同じ行の欄へ転記できます。</li>
                 <li>ユーザーの名前に、プロフィールカードを表示できます。</li>
                 <li>承認欄などに、［捺印］で本人の印と日時を押せます。</li>
               </ul>
@@ -965,7 +976,7 @@ const faqJsonLd = {
           <li>FormDeco：罫線・スペースの見出し／画像／吹き出し／リンク・折りたたみ・固定表示・改ページ</li>
           <li>テーマスタイラー：テーマ色の一括適用・アプリ名の帯のリンク</li>
           <li>コメントコントロール：コメント欄の開き方・一覧のコメント件数バッジ</li>
-          <li>ユーザーオートフィル：ユーザー属性の転記・プロフィールカード・捺印</li>
+          <li>ユーザーオートフィル：ユーザー属性の転記（テーブルの行ごとも可）・プロフィールカード・捺印</li>
           <li>帳票デザイナー：PDF や白紙の用紙に項目を配置した帳票・1件／まとめ印刷・PDF の添付保存（印刷画面を開かず保存だけも可）・テンプレート編集の方眼線とグリッド間隔・テンプレートを見られる人の指定</li>
           <li>印刷でも色を出せる・装飾ごとに「画面のみ／印刷のみ／両方」を選べる</li>
           <li>ゲストスペースのアプリに対応</li>
