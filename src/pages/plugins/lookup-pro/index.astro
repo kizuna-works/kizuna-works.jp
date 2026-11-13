@@ -7,10 +7,10 @@ import { plugins, premiumPlugins } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.5.1';
+const VERSION = '1.6.0';
 const ZIP = `/downloads/kw-lookup-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/lookup-pro/';
-const DATE_MODIFIED = '2026-11-12';
+const DATE_MODIFIED = '2026-11-14';
 
 // The five single products this one bundles. Cards are built from plugins.ts so names and slugs never drift.
 const singleOf = (id: string) => {
@@ -133,7 +133,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.5.1",
+          "softwareVersion": "1.6.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -159,7 +159,7 @@ const faqJsonLd = {
           description: 'ルックアップ Pro for kintone は、kintone のルックアップについて、入力中の候補表示・候補の絞り込み・マスターのその場登録・フリールックアップ・マスター更新の自動反映の5つの機能を1つの設定画面で使えるプラグイン。ルックアップの欄ごとに入力中の候補表示・候補の絞り込み・マスターのその場登録の設定の有無を確認できる「欄ごとの一覧」、入力中の候補表示とその場登録の設定をまとめて作る「まとめて設定」、絞り込みの条件を引き継いでその場登録で条件に合うマスターしか登録できなくする機能（条件を固定できるとき）、フリールックアップの取得元が更新されたときに詳細画面で知らせる機能、ルックアップで取得したときに取得元のテーブルの行をこのアプリのテーブルへ写す「テーブルのコピー」に対応。同じアプリにもとのプラグインが入っているときは、その機能はもとのプラグインが動く。もとのプラグインの設定は［単品の設定を読み込む］で引き継げる。kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示する。',
           publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
           featureList: [
-            '入力中の候補表示：ルックアップに文字を入れると、その場で候補が出て、↓↑ キーと Enter キーだけでも選べて、選ぶと取得まで終わる。候補の数値・日時は参照先のフィールドの設定どおりに表示',
+            '入力中の候補表示：ルックアップに文字を入れると、その場で候補が出て、↓↑ キーと Enter キーだけでも選べて、選ぶと取得まで終わる。候補の数値・日時は参照先のフィールドの設定どおりに表示。最大表示件数は 1〜500 件まで設定でき、候補の件数の表示は一覧の下端に固定。「フィールド名を表示しない」ルックアップでも候補が出る',
             '候補の絞り込み：［取得］で出る候補を、同じレコードで入力済みの値で絞る（場面ごとに最大10通り）。数値・計算の列は単位・桁区切りどおり、添付ファイルの画像はサムネイルで表示',
             'マスターのその場登録：参照先のマスターに無いとき、［＋新規登録］でその場で登録して取得する',
             'フリールックアップ：文字列（1行）フィールドの横に［取得］を出し、別のアプリから値をコピーする（候補の一覧の数値・日時は参照先のフィールドの設定どおりに表示。このアプリ自身を参照するときは、開いているレコード自体が候補に出ないことを案内）',
@@ -476,22 +476,26 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.5.1) -->
+    <!-- Update Info (v1.6.0) -->
     <section class="kbp-section">
       <div class="kbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.5.1：レコード詳細画面の「開く」リンクを、安定して表示するようにしました</h2>
+            <h2 class="update-title">v1.6.0：候補を最大 500 件まで表示できるようになりました</h2>
           </div>
-          <p class="update-desc">ルックアップ Pro for kintone を v1.5.1 にアップデートしました（フリールックアップ v1.4.1 を取り込み）。</p>
-          <h3 class="kbp-h3">「取得元のレコードを開く」リンクを改善しました</h3>
+          <p class="update-desc">ルックアップ Pro for kintone を v1.6.0 にアップデートしました（ルックアップサジェスト v3.6.0 を取り込み）。</p>
+          <h3 class="kbp-h3">入力中の候補の表示を改善しました</h3>
           <ul class="update-list">
-            <li>レコード詳細画面で、「開く」リンクが出たり出なかったりすることがありましたが、安定して表示されます。</li>
-            <li>ライセンスの確認に一時的に失敗したときも、有料の設定の「開く」リンクが表示されます。</li>
-            <li>前後のレコードへ移動しても、そのレコードの値のリンクだけが表示されます。</li>
+            <li><strong>最大表示件数を 500 件まで設定できます。</strong>設定画面の「最大表示件数」を 1〜500 件の範囲で設定できます（これまでは 20 件まで）。初期値は 10 件のままです。</li>
+            <li><strong>候補の件数の表示が、一覧の下端に固定されます。</strong>「〇件中〇件を表示しています」や絞り込み条件が、候補が多くてもスクロールせずに見えます。</li>
+            <li><strong>候補が出る場面を広げました。</strong>「フィールド名を表示しない」にしたルックアップでも、候補が出ます。モバイルでは、同じフィールド名のルックアップが 2 つ以上あっても、候補を出す欄・値を入れる欄を取り違えません。</li>
           </ul>
-          <p class="update-note">リンクの見た目・開く先・設定は変わりません。既存ユーザーの方は、最新バージョン（v1.5.1）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定の変更は要りません。保存済みの設定は、そのまま引き継がれます。</p>
+          <figure class="update-shot">
+            <p class="shot-label">設定画面：最大表示件数</p>
+            <Picture src="/images/lookup-suggest-v360-01.png" alt="設定画面の最大表示件数の入力欄に 500 が入り、下に「1〜500 件。参照先から取得した候補（最大 500 件）の中から表示します。」の注記が表示されている" width="1008" height="604" class="zoomable" />
+          </figure>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.6.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定の変更は要りません。保存済みの設定は、そのまま引き継がれます。</p>
         </div>
       </div>
     </section>
@@ -807,7 +811,7 @@ const faqJsonLd = {
         </ul>
         <h3 class="kbp-h3">5つの機能と共通の機能</h3>
         <ul class="kbp-list">
-          <li>入力中の候補表示：ルックアップに文字を入れると、その場で候補が出て、↓↑ キーと Enter キーでも選べて、取得まで終わる。候補の数値・日時は参照先の設定どおりに表示</li>
+          <li>入力中の候補表示：ルックアップに文字を入れると、その場で候補が出て、↓↑ キーと Enter キーでも選べて、取得まで終わる。候補の数値・日時は参照先の設定どおりに表示。最大表示件数は 1〜500 件まで設定でき、「フィールド名を表示しない」ルックアップでも候補が出る</li>
           <li>候補の絞り込み：［取得］で出る候補を、入力済みの値で絞る（場面ごとに最大10通り。ユーザー・組織・グループ選択は、コードか名前かを選んで比べられる）</li>
           <li>マスターのその場登録：マスターに無いとき、［＋新規登録］でその場で登録して取得する</li>
           <li>フリールックアップ：文字列（1行）フィールドの横に［取得］を出し、別のアプリから値をコピー。候補の一覧の数値・日時は参照先の設定どおりに表示</li>
