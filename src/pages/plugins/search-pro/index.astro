@@ -7,10 +7,10 @@ import { plugins, premiumPlugins } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.8.2';
+const VERSION = '1.9.0';
 const ZIP = `/downloads/kw-search-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/search-pro/';
-const DATE_MODIFIED = '2026-11-12';
+const DATE_MODIFIED = '2026-11-14';
 
 // The four products this one bundles, plus the two it can start a bulk run in.
 // Search both free and premium lists, and fail the build on a missing id instead of silently dropping the card.
@@ -135,7 +135,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.8.2",
+          "softwareVersion": "1.9.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -175,6 +175,7 @@ const faqJsonLd = {
             '絞り込みの窓の帯の配色・集計カードの配色の上書きの色の欄に、共通のカラーパレット（カラーコード入力・マイカラー・最近使った色）',
             '絞り込みの窓：フィールドごとの窓で、値の一覧から選ぶだけで絞り込む（窓の数・設定セットの数に制限なし）',
             '絞り込みの窓の初期値：窓ごとに初期値を設定すると、一覧を開いたときにその値で絞り込んだ状態で表示される（利用者は窓で変更・解除できる）',
+            '絞り込みの窓の［絞り込む］ボタン：押すと選んだ条件を一覧に反映して閉じる（枠の外のクリック・Esc でも反映）',
             '集計カード：合計・平均・件数などを一覧の上に並べ、絞り込みに合わせて再集計する',
             'CSV出力：用途別のテンプレートで、絞り込んだ結果をワンクリックで CSV にする。テンプレートごとに出力できる人（ユーザー・組織・グループ。組織は直接所属している人だけ）を限定できる',
             'これまでのプラグインの設定を読み込んで引き継ぐ',
@@ -478,37 +479,35 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.8.1) -->
+    <!-- Update Info (v1.9.0) -->
     <section class="kbp-section">
       <div class="kbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.8.1：検索対象の項目が多くても検索できるように改善しました</h2>
+            <h2 class="update-title">v1.9.0：絞り込みの窓に［絞り込む］ボタンを追加し、反映のしかたが分かるようにしました</h2>
           </div>
-          <p class="update-desc">サーチ Pro for kintone を v1.8.1 にアップデートしました（2026年11月11日）。クイックサーチ v1.9.1 を取り込んでいます。</p>
-          <h3 class="kbp-h3">検索対象の項目が多くても、検索できます</h3>
+          <p class="update-desc">サーチ Pro for kintone を v1.9.0 にアップデートしました（2026年11月14日）。クイックフィルター v1.5.0 を取り込んでいます。</p>
+          <h3 class="kbp-h3">選択式・日付の窓に［絞り込む］ボタンを追加しました</h3>
           <ul class="update-list">
-            <li>検索対象のフィールドを多く選んでいると、1 語でも「検索条件が長すぎるため検索できません」と出ることがありました。</li>
-            <li>条件が長すぎるときだけ、そのキーワードが入っていない項目を条件から外して一覧を開きます。結果は外す前と同じです。</li>
-            <li>このときは、kintone の API を検索 1 回につき 2 回使います（アプリごとの 1 日の上限に数えられます）。条件が収まる普段の検索では、この確認は行いません。</li>
-          </ul>
-          <h3 class="kbp-h3">よく使う日付フィールドを、「期間」の上に置けます（v1.8.0）</h3>
-          <ul class="update-list">
-            <li>設定画面の「並び順」で、つまみのドラッグまたは［↑］［↓］で並べ替えます。</li>
-            <li>一覧の検索バーの「期間」のドロップダウンはその順に並び、一番上が最初に選ばれます。</li>
-            <li>「1 つに固定する」のときは、一番上のフィールドを使います。</li>
-            <li>検索バーの［全検索］［クリア］の既定の色を少し濃くして、文字を読みやすくしました。</li>
+            <li>チェックや期間を選んだあと［絞り込む］を押すと、一覧に反映して窓が閉じます。</li>
+            <li>これまでどおり、枠の外のクリックや Esc キーでも反映します。</li>
+            <li>ボタンはテーマの色で目立つ表示にし、キーワードの窓の［絞り込む］も同じ見た目にしました。</li>
+            <li>選択式・日付の窓に「［絞り込む］を押すか、枠の外をクリックすると一覧に反映します」と案内を表示します。</li>
           </ul>
           <div class="update-shot">
-            <Picture src="/images/quick-search-v190-config.png" alt="設定画面の「並び順」。チェックした日付フィールドが一覧になり、左のつまみと右端の［↑］［↓］で順番を変えられる" width="1081" height="272" class="zoomable" />
+            <Picture src="/images/quick-filter-v150-apply-01.png" alt="区分の窓を開いた画面。候補の A にチェックが入り、その下に主ボタンの［絞り込む］と［すべて選択］［解除］が並ぶ。ボタンの下に「［絞り込む］を押すか、枠の外をクリックすると一覧に反映します」の案内が出る" width="1100" height="401" class="zoomable" />
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
+          <h3 class="kbp-h3">［＋ 絞り込みを追加］で足した絞り込みが保存されることを案内します</h3>
+          <ul class="update-list">
+            <li>追加した絞り込みは、そのブラウザに保存され次回も表示されます。不要になったら ✕ で消せます。</li>
+          </ul>
           <div class="update-shot">
-            <Picture src="/images/quick-search-v190-list.png" alt="一覧の検索バーの「期間」のドロップダウン。設定した並び順のとおりに日付フィールドが並び、一番上が選ばれている" width="568" height="347" class="zoomable" />
+            <Picture src="/images/quick-filter-v150-apply-03.png" alt="［＋ 絞り込みを追加］を押したパネル。「絞り込むフィールドを選んでください」の下に「追加した絞り込みは、このブラウザに保存され次回も表示されます。不要になったら ✕ で消せます。」の案内が出る" width="1100" height="388" class="zoomable" />
             <p class="zoom-hint">画像をクリックすると拡大表示します</p>
           </div>
-          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.8.1）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。保存済みの順のままなので、並べ替えるまで一覧の並びは変わりません。</p>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.9.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
         </div>
       </div>
     </section>
@@ -669,7 +668,7 @@ const faqJsonLd = {
             </ul>
             <ul>
               <li><strong>検索バー</strong>：キーワード（AND／OR）で、複数のフィールドを横断して探します。語句検索にも対応し、語の頭に <code>=</code> を付けると完全一致で探せます。完全一致は、文字列（複数行）とリッチエディターの項目を対象外とします。ユーザー選択・組織選択・グループ選択・作成者・更新者の欄は、名前またはコードで探せます（組織は下位の組織も含みます）。添付ファイルの欄は、ファイル名の一部で探せます（文字を読み取れる PDF などは中身の文字でも当たります。完全一致の対象外）。検索窓の長さ・高さも選べます。</li>
-              <li><strong>絞り込みの窓</strong>：フィールドごとの窓を開き、値の一覧から選ぶだけで絞り込めます。窓ごとの初期値も決められます。</li>
+              <li><strong>絞り込みの窓</strong>：フィールドごとの窓を開き、値の一覧から選ぶだけで絞り込めます。窓ごとの初期値も決められ、［絞り込む］ボタンで反映できます。</li>
               <li><strong>集計カード</strong>：合計・平均・件数などを一覧の上に並べ、絞り込みに合わせて再集計します。</li>
               <li><strong>CSV出力</strong>：用途別のテンプレートで、絞り込んだ結果をワンクリックで CSV にします。テンプレートごとに、出力できる人を限定することもできます。</li>
             </ul>
