@@ -10,13 +10,14 @@ import PluginFaqSection from '../../../components/PluginFaqSection.astro';
 import HeroDownload from '../../../components/HeroDownload.astro';
 import BridgeUpdateNote from '../../../components/BridgeUpdateNote.astro';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <Layout
   title="クイック目次 for kintone - レコード画面に目次サイドメニューを表示するプラグイン | KIZUNA Works"
-  description="kintone のレコード詳細・編集・新規作成画面の左側にセクション単位の目次サイドメニューを常時表示するプラグイン。項目クリックで該当セクションへワンクリックジャンプ。スペースパーツを目次のジャンプ先や見出しに使え、ステータスバッジ・配色テーマ・ヘッダー追従にも対応。kintone完結・外部API不使用。"
+  description="kintone のレコード詳細・編集・新規作成画面の左側にセクション単位の目次サイドメニューを常時表示するプラグイン。項目クリックで該当セクションへジャンプし、その目次のエリアだけを表示することも可能。ステータスや値の条件で目次を出し分け、スペースパーツの見出し・ステータスバッジ・配色テーマにも対応。kintone完結・外部API不使用。"
   ogTitle="クイック目次 for kintone - レコード画面に目次サイドメニューを表示するプラグイン | KIZUNA Works"
-  ogDescription="kintone のレコード画面の左側にセクション目次を常時表示。項目クリックで該当セクションへジャンプ。スペースパーツの見出し表示・ステータスバッジ・配色テーマ対応、編集・新規画面でも動作。kintone完結。"
+  ogDescription="kintone のレコード画面の左側にセクション目次を常時表示。項目クリックでジャンプし、その目次のエリアだけを表示。ステータスや値の条件で目次を出し分け。スペースパーツの見出し・ステータスバッジ・配色テーマ対応、編集・新規画面でも動作。kintone完結。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/quick-toc/"
   ogImage="https://kizuna-works.jp/images/quick-toc-banner.png"
@@ -58,10 +59,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "クイック目次 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.3.0",
-          "dateModified": "2026-11-09",
+          "softwareVersion": "1.4.0",
+          "dateModified": "2026-11-14",
           "url": "https://kizuna-works.jp/plugins/quick-toc/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-toc-v1.3.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-toc-v1.4.0.zip",
           "image": "https://kizuna-works.jp/images/quick-toc-banner.png",
           "offers": {
             "@type": "Offer",
@@ -71,7 +72,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "availability": "https://schema.org/InStock",
             "description": "全機能が利用可能。完全無料でダウンロードできます。"
           },
-          "description": "kintone のレコード詳細・編集・新規作成画面の左側にセクション単位の目次サイドメニューを常時表示し、項目クリックで該当セクションへスムーズスクロールする kintone プラグイン。",
+          "description": "kintone のレコード詳細・編集・新規作成画面の左側にセクション単位の目次サイドメニューを常時表示し、項目クリックで該当セクションへスムーズスクロールし、その目次のエリアだけを表示することもできる kintone プラグイン。",
           "publisher": {
             "@type": "Organization",
             "name": "KIZUNA Works",
@@ -82,6 +83,8 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "目次項目クリックで該当セクション先頭へスムーズスクロール（編集・新規画面でも動作）",
             "ジャンプ先はラベル／スペース／フィールド／グループ／サブテーブルから選択（ドロップダウンで選ぶだけ）",
             "スペースパーツを見出し化：レコード画面のスペース位置に表示名＋アクセント線の見出しを描画（大／中／小サイズ・色はテーマ追従）",
+            "エリア表示：目次をクリックすると、その目次のエリア（ジャンプ先の行から次の目次の手前まで）だけを表示。「すべて表示」を自動追加し、最初に開く目次も選べる（オフ／すべての目次／目次ごとに選ぶ）",
+            "条件で目次を出し分け：プロセス管理のステータスやフィールドの値の条件ごとに、表示する目次を選ぶルール表（隠れた目次のエリアも一緒に隠れる）",
             "目次最上部にステータスバッジ表示。ドロップダウン／ラジオ／プロセス管理ステータスは選択肢別カラー、文字列1行フィールドは値をそのまま表示＋任意で値→色ルール",
             "配色テーマ：kintone標準同期／プリセット10色／カスタム7箇所",
             "ヘッダー追従：スクロールしてもツールバー・保存ボタンの直下で停止し隠れない",
@@ -763,45 +766,35 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.3.0</span>
+        <span class="hero-version">v1.4.0</span>
       </div>
       <HeroSubBadges pluginId="kw-quick-toc" />
       <h1 class="hero-title">クイック目次 for kintone</h1>
-      <p class="hero-copy">クイック目次 for kintone は、レコード詳細・編集・新規作成画面の左側にセクション単位の「目次サイドメニュー」を常時表示する kintone プラグインです。項目をクリックすると該当セクションへワンクリックでジャンプ。フォームの「スペース」パーツもジャンプ先に選べ、その位置に見出し（表示名＋アクセント線）を表示できます。縦に長いレコードでも、目的の場所へ一瞬でたどり着けます。ステータスバッジで状態を色分け表示、配色テーマも自由。長いレコードも、ワンクリックで目的の場所へ。</p>
-      <HeroDownload href="/downloads/kw-quick-toc-v1.3.0.zip" />
+      <p class="hero-copy">クイック目次 for kintone は、レコード詳細・編集・新規作成画面の左側にセクション単位の「目次サイドメニュー」を常時表示する kintone プラグインです。項目をクリックすると該当セクションへワンクリックでジャンプし、その目次のエリアだけを表示することもできます。ステータスや値の条件で、表示する目次を出し分けることも可能。フォームの「スペース」パーツもジャンプ先に選べ、その位置に見出し（表示名＋アクセント線）を表示できます。縦に長いレコードでも、目的の場所へ一瞬でたどり着けます。ステータスバッジで状態を色分け表示、配色テーマも自由。長いレコードも、ワンクリックで目的の場所へ。</p>
+      <HeroDownload href="/downloads/kw-quick-toc-v1.4.0.zip" />
     </section>
 
-    <!-- Update Highlight (v1.2.2) -->
+    <!-- UPDATE (v1.4.0) -->
     <section class="update-section fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.2.2：目次メニューが kintone 標準のポップアップより手前に出る問題を修正しました</h2>
+          <h2 class="update-title">v1.4.0：目次ごとのエリア表示と、条件による目次の出し分けを追加しました</h2>
         </div>
+        <p class="update-desc">クイック目次 for kintone を v1.4.0 にアップデートしました。主な変更点は次の3つです。</p>
         <ul class="update-list">
-          <li><strong>目次メニューが kintone 標準のポップアップより手前に描画され、メニューと重なった位置が操作できない問題を修正しました</strong></li>
-          <li>該当する事象の例：<strong>プロセス管理のアクション（承認・申請など）を実行するときの作業者の選択欄が、目次メニューに隠れて選択できない</strong> — メニューは画面左のツールバー直下に表示されるため、選択欄と位置が重なります</li>
+          <li><strong>目次をクリックして、その目次のエリアだけを表示できます</strong> — ジャンプ先の行から次の目次の手前までを、その目次のエリアとして表示します。設定は「オフ」「すべての目次に適用」「目次ごとに選ぶ」から選べます。目次の先頭に「すべて表示」を自動で加え、最初に開く目次も選べます。詳細と編集を行き来しても、開いていた目次を保ちます。</li>
+          <li><strong>条件で目次を出し分けできます</strong> — プロセス管理のステータスやフィールドの値の条件ごとに、表示する目次を選べます。隠れた目次のエリアも一緒に隠れます。どのルールにも入っていない目次は、常に表示します。</li>
+          <li><strong>目次の移動先と設定画面の操作性を改善しました</strong> — 同じ表示名のラベルやフィールドがあるときも、目次から正しい場所へ移動します。設定画面では、行の追加や並べ替えをしても画面の位置が動きません。</li>
         </ul>
-        <p class="update-desc">目次メニューの重なり順を見直し、<strong>フォームより手前・kintone 標準の表示より奥</strong>という正しい位置関係にしました。これにより、<strong>kintone 標準のポップアップ・メニュー・ダイアログが目次メニューに隠れることはなくなります</strong>。<strong>目次メニューの見た目・位置・動作はこれまでと変わりません。</strong></p>
-        <p class="update-note">最新版をダウンロードして、kintone の「システム管理 → プラグイン」から<strong>上書きアップロード</strong>するだけで適用できます。設定はそのまま引き継がれます。</p>
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/quick-toc-v140-01.png" alt="クイック目次のエリア表示を使った kintone レコード詳細画面。目次は「すべて表示・基本情報・見積」で、「見積」を開いており、本文は見積のエリアだけが表示されている。進捗が見積中のため、条件ルールにより契約・請求の目次は隠れている" width="1366" height="540" loading="lazy" />
+          </div>
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-note">最新版をダウンロードして、kintone の「システム管理 → プラグイン」から<strong>上書きアップロード</strong>するだけで適用できます。既存の設定はそのまま引き継がれ、エリア表示は「オフ」・条件ルールなしで、これまでと同じ動きです。</p>
         <BridgeUpdateNote />
-      </div>
-    </section>
-
-    <!-- UPDATE -->
-    <section class="update-section fade-in">
-      <div class="update-box">
-        <div class="update-head">
-          <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.2.0：スペースパーツへの対応・見出し表示・ステータスバッジの文字列1行対応・設定画面の改善</h2>
-        </div>
-        <p class="update-desc">目次のジャンプ先や見出しの作り方が広がり、設定もより使いやすくなりました。主な変更点は次の3つです。</p>
-        <ul class="update-list">
-          <li><strong>フォームの「スペース」パーツに対応し、見出しにもできるように</strong> — 目次のジャンプ先として、ラベルだけでなく<strong>スペース（要素ID付き）</strong>をドロップダウンから選べるようになりました。さらに、通常はなにも表示されないスペースの位置に、目次と同じテキストを<strong>「見出し（表示名＋アクセント線）」として描画</strong>できます。見出しの大きさは<strong>大・中・小</strong>から選べ、線の色は配色テーマに追従します。</li>
-          <li><strong>設定画面を改善</strong> — 設定画面を<strong>全幅表示</strong>にして見やすくし、セクション定義では種別を「ラベル」「スペース」に分けて選択式に。ジャンプ先も含め、画面幅やブラウザの拡大・縮小に関わらず<strong>コントロールが潰れず操作できる</strong>ようにしました。</li>
-          <li><strong>ステータスバッジが「文字列1行」フィールドに対応</strong> — これまでのドロップダウン／ラジオボタン／プロセス管理ステータスに加え、<strong>文字列1行フィールド</strong>を選べるようになりました。値をそのまま基本色で表示し（方式A）、必要に応じて<strong>「値 → 色」ルール</strong>で特定の値だけ色分けもできます（方式B・任意）。</li>
-        </ul>
-        <p class="update-note">既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。既存の設定はそのまま引き継がれ、これまでの目次・ステータスバッジの動作は変わりません。</p>
       </div>
     </section>
 
@@ -892,11 +885,13 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <h2 class="section-title-left">主な機能</h2>
         <ul class="feature-list">
           <li><span><strong>セクション単位の目次サイドメニュー</strong> — レコード詳細・編集・新規作成画面の左側に、設定したセクションの目次を常時表示します。画面ごとに表示の ON/OFF を切り替えられます。</span></li>
-          <li><span><strong>ワンクリックジャンプ</strong> — 目次項目をクリックすると、該当セクションの先頭までスムーズにスクロール。<code>getFieldElement</code> が使えない編集・新規画面でも、ラベル一致でジャンプできるよう設計しています。</span></li>
-          <li><span><strong>4種別でセクションを定義</strong> — 「ラベル」「フィールド」「グループ」「サブテーブル」から選んでジャンプ先を指定。ラベルはフォーム上のラベルをドロップダウンから選べます。ジャンプ先を選ぶと<strong>表示名が自動で入り</strong>、自由に書き換えもできます。</span></li>
-          <li><span><strong>ステータスバッジ</strong> — 目次の最上部に、単一選択フィールド（ドロップダウン／ラジオボタン／プロセス管理ステータス）の値を選択肢ごとの色で表示。背景の明るさに応じて文字色を自動調整します。</span></li>
+          <li><span><strong>エリア表示</strong> — 目次をクリックすると、その目次のエリア（ジャンプ先の行から次の目次の手前まで）だけを表示します。「オフ」「すべての目次に適用」「目次ごとに選ぶ」から選べ、「すべて表示」は自動で加わります。最初に開く目次も選べ、詳細と編集を行き来しても開いていた目次を保ちます。保存時に隠れたエリアで必須エラーが出たら、そのエリアへ切り替わります。</span></li>
+          <li><span><strong>条件で目次を出し分け</strong> — プロセス管理のステータスやフィールドの値の条件ごとに、表示する目次を選ぶルール表です。隠れた目次のエリアも一緒に隠れ、どのルールにも入っていない目次は常に表示します。</span></li>
+          <li><span><strong>ワンクリックジャンプ</strong> — 目次項目をクリックすると、該当セクションの先頭までスムーズにスクロール。詳細・編集・新規のどの画面でも、同じ表示名のラベルやフィールドがあっても、設定した場所へ移動します。</span></li>
+          <li><span><strong>5種別でセクションを定義</strong> — 「ラベル」「スペース」「フィールド」「グループ」「サブテーブル」から選んでジャンプ先を指定。ラベルやスペース（要素ID付き）はフォーム上のものをドロップダウンから選べます。スペースは、その位置に目次と同じ表示名の見出し（アクセント線付き・大／中／小）を表示することもできます。ジャンプ先を選ぶと<strong>表示名が自動で入り</strong>、自由に書き換えもできます。</span></li>
+          <li><span><strong>ステータスバッジ</strong> — 目次の最上部に、ドロップダウン／ラジオボタン／プロセス管理ステータスの値を選択肢ごとの色で表示。文字列1行フィールドは値をそのまま表示し、「値 → 色」ルールで特定の値だけ色分けもできます。背景の明るさに応じて文字色を自動調整します。</span></li>
           <li><span><strong>配色テーマ3モード</strong> — 「kintone標準同期」（アプリのテーマ色を自動採用）／「プリセット10色」／「カスタム7箇所」から選べます。設定画面のライブプレビューで確認できます。</span></li>
-          <li><span><strong>ヘッダー追従で隠れない</strong> — 目次はレコード上部に表示され、スクロールするとツールバー（編集・新規では保存ボタン行）の直下で止まります。常に見える位置に留まります。</span></li>
+          <li><span><strong>ヘッダー追従で隠れない</strong> — 目次はレコード上部に表示され、スクロールするとツールバー（編集・新規では保存ボタン行）の直下で止まります。常に見える位置に留まります。kintone 標準のポップアップ・メニュー・ダイアログが目次に隠れることはありません。</span></li>
           <li><span><strong>幅は自動拡張・本文は自動で押し出し</strong> — 項目テキストが長い場合は目次が自動で広がり、本文の左余白も実際の幅に合わせて自動調整。目次と本文が被りません。</span></li>
           <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。プラグインアップロードのみで導入できます。</span></li>
         </ul>
@@ -906,7 +901,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
     <!-- Config Screen Walkthrough -->
     <section class="section-wrapper fade-in">
       <h2 class="section-title">設定はかんたん</h2>
-      <p class="section-subtitle">基本設定・配色・ステータスバッジ・セクション定義をフォームから設定するだけ。プログラミング知識は不要です。各画像はクリックで拡大できます。</p>
+      <p class="section-subtitle">基本設定・配色・ステータスバッジ・セクション定義・エリア表示・条件ルールをフォームから設定するだけ。プログラミング知識は不要です。各画像はクリックで拡大できます。</p>
 
       <div class="config-screenshots">
         <div class="config-shot">
@@ -932,6 +927,22 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             <p>目次に並べる項目を上から順に定義。種別→ジャンプ先を選ぶと表示名が自動で入り、並べ替え・削除もできます。</p>
           </div>
         </div>
+
+        <div class="config-shot">
+          <Picture class="zoomable" src="/images/quick-toc-v140-02.png" alt="クイック目次 設定画面④ — エリア表示（すべての目次に適用・最初に開く目次は先頭の目次）の設定と、エリアの列があるセクション定義の表" width="1325" height="980" loading="lazy" />
+          <div class="config-shot-caption">
+            <strong>④ エリア表示・セクション定義の「エリア」列</strong>
+            <p>エリア表示の方式（オフ／すべての目次に適用／目次ごとに選ぶ）と、最初に開く目次を選びます。「目次ごとに選ぶ」にすると、セクション定義の「エリア」列で対象の目次を選べます。</p>
+          </div>
+        </div>
+
+        <div class="config-shot">
+          <Picture class="zoomable" src="/images/quick-toc-v140-03.png" alt="クイック目次 設定画面⑤ — 条件で目次を出し分けるルール表。進捗が見積中なら見積、進捗が受注なら契約・請求の目次を表示する設定" width="1325" height="980" loading="lazy" />
+          <div class="config-shot-caption">
+            <strong>⑤ 条件で目次を出し分ける</strong>
+            <p>例：進捗が「見積中」なら見積、「受注」なら契約・請求の目次を表示。ステータスや項目の値の条件ごとに、表示する目次を選びます。どのルールにも選ばれていない目次は、常に表示します。</p>
+          </div>
+        </div>
       </div>
       <p class="zoom-hint">画像をクリックすると拡大表示します</p>
     </section>
@@ -942,10 +953,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">レコード詳細・編集・新規作成画面（PC 版）でご利用いただけます。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-quick-toc-v1.3.0.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-quick-toc-v1.4.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「クイック目次 for kintone」を追加</span></li>
-          <li><span>プラグイン設定画面で<strong>セクション</strong>（目次に並べる項目）を定義し、必要に応じて配色・ステータスバッジを設定して「保存」</span></li>
+          <li><span>プラグイン設定画面で<strong>セクション</strong>（目次に並べる項目）を定義し、必要に応じて配色・ステータスバッジ・エリア表示・条件ルールを設定して「保存」</span></li>
           <li><span>kintone 右上の<strong>「アプリを更新」</strong>(デプロイ)をクリックすると、レコード画面に目次が表示されます</span></li>
         </ol>
         <p style="text-align:center; color:var(--color-text-light); font-size:13px; margin-top:24px; line-height:1.7;">
@@ -970,7 +981,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-quick-toc-v1.3.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-quick-toc-v1.4.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <SupporterPlanCard pluginId="kw-quick-toc" />
       <PremiumPlanCard />
@@ -987,7 +998,8 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           <li>kintone はサイボウズ株式会社の登録商標です。</li>
           <li>動作は Google Chrome／Microsoft Edge の最新版での確認を推奨します。</li>
           <li>本プラグインはレコードの詳細・編集・新規作成画面（PC 版）でのみ動作します。一覧・カレンダー・カスタマイズビューでは動作しません。</li>
-          <li>「ラベル」パーツのジャンプは、フォーム設定で要素IDを付与すると確実です。要素ID未設定の場合は表示テキストで検索するため、同名ラベルが複数あると先頭にヒットすることがあります。</li>
+          <li>「ラベル」パーツのジャンプは、フォーム設定で要素IDを付与すると確実です。要素ID未設定のラベルは、表示テキストと設定画面で記録した順番で特定します。</li>
+          <li>エリア表示は、目次のジャンプ先の行の並びに沿って表示・非表示を切り替えます。同じアプリでクイックタブ for kintone も使う場合は、どちらか一方のエリア表示だけを使ってください。</li>
           <li>編集・新規作成画面では、存在しないセクションを定義すると、クリックしても反応しない項目が残ります（仕様上、編集・新規では自動間引きを行いません）。</li>
           <li>ステータスバッジは単一選択（ドロップダウン／ラジオボタン／プロセス管理ステータス）のみ対応です。チェックボックス・複数選択は対象外です。</li>
           <li>モバイル版 kintone では動作しません。PC 版でのみ動作します。</li>
@@ -1121,10 +1133,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-quick-toc-v1.3.0.zip',
+              file_name: 'kw-quick-toc-v1.4.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-quick-toc-v1.3.0.zip'
+              link_url: '/downloads/kw-quick-toc-v1.4.0.zip'
             });
           }
         });
