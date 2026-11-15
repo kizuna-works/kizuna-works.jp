@@ -2170,7 +2170,8 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       'kintone のレコードのアクセス権は、上から順に最初に当たったルールだけを使う。組織ごとにルールを並べると、複数の組織が関わるレコードでは片方の組織しか見られない。ルールを増やして調整しても、組織やレコードが増えるたびに見直しが要る',
     releaseDate: '2026-10-24',
-    summaryVersion: '1.1.0',
+    summaryVersion: '1.2.0',
+    multilingual: true,
   },
 ];
 

@@ -1713,7 +1713,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-box-connect-v1.0.0.zip   # Box連携 v1.0.0（旧版・初版・プレミアム第22弾）
 │   │   ├── kw-box-connect-v1.3.1.zip  # 配布ファイル（最新・2026-11-07・v1.3.1：版上げ）
 │   │   ├── kw-record-acl-assist-v1.0.0.zip # レコード権限アシスト for kintone 配布ファイル（旧版・参考保管・v1.0.0・プレミアム第23弾）
-│   │   ├── kw-record-acl-assist-v1.1.0.zip # レコード権限アシスト for kintone 配布ファイル（最新・2026-10-29・v1.1.0＝組織・グループ・ユーザーを 1 つの設定で使う・対応表アプリに書き方を表示）
+│   │   ├── kw-record-acl-assist-v1.1.0.zip # レコード権限アシスト for kintone 配布ファイル（旧版・2026-10-29・v1.1.0＝組織・グループ・ユーザーを 1 つの設定で使う・対応表アプリに書き方を表示）
+│   │   ├── kw-record-acl-assist-v1.2.0.zip # レコード権限アシスト for kintone 配布ファイル（最新・2026-11-15・v1.2.0：多言語〔日英中〕・ゲストスペースで所属組織・グループによる判定がエラーなく効く・広告と設定画面の案内を共通版に）
 │   │   ├── kw-lookup-suggest-v3.0.1.zip # ルックアップサジェスト v3.0.1（同上）
 │   │   ├── kw-conditional-numbering-v2.2.0.zip # 条件分岐自動採番 v2.2.0 配布物
 │   │   ├── kw-conditional-numbering-v2.3.0.zip # 条件分岐自動採番 v2.3.0 配布物（旧版・枝番／採番中の進捗表示）
