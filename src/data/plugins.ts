@@ -487,7 +487,7 @@ export const plugins: Plugin[] = [
     problemDesc: 'グラフ画面に移動せず、一覧の上でそのまま集計を確認したい。勤務時間などの時間も「〇時間〇分」で合計したい',
     problemFeatured: true,
     releaseDate: '2026-05-30',
-    summaryVersion: '2.6.0',
+    summaryVersion: '2.7.0',
   },
   {
     id: 'kw-csv-export',
