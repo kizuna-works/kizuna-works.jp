@@ -1819,6 +1819,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-form-deco-v1.0.3.zip                               # FormDeco for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-form-deco-v1.1.0.zip                               # FormDeco for kintone 配布ファイル（旧版・2026-10-31・v1.1.0：コールアウト・リンク/ボタン・折りたたみ見出し・上部に固定・改ページ・「画面と印刷」の出し分け・カラーパレット）
 │   │   ├── kw-form-deco-v1.2.0.zip                               # FormDeco for kintone 配布ファイル（最新・2026-10-31・v1.2.0：設定画面が日本語/英語/中国語（簡体字）対応）
+│   │   ├── kw-horizontal-sheet-v1.1.0.zip                        # 横並びシート for kintone 配布ファイル（最新・2026-11-16・v1.1.0：多言語〔日英中〕・一覧シートでの更新と新規を KIZUNAブリッジへ通知・計算フィールドの日時と小数をフィールドの設定どおりに表示・日時をユーザーのタイムゾーンで扱う・並べ替えのドラッグで自動スクロール・色の欄に共通カラーパレット・広告と設定画面の案内を共通版に）
 │   │   ├── kw-input-assist-v1.0.0.zip                            # 入力アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-input-assist-v1.0.1.zip                            # 入力アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-input-assist-v1.0.2.zip                            # 入力アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）

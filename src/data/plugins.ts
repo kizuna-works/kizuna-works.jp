@@ -2086,7 +2086,8 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       'kintone の一覧は1レコード1行なので、店舗別・月別・業者別のレコードを横に並べて見比べられない。標準のクロス集計表は見るだけで、値の編集ができない。結局 Excel に書き出して表を作り直し、数字を直すたびに kintone と二重に管理することになる',
     releaseDate: '2026-10-16',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-free-lookup',
