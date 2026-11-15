@@ -1445,7 +1445,7 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       '検索すると絞り込みの選択が消える、絞り込んだ結果と集計の数字がそろわない、今どんな条件で見ているのか分からない。毎回同じ条件を作り直し、CSV にしても条件がどこにも残らない',
     releaseDate: '2026-10-25',
-    summaryVersion: '1.9.0',
+    summaryVersion: '1.10.0',
     bridge: 'ブリッジのルールから、全員用の保存した検索の結果を CSV にして、レコードの添付ファイル欄に入れられます。',
     bundles: [
       { id: 'kw-quick-search', role: '検索バー' },
