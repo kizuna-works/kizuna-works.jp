@@ -409,7 +409,8 @@ export const plugins: Plugin[] = [
     problemTitle: '住所入力と地図確認の往復が面倒',
     problemDesc: '郵便番号入力で住所を自動入力し、レコードを開いた瞬間に地図プレビューまで一気に見たい。番地まで入った住所は消したくない',
     releaseDate: '2026-05-23',
-    summaryVersion: '1.3.0',
+    summaryVersion: '1.4.0',
+    multilingual: true,
   },
   {
     id: 'kw-quick-history-view',

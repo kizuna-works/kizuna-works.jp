@@ -1543,7 +1543,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-address-assist-v1.2.2.zip                          # 住所アシスト for kintone 配布ファイル（旧版・手動配置・v1.2.2 逆引きボタンの重なり順を修正）
 │   │   ├── kw-address-assist-v1.3.0.zip                          # 住所アシスト for kintone 配布ファイル（旧版・v1.3.0：入力済みの住所を残す設定・自動入力のオフ・編集/追加画面のコピーボタン）
 │   │   ├── kw-address-assist-v1.3.1.zip                          # 住所アシスト for kintone 配布ファイル（旧版・2026-10-17・v1.3.1：連携用の内部の改善）
-│   │   ├── kw-address-assist-v1.3.2.zip                          # 住所アシスト for kintone 配布ファイル（最新・2026-10-29・v1.3.2：逆引きで住所欄が複数行・リッチエディター・フィールド名非表示・同名の欄ありのとき住所を読めない不具合を修正）
+│   │   ├── kw-address-assist-v1.3.2.zip                          # 住所アシスト for kintone 配布ファイル（旧版・2026-10-29・v1.3.2：逆引きで住所欄が複数行・リッチエディター・フィールド名非表示・同名の欄ありのとき住所を読めない不具合を修正）
+│   │   ├── kw-address-assist-v1.4.0.zip                          # 住所アシスト for kintone 配布ファイル（最新・2026-11-15・v1.4.0：多言語対応（英語・中国語簡体字）・テーブルの行を複製したとき手直しした住所を上書きする不具合を修正・広告を共通版の最新に）
 │   │   ├── kw-ambiguous-match-v1.0.0.zip                         # あいまい照合 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-ambiguous-match-v1.0.1.zip                         # あいまい照合 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-ambiguous-match-v1.0.2.zip                         # あいまい照合 for kintone 配布ファイル（最新・v1.0.2：照合用の取得を端末に控え、API リクエスト数を節約）
