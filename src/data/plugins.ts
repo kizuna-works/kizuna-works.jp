@@ -308,7 +308,8 @@ export const plugins: Plugin[] = [
     problemTitle: '詳細画面と一覧の往復が多い',
     problemDesc: '内容確認のたびに開いて戻るのが面倒・複数レコードの比較もしづらい',
     releaseDate: '2026-04-18',
-    summaryVersion: '1.0.3',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-record-lock',
