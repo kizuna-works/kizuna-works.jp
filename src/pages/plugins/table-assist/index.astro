@@ -62,10 +62,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "テーブルアシスト for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.4.1",
-          "dateModified": "2026-11-11",
+          "softwareVersion": "1.5.0",
+          "dateModified": "2026-11-15",
           "url": "https://kizuna-works.jp/plugins/table-assist/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-table-assist-v1.4.1.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-table-assist-v1.5.0.zip",
           "image": "https://kizuna-works.jp/images/table-assist-banner.png",
           "offers": {
             "@type": "Offer",
@@ -98,6 +98,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "JavaScript カスタマイズで編集不可にした列を、行の複製・移動・削除・並べ替えのあとも編集不可のまま保つ",
             "行を操作したあとに連携用イベント kw-table-assist:rows-changed を発行し、独自のカスタマイズから処理を追加できる",
             "テーブル内の数値・文字列（1行）フィールドへ、行の並びどおりに1から行番号を保存（追加・削除・並べ替え・複製のたびに振り直し）",
+            "行数の上限を超えたら保存しない（ほかのプラグインや貼り付けで増えた行も止め、削除する行数を知らせる。パソコン・スマートフォン対応）",
             "条件分岐フォームなどでテーブルを非表示にしたとき、集計カードなどテーブルの近くの表示も隠す（設定でオン、パソコン・スマートフォン対応）",
             "日本語・英語・中国語（簡体字）の画面表示に対応",
             "GAS・外部サービス不要・kintone完結（レコード画面の通信は同じ kintone から利用者の権限を読み取るのみ）・ゲストスペース対応"
@@ -555,6 +556,8 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
     /* Screenshot frames — sized to the image's natural width (not upscaled),
        centered, and clickable to enlarge in the lightbox. */
+    .update-shot-fig { margin: 16px 0 20px; text-align: center; }
+    .update-shot-fig figcaption { font-size: 13px; color: #64748b; margin-top: 8px; }
     .screenshot-frame {
       width: -moz-fit-content;
       width: fit-content;
@@ -819,26 +822,44 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.4.1</span>
+        <span class="hero-version">v1.5.0</span>
       </div>
       <HeroSubBadges pluginId="kw-table-assist" />
       <h1 class="hero-title">テーブルアシスト for kintone</h1>
-      <p class="hero-copy">テーブルアシスト for kintone は、<strong>テーブル（サブテーブル）の行を並べ替え・複製・まとめて操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ書き込む</strong> kintone プラグインです。標準にない「条件付きの合計」を、<strong>作業用の計算列も関数式もなし</strong>で実現します。行の「＋」は<strong>押した行の真上</strong>にも追加でき、行数の多い明細は<strong>先頭 N 行だけ表示</strong>して折りたためます。勤務時間・作業時間などの<strong>時間の列も「〇時間〇分」で集計</strong>でき、行の並びどおりの<strong>番号をフィールドへ保存</strong>でき、テーブルを隠したときは<strong>集計カードも隠せます</strong>。行の操作のあとに自分のカスタマイズを動かせる<strong>連携用イベント</strong>も用意しています。画面は日本語・英語・中国語（簡体字）に対応します。</p>
-      <HeroDownload href="/downloads/kw-table-assist-v1.4.1.zip" />
+      <p class="hero-copy">テーブルアシスト for kintone は、<strong>テーブル（サブテーブル）の行を並べ替え・複製・まとめて操作できるようにし、チェックを入れた行だけを集計して数値フィールドへ書き込む</strong> kintone プラグインです。標準にない「条件付きの合計」を、<strong>作業用の計算列も関数式もなし</strong>で実現します。行の「＋」は<strong>押した行の真上</strong>にも追加でき、行数の多い明細は<strong>先頭 N 行だけ表示</strong>して折りたためます。勤務時間・作業時間などの<strong>時間の列も「〇時間〇分」で集計</strong>でき、行の並びどおりの<strong>番号をフィールドへ保存</strong>でき、テーブルを隠したときは<strong>集計カードも隠せます</strong>。行数の上限は、<strong>超えたまま保存することも止められます</strong>。行の操作のあとに自分のカスタマイズを動かせる<strong>連携用イベント</strong>も用意しています。画面は日本語・英語・中国語（簡体字）に対応します。</p>
+      <HeroDownload href="/downloads/kw-table-assist-v1.5.0.zip" />
     </section>
 
-    <!-- Update Info (v1.4.0) -->
+    <!-- Update Info (v1.5.0) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.4.0：テーブルを隠したときの集計カードと、行番号の保存を改善しました</h2>
+          <h2 class="update-title">v1.5.0：行数の上限を超えたまま保存できないようにしました</h2>
         </div>
-        <p class="update-desc">テーブルアシストを v1.4.0 にアップデートしました（2026年11月2日）。</p>
-        <p class="update-desc"><strong>テーブルを隠したとき、集計カードも隠せるようになりました。</strong>条件分岐フォームなどで条件に合わないテーブルを非表示にしても、その下の集計カードだけが画面に残っていました。設定画面の「テーブルを隠したとき」で「集計カードなど、テーブルの近くの表示もあわせて隠す」をオンにすると、テーブルと一緒に隠れます。パソコン・スマートフォンの両方で動きます。既定はオフで、オフのときは従来どおり表示したままです。</p>
-        <p class="update-desc"><strong>行番号を、フィールドへ保存できるようになりました。</strong>これまでの行番号は画面に表示するだけで、レコードには残りませんでした。設定画面の「行番号を入れるフィールド」にテーブル内の数値または文字列（1行）フィールドを選ぶと、行の並びどおりに 1 から番号を保存します。行の追加・削除・並べ替え・複製のたびに振り直すので、一覧・CSV・帳票でも明細の順番をそのまま使えます。選ばなければ書き込みません。</p>
-        <p class="update-desc"><strong>設定画面とレコード画面の表示が、日本語・英語・中国語（簡体字）に対応しました。</strong>kintone の表示言語に合わせて切り替わります。このほか、当社の他の製品との連携に備えた内部の改善を行いました。</p>
-        <p class="update-note">すでにお使いの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれ、新しい 2 つの設定は選ぶまで動きません。</p>
+        <p class="update-desc">テーブルアシストを v1.5.0 にアップデートしました（2026年11月15日）。</p>
+        <p class="update-desc"><strong>「行数の上限」を超えたら、保存を止められるようになりました。</strong>ほかのプラグインや貼り付けで行が上限を超えて増えたときも、保存のときに止めて「明細の行数が上限（12行）を超えています（いま16行）。4行削除してから保存してください。」と知らせます。設定画面の「行数の上限」の下の「上限を超えたら保存しない」で切り替えます。新しく足すテーブルの設定では最初からオンです。これまでの設定はオフのままで、動きは変わりません。パソコン・スマートフォンの両方、ゲストスペースでも動きます。</p>
+        <figure class="update-shot-fig">
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/table-assist-v150-01.png" alt="テーブルアシスト レコード編集画面 — 上限12行のテーブルが16行のまま［保存］を押すと、上に「明細の行数が上限（12行）を超えています（いま16行）。4行削除してから保存してください。」のエラーが出る" width="1400" height="900" />
+          </div>
+          <figcaption>上限 12 行のテーブルが 16 行のまま保存しようとしたとき</figcaption>
+        </figure>
+        <figure class="update-shot-fig">
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/table-assist-v150-02.png" alt="テーブルアシスト 設定画面 — 最大行数 12 と、保存時の検査「上限を超えたら保存しない」のチェック" width="1400" height="900" />
+          </div>
+          <figcaption>設定画面の「行数の上限」と「上限を超えたら保存しない」</figcaption>
+        </figure>
+        <p class="update-desc"><strong>上限を超えているときの注意文を、分かりやすくしました。</strong>画面の下に「上限 12 行を超えています（いま16行）。4行削除してください。」と出ます。保存しない設定のときは「このままでは保存できません。」も添えます。</p>
+        <figure class="update-shot-fig">
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/table-assist-v150-03.png" alt="テーブルアシスト レコード編集画面 — テーブルの下に「上限 12 行を超えています（いま16行）。4行削除してください。このままでは保存できません。」と表示されている" width="1400" height="900" />
+          </div>
+          <figcaption>画面下の注意文</figcaption>
+        </figure>
+        <p class="update-desc"><strong>行の操作と集計カードを、見やすく押しやすくしました。</strong>「No.」の見出しを濃い青の背景にして読みやすくしました。行の［↑］［↓］と複製のボタンを大きくし、kintone の［＋］［－］ボタンと高さをそろえました。集計カードの合計などは、フィールドの設定どおり（桁区切り・小数の表示桁数・単位）に表示します。</p>
+        <p class="update-note">すでにお使いの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。設定はそのまま引き継がれます。</p>
         <BridgeUpdateNote />
       </div>
     </section>
@@ -907,7 +928,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           <li><span><strong>選んだ行の一括操作</strong> — チェックした行を、まとめて複製・↑上へ・↓下へ・先頭へ・末尾へ・削除。並び順を保ったまま動かします。移動のボタンは、行の並べ替えをオンにしているときに表示します。</span></li>
           <li><span><strong>選んだ行だけの集計</strong> — 合計・平均・件数・最大・最小を、テーブル外の数値フィールドへ自動入力。1 つのテーブルに複数の集計ルールを設定できます。</span></li>
           <li><span><strong>既存レコードへの一括反映</strong> — 導入前に登録済みのレコードや、CSV 読み込みで入れたレコードにもまとめて書き込めます。値が変わらないレコードは更新しません。</span></li>
-          <li><span><strong>行数制限</strong> — テーブルごとに最大行数を決めると、上限に達したときに ＋ ボタンと複製ボタンが押せなくなります。</span></li>
+          <li><span><strong>行数制限</strong> — テーブルごとに最大行数を決めると、上限に達したときに ＋ ボタンと複製ボタンが押せなくなります。「上限を超えたら保存しない」をオンにすると、ほかのプラグインや貼り付けで超えた行も、保存のときに止めて何行削除すればよいかを知らせます。</span></li>
           <li><span><strong>行の追加位置</strong> — 行の「＋」を押したときに、<strong>押した行の下（kintone 標準）／真上</strong>のどちらへ入れるかをテーブルごとに選べます。新しい明細を上へ積んでいく運用では、一番上の行の＋を押すだけで先頭に追加できます。</span></li>
           <li><span><strong>表示する行数の制限</strong> — 行数の多い明細を<strong>先頭 N 行だけ表示</strong>し、残りは折りたたみます。ページ送りと「全 N 行を表示」で切り替えられ、隠れている行もそのまま保存・集計されます。</span></li>
           <li><span><strong>時間の集計</strong> — 勤務時間・作業時間など、表示形式が「時間」の計算フィールドを、チェックした行だけ合計・平均・最大・最小できます。集計カードには kintone の画面と同じ<strong>「〇時間〇分」</strong>で表示します。分や時間を数字で入力している数値フィールドも、時間として表示できます。</span></li>
@@ -1020,7 +1041,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       <p class="section-subtitle">レコードの作成・編集画面で全機能が動作します。詳細画面とモバイルは集計の表示に対応しています。</p>
       <ol class="steps-list">
         <li><span>テーブルの中に<strong>「行を選ぶ目印」になるフィールド</strong>（チェックボックスなど）と、テーブルの外に<strong>集計結果を書き込む数値フィールド</strong>を用意しておく</span></li>
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-table-assist-v1.4.1.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-table-assist-v1.5.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「テーブルアシスト for kintone」を追加</span></li>
         <li><span>プラグイン設定画面で対象のテーブルを<strong>有効にし</strong>、行操作・選択に使うフィールド・集計ルールを設定して「保存」</span></li>
@@ -1049,7 +1070,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ 設定画面・レコード一覧に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-table-assist-v1.4.1.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-table-assist-v1.5.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <SupporterPlanCard pluginId="kw-table-assist" />
         <PremiumPlanCard />
@@ -1204,10 +1225,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-table-assist-v1.4.1.zip',
+              file_name: 'kw-table-assist-v1.5.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-table-assist-v1.4.1.zip'
+              link_url: '/downloads/kw-table-assist-v1.5.0.zip'
             });
           }
         });
