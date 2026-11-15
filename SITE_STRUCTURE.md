@@ -1533,7 +1533,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-accordion-tab-v2.0.3.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-accordion-tab-v2.0.4.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-accordion-tab-v2.0.5.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-accordion-tab-v2.1.0.zip                           # アコーディオンタブ for kintone 配布ファイル（最新・2026-11-04・v2.1.0：セクションごとに表示するフィールドを選べる・多言語対応）
+│   │   ├── kw-accordion-tab-v2.1.0.zip                           # アコーディオンタブ for kintone 配布ファイル（旧版・2026-11-04・v2.1.0：セクションごとに表示するフィールドを選べる・多言語対応）
+│   │   ├── kw-accordion-tab-v2.1.1.zip                           # アコーディオンタブ for kintone 配布ファイル（最新・2026-11-15・v2.1.1：ゲストスペースの組織・グループ制限・添付ファイルの入力済み判定・保存エラー時に開くセクション・設定画面のスクロールを修正・共通部品の最新化）
 │   │   ├── kw-address-assist-v1.0.0.zip                          # 住所アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-address-assist-v1.0.1.zip                          # 住所アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-address-assist-v1.0.2.zip                          # 住所アシスト for kintone 配布ファイル（手動配置・v1.0.2 でゲストスペース対応）
