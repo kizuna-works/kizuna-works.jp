@@ -1556,7 +1556,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-address-assist-v1.4.0.zip                          # 住所アシスト for kintone 配布ファイル（最新・2026-11-15・v1.4.0：多言語対応（英語・中国語簡体字）・テーブルの行を複製したとき手直しした住所を上書きする不具合を修正・広告を共通版の最新に）
 │   │   ├── kw-ambiguous-match-v1.0.0.zip                         # あいまい照合 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-ambiguous-match-v1.0.1.zip                         # あいまい照合 for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-ambiguous-match-v1.0.2.zip                         # あいまい照合 for kintone 配布ファイル（最新・v1.0.2：照合用の取得を端末に控え、API リクエスト数を節約）
+│   │   ├── kw-ambiguous-match-v1.0.2.zip                         # あいまい照合 for kintone 配布ファイル（旧版・v1.0.2：照合用の取得を端末に控え、API リクエスト数を節約）
+│   │   ├── kw-ambiguous-match-v1.1.0.zip                         # あいまい照合 for kintone 配布ファイル（最新・2026-11-16・v1.1.0：多言語〔日英中〕・同じ名前の欄があっても設定した欄に候補を出す・参照項目の数値と日時をフィールドの設定どおりに表示・保存後は「アプリの設定」へ・広告と設定画面の案内を共通版に）
 │   │   ├── kw-attribute-filter-v1.0.0.zip                        # 属性制御フィルター for kintone 配布ファイル（手動配置・プレミアムプラグイン・無料/プレミアム共通zip・無料=1フィールド全機能）
 │   │   ├── kw-attribute-filter-v1.0.1.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-attribute-filter-v1.0.2.zip                        # 属性制御フィルター for kintone 配布ファイル（旧版・参考保管）

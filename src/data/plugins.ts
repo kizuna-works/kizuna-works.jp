@@ -867,7 +867,8 @@ export const plugins: Plugin[] = [
     problemTitle: '同じ取引先が別表記で二重登録される',
     problemDesc: '「株式会社◯◯」と「◯◯（株）」のような表記ゆれで、標準の重複禁止（完全一致）では防げない重複登録が起きている',
     releaseDate: '2026-07-06',
-    summaryVersion: '1.0.1',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-status-bulk-action',
