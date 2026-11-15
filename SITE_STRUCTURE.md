@@ -1838,7 +1838,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-list-styler-v1.4.0.zip  # 一覧スタイラー for kintone 配布ファイル（旧版・v1.4.0：固定する列を選べる＋設定保存後に「アプリの設定」へ戻る）
 │   │   ├── kw-list-styler-v1.4.1.zip  # 一覧スタイラー for kintone 配布ファイル（旧版・v1.4.1：横スクロールをページ全体に戻す）
 │   │   ├── kw-list-styler-v1.5.0.zip  # 一覧スタイラー for kintone 配布ファイル（v1.5.0：レコードの列の縦結合・色の条件に空欄・多言語・カラーパレット）
-│   │   ├── kw-list-styler-v1.6.0.zip  # 一覧スタイラー for kintone 配布ファイル（最新・v1.6.0：日付の条件に今月／先月／来月）
+│   │   ├── kw-list-styler-v1.6.0.zip  # 一覧スタイラー for kintone 配布ファイル（旧版・v1.6.0：日付の条件に今月／先月／来月）
+│   │   ├── kw-list-styler-v1.6.1.zip  # 一覧スタイラー for kintone 配布ファイル（最新・v1.6.1：サブテーブルの列の日時をタイムゾーンどおり・単位を表示・設定画面のスクロール）
 │   │   ├── kw-lookup-suggest-v1.0.0.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-lookup-suggest-v1.0.1.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-lookup-suggest-v1.0.2.zip                          # ルックアップサジェスト for kintone 配布ファイル（旧版・手動配置）
