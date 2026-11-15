@@ -1895,7 +1895,8 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       '容量を買い増すか、古いレコードから手で消すかの二択。ドライブへ手で上げて共有URLを貼る運用も、件数が増えるとフォルダの命名がばらついて追えなくなる',
     releaseDate: '2026-08-30',
-    summaryVersion: '1.2.0',
+    summaryVersion: '1.3.0',
+    multilingual: true,
   },
   {
     id: 'kw-lookup-filter',

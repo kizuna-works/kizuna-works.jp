@@ -1659,7 +1659,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-dashboard-v1.4.0.zip                                   # ダッシュボード for kintone 配布ファイル（v1.4.0：テーブル（サブテーブル）の集計）
 │   │   ├── kw-drive-connect-v1.0.0.zip                          # ドライブ連携 for kintone 配布ファイル（旧版・参考保管・プレミアム第13弾 初版）
 │   │   ├── kw-drive-connect-v1.0.1.zip                          # ドライブ連携 for kintone 配布ファイル（旧版・v1.0.1：広告 v2 への差し替え＋「バナー非表示」の案内をプレミアム年間サポーター向けに修正）
-│   │   ├── kw-drive-connect-v1.2.0.zip                          # ドライブ連携 for kintone 配布ファイル（最新・v1.2.0：フォルダ名を値に合わせる設定）
+│   │   ├── kw-drive-connect-v1.3.0.zip                          # ドライブ連携 for kintone 配布ファイル（最新・2026-11-15・v1.3.0：多言語〔日英中〕・レコード番号のフィールドコードを変えたアプリでもフォルダ名が正しく付く・広告と設定画面の案内を共通版に）
+│   │   ├── kw-drive-connect-v1.2.0.zip                          # ドライブ連携 for kintone 配布ファイル（旧版・v1.2.0：フォルダ名を値に合わせる設定）
 │   │   ├── kw-drive-connect-v1.1.0.zip                          # ドライブ連携 for kintone 配布ファイル（旧版・v1.1.0：手動ボタンの形と色の設定・転送前の権限確認・保存後は「アプリの設定」へ戻す）
 │   │   ├── kw-form-connect-v1.0.1.zip                           # フォーム連携 for kintone 配布ファイル（旧版・参考保管・v1.0.1：広告 v2 への差し替え＋「バナー非表示」の案内をプレミアム年間サポーター向けに修正）
 │   │   ├── kw-form-connect-v1.0.2.zip                           # フォーム連携 for kintone 配布ファイル（最新・v1.0.2：自動取り込みを最短5分おきにして kintone の API リクエスト数を節約）
