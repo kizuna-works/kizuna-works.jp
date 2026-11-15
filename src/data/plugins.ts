@@ -1922,7 +1922,8 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       '取引先を選ぶ画面に何百件も並び、目的の1件を探すのに時間がかかる。標準の選択画面は打ちながら絞れず、選択肢やユーザーの項目では探せない。絞り込みの初期設定は入力中のレコードの値を見られないので、案件の担当営業所や区分に応じて候補を変えられない。絞り込んだあとの画面も、kintone のルックアップで決めた表示項目と並びのまま、選択肢やユーザーでも探したい',
     releaseDate: '2026-09-03',
-    summaryVersion: '1.4.0',
+    summaryVersion: '1.5.0',
+    multilingual: true,
   },
   {
     id: 'kw-form-connect',
