@@ -1950,7 +1950,8 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       'Google フォームで申込や問い合わせを受けているが、kintone へ載せるには CSV を書き出して貼り付けるか、1件ずつ入力するしかない。GAS を書く手もあるが、作った人しか直せないものを業務に挟みたくない',
     releaseDate: '2026-09-11',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
+    multilingual: true,
   },
   {
     id: 'kw-lookup-add',
