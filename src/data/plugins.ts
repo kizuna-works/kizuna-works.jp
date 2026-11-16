@@ -1562,6 +1562,33 @@ export const premiumPlugins: Plugin[] = [
     ],
   },
   {
+    id: 'kw-portal-pro',
+    pluginId: 'falcfcbpbjfohggkbkdkolloegikdoem',
+    name: 'ポータル Pro for kintone',
+    formName: 'ポータル Pro for kintone',
+    subtitle: 'KIZUNA Pro プラグイン',
+    slug: 'portal-pro',
+    multilingual: true,
+    categories: ['情報共有', '集計・計算', '装飾・配色'],
+    description:
+      'メインのポータルとスペースのポータルに、ウィジェットを並べた画面をドラッグ＆ドロップで組み立てます。アプリ一覧・お知らせ・ショートカット・画像・埋め込みのほか、レコード一覧・数値カード・グラフ・ゲージ・ランキング・カレンダー・カウントダウン・自分の担当といったデータのウィジェットを置けます。開いた人ごとに「自分」「自分の組織」「今日」の条件で中身が変わり、ポータルからレコードを登録するクイック入力、［確認しました］で読んだ人を記録するお知らせ、よく使う順に並ぶアプリ一覧と Ctrl+K のランチャーも備えます。画面作成ウィザードのひな形6種とスタイル10種で、見た目まですぐに整えられます。スマホ用の画面も別に組め、表示は日本語・英語・中国語（簡体字）に対応します。',
+    image: '/images/portal-pro-banner.png',
+    imageWebp: '/images/portal-pro-banner.webp',
+    imageAlt:
+      'ポータル Pro for kintone バナー — 開いた人の今日が並び、そのまま仕事が始められるポータル。KIZUNA Pro プラグイン',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'pro',
+    cardDescription:
+      'メインのポータルとスペースのポータルを、ドラッグ＆ドロップで組み立てる上位版。開いた人ごとに中身が変わる「その人の今日」、ポータルから直接登録するクイック入力、確認ボタン付きのお知らせ、スタイル10種のデザインに対応します。',
+    problemTitle: 'ポータルが見るだけで、必要な情報も入口も散らばっている',
+    problemDesc:
+      'メインのポータルやスペースは標準のままで、目的のアプリを探すのに手間がかかる。部署ごとに見たい数字や予定が違うのに、全員に同じ画面が出る。重要なお知らせが読まれたかも分からず、日報や申請の登録はアプリを開いてから。スマホには使いやすいホーム画面が無い',
+    releaseDate: '2026-11-16',
+    summaryVersion: '1.0.0',
+  },
+  {
     id: 'kw-report-designer',
     pluginId: 'cckpmebgmbdippgiicgldindkjlhhbci',
     name: '帳票デザイナー for kintone',

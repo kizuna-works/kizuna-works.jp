@@ -1,0 +1,1227 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
+import HeroSubBadges from '../../../components/HeroSubBadges.astro';
+
+const VERSION = '1.0.0';
+const ZIP = `/downloads/kw-portal-pro-v${VERSION}.zip`;
+const PAGE_URL = 'https://kizuna-works.jp/plugins/portal-pro/';
+const DATE_MODIFIED = '2026-11-16';
+
+// Screenshots are added later. A figure is drawn only when its file exists in public/images,
+// so the page never shows a broken image while the shots are still being taken.
+const SHOTS: Record<string, { file: string; alt: string; width: number; height: number; caption: string }> = {
+  home: {
+    file: 'portal-pro-home.png',
+    alt: 'kintone のポータルに、時計・お知らせ・アプリ一覧・自分の担当のウィジェットが並んだ画面',
+    width: 1440, height: 900,
+    caption: '完成したポータル。開いた人ごとに、自分の担当や今日の予定が並びます。',
+  },
+  editor: {
+    file: 'portal-pro-editor.png',
+    alt: 'ポータル編集の全画面。上の帯に［ポータルに戻る］［下書きを保存］［公開］、左にウィジェットのパレット、中央にグリッド、右に設定パネルが表示されている',
+    width: 1440, height: 900,
+    caption: 'ポータル編集。ウィジェットをドラッグして置き、角をつまんで大きさを変えます。',
+  },
+  applist: {
+    file: 'portal-pro-applist.png',
+    alt: 'アプリ一覧のウィジェット。分類ごとにアプリのアイコンが並び、件数のバッジが付いている',
+    width: 1440, height: 900,
+    caption: 'アプリ一覧。分類・表示名・アイコンを自社の言葉に直せます。',
+  },
+  data: {
+    file: 'portal-pro-data.png',
+    alt: '数値カード・グラフ・ランキングが並んだポータルの画面。今月・今四半期などの期間ボタンが置かれている',
+    width: 1440, height: 900,
+    caption: '数値カード・グラフ・ランキング。期間ボタン（期間バー）で、連動させたウィジェットを一度に切り替えます。',
+  },
+  quick: {
+    file: 'portal-pro-quickinput.png',
+    alt: 'ポータルのクイック入力ウィジェット。入力欄と［登録］ボタンがあり、登録後にメッセージが出ている',
+    width: 1440, height: 900,
+    caption: 'クイック入力。ポータルから、そのままレコードを登録します。',
+  },
+  ack: {
+    file: 'portal-pro-ack.png',
+    alt: '重要なお知らせに「未確認」の表示と［確認しました］ボタンが付いたお知らせウィジェットの画面',
+    width: 1440, height: 900,
+    caption: 'お知らせの［確認しました］ボタン。押していない人には「未確認」と出ます。',
+  },
+  wizard: {
+    file: 'portal-pro-wizard.png',
+    alt: '画面作成ウィザード。ひな形6種類のサムネイルが並んでいる',
+    width: 1440, height: 900,
+    caption: '画面作成ウィザード。ひな形とスタイルを、仕上がりのサムネイルで選びます。',
+  },
+  styles: {
+    file: 'portal-pro-styles.png',
+    alt: '同じ画面にスタイル10種類を当てたサムネイルが並び、色・角丸・書体の違いが比べられる画面',
+    width: 1440, height: 900,
+    caption: 'デザインのパネル。スタイルを選ぶと、画面全体の雰囲気がその場で変わります。',
+  },
+  mobile: {
+    file: 'portal-pro-mobile.png',
+    alt: 'スマートフォンのポータル。大きなタイルのアプリ一覧とクイック入力が縦に並んでいる',
+    width: 750, height: 1334,
+    caption: 'スマホ用の画面。PC とは別に並べられます。',
+  },
+  launcher: {
+    file: 'portal-pro-launcher.png',
+    alt: 'Ctrl+K で開いたランチャー。入力した文字に合うアプリが候補に並んでいる',
+    width: 1440, height: 900,
+    caption: 'ランチャー。どの画面でも Ctrl+K でアプリを探せます。',
+  },
+  setup: {
+    file: 'portal-pro-config-setup.png',
+    alt: 'ポータル Pro の設定画面の初期設定。［設定アプリを準備する］と［ポータル利用ログを作成する］が「準備済み」「作成済み」になっている',
+    width: 1440, height: 900,
+    caption: '設定画面の初期設定。2つのボタンで、保管用のアプリが整います。',
+  },
+  js: {
+    file: 'portal-pro-config-js.png',
+    alt: 'ポータル Pro の設定画面のポータル用JS。［PC 用をダウンロード］［スマホ用をダウンロード］と登録の手順が表示されている',
+    width: 1440, height: 900,
+    caption: 'ポータル用JS。ダウンロードして、kintone の全体のカスタマイズに登録します。',
+  },
+};
+const shotOk = (k: string) => fs.existsSync(path.join(process.cwd(), 'public', 'images', SHOTS[k].file));
+const shotClass = (k: string, extra = '') => `kbp-feature ${extra}${shotOk(k) ? '' : ' noshot'}`.trim();
+
+// The 19 widgets of v1.0, grouped as in the editor palette.
+const WIDGET_GROUPS: { label: string; items: { name: string; desc: string }[] }[] = [
+  {
+    label: '基本',
+    items: [
+      { name: 'アプリ一覧', desc: '10の表示パターン。よく使う順・分類・ピン留め・件数バッジ' },
+      { name: 'ショートカットボタン', desc: 'アプリ・一覧・新規作成・外部 URL への大きなボタン' },
+      { name: 'お知らせ', desc: '重要度・掲載期間・新着バッジ・［確認しました］ボタン' },
+      { name: 'リッチテキスト', desc: '文字・表・リンク・画像を自由に書く' },
+      { name: '見出し・区切り線', desc: '画面の区切りと見出し' },
+      { name: '画像・バナー', desc: '1枚・スライド・ギャラリー・画像＋文章・ロゴの5形式' },
+      { name: 'リンク集', desc: 'リンクを分類して並べる' },
+    ],
+  },
+  {
+    label: 'データ',
+    items: [
+      { name: 'レコード一覧', desc: '条件・列・並び順を決めて、アプリのレコードを並べる' },
+      { name: '数値カード', desc: '件数・合計・平均・最小・最大。前期比と目標値' },
+      { name: 'グラフ', desc: '棒・折れ線・円・ドーナツ・積み上げ。2つのアプリの比較も' },
+      { name: 'ゲージ', desc: '目標に対する現在値を半円で見せる' },
+      { name: '進捗バー', desc: '複数の目標の達成率を並べる' },
+      { name: 'ランキング・クロス集計', desc: '上位 N 件の順位表と、行×列の集計表' },
+      { name: 'カレンダー', desc: '複数のアプリの予定を色分けして重ねる' },
+      { name: 'カウントダウン', desc: '期日までの日数。固定の日付でもレコードの日付でも' },
+    ],
+  },
+  {
+    label: '業務',
+    items: [
+      { name: '自分の担当', desc: '複数のアプリから、自分が担当のレコードを集める' },
+      { name: 'クイック入力', desc: 'ポータルからレコードを登録。ワンタップ登録も' },
+    ],
+  },
+  {
+    label: 'その他',
+    items: [
+      { name: '埋め込み（iframe）', desc: 'YouTube・Google マップ・Looker Studio などを画面に置く' },
+      { name: '時計・日付', desc: '表示形式を選べる。祝日の表示も' },
+    ],
+  },
+];
+
+// Colour swatches are only a guide to each style's mood; they are not the exact theme values.
+const STYLES: { no: string; name: string; mood: string; colors: [string, string, string] }[] = [
+  { no: 'S-01', name: 'ビジネス', mood: '落ち着き・信頼。多くの会社の基本', colors: ['#1B3A6B', '#2E8B2E', '#F0F4F8'] },
+  { no: 'S-02', name: 'クール', mood: '先進的・すっきり。IT・企画部門', colors: ['#374151', '#0891b2', '#ffffff'] },
+  { no: 'S-03', name: 'カジュアル', mood: '親しみやすい。社内コミュニケーション', colors: ['#f97316', '#facc15', '#fffbeb'] },
+  { no: 'S-04', name: 'ナチュラル', mood: 'やさしい・穏やか。医療・福祉・教育', colors: ['#6b7a3a', '#d9c7a3', '#f7f1e3'] },
+  { no: 'S-05', name: 'エレガント', mood: '上品・高級感。接客・ブランド', colors: ['#7a1f3d', '#b8923a', '#faf7f2'] },
+  { no: 'S-06', name: 'ポップ', mood: '明るく元気。店舗・イベント', colors: ['#ec4899', '#14b8a6', '#ffffff'] },
+  { no: 'S-07', name: 'ミニマル', mood: '余白重視で、情報だけを見せる', colors: ['#111827', '#6b7280', '#ffffff'] },
+  { no: 'S-08', name: 'ダーク', mood: '目にやさしい・引き締まる', colors: ['#3b82f6', '#22c55e', '#1f2937'] },
+  { no: 'S-09', name: '和モダン', mood: '落ち着いた日本らしさ。製造・老舗', colors: ['#1f3f66', '#d9482b', '#f5efe0'] },
+  { no: 'S-10', name: 'コーポレート', mood: '自社のブランドカラーで統一', colors: ['#1B3074', '#2E8B2E', '#ffffff'] },
+];
+
+// Alt text for the style sample screens (same order as STYLES; names come from STYLES).
+const STYLE_SHOT_ALTS: string[] = [
+  '淡いグレー青の地に、紺の見出しと棒グラフを置いたポータル画面。',
+  '白地に細い黒枠のカードを並べたポータル画面。',
+  'クリーム地にオレンジの数値と棒グラフ、丸い角のカードを使ったポータル画面。',
+  'ベージュのグラデーション地に、オリーブ緑を使ったポータル画面。',
+  '生成り地にワインレッドと明朝体の見出しを使ったポータル画面。',
+  'ミントの水玉の背景に、マゼンタの見出しと強い角丸・影を使ったポータル画面。',
+  '白地で枠も影も付けず、黒のボタンだけを使ったポータル画面。',
+  '濃紺の暗い地に、明るい青の数値と棒グラフを置いたポータル画面。',
+  '和紙風の生成りの地に、明朝体の見出しと朱の重要バッジを使ったポータル画面。',
+  '上端に紺から緑のグラデーションの帯を置き、白いカードを並べたポータル画面。',
+];
+
+const TEMPLATES = [
+  { name: '全社ポータル', desc: '時計・お知らせ・アプリ一覧・自分の担当' },
+  { name: '営業ダッシュボード', desc: '期間ボタン・数値カード・グラフ・ランキング・今日の予定' },
+  { name: '総務のお知らせ板', desc: '確認ボタン付きのお知らせ・リンク集・社内行事のカレンダー' },
+  { name: 'プロジェクト用スペース', desc: 'アプリ一覧・進捗バー・カウントダウン・新着' },
+  { name: '現場向けスマホ画面', desc: '大きなタイルのアプリ一覧・クイック入力（打刻）・お知らせ' },
+  { name: '新人向けスタートページ', desc: '説明付きのアプリ一覧・リンク集・連絡先' },
+];
+
+const HOWTO_STEPS = [
+  { name: '配布ファイルを読み込む', text: 'このページから zip をダウンロードし、kintone システム管理のプラグインで読み込みます。' },
+  { name: 'プラグインを設定アプリに追加する', text: '新しい空のアプリを作り、そのアプリにポータル Pro を追加します。このアプリが設定アプリになります。' },
+  { name: '設定アプリを準備する', text: '設定画面で［設定アプリを準備する］と［ポータル利用ログを作成する］を押します。kintone システム管理者の権限が必要です。' },
+  { name: 'ポータル用 JS を登録する', text: '設定画面で PC 用とスマホ用のポータル用 JS をダウンロードし、kintone システム管理の JavaScript / CSS でカスタマイズに登録します。kintone システム管理者の作業です。' },
+  { name: '画面を作って公開する', text: '設定アプリのポータル編集で画面を作り、［公開］を押します。' },
+];
+
+// FAQ: the accordion and FAQPage JSON-LD are built from the same array so they always match.
+const faqs: { q: string; a: string }[] = [
+  {
+    q: 'ポータル Pro だけを購入できますか？',
+    a: `製品ごとの個別のご契約はありません。プレミアム年間サポーターに KIZUNA Pro 拡張パックを追加すると、ポータル Pro を含む KIZUNA Pro プラグインをすべてお使いいただけます。両方をまとめた「KIZUNA Pro 年間サポーター」（税込 ${yen(PRO_SET_PLAN.priceInTax)}/年）もあります。`,
+  },
+  {
+    q: '年間サポーター（ちょこっとプラグインすべて）に、KIZUNA Pro 拡張パックを追加できますか？',
+    a: 'できません。KIZUNA Pro 拡張パックは、プレミアム年間サポーターに追加していただくプランです。年間サポーターからは、KIZUNA Pro 年間サポーターへの切り替えでお使いいただけます。',
+  },
+  {
+    q: '導入には、どんな作業が要りますか？',
+    a: '配布 zip の読み込みと、設定アプリの準備（［設定アプリを準備する］［ポータル利用ログを作成する］）のあと、ポータル用 JS を kintone システム管理の「JavaScript / CSS でカスタマイズ」に登録します。kintone の全体のカスタマイズは API で登録できないため、この登録は kintone システム管理者の作業です。プラグインを更新したときは、ポータル用 JS をもう一度ダウンロードして登録し直します。版が古いときは、編集できる人のポータルに更新をお願いする帯が出ます。',
+  },
+  {
+    q: 'kintone 標準の「2枚目以降のポータル」とは、何が違いますか？',
+    a: '標準の「2枚目以降のポータル」は、そのまま使えます。ポータル Pro は、標準の機能では組み立てられない、メインのポータル（1枚目）とスペースのポータル、スマホの画面を担当します。2枚目以降のポータルには表示されません。',
+  },
+  {
+    q: 'どの画面に表示されますか？',
+    a: 'メインのポータルと、「スペースのポータルと複数のスレッドを使用する」を有効にしたスペースのポータルです。パソコンとスマホの両方に対応し、スマホ用の画面は PC とは別に並べられます。ゲストスペースとゲストユーザーには表示されません。',
+  },
+  {
+    q: '開いた人ごとに、見える内容は変わりますか？',
+    a: '変わります。データ系のウィジェットは、開いた人の権限でレコードを取得するため、アプリ・レコード・フィールドのアクセス権がそのまま反映されます。件数や合計が人によって違うのは、そのためです。条件に「自分」「自分の組織」「今日」「今週」を使えば、1枚の画面で開いた人ごとの中身になります。画面ごとに表示する人を限ることもでき、これはレコードのアクセス権で守られます。ウィジェット単位の出し分けは表示の切り替えで、セキュリティの機能ではありません。',
+  },
+  {
+    q: 'kintone 標準のお知らせやアプリの欄を、隠せますか？',
+    a: '隠せます。設定画面の［全体設定］の「kintone 標準の表示」で、トップのポータルとスペースのそれぞれに、［隠さない］［すべて隠す］［選んだものだけ隠す］から選びます。選べるのは、トップのポータルがお知らせ・通知・未処理・スペース・アプリ、スペースがお知らせ（本文）・スレッド・アプリ・ピープル・関連リンクです。既定は［隠さない］です。隠すのは、ポータル Pro の画面を表示できたときだけで、隠しているときは、画面の一番下の「kintone 標準の表示を開く」で、その間だけ戻せます。設定を変えたら、ポータル用 JS をダウンロードし直して登録し直してください。非公開スペースは対象外です。',
+  },
+  {
+    q: '外部のサービスに、業務データを送りますか？',
+    a: '送りません。画面の設定もレコードの値も、お使いの kintone の中だけで扱います。外部への通信は、ライセンス認証（プラグイン ID と利用ドメイン名のみ）だけです。ただし、「埋め込み」や URL 指定の画像は、管理者が許可したサイトを閲覧者のブラウザが読み込みます。この通信でレコードの値は送りません。',
+  },
+  {
+    q: 'クイック入力で登録したレコードに、アプリのカスタマイズや他のプラグインは動きますか？',
+    a: '動きません。クイック入力は REST API で登録するため、レコードの追加画面で動くカスタマイズや、他のプラグインの保存時の処理は動きません。対象は、文字列・数値・日付・時刻・日時・ドロップダウン・ラジオボタン・チェックボックス・複数選択・ユーザー選択のフィールドです。ルックアップ・テーブル・添付ファイルなどは対象外です。登録できる権限のある人にだけ見せるよう、画面の表示対象で設定してください。',
+  },
+  {
+    q: 'API の1日のリクエスト数に影響しますか？',
+    a: '抑えるしくみがあります。画面の更新の確認とアプリ一覧の取得は、1日のリクエスト数に数えられない API で行います。データ系のウィジェットの結果はブラウザに一時保存し、同じ条件の取得はまとめます。［更新］を押したときだけ取り直します。エディタの下部には、アプリごとの1日のリクエスト数の見積もりが出ます。',
+  },
+  {
+    q: '画像は、どこに保存されますか？',
+    a: '設定アプリの添付ファイルに保存します。アップロード時にブラウザで自動的に圧縮します（長辺 1920 px 以内・目安 300 KB 以下）。保存した画像は kintone のディスク使用量に含まれます。',
+  },
+  {
+    q: '無料で試せますか？',
+    a: 'はい、30日間無料で試せます（カード登録不要・自動課金なし・1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、もう一度お試しいただけます）。プレミアム年間サポーターを未契約の方は、プレミアム年間サポーターの無料体験に KIZUNA Pro プラグインが含まれます。プレミアム年間サポーターをご契約中の方は、KIZUNA Pro 拡張パックだけを30日間無料でお試しいただけます。体験が終わると機能は止まりますが、設定は消えません。',
+  },
+  {
+    q: 'ご契約が切れたら、どうなりますか？',
+    a: '設定した画面は消えません。ご契約が確認できない間、一般の利用者には何も出ず、標準のポータルのままです。編集できる人にだけ、ご契約が確認できない旨の帯が出ます。設定画面とエディタには、ご契約の案内だけが出ます。ご契約が戻れば、保存済みの画面のまま、すぐに動きます。',
+  },
+];
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Layout
+  heroBg="/images/kizuna-pro-hero-bg.webp"
+  title="ポータル Pro for kintone｜開いた人の今日が並ぶポータルを組み立てる | KIZUNA Works"
+  description="ポータル Pro for kintone は、メインのポータルとスペースのポータルに、アプリ一覧・お知らせ・グラフ・クイック入力などのウィジェットをドラッグ＆ドロップで並べる KIZUNA Pro プラグイン。開いた人ごとに中身が変わり、スタイル10種で見た目も整えられます。"
+  ogTitle="ポータル Pro for kintone｜開いた人の今日が並ぶポータルを組み立てる | KIZUNA Works"
+  ogDescription="メインのポータルとスペースのポータルを、ウィジェットで組み立てる KIZUNA Pro プラグイン。19種のウィジェット、開いた人ごとに変わる「その人の今日」、ポータルから直接登録するクイック入力、確認ボタン付きのお知らせ、スタイル10種のデザイン、スマホ画面、日本語・英語・中国語（簡体字）の表示に対応します。"
+  ogType="website"
+  ogUrl={PAGE_URL}
+  ogImage="https://kizuna-works.jp/images/portal-pro-banner.png"
+  canonical={PAGE_URL}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': PAGE_URL,
+          url: PAGE_URL,
+          name: 'ポータル Pro for kintone｜開いた人の今日が並ぶポータルを組み立てる | KIZUNA Works',
+          description: 'ポータル Pro for kintone は、kintone のメインのポータルとスペースのポータルに、ウィジェットを並べた画面をドラッグ＆ドロップで組み立てる kintone プラグイン（KIZUNA Pro プラグイン）。',
+          dateModified: DATE_MODIFIED,
+          primaryImageOfPage: { '@type': 'ImageObject', url: 'https://kizuna-works.jp/images/portal-pro-banner.png', width: 1200, height: 630 },
+          isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: 'https://kizuna-works.jp/' },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+            { '@type': 'ListItem', position: 2, name: 'kintoneプラグイン', item: 'https://kizuna-works.jp/plugins/' },
+            { '@type': 'ListItem', position: 3, name: 'ポータル Pro for kintone', item: PAGE_URL },
+          ],
+        },
+        {
+          '@type': 'SoftwareApplication',
+          name: 'ポータル Pro for kintone',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'kintone',
+          // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
+          "softwareVersion": "1.0.0",
+          dateModified: DATE_MODIFIED,
+          url: PAGE_URL,
+          downloadUrl: `https://kizuna-works.jp${ZIP}`,
+          image: 'https://kizuna-works.jp/images/portal-pro-banner.png',
+          offers: [
+            {
+              '@type': 'Offer',
+              name: PRO_SET_PLAN.name,
+              price: String(PRO_SET_PLAN.priceInTax),
+              priceCurrency: 'JPY',
+              availability: 'https://schema.org/InStock',
+              description: 'プレミアム年間サポーターと KIZUNA Pro 拡張パックのセット（年額）。KIZUNA Pro プラグインをすべて含みます。製品ごとの個別のご契約はありません。',
+            },
+            {
+              '@type': 'Offer',
+              name: PRO_ADDON.name,
+              price: String(PRO_ADDON.priceInTax),
+              priceCurrency: 'JPY',
+              availability: 'https://schema.org/InStock',
+              description: 'プレミアム年間サポーターに追加するプラン（年額）。',
+            },
+          ],
+          description: 'ポータル Pro for kintone は、kintone のメインのポータルとスペースのポータルに、ウィジェットを並べた画面をドラッグ＆ドロップで組み立てるプラグイン。アプリ一覧・お知らせ・ショートカット・画像・埋め込みのほか、レコード一覧・数値カード・グラフ・ゲージ・ランキング・カレンダー・カウントダウン・自分の担当など19種のウィジェットを置ける。条件に「自分」「自分の組織」「今日」を使って開いた人ごとに中身を変えられ、ポータルからレコードを登録するクイック入力、［確認しました］ボタン付きのお知らせ、よく使う順に並ぶアプリ一覧と Ctrl+K のランチャーを備える。画面作成ウィザードのひな形6種とスタイル10種で見た目を整えられ、スマホ用の画面も別に組める。kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示する。',
+          publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
+          featureList: [
+            'メインのポータルとスペースのポータルに、ウィジェットを並べた画面を表示（パソコンとスマホ）',
+            'ドラッグ＆ドロップのエディタ：パレットから置き、角をつまんで大きさを変える。複製・削除・元に戻す・やり直し・下書きから公開',
+            '19種のウィジェット：アプリ一覧・ショートカットボタン・お知らせ・リッチテキスト・見出し・画像・リンク集・レコード一覧・数値カード・グラフ・ゲージ・進捗バー・ランキング・クロス集計・カレンダー・カウントダウン・自分の担当・クイック入力・埋め込み・時計',
+            'その人の今日：条件に「自分」「自分の組織」「今日」「今週」を使い、1枚の画面で開いた人ごとに中身を変える',
+            'クイック入力：ポータルからレコードを直接登録。ワンタップ登録にも対応',
+            'お知らせの［確認しました］ボタン：確認した人を記録し、「お知らせの確認状況」で確認者・日時を確認（CSV 出力）',
+            'kintone 標準の表示を隠す：トップのポータルとスペースの標準の部品を、ポータル Pro の画面を表示できたときだけ隠す（画面の一番下から標準の表示を開ける）',
+            'アプリ一覧：10の表示パターン・よく使う順などの並び順・ピン留め・非表示・分類・件数バッジ・Ctrl+K のランチャー',
+            '画面全体の期間ボタン：今月・今四半期・今年度などで、連動させたウィジェットを一括で切り替え（ウィジェットとして好きな位置に配置）',
+            'スタイル10種・色のテーマ12種・見た目6種・個別の調整・自社スタイルの保存。コントラストの自動チェック',
+            '画面作成ウィザード：ひな形6種とスタイルを、仕上がりのサムネイルで選ぶ',
+            '表示する人の限定、〇〇さんから見た画面のプレビュー、スペースごとの画面',
+            '見る人の権限でデータを取得し、アクセス権をそのまま反映。API のリクエスト数を抑えるしくみ',
+            '多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示',
+          ],
+        },
+        {
+          '@type': 'HowTo',
+          name: 'ポータル Pro for kintone の導入手順',
+          step: HOWTO_STEPS.map((s, i) => ({ '@type': 'HowToStep', position: i + 1, name: s.name, text: s.text })),
+        },
+      ],
+    })} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --kbp-navy: #1B3A6B;
+      --kbp-ink: #0f1f3d;
+      --kbp-gold: #b8862b;
+      --kbp-gold-light: #e8c766;
+      --kbp-gold-soft: #f0d58a;
+      --kbp-green: #2E8B2E;
+      --kbp-text: #333333;
+      --kbp-muted: #64748b;
+    }
+
+    /* Hero: darker than the premium hero, gold accents mark the Pro series */
+    .kbp-hero {
+      /* Shared KIZUNA Pro hero background; sized by width, its baked bottom fade blends into this base gradient */
+      background:
+        url('/images/kizuna-pro-hero-bg.webp') center top / 100% auto no-repeat,
+        linear-gradient(90deg, #020816 0%, #050b1c 30%, #081427 50%, #09182f 70%, #0c1729 100%);
+      color: #fff;
+      padding: 60px 5% 54px;
+      text-align: center;
+      border-bottom: 4px solid var(--kbp-gold);
+    }
+    .kbp-hero-icon {
+      width: 136px; height: 136px; object-fit: contain; display: block; margin: 0 auto 18px;
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(232, 199, 102, 0.5);
+      border-radius: 26px; padding: 10px; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+    .kbp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+    .kbp-badge-pro {
+      display: inline-flex; align-items: center; gap: 6px; line-height: 1;
+      padding: 7px 16px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%);
+      color: #1a1405; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.08em;
+    }
+    .kbp-hero-version {
+      padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.45);
+      font-size: 0.85rem; font-weight: 700; line-height: 1;
+    }
+    .kbp-hero-title { font-size: clamp(1.7rem, 4.2vw, 2.6rem); margin: 0 0 12px; line-height: 1.3; }
+    .kbp-tagline { font-size: clamp(1.05rem, 2.4vw, 1.35rem); font-weight: 700; margin: 0 0 14px; color: var(--kbp-gold-soft); }
+    .kbp-sub { max-width: 860px; margin: 0 auto 26px; line-height: 1.9; font-size: 1rem; color: rgba(255, 255, 255, 0.92); }
+    .kbp-sub strong { color: #fff; }
+    /* Style sample gallery in the hero */
+    .ppp-gallery { max-width: 860px; margin: 0 auto 28px; min-width: 0; }
+    .ppp-gallery:focus-visible { outline: 2px solid var(--kbp-gold-soft); outline-offset: 4px; border-radius: 8px; }
+    .ppp-gallery-title { font-size: 1.05rem; font-weight: 800; margin: 0 0 12px; color: var(--kbp-gold-soft); }
+    .ppp-gallery-stage { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .ppp-gallery-frame { flex: 1 1 0; min-width: 0; }
+    .ppp-gallery-slide { width: 100%; }
+    .ppp-gallery-slide[hidden] { display: none; }
+    .ppp-gallery-slide img {
+      display: block; width: 100%; height: auto; aspect-ratio: 1440 / 900; border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.35); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); background: #fff; cursor: zoom-in;
+    }
+    .ppp-gallery-nav {
+      flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; padding: 0; line-height: 1; font-size: 1.6rem; cursor: pointer;
+      color: #fff; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(232, 199, 102, 0.6);
+    }
+    .ppp-gallery-nav:hover { background: rgba(255, 255, 255, 0.24); }
+    .ppp-gallery-caption { margin: 12px 0 10px; font-size: 0.92rem; line-height: 1.6; color: rgba(255, 255, 255, 0.92); }
+    .ppp-gallery-cap-no { color: var(--kbp-gold-soft); font-weight: 800; letter-spacing: 0.08em; }
+    .ppp-gallery-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .ppp-gallery-chip {
+      padding: 6px 12px; border-radius: 999px; font-size: 0.84rem; cursor: pointer; color: #fff;
+      background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .ppp-gallery-chip:hover { background: rgba(255, 255, 255, 0.18); }
+    .ppp-gallery-chip[aria-current="true"] { background: var(--kbp-gold); color: #1a1405; border-color: var(--kbp-gold); font-weight: 800; }
+    .kbp-pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; max-width: 900px; margin: 0 auto 28px; }
+    .kbp-pillar {
+      display: block; padding: 16px 14px; border-radius: 12px; text-decoration: none; color: #fff;
+      background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(232, 199, 102, 0.45);
+    }
+    .kbp-pillar:hover { background: rgba(255, 255, 255, 0.14); }
+    .kbp-pillar-no { display: block; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--kbp-gold-soft); font-weight: 800; }
+    .kbp-pillar-name { display: block; font-size: 1.05rem; font-weight: 800; margin: 4px 0; }
+    .kbp-pillar-desc { display: block; font-size: 0.84rem; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
+    .kbp-hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .kbp-btn {
+      display: inline-block; padding: 14px 26px; border-radius: 10px; font-weight: 800; text-decoration: none;
+      font-size: 1rem; line-height: 1.3;
+    }
+    .kbp-btn.is-primary { background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; box-shadow: 0 6px 18px rgba(184, 134, 43, 0.35); }
+    .kbp-btn.is-ghost { border: 1px solid rgba(255, 255, 255, 0.6); color: #fff; }
+    .kbp-btn.is-ghost:hover { background: rgba(255, 255, 255, 0.1); }
+    .kbp-hero-note { margin: 14px auto 0; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); max-width: 760px; line-height: 1.7; }
+
+    /* Series strip */
+    .kbp-series { background: #fffaf0; border-bottom: 1px solid #eadcb2; }
+    .kbp-series-inner { max-width: 1100px; margin: 0 auto; padding: 20px 5%; display: flex; gap: 16px; align-items: center; }
+    .kbp-series-tag {
+      flex-shrink: 0; padding: 6px 12px; border-radius: 6px; font-weight: 800; font-size: 0.8rem; letter-spacing: 0.06em;
+      background: var(--kbp-ink); color: var(--kbp-gold-soft);
+    }
+    .kbp-series p { margin: 0; line-height: 1.8; font-size: 0.95rem; color: var(--kbp-text); min-width: 0; }
+    .kbp-series p a { color: var(--kbp-navy); font-weight: 700; }
+
+    /* Sections */
+    .kbp-section { padding: 64px 5%; background: #fff; }
+    .kbp-section.alt { background: #F0F4F8; }
+    .kbp-wrap { max-width: 1100px; margin: 0 auto; }
+    .kbp-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; color: var(--kbp-gold); margin-bottom: 6px; }
+    .kbp-h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); color: var(--kbp-navy); margin: 0 0 14px; line-height: 1.4; }
+    .kbp-lead { margin: 0 0 34px; line-height: 1.9; color: var(--kbp-text); max-width: 900px; }
+    .kbp-h3 { font-size: 1.2rem; color: var(--kbp-navy); margin: 0 0 10px; line-height: 1.5; }
+
+    /* Part header */
+    .kbp-part {
+      display: flex; align-items: center; gap: 16px; padding: 22px 26px; margin: 0 0 34px; border-radius: 14px;
+      background: linear-gradient(120deg, var(--kbp-ink) 0%, var(--kbp-navy) 100%); color: #fff;
+    }
+    .kbp-part-no {
+      flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; font-weight: 900; font-size: 1.4rem;
+    }
+    .kbp-part-body { min-width: 0; }
+    .kbp-part-title { margin: 0 0 4px; font-size: clamp(1.25rem, 2.8vw, 1.7rem); line-height: 1.35; }
+    .kbp-part-desc { margin: 0; line-height: 1.7; color: rgba(255, 255, 255, 0.88); font-size: 0.95rem; }
+
+    /* Feature rows: text + screenshot (a row without a screenshot becomes one column) */
+    .kbp-feature { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; margin: 0 0 48px; }
+    .kbp-feature.flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    .kbp-feature.flip .kbp-feature-text { order: 2; }
+    .kbp-feature.noshot, .kbp-feature.flip.noshot { grid-template-columns: minmax(0, 1fr); }
+    .kbp-feature-text p { margin: 0 0 12px; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-feature-text ul { margin: 0 0 12px; padding-left: 1.2em; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-feature-text li { margin-bottom: 4px; }
+    .kbp-shot { margin: 0; min-width: 0; }
+    .kbp-shot img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid #dbe3ee; box-shadow: 0 6px 18px rgba(15, 31, 61, 0.1); cursor: zoom-in; background: #fff; }
+    .kbp-shot.is-tall { max-width: 300px; margin: 0 auto; }
+    .kbp-shot figcaption { margin-top: 8px; font-size: 0.84rem; color: var(--kbp-muted); line-height: 1.6; }
+    .kbp-example {
+      margin: 12px 0 0; padding: 12px 14px; border-radius: 8px; background: #f4f7fb; border-left: 4px solid var(--kbp-navy);
+      font-size: 0.92rem; line-height: 1.8; color: var(--kbp-text);
+    }
+    .kbp-example strong { color: var(--kbp-navy); }
+
+    /* Use case cards */
+    .kbp-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0 0 44px; }
+    .kbp-case { background: #fff; border: 1px solid #dbe3ee; border-radius: 12px; padding: 20px; min-width: 0; }
+    .kbp-case h3 { font-size: 1rem; color: var(--kbp-navy); margin: 0 0 6px; line-height: 1.5; }
+    .kbp-case p { margin: 0; font-size: 0.9rem; line-height: 1.75; color: var(--kbp-text); }
+
+    /* Feature summary list */
+    .kbp-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 28px; list-style: none; margin: 0 0 24px; padding: 0; }
+    .kbp-list li { position: relative; padding-left: 26px; line-height: 1.75; color: var(--kbp-text); min-width: 0; }
+    .kbp-list li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--kbp-gold); font-weight: 900; }
+
+    /* Plans */
+    .kbp-plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 0 0 24px; }
+    .kbp-plan { background: #fff; border: 1px solid #dbe3ee; border-radius: 14px; padding: 26px; position: relative; min-width: 0; }
+    .kbp-plan.top { border: 2px solid var(--kbp-gold); box-shadow: 0 10px 30px rgba(184, 134, 43, 0.18); }
+    .kbp-plan-badge {
+      position: absolute; top: -13px; left: 22px; padding: 4px 12px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; font-size: 0.78rem; font-weight: 800;
+    }
+    .kbp-plan h3 { margin: 4px 0 6px; color: var(--kbp-navy); font-size: 1.2rem; }
+    .kbp-plan-price { margin: 0 0 4px; }
+    .kbp-plan-price .amt { font-size: 1.9rem; font-weight: 900; color: var(--kbp-ink); }
+    .kbp-plan-price .unit { font-size: 0.9rem; color: var(--kbp-muted); margin-left: 4px; }
+    .kbp-plan-sub { margin: 0 0 14px; font-size: 0.85rem; color: var(--kbp-muted); }
+    .kbp-plan ul { margin: 0 0 18px; padding-left: 1.2em; line-height: 1.85; color: var(--kbp-text); font-size: 0.93rem; }
+    .kbp-plan-cta { display: block; text-align: center; padding: 12px 16px; border-radius: 10px; background: var(--kbp-navy); color: #fff; font-weight: 800; text-decoration: none; }
+    .kbp-plan.top .kbp-plan-cta { background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; }
+    .kbp-trial { margin: 0 0 18px; padding: 18px 20px; border-radius: 10px; background: #f4faf4; border: 1px solid #cfe8cf; line-height: 1.85; font-size: 0.93rem; color: var(--kbp-text); }
+    .kbp-trial h3 { margin: 0 0 6px; font-size: 1.05rem; color: #1B3A6B; }
+    .kbp-trial p { margin: 0 0 8px; }
+    .kbp-trial ul { margin: 0 0 8px; padding-left: 1.3em; }
+    .kbp-trial a { color: #2E8B2E; font-weight: 700; }
+    .kbp-note { padding: 16px 18px; border-radius: 10px; background: #fffaf0; border: 1px solid #eadcb2; line-height: 1.85; font-size: 0.93rem; color: var(--kbp-text); }
+
+    /* Install steps */
+    .steps-list { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid #e2e8f0; line-height: 1.8; counter-increment: step; }
+    .steps-list li::before {
+      content: counter(step); flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: var(--kbp-navy); color: #fff; font-weight: 800;
+    }
+    .steps-list li > span { min-width: 0; }
+
+    /* Cautions */
+    .kbp-cautions ul { margin: 0; padding-left: 1.2em; line-height: 1.9; color: var(--kbp-text); }
+    .kbp-cautions li { margin-bottom: 6px; }
+
+    /* FAQ */
+    .kbp-faq { margin: 0; }
+    .kbp-faq details { background: #fff; border: 1px solid #dbe3ee; border-radius: 10px; margin: 0 0 10px; }
+    .kbp-faq summary { cursor: pointer; padding: 16px 18px; font-weight: 800; color: var(--kbp-navy); line-height: 1.6; }
+    .kbp-faq details p { margin: 0; padding: 0 18px 16px; line-height: 1.85; color: var(--kbp-text); }
+
+    /* Closing CTA */
+    .kbp-cta { background: linear-gradient(135deg, #0b1630 0%, #1B3A6B 100%); color: #fff; text-align: center; padding: 56px 5%; border-top: 4px solid var(--kbp-gold); }
+    .kbp-cta h2 { margin: 0 0 12px; font-size: clamp(1.3rem, 3vw, 1.8rem); line-height: 1.45; }
+    .kbp-cta p { margin: 0 auto 22px; max-width: 760px; line-height: 1.85; color: rgba(255, 255, 255, 0.88); }
+
+    /* Lightbox */
+    .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); display: none; align-items: center; justify-content: center; z-index: 10000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5); }
+    .lightbox-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
+
+    /* Portal Pro additions */
+    .ppp-chip { display: inline-block; padding: 2px 10px; border-radius: 999px; background: var(--kbp-navy); color: var(--kbp-gold-soft); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em; }
+    .ppp-widget-group { margin: 0 0 28px; }
+    .ppp-widget-group h3 { margin: 0 0 12px; font-size: 1.05rem; color: var(--kbp-navy); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .ppp-widgets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; list-style: none; margin: 0; padding: 0; }
+    .ppp-widgets li { background: #fff; border: 1px solid #dbe3ee; border-top: 3px solid var(--kbp-gold); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+    .ppp-widgets strong { display: block; color: var(--kbp-navy); font-size: 0.95rem; line-height: 1.5; margin-bottom: 4px; }
+    .ppp-widgets span { display: block; font-size: 0.85rem; line-height: 1.7; color: var(--kbp-text); }
+    .ppp-styles { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; list-style: none; margin: 0 0 12px; padding: 0; }
+    .ppp-styles li { background: #fff; border: 1px solid #dbe3ee; border-radius: 10px; padding: 12px; min-width: 0; }
+    .ppp-swatch { display: flex; height: 26px; border-radius: 6px; overflow: hidden; border: 1px solid #dbe3ee; margin: 0 0 8px; }
+    .ppp-swatch i { flex: 1; display: block; }
+    .ppp-style-no { display: block; font-size: 0.7rem; letter-spacing: 0.08em; color: var(--kbp-gold); font-weight: 800; }
+    .ppp-style-name { display: block; font-weight: 800; color: var(--kbp-navy); font-size: 0.95rem; line-height: 1.5; }
+    .ppp-style-mood { display: block; font-size: 0.78rem; line-height: 1.6; color: var(--kbp-muted); }
+    .ppp-small { font-size: 0.82rem; color: var(--kbp-muted); line-height: 1.7; margin: 0 0 24px; }
+    .ppp-templates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; list-style: none; margin: 12px 0 0; padding: 0; }
+    .ppp-templates li { background: #f4f7fb; border-left: 4px solid var(--kbp-navy); border-radius: 8px; padding: 12px 14px; min-width: 0; }
+    .ppp-templates strong { display: block; color: var(--kbp-navy); font-size: 0.92rem; margin-bottom: 2px; }
+    .ppp-templates span { display: block; font-size: 0.82rem; line-height: 1.65; color: var(--kbp-text); }
+    .ppp-admin { margin: 18px 0 0; padding: 14px 18px; border-radius: 10px; background: #fffaf0; border: 1px solid #eadcb2; line-height: 1.85; font-size: 0.93rem; color: var(--kbp-text); }
+    .ppp-appicons { display: flex; gap: 14px; flex-wrap: wrap; margin: 14px 0 0; }
+    .ppp-appicon { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #dbe3ee; border-radius: 10px; padding: 8px 14px 8px 8px; min-width: 0; }
+    .ppp-appicon img { width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0; }
+    .ppp-appicon span { font-size: 0.85rem; font-weight: 700; color: var(--kbp-navy); line-height: 1.5; min-width: 0; }
+
+    @media (max-width: 860px) {
+      .kbp-feature, .kbp-feature.flip { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+      .kbp-feature.flip .kbp-feature-text { order: 0; }
+      .kbp-cases { grid-template-columns: minmax(0, 1fr); }
+      .kbp-list, .kbp-plan-grid { grid-template-columns: minmax(0, 1fr); }
+      .ppp-widgets, .ppp-templates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .ppp-styles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .kbp-pillars { grid-template-columns: minmax(0, 1fr); }
+      .ppp-gallery-stage { gap: 4px; }
+      .ppp-gallery-nav { width: 32px; height: 32px; font-size: 1.3rem; }
+      .kbp-section { padding: 48px 5%; }
+      .kbp-part { padding: 18px; gap: 12px; }
+      .kbp-part-no { width: 44px; height: 44px; font-size: 1.1rem; }
+      .kbp-series-inner { flex-direction: column; align-items: flex-start; }
+      .kbp-btn { width: 100%; box-sizing: border-box; text-align: center; }
+      .ppp-widgets, .ppp-templates { grid-template-columns: minmax(0, 1fr); }
+      .ppp-styles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="kbp-hero">
+      <img class="kbp-hero-icon" src="/images/portal-pro-icon.png" alt="ポータル Pro for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="kbp-hero-badges">
+        <span class="kbp-badge-pro">KIZUNA Pro PLUGIN</span>
+        <span class="kbp-hero-version">v{VERSION}</span>
+      </div>
+      <HeroSubBadges pluginId="kw-portal-pro" />
+      <h1 class="kbp-hero-title">ポータル Pro for kintone</h1>
+      <p class="kbp-tagline">開いた人の"今日"が並び、そのまま仕事が始められるポータル。</p>
+      <p class="kbp-sub">ポータル Pro for kintone は、<strong>メインのポータルとスペースのポータルに、ウィジェットを並べた画面をドラッグ＆ドロップで組み立てる</strong> kintone プラグインです。アプリ一覧・お知らせ・グラフ・クイック入力など<strong>19種のウィジェット</strong>と、<strong>スタイル10種</strong>で、見た目まで整えられます。</p>
+      <div class="ppp-gallery" id="style-gallery" role="group" aria-roledescription="carousel" aria-labelledby="style-gallery-title" tabindex="0">
+        <h2 class="ppp-gallery-title" id="style-gallery-title">スタイルを選ぶだけで、画面の雰囲気が変わります</h2>
+        <div class="ppp-gallery-stage">
+          <button type="button" class="ppp-gallery-nav is-prev" data-dir="-1" aria-label="前のスタイルを見る">&#8249;</button>
+          <div class="ppp-gallery-frame">
+            {STYLES.map((s, i) => (
+              <div class="ppp-gallery-slide" data-index={i} hidden={i === 0 ? undefined : true}>
+                <Picture src={`/images/portal-pro-style-${String(i + 1).padStart(2, '0')}.png`} alt={`${s.name}スタイルのポータル画面。${STYLE_SHOT_ALTS[i]}`} width={1440} height={900} class="zoomable" loading={i === 0 ? 'eager' : 'lazy'} />
+              </div>
+            ))}
+          </div>
+          <button type="button" class="ppp-gallery-nav is-next" data-dir="1" aria-label="次のスタイルを見る">&#8250;</button>
+        </div>
+        <p class="ppp-gallery-caption" aria-live="polite"><span class="ppp-gallery-cap-no">{STYLES[0].no}</span> <strong>{STYLES[0].name}</strong>：<span class="ppp-gallery-cap-mood">{STYLES[0].mood}</span></p>
+        <div class="ppp-gallery-chips">
+          {STYLES.map((s, i) => (
+            <button type="button" class="ppp-gallery-chip" data-index={i} data-no={s.no} data-name={s.name} data-mood={s.mood} aria-current={i === 0 ? 'true' : undefined}>{s.name}</button>
+          ))}
+        </div>
+      </div>
+      <div class="kbp-pillars">
+        <a class="kbp-pillar" href="#today"><span class="kbp-pillar-no">POINT 1</span><span class="kbp-pillar-name">その人の今日</span><span class="kbp-pillar-desc">「自分」「自分の組織」「今日」の条件で、1枚の画面が開いた人ごとに変わる</span></a>
+        <a class="kbp-pillar" href="#quick"><span class="kbp-pillar-no">POINT 2</span><span class="kbp-pillar-name">ポータルから直接入力</span><span class="kbp-pillar-desc">日報・打刻・申請などを、アプリを開かずにその場で登録</span></a>
+        <a class="kbp-pillar" href="#ack"><span class="kbp-pillar-no">POINT 3</span><span class="kbp-pillar-name">お知らせの確認ボタン</span><span class="kbp-pillar-desc">［確認しました］で読んだ人を記録し、未確認の人を管理者が把握</span></a>
+      </div>
+      <div class="kbp-hero-cta">
+        <a class="kbp-btn is-primary" href="#plan">プランと料金を見る →</a>
+        <a class="kbp-btn is-ghost js-dl" href={ZIP} download>プラグインをダウンロード</a>
+        <a class="kbp-btn is-ghost" href="/plugins/premium-trial/">30日間無料で試す</a>
+      </div>
+      <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
+    </section>
+
+    <!-- Series -->
+    <div class="kbp-series">
+      <div class="kbp-series-inner">
+        <span class="kbp-series-tag">KIZUNA Pro とは</span>
+        <p>ちょこっとプラグイン・プレミアムプラグインの上にある、KIZUNA Works の上位版のプラグインのシリーズです。<strong>KIZUNA Pro 拡張パック</strong>で、ポータル Pro をはじめ、<a href="/plugins/bridge/">KIZUNAブリッジ for kintone</a> など、今後リリースされる KIZUNA Pro プラグインもすべてお使いいただけます。</p>
+      </div>
+    </div>
+
+    <!-- Problem -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">PROBLEM</span>
+        <h2 class="kbp-h2">ポータルが、入口で止まっていませんか</h2>
+        <p class="kbp-lead">アプリが増えるほど目的のアプリは探しにくくなり、部署ごとに見たい情報は違うのに、画面は全員に同じです。ポータル Pro は、<strong>開いた人の今日が並び、そのまま仕事を始められる入口</strong>を、ノーコードで組み立てます。</p>
+        <div class="kbp-cases">
+          <div class="kbp-case">
+            <h3>目的のアプリを、探すのに手間がかかる</h3>
+            <p>アプリ一覧のウィジェットで、よく使う順・分類・ピン留めに並べ、Ctrl+K のランチャーで名前を打てばすぐに開けます。</p>
+          </div>
+          <div class="kbp-case">
+            <h3>部署ごとに画面を作るのが大変</h3>
+            <p>条件に「自分」「自分の組織」「今日」を使えば、1枚の画面で、開いた人ごとの担当や予定が並びます。</p>
+          </div>
+          <div class="kbp-case">
+            <h3>ポータルが見るだけで終わる</h3>
+            <p>クイック入力で、日報や打刻をその場で登録できます。お知らせには［確認しました］ボタンを付けて、読まれたかを確かめます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 1 -->
+    <section class="kbp-section alt" id="build">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">1</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">ドラッグ＆ドロップで、ポータルを組み立てる</h2>
+            <p class="kbp-part-desc">設定アプリの「ポータル編集」で画面を作ります。標準のポータルが届かない、メインのポータルとスペースのポータル、スマホの画面を組み立てられます。</p>
+          </div>
+        </div>
+
+        <div class={shotClass('editor')}>
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">専用の編集画面で、見たまま並べる</h3>
+            <p>左のパレットからウィジェットをドラッグして画面に置き、角をつまんで大きさを変えます。パソコンは横12列、スマホは横4列のグリッドに並びます。</p>
+            <ul>
+              <li>ウィジェットは、カテゴリ別・検索付きのパレットから選べます。</li>
+              <li>選んだウィジェットの中身と見た目は、右の設定パネルで決めます。変更はすぐに画面に反映されます。</li>
+              <li>動かす・大きさを変えている間は、列の線と、隣のウィジェットと端が揃った位置の線が出ます。</li>
+              <li>複製・削除・元に戻す・やり直し（Ctrl+Z／Ctrl+Y）に対応します。</li>
+              <li>編集は下書きに保存され、［公開］を押すと利用者に反映されます。公開前の内容は、公開履歴に残ります。</li>
+              <li>キャンバスは実際のポータルと同じ幅で描くので、ウィジェットの大きさ（px）が本番と同じに見えます。「表示幅」は、このウィンドウと同じ・1280・1366・1600・1920 の画面から選べます。</li>
+              <li>左のパレットと右の設定パネルは、［&lt;］［&gt;］で畳めます。畳んだ状態は、次に開いたときも同じです。</li>
+              <li>アプリを管理できる人には、上の帯に、プラグインの設定画面へ移る［プラグインの設定］も出ます。</li>
+              <li>編集画面は全画面で開き、上の帯の［← ポータルに戻る］でいつでも戻れます。ポータルのタブの行の［編集］（設定アプリのレコードを編集できる人だけに表示・パソコンのみ）からも開けます。</li>
+            </ul>
+          </div>
+          {shotOk('editor') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.editor.file}`} alt={SHOTS.editor.alt} width={SHOTS.editor.width} height={SHOTS.editor.height} class="zoomable" />
+              <figcaption>{SHOTS.editor.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+
+        <div class={shotClass('home', 'flip')}>
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">ポータルにも、スペースにも、スマホにも</h3>
+            <p>1つの画面を、メインのポータルとスペースのポータルのどちらにも出せます。スペースは複数選べます。</p>
+            <ul>
+              <li>画面は複数作れ、タブで切り替えます。</li>
+              <li>画面ごとに、表示する人を全員またはユーザー・組織・グループに限れます（レコードのアクセス権で守られます）。</li>
+              <li>エディタの［〇〇さんから見る］で、指定した人の画面をプレビューできます。</li>
+              <li>スマホ用の画面は、最初は PC の並びから自動で作られ、あとから別に並べ替えられます。</li>
+            </ul>
+          </div>
+          {shotOk('home') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.home.file}`} alt={SHOTS.home.alt} width={SHOTS.home.width} height={SHOTS.home.height} class="zoomable" />
+              <figcaption>{SHOTS.home.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+
+        <div class={shotClass('mobile')}>
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">スマホ用の画面を、別に組める</h3>
+            <p>現場で kintone をスマホで使う人向けに、大きなタイルのアプリ一覧やクイック入力を縦に並べたホーム画面を作れます。PC の画面とは、別の並びで保存されます。</p>
+          </div>
+          {shotOk('mobile') && (
+            <figure class="kbp-shot is-tall">
+              <Picture src={`/images/${SHOTS.mobile.file}`} alt={SHOTS.mobile.alt} width={SHOTS.mobile.width} height={SHOTS.mobile.height} class="zoomable" />
+              <figcaption>{SHOTS.mobile.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 2 -->
+    <section class="kbp-section" id="widgets">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">2</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">19種のウィジェット</h2>
+            <p class="kbp-part-desc">お知らせや画像のような基本のウィジェットから、アプリのデータを見せるウィジェット、ポータルから入力できるウィジェットまで、そろっています。</p>
+          </div>
+        </div>
+
+        {WIDGET_GROUPS.map((g) => (
+          <div class="ppp-widget-group">
+            <h3><span class="ppp-chip">{g.label}</span>{g.items.length}種</h3>
+            <ul class="ppp-widgets">
+              {g.items.map((w) => (
+                <li><strong>{w.name}</strong><span>{w.desc}</span></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+        <p class="ppp-small">データのウィジェットは、開いた人の権限でレコードを取得します。人によって、件数や合計が異なることがあります。</p>
+
+        <div class={shotClass('applist', 'flip')} id="applist">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">アプリ一覧：探さずに、すぐ開ける</h3>
+            <p>kintone のアプリを、自社の分類と言葉で並べ直します。10の表示パターンから選べます。</p>
+            <ul>
+              <li>表示パターン：タイル（大・中・小）・アイコンのみ・リスト・カード・分類の折りたたみ・分類のタブ・横スクロールの帯・ランチャー。</li>
+              <li>並び順：よく使う順・最近使った順・自分で並べ替え・管理者の指定順・名前順・更新日順。</li>
+              <li>利用者は、アプリのピン留めと非表示、使っていないアプリを畳むことができます。</li>
+              <li>分類・表示名・アイコン（kintone の設定のまま／アイコン＋色／画像）を、自社の言葉に直せます。</li>
+              <li>アプリごとに、自分の担当の件数や、新着の件数をバッジで出せます。</li>
+              <li>ゲストスペースのアプリは、「ゲスト」のバッジを付けて並びます。</li>
+            </ul>
+          </div>
+          {shotOk('applist') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.applist.file}`} alt={SHOTS.applist.alt} width={SHOTS.applist.width} height={SHOTS.applist.height} class="zoomable" />
+              <figcaption>{SHOTS.applist.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+
+        <div class={shotClass('launcher')} id="launcher">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">ランチャー：Ctrl+K でアプリを探す</h3>
+            <p>ポータルでも、アプリの画面でも、Ctrl+K（Mac は Command+K）を押すと、アプリを探す窓が開きます。ピン留めしたアプリ、よく使うアプリの順に候補が並び、文字を打てば絞り込めます。</p>
+            <ul>
+              <li>↑↓ キーと Enter キーで選べます。Esc キーで閉じます。</li>
+              <li>入力欄にカーソルがあるときは開きません。</li>
+              <li>呼び出すキーは、全体設定で変えられます。</li>
+            </ul>
+          </div>
+          {shotOk('launcher') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.launcher.file}`} alt={SHOTS.launcher.alt} width={SHOTS.launcher.width} height={SHOTS.launcher.height} class="zoomable" />
+              <figcaption>{SHOTS.launcher.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+
+        <div class={shotClass('data', 'flip')} id="today">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="ppp-chip">Pro だけ</span>その人の今日</h3>
+            <p>データのウィジェットの条件に、「自分」「自分の組織」「今日」「今週」を使えます。1枚の画面を作るだけで、開いた人ごとに中身が変わります。</p>
+            <p class="kbp-example"><strong>例：</strong>「担当者＝自分」の案件と、「訪問予定日＝今日」の予定を並べる。営業の全員が同じ画面を開いて、それぞれ自分の分だけを見ます。</p>
+            <ul>
+              <li>条件は、フィールドと演算子と値を選んで作ります。直接書くこともできます。</li>
+              <li>保存の前に、条件がkintoneで通るかを確かめ、現在の件数を示します。</li>
+              <li>今月・先月・今四半期・今年度・任意の期間のボタン（期間バー）を、ほかのウィジェットと同じようにドラッグして好きな位置に置けます。「画面の期間に連動」を ON にした数値カード・グラフ・ゲージ・進捗バー・ランキングが、一度に切り替わります。</li>
+              <li>数値・日付・日時は、フィールドの設定（桁区切り・小数の桁数・単位・利用者のタイムゾーン）のとおりに表示します。</li>
+            </ul>
+          </div>
+          {shotOk('data') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.data.file}`} alt={SHOTS.data.alt} width={SHOTS.data.width} height={SHOTS.data.height} class="zoomable" />
+              <figcaption>{SHOTS.data.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+
+        <div class={shotClass('quick')} id="quick">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="ppp-chip">Pro だけ</span>ポータルから、直接入力する</h3>
+            <p>クイック入力のウィジェットで、ポータルを離れずにレコードを登録できます。</p>
+            <p class="kbp-example"><strong>例：</strong>出勤の打刻を、ボタンを1回押すだけで登録する。日報の本文を、ポータルの入力欄から送る。</p>
+            <ul>
+              <li>入力する項目と初期値（固定の値・今日・今の日時・ログインユーザー）を、アプリごとに決めます。</li>
+              <li>入力欄を出さず、ボタンを押すだけで登録する「ワンタップ登録」も使えます。二重に押しても、登録は1回です。</li>
+              <li>登録のあとは、メッセージを出す・入力を空にする・レコードを開く、から選べます。</li>
+              <li>入力のエラーは、該当の項目の下に表示します。登録する権限が無いときは、案内を出して［登録］を止めます。</li>
+            </ul>
+            <p class="kbp-example"><strong>ご注意：</strong>クイック入力は REST API で登録するため、対象アプリのレコード追加画面のカスタマイズや、他のプラグインの保存時の処理は動きません。</p>
+          </div>
+          {shotOk('quick') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.quick.file}`} alt={SHOTS.quick.alt} width={SHOTS.quick.width} height={SHOTS.quick.height} class="zoomable" />
+              <figcaption>{SHOTS.quick.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+
+        <div class={shotClass('ack', 'flip')} id="ack">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3"><span class="ppp-chip">Pro だけ</span>お知らせの［確認しました］</h3>
+            <p>お知らせごとに、［確認しました］ボタンを付けられます。読んだ人が押すと確認が記録され、押していない人には、未確認の印が出ます。</p>
+            <ul>
+              <li>重要度（色）・掲載期間・新着バッジも、お知らせごとに決められます。</li>
+              <li>「お知らせの確認状況」（エディタの上の帯の［お知らせの確認状況］から開けます）で、公開中の画面の確認ボタン付きのお知らせを選ぶと、状態・ログイン名・名前・確認した日時を確かめられます。CSV にも書き出せます。</li>
+              <li>未確認の人の一覧は、画面かウィジェットで見せる人を絞っているときに出ます。ゲストユーザーは数えません。見せる人の対象外の人が押したときは「確認済み（対象外）」になります。</li>
+              <li>確認の記録は、本人と、ポータル利用ログのアプリのレコードを見られる人だけが見られます。</li>
+            </ul>
+          </div>
+          {shotOk('ack') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.ack.file}`} alt={SHOTS.ack.alt} width={SHOTS.ack.width} height={SHOTS.ack.height} class="zoomable" />
+              <figcaption>{SHOTS.ack.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+
+        <div class="kbp-feature noshot">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">画像・バナーと埋め込み</h3>
+            <ul>
+              <li><strong>画像・バナー：</strong>1枚・スライド・ギャラリー・画像＋文章・ロゴの5つの形式。リンク先と掲載期間を、画像ごとに決められます。アップロードした画像は、ブラウザで自動的に圧縮します（JPEG・PNG・GIF・WebP・SVG に対応）。</li>
+              <li><strong>埋め込み（iframe）：</strong>URL または埋め込みコードを貼り付けます。YouTube・Google マップ・Google カレンダー・Google スライド／ドキュメント／スプレッドシート・Looker Studio・Power BI・Microsoft Forms／Google フォーム・同じドメインの kintone の画面を、プリセットから選べます。</li>
+              <li>埋め込みは、管理者が登録した許可するドメインの、https のページだけを置けます。埋め込みを拒否するサイトは、新しいタブで開く案内を出します。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 3 -->
+    <section class="kbp-section alt" id="design">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">3</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">スタイル10種で、見た目まで整える</h2>
+            <p class="kbp-part-desc">色・角丸・影・書体・背景を1つにまとめたスタイルを選ぶだけで、画面全体の雰囲気が決まります。書体は端末に入っているものを使い、外部のフォントを読み込みません。</p>
+          </div>
+        </div>
+
+        <ul class="ppp-styles">
+          {STYLES.map((s) => (
+            <li>
+              <div class="ppp-swatch" aria-hidden="true">
+                {s.colors.map((c) => <i style={`background:${c}`}></i>)}
+              </div>
+              <span class="ppp-style-no">{s.no}</span>
+              <span class="ppp-style-name">{s.name}</span>
+              <span class="ppp-style-mood">{s.mood}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="ppp-small">色は、配色の目安です。実際の色は、エディタのプレビューで確かめられます。スタイルを変えても、ウィジェットの位置は変わりません。</p>
+
+        <div class={shotClass('styles')}>
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">選んで、整えて、保存する</h3>
+            <ul>
+              <li>色のテーマは12種類。メイン・アクセント・背景の3色から、自由に作ることもできます。</li>
+              <li>ウィジェットの見た目は6種類：フラット・カード・枠線・見出し帯・ガラス風・ミニマル。</li>
+              <li>ウィジェットごとに、見出しの色・背景色・文字色・角丸・影・枠線・アイコンを調整できます。画面全体の背景（単色・グラデーション・画像）・間隔・文字サイズも決められます。</li>
+              <li>文字色と背景色の組み合わせが読みにくいときは、警告と修正案を出します（保存は止めません）。</li>
+              <li>調整した見た目に名前を付けて「自社スタイル」として保存し、ほかの画面やスペースで使い回せます。</li>
+            </ul>
+          </div>
+          {shotOk('styles') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.styles.file}`} alt={SHOTS.styles.alt} width={SHOTS.styles.width} height={SHOTS.styles.height} class="zoomable" />
+              <figcaption>{SHOTS.styles.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+
+        <div class={shotClass('wizard', 'flip')} id="wizard">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">画面作成ウィザード：3ステップで形にする</h3>
+            <p>新しい画面は、「プリセットから選ぶ（おすすめ）」か「オリジナルで一から作る」で始めます。プリセットは、次の3ステップです。</p>
+            <ol class="steps-list">
+              <li><span>用途のひな形を、サムネイルから選びます。</span></li>
+              <li><span>スタイルを選びます。選んだひな形に各スタイルを当てた、仕上がりのサムネイルで比べられます。</span></li>
+              <li><span>表示する場所（ポータル・スペース）と、表示する人（全員・限定）を決めます。あとで決めることもできます。</span></li>
+            </ol>
+            <p>完了すると、エディタが開き、アプリを選ぶ必要のあるウィジェットに「未設定」の印が付きます。上から順に案内されます。</p>
+            <ul class="ppp-templates">
+              {TEMPLATES.map((t) => (
+                <li><strong>{t.name}</strong><span>{t.desc}</span></li>
+              ))}
+            </ul>
+          </div>
+          {shotOk('wizard') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.wizard.file}`} alt={SHOTS.wizard.alt} width={SHOTS.wizard.width} height={SHOTS.wizard.height} class="zoomable" />
+              <figcaption>{SHOTS.wizard.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature summary -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">FEATURES</span>
+        <h2 class="kbp-h2">主な機能</h2>
+        <h3 class="kbp-h3">画面を組み立てる</h3>
+        <ul class="kbp-list">
+          <li>メインのポータルとスペースのポータルに、ウィジェットを並べた画面を表示（パソコン・スマホ）</li>
+          <li>ドラッグ＆ドロップのエディタ。複製・削除・元に戻す・やり直し・下書きから公開</li>
+          <li>画面を複数作ってタブで切り替え。表示する人の限定。〇〇さんから見た画面のプレビュー</li>
+          <li>画面全体の期間ボタン（今月・今四半期・今年度など）で、連動するウィジェットを一括で切り替え</li>
+          <li>スマホ用の画面を、PC とは別に並べる</li>
+        </ul>
+        <h3 class="kbp-h3">ウィジェット（19種）</h3>
+        <ul class="kbp-list">
+          <li>基本：アプリ一覧・ショートカットボタン・お知らせ・リッチテキスト・見出し・画像・リンク集</li>
+          <li>データ：レコード一覧・数値カード・グラフ・ゲージ・進捗バー・ランキング・クロス集計・カレンダー・カウントダウン</li>
+          <li>業務：自分の担当・クイック入力</li>
+          <li>その他：埋め込み（iframe）・時計・日付</li>
+        </ul>
+        <h3 class="kbp-h3">その人の今日・入力・お知らせ</h3>
+        <ul class="kbp-list">
+          <li>条件に「自分」「自分の組織」「今日」「今週」を使い、開いた人ごとに中身を変える</li>
+          <li>クイック入力：ポータルからレコードを登録。ワンタップ登録にも対応</li>
+          <li>お知らせの［確認しました］ボタンと、「お知らせの確認状況」（確認者・日時・CSV 出力）</li>
+          <li>アプリ一覧：10の表示パターン・よく使う順などの並び順・ピン留め・非表示・分類・件数バッジ・Ctrl+K のランチャー</li>
+        </ul>
+        <h3 class="kbp-h3">kintone 標準の表示</h3>
+        <ul class="kbp-list">
+          <li>トップのポータル（お知らせ・通知・未処理・スペース・アプリ）とスペース（お知らせ本文・スレッド・アプリ・ピープル・関連リンク）の標準の部品を、［隠さない］［すべて隠す］［選んだものだけ隠す］から選んで隠す</li>
+          <li>隠しているときは、画面の一番下の「kintone 標準の表示を開く」で、その間だけ戻せる</li>
+        </ul>
+        <h3 class="kbp-h3">デザイン</h3>
+        <ul class="kbp-list">
+          <li>スタイル10種・色のテーマ12種・見た目6種・個別の調整・自社スタイルの保存</li>
+          <li>画面作成ウィザード（ひな形6種）</li>
+          <li>文字色と背景色のコントラストの自動チェック</li>
+        </ul>
+        <h3 class="kbp-h3">安心して使う</h3>
+        <ul class="kbp-list">
+          <li>見る人の権限でデータを取得し、アクセス権をそのまま反映</li>
+          <li>API のリクエスト数を抑えるしくみと、アプリごとの1日のリクエスト数の見積もり</li>
+          <li>kintone の中で完結。外部のサービスにレコードの値を送らない（ライセンス認証を除く）</li>
+          <li>多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示</li>
+          <li>ゲストスペースのアプリを、一覧とデータのウィジェットで扱える</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Plans -->
+    <section class="kbp-section alt" id="plan">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">PLAN</span>
+        <h2 class="kbp-h2">プランと料金</h2>
+        <p class="kbp-lead">ポータル Pro は KIZUNA Pro プラグインです。製品ごとの個別のご契約はありません。<strong>プレミアム年間サポーター</strong>と <strong>KIZUNA Pro 拡張パック</strong>のご契約でお使いいただけます。</p>
+        <div class="kbp-plan-grid">
+          <div class="kbp-plan top">
+            <span class="kbp-plan-badge">KIZUNA Pro 最上位</span>
+            <h3>{PRO_SET_PLAN.name}</h3>
+            <p class="kbp-plan-price"><span class="amt">{yen(PRO_SET_PLAN.priceInTax)}</span><span class="unit">/年（税込）</span></p>
+            <p class="kbp-plan-sub">税抜 {yen(PRO_SET_PLAN.priceExTax)}／プレミアム年間サポーター＋KIZUNA Pro 拡張パック</p>
+            <ul>
+              <li>ポータル Pro を含む KIZUNA Pro プラグインすべて</li>
+              <li>ちょこっと＆プレミアムプラグインすべて</li>
+              <li>プラグイン内の広告非表示</li>
+              <li>今後リリースされる KIZUNA Pro プラグインも追加料金なし</li>
+            </ul>
+            <a class="kbp-plan-cta" href="/plugins/supporter/?plan=pro_set">{PRO_SET_PLAN.name}を申し込む →</a>
+          </div>
+          <div class="kbp-plan">
+            <span class="kbp-plan-badge">プレミアムにご加入中の方</span>
+            <h3>{PRO_ADDON.name}</h3>
+            <p class="kbp-plan-price"><span class="amt">{yen(PRO_ADDON.priceInTax)}</span><span class="unit">/年（税込）</span></p>
+            <p class="kbp-plan-sub">税抜 {yen(PRO_ADDON.priceExTax)}／{PREMIUM_PLAN.name}に追加</p>
+            <ul>
+              <li>プレミアム年間サポーターに追加していただくプランです</li>
+              <li>KIZUNA Works の上位版のプラグイン「KIZUNA Pro プラグイン」をすべてお使いいただけます</li>
+              <li>アプリをまたぐ作業もプラグインの連携も自動化する「KIZUNAブリッジ for kintone」をはじめ、今後リリースされる KIZUNA Pro プラグインも追加料金なしで順次ご利用いただけます</li>
+            </ul>
+            <a class="kbp-plan-cta" href="/plugins/supporter/?plan=pro_add">{PRO_ADDON.name}を申し込む →</a>
+          </div>
+        </div>
+        <div class="kbp-trial" id="trial">
+          <h3>30日間、無料で試せます</h3>
+          <p>カード登録は不要で、自動課金もありません（1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、条件を満たせばもう一度お試しいただけます）。</p>
+          <ul>
+            <li><strong>プレミアム年間サポーターを未契約の方</strong>：<a href="/plugins/premium-trial/">プレミアム年間サポーターの無料体験</a>に KIZUNA Pro プラグインが含まれます。</li>
+            <li><strong>プレミアム年間サポーターをご契約中の方</strong>：<a href="/plugins/premium-trial/#pro-trial">KIZUNA Pro 拡張パックだけを30日間無料</a>で試せます。</li>
+          </ul>
+          <p>体験が終わるとポータルの画面は止まりますが、設定した画面は残ります。続けるときは上のプランからお申し込みください。</p>
+        </div>
+        <p class="kbp-note">年間サポーター（ちょこっとプラグインすべて）には、KIZUNA Pro 拡張パックを追加できません。ご契約が切れても<strong>設定した画面は消えません</strong>。ご契約が確認できない間は、一般の利用者には標準のポータルが表示され、ご契約が戻れば保存済みの画面のまま動きます。</p>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section class="kbp-section" id="install">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">INSTALL</span>
+        <h2 class="kbp-h2">導入の流れ</h2>
+        <p class="kbp-lead">ポータル Pro は、設定を保管するアプリを2つ使います。設定画面のボタンで作れます。最後に、ポータルに画面を出すための JavaScript を、kintone の全体のカスタマイズに登録します。</p>
+        <ol class="steps-list">
+          <li><span>このページから <strong>kw-portal-pro-v{VERSION}.zip</strong> をダウンロードし（解凍は不要です）、［kintone システム管理］→［プラグイン］→［読み込む］で読み込みます。</span></li>
+          <li><span><strong>プラグインを設定アプリに追加します。</strong>新しい空のアプリを作り、［アプリの設定］→［プラグイン］→［プラグインの追加］で、ポータル Pro for kintone を追加します。このアプリが「設定アプリ」になります。</span></li>
+          <li><span><strong>設定画面で［設定アプリを準備する］を押します。</strong>続けて［ポータル利用ログを作成する］を押します。画面の保管用のフィールドと、利用状況を記録するアプリが整います。この操作には、kintone システム管理者の権限が必要です。</span></li>
+          <li><span><strong>ポータル用 JS をダウンロードし、kintone の全体のカスタマイズに登録します。</strong>設定画面の［PC 用をダウンロード］［スマホ用をダウンロード］で2つのファイルを取り、［kintone システム管理］の［JavaScript / CSS でカスタマイズ］で、PC 用とスマホ用の欄にそれぞれアップロードして保存します。</span></li>
+          <li><span><strong>エディタで画面を作って公開します。</strong>設定アプリの［ポータル編集］で、画面作成ウィザードから画面を作り、ウィジェットを設定して［公開］を押します。</span></li>
+        </ol>
+        <div class="ppp-appicons">
+          <div class="ppp-appicon"><img src="/images/portal-pro-settings-app-icon.png" alt="ポータル Pro 設定アプリのアイコン" width="44" height="44" loading="lazy" /><span>ポータル Pro 設定（画面を保管するアプリ）</span></div>
+          <div class="ppp-appicon"><img src="/images/portal-pro-usage-app-icon.png" alt="ポータル利用ログアプリのアイコン" width="44" height="44" loading="lazy" /><span>ポータル利用ログ（利用回数・確認を記録するアプリ）</span></div>
+        </div>
+        <p class="ppp-admin"><strong>kintone システム管理者の作業について：</strong>kintone の全体のカスタマイズ（ポータル用 JS の登録）は、API では登録できないため、導入するときと、プラグインを更新するときに、kintone システム管理者が手で登録します。設定アプリの準備も、kintone システム管理者の権限が必要です。</p>
+
+        <div class={shotClass('setup')} style="margin-top:32px">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">設定画面で、ここまで進めます</h3>
+            <p>初期設定の「設定アプリを準備する」と「ポータル利用ログを作成する」が済むと、ポータル用 JS をダウンロードできます。設定アプリがすでにあるときは、作り直さず、足りない欄だけを足します。</p>
+          </div>
+          {shotOk('setup') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.setup.file}`} alt={SHOTS.setup.alt} width={SHOTS.setup.width} height={SHOTS.setup.height} class="zoomable" />
+              <figcaption>{SHOTS.setup.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+
+        <div class={shotClass('js', 'flip')}>
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">ポータル用 JS の登録</h3>
+            <p>プラグインを更新したときは、ポータル用 JS をもう一度ダウンロードして登録し直します。版が古いときは、編集できる人のポータルに「ポータル用JSを更新してください」の帯が出ます。</p>
+            <p>プラグインを削除しても、全体のカスタマイズに登録したポータル用 JS は残ります。使わなくなったときは、登録も解除してください。</p>
+          </div>
+          {shotOk('js') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.js.file}`} alt={SHOTS.js.alt} width={SHOTS.js.width} height={SHOTS.js.height} class="zoomable" />
+              <figcaption>{SHOTS.js.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- Cautions -->
+    <section class="kbp-section alt">
+      <div class="kbp-wrap">
+        <h2 class="kbp-h2">ご利用にあたっての注意</h2>
+        <div class="kbp-cautions">
+          <ul>
+            <li>表示されるのは、メインのポータル（1枚目）とスペースのポータルです。kintone 標準の「2枚目以降のポータル」には表示されません。ゲストスペースとゲストユーザーにも表示されません。</li>
+            <li>画面は、ポータル・スペースの「ヘッダーとコンテンツの間」に表示されます。標準の表示を隠したいときは、設定画面の［全体設定］の「kintone 標準の表示」で、トップのポータルとスペースごとに選べます（既定は［隠さない］）。隠すのは、ポータル Pro の画面を表示できたときだけです。表示する画面が無い人・停止中・読み込みに失敗したときは、標準のままです。隠しているときは、画面の一番下の「kintone 標準の表示を開く」で、その間だけ戻せます。</li>
+            <li>「kintone 標準の表示」を変えたときは、ポータル用 JS をダウンロードし直して登録し直してください。登録し直すまでは、ブラウザで初めて開いたときだけ前の設定で動きます。</li>
+            <li>スマートフォンのスペースは、［すべて隠す］のときだけ隠れます。スマートフォンで初めて開いたときは、kintone の読み込みの順番の都合で、標準の画面が一瞬見えることがあります。</li>
+            <li>非公開スペースは、kintone の作りの都合でポータル Pro の描画先が無いため、標準の表示を隠す設定の対象外です。</li>
+            <li>ポータル用 JS の登録は、kintone システム管理者が手で行います。プラグインを更新したときも、ポータル用 JS をもう一度登録してください。</li>
+            <li>データのウィジェットは、見る人の権限で取得するため、人によって件数・合計が異なります。「集計結果を全員に同じにする」を ON にしたウィジェットは、見る人の権限に関係なく、同じ数字が表示されます。</li>
+            <li>ウィジェット単位の出し分けは、表示の切り替えで、セキュリティの機能ではありません。見せたくない内容は、画面単位の表示範囲（レコードのアクセス権）で守ってください。</li>
+            <li>クイック入力は REST API で登録するため、対象アプリのレコード追加画面のカスタマイズや、他のプラグインの保存時の処理は動きません。ルックアップ・テーブル・添付ファイルは対象外です。</li>
+            <li>非公開スペースの画面に書いたお知らせやリッチテキストは、設定アプリに保存されるため、スペースのメンバー以外が API で読める可能性があります。非公開スペースを選ぶと、確認が出ます。メンバー限定の内容は、スペース内のアプリのレコードに置いてください。</li>
+            <li>設定アプリを編集できる人（全体設定の「編集できる人」）には、公開の反映のために、設定アプリの「アプリ管理」権限が付きます。</li>
+            <li>データのウィジェットの結果は、ブラウザに一時保存します。最新の内容は、最大で保存時間のぶん遅れて反映されます。［更新］を押すと、すぐに取り直します。</li>
+            <li>利用回数は、ブラウザに記録してから、ポータルを開いたときに同期します。ブラウザのデータを消すと、同期していない分は失われます。「社内でよく使われている順」は、集計できる人がポータルを開いたときに更新されます。</li>
+            <li>埋め込みを禁止しているサイトは、表示できません。URL を指定した画像は、そのサイトに閲覧者のアクセスの記録が残ります。</li>
+            <li>アップロードした画像は、設定アプリの添付ファイルとして、kintone のディスク使用量に含まれます。</li>
+            <li>kintone のシステム管理者は、アクセス権の設定を変更できるため、利用回数などの個人の記録を「絶対に見られない」とは言えません。</li>
+            <li>プラグインの設定は「丸ごと保存」する仕組みのため、<strong>設定画面を2つ同時に開いて保存すると片方の変更が失われます</strong>。1つずつ保存してください。</li>
+            <li>アプリからプラグインを<strong>「利用を解除」すると設定が破棄されます</strong>。一時的に止めたいだけのときは「無効にする」をお使いください。</li>
+            <li>本プラグインはサイボウズ社の製品ではありません。kintone はサイボウズ株式会社の登録商標です。</li>
+            <li>推奨ブラウザは Google Chrome / Microsoft Edge です。</li>
+            <li>本プラグインの利用により生じた損害について、当社は責任を負いかねます。配布 zip に秘密鍵（ppk）は含まれません。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">FAQ</span>
+        <h2 class="kbp-h2">よくある質問</h2>
+        <div class="kbp-faq">
+          {faqs.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Security -->
+    <section class="kbp-section alt">
+      <div class="kbp-wrap">
+        <SecurityBox pluginId="kw-portal-pro" />
+        <ShareButtons title="ポータル Pro for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="kbp-cta">
+      <h2>開いた人の"今日"が並び、そのまま仕事が始められるポータルを。</h2>
+      <p>ポータル Pro は、KIZUNA Pro プラグインです。{PRO_SET_PLAN.name}（税込 {yen(PRO_SET_PLAN.priceInTax)}/年）、またはプレミアム年間サポーターへの KIZUNA Pro 拡張パックの追加でお使いいただけます。</p>
+      <a class="kbp-btn is-primary" href="/plugins/supporter/?plan=pro_set">{PRO_SET_PLAN.name}を見る →</a>
+    </section>
+
+    <div class="lightbox" id="kbp-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline define:vars={{ zip: ZIP }}>
+    (function () {
+      var lightbox = document.getElementById('kbp-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+      (function () {
+        var g = document.getElementById('style-gallery');
+        if (!g) return;
+        var slides = g.querySelectorAll('.ppp-gallery-slide');
+        var chips = g.querySelectorAll('.ppp-gallery-chip');
+        var capNo = g.querySelector('.ppp-gallery-cap-no');
+        var capName = g.querySelector('.ppp-gallery-caption strong');
+        var capMood = g.querySelector('.ppp-gallery-cap-mood');
+        var n = slides.length;
+        var cur = 0;
+        function show(i) {
+          cur = ((i % n) + n) % n;
+          slides.forEach(function (s, k) { s.hidden = k !== cur; });
+          chips.forEach(function (c, k) {
+            if (k === cur) c.setAttribute('aria-current', 'true'); else c.removeAttribute('aria-current');
+          });
+          var c = chips[cur];
+          capNo.textContent = c.getAttribute('data-no');
+          capName.textContent = c.getAttribute('data-name');
+          capMood.textContent = c.getAttribute('data-mood');
+        }
+        g.querySelectorAll('.ppp-gallery-nav').forEach(function (b) {
+          b.addEventListener('click', function () { show(cur + Number(b.getAttribute('data-dir'))); });
+        });
+        chips.forEach(function (c, k) { c.addEventListener('click', function () { show(k); }); });
+        g.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowLeft') { show(cur - 1); e.preventDefault(); }
+          else if (e.key === 'ArrowRight') { show(cur + 1); e.preventDefault(); }
+        });
+        var sx = null, sy = null;
+        g.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+        g.addEventListener('touchend', function (e) {
+          if (sx === null) return;
+          var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+          sx = null;
+          if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) show(cur + (dx < 0 ? 1 : -1));
+        }, { passive: true });
+      })();
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: zip.split('/').pop(),
+              file_extension: 'zip',
+              link_text: 'プラグインをダウンロード',
+              link_url: zip
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

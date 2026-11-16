@@ -275,6 +275,8 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】添付ファイル Pro for kintone 製品ページ（/plugins/file-pro/）v1.5.0（UPDATE ボックスは v1.5.0：プレビューの拡大・縮小）（旧：v1.4.0（v1.4.0 は版上げのみ・多言語対応／v1.0.0 は 2026-10-27 公開。v1.3.0 は UPDATE ボックス・ダウンロードの制限／右に並べたときのボタンが隠れない改善。PART 2 に「ダウンロードの制限」を追加）。単品販売なし。PART 1 に5つの機能（プレビュー・アイコン表示・ZIP出力・画像圧縮・PDFへの書き込み。タブで切り替え、各機能に画面写真。ZIP出力・画像圧縮・PDFへの書き込みの写真は単品の製品ページの file-export-dialog-01・image-compress-before-after・pdf-edit-editor-01 を流用）、PART 2 に Pro だけの機能（このレコードの添付・添付の容量と一括圧縮・ZIPで画像を縮小・添付を検索・PDFにまとめる・ファイル名をそろえる・添付のきまり・まとめ）、PART 3 に単品からの乗り換え。ルックアップ Pro と同じ体裁（.kbp-*／.kfp-*）。配布 zip は /downloads/kw-file-pro-v1.4.0.zip（v1.0.0・v1.1.0・v1.2.0・v1.3.0・v1.3.1 の zip も残す）
 │   │   │   ├── design-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】デザイン Pro for kintone 製品ページ（/plugins/design-pro/）v1.5.0（2026-11-13・第5弾・UPDATE ボックス＝テーブル内のユーザー選択から同じ行の欄へ転記・一覧で開くテーブルの見出し・保管アプリ未設定の案内。取り込んだユーザーオートフィル v1.5.0・テーマスタイラー v1.4.2。スクショ 2 枚＝user-autofill-v150-01・02 を流用。装飾など6つの機能＋表示パターン・印刷パターン・仕上げ・まとめ印刷・PDF の添付保存。配布 zip は public/downloads/kw-design-pro-v1.5.0.zip）
+│   │   │   ├── portal-pro/
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ポータル Pro for kintone 製品ページ（/plugins/portal-pro/）v1.0.0（2026-11-16・初版・UPDATE ボックスなし）。メインのポータルとスペースのポータルをウィジェット19種・スタイル10種で組み立てる。スクショ12枚は public/images/portal-pro-*.png が存在するときだけ表示（撮影前は文章のみ）。FAQ はページ内に直書き。配布 zip は public/downloads/kw-portal-pro-v1.0.0.zip
 │   │   │   ├── record-acl-assist/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】レコード権限アシスト 製品ページ（/plugins/record-acl-assist/）※2026-10-24 配布開始（v1.0.0・プレミアム第23弾・「リクエストから誕生」バッジ）／2026-10-29 v1.1.0＝UPDATE ボックス（組織・グループ・ユーザーを 1 つの設定で使う・対応表アプリに書き方を表示）— レコードの内容に合わせて見られる組織・人を自動で設定。最初に当たったルールだけが使われる問題を、見せる相手を 1 つのフィールドへ入れて解く。上の組織・対応表・一括反映・保存前の確認・見せる相手の内訳・変更の記録・ルックアップ自動同期との連携
 │   │   │   ├── annotation/
@@ -383,6 +385,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── bridge-v120-update.md        # KIZUNAブリッジ v1.2.0 アップデートのお知らせ（2026-11-03T11:00・ルールの順番をあとから入れ替えられる）
 │   │   │   ├── bridge-v112-update.md        # KIZUNAブリッジ v1.1.2 アップデートのお知らせ（2026-10-31T15:00・書き込み先のカレンダービューの［時間帯で日時を決める］に対応）
 │   │   │   ├── plugin-bridge-release.md     # KIZUNAブリッジ v1.0.0 公開のお知らせ（2026-10-25T10:00・KIZUNA Pro プラグイン。公開日がずれたら pubDate を直す）
+│   │   │   ├── plugin-portal-pro-release.md     # ポータル Pro v1.0.0 公開のお知らせ（2026-11-16T21:00・KIZUNA Pro プラグイン）
 │   │   │   ├── plugin-search-pro-release.md     # サーチ Pro v1.0.0 公開のお知らせ（2026-10-25・KIZUNA Pro プラグイン・ブリッジと同時公開）
 │   │   │   ├── plugin-lookup-pro-release.md     # ルックアップ Pro v1.0.0 公開のお知らせ（2026-10-25T10:30・KIZUNA Pro プラグイン・ブリッジと同日公開）
 │   │   │   ├── plugin-file-pro-release.md       # 添付ファイル Pro v1.0.0 公開のお知らせ（2026-10-27・KIZUNA Pro プラグイン第4弾）
@@ -1139,6 +1142,10 @@ c:\kizuna-works.jp\
 │   │   ├── search-pro-icon.png                  # サーチ Pro アイコン（200×200・製品ページヒーロー）＋ .webp
 │   │   ├── search-pro-list-01.png / search-pro-saved-01.png / search-pro-config-01.png / search-pro-config-csv-01.png # 製品ページの機能説明スクショ（実機撮影・2026-10-24。各 .webp）
 │   │   ├── search-pro-config-searchsize-01.png/.webp / search-pro-list-searchsize-01.png/.webp  # サーチ Pro v1.3.0 UPDATEボックスのスクショ — 検索窓の大きさ・プレースホルダー非表示（設定画面）と、長さ・高さ「大」の検索バー（一覧）（2026-10-29）
+│   │   ├── portal-pro-banner.png                # ポータル Pro for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）。現在は仮バナー（紺地＋アイコン）・本番のバナーに差し替える・＋ .webp（ビルド後に生成）
+│   │   ├── portal-pro-icon.png                  # ポータル Pro アイコン（200×200・製品ページヒーロー）
+│   │   ├── portal-pro-settings-app-icon.png / portal-pro-usage-app-icon.png # 導入の流れで見せる設定アプリ・ポータル利用ログアプリのアイコン（200×200）
+│   │   ├── portal-pro-home / -editor / -applist / -data / -quickinput / -ack / -wizard / -styles / -mobile / -launcher / -config-setup / -config-js .png # 製品ページのスクショ12枚（未撮影・撮影後に置く。1440×900、mobile のみ 750×1334）＋ .webp。portal-pro-style-01〜10.png（1440×900・同じ画面をスタイル S-01〜S-10 で撮影・製品ページ冒頭のスタイル切り替えの画面例）
 │   │   ├── search-pro-config-csvallow-01.png/.webp  # サーチ Pro v1.3.0 製品ページ「CSV出力のテンプレート」節のスクショ — ［出力できる人を限定する］オンの設定画面（ダミー名・2026-10-29）
 │   │   ├── lookup-pro-banner.png                # ルックアップ Pro for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）＋ .webp（ビルド後に生成）
 │   │   ├── lookup-pro-icon.png                  # ルックアップ Pro アイコン（200×200・製品ページヒーロー）＋ .webp
@@ -1727,6 +1734,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-bridge-v1.0.1.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-10-26・v1.0.1＝使用ドメイン台帳への初回記録・きっかけでカレンダービューを選べるように）
 │   │   ├── kw-box-connect-v1.3.0.zip   # Box連携 for kintone 配布ファイル（最新・2026-11-06・v1.3.0＝一括転送ボタンを使える人を選ぶ設定）
 │   │   ├── kw-box-connect-v1.2.0.zip   # Box連携 v1.2.0（旧版・2026-10-26・フォルダ名を値に合わせる設定）
+│   │   ├── kw-portal-pro-v1.0.0.zip  # ポータル Pro for kintone 配布ファイル（2026-11-16・v1.0.0 初版・呼び出し元が配置）
 │   │   ├── kw-box-connect-v1.1.1.zip   # Box連携 v1.1.1（旧版・2026-10-26・フォルダに印を付けて使い直し・処理中の表示）
 │   │   ├── kw-box-connect-v1.1.0.zip   # Box連携 v1.1.0（旧版・2026-10-23・添付が無くてもフォルダだけ先に作成）
 │   │   ├── kw-box-connect-v1.0.0.zip   # Box連携 v1.0.0（旧版・初版・プレミアム第22弾）

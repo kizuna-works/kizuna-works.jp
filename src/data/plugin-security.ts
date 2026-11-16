@@ -690,6 +690,28 @@ export const securityProfiles: Record<string, SecurityProfile> = {
     ],
   },
 
+  'kw-portal-pro': {
+    libs: [
+      { name: 'DOMPurify', version: '3.1.6', license: 'Apache-2.0 / MPL-2.0', purpose: 'お知らせ・リッチテキスト・SVG 画像の HTML を無害化してから表示する' },
+      { name: 'GridStack', version: '10.3.1', license: 'MIT', purpose: 'エディタでウィジェットをドラッグして並べる（設定アプリの画面だけで動きます）' },
+      { name: 'Lucide（アイコンの図形のみ）', version: '-', license: 'ISC', purpose: 'ウィジェットやアプリ一覧のアイコン' },
+    ],
+    extraComm: [
+      {
+        label: '画面の設定・利用ログ・レコードの読み書き（自ドメイン内）',
+        scope: 'internal',
+        detail:
+          'ご利用中の kintone ドメイン内の REST API だけを使います。ポータルの画面は設定アプリのレコードとして保管し、利用者の権限でアプリ一覧（/k/v1/apps.json）とデータ系ウィジェットのレコードを読み取ります（API トークンは使いません）。ポータルを開いた人ごとの利用回数・ピン留め・お知らせの確認は「ポータル利用ログ」アプリに、その人自身が書き込みます。クイック入力を押したときだけ、設定したアプリへレコードを 1 件登録します（POST /k/v1/record）。設定アプリとポータル利用ログアプリの作成は、kintone システム管理者が［設定アプリを準備する］などを押したときだけ行います。外部へは送信しません。',
+      },
+      {
+        label: '埋め込み・URL 指定の画像（管理者が許可したサイトへの接続）',
+        scope: 'external',
+        detail:
+          '「埋め込み」ウィジェットと、URL を指定した画像は、管理者が許可したドメイン（https のみ）のページや画像を、閲覧者のブラウザが読み込みます。接続先はその管理者が設定したサイトで、レコードの値や設定を送ることはありません（相手のサイトには閲覧者のアクセスの記録が残ります）。使わなければ、この通信は起きません。',
+      },
+    ],
+  },
+
   'kw-record-acl-assist': {
     extraComm: [
       {
