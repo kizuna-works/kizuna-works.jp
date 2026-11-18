@@ -10,10 +10,10 @@ import type { Plugin } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '2.1.0';
+const VERSION = '2.2.0';
 const ZIP = `/downloads/kw-bridge-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/';
-const DATE_MODIFIED = '2026-11-16';
+const DATE_MODIFIED = '2026-11-19';
 
 // Partner overview. The partner products themselves come from plugins.ts (`bridge`
 // field); this map adds, per product, which way it works with the bridge and what
@@ -231,7 +231,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "2.1.0",
+          "softwareVersion": "2.2.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -578,32 +578,18 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v2.1.0) -->
+    <!-- Update Info (v2.2.0) -->
     <section class="kbp-section">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v2.1.0：前の行の値を直すと、次の行も合わせて直るようになりました</h2>
+          <h2 class="update-title">v2.2.0：「日数が足りないため直しました」のお知らせと、エラーの表示を改善しました</h2>
         </div>
-        <p class="update-desc">KIZUNAブリッジ for kintone を v2.1.0 にアップデートしました（2026年11月16日）。</p>
-        <p class="update-desc"><strong>［前の行に合わせる（手で直した値は残す）］を追加しました。</strong>［値を入れる］で入れる値に［前の行の〔列名〕］を選んだときの［すでに値があるとき］の選択肢で、前の行の値を選んだときの既定になります。</p>
-        <ul class="update-list">
-          <li>＋で新しく足した行には、前の行の値が入ります</li>
-          <li>前の行の値を直すと、それに合わせていた次の行も直ります</li>
-          <li>手で別の値にした行は、そのまま残ります（フィールドの初期値があっても入ります）</li>
-        </ul>
-        <p class="update-desc">たとえば日報の作業明細では、＋で足した行の作業開始時間に、前の行の作業終了時間が入ります。前の行の終了時間を直すと、次の行の開始時間も合わせて直ります。手で 9:30 に直した開始時間は、そのまま残ります。</p>
-        <div class="update-shot">
-          <Picture src="/images/bridge-v210-01.png" alt="KIZUNAブリッジの設定画面。作業明細の作業開始時間に前の行の作業終了時間を入れるルールで、すでに値があるときに前の行に合わせる（手で直した値は残す）を選び、その説明文が表示されている" width="1366" height="900" class="zoomable" />
-          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-        </div>
-        <div class="update-shot">
-          <Picture src="/images/bridge-v210-02.png" alt="作業明細のテーブル。各行の作業開始時間に、前の行の作業終了時間（8:00から10:00、10:00から12:00、12:00から15:00）が入っている" width="650" height="250" class="zoomable" />
-          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-        </div>
-        <p class="update-desc">これまでの［上書きする］［上書きしない］の設定は、動きを変えていません。</p>
-        <p class="update-desc"><strong>［対象の行］の説明文を改善しました。</strong>［すべての行］を選んでいるのに「新しく足した行だけ」と表示されていたのを、選んだ内容のとおりに表示します。</p>
-        <p class="update-desc"><strong>日付入力アシスト v1.3.0 の時刻の候補で選んだ値でも、ルールが動きます。</strong>候補から時刻を入れたとき、前の行の値を入れるルールなどが、そのまま働きます。</p>
+        <p class="update-desc">KIZUNAブリッジ for kintone を v2.2.0 にアップデートしました（2026年11月19日）。</p>
+        <p class="update-desc"><strong>「前の行から日数が足りないため、〇〇に直しました」のお知らせを、手で日付を直したときだけ出すよう改善しました。</strong>ボタンやルールが自動で入れた値に続く計算では、お知らせを出しません。</p>
+        <p class="update-desc"><strong>お知らせの日付が、画面の最終的な値と合うよう改善しました。</strong>同じ欄（終了日など）に値を入れるルールが複数あるときも、途中の値のお知らせは出ません。値の入り方は変えていません。</p>
+        <p class="update-desc"><strong>ボタンや値を変えたときの処理が失敗したときの、赤いお知らせを改善しました。</strong>失敗した段階（読み込み／組み立て／画面へ反映／権限の確認）と原因の要約を表示します。</p>
+        <p class="update-desc">設定画面と設定の形は変わりません。v2.1.0 の設定がそのまま使えます。</p>
         <p class="update-note">既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
       </div>
     </section>
