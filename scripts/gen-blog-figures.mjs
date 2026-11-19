@@ -787,6 +787,24 @@ const FIGURES = [
       { title: '非表示は見た目だけ', desc: '隠した項目の値は保存され、CSVの書き出しやAPIでは読める。秘密を守る用途には使わない。' }
     ),
   },
+  {
+    name: 'kintone-portal-customize-types',
+    w: 1000, h: 330,
+    el: overviewMethods([
+      { n: '1', name: '1枚目のポータル', desc: 'ログイン直後の画面。5つのエリアの表示、名前、カバー画像を変えられる。', cost: '全員共通' },
+      { n: '2', name: '2枚目以降', desc: 'ウィジェットを並べて作る追加のポータル。スタンダードは3枚、ワイドは10枚まで。', cost: '全員共通' },
+      { n: '3', name: 'スペースのポータル', desc: 'スペースのトップ。本文・スレッド・アプリ・メンバーなどの表示を選べる。', cost: 'スペース単位' },
+    ]),
+  },
+  {
+    name: 'kintone-portal-customize-methods',
+    w: 1000, h: 330,
+    el: overviewMethods([
+      { n: '1', name: '標準の設定', desc: '表示する項目・お知らせ掲示板・ウィジェットで整える。追加費用なし。', cost: '標準' },
+      { n: '2', name: 'JavaScript', desc: 'ポータルのAPIで自由に描く。全体のカスタマイズに登録して使う。', cost: '要開発' },
+      { n: '3', name: 'プラグイン', desc: '画面で組み立てる。人ごとの出し分けや入力も、コードを書かずに。', cost: '有料' },
+    ]),
+  },
 ];
 
 // The bundled Noto Sans JP WOFF is a subset without arrows and similar symbols;

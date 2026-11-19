@@ -29,6 +29,10 @@ const titleSub = titleRest.join('｜');
 const eyebrowMatch = titleMain.match(/^[【\[]([^】\]]+)[】\]]\s*/);
 const titleEyebrow = eyebrowMatch ? eyebrowMatch[1].trim() : null;
 const titleMainText = eyebrowMatch ? titleMain.slice(eyebrowMatch[0].length) : titleMain;
+// Keep a trailing count phrase (e.g. 「3つの方法」「5選」) on one line so the H1 never breaks inside it.
+const titleTailMatch = titleMainText.match(/(\d+(?:つの[^\s、。！？]{1,8}|選))$/);
+const titleMainHead = titleTailMatch ? titleMainText.slice(0, titleTailMatch.index) : titleMainText;
+const titleMainTail = titleTailMatch ? titleTailMatch[1] : '';
 
 // Serve a WebP hero when a same-named .webp exists next to the ogImage (PNG stays for og:image).
 const ogWebp = ogImage ? ogImage.replace(/\.png$/i, '.webp') : null;
@@ -236,6 +240,10 @@ const jsonLd = {
     .blog-auto-toc a:hover {
       color: #2E8B2E;
       text-decoration: underline;
+    }
+
+    .blog-post-title-nowrap {
+      white-space: nowrap;
     }
 
     .blog-post-title-main {
@@ -732,7 +740,7 @@ const jsonLd = {
         </div>
         <h1 class="blog-post-title">
           {titleEyebrow && <span class="blog-post-eyebrow">{titleEyebrow}</span>}
-          <span class="blog-post-title-main">{titleMainText}</span>
+          <span class="blog-post-title-main">{titleMainHead}{titleMainTail && <span class="blog-post-title-nowrap">{titleMainTail}</span>}</span>
           {titleSub && <span class="blog-post-title-sub">{titleSub}</span>}
         </h1>
         {showToc && (
