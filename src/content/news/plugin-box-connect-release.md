@@ -3,6 +3,7 @@ title: "kintone プラグイン「Box連携」v1.0.0 を公開しました"
 description: "レコードの添付ファイルを Box へ転送し、kintone にはリンクだけを残すプラグインです。レコード単位のフォルダを自動生成し、差分検知で二重転送を防ぎます。転送に成功したファイルは kintone から削除できるため、ディスク容量を抑えられます。"
 pubDate: 2026-10-23
 category: release
+supersededBy: "/plugins/box-connect/"
 ogImage: "/images/box-connect-banner.png"
 ---
 

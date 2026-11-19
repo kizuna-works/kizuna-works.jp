@@ -3,6 +3,7 @@ title: "kintone プラグイン「ルックアップ絞り込み」v1.0.0 を公
 description: "ルックアップの［取得］で開く一覧を、入力中のレコードの値に応じて絞り込むプラグインです。標準の「絞り込みの初期設定」には入力中のレコードの値を書けませんが、他フィールドの値と突き合わせて候補を変えられます。条件に合わない値は保存時に止めます。"
 pubDate: 2026-09-03
 category: release
+supersededBy: "/plugins/lookup-filter/"
 ogImage: "/images/lookup-filter-banner.png"
 ---
 

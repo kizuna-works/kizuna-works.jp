@@ -3,6 +3,7 @@ title: "プラグイン「ルックアップ絞り込み for kintone」を v1.2.
 description: "絞り込まないルックアップでも、打つたびに候補が絞れていく検索画面を使えるようになりました。参照先の件数が多いときは、キーワードで全件（最大1万件）から探し、見つかった分から表示します。開いた直後や画面が描き直された直後の動きも安定させました。"
 pubDate: 2026-10-09T13:00:00+09:00
 category: update
+supersededBy: "/plugins/lookup-filter/"
 ogImage: "/images/lookup-filter-banner.png"
 ---
 

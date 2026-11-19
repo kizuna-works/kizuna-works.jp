@@ -3,6 +3,7 @@ title: "プラグイン「ルックアップ絞り込み for kintone」を v1.3.
 description: "［取得］の画面の項目と並びを、kintone のルックアップの設定どおりにしました。選択肢・数値・日付・ユーザー・組織・グループなど、文字列以外の項目も検索欄から探せます。設定画面には［取得］の画面のプレビューを加えました。"
 pubDate: 2026-10-10T14:00:00+09:00
 category: update
+supersededBy: "/plugins/lookup-filter/"
 ogImage: "/images/lookup-filter-banner.png"
 ---
 

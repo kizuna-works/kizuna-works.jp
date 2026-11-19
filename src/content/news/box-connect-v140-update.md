@@ -3,6 +3,7 @@ title: "「Box連携 for kintone」v1.4.0 公開：転送済みの添付を、�
 description: "Box連携 for kintone を v1.4.0 にアップデート。詳細画面のボタンで、Box にあると確かめられた添付だけを確認のうえ 1 レコード分削除できます。ボタンを使える人も選べます。"
 pubDate: 2026-11-10
 category: update
+supersededBy: "/plugins/box-connect/"
 ogImage: "/images/box-connect-banner.png"
 ---
 

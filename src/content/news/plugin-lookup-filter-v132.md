@@ -3,6 +3,7 @@ title: "プラグイン「ルックアップ絞り込み for kintone」を v1.3.
 description: "kintone のルックアップの「絞り込みの初期設定」と「レコードのソート」を変えたとき、プラグイン設定を保存し直さなくても、選択画面と保存時の確認にすぐ反映されるようにしました。"
 pubDate: 2026-10-20T14:00:00+09:00
 category: update
+supersededBy: "/plugins/lookup-filter/"
 ogImage: "/images/lookup-filter-banner.png"
 ---
 

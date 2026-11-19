@@ -3,6 +3,7 @@ title: "kintone プラグイン「ルックアップ絞り込み」を v1.1.0 �
 description: "条件に合わない値で保存しようとしたときの動きを「保存を止める／確認して保存するか選べる／何もしない」から選べるようになりました。保存時の検査は、今回の編集で入れた値・書き換えた値だけが対象です。"
 pubDate: 2026-09-24
 category: update
+supersededBy: "/plugins/lookup-filter/"
 ogImage: "/images/lookup-filter-banner.png"
 ---
 

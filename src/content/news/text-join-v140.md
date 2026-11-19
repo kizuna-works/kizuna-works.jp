@@ -3,6 +3,7 @@ title: "文字列結合 for kintone を v1.4.0 にアップデートしました
 description: "文字列結合を v1.4.0 にアップデートしました。ルールごとに、出力先の値をクリップボードへコピーするボタンをフォームのスペースに置けます。設定画面の色の欄には共通カラーパレットが付きました。"
 pubDate: 2026-10-28T10:50:00+09:00
 category: update
+supersededBy: "/plugins/text-join/"
 ogImage: "/images/text-join-banner.png"
 ---
 

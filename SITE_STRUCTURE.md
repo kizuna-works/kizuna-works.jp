@@ -107,7 +107,7 @@ c:\kizuna-works.jp\
 │   │   │   └── [...slug].astro # ブログ記事動的ルート（/blog/[記事スラッグ]/）
 │   │   ├── news/
 │   │   │   ├── index.astro     # お知らせ一覧ページ（/news/）― 新着リリース・障害情報・サイト更新
-│   │   │   ├── [...slug].astro # お知らせ個別ページ動的ルート（externalUrl 未指定エントリのみ生成）
+│   │   │   ├── [...slug].astro # お知らせ個別ページ動的ルート（externalUrl 未指定エントリのみ生成）。`blog-` 接頭辞と frontmatter `supersededBy`（製品ページのパス）を持つエントリは noindex, follow＋sitemap 除外（版のお知らせが製品ページと検索で競合するのを防ぐ。2026-11-19 に4製品で試行）
 │   │   │   └── rss.xml.ts      # お知らせ RSS フィード（/news/rss.xml）
 │   │   ├── plugins/
 │   │   │   ├── index.astro     # プラグイン一覧ページ（/plugins/）― 目的カテゴリ14種の絞り込みバー（複数選択OR・`?cat=` に反映・カード上のタグをクリックしても絞れる）。カードは stretched link 構造（タグを button にするため外側の <a> をやめ、タイトルリンクを ::after でカード全体に広げている）。長文の「特長」と無料範囲の表はグリッドの下（#about / #free-scope）。カテゴリ数は pluginCategories.length から動的

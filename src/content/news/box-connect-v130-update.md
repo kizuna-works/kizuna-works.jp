@@ -3,6 +3,7 @@ title: "「Box連携 for kintone」v1.3.0 公開：一括転送ボタンを使�
 description: "Box連携 for kintone を v1.3.0 にアップデート。一覧の［Box へ一括転送］ボタンを、全員または指定したユーザー・組織・グループにだけ表示できるようになりました。"
 pubDate: 2026-11-06
 category: update
+supersededBy: "/plugins/box-connect/"
 ogImage: "/images/box-connect-banner.png"
 ---
 

@@ -3,6 +3,7 @@ title: "「Box連携 for kintone」v1.1.0 公開：添付ファイルが無く�
 description: "Box連携 for kintone を v1.1.0 にアップデート。添付ファイルが無いレコードでも、詳細画面を開いたときに Box のフォルダを作れます。共有リンクが入る欄を選んでいても、フォルダの中身を表示できます。"
 pubDate: 2026-10-23T22:00:00+09:00
 category: update
+supersededBy: "/plugins/box-connect/"
 ogImage: "/images/box-connect-banner.png"
 ---
 

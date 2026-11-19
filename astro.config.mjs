@@ -95,6 +95,29 @@ function buildSupersededGlossaryPaths() {
 }
 const supersededGlossaryPaths = buildSupersededGlossaryPaths();
 
+/**
+ * News entries carrying `supersededBy` in frontmatter. Those pages render a
+ * robots noindex tag (see news/[...slug].astro) because the product page owns
+ * the same queries, so they must leave the sitemap too.
+ */
+function buildSupersededNewsPaths() {
+  const dir = path.join(__dirname, 'src/content/news');
+  const paths = [];
+  try {
+    for (const f of readdirSync(dir)) {
+      if (!/\.(md|mdx)$/.test(f)) continue;
+      const m = readFileSync(path.join(dir, f), 'utf-8').match(/^---\r?\n([\s\S]*?)\r?\n---/);
+      if (m && /^supersededBy:\s*\S/m.test(m[1])) {
+        paths.push(`/news/${f.replace(/\.(md|mdx)$/, '')}/`);
+      }
+    }
+  } catch {
+    /* unreadable: leave them in the sitemap rather than guess */
+  }
+  return paths;
+}
+const supersededNewsPaths = buildSupersededNewsPaths();
+
 // plugins.ts: extract `slug: 'xxx', ... releaseDate: 'YYYY-MM-DD'` pairs.
 function buildPluginDateMap() {
   const map = {};
@@ -160,6 +183,7 @@ export default defineConfig({
       // - blog announcement news pages (noindex; they duplicate the blog article)
       // - blog posts with `noindex: true` in frontmatter
       // - glossary terms with `supersededBy` (a blog post owns those queries)
+      // - news entries with `supersededBy` (a product page owns those queries)
       // - partner-only pages (reached by a one-time URL or a private form)
       // - /go/<ad>/ click-through pages for plugin banners (noindex; they only redirect)
       // - /apply/ pages (noindex; application confirmation and contact-address change)
@@ -171,7 +195,8 @@ export default defineConfig({
         !page.includes('/plugins/supporter/request/') &&
         !page.includes('/news/blog-') &&
         !noindexBlogPaths.some((p) => page.endsWith(p)) &&
-        !supersededGlossaryPaths.some((p) => page.endsWith(p)),
+        !supersededGlossaryPaths.some((p) => page.endsWith(p)) &&
+        !supersededNewsPaths.some((p) => page.endsWith(p)),
       serialize(item) {
         const lastmod = resolveLastmod(item.url);
         return lastmod ? { ...item, lastmod } : item;

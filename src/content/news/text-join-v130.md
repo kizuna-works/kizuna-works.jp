@@ -3,6 +3,7 @@ title: "文字列結合 for kintone v1.3.0 を公開しました（条件によ�
 description: "文字列結合を v1.3.0 にアップデートしました。ルールごとに「適用する条件」を選べ、同じ出力先に複数のルールを置いて、条件に合ったルールで結合できます。保存した後にも結合し直すので、計算フィールドや自動採番の値も最初の保存から結合結果に入ります。"
 pubDate: 2026-10-26T12:30:00+09:00
 category: update
+supersededBy: "/plugins/text-join/"
 ogImage: "/images/text-join-banner.png"
 ---
 

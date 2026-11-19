@@ -3,6 +3,7 @@ title: "「Box連携 for kintone」v1.1.1 公開：保存の直後に画面を�
 description: "Box連携 for kintone を v1.1.1 にアップデート。フォルダに「どのレコードのフォルダか」の印を付け、次に開いたときに使い直します。Box への書き込み中の表示も分かりやすくなりました。"
 pubDate: 2026-10-26T22:00:00+09:00
 category: update
+supersededBy: "/plugins/box-connect/"
 ogImage: "/images/box-connect-banner.png"
 ---
 

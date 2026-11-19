@@ -3,6 +3,7 @@ title: "文字列結合 for kintone v1.2.0 を公開しました（計算・複�
 description: "文字列結合を v1.2.0 にアップデートしました。計算・文字列（複数行）・リンク・リッチエディターを結合に使っていても、入力して欄を離れた時点で出力先に結合結果が入ります。保存時に出力先の値を読むほかのプラグインにも、結合後の値が渡ります。"
 pubDate: 2026-10-22T19:00:00+09:00
 category: update
+supersededBy: "/plugins/text-join/"
 ogImage: "/images/text-join-banner.png"
 ---
 

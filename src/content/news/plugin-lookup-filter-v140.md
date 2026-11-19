@@ -3,6 +3,7 @@ title: "プラグイン「ルックアップ絞り込み for kintone」を v1.4.
 description: "ルックアップ絞り込み for kintone を v1.4.0 にアップデートしました。［取得］の画面で数値の書式と添付ファイルの画像を表示し、ユーザー・組織・グループでの絞り込みを設定しやすくしました。"
 pubDate: 2026-10-30T16:00:00+09:00
 category: update
+supersededBy: "/plugins/lookup-filter/"
 ogImage: "/images/lookup-filter-banner.png"
 ---
 

@@ -3,6 +3,7 @@ title: "プラグイン「ルックアップ絞り込み for kintone」を v1.6.
 description: "ルックアップで値を取得できなかったとき、入力欄の下に案内を表示するようにしました。日本語・英語・中国語に対応しています。"
 pubDate: 2026-11-18T22:30:00+09:00
 category: update
+supersededBy: "/plugins/lookup-filter/"
 ogImage: "/images/lookup-filter-banner.png"
 ---
 

@@ -3,6 +3,7 @@ title: "「Box連携 for kintone」v1.2.0 公開：フォルダ名を、フィ�
 description: "Box連携 for kintone を v1.2.0 にアップデート。フォルダ名に使うフィールドの値があとから入力・変更されたとき、転送のタイミングで Box のフォルダ名を最新の値に合わせられます。"
 pubDate: 2026-10-26T23:00:00+09:00
 category: update
+supersededBy: "/plugins/box-connect/"
 ogImage: "/images/box-connect-banner.png"
 ---
 

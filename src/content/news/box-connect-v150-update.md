@@ -3,6 +3,7 @@ title: "「Box連携 for kintone」v1.5.0 公開：添付ファイルのフィ�
 description: "Box連携 for kintone を v1.5.0 にアップデート。添付ファイルのフィールドが無いアプリでもレコードごとのフォルダを作れ、フォルダの中身の表示から Box へ直接ファイルを追加できます。"
 pubDate: 2026-11-17
 category: update
+supersededBy: "/plugins/box-connect/"
 ogImage: "/images/box-connect-banner.png"
 ---
 

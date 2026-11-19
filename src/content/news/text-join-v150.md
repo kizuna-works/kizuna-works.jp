@@ -3,6 +3,7 @@ title: "文字列結合 for kintone を v1.5.0 にアップデートしました
 description: "文字列結合を v1.5.0 にアップデートしました。日付・日時・作成日時・更新日時の書式に、年だけ・月だけの形を追加しました。"
 pubDate: 2026-11-04T15:00:00+09:00
 category: update
+supersededBy: "/plugins/text-join/"
 ogImage: "/images/text-join-banner.png"
 ---
 

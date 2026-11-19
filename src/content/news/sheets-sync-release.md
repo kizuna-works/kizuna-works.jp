@@ -3,6 +3,7 @@ title: "kintone プラグイン「スプレッドシート連携」v1.0.0 を公
 description: "Google スプレッドシートと kintone アプリを双方向に同期するプラグインです。社外の方はシートのまま入力し、社内は kintone のまま管理できます。両方で入力した値は、前回同期したときの値と比べてそろえます。"
 pubDate: 2026-09-29
 category: release
+supersededBy: "/plugins/sheets-sync/"
 ogImage: "/images/sheets-sync-banner.png"
 ---
 

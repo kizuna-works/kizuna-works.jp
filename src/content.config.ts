@@ -55,6 +55,13 @@ const news = defineCollection({
 		 * blog banner that the news entry refers to so SNS shares get a relevant thumb.
 		 */
 		ogImage: z.string().optional(),
+		/**
+		 * Site path of the page that owns this entry's search queries (e.g.
+		 * "/plugins/text-join/"). When set, the news page renders noindex, follow
+		 * and leaves the sitemap (astro.config.mjs), so release / version notes
+		 * stop competing with the product page in search.
+		 */
+		supersededBy: z.string().regex(/^\/[a-z0-9\-/]*\/$/).optional(),
 	}),
 });
 

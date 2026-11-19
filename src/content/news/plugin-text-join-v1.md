@@ -3,6 +3,7 @@ title: "kintone プラグイン「文字列結合」v1.0.0 を公開しました
 description: "計算フィールドでは扱えないドロップダウン・ユーザー選択・日付なども含めて、複数フィールドの値を書式を整えて1つの文字列フィールドへ自動入力するプラグインです。テーブル明細の集約結合、結合結果の重複チェック、既存レコードへの一括反映に対応しました。"
 pubDate: 2026-08-02
 category: release
+supersededBy: "/plugins/text-join/"
 ogImage: "/images/text-join-banner.png"
 ---
 
