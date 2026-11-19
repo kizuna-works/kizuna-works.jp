@@ -800,6 +800,7 @@ export const plugins: Plugin[] = [
     formName: 'かんたん一括更新 for kintone',
     subtitle: 'kintone プラグイン',
     slug: 'bulk-update',
+    multilingual: true,
     bridge: 'ブリッジのルールから一括更新を実行できます。一括更新したレコードにもブリッジのルールが動きます。',
     categories: ['一括処理', '履歴・復元'],
     description:
@@ -817,7 +818,7 @@ export const plugins: Plugin[] = [
     problemDesc: 'ステータス・担当者・金額などを絞り込んだ何十件にまとめて反映したいのに、1件ずつ開いて編集・保存を繰り返していて時間がかかる',
     problemFeatured: true,
     releaseDate: '2026-07-03',
-    summaryVersion: '1.1.0',
+    summaryVersion: '1.2.0',
   },
   {
     id: 'kw-excel-paste',
@@ -1211,6 +1212,7 @@ export const plugins: Plugin[] = [
     name: 'リンクアシスト for kintone',
     formName: 'リンクアシスト for kintone',
     slug: 'link-assist',
+    multilingual: true,
     bridge: 'ブリッジが他のアプリに書いたレコードでも、保存したときと同じように URL を整えます。',
     categories: ['入力チェック', '一覧表示'],
     description:
@@ -1228,7 +1230,7 @@ export const plugins: Plugin[] = [
     problemDesc:
       '広告メールから貼ったURLに utm_source が付いたまま残り、http/https や www の違いだけで同じページが別レコードになる。日本語や長すぎるURLはクリックしても違う場所に飛ぶ',
     releaseDate: '2026-08-15',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
   },
   {
     id: 'kw-clip-assist',
@@ -1311,6 +1313,7 @@ export const plugins: Plugin[] = [
     name: '画像圧縮 for kintone',
     formName: '画像圧縮 for kintone',
     slug: 'image-compress',
+    multilingual: true,
     bridge: 'ブリッジが他のアプリに書いたレコードの画像も、設定どおりに圧縮します。',
     bornFrom: 'supporter-request',
     categories: ['一括処理'],
@@ -1329,7 +1332,7 @@ export const plugins: Plugin[] = [
     problemDesc:
       '4MB の写真が何百枚と積み上がるのに、PC 版の kintone には画像を小さくする機能がない。モバイルアプリの縮小は利用者が毎回選ぶ形で、管理者から一律に決められない',
     releaseDate: '2026-09-05',
-    summaryVersion: '1.0.0',
+    summaryVersion: '1.1.0',
   },
   {
     id: 'kw-footprint',
