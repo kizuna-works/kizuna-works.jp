@@ -47,7 +47,7 @@
       "url": "https://kizuna-works.jp/tools/Shirushi.html",
       "applicationCategory": "DesignApplication",
       "operatingSystem": "WebBrowser",
-      "dateModified": "2026-06-13",
+      "dateModified": "2026-11-19",
       "description": "kintoneのアプリアイコンをブラウザだけで作成できる完全無料のWebツール。背景・文字・アイコン・絵文字を組み合わせて透過PNGで即ダウンロード。250・128・192・512pxからサイズを選べ、用途別プリセットも用意。",
       "creator": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" },
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
@@ -67,7 +67,7 @@
       "totalTime": "PT2M",
       "step": [
         { "@type": "HowToStep", "position": 1, "name": "背景を決める", "text": "単色・グラデーション・画像アップロードから選びます。", "url": "https://kizuna-works.jp/tools/Shirushi.html" },
-        { "@type": "HowToStep", "position": 2, "name": "文字や図を乗せる", "text": "文字、アイコン、絵文字を重ねて、色やサイズを調整します。", "url": "https://kizuna-works.jp/tools/Shirushi.html" },
+        { "@type": "HowToStep", "position": 2, "name": "文字や図を乗せる", "text": "文字、アイコン、絵文字を重ねて、色やサイズを調整します。それぞれ5つまで置けて、文字は改行もできます。", "url": "https://kizuna-works.jp/tools/Shirushi.html" },
         { "@type": "HowToStep", "position": 3, "name": "形を整える", "text": "角丸・円・四角と、書き出しサイズ（250pxなど）を選びます。", "url": "https://kizuna-works.jp/tools/Shirushi.html" },
         { "@type": "HowToStep", "position": 4, "name": "ダウンロード", "text": "透過PNGで保存し、kintoneのアプリの設定からアイコンを変更します。", "url": "https://kizuna-works.jp/tools/Shirushi.html" }
       ]
@@ -84,6 +84,11 @@
           "@type": "Question",
           "name": "kintoneのアプリアイコンのサイズは？",
           "acceptedAnswer": { "@type": "Answer", "text": "このツールは250×250pxを既定にしています（kintone用アイコン配布で広く使われる基準）。128・192・512pxでも書き出せます。実際の表示は小さいため、細い線より太めの図や少ない文字数のほうがきれいに見えます。" }
+        },
+        {
+          "@type": "Question",
+          "name": "文字を2行にしたり、アイコンを複数置いたりできますか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "できます。文字は入力欄で Enter を押すと改行でき、行間も調整できます。文字・アイコン・絵文字はタブの［＋ 追加］からそれぞれ5つまで置けます。プレビュー上でつかんでドラッグするか、［上］［中央］［下］のボタンで位置を決められるので、「上にアイコン、下に文字」のような配置も作れます。" }
         },
         {
           "@type": "Question",
@@ -219,7 +224,17 @@ img{max-width:100%}
 .seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
 .seg-btn{appearance:none;border:0;background:#fff;color:var(--muted);font:inherit;font-weight:700;font-size:13px;padding:9px 10px;cursor:pointer;flex:1;white-space:nowrap}
 .seg-btn[aria-pressed="true"]{background:var(--navy);color:#fff}
-input[type=text],select{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+input[type=text],select,textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+textarea{resize:vertical;min-height:64px;line-height:1.5;display:block}
+textarea:focus-visible{outline:3px solid #9cc1ff;outline-offset:2px}
+/* Layer chips: one chip per placed text / icon / emoji, plus an add button */
+.layer-bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:0 0 12px}
+.layer-chip{appearance:none;border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:12px;font-weight:700;
+  padding:6px 10px;border-radius:999px;cursor:pointer;max-width:9.5em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.layer-chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.layer-add{appearance:none;border:1px dashed #9db4d6;background:#f6f9fd;color:var(--navy);font:inherit;font-size:12px;font-weight:700;padding:6px 10px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.layer-add:disabled{opacity:.45;cursor:not-allowed}
+.layer-del{width:100%;margin-top:4px}
 input[type=range]{width:100%;accent-color:var(--green)}
 input[type=color]{width:46px;height:38px;padding:2px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer}
 /* Clearer custom-color affordance: looks like a button with a label */
@@ -329,7 +344,7 @@ details p{color:var(--muted);font-size:14px;margin:9px 0 2px}
       <div class="canvas-wrap">
         <canvas id="preview" width="520" height="520" aria-label="アイコンプレビュー"></canvas>
       </div>
-      <p class="drag-hint">プレビュー上をドラッグで文字・アイコンの位置を調整できます。中央に近づくとガイド線が出て、中心にぴたりと吸着します。</p>
+      <p class="drag-hint">プレビュー上の文字・アイコン・絵文字をドラッグすると位置を調整できます（つかんだものが選ばれ、そのタブに切り替わります）。中央に近づくとガイド線が出て、中心にぴたりと吸着します。</p>
 
       <div class="field" style="margin-top:16px">
         <label>形</label>
@@ -453,9 +468,10 @@ details p{color:var(--muted);font-size:14px;margin:9px 0 2px}
 
     <!-- TEXT -->
     <div class="tabpanel" data-panel="text">
+      <div class="layer-bar" data-kind="text" role="group" aria-label="配置した文字"></div>
       <div class="field">
-        <label>テキスト（1〜4文字がおすすめ）</label>
-        <input type="text" id="txt" maxlength="20" placeholder="例：営 / 顧客 / ABC">
+        <label for="txt">テキスト（Enter で改行・1行2〜4文字がおすすめ）</label>
+        <textarea id="txt" rows="2" maxlength="40" placeholder="例：営 / 顧客 / ABC"></textarea>
       </div>
       <div class="field">
         <label>フォント</label>
@@ -477,6 +493,18 @@ details p{color:var(--muted);font-size:14px;margin:9px 0 2px}
         <input type="range" id="txtSize" min="10" max="80" value="42">
       </div>
       <div class="field">
+        <label>行間（2行以上のとき）</label>
+        <input type="range" id="lineH" min="80" max="180" value="115">
+      </div>
+      <div class="field">
+        <label>配置</label>
+        <div class="seg" role="group" aria-label="文字の配置" data-pos-kind="text">
+          <button class="seg-btn" data-pos="top">上</button>
+          <button class="seg-btn" data-pos="center">中央</button>
+          <button class="seg-btn" data-pos="bottom">下</button>
+        </div>
+      </div>
+      <div class="field">
         <label>フチの太さ</label>
         <input type="range" id="strokeW" min="0" max="14" value="0">
       </div>
@@ -484,10 +512,12 @@ details p{color:var(--muted);font-size:14px;margin:9px 0 2px}
         <label class="checkline"><input type="checkbox" id="bold" checked> 太字</label>
         <label class="checkline"><input type="checkbox" id="shadow"> 影をつける</label>
       </div>
+      <button class="btn layer-del" id="txtDel" style="margin-top:12px">この文字を削除</button>
     </div>
 
     <!-- ICON -->
     <div class="tabpanel" data-panel="icon">
+      <div class="layer-bar" data-kind="icon" role="group" aria-label="配置したアイコン"></div>
       <div class="field" style="margin-bottom:8px">
         <input class="search" type="text" id="iconSearch" placeholder="日本語で検索（例：会議 / 売上 / 鍵）">
       </div>
@@ -498,22 +528,39 @@ details p{color:var(--muted);font-size:14px;margin:9px 0 2px}
       </div>
       <div class="field">
         <label>アイコンの大きさ</label>
-        <input type="range" id="iconSize" min="20" max="80" value="48">
+        <input type="range" id="iconSize" min="10" max="80" value="48">
       </div>
-      <button class="btn" id="iconClear" style="width:100%">アイコンを外す</button>
+      <div class="field">
+        <label>配置</label>
+        <div class="seg" role="group" aria-label="アイコンの配置" data-pos-kind="icon">
+          <button class="seg-btn" data-pos="top">上</button>
+          <button class="seg-btn" data-pos="center">中央</button>
+          <button class="seg-btn" data-pos="bottom">下</button>
+        </div>
+      </div>
+      <button class="btn layer-del" id="iconClear">このアイコンを削除</button>
     </div>
 
     <!-- EMOJI -->
     <div class="tabpanel" data-panel="emoji">
+      <div class="layer-bar" data-kind="emoji" role="group" aria-label="配置した絵文字"></div>
       <div class="field" style="margin-bottom:8px">
         <input class="search" type="text" id="emojiSearch" placeholder="絵文字を検索（例：会議 / 家 / OK）">
       </div>
       <div class="grid" id="emojiGrid" role="listbox" aria-label="絵文字一覧"></div>
       <div class="field" style="margin-top:14px">
         <label>絵文字の大きさ</label>
-        <input type="range" id="emojiSize" min="20" max="85" value="52">
+        <input type="range" id="emojiSize" min="10" max="85" value="52">
       </div>
-      <button class="btn" id="emojiClear" style="width:100%">絵文字を外す</button>
+      <div class="field">
+        <label>配置</label>
+        <div class="seg" role="group" aria-label="絵文字の配置" data-pos-kind="emoji">
+          <button class="seg-btn" data-pos="top">上</button>
+          <button class="seg-btn" data-pos="center">中央</button>
+          <button class="seg-btn" data-pos="bottom">下</button>
+        </div>
+      </div>
+      <button class="btn layer-del" id="emojiClear">この絵文字を削除</button>
     </div>
   </div>
 </main>
@@ -534,7 +581,7 @@ details p{color:var(--muted);font-size:14px;margin:9px 0 2px}
     <h2>使い方は4ステップ</h2>
     <ol class="steps">
       <li><b>背景を決める</b><span>単色・グラデーション・画像アップロードから選びます。</span></li>
-      <li><b>文字や図を乗せる</b><span>文字、アイコン、絵文字を重ねて、色やサイズを調整します。</span></li>
+      <li><b>文字や図を乗せる</b><span>文字、アイコン、絵文字を重ねて、色やサイズを調整します。それぞれ5つまで置けて、文字は改行もできます。</span></li>
       <li><b>形を整える</b><span>角丸・円・四角と、書き出しサイズ（250pxなど）を選びます。</span></li>
       <li><b>ダウンロード</b><span>透過PNGで保存し、kintoneのアプリの設定からアイコンを変更します。</span></li>
     </ol>
@@ -551,6 +598,10 @@ details p{color:var(--muted);font-size:14px;margin:9px 0 2px}
     <details>
       <summary>kintoneのアプリアイコンのサイズは？</summary>
       <p>このツールは250×250pxを既定にしています（kintone用アイコン配布で広く使われる基準）。128・192・512pxでも書き出せます。実際の表示は小さいため、細い線より太めの図や少ない文字数のほうがきれいに見えます。</p>
+    </details>
+    <details>
+      <summary>文字を2行にしたり、アイコンを複数置いたりできますか？</summary>
+      <p>できます。文字は入力欄で Enter を押すと改行でき、行間も調整できます。文字・アイコン・絵文字はタブの［＋ 追加］からそれぞれ5つまで置けます。プレビュー上でつかんでドラッグするか、［上］［中央］［下］のボタンで位置を決められるので、「上にアイコン、下に文字」のような配置も作れます。</p>
     </details>
     <details>
       <summary>商用利用できますか？</summary>
@@ -855,12 +906,15 @@ var state={
   border:{on:false, color:"#ffffff", width:0.04},
   bg:{type:"solid", color:"#1B3A6B", c1:"#1B3A6B", c2:"#2E8B2E", angle:110,
       img:null, imgScale:1, imgX:0, imgY:0, shadeColor:"#000000", shadeAlpha:0},
-  icon:{on:false, def:null, svgImg:null, color:"#ffffff", scale:0.48, x:0, y:0},
-  emoji:{on:false, char:null, scale:0.52, x:0, y:0},
-  text:{value:"", font:'"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif',
-        color:"#ffffff", strokeColor:"#142b50", strokeW:0, size:0.42, bold:true, shadow:false, x:0, y:0},
-  drag:"icon"
+  // Every placed text / icon / emoji is one layer. Several of each kind can coexist.
+  layers:[],
+  sel:{text:null, icon:null, emoji:null}, // selected layer id per kind
+  tab:"bg"
 };
+var LAYER_MAX=5; // per kind
+var layerSeq=0;
+var KIND_ORDER=["emoji","icon","text"]; // paint order (bottom -> top)
+var KIND_LABEL={text:"文字", icon:"アイコン", emoji:"絵文字"};
 
 var FONT_GROUPS=[
  {label:"日本語（端末フォント・すぐ使える）", items:[
@@ -964,43 +1018,60 @@ function hexA(hex,a){
   var n=parseInt(hex.slice(1),16);
   return "rgba("+((n>>16)&255)+","+((n>>8)&255)+","+(n&255)+","+a+")";
 }
-function drawIcon(ctx,S){
-  var g=state.icon;
-  if(!g.on || !g.svgImg) return;
+var EMOJI_FONT="system-ui,'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif";
+function drawIcon(ctx,S,g){
+  if(!g.svgImg) return;
   var sz=g.scale*S;
   ctx.drawImage(g.svgImg,(S-sz)/2 + g.x*S,(S-sz)/2 + g.y*S,sz,sz);
 }
-function drawEmoji(ctx,S){
-  var g=state.emoji;
-  if(!g.on || !g.char) return;
+function drawEmoji(ctx,S,g){
+  if(!g.char) return;
   var fs=g.scale*S;
-  ctx.font=fs+"px system-ui,'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif";
+  ctx.font=fs+"px "+EMOJI_FONT;
   ctx.textAlign="center"; ctx.textBaseline="middle";
   ctx.fillText(g.char, S/2 + g.x*S, S/2 + g.y*S);
 }
-function drawText(ctx,S){
-  var t=state.text;
-  if(!t.value) return;
-  var fs=t.size*S;
+function textLines(t){ return String(t.value||"").replace(/\r/g,"").split("\n"); }
+function drawText(ctx,S,t){
+  if(!t.value || !t.value.replace(/\s/g,"")) return;
+  var fs=t.size*S, lines=textLines(t), step=fs*t.lh;
   ctx.font=(t.bold?"700 ":"400 ")+fs+"px "+t.font;
   ctx.textAlign="center"; ctx.textBaseline="middle";
-  var x=S/2 + t.x*S, y=S/2 + t.y*S;
-  if(t.shadow){ ctx.shadowColor="rgba(0,0,0,.35)"; ctx.shadowBlur=fs*0.12; ctx.shadowOffsetY=fs*0.05; }
-  if(t.strokeW>0){
-    ctx.lineJoin="round"; ctx.strokeStyle=t.strokeColor;
-    ctx.lineWidth=t.strokeW*(S/250); ctx.strokeText(t.value,x,y);
+  var x=S/2 + t.x*S, y0=S/2 + t.y*S - step*(lines.length-1)/2;
+  function setShadow(on){
+    if(on){ ctx.shadowColor="rgba(0,0,0,.35)"; ctx.shadowBlur=fs*0.12; ctx.shadowOffsetY=fs*0.05; }
+    else { ctx.shadowColor="transparent"; ctx.shadowBlur=0; ctx.shadowOffsetY=0; }
   }
-  ctx.shadowColor="transparent"; ctx.shadowBlur=0; ctx.shadowOffsetY=0;
-  ctx.fillStyle=t.color; ctx.fillText(t.value,x,y);
+  // Shadow goes on the first pass only (outline if any, otherwise the fill).
+  if(t.strokeW>0){
+    setShadow(t.shadow);
+    ctx.lineJoin="round"; ctx.strokeStyle=t.strokeColor; ctx.lineWidth=t.strokeW*(S/250);
+    lines.forEach(function(s,i){ ctx.strokeText(s,x,y0+i*step); });
+    setShadow(false);
+  } else {
+    setShadow(t.shadow);
+  }
+  ctx.fillStyle=t.color;
+  lines.forEach(function(s,i){ ctx.fillText(s,x,y0+i*step); });
+  setShadow(false);
+}
+function drawLayer(ctx,S,L){
+  if(L.kind==="text") drawText(ctx,S,L);
+  else if(L.kind==="icon") drawIcon(ctx,S,L);
+  else drawEmoji(ctx,S,L);
+}
+// Layers in paint order: kinds bottom -> top, each kind in the order it was added.
+function orderedLayers(){
+  var out=[];
+  KIND_ORDER.forEach(function(k){ state.layers.forEach(function(L){ if(L.kind===k) out.push(L); }); });
+  return out;
 }
 function render(ctx,S){
   ctx.clearRect(0,0,S,S);
   ctx.save();
   pathShape(ctx,S); ctx.clip();
   drawBackground(ctx,S);
-  drawEmoji(ctx,S);
-  drawIcon(ctx,S);
-  drawText(ctx,S);
+  orderedLayers().forEach(function(L){ drawLayer(ctx,S,L); });
   ctx.restore();
   if(state.border.on && state.border.width>0){
     var bw=state.border.width*S;
@@ -1010,9 +1081,23 @@ function render(ctx,S){
 }
 function draw(){
   render(pctx,PREV);
-  // Center guides are drawn on the preview only (not in renderToSize used for export),
-  // so the downloaded PNG never contains the guide lines.
+  // Center guides and the selection box are drawn on the preview only (not in
+  // renderToSize used for export), so the downloaded PNG never contains them.
+  drawSelection(pctx,PREV);
   if(dragging) drawGuides(pctx,PREV);
+}
+// Dashed box around the layer being edited. Shown while dragging, or whenever
+// the active tab has two or more layers of its kind (so it is clear which one the
+// controls are editing).
+function drawSelection(ctx,S){
+  var k=state.tab; if(!KIND_LABEL[k]) return;
+  var L=selLayer(k); if(!L || !hasContent(L)) return;
+  if(!(dragging && dragLayer===L) && layersOf(k).length<2) return;
+  var b=boxOf(L), pad=0.02;
+  ctx.save();
+  ctx.setLineDash([6,5]); ctx.lineWidth=2; ctx.strokeStyle="rgba(46,139,46,.9)";
+  ctx.strokeRect((b.cx-b.w/2-pad)*S,(b.cy-b.h/2-pad)*S,(b.w+pad*2)*S,(b.h+pad*2)*S);
+  ctx.restore();
 }
 // Dashed center crosshair shown while dragging. The active axis turns solid green
 // when the element is snapped to the exact center.
@@ -1033,13 +1118,107 @@ function drawGuides(ctx,S){
 // back silently. Draw once immediately for responsiveness, again when ready.
 function drawWithFont(){
   draw();
-  var t=state.text;
-  if(t.value && document.fonts && document.fonts.load){
+  if(!document.fonts || !document.fonts.load) return;
+  layersOf("text").forEach(function(t){
+    if(!t.value) return;
     var spec=(t.bold?"700 ":"400 ")+"40px "+t.font;
     try{
-      document.fonts.load(spec, t.value).then(function(){ draw(); }, function(){});
+      document.fonts.load(spec, t.value.replace(/\n/g,"")).then(function(){ draw(); }, function(){});
     }catch(e){}
+  });
+}
+
+/* ===================== Layers ===================== */
+function layersOf(kind){ return state.layers.filter(function(L){ return L.kind===kind; }); }
+function selLayer(kind){
+  var id=state.sel[kind];
+  for(var i=0;i<state.layers.length;i++){ if(state.layers[i].id===id) return state.layers[i]; }
+  return null;
+}
+function hasContent(L){
+  if(L.kind==="text") return !!(L.value && L.value.replace(/\s/g,""));
+  if(L.kind==="icon") return !!L.svgImg;
+  return !!L.char;
+}
+function newLayer(kind){
+  var L={id:++layerSeq, kind:kind, x:0, y:0};
+  if(kind==="text"){
+    L.value=""; L.font=DEFAULT_FONT; L.color="#ffffff"; L.strokeColor="#142b50"; L.strokeW=0;
+    L.size=0.42; L.lh=1.15; L.bold=true; L.shadow=false;
+  } else if(kind==="icon"){
+    L.def=null; L.svgImg=null; L.color="#ffffff"; L.scale=0.48;
+  } else {
+    L.char=null; L.scale=0.52;
   }
+  return L;
+}
+// Add a layer of the kind. A new one copies the look (font, color, size) of the
+// currently selected one and is placed a little lower so it does not hide it.
+function addLayer(kind){
+  if(layersOf(kind).length>=LAYER_MAX) return null;
+  var L=newLayer(kind), base=selLayer(kind);
+  if(base){
+    ["font","color","strokeColor","strokeW","size","lh","bold","shadow","scale"].forEach(function(p){ if(p in base) L[p]=base[p]; });
+    L.x=base.x; L.y=base.y+0.22; if(L.y>0.4) L.y=-0.3;
+  }
+  state.layers.push(L); state.sel[kind]=L.id;
+  return L;
+}
+function ensureLayer(kind){ return selLayer(kind) || addLayer(kind) || layersOf(kind)[0]; }
+function removeLayer(kind){
+  var L=selLayer(kind); if(!L) return;
+  state.layers=state.layers.filter(function(x){ return x!==L; });
+  var rest=layersOf(kind);
+  state.sel[kind]=rest.length?rest[rest.length-1].id:null;
+}
+// Bounding box of a layer in canvas-relative units (0..1), center + size.
+function boxOf(L){
+  var cx=0.5+L.x, cy=0.5+L.y, w, h;
+  if(L.kind==="text"){
+    var fs=L.size*PREV, lines=textLines(L), mw=0;
+    pctx.save(); pctx.font=(L.bold?"700 ":"400 ")+fs+"px "+L.font;
+    lines.forEach(function(s){ mw=Math.max(mw,pctx.measureText(s).width); });
+    pctx.restore();
+    w=mw/PREV; h=L.size*(1+L.lh*(lines.length-1));
+  } else {
+    w=h=L.scale;
+  }
+  return {cx:cx, cy:cy, w:Math.max(w,0.04), h:Math.max(h,0.04)};
+}
+// Quick placement: top / center / bottom with a margin from the edge.
+function placeLayer(L,pos){
+  var b=boxOf(L), m=0.08;
+  L.x=0;
+  if(pos==="top") L.y=Math.min(0,-0.5+m+b.h/2);
+  else if(pos==="bottom") L.y=Math.max(0,0.5-m-b.h/2);
+  else L.y=0;
+}
+function layerName(L,i){
+  if(L.kind==="text"){ var s=(L.value||"").replace(/\n/g," ").trim(); return s?s:"文字"+(i+1)+"（未入力）"; }
+  if(L.kind==="icon") return L.def?(L.def.t[0]):"アイコン"+(i+1)+"（未選択）";
+  return L.char?(L.char+" 絵文字"+(i+1)):"絵文字"+(i+1)+"（未選択）";
+}
+function renderLayerBar(kind){
+  var bar=document.querySelector('.layer-bar[data-kind="'+kind+'"]'); if(!bar) return;
+  bar.innerHTML="";
+  var list=layersOf(kind);
+  list.forEach(function(L,i){
+    var c=document.createElement("button"); c.className="layer-chip"; c.type="button";
+    c.textContent=layerName(L,i); c.title=c.textContent;
+    c.setAttribute("aria-pressed", L.id===state.sel[kind]?"true":"false");
+    c.addEventListener("click",function(){ state.sel[kind]=L.id; syncKind(kind); draw(); });
+    bar.appendChild(c);
+  });
+  var add=document.createElement("button"); add.className="layer-add"; add.type="button";
+  add.textContent="＋ "+KIND_LABEL[kind]+"を追加";
+  add.disabled=list.length>=LAYER_MAX;
+  add.title=add.disabled?(KIND_LABEL[kind]+"は"+LAYER_MAX+"つまで置けます"):"";
+  add.addEventListener("click",function(){
+    if(!addLayer(kind)) return;
+    syncKind(kind); drawWithFont();
+    if(kind==="text"){ try{ $("txt").focus(); }catch(e){} }
+  });
+  bar.appendChild(add);
 }
 // Resolve once all pending font downloads settle (used before exporting PNGs).
 function whenFontsReady(cb){
@@ -1077,7 +1256,6 @@ FONT_GROUPS.forEach(function(g){
   g.items.forEach(function(f){ var o=document.createElement("option"); o.value=f.v; o.textContent=f.n; og.appendChild(o); });
   fontSel.appendChild(og);
 });
-state.text.font=DEFAULT_FONT;
 
 // icon grid
 var iconGrid=document.getElementById("iconGrid");
@@ -1086,25 +1264,28 @@ function renderIconGrid(q){
   var list=ICONS.filter(function(d){ return !q || d.t.some(function(t){return t.indexOf(q)>-1;}) || d.k.indexOf(q)>-1; });
   if(!list.length){ iconGrid.innerHTML='<div class="empty">該当するアイコンがありません</div>'; return; }
   list.forEach(function(d){
-    var c=document.createElement("button"); c.className="cell"; c.title=d.t[0];
+    var c=document.createElement("button"); c.className="cell"; c.title=d.t[0]; c.dataset.k=d.k;
     c.innerHTML=iconSvg(d,"#1B3A6B");
-    c.addEventListener("click",function(){ selectIcon(d,c); });
+    c.addEventListener("click",function(){ selectIcon(d); });
     iconGrid.appendChild(c);
   });
+  markIconGrid();
 }
-function selectIcon(d,cell){
-  [].forEach.call(iconGrid.children,function(x){x.setAttribute&&x.setAttribute("aria-pressed","false");});
-  if(cell) cell.setAttribute("aria-pressed","true");
+function markIconGrid(){
+  var L=selLayer("icon"), k=(L&&L.def)?L.def.k:null;
+  [].forEach.call(iconGrid.children,function(x){ if(x.dataset&&x.dataset.k) x.setAttribute("aria-pressed", x.dataset.k===k?"true":"false"); });
+}
+function paintIcon(L){
+  if(!L.def) return;
   var img=new Image();
-  img.onload=function(){ state.icon.svgImg=img; state.icon.on=true; draw(); };
-  img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(iconSvg(d,state.icon.color));
-  state.icon.def=d;
+  img.onload=function(){ L.svgImg=img; draw(); };
+  img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(iconSvg(L.def,L.color));
 }
-function recolorIcon(){
-  if(!state.icon.on||!state.icon.def) return;
-  var d=state.icon.def, img=new Image();
-  img.onload=function(){ state.icon.svgImg=img; draw(); };
-  img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(iconSvg(d,state.icon.color));
+// Put the picked icon into the selected icon layer (creating one if none).
+function selectIcon(d){
+  var L=ensureLayer("icon");
+  L.def=d; paintIcon(L);
+  renderLayerBar("icon"); markIconGrid();
 }
 renderIconGrid("");
 
@@ -1115,14 +1296,18 @@ function renderEmojiGrid(q){
   var list=EMOJIS.filter(function(d){ return !q || d.t.some(function(t){return t.indexOf(q)>-1;}); });
   if(!list.length){ emojiGrid.innerHTML='<div class="empty">該当する絵文字がありません</div>'; return; }
   list.forEach(function(d){
-    var c=document.createElement("button"); c.className="cell"; c.textContent=d.e; c.title=d.t[0];
+    var c=document.createElement("button"); c.className="cell"; c.textContent=d.e; c.title=d.t[0]; c.dataset.e=d.e;
     c.addEventListener("click",function(){
-      [].forEach.call(emojiGrid.children,function(x){x.setAttribute&&x.setAttribute("aria-pressed","false");});
-      c.setAttribute("aria-pressed","true");
-      state.emoji.char=d.e; state.emoji.on=true; draw();
+      var L=ensureLayer("emoji");
+      L.char=d.e; renderLayerBar("emoji"); markEmojiGrid(); draw();
     });
     emojiGrid.appendChild(c);
   });
+  markEmojiGrid();
+}
+function markEmojiGrid(){
+  var L=selLayer("emoji"), e=L?L.char:null;
+  [].forEach.call(emojiGrid.children,function(x){ if(x.dataset&&x.dataset.e) x.setAttribute("aria-pressed", x.dataset.e===e?"true":"false"); });
 }
 renderEmojiGrid("");
 
@@ -1225,29 +1410,16 @@ function resetAll(){
   document.getElementById("imgScale").value=100; document.getElementById("imgShade").value=0; document.getElementById("gradAngle").value=110;
   var sc=document.getElementsByName("shadeColor"); if(sc[0]) sc[0].checked=true;
   try{ document.getElementById("bgImage").value=""; }catch(e){}
-  // text
-  state.text.value=""; state.text.font=DEFAULT_FONT; state.text.color="#ffffff"; state.text.strokeColor="#142b50";
-  state.text.strokeW=0; state.text.size=0.42; state.text.bold=true; state.text.shadow=false; state.text.x=0; state.text.y=0;
-  document.getElementById("txt").value=""; document.getElementById("font").selectedIndex=0;
-  document.getElementById("txtColor").value="#ffffff"; document.getElementById("strokeColor").value="#142b50";
-  document.getElementById("txtSize").value=42; document.getElementById("strokeW").value=0;
-  document.getElementById("bold").checked=true; document.getElementById("shadow").checked=false;
-  // icon
-  state.icon.on=false; state.icon.def=null; state.icon.svgImg=null; state.icon.color="#ffffff"; state.icon.scale=0.48; state.icon.x=0; state.icon.y=0;
-  document.getElementById("iconColor").value="#ffffff"; document.getElementById("iconSize").value=48;
-  [].forEach.call(iconGrid.children,function(x){ x.setAttribute&&x.setAttribute("aria-pressed","false"); });
-  // emoji
-  state.emoji.on=false; state.emoji.char=null; state.emoji.scale=0.52; state.emoji.x=0; state.emoji.y=0;
-  document.getElementById("emojiSize").value=52;
-  [].forEach.call(emojiGrid.children,function(x){ x.setAttribute&&x.setAttribute("aria-pressed","false"); });
+  // text / icon / emoji layers
+  state.layers=[]; state.sel={text:null, icon:null, emoji:null};
+  syncKind("text"); syncKind("icon"); syncKind("emoji");
 }
 function loadPreset(p){
   resetAll();
   if(p[3]==="gradient"){ state.bg.type="gradient"; state.bg.c1=p[4][0]; state.bg.c2=p[4][1]; }
   else { state.bg.type="solid"; state.bg.color=p[4][0]; }
-  state.icon.color=p[5]; document.getElementById("iconColor").value=p[5];
   var d=ICONS.filter(function(x){return x.k===p[2];})[0];
-  if(d) selectIcon(d,null);
+  if(d){ var L=addLayer("icon"); L.color=p[5]; selectIcon(d); }
   syncBgUI(); syncBgColorInputs();
   activateTab("icon");
   draw();
@@ -1262,7 +1434,33 @@ function $(id){return document.getElementById(id);}
 function activateTab(name){
   document.querySelectorAll(".tab").forEach(function(t){ t.setAttribute("aria-selected", t.dataset.tab===name?"true":"false"); });
   document.querySelectorAll(".tabpanel").forEach(function(p){ p.classList.toggle("show", p.dataset.panel===name); });
-  state.drag = name==="text"?"text" : name==="bg"?"bgimage" : name==="emoji"?"emoji" : "icon";
+  state.tab=name;
+  // The text tab always has a layer to type into.
+  if(name==="text" && !layersOf("text").length) addLayer("text");
+  if(KIND_LABEL[name]) syncKind(name);
+  draw();
+}
+// Pull the selected layer's values into the controls of its tab.
+function syncKind(kind){
+  renderLayerBar(kind);
+  var L=selLayer(kind);
+  if(kind==="text"){
+    var t=L||newLayer("text");
+    $("txt").value=t.value; $("font").value=t.font; if($("font").selectedIndex<0) $("font").selectedIndex=0;
+    $("txtColor").value=t.color; $("strokeColor").value=t.strokeColor;
+    $("txtSize").value=Math.round(t.size*100); $("strokeW").value=t.strokeW; $("lineH").value=Math.round(t.lh*100);
+    $("bold").checked=t.bold; $("shadow").checked=t.shadow;
+    $("txtDel").disabled=!L;
+  } else if(kind==="icon"){
+    var g=L||newLayer("icon");
+    $("iconColor").value=g.color; $("iconSize").value=Math.round(g.scale*100);
+    $("iconClear").disabled=!L; markIconGrid();
+  } else {
+    var e=L||newLayer("emoji");
+    $("emojiSize").value=Math.round(e.scale*100);
+    $("emojiClear").disabled=!L; markEmojiGrid();
+  }
+  [].forEach.call(document.querySelectorAll('[data-pos-kind="'+kind+'"] .seg-btn'),function(b){ b.disabled=!L; });
 }
 [].forEach.call(document.querySelectorAll(".tab"),function(tab){
   tab.addEventListener("click",function(){ activateTab(tab.dataset.tab); });
@@ -1324,24 +1522,36 @@ $("imgShade").addEventListener("input",function(){ state.bg.shadeAlpha=(+this.va
 });
 
 // text
-$("txt").addEventListener("input",function(){ state.text.value=this.value; if(this.value) state.drag="text"; drawWithFont(); });
-$("font").addEventListener("change",function(){ state.text.font=this.value; drawWithFont(); });
-$("txtColor").addEventListener("input",function(){ state.text.color=this.value; draw(); });
-$("strokeColor").addEventListener("input",function(){ state.text.strokeColor=this.value; draw(); });
-$("txtSize").addEventListener("input",function(){ state.text.size=(+this.value)/100; draw(); });
-$("strokeW").addEventListener("input",function(){ state.text.strokeW=+this.value; draw(); });
-$("bold").addEventListener("change",function(){ state.text.bold=this.checked; drawWithFont(); });
-$("shadow").addEventListener("change",function(){ state.text.shadow=this.checked; draw(); });
+function onText(fn,redrawFont){
+  return function(){ var t=ensureLayer("text"); fn.call(this,t); if(redrawFont) drawWithFont(); else draw(); };
+}
+$("txt").addEventListener("input",onText(function(t){ t.value=this.value; renderLayerBar("text"); $("txtDel").disabled=false; },true));
+$("font").addEventListener("change",onText(function(t){ t.font=this.value; },true));
+$("txtColor").addEventListener("input",onText(function(t){ t.color=this.value; }));
+$("strokeColor").addEventListener("input",onText(function(t){ t.strokeColor=this.value; }));
+$("txtSize").addEventListener("input",onText(function(t){ t.size=(+this.value)/100; }));
+$("lineH").addEventListener("input",onText(function(t){ t.lh=(+this.value)/100; }));
+$("strokeW").addEventListener("input",onText(function(t){ t.strokeW=+this.value; }));
+$("bold").addEventListener("change",onText(function(t){ t.bold=this.checked; },true));
+$("shadow").addEventListener("change",onText(function(t){ t.shadow=this.checked; }));
+$("txtDel").addEventListener("click",function(){ removeLayer("text"); syncKind("text"); draw(); });
 
 // icon
 $("iconSearch").addEventListener("input",function(){ renderIconGrid(this.value.trim()); });
-$("iconColor").addEventListener("input",function(){ state.icon.color=this.value; recolorIcon(); });
-$("iconSize").addEventListener("input",function(){ state.icon.scale=(+this.value)/100; draw(); });
-$("iconClear").addEventListener("click",function(){ state.icon.on=false; draw(); });
+$("iconColor").addEventListener("input",function(){ var L=selLayer("icon"); if(!L) return; L.color=this.value; paintIcon(L); });
+$("iconSize").addEventListener("input",function(){ var L=selLayer("icon"); if(!L) return; L.scale=(+this.value)/100; draw(); });
+$("iconClear").addEventListener("click",function(){ removeLayer("icon"); syncKind("icon"); draw(); });
 // emoji
 $("emojiSearch").addEventListener("input",function(){ renderEmojiGrid(this.value.trim()); });
-$("emojiSize").addEventListener("input",function(){ state.emoji.scale=(+this.value)/100; draw(); });
-$("emojiClear").addEventListener("click",function(){ state.emoji.on=false; draw(); });
+$("emojiSize").addEventListener("input",function(){ var L=selLayer("emoji"); if(!L) return; L.scale=(+this.value)/100; draw(); });
+$("emojiClear").addEventListener("click",function(){ removeLayer("emoji"); syncKind("emoji"); draw(); });
+// quick placement (top / center / bottom)
+[].forEach.call(document.querySelectorAll("[data-pos-kind] .seg-btn"),function(b){
+  b.addEventListener("click",function(){
+    var kind=b.parentNode.getAttribute("data-pos-kind"), L=selLayer(kind); if(!L) return;
+    placeLayer(L,b.dataset.pos); draw();
+  });
+});
 // preset search
 $("presetSearch").addEventListener("input",function(){ buildGallery(this.value.trim()); });
 
@@ -1354,20 +1564,47 @@ function ptToCanvas(ev){
   var cy=(ev.touches?ev.touches[0].clientY:ev.clientY)-rect.top;
   return {x:cx/rect.width, y:cy/rect.height};
 }
-function startDrag(ev){ dragging=true; last=ptToCanvas(ev); ev.preventDefault(); }
+var dragLayer=null, dragBg=false;
+// Topmost layer under the point (canvas-relative 0..1), or null.
+function hitLayer(p){
+  var list=orderedLayers(), pad=0.02;
+  for(var i=list.length-1;i>=0;i--){
+    var L=list[i]; if(!hasContent(L)) continue;
+    var b=boxOf(L);
+    if(Math.abs(p.x-b.cx)<=b.w/2+pad && Math.abs(p.y-b.cy)<=b.h/2+pad) return L;
+  }
+  return null;
+}
+// On the background tab with an image, dragging pans the image (as before).
+// Otherwise the layer under the pointer is grabbed and its tab is opened; when
+// nothing is under the pointer, the selected layer of the open tab moves.
+function startDrag(ev){
+  var p=ptToCanvas(ev);
+  dragBg=false; dragLayer=null;
+  if(state.tab==="bg" && state.bg.type==="image" && state.bg.img){ dragBg=true; }
+  else {
+    var hit=hitLayer(p);
+    if(hit){
+      state.sel[hit.kind]=hit.id;
+      if(state.tab!==hit.kind) activateTab(hit.kind); else syncKind(hit.kind);
+      dragLayer=hit;
+    } else if(KIND_LABEL[state.tab]){
+      dragLayer=selLayer(state.tab);
+    }
+  }
+  if(!dragBg && !dragLayer) return;
+  dragging=true; last=p; ev.preventDefault(); draw();
+}
 function moveDrag(ev){
   if(!dragging) return;
   var p=ptToCanvas(ev), dx=p.x-last.x, dy=p.y-last.y; last=p;
-  if(state.drag==="bgimage"){
-    if(state.bg.type==="image" && state.bg.img){
-      state.bg.imgX+=dx; state.bg.imgY+=dy;
-      snapX=Math.abs(state.bg.imgX)<SNAP; if(snapX) state.bg.imgX=0;
-      snapY=Math.abs(state.bg.imgY)<SNAP; if(snapY) state.bg.imgY=0;
-      draw();
-    }
-    ev.preventDefault(); return;
+  if(dragBg){
+    state.bg.imgX+=dx; state.bg.imgY+=dy;
+    snapX=Math.abs(state.bg.imgX)<SNAP; if(snapX) state.bg.imgX=0;
+    snapY=Math.abs(state.bg.imgY)<SNAP; if(snapY) state.bg.imgY=0;
+    draw(); ev.preventDefault(); return;
   }
-  var target = state.drag==="text" ? state.text : (state.drag==="emoji" ? state.emoji : state.icon);
+  var target=dragLayer; if(!target) return;
   target.x+=dx; target.y+=dy;
   target.x=Math.max(-0.5,Math.min(0.5,target.x));
   target.y=Math.max(-0.5,Math.min(0.5,target.y));
@@ -1375,7 +1612,7 @@ function moveDrag(ev){
   snapY=Math.abs(target.y)<SNAP; if(snapY) target.y=0;
   draw(); ev.preventDefault();
 }
-function endDrag(){ if(!dragging) return; dragging=false; snapX=false; snapY=false; draw(); }
+function endDrag(){ if(!dragging) return; dragging=false; dragLayer=null; dragBg=false; snapX=false; snapY=false; draw(); }
 preview.addEventListener("mousedown",startDrag);
 window.addEventListener("mousemove",moveDrag);
 window.addEventListener("mouseup",endDrag);
@@ -1408,8 +1645,9 @@ syncBgUI(); syncBgColorInputs();
 // default sample so the canvas isn't empty
 (function(){
   var d=ICONS.filter(function(x){return x.k==="users";})[0];
-  if(d) selectIcon(d,null);
+  if(d) selectIcon(d);
 })();
+syncKind("text"); syncKind("emoji");
 draw();
 })();
 </script>
