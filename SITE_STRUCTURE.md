@@ -276,7 +276,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── design-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】デザイン Pro for kintone 製品ページ（/plugins/design-pro/）v1.5.0（2026-11-13・第5弾・UPDATE ボックス＝テーブル内のユーザー選択から同じ行の欄へ転記・一覧で開くテーブルの見出し・保管アプリ未設定の案内。取り込んだユーザーオートフィル v1.5.0・テーマスタイラー v1.4.2。スクショ 2 枚＝user-autofill-v150-01・02 を流用。装飾など6つの機能＋表示パターン・印刷パターン・仕上げ・まとめ印刷・PDF の添付保存。配布 zip は public/downloads/kw-design-pro-v1.5.0.zip）
 │   │   │   ├── portal-pro/
-│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ポータル Pro for kintone 製品ページ（/plugins/portal-pro/）v1.0.0（2026-11-16・初版・UPDATE ボックスなし）。メインのポータルとスペースのポータルをウィジェット19種・スタイル10種で組み立てる。スクショ12枚は public/images/portal-pro-*.png が存在するときだけ表示（撮影前は文章のみ）。FAQ はページ内に直書き。配布 zip は public/downloads/kw-portal-pro-v1.0.0.zip
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ポータル Pro for kintone 製品ページ（/plugins/portal-pro/）v1.1.0（2026-11-17・デザインの拡充・UPDATE ボックスあり）。メインのポータルとスペースのポータルをウィジェット20種・スタイル20種・ひな形14種・ヒーロー帯／左メニュー／最大幅で組み立てる。スクショは public/images/portal-pro-*.png が存在するときだけ表示（撮影前は文章のみ）。FAQ はページ内に直書き。配布 zip は public/downloads/kw-portal-pro-v1.1.0.zip
 │   │   │   ├── record-acl-assist/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】レコード権限アシスト 製品ページ（/plugins/record-acl-assist/）※2026-10-24 配布開始（v1.0.0・プレミアム第23弾・「リクエストから誕生」バッジ）／2026-10-29 v1.1.0＝UPDATE ボックス（組織・グループ・ユーザーを 1 つの設定で使う・対応表アプリに書き方を表示）／2026-11-18 v1.3.0＝UPDATE ボックス（設定画面の確認メッセージを kintone の画面内に表示）— レコードの内容に合わせて見られる組織・人を自動で設定。最初に当たったルールだけが使われる問題を、見せる相手を 1 つのフィールドへ入れて解く。上の組織・対応表・一括反映・保存前の確認・見せる相手の内訳・変更の記録・ルックアップ自動同期との連携
 │   │   │   ├── annotation/
@@ -392,6 +392,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── bridge-v112-update.md        # KIZUNAブリッジ v1.1.2 アップデートのお知らせ（2026-10-31T15:00・書き込み先のカレンダービューの［時間帯で日時を決める］に対応）
 │   │   │   ├── plugin-bridge-release.md     # KIZUNAブリッジ v1.0.0 公開のお知らせ（2026-10-25T10:00・KIZUNA Pro プラグイン。公開日がずれたら pubDate を直す）
 │   │   │   ├── plugin-portal-pro-release.md     # ポータル Pro v1.0.0 公開のお知らせ（2026-11-16T21:00・KIZUNA Pro プラグイン）
+│   │   │   ├── portal-pro-v110-update.md        # ポータル Pro v1.1.0 アップデートのお知らせ（2026-11-18・一覧の表示・列数・デザインの拡充）
 │   │   │   ├── plugin-search-pro-release.md     # サーチ Pro v1.0.0 公開のお知らせ（2026-10-25・KIZUNA Pro プラグイン・ブリッジと同時公開）
 │   │   │   ├── plugin-lookup-pro-release.md     # ルックアップ Pro v1.0.0 公開のお知らせ（2026-10-25T10:30・KIZUNA Pro プラグイン・ブリッジと同日公開）
 │   │   │   ├── plugin-file-pro-release.md       # 添付ファイル Pro v1.0.0 公開のお知らせ（2026-10-27・KIZUNA Pro プラグイン第4弾）
@@ -434,6 +435,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-quick-search-v1-9-0-update.md # クイックサーチ v1.9.1 アップデートのお知らせ（2026-11-11 15:00・検索対象の項目が多くても検索できる・v1.9.0 の期間の並び順を含む。同日の続けての版上げのため v1.9.0 のお知らせを書き換え・ファイル名は据え置き）
 │   │   │   ├── plugin-quick-search-v1-8-0-update.md # クイックサーチ v1.8.0 アップデートのお知らせ（2026-11-10 14:00・添付ファイルのファイル名で検索）
 │   │   │   ├── plugin-quick-search-v1-7-0-update.md # クイックサーチ v1.7.0 アップデートのお知らせ（2026-10-31 14:00・ユーザー・組織・グループの検索・日本語／英語／中国語（簡体字）に対応）
+│   │   │   ├── dashboard-v1-8-0-update.md  # ダッシュボード v1.8.0 アップデートのお知らせ（ポータル Pro の「一覧の表示」でカードを 1 枚選んで置ける。2026-11-18）
 │   │   │   ├── quick-filter-v120.md             # クイックフィルター v1.2.0 アップデートのお知らせ（2026-10-31 14:10・帯の配色の色の欄に共通カラーパレット）
 │   │   │   ├── summary-bar-v2-5-0-update.md     # 集計サマリーバー v2.5.0 アップデートのお知らせ（2026-10-31 14:20・カードの配色の上書きに共通カラーパレット）
 │   │   │   ├── plugin-csv-export-v1-7-0-update.md # かんたんCSV出力 v1.7.0 アップデートのお知らせ（2026-10-29 10:20・出力できる人の限定・カラーパレット）
@@ -459,6 +461,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── calendar-view-v290-update.md  # カレンダービュー v2.9.0 アップデートのお知らせ（日時の時刻を kintone のユーザー設定のタイムゾーンで表示・入力・保存・「日時の表示タイムゾーン」の選択）
 │   │   │   ├── calendar-view-v2100.md  # カレンダービュー v2.10.0 アップデートのお知らせ（表示中のタイムゾーンをツールバーで確認・切り替え・編集モーダルに基準のタイムゾーン・ドラッグ中の自動スクロール）
 │   │   │   ├── calendar-view-v2101.md  # カレンダービュー v2.10.1 アップデートのお知らせ（バーの副項目・ポップアップ・リスト・タイムライン・モバイルの数値・計算の桁区切り／表示桁数／単位記号と、作成日時・更新日時の書式をフィールドの設定どおりに表示）
+│   │   │   ├── calendar-view-v2110-update.md  # カレンダービュー v2.11.0 アップデートのお知らせ（ポータル Pro の「一覧の表示」に置くと月表示が枠の高さに収まる・他N件・左のミニカレンダーと絞り込みを隠せる。2026-11-18）
 │   │   │   ├── accordion-tab-v2-1-0-update.md  # アコーディオンタブ v2.1.0 アップデートのお知らせ（セクションごとに表示するフィールドを選べる）
 │   │   │   ├── drive-connect-v110-update.md     # ドライブ連携 v1.1.0 アップデートのお知らせ（2026-10-23）
 │   │   │   ├── text-join-v120.md               # 文字列結合 v1.2.0 アップデートのお知らせ（2026-10-22 19:00・計算・複数行・リンクも保存前に結合結果が入る）
@@ -1156,6 +1159,9 @@ c:\kizuna-works.jp\
 │   │   ├── portal-pro-icon.png                  # ポータル Pro アイコン（200×200・製品ページヒーロー）
 │   │   ├── portal-pro-settings-app-icon.png / portal-pro-usage-app-icon.png # 導入の流れで見せる設定アプリ・ポータル利用ログアプリのアイコン（200×200）
 │   │   ├── portal-pro-home / -editor / -applist / -data / -quickinput / -ack / -wizard / -styles / -mobile / -launcher / -config-setup / -config-js .png # 製品ページのスクショ12枚（未撮影・撮影後に置く。1440×900、mobile のみ 750×1334）＋ .webp。portal-pro-style-01〜10.png（1440×900・同じ画面をスタイル S-01〜S-10 で撮影・製品ページ冒頭のスタイル切り替えの画面例）
+│   │   ├── portal-pro-page-hero / -page-search / -magazine / -feed / -templates / -design-axes .png # v1.1.0 の新機能のスクショ6枚（1440×900・UPDATE ボックスと PART 2・3。ヒーロー帯＋左メニュー／ヒーロー検索の候補／お知らせのマガジン／新着の流れ／ひな形14種／細かい調整。撮影後に置く・各 .webp）。portal-pro-styles.png はスタイル20種に差し替え
+│   │   ├── portal-pro-v110-viewembed.png / calendar-view-v2110-01-portal-embed.png / dashboard-v180-01-portal-card.png  # 「一覧の表示」のスクショ3枚（各 UPDATE ボックス用・ポータル Pro 1155×1328／カレンダービュー 1155×768／ダッシュボード 1440×1000・各 .webp と派生画像）
+│   │   ├── portal-pro-style-11〜20.png / portal-pro-tpl-01〜14.png # v1.1.0 で増えたスタイル10種の見本と、ひな形14種で作ったポータル画面（1440×900・製品ページ「どんなポータルになるか、見てみる」のタブで切り替え）＋ .webp
 │   │   ├── search-pro-config-csvallow-01.png/.webp  # サーチ Pro v1.3.0 製品ページ「CSV出力のテンプレート」節のスクショ — ［出力できる人を限定する］オンの設定画面（ダミー名・2026-10-29）
 │   │   ├── lookup-pro-banner.png                # ルックアップ Pro for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）＋ .webp（ビルド後に生成）
 │   │   ├── lookup-pro-icon.png                  # ルックアップ Pro アイコン（200×200・製品ページヒーロー）＋ .webp
@@ -1696,6 +1702,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-dashboard-v1.5.1.zip                                   # ダッシュボード for kintone 配布ファイル（v1.5.1：条件の「いずれも含まない」・選択肢でエラーになる演算子の修正）
 │   │   ├── kw-dashboard-v1.5.0.zip                                   # ダッシュボード for kintone 配布ファイル（v1.5.0：カードごとの条件・日付の条件の修正・共通の広告 v2）
 │   │   ├── kw-dashboard-v1.4.0.zip                                   # ダッシュボード for kintone 配布ファイル（v1.4.0：テーブル（サブテーブル）の集計）
+│   │   ├── kw-dashboard-v1.8.0.zip                                   # ダッシュボード for kintone 配布ファイル（最新・v1.8.0：ポータル Pro の「一覧の表示」でカードを 1 枚選んで置ける・カードの一覧を知らせる）
 │   │   ├── kw-drive-connect-v1.0.0.zip                          # ドライブ連携 for kintone 配布ファイル（旧版・参考保管・プレミアム第13弾 初版）
 │   │   ├── kw-drive-connect-v1.0.1.zip                          # ドライブ連携 for kintone 配布ファイル（旧版・v1.0.1：広告 v2 への差し替え＋「バナー非表示」の案内をプレミアム年間サポーター向けに修正）
 │   │   ├── kw-drive-connect-v1.3.0.zip                          # ドライブ連携 for kintone 配布ファイル（最新・2026-11-15・v1.3.0：多言語〔日英中〕・レコード番号のフィールドコードを変えたアプリでもフォルダ名が正しく付く・広告と設定画面の案内を共通版に）
@@ -1752,6 +1759,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-box-connect-v1.3.0.zip   # Box連携 for kintone 配布ファイル（最新・2026-11-06・v1.3.0＝一括転送ボタンを使える人を選ぶ設定）
 │   │   ├── kw-box-connect-v1.2.0.zip   # Box連携 v1.2.0（旧版・2026-10-26・フォルダ名を値に合わせる設定）
 │   │   ├── kw-portal-pro-v1.0.0.zip  # ポータル Pro for kintone 配布ファイル（2026-11-16・v1.0.0 初版・呼び出し元が配置）
+│   │   ├── kw-portal-pro-v1.1.0.zip  # ポータル Pro for kintone 配布ファイル（最新・2026-11-19・v1.1.0：一覧の表示・アプリ一覧の列数・スタイル20種・ひな形14種）
 │   │   ├── kw-box-connect-v1.1.1.zip   # Box連携 v1.1.1（旧版・2026-10-26・フォルダに印を付けて使い直し・処理中の表示）
 │   │   ├── kw-box-connect-v1.1.0.zip   # Box連携 v1.1.0（旧版・2026-10-23・添付が無くてもフォルダだけ先に作成）
 │   │   ├── kw-box-connect-v1.0.0.zip   # Box連携 v1.0.0（旧版・初版・プレミアム第22弾）
@@ -1972,7 +1980,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-calendar-view-v2.5.0.zip                   # カレンダービュー for kintone 配布ファイル（v2.5.0：重複チェックを重なった項目ごとに判定しすべての操作で働かせる／設定画面の並び順から項目を外す／終了が空の予定の表示・複数担当者の移動・テーブル行の元に戻す・編集削除の権限）
 │   │   ├── kw-calendar-view-v2.6.0.zip                   # カレンダービュー for kintone 配布ファイル（v2.6.0：テーブルの行を予定にしたカレンダーから新しいレコードを追加／標準の画面で保存したあとカレンダーに戻る／終日の予定の重複判定と「終日の予定とは重複を調べない」設定／通信の回数を削減）
 │   │   ├── kw-calendar-view-v2.7.0.zip                   # カレンダービュー for kintone 配布ファイル（v2.7.0：予定の削除のしかたを選べる・削除の通知）
-│   │   ├── kw-calendar-view-v2.10.0.zip                  # カレンダービュー for kintone 配布ファイル（最新・v2.10.0：表示中のタイムゾーンをツールバーに表示・その場で切り替え・ドラッグ中の自動スクロール）
+│   │   ├── kw-calendar-view-v2.10.0.zip                  # カレンダービュー for kintone 配布ファイル（旧版・v2.10.0：表示中のタイムゾーンをツールバーに表示・その場で切り替え・ドラッグ中の自動スクロール）
+│   │   ├── kw-calendar-view-v2.11.0.zip                  # カレンダービュー for kintone 配布ファイル（最新・v2.11.0：ポータル Pro の「一覧の表示」の中で月表示が枠の高さに収まる・左のミニカレンダーと絞り込みを隠せる）
 │   │   ├── kw-calendar-view-v2.9.0.zip                   # カレンダービュー for kintone 配布ファイル（旧版・v2.9.0：日時の時刻を kintone のユーザー設定のタイムゾーンで表示・入力・保存／「日時の表示タイムゾーン」の選択）
 │   │   ├── kw-calendar-view-v2.8.0.zip                   # カレンダービュー for kintone 配布ファイル（旧版・v2.8.0：1つの設定を複数の一覧で使える／設定の複製／モバイルの絞り込みと繰り返し予定の改善）
 │   │   ├── kw-calendar-view-v2.4.0.zip                   # カレンダービュー for kintone 配布ファイル（旧・v2.4.0：テーブルの行のカレンダーからの追加・削除・複製／レイヤーの値ごとの色分け／欄の出し分け／モーダルの初期値・ゲストスペース・保存エラーの欄名）

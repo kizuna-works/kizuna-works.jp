@@ -8,14 +8,20 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 const ZIP = `/downloads/kw-portal-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/portal-pro/';
-const DATE_MODIFIED = '2026-11-16';
+const DATE_MODIFIED = '2026-11-19';
 
 // Screenshots are added later. A figure is drawn only when its file exists in public/images,
 // so the page never shows a broken image while the shots are still being taken.
 const SHOTS: Record<string, { file: string; alt: string; width: number; height: number; caption: string }> = {
+  viewEmbed: {
+    file: 'portal-pro-v110-viewembed.png',
+    alt: 'ポータルに「一覧の表示」のウィジェットを置いた画面。kintone の一覧がそのまま枠の中に表示され、上のバーとパンくずは出ていない',
+    width: 1155, height: 1328,
+    caption: '一覧の表示。選んだアプリの一覧が、ポータルの中にそのまま並びます。',
+  },
   home: {
     file: 'portal-pro-home.png',
     alt: 'kintone のポータルに、時計・お知らせ・アプリ一覧・自分の担当のウィジェットが並んだ画面',
@@ -54,15 +60,51 @@ const SHOTS: Record<string, { file: string; alt: string; width: number; height: 
   },
   wizard: {
     file: 'portal-pro-wizard.png',
-    alt: '画面作成ウィザード。ひな形6種類のサムネイルが並んでいる',
+    alt: '画面作成ウィザード。ひな形14種類のサムネイルが並んでいる',
     width: 1440, height: 900,
     caption: '画面作成ウィザード。ひな形とスタイルを、仕上がりのサムネイルで選びます。',
   },
   styles: {
     file: 'portal-pro-styles.png',
-    alt: '同じ画面にスタイル10種類を当てたサムネイルが並び、色・角丸・書体の違いが比べられる画面',
+    alt: 'デザインのパネル。同じ画面にスタイル20種類を当てたサムネイルが2列で並び、選んでいるコーポレートが緑の枠で示されている',
+    width: 1440, height: 1517,
+    caption: 'デザインのパネル。20種類のスタイルから選ぶと、画面全体の雰囲気がその場で変わります。',
+  },
+  designAxes: {
+    file: 'portal-pro-design-axes.png',
+    alt: 'ポータル編集の右側の「細かい調整」パネル。見出しの形・ウィジェットの面・余白・アイコンの描き方・数値の強調・新着の印・部署の色の選択欄が並び、どれも「スタイルどおり」になっている',
+    width: 1440, height: 1100,
+    caption: '細かい調整。スタイルを選んだあとで、見出しの形や面の種類などを1つずつ変えられます。',
+  },
+  pageHero: {
+    file: 'portal-pro-page-hero.png',
+    alt: '濃い青のヒーロー帯に、「こんばんは」のあいさつ・日付・アプリを探す欄・重要なお知らせ1件が並び、左に「よく使う」「リンク」のグループとログインユーザーを置いたメニューがある画面',
     width: 1440, height: 900,
-    caption: 'デザインのパネル。スタイルを選ぶと、画面全体の雰囲気がその場で変わります。',
+    caption: 'ヒーロー帯と左メニュー。最大幅を決めると、広い画面でも中身が中央に寄ります。',
+  },
+  pageSearch: {
+    file: 'portal-pro-page-search.png',
+    alt: 'ヒーロー帯の「アプリを探す」の欄に「管理」と入力すると、名前に合うアプリが4件、アイコン付きの候補として下に並んでいる画面',
+    width: 1440, height: 900,
+    caption: 'ヒーロー帯のアプリ検索。入力した文字に合うアプリが、候補（最大8件）で出ます。',
+  },
+  magazine: {
+    file: 'portal-pro-magazine.png',
+    alt: 'お知らせのマガジン表示。先頭の1件が、上に青いグラデーションの絵を敷いた大きなカードで、その下に続く3件が小さなカードで横に並んでいる',
+    width: 952, height: 512,
+    caption: 'お知らせのマガジン表示。先頭の1件を大きく、続く3件を小さなカードで見せます。',
+  },
+  feed: {
+    file: 'portal-pro-feed.png',
+    alt: '新着の流れのウィジェット。更新した人の頭文字の丸、日時と出どころのアプリ名、タイトルの行が、新しい順に縦に並んでいる',
+    width: 952, height: 736,
+    caption: '新着の流れ。お知らせとアプリの更新を、新しい順に1本にまとめます。',
+  },
+  templates: {
+    file: 'portal-pro-templates.png',
+    alt: '画面作成ウィザードの「ひな形を選ぶ」。全社ポータルからヒーロー型のトップ・左メニュー型・マガジンなどを含む14種類が、サムネイルと説明つきで3列に並んでいる',
+    width: 910, height: 1314,
+    caption: 'ひな形は14種類。サムネイルで骨組みを見比べて選びます。',
   },
   mobile: {
     file: 'portal-pro-mobile.png',
@@ -92,14 +134,14 @@ const SHOTS: Record<string, { file: string; alt: string; width: number; height: 
 const shotOk = (k: string) => fs.existsSync(path.join(process.cwd(), 'public', 'images', SHOTS[k].file));
 const shotClass = (k: string, extra = '') => `kbp-feature ${extra}${shotOk(k) ? '' : ' noshot'}`.trim();
 
-// The 19 widgets of v1.0, grouped as in the editor palette.
+// The 21 widgets (19 of v1.0 plus the feed and the list view of v1.1), grouped as in the editor palette.
 const WIDGET_GROUPS: { label: string; items: { name: string; desc: string }[] }[] = [
   {
     label: '基本',
     items: [
       { name: 'アプリ一覧', desc: '10の表示パターン。よく使う順・分類・ピン留め・件数バッジ' },
       { name: 'ショートカットボタン', desc: 'アプリ・一覧・新規作成・外部 URL への大きなボタン' },
-      { name: 'お知らせ', desc: '重要度・掲載期間・新着バッジ・［確認しました］ボタン' },
+      { name: 'お知らせ', desc: '重要度・掲載期間・新着バッジ・［確認しました］ボタン。マガジン表示も' },
       { name: 'リッチテキスト', desc: '文字・表・リンク・画像を自由に書く' },
       { name: '見出し・区切り線', desc: '画面の区切りと見出し' },
       { name: '画像・バナー', desc: '1枚・スライド・ギャラリー・画像＋文章・ロゴの5形式' },
@@ -117,6 +159,8 @@ const WIDGET_GROUPS: { label: string; items: { name: string; desc: string }[] }[
       { name: 'ランキング・クロス集計', desc: '上位 N 件の順位表と、行×列の集計表' },
       { name: 'カレンダー', desc: '複数のアプリの予定を色分けして重ねる' },
       { name: 'カウントダウン', desc: '期日までの日数。固定の日付でもレコードの日付でも' },
+      { name: '新着の流れ', desc: 'お知らせと、最大5つのアプリの更新を、新しい順に1本の流れで', alt: 'アプリの更新を時間順に並べた新着の流れ、今月のカレンダー、自分の担当が並ぶ（kintone なじみスタイル）。', isNew: true },
+      { name: '一覧の表示', desc: 'アプリと一覧を選ぶと、kintone の一覧画面をそのままポータルに置く。カレンダービュー・ダッシュボードも' },
     ],
   },
   {
@@ -146,7 +190,17 @@ const STYLES: { no: string; name: string; mood: string; colors: [string, string,
   { no: 'S-07', name: 'ミニマル', mood: '余白重視で、情報だけを見せる', colors: ['#111827', '#6b7280', '#ffffff'] },
   { no: 'S-08', name: 'ダーク', mood: '目にやさしい・引き締まる', colors: ['#3b82f6', '#22c55e', '#1f2937'] },
   { no: 'S-09', name: '和モダン', mood: '落ち着いた日本らしさ。製造・老舗', colors: ['#1f3f66', '#d9482b', '#f5efe0'] },
-  { no: 'S-10', name: 'コーポレート', mood: '自社のブランドカラーで統一', colors: ['#1B3074', '#2E8B2E', '#ffffff'] },
+  { no: 'S-10', name: 'KIZUNA', mood: '自社のブランドカラーで統一', colors: ['#1B3074', '#2E8B2E', '#ffffff'] },
+  { no: 'S-11', name: 'kintone なじみ', mood: 'kintone の画面になじむ、白地に細い線', colors: ['#2575ab', '#e67e22', '#f5f6f7'] },
+  { no: 'S-12', name: 'コーポレート', mood: '左の線で区切る、帯より軽い見た目。全社ポータル向け', colors: ['#0f4c81', '#f59e0b', '#f3f5f8'] },
+  { no: 'S-13', name: 'トーン面', mood: '枠も影も使わず、面の色で区切る', colors: ['#3f5aa8', '#c2185b', '#f8f9fe'] },
+  { no: 'S-14', name: '北欧ナチュラル', mood: '生成り色とくすんだ色。総務・人事・新人向け', colors: ['#5b7065', '#c98b5b', '#f5f1ea'] },
+  { no: 'S-15', name: 'グラデーション見出し', mood: '見出しがグラデーションの帯。上だけ色づく背景', colors: ['#4f46e5', '#06b6d4', '#f5f7fb'] },
+  { no: 'S-16', name: 'すりガラス（明るい）', mood: '明るい地のすりガラス。淡い色が透ける', colors: ['#3551c3', '#d6336c', '#eef1f8'] },
+  { no: 'S-17', name: 'クレイ', mood: 'ぷっくりとした立体感。親しみやすい', colors: ['#5e55ed', '#ff8fab', '#eef0ff'] },
+  { no: 'S-18', name: 'スイス', mood: '白黒と赤1色、細い罫。数字が引き立つ', colors: ['#111111', '#e3262f', '#ffffff'] },
+  { no: 'S-19', name: 'エディトリアル', mood: '新聞・雑誌のような二重線と罫。社内報向け', colors: ['#1a1a1a', '#8b1e1e', '#f7f5f0'] },
+  { no: 'S-20', name: '見やすさ優先', mood: '文字が大きく濃い。年配の方・現場の端末向け', colors: ['#0b3d91', '#b00020', '#ffffff'] },
 ];
 
 // Alt text for the style sample screens (same order as STYLES; names come from STYLES).
@@ -161,15 +215,33 @@ const STYLE_SHOT_ALTS: string[] = [
   '濃紺の暗い地に、明るい青の数値と棒グラフを置いたポータル画面。',
   '和紙風の生成りの地に、明朝体の見出しと朱の重要バッジを使ったポータル画面。',
   '上端に紺から緑のグラデーションの帯を置き、白いカードを並べたポータル画面。',
+  '薄い灰色の地に、細い枠線のカードと、青い下線の見出しを使ったポータル画面。',
+  '淡い灰青の地に、白いカードの左端へ濃い青の線を引き、見出しは文字だけにしたポータル画面。',
+  '淡い青紫の地に、枠も影も付けず、灰色がかった面でウィジェットを区切ったポータル画面。',
+  '生成り色の地に、茶色の点付きの見出しと、くすんだ緑の数値・棒グラフを使ったポータル画面。',
+  'ウィジェットの見出しが青紫から青緑のグラデーションの帯になり、上端がうっすら色づいたポータル画面。',
+  '水色と薄いピンクが混ざった背景に、半透明のすりガラス風のカードを並べたポータル画面。',
+  '薄い紫の地に、丸い札の見出しと、ぷっくりと丸いカードを並べたポータル画面。',
+  '白地に黒を基調にして、枠を使わず、細い罫線と見出しの下線だけで区切った、角のないポータル画面。',
+  '生成りの地に、明朝体の見出しと灰色の二重線の罫を使い、黒を基調にしたポータル画面。',
+  '白地に、黒帯の見出しと太い黒枠のカード、濃い青の数字を使った、文字の大きなポータル画面。',
 ];
 
 const TEMPLATES = [
-  { name: '全社ポータル', desc: '時計・お知らせ・アプリ一覧・自分の担当' },
-  { name: '営業ダッシュボード', desc: '期間ボタン・数値カード・グラフ・ランキング・今日の予定' },
-  { name: '総務のお知らせ板', desc: '確認ボタン付きのお知らせ・リンク集・社内行事のカレンダー' },
-  { name: 'プロジェクト用スペース', desc: 'アプリ一覧・進捗バー・カウントダウン・新着' },
-  { name: '現場向けスマホ画面', desc: '大きなタイルのアプリ一覧・クイック入力（打刻）・お知らせ' },
-  { name: '新人向けスタートページ', desc: '説明付きのアプリ一覧・リンク集・連絡先' },
+  { name: '全社ポータル', desc: '時計・お知らせ・アプリ一覧・自分の担当', alt: '時計、重要なお知らせ、よく使うアプリの帯、分類ごとのアプリ一覧、自分の担当の案件が並ぶ。' },
+  { name: '営業ダッシュボード', desc: '期間ボタン・数値カード・グラフ・ランキング・今日の予定', alt: '期間ボタン、前の期間と比べた数値カード4つ、月ごとの推移の棒グラフ、取引先ランキングが並ぶ。' },
+  { name: '総務のお知らせ板', desc: '確認ボタン付きのお知らせ・リンク集・社内行事のカレンダー', alt: '［確認しました］ボタン付きの重要なお知らせ、リンク集、社内行事の月カレンダーが並ぶ。' },
+  { name: 'プロジェクト用スペース', desc: 'アプリ一覧・進捗バー・カウントダウン・新着', alt: 'スペースのアプリのタイル、進捗バー、納品日までのカウントダウン、新着の一覧が並ぶ。' },
+  { name: '現場向けスマホ画面', desc: '大きなタイルのアプリ一覧・クイック入力（打刻）・お知らせ', alt: '大きなタイルのアプリ、打刻の［出勤］ボタン、お知らせが並ぶ。' },
+  { name: '新人向けスタートページ', desc: '説明付きのアプリ一覧・リンク集・連絡先', alt: '説明付きのアプリのカード、リンク集、連絡先が並ぶ。' },
+  { name: 'ヒーロー型のトップ', desc: '上にあいさつ・アプリ検索・重要なお知らせの帯。お知らせ・よく使うアプリ・自分の担当', alt: '上にあいさつ・アプリ検索・重要なお知らせの帯、その下にお知らせ、よく使うアプリ、自分の担当が並ぶ（コーポレートスタイル）。', isNew: true },
+  { name: '左メニュー型', desc: '左にメニュー（よく使う・申請・リンク）。数値カード・グラフ・お知らせ', alt: '左によく使うアプリ・申請・リンクのメニュー、右に数値カード3つ、棒グラフ、お知らせが並ぶ（kintone なじみスタイル）。', isNew: true },
+  { name: 'ベント（大小のタイル）', desc: '一番大事なグラフを大きく、数値カード・ランキング・お知らせ・アプリを小さく', alt: '大きな棒グラフを中心に、件数と売上の数値カード、上位3件、お知らせ、よく使うアプリ、今月のカレンダーを大小のタイルで並べる（トーン面スタイル）。', isNew: true },
+  { name: 'マガジン（社内報）', desc: 'お知らせを「大きく1件＋小さなカード」で読ませる。よく読まれているランキング', alt: 'お知らせを大きな1件と小さなカード3枚で見せ、右にランキングを置く（エディトリアルスタイル）。', isNew: true },
+  { name: 'ランチャー（アプリが主役）', desc: 'あいさつとアプリ検索の帯。大きなアイコンのアプリ一覧・お知らせ', alt: 'あいさつとアプリ検索の帯の下に、アプリを大きく並べ、お知らせを添える（北欧ナチュラルスタイル）。', isNew: true },
+  { name: '新着の流れ', desc: 'お知らせとアプリの更新を時間順に並べた流れ・カレンダー・自分の担当' },
+  { name: '数字で見る経営ボード', desc: '数値カード・グラフ・ランキング・進捗・自分の担当', alt: '数値カード3つ、月ごとの推移のグラフ、取引先ランキングが並ぶ（スイススタイル）。', isNew: true },
+  { name: '左右の分割', desc: 'お知らせを左に大きく、自分の担当・カレンダー・アプリを右に縦に積む', alt: '左にお知らせを大きく、右に自分の担当、今月のカレンダー、よく使うアプリを縦に積む（コーポレートスタイル）。', isNew: true },
 ];
 
 const HOWTO_STEPS = [
@@ -226,6 +298,7 @@ const faqs: { q: string; a: string }[] = [
     q: '画像は、どこに保存されますか？',
     a: '設定アプリの添付ファイルに保存します。アップロード時にブラウザで自動的に圧縮します（長辺 1920 px 以内・目安 300 KB 以下）。保存した画像は kintone のディスク使用量に含まれます。',
   },
+{    q: 'kintone の一覧を、そのままポータルに置けますか？',    a: 'ウィジェット「一覧の表示」で置けます。アプリと一覧を選ぶと、kintone の上のバーとパンくずを除いた一覧画面が、ポータルやスペースの中に表示されます。標準の一覧・カスタマイズビュー・カレンダービュー・ダッシュボード・シート編集・横並びシートに対応しています。ダッシュボードはボード全体も 1 枚のカードだけも置けます（ダッシュボード v1.8.0 以降）。カレンダービューは月表示が枠に収まります（カレンダービュー v2.11.0 以降）。1 つのウィジェットが一覧画面を 1 つ読み込むため、置く数が多いと表示が遅くなります。',  },
   {
     q: '無料で試せますか？',
     a: 'はい、30日間無料で試せます（カード登録不要・自動課金なし・1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、もう一度お試しいただけます）。プレミアム年間サポーターを未契約の方は、プレミアム年間サポーターの無料体験に KIZUNA Pro プラグインが含まれます。プレミアム年間サポーターをご契約中の方は、KIZUNA Pro 拡張パックだけを30日間無料でお試しいただけます。体験が終わると機能は止まりますが、設定は消えません。',
@@ -249,9 +322,9 @@ const faqJsonLd = {
 <Layout
   heroBg="/images/kizuna-pro-hero-bg.webp"
   title="ポータル Pro for kintone｜開いた人の今日が並ぶポータルを組み立てる | KIZUNA Works"
-  description="ポータル Pro for kintone は、メインのポータルとスペースのポータルに、アプリ一覧・お知らせ・グラフ・クイック入力などのウィジェットをドラッグ＆ドロップで並べる KIZUNA Pro プラグイン。開いた人ごとに中身が変わり、スタイル10種で見た目も整えられます。"
+  description="ポータル Pro for kintone は、メインのポータルとスペースのポータルに、アプリ一覧・お知らせ・グラフ・クイック入力などのウィジェットをドラッグ＆ドロップで並べる KIZUNA Pro プラグイン。開いた人ごとに中身が変わり、スタイル20種とページの部品で見た目も整えられます。"
   ogTitle="ポータル Pro for kintone｜開いた人の今日が並ぶポータルを組み立てる | KIZUNA Works"
-  ogDescription="メインのポータルとスペースのポータルを、ウィジェットで組み立てる KIZUNA Pro プラグイン。19種のウィジェット、開いた人ごとに変わる「その人の今日」、ポータルから直接登録するクイック入力、確認ボタン付きのお知らせ、スタイル10種のデザイン、スマホ画面、日本語・英語・中国語（簡体字）の表示に対応します。"
+  ogDescription="メインのポータルとスペースのポータルを、ウィジェットで組み立てる KIZUNA Pro プラグイン。21種のウィジェット、開いた人ごとに変わる「その人の今日」、ポータルから直接登録するクイック入力、確認ボタン付きのお知らせ、スタイル20種とヒーロー帯・左メニューのデザイン、スマホ画面、日本語・英語・中国語（簡体字）の表示に対応します。"
   ogType="website"
   ogUrl={PAGE_URL}
   ogImage="https://kizuna-works.jp/images/portal-pro-banner.png"
@@ -285,7 +358,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.0.0",
+          "softwareVersion": "1.1.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -308,20 +381,21 @@ const faqJsonLd = {
               description: 'プレミアム年間サポーターに追加するプラン（年額）。',
             },
           ],
-          description: 'ポータル Pro for kintone は、kintone のメインのポータルとスペースのポータルに、ウィジェットを並べた画面をドラッグ＆ドロップで組み立てるプラグイン。アプリ一覧・お知らせ・ショートカット・画像・埋め込みのほか、レコード一覧・数値カード・グラフ・ゲージ・ランキング・カレンダー・カウントダウン・自分の担当など19種のウィジェットを置ける。条件に「自分」「自分の組織」「今日」を使って開いた人ごとに中身を変えられ、ポータルからレコードを登録するクイック入力、［確認しました］ボタン付きのお知らせ、よく使う順に並ぶアプリ一覧と Ctrl+K のランチャーを備える。画面作成ウィザードのひな形6種とスタイル10種で見た目を整えられ、スマホ用の画面も別に組める。kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示する。',
+          description: 'ポータル Pro for kintone は、kintone のメインのポータルとスペースのポータルに、ウィジェットを並べた画面をドラッグ＆ドロップで組み立てるプラグイン。アプリ一覧・お知らせ・ショートカット・画像・埋め込みのほか、レコード一覧・数値カード・グラフ・ゲージ・ランキング・カレンダー・カウントダウン・自分の担当・新着の流れなど21種のウィジェットを置ける。条件に「自分」「自分の組織」「今日」を使って開いた人ごとに中身を変えられ、ポータルからレコードを登録するクイック入力、［確認しました］ボタン付きのお知らせ、よく使う順に並ぶアプリ一覧と Ctrl+K のランチャーを備える。画面作成ウィザードのひな形14種とスタイル20種、ヒーロー帯・左メニュー・最大幅で見た目を整えられ、スマホ用の画面も別に組める。kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示する。',
           publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
           featureList: [
             'メインのポータルとスペースのポータルに、ウィジェットを並べた画面を表示（パソコンとスマホ）',
             'ドラッグ＆ドロップのエディタ：パレットから置き、角をつまんで大きさを変える。複製・削除・元に戻す・やり直し・下書きから公開',
-            '19種のウィジェット：アプリ一覧・ショートカットボタン・お知らせ・リッチテキスト・見出し・画像・リンク集・レコード一覧・数値カード・グラフ・ゲージ・進捗バー・ランキング・クロス集計・カレンダー・カウントダウン・自分の担当・クイック入力・埋め込み・時計',
+            '21種のウィジェット：アプリ一覧・ショートカットボタン・お知らせ・リッチテキスト・見出し・画像・リンク集・レコード一覧・数値カード・グラフ・ゲージ・進捗バー・ランキング・クロス集計・カレンダー・カウントダウン・新着の流れ・一覧の表示・自分の担当・クイック入力・埋め込み・時計',
             'その人の今日：条件に「自分」「自分の組織」「今日」「今週」を使い、1枚の画面で開いた人ごとに中身を変える',
             'クイック入力：ポータルからレコードを直接登録。ワンタップ登録にも対応',
             'お知らせの［確認しました］ボタン：確認した人を記録し、「お知らせの確認状況」で確認者・日時を確認（CSV 出力）',
             'kintone 標準の表示を隠す：トップのポータルとスペースの標準の部品を、ポータル Pro の画面を表示できたときだけ隠す（画面の一番下から標準の表示を開ける）',
             'アプリ一覧：10の表示パターン・よく使う順などの並び順・ピン留め・非表示・分類・件数バッジ・Ctrl+K のランチャー',
             '画面全体の期間ボタン：今月・今四半期・今年度などで、連動させたウィジェットを一括で切り替え（ウィジェットとして好きな位置に配置）',
-            'スタイル10種・色のテーマ12種・見た目6種・個別の調整・自社スタイルの保存。コントラストの自動チェック',
-            '画面作成ウィザード：ひな形6種とスタイルを、仕上がりのサムネイルで選ぶ',
+            'スタイル20種・色のテーマ12種・見た目6種・細かい調整（見出しの形・ウィジェットの面・余白・アイコンの描き方・数値の強調・新着の印・部署の色・背景の模様）・自社スタイルの保存。コントラストの自動チェック',
+            'ページの部品：上のヒーロー帯（あいさつ・アプリ検索・重要なお知らせ）・左メニュー・全体の最大幅',
+            '画面作成ウィザード：ひな形14種とスタイルを、仕上がりのサムネイルで選ぶ',
             '表示する人の限定、〇〇さんから見た画面のプレビュー、スペースごとの画面',
             '見る人の権限でデータを取得し、アクセス権をそのまま反映。API のリクエスト数を抑えるしくみ',
             '多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示',
@@ -385,6 +459,17 @@ const faqJsonLd = {
     .ppp-gallery { max-width: 860px; margin: 0 auto 28px; min-width: 0; }
     .ppp-gallery:focus-visible { outline: 2px solid var(--kbp-gold-soft); outline-offset: 4px; border-radius: 8px; }
     .ppp-gallery-title { font-size: 1.05rem; font-weight: 800; margin: 0 0 12px; color: var(--kbp-gold-soft); }
+    .ppp-showcase { max-width: 860px; margin: 0 auto 28px; min-width: 0; }
+    .ppp-showcase .ppp-gallery { margin-bottom: 0; }
+    .ppp-showcase .ppp-gallery[hidden] { display: none; }
+    .ppp-showcase-tabs { display: flex; justify-content: center; gap: 8px; margin: 0 0 12px; }
+    .ppp-showcase-tab {
+      padding: 8px 18px; border-radius: 999px; font-size: 0.92rem; font-weight: 700; cursor: pointer; color: #fff;
+      background: transparent; border: 1px solid rgba(232, 199, 102, 0.6);
+    }
+    .ppp-showcase-tab:hover { background: rgba(255, 255, 255, 0.12); }
+    .ppp-showcase-tab[aria-selected="true"] { background: var(--kbp-gold); color: #1a1405; border-color: var(--kbp-gold); }
+    .ppp-gallery-lead { margin: 0 0 12px; font-size: 0.9rem; line-height: 1.7; color: rgba(255, 255, 255, 0.88); }
     .ppp-gallery-stage { display: flex; align-items: center; gap: 8px; min-width: 0; }
     .ppp-gallery-frame { flex: 1 1 0; min-width: 0; }
     .ppp-gallery-slide { width: 100%; }
@@ -468,6 +553,7 @@ const faqJsonLd = {
     .kbp-feature-text li { margin-bottom: 4px; }
     .kbp-shot { margin: 0; min-width: 0; }
     .kbp-shot img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid #dbe3ee; box-shadow: 0 6px 18px rgba(15, 31, 61, 0.1); cursor: zoom-in; background: #fff; }
+    .kbp-shots { display: grid; gap: 16px; min-width: 0; }
     .kbp-shot.is-tall { max-width: 300px; margin: 0 auto; }
     .kbp-shot figcaption { margin-top: 8px; font-size: 0.84rem; color: var(--kbp-muted); line-height: 1.6; }
     .kbp-example {
@@ -555,6 +641,22 @@ const faqJsonLd = {
     .ppp-style-no { display: block; font-size: 0.7rem; letter-spacing: 0.08em; color: var(--kbp-gold); font-weight: 800; }
     .ppp-style-name { display: block; font-weight: 800; color: var(--kbp-navy); font-size: 0.95rem; line-height: 1.5; }
     .ppp-style-mood { display: block; font-size: 0.78rem; line-height: 1.6; color: var(--kbp-muted); }
+    /* Update box (version highlight) */
+    .update-box { max-width: 980px; margin: 0 auto; background: #fff; border: 1px solid #dbe3ee; border-left: 5px solid var(--kbp-green); border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06); padding: 28px 28px 32px; min-width: 0; }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag { background: var(--kbp-green); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; padding: 4px 12px; border-radius: 6px; flex-shrink: 0; }
+    .update-title { color: var(--kbp-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--kbp-text); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid #e3eaf3; }
+    .update-list > li { position: relative; padding: 14px 4px 14px 34px; border-bottom: 1px solid #e3eaf3; line-height: 1.8; color: var(--kbp-text); min-width: 0; }
+    .update-list > li::before { content: '✓'; position: absolute; left: 4px; top: 18px; width: 20px; height: 20px; border-radius: 50%; background: var(--kbp-green); color: #fff; font-size: 12px; font-weight: 900; line-height: 20px; text-align: center; }
+    .update-list > li > strong:first-child { display: block; color: var(--kbp-navy); font-size: 16px; margin-bottom: 2px; }
+    .update-shot { max-width: 640px; margin: 18px auto 0; min-width: 0; }
+    .update-shot .shot-label { text-align: center; color: var(--kbp-navy); font-size: 13px; font-weight: 700; margin: 0 0 8px; }
+    .update-shot img { max-width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 8px; border: 1px solid #dbe3ee; cursor: zoom-in; }
+    .update-note { color: var(--kbp-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    .update-note strong { color: var(--kbp-navy); }
+    @media (max-width: 700px) { .update-box { padding: 22px 18px 26px; } .update-title { font-size: 17px; } }
     .ppp-small { font-size: 0.82rem; color: var(--kbp-muted); line-height: 1.7; margin: 0 0 24px; }
     .ppp-templates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; list-style: none; margin: 12px 0 0; padding: 0; }
     .ppp-templates li { background: #f4f7fb; border-left: 4px solid var(--kbp-navy); border-radius: 8px; padding: 12px 14px; min-width: 0; }
@@ -599,9 +701,35 @@ const faqJsonLd = {
       <HeroSubBadges pluginId="kw-portal-pro" />
       <h1 class="kbp-hero-title">ポータル Pro for kintone</h1>
       <p class="kbp-tagline">開いた人の"今日"が並び、そのまま仕事が始められるポータル。</p>
-      <p class="kbp-sub">ポータル Pro for kintone は、<strong>メインのポータルとスペースのポータルに、ウィジェットを並べた画面をドラッグ＆ドロップで組み立てる</strong> kintone プラグインです。アプリ一覧・お知らせ・グラフ・クイック入力など<strong>19種のウィジェット</strong>と、<strong>スタイル10種</strong>で、見た目まで整えられます。</p>
-      <div class="ppp-gallery" id="style-gallery" role="group" aria-roledescription="carousel" aria-labelledby="style-gallery-title" tabindex="0">
-        <h2 class="ppp-gallery-title" id="style-gallery-title">スタイルを選ぶだけで、画面の雰囲気が変わります</h2>
+      <p class="kbp-sub">ポータル Pro for kintone は、<strong>メインのポータルとスペースのポータルに、ウィジェットを並べた画面をドラッグ＆ドロップで組み立てる</strong> kintone プラグインです。アプリ一覧・お知らせ・グラフ・クイック入力など<strong>21種のウィジェット</strong>と、<strong>スタイル20種</strong>・ヒーロー帯・左メニューで、見た目まで整えられます。</p>
+      <div class="ppp-showcase">
+      <h2 class="ppp-gallery-title" id="showcase-title">どんなポータルになるか、見てみる</h2>
+      <div class="ppp-showcase-tabs" role="tablist" aria-labelledby="showcase-title">
+        <button type="button" class="ppp-showcase-tab" role="tab" id="tab-tpl" aria-controls="tpl-gallery" aria-selected="true">ひな形 {TEMPLATES.length}種</button>
+        <button type="button" class="ppp-showcase-tab" role="tab" id="tab-style" aria-controls="style-gallery" aria-selected="false" tabindex="-1">スタイル {STYLES.length}種</button>
+      </div>
+      <div class="ppp-gallery" id="tpl-gallery" role="tabpanel" aria-labelledby="tab-tpl" aria-roledescription="carousel" tabindex="0">
+        <p class="ppp-gallery-lead">ひな形を選ぶと、ウィジェットの並び・スタイル・ページの部品までそろった画面ができあがります。</p>
+        <div class="ppp-gallery-stage">
+          <button type="button" class="ppp-gallery-nav is-prev" data-dir="-1" aria-label="前のひな形を見る">&#8249;</button>
+          <div class="ppp-gallery-frame">
+            {TEMPLATES.map((t, i) => (
+              <div class="ppp-gallery-slide" data-index={i} hidden={i === 0 ? undefined : true}>
+                <Picture src={`/images/portal-pro-tpl-${String(i + 1).padStart(2, '0')}.png`} alt={`ひな形「${t.name}」で作ったポータル画面。${t.alt}`} width={1440} height={900} class="zoomable" loading={i === 0 ? 'eager' : 'lazy'} />
+              </div>
+            ))}
+          </div>
+          <button type="button" class="ppp-gallery-nav is-next" data-dir="1" aria-label="次のひな形を見る">&#8250;</button>
+        </div>
+        <p class="ppp-gallery-caption" aria-live="polite"><span class="ppp-gallery-cap-no">{TEMPLATES[0].isNew ? 'NEW' : ''}</span> <strong>{TEMPLATES[0].name}</strong>：<span class="ppp-gallery-cap-mood">{TEMPLATES[0].desc}</span></p>
+        <div class="ppp-gallery-chips">
+          {TEMPLATES.map((t, i) => (
+            <button type="button" class="ppp-gallery-chip" data-index={i} data-no={t.isNew ? 'NEW' : ''} data-name={t.name} data-mood={t.desc} aria-current={i === 0 ? 'true' : undefined}>{t.name}</button>
+          ))}
+        </div>
+      </div>
+      <div class="ppp-gallery" id="style-gallery" role="tabpanel" aria-labelledby="tab-style" aria-roledescription="carousel" tabindex="0" hidden>
+        <p class="ppp-gallery-lead">スタイルを選ぶだけで、色・角丸・影・書体・背景がまとめて変わります。S-11〜S-20 は v1.1.0 で追加しました。</p>
         <div class="ppp-gallery-stage">
           <button type="button" class="ppp-gallery-nav is-prev" data-dir="-1" aria-label="前のスタイルを見る">&#8249;</button>
           <div class="ppp-gallery-frame">
@@ -620,6 +748,7 @@ const faqJsonLd = {
           ))}
         </div>
       </div>
+      </div>
       <div class="kbp-pillars">
         <a class="kbp-pillar" href="#today"><span class="kbp-pillar-no">POINT 1</span><span class="kbp-pillar-name">その人の今日</span><span class="kbp-pillar-desc">「自分」「自分の組織」「今日」の条件で、1枚の画面が開いた人ごとに変わる</span></a>
         <a class="kbp-pillar" href="#quick"><span class="kbp-pillar-no">POINT 2</span><span class="kbp-pillar-name">ポータルから直接入力</span><span class="kbp-pillar-desc">日報・打刻・申請などを、アプリを開かずにその場で登録</span></a>
@@ -631,6 +760,52 @@ const faqJsonLd = {
         <a class="kbp-btn is-ghost" href="/plugins/premium-trial/">30日間無料で試す</a>
       </div>
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
+    </section>
+
+    <!-- Update Info (v1.1.0) -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <div class="update-box">
+          <div class="update-head">
+            <span class="update-tag">UPDATE</span>
+            <h2 class="update-title">v1.1.0：ポータルに kintone の一覧をそのまま置けるようになり、デザインの選択肢も広がりました</h2>
+          </div>
+          <p class="update-desc">ポータル Pro for kintone を v1.1.0 にアップデートしました（2026年11月19日）。</p>
+          <ul class="update-list">
+            <li><strong>新しいウィジェット「一覧の表示」で、kintone の一覧をポータルにそのまま置けます。</strong>アプリと一覧を選ぶだけです。上のバーとパンくずは出ず、高さはウィジェットに合います。標準の一覧・カスタマイズビュー・<a href="/plugins/calendar-view/">カレンダービュー</a>・<a href="/plugins/dashboard/">ダッシュボード</a>・シート編集・横並びシートの一覧を選べます。ダッシュボードはボード全体も、カード 1 枚だけも置けます（ダッシュボード v1.8.0 以降）。カレンダービューは月表示が枠に収まり、左側を隠せます（カレンダービュー v2.11.0 以降）。1 つのウィジェットが一覧画面を 1 つ読み込むため、置く数が多いと表示が遅くなります。編集画面に注意を出します。</li>
+            <li><strong>アプリ一覧の列数を 1〜5 列から選べるようになりました。</strong>スマホでは最大 2 列です。</li>
+            <li><strong>左メニューがスクロール中に揺れず、止まって見えるように改善しました。</strong>埋め込みの高さ［ウィジェットに合わせる］も、枠にぴったり合うように改善しました。</li>
+            <li><strong>スタイルが 20 種になり、見た目を細かく変えられます。</strong>kintone の画面になじむ「kintone なじみ」や、すりガラス・クレイ・エディトリアルなど、10 種を追加しました。見出しの形・ウィジェットの面・余白・アイコンの描き方・数値の強調・新着の印・部署の色・背景の模様を、スタイルを選んだあとで 1 つずつ変えられます。</li>
+            <li><strong>上のヒーロー帯・左メニュー・最大幅で、ページの骨組みを作れます。</strong>ヒーロー帯には、あいさつ・アプリを探す欄・重要なお知らせ 1 件を出せます。左メニューには、アプリとリンクをグループ分けして並べます。広い画面では、中身を中央に寄せて幅を抑えられます。</li>
+            <li><strong>お知らせのマガジン表示と、新着の流れを追加しました。</strong>お知らせを「大きく 1 件＋小さなカード」で見せられます。新着の流れは、お知らせとアプリの更新を新しい順に 1 本にまとめるウィジェットです（ウィジェットは 21 種になりました）。画面作成ウィザードのひな形も、8 種増えて 14 種になりました。</li>
+          </ul>
+          {shotOk('viewEmbed') && (
+            <figure class="update-shot">
+              <p class="shot-label">一覧の表示</p>
+              <Picture src={`/images/${SHOTS.viewEmbed.file}`} alt={SHOTS.viewEmbed.alt} width={SHOTS.viewEmbed.width} height={SHOTS.viewEmbed.height} class="zoomable" />
+            </figure>
+          )}
+          {shotOk('designAxes') && (
+            <figure class="update-shot">
+              <p class="shot-label">細かい調整</p>
+              <Picture src={`/images/${SHOTS.designAxes.file}`} alt={SHOTS.designAxes.alt} width={SHOTS.designAxes.width} height={SHOTS.designAxes.height} class="zoomable" />
+            </figure>
+          )}
+          {shotOk('pageHero') && (
+            <figure class="update-shot">
+              <p class="shot-label">ヒーロー帯と左メニュー</p>
+              <Picture src={`/images/${SHOTS.pageHero.file}`} alt={SHOTS.pageHero.alt} width={SHOTS.pageHero.width} height={SHOTS.pageHero.height} class="zoomable" />
+            </figure>
+          )}
+          {shotOk('magazine') && (
+            <figure class="update-shot">
+              <p class="shot-label">お知らせのマガジン表示</p>
+              <Picture src={`/images/${SHOTS.magazine.file}`} alt={SHOTS.magazine.alt} width={SHOTS.magazine.width} height={SHOTS.magazine.height} class="zoomable" />
+            </figure>
+          )}
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください。そのあと、<strong>設定画面でポータル用 JS（PC 用・スマホ用）をダウンロードし直し、kintone システム管理の［JavaScript / CSS でカスタマイズ］に登録し直してください。</strong>登録し直すまでは、新しい機能はポータルに出ません。保存済みの画面の設定は、そのまま引き継がれます。これまでのスタイルを使っている画面の見た目は、変わりません。</p>
+        </div>
+      </div>
     </section>
 
     <!-- Series -->
@@ -739,7 +914,7 @@ const faqJsonLd = {
         <div class="kbp-part">
           <span class="kbp-part-no">2</span>
           <div class="kbp-part-body">
-            <h2 class="kbp-part-title">19種のウィジェット</h2>
+            <h2 class="kbp-part-title">21種のウィジェット</h2>
             <p class="kbp-part-desc">お知らせや画像のような基本のウィジェットから、アプリのデータを見せるウィジェット、ポータルから入力できるウィジェットまで、そろっています。</p>
           </div>
         </div>
@@ -865,6 +1040,42 @@ const faqJsonLd = {
             </ul>
           </div>
         </div>
+
+        <div class={shotClass('magazine')} id="magazine">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">お知らせのマガジン表示：読ませたい1件を、大きく</h3>
+            <p>お知らせの表示パターンを、［一覧］から［マガジン］に変えられます。社内報のように、1件ずつ読ませたいときに向きます。</p>
+            <ul>
+              <li>先頭の1件を大きなカード（画像・見出し・日付・本文の1行目）で、続く3件までを小さなカードで見せます。</li>
+              <li>画像は、本文の最初の画像です。無いときは、メインの色と差し色のグラデーションを敷きます。</li>
+              <li>お知らせが5件以上のときは、［一覧］から全件を開けます。幅が狭いときとスマホでは、小さなカードを縦に積みます。</li>
+            </ul>
+          </div>
+          {shotOk('magazine') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.magazine.file}`} alt={SHOTS.magazine.alt} width={SHOTS.magazine.width} height={SHOTS.magazine.height} class="zoomable" />
+              <figcaption>{SHOTS.magazine.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+
+        <div class={shotClass('feed', 'flip')} id="feed">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">新着の流れ：更新を、1本にまとめて追う</h3>
+            <p>お知らせと、アプリのレコードの更新を、新しい順に1本の流れで見せるウィジェットです。</p>
+            <ul>
+              <li>出どころは、お知らせと、最大5つのアプリ。アプリは、タイトルにするフィールドと表示名を選びます。</li>
+              <li>1行は、更新した人の頭文字の丸・日時と出どころ・タイトル。押すと、レコードの詳細が開きます。</li>
+              <li>件数は、ウィジェットごとに決められます（既定は20件）。見る権限の無いアプリがあっても、ほかの出どころは出ます。</li>
+            </ul>
+          </div>
+          {shotOk('feed') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.feed.file}`} alt={SHOTS.feed.alt} width={SHOTS.feed.width} height={SHOTS.feed.height} class="zoomable" />
+              <figcaption>{SHOTS.feed.caption}</figcaption>
+            </figure>
+          )}
+        </div>
       </div>
     </section>
 
@@ -874,8 +1085,8 @@ const faqJsonLd = {
         <div class="kbp-part">
           <span class="kbp-part-no">3</span>
           <div class="kbp-part-body">
-            <h2 class="kbp-part-title">スタイル10種で、見た目まで整える</h2>
-            <p class="kbp-part-desc">色・角丸・影・書体・背景を1つにまとめたスタイルを選ぶだけで、画面全体の雰囲気が決まります。書体は端末に入っているものを使い、外部のフォントを読み込みません。</p>
+            <h2 class="kbp-part-title">スタイル20種で、見た目まで整える</h2>
+            <p class="kbp-part-desc">色・角丸・影・書体・背景を1つにまとめたスタイルを選ぶだけで、画面全体の雰囲気が決まります。選んだあとで、見出しの形やウィジェットの面を細かく変えたり、上のヒーロー帯・左メニューを足したりもできます。書体は端末に入っているものを使い、外部のフォントを読み込みません。</p>
           </div>
         </div>
 
@@ -900,6 +1111,7 @@ const faqJsonLd = {
               <li>色のテーマは12種類。メイン・アクセント・背景の3色から、自由に作ることもできます。</li>
               <li>ウィジェットの見た目は6種類：フラット・カード・枠線・見出し帯・ガラス風・ミニマル。</li>
               <li>ウィジェットごとに、見出しの色・背景色・文字色・角丸・影・枠線・アイコンを調整できます。画面全体の背景（単色・グラデーション・画像）・間隔・文字サイズも決められます。</li>
+              <li>画面が2つ以上あるときのタブは、その画面のメインの色で塗られます（新しいデザイン設定の画面）。</li>
               <li>文字色と背景色の組み合わせが読みにくいときは、警告と修正案を出します（保存は止めません）。</li>
               <li>調整した見た目に名前を付けて「自社スタイル」として保存し、ほかの画面やスペースで使い回せます。</li>
             </ul>
@@ -912,13 +1124,71 @@ const faqJsonLd = {
           )}
         </div>
 
+        <div class={shotClass('designAxes', 'flip')} id="axes">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">細かい調整：スタイルを選んだあとで、1つずつ変える</h3>
+            <p>デザインのパネルの「細かい調整」で、スタイルの見た目を個別に変えます。各欄の先頭は「スタイルどおり」で、選ぶと調整を外してスタイルの値に戻ります。</p>
+            <ul>
+              <li><strong>見出しの形：</strong>帯・左の線・下線・丸い札・グラデーションの帯・二重線・黒帯・点＋文字・文字だけの9種類。</li>
+              <li><strong>ウィジェットの面：</strong>カード（影）・枠線・色味のある面・左に色の線・すりガラス・ぷっくり・罫線だけ・太い黒枠の8種類。</li>
+              <li><strong>余白：</strong>詰める・標準・ゆったり。ウィジェットの間隔と、内側の余白をまとめて変えます。</li>
+              <li><strong>アイコンの描き方：</strong>線・丸い背景・四角い背景・塗りの丸。</li>
+              <li><strong>数値の強調：</strong>数値カード・ゲージ・カウントダウンの大きな数字を、文字の色・メインの色・アクセントの色・増減で色を変える、から選べます。</li>
+              <li><strong>新着の印：</strong>お知らせの掲載から日の浅い行を、「NEW」の札・点・左の線・行の背景色で示します。</li>
+              <li><strong>部署の色：</strong>この画面のメインの色だけを変えます。文字の色は、読みやすい方が自動で選ばれます。</li>
+              <li><strong>背景の模様：</strong>上だけ色づく・方眼・罫・淡いグラデーション。画像は使いません。</li>
+            </ul>
+          </div>
+          {shotOk('designAxes') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.designAxes.file}`} alt={SHOTS.designAxes.alt} width={SHOTS.designAxes.width} height={SHOTS.designAxes.height} class="zoomable" />
+              <figcaption>{SHOTS.designAxes.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+
+        <div class={shotClass('pageHero')} id="page-parts">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">ページの部品：ヒーロー帯・左メニュー・最大幅</h3>
+            <p>ウィジェットを並べる前に、画面の骨組みを決められます。設定しなければ、これまでと同じ見た目です。</p>
+            <ul>
+              <li><strong>ヒーロー帯：</strong>ウィジェットの上に全幅の帯を置きます。時刻に合わせたあいさつと日付、アプリを探す欄、重要なお知らせ1件を出せます。背景の画像も選べます。</li>
+              <li><strong>左メニュー：</strong>アプリとリンクを、グループに分けて左に並べます。パソコンでは、スクロールしても上に付いてきます。畳んでアイコンだけにでき、スマホでは引き出しになります。見る人がアクセスできないアプリは出ません。</li>
+              <li><strong>全体の最大幅：</strong>画面いっぱい・1440px・1200px から選びます。広い画面で、ヒーロー帯・左メニュー・ウィジェットをまとめて中央に寄せます（背景は全幅のままです）。</li>
+            </ul>
+          </div>
+          {shotOk('pageHero') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.pageHero.file}`} alt={SHOTS.pageHero.alt} width={SHOTS.pageHero.width} height={SHOTS.pageHero.height} class="zoomable" />
+              <figcaption>{SHOTS.pageHero.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+
+        <div class={shotClass('pageSearch', 'flip')} id="hero-search">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">ヒーロー帯のアプリ検索：打ち始めたら、すぐ開ける</h3>
+            <ul>
+              <li>入力した文字に合うアプリの名前を、最大8件、候補で出します。</li>
+              <li>↑↓ で選んで Enter で開き、Esc で閉じます。</li>
+              <li>ゲストスペースのアプリも、ゲストスペースの URL で開きます。</li>
+            </ul>
+          </div>
+          {shotOk('pageSearch') && (
+            <figure class="kbp-shot">
+              <Picture src={`/images/${SHOTS.pageSearch.file}`} alt={SHOTS.pageSearch.alt} width={SHOTS.pageSearch.width} height={SHOTS.pageSearch.height} class="zoomable" />
+              <figcaption>{SHOTS.pageSearch.caption}</figcaption>
+            </figure>
+          )}
+        </div>
+
         <div class={shotClass('wizard', 'flip')} id="wizard">
           <div class="kbp-feature-text">
             <h3 class="kbp-h3">画面作成ウィザード：3ステップで形にする</h3>
-            <p>新しい画面は、「プリセットから選ぶ（おすすめ）」か「オリジナルで一から作る」で始めます。プリセットは、次の3ステップです。</p>
+            <p>新しい画面は、「プリセットから選ぶ（おすすめ）」か「オリジナルで一から作る」で始めます。プリセットは、次の3ステップです。ひな形は14種類です。</p>
             <ol class="steps-list">
               <li><span>用途のひな形を、サムネイルから選びます。</span></li>
-              <li><span>スタイルを選びます。選んだひな形に各スタイルを当てた、仕上がりのサムネイルで比べられます。</span></li>
+              <li><span>スタイルを選びます。選んだひな形に各スタイルを当てた、仕上がりのサムネイルで比べられます。「おすすめ」の6種類が先頭に並びます。</span></li>
               <li><span>表示する場所（ポータル・スペース）と、表示する人（全員・限定）を決めます。あとで決めることもできます。</span></li>
             </ol>
             <p>完了すると、エディタが開き、アプリを選ぶ必要のあるウィジェットに「未設定」の印が付きます。上から順に案内されます。</p>
@@ -928,11 +1198,21 @@ const faqJsonLd = {
               ))}
             </ul>
           </div>
-          {shotOk('wizard') && (
-            <figure class="kbp-shot">
-              <Picture src={`/images/${SHOTS.wizard.file}`} alt={SHOTS.wizard.alt} width={SHOTS.wizard.width} height={SHOTS.wizard.height} class="zoomable" />
-              <figcaption>{SHOTS.wizard.caption}</figcaption>
-            </figure>
+          {(shotOk('wizard') || shotOk('templates')) && (
+            <div class="kbp-shots">
+              {shotOk('wizard') && (
+                <figure class="kbp-shot">
+                  <Picture src={`/images/${SHOTS.wizard.file}`} alt={SHOTS.wizard.alt} width={SHOTS.wizard.width} height={SHOTS.wizard.height} class="zoomable" />
+                  <figcaption>{SHOTS.wizard.caption}</figcaption>
+                </figure>
+              )}
+              {shotOk('templates') && (
+                <figure class="kbp-shot">
+                  <Picture src={`/images/${SHOTS.templates.file}`} alt={SHOTS.templates.alt} width={SHOTS.templates.width} height={SHOTS.templates.height} class="zoomable" />
+                  <figcaption>{SHOTS.templates.caption}</figcaption>
+                </figure>
+              )}
+            </div>
           )}
         </div>
       </div>
@@ -951,10 +1231,10 @@ const faqJsonLd = {
           <li>画面全体の期間ボタン（今月・今四半期・今年度など）で、連動するウィジェットを一括で切り替え</li>
           <li>スマホ用の画面を、PC とは別に並べる</li>
         </ul>
-        <h3 class="kbp-h3">ウィジェット（19種）</h3>
+        <h3 class="kbp-h3">ウィジェット（21種）</h3>
         <ul class="kbp-list">
           <li>基本：アプリ一覧・ショートカットボタン・お知らせ・リッチテキスト・見出し・画像・リンク集</li>
-          <li>データ：レコード一覧・数値カード・グラフ・ゲージ・進捗バー・ランキング・クロス集計・カレンダー・カウントダウン</li>
+          <li>データ：レコード一覧・数値カード・グラフ・ゲージ・進捗バー・ランキング・クロス集計・カレンダー・カウントダウン・新着の流れ・一覧の表示</li>
           <li>業務：自分の担当・クイック入力</li>
           <li>その他：埋め込み（iframe）・時計・日付</li>
         </ul>
@@ -963,6 +1243,7 @@ const faqJsonLd = {
           <li>条件に「自分」「自分の組織」「今日」「今週」を使い、開いた人ごとに中身を変える</li>
           <li>クイック入力：ポータルからレコードを登録。ワンタップ登録にも対応</li>
           <li>お知らせの［確認しました］ボタンと、「お知らせの確認状況」（確認者・日時・CSV 出力）</li>
+          <li>お知らせのマガジン表示（先頭の1件を大きなカードで）と、お知らせとアプリの更新を1本にまとめる新着の流れ</li>
           <li>アプリ一覧：10の表示パターン・よく使う順などの並び順・ピン留め・非表示・分類・件数バッジ・Ctrl+K のランチャー</li>
         </ul>
         <h3 class="kbp-h3">kintone 標準の表示</h3>
@@ -972,8 +1253,10 @@ const faqJsonLd = {
         </ul>
         <h3 class="kbp-h3">デザイン</h3>
         <ul class="kbp-list">
-          <li>スタイル10種・色のテーマ12種・見た目6種・個別の調整・自社スタイルの保存</li>
-          <li>画面作成ウィザード（ひな形6種）</li>
+          <li>スタイル20種・色のテーマ12種・見た目6種・自社スタイルの保存</li>
+          <li>細かい調整：見出しの形・ウィジェットの面・余白・アイコンの描き方・数値の強調・新着の印・部署の色・背景の模様</li>
+          <li>ページの部品：ヒーロー帯（あいさつ・アプリ検索・重要なお知らせ）・左メニュー・全体の最大幅</li>
+          <li>画面作成ウィザード（ひな形14種）</li>
           <li>文字色と背景色のコントラストの自動チェック</li>
         </ul>
         <h3 class="kbp-h3">安心して使う</h3>
@@ -1173,8 +1456,26 @@ const faqJsonLd = {
         document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
       }
       (function () {
-        var g = document.getElementById('style-gallery');
-        if (!g) return;
+        var tabs = document.querySelectorAll('.ppp-showcase-tab');
+        tabs.forEach(function (t) {
+          t.addEventListener('click', function () {
+            tabs.forEach(function (o) {
+              var on = o === t;
+              o.setAttribute('aria-selected', on ? 'true' : 'false');
+              o.tabIndex = on ? 0 : -1;
+              var p = document.getElementById(o.getAttribute('aria-controls'));
+              if (p) p.hidden = !on;
+            });
+          });
+          t.addEventListener('keydown', function (e) {
+            if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+            var arr = Array.prototype.slice.call(tabs), k = arr.indexOf(t);
+            var nx = arr[(k + (e.key === 'ArrowRight' ? 1 : -1) + arr.length) % arr.length];
+            nx.focus(); nx.click(); e.preventDefault();
+          });
+        });
+      })();
+      document.querySelectorAll('.ppp-gallery').forEach(function (g) {
         var slides = g.querySelectorAll('.ppp-gallery-slide');
         var chips = g.querySelectorAll('.ppp-gallery-chip');
         var capNo = g.querySelector('.ppp-gallery-cap-no');
@@ -1209,7 +1510,7 @@ const faqJsonLd = {
           sx = null;
           if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) show(cur + (dx < 0 ? 1 : -1));
         }, { passive: true });
-      })();
+      });
       if (typeof gtag === 'function') {
         document.querySelectorAll('a.js-dl').forEach(function (dl) {
           dl.addEventListener('click', function () {
