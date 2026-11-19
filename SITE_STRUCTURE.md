@@ -1819,7 +1819,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-excel-paste-v1.1.2.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-excel-paste-v1.2.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-excel-paste-v1.3.0.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管）
-│   │   ├── kw-excel-paste-v1.3.1.zip                             # エクセル一括貼り付け for kintone 配布ファイル（最新・v1.3.1 貼り付けた行の編集不可を保つ・rows-added イベント）
+│   │   ├── kw-excel-paste-v1.3.1.zip                             # エクセル一括貼り付け for kintone 配布ファイル（旧版・参考保管・v1.3.1 貼り付けた行の編集不可を保つ・rows-added イベント）
+│   │   ├── kw-excel-paste-v1.3.4.zip                             # エクセル一括貼り付け for kintone 配布ファイル（最新・2026-11-19・v1.3.4：広告を共通版（閉じてから3時間で再表示）に更新・設定画面の右欄とパレットを多言語版に・版上げのみ）
 │   │   ├── kw-field-comment-v1.0.0.zip                           # フィールドコメント for kintone 配布ファイル（旧版）
 │   │   ├── kw-field-comment-v1.0.1.zip                           # フィールドコメント for kintone 配布ファイル（旧版）
 │   │   ├── kw-field-comment-v1.0.2.zip                           # フィールドコメント for kintone 配布ファイル（v1.0.2・ゲストスペース対応）
@@ -1947,7 +1948,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-lookup-sync-v2.3.2.zip                             # ルックアップ自動同期 for kintone 配布ファイル（旧版・参考保管・v2.3.2）
 │   │   ├── kw-lookup-sync-v2.4.1.zip                             # ルックアップ自動同期 for kintone 配布ファイル（最新・2026-10-29・v2.4.1＝レコード権限アシスト v1.1.0 の複数の入れ先に対応）
 │   │   ├── kw-lookup-sync-v2.4.0.zip                             # ルックアップ自動同期 for kintone 配布ファイル（旧版・参考保管・v2.4.0＝レコード権限アシストとの連携）
-│   │   ├── kw-lookup-sync-v2.5.0.zip  # 配布ファイル（最新・2026-11-07・v2.5.0：全体を多言語化（日本語・英語・中国語））
+│   │   ├── kw-lookup-sync-v2.5.0.zip  # 配布ファイル（旧版・参考保管・v2.5.0：全体を多言語化（日本語・英語・中国語））
+│   │   ├── kw-lookup-sync-v2.5.1.zip  # 配布ファイル（最新・2026-11-19・v2.5.1：広告を共通版（閉じてから3時間で再表示）に更新・版上げのみ）
 │   │   ├── kw-mail-assist-v1.0.1.zip                             # メールアシスト for kintone 配布ファイル（手動配置・v1.0.1＝法人Outlook対応）
 │   │   ├── kw-mail-assist-v1.1.0.zip                             # メールアシスト for kintone 配布ファイル（手動配置・v1.1.0＝表示条件に複数値OR演算子追加・編集画面幅拡大）
 │   │   ├── kw-mail-assist-v1.1.1.zip                             # メールアシスト for kintone 配布ファイル（旧版・参考保管）
@@ -2069,7 +2071,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-record-lock-v1.3.0.zip                             # レコードロック for kintone 配布ファイル（旧版・v1.3.0：ロックのアイコンを設定ごとに選択〔内蔵24種類・アイコンなし・お手持ちの画像〕＋設定の並びを▲▼で入れ替え）
 │   │   ├── kw-record-lock-v1.3.1.zip                             # レコードロック for kintone 配布ファイル（旧版・v1.3.1：連携用の内部の改善）
 │   │   ├── kw-record-lock-v1.4.0.zip                             # レコードロック for kintone 配布ファイル（旧版・2026-10-28・v1.4.0：除外された人にもロック中を表示・ロック条件に当てはまる値で保存・値の選び忘れの警告・共通カラーパレット）
-│   │   ├── kw-record-lock-v1.5.0.zip                             # レコードロック for kintone 配布ファイル（最新・2026-11-06・v1.5.0：ロック中のレコードで変更履歴の「このバージョンに戻す」を表示しない・ゲストスペースの除外グループ／組織の修正）
+│   │   ├── kw-record-lock-v1.5.0.zip                             # レコードロック for kintone 配布ファイル（旧版・参考保管・v1.5.0：ロック中のレコードで変更履歴の「このバージョンに戻す」を表示しない・ゲストスペースの除外グループ／組織の修正）
+│   │   ├── kw-record-lock-v1.5.1.zip                             # レコードロック for kintone 配布ファイル（最新・2026-11-19・v1.5.1：広告を共通版（閉じてから3時間で再表示）に更新・版上げのみ）
 │   │   ├── kw-record-recovery-v1.0.0.zip                         # 削除レコード復元 for kintone 配布ファイル（旧版・手動配置・v1.0.0 初版）
 │   │   ├── kw-record-recovery-v1.0.1.zip                 # 削除レコード復元 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-record-recovery-v1.0.2.zip                 # 削除レコード復元 for kintone 配布ファイル（旧版・手動配置・v1.0.2 重複禁止が未設定のルックアップでも安定して動作するよう改善）
@@ -2138,7 +2141,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-sidebar-enhancer-v1.0.0.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・v1.0.0 初版）
 │   │   ├── kw-sidebar-enhancer-v1.0.2.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・手動配置・v1.0.2 で数値の桁区切り撤去／ラベルのHTML描画／設定画面の保存ボタン／タブ初期表示の高速化）
 │   │   ├── kw-sidebar-enhancer-v1.0.3.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・手動配置・プレミアムプラグイン・v1.0.3 ライセンス認証の内部改修）
-│   │   ├── kw-sidebar-enhancer-v1.1.0.zip                        # サイドバー拡張 for kintone 配布ファイル（最新・プレミアムプラグイン・v1.1.0 変更履歴の制限（F-06）／ゲストスペースの組織・グループ指定／多言語対応）
+│   │   ├── kw-sidebar-enhancer-v1.1.0.zip                        # サイドバー拡張 for kintone 配布ファイル（旧版・参考保管・プレミアムプラグイン・v1.1.0 変更履歴の制限（F-06）／ゲストスペースの組織・グループ指定／多言語対応）
+│   │   ├── kw-sidebar-enhancer-v1.1.1.zip                        # サイドバー拡張 for kintone 配布ファイル（最新・2026-11-19・v1.1.1：広告を共通版（閉じてから3時間で再表示）に更新・版上げのみ）／ゲストスペースの組織・グループ指定／多言語対応）
 │   │   ├── kw-status-bulk-action-v1.0.0.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-status-bulk-action-v1.0.1.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-status-bulk-action-v1.0.2.zip                      # ステータス一括実行 for kintone 配布ファイル（旧版・参考保管）
@@ -2199,7 +2203,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-file-export-v1.0.2.zip                            # 添付ファイル出力 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-file-export-v1.1.0.zip                            # 添付ファイル出力 for kintone 配布ファイル（旧版・手動配置・v1.1.0 レコード詳細画面で添付を縮小画像で並べ、ファイル単位で選んで出力／原寸の拡大表示／ZIP か1点ずつを選択）
 │   │   ├── kw-file-export-v1.2.0.zip                            # 添付ファイル出力 for kintone 配布ファイル（最新・2026-11-06・v1.2.0 多言語対応（日本語・英語・中国語）・ゲストスペースで所属組織・グループによる条件が効かないことがある不具合を修正・ブリッジ連携・設定画面の色の欄にカラーパレット）
-│   │   ├── kw-file-export-v1.2.1.zip  # 配布ファイル（最新・2026-11-07・v1.2.1：版上げ）
+│   │   ├── kw-file-export-v1.2.1.zip  # 配布ファイル（旧版・参考保管・v1.2.1：版上げ）
+│   │   ├── kw-file-export-v1.2.2.zip  # 配布ファイル（最新・2026-11-19・v1.2.2：広告を共通版（閉じてから3時間で再表示）に更新・版上げのみ）
 │   │   ├── kw-design-pro-v1.5.0.zip    # デザイン Pro for kintone 配布ファイル（最新・2026-11-13・v1.5.0：ユーザーオートフィル v1.5.0・テーマスタイラー v1.4.2 を取り込み）
 │   │   ├── kw-design-pro-v1.3.2.zip    # デザイン Pro for kintone 配布ファイル（旧版・2026-11-12・v1.3.2：帳票デザイナー v1.9.2・ユーザーオートフィル v1.4.1 を取り込み・保管アプリの候補は同じスペースだけ）
 │   │   ├── kw-design-pro-v1.3.1.zip    # デザイン Pro for kintone 配布ファイル（旧版・2026-11-10・v1.3.1：帳票デザイナー v1.9.1 を取り込み・英語／中国語表示の保管アプリの［対応させる］が通る）
@@ -2234,7 +2239,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-text-join-v1.3.0.zip                               # 文字列結合 for kintone 配布ファイル（旧版・v1.3.0 適用する条件でルールを使い分け／保存した後の結合し直し／一括反映は出力先ごと）
 │   │   ├── kw-text-join-v1.4.0.zip                               # 文字列結合 for kintone 配布ファイル（旧版・v1.4.0 コピーボタン）
 │   │   ├── kw-text-join-v1.5.0.zip                               # 文字列結合 for kintone 配布ファイル（最新・v1.5.0 日付の年だけ・月だけの書式／多言語対応）
-│   │   ├── kw-text-join-v1.5.1.zip  # 配布ファイル（最新・2026-11-07・v1.5.1：版上げ）
+│   │   ├── kw-text-join-v1.5.1.zip  # 配布ファイル（旧版・参考保管・v1.5.1：版上げ）
+│   │   ├── kw-text-join-v1.5.2.zip  # 配布ファイル（最新・2026-11-19・v1.5.2：広告を共通版（閉じてから3時間で再表示）に更新・版上げのみ）
 │   │   ├── kw-theme-styler-v1.0.0.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-theme-styler-v1.0.1.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-theme-styler-v1.1.0.zip                            # テーマスタイラー for kintone 配布ファイル（旧版・手動配置・v1.1.0 詳細画面/明細ヘッダーの個別カラー指定＋設定画面v2レイアウト刷新）
