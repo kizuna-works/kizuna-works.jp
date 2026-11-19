@@ -244,4 +244,4 @@ kintoneが「一部の部署でしか使われていない」という状態は�
 - [ルックアップとは（用語集）](/glossary/lookup/) — 用語の意味と関連レコード一覧との違い
 - [kintone 2026年6月アップデート](/blog/kintone-2026-06-update/) — kintone AIの正式提供とOR検索
 - [kintoneが定着しない理由](/blog/kintone-teichaku-shinai-riyu/) — 利用状況の読み解きと打ち手
-- [kintoneプラグイン一覧](/plugins/) — 無料で使えるプラグインをまとめて掲載
+- [kintone無料プラグイン一覧](/plugins/) — 無料で使えるプラグインを目的別にまとめて掲載

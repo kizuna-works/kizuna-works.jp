@@ -1,6 +1,6 @@
 ---
-title: "kintoneの検索・絞り込みを改善するプラグイン比較【2026年版】"
-description: "kintoneの検索・絞り込みを改善するプラグインを徹底比較。一覧テキスト絞り込み検索（TIS）・検索プラグイン（JCS）・文字検索プラグイン（rex0220）・クイックサーチ（KIZUNA Works）の4製品を価格・機能・用途別に整理し、失敗しない選び方を解説します。"
+title: "kintone検索プラグイン比較｜一覧テキスト絞り込み検索（TIS）など4製品の違い【2026年版】"
+description: "kintoneの一覧テキスト絞り込み検索プラグイン（TIS）・検索プラグイン（JCS）・文字検索プラグイン（rex0220）・クイックサーチの4製品を、価格・AND/OR検索・ドロップダウンでの絞り込み・1文字検索・モバイル対応で比較し、用途別の選び方を解説します。"
 pubDate: 2026-05-03
 updatedDate: 2026-09-21
 author: "KIZUNA Works"
@@ -162,7 +162,7 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [クイックサーチ（無料）](/plugins/quick-search/) — 一覧画面にインライン検索バーを追加するKIZUNA Works製プラグイン
 - [kintoneプラグインのおすすめと選び方（やりたいこと別）](/blog/kintone-muryou-plugin-osusume/) — 検索以外も含め、無料で使えるプラグインを目的別に整理
 - [ルックアップサジェスト（無料）](/plugins/lookup-suggest/) — ルックアップ入力時に候補をリアルタイム表示するKIZUNA Works製プラグイン
-- [プラグイン一覧](/plugins/) — KIZUNA Worksが提供するすべてのkintoneプラグイン
+- [kintone無料プラグイン一覧](/plugins/) — KIZUNA Worksが無料で配布するすべてのkintoneプラグイン
 - [kintoneの困りごとから探す](/plugins/problems/) — 「目的のレコードが探せない」などの困りごとから解決プラグインを引ける索引
 
 👉 [お問い合わせはこちら](/contact/)

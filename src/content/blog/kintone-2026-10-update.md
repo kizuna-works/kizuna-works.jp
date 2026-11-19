@@ -255,4 +255,4 @@ iPadアプリやダッシュボードは、有効にするかどうかを管理�
 - [kintone 2026年8月アップデート](/blog/kintone-2026-08-update/) — ルックアップのchangeイベント正式化
 - [kintone 2026年6月アップデート](/blog/kintone-2026-06-update/) — kintone AIの正式提供とOR検索
 - [kintone 2026年のアップデートまとめ](/blog/kintone-2026-update/) — 年間の変更点を一覧で確認
-- [kintoneプラグイン一覧](/plugins/) — 無料で使えるプラグインをまとめて掲載
+- [kintone無料プラグイン一覧](/plugins/) — 無料で使えるプラグインを目的別にまとめて掲載

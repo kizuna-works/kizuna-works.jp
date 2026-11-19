@@ -305,7 +305,7 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [【2026年4月最新】kintoneアップデート総まとめ](/blog/kintone-2026-04-update/) — ルックアップ検索の強化など最新仕様を解説
 - [ルックアップサジェスト（無料）](/plugins/lookup-suggest/) — 入力中に候補を表示し、画面遷移なしで取得を完結
 - [ルックアップ自動同期](/plugins/lookup-sync/) — マスタ更新を参照先の既存レコードへ自動で反映
-- [プラグイン一覧](/plugins/) — KIZUNA Worksが提供するすべてのkintoneプラグイン
+- [kintone無料プラグイン一覧](/plugins/) — KIZUNA Worksが無料で配布するすべてのkintoneプラグイン
 
 👉 [お問い合わせはこちら](/contact/)
 

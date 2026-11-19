@@ -52,7 +52,7 @@ relatedPlugins: ["conditional-form", "field-styler", "quick-tab"]
 
 ![kintoneの標準機能でできる出し分けとできない出し分けの対比。OKは人によって出し分けるもので、フィールドのアクセス権でユーザー・組織・グループごとに閲覧や編集を制限できる。NGは入力値によって出し分けるもので、区分が法人なら会社名を出すような設定はフォームの設定にない](/images/blog/kintone-jouken-bunki-standard.png)
 
-「kintone 条件分岐」で調べると、プロセス管理の分岐の話もよく出てきます。承認経路を金額で分けたい場合は、[kintoneプロセス管理の使い方](/blog/kintone-process-management/)で設定手順を解説しています。この記事で扱うのは、**入力画面の項目そのもの**を出し分ける話です。
+「kintone 条件分岐」で調べると、プロセス管理の分岐の話もよく出てきます。承認経路を金額で分けたい場合は、[kintoneのプロセス管理で条件分岐する方法](/blog/kintone-process-management/)で設定手順を解説しています。この記事で扱うのは、**入力画面の項目そのもの**を出し分ける話です。
 
 ## 条件分岐を入れたくなる業務の例
 
@@ -377,7 +377,7 @@ JavaScriptで同じことをすると、プロセス管理のイベントと入�
 
 - [条件分岐フォーム for kintone](/plugins/conditional-form/) — 条件で項目の表示・必須・読み取り専用・自動入力を切り替える
 - [フィールドスタイラー for kintone](/plugins/field-styler/) — 大事な項目に色を付けて目立たせる
-- [kintoneプラグイン一覧](/plugins/) — 無料で使えるプラグインをまとめて掲載
+- [kintone無料プラグイン一覧](/plugins/) — 無料で使えるプラグインを目的別にまとめて掲載
 
 アプリの設計やカスタマイズのご相談は、[お問い合わせ](/contact/)からお気軽にご連絡ください。
 

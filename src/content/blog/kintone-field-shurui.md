@@ -228,4 +228,4 @@ kintoneのフィールドは、見た目や入力の決まりを細かく変え�
 - [kintoneの計算フィールドの使い方](/blog/kintone-keisan-field/) — 式の書き方とよくあるエラー
 - [kintoneのテーブルの使い方](/blog/kintone-table-tsukaikata/) — 明細の作り方と集計
 - [kintoneのルックアップの使い方と設定方法](/blog/kintone-lookup-kaisetsu/) — ほかのアプリの値を取り込む
-- [kintoneプラグイン一覧](/plugins/) — 無料で使えるプラグインをまとめて掲載
+- [kintone無料プラグイン一覧](/plugins/) — 無料で使えるプラグインを目的別にまとめて掲載

@@ -1,6 +1,6 @@
 ---
-title: "【2026年版】kintoneのバックアップ方法｜サイボウズ標準の限界とサービス比較"
-description: "kintoneのバックアップ方法を基本から解説。サイボウズ標準の範囲と「削除レコードは戻せない」限界、CSV書き出し・テンプレートの使い方、kBackupなど自動バックアップサービス、誤削除に備える無料プラグインまで、目的別の選び方を実務目線で整理します。"
+title: "【2026年版】サイボウズkintoneのバックアップ方法｜標準でできること・できないことと自動化"
+description: "サイボウズのkintoneでバックアップを取る方法を解説。標準機能（CSV書き出し・テンプレート・14日以内の復旧）でできることと「削除したレコードは戻せない」限界、kBackupなどの自動バックアップサービス、誤削除に備える無料プラグインまで目的別に比較します。"
 pubDate: 2026-07-24
 author: "KIZUNA Works"
 tags: ["kintone", "バックアップ", "CSV", "データ保護", "プラグイン"]
@@ -179,7 +179,7 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [かんたんCSV出力 for kintone](/plugins/csv-export/) — 一覧の絞り込み結果を用途別テンプレートでCSV出力
 - [kintoneのCSV読み込み・書き出し完全ガイド](/blog/kintone-csv-import-export/) — 手順・文字化け・サブテーブル取り込みの限界まで
 - [kintoneの添付ファイルとは（用語集）](/glossary/file/) — 添付ファイルフィールドの基本と一覧での扱い
-- [プラグイン一覧](/plugins/) — KIZUNA Worksが提供するすべてのkintoneプラグイン
+- [kintone無料プラグイン一覧](/plugins/) — KIZUNA Worksが無料で配布するすべてのkintoneプラグイン
 
 👉 [お問い合わせはこちら](/contact/)
 

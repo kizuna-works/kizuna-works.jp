@@ -273,4 +273,4 @@ kintone標準ではできません。方法は3つあります。1ファイル�
 - [添付ファイル出力 for kintone](/plugins/file-export/) — 一覧の絞り込み結果をフォルダ分けしたZIPで一括ダウンロード（無料）
 - [kintoneのバックアップはどうする？](/blog/kintone-backup/) — 添付まで保全する手段の比較
 - [kintoneのCSV読み込み・書き出し完全ガイド](/blog/kintone-csv-import-export/) — 書き出しの手順と注意点
-- [kintoneプラグイン一覧](/plugins/) — 無料で使えるプラグインをまとめて掲載
+- [kintone無料プラグイン一覧](/plugins/) — 無料で使えるプラグインを目的別にまとめて掲載

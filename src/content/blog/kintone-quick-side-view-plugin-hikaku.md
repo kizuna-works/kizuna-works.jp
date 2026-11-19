@@ -237,7 +237,7 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [【2026年最新】kintoneルックアップを快適にするプラグイン比較](/blog/kintone-lookup-plugin-hikaku/) — 入力の手間を解消する4つのアプローチを比較。閲覧・編集の効率化とあわせて入力負担も軽減
 - [クイックサイドビュー（無料）](/plugins/quick-side-view/) — 一覧画面で行クリック→サイドバーで最大5件のレコードを並列表示・編集
 - [クイックサーチ（無料）](/plugins/quick-search/) — 一覧画面にインライン検索バーを追加するKIZUNA Works製プラグイン
-- [プラグイン一覧](/plugins/) — KIZUNA Worksが提供するすべてのkintoneプラグイン
+- [kintone無料プラグイン一覧](/plugins/) — KIZUNA Worksが無料で配布するすべてのkintoneプラグイン
 
 👉 [お問い合わせはこちら](/contact/)
 👉 [kintoneプラグインを無料で見る](/plugins/)
