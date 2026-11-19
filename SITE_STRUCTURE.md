@@ -1687,7 +1687,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-csv-export-v1.4.1.zip                              # かんたんCSV出力 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-csv-export-v1.5.0.zip                              # かんたんCSV出力 for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-csv-export-v1.6.0.zip                              # かんたんCSV出力 for kintone 配布ファイル（最新・v1.6.0 行の並び順の指定・一覧の条件を読み取れないときの全件出力を修正）
-│   │   ├── kw-csv-export-v1.8.1.zip  # 配布ファイル（最新・2026-11-07・v1.8.1：版上げ）
+│   │   ├── kw-csv-export-v1.8.1.zip  # 配布ファイル（旧版・参考保管・v1.8.1：版上げ）
+│   │   ├── kw-csv-export-v1.8.2.zip  # 配布ファイル（最新・2026-11-19・v1.8.2：広告を共通版（閉じてから3時間で再表示）に更新・版上げのみ）
 │   │   ├── kw-dashboard-v1.1.0.zip                               # ダッシュボード for kintone 配布ファイル（手動配置・プレミアムプラグイン第2弾・無料/プレミアム共通zip・v1.1.0=ポータルレイアウト構成）
 │   │   ├── kw-dashboard-v1.1.1.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-dashboard-v1.1.2.zip                               # ダッシュボード for kintone 配布ファイル（旧版・参考保管）
@@ -1826,7 +1827,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-field-comment-v1.1.1.zip                           # フィールドコメント for kintone 配布ファイル（旧版・手動配置・v1.1.1 フィールド名非表示フィールドのコメント誤付着を修正＋入力欄直上に表示＋ラベル改称後も追従）
 │   │   ├── kw-field-comment-v1.1.2.zip                           # フィールドコメント for kintone 配布ファイル（旧版・手動配置・v1.1.2 ライセンス認証の内部改修）
 │   │   ├── kw-field-comment-v1.2.0.zip                           # フィールドコメント for kintone 配布ファイル（旧版・手動配置・v1.2.0 グループの見出し・ラベルへのコメント＋同名フィールドでも正しい欄に表示）
-│   │   ├── kw-field-comment-v1.3.0.zip                           # フィールドコメント for kintone 配布ファイル（最新・手動配置・v1.3.0 色の欄に共通カラーパレット＋日本語／英語／中国語（簡体字）表示）
+│   │   ├── kw-field-comment-v1.3.0.zip                           # フィールドコメント for kintone 配布ファイル（旧版・参考保管・手動配置・v1.3.0 色の欄に共通カラーパレット＋日本語／英語／中国語（簡体字）表示）
+│   │   ├── kw-field-comment-v1.3.1.zip                           # フィールドコメント for kintone 配布ファイル（最新・2026-11-19・v1.3.1：広告を共通版（閉じてから3時間で再表示）に更新・版上げのみ）表示）
 │   │   ├── kw-field-styler-v1.1.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-field-styler-v1.2.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-field-styler-v2.0.0.zip                            # フィールドスタイラー for kintone 配布ファイル（旧版・参考保管）
@@ -1873,7 +1875,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-file-pro-v1.8.0.zip  # 配布ファイル（最新・2026-11-12・v1.8.0：カードボードからのプレビュー・PDF編集アシスト v1.5.2 を取り込み。お知らせ・UPDATE ボックスなし）
 │   │   ├── kw-form-deco-v1.0.3.zip                               # FormDeco for kintone 配布ファイル（手動配置・v1.0.3 ライセンス認証の内部改修＋設定画面レイアウト統一）
 │   │   ├── kw-form-deco-v1.1.0.zip                               # FormDeco for kintone 配布ファイル（旧版・2026-10-31・v1.1.0：コールアウト・リンク/ボタン・折りたたみ見出し・上部に固定・改ページ・「画面と印刷」の出し分け・カラーパレット）
-│   │   ├── kw-form-deco-v1.2.0.zip                               # FormDeco for kintone 配布ファイル（最新・2026-10-31・v1.2.0：設定画面が日本語/英語/中国語（簡体字）対応）
+│   │   ├── kw-form-deco-v1.2.0.zip                               # FormDeco for kintone 配布ファイル（旧版・参考保管・v1.2.0：設定画面が日本語/英語/中国語（簡体字）対応）
+│   │   ├── kw-form-deco-v1.2.1.zip                               # FormDeco for kintone 配布ファイル（最新・2026-11-19・v1.2.1：広告を共通版（閉じてから3時間で再表示）に更新・版上げのみ）対応）
 │   │   ├── kw-horizontal-sheet-v1.1.0.zip                        # 横並びシート for kintone 配布ファイル（最新・2026-11-16・v1.1.0：多言語〔日英中〕・一覧シートでの更新と新規を KIZUNAブリッジへ通知・計算フィールドの日時と小数をフィールドの設定どおりに表示・日時をユーザーのタイムゾーンで扱う・並べ替えのドラッグで自動スクロール・色の欄に共通カラーパレット・広告と設定画面の案内を共通版に）
 │   │   ├── kw-input-assist-v1.0.0.zip                            # 入力アシスト for kintone 配布ファイル（旧版・参考保管）
 │   │   ├── kw-input-assist-v1.0.1.zip                            # 入力アシスト for kintone 配布ファイル（旧版・参考保管）
