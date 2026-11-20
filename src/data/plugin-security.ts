@@ -396,6 +396,15 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-my-shortcut': {
+    extraComm: [
+      {
+        label: '登録の保存と読み込み・保管アプリの作成（自ドメイン内）',
+        detail:
+          '登録したキーと値は、外部のサーバーには送りません。利用者の kintone の中にある「保管アプリ」に保存し、読み込みもそこから行います。自ドメインの kintone REST API を使うのは次の場合だけです。①レコード画面を開いたとき、保管アプリの登録を読み込む（/k/v1/records の GET。画面ごとに1回）。②登録・編集・削除の操作をしたとき、保管アプリのレコードを保存する（/k/v1/record の POST・PUT、/k/v1/records の DELETE）。③テーブル内のフィールドを扱うとき、フィールドの位置を特定する（/k/v1/app/form/fields・/k/v1/app/form/layout の GET）。④設定画面で、保管アプリの検出とフィールドの一覧を取得する。⑤設定画面で管理者が［保管アプリを作成］を押したときだけ、保管アプリを作る（/k/v1/preview/app 系）。個人の登録はレコードのアクセス権で本人だけが見られ、共通の登録は設定で指定した管理者が作ったものだけを有効にします。いずれもゲストスペースに対応しています。',
+      },
+    ],
+  },
   'kw-text-join': {
     extraComm: [
       {

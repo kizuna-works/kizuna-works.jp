@@ -1389,6 +1389,32 @@ export const plugins: Plugin[] = [
     releaseDate: '2026-11-08',
     summaryVersion: '1.4.0',
   },
+  {
+    id: 'kw-my-shortcut',
+    pluginId: 'bgmjillbibnhfneaioinfikoaigidicj',
+    name: 'マイショートカット for kintone',
+    formName: 'マイショートカット for kintone',
+    subtitle: 'kintone プラグイン',
+    slug: 'my-shortcut',
+    multilingual: true,
+    categories: ['自動入力'],
+    description:
+      'よく使う値（あいさつ文・住所・定型文など）を自分のショートカットキーに登録し、フィールドでキーを押すだけで入力できる kintone プラグイン。登録は Ctrl+I、一覧は Ctrl+P（設定で変更可）。画面にボタンは置かず、登録のあるフィールドにカーソルを入れたときだけ「⌨ 件数」の印が出ます。本人だけが見える個人の登録と、設定で指定した管理者が作る全員共通の登録があり、1件の値は最大 5,000 字。文字列・複数行・リッチエディター（カーソル位置に差し込み）・数値などと、テーブル内のフィールドに対応。除外するフィールドも設定できます。印の位置・マーク・色・大きさは設定で変えられます。登録は保管アプリに保存（ゲストスペースではそのスペース内に作成）。多言語対応。',
+    image: '/images/my-shortcut-banner.png',
+    imageAlt:
+      'マイショートカット for kintone プラグイン — よく使う値を自分のショートカットキーに登録し、フィールドでキーを押すだけで入力できる',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    price: 0,
+    cardDescription:
+      'よく使う値を自分のショートカットキーに登録し、フィールドでキーを押すだけで入力。個人の登録と全員共通の登録、テーブル内のフィールドにも対応。',
+    problemTitle: '同じあいさつ文や住所を、毎回打ち直している',
+    problemDesc:
+      '見積や日報で、あいさつ文・住所・部署名・定型の説明文を毎回コピーして貼り付けている。人によってよく使う文が違うので管理者が一律には設定できず、社内で決まった文を全員に使わせたくても徹底できない。明細行で同じ値を何度も入れる手間もかかる',
+    releaseDate: '2026-11-20',
+    summaryVersion: '1.0.0',
+  },
 ];
 
 /**
