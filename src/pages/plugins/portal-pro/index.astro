@@ -8,10 +8,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.1.0';
+const VERSION = '1.2.0';
 const ZIP = `/downloads/kw-portal-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/portal-pro/';
-const DATE_MODIFIED = '2026-11-19';
+const DATE_MODIFIED = '2026-11-21';
 
 // Screenshots are added later. A figure is drawn only when its file exists in public/images,
 // so the page never shows a broken image while the shots are still being taken.
@@ -358,7 +358,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.1.0",
+          "softwareVersion": "1.2.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -1372,7 +1372,7 @@ const faqJsonLd = {
           <ul>
             <li>表示されるのは、メインのポータル（1枚目）とスペースのポータルです。kintone 標準の「2枚目以降のポータル」には表示されません。ゲストスペースとゲストユーザーにも表示されません。</li>
             <li>画面は、ポータル・スペースの「ヘッダーとコンテンツの間」に表示されます。標準の表示を隠したいときは、設定画面の［全体設定］の「kintone 標準の表示」で、トップのポータルとスペースごとに選べます（既定は［隠さない］）。隠すのは、ポータル Pro の画面を表示できたときだけです。表示する画面が無い人・停止中・読み込みに失敗したときは、標準のままです。隠しているときは、画面の一番下の「kintone 標準の表示を開く」で、その間だけ戻せます。</li>
-            <li>「kintone 標準の表示」を変えたときは、ポータル用 JS をダウンロードし直して登録し直してください。登録し直すまでは、ブラウザで初めて開いたときだけ前の設定で動きます。</li>
+            <li>「kintone 標準の表示」を変えたときは、ポータル用 JS をダウンロードし直して登録し直してください。登録し直すまでは、ブラウザで初めて開いたときだけ前の設定で動きます。スペースに画面を置いた・外したときも、取り直すと、そのスペースを初めて開いたときから隠れます（取り直すまでは、2 回目から隠れます）。</li>
             <li>スマートフォンのスペースは、［すべて隠す］のときだけ隠れます。スマートフォンで初めて開いたときは、kintone の読み込みの順番の都合で、標準の画面が一瞬見えることがあります。</li>
             <li>非公開スペースは、kintone の作りの都合でポータル Pro の描画先が無いため、標準の表示を隠す設定の対象外です。</li>
             <li>ポータル用 JS の登録は、kintone システム管理者が手で行います。プラグインを更新したときも、ポータル用 JS をもう一度登録してください。</li>

@@ -278,7 +278,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── design-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】デザイン Pro for kintone 製品ページ（/plugins/design-pro/）v1.5.0（2026-11-13・第5弾・UPDATE ボックス＝テーブル内のユーザー選択から同じ行の欄へ転記・一覧で開くテーブルの見出し・保管アプリ未設定の案内。取り込んだユーザーオートフィル v1.5.0・テーマスタイラー v1.4.2。スクショ 2 枚＝user-autofill-v150-01・02 を流用。装飾など6つの機能＋表示パターン・印刷パターン・仕上げ・まとめ印刷・PDF の添付保存。配布 zip は public/downloads/kw-design-pro-v1.5.0.zip）
 │   │   │   ├── portal-pro/
-│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ポータル Pro for kintone 製品ページ（/plugins/portal-pro/）v1.1.0（2026-11-17・デザインの拡充・UPDATE ボックスあり）。メインのポータルとスペースのポータルをウィジェット20種・スタイル20種・ひな形14種・ヒーロー帯／左メニュー／最大幅で組み立てる。スクショは public/images/portal-pro-*.png が存在するときだけ表示（撮影前は文章のみ）。FAQ はページ内に直書き。配布 zip は public/downloads/kw-portal-pro-v1.1.0.zip
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ポータル Pro for kintone 製品ページ（/plugins/portal-pro/）v1.2.0（2026-11-21・標準の表示が設定どおりに隠れる修正・版上げのみでお知らせなし・UPDATE ボックスは v1.1.0〔デザインの拡充〕のまま）。メインのポータルとスペースのポータルをウィジェット20種・スタイル20種・ひな形14種・ヒーロー帯／左メニュー／最大幅で組み立てる。スクショは public/images/portal-pro-*.png が存在するときだけ表示（撮影前は文章のみ）。FAQ はページ内に直書き。配布 zip は public/downloads/kw-portal-pro-v1.2.0.zip
 │   │   │   ├── record-acl-assist/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】レコード権限アシスト 製品ページ（/plugins/record-acl-assist/）※2026-10-24 配布開始（v1.0.0・プレミアム第23弾・「リクエストから誕生」バッジ）／2026-10-29 v1.1.0＝UPDATE ボックス（組織・グループ・ユーザーを 1 つの設定で使う・対応表アプリに書き方を表示）／2026-11-18 v1.3.0＝UPDATE ボックス（設定画面の確認メッセージを kintone の画面内に表示）— レコードの内容に合わせて見られる組織・人を自動で設定。最初に当たったルールだけが使われる問題を、見せる相手を 1 つのフィールドへ入れて解く。上の組織・対応表・一括反映・保存前の確認・見せる相手の内訳・変更の記録・ルックアップ自動同期との連携
 │   │   │   ├── annotation/

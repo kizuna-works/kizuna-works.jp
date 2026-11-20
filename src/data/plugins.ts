@@ -1616,7 +1616,7 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       'メインのポータルやスペースは標準のままで、目的のアプリを探すのに手間がかかる。部署ごとに見たい数字や予定が違うのに、全員に同じ画面が出る。重要なお知らせが読まれたかも分からず、日報や申請の登録はアプリを開いてから。スマホには使いやすいホーム画面が無い',
     releaseDate: '2026-11-16',
-    summaryVersion: '1.1.0',
+    summaryVersion: '1.2.0',
   },
   {
     id: 'kw-report-designer',
