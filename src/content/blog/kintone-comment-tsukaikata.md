@@ -122,5 +122,6 @@ kintone標準のコメント件数バッジを活かしつつ、自分宛メン�
 - [kintoneの一覧を見やすくするプラグイン比較｜列固定・行の色分け](/blog/kintone-list-styler-plugin-hikaku/)
 - [kintone一覧でレコードを閲覧・編集できるプラグイン比較](/blog/kintone-quick-side-view-plugin-hikaku/)
 - [kintoneが「使いにくい」と言われる原因と定着のコツ](/blog/kintone-tsukainikunai-genin/)
+- [kintoneの変更履歴の見方と保存期間｜CSV出力できない理由と代わりの残し方](/blog/kintone-henkou-rireki/)
 - チームの伝達・対応漏れ防止には [付箋ボード for kintone](/plugins/sticky-board/) も便利です
 - 導入のご相談は [お問い合わせ](/contact/) からどうぞ
