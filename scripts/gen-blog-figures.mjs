@@ -805,6 +805,73 @@ const FIGURES = [
       { n: '3', name: 'プラグイン', desc: '画面で組み立てる。人ごとの出し分けや入力も、コードを書かずに。', cost: '有料' },
     ]),
   },
+  {
+    name: 'kintone-app-renkei-scenes',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: '受注を承認したら在庫を減らす', desc: '在庫アプリを開き、商品ごとに数量を手で引いている。', tag: '受注 > 在庫', paid: false },
+      { n: '2', name: '案件が完了したら請求を作る', desc: '完了した案件を探して、顧客・金額・担当を請求に写している。', tag: '案件 > 請求', paid: false },
+      { n: '3', name: '日報の工数を案件に集計する', desc: '月末に日報を案件ごとに絞り込み、合計を書き写している。', tag: '日報 > 案件', paid: false },
+      { n: '4', name: '入金を請求に反映する', desc: '入金のたびに請求を探し、入金済の金額を電卓で足している。', tag: '入金 > 請求', paid: false },
+      { n: '5', name: '本社と拠点の顧客をそろえる', desc: '住所や電話番号の変更を、2つのアプリでそれぞれ直している。', tag: '双方向', paid: false },
+    ]),
+  },
+  {
+    name: 'kintone-app-renkei-standard',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: 'ルックアップ', desc: '取得した時点の値をコピーするだけ。元のアプリを直しても自動では変わらない。', tag: '読むだけ', paid: true },
+      { n: '2', name: '関連レコード一覧', desc: '条件に合う他のアプリのレコードを表示する。値の書き込みや集計はできない。', tag: '見るだけ', paid: true },
+      { n: '3', name: 'アプリアクション', desc: 'ボタンで他のアプリの新規作成画面を開き、値を写す。保存は人が行う。', tag: '作成だけ', paid: true },
+      { n: '4', name: 'プロセス管理', desc: '承認の流れを作れるが、動かせるのはそのアプリのレコードだけ。', tag: 'アプリ内', paid: true },
+      { n: '5', name: 'Webhook', desc: '更新を外部のサービスへ知らせる仕組み。受け取って書き込む側が別に要る。', tag: '外部へ通知', paid: true },
+    ]),
+  },
+  {
+    name: 'kintone-app-renkei-methods',
+    w: 1000, h: 330,
+    el: overviewMethods([
+      { n: '1', name: 'JavaScriptで自作', desc: 'REST APIで他のアプリを読み書きする。自由だが、書く人と保守が要る。', cost: '要開発' },
+      { n: '2', name: '外部の連携サービス', desc: 'kintoneの外でデータを処理して書き戻す。定期の一括処理に強い。', cost: '別契約' },
+      { n: '3', name: 'プラグイン', desc: 'アプリの設定画面でルールを組む。保存やアクションと同時に動く。', cost: '設定のみ' },
+    ]),
+  },
+  {
+    name: 'kintone-app-renkei-rule',
+    w: 1000, h: 210,
+    el: flowCaptioned(['1 きっかけ\nいつ動かすか', '2 条件\nどんなときに', '3 動かす内容\n何をするか'], C.navy, '例：［承認する］を実行した後に、いつも、在庫アプリの在庫数から明細の数量を引く'),
+  },
+  {
+    name: 'kintone-app-renkei-stock-flow',
+    w: 1000, h: 210,
+    el: flowCaptioned(['受注で\n［承認する］', '在庫アプリで\n同じ商品を探す', '明細の行ごとに\n在庫数から引く', '［取消］なら\n同じ数を足す'], C.navy, '承認と同時に在庫が減る。取り消しのルールも並べておけば、在庫が戻る'),
+  },
+  {
+    name: 'kintone-app-renkei-billing-flow',
+    w: 1000, h: 210,
+    el: flowCaptioned(['案件で\n［完了にする］', '請求アプリに\nレコードを作る', '顧客・金額・担当\nを写す', '請求番号は\n採番プラグインで'], C.green, '完了にした時点で請求ができる。書き込み先のアプリの採番も同時に当てられる'),
+  },
+  {
+    name: 'kintone-app-renkei-hours-flow',
+    w: 1000, h: 210,
+    el: flowCaptioned(['案件の一覧で\nボタンを押す', '日報を\n案件番号で集める', '工数を\n合計する', '案件の\n実績工数へ'], C.navy, '絞り込んだ案件の実績工数を、日報からまとめて集計し直す'),
+  },
+  {
+    name: 'kintone-app-renkei-payment-flow',
+    w: 1000, h: 210,
+    el: flowCaptioned(['入金を\n新規で保存', '請求アプリで\n請求番号を探す', '入金済額に\n入金額を足す', '締めた請求は\nロックで守る'], C.green, '新規作成の保存だけで動かすので、あとから入金を開いて保存しても二重には足さない'),
+  },
+  {
+    name: 'kintone-app-renkei-safety',
+    w: 1000, h: 596,
+    el: overview5([
+      { n: '1', name: '動かした人の権限で書く', desc: 'その人が編集できないレコードは書き換えない。権限の設計はそのまま効く。', tag: '権限', paid: false },
+      { n: '2', name: '書き込む前に試せる', desc: '今あるレコードで、どのルールが何をどこへ書くかを、書き込まずに確かめる。', tag: 'ルールを試す', paid: false },
+      { n: '3', name: '失敗は記録して再実行', desc: '書き込めなかったものは理由とともに残り、原因を直してからやり直せる。', tag: '実行の記録', paid: false },
+      { n: '4', name: 'CSVで入れた分はあとから流す', desc: '画面を通らずに入ったレコードにも、条件で絞ってルールをまとめて当てる。', tag: 'あとから流す', paid: false },
+      { n: '5', name: 'つながりを図で確かめる', desc: 'どのアプリを読み、どこへ書くかを一覧にし、輪になる連鎖は警告する。', tag: '連携の流れ', paid: false },
+    ]),
+  },
 ];
 
 // The bundled Noto Sans JP WOFF is a subset without arrows and similar symbols;
