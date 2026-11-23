@@ -1,0 +1,124 @@
+---
+// English installation guide for KIZUNA Works kintone plugins (no Japanese pair:
+// each Japanese product page carries its own steps).
+import Layout from '../../layouts/Layout.astro';
+
+const SITE = 'https://kizuna-works.jp';
+const url = `${SITE}/en/install/`;
+const title = 'How to Install a kintone Plugin (Step by Step) | KIZUNA Works';
+const description = 'How to install a KIZUNA Works plugin in kintone: import the zip in kintone Administration, add it to an app, configure it and update the app. Also how to update to a new version and remove a plugin.';
+
+const steps = [
+  { name: 'Download the plugin zip file', text: 'Download the zip file from the plugin page. Keep it as a zip file; do not unzip it.' },
+  { name: 'Import the plugin into kintone', text: 'Open the gear menu at the top right of kintone, choose kintone Administration, then Plug-ins. Click Import, select the zip file and click Import. This needs kintone administrator rights.' },
+  { name: 'Add the plugin to an app', text: 'Open the app, click the gear icon (App Settings), open the Plug-ins section in the App Settings tab, click Add Plug-in, tick the plugin and click Add.' },
+  { name: 'Configure the plugin', text: "Click the gear icon (Settings) next to the plugin in the app's plug-in list, make your settings and click Save." },
+  { name: 'Update the app', text: 'Click Update App at the top right of App Settings. The plugin starts working once the app is updated.' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': url,
+      url,
+      name: title,
+      description,
+      inLanguage: 'en',
+      dateModified: '2026-11-23',
+      isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: `${SITE}/en/` },
+    },
+    {
+      '@type': 'HowTo',
+      name: 'How to install a KIZUNA Works plugin in kintone',
+      description,
+      inLanguage: 'en',
+      step: steps.map((s, i) => ({ '@type': 'HowToStep', position: i + 1, name: s.name, text: s.text })),
+    },
+  ],
+};
+---
+<Layout
+  lang="en"
+  title={title}
+  description={description}
+  canonical={url}
+  ogTitle={title}
+  ogDescription={description}
+  ogUrl={url}
+  ogType="website"
+  ogImage={`${SITE}/images/ogp.png`}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <main class="eni">
+    <section class="eni-hero">
+      <div class="eni-wrap">
+        <h1>How to install a kintone plugin</h1>
+        <p>Every KIZUNA Works plugin installs the same way, in about five minutes. You need kintone administrator rights for step 2 and app management rights for steps 3 to 5.</p>
+      </div>
+    </section>
+
+    <section class="eni-sec">
+      <div class="eni-wrap">
+        <h2>Before you start</h2>
+        <ul class="eni-list">
+          <li><span>Your kintone plan must support plug-ins. In Japan this is the Standard Course or higher; the Lite Course does not support plug-ins.</span></li>
+          <li><span>Works with kintone on cybozu.com and kintone.com.</span></li>
+          <li><span>The plugins show their screens in English, Japanese or Chinese, following each user's kintone language setting.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="eni-sec is-alt">
+      <div class="eni-wrap">
+        <h2>Install in 5 steps</h2>
+        <ol class="eni-steps">
+          {steps.map((s) => (
+            <li><span><strong>{s.name}.</strong> {s.text}</span></li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="eni-sec">
+      <div class="eni-wrap">
+        <h2>Updating to a new version</h2>
+        <p>Download the new zip file and import it again from <strong>kintone Administration</strong> &gt; <strong>Plug-ins</strong> &gt; <strong>Import</strong>. The new version replaces the old one in every app that uses it, and your settings are kept. You do not need to add the plugin to the apps again.</p>
+
+        <h2>Removing a plugin</h2>
+        <p>To stop using a plugin in one app, open <strong>App Settings</strong> &gt; <strong>Plug-ins</strong>, remove it and click <strong>Update App</strong>. To remove it from kintone completely, first remove it from every app, then delete it in <strong>kintone Administration</strong> &gt; <strong>Plug-ins</strong>.</p>
+
+        <h2>Need help?</h2>
+        <p>Write to us in English from the <a href="/en/contact/">contact page</a>. Tell us the plugin name and version, and what you see on screen.</p>
+        <p><a href="/en/plugins/" class="eni-btn">Browse the plugins</a></p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style is:global>
+  /* English install guide */
+  .eni { flex: 1; min-width: 0; background: #fff; color: #333; }
+  .eni-wrap { max-width: 900px; margin: 0 auto; padding: 0 20px; min-width: 0; }
+  .eni-hero { background: linear-gradient(135deg, #1B3A6B 0%, #224a85 100%); color: #fff; padding: 44px 0; }
+  .eni-hero h1 { margin: 0 0 14px; font-size: clamp(26px, 4.2vw, 38px); line-height: 1.25; }
+  .eni-hero p { margin: 0; font-size: 17px; line-height: 1.75; }
+  .eni-sec { padding: 44px 0; }
+  .eni-sec.is-alt { background: #F0F4F8; }
+  .eni-sec h2 { margin: 0 0 16px; color: #1B3A6B; font-size: clamp(21px, 3vw, 26px); }
+  .eni-sec p + h2 { margin-top: 32px; }
+  .eni-sec p { line-height: 1.8; overflow-wrap: anywhere; }
+  .eni-sec a { color: #1B3A6B; }
+  .eni-list { margin: 0; padding-left: 20px; display: grid; gap: 8px; line-height: 1.7; }
+  .eni-steps { list-style: none; counter-reset: enistep; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .eni-steps li { counter-increment: enistep; display: flex; gap: 16px; align-items: flex-start; min-width: 0; background: #fff; border-radius: 10px; padding: 16px 18px; }
+  .eni-steps li::before { content: counter(enistep); flex: none; width: 32px; height: 32px; border-radius: 50%; background: #1B3A6B; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .eni-steps li span { min-width: 0; line-height: 1.75; overflow-wrap: anywhere; }
+  .eni-steps strong { color: #1B3A6B; }
+  .eni-btn { display: inline-block; padding: 12px 26px; border-radius: 999px; background: #2E8B2E; color: #fff !important; font-weight: 700; text-decoration: none; }
+  .eni-btn:hover { background: #35a035; }
+</style>

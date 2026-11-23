@@ -1,0 +1,320 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const title = 'Contact | KIZUNA Works';
+const description =
+  'Contact KIZUNA Works by email in English about kintone plugins: questions, bug reports, quotes and trials for paid plugins. Replies within 2-3 business days.';
+const pageUrl = 'https://kizuna-works.jp/en/contact/';
+const mailto = 'mailto:info@kizuna-works.jp?subject=' + encodeURIComponent('Inquiry from kizuna-works.jp');
+---
+
+<Layout
+  lang="en"
+  title={title}
+  description={description}
+  ogTitle={title}
+  ogDescription={description}
+  ogUrl={pageUrl}
+  ogType="website"
+  ogImage="https://kizuna-works.jp/images/ogp.png"
+  canonical={pageUrl}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": ["WebPage", "ContactPage"],
+          "@id": "https://kizuna-works.jp/en/contact/",
+          "url": "https://kizuna-works.jp/en/contact/",
+          "name": "Contact | KIZUNA Works",
+          "description": "Contact KIZUNA Works by email in English about kintone plugins.",
+          "inLanguage": "en",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://kizuna-works.jp/#organization",
+          "name": "KIZUNA Works",
+          "url": "https://kizuna-works.jp/",
+          "email": "info@kizuna-works.jp",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "email": "info@kizuna-works.jp",
+            "availableLanguage": ["English", "Japanese"]
+          }
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+  <style is:global>
+    body { background-color: #f4f7f6; }
+
+    .page-header {
+      background:
+        linear-gradient(135deg, rgba(27,58,107,0.45) 0%, rgba(42,82,152,0.4) 100%),
+        url('/images/contact-bg.webp') center center / cover no-repeat;
+      color: #FFFFFF;
+      padding: 60px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-section {
+      background-color: #f4f7f6;
+      padding: 80px 20px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .contact-card {
+      background-color: #FFFFFF;
+      max-width: 700px;
+      margin: 0 auto;
+      border-radius: 20px;
+      padding: 60px 40px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #1B3A6B, #2E8B2E);
+    }
+
+    .contact-intro {
+      text-align: center;
+    }
+
+    .contact-icon {
+      width: 80px;
+      height: 80px;
+      background: #F0F4F8;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: #1B3A6B;
+    }
+
+    .contact-icon svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    .contact-card h2 {
+      font-size: 1.6rem;
+      color: #1B3A6B;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .contact-card h3 {
+      font-size: 1.15rem;
+      color: #1B3A6B;
+      font-weight: 700;
+      margin: 36px 0 12px;
+      padding-left: 12px;
+      border-left: 4px solid #2E8B2E;
+      line-height: 1.4;
+    }
+
+    .contact-card p {
+      color: #4a5568;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .contact-card a:not(.btn-form) {
+      color: #2E8B2E;
+      font-weight: 700;
+    }
+
+    .contact-card a:not(.btn-form):hover {
+      color: #1B3A6B;
+    }
+
+    .contact-address {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 24px;
+    }
+
+    .btn-form {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 100%;
+      padding: 16px 36px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: #2E8B2E;
+      color: #FFFFFF;
+      box-shadow: 0 6px 15px rgba(46,139,46,0.25);
+      text-decoration: none;
+    }
+
+    .btn-form svg {
+      margin-left: 8px;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-form:hover {
+      background-color: #1B3A6B;
+      color: #FFFFFF;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(27,58,107,0.3);
+    }
+
+    .btn-form:hover svg {
+      transform: translateX(4px) translateY(-4px);
+    }
+
+    .contact-subject {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin: 16px 0 0;
+    }
+
+    .contact-subject code {
+      background: #F0F4F8;
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: #1B3A6B;
+      font-size: 0.95em;
+    }
+
+    .contact-checklist {
+      list-style: none;
+      margin: 0 0 8px;
+      padding: 0;
+    }
+
+    .contact-checklist li {
+      position: relative;
+      padding: 10px 14px 10px 40px;
+      margin-bottom: 10px;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      color: #4a5568;
+      line-height: 1.7;
+      min-width: 0;
+    }
+
+    .contact-checklist li::before {
+      content: '✓';
+      position: absolute;
+      left: 14px;
+      top: 10px;
+      color: #2E8B2E;
+      font-weight: 700;
+    }
+
+    .contact-checklist strong {
+      color: #1B3A6B;
+    }
+
+    .contact-card .contact-sub-note {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin: 28px 0 0;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .page-header { padding: 50px 20px; }
+      .page-header h1 { font-size: 1.8rem; }
+      .contact-section { padding: 50px 15px; }
+      .contact-card { padding: 40px 20px; }
+      .contact-card h2 { font-size: 1.4rem; }
+      .contact-card p { font-size: 1rem; }
+      .btn-form { padding: 14px 20px; font-size: 1rem; width: 100%; }
+    }
+  </style>
+
+  <section class="page-header">
+    <h1>Contact</h1>
+    <p>We are happy to help in English</p>
+  </section>
+
+  <main class="contact-section">
+    <div class="contact-card">
+      <div class="contact-intro">
+        <div class="contact-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7"></path>
+            <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
+          </svg>
+        </div>
+        <h2>Email us in English</h2>
+        <p>For questions, requests or problems with our kintone plugins, please write to us by email. English is fine.<br>We normally reply within 2-3 business days (Japan time).</p>
+        <p class="contact-address"><a href={mailto}>info@kizuna-works.jp</a></p>
+        <a href={mailto} class="btn-form">
+          Write an email
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17L17 7"></path>
+            <path d="M7 7h10v10"></path>
+          </svg>
+        </a>
+        <p class="contact-subject">Suggested subject: <code>Inquiry from kizuna-works.jp</code></p>
+      </div>
+
+      <h3>What to include</h3>
+      <p>To help us answer quickly, please include as much of the following as you can:</p>
+      <ul class="contact-checklist">
+        <li><strong>Your kintone domain type</strong>: for example cybozu.com or kintone.com</li>
+        <li><strong>The plugin name and version</strong>: shown on the plugin settings screen and in kintone's plugin list</li>
+        <li><strong>What happened</strong>: what you did, what you expected and what you saw instead (including any error message)</li>
+        <li><strong>Screenshots</strong>: of the screen where the problem appears and of the plugin settings, if possible</li>
+      </ul>
+
+      <h3>Paid plugins: quotes and trials</h3>
+      <p>For our paid plugins (Premium and KIZUNA Pro), you can ask for a quote or a free trial by email. Please tell us your kintone domain and which plugins you are interested in.</p>
+      <p>Billing is in Japanese yen (JPY), and payment is by credit card through a payment link that we send you.</p>
+
+      <p class="contact-sub-note">
+        Before you write, these pages may already have the answer: <a href="/en/install/">How to install</a>, <a href="/en/plugins/">plugin list</a>, <a href="/en/security/">security and data handling</a>. For how we handle the information you send, see our <a href="/en/privacy/">Privacy Policy</a>.
+      </p>
+    </div>
+  </main>
+</Layout>

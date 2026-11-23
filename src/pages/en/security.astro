@@ -1,0 +1,564 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const title = 'Security and Data Handling | KIZUNA Works';
+const description =
+  'How KIZUNA Works kintone plugins handle data: records stay in kintone, external calls are limited to license checks, no third-party CDNs. Verify it with F12.';
+const pageUrl = 'https://kizuna-works.jp/en/security/';
+const updated = '2026-11-08';
+---
+
+<Layout
+  lang="en"
+  title={title}
+  description={description}
+  ogTitle={title}
+  ogDescription={description}
+  ogType="website"
+  ogUrl={pageUrl}
+  ogImage="https://kizuna-works.jp/images/ogp.png"
+  canonical={pageUrl}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/en/security/",
+          "url": "https://kizuna-works.jp/en/security/",
+          "name": "Security and Data Handling | KIZUNA Works",
+          "description": "The security policy and data handling of KIZUNA Works kintone plugins.",
+          "inLanguage": "en",
+          "dateModified": "2026-11-08",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "KIZUNA Works",
+            "url": "https://kizuna-works.jp/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kizuna-works.jp/en/" },
+            { "@type": "ListItem", "position": 2, "name": "Security and Data Handling", "item": "https://kizuna-works.jp/en/security/" }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "inLanguage": "en",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Are kintone records or field values sent outside?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "As a rule, no. Your records and field values are never sent to our servers, and external communication is limited to license checks (the plugin ID and your domain name only). There are only six exceptions. Address Assist for kintone sends only the postal code you entered to zipcloud to convert it into an address. Chat Notify for kintone exists to deliver kintone content to chat, so it sends the notification text to the webhook registered by the administrator. Sidebar Enhancer for kintone embeds sites specified by the administrator in its Links tab, so the viewer's browser connects to those sites directly. Google Drive Connect for kintone and Box Connect for kintone transfer the attachments specified in the transfer rules to the Google Drive or Box folder chosen by the administrator. Google Forms Connect for kintone reads the response spreadsheet of the Google Form chosen by the administrator (it does not send kintone values). All of these are listed under \"External communication in detail\"."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where do the plugins communicate?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "To check the license, the plugins send only the plugin ID and your domain name to our server (Google Apps Script) through the kintone proxy. Only Address Assist for kintone sends the entered postal code to zipcloud for address conversion. Chat Notify for kintone sends the notification text directly to the webhook registered by the administrator (Slack, Microsoft Teams, Google Chat or LINE WORKS) or to the Chatwork API, without going through our server. Sidebar Enhancer for kintone connects the viewer's browser directly to the sites specified by the administrator in its Links tab. File Preview for kintone loads the PDF, Excel and Word viewer libraries from our server (kizuna-works.jp) with SRI, but does not send file contents."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do the plugins load libraries from external CDNs?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We do not depend on third-party CDNs (such as cdnjs or jsDelivr), which carry a risk of tampering. Most plugins bundle the libraries they need in the package and load nothing from outside at run time. Only File Preview for kintone loads the PDF, Excel and Word viewer libraries from our server (kizuna-works.jp) with SRI (a tamper-detection hash), and only when a file of that type is opened. File contents are not sent outside."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I check for myself that nothing is sent outside?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. In your browser's developer tools (F12), the Network tab shows where the plugin communicates and what it sends. We welcome you to verify it."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are the plugins affected when vulnerabilities in PHP, NGINX, Java or WordPress are reported?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Our plugins consist only of JavaScript that runs on kintone screens. They do not use server-side software such as PHP, NGINX, Java or WordPress, so vulnerabilities in such software do not affect them. For external communication, see \"External communication in detail\"."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #FFFFFF; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg: #F0F4F8;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-white: #ffffff;
+      --color-gray-light: #e2e8f0;
+    }
+
+    .sec-hero {
+      background: linear-gradient(135deg, rgba(27,58,107,0.92) 0%, rgba(42,82,152,0.86) 100%),
+                  url('/images/plugins-bg.png') center center / cover no-repeat;
+      color: var(--color-white);
+      padding: 72px 5%;
+      text-align: center;
+    }
+    .sec-hero h1 {
+      font-size: 34px;
+      font-weight: 900;
+      line-height: 1.3;
+      margin: 0 0 20px;
+    }
+    .sec-hero p {
+      font-size: 16px;
+      max-width: 760px;
+      margin: 0 auto;
+      line-height: 1.8;
+      opacity: 0.95;
+    }
+    .sec-updated {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 13px;
+      background: rgba(255,255,255,0.18);
+      padding: 4px 14px;
+      border-radius: 12px;
+    }
+
+    .sec-wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 72px 5%;
+      overflow-wrap: anywhere;
+    }
+    .sec-wrap.bg { background-color: var(--color-bg); max-width: none; }
+    .sec-wrap.bg > .sec-inner { max-width: 920px; margin: 0 auto; min-width: 0; }
+
+    .sec-h2 {
+      color: var(--color-navy);
+      font-size: 26px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .sec-sub {
+      color: var(--color-text-light);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 32px;
+    }
+
+    .promise-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .promise-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 14px;
+      padding: 28px 22px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      min-width: 0;
+    }
+    .promise-icon { font-size: 38px; display: block; margin-bottom: 14px; }
+    .promise-card h3 {
+      color: var(--color-navy);
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 10px;
+      line-height: 1.5;
+    }
+    .promise-card p {
+      color: var(--color-text-light);
+      font-size: 13.5px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .sec-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--color-white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      font-size: 14px;
+    }
+    .sec-table th, .sec-table td {
+      text-align: left;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--color-gray-light);
+      line-height: 1.7;
+      vertical-align: top;
+    }
+    .sec-table th {
+      background: var(--color-navy);
+      color: var(--color-white);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .sec-table td { overflow-wrap: normal; word-break: normal; }
+    .sec-table td:nth-child(3) { min-width: 240px; }
+    .sec-table tr:last-child td { border-bottom: none; }
+    .sec-table-wrap { overflow-x: auto; min-width: 0; max-width: 100%; }
+
+    .sec-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .sec-list li {
+      background: var(--color-white);
+      border-radius: 10px;
+      padding: 18px 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 14.5px;
+      color: var(--color-text);
+      line-height: 1.8;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      min-width: 0;
+    }
+    .sec-list li > span { min-width: 0; }
+    .sec-list li::before {
+      content: '✅';
+      flex-shrink: 0;
+      font-size: 17px;
+      margin-top: 1px;
+    }
+    .sec-list strong { color: var(--color-navy); }
+
+    .verify-steps {
+      counter-reset: vstep;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .verify-steps li {
+      counter-increment: vstep;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--color-gray-light);
+      font-size: 14.5px;
+      line-height: 1.8;
+      color: var(--color-text);
+      min-width: 0;
+    }
+    .verify-steps li > span { min-width: 0; }
+    .verify-steps li:last-child { border-bottom: none; }
+    .verify-steps li::before {
+      content: counter(vstep);
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      background: var(--color-navy);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .sec-note {
+      font-size: 13px;
+      color: var(--color-text-light);
+      line-height: 1.8;
+      margin-top: 24px;
+    }
+    .sec-note-list {
+      font-size: 13px;
+      color: var(--color-text-light);
+      line-height: 1.8;
+      margin: 8px 0 0;
+      padding-left: 1.2em;
+      list-style: disc;
+    }
+    .sec-note-list li { margin-bottom: 4px; }
+
+    .sec-faq { max-width: 920px; margin: 0 auto; }
+    .sec-faq details {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      padding: 0;
+      overflow: hidden;
+    }
+    .sec-faq summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 18px 22px;
+      font-weight: 700;
+      color: var(--color-navy);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .sec-faq summary::-webkit-details-marker { display: none; }
+    .sec-faq details[open] summary { border-bottom: 1px solid var(--color-gray-light); }
+    .sec-faq .faq-a {
+      padding: 16px 22px 20px;
+      color: var(--color-text);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .sec-cta {
+      background: linear-gradient(135deg, #1B3A6B 0%, #2a5298 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 56px 5%;
+    }
+    .sec-cta h2 { font-size: 24px; font-weight: 700; margin: 0 0 14px; }
+    .sec-cta p { font-size: 15px; opacity: 0.92; margin: 0 0 28px; line-height: 1.8; }
+    .sec-cta a {
+      display: inline-block;
+      background: var(--color-green);
+      color: #fff;
+      padding: 14px 36px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .sec-cta a:hover { background: #36a336; transform: translateY(-2px); }
+
+    @media (max-width: 768px) {
+      .sec-hero { padding: 56px 5%; }
+      .sec-hero h1 { font-size: 25px; }
+      .sec-wrap { padding: 52px 5%; }
+      .promise-grid { grid-template-columns: minmax(0, 1fr); }
+      .sec-h2 { font-size: 22px; }
+    }
+  </style>
+
+  <main>
+    <section class="sec-hero">
+      <h1>Security and Data Handling</h1>
+      <p>
+        KIZUNA Works kintone plugins are designed <strong>not to send your records or other business data outside</strong>. External communication is limited to license checks (the plugin ID and your domain name only). We <strong>do not depend on third-party CDNs, which carry a risk of tampering</strong>, and settings are stored in kintone's standard encrypted storage. For the six plugins whose features require external communication, <strong>exactly what is sent where is listed in full under "External communication in detail"</strong>. If you want to be sure, you can verify it yourself with your browser's developer tools (F12).
+      </p>
+      <span class="sec-updated">Last updated: {updated}</span>
+    </section>
+
+    <!-- Three commitments -->
+    <section class="sec-wrap">
+      <h2 class="sec-h2">Our three commitments</h2>
+      <p class="sec-sub">So that you can use our kintone plugins with confidence, every plugin follows these design principles.</p>
+      <div class="promise-grid">
+        <div class="promise-card">
+          <span class="promise-icon" aria-hidden="true">🚫</span>
+          <h3>Business data is<br>never sent outside</h3>
+          <p>Record and field values are never sent to our servers or to any third party's servers.</p>
+        </div>
+        <div class="promise-card">
+          <span class="promise-icon" aria-hidden="true">🔑</span>
+          <h3>External calls are for<br>license checks only</h3>
+          <p>Only the plugin ID and your domain name are sent, through the kintone proxy.</p>
+        </div>
+        <div class="promise-card">
+          <span class="promise-icon" aria-hidden="true">📦</span>
+          <h3>No dependence on<br>third-party CDNs</h3>
+          <p>We do not use third-party CDNs, which carry a risk of tampering. Plugins that need viewer libraries load them from our own server with SRI.</p>
+        </div>
+      </div>
+      <p class="sec-note">
+        Note: the following six plugins need some external communication for their features to work. The details are listed below under "External communication in detail".
+      </p>
+      <ul class="sec-note-list">
+        <li><strong>Address Assist for kintone</strong>: sends only the entered postal code to zipcloud to convert it into an address.</li>
+        <li><strong>Chat Notify for kintone</strong>: exists to deliver kintone content to chat, so it sends the notification text to the webhook registered by the administrator (without going through our server).</li>
+        <li><strong>Sidebar Enhancer for kintone</strong>: embeds sites specified by the administrator in its Links tab, so the viewer's browser connects to those sites directly.</li>
+        <li><strong>Google Drive Connect for kintone</strong>: transfers the attachments specified in the transfer rules to the Google Drive folder chosen by the administrator.</li>
+        <li><strong>Box Connect for kintone</strong>: transfers the attachments specified in the transfer rules to the Box folder chosen by the administrator.</li>
+        <li><strong>Google Forms Connect for kintone</strong>: reads the response spreadsheet of the Google Form chosen by the administrator (it does not send kintone values).</li>
+      </ul>
+    </section>
+
+    <!-- External communication in detail -->
+    <section class="sec-wrap bg">
+      <div class="sec-inner">
+        <h2 class="sec-h2">External communication in detail</h2>
+        <p class="sec-sub">This is the complete list of communication the plugins perform, with what is sent in each case.</p>
+        <div class="sec-table-wrap">
+          <table class="sec-table">
+            <thead>
+              <tr>
+                <th>Destination</th>
+                <th>Purpose</th>
+                <th>What is sent</th>
+                <th>Applies to</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Our server<br>(Google Apps Script)</td>
+                <td>License check and first-install record</td>
+                <td><strong>Only the plugin ID and your domain name</strong> (through the kintone proxy). Records, field values and user information are not sent.</td>
+                <td>All plugins</td>
+              </tr>
+              <tr>
+                <td>kizuna-works.jp</td>
+                <td>Showing the ad area (logo images and the ad list)</td>
+                <td>Only downloads the ad list (ads.json) and images (no data is sent). The ad list is fetched through the kintone proxy at most once every 6 hours. Only when a link is clicked does our site record, with Google Analytics, which ad was clicked from which plugin. All links go to our own site.</td>
+                <td>All plugins</td>
+              </tr>
+              <tr>
+                <td>kizuna-works.jp</td>
+                <td>New version notices</td>
+                <td>Only downloads the list of released version numbers (versions.json); no data is sent, and it goes through the kintone proxy. It is fetched at most once every 6 hours, and only when the plugin settings screen is opened.</td>
+                <td>All plugins (settings screen only)</td>
+              </tr>
+              <tr>
+                <td>zipcloud<br>(zipcloud.ibsnet.co.jp)</td>
+                <td>Converting a postal code into an address</td>
+                <td><strong>Only the entered postal code</strong>. Other record values such as names or company names are not sent.</td>
+                <td>Address Assist for kintone only</td>
+              </tr>
+              <tr>
+                <td>kizuna-works.jp</td>
+                <td>Downloading data for address-to-postal-code lookup</td>
+                <td><strong>Download only (no data is sent)</strong>. Postal code files, processed from Japan Post's public data, are downloaded per prefecture. No record values such as addresses or postal codes are sent, and matching is done entirely in the browser.</td>
+                <td>Address Assist for kintone only</td>
+              </tr>
+              <tr>
+                <td>Google<br>(googleapis.com /<br>accounts.google.com)</td>
+                <td>Transferring files to Google Drive</td>
+                <td><strong>Only the attachments specified in the transfer rules and the field values used for folder names</strong>. Files go only to the folder the administrator chose in Google's picker. The only permission requested is the drive.file scope (files created by this plugin and the selected folder only). Files are sent directly from the user's browser to Google; our server is not in the path.</td>
+                <td>Google Drive Connect for kintone only</td>
+              </tr>
+              <tr>
+                <td>Box<br>(api.box.com /<br>upload.box.com)</td>
+                <td>Transferring files to Box</td>
+                <td><strong>Only the attachments specified in the transfer rules (content, file name and size) and the field values used for folder names</strong>. Files go only to the Box folder the administrator chose (or specified) and the folders under it. The plugin works with the permissions of the integration app (service account) created in your Box, and can only touch folders to which it has been invited as an Editor. Files are sent directly from the user's browser to Box; our server is not in the path. The client ID, client secret and enterprise ID used for the connection are sent to Box's authentication server through the kintone proxy.</td>
+                <td>Box Connect for kintone only</td>
+              </tr>
+              <tr>
+                <td>Google<br>(sheets.googleapis.com /<br>accounts.google.com)</td>
+                <td>Reading the Google Forms response spreadsheet</td>
+                <td><strong>Read only; kintone values are not sent</strong>. All that goes to Google is the ID of the response sheet the administrator chose and the range to read. The only permission requested is the drive.file scope (the selected file only), and nothing is written to the response sheet. Imported responses go from the user's browser into kintone; our server is not in the path.</td>
+                <td>Google Forms Connect for kintone only</td>
+              </tr>
+              <tr>
+                <td>Webhook URL registered<br>by the administrator<br>(Slack / Microsoft Teams / Google Chat / LINE WORKS)<br>or the Chatwork API<br>(api.chatwork.com)</td>
+                <td>Sending notifications</td>
+                <td><strong>What is written in the notification rule's message template</strong> (inserted field values, the record URL, the name of the user who made the change, etc.). It is sent directly to each service through the kintone proxy, without going through our server. Fields not written in the template are not sent. The Chatwork API token is stored in the plugin's external connection settings (an area only app administrators can access) and is used in a way that users on record screens cannot read.</td>
+                <td>Chat Notify for kintone only</td>
+              </tr>
+              <tr>
+                <td>Sites at URLs<br>specified by the administrator</td>
+                <td>Embedded display in the Links tab</td>
+                <td><strong>The viewer's browser connects to the site directly</strong>, so the same information as a normal visit (IP address, referrer, etc.) is passed on. It does not go through our server, and record values are not sent. If the feature is turned off, nothing is loaded.</td>
+                <td>Sidebar Enhancer for kintone only</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="sec-note-list">
+          <li>The license check sends only the plugin ID and your domain name to confirm that the license is valid. If the communication fails, the plugin does not treat you as a (valid) supporter; it falls back to the safe side.</li>
+          <li>The Google Maps link in Address Assist for kintone only builds a map link URL; no data is sent outside.</li>
+          <li>Google Drive Connect and Google Forms Connect for kintone load Google's official script (apis.google.com) on the settings screen only when an app administrator connects to Google and chooses files (folders or response sheets). It is not loaded on record screens. Of the authorization data, the refresh token is kept in the kintone proxy settings and cannot be read by JavaScript on record screens.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- External libraries -->
+    <section class="sec-wrap">
+      <h2 class="sec-h2">How we handle external libraries</h2>
+      <p class="sec-sub">We do not depend on third-party CDNs (such as cdnjs or jsDelivr), which carry a risk of tampering. Most plugins bundle the libraries they need in the package and load nothing from outside at run time.</p>
+      <ul class="sec-list">
+        <li><span><strong>Zero dependence on third-party CDNs</strong>: even if a third-party CDN were tampered with, our plugins would not be affected.</span></li>
+        <li><span><strong>Bundled third-party libraries are kept to a minimum</strong>: currently the only bundled third-party library is <strong>encoding-japanese v2.2.0 (MIT License, for character encoding conversion)</strong> in Easy CSV Export for kintone.</span></li>
+        <li><span><strong>Only File Preview for kintone loads viewer libraries from our server</strong>: the libraries used to display PDF, Excel and Word files (PDF.js, ExcelJS, Chart.js, docx-preview, etc.) are loaded <strong>from our server (kizuna-works.jp) with SRI (a tamper-detection hash)</strong>, and only when a file of that type is opened. No third-party CDN is involved and <strong>file contents are not sent outside</strong> (images and text need no library and always work).</span></li>
+      </ul>
+    </section>
+
+    <!-- Secrets and settings storage -->
+    <section class="sec-wrap bg">
+      <div class="sec-inner">
+        <h2 class="sec-h2">Secrets and settings storage</h2>
+        <p class="sec-sub">Settings are also stored safely, following kintone's standard mechanisms.</p>
+        <ul class="sec-list">
+          <li><span><strong>No API keys or other secrets in the code</strong>: no private keys, tokens or passwords are embedded in the plugin code.</span></li>
+          <li><span><strong>Settings are stored in kintone's standard encrypted storage</strong>: plugin settings are saved in the encrypted settings storage provided by kintone (the plugin settings API).</span></li>
+          <li><span><strong>No private key (ppk) in what we distribute</strong>: the packages we publish and distribute do not include the plugin's private key file.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Verify it yourself -->
+    <section class="sec-wrap">
+      <h2 class="sec-h2">How to check for yourself</h2>
+      <p class="sec-sub">Anyone can confirm with the browser's developer tools that nothing is sent outside. We welcome you to verify it.</p>
+      <ol class="verify-steps">
+        <li><span>On the screen of an app where the plugin is set up, press <strong>F12</strong> (or right-click and choose "Inspect") to open the developer tools.</span></li>
+        <li><span>Select the <strong>Network tab</strong> and use the screen (save a record, open a list, etc.).</span></li>
+        <li><span>Check the destinations. You can confirm that, apart from the license check (Google Apps Script), none of your data is sent outside.</span></li>
+        <li><span>In the <strong>Console and Sources tabs</strong>, you can also confirm that no suspicious external CDN scripts are loaded.</span></li>
+      </ol>
+      <p class="sec-note">If you have questions about the communication, please feel free to <a href="/en/contact/" style="color:#2E8B2E;font-weight:700;">contact us</a> (in English is fine).</p>
+    </section>
+
+    <!-- FAQ -->
+    <section class="sec-wrap bg">
+      <div class="sec-inner">
+        <h2 class="sec-h2">Frequently asked questions</h2>
+        <div class="sec-faq">
+          <details>
+            <summary>Are kintone records or field values sent outside?</summary>
+            <div class="faq-a">As a rule, no. Your records and field values are never sent to our servers, and external communication is limited to license checks (the plugin ID and your domain name only). There are only six exceptions. Address Assist for kintone sends only the postal code you entered to zipcloud to convert it into an address. Chat Notify for kintone exists to deliver kintone content to chat, so it sends the notification text to the webhook registered by the administrator. Sidebar Enhancer for kintone embeds sites specified by the administrator in its Links tab, so the viewer's browser connects to those sites directly. Google Drive Connect for kintone and Box Connect for kintone transfer the attachments specified in the transfer rules to the Google Drive or Box folder chosen by the administrator. Google Forms Connect for kintone reads the response spreadsheet of the Google Form chosen by the administrator (it does not send kintone values). All of these are listed under "External communication in detail".</div>
+          </details>
+          <details>
+            <summary>Where do the plugins communicate?</summary>
+            <div class="faq-a">To check the license, the plugins send only the plugin ID and your domain name to our server (Google Apps Script) through the kintone proxy. Only Address Assist for kintone sends the entered postal code to zipcloud for address conversion. Chat Notify for kintone sends the notification text directly to the webhook registered by the administrator (Slack, Microsoft Teams, Google Chat or LINE WORKS) or to the Chatwork API, without going through our server. Sidebar Enhancer for kintone connects the viewer's browser directly to the sites specified by the administrator in its Links tab. File Preview for kintone loads the PDF, Excel and Word viewer libraries from our server (kizuna-works.jp) with SRI, but does not send file contents.</div>
+          </details>
+          <details>
+            <summary>Do the plugins load libraries from external CDNs?</summary>
+            <div class="faq-a">We do not depend on third-party CDNs (such as cdnjs or jsDelivr), which carry a risk of tampering. Most plugins bundle the libraries they need in the package and load nothing from outside at run time. Only File Preview for kintone loads the PDF, Excel and Word viewer libraries from our server (kizuna-works.jp) with SRI (a tamper-detection hash), and only when a file of that type is opened. File contents are not sent outside.</div>
+          </details>
+          <details>
+            <summary>Can I check for myself that nothing is sent outside?</summary>
+            <div class="faq-a">Yes. In your browser's developer tools (F12), the Network tab shows where the plugin communicates and what it sends. We welcome you to verify it.</div>
+          </details>
+          <details>
+            <summary>Are the plugins affected when vulnerabilities in PHP, NGINX, Java or WordPress are reported?</summary>
+            <div class="faq-a">Our plugins consist only of JavaScript that runs on kintone screens. They do not use server-side software such as PHP, NGINX, Java or WordPress, so vulnerabilities in such software do not affect them. For external communication, see "External communication in detail".</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="sec-cta">
+      <h2>kintone plugins you can use with confidence</h2>
+      <p>The core features of KIZUNA Works plugins are free to use.</p>
+      <a href="/en/plugins/">See all plugins</a>
+    </section>
+  </main>
+</Layout>

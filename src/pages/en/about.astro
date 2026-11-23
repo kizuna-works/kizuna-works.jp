@@ -1,0 +1,377 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const title = 'About KIZUNA Works | KIZUNA Works';
+const description =
+  'KIZUNA Works builds kintone plugins and free web tools that help teams cut routine work with kintone, Google Workspace and AI. Our values and how to reach us.';
+const pageUrl = 'https://kizuna-works.jp/en/about/';
+---
+
+<Layout
+  lang="en"
+  title={title}
+  description={description}
+  ogTitle={title}
+  ogDescription={description}
+  ogUrl={pageUrl}
+  ogType="website"
+  ogImage="https://kizuna-works.jp/images/ogp.png"
+  canonical={pageUrl}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["WebPage", "AboutPage"],
+      "@id": "https://kizuna-works.jp/en/about/",
+      "url": "https://kizuna-works.jp/en/about/",
+      "name": "About KIZUNA Works | KIZUNA Works",
+      "description": "KIZUNA Works builds kintone plugins and free web tools to help teams cut routine work with kintone, Google Workspace and AI.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "KIZUNA Works",
+        "url": "https://kizuna-works.jp/"
+      },
+      "about": {
+        "@type": "Organization",
+        "@id": "https://kizuna-works.jp/#organization"
+      },
+      "mainEntity": {
+        "@type": "Organization",
+        "@id": "https://kizuna-works.jp/#organization",
+        "name": "KIZUNA Works",
+        "url": "https://kizuna-works.jp/",
+        "email": "info@kizuna-works.jp",
+        "sameAs": ["https://twitter.com/KIZUNA_works_DX"],
+        "knowsAbout": ["kintone", "kintone plugins", "Google Workspace", "Generative AI", "Digital transformation", "Business process automation", "No-code"]
+      }
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #f4f7f6; }
+
+    .about-main a {
+      color: #2E8B2E;
+    }
+    .about-main a:hover {
+      color: #1B3A6B;
+    }
+
+    .about-main {
+      max-width: 880px;
+      margin: 50px auto;
+      padding: 0 20px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .about-card {
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 50px 60px;
+      overflow: hidden;
+      position: relative;
+      overflow-wrap: anywhere;
+    }
+
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #1B3A6B, #2E8B2E);
+    }
+
+    .about-title {
+      text-align: center;
+      color: #1B3A6B;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      padding-bottom: 15px;
+      position: relative;
+    }
+
+    .about-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background-color: #2E8B2E;
+      border-radius: 2px;
+    }
+
+    .about-lead {
+      text-align: center;
+      color: #4a5568;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin: 0 auto 45px;
+      max-width: 680px;
+    }
+
+    .about-section {
+      margin-bottom: 42px;
+    }
+
+    .about-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-section h2 {
+      font-size: 1.3rem;
+      color: #1B3A6B;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding: 10px 15px;
+      background: linear-gradient(90deg, rgba(46,139,46,0.08) 0%, rgba(255,255,255,0) 100%);
+      border-left: 5px solid #2E8B2E;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .about-section p {
+      margin-bottom: 15px;
+      color: #4a5568;
+      line-height: 1.8;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    .about-grid-item {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 20px 22px;
+      min-width: 0;
+    }
+
+    .about-grid-item h3 {
+      font-size: 1.05rem;
+      color: #1B3A6B;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+
+    .about-grid-item p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #4a5568;
+      line-height: 1.7;
+    }
+
+    .about-policy {
+      list-style: none;
+      margin: 10px 0 0;
+      padding: 0;
+    }
+
+    .about-policy li {
+      position: relative;
+      padding: 12px 16px 12px 44px;
+      margin-bottom: 12px;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      color: #4a5568;
+      line-height: 1.7;
+    }
+
+    .about-policy li::before {
+      content: '✓';
+      position: absolute;
+      left: 16px;
+      top: 12px;
+      color: #2E8B2E;
+      font-weight: 700;
+    }
+
+    .about-policy strong {
+      color: #1B3A6B;
+    }
+
+    .about-contact {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .about-contact a {
+      font-weight: 700;
+    }
+
+    .about-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .about-links a {
+      display: inline-block;
+      min-width: 0;
+      background-color: #1B3A6B;
+      color: #FFFFFF;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 10px 18px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .about-links a:hover {
+      background-color: #2E8B2E;
+      color: #FFFFFF;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 768px) {
+      .about-main {
+        margin: 30px auto;
+      }
+      .about-card {
+        padding: 30px 20px;
+        border-radius: 12px;
+      }
+      .about-title {
+        font-size: 1.6rem;
+      }
+      .about-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .about-section h2 {
+        font-size: 1.15rem;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+
+  <main class="about-main">
+    <article class="about-card">
+      <h1 class="about-title">About KIZUNA Works</h1>
+      <p class="about-lead">
+        KIZUNA Works helps companies and frontline teams with <strong>digital transformation, efficiency and automation</strong>,
+        using <strong>kintone, Google Workspace and AI</strong>.
+        Our theme is "cutting everyday busywork, a little at a time". We are not tied to any one tool,
+        and we help build what genuinely fits the work at hand.
+      </p>
+
+      <section class="about-section">
+        <h2>What we help with</h2>
+        <p>KIZUNA Works is not tied to a single tool. We combine whatever fits the work in front of us to solve the problem.</p>
+        <div class="about-grid">
+          <div class="about-grid-item">
+            <h3>Getting the most out of kintone</h3>
+            <p>From app design to adoption, we help turn kintone into a system people actually use. Where the standard features fall short, our own plugins fill the gap.</p>
+          </div>
+          <div class="about-grid-item">
+            <h3>Google Workspace</h3>
+            <p>With Sheets, Google Apps Script and integrations, we turn work that relied on email and manual steps into repeatable, automated processes.</p>
+          </div>
+          <div class="about-grid-item">
+            <h3>AI and automation</h3>
+            <p>We bring generative AI and automation tools into daily work to save time on documents, inquiries and data clean-up.</p>
+          </div>
+          <div class="about-grid-item">
+            <h3>Hands-on process improvement</h3>
+            <p>From sorting out current problems to choosing tools and running them, we work alongside teams on practical, realistic improvements.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section">
+        <h2>What we offer</h2>
+        <p>What we learn from this work is published as products and content that anyone can use.</p>
+        <div class="about-grid">
+          <div class="about-grid-item">
+            <h3>kintone plugins</h3>
+            <p>A wide range of plugins that add the "one more step" kintone is missing: numbering, search, totals, input assistance, screen styling and more. Every plugin's screens are available in English, Japanese and Chinese.</p>
+          </div>
+          <div class="about-grid-item">
+            <h3>Free web tools</h3>
+            <p>Free tools that run in the browser with no sign-up, such as an electronic seal (hanko) maker, PDF editing and QR code creation. The tools are in Japanese.</p>
+          </div>
+          <div class="about-grid-item">
+            <h3>Blog</h3>
+            <p>Practical articles on using kintone, digital transformation and efficiency, update news and plugin comparisons (in Japanese).</p>
+          </div>
+          <div class="about-grid-item">
+            <h3>Chrome extensions</h3>
+            <p>Chrome extensions on the Chrome Web Store that help with everyday kintone work, such as checking field information and exporting app settings.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section">
+        <h2>Improvements from the front line</h2>
+        <p>
+          Our services and products come from issues we found while actually running day-to-day work:
+          "it would be better if this worked a little differently".
+          Rather than applying whatever is in fashion, we care about whether something fits the team,
+          and we aim for a form that does what is needed, no more and no less.
+        </p>
+        <p>
+          Our blog and glossary are written from hands-on experience rather than theory, so that they help
+          everyone from people just starting out to those struggling to make new tools stick.
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2>What we value</h2>
+        <ul class="about-policy">
+          <li><strong>Security first</strong>: our plugins do not depend on third-party servers, and the libraries they need are served by us, so you can use them with confidence.</li>
+          <li><strong>No sign-up needed</strong>: the free web tools need no account and no installation. They work right away in your browser.</li>
+          <li><strong>Only features that really help</strong>: we put a clear reduction in day-to-day work ahead of a long feature list.</li>
+          <li><strong>Clear explanations</strong>: we break down technical terms so that first-time users can follow along.</li>
+          <li><strong>Support in English</strong>: every plugin has English, Japanese and Chinese screens, and you can contact us by email in English.</li>
+        </ul>
+        <p style="margin-top:18px;">
+          How each plugin handles external communication and libraries is described in detail on our <a href="/en/security/">Security and Data Handling</a> page.
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2>Contact</h2>
+        <p>If you have questions or requests about our services or plugins, please get in touch. We are happy to answer in English.</p>
+        <div class="about-contact">
+          <p style="margin-bottom:10px;">Email: <a href="mailto:info@kizuna-works.jp">info@kizuna-works.jp</a></p>
+          <p style="margin-bottom:10px;">Contact page: <a href="/en/contact/">/en/contact/</a></p>
+          <p style="margin:0;">X (formerly Twitter): <a href="https://twitter.com/KIZUNA_works_DX" target="_blank" rel="noopener noreferrer">@KIZUNA_works_DX</a></p>
+        </div>
+        <p style="margin-top:15px; font-size:0.92rem;">
+          For legally required business information, see the <a href="/tokushoho/">Specified Commercial Transactions Act disclosure</a> (Japanese). For how we handle personal information, see our <a href="/en/privacy/">Privacy Policy</a>.
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2>Related pages</h2>
+        <div class="about-links">
+          <a href="/en/plugins/">kintone plugins</a>
+          <a href="/en/install/">How to install</a>
+          <a href="/en/security/">Security</a>
+          <a href="/en/contact/">Contact</a>
+          <a href="/tools/">Free tools (Japanese)</a>
+          <a href="/blog/">Blog (Japanese)</a>
+          <a href="/glossary/">Glossary (Japanese)</a>
+        </div>
+      </section>
+    </article>
+  </main>
+</Layout>

@@ -1,0 +1,155 @@
+---
+// English home page. Short by design: what KIZUNA Works is, the most installed
+// free plugins (same ranking as the Japanese site), and the way in to the catalogue.
+import Layout from '../../layouts/Layout.astro';
+import Picture from '../../components/Picture.astro';
+import { plugins, premiumOnlyPlugins, proPlugins } from '../../data/plugins';
+import { pluginsEn } from '../../data/plugins-en';
+
+const SITE = 'https://kizuna-works.jp';
+const url = `${SITE}/en/`;
+
+const freeCount = plugins.length;
+const totalCount = plugins.length + premiumOnlyPlugins.length + proPlugins.length;
+
+// Featured = free plugins that have an English page, in the order of plugins.ts
+// filtered to the English pages (which were chosen from the install ranking).
+const featured = plugins.filter((p) => pluginsEn[p.id]?.page);
+
+const title = 'KIZUNA Works - kintone Plugins in English, Many Free';
+const description = `KIZUNA Works makes ${totalCount} kintone plugins, ${freeCount} of them free with every feature. Field styling, search, lookups, auto numbering, file preview and more, all with an English UI.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': url,
+      url,
+      name: title,
+      description,
+      inLanguage: 'en',
+      isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url },
+    },
+    {
+      '@type': 'Organization',
+      name: 'KIZUNA Works',
+      url,
+      logo: `${SITE}/images/logo.png`,
+      email: 'info@kizuna-works.jp',
+      description: 'KIZUNA Works develops kintone plugins and free web tools in Japan.',
+    },
+  ],
+};
+---
+<Layout
+  lang="en"
+  title={title}
+  description={description}
+  canonical={url}
+  ogTitle={title}
+  ogDescription={description}
+  ogUrl={url}
+  ogType="website"
+  ogImage={`${SITE}/images/ogp.png`}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <main class="enh">
+    <section class="enh-hero">
+      <div class="enh-wrap">
+        <p class="enh-kicker">kintone plugins from Japan</p>
+        <h1>Make kintone easier to use, without writing code</h1>
+        <p class="enh-lead">KIZUNA Works makes {totalCount} plugins for kintone. {freeCount} of them are free with every feature, no sign-up and no time limit. All plugins show their screens in English, Japanese or Chinese.</p>
+        <div class="enh-cta">
+          <a class="enh-btn" href="/en/plugins/">Browse all plugins</a>
+          <a class="enh-btn is-ghost" href="/en/install/">How to install</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="enh-sec">
+      <div class="enh-wrap">
+        <h2>Popular free plugins</h2>
+        <p class="enh-sec-lead">The free plugins installed most often by kintone users.</p>
+        <div class="enh-grid">
+          {featured.map((p) => (
+            <a class="enh-card" href={`/en/plugins/${p.slug}/`}>
+              <Picture src={p.image} alt="" width={p.imageWidth} height={p.imageHeight} card />
+              <span class="enh-card-body">
+                <strong>{pluginsEn[p.id].name}</strong>
+                <span>{pluginsEn[p.id].summary}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+        <p class="enh-all"><a href="/en/plugins/">See all {totalCount} plugins</a></p>
+      </div>
+    </section>
+
+    <section class="enh-sec is-alt">
+      <div class="enh-wrap">
+        <h2>Why KIZUNA Works</h2>
+        <div class="enh-why">
+          <div>
+            <h3>Free means free</h3>
+            <p>{freeCount} plugins are free with every feature. Download the zip file and install it; no account, no trial period.</p>
+          </div>
+          <div>
+            <h3>English, Japanese and Chinese</h3>
+            <p>Each plugin follows the user's kintone language setting, so one app can serve teams in different countries.</p>
+          </div>
+          <div>
+            <h3>Clear about security</h3>
+            <p>The plugins run in the browser inside kintone. How they handle your data is set out on the <a href="/en/security/">security page</a>.</p>
+          </div>
+          <div>
+            <h3>Support by email in English</h3>
+            <p>Questions and requests are welcome in English. <a href="/en/contact/">Contact us</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style is:global>
+  /* English home page */
+  .enh { flex: 1; min-width: 0; background: #fff; color: #333; }
+  .enh-wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; min-width: 0; }
+  .enh-hero { background: linear-gradient(135deg, #1B3A6B 0%, #224a85 100%); color: #fff; padding: 56px 0; }
+  .enh-kicker { display: inline-block; margin: 0 0 12px; padding: 4px 12px; border-radius: 999px; background: #2E8B2E; font-size: 13px; font-weight: 700; }
+  .enh-hero h1 { margin: 0 0 16px; font-size: clamp(28px, 4.8vw, 44px); line-height: 1.2; max-width: 860px; }
+  .enh-lead { margin: 0 0 24px; max-width: 820px; font-size: 18px; line-height: 1.75; }
+  .enh-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .enh-btn { display: inline-block; max-width: 100%; box-sizing: border-box; padding: 13px 28px; border-radius: 999px; background: #2E8B2E; color: #fff; font-weight: 700; text-decoration: none; text-align: center; }
+  .enh-btn:hover { background: #35a035; }
+  .enh-btn.is-ghost { background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.6); }
+  .enh-btn.is-ghost:hover { background: rgba(255, 255, 255, 0.24); }
+  .enh-sec { padding: 48px 0; }
+  .enh-sec.is-alt { background: #F0F4F8; }
+  .enh-sec h2 { margin: 0 0 8px; color: #1B3A6B; font-size: clamp(22px, 3vw, 28px); }
+  .enh-sec-lead { margin: 0 0 22px; color: #475569; }
+  .enh-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+  .enh-card { min-width: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid #dbe3ec; border-radius: 12px; overflow: hidden; text-decoration: none; color: #333; transition: box-shadow 0.15s ease, transform 0.15s ease; }
+  .enh-card:hover { box-shadow: 0 8px 20px rgba(27, 58, 107, 0.14); transform: translateY(-2px); }
+  .enh-card img { display: block; width: 100%; height: auto; aspect-ratio: 1200 / 630; object-fit: cover; }
+  .enh-card-body { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px 16px; min-width: 0; }
+  .enh-card-body strong { color: #1B3A6B; font-size: 16px; overflow-wrap: anywhere; }
+  .enh-card-body span { font-size: 14px; line-height: 1.65; overflow-wrap: anywhere; }
+  .enh-all { margin: 24px 0 0; text-align: center; }
+  .enh-all a { color: #1B3A6B; font-weight: 700; }
+  .enh-why { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
+  .enh-why > div { min-width: 0; background: #fff; border-radius: 12px; padding: 20px; border: 1px solid #d4dde8; }
+  .enh-why h3 { margin: 0 0 8px; color: #1B3A6B; font-size: 17px; }
+  .enh-why p { margin: 0; line-height: 1.7; font-size: 15px; }
+  .enh-why a { color: #1B3A6B; }
+  @media (max-width: 600px) {
+    .enh-hero { padding: 36px 0; }
+    .enh-lead { font-size: 16px; }
+    .enh-cta .enh-btn { width: 100%; }
+    .enh-grid, .enh-why { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

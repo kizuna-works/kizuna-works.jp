@@ -66,6 +66,9 @@ c:\kizuna-works.jp\
 │   │   ├── ProPlanNote.astro  # プレミアム製品ページのプラン欄の下（ResellerCard の直前）に出す「上位版の KIZUNA Pro 年間サポーター」の一言（2026-10-26・プレミアム23ページ）。プラン名と金額は pricing.ts の PRO_SET_PLAN。自前のスコープ付きCSSで完結
 │   │   └── Picture.astro       # PNG指定で同名 .webp があれば <picture> で WebP を優先配信。card 指定時は <base>-800.webp を srcset に足す（カードの実表示幅は400px前後なので原寸1200pxを配らない）。WebP が無ければ素の <img> を出すだけなので置き換え安全。派生画像は scripts/gen-image-derivatives.mjs が生成
 │   ├── data/                   # ビルド時参照される TS データ
+│   │   ├── i18n.ts             # 日本語⇔英語ページの対応表（2026-11-23）。Layout.astro がここを引いて hreflang（ja/en/x-default）・ヘッダーの［English］／［日本語］・英語ブラウザ向けの「英語版あり」帯を出す。英語ページを足したら STATIC_PAIRS に1行足す（製品ページは plugins-en.ts の page から自動）
+│   │   ├── plugins-en.ts       # 全プラグインの英語名と英語の概要（/en/plugins/ の一覧の元）。plugins.ts の全 id が必要（無いとビルドで止まる）。`page` を持つ製品だけ /en/plugins/<slug>/ を生成
+│   │   ├── plugins-en/pages/<id>.ts # 英語の製品ページの本文（定義文・課題・機能・スクショ・注意事項・FAQ）。スクショは日本語ページの画像を流用
 │   │   ├── plugins.ts          # プラグイン一覧の単一情報源（グリッド・フォーム・JSON-LDの元）。KIZUNA Pro 製品の `bundles` が収録製品の一覧（Pro のページの「収録」と「KIZUNA Pro 版あり」バッジの元。存在しない id や二重の収録はビルドで止める）。`categories` は目的カテゴリを1〜3個持つ配列。先頭にそのプラグインの主目的を書くが、チップはすべて同じ体裁でカテゴリ色だけが変わる（並び順に表示上の意味は持たせていない）。`bornFrom: 'supporter-request'` はサポーターのリクエストで**新規開発した**製品に付けるフラグで、一覧カード／トップのショーケース／製品ページのバッジ（RequestOriginBadge）と /plugins/・/plugins/supporter/ の件数がすべてこの1か所から出る
 │   │   ├── pluginCategories.ts # プラグインの目的カテゴリ14種の定義（名称・URLスラッグ・一言説明・チップ列のグループ分け）。/plugins/ の絞り込みバーとカード上のタグ、/plugins/problems/ の課題索引が参照。カテゴリを増減するときは index.astro と problems/index.astro のチップ色（--cat-bg/--cat-fg）も追加する
 │   │   ├── glossary.ts         # kintone 用語集の単一情報源（/glossary/ 一覧と DefinedTermSet JSON-LD を生成）。hasPage/longDescription/useCases/faq を持つ語は /glossary/<id>/ の個別ページも生成。`supersededBy` を持つ語は個別ページを noindex＋sitemap 除外にし、同じ検索意図で上位のブログ記事へ誘導する（自社2ページで表示回数を食い合うのを防ぐ。付与は GSC で順位を確認してから）
@@ -90,6 +93,14 @@ c:\kizuna-works.jp\
 │   │   │       ├── index.astro             # 担当者メールアドレスの変更の依頼（/apply/contact-change/）。ドメインの確認（補った表示・開いて確かめるリンク）・「依頼者は新しいご担当者と同じ」・確認の段・閉じる。登録の有無は明かさない。導線＝サポーターページの FAQ・お問い合わせページ・顧客向けメールのフッター
 │   │   │       ├── verify/index.astro      # 新しいアドレスの確認（/apply/contact-change/verify/#t=…）。新しいアドレスへのメールのリンクから開き「このアドレスを確認する」。計測なし・no-referrer
 │   │   │       └── approve/index.astro     # 今のご担当者による承認（/apply/contact-change/approve/#t=…）。「承認する」で台帳を書き換え・「承認しない」はページ内で確かめる。計測なし・no-referrer
+│   │   ├── en/                 # 英語ページ（2026-11-23 第1段）。lang="en" で Layout に渡す。ブログ・お知らせ・申込・特商法・用語集・ツール・拡張機能は英語化しない
+│   │   │   ├── index.astro     # /en/ 英語トップ（英語ページのある人気の無料プラグイン）
+│   │   │   ├── install.astro   # /en/install/ 導入手順（HowTo）。日本語の対ページなし
+│   │   │   ├── about.astro / security.astro / contact.astro # 運営者情報・セキュリティ・お問い合わせ（英語のメールで受付）
+│   │   │   ├── privacy.astro / terms.astro / refund.astro   # 規約類の英訳（日本語版が優先する旨を冒頭に表示）
+│   │   │   └── plugins/
+│   │   │       ├── index.astro # /en/plugins/ 全製品の英語一覧（無料・プレミアム・KIZUNA Pro）。英語ページの無い製品は日本語ページへ
+│   │   │       └── [slug].astro # /en/plugins/<slug>/ 英語の製品ページ（plugins-en/pages の内容・zip は versions.json から）
 │   │   ├── privacy.astro       # プライバシーポリシー（/privacy/）
 │   │   ├── refund.astro        # 返金ポリシー（/refund/）
 │   │   ├── terms.astro         # 利用規約（/terms/）

@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Lightbox from '../components/Lightbox.astro';
+import { langPair, SITE, type Lang } from '../data/i18n';
 
 interface Props {
   title: string;
@@ -33,6 +34,12 @@ interface Props {
   noAnalytics?: boolean;
   /** Referrer policy for the page. Defaults to strict-origin-when-cross-origin. */
   referrer?: string;
+  /**
+   * Page language. 'en' switches <html lang>, the header and the footer to English.
+   * Pages under /en/ must pass 'en'. Pairs between the two languages are looked up in
+   * src/data/i18n.ts, which drives hreflang, the language switch and the English banner.
+   */
+  lang?: Lang;
 }
 
 const {
@@ -49,10 +56,15 @@ const {
   heroBg,
   noAnalytics = false,
   referrer = 'strict-origin-when-cross-origin',
+  lang = 'ja',
 } = Astro.props;
+
+const isEn = lang === 'en';
+// Never pair a noindex page: hreflang must point at indexable pages on both sides.
+const pair = noindex ? null : langPair(Astro.url.pathname);
 ---
 <!DOCTYPE html>
-<html lang="ja">
+<html lang={lang}>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,6 +80,9 @@ const {
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
   {canonical && <link rel="canonical" href={canonical}>}
   {heroBg && <link rel="preload" as="image" href={heroBg} type="image/webp" fetchpriority="high">}
+  {pair && <link rel="alternate" hreflang="ja" href={SITE + pair.ja}>}
+  {pair && <link rel="alternate" hreflang="en" href={SITE + pair.en}>}
+  {pair && <link rel="alternate" hreflang="x-default" href={SITE + pair.ja}>}
 
   <meta property="og:title" content={ogTitle ?? title}>
   <meta property="og:description" content={ogDescription ?? description}>
@@ -139,7 +154,7 @@ const {
       "@type": "ContactPoint",
       "email": "info@kizuna-works.jp",
       "contactType": "customer support",
-      "availableLanguage": ["ja"]
+      "availableLanguage": ["ja", "en"]
     },
     "knowsAbout": [
       "kintone",
@@ -155,11 +170,27 @@ const {
   <slot name="head" />
 </head>
 <body>
+  {pair && !isEn && (
+    <div class="lang-banner" id="lang-banner" lang="en" hidden>
+      <p>This page is also available in English.</p>
+      <a href={pair.en} class="lang-banner-go">Read in English</a>
+      <button type="button" class="lang-banner-close" aria-label="Close">&times;</button>
+    </div>
+  )}
   <header class="site-header">
     <div class="site-header-inner">
-      <a href="/" class="site-header-logo">
+      <a href={isEn ? '/en/' : '/'} class="site-header-logo">
         <img src="/images/logo.png" alt="KIZUNA Works" width="677" height="369">
       </a>
+      {isEn ? (
+      <nav class="site-header-nav" aria-label="Main">
+        <a href="/en/plugins/" class="site-nav-btn">Plugins</a>
+        <a href="/en/install/" class="site-nav-btn">How to install</a>
+        <a href="/en/about/" class="site-nav-btn">About</a>
+        <a href="/en/contact/" class="site-nav-btn">Contact</a>
+        <a href={pair ? pair.ja : '/'} class="site-nav-lang" lang="ja" hreflang="ja" data-lang-choice="ja">日本語</a>
+      </nav>
+      ) : (
       <nav class="site-header-nav">
         <a href="/news/" class="site-nav-btn">お知らせ</a>
         <a href="/plugins/" class="site-nav-btn">プラグイン</a>
@@ -178,7 +209,9 @@ const {
             <li role="none"><a href="/glossary/" class="site-nav-sub" role="menuitem">用語集</a></li>
           </ul>
         </div>
+        {pair && <a href={pair.en} class="site-nav-lang" lang="en" hreflang="en" data-lang-choice="en">English</a>}
       </nav>
+      )}
     </div>
   </header>
 
@@ -191,8 +224,21 @@ const {
           <source srcset="/images/logo-white.webp" type="image/webp" />
           <img src="/images/logo-white.png" alt="KIZUNA Works" width="264" height="144" loading="lazy" decoding="async" style="height:48px; width:auto; margin-bottom:10px; display:block; mix-blend-mode:screen;">
         </picture>
-        <p class="site-footer-reading">KIZUNA Works（キズナワークス）</p>
+        {!isEn && <p class="site-footer-reading">KIZUNA Works（キズナワークス）</p>}
       </div>
+      {isEn ? (
+      <div class="site-footer-links">
+        <a href="/en/plugins/">Plugins</a>
+        <a href="/en/install/">How to install</a>
+        <a href="/en/about/">About</a>
+        <a href="/en/security/">Security</a>
+        <a href="/en/privacy/">Privacy policy</a>
+        <a href="/en/terms/">Terms of service</a>
+        <a href="/en/refund/">Refund policy</a>
+        <a href="/en/contact/">Contact</a>
+        <a href="/" lang="ja" hreflang="ja">日本語サイト</a>
+      </div>
+      ) : (
       <div class="site-footer-links">
         <a href="/about/">運営者情報</a>
         <a href="/news/">お知らせ</a>
@@ -204,7 +250,9 @@ const {
         <a href="/tokushoho/">特定商取引法に基づく表記</a>
         <a href="/refund/">返金ポリシー</a>
         <a href="/contact/">お問い合わせ</a>
+        <a href="/en/" lang="en" hreflang="en">English</a>
       </div>
+      )}
     </div>
     <div class="site-footer-copy">
       <p>&copy; 2026 KIZUNA Works All Rights Reserved.</p>
@@ -212,6 +260,32 @@ const {
   </footer>
 
   <Lightbox />
+
+  <script is:inline>
+    // Language choice and the "available in English" banner. No automatic redirect:
+    // most English-browser visitors are in Japan, and Google advises against
+    // language-based redirects. Picking a language in the header is remembered so
+    // the banner never nags someone who chose Japanese.
+    (function () {
+      var KEY = 'kz_lang';
+      var get = function () { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+      var set = function (v) { try { localStorage.setItem(KEY, v); } catch (e) { /* best-effort */ } };
+      document.querySelectorAll('[data-lang-choice]').forEach(function (a) {
+        a.addEventListener('click', function () { set(a.getAttribute('data-lang-choice')); });
+      });
+      var banner = document.getElementById('lang-banner');
+      if (!banner) return;
+      var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+      var primary = String(langs[0] || '').toLowerCase();
+      if (primary.indexOf('ja') === 0 || get()) return;
+      banner.hidden = false;
+      banner.querySelector('.lang-banner-go').addEventListener('click', function () { set('en'); });
+      banner.querySelector('.lang-banner-close').addEventListener('click', function () {
+        set('dismissed');
+        banner.hidden = true;
+      });
+    })();
+  </script>
 
   <script is:inline>
     (function() {
@@ -367,6 +441,71 @@ const {
     background: #F0F4F8;
     color: #2E8B2E;
     outline: none;
+  }
+
+  /* =========================================
+     Language switch and English banner
+  ========================================= */
+  .site-nav-lang {
+    display: inline-flex;
+    align-items: center;
+    color: #1B3A6B;
+    background: #FFFFFF;
+    border: 1.5px solid #1B3A6B;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+  .site-nav-lang:hover {
+    color: #FFFFFF;
+    background: #2E8B2E;
+    border-color: #2E8B2E;
+  }
+  .lang-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    background: #1B3A6B;
+    color: #FFFFFF;
+    padding: 8px 48px 8px 16px;
+    font-size: 0.9rem;
+    position: relative;
+    /* body is a flex column and global.css gives its children flex: 1 */
+    flex: none;
+  }
+  .lang-banner[hidden] {
+    display: none;
+  }
+  .lang-banner p {
+    margin: 0;
+    min-width: 0;
+  }
+  .lang-banner-go {
+    color: #1B3A6B;
+    background: #FFFFFF;
+    font-weight: 700;
+    padding: 3px 14px;
+    border-radius: 14px;
+  }
+  .lang-banner-go:hover {
+    background: #2E8B2E;
+    color: #FFFFFF;
+  }
+  .lang-banner-close {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 0;
+    color: #FFFFFF;
+    font-size: 1.4rem;
+    line-height: 1;
+    padding: 4px 8px;
+    cursor: pointer;
   }
 
   /* =========================================

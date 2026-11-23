@@ -1,0 +1,274 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { PRICE_REVISION_LIVE } from '../../data/pricing';
+
+const title = 'Terms of Service | KIZUNA Works';
+const description =
+  'Terms of Service for KIZUNA Works kintone plugins, free web tools and annual supporter licenses: payment, licenses, prohibited acts, disclaimers, governing law.';
+const pageUrl = 'https://kizuna-works.jp/en/terms/';
+---
+
+<Layout
+  lang="en"
+  title={title}
+  description={description}
+  ogTitle={title}
+  ogDescription={description}
+  ogUrl={pageUrl}
+  ogType="website"
+  ogImage="https://kizuna-works.jp/images/ogp.png"
+  canonical={pageUrl}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": "https://kizuna-works.jp/en/terms/",
+      "url": "https://kizuna-works.jp/en/terms/",
+      "name": "Terms of Service | KIZUNA Works",
+      "description": "The KIZUNA Works Terms of Service: conditions of use, prohibited acts and disclaimers.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "KIZUNA Works",
+        "url": "https://kizuna-works.jp/"
+      }
+    }
+    </script>
+  </Fragment>
+  <style is:global>
+    body {
+      background-color: #f4f7f6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .page-header {
+      background:
+        linear-gradient(135deg, rgba(27,58,107,0.45) 0%, rgba(42,82,152,0.4) 100%),
+        url('/images/contact-bg.webp') center center / cover no-repeat;
+      color: #FFFFFF;
+      padding: 60px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #1B3A6B 0%, #2E8B2E 100%);
+    }
+
+    .page-header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .document-wrapper {
+      flex: 1;
+      padding: 60px 20px;
+      min-width: 0;
+    }
+
+    .document-container {
+      background-color: #FFFFFF;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 50px 60px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      overflow-wrap: anywhere;
+    }
+
+    .document-container a {
+      color: #2E8B2E;
+    }
+    .document-container a:hover {
+      color: #1B3A6B;
+    }
+
+    .translation-notice {
+      background-color: #F0F4F8;
+      border-left: 4px solid #1B3A6B;
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      margin-bottom: 40px;
+      font-size: 0.92rem;
+      color: #4a5568;
+      line-height: 1.7;
+    }
+
+    .terms-section {
+      margin-bottom: 40px;
+    }
+
+    .terms-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .terms-section h2 {
+      font-size: 1.25rem;
+      color: #1B3A6B;
+      font-weight: 700;
+      margin-bottom: 16px;
+      padding-left: 14px;
+      border-left: 4px solid #2E8B2E;
+      line-height: 1.4;
+    }
+
+    .terms-section p {
+      color: #444444;
+      margin-bottom: 12px;
+    }
+
+    .terms-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .terms-list {
+      list-style-type: none;
+      margin-top: 10px;
+      margin-bottom: 12px;
+    }
+
+    .terms-list li {
+      position: relative;
+      padding-left: 1.5em;
+      margin-bottom: 8px;
+      color: #444444;
+    }
+
+    .terms-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0.3em;
+      color: #2E8B2E;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .page-header {
+        padding: 40px 20px;
+      }
+      .page-header h1 {
+        font-size: 1.6rem;
+      }
+      .document-wrapper {
+        padding: 40px 15px;
+      }
+      .document-container {
+        padding: 30px 20px;
+      }
+      .terms-section h2 {
+        font-size: 1.15rem;
+      }
+    }
+  </style>
+
+  <section class="page-header">
+    <h1>Terms of Service</h1>
+  </section>
+
+  <main class="document-wrapper">
+    <div class="document-container">
+
+      <p class="translation-notice">
+        This is an English translation for convenience. If there is any difference between this translation and the Japanese original, the Japanese version prevails.
+        <a href="/terms/" lang="ja">Japanese original (利用規約)</a>
+      </p>
+
+      <section class="terms-section">
+        <h2>Article 1 (Scope)</h2>
+        <p>These Terms apply to the use of all services, digital products and free tools provided by KIZUNA Works (the "Service").</p>
+      </section>
+
+      <section class="terms-section">
+        <h2>Article 2 (What the Service provides)</h2>
+        <p>The Service provides the following:</p>
+        <ul class="terms-list">
+          <li>Sales of kintone plugins</li>
+          <li>Free HTML tools</li>
+          <li>Blog posts and columns</li>
+        </ul>
+      </section>
+
+      <section class="terms-section">
+        <h2>Article 3 (Fees and payment)</h2>
+        <p>Paid products can be paid for by Square payment (credit card) or by bank transfer.<br>Prices are the amounts shown on each product page (in Japanese yen, tax included).<br>If you pay by bank transfer, the transfer fee is borne by you.</p>
+        <p>The term of an annual supporter license is one year from the date the license is issued.<br><strong>Licenses are not renewed automatically.</strong> We will email you when the expiry date approaches; if you wish to continue, please apply again.</p>
+        <p><strong>Free trial of the Premium Annual Supporter plan:</strong><br>The Service offers a campaign that lets you try the Premium Annual Supporter plan free for 30 days.<br>- No credit card is needed to apply for the trial, and you will not be charged automatically when the trial ends.<br>- When the trial ends, the plugins automatically return to the free version (with ads). If you wish to continue, please apply for the Premium Annual Supporter plan.<br>- The free trial is limited to once per kintone domain. Domains that already have a Premium Annual Supporter contract, or that have used or tried it before, are not eligible.<br>- The free trial covers the plugin features (all features of all Chokotto, Premium and KIZUNA Pro plugins, with no ads). Having your logo listed on the supporter list on our website is a benefit of the Premium Annual Supporter plan and is not included in the free trial.<br>- When a new KIZUNA Pro plugin is released, you can use the free trial again on the same domain if 90 days or more have passed since your previous trial ended (domains currently in a trial and domains with a KIZUNA Pro Expansion Pack contract are not eligible). If you have a Premium Annual Supporter contract, the repeat trial covers the KIZUNA Pro Expansion Pack only; if you do not, it covers both the Premium Annual Supporter plan and the KIZUNA Pro Expansion Pack.<br>- After the trial ends, KIZUNA Pro plugin rules stop working, but your settings are not deleted. If you wish to continue, please apply for the KIZUNA Pro Annual Supporter plan or the KIZUNA Pro Expansion Pack.</p>
+        <p><strong>Free trial of the KIZUNA Pro Expansion Pack:</strong><br>Customers with a Premium Annual Supporter contract can try the KIZUNA Pro Expansion Pack free for 30 days.<br>- No credit card is needed to apply for the trial, and you will not be charged automatically when the trial ends.<br>- When the trial ends, KIZUNA Pro plugin rules stop working (your settings are not deleted). If you wish to continue, please apply for the KIZUNA Pro Expansion Pack.<br>- The Expansion Pack free trial is limited to once per kintone domain. However, if a new KIZUNA Pro plugin is released and 90 days or more have passed since your previous trial ended, you can use it again (domains currently in a trial and domains with an Expansion Pack contract are not eligible). Domains without a Premium Annual Supporter contract, domains that have already tried it, and domains with a KIZUNA Pro Expansion Pack contract are not eligible. If you are not eligible, we will let you know by email.</p>
+      </section>
+
+      <section class="terms-section">
+        <h2>Article 4 (Issuing licenses)</h2>
+        <p>Licenses of the Service are issued for your kintone domain. <strong>No license key is issued or sent.</strong></p>
+        <p>Within three business days after we confirm your payment, we will send the license information (plan, covered domain, license start date and end date) and a PDF receipt to your registered email address. For bank transfers, this happens after we confirm receipt of the payment.</p>
+        <p>The plugins themselves can be downloaded free of charge from the plugin pages on this website.<br>The license becomes valid when the domain is authenticated on the plugin settings screen.</p>
+      </section>
+
+      <section class="terms-section">
+        <h2>Article 5 (Refunds and cancellations)</h2>
+        <p>Because of the nature of digital products, <strong>we do not accept refunds or cancellations after a license has been issued.</strong><br>When you switch from the Annual Supporter plan to the Premium Annual Supporter plan, we do not refund the difference or make pro-rata adjustments.<br>Please be sure to check the product description and system requirements before purchasing.</p>
+        <p>However, if there is an error in our billing, such as a double charge, or if a product does not work properly because of a serious defect in the Service and there is no prospect of a fix, we will handle it case by case.<br>For details, see the <a href="/en/refund/">Refund Policy</a>.</p>
+      </section>
+
+      <section class="terms-section">
+        <h2>Article 6 (Licenses)</h2>
+        <ul class="terms-list">
+          <li><strong>kintone plugins:</strong><br>Each license is valid for the one kintone domain you registered (authentication is per subdomain).<br>{PRICE_REVISION_LIVE ? (
+            <>The Annual Supporter plan covers all Chokotto plugins, and the Premium Annual Supporter plan covers all Chokotto and Premium plugins. Plugins newly released during your contract term are included at no extra charge, within the scope of each plan.<br />Switching from the Annual Supporter plan to the Premium Annual Supporter plan is available for the difference in price, based on the remaining term of your current Annual Supporter contract.</>
+          ) : (
+            <>The Annual Supporter plan covers the one plugin you chose when applying, and the Premium Annual Supporter plan covers all Chokotto and Premium plugins at the time of the contract. Plugins newly released during your contract term are included at no extra charge.<br />Switching from the Annual Supporter plan to the Premium Annual Supporter plan is handled as a new application. As a switching benefit, your first Premium term is extended by 60 days (when an Annual Supporter license is active on the same domain; first time only).</>
+          )}<br>Redistribution, resale and transfer to third parties are prohibited.</li>
+          <li><strong>Free tools:</strong><br>Free to use for personal, commercial and business purposes.<br>However, redistributing or selling the tools themselves is prohibited.</li>
+        </ul>
+      </section>
+
+      <section class="terms-section">
+        <h2>Article 7 (Prohibited acts)</h2>
+        <p>The following acts are prohibited:</p>
+        <ul class="terms-list">
+          <li>Reproducing or reposting the Service's content without permission</li>
+          <li>Reverse engineering or modifying the plugins</li>
+          <li>Illegal acts using the Service</li>
+          <li>Any other act the Service deems inappropriate</li>
+        </ul>
+      </section>
+
+      <section class="terms-section">
+        <h2>Article 8 (Intellectual property)</h2>
+        <p>The copyright in all content and programs provided by the Service belongs to KIZUNA Works.</p>
+      </section>
+
+      <section class="terms-section">
+        <h2>Article 9 (Disclaimer)</h2>
+        <p>The Service is not liable for any damage arising from the use of the tools and plugins it provides.<br>The same applies to problems caused by the operating environment, version upgrades and the like.</p>
+      </section>
+
+      <section class="terms-section">
+        <h2>Article 10 (Changes to and suspension of the Service)</h2>
+        <p>The Service may change or suspend its content without prior notice.</p>
+      </section>
+
+      <section class="terms-section">
+        <h2>Article 11 (Changes to these Terms)</h2>
+        <p>The Service may change these Terms as necessary.<br>Revised Terms take effect when they are posted on this page.</p>
+      </section>
+
+      <section class="terms-section">
+        <h2>Article 12 (Governing law and jurisdiction)</h2>
+        <p>These Terms are governed by the laws of Japan.<br>Any dispute shall be subject to the exclusive jurisdiction of the Chiba District Court (Japan) as the court of first instance.</p>
+      </section>
+
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,295 @@
+---
+// English product page for a kintone plugin. One template for every plugin whose
+// entry in src/data/plugins-en.ts has `page`; the Japanese page stays the source of
+// truth for the product, and the zip comes from public/versions.json so the
+// download never lags behind a release.
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+import { plugins, premiumPlugins, type Plugin } from '../../../data/plugins';
+import { pluginsEn, type PluginEn, type PluginEnPage } from '../../../data/plugins-en';
+import versions from '../../../../public/versions.json';
+
+export function getStaticPaths() {
+  return [...plugins, ...premiumPlugins]
+    .filter((p) => pluginsEn[p.id]?.page)
+    .map((p) => ({ params: { slug: p.slug }, props: { plugin: p, en: pluginsEn[p.id] } }));
+}
+
+interface Props {
+  plugin: Plugin;
+  en: PluginEn;
+}
+
+const { plugin, en } = Astro.props;
+const page = en.page as PluginEnPage;
+const SITE = 'https://kizuna-works.jp';
+const url = `${SITE}/en/plugins/${plugin.slug}/`;
+const jaUrl = `/plugins/${plugin.slug}/`;
+const isFree = (plugin.tier ?? 'standard') === 'standard';
+
+const ver = (versions as Record<string, { version: string }>)[plugin.id]?.version;
+if (!ver) throw new Error(`versions.json has no entry for ${plugin.id}`);
+const zip = `/downloads/${plugin.id}-v${ver}.zip`;
+const zipName = zip.split('/').pop();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': url,
+      url,
+      name: page.metaTitle,
+      description: page.metaDescription,
+      inLanguage: 'en',
+      isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: `${SITE}/en/` },
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: en.name,
+      url,
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'kintone',
+      softwareVersion: ver,
+      dateModified: page.dateModified,
+      inLanguage: ['en', 'ja', 'zh'],
+      description: page.definition,
+      image: `${SITE}${plugin.image}`,
+      publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: `${SITE}/en/` },
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'JPY' },
+    },
+    ...(page.faqs?.length
+      ? [{
+          '@type': 'FAQPage',
+          mainEntity: page.faqs.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+          })),
+        }]
+      : []),
+  ],
+};
+---
+<Layout
+  lang="en"
+  title={page.metaTitle}
+  description={page.metaDescription}
+  canonical={url}
+  ogTitle={page.metaTitle}
+  ogDescription={page.metaDescription}
+  ogUrl={url}
+  ogType="website"
+  ogImage={`${SITE}${plugin.image}`}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <main class="enp">
+    <section class="enp-hero">
+      <div class="enp-wrap">
+        <nav class="enp-crumbs" aria-label="Breadcrumb">
+          <a href="/en/">Home</a><span aria-hidden="true">/</span><a href="/en/plugins/">kintone plugins</a>
+        </nav>
+        <p class="enp-kicker">{isFree ? 'Free kintone plugin' : 'kintone plugin'}</p>
+        <h1>{en.name}</h1>
+        <p class="enp-def">{page.definition}</p>
+        <ul class="enp-high">
+          {page.highlights.map((h) => <li><span>{h}</span></li>)}
+        </ul>
+        {isFree ? (
+          <div class="enp-cta">
+            <a class="enp-btn js-en-dl" href={zip} download data-file={zipName}>Download free (v{ver})</a>
+            <a class="enp-btn is-ghost" href="/en/install/">How to install</a>
+          </div>
+        ) : (
+          <div class="enp-cta">
+            <a class="enp-btn" href="/en/contact/">Ask about this plugin</a>
+          </div>
+        )}
+        <p class="enp-langs">Works in English, Japanese and Chinese — the plugin follows each user's kintone language setting. <a href={jaUrl} lang="ja">日本語のページ</a></p>
+      </div>
+    </section>
+
+    <section class="enp-sec">
+      <div class="enp-wrap">
+        <h2>Problems it solves</h2>
+        <div class="enp-grid">
+          {page.problems.map((p) => (
+            <div class="enp-card">
+              <h3>{p.title}</h3>
+              <p>{p.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {page.screenshots.length > 0 && (
+      <section class="enp-sec is-alt">
+        <div class="enp-wrap">
+          <h2>Screenshots</h2>
+          <p class="enp-note-small">Screens are shown with kintone set to Japanese. With kintone set to English, the plugin's screens appear in English.</p>
+          <div class="enp-shots">
+            {page.screenshots.map((s, i) => (
+              <figure class="enp-shot">
+                <Picture src={s.src} alt={s.alt} width={s.width} height={s.height} loading={i === 0 ? 'eager' : 'lazy'} />
+                {s.caption && <figcaption>{s.caption}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="enp-sec">
+      <div class="enp-wrap">
+        <h2>Features</h2>
+        <div class="enp-grid">
+          {page.features.map((f) => (
+            <div class="enp-card">
+              <h3>{f.title}</h3>
+              <p>{f.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="enp-sec is-alt">
+      <div class="enp-wrap">
+        <h2>Install in 3 steps</h2>
+        <ol class="enp-steps">
+          <li><span>{isFree ? <>Download <a href={zip} download data-file={zipName} class="js-en-dl">{zipName}</a>. Do not unzip it.</> : 'Get the plugin zip file from us.'}</span></li>
+          <li><span>In kintone, open <strong>kintone Administration</strong> &gt; <strong>Plug-ins</strong> and import the zip file (kintone administrator rights are needed).</span></li>
+          <li><span>In your app, open <strong>App Settings</strong> &gt; <strong>Plug-ins</strong>, add <strong>{en.name}</strong>, configure it, save, and click <strong>Update App</strong>.</span></li>
+        </ol>
+        <p class="enp-more"><a href="/en/install/">Detailed installation guide</a></p>
+      </div>
+    </section>
+
+    {page.notes.length > 0 && (
+      <section class="enp-sec">
+        <div class="enp-wrap">
+          <h2>Notes</h2>
+          <ul class="enp-notes">
+            {page.notes.map((n) => <li><span>{n}</span></li>)}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    {page.faqs && page.faqs.length > 0 && (
+      <section class="enp-sec is-alt">
+        <div class="enp-wrap">
+          <h2>FAQ</h2>
+          <div class="enp-faq">
+            {page.faqs.map((f) => (
+              <details>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="enp-sec">
+      <div class="enp-wrap enp-end">
+        <h2>Questions?</h2>
+        <p>Write to us in English. KIZUNA Works answers by email.</p>
+        <div class="enp-cta is-center">
+          <a class="enp-btn is-navy" href="/en/contact/">Contact us</a>
+          <a class="enp-btn is-line" href="/en/plugins/">See all plugins</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('.js-en-dl').forEach((a) => {
+    a.addEventListener('click', () => {
+      const g = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
+      if (typeof g === 'function') {
+        g('event', 'file_download', {
+          file_name: a.dataset.file || '',
+          file_extension: 'zip',
+          link_text: a.textContent || '',
+          link_url: a.getAttribute('href') || '',
+          link_position: 'en_page',
+          page_language: 'en',
+        });
+      }
+    });
+  });
+</script>
+
+<style is:global>
+  /* English plugin page */
+  .enp { flex: 1; min-width: 0; background: #F0F4F8; color: #333; }
+  .enp-wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; min-width: 0; }
+  .enp-hero { background: linear-gradient(135deg, #1B3A6B 0%, #224a85 100%); color: #fff; padding: 40px 0 48px; }
+  .enp-crumbs { display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; opacity: 0.85; margin-bottom: 18px; }
+  .enp-crumbs a { color: #fff; }
+  .enp-kicker { display: inline-block; margin: 0 0 10px; padding: 4px 12px; border-radius: 999px; background: #2E8B2E; font-size: 13px; font-weight: 700; }
+  .enp-hero h1 { margin: 0 0 14px; font-size: clamp(26px, 4.4vw, 40px); line-height: 1.25; overflow-wrap: anywhere; }
+  .enp-def { margin: 0 0 18px; max-width: 820px; font-size: 17px; line-height: 1.75; }
+  .enp-high { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 8px; }
+  .enp-high li { display: flex; gap: 10px; align-items: flex-start; min-width: 0; }
+  .enp-high li::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: 9px; border-radius: 50%; background: #7fd27f; }
+  .enp-high li span { min-width: 0; line-height: 1.6; }
+  .enp-cta { display: flex; flex-wrap: wrap; gap: 12px; min-width: 0; }
+  .enp-cta.is-center { justify-content: center; }
+  .enp-btn { display: inline-block; max-width: 100%; box-sizing: border-box; padding: 13px 28px; border-radius: 999px; background: #2E8B2E; color: #fff; font-weight: 700; text-decoration: none; text-align: center; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); }
+  .enp-btn:hover { background: #35a035; }
+  .enp-btn.is-ghost { background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: none; }
+  .enp-btn.is-ghost:hover { background: rgba(255, 255, 255, 0.24); }
+  .enp-btn.is-navy { background: #1B3A6B; }
+  .enp-btn.is-navy:hover { background: #2E8B2E; }
+  .enp-btn.is-line { background: #fff; color: #1B3A6B; border: 2px solid #1B3A6B; box-shadow: none; }
+  .enp-btn.is-line:hover { border-color: #2E8B2E; color: #2E8B2E; }
+  .enp-langs { margin: 18px 0 0; font-size: 14px; opacity: 0.9; line-height: 1.6; }
+  .enp-langs a { color: #fff; }
+  .enp-sec { padding: 48px 0; background: #fff; }
+  .enp-sec.is-alt { background: #F0F4F8; }
+  .enp-sec h2 { margin: 0 0 22px; color: #1B3A6B; font-size: clamp(22px, 3vw, 28px); padding-bottom: 8px; border-bottom: 3px solid #2E8B2E; display: inline-block; }
+  .enp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .enp-card { min-width: 0; background: #fff; border: 1px solid #dbe3ec; border-radius: 10px; padding: 18px 20px; }
+  .enp-sec.is-alt .enp-card { border-color: #d4dde8; }
+  .enp-card h3 { margin: 0 0 8px; font-size: 17px; color: #1B3A6B; overflow-wrap: anywhere; }
+  .enp-card p { margin: 0; line-height: 1.7; font-size: 15px; overflow-wrap: anywhere; }
+  .enp-note-small { margin: -8px 0 18px; color: #64748b; font-size: 14px; }
+  .enp-shots { display: grid; gap: 24px; }
+  .enp-shot { margin: 0; min-width: 0; }
+  .enp-shot img { display: block; width: 100%; height: auto; border-radius: 8px; border: 1px solid #d4dde8; background: #fff; }
+  .enp-shot figcaption { margin-top: 8px; color: #64748b; font-size: 14px; }
+  .enp-steps { list-style: none; counter-reset: enstep; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .enp-steps li { counter-increment: enstep; display: flex; gap: 16px; align-items: flex-start; min-width: 0; background: #fff; border-radius: 10px; padding: 16px 18px; }
+  .enp-steps li::before { content: counter(enstep); flex: none; width: 32px; height: 32px; border-radius: 50%; background: #1B3A6B; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .enp-steps li span { min-width: 0; line-height: 1.7; overflow-wrap: anywhere; }
+  .enp-more { margin: 16px 0 0; }
+  .enp-sec a { color: #1B3A6B; }
+  .enp-sec a:hover { color: #2E8B2E; }
+  .enp-sec .enp-btn, .enp-sec .enp-btn:hover { color: #fff; }
+  .enp-sec .enp-btn.is-line { color: #1B3A6B; }
+  .enp-sec .enp-btn.is-line:hover { color: #2E8B2E; }
+  .enp-notes { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+  .enp-notes li { line-height: 1.7; overflow-wrap: anywhere; }
+  .enp-faq { display: grid; gap: 10px; }
+  .enp-faq details { background: #fff; border-radius: 10px; padding: 14px 18px; border: 1px solid #d4dde8; }
+  .enp-faq summary { cursor: pointer; font-weight: 700; color: #1B3A6B; line-height: 1.6; }
+  .enp-faq p { margin: 10px 0 0; line-height: 1.7; }
+  .enp-end { text-align: center; }
+  .enp-end h2 { display: inline-block; }
+  .enp-end p { margin: 0 0 20px; }
+  @media (max-width: 600px) {
+    .enp-hero { padding: 28px 0 36px; }
+    .enp-def { font-size: 16px; }
+    .enp-cta .enp-btn { width: 100%; }
+    .enp-sec { padding: 36px 0; }
+    .enp-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
