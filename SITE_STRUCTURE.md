@@ -278,7 +278,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── design-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】デザイン Pro for kintone 製品ページ（/plugins/design-pro/）v1.5.0（2026-11-13・第5弾・UPDATE ボックス＝テーブル内のユーザー選択から同じ行の欄へ転記・一覧で開くテーブルの見出し・保管アプリ未設定の案内。取り込んだユーザーオートフィル v1.5.0・テーマスタイラー v1.4.2。スクショ 2 枚＝user-autofill-v150-01・02 を流用。装飾など6つの機能＋表示パターン・印刷パターン・仕上げ・まとめ印刷・PDF の添付保存。配布 zip は public/downloads/kw-design-pro-v1.5.0.zip）
 │   │   │   ├── portal-pro/
-│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ポータル Pro for kintone 製品ページ（/plugins/portal-pro/）v1.2.0（2026-11-21・標準の表示が設定どおりに隠れる修正・版上げのみでお知らせなし・UPDATE ボックスは v1.1.0〔デザインの拡充〕のまま）。メインのポータルとスペースのポータルをウィジェット20種・スタイル20種・ひな形14種・ヒーロー帯／左メニュー／最大幅で組み立てる。スクショは public/images/portal-pro-*.png が存在するときだけ表示（撮影前は文章のみ）。FAQ はページ内に直書き。配布 zip は public/downloads/kw-portal-pro-v1.2.0.zip
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ポータル Pro for kintone 製品ページ（/plugins/portal-pro/）v1.2.1（2026-11-23・アップデートオプションでポータル／スペースの画面が変わっても標準の表示が隠れる修正＋検索欄の修正・v1.2.0〔11-21〕は版上げのみ。UPDATE ボックスは v1.2.1 の 1 つ・お知らせあり）。メインのポータルとスペースのポータルをウィジェット20種・スタイル20種・ひな形14種・ヒーロー帯／左メニュー／最大幅で組み立てる。スクショは public/images/portal-pro-*.png が存在するときだけ表示（撮影前は文章のみ）。FAQ はページ内に直書き。配布 zip は public/downloads/kw-portal-pro-v1.2.1.zip
 │   │   │   ├── record-acl-assist/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】レコード権限アシスト 製品ページ（/plugins/record-acl-assist/）※2026-10-24 配布開始（v1.0.0・プレミアム第23弾・「リクエストから誕生」バッジ）／2026-10-29 v1.1.0＝UPDATE ボックス（組織・グループ・ユーザーを 1 つの設定で使う・対応表アプリに書き方を表示）／2026-11-18 v1.3.0＝UPDATE ボックス（設定画面の確認メッセージを kintone の画面内に表示）— レコードの内容に合わせて見られる組織・人を自動で設定。最初に当たったルールだけが使われる問題を、見せる相手を 1 つのフィールドへ入れて解く。上の組織・対応表・一括反映・保存前の確認・見せる相手の内訳・変更の記録・ルックアップ自動同期との連携
 │   │   │   ├── annotation/
@@ -395,6 +395,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-bridge-release.md     # KIZUNAブリッジ v1.0.0 公開のお知らせ（2026-10-25T10:00・KIZUNA Pro プラグイン。公開日がずれたら pubDate を直す）
 │   │   │   ├── plugin-portal-pro-release.md     # ポータル Pro v1.0.0 公開のお知らせ（2026-11-16T21:00・KIZUNA Pro プラグイン）
 │   │   │   ├── portal-pro-v110-update.md        # ポータル Pro v1.1.0 アップデートのお知らせ（2026-11-18・一覧の表示・列数・デザインの拡充）
+│   │   │   ├── portal-pro-v121-update.md        # ポータル Pro v1.2.1 アップデートのお知らせ（2026-11-23・標準の表示がアップデートオプションの有無によらず隠れる）
 │   │   │   ├── plugin-search-pro-release.md     # サーチ Pro v1.0.0 公開のお知らせ（2026-10-25・KIZUNA Pro プラグイン・ブリッジと同時公開）
 │   │   │   ├── plugin-lookup-pro-release.md     # ルックアップ Pro v1.0.0 公開のお知らせ（2026-10-25T10:30・KIZUNA Pro プラグイン・ブリッジと同日公開）
 │   │   │   ├── plugin-file-pro-release.md       # 添付ファイル Pro v1.0.0 公開のお知らせ（2026-10-27・KIZUNA Pro プラグイン第4弾）

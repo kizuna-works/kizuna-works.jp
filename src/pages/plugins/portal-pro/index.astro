@@ -8,10 +8,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.2.0';
+const VERSION = '1.2.1';
 const ZIP = `/downloads/kw-portal-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/portal-pro/';
-const DATE_MODIFIED = '2026-11-21';
+const DATE_MODIFIED = '2026-11-23';
 
 // Screenshots are added later. A figure is drawn only when its file exists in public/images,
 // so the page never shows a broken image while the shots are still being taken.
@@ -283,6 +283,10 @@ const faqs: { q: string; a: string }[] = [
     a: '隠せます。設定画面の［全体設定］の「kintone 標準の表示」で、トップのポータルとスペースのそれぞれに、［隠さない］［すべて隠す］［選んだものだけ隠す］から選びます。選べるのは、トップのポータルがお知らせ・通知・未処理・スペース・アプリ、スペースがお知らせ（本文）・スレッド・アプリ・ピープル・関連リンクです。既定は［隠さない］です。隠すのは、ポータル Pro の画面を表示できたときだけで、隠しているときは、画面の一番下の「kintone 標準の表示を開く」で、その間だけ戻せます。設定を変えたら、ポータル用 JS をダウンロードし直して登録し直してください。非公開スペースは対象外です。',
   },
   {
+    q: 'kintone のアップデートオプション（ポータル画面・スペース画面の刷新）を有効にしていても、標準の表示を隠せますか？',
+    a: '隠せます。kintone システム管理の「アップデートオプション」にある「PC版・モバイル版ポータル画面のフロントエンド基盤の刷新」と「PC版・モバイル版でのスペース・スレッド画面のフロントエンド基盤の刷新」は、有効でも無効でも、パソコンとスマホの両方で設定どおりに隠れます。これらは kintone が検討中の新機能のため、正式リリースで画面が変わった場合は、対応版を出します。',
+  },
+  {
     q: '外部のサービスに、業務データを送りますか？',
     a: '送りません。画面の設定もレコードの値も、お使いの kintone の中だけで扱います。外部への通信は、ライセンス認証（プラグイン ID と利用ドメイン名のみ）だけです。ただし、「埋め込み」や URL 指定の画像は、管理者が許可したサイトを閲覧者のブラウザが読み込みます。この通信でレコードの値は送りません。',
   },
@@ -358,7 +362,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.2.0",
+          "softwareVersion": "1.2.1",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -762,48 +766,22 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.1.0) -->
+    <!-- Update Info (v1.2.1) -->
     <section class="kbp-section">
       <div class="kbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.1.0：ポータルに kintone の一覧をそのまま置けるようになり、デザインの選択肢も広がりました</h2>
+            <h2 class="update-title">v1.2.1：kintone 標準の表示が、どの画面でも設定どおりに隠れるようになりました</h2>
           </div>
-          <p class="update-desc">ポータル Pro for kintone を v1.1.0 にアップデートしました（2026年11月19日）。</p>
+          <p class="update-desc">ポータル Pro for kintone を v1.2.1 にアップデートしました（2026年11月23日）。</p>
           <ul class="update-list">
-            <li><strong>新しいウィジェット「一覧の表示」で、kintone の一覧をポータルにそのまま置けます。</strong>アプリと一覧を選ぶだけです。上のバーとパンくずは出ず、高さはウィジェットに合います。標準の一覧・カスタマイズビュー・<a href="/plugins/calendar-view/">カレンダービュー</a>・<a href="/plugins/dashboard/">ダッシュボード</a>・シート編集・横並びシートの一覧を選べます。ダッシュボードはボード全体も、カード 1 枚だけも置けます（ダッシュボード v1.8.0 以降）。カレンダービューは月表示が枠に収まり、左側を隠せます（カレンダービュー v2.11.0 以降）。1 つのウィジェットが一覧画面を 1 つ読み込むため、置く数が多いと表示が遅くなります。編集画面に注意を出します。</li>
-            <li><strong>アプリ一覧の列数を 1〜5 列から選べるようになりました。</strong>スマホでは最大 2 列です。</li>
-            <li><strong>左メニューがスクロール中に揺れず、止まって見えるように改善しました。</strong>埋め込みの高さ［ウィジェットに合わせる］も、枠にぴったり合うように改善しました。</li>
-            <li><strong>スタイルが 20 種になり、見た目を細かく変えられます。</strong>kintone の画面になじむ「kintone なじみ」や、すりガラス・クレイ・エディトリアルなど、10 種を追加しました。見出しの形・ウィジェットの面・余白・アイコンの描き方・数値の強調・新着の印・部署の色・背景の模様を、スタイルを選んだあとで 1 つずつ変えられます。</li>
-            <li><strong>上のヒーロー帯・左メニュー・最大幅で、ページの骨組みを作れます。</strong>ヒーロー帯には、あいさつ・アプリを探す欄・重要なお知らせ 1 件を出せます。左メニューには、アプリとリンクをグループ分けして並べます。広い画面では、中身を中央に寄せて幅を抑えられます。</li>
-            <li><strong>お知らせのマガジン表示と、新着の流れを追加しました。</strong>お知らせを「大きく 1 件＋小さなカード」で見せられます。新着の流れは、お知らせとアプリの更新を新しい順に 1 本にまとめるウィジェットです（ウィジェットは 21 種になりました）。画面作成ウィザードのひな形も、8 種増えて 14 種になりました。</li>
+            <li><strong>スペースの標準の表示が、設定どおりに隠れるように改善しました。</strong>kintone システム管理の「アップデートオプション」で「PC版・モバイル版でのスペース・スレッド画面のフロントエンド基盤の刷新」を有効にしている環境で、スペースの標準のお知らせ・スレッド・アプリなどが隠れなかった状態を改善しました。</li>
+            <li><strong>トップのポータルの標準の表示も、設定どおりに隠れるように改善しました。</strong>「PC版・モバイル版ポータル画面のフロントエンド基盤の刷新」を有効にしていない環境（kintone の標準の状態）で、トップのポータルの標準の表示が隠れなかった状態を改善しました。2 つのアップデートオプションのどの組み合わせでも、パソコンとスマホの両方で設定どおりに隠れます。</li>
+            <li><strong>スペースを開いたときの隠れ方を改善しました。</strong>トップのポータルからスペースへ移ったときに、隠す設定が崩れることがあった状態を改善しました。スペースを初めて開いたときから隠れます。</li>
+            <li><strong>アプリ一覧ウィジェットの設定を改善しました。</strong>設定画面で、アプリ一覧ウィジェットの「アプリごとの設定」の検索欄に、1 文字しか入力できなかった状態を改善しました。</li>
           </ul>
-          {shotOk('viewEmbed') && (
-            <figure class="update-shot">
-              <p class="shot-label">一覧の表示</p>
-              <Picture src={`/images/${SHOTS.viewEmbed.file}`} alt={SHOTS.viewEmbed.alt} width={SHOTS.viewEmbed.width} height={SHOTS.viewEmbed.height} class="zoomable" />
-            </figure>
-          )}
-          {shotOk('designAxes') && (
-            <figure class="update-shot">
-              <p class="shot-label">細かい調整</p>
-              <Picture src={`/images/${SHOTS.designAxes.file}`} alt={SHOTS.designAxes.alt} width={SHOTS.designAxes.width} height={SHOTS.designAxes.height} class="zoomable" />
-            </figure>
-          )}
-          {shotOk('pageHero') && (
-            <figure class="update-shot">
-              <p class="shot-label">ヒーロー帯と左メニュー</p>
-              <Picture src={`/images/${SHOTS.pageHero.file}`} alt={SHOTS.pageHero.alt} width={SHOTS.pageHero.width} height={SHOTS.pageHero.height} class="zoomable" />
-            </figure>
-          )}
-          {shotOk('magazine') && (
-            <figure class="update-shot">
-              <p class="shot-label">お知らせのマガジン表示</p>
-              <Picture src={`/images/${SHOTS.magazine.file}`} alt={SHOTS.magazine.alt} width={SHOTS.magazine.width} height={SHOTS.magazine.height} class="zoomable" />
-            </figure>
-          )}
-          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.1.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください。そのあと、<strong>設定画面でポータル用 JS（PC 用・スマホ用）をダウンロードし直し、kintone システム管理の［JavaScript / CSS でカスタマイズ］に登録し直してください。</strong>登録し直すまでは、新しい機能はポータルに出ません。保存済みの画面の設定は、そのまま引き継がれます。これまでのスタイルを使っている画面の見た目は、変わりません。</p>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.2.1）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください。そのあと、<strong>設定画面の［ポータル用JS］から PC 用・スマホ用の JS をダウンロードし直し、kintone システム管理の［JavaScript / CSS でカスタマイズ］に登録し直してください。</strong>標準の表示の改善はポータル用 JS に入っているため、登録し直すまでは変わりません。保存済みの画面の設定は、そのまま引き継がれます。</p>
         </div>
       </div>
     </section>
@@ -1244,12 +1222,13 @@ const faqJsonLd = {
           <li>クイック入力：ポータルからレコードを登録。ワンタップ登録にも対応</li>
           <li>お知らせの［確認しました］ボタンと、「お知らせの確認状況」（確認者・日時・CSV 出力）</li>
           <li>お知らせのマガジン表示（先頭の1件を大きなカードで）と、お知らせとアプリの更新を1本にまとめる新着の流れ</li>
-          <li>アプリ一覧：10の表示パターン・よく使う順などの並び順・ピン留め・非表示・分類・件数バッジ・Ctrl+K のランチャー</li>
+          <li>アプリ一覧：10の表示パターン・よく使う順などの並び順・ピン留め・非表示・分類・件数バッジ・Ctrl+K のランチャー・列数（1〜5 列。スマホは最大 2 列）</li>
         </ul>
         <h3 class="kbp-h3">kintone 標準の表示</h3>
         <ul class="kbp-list">
           <li>トップのポータル（お知らせ・通知・未処理・スペース・アプリ）とスペース（お知らせ本文・スレッド・アプリ・ピープル・関連リンク）の標準の部品を、［隠さない］［すべて隠す］［選んだものだけ隠す］から選んで隠す</li>
           <li>隠しているときは、画面の一番下の「kintone 標準の表示を開く」で、その間だけ戻せる</li>
+          <li>kintone システム管理の「アップデートオプション」（ポータル画面・スペース画面のフロントエンド基盤の刷新）を有効にしていても無効でも、PC・スマホとも設定どおりに隠せる</li>
         </ul>
         <h3 class="kbp-h3">デザイン</h3>
         <ul class="kbp-list">
@@ -1372,6 +1351,7 @@ const faqJsonLd = {
           <ul>
             <li>表示されるのは、メインのポータル（1枚目）とスペースのポータルです。kintone 標準の「2枚目以降のポータル」には表示されません。ゲストスペースとゲストユーザーにも表示されません。</li>
             <li>画面は、ポータル・スペースの「ヘッダーとコンテンツの間」に表示されます。標準の表示を隠したいときは、設定画面の［全体設定］の「kintone 標準の表示」で、トップのポータルとスペースごとに選べます（既定は［隠さない］）。隠すのは、ポータル Pro の画面を表示できたときだけです。表示する画面が無い人・停止中・読み込みに失敗したときは、標準のままです。隠しているときは、画面の一番下の「kintone 標準の表示を開く」で、その間だけ戻せます。</li>
+            <li>kintone システム管理の「アップデートオプション」にある「PC版・モバイル版ポータル画面のフロントエンド基盤の刷新」と「PC版・モバイル版でのスペース・スレッド画面のフロントエンド基盤の刷新」は、有効でも無効でも、標準の表示を隠せます。これらは kintone が検討中の新機能のため、正式リリースで画面が変わった場合は、対応版を出します。</li>
             <li>「kintone 標準の表示」を変えたときは、ポータル用 JS をダウンロードし直して登録し直してください。登録し直すまでは、ブラウザで初めて開いたときだけ前の設定で動きます。スペースに画面を置いた・外したときも、取り直すと、そのスペースを初めて開いたときから隠れます（取り直すまでは、2 回目から隠れます）。</li>
             <li>スマートフォンのスペースは、［すべて隠す］のときだけ隠れます。スマートフォンで初めて開いたときは、kintone の読み込みの順番の都合で、標準の画面が一瞬見えることがあります。</li>
             <li>非公開スペースは、kintone の作りの都合でポータル Pro の描画先が無いため、標準の表示を隠す設定の対象外です。</li>
