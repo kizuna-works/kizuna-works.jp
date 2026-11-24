@@ -1,0 +1,325 @@
+---
+// Detail page for one KIZUNA Bridge recipe (only recipes with a guide in bridge-recipe-guides.ts).
+import Layout from '../../../../layouts/Layout.astro';
+import Picture from '../../../../components/Picture.astro';
+import { bridgeRecipes, bridgeScenes } from '../../../../data/bridge-recipes';
+import { bridgeRecipeGuides, recipeHref } from '../../../../data/bridge-recipe-guides';
+import { allPlugins } from '../../../../data/plugins';
+
+export function getStaticPaths() {
+  return bridgeRecipes
+    .filter((r) => bridgeRecipeGuides[r.id])
+    .map((r) => ({ params: { id: r.id } }));
+}
+
+const { id } = Astro.params;
+const recipe = bridgeRecipes.find((r) => r.id === id)!;
+const g = bridgeRecipeGuides[id!];
+
+const PAGE_URL = `https://kizuna-works.jp/plugins/bridge/recipes/${recipe.id}/`;
+const PRODUCT_URL = 'https://kizuna-works.jp/plugins/bridge/';
+const LIST_URL = 'https://kizuna-works.jp/plugins/bridge/recipes/';
+const TITLE = `${g.seoTitle} | KIZUNA Works`;
+const sceneLabel = new Map(bridgeScenes.map((s) => [s.key, s.label]));
+const partners = (recipe.partners ?? [])
+  .map((pid) => allPlugins.find((p) => p.id === pid))
+  .filter((p) => !!p);
+const related = g.related
+  .map((rid) => bridgeRecipes.find((r) => r.id === rid))
+  .filter((r) => !!r);
+const flowLabel = recipe.flow.to
+  ? `${recipe.flow.from}${recipe.flow.both ? ' ⇄ ' : ' → '}${recipe.flow.to}`
+  : recipe.flow.from;
+
+const howToSteps = g.steps.map((s, i) => ({
+  '@type': 'HowToStep',
+  position: i + 1,
+  name: s.title,
+  text: s.text.join(''),
+  ...(s.shot ? { image: `https://kizuna-works.jp${s.shot.src}` } : {}),
+}));
+---
+
+<Layout
+  heroBg="/images/kizuna-pro-hero-bg.webp"
+  title={TITLE}
+  description={g.description}
+  ogTitle={TITLE}
+  ogDescription={g.description}
+  ogType="website"
+  ogUrl={PAGE_URL}
+  ogImage="https://kizuna-works.jp/images/bridge-banner.png"
+  canonical={PAGE_URL}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': PAGE_URL,
+          url: PAGE_URL,
+          name: TITLE,
+          description: g.description,
+          dateModified: g.dateModified,
+          about: { '@type': 'SoftwareApplication', name: 'KIZUNAブリッジ for kintone', url: PRODUCT_URL },
+          isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: 'https://kizuna-works.jp/' },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+            { '@type': 'ListItem', position: 2, name: 'kintoneプラグイン', item: 'https://kizuna-works.jp/plugins/' },
+            { '@type': 'ListItem', position: 3, name: 'KIZUNAブリッジ for kintone', item: PRODUCT_URL },
+            { '@type': 'ListItem', position: 4, name: '使い方の例', item: LIST_URL },
+            { '@type': 'ListItem', position: 5, name: recipe.title, item: PAGE_URL },
+          ],
+        },
+        ...(howToSteps.length ? [{
+          '@type': 'HowTo',
+          name: recipe.title,
+          description: g.description,
+          step: howToSteps,
+        }] : []),
+        {
+          '@type': 'FAQPage',
+          mainEntity: g.faq.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+          })),
+        },
+      ],
+    })} />
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    .brd-hero {
+      background:
+        url('/images/kizuna-pro-hero-bg.webp') center top / 100% auto no-repeat,
+        linear-gradient(90deg, #020816 0%, #050b1c 30%, #081427 50%, #09182f 70%, #0c1729 100%);
+      color: #fff;
+      padding: 44px 5% 36px;
+      border-bottom: 4px solid #b8862b;
+    }
+    .brd-hero-in { max-width: 900px; margin: 0 auto; min-width: 0; }
+    .brd-crumb { font-size: 0.82rem; margin: 0 0 14px; color: rgba(255, 255, 255, 0.75); }
+    .brd-crumb a { color: #f0d58a; text-decoration: none; }
+    .brd-crumb a:hover { text-decoration: underline; }
+    .brd-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; padding: 0; list-style: none; }
+    .brd-tags li { font-size: 0.78rem; padding: 3px 10px; border-radius: 12px; background: rgba(255, 255, 255, 0.12); color: #f0d58a; }
+    .brd-tags li.is-flow { background: #b8862b; color: #1a1405; font-weight: 700; }
+    .brd-hero h1 { font-size: clamp(1.4rem, 3.6vw, 2rem); margin: 0 0 14px; line-height: 1.45; }
+    .brd-hero p { margin: 0 0 8px; line-height: 1.9; color: rgba(255, 255, 255, 0.9); }
+
+    .brd-main { padding: 36px 5% 64px; }
+    .brd-wrap { max-width: 900px; margin: 0 auto; min-width: 0; }
+    .brd-card {
+      background: #fff; border: 1px solid #dbe3ee; border-radius: 12px;
+      padding: 26px 28px; margin: 0 0 24px; min-width: 0;
+    }
+    .brd-card h2 {
+      font-size: 1.25rem; color: #1B3A6B; margin: 0 0 14px; padding-bottom: 8px;
+      border-bottom: 2px solid #2E8B2E; line-height: 1.5;
+    }
+    .brd-card h3 { font-size: 1.05rem; color: #1B3A6B; margin: 22px 0 8px; line-height: 1.5; }
+    .brd-card p { margin: 0 0 12px; line-height: 1.9; color: #333; }
+
+    .brd-rule {
+      margin: 0; padding: 14px 16px; border-radius: 10px;
+      background: #fbf7ec; border: 1px solid #ecdcae;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .brd-rule-row { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 10px; }
+    .brd-rule-row dt { font-size: 0.85rem; font-weight: 700; color: #8a6420; }
+    .brd-rule-row dd { margin: 0; line-height: 1.75; color: #333; min-width: 0; overflow-wrap: anywhere; }
+    .brd-rule-row ul { margin: 0; padding-left: 1.2em; }
+
+    .brd-apps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .brd-app { border: 1px solid #dbe3ee; border-radius: 10px; padding: 14px 16px; min-width: 0; }
+    .brd-app h3 { margin: 0 0 4px; }
+    .brd-app .role { font-size: 0.85rem; color: #64748b; margin: 0 0 8px; }
+    .brd-app table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .brd-app th, .brd-app td { text-align: left; padding: 6px 8px; border-top: 1px solid #edf1f6; vertical-align: top; overflow-wrap: anywhere; }
+    .brd-app th { color: #1B3A6B; white-space: nowrap; }
+    .brd-app td small { display: block; color: #64748b; }
+
+    .brd-steps { list-style: none; margin: 0; padding: 0; counter-reset: st; }
+    .brd-steps > li { counter-increment: st; position: relative; padding: 0 0 22px 46px; min-width: 0; }
+    .brd-steps > li::before {
+      content: counter(st); position: absolute; left: 0; top: 0;
+      width: 32px; height: 32px; border-radius: 50%; background: #1B3A6B; color: #fff;
+      display: flex; align-items: center; justify-content: center; font-weight: 700;
+    }
+    .brd-steps h3 { margin: 4px 0 8px; }
+    .brd-shot { margin: 10px 0 4px; min-width: 0; }
+    .brd-shot img { max-width: 100%; height: auto; border: 1px solid #dbe3ee; border-radius: 8px; display: block; }
+    .brd-shot figcaption { font-size: 0.85rem; color: #64748b; margin-top: 6px; line-height: 1.7; }
+
+    .brd-points { display: flex; flex-direction: column; gap: 12px; }
+    .brd-point { border-left: 4px solid #2E8B2E; background: #f4faf4; padding: 12px 16px; border-radius: 0 8px 8px 0; }
+    .brd-point h3 { margin: 0 0 4px; font-size: 1rem; }
+    .brd-point p { margin: 0; }
+
+    .brd-faq dt { font-weight: 700; color: #1B3A6B; margin: 14px 0 4px; line-height: 1.7; }
+    .brd-faq dt::before { content: 'Q. '; color: #2E8B2E; }
+    .brd-faq dd { margin: 0; line-height: 1.85; color: #333; }
+
+    .brd-related { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+    .brd-related a {
+      display: block; padding: 12px 16px; border: 1px solid #dbe3ee; border-radius: 8px;
+      color: #1B3A6B; font-weight: 700; text-decoration: none; line-height: 1.6;
+    }
+    .brd-related a:hover { border-color: #1B3A6B; background: #f7f9fc; }
+    .brd-related small { display: block; font-weight: 400; color: #64748b; }
+
+    .brd-cta { padding: 28px 24px; border-radius: 14px; text-align: center; background: #0f1f3d; color: #fff; }
+    .brd-cta h2 { font-size: 1.2rem; margin: 0 0 8px; }
+    .brd-cta p { margin: 0 0 18px; line-height: 1.8; color: rgba(255, 255, 255, 0.88); }
+    .brd-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .brd-btn { display: inline-block; padding: 12px 22px; border-radius: 30px; font-weight: 700; text-decoration: none; }
+    .brd-btn.is-primary { background: linear-gradient(135deg, #e8c766 0%, #b8862b 100%); color: #1a1405; }
+    .brd-btn.is-ghost { border: 1px solid rgba(255, 255, 255, 0.6); color: #fff; }
+
+    @media (max-width: 760px) {
+      .brd-apps { grid-template-columns: minmax(0, 1fr); }
+      .brd-card { padding: 20px 18px; }
+      .brd-rule-row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+      .brd-steps > li { padding-left: 0; padding-top: 40px; }
+      .brd-btn { width: 100%; box-sizing: border-box; }
+    }
+  </style>
+
+  <main>
+    <section class="brd-hero">
+      <div class="brd-hero-in">
+        <p class="brd-crumb">
+          <a href="/plugins/">kintoneプラグイン</a> ／ <a href="/plugins/bridge/">KIZUNAブリッジ for kintone</a> ／ <a href="/plugins/bridge/recipes/">使い方の例</a>
+        </p>
+        <ul class="brd-tags">
+          <li class="is-flow">{flowLabel}</li>
+          {recipe.scenes.map((s) => <li>{sceneLabel.get(s)}</li>)}
+        </ul>
+        <h1>{recipe.title}</h1>
+        {g.lead.map((t) => <p>{t}</p>)}
+      </div>
+    </section>
+
+    <div class="brd-main">
+      <div class="brd-wrap">
+        <section class="brd-card">
+          <h2>ルールの全体像</h2>
+          <p>KIZUNAブリッジのルールは「きっかけ・条件・動かす内容」の3つを選んで作ります。この例では、次のように選びます。</p>
+          <dl class="brd-rule">
+            <div class="brd-rule-row"><dt>1 きっかけ</dt><dd>{recipe.trigger}</dd></div>
+            <div class="brd-rule-row"><dt>2 条件</dt><dd>{recipe.condition}</dd></div>
+            <div class="brd-rule-row">
+              <dt>3 動かす内容</dt>
+              <dd><ul>{recipe.actions.map((a) => <li>{a}</li>)}</ul></dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="brd-card">
+          <h2>使うアプリとフィールド</h2>
+          <p>アプリ名・フィールド名は例です。お使いのアプリに合わせて読み替えてください。</p>
+          <div class="brd-apps">
+            {g.apps.map((a) => (
+              <div class="brd-app">
+                <h3>{a.name}</h3>
+                <p class="role">{a.role}</p>
+                <table>
+                  <tbody>
+                    {a.fields.map((f) => (
+                      <tr><th scope="row">{f.name}</th><td>{f.type}{f.note && <small>{f.note}</small>}</td></tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {g.steps.length > 0 && (
+          <section class="brd-card">
+            <h2>設定の手順</h2>
+            <ol class="brd-steps">
+              {g.steps.map((s) => (
+                <li>
+                  <h3>{s.title}</h3>
+                  {s.text.map((t) => <p>{t}</p>)}
+                  {s.shot && (
+                    <figure class="brd-shot">
+                      <Picture src={s.shot.src} alt={s.shot.alt} />
+                      {s.shot.caption && <figcaption>{s.shot.caption}</figcaption>}
+                    </figure>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        {g.results.length > 0 && (
+          <section class="brd-card">
+            <h2>動かすとこうなります</h2>
+            {g.results.map((r) => (
+              <>
+                <p>{r.text}</p>
+                {r.shot && (
+                  <figure class="brd-shot">
+                    <Picture src={r.shot.src} alt={r.shot.alt} />
+                    {r.shot.caption && <figcaption>{r.shot.caption}</figcaption>}
+                  </figure>
+                )}
+              </>
+            ))}
+          </section>
+        )}
+
+        <section class="brd-card">
+          <h2>設定のポイント</h2>
+          <div class="brd-points">
+            {g.points.map((p) => (
+              <div class="brd-point"><h3>{p.title}</h3><p>{p.text}</p></div>
+            ))}
+          </div>
+          {partners.length > 0 && (
+            <p style="margin-top:16px">
+              この例で組み合わせるプラグイン：
+              {partners.map((p, i) => (<>{i > 0 && '、'}<a href={`/plugins/${p!.slug}/`}>{p!.name}</a></>))}
+            </p>
+          )}
+        </section>
+
+        <section class="brd-card">
+          <h2>よくある質問</h2>
+          <dl class="brd-faq">
+            {g.faq.map((f) => (<><dt>{f.q}</dt><dd>{f.a}</dd></>))}
+          </dl>
+        </section>
+
+        <section class="brd-card">
+          <h2>関連する使い方の例</h2>
+          <ul class="brd-related">
+            {related.map((r) => (
+              <li><a href={recipeHref(r!.id)}>{r!.title}<small>{r!.now}</small></a></li>
+            ))}
+            <li><a href="/plugins/bridge/recipes/">使い方の例をすべて見る（全{bridgeRecipes.length}件）</a></li>
+            <li><a href="/blog/kintone-app-renkei/">解説記事：kintoneで他のアプリを自動で更新する方法</a></li>
+          </ul>
+        </section>
+
+        <div class="brd-cta">
+          <h2>KIZUNAブリッジ for kintone</h2>
+          <p>この例は、KIZUNAブリッジ for kintone の設定だけで作れます。機能の一覧や料金は製品ページで紹介しています。30日間無料で試せます。</p>
+          <div class="brd-cta-btns">
+            <a class="brd-btn is-primary" href="/plugins/bridge/">製品ページを見る →</a>
+            <a class="brd-btn is-ghost" href="/plugins/premium-trial/">30日間無料で試す</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

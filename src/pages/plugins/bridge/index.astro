@@ -5,6 +5,7 @@ import SecurityBox from '../../../components/SecurityBox.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import BridgeRecipeCard from '../../../components/BridgeRecipeCard.astro';
 import { bridgeRecipes, featuredBridgeRecipes } from '../../../data/bridge-recipes';
+import { recipeHref } from '../../../data/bridge-recipe-guides';
 import { bridgePartnerPlugins } from '../../../data/plugins';
 import type { Plugin } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
@@ -814,7 +815,7 @@ const faqJsonLd = {
                 {partnerRows.map((r) => (
                   <tr>
                     <th scope="row"><a href={`/plugins/${r.p.slug}/`}>{r.p.name.replace(/ for kintone$/, '')}</a>{recipesFor(r.p.id).length > 0 && (
-                      <span class="kbp-matrix-ex">{recipesFor(r.p.id).map((x, i, all) => <a href={`/plugins/bridge/recipes/#${x.id}`} title={x.title}>{all.length > 1 ? `使い方の例${i + 1}` : '使い方の例'}</a>)}</span>
+                      <span class="kbp-matrix-ex">{recipesFor(r.p.id).map((x, i, all) => <a href={recipeHref(x.id)} title={x.title}>{all.length > 1 ? `使い方の例${i + 1}` : '使い方の例'}</a>)}</span>
                     )}</th>
                     {MODE_COLUMNS.map((c) => (
                       r.what[c.key] ? <td class="is-on"><span class="kbp-matrix-mark" aria-hidden="true">●</span>{r.what[c.key]}</td> : <td class="is-off" aria-label="なし">－</td>

@@ -2,10 +2,11 @@
 import Layout from '../../../../layouts/Layout.astro';
 import BridgeRecipeCard from '../../../../components/BridgeRecipeCard.astro';
 import { bridgeRecipes, bridgeScenes } from '../../../../data/bridge-recipes';
+import { recipeHref } from '../../../../data/bridge-recipe-guides';
 
 const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/recipes/';
 const PRODUCT_URL = 'https://kizuna-works.jp/plugins/bridge/';
-const DATE_MODIFIED = '2026-11-08';
+const DATE_MODIFIED = '2026-11-24';
 const COUNT = bridgeRecipes.length;
 
 const TITLE = 'KIZUNAブリッジの使い方の例｜kintone のアプリ間連携を自動化するルール集 | KIZUNA Works';
@@ -59,7 +60,7 @@ const scenes = bridgeScenes
             '@type': 'ListItem',
             position: i + 1,
             name: r.title,
-            url: `${PAGE_URL}#${r.id}`,
+            url: `https://kizuna-works.jp${recipeHref(r.id)}`,
             description: `今は：${r.now} きっかけ：${r.trigger}。条件：${r.condition}。動かす内容：${r.actions.join('／')}。結果：${r.result}`,
           })),
         },

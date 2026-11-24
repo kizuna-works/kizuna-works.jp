@@ -4,6 +4,7 @@
 import { allPlugins } from '../data/plugins';
 import { bridgeScenes } from '../data/bridge-recipes';
 import type { BridgeRecipe } from '../data/bridge-recipes';
+import { hasRecipeGuide } from '../data/bridge-recipe-guides';
 
 interface Props {
   recipe: BridgeRecipe;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const { recipe, anchor = false } = Astro.props;
+const detail = hasRecipeGuide(recipe.id) ? `/plugins/bridge/recipes/${recipe.id}/` : '';
 const sceneLabel = new Map(bridgeScenes.map((s) => [s.key, s.label]));
 const partners = (recipe.partners ?? [])
   .map((id) => allPlugins.find((p) => p.id === id))
@@ -38,7 +40,7 @@ const partners = (recipe.partners ?? [])
     </ul>
   </div>
 
-  <h3 class="brc-title">{recipe.title}</h3>
+  <h3 class="brc-title">{detail ? <a href={detail}>{recipe.title}</a> : recipe.title}</h3>
 
   <p class="brc-now"><span class="brc-label">今は</span>{recipe.now}</p>
 
@@ -68,6 +70,10 @@ const partners = (recipe.partners ?? [])
       <summary>設定のしかた</summary>
       <ol>{recipe.setup.map((x) => <li>{x}</li>)}</ol>
     </details>
+  )}
+
+  {detail && (
+    <a class="brc-more" href={detail}>画面つきの設定手順を見る →</a>
   )}
 
   {partners.length > 0 && (
@@ -110,6 +116,13 @@ const partners = (recipe.partners ?? [])
     background: #F0F4F8; color: #64748b; line-height: 1.6;
   }
   .brc-title { font-size: 1.05rem; color: #1B3A6B; margin: 0; line-height: 1.5; }
+  .brc-title a { color: inherit; text-decoration: none; }
+  .brc-title a:hover { text-decoration: underline; }
+  .brc-more {
+    align-self: flex-start; font-size: 0.88rem; font-weight: 700; color: #fff; background: #1B3A6B;
+    padding: 8px 16px; border-radius: 20px; text-decoration: none;
+  }
+  .brc-more:hover { background: #2E8B2E; }
   .brc-now, .brc-result { margin: 0; font-size: 0.9rem; line-height: 1.75; color: #333; }
   .brc-label {
     display: inline-block; margin-right: 8px; padding: 1px 8px; border-radius: 4px;
