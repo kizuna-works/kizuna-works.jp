@@ -55,6 +55,7 @@ c:\kizuna-works.jp\
 │   │   ├── ProEditionBadge.astro # 「KIZUNA Pro 版あり →」バッジ（製品ページのヒーロー・2026-11-08）。KIZUNA Pro が収録している単体プラグインに付き、その Pro のページへリンクする。元は plugins.ts の Pro 製品の `bundles`（`proEditionOf()`）。一覧のカード（`.badge-pro-edition`）とランキング（`.rb-pro`）も同じデータ。文言は「統合」ではなく「Pro 版あり」（単体版は続くため）
 │   │   ├── BridgeFeatureBand.astro # トップページの帯「KIZUNAブリッジ おすすめの機能」（KIZUNA Pro 帯の直下）。ブリッジの機能をひとつずつ紹介し、製品ページのその機能の説明箇所へ遷移。FEATURES に足して CURRENT を書き換えると差し替わる（2026-10-27 初回＝プラグインの一括更新 → /plugins/bridge/#plugin-update）
 │   │   ├── BridgeUpdateNote.astro # 製品ページの UPDATE ボックス末尾の1行「まとめて更新」。KIZUNAブリッジの［プラグインの更新］タブ（/plugins/bridge/#plugin-update）へ誘導。UPDATE ボックスのある製品ページ51件に設置（2026-10-27）
+│   │   ├── BridgeRecipeLinks.astro # 連携先の製品ページに置く「KIZUNAブリッジと組み合わせると」の節。bridge-recipes.ts の partners にその製品が入っている使い方の例だけを並べ、個別ページ（またはrecipes一覧の該当箇所）へリンク。例が無い製品では何も出さない。SecurityBox の直前に置く（2026-11-24 に13製品へ設置）
 │   │   ├── BridgeRecipeCard.astro # KIZUNAブリッジの「使い方の例」カード1件（今の作業 → きっかけ・条件・動かす内容 → こうなります）。製品ページ（代表例）と /plugins/bridge/recipes/（全件）で共用。データは src/data/bridge-recipes.ts
 │   │   ├── BridgeDocStyles.astro # KIZUNAブリッジの手引きページ2つ（/plugins/bridge/guide/・/plugins/bridge/formula/）の共通 CSS（is:global）。表は .bd-scroll の中に置く（モバイルの横はみ出し対策）
 │   │   ├── PremiumPlanCard.astro # ちょこっと製品ページのプラン欄3枚目（プレミアム年間サポーター）。ページ側の `.pricing-card` 等をそのまま使い、紺のアクセントだけスコープ付きCSSで足す＝各ページの見た目に自動で馴染む。プレミアム製品ページでは使わない（年間サポーターを掲載しないため2枚のまま）

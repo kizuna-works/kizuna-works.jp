@@ -1,0 +1,164 @@
+---
+/**
+ * 製品ページに置く「KIZUNAブリッジと組み合わせると」の節。
+ * src/data/bridge-recipes.ts の `partners` にこの製品が入っている使い方の例だけを並べる。
+ * 例が1件も無い製品では何も出さない（置き忘れても、例を足せば自動で出る）。
+ * 公開文の決まり：一緒に何ができるかを書く。ブリッジが製品とどう通信するかは書かない。
+ */
+import { allPlugins } from '../data/plugins';
+import { bridgeRecipes } from '../data/bridge-recipes';
+import { hasRecipeGuide, recipeHref } from '../data/bridge-recipe-guides';
+
+interface Props {
+  /** Product id in plugins.ts (e.g. 'kw-record-lock'). */
+  pluginId: string;
+}
+
+const { pluginId } = Astro.props;
+const product = allPlugins.find((p) => p.id === pluginId);
+const shortName = (product?.name ?? '').replace(/\s*for kintone$/, '');
+const recipes = bridgeRecipes.filter((r) => (r.partners ?? []).includes(pluginId));
+---
+
+{recipes.length > 0 && (
+  <section class="brl-section" aria-labelledby="brl-heading" id="bridge-recipes">
+    <div class="brl-card">
+      <p class="brl-kicker">KIZUNA Pro プラグインと組み合わせる</p>
+      <h2 id="brl-heading" class="brl-title">KIZUNAブリッジと組み合わせると</h2>
+      <p class="brl-lead">
+        {shortName}は、<a href="/plugins/bridge/">KIZUNAブリッジ for kintone</a> と組み合わせると、アプリをまたいだ処理と一緒に動かせます。たとえば次のような使い方です。
+      </p>
+      <ul class="brl-list">
+        {recipes.map((r) => (
+          <li class="brl-item">
+            <span class="brl-flow">
+              {r.flow.from}{r.flow.to && <>{r.flow.both ? ' ⇄ ' : ' → '}{r.flow.to}</>}
+            </span>
+            <a class="brl-item-title" href={recipeHref(r.id)}>{r.title}</a>
+            <p class="brl-item-text">{r.result}</p>
+            <a class="brl-more" href={recipeHref(r.id)}>
+              {hasRecipeGuide(r.id) ? '画面つきの設定手順を見る →' : '設定のしかたを見る →'}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="brl-foot">
+        <a href="/plugins/bridge/recipes/">KIZUNAブリッジの使い方の例をすべて見る →</a>
+      </p>
+    </div>
+  </section>
+)}
+
+<style>
+  /* Bridge recipe links on partner product pages; sized like SecurityBox so it fits both page templates */
+  .brl-section {
+    background-color: #F0F4F8;
+    padding: 56px 5% 0;
+    display: flex;
+    justify-content: center;
+  }
+  .brl-card {
+    background: #FFFFFF;
+    border: 1px solid #eadcb2;
+    border-left: 5px solid #b8862b;
+    border-radius: 12px;
+    max-width: 880px;
+    width: 100%;
+    min-width: 0;
+    padding: 32px 36px;
+    box-shadow: 0 4px 16px rgba(27, 58, 107, 0.06);
+  }
+  .brl-kicker {
+    margin: 0 0 6px;
+    color: #7a5512;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .brl-title {
+    margin: 0 0 12px;
+    color: #1B3A6B;
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .brl-lead {
+    margin: 0 0 20px;
+    color: #333333;
+    font-size: 0.97rem;
+    line-height: 1.8;
+  }
+  .brl-lead a,
+  .brl-foot a {
+    color: #1B3A6B;
+    font-weight: 700;
+  }
+  .brl-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .brl-item {
+    min-width: 0;
+    padding: 16px 18px;
+    background: #fbf8ef;
+    border-radius: 8px;
+  }
+  .brl-flow {
+    display: inline-block;
+    margin-bottom: 6px;
+    padding: 2px 10px;
+    background: #1B3A6B;
+    color: #FFFFFF;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 10px;
+  }
+  .brl-item-title {
+    display: block;
+    color: #1B3A6B;
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.6;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+  .brl-item-title:hover {
+    color: #2E8B2E;
+    text-decoration: underline;
+  }
+  .brl-item-text {
+    margin: 6px 0 8px;
+    color: #4a5568;
+    font-size: 0.9rem;
+    line-height: 1.75;
+  }
+  .brl-more {
+    color: #1B3A6B;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid #1B3A6B;
+  }
+  .brl-more:hover {
+    color: #2E8B2E;
+    border-color: #2E8B2E;
+  }
+  .brl-foot {
+    margin: 18px 0 0;
+    font-size: 0.92rem;
+  }
+  @media (max-width: 600px) {
+    .brl-section {
+      padding-top: 40px;
+    }
+    .brl-card {
+      padding: 24px 18px;
+    }
+    .brl-title {
+      font-size: 1.25rem;
+    }
+  }
+</style>
