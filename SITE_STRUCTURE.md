@@ -513,6 +513,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── input-assist-v260.md            # 入力アシスト v2.6.0 公開のお知らせ（組み合わせの重複チェック・update）
 │   │   │   ├── conditional-numbering-v250.md   # 条件分岐自動採番 v2.5.0 アップデートのお知らせ（2026-10-29 11:10・番号を振るタイミングを条件を満たしたときに選べる／レコードが多いアプリでの保存の高速化／ルール削除・追加後の設定が戻る点の改善）
 │   │   │   ├── conditional-numbering-v260.md   # 条件分岐自動採番 v2.6.0 アップデートのお知らせ（2026-11-12 11:00・アクセス権で一部しか見られない人が保存してもアプリ全体の最大値から採番できる読み込み範囲の選択）
+│   │   │   ├── conditional-numbering-v270.md   # 条件分岐自動採番 v2.7.0 アップデートのお知らせ（2026-11-24 16:30・アプリの動作テストでは本番と重ならない番号を振る）
 │   │   │   ├── plugin-mail-assist-v200.md      # メールアシスト v2.0.0 アップデートのお知らせ（2026-11-12 13:00・差し込む数値・日時をフィールドの設定どおりに表示・多言語はバッジのみ）
 │   │   │   ├── bulk-update-v110.md             # かんたん一括更新 v1.1.0 アップデートのお知らせ（2026-10-29 11:30・［すべて除外］［すべて解除］・色の共通カラーパレット）
 │   │   │   ├── blog-kintone-2026-10-update.md # ブログ記事「kintone 2026年10月アップデート」公開のお知らせ（2026-10-17 15:00）
@@ -575,6 +576,8 @@ c:\kizuna-works.jp\
 │   │   ├── conditional-numbering-config-01.png  # 条件分岐自動採番 v2.5.0 設定画面の全体像（上帯・目次とライブプレビュー・タブ・フォーマット設定・サイドバー。製品ページ「設定画面イメージ」）。2026-10-29 に v2.4.0 版から差し替え
 │   │   ├── conditional-numbering-config-01.webp # 同 WebP 版
 │   │   ├── conditional-numbering-v260-scope.png # 条件分岐自動採番 v2.6.0 設定画面「番号を決めるときに読むレコード」（APIトークン欄・保存済み・注意枠。製品ページ UPDATE ボックス）
+│   │   ├── conditional-numbering-v270-config.png # 条件分岐自動採番 v2.7.0 設定画面「アプリの動作テスト環境での番号」（製品ページ UPDATE ボックス）＋ .webp
+│   │   ├── conditional-numbering-v270-testenv.png # 条件分岐自動採番 v2.7.0 アプリの動作テストで保存したレコード詳細（日時入りの番号。製品ページ UPDATE ボックス）＋ .webp
 │   │   ├── conditional-numbering-config-02.png  # 条件分岐自動採番 v2.3.0 の UPDATE 用（パーツ設定＋連番の数え方「枝番」＋採番サンプル）＋ .webp
 │   │   ├── conditional-numbering-list-01.png    # 条件分岐自動採番 v2.3.0 の UPDATE 用（SKU マスタの一覧＝商品IDごとの枝番）＋ .webp
 │   │   ├── form-deco-icon.png              # FormDecoプラグイン アイコン
@@ -1809,6 +1812,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-conditional-numbering-v2.2.0.zip # 条件分岐自動採番 v2.2.0 配布物
 │   │   ├── kw-conditional-numbering-v2.3.0.zip # 条件分岐自動採番 v2.3.0 配布物（旧版・枝番／採番中の進捗表示）
 │   │   ├── kw-conditional-numbering-v2.3.1.zip # 条件分岐自動採番 v2.3.1 配布物（旧版・連携用の内部の改善）
+│   │   ├── kw-conditional-numbering-v2.7.0.zip # 条件分岐自動採番 v2.7.0 配布物（最新・アプリの動作テストでは本番と重ならない番号を振る）
 │   │   ├── kw-conditional-numbering-v2.5.0.zip # 条件分岐自動採番 v2.5.0 配布物（最新・発番のタイミング／レコードが多いアプリでの保存の高速化／ルール削除・追加後の設定の不具合修正。save-release 後に配置）
 │   │   ├── kw-conditional-numbering-v2.4.0.zip # 条件分岐自動採番 v2.4.0 配布物（旧版・参考保管・日付パーツの基準日／次に振られる連番の確認／条件のテキストが空のときの注意）
 │   │   ├── kw-lookup-filter-v1.0.0.zip                          # ルックアップ絞り込み for kintone 配布ファイル（旧版・手動配置・プレミアム第14弾 初版）
