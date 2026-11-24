@@ -15,9 +15,9 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
 <Layout
   title="集計サマリーバー for kintone - 一覧ヘッダーに合計・件数を即時表示 | KIZUNA Works"
-  description="kintone レコード一覧のヘッダーに合計・平均・最大・最小・件数の集計カードを表示するプラグイン。絞り込みに連動して即時に再集計し、勤務時間などの時間も「〇時間〇分」で集計できます。カードごとの絞り込み集計・条件付き色分け・段組みに対応。"
+  description="kintone レコード一覧のヘッダーに合計・平均・最大・最小・件数の集計カードを表示するプラグイン。絞り込みに連動して即時に再集計し、勤務時間などの時間も「〇時間〇分」で集計できます。カードごとの絞り込み集計（本日以前・本日より後など開いた日が基準の期間も可）・条件付き色分け・段組みに対応。"
   ogTitle="集計サマリーバー for kintone - 一覧ヘッダーに合計・件数を即時表示 | KIZUNA Works"
-  ogDescription="kintone レコード一覧のヘッダーに合計・平均・最大・最小・件数の集計カードを表示するプラグイン。絞り込みに連動して即時に再集計し、勤務時間などの時間も「〇時間〇分」で集計できます。カードごとの絞り込み集計・条件付き色分け・段組みに対応。"
+  ogDescription="kintone レコード一覧のヘッダーに合計・平均・最大・最小・件数の集計カードを表示するプラグイン。絞り込みに連動して即時に再集計し、勤務時間などの時間も「〇時間〇分」で集計できます。カードごとの絞り込み集計（本日以前・本日より後など開いた日が基準の期間も可）・条件付き色分け・段組みに対応。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/summary-bar/"
   ogImage="https://kizuna-works.jp/images/summary-bar-banner.png"
@@ -59,10 +59,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "集計サマリーバー for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "2.7.0",
-          "dateModified": "2026-11-15",
+          "softwareVersion": "2.8.0",
+          "dateModified": "2026-11-24",
           "url": "https://kizuna-works.jp/plugins/summary-bar/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-summary-bar-v2.7.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-summary-bar-v2.8.0.zip",
           "image": "https://kizuna-works.jp/images/summary-bar-banner.png",
           "offers": {
             "@type": "Offer",
@@ -83,6 +83,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "計算フィールド（表示形式：時間）の合計・平均・最大・最小を kintone と同じ「〇時間〇分」「〇日〇時間〇分」で表示",
             "分・時間・秒を入れた数値フィールドを「〇時間〇分」で表示（入力値の単位を選択）",
             "時間の絞り込み・色分けのしきい値を「8:30」の形で入力（例：勤務時間8時間以上の日数）",
+            "日付・日時の条件に「本日以前・本日より前・本日以降・本日より後」を用意し、一覧を開いた日を基準に毎回計算（例：有給の取得済みと予定）",
             "カードごとに別フィールドの条件で集計対象を絞り込み（例：商品＝商品Aの売上だけ合計／複数条件はAND・OR）",
             "絞り込み・ソートに連動して即時に再集計（debounce 制御）",
             "「表示中（現在ページ）／絞り込み全件」をトグルでワンクリック切替",
@@ -770,26 +771,33 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v2.7.0</span>
+        <span class="hero-version">v2.8.0</span>
       </div>
       <HeroSubBadges pluginId="kw-summary-bar" />
       <h1 class="hero-title">集計サマリーバー for kintone</h1>
-      <p class="hero-copy">レコード一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示する kintone プラグインです。絞り込みに連動して即時に再集計するので、グラフ画面に移動せず「今この一覧の数字」をひと目で把握できます。一覧ビューごとに別のカード構成を設定でき、集計値による色分けや段組みに対応。「今月の売上」「自分が担当の件数」のような絞り込みカードや、<strong>勤務時間・作業時間を「〇時間〇分」で合計・平均するカード</strong>も並べられます。</p>
-      <HeroDownload href="/downloads/kw-summary-bar-v2.7.0.zip" />
+      <p class="hero-copy">レコード一覧画面のヘッダーに、合計・平均・最大・最小・件数の集計カードを並べて表示する kintone プラグインです。絞り込みに連動して即時に再集計するので、グラフ画面に移動せず「今この一覧の数字」をひと目で把握できます。一覧ビューごとに別のカード構成を設定でき、集計値による色分けや段組みに対応。「今月の売上」「自分が担当の件数」「本日以前の取得済み／本日より後の予定」のような絞り込みカードや、<strong>勤務時間・作業時間を「〇時間〇分」で合計・平均するカード</strong>も並べられます。</p>
+      <HeroDownload href="/downloads/kw-summary-bar-v2.8.0.zip" />
     </section>
 
-    <!-- Update Info (v2.5.0) -->
+    <!-- Update Info (v2.8.0) -->
     <section class="section-wrapper fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v2.5.0：カードの配色にマイカラーを使えるようになりました</h2>
+          <h2 class="update-title">v2.8.0：「本日以前」「本日以降」で絞り込めるようになりました</h2>
         </div>
-        <p class="update-desc">集計サマリーバーを v2.5.0 にアップデートしました（2026年10月31日）。設定画面「カード設定」の「このカードだけ配色を上書きする」で、<strong>背景・文字・ラベル・枠線</strong>の4色の欄にカラーパレットが付きました。</p>
-        <p class="update-desc"><strong>1. カラーコードを入力できます。</strong>「#1B3A6B」のようなカラーコードを入力すると、色の欄に反映されます。</p>
-        <p class="update-desc"><strong>2. よく使う色を☆マイカラーに登録できます。</strong>次からは、クリックするだけで同じ色を選べます。最近使った色も並びます。</p>
-        <p class="update-desc"><strong>3. 配色の欄を2列に並べ直しました。</strong>4色が縦に長く並ばず、見渡しやすくなりました。</p>
-        <p class="update-note">マイカラーは、当社のほかのプラグインと共有されます。色は kintone のドメインごとに、お使いのブラウザへ保存されるため、別の PC・別のブラウザには引き継がれません。<br>保存済みの設定は、そのまま使えます。最新版（v2.5.0）をダウンロードして、kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。</p>
+        <p class="update-desc">集計サマリーバーを v2.8.0 にアップデートしました（2026年11月24日）。カードの条件「〇〇の期間で絞り込む」に、<strong>本日以前・本日より前・本日以降・本日より後</strong>が加わりました。</p>
+        <p class="update-desc"><strong>1. 一覧を開いた日を基準に、毎回計算します。</strong>日付を設定し直さなくても、カードの数字が日々変わります。</p>
+        <p class="update-desc"><strong>2. 「取得済み」と「予定」を並べられます。</strong>たとえば有給休暇なら、取得済み＝取得日が本日以前、予定＝取得日が本日より後、とします。日付・日時フィールドのどちらでも使えます。</p>
+        <div class="update-shot">
+          <Picture class="zoomable" src="/images/summary-bar-today-01.png" alt="集計サマリーバーの設定画面。カードの条件「期間で絞り込む」の選択欄に、本日以前・本日より前・本日以降・本日より後が並んでいる" width="1100" height="790" />
+        </div>
+        <div class="update-shot">
+          <Picture class="zoomable" src="/images/summary-bar-today-02.png" alt="一覧の上に並んだ集計カード。取得済みと予定が、本日を基準にそれぞれの件数で表示されている" width="1393" height="95" />
+          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+        </div>
+        <p class="update-desc"><strong>3. 日付の空いたレコードを数えないように改善しました。</strong>日付の条件で終わりだけを決めたカード（「が以前」、期間指定で終了日だけ）の件数が、日付の空いたレコードまで数えることがありました。</p>
+        <p class="update-note">保存済みの設定は、そのまま使えます。最新版（v2.8.0）をダウンロードして、kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。</p>
         <BridgeUpdateNote />
       </div>
     </section>
@@ -857,7 +865,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           <li><span><strong>分・時間の数値も時間で表示（v2.4.0）</strong> — 作業時間を分や時間の数字で入力している数値フィールドは、カードの「表示形式」で入力値の単位（秒・分・時間）を選ぶと「〇時間〇分」で表示できます。</span></li>
           <li><span><strong>時間のしきい値は「8:30」で入力（v2.4.0）</strong> — 時間のカードの絞り込み・色分けは「8:00 以上」「160:00 を超えたら」のように時間の形で入力できます。「8時間以上働いた日数」や「予定時間を上回ったら色を変える」カードも作れます。</span></li>
           <li><span><strong>カードごとに集計対象を絞り込み（v2.0.0）</strong> — カードごとに別フィールドの条件を設定して、集計対象のレコードを絞り込めます。「商品＝商品Aの売上だけ合計」「区分＝サービスの件数だけ」といった内訳カードを並べて表示でき、複数条件は AND／OR で組み合わせ可能。対象は文字列・ドロップダウン・チェックボックス・数値・日付などで、選択肢は値をプルダウンから選ぶだけです。</span></li>
-          <li><span><strong>日付の「相対期間」で絞り込み（v2.1.0）</strong> — 日付・日時フィールドは固定日（以降・以前・等しい）に加えて、本日・前日・今週・先週・今月・先月・本年・昨年・期間指定で絞り込めます。「今月の売上」「先月の売上」「本年累計」を並べて期間比較が一覧上で完結します。</span></li>
+          <li><span><strong>日付の「相対期間」で絞り込み（v2.1.0）</strong> — 日付・日時フィールドは固定日（以降・以前・等しい）に加えて、本日・前日・本日以前・本日より前・本日以降・本日より後・今週・先週・今月・先月・本年・昨年・期間指定で絞り込めます。「今月の売上」「先月の売上」「本年累計」を並べて期間比較が一覧上で完結します。</span></li>
           <li><span><strong>ユーザー／組織／グループ選択で絞り込み（v2.1.0）</strong> — ユーザー選択・組織選択・グループ選択・作成者・更新者フィールドでも絞り込めます。ユーザー系は「ログインユーザー（本人）」を選べるので、「自分が担当のレコードだけ」「自分が作成した件数だけ」を各自の画面で集計できます。</span></li>
           <li><span><strong>絞り込みに連動して即時再集計</strong> — 一覧の絞り込みやソートを変えると、その結果に合わせてカードが自動で再集計されます。多重実行を抑える debounce 制御付き。</span></li>
           <li><span><strong>「表示中／絞り込み全件」をトグル切替</strong> — バー右端のトグルで、現在ページだけの集計と、絞り込み条件に合致する全レコードの集計をワンクリックで切り替え。全件はページングで取得し、上限件数（既定 5,000 件）で API 負荷を保護します。上限は「一覧の絞り込み＋そのカード自身の絞り込み」を適用した件数で判定するので、一覧が 1 万件を超えていても「今月」に絞ったカードは正確に集計されます。件数カードは条件をそのまま検索条件にできる場合は件数だけを数えるため、上限の影響を受けません。上限に達したカードには ⚠ が付き、一部だけの集計であることがその場で分かります。</span></li>
@@ -1022,7 +1030,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       <h2 class="section-title">インストール手順</h2>
       <p class="section-subtitle">集計に使う数値（または計算）フィールドと、テーブル形式の一覧ビューがあるアプリでご利用いただけます。</p>
       <ol class="steps-list">
-        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-summary-bar-v2.7.0.zip</code> をダウンロード</span></li>
+        <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-summary-bar-v2.8.0.zip</code> をダウンロード</span></li>
         <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
         <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「集計サマリーバー」を追加</span></li>
         <li><span>プラグイン設定画面で<strong>対象一覧</strong>を選び、「カード設定」タブで集計方法・対象フィールド・表示段などを設定して「保存」</span></li>
@@ -1047,7 +1055,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
               <li>✅ 利用期限なし・いつまでも無料</li>
               <li>✅ レコード一覧画面に控えめな広告エリア表示あり</li>
             </ul>
-            <a href="/downloads/kw-summary-bar-v2.7.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+            <a href="/downloads/kw-summary-bar-v2.8.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
           </div>
           <SupporterPlanCard pluginId="kw-summary-bar" />
         <PremiumPlanCard />
@@ -1203,10 +1211,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-summary-bar-v2.7.0.zip',
+              file_name: 'kw-summary-bar-v2.8.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-summary-bar-v2.7.0.zip'
+              link_url: '/downloads/kw-summary-bar-v2.8.0.zip'
             });
           }
         });
