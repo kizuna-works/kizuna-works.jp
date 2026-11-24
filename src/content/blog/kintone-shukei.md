@@ -2,6 +2,7 @@
 title: "【2026年版】kintoneの集計方法まとめ｜一覧・テーブル・関連レコードで合計を出す"
 description: "kintoneの集計は標準のグラフ機能に集約され、集計方法はレコード数・合計・平均・最大値・最小値の5つ、分類は3段までです。一覧を見ながら合計を出す方法、テーブル（明細）の集計が実際どこまでできるか、集計できない関連レコードの補い方まで実機検証をもとに整理します。"
 pubDate: 2026-08-15
+updatedDate: 2026-11-24
 author: "KIZUNA Works"
 tags: ["kintone", "集計", "グラフ", "サブテーブル", "プラグイン"]
 ogImage: "/images/blog/kintone-shukei.png"
@@ -164,6 +165,14 @@ relatedPlugins: ["summary-bar", "table-assist", "related-enhancer"]
 
 集計の切り口を「状態別」に振って眺めたい場合は、[カードボード for kintone](/plugins/card-board/) のように一覧をカンバン表示に切り替え、ステータスごとの件数と金額を俯瞰する方法もあります。BIツールとの比較や可視化の考え方については [kintoneでBIのようにデータを可視化する方法](/blog/kintone-bi-tool-dashboard/) を参照してください。
 
+### 集計した値を、フィールドとして残す
+
+ダッシュボードは数字を「見る」ための画面で、集計した結果はレコードには残りません。案件ごとの実績工数を一覧の列に出したい、絞り込みやグラフの条件に使いたい、CSVで書き出したい。こうした使い方では、集計した値を相手のアプリのフィールドに書き込んでおく必要があります。
+
+標準には、他のアプリの複数のレコードを合計してフィールドに入れる方法がありません。ルックアップでコピーできるのは1件分だけです。
+
+KIZUNA Proプラグインの[KIZUNAブリッジ for kintone](/plugins/bridge/)なら、「日報アプリで案件番号が同じレコードの工数を合計し、案件の実績工数に入れる」というルールを設定画面だけで作れます。案件の一覧にボタンを置き、絞り込んだ案件をまとめて集計し直す使い方です。設定の手順は、実際の画面つきで[日報の工数を、案件ごとに合計する](/plugins/bridge/recipes/project-hours/)にまとめています。アプリをまたいだ転記や集計の自動化の全体像は、[kintoneで他のアプリを自動で更新する方法](/blog/kintone-app-renkei/)で解説しています。
+
 ## ケース別・どう手を打つか
 
 ここまでの内容を、目的別に整理します。
@@ -176,6 +185,7 @@ relatedPlugins: ["summary-bar", "table-assist", "related-enhancer"]
 | 選んだ明細行だけ合計する | 不可 | [テーブルアシスト](/plugins/table-assist/)（無料） |
 | 関連レコード一覧を集計する | 不可 | [関連レコード拡張](/plugins/related-enhancer/) |
 | 複数アプリを横断して集計する | 不可 | [ダッシュボード](/plugins/dashboard/) |
+| 他のアプリの合計をフィールドに残す | 不可 | [KIZUNAブリッジ](/plugins/bridge/) |
 
 判断の目安としては、**切り口が決まっていて頻度が低いなら標準のグラフで十分**です。毎日見る数字、条件を変えながら追う数字、複数アプリにまたがる数字になってくると、標準のままでは往復の手間が積み上がっていきます。
 
@@ -218,6 +228,7 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、業務効�
 - [kintoneの関連レコード一覧](/blog/kintone-related-record-list/) — 設定手順と4つの限界
 - [kintone計算フィールドの使い方と計算式の例](/blog/kintone-keisan-field/) — レコード内で数字を組み立てる方法
 - [kintoneをBIツール代わりに使ってデータを可視化する方法](/blog/kintone-bi-tool-dashboard/) — 集計ダッシュボードの作り方
+- [kintoneで他のアプリを自動で更新する方法](/blog/kintone-app-renkei/) — 他のアプリの合計を自動でフィールドに入れる
 - [集計サマリーバー（無料）](/plugins/summary-bar/) — 一覧ヘッダーに合計・件数を表示し絞り込み連動で再集計
 - [プラグイン一覧](/plugins/) — KIZUNA Worksが提供するすべてのkintoneプラグイン
 
