@@ -53,6 +53,14 @@ const page: PluginEnPage = {
       desc: 'Set which users, departments and groups can see each tab. Others do not see the tab button or its fields, even on the "All" tab. This controls display only and is not an access permission.',
     },
     {
+      title: 'Initial tab per person',
+      desc: 'Choose the tab that opens first for each user, department or group. Rows are checked from the top, and the tab of the first matching row opens. Everyone else gets the normal initial tab.',
+    },
+    {
+      title: 'Combined tabs',
+      desc: 'Show the fields of several tabs together as a single tab, in the order of the form. Compare sections that are far apart while you fill them in. Combined tabs can also be limited to chosen users.',
+    },
+    {
       title: '20 styles x 10 color sets',
       desc: 'Choose from 20 shapes such as rounded tabs, underline, pills, segments, buttons, steps and gradients, and 10 color sets or custom colors. Set font size and bold, and check them in the live preview.',
     },
