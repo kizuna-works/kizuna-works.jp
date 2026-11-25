@@ -292,7 +292,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── design-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】デザイン Pro for kintone 製品ページ（/plugins/design-pro/）v1.5.0（2026-11-13・第5弾・UPDATE ボックス＝テーブル内のユーザー選択から同じ行の欄へ転記・一覧で開くテーブルの見出し・保管アプリ未設定の案内。取り込んだユーザーオートフィル v1.5.0・テーマスタイラー v1.4.2。スクショ 2 枚＝user-autofill-v150-01・02 を流用。装飾など6つの機能＋表示パターン・印刷パターン・仕上げ・まとめ印刷・PDF の添付保存。配布 zip は public/downloads/kw-design-pro-v1.5.0.zip）
 │   │   │   ├── portal-pro/
-│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ポータル Pro for kintone 製品ページ（/plugins/portal-pro/）v1.2.2（2026-11-25・Everyone／Administrators のグループコードが標準と異なる環境でも初期設定が通る修正・版上げのみ〔お知らせ・UPDATE ボックスなし〕／v1.2.1〔2026-11-23〕・アップデートオプションでポータル／スペースの画面が変わっても標準の表示が隠れる修正＋検索欄の修正・v1.2.0〔11-21〕は版上げのみ。UPDATE ボックスは v1.2.1 の 1 つ・お知らせあり）。メインのポータルとスペースのポータルをウィジェット20種・スタイル20種・ひな形14種・ヒーロー帯／左メニュー／最大幅で組み立てる。スクショは public/images/portal-pro-*.png が存在するときだけ表示（撮影前は文章のみ）。FAQ はページ内に直書き。配布 zip は public/downloads/kw-portal-pro-v1.2.2.zip
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ポータル Pro for kintone 製品ページ（/plugins/portal-pro/）v1.3.0（2026-11-26・アプリ一覧の「表示するアプリ」・エディタでのタイルのドラッグ・アイコンの既定・ポータル用JSの登録の案内・お知らせあり・UPDATE ボックスは v1.3.0 の 1 つ／v1.2.2〔11-25〕・Everyone／Administrators のグループコードが標準と異なる環境でも初期設定が通る修正・版上げのみ〔お知らせ・UPDATE ボックスなし〕／v1.2.1〔2026-11-23〕・アップデートオプションでポータル／スペースの画面が変わっても標準の表示が隠れる修正＋検索欄の修正・v1.2.0〔11-21〕は版上げのみ。v1.2.1 の UPDATE ボックスは v1.3.0 に置き換え）。メインのポータルとスペースのポータルをウィジェット20種・スタイル20種・ひな形14種・ヒーロー帯／左メニュー／最大幅で組み立てる。スクショは public/images/portal-pro-*.png が存在するときだけ表示（撮影前は文章のみ）。FAQ はページ内に直書き。配布 zip は public/downloads/kw-portal-pro-v1.3.0.zip
 │   │   │   ├── sheet-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】シート Pro for kintone 製品ページ（/plugins/sheet-pro/）v1.0.0（2026-11-25・第7弾）。シート編集・エクセル一括貼り付け・コピーアシスト・横並びシートの統合＋Excel の操作・xlsx の取り込みと往復・書き出しのひな形・集計表・ポータル Pro のウィジェット表示。UPDATE ボックスなし（初版）
 │   │   │   ├── record-acl-assist/
@@ -415,6 +415,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-portal-pro-release.md     # ポータル Pro v1.0.0 公開のお知らせ（2026-11-16T21:00・KIZUNA Pro プラグイン）
 │   │   │   ├── plugin-sheet-pro-release.md      # シート Pro v1.0.0 公開のお知らせ（2026-11-25・KIZUNA Pro プラグイン第7弾）
 │   │   │   ├── portal-pro-v110-update.md        # ポータル Pro v1.1.0 アップデートのお知らせ（2026-11-18・一覧の表示・列数・デザインの拡充）
+│   │   │   ├── portal-pro-v130-update.md        # ポータル Pro v1.3.0 アップデートのお知らせ（2026-11-26・アプリ一覧のスペース表示・タイルのドラッグ・ポータル用JSの登録の案内）
 │   │   │   ├── portal-pro-v121-update.md        # ポータル Pro v1.2.1 アップデートのお知らせ（2026-11-23・標準の表示がアップデートオプションの有無によらず隠れる）
 │   │   │   ├── plugin-search-pro-release.md     # サーチ Pro v1.0.0 公開のお知らせ（2026-10-25・KIZUNA Pro プラグイン・ブリッジと同時公開）
 │   │   │   ├── plugin-lookup-pro-release.md     # ルックアップ Pro v1.0.0 公開のお知らせ（2026-10-25T10:30・KIZUNA Pro プラグイン・ブリッジと同日公開）
