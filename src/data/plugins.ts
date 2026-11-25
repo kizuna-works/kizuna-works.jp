@@ -1619,6 +1619,40 @@ export const premiumPlugins: Plugin[] = [
     summaryVersion: '1.2.0',
   },
   {
+    id: 'kw-sheet-pro',
+    pluginId: 'kobaoifephbapobeinhbcfjegdpfjegk',
+    name: 'シート Pro for kintone',
+    formName: 'シート Pro for kintone',
+    subtitle: 'KIZUNA Pro プラグイン',
+    slug: 'sheet-pro',
+    multilingual: true,
+    categories: ['一覧表示', '一括処理', '集計・計算'],
+    description:
+      'kintone の一覧を Excel と同じ操作で使える表にします。範囲の選択・コピーと貼り付け・打ち始めで上書き・フィル・行の追加と削除・検索と置換・集計行・計算列に対応し、Excel ファイル（xlsx）の取り込み（一覧形式・見出し 2 段・テーブル付き・注文書などの定型の Excel）と、Excel で直して戻す機能、書き出しのひな形、集計表もこれ 1 つで。シート編集・エクセル一括貼り付け・コピーアシスト・横並びシートの 4 つを 1 つの設定画面にまとめ、ポータル Pro の「一覧の埋め込み」にも表示できます。日本語・英語・中国語（簡体字）に対応します。',
+    image: '/images/sheet-pro-banner.png',
+    imageWebp: '/images/sheet-pro-banner.webp',
+    imageAlt:
+      'シート Pro for kintone バナー — Excel の操作で、kintone の一覧を編集・取り込み・書き出し・集計。KIZUNA Pro プラグイン',
+    imageWidth: 1200,
+    imageHeight: 630,
+    status: 'available',
+    tier: 'pro',
+    cardDescription:
+      'kintone の一覧を Excel と同じ操作で使える上位版。範囲選択・コピー貼り付け・検索置換・集計行に加え、Excel ファイルの取り込み（注文書などの定型も可）と、Excel で直して戻す機能、書き出しのひな形、集計表に対応。シート編集など 4 つのプラグインも 1 つにまとまります。',
+    problemTitle: 'Excel でやっている表の入力・取り込み・集計を、kintone でも同じ操作でしたい',
+    problemDesc:
+      '取引先から届く Excel の注文書を、レコードに手で写している。Excel で直したものを kintone に戻すのに手間がかかり、書き出す Excel の体裁も毎回整え直している。一覧は見るだけで、範囲のコピーや検索・置換、クロス集計のために別の Excel を作っている',
+    releaseDate: '2026-11-25',
+    summaryVersion: '1.0.0',
+    bridge: 'シートで一括編集したことをきっかけに、ブリッジのルールを動かせます。',
+    bundles: [
+      { id: 'kw-sheet-edit', role: 'シート編集' },
+      { id: 'kw-excel-paste', role: 'エクセル一括貼り付け' },
+      { id: 'kw-clip-assist', role: 'コピーアシスト' },
+      { id: 'kw-horizontal-sheet', role: '横並びシート' },
+    ],
+  },
+  {
     id: 'kw-report-designer',
     pluginId: 'cckpmebgmbdippgiicgldindkjlhhbci',
     name: '帳票デザイナー for kintone',

@@ -1,0 +1,937 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import { plugins, premiumPlugins } from '../../../data/plugins';
+import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
+import HeroSubBadges from '../../../components/HeroSubBadges.astro';
+
+const VERSION = '1.0.0';
+const ZIP = `/downloads/kw-sheet-pro-v${VERSION}.zip`;
+const PAGE_URL = 'https://kizuna-works.jp/plugins/sheet-pro/';
+const DATE_MODIFIED = '2026-11-25';
+
+// The four products this one bundles. Search both free and premium lists,
+// and fail the build on a missing id instead of silently dropping the card.
+const singleOf = (id: string) => {
+  const p = [...plugins, ...premiumPlugins].find((x) => x.id === id);
+  if (!p) throw new Error(`sheet-pro: plugin "${id}" not found in plugins.ts`);
+  return p;
+};
+const iconOf = (slug: string) => `/images/${slug}-icon.png`;
+// Single source: `bundles` on this product in plugins.ts (also drives the 「KIZUNA Pro 版あり」 badge).
+const BUNDLED = premiumPlugins.find((x) => x.id === 'kw-sheet-pro')?.bundles ?? [];
+if (BUNDLED.length === 0) throw new Error('sheet-pro: bundles is empty in plugins.ts');
+const bundled = BUNDLED.map((b) => ({ ...b, p: singleOf(b.id) }));
+
+// FAQ: the accordion and FAQPage JSON-LD are built from the same array so they always match.
+const faqs: { q: string; a: string }[] = [
+  {
+    q: 'シート Pro だけを購入できますか？',
+    a: `製品ごとの個別のご契約はありません。プレミアム年間サポーターに KIZUNA Pro 拡張パックを追加すると、シート Pro を含む KIZUNA Pro プラグインをすべてお使いいただけます。両方をまとめた「KIZUNA Pro 年間サポーター」（税込 ${yen(PRO_SET_PLAN.priceInTax)}/年）もあります。`,
+  },
+  {
+    q: '年間サポーター（ちょこっとプラグインすべて）に、KIZUNA Pro 拡張パックを追加できますか？',
+    a: 'できません。KIZUNA Pro 拡張パックは、プレミアム年間サポーターに追加していただくプランです。年間サポーターからは、KIZUNA Pro 年間サポーターへの切り替えでお使いいただけます。',
+  },
+  {
+    q: 'シート編集などのプラグインと、何が違いますか？',
+    a: '4 つの機能（シート・テーブル貼り付け・コピー・横並びシート）は、もとのプラグインと同じ内容です。シート Pro では、1 つの設定画面で扱えます。そのうえで、Excel と同じ操作、Excel ファイルの取り込みと、Excel で直して戻す操作、書き出しのひな形、集計表が加わります。',
+  },
+  {
+    q: '同じアプリに、シート編集などのプラグインが入っていても大丈夫ですか？',
+    a: '大丈夫です。同じ機能が両方に入っているときは、もとのプラグインが有効で設定済みなら、その機能はもとのプラグインのほうで動き、シート Pro では動きません（二重に動くのを防ぐためです）。もとのプラグインを「無効」にするか、アプリから外すと、シート Pro がその機能を動かします。',
+  },
+  {
+    q: '使わない機能を、出さないようにできますか？',
+    a: 'できます。使う機能は機能ごとに選べます。使わない機能は画面に何も出ず、必須の設定もありません。新しく入れたときは、すべての機能がオフから始まります。',
+  },
+  {
+    q: 'これまでのプラグインで作った設定を、シート Pro に引き継げますか？',
+    a: '引き継げます。もとのプラグインが入っているアプリでシート Pro の設定画面を開き、［はじめに］の［単品の設定を読み込む］を押します。読み込みは手動で、もとのプラグインの設定はそのまま残ります。内容を確かめて保存し、もとのプラグインを無効にするか外してください。',
+  },
+  {
+    q: 'Excel ファイルは、どこかに送られますか？',
+    a: '送られません。ファイルはブラウザの中だけで読み、どこにも送りません。xlsx を扱うときに、読み取り用の部品を当社サイトから読み込むだけです。',
+  },
+  {
+    q: '取り込める Excel の大きさに、上限はありますか？',
+    a: '1 ファイルは 10MB・5 万行までです。それを超えるときは、取り込みを始める前に止めます。定型の Excel（注文書など）は、最大 100 ファイルをまとめて取り込めます。',
+  },
+  {
+    q: 'Excel で直したファイルを戻すと、レコードが消えることはありますか？',
+    a: '消えません。行を消したファイルを戻しても、レコードは消さず、変わったセルだけを更新します。書き出したあとに kintone 側で変わったレコードは「競合」として示し、どちらの値を残すかを選べます。',
+  },
+  {
+    q: 'ポータルにシートを表示できますか？',
+    a: 'できます。ポータル Pro の「一覧の埋め込み」ウィジェットで、シート・横並びシート・集計表の一覧を選びます。ポータルの中では、Excel の取り込み・書き出しのボタンは出さず、レコードは新しいタブで開きます。',
+  },
+  {
+    q: '無料で試せますか？',
+    a: 'はい、30日間無料で試せます（カード登録不要・自動課金なし・1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、もう一度お試しいただけます）。プレミアム年間サポーターを未契約の方は、プレミアム年間サポーターの無料体験に KIZUNA Pro プラグインが含まれます。プレミアム年間サポーターをご契約中の方は、KIZUNA Pro 拡張パックだけを30日間無料でお試しいただけます。体験が終わると機能は止まりますが、設定は消えません。',
+  },
+  {
+    q: 'ご契約が切れたら、設定はどうなりますか？',
+    a: '設定は消えません。ご契約が確認できない間は、機能は動かず、設定画面にはご契約の案内だけが出ます。ご契約が戻れば、保存済みの設定のまま、すぐに動きます。',
+  },
+  {
+    q: '表示は何語に対応していますか？',
+    a: 'kintone のユーザーごとの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示します。ほかの言語の方には英語で表示します。フィールド名・一覧名など、kintone に登録した内容はそのまま表示します。',
+  },
+  {
+    q: 'スマートフォンでも使えますか？',
+    a: 'パソコンの画面のみ対応です。',
+  },
+];
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Layout
+  heroBg="/images/kizuna-pro-hero-bg.webp"
+  title="シート Pro for kintone｜Excel と同じ操作で、一覧の編集・取り込み・書き出し・集計 | KIZUNA Works"
+  description="シート Pro for kintone は、kintone の一覧を Excel と同じ操作で使える KIZUNA Pro プラグイン。範囲の選択・コピーと貼り付け・検索と置換・集計行に加え、Excel ファイル（xlsx）の取り込み（注文書などの定型も可）と、Excel で直して戻す機能、書き出しのひな形、集計表に対応します。シート編集など 4 つのプラグインも 1 つの設定画面にまとまります。日本語・英語・中国語（簡体字）の表示にも対応します。"
+  ogTitle="シート Pro for kintone｜Excel と同じ操作で、一覧の編集・取り込み・書き出し・集計 | KIZUNA Works"
+  ogDescription="kintone の一覧を Excel と同じ操作で。Excel ファイルの取り込みと Excel で直して戻す機能、書き出しのひな形、セルを押すと絞り込んだ一覧が開く集計表に対応する KIZUNA Pro プラグインです。日本語・英語・中国語（簡体字）の表示に対応します。"
+  ogType="website"
+  ogUrl={PAGE_URL}
+  ogImage="https://kizuna-works.jp/images/sheet-pro-banner.png"
+  canonical={PAGE_URL}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': PAGE_URL,
+          url: PAGE_URL,
+          name: 'シート Pro for kintone｜Excel と同じ操作で、一覧の編集・取り込み・書き出し・集計 | KIZUNA Works',
+          description: 'シート Pro for kintone は、kintone の一覧を Excel と同じ操作で使え、Excel ファイルの取り込み・書き出し・集計表もできる kintone プラグイン（KIZUNA Pro プラグイン）。',
+          dateModified: DATE_MODIFIED,
+          primaryImageOfPage: { '@type': 'ImageObject', url: 'https://kizuna-works.jp/images/sheet-pro-banner.png', width: 1200, height: 630 },
+          isPartOf: { '@type': 'WebSite', name: 'KIZUNA Works', url: 'https://kizuna-works.jp/' },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://kizuna-works.jp/' },
+            { '@type': 'ListItem', position: 2, name: 'kintoneプラグイン', item: 'https://kizuna-works.jp/plugins/' },
+            { '@type': 'ListItem', position: 3, name: 'シート Pro for kintone', item: PAGE_URL },
+          ],
+        },
+        {
+          '@type': 'SoftwareApplication',
+          name: 'シート Pro for kintone',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'kintone',
+          // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
+          "softwareVersion": "1.0.0",
+          dateModified: DATE_MODIFIED,
+          url: PAGE_URL,
+          downloadUrl: `https://kizuna-works.jp${ZIP}`,
+          image: 'https://kizuna-works.jp/images/sheet-pro-banner.png',
+          offers: [
+            {
+              '@type': 'Offer',
+              name: PRO_SET_PLAN.name,
+              price: String(PRO_SET_PLAN.priceInTax),
+              priceCurrency: 'JPY',
+              availability: 'https://schema.org/InStock',
+              description: 'プレミアム年間サポーターと KIZUNA Pro 拡張パックのセット（年額）。KIZUNA Pro プラグインをすべて含みます。製品ごとの個別のご契約はありません。',
+            },
+            {
+              '@type': 'Offer',
+              name: PRO_ADDON.name,
+              price: String(PRO_ADDON.priceInTax),
+              priceCurrency: 'JPY',
+              availability: 'https://schema.org/InStock',
+              description: 'プレミアム年間サポーターに追加するプラン（年額）。',
+            },
+          ],
+          description: 'シート Pro for kintone は、kintone のレコード一覧を Excel と同じ操作で使えるプラグイン。範囲の選択・範囲のコピーと貼り付け・打ち始めで上書き・日付や時刻の略記の読み替え・フィル・行の追加と削除（削除の前に控えの Excel を保存できる）・右クリックのメニュー・検索と置換・複数列の並べ替え・列幅の自動調整・集計行・計算列・シートの見出し・セルのメモに対応する。Excel ファイル（xlsx）の取り込みは、一覧形式・見出し 2 段・テーブル付き・注文書などの定型の Excel に対応し、列の自動対応づけ・取り込む前の確認・取り込みの履歴アプリを備える。書き出したファイルを Excel で直して戻すと、変わったセルだけを更新する。書き出しのひな形では、列・見出し・書式・テーブルの出し方（行を展開・別のシート・横に並べる）・戻せる形・出せる人を決められる。集計表は、行×列×値で集計し、日付を年・四半期・月・週・日にまとめ、セルを押すと絞り込んだ一覧が開く。シート編集・エクセル一括貼り付け・コピーアシスト・横並びシートの 4 つの機能も 1 つの設定画面で使える。ポータル Pro の「一覧の埋め込み」ウィジェットにシートを表示できる。Excel ファイルはブラウザの中だけで読み、外部へ送信しない。kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示する。使う機能は機能ごとに選べる。',
+          publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
+          featureList: [
+            'Excel と同じ操作：範囲の選択・範囲のコピー／切り取り／貼り付け・打ち始めで上書き・Enter／Tab／F2 などのキー操作',
+            '入力の読み替え：=1200*3 などの計算・11/24 や R8.11.24 などの日付・930 などの時刻',
+            'フィル（連番・日付）とダブルクリックで下まで・複数列の並べ替え',
+            '行の追加と削除（削除の前に控えの Excel を保存できる）',
+            '右クリックのメニュー・検索と置換・選んだ範囲の合計／平均／件数',
+            '列幅の自動調整・集計行・計算列・シートの見出し・セルのメモ',
+            'Excel ファイル（xlsx）の取り込み：一覧形式・見出し 2 段・テーブル付き・列の自動対応づけ・取り込む前の確認',
+            '定型の Excel（注文書など）を 1 枚 1 レコードで取り込む（取り込み先の振り分け・最大 100 ファイル）',
+            '書き出したファイルを Excel で直して戻す機能（変わったセルだけを更新・競合の選択）',
+            '取り込みの履歴を、選んだアプリに残す',
+            '書き出しのひな形：列・見出し・書式・テーブルの出し方 3 通り・戻せる形・出せる人の制限',
+            '集計表：行×列×値・日付の年／四半期／月／週／日・合計・件数・平均・セルを押すと絞り込んだ一覧が開く・並べ方を人ごとに保存',
+            'ポータル Pro の「一覧の埋め込み」ウィジェットでシートを表示',
+            'シート編集・エクセル一括貼り付け・コピーアシスト・横並びシートの 4 つの機能を 1 つの設定画面で',
+            'これまでのプラグインの設定を読み込んで引き継ぐ',
+            '使う機能を機能ごとに選べる（使わない機能は画面に何も出ない）',
+            '設定画面のライブプレビュー',
+            '多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示',
+            'ゲストスペースのアプリに対応（パソコンの画面）',
+          ],
+        },
+      ],
+    })} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --kbp-navy: #1B3A6B;
+      --kbp-ink: #0f1f3d;
+      --kbp-gold: #b8862b;
+      --kbp-gold-light: #e8c766;
+      --kbp-gold-soft: #f0d58a;
+      --kbp-green: #2E8B2E;
+      --kbp-text: #333333;
+      --kbp-muted: #64748b;
+    }
+
+    /* Hero: darker than the premium hero, gold accents mark the Pro series */
+    .kbp-hero {
+      /* Shared KIZUNA Pro hero background; sized by width, its baked bottom fade blends into this base gradient */
+      background:
+        url('/images/kizuna-pro-hero-bg.webp') center top / 100% auto no-repeat,
+        linear-gradient(90deg, #020816 0%, #050b1c 30%, #081427 50%, #09182f 70%, #0c1729 100%);
+      color: #fff;
+      padding: 60px 5% 54px;
+      text-align: center;
+      border-bottom: 4px solid var(--kbp-gold);
+    }
+    .kbp-hero-icon {
+      width: 136px; height: 136px; object-fit: contain; display: block; margin: 0 auto 18px;
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(232, 199, 102, 0.5);
+      border-radius: 26px; padding: 10px; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+    .kbp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+    .kbp-badge-pro {
+      display: inline-flex; align-items: center; gap: 6px; line-height: 1;
+      padding: 7px 16px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%);
+      color: #1a1405; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.08em;
+    }
+    .kbp-hero-version {
+      padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.45);
+      font-size: 0.85rem; font-weight: 700; line-height: 1;
+    }
+    .kbp-hero-title { font-size: clamp(1.7rem, 4.2vw, 2.6rem); margin: 0 0 12px; line-height: 1.3; }
+    .kbp-tagline { font-size: clamp(1.05rem, 2.4vw, 1.35rem); font-weight: 700; margin: 0 0 14px; color: var(--kbp-gold-soft); }
+    .kbp-sub { max-width: 860px; margin: 0 auto 26px; line-height: 1.9; font-size: 1rem; color: rgba(255, 255, 255, 0.92); }
+    .kbp-sub strong { color: #fff; }
+    .kbp-pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; max-width: 900px; margin: 0 auto 28px; }
+    .kbp-pillar {
+      display: block; padding: 16px 14px; border-radius: 12px; text-decoration: none; color: #fff;
+      background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(232, 199, 102, 0.45);
+    }
+    .kbp-pillar:hover { background: rgba(255, 255, 255, 0.14); }
+    .kbp-pillar-no { display: block; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--kbp-gold-soft); font-weight: 800; }
+    .kbp-pillar-name { display: block; font-size: 1.05rem; font-weight: 800; margin: 4px 0; }
+    .kbp-pillar-desc { display: block; font-size: 0.84rem; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
+    .kbp-hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .kbp-btn {
+      display: inline-block; padding: 14px 26px; border-radius: 10px; font-weight: 800; text-decoration: none;
+      font-size: 1rem; line-height: 1.3;
+    }
+    .kbp-btn.is-primary { background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; box-shadow: 0 6px 18px rgba(184, 134, 43, 0.35); }
+    .kbp-btn.is-ghost { border: 1px solid rgba(255, 255, 255, 0.6); color: #fff; }
+    .kbp-btn.is-ghost:hover { background: rgba(255, 255, 255, 0.1); }
+    .kbp-hero-note { margin: 14px auto 0; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); max-width: 760px; line-height: 1.7; }
+
+    /* Update box (version highlight) */
+    .update-box { max-width: 980px; margin: 0 auto; background: #fff; border: 1px solid #dbe3ee; border-left: 5px solid var(--kbp-green); border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06); padding: 28px 28px 32px; min-width: 0; }
+    .update-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .update-tag { background: var(--kbp-green); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; padding: 4px 12px; border-radius: 6px; flex-shrink: 0; }
+    .update-title { color: var(--kbp-navy); font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0; }
+    .update-desc { color: var(--kbp-text); font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
+    .update-desc strong { color: var(--kbp-navy); }
+    .update-shot { max-width: 640px; margin: 22px auto 20px; }
+    .update-shot img { width: 100%; height: auto; display: block; border: 1px solid #e2e8f0; border-radius: 8px; cursor: zoom-in; }
+    .update-shot .zoom-hint { text-align: center; color: #64748b; font-size: 12px; margin: 10px 0 0; }
+    .update-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid #e3eaf3; }
+    .update-list > li { position: relative; padding: 14px 4px 14px 34px; border-bottom: 1px solid #e3eaf3; line-height: 1.8; color: var(--kbp-text); min-width: 0; }
+    .update-list > li::before { content: '✓'; position: absolute; left: 4px; top: 18px; width: 20px; height: 20px; border-radius: 50%; background: var(--kbp-green); color: #fff; font-size: 12px; font-weight: 900; line-height: 20px; text-align: center; }
+    .update-list > li > strong:first-child { display: block; color: var(--kbp-navy); font-size: 16px; margin-bottom: 2px; }
+    .update-sub { list-style: disc; margin: 6px 0 0; padding-left: 1.3em; }
+    .update-sub li { padding: 1px 0; }
+    .update-sub li::marker { color: var(--kbp-green); }
+    .update-list + .kbp-h3 { margin-top: 26px; }
+    .update-note { color: var(--kbp-muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+    @media (max-width: 700px) { .update-box { padding: 22px 18px 26px; } .update-title { font-size: 17px; } }
+
+    /* Series strip */
+    .kbp-series { background: #fffaf0; border-bottom: 1px solid #eadcb2; }
+    .kbp-series-inner { max-width: 1100px; margin: 0 auto; padding: 20px 5%; display: flex; gap: 16px; align-items: center; }
+    .kbp-series-tag {
+      flex-shrink: 0; padding: 6px 12px; border-radius: 6px; font-weight: 800; font-size: 0.8rem; letter-spacing: 0.06em;
+      background: var(--kbp-ink); color: var(--kbp-gold-soft);
+    }
+    .kbp-series p { margin: 0; line-height: 1.8; font-size: 0.95rem; color: var(--kbp-text); min-width: 0; }
+
+    /* Sections */
+    .kbp-section { padding: 64px 5%; background: #fff; }
+    .kbp-section.alt { background: #F0F4F8; }
+    .kbp-wrap { max-width: 1100px; margin: 0 auto; }
+    .kbp-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; color: var(--kbp-gold); margin-bottom: 6px; }
+    .kbp-h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); color: var(--kbp-navy); margin: 0 0 14px; line-height: 1.4; }
+    .kbp-lead { margin: 0 0 34px; line-height: 1.9; color: var(--kbp-text); max-width: 900px; }
+    .kbp-h3 { font-size: 1.2rem; color: var(--kbp-navy); margin: 0 0 10px; line-height: 1.5; }
+
+    /* Part header for the three ways to use */
+    .kbp-part {
+      display: flex; align-items: center; gap: 16px; padding: 22px 26px; margin: 0 0 34px; border-radius: 14px;
+      background: linear-gradient(120deg, var(--kbp-ink) 0%, var(--kbp-navy) 100%); color: #fff;
+    }
+    .kbp-part-no {
+      flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; font-weight: 900; font-size: 1.4rem;
+    }
+    .kbp-part-body { min-width: 0; }
+    .kbp-part-title { margin: 0 0 4px; font-size: clamp(1.25rem, 2.8vw, 1.7rem); line-height: 1.35; }
+    .kbp-part-desc { margin: 0; line-height: 1.7; color: rgba(255, 255, 255, 0.88); font-size: 0.95rem; }
+
+    /* Feature rows: text + screenshot */
+    .kbp-feature { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; margin: 0 0 48px; }
+    .kbp-feature.flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    .kbp-feature.flip .kbp-feature-text { order: 2; }
+    .kbp-feature-text p { margin: 0 0 12px; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-feature-text ul { margin: 0 0 12px; padding-left: 1.2em; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-feature-text li { margin-bottom: 4px; }
+    .kbp-shot { margin: 0; min-width: 0; }
+    .kbp-shot img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid #dbe3ee; box-shadow: 0 6px 18px rgba(15, 31, 61, 0.1); cursor: zoom-in; background: #fff; }
+    .kbp-shot figcaption { margin-top: 8px; font-size: 0.84rem; color: var(--kbp-muted); line-height: 1.6; }
+    .kbp-example {
+      margin: 12px 0 0; padding: 12px 14px; border-radius: 8px; background: #f4f7fb; border-left: 4px solid var(--kbp-navy);
+      font-size: 0.92rem; line-height: 1.8; color: var(--kbp-text);
+    }
+    .kbp-example strong { color: var(--kbp-navy); }
+
+    /* Chips for triggers / actions */
+    .kbp-chips, .kbp-feature-text .kbp-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; padding: 0; list-style: none; }
+    .kbp-chips li { padding: 5px 12px; border-radius: 16px; background: #eef3fa; color: var(--kbp-navy); font-size: 0.85rem; font-weight: 700; }
+    .kbp-chips.gold li { background: #fbf3dc; color: #6b4a0e; }
+
+    /* Use case cards */
+    .kbp-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0 0 44px; }
+    .kbp-case { background: #fff; border: 1px solid #dbe3ee; border-radius: 12px; padding: 20px; min-width: 0; }
+    .kbp-case-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0 0 10px; }
+    .kbp-case-app { padding: 4px 10px; border-radius: 6px; background: var(--kbp-navy); color: #fff; font-size: 0.82rem; font-weight: 700; }
+    .kbp-case-arrow { color: var(--kbp-gold); font-weight: 900; }
+    .kbp-case h3 { font-size: 1rem; color: var(--kbp-navy); margin: 0 0 6px; line-height: 1.5; }
+    .kbp-case p { margin: 0; font-size: 0.9rem; line-height: 1.75; color: var(--kbp-text); }
+
+    /* Partner list */
+    .kbp-partner-group { margin: 0 0 36px; }
+    .kbp-partner-group > p { margin: 0 0 16px; line-height: 1.85; color: var(--kbp-text); }
+    .kbp-partners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; list-style: none; margin: 0; padding: 0; }
+    .kbp-partner a {
+      display: flex; gap: 14px; align-items: flex-start; padding: 16px; height: 100%; box-sizing: border-box;
+      background: #fff; border: 1px solid #e3d6ae; border-radius: 12px; text-decoration: none; color: inherit;
+      transition: box-shadow 0.2s ease;
+    }
+    .kbp-partner a:hover { box-shadow: 0 6px 18px rgba(15, 31, 61, 0.12); }
+    .kbp-partner-icon { width: 48px; height: 48px; flex-shrink: 0; border-radius: 10px; object-fit: contain; background: #f4f7fb; }
+    .kbp-partner-body { min-width: 0; }
+    .kbp-partner-name { display: block; font-weight: 800; color: var(--kbp-navy); margin-bottom: 2px; }
+    .kbp-partner-tier { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 1px 8px; border-radius: 10px; margin-bottom: 6px; }
+    .kbp-partner-tier.free { background: #e7f5e7; color: #1f5c1f; }
+    .kbp-partner-tier.premium { background: #fdf4d9; color: #77590a; }
+    .kbp-partner-role { display: block; font-size: 0.88rem; line-height: 1.7; color: var(--kbp-text); }
+
+    /* Feature summary list */
+    .kbp-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 28px; list-style: none; margin: 0; padding: 0; }
+    .kbp-list li { position: relative; padding-left: 26px; line-height: 1.75; color: var(--kbp-text); }
+    .kbp-list li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--kbp-gold); font-weight: 900; }
+
+    /* Plans */
+    .kbp-plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 0 0 24px; }
+    .kbp-plan { background: #fff; border: 1px solid #dbe3ee; border-radius: 14px; padding: 26px; position: relative; min-width: 0; }
+    .kbp-plan.top { border: 2px solid var(--kbp-gold); box-shadow: 0 10px 30px rgba(184, 134, 43, 0.18); }
+    .kbp-plan-badge {
+      position: absolute; top: -13px; left: 22px; padding: 4px 12px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; font-size: 0.78rem; font-weight: 800;
+    }
+    .kbp-plan h3 { margin: 4px 0 6px; color: var(--kbp-navy); font-size: 1.2rem; }
+    .kbp-plan-price { margin: 0 0 4px; }
+    .kbp-plan-price .amt { font-size: 1.9rem; font-weight: 900; color: var(--kbp-ink); }
+    .kbp-plan-price .unit { font-size: 0.9rem; color: var(--kbp-muted); margin-left: 4px; }
+    .kbp-plan-sub { margin: 0 0 14px; font-size: 0.85rem; color: var(--kbp-muted); }
+    .kbp-plan ul { margin: 0 0 18px; padding-left: 1.2em; line-height: 1.85; color: var(--kbp-text); font-size: 0.93rem; }
+    .kbp-plan-cta { display: block; text-align: center; padding: 12px 16px; border-radius: 10px; background: var(--kbp-navy); color: #fff; font-weight: 800; text-decoration: none; }
+    .kbp-plan.top .kbp-plan-cta { background: linear-gradient(135deg, var(--kbp-gold-light) 0%, var(--kbp-gold) 100%); color: #1a1405; }
+    .kbp-trial { margin: 0 0 18px; padding: 18px 20px; border-radius: 10px; background: #f4faf4; border: 1px solid #cfe8cf; line-height: 1.85; font-size: 0.93rem; color: var(--kbp-text); }
+    .kbp-trial h3 { margin: 0 0 6px; font-size: 1.05rem; color: #1B3A6B; }
+    .kbp-trial p { margin: 0 0 8px; }
+    .kbp-trial ul { margin: 0 0 8px; padding-left: 1.3em; }
+    .kbp-trial a { color: #2E8B2E; font-weight: 700; }
+    .kbp-note { padding: 16px 18px; border-radius: 10px; background: #fffaf0; border: 1px solid #eadcb2; line-height: 1.85; font-size: 0.93rem; color: var(--kbp-text); }
+
+    /* Install steps */
+    .steps-list { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid #e2e8f0; line-height: 1.8; counter-increment: step; }
+    .steps-list li::before {
+      content: counter(step); flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: var(--kbp-navy); color: #fff; font-weight: 800;
+    }
+    .steps-list li > span { min-width: 0; }
+
+    /* Cautions */
+    .kbp-cautions ul { margin: 0; padding-left: 1.2em; line-height: 1.9; color: var(--kbp-text); }
+    .kbp-cautions li { margin-bottom: 6px; }
+
+    /* FAQ */
+    .kbp-faq { margin: 0; }
+    .kbp-faq details { background: #fff; border: 1px solid #dbe3ee; border-radius: 10px; margin: 0 0 10px; }
+    .kbp-faq summary { cursor: pointer; padding: 16px 18px; font-weight: 800; color: var(--kbp-navy); line-height: 1.6; }
+    .kbp-faq details p { margin: 0; padding: 0 18px 16px; line-height: 1.85; color: var(--kbp-text); }
+
+    /* Closing CTA */
+    .kbp-cta { background: linear-gradient(135deg, #0b1630 0%, #1B3A6B 100%); color: #fff; text-align: center; padding: 56px 5%; border-top: 4px solid var(--kbp-gold); }
+    .kbp-cta h2 { margin: 0 0 12px; font-size: clamp(1.3rem, 3vw, 1.8rem); line-height: 1.45; }
+    .kbp-cta p { margin: 0 auto 22px; max-width: 760px; line-height: 1.85; color: rgba(255, 255, 255, 0.88); }
+
+    /* Lightbox */
+    .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); display: none; align-items: center; justify-content: center; z-index: 10000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5); }
+    .lightbox-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
+
+    @media (max-width: 860px) {
+      .kbp-feature, .kbp-feature.flip { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+      .kbp-feature.flip .kbp-feature-text { order: 0; }
+      .kbp-cases { grid-template-columns: minmax(0, 1fr); }
+      .kbp-partners, .kbp-list, .kbp-plan-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .kbp-pillars { grid-template-columns: minmax(0, 1fr); }
+      .kbp-section { padding: 48px 5%; }
+      .kbp-part { padding: 18px; gap: 12px; }
+      .kbp-part-no { width: 44px; height: 44px; font-size: 1.1rem; }
+      .kbp-series-inner { flex-direction: column; align-items: flex-start; }
+      .kbp-btn { width: 100%; box-sizing: border-box; text-align: center; }
+    }
+
+    /* Sheet Pro additions */
+    .kbp-feature.kshp-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+    /* Overview grid of the Pro-only features at the top of PART 1 */
+    .kshp-new-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; list-style: none; margin: 0 0 44px; padding: 0; }
+    .kshp-new-grid li { background: #fff; border: 1px solid #dbe3ee; border-top: 3px solid var(--kbp-gold); border-radius: 12px; padding: 18px 20px; min-width: 0; }
+    .kshp-new-grid h3 { font-size: 1rem; color: var(--kbp-navy); margin: 8px 0 6px; line-height: 1.5; }
+    .kshp-new-grid p { margin: 0; font-size: 0.9rem; line-height: 1.75; color: var(--kbp-text); }
+    .kshp-new-tag { display: inline-block; padding: 2px 10px; border-radius: 999px; background: var(--kbp-navy); color: var(--kbp-gold-soft); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em; }
+    .kshp-singles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; list-style: none; margin: 0; padding: 0; }
+    .kshp-singles a {
+      display: flex; gap: 12px; align-items: center; padding: 12px; height: 100%; box-sizing: border-box;
+      background: #fff; border: 1px solid #dbe3ee; border-radius: 12px; text-decoration: none; color: inherit;
+    }
+    .kshp-singles a:hover { box-shadow: 0 6px 18px rgba(15, 31, 61, 0.12); }
+    .kshp-single-icon { width: 48px; height: 48px; flex-shrink: 0; border-radius: 10px; object-fit: contain; background: #f4f7fb; }
+    .kshp-single-body { min-width: 0; display: block; }
+    .kshp-single-name { display: block; font-weight: 800; color: var(--kbp-navy); font-size: 0.92rem; line-height: 1.5; }
+    .kshp-single-role { display: block; font-size: 0.82rem; line-height: 1.6; color: var(--kbp-muted); }
+    .kbp-series p a { color: var(--kbp-navy); font-weight: 700; }
+    @media (max-width: 860px) {
+      .kbp-feature.kshp-pair { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+      .kshp-new-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 480px) {
+      .kshp-singles { grid-template-columns: minmax(0, 1fr); }
+      .kshp-new-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="kbp-hero">
+      <img class="kbp-hero-icon" src="/images/sheet-pro-icon.png" alt="シート Pro for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="kbp-hero-badges">
+        <span class="kbp-badge-pro">KIZUNA Pro PLUGIN</span>
+        <span class="kbp-hero-version">v{VERSION}</span>
+      </div>
+      <HeroSubBadges pluginId="kw-sheet-pro" />
+      <h1 class="kbp-hero-title">シート Pro for kintone</h1>
+      <p class="kbp-tagline">Excel の仕事を、kintone の一覧で。編集も、取り込みも、書き出しも、集計も。</p>
+      <p class="kbp-sub">シート Pro for kintone は、レコード一覧を<strong>Excel と同じ操作</strong>で使える kintone プラグインです。範囲を選んでコピー、打ち始めで上書き、検索と置換、集計行。取引先から届く<strong>Excel ファイルを取り込み</strong>、Excel で直したものを<strong>そのまま戻し</strong>、<strong>書き出す体裁</strong>も決められます。シート編集・エクセル一括貼り付け・コピーアシスト・横並びシートの 4 つも、これ 1 つに入っています。</p>
+      <div class="kbp-pillars">
+        <a class="kbp-pillar" href="#pro-excel"><span class="kbp-pillar-no">POINT 1</span><span class="kbp-pillar-name">Excel と同じ操作</span><span class="kbp-pillar-desc">範囲の選択・コピー貼り付け・フィル・検索置換・集計行</span></a>
+        <a class="kbp-pillar" href="#pro-import"><span class="kbp-pillar-no">POINT 2</span><span class="kbp-pillar-name">Excel ファイルの取り込みと書き戻し</span><span class="kbp-pillar-desc">注文書などの定型も。直して戻すと変わったセルだけ更新</span></a>
+        <a class="kbp-pillar" href="#pro-export"><span class="kbp-pillar-no">POINT 3</span><span class="kbp-pillar-name">書き出しのひな形と集計表</span><span class="kbp-pillar-desc">体裁を決めて全件を出す。セルを押すと絞り込んだ一覧が開く</span></a>
+      </div>
+      <div class="kbp-hero-cta">
+        <a class="kbp-btn is-primary" href="#plan">プランと料金を見る →</a>
+        <a class="kbp-btn is-ghost js-dl" href={ZIP} download>プラグインをダウンロード</a>
+        <a class="kbp-btn is-ghost" href="/plugins/premium-trial/">30日間無料で試す</a>
+      </div>
+      <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
+    </section>
+
+    <!-- Series -->
+    <div class="kbp-series">
+      <div class="kbp-series-inner">
+        <span class="kbp-series-tag">KIZUNA Pro とは</span>
+        <p>ちょこっとプラグイン・プレミアムプラグインの上にある、KIZUNA Works の上位版のプラグインのシリーズです。<strong>KIZUNA Pro 拡張パック</strong>で、シート Pro をはじめ、<a href="/plugins/bridge/">KIZUNAブリッジ for kintone</a> など、今後リリースされる KIZUNA Pro プラグインもすべてお使いいただけます。</p>
+      </div>
+    </div>
+
+    <!-- Problem -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">PROBLEM</span>
+        <h2 class="kbp-h2">kintone にしたのに、結局 Excel に戻っていませんか</h2>
+        <p class="kbp-lead">表の入力や取り込み、集計の場面になると、つい Excel を開いてしまう。シート Pro は、その<strong>Excel の仕事を、kintone の一覧の上で</strong>できるようにします。</p>
+        <div class="kbp-cases">
+          <div class="kbp-case">
+            <h3>取引先の Excel を、手で写している</h3>
+            <p>注文書や申込書の Excel を、取り込む前の確認つきでレコードにします。1 枚が 1 レコードの定型の Excel も、まとめて取り込めます。</p>
+          </div>
+          <div class="kbp-case">
+            <h3>Excel で直して、kintone に戻したい</h3>
+            <p>書き出したファイルを Excel で直して戻すと、変わったセルだけを更新します。行を消しても、レコードは消えません。</p>
+          </div>
+          <div class="kbp-case">
+            <h3>一覧では、Excel のように操作できない</h3>
+            <p>範囲の選択、コピーと貼り付け、打ち始めで上書き、検索と置換、集計行。Excel と同じキーで操作できます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 1 -->
+    <section class="kbp-section alt" id="pro">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">1</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">シート Pro で新しくできること</h2>
+            <p class="kbp-part-desc">もとのプラグインにはない、シート Pro だけの機能です。一覧の上で、Excel の操作と、Excel ファイルの出し入れ、集計ができます。</p>
+          </div>
+        </div>
+
+        <ul class="kshp-new-grid">
+          <li><span class="kshp-new-tag">Pro だけ</span><h3>Excel と同じ操作</h3><p>範囲の選択、コピーと貼り付け、打ち始めで上書き、フィル、検索と置換。</p></li>
+          <li><span class="kshp-new-tag">Pro だけ</span><h3>Excel ファイルの取り込み</h3><p>一覧形式・見出し 2 段・テーブル付き・注文書などの定型の Excel。</p></li>
+          <li><span class="kshp-new-tag">Pro だけ</span><h3>Excel で直して戻す</h3><p>書き出したファイルを Excel で直して戻すと、変わったセルだけを更新。</p></li>
+          <li><span class="kshp-new-tag">Pro だけ</span><h3>書き出しのひな形</h3><p>列・見出し・書式・テーブルの出し方を決めて、全件を xlsx に。</p></li>
+          <li><span class="kshp-new-tag">Pro だけ</span><h3>集計表</h3><p>行×列×値で集計。セルを押すと、絞り込んだ一覧が開きます。</p></li>
+          <li><span class="kshp-new-tag">Pro だけ</span><h3>ポータルにシートを表示</h3><p>ポータル Pro の「一覧の埋め込み」に、シートを置けます。</p></li>
+        </ul>
+
+        <div class="kbp-feature" id="pro-excel">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">Excel と同じ操作で、一覧を編集する</h3>
+            <p>シートを使っている一覧で、Excel のキーと動きがそのまま使えます。</p>
+            <ul>
+              <li><strong>範囲の選択とコピー貼り付け</strong>：ドラッグ・Shift・Ctrl＋矢印で四角い範囲を選び、Excel やスプレッドシートの表を貼れます。</li>
+              <li><strong>キー操作</strong>：セルを選んで打ち始めると上書きします。Enter・Tab・F2・Ctrl＋D／R・Ctrl＋;（今日の日付）も Excel と同じに動きます。</li>
+              <li><strong>入力の読み替え</strong>：<code>=1200*3</code> は計算結果、<code>11/24</code> や <code>R8.11.24</code> は日付、<code>930</code> は 9:30 に読み替えます。</li>
+              <li><strong>フィル</strong>：連番や日付を、下にも横にも伸ばせます。つまみをダブルクリックすると、下の行までまとめて埋まります。</li>
+              <li><strong>検索と置換</strong>：Ctrl＋F／Ctrl＋H。すべて置換は、件数と使う APIリクエスト数を確認してから実行します。</li>
+              <li><strong>複数列の並べ替え</strong>：3 つの列まで組み合わせられます。並べ替えの条件は表の上に並び、×で外せます。</li>
+            </ul>
+            <p>［Excel と同じキー操作］をオフにすると、シート編集と同じ動きに戻ります。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/sheet-pro-sheet.png" alt="シート Pro for kintone で一覧をシートにした画面。案件名・顧客名・受注日・時刻・数量・単価・小計・金額の列が並び、最後の行に新しい行を足す「＊」の行、下に数量の合計を出す集計行、画面下に「すべて」「大口（数量5以上）」「甲商事だけ」のシートの見出しが表示されている" width="1351" height="996" class="zoomable" />
+            <figcaption>シートの一覧。一番下に集計行、画面の下にシートの見出しが並びます。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature flip">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">行の追加と削除、右クリックのメニュー</h3>
+            <ul>
+              <li><strong>行の追加</strong>：シートの最後の空の行に打ち始めると、新しいレコードとして登録します。必須の欄が足りないときは、理由を示して登録しません。</li>
+              <li><strong>行の削除</strong>：設定で許可したときに、削除の権限がある人だけが使えます。削除の前に、<strong>消すレコードの値を Excel に控えて保存</strong>できます。削除は元に戻せません。</li>
+              <li><strong>右クリックのメニュー</strong>：セル・行番号・列見出しで項目が変わります。値で絞り込む、列を隠す、列幅の自動調整、レコードを別のタブで開く、など。</li>
+            </ul>
+          </div>
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">集計行・計算列・シートの見出し・メモ</h3>
+            <ul>
+              <li><strong>集計行</strong>：一番下に固定。列ごとに合計・平均・件数・最大・最小。絞り込んだ全件が対象です。</li>
+              <li><strong>計算列</strong>：レコードには保存しない、表示だけの列です。四則演算・ROUND・IF・SUM が使えます。</li>
+              <li><strong>シートの見出し</strong>：保存した絞り込みと並べ替えを、シートの下に並べて切り替えます。</li>
+              <li><strong>メモ</strong>：セルにメモを付けられます。メモのあるセルは右上に赤い三角が出ます。</li>
+              <li><strong>列を自分用に</strong>：列幅・並び・非表示を、使う人ごとに保存します。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="kbp-feature" id="pro-import">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">Excel ファイルを、確認してから取り込む</h3>
+            <p>一覧の［Excel を取り込む］に、ファイルを選ぶか、ドラッグ＆ドロップします。</p>
+            <ul>
+              <li>見出しの行を<strong>クリックで指定</strong>。見出しが 2 段の Excel も、テーブル付きの Excel も取り込めます。</li>
+              <li>列とフィールドは、見出しの文字から<strong>自動で対応づけ</strong>。手で直せて、<strong>ひな形として保存</strong>できます。</li>
+              <li>［追加だけ］、または［キーで照合して更新］を選べます。</li>
+              <li><strong>取り込む前の確認</strong>で、追加・更新・エラーの件数と、更新で変わる欄（前 → 後）を行ごとに確かめます。エラーの行は理由つきの Excel で書き出せます。</li>
+              <li>100 件ずつ取り込み、途中で中止できます。</li>
+              <li>取り込める人を、ユーザー・組織・グループで限定できます。取り込みの履歴は、選んだアプリに残せます。</li>
+            </ul>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/sheet-pro-import.png" alt="シート Pro for kintone の Excel 取り込み画面。ファイル・シートと見出し・対応づけ・取り込み方・確認・実行と結果の6つの手順のうち対応づけの画面で、Excel の列ごとに見出しとサンプルの値、取り込み先のフィールドが自動で選ばれている" width="1351" height="996" class="zoomable" />
+            <figcaption>列とフィールドの対応づけ。見出しの文字から、取り込み先が自動で選ばれます。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature flip">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">注文書などの定型の Excel を、1 枚 1 レコードで</h3>
+            <p>決まったセルに値がある Excel（注文書・請求書・申込書）を、1 枚ずつレコードにします。</p>
+            <ul>
+              <li>設定で見本の Excel を開き、<strong>セルをクリックして欄に割り当て</strong>ます。見本のファイルは保存しません。</li>
+              <li>明細の範囲は、テーブルの列に割り当てます。</li>
+              <li>セルの値（A1 が「注文書」など）やシート名で、<strong>取り込み先のアプリを振り分け</strong>ます。</li>
+              <li>最大 100 ファイルを、まとめてドロップできます。</li>
+            </ul>
+          </div>
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">Excel で直して、戻す</h3>
+            <p>シートの［Excel出力］で出したファイルと、書き出しのひな形で［戻せる形で出す］を選んで出したファイルは、取り込むときに自動で見分けて、元のレコードを更新します。</p>
+            <ul>
+              <li><strong>変わったセルだけ</strong>を更新します。</li>
+              <li>書き出したあとに kintone で変わったレコードは「競合」として示し、［kintone の値を残す］［Excel の値で上書き］を選べます。</li>
+              <li>行を消したファイルを戻しても、<strong>レコードは消えません</strong>。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="kbp-feature" id="pro-export">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">書き出しのひな形で、体裁まで決めて全件を出す</h3>
+            <p>一覧の［Excel に書き出す］で、ひな形を選びます。今の絞り込みと並べ替えのまま、全件を書き出します。</p>
+            <ul>
+              <li>列（欄・見出しの文字・並び・幅）と、数値・日付・時間の書式を決めます。</li>
+              <li>見出し行の固定、オートフィルター、ファイル名（{'{アプリ名}_{日付}'} など）も決められます。</li>
+              <li>テーブルは、<strong>行を展開して出す・別のシートに出す・列を横に並べる</strong>の 3 通りです。</li>
+              <li>［戻せる形で出す］で、あとから取り込んで更新できます。</li>
+              <li>出せる人を、ユーザー・組織・グループで限定できます。</li>
+            </ul>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/sheet-pro-export.png" alt="シート Pro for kintone の一覧の上に並んだ［Excel を取り込む］と［Excel に書き出す］のボタン。書き出しのメニューを開き、案件一覧・明細を別シートに・戻せる形（書き出して直して取り込む）の3つのひな形が表示されている" width="1351" height="996" class="zoomable" />
+            <figcaption>［Excel に書き出す］のメニュー。用意したひな形から選んで書き出します。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature flip">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">集計表で、件数や合計を見る</h3>
+            <p>行×列×値で集計する、クロス集計の表です。カスタマイズビューに置きます。</p>
+            <ul>
+              <li>行の見出しは最大 2 段、列の見出しは 1 段。値は合計・件数・平均です。</li>
+              <li>日付の欄は、<strong>年・四半期・月・週・日</strong>にまとめられます。</li>
+              <li><strong>セルを押す</strong>と、その条件で絞り込んだ一覧が別のタブで開きます。</li>
+              <li>画面上で行・列・値の欄を入れ替えられ、並べ方は使う人ごとに保存します。</li>
+              <li>表示したままの形で、Excel に書き出せます。</li>
+            </ul>
+            <p class="kbp-example"><strong>例：</strong>担当者×月で売上を合計し、気になるセルを押して、そのレコードの一覧を開く。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/sheet-pro-pivot.png" alt="シート Pro for kintone の集計表。行に顧客名と区分、列に受注日の月、値に数量の合計・件数・単価の平均を置き、右端に合計の列が表示されている。上には行・列・値の欄をドラッグで入れ替える欄と、元に戻す・最新にする・Excel に書き出すのボタンがある" width="1351" height="996" class="zoomable" />
+            <figcaption>集計表。セルを押すと、絞り込んだ一覧が開きます。</figcaption>
+          </figure>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">ポータルに、シートを置く</h3>
+            <p><a href="/plugins/portal-pro/">ポータル Pro</a> の「一覧の埋め込み」ウィジェットで、シート・横並びシート・集計表の一覧を選ぶと、ポータルの中にそのまま表示できます。</p>
+            <ul>
+              <li>編集や Excel の操作は、アプリで開いたときと同じ権限で動きます。</li>
+              <li>ポータルの中では、取り込み・書き出しのボタンは出しません。</li>
+              <li>レコードを開く操作は、新しいタブで開きます。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 2 -->
+    <section class="kbp-section" id="four">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">2</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">4 つの機能も、これ 1 つで</h2>
+            <p class="kbp-part-desc">シート編集・エクセル一括貼り付け・コピーアシスト・横並びシートの機能も入っています。使う機能だけを、設定画面で選びます。</p>
+          </div>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">シート・テーブル貼り付け・コピー・横並びシート</h3>
+            <ul class="kbp-chips">
+              <li>シート</li><li>テーブル貼り付け</li><li>コピー</li><li>横並びシート</li>
+            </ul>
+            <ul>
+              <li><strong>シート</strong>：一覧を表計算のような表にして、その場で編集します。条件ルール（色・編集不可）、左の列の固定、テーブルの展開、元に戻す／やり直す、Excel 出力に対応します。</li>
+              <li><strong>テーブル貼り付け</strong>：Excel の表を、編集画面のテーブルに貼り付けます。一覧から、複数のレコードをまとめて作ることもできます。</li>
+              <li><strong>コピー</strong>：一覧の選んだ行や全件、詳細の欄・全項目・明細を、Excel に貼りやすい形でコピーします。</li>
+              <li><strong>横並びシート</strong>：レコードを横に並べた表です。3 段の分類見出し・分類ごとの集計列・条件付き書式に対応します。</li>
+            </ul>
+            <p>横並びシートは、レコードを横に並べて<strong>編集</strong>する表、集計表は件数や合計を<strong>数える</strong>表です。</p>
+          </div>
+          <figure class="kbp-shot">
+            <Picture src="/images/sheet-pro-config.png" alt="シート Pro for kintone の設定画面の「Excel の操作」タブ。左に機能ごとのタブが並び、Excel と同じキー操作・行の追加・行の削除・入力の読み替えの設定の下に、見本の表とキー操作の割り当てを示すライブプレビューが表示されている" width="1351" height="1051" class="zoomable" />
+            <figcaption>設定画面の［Excel の操作］。設定を変えると、下のライブプレビューがすぐ変わります。</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 3 -->
+    <section class="kbp-section alt" id="single">
+      <div class="kbp-wrap">
+        <div class="kbp-part">
+          <span class="kbp-part-no">3</span>
+          <div class="kbp-part-body">
+            <h2 class="kbp-part-title">今のプラグインから、設定ごと乗り換える</h2>
+            <p class="kbp-part-desc">お使いのプラグインの設定を読み込めるので、一から設定し直す必要はありません。入れ替えの途中も、処理が二重になりません。</p>
+          </div>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">シート Pro にまとめた 4 つのプラグイン</h3>
+            <p>kintone では、1 つのアプリに追加できるプラグインは<strong>20 個まで</strong>です。4 つのプラグインを別々に入れる代わりにシート Pro 1 つで済むので、<strong>プラグインの枠を 3 つ空けられます</strong>。設定も、1 つの設定画面で済みます。</p>
+            <p>同じアプリに両方入っていて、もとのプラグインが有効で設定済みのときは、<strong>その機能はもとのプラグインのほうで動き</strong>、シート Pro ではその機能だけ動きません（二重に動くのを防ぐためです）。もとのプラグインを「無効」にするか、アプリから外すと、その機能はシート Pro が動かします。</p>
+          </div>
+          <ul class="kshp-singles">
+            {bundled.map((b) => (
+              <li>
+                <a href={`/plugins/${b.p!.slug}/`}>
+                  <img class="kshp-single-icon" src={iconOf(b.p!.slug)} alt="" width="48" height="48" loading="lazy" />
+                  <span class="kshp-single-body">
+                    <span class="kshp-single-name">{b.p!.name}</span>
+                    <span class="kshp-single-role">シート Pro の「{b.role}」</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="kbp-feature">
+          <div class="kbp-feature-text">
+            <h3 class="kbp-h3">［単品の設定を読み込む］で引き継ぐ</h3>
+            <ol class="steps-list">
+              <li><span>もとのプラグインが入っているアプリで、シート Pro の設定画面を開きます。</span></li>
+              <li><span>［はじめに］の<strong>［単品の設定を読み込む］</strong>を押し、確認で OK を押します。</span></li>
+              <li><span>内容を確かめて、［保存］→［アプリを更新］を押します。</span></li>
+              <li><span>もとのプラグインを、「無効」にするか、アプリから外します。</span></li>
+            </ol>
+            <p>読み込みは手動です。もとのプラグインの設定はそのまま残ります。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature summary -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">FEATURES</span>
+        <h2 class="kbp-h2">主な機能</h2>
+        <h3 class="kbp-h3">シート Pro だけの機能</h3>
+        <ul class="kbp-list">
+          <li>Excel と同じ操作：範囲の選択・範囲のコピー／切り取り／貼り付け・打ち始めで上書き・Enter／Tab／F2 などのキー</li>
+          <li>入力の読み替え：計算（=1200*3）・日付（11/24、R8.11.24）・時刻（930）</li>
+          <li>フィル（連番・日付）、ダブルクリックで下まで、複数列の並べ替え（第 3 キーまで）</li>
+          <li>行の追加と削除（削除の前に控えの Excel を保存できる）</li>
+          <li>右クリックのメニュー、検索と置換、選んだ範囲の合計・平均・件数</li>
+          <li>列幅の自動調整、集計行、計算列、シートの見出し、セルのメモ</li>
+          <li>Excel ファイルの取り込み：一覧形式・見出し 2 段・テーブル付き・列の自動対応づけ・取り込む前の確認・ひな形の保存</li>
+          <li>定型の Excel（注文書など）を 1 枚 1 レコードで取り込む（取り込み先の振り分け・最大 100 ファイル）</li>
+          <li>書き出したファイルを Excel で直して戻す機能（変わったセルだけを更新・競合の選択）</li>
+          <li>取り込みの履歴を、選んだアプリに残す。取り込める人・出せる人を限定</li>
+          <li>書き出しのひな形：列・見出し・書式・テーブルの出し方 3 通り・戻せる形</li>
+          <li>集計表：行×列×値・日付の年／四半期／月／週／日・セルを押すと絞り込んだ一覧が開く</li>
+          <li>ポータル Pro の「一覧の埋め込み」ウィジェットでシートを表示</li>
+          <li>KIZUNAブリッジと連携：シートでの一括編集をきっかけに、<a href="/plugins/bridge/">ブリッジ</a>（v2.3.1 以降）の連鎖ルールを動かせる</li>
+        </ul>
+        <h3 class="kbp-h3">もとの 4 つの機能と、共通の機能</h3>
+        <ul class="kbp-list">
+          <li>シート：一覧を表計算のような表にして編集。条件ルール・左の列の固定・テーブルの展開・元に戻す／やり直す・Excel 出力</li>
+          <li>テーブル貼り付け：Excel の表を編集画面のテーブルへ。一覧から複数のレコードをまとめて作成</li>
+          <li>コピー：一覧・詳細の値を Excel に貼りやすい形でコピー</li>
+          <li>横並びシート：レコードを横に並べて編集。3 段の分類見出し・分類ごとの集計列</li>
+          <li>これまでのプラグインの設定を読み込んで引き継ぐ</li>
+          <li>使う機能を機能ごとに選べる（使わない機能は画面に何も出ない）</li>
+          <li>設定画面のライブプレビュー（Excel の操作・取り込み・書き出し・集計表）</li>
+          <li>多言語：kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示</li>
+          <li>ゲストスペースのアプリに対応（パソコンの画面のみ）</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Plans -->
+    <section class="kbp-section alt" id="plan">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">PLAN</span>
+        <h2 class="kbp-h2">プランと料金</h2>
+        <p class="kbp-lead">シート Pro は KIZUNA Pro プラグインです。製品ごとの個別のご契約はありません。<strong>プレミアム年間サポーター</strong>と <strong>KIZUNA Pro 拡張パック</strong>のご契約でお使いいただけます。</p>
+        <div class="kbp-plan-grid">
+          <div class="kbp-plan top">
+            <span class="kbp-plan-badge">KIZUNA Pro 最上位</span>
+            <h3>{PRO_SET_PLAN.name}</h3>
+            <p class="kbp-plan-price"><span class="amt">{yen(PRO_SET_PLAN.priceInTax)}</span><span class="unit">/年（税込）</span></p>
+            <p class="kbp-plan-sub">税抜 {yen(PRO_SET_PLAN.priceExTax)}／プレミアム年間サポーター＋KIZUNA Pro 拡張パック</p>
+            <ul>
+              <li>シート Pro を含む KIZUNA Pro プラグインすべて</li>
+              <li>ちょこっと＆プレミアムプラグインすべて</li>
+              <li>プラグイン内の広告非表示</li>
+              <li>今後リリースされる KIZUNA Pro プラグインも追加料金なし</li>
+            </ul>
+            <a class="kbp-plan-cta" href="/plugins/supporter/?plan=pro_set">{PRO_SET_PLAN.name}を申し込む →</a>
+          </div>
+          <div class="kbp-plan">
+            <span class="kbp-plan-badge">プレミアムにご加入中の方</span>
+            <h3>{PRO_ADDON.name}</h3>
+            <p class="kbp-plan-price"><span class="amt">{yen(PRO_ADDON.priceInTax)}</span><span class="unit">/年（税込）</span></p>
+            <p class="kbp-plan-sub">税抜 {yen(PRO_ADDON.priceExTax)}／{PREMIUM_PLAN.name}に追加</p>
+            <ul>
+              <li>プレミアム年間サポーターに追加していただくプランです</li>
+              <li>KIZUNA Works の上位版のプラグイン「KIZUNA Pro プラグイン」をすべてお使いいただけます</li>
+              <li>アプリをまたぐ作業もプラグインの連携も自動化する「KIZUNAブリッジ for kintone」をはじめ、今後リリースされる KIZUNA Pro プラグインも追加料金なしで順次ご利用いただけます</li>
+            </ul>
+            <a class="kbp-plan-cta" href="/plugins/supporter/?plan=pro_add">{PRO_ADDON.name}を申し込む →</a>
+          </div>
+        </div>
+        <div class="kbp-trial" id="trial">
+          <h3>30日間、無料で試せます</h3>
+          <p>カード登録は不要で、自動課金もありません（1ドメインにつき1回まで。新しい KIZUNA Pro プラグインが出たときは、条件を満たせばもう一度お試しいただけます）。</p>
+          <ul>
+            <li><strong>プレミアム年間サポーターを未契約の方</strong>：<a href="/plugins/premium-trial/">プレミアム年間サポーターの無料体験</a>に KIZUNA Pro プラグインが含まれます。</li>
+            <li><strong>プレミアム年間サポーターをご契約中の方</strong>：<a href="/plugins/premium-trial/#pro-trial">KIZUNA Pro 拡張パックだけを30日間無料</a>で試せます。</li>
+          </ul>
+          <p>体験が終わると機能は止まりますが、設定は残ります。続けるときは上のプランからお申し込みください。</p>
+        </div>
+        <p class="kbp-note">年間サポーター（ちょこっとプラグインすべて）には、KIZUNA Pro 拡張パックを追加できません。ご契約が切れても<strong>設定は消えません</strong>。ご契約が確認できない間は機能が動かず、ご契約が戻れば保存済みの設定のまま動きます。</p>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">INSTALL</span>
+        <h2 class="kbp-h2">導入の手順</h2>
+        <ol class="steps-list">
+          <li><span>このページから <strong>kw-sheet-pro-v{VERSION}.zip</strong> をダウンロードします（解凍は不要です）。</span></li>
+          <li><span>kintone の［kintone システム管理］→［プラグイン］→［読み込む］で、zip ファイルを読み込みます。</span></li>
+          <li><span>使いたいアプリの［アプリの設定］→［プラグイン］→［プラグインの追加］で、シート Pro for kintone を追加します。</span></li>
+          <li><span>プラグインの設定画面を開きます。ご契約が確認できると、設定の画面が表示されます。［はじめに］で、使う機能を選んで設定します。</span></li>
+          <li><span>［保存］を押し、「アプリの設定」の画面で［アプリを更新］を押して反映します。</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Cautions -->
+    <section class="kbp-section alt">
+      <div class="kbp-wrap">
+        <h2 class="kbp-h2">ご利用にあたっての注意</h2>
+        <div class="kbp-cautions">
+          <ul>
+            <li>パソコンの画面のみ対応です。スマートフォン（モバイル版）では動きません。</li>
+            <li>1 つの一覧に割り当てられるのは、シート・横並びシート・集計表のうち 1 つです。重なっていると、設定画面で保存を止めます。</li>
+            <li>取り込めるファイルは、1 ファイル 10MB・5 万行までです。</li>
+            <li>行の削除は元に戻せません。削除の前に［控えを保存してから削除］をお使いください。</li>
+            <li>行を消した Excel を戻しても、レコードは消えません。</li>
+            <li>集計表で数えるのは 5 万件までです。超えるときは 5 万件で打ち切り、その旨を表示します。</li>
+            <li>ポータルのウィジェットに置いたシートでは、取り込み・書き出しのボタンは出ません。</li>
+            <li>プラグインの設定は「丸ごと保存」する仕組みのため、<strong>設定画面を2つ同時に開いて保存すると片方の変更が失われます</strong>。1つずつ保存してください。</li>
+            <li>アプリからプラグインを<strong>「利用を解除」すると設定が破棄されます</strong>。一時的に止めたいだけのときは「無効にする」をお使いください。</li>
+            <li>本プラグインはサイボウズ社の製品ではありません。kintone はサイボウズ株式会社の登録商標です。Excel は Microsoft Corporation の商標です。</li>
+            <li>推奨ブラウザは Google Chrome / Microsoft Edge です。</li>
+            <li>本プラグインの利用により生じた損害について、当社は責任を負いかねます。配布 zip に秘密鍵（ppk）は含まれません。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="kbp-section">
+      <div class="kbp-wrap">
+        <span class="kbp-eyebrow">FAQ</span>
+        <h2 class="kbp-h2">よくある質問</h2>
+        <div class="kbp-faq">
+          {faqs.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Security -->
+    <section class="kbp-section alt">
+      <div class="kbp-wrap">
+        <SecurityBox pluginId="kw-sheet-pro" />
+        <ShareButtons title="シート Pro for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="kbp-cta">
+      <h2>Excel の仕事を、kintone の一覧で。</h2>
+      <p>シート Pro は、KIZUNA Pro プラグインです。{PRO_SET_PLAN.name}（税込 {yen(PRO_SET_PLAN.priceInTax)}/年）、またはプレミアム年間サポーターへの KIZUNA Pro 拡張パックの追加でお使いいただけます。</p>
+      <a class="kbp-btn is-primary" href="/plugins/supporter/?plan=pro_set">{PRO_SET_PLAN.name}を見る →</a>
+    </section>
+
+    <div class="lightbox" id="kbp-lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img src="" alt="拡大画像" />
+    </div>
+  </main>
+
+  <script is:inline define:vars={{ zip: ZIP }}>
+    (function () {
+      var lightbox = document.getElementById('kbp-lightbox');
+      var lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt || '拡大画像';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+      }
+      if (typeof gtag === 'function') {
+        document.querySelectorAll('a.js-dl').forEach(function (dl) {
+          dl.addEventListener('click', function () {
+            gtag('event', 'file_download', {
+              file_name: zip.split('/').pop(),
+              file_extension: 'zip',
+              link_text: 'プラグインをダウンロード',
+              link_url: zip
+            });
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

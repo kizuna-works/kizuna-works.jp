@@ -293,6 +293,8 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】デザイン Pro for kintone 製品ページ（/plugins/design-pro/）v1.5.0（2026-11-13・第5弾・UPDATE ボックス＝テーブル内のユーザー選択から同じ行の欄へ転記・一覧で開くテーブルの見出し・保管アプリ未設定の案内。取り込んだユーザーオートフィル v1.5.0・テーマスタイラー v1.4.2。スクショ 2 枚＝user-autofill-v150-01・02 を流用。装飾など6つの機能＋表示パターン・印刷パターン・仕上げ・まとめ印刷・PDF の添付保存。配布 zip は public/downloads/kw-design-pro-v1.5.0.zip）
 │   │   │   ├── portal-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ポータル Pro for kintone 製品ページ（/plugins/portal-pro/）v1.2.2（2026-11-25・Everyone／Administrators のグループコードが標準と異なる環境でも初期設定が通る修正・版上げのみ〔お知らせ・UPDATE ボックスなし〕／v1.2.1〔2026-11-23〕・アップデートオプションでポータル／スペースの画面が変わっても標準の表示が隠れる修正＋検索欄の修正・v1.2.0〔11-21〕は版上げのみ。UPDATE ボックスは v1.2.1 の 1 つ・お知らせあり）。メインのポータルとスペースのポータルをウィジェット20種・スタイル20種・ひな形14種・ヒーロー帯／左メニュー／最大幅で組み立てる。スクショは public/images/portal-pro-*.png が存在するときだけ表示（撮影前は文章のみ）。FAQ はページ内に直書き。配布 zip は public/downloads/kw-portal-pro-v1.2.2.zip
+│   │   │   ├── sheet-pro/
+│   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】シート Pro for kintone 製品ページ（/plugins/sheet-pro/）v1.0.0（2026-11-25・第7弾）。シート編集・エクセル一括貼り付け・コピーアシスト・横並びシートの統合＋Excel の操作・xlsx の取り込みと往復・書き出しのひな形・集計表・ポータル Pro のウィジェット表示。UPDATE ボックスなし（初版）
 │   │   │   ├── record-acl-assist/
 │   │   │   │   └── index.astro # 【プレミアムプラグイン】レコード権限アシスト 製品ページ（/plugins/record-acl-assist/）※2026-10-24 配布開始（v1.0.0・プレミアム第23弾・「リクエストから誕生」バッジ）／2026-10-29 v1.1.0＝UPDATE ボックス（組織・グループ・ユーザーを 1 つの設定で使う・対応表アプリに書き方を表示）／2026-11-18 v1.3.0＝UPDATE ボックス（設定画面の確認メッセージを kintone の画面内に表示）— レコードの内容に合わせて見られる組織・人を自動で設定。最初に当たったルールだけが使われる問題を、見せる相手を 1 つのフィールドへ入れて解く。上の組織・対応表・一括反映・保存前の確認・見せる相手の内訳・変更の記録・ルックアップ自動同期との連携
 │   │   │   ├── annotation/
@@ -411,6 +413,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── bridge-v112-update.md        # KIZUNAブリッジ v1.1.2 アップデートのお知らせ（2026-10-31T15:00・書き込み先のカレンダービューの［時間帯で日時を決める］に対応）
 │   │   │   ├── plugin-bridge-release.md     # KIZUNAブリッジ v1.0.0 公開のお知らせ（2026-10-25T10:00・KIZUNA Pro プラグイン。公開日がずれたら pubDate を直す）
 │   │   │   ├── plugin-portal-pro-release.md     # ポータル Pro v1.0.0 公開のお知らせ（2026-11-16T21:00・KIZUNA Pro プラグイン）
+│   │   │   ├── plugin-sheet-pro-release.md      # シート Pro v1.0.0 公開のお知らせ（2026-11-25・KIZUNA Pro プラグイン第7弾）
 │   │   │   ├── portal-pro-v110-update.md        # ポータル Pro v1.1.0 アップデートのお知らせ（2026-11-18・一覧の表示・列数・デザインの拡充）
 │   │   │   ├── portal-pro-v121-update.md        # ポータル Pro v1.2.1 アップデートのお知らせ（2026-11-23・標準の表示がアップデートオプションの有無によらず隠れる）
 │   │   │   ├── plugin-search-pro-release.md     # サーチ Pro v1.0.0 公開のお知らせ（2026-10-25・KIZUNA Pro プラグイン・ブリッジと同時公開）
@@ -1197,6 +1200,9 @@ c:\kizuna-works.jp\
 │   │   ├── portal-pro-page-hero / -page-search / -magazine / -feed / -templates / -design-axes .png # v1.1.0 の新機能のスクショ6枚（1440×900・UPDATE ボックスと PART 2・3。ヒーロー帯＋左メニュー／ヒーロー検索の候補／お知らせのマガジン／新着の流れ／ひな形14種／細かい調整。撮影後に置く・各 .webp）。portal-pro-styles.png はスタイル20種に差し替え
 │   │   ├── portal-pro-v110-viewembed.png / calendar-view-v2110-01-portal-embed.png / dashboard-v180-01-portal-card.png  # 「一覧の表示」のスクショ3枚（各 UPDATE ボックス用・ポータル Pro 1155×1328／カレンダービュー 1155×768／ダッシュボード 1440×1000・各 .webp と派生画像）
 │   │   ├── portal-pro-style-11〜20.png / portal-pro-tpl-01〜14.png # v1.1.0 で増えたスタイル10種の見本と、ひな形14種で作ったポータル画面（1440×900・製品ページ「どんなポータルになるか、見てみる」のタブで切り替え）＋ .webp
+│   │   ├── sheet-pro-banner.png                 # シート Pro for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）
+│   │   ├── sheet-pro-icon.png                   # シート Pro アイコン（200×200・製品ページヒーロー）
+│   │   ├── sheet-pro-sheet / -import / -export / -pivot / -config .png # 製品ページのスクショ5枚（kw-tester が全段テスト合格後に撮影・撮影までは参照のみ）
 │   │   ├── search-pro-config-csvallow-01.png/.webp  # サーチ Pro v1.3.0 製品ページ「CSV出力のテンプレート」節のスクショ — ［出力できる人を限定する］オンの設定画面（ダミー名・2026-10-29）
 │   │   ├── lookup-pro-banner.png                # ルックアップ Pro for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）＋ .webp（ビルド後に生成）
 │   │   ├── lookup-pro-icon.png                  # ルックアップ Pro アイコン（200×200・製品ページヒーロー）＋ .webp
@@ -1786,7 +1792,8 @@ c:\kizuna-works.jp\
 │   │   ├── kw-free-lookup-v1.2.0.zip  # フリールックアップ for kintone 配布ファイル（2026-10-22・v1.2.0）
 │   │   ├── kw-lookup-filter-v1.1.0.zip # ルックアップ絞り込み v1.1.0（旧版・2026-09-24＝条件に合わない値で保存しようとしたときに「確認して保存」を選べる／保存時の検査は今回入れた・書き換えた値だけ）
 │   │   ├── kw-lookup-filter-v1.0.1.zip # ルックアップ絞り込み v1.0.1（旧版・参考保管）
-│   │   ├── kw-bridge-v2.3.0.zip        # KIZUNAブリッジ for kintone 配布ファイル（最新・2026-11-24・v2.3.0＝［レコードを作る］に「回数に分けて作る」を追加（定期・分割の予定をまとめて作る・作る前の予定の表・ひな形3つ）・使う APIリクエスト数に他のアプリへの書き込み分を含める（v2.2.2 の修正を同梱））
+│   │   ├── kw-bridge-v2.3.0.zip        # KIZUNAブリッジ for kintone 配布ファイル（2026-11-24・v2.3.0＝［レコードを作る］に「回数に分けて作る」を追加（定期・分割の予定をまとめて作る・作る前の予定の表・ひな形3つ）・使う APIリクエスト数に他のアプリへの書き込み分を含める（v2.2.2 の修正を同梱））
+│   │   ├── kw-bridge-v2.3.1.zip        # KIZUNAブリッジ for kintone 配布ファイル（最新・2026-11-26・v2.3.1＝一括で変えたときのきっかけの送り元に「シート Pro」を追加・Pro 製品の判定一覧に kw-sheet-pro を追加・版上げのみ）
 │   │   ├── kw-bridge-v2.2.1.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-11-19・v2.2.1＝値を変えたときの処理で「"undefined" is not valid JSON」の例外が出て書き込みが止まることがあったのを修正・例外を record.set の呼び出し元へ戻さない・お知らせと UPDATE ボックスなしの版上げ）
 │   │   ├── kw-bridge-v2.2.0.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-11-19・v2.2.0＝「日数が足りないため直しました」のお知らせの出し方の整理・処理の失敗時に段階と原因を表示）
 │   │   ├── kw-bridge-v2.1.0.zip        # KIZUNAブリッジ for kintone 配布ファイル（旧・2026-11-16・v2.1.0＝前の行の値を［前の行に合わせる］で追従・［対象の行］の説明文の修正）
@@ -1810,6 +1817,7 @@ c:\kizuna-works.jp\
 │   │   ├── kw-box-connect-v1.2.0.zip   # Box連携 v1.2.0（旧版・2026-10-26・フォルダ名を値に合わせる設定）
 │   │   ├── kw-portal-pro-v1.0.0.zip  # ポータル Pro for kintone 配布ファイル（2026-11-16・v1.0.0 初版・呼び出し元が配置）
 │   │   ├── kw-portal-pro-v1.1.0.zip  # ポータル Pro for kintone 配布ファイル（最新・2026-11-19・v1.1.0：一覧の表示・アプリ一覧の列数・スタイル20種・ひな形14種）
+│   │   ├── kw-sheet-pro-v1.0.0.zip  # シート Pro for kintone 配布ファイル（2026-11-25・v1.0.0 初版・KIZUNA Pro 第7弾・save-release のあと呼び出し元が配置）
 │   │   ├── kw-box-connect-v1.1.1.zip   # Box連携 v1.1.1（旧版・2026-10-26・フォルダに印を付けて使い直し・処理中の表示）
 │   │   ├── kw-box-connect-v1.1.0.zip   # Box連携 v1.1.0（旧版・2026-10-23・添付が無くてもフォルダだけ先に作成）
 │   │   ├── kw-box-connect-v1.0.0.zip   # Box連携 v1.0.0（旧版・初版・プレミアム第22弾）

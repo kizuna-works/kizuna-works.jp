@@ -299,6 +299,10 @@ export const pluginsEn: Record<string, PluginEn> = {
     name: 'Portal Pro for kintone',
     summary: 'Build the kintone portal and space portals from widgets by drag and drop: app lists, notices, record lists, charts, cards, calendars and quick entry forms.',
   },
+  'kw-sheet-pro': {
+    name: 'Sheet Pro for kintone',
+    summary: 'Work in the record list with Excel-style operations, import and export Excel files, and get a pivot-style summary. Includes Sheet Edit, Excel Paste, Copy Assist and Horizontal Sheet.',
+  },
 
   // ---- Premium plugins -------------------------------------------------------
   'kw-report-designer': {

@@ -721,6 +721,25 @@ export const securityProfiles: Record<string, SecurityProfile> = {
     ],
   },
 
+  'kw-sheet-pro': {
+    runtimeLibs: [
+      {
+        name: 'SheetJS (xlsx, mini)',
+        version: '0.20.3',
+        license: 'Apache-2.0',
+        purpose: 'Excel(xlsx) ファイルの読み込み・書き出し（取り込み・書き出し・集計表の書き出しを使うときだけ、当社サイトから読み込みます。ファイルはブラウザの中だけで読み、どこにも送りません）',
+      },
+    ],
+    extraComm: [
+      {
+        label: 'レコードの読み書き・取り込み先と履歴のアプリ・ユーザーの照合（自ドメイン内）',
+        scope: 'internal',
+        detail:
+          'ご利用中の kintone ドメイン内の REST API だけを使います。シートの保存・置換・行の追加と削除・Excel の取り込み（100 件ずつ）で、レコードの取得・追加・更新・削除を行います。取り込み先や履歴を残すアプリにほかのアプリを選んだときは、そのアプリにも書き込みます。ユーザー・組織・グループの照合や削除権限の判定にも、自ドメインの API を使います（ゲストスペースにも対応）。',
+      },
+    ],
+  },
+
   'kw-record-acl-assist': {
     extraComm: [
       {
