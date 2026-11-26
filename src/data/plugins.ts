@@ -1449,7 +1449,7 @@ export const premiumPlugins: Plugin[] = [
     problemDesc:
       '受注を保存したら在庫を減らす、案件が完了したら請求のレコードを作る、といったアプリをまたぐ処理を、手作業の転記やアプリごとの JavaScript カスタマイズに頼っている。分割請求や定期の予定を、回数ぶん手で登録しているケースもある。条件や担当が変わるたびに直す手間もかかる',
     releaseDate: '2026-10-25',
-    summaryVersion: '2.3.0',
+    summaryVersion: '2.4.0',
   },
   {
     id: 'kw-search-pro',

@@ -11,10 +11,10 @@ import type { Plugin } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '2.3.1';
+const VERSION = '2.4.0';
 const ZIP = `/downloads/kw-bridge-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/';
-const DATE_MODIFIED = '2026-11-25';
+const DATE_MODIFIED = '2026-11-26';
 
 // Partner overview. The partner products themselves come from plugins.ts (`bridge`
 // field); this map adds, per product, which way it works with the bridge and what
@@ -237,7 +237,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "2.3.1",
+          "softwareVersion": "2.4.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -278,6 +278,7 @@ const faqJsonLd = {
             '確認・止める：エラーで止める・確認してから進める・お知らせ',
             '他のアプリ：取ってくる・作る・変える・ステータスを進める・双方向にそろえる',
             '他のアプリに、回数に分けて作る（総額を回数で割り、余りを［初回］か［最終回］に足す／毎回同じ額。日付は間隔ごとに進め、日の位置と休みの日を選べる。回数の表記・作成済みなら作らない／消して作り直す・作る前の予定の表で金額と日付を直せる・テーブルの行ごと・ひな形3つ）',
+            'ユーザー・組織・グループの欄に氏名で入れても、ログイン名（コード）を案内し、［置き換える］で入れ直せる（ログイン名に空白がある人も1名として入る）',
             '書き込み先のアプリの当社プラグインの処理を当てる（時間帯で日時を決める・採番・文字列結合など）',
             '書き込み先のアプリのチャット通知・レコードロックとの連携',
             '他のプラグイン（付箋ボードなど）が書き込んだレコードを、書き込み先のアプリのチャット通知で送る',
@@ -586,25 +587,24 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v2.3.0) -->
+    <!-- Update Info (v2.4.0) -->
     <section class="kbp-section">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v2.3.0：総額を回数で分けた請求予定など、回数ぶんのレコードをまとめて作れるようにしました</h2>
+          <h2 class="update-title">v2.4.0：ユーザー・組織・グループの欄に、ログイン名やコードを入れやすく改善しました</h2>
         </div>
-        <p class="update-desc">KIZUNAブリッジ for kintone を v2.3.0 にアップデートしました（2026年11月24日）。</p>
-        <p class="update-desc"><strong>［レコードを作る］（他のアプリ）に「回数に分けて作る」を追加しました。</strong>回数（数値の欄、または終わりの日付まで）ぶんの予定のレコードを、まとめて作れます。金額は回数で割って、余りを［初回］か［最終回］に足します（毎回同じ額も選べます）。日付は毎月・毎週・毎年などに進め、月末や休みの日の前後への寄せ方も選べます。分割請求・支払の予定・毎月の請求予定・定期点検の予定に使えます。</p>
-        <p class="update-desc"><strong>作る前に予定の表を出し、金額と日付を直せるようにしました。</strong>詳細画面のボタンで動かすと、書き込む前に予定の表が出ます。直した値で作り、キャンセルすれば何も作りません。もう一度押したときは、作らないか、消して作り直すかを選べます。</p>
-        <p class="update-desc"><strong>設定の手間を減らしました。</strong>［ひな形から追加］（分割請求・定期の予定・支払予定）と、［同じフィールドコードの欄をまとめて追加］で、作る先のアプリを選ぶだけで設定を始められます。</p>
-        <p class="update-desc">あわせて、設定画面とルールを試すの「使う APIリクエスト数」に、他のアプリへの書き込み分も含めるよう改善しました。また、ボタンの既定の色を、白い文字が読みやすい濃い青緑に変えました（色を指定したボタンはそのままです）。</p>
-        <p class="update-desc">設定の形は変わりません。v2.2.1 の設定がそのまま使えます。</p>
+        <p class="update-desc">KIZUNAブリッジ for kintone を v2.4.0 にアップデートしました（2026年11月26日）。</p>
+        <p class="update-desc"><strong>氏名で入れても、ログイン名を案内して置き換えられるようにしました。</strong>ユーザー選択・組織選択・グループ選択の欄に値を入れるとき、氏名・組織名・グループ名を入れると、欄の下にログイン名（コード）が出ます。［置き換える］を押すだけで入れ直せます。複数あるときは［すべて置き換える］、同じ名前が複数あるときは候補から選べます。</p>
+        <p class="update-desc"><strong>ログイン名に空白がある人も、1名として入るようにしました。</strong>漢字の氏名と半角スペースのログイン名でも、2名に分かれません。設定画面に［1名として入れる］が出ます。以前の設定はそのまま動きます。</p>
+        <p class="update-desc"><strong>式［ログインユーザー()］をユーザー選択に入れる場合も、ログイン名で入るようにしました。</strong></p>
+        <p class="update-desc">設定の形は変わりません。v2.3.1 の設定がそのまま使えます。</p>
         <figure class="update-shot">
-          <Picture src="/images/bridge-v230-01.png" alt="回数に分けて作るの設定欄。回数・金額・日付・作成済みのときを入力した状態" width="756" height="489" class="zoomable" />
+          <Picture src="/images/bridge-v240-01.png" alt="氏名を入れたユーザー選択の欄の下に、ログイン名の案内と［置き換える］ボタンが出ている" width="694" height="97" class="zoomable" />
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </figure>
         <figure class="update-shot">
-          <Picture src="/images/bridge-v230-02.png" alt="作る前の予定の表。回数・請求予定日・金額が並び、合計と元の金額との差が表示されている" width="760" height="712" class="zoomable" />
+          <Picture src="/images/bridge-v240-02.png" alt="ログイン名に空白を含む人を［1名として入れる］で入れる案内" width="694" height="65" class="zoomable" />
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
         </figure>
         <p class="update-note">既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
@@ -942,6 +942,7 @@ const faqJsonLd = {
           <li>確認・止める：エラーで止める・確認してから進める・お知らせ</li>
           <li>他のアプリ：取ってくる・作る・変える・ステータスを進める・双方向にそろえる</li>
           <li>回数に分けて作る：他のアプリに、回数ぶんの予定のレコードをまとめて作る（金額を回数で割って余りを［初回］か［最終回］に足す／毎回同じ額・日付を毎月などに進める・日の位置と休みの日を選べる・回数の表記・作成済みなら作らない／消して作り直す・作る前の予定の表で金額と日付を直せる・テーブルの行ごと・ひな形3つ）</li>
+          <li>ユーザー・組織・グループの欄に氏名で入れても、ログイン名（コード）を案内し、［置き換える］で入れ直せる（ログイン名に空白がある人も1名として入る）</li>
           <li>書き込み先のアプリの当社プラグインの処理を当てる（時間帯で日時を決める・採番・地図リンク・経過日数・文字列結合 ほか）</li>
           <li>書き込み先のアプリのチャット通知・レコードロックとの連携</li>
           <li>他のプラグイン（付箋ボードなど）が書き込んだレコードを、書き込み先のアプリのチャット通知で送る</li>
