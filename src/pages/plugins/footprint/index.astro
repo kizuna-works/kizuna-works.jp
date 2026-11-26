@@ -60,11 +60,11 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
           "name": "足あと for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.3.2",
+          "softwareVersion": "1.4.0",
           "datePublished": "2026-10-01",
-          "dateModified": "2026-11-24",
+          "dateModified": "2026-11-26",
           "url": "https://kizuna-works.jp/plugins/footprint/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-footprint-v1.3.2.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-footprint-v1.4.0.zip",
           "image": "https://kizuna-works.jp/images/footprint-banner.png",
           "offers": {
             "@type": "Offer",
@@ -99,6 +99,8 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             "足あとは同じスペースの足あと管理アプリに記録し、対象アプリのレコードは書き換えない。足あと管理アプリはボタン1つで作成でき、既読チェック for kintone の保管アプリも共用できる",
             "設定した足あと管理アプリを開けないときは設定画面で警告し、このスペースの足あと管理アプリを使う／作成するボタンで切り替えられる。ゲストスペースのアプリには、そのゲストスペースの足あと管理アプリを使う（v1.3.0）",
             "ゲストスペースのアプリでは、人を選ぶ欄にゲストユーザーをログイン名（メールアドレス）で追加できる（v1.3.1）",
+            "ゲストスペースでは、一覧のユーザーの足あとの候補と閲覧状況にゲストユーザーも表示し、設定画面の追加ではまだ足あとのないアドレスを知らせる。ログイン名の大文字・小文字の違いは同じ人として扱う（v1.4.0）",
+            "足あと管理アプリに残すタイトルが数値・日時のとき、フィールドの表示設定（桁区切り・小数の桁数・単位・タイムゾーン）どおりに残す（v1.4.0）",
             "モバイル版での閲覧・保存も記録（表示はPC版）・ゲストスペース対応"
           ]
         }
@@ -864,35 +866,48 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.3.2</span>
+        <span class="hero-version">v1.4.0</span>
       </div>
       <HeroSubBadges pluginId="kw-footprint" />
       <h1 class="hero-title">足あと for kintone</h1>
       <p class="hero-copy">足あと for kintone は、<strong>レコードを誰が見て、誰がどのフィールドを直したか</strong>を、一覧と詳細画面に「足あと」として出す kintone プラグインです。一覧に列を1本足して、<strong>見た人がいれば閲覧マーク、直した人がいれば編集マーク</strong>を並べます。マウスを乗せると<strong>人と日時・直した項目</strong>が出て、詳細画面では<strong>直されたフィールドの横</strong>にもマークが付きます。足あとは<strong>新しいほど濃く、古いほど薄く</strong>なるので、最近動いたレコードがひと目で分かります。担当者など<strong>見てほしい人のうち、まだ見ていない人</strong>もレコードごとに分かります。記録するのは「誰が・いつ・どのフィールドを」だけで、<strong>値の中身は記録しません</strong>。</p>
-      <HeroDownload href="/downloads/kw-footprint-v1.3.2.zip" />
+      <HeroDownload href="/downloads/kw-footprint-v1.4.0.zip" />
     </section>
     <BridgeBadge as="note" pluginId="kw-footprint" />
 
-    <!-- Update v1.3.1 -->
+    <!-- Update v1.4.0 -->
     <section class="update-section">
       <div class="update-box fade-in">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.3.1：ゲストスペースのアプリで、ゲストユーザーを選べるよう改善しました</h2>
+          <h2 class="update-title">v1.4.0：ゲストユーザーの足あとを、一覧と閲覧状況に表示するよう改善しました</h2>
         </div>
-        <p class="update-desc">ゲストユーザーは kintone の候補の一覧に出ないため、ゲストスペースのアプリの設定画面では、人を選ぶ欄でゲストユーザーを選べませんでした。</p>
-        <p class="update-desc">v1.3.1 からは、人を選ぶ欄の<strong>「ユーザー」のタブに「ゲストユーザーを追加」</strong>が出ます。ゲストユーザーの<strong>ログイン名（メールアドレス）</strong>を入れて［追加］を押すと、「ゲスト」の札つきで選べます。通常のスペースのアプリには出ません。</p>
+        <p class="update-desc">ゲストスペースのアプリで、ゲストユーザーの足あとが一覧の「ユーザーの足あと」や閲覧状況に出ない場合がありました。v1.4.0 で、ゲストユーザーも他のユーザーと同じように表示します。</p>
         <ul class="update-list">
-          <li>使える欄は、「すべてのレコードで対象にする人」「足あとを見られる人」「記録しない人」「足あと管理者」です</li>
-          <li>設定画面の注記を、この操作を案内する文にしました</li>
-          <li>人を選ぶ欄の見た目を改善しました（候補のコードと札の文字を読みやすく、チップの「×」を押しやすく）</li>
+          <li><strong>一覧の「ユーザーの足あと」の候補</strong>にゲストユーザーが出ます（「ゲスト」の札つき）。選ぶと、その人の足あとだけの一覧になります</li>
+          <li>「記録する人」を<strong>「レコードのアクセス権で決める」</strong>にしたときも、足あとのあるゲストユーザーが閲覧状況に出ます</li>
+          <li>設定に入れたログイン名と実際のログイン名で<strong>大文字・小文字が違っても、同じ人</strong>として扱います</li>
         </ul>
         <div class="update-shot">
           <div class="screenshot-frame">
-            <Picture class="zoomable" src="/images/footprint-v131-guest-picker.png" alt="足あと for kintone v1.3.1 の設定画面 — 人を選ぶ欄の「ユーザー」のタブ。候補の一覧の下に「ゲストユーザーを追加」の入力欄（ログイン名〔メールアドレス〕）と［追加］ボタンがあり、追加したゲストユーザーに「ゲスト」の札が付いている" width="800" height="806" />
+            <Picture class="zoomable" src="/images/footprint-v140-02.png" alt="一覧の「ユーザーの足あと」の候補 — ゲストユーザーの行に「ゲスト」の札が付き、その下にほかの利用者が並んでいる" width="442" height="328" />
+          </div>
+        </div>
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/footprint-v140-03.png" alt="詳細画面の閲覧状況 — 「見た人」にゲストユーザーが「ゲスト」の札つきで表示され、まだ見ていない人が左に並んでいる" width="792" height="225" />
+          </div>
+        </div>
+        <h3 class="update-title" style="font-size:17px;margin:20px 0 10px;">設定画面で、ゲストユーザーのアドレスの打ち間違いに気づけるよう改善しました</h3>
+        <p class="update-desc">「ゲストユーザーを追加」で、まだ足あとがないアドレスに<strong>「まだ足あとがありません」</strong>と出ます。注記は、メンバーの画面のアドレスをコピーして貼り付ける案内にしました。</p>
+        <div class="update-shot">
+          <div class="screenshot-frame">
+            <Picture class="zoomable" src="/images/footprint-v140-01.png" alt="設定画面の「ゲストユーザーを追加」 — メールアドレスの入力欄と注記があり、追加したゲストユーザーのうち足あとがないアドレスに「まだ足あとがありません」と表示されている" width="714" height="605" />
           </div>
           <p class="shot-note">画像をクリックすると拡大表示します。</p>
         </div>
+        <h3 class="update-title" style="font-size:17px;margin:20px 0 10px;">足あと管理アプリのタイトルを、フィールドの表示どおりに改善しました</h3>
+        <p class="update-desc">レコードのタイトルを残す設定で、タイトルが数値・日時のフィールドのとき、桁区切り・小数の桁数・単位・タイムゾーンの設定どおりに残ります。</p>
         <p class="update-note">バージョンアップは zip をダウンロードし、kintone システム管理の「プラグイン」から上書きアップロードしてください（アプリごとの設定は保持されます）。</p>
       </div>
     </section>
@@ -1231,6 +1246,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <li><span><strong>対象アプリを書き換えない</strong>／足あとは同じスペースの足あと管理アプリに記録します。足あと管理アプリはボタン1つで作成でき、既読チェック for kintone の保管アプリも共用できます</span></li>
         <li><span><strong>開けない足あと管理アプリを設定画面でお知らせ</strong>（v1.3.0）／別のスペースのアプリ・削除されたアプリなどが設定されているときに警告し、このスペースの足あと管理アプリへ切り替えられます。ゲストスペースのアプリには、そのゲストスペースの足あと管理アプリを使います</span></li>
         <li><span><strong>ゲストユーザーを人の指定に追加</strong>（v1.3.1）／ゲストスペースのアプリでは、人を選ぶ欄の「ユーザー」のタブにある「ゲストユーザーを追加」に、ログイン名（メールアドレス）を入れて指定できます。通常のスペースでは出ません</span></li>
+        <li><span><strong>ゲストユーザーの足あとも表示</strong>（v1.4.0）／ゲストスペースのアプリで、一覧の「ユーザーの足あと」の候補と閲覧状況にゲストユーザーを「ゲスト」の札つきで出します。「ゲストユーザーを追加」では、まだ足あとがないアドレスに「まだ足あとがありません」と出るので、打ち間違いに気づけます。ログイン名の大文字・小文字の違いは同じ人として扱います</span></li>
         <li><span><strong>モバイルの操作も記録</strong>／モバイル版で開いた・保存した操作も足あとに残ります（表示は PC 版）。ゲストスペースにも対応しています</span></li>
       </ul>
     </section>
@@ -1241,7 +1257,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">足あとの表示は PC 版のレコード一覧・詳細画面で動作します。設定にはアプリの管理権限が必要です。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-footprint-v1.3.2.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-footprint-v1.4.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>対象アプリの<strong>アプリ設定 → プラグイン</strong>で「足あと for kintone」を追加</span></li>
           <li><span>プラグイン設定画面で<strong>［足あと管理アプリを作成する］</strong>を押し（初回だけ）、表示の設定を選んで「保存」</span></li>
@@ -1269,7 +1285,7 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・一覧画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-footprint-v1.3.2.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-footprint-v1.4.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <SupporterPlanCard pluginId="kw-footprint" />
       <PremiumPlanCard />
@@ -1399,10 +1415,10 @@ import HeroSubBadges from '../../../components/HeroSubBadges.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-footprint-v1.3.2.zip',
+              file_name: 'kw-footprint-v1.4.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-footprint-v1.3.2.zip'
+              link_url: '/downloads/kw-footprint-v1.4.0.zip'
             });
           }
         });
