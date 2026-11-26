@@ -15,9 +15,9 @@ import Picture from '../../../components/Picture.astro';
 
 <Layout
   title="クイック目次 for kintone - レコード画面に目次サイドメニューを表示するプラグイン | KIZUNA Works"
-  description="kintone のレコード詳細・編集・新規作成画面の左側にセクション単位の目次サイドメニューを常時表示するプラグイン。項目クリックで該当セクションへジャンプし、その目次のエリアだけを表示することも可能。ステータスや値の条件で目次を出し分け、スペースパーツの見出し・ステータスバッジ・配色テーマにも対応。kintone完結・外部API不使用。"
+  description="kintone のレコード詳細・編集・新規作成画面の左側にセクション単位の目次サイドメニューを常時表示するプラグイン。項目クリックで該当セクションへジャンプし、その目次のエリアだけを表示することも可能。ステータスや値の条件で目次を出し分け、スペースパーツの見出し・ステータスバッジ・配色テーマにも対応。クイックタブ・アコーディオンタブと併用すると、別のタブや閉じた区画の項目へも移動。kintone完結・外部API不使用。"
   ogTitle="クイック目次 for kintone - レコード画面に目次サイドメニューを表示するプラグイン | KIZUNA Works"
-  ogDescription="kintone のレコード画面の左側にセクション目次を常時表示。項目クリックでジャンプし、その目次のエリアだけを表示。ステータスや値の条件で目次を出し分け。スペースパーツの見出し・ステータスバッジ・配色テーマ対応、編集・新規画面でも動作。kintone完結。"
+  ogDescription="kintone のレコード画面の左側にセクション目次を常時表示。項目クリックでジャンプし、その目次のエリアだけを表示。ステータスや値の条件で目次を出し分け。スペースパーツの見出し・ステータスバッジ・配色テーマ対応、クイックタブ・アコーディオンタブとの併用にも対応。kintone完結。"
   ogType="website"
   ogUrl="https://kizuna-works.jp/plugins/quick-toc/"
   ogImage="https://kizuna-works.jp/images/quick-toc-banner.png"
@@ -59,10 +59,10 @@ import Picture from '../../../components/Picture.astro';
           "name": "クイック目次 for kintone",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web (kintone)",
-          "softwareVersion": "1.4.0",
-          "dateModified": "2026-11-14",
+          "softwareVersion": "1.5.0",
+          "dateModified": "2026-11-26",
           "url": "https://kizuna-works.jp/plugins/quick-toc/",
-          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-toc-v1.4.0.zip",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-quick-toc-v1.5.0.zip",
           "image": "https://kizuna-works.jp/images/quick-toc-banner.png",
           "offers": {
             "@type": "Offer",
@@ -87,6 +87,7 @@ import Picture from '../../../components/Picture.astro';
             "条件で目次を出し分け：プロセス管理のステータスやフィールドの値の条件ごとに、表示する目次を選ぶルール表（隠れた目次のエリアも一緒に隠れる）",
             "目次最上部にステータスバッジ表示。ドロップダウン／ラジオ／プロセス管理ステータスは選択肢別カラー、文字列1行フィールドは値をそのまま表示＋任意で値→色ルール",
             "配色テーマ：kintone標準同期／プリセット10色／カスタム7箇所",
+            "クイックタブ・アコーディオンタブとの併用：押した項目が別のタブや閉じた区画にあっても、タブを切り替え・区画を開いて移動（固定したタブのボタン・見出しの下に隠れない）",
             "ヘッダー追従：スクロールしてもツールバー・保存ボタンの直下で停止し隠れない",
             "メニュー幅は自動拡張し本文の左余白も自動調整（被らない）",
             "GAS・外部サービス不要・kintone完結"
@@ -233,6 +234,11 @@ import Picture from '../../../components/Picture.astro';
       background: var(--color-green);
     }
     .update-list strong { color: var(--color-navy); }
+    .update-shot { max-width: 640px; margin-left: auto; margin-right: auto; text-align: center; }
+    .update-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 12px 0 16px; }
+    .update-pair .update-shot { min-width: 0; max-width: none; margin: 0; }
+    @media (max-width: 640px) { .update-pair { grid-template-columns: minmax(0, 1fr); } }
+    .update-shot img { max-width: 100%; height: auto; border: 1px solid var(--color-gray-light); border-radius: 8px; }
     .update-note {
       color: var(--color-text-light);
       font-size: 13px;
@@ -766,34 +772,39 @@ import Picture from '../../../components/Picture.astro';
       />
       <div>
         <span class="hero-badge">無料配布中</span>
-        <span class="hero-version">v1.4.0</span>
+        <span class="hero-version">v1.5.0</span>
       </div>
       <HeroSubBadges pluginId="kw-quick-toc" />
       <h1 class="hero-title">クイック目次 for kintone</h1>
-      <p class="hero-copy">クイック目次 for kintone は、レコード詳細・編集・新規作成画面の左側にセクション単位の「目次サイドメニュー」を常時表示する kintone プラグインです。項目をクリックすると該当セクションへワンクリックでジャンプし、その目次のエリアだけを表示することもできます。ステータスや値の条件で、表示する目次を出し分けることも可能。フォームの「スペース」パーツもジャンプ先に選べ、その位置に見出し（表示名＋アクセント線）を表示できます。縦に長いレコードでも、目的の場所へ一瞬でたどり着けます。ステータスバッジで状態を色分け表示、配色テーマも自由。長いレコードも、ワンクリックで目的の場所へ。</p>
-      <HeroDownload href="/downloads/kw-quick-toc-v1.4.0.zip" />
+      <p class="hero-copy">クイック目次 for kintone は、レコード詳細・編集・新規作成画面の左側にセクション単位の「目次サイドメニュー」を常時表示する kintone プラグインです。項目をクリックすると該当セクションへワンクリックでジャンプし、その目次のエリアだけを表示することもできます。ステータスや値の条件で、表示する目次を出し分けることも可能。フォームの「スペース」パーツもジャンプ先に選べ、その位置に見出し（表示名＋アクセント線）を表示できます。縦に長いレコードでも、目的の場所へ一瞬でたどり着けます。ステータスバッジで状態を色分け表示、配色テーマも自由。クイックタブ・アコーディオンタブと併用すると、別のタブや閉じた区画の項目も、目次を押すだけで開いて移動します。長いレコードも、ワンクリックで目的の場所へ。</p>
+      <HeroDownload href="/downloads/kw-quick-toc-v1.5.0.zip" />
     </section>
 
-    <!-- UPDATE (v1.4.0) -->
+    <!-- UPDATE (v1.5.0) -->
     <section class="update-section fade-in">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v1.4.0：目次ごとのエリア表示と、条件による目次の出し分けを追加しました</h2>
+          <h2 class="update-title">v1.5.0：クイックタブ・アコーディオンタブと併用したときの動きを改善しました</h2>
         </div>
-        <p class="update-desc">クイック目次 for kintone を v1.4.0 にアップデートしました。主な変更点は次の3つです。</p>
+        <p class="update-desc">クイック目次 for kintone を v1.5.0 にアップデートしました（2026年11月26日）。主な変更点は次の3つです。</p>
         <ul class="update-list">
-          <li><strong>目次をクリックして、その目次のエリアだけを表示できます</strong> — ジャンプ先の行から次の目次の手前までを、その目次のエリアとして表示します。設定は「オフ」「すべての目次に適用」「目次ごとに選ぶ」から選べます。目次の先頭に「すべて表示」を自動で加え、最初に開く目次も選べます。詳細と編集を行き来しても、開いていた目次を保ちます。</li>
-          <li><strong>条件で目次を出し分けできます</strong> — プロセス管理のステータスやフィールドの値の条件ごとに、表示する目次を選べます。隠れた目次のエリアも一緒に隠れます。どのルールにも入っていない目次は、常に表示します。</li>
-          <li><strong>目次の移動先と設定画面の操作性を改善しました</strong> — 同じ表示名のラベルやフィールドがあるときも、目次から正しい場所へ移動します。設定画面では、行の追加や並べ替えをしても画面の位置が動きません。</li>
+          <li><strong>別のタブ・閉じたアコーディオンの項目も、押すだけで開いて移動します</strong> — 押した項目が別のクイックタブのタブにあれば、そのタブへ切り替えて移動します。閉じたアコーディオンタブの区画にあれば、区画を開いて移動します。タブの区切りスペースを目次に指定したときは、そのタブの先頭へ移動します。</li>
+          <li><strong>固定したタブのボタンやアコーディオンの見出しの下に、飛び先が隠れません</strong> — 移動先が固定された行と重なるときは、その下に見える位置まで下げます。フィールド・テーブルへの移動は、ラベルも含めて見える位置に合わせます（単独で使うときも、ラベルがツールバーに隠れなくなりました）。</li>
+          <li><strong>エリア表示が、タブ・アコーディオンの表示に合わせて切り替わります</strong> — タブを切り替えたり区画を閉じたりしても、画面が空になりません。アコーディオンの見出しは、その区画のエリアに含めます。後から差し込まれた行（テーブルアシストの帯など）も、直前の行と同じエリアで表示します。</li>
         </ul>
-        <div class="update-shot">
-          <div class="screenshot-frame">
-            <Picture class="zoomable" src="/images/quick-toc-v140-01.png" alt="クイック目次のエリア表示を使った kintone レコード詳細画面。目次は「すべて表示・基本情報・見積」で、「見積」を開いており、本文は見積のエリアだけが表示されている。進捗が見積中のため、条件ルールにより契約・請求の目次は隠れている" width="1366" height="540" loading="lazy" />
+        <div class="update-pair">
+          <div class="update-shot">
+            <Picture class="zoomable" src="/images/quick-toc-v150-01.png" alt="クイック目次で別のタブにある項目を押した画面。クイックタブが「関連情報」タブに切り替わり、固定したタブのボタンとアコーディオンの見出しの下に、移動先の項目が見えている" width="980" height="740" loading="lazy" />
+            <p class="zoom-hint">別のタブの項目：タブが切り替わって移動する</p>
           </div>
-          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
+          <div class="update-shot">
+            <Picture class="zoomable" src="/images/quick-toc-v150-02.png" alt="クイック目次で閉じたアコーディオンの区画にある項目を押した画面。区画「ACC申請内容」が開き、固定した見出しの下に移動先のグループが見えている" width="980" height="740" loading="lazy" />
+            <p class="zoom-hint">閉じた区画の項目：区画が開いて移動する</p>
+          </div>
         </div>
-        <p class="update-note">最新版をダウンロードして、kintone の「システム管理 → プラグイン」から<strong>上書きアップロード</strong>するだけで適用できます。既存の設定はそのまま引き継がれ、エリア表示は「オフ」・条件ルールなしで、これまでと同じ動きです。</p>
+        <p class="update-desc">条件・閲覧制限・パスワードで隠した項目や、旧版のクイックタブ・アコーディオンタブと併用しているときは、画面の先頭へ飛ばず、目次の横に「この項目は、ほかのプラグインの設定で表示されていません」と表示します。</p>
+        <p class="update-note"><strong>クイックタブ・アコーディオンタブと併用するときは、3つとも今回の版（クイック目次 v1.5.0／クイックタブ v1.5.1／アコーディオンタブ v2.1.2）にそろえてください。</strong>目次だけが新しいと、タブは切り替わらず上の吹き出しが出ます。最新版をダウンロードして、kintone の「システム管理 → プラグイン」から<strong>上書きアップロード</strong>するだけで適用できます。設定項目の追加はなく、既存の設定はそのまま引き継がれます。</p>
         <BridgeUpdateNote />
       </div>
     </section>
@@ -887,6 +898,7 @@ import Picture from '../../../components/Picture.astro';
           <li><span><strong>セクション単位の目次サイドメニュー</strong> — レコード詳細・編集・新規作成画面の左側に、設定したセクションの目次を常時表示します。画面ごとに表示の ON/OFF を切り替えられます。</span></li>
           <li><span><strong>エリア表示</strong> — 目次をクリックすると、その目次のエリア（ジャンプ先の行から次の目次の手前まで）だけを表示します。「オフ」「すべての目次に適用」「目次ごとに選ぶ」から選べ、「すべて表示」は自動で加わります。最初に開く目次も選べ、詳細と編集を行き来しても開いていた目次を保ちます。保存時に隠れたエリアで必須エラーが出たら、そのエリアへ切り替わります。</span></li>
           <li><span><strong>条件で目次を出し分け</strong> — プロセス管理のステータスやフィールドの値の条件ごとに、表示する目次を選ぶルール表です。隠れた目次のエリアも一緒に隠れ、どのルールにも入っていない目次は常に表示します。</span></li>
+          <li><span><strong>クイックタブ・アコーディオンタブとの併用</strong> — 押した項目が別のタブや閉じた区画にあっても、タブを切り替え・区画を開いて移動します。固定したタブのボタンやアコーディオンの見出しの下に隠れず、エリア表示もタブ・アコーディオンの表示に合わせて切り替わります。</span></li>
           <li><span><strong>ワンクリックジャンプ</strong> — 目次項目をクリックすると、該当セクションの先頭までスムーズにスクロール。詳細・編集・新規のどの画面でも、同じ表示名のラベルやフィールドがあっても、設定した場所へ移動します。</span></li>
           <li><span><strong>5種別でセクションを定義</strong> — 「ラベル」「スペース」「フィールド」「グループ」「サブテーブル」から選んでジャンプ先を指定。ラベルやスペース（要素ID付き）はフォーム上のものをドロップダウンから選べます。スペースは、その位置に目次と同じ表示名の見出し（アクセント線付き・大／中／小）を表示することもできます。ジャンプ先を選ぶと<strong>表示名が自動で入り</strong>、自由に書き換えもできます。</span></li>
           <li><span><strong>ステータスバッジ</strong> — 目次の最上部に、ドロップダウン／ラジオボタン／プロセス管理ステータスの値を選択肢ごとの色で表示。文字列1行フィールドは値をそのまま表示し、「値 → 色」ルールで特定の値だけ色分けもできます。背景の明るさに応じて文字色を自動調整します。</span></li>
@@ -895,6 +907,21 @@ import Picture from '../../../components/Picture.astro';
           <li><span><strong>幅は自動拡張・本文は自動で押し出し</strong> — 項目テキストが長い場合は目次が自動で広がり、本文の左余白も実際の幅に合わせて自動調整。目次と本文が被りません。</span></li>
           <li><span><strong>kintone 完結・外部 API 不使用</strong> — GAS・データベース・SaaS 連携は一切不要。プラグインアップロードのみで導入できます。</span></li>
         </ul>
+      </div>
+    </section>
+
+    <!-- Combo -->
+    <section class="section-bg">
+      <div class="section-wrapper fade-in">
+        <h2 class="section-title">クイックタブ・アコーディオンタブとの併用</h2>
+        <p class="section-subtitle">画面を区切るプラグインと一緒に使っても、目次から目的の項目へ移動できます。</p>
+        <ul class="feature-list">
+          <li><span><strong>タブの中の項目</strong> — <a href="/plugins/quick-tab/">クイックタブ</a>で別のタブにある項目を押すと、そのタブへ切り替えて移動します。タブの区切りスペースを目次に指定すると、そのタブの先頭へ移動します。</span></li>
+          <li><span><strong>閉じた区画の中の項目</strong> — <a href="/plugins/accordion-tab/">アコーディオンタブ</a>で閉じている区画の項目を押すと、区画を開いて移動します。</span></li>
+          <li><span><strong>エリア表示</strong> — 目次のエリア表示は、タブ・アコーディオンの表示に合わせて切り替わり、画面が空になりません。</span></li>
+          <li><span><strong>隠れている項目</strong> — 条件・閲覧制限・パスワードで隠した項目は開かず、目次の横に「この項目は、ほかのプラグインの設定で表示されていません」と表示します。</span></li>
+        </ul>
+        <p style="text-align:center; color:var(--color-text-light); font-size:14px; margin-top:20px; line-height:1.8;">併用するときは、クイック目次 v1.5.0・クイックタブ v1.5.1・アコーディオンタブ v2.1.2 の<strong>3つとも</strong>そろえてください。</p>
       </div>
     </section>
 
@@ -953,7 +980,7 @@ import Picture from '../../../components/Picture.astro';
         <h2 class="section-title">インストール手順</h2>
         <p class="section-subtitle">レコード詳細・編集・新規作成画面（PC 版）でご利用いただけます。</p>
         <ol class="steps-list">
-          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-quick-toc-v1.4.0.zip</code> をダウンロード</span></li>
+          <li><span>「プランについて」セクションのダウンロードボタンから <code>kw-quick-toc-v1.5.0.zip</code> をダウンロード</span></li>
           <li><span>kintone の<strong>システム管理 → プラグイン</strong>を開き、「読み込む」ボタンから ZIP をアップロード</span></li>
           <li><span>使用するアプリの<strong>アプリ設定 → プラグイン</strong>で「クイック目次 for kintone」を追加</span></li>
           <li><span>プラグイン設定画面で<strong>セクション</strong>（目次に並べる項目）を定義し、必要に応じて配色・ステータスバッジ・エリア表示・条件ルールを設定して「保存」</span></li>
@@ -981,7 +1008,7 @@ import Picture from '../../../components/Picture.astro';
             <li>✅ 利用期限なし・いつまでも無料</li>
             <li>✅ 設定画面・レコード画面に控えめな広告エリア表示あり</li>
           </ul>
-          <a href="/downloads/kw-quick-toc-v1.4.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
+          <a href="/downloads/kw-quick-toc-v1.5.0.zip" download class="btn-primary" id="btn-download">無料でダウンロード</a>
         </div>
         <SupporterPlanCard pluginId="kw-quick-toc" />
       <PremiumPlanCard />
@@ -1000,6 +1027,7 @@ import Picture from '../../../components/Picture.astro';
           <li>本プラグインはレコードの詳細・編集・新規作成画面（PC 版）でのみ動作します。一覧・カレンダー・カスタマイズビューでは動作しません。</li>
           <li>「ラベル」パーツのジャンプは、フォーム設定で要素IDを付与すると確実です。要素ID未設定のラベルは、表示テキストと設定画面で記録した順番で特定します。</li>
           <li>エリア表示は、目次のジャンプ先の行の並びに沿って表示・非表示を切り替えます。同じアプリでクイックタブ for kintone も使う場合は、どちらか一方のエリア表示だけを使ってください。</li>
+          <li>クイックタブ・アコーディオンタブと併用するときは、3つとも最新版（クイック目次 v1.5.0・クイックタブ v1.5.1・アコーディオンタブ v2.1.2）にそろえてください。同じアコーディオンの区画の中に複数の目次の項目があるときは、エリア表示では1つのエリアとして扱います。</li>
           <li>編集・新規作成画面では、存在しないセクションを定義すると、クリックしても反応しない項目が残ります（仕様上、編集・新規では自動間引きを行いません）。</li>
           <li>ステータスバッジは単一選択（ドロップダウン／ラジオボタン／プロセス管理ステータス）のみ対応です。チェックボックス・複数選択は対象外です。</li>
           <li>モバイル版 kintone では動作しません。PC 版でのみ動作します。</li>
@@ -1133,10 +1161,10 @@ import Picture from '../../../components/Picture.astro';
         dlBtn.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'file_download', {
-              file_name: 'kw-quick-toc-v1.4.0.zip',
+              file_name: 'kw-quick-toc-v1.5.0.zip',
               file_extension: 'zip',
               link_text: '無料でダウンロード',
-              link_url: '/downloads/kw-quick-toc-v1.4.0.zip'
+              link_url: '/downloads/kw-quick-toc-v1.5.0.zip'
             });
           }
         });
