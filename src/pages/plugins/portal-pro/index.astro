@@ -8,10 +8,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '1.3.0';
+const VERSION = '1.4.0';
 const ZIP = `/downloads/kw-portal-pro-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/portal-pro/';
-const DATE_MODIFIED = '2026-11-26';
+const DATE_MODIFIED = '2026-11-28';
 
 // Screenshots are added later. A figure is drawn only when its file exists in public/images,
 // so the page never shows a broken image while the shots are still being taken.
@@ -134,7 +134,7 @@ const SHOTS: Record<string, { file: string; alt: string; width: number; height: 
 const shotOk = (k: string) => fs.existsSync(path.join(process.cwd(), 'public', 'images', SHOTS[k].file));
 const shotClass = (k: string, extra = '') => `kbp-feature ${extra}${shotOk(k) ? '' : ' noshot'}`.trim();
 
-// The 21 widgets (19 of v1.0 plus the feed and the list view of v1.1), grouped as in the editor palette.
+// The 23 widgets (19 of v1.0 plus the feed and the list view of v1.1, and the two due-alert widgets of v1.4), grouped as in the editor palette.
 const WIDGET_GROUPS: { label: string; items: { name: string; desc: string }[] }[] = [
   {
     label: '基本',
@@ -167,6 +167,8 @@ const WIDGET_GROUPS: { label: string; items: { name: string; desc: string }[] }[
     label: '業務',
     items: [
       { name: '自分の担当', desc: '複数のアプリから、自分が担当のレコードを集める' },
+      { name: '期限アラート', desc: '期限アラートの設定を貼り付けて、超過・今日・近い期限の件数と、期限が近い5件を出す' },
+      { name: '自分の期限', desc: '複数のアプリから、自分の担当の期限（超過・今日・近い）の件数を集める' },
       { name: 'クイック入力', desc: 'ポータルからレコードを登録。ワンタップ登録も' },
     ],
   },
@@ -328,7 +330,7 @@ const faqJsonLd = {
   title="ポータル Pro for kintone｜開いた人の今日が並ぶポータルを組み立てる | KIZUNA Works"
   description="ポータル Pro for kintone は、メインのポータルとスペースのポータルに、アプリ一覧・お知らせ・グラフ・クイック入力などのウィジェットをドラッグ＆ドロップで並べる KIZUNA Pro プラグイン。開いた人ごとに中身が変わり、スタイル20種とページの部品で見た目も整えられます。"
   ogTitle="ポータル Pro for kintone｜開いた人の今日が並ぶポータルを組み立てる | KIZUNA Works"
-  ogDescription="メインのポータルとスペースのポータルを、ウィジェットで組み立てる KIZUNA Pro プラグイン。21種のウィジェット、開いた人ごとに変わる「その人の今日」、ポータルから直接登録するクイック入力、確認ボタン付きのお知らせ、スタイル20種とヒーロー帯・左メニューのデザイン、スマホ画面、日本語・英語・中国語（簡体字）の表示に対応します。"
+  ogDescription="メインのポータルとスペースのポータルを、ウィジェットで組み立てる KIZUNA Pro プラグイン。23種のウィジェット、開いた人ごとに変わる「その人の今日」、ポータルから直接登録するクイック入力、確認ボタン付きのお知らせ、スタイル20種とヒーロー帯・左メニューのデザイン、スマホ画面、日本語・英語・中国語（簡体字）の表示に対応します。"
   ogType="website"
   ogUrl={PAGE_URL}
   ogImage="https://kizuna-works.jp/images/portal-pro-banner.png"
@@ -362,7 +364,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "1.3.0",
+          "softwareVersion": "1.4.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -385,12 +387,12 @@ const faqJsonLd = {
               description: 'プレミアム年間サポーターに追加するプラン（年額）。',
             },
           ],
-          description: 'ポータル Pro for kintone は、kintone のメインのポータルとスペースのポータルに、ウィジェットを並べた画面をドラッグ＆ドロップで組み立てるプラグイン。アプリ一覧・お知らせ・ショートカット・画像・埋め込みのほか、レコード一覧・数値カード・グラフ・ゲージ・ランキング・カレンダー・カウントダウン・自分の担当・新着の流れなど21種のウィジェットを置ける。条件に「自分」「自分の組織」「今日」を使って開いた人ごとに中身を変えられ、ポータルからレコードを登録するクイック入力、［確認しました］ボタン付きのお知らせ、よく使う順に並ぶアプリ一覧と Ctrl+K のランチャーを備える。画面作成ウィザードのひな形14種とスタイル20種、ヒーロー帯・左メニュー・最大幅で見た目を整えられ、スマホ用の画面も別に組める。kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示する。',
+          description: 'ポータル Pro for kintone は、kintone のメインのポータルとスペースのポータルに、ウィジェットを並べた画面をドラッグ＆ドロップで組み立てるプラグイン。アプリ一覧・お知らせ・ショートカット・画像・埋め込みのほか、レコード一覧・数値カード・グラフ・ゲージ・ランキング・カレンダー・カウントダウン・自分の担当・新着の流れなど23種のウィジェットを置ける。条件に「自分」「自分の組織」「今日」を使って開いた人ごとに中身を変えられ、ポータルからレコードを登録するクイック入力、［確認しました］ボタン付きのお知らせ、よく使う順に並ぶアプリ一覧と Ctrl+K のランチャーを備える。画面作成ウィザードのひな形14種とスタイル20種、ヒーロー帯・左メニュー・最大幅で見た目を整えられ、スマホ用の画面も別に組める。kintone のユーザーの言語設定に合わせて、日本語・英語・中国語（簡体字）で表示する。',
           publisher: { '@type': 'Organization', name: 'KIZUNA Works', url: 'https://kizuna-works.jp' },
           featureList: [
             'メインのポータルとスペースのポータルに、ウィジェットを並べた画面を表示（パソコンとスマホ）',
             'ドラッグ＆ドロップのエディタ：パレットから置き、角をつまんで大きさを変える。アプリ一覧のタイルをドラッグして並び順を決める。複製・削除・元に戻す・やり直し・下書きから公開',
-            '21種のウィジェット：アプリ一覧・ショートカットボタン・お知らせ・リッチテキスト・見出し・画像・リンク集・レコード一覧・数値カード・グラフ・ゲージ・進捗バー・ランキング・クロス集計・カレンダー・カウントダウン・新着の流れ・一覧の表示・自分の担当・クイック入力・埋め込み・時計',
+            '23種のウィジェット：アプリ一覧・ショートカットボタン・お知らせ・リッチテキスト・見出し・画像・リンク集・レコード一覧・数値カード・グラフ・ゲージ・進捗バー・ランキング・クロス集計・カレンダー・カウントダウン・新着の流れ・一覧の表示・自分の担当・クイック入力・埋め込み・時計',
             'その人の今日：条件に「自分」「自分の組織」「今日」「今週」を使い、1枚の画面で開いた人ごとに中身を変える',
             'クイック入力：ポータルからレコードを直接登録。ワンタップ登録にも対応',
             'お知らせの［確認しました］ボタン：確認した人を記録し、「お知らせの確認状況」で確認者・日時を確認（CSV 出力）',
@@ -705,7 +707,7 @@ const faqJsonLd = {
       <HeroSubBadges pluginId="kw-portal-pro" />
       <h1 class="kbp-hero-title">ポータル Pro for kintone</h1>
       <p class="kbp-tagline">開いた人の"今日"が並び、そのまま仕事が始められるポータル。</p>
-      <p class="kbp-sub">ポータル Pro for kintone は、<strong>メインのポータルとスペースのポータルに、ウィジェットを並べた画面をドラッグ＆ドロップで組み立てる</strong> kintone プラグインです。アプリ一覧・お知らせ・グラフ・クイック入力など<strong>21種のウィジェット</strong>と、<strong>スタイル20種</strong>・ヒーロー帯・左メニューで、見た目まで整えられます。</p>
+      <p class="kbp-sub">ポータル Pro for kintone は、<strong>メインのポータルとスペースのポータルに、ウィジェットを並べた画面をドラッグ＆ドロップで組み立てる</strong> kintone プラグインです。アプリ一覧・お知らせ・グラフ・クイック入力など<strong>23種のウィジェット</strong>と、<strong>スタイル20種</strong>・ヒーロー帯・左メニューで、見た目まで整えられます。</p>
       <div class="ppp-showcase">
       <h2 class="ppp-gallery-title" id="showcase-title">どんなポータルになるか、見てみる</h2>
       <div class="ppp-showcase-tabs" role="tablist" aria-labelledby="showcase-title">
@@ -766,29 +768,24 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v1.3.0) -->
+    <!-- Update Info (v1.4.0) -->
     <section class="kbp-section">
       <div class="kbp-wrap">
         <div class="update-box">
           <div class="update-head">
             <span class="update-tag">UPDATE</span>
-            <h2 class="update-title">v1.3.0：アプリ一覧と、ポータル用JSの登録の案内を改善しました</h2>
+            <h2 class="update-title">v1.4.0：期限アラートの件数と期限が近いレコードを、ポータルに出せるように改善しました</h2>
           </div>
-          <p class="update-desc">ポータル Pro for kintone を v1.3.0 にアップデートしました（2026年11月26日）。</p>
+          <p class="update-desc">ポータル Pro for kintone を v1.4.0 にアップデートしました（2026年11月28日）。</p>
           <ul class="update-list">
-            <li><strong>アプリ一覧を改善しました。</strong>スペースのポータルに置くアプリ一覧は、［表示するアプリ］で［このスペースのアプリ］を選べます。スペース向けの画面に新しく置いたときの既定は、そのスペースのアプリだけです。すでに置いてあるアプリ一覧は、今までどおりすべてのアプリを表示します。アプリのアイコンは、指定しなくても、kintone のアプリに設定したアイコン（画像・プリセット）がそのまま出ます。</li>
-            <li><strong>ポータルの編集画面を改善しました。</strong>アプリのタイルをドラッグして、並び順を決められます。並び順は「管理者の指定順」に切り替わり、分類ごとの表示では同じ分類の中で入れ替えられます。元に戻すも使えます。</li>
-            <li><strong>ポータル用JSの登録の案内を改善しました。</strong>［公開］のあと、ポータル用JSが未登録または古い版のときは、「あと1つ手順があります」のダイアログで、ダウンロードと登録の手順をご案内します。編集画面の上部の帯でも知らせます。設定画面の初期設定にも、ダウンロードと登録の手順を加えました。なお、kintone 全体のカスタマイズは公式の API で変えられないため、登録はこれまでどおり kintone のシステム管理で行います（自動にはなりません）。</li>
+            <li><strong>期限の件数と、期限が近いレコードを出せるようになりました。</strong>ウィジェット［期限アラート］は、期限アラート for kintone の設定を貼り付けると、超過・今日・近い期限の件数と、期限が近い5件を出します。件数を押すと、そのアプリの一覧がその段階で開きます。</li>
+            <li><strong>自分の期限を、複数のアプリからまとめて見られるようになりました。</strong>ウィジェット［自分の期限］は、最大10アプリ分の設定を貼り付けて、自分の担当の期限をアプリごとの行で出します。</li>
           </ul>
-          <figure class="update-shot">
-            <p class="shot-label">アプリ一覧の［表示するアプリ］と、kintone のアイコンの表示</p>
-            <Picture src="/images/portal-pro-v130-01.png" alt="ポータル編集の画面。スペース向けの画面のアプリ一覧ウィジェットを選び、右の設定パネルで［表示するアプリ］を［このスペースのアプリ］にしている。タイルには kintone のアプリに設定したアイコンが出ている" width={1280} height={900} class="zoomable" loading="lazy" />
-          </figure>
-          <figure class="update-shot">
-            <p class="shot-label">［公開］のあとに出る、ポータル用JSの登録の案内</p>
-            <Picture src="/images/portal-pro-v130-02.png" alt="［公開］のあとに出るダイアログ「ポータルに表示するには、あと 1 つ手順があります」。PC 用・スマホ用のダウンロード、kintone のシステム管理を開くボタン、登録の手順 3 つが並ぶ。上部には未登録を知らせる帯" width={1280} height={900} class="zoomable" loading="lazy" />
-          </figure>
-          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.3.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください。そのあと、<strong>設定画面の［ポータル用JS］から PC 用・スマホ用の JS をダウンロードし直し、kintone システム管理の［JavaScript / CSS でカスタマイズ］に登録し直してください。</strong>アプリ一覧とアイコンの改善はポータル用 JS に入っているため、登録し直すまでは変わりません。保存済みの画面の設定は、そのまま引き継がれます。</p>
+          <div class="update-shot">
+            <Picture class="zoomable" src="/images/portal-pro-due-alert-widgets-01.png" alt="ポータル Pro の期限のウィジェット2種。左の「期限アラート」は超過・今日・近い期限の件数と期限の近い5件、右の「自分の期限」はアプリごとの件数を表示している" width="1385" height="480" />
+          </div>
+          <p class="update-desc">設定は、期限アラートの設定画面の［ポータル Pro 用にコピー］で出した内容を、ウィジェットの設定パネルに貼り付けます。期限アラートの設定を変えたときは、貼り直してください。</p>
+          <p class="update-note">既存ユーザーの方は、最新バージョン（v1.4.0）をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードしてください。そのあと、<strong>設定画面の［ポータル用JS］から PC 用・スマホ用の JS をダウンロードし直し、kintone システム管理の［JavaScript / CSS でカスタマイズ］に登録し直してください。</strong>期限のウィジェットはポータル用 JS に入っているため、登録し直すまでは表示されません。保存済みの画面の設定は、そのまま引き継がれます。</p>
         </div>
       </div>
     </section>
@@ -899,7 +896,7 @@ const faqJsonLd = {
         <div class="kbp-part">
           <span class="kbp-part-no">2</span>
           <div class="kbp-part-body">
-            <h2 class="kbp-part-title">21種のウィジェット</h2>
+            <h2 class="kbp-part-title">23種のウィジェット</h2>
             <p class="kbp-part-desc">お知らせや画像のような基本のウィジェットから、アプリのデータを見せるウィジェット、ポータルから入力できるウィジェットまで、そろっています。</p>
           </div>
         </div>
@@ -1216,7 +1213,7 @@ const faqJsonLd = {
           <li>画面全体の期間ボタン（今月・今四半期・今年度など）で、連動するウィジェットを一括で切り替え</li>
           <li>スマホ用の画面を、PC とは別に並べる</li>
         </ul>
-        <h3 class="kbp-h3">ウィジェット（21種）</h3>
+        <h3 class="kbp-h3">ウィジェット（23種）</h3>
         <ul class="kbp-list">
           <li>基本：アプリ一覧・ショートカットボタン・お知らせ・リッチテキスト・見出し・画像・リンク集</li>
           <li>データ：レコード一覧・数値カード・グラフ・ゲージ・進捗バー・ランキング・クロス集計・カレンダー・カウントダウン・新着の流れ・一覧の表示</li>

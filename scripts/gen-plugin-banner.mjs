@@ -26,6 +26,18 @@ const GOLD = '#c9a961';
 
 /** 定義。iconSide は 'left' | 'right'（既存バナーも左右どちらもある）。 */
 const BANNERS = {
+  'due-alert': {
+    iconSrc: 'SECRET/kintone_plugin_workspace/kw-due-alert/kw-due-alert_icon512.png',
+    iconSide: 'right',
+    catch: ['通知を増やさず、', '期限に気づける。'],
+    name: '期限アラート for kintone',
+    nameSize: 44,
+    bullets: [
+      ['一覧の', '色と目印', 'で期限を知らせる'],
+      ['超過・今日・', '件数の帯', 'で押して絞る'],
+      ['詳細画面の', 'お知らせ', 'と期限タブ']
+    ]
+  },
   // ★ drive-connect は 2026-08-28 に手動バナー（Gemini生成）へ差し替え済み。
   //    このスクリプトを実行すると public/images/drive-connect-banner.png を上書きしてしまうため、
   //    定義を無効化してある。作り直す場合は手動バナーを退避してから戻すこと。

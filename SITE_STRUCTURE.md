@@ -293,6 +293,8 @@ c:\kizuna-works.jp\
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】デザイン Pro for kintone 製品ページ（/plugins/design-pro/）v1.5.0（2026-11-13・第5弾・UPDATE ボックス＝テーブル内のユーザー選択から同じ行の欄へ転記・一覧で開くテーブルの見出し・保管アプリ未設定の案内。取り込んだユーザーオートフィル v1.5.0・テーマスタイラー v1.4.2。スクショ 2 枚＝user-autofill-v150-01・02 を流用。装飾など6つの機能＋表示パターン・印刷パターン・仕上げ・まとめ印刷・PDF の添付保存。配布 zip は public/downloads/kw-design-pro-v1.5.0.zip）
 │   │   │   ├── portal-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】ポータル Pro for kintone 製品ページ（/plugins/portal-pro/）v1.3.0（2026-11-26・アプリ一覧の「表示するアプリ」・エディタでのタイルのドラッグ・アイコンの既定・ポータル用JSの登録の案内・お知らせあり・UPDATE ボックスは v1.3.0 の 1 つ／v1.2.2〔11-25〕・Everyone／Administrators のグループコードが標準と異なる環境でも初期設定が通る修正・版上げのみ〔お知らせ・UPDATE ボックスなし〕／v1.2.1〔2026-11-23〕・アップデートオプションでポータル／スペースの画面が変わっても標準の表示が隠れる修正＋検索欄の修正・v1.2.0〔11-21〕は版上げのみ。v1.2.1 の UPDATE ボックスは v1.3.0 に置き換え）。メインのポータルとスペースのポータルをウィジェット20種・スタイル20種・ひな形14種・ヒーロー帯／左メニュー／最大幅で組み立てる。スクショは public/images/portal-pro-*.png が存在するときだけ表示（撮影前は文章のみ）。FAQ はページ内に直書き。配布 zip は public/downloads/kw-portal-pro-v1.3.0.zip
+│   │   │   ├── due-alert/
+│   │   │   │   └── index.astro # 【プレミアムプラグイン】期限アラート for kintone 製品ページ（/plugins/due-alert/）v1.0.0（2026-11-27・第24弾）。期限が近い・過ぎたレコードを一覧の色と目印・件数の帯・詳細画面のお知らせと期限タブで知らせる。4つの段階・主な機能・設定4タブ・無料/プレミアム比較・手順・注意・FAQ・SecurityBox・ShareButtons。UPDATE ボックスなし（初版）・スクショ10枚掲載（一覧・詳細・設定4タブ・チャットボタン・ブリッジ条件・サイドバー拡張タブ・ポータル Pro ウィジェット）。単品販売なし＝プレミアム年間サポーターに含む
 │   │   │   ├── sheet-pro/
 │   │   │   │   └── index.astro # 【KIZUNA Pro プラグイン】シート Pro for kintone 製品ページ（/plugins/sheet-pro/）v1.0.1（2026-11-26・第7弾）。シート編集・エクセル一括貼り付け・コピーアシスト・横並びシートの統合＋Excel の操作・xlsx の取り込みと往復・書き出しのひな形・集計表・ポータル Pro のウィジェット表示。UPDATE ボックスなし（初版）
 │   │   │   ├── record-acl-assist/
@@ -414,6 +416,7 @@ c:\kizuna-works.jp\
 │   │   │   ├── plugin-bridge-release.md     # KIZUNAブリッジ v1.0.0 公開のお知らせ（2026-10-25T10:00・KIZUNA Pro プラグイン。公開日がずれたら pubDate を直す）
 │   │   │   ├── plugin-portal-pro-release.md     # ポータル Pro v1.0.0 公開のお知らせ（2026-11-16T21:00・KIZUNA Pro プラグイン）
 │   │   │   ├── plugin-sheet-pro-release.md      # シート Pro v1.0.0 公開のお知らせ（2026-11-25・KIZUNA Pro プラグイン第7弾）
+│   │   │   ├── plugin-due-alert-release.md      # 期限アラート v1.0.0 公開のお知らせ（2026-11-27・プレミアム第24弾）。同日のサイドバー拡張 v1.2.0・KIZUNAブリッジ v2.5.0・ポータル Pro v1.4.0・一覧スタイラー v1.6.3 を1本にまとめた
 │   │   │   ├── bridge-v240-update.md        # KIZUNAブリッジ v2.4.0 アップデートのお知らせ（2026-11-26・ユーザー・組織・グループの欄に氏名で入れてもログイン名を案内して置き換えられる・ログイン名に空白がある人も1名として入る）
 │   │   │   ├── sheet-edit-v1102.md              # シート編集 v1.10.2・シート Pro v1.0.1 のお知らせ（2026-11-26・最後の行の保存・離れるときの確認・文字の見やすさ）
 │   │   │   ├── portal-pro-v110-update.md        # ポータル Pro v1.1.0 アップデートのお知らせ（2026-11-18・一覧の表示・列数・デザインの拡充）
@@ -502,11 +505,11 @@ c:\kizuna-works.jp\
 │   │   │   ├── text-join-v150.md               # 文字列結合 v1.5.0 アップデートのお知らせ（2026-11-04 15:00・日付の年だけ・月だけの書式）
 │   │   │   ├── plugin-date-assist-release.md   # 日付入力アシスト v1.0.0 公開のお知らせ（2026-11-08・新プラグイン）
 │   │   │   ├── plugin-my-shortcut-release.md   # マイショートカット v1.0.0 公開のお知らせ（2026-11-20・新プラグイン）
+│   │   │   ├── plugin-date-assist-v1-5-0-update.md # 日付入力アシスト v1.5.0 アップデートのお知らせ（2026-11-27・候補ボタン5個まで・設定の分割保存・会社休日800日超の案内）
 │   │   │   ├── plugin-date-assist-v1-4-0-update.md # 日付入力アシスト v1.4.0 アップデートのお知らせ（2026-11-17・カレンダーの年・月をプルダウンで選べる）
 │   │   │   ├── plugin-date-assist-v1-3-0-update.md # 日付入力アシスト v1.3.0 アップデートのお知らせ（2026-11-16・時刻の候補の範囲・開き方・ブリッジ連携）
 │   │   │   ├── plugin-date-assist-v1-2-0-update.md # 日付入力アシスト v1.2.0 アップデートのお知らせ（2026-11-10・選べる日のマスタ・［クリア］・カレンダー位置の改善）
 │   │   │   ├── plugin-date-assist-v1-1-0-update.md # 日付入力アシスト v1.1.0 アップデートのお知らせ（2026-11-09・前日（満了日）・前後50年・左メニュー・候補の↑↓×・設定のエクスポート／インポート）
-│   │   │   ├── plugin-date-assist-v1-5-0-update.md # 日付入力アシスト v1.5.0 アップデートのお知らせ（2026-11-27・候補ボタン5個まで・設定の分割保存・会社休日800日超の案内）
 │   │   │   ├── chat-notify-v2-2-0-update.md    # チャット通知 v2.2.0 アップデートのお知らせ（2026-11-08 19:00・送信先に Chatwork を追加・多言語対応）
 │   │   │   ├── chat-notify-v230-update.md      # チャット通知 v2.3.0 アップデートのお知らせ（2026-11-12 12:00・差し込む数値・日時をフィールドの設定どおりに表示・多言語はバッジのみ）
 │   │   │   ├── sheet-edit-v160.md              # シート編集 v1.6.0 アップデートのお知らせ（2026-11-04 12:00・条件ルール＝色付け・編集不可）
@@ -1214,6 +1217,15 @@ c:\kizuna-works.jp\
 │   │   ├── portal-pro-v110-viewembed.png / calendar-view-v2110-01-portal-embed.png / dashboard-v180-01-portal-card.png  # 「一覧の表示」のスクショ3枚（各 UPDATE ボックス用・ポータル Pro 1155×1328／カレンダービュー 1155×768／ダッシュボード 1440×1000・各 .webp と派生画像）
 │   │   ├── portal-pro-style-11〜20.png / portal-pro-tpl-01〜14.png # v1.1.0 で増えたスタイル10種の見本と、ひな形14種で作ったポータル画面（1440×900・製品ページ「どんなポータルになるか、見てみる」のタブで切り替え）＋ .webp
 │   │   ├── sheet-pro-banner.png                 # シート Pro for kintone 見出しバナー（1200×630・OGP/Pro枠/製品ページ共用）
+│   │   ├── due-alert-icon.png                   # 期限アラート for kintone アイコン（200×200）
+│   │   ├── due-alert-banner.png                 # 期限アラート for kintone 見出しバナー（1200×630・scripts/gen-plugin-banner.mjs due-alert で生成・仮。差し替え可）
+│   │   ├── due-alert-list-01.png  # 期限アラート関連の画面写真（元は SECRET の kw-due-alert/_shots）
+│   │   ├── due-alert-detail-01.png  # 期限アラート関連の画面写真（元は SECRET の kw-due-alert/_shots）
+│   │   ├── due-alert-config-card-01.png / -view-01 / -status-01 / -link-01.png  # 期限アラート関連の画面写真（元は SECRET の kw-due-alert/_shots）
+│   │   ├── due-alert-chat-button-01.png  # 期限アラート関連の画面写真（元は SECRET の kw-due-alert/_shots）
+│   │   ├── bridge-due-alert-condition-01.png  # 期限アラート関連の画面写真（元は SECRET の kw-due-alert/_shots）
+│   │   ├── sidebar-enhancer-due-alert-tab-01.png  # 期限アラート関連の画面写真（元は SECRET の kw-due-alert/_shots）
+│   │   ├── portal-pro-due-alert-widgets-01.png  # 期限アラート関連の画面写真（元は SECRET の kw-due-alert/_shots）
 │   │   ├── sheet-pro-icon.png                   # シート Pro アイコン（200×200・製品ページヒーロー）
 │   │   ├── sheet-pro-sheet / -import / -export / -pivot / -config .png # 製品ページのスクショ5枚（kw-tester が全段テスト合格後に撮影・撮影までは参照のみ）
 │   │   ├── search-pro-config-csvallow-01.png/.webp  # サーチ Pro v1.3.0 製品ページ「CSV出力のテンプレート」節のスクショ — ［出力できる人を限定する］オンの設定画面（ダミー名・2026-10-29）

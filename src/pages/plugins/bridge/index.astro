@@ -11,10 +11,10 @@ import type { Plugin } from '../../../data/plugins';
 import { PREMIUM_PLAN, PRO_SET_PLAN, PRO_ADDON, yen } from '../../../data/pricing';
 import HeroSubBadges from '../../../components/HeroSubBadges.astro';
 
-const VERSION = '2.4.0';
+const VERSION = '2.5.0';
 const ZIP = `/downloads/kw-bridge-v${VERSION}.zip`;
 const PAGE_URL = 'https://kizuna-works.jp/plugins/bridge/';
-const DATE_MODIFIED = '2026-11-26';
+const DATE_MODIFIED = '2026-11-28';
 
 // Partner overview. The partner products themselves come from plugins.ts (`bridge`
 // field); this map adds, per product, which way it works with the bridge and what
@@ -24,9 +24,10 @@ const DATE_MODIFIED = '2026-11-26';
 //   trigger : changing records with that product fires bridge rules
 //   run     : a bridge rule calls that product's feature
 //   view    : shows the bridge's absence calendar
+//   value   : the product's values (e.g. due stage, days left) are usable in rule conditions and merge fields
 // A partner missing from this map fails the build on purpose, so a new partner
 // is never listed without saying what it does together with the bridge.
-type PartnerMode = 'write' | 'trigger' | 'run' | 'view';
+type PartnerMode = 'write' | 'trigger' | 'run' | 'view' | 'value';
 const PARTNER_MODES: Record<string, { what: Partial<Record<PartnerMode, string>>; guard?: boolean; version: string }> = {
   'kw-conditional-numbering': { what: { write: '番号を振る' }, version: 'v2.3.1 以降' },
   'kw-text-join': { what: { write: '結合した値を作り直す' }, version: 'v1.1.0 以降' },
@@ -55,6 +56,7 @@ const PARTNER_MODES: Record<string, { what: Partial<Record<PartnerMode, string>>
   'kw-search-pro': { what: { run: '保存した検索の結果を CSV にして添付する' }, version: 'v1.0.0 以降' },
   'kw-design-pro': { what: { run: 'PDF を作って添付する・本人の印を押す' }, version: '最新版' },
   'kw-box-connect': { what: { run: '添付ファイルを Box へ送る' }, version: 'v1.3.0 以降' },
+  'kw-due-alert': { what: { value: '期限の段階・残り日数を条件や本文に使う。帯のボタンからチャット通知へ渡す' }, version: 'v1.0.0 以降（ブリッジは v2.5.0 以降）' },
 };
 for (const p of bridgePartnerPlugins) {
   if (!PARTNER_MODES[p.id]) {
@@ -72,6 +74,7 @@ const MODE_COLUMNS: { key: PartnerMode; label: string; desc: string }[] = [
   { key: 'trigger', label: '② その製品の操作でルールが動く', desc: 'その製品でレコードを変えたときも、ブリッジのルールを動かせます' },
   { key: 'run', label: '③ ルールから呼び出す', desc: 'ブリッジのルールの動作として、その製品の機能を実行します' },
   { key: 'view', label: '④ 不在カレンダーを見る', desc: 'ブリッジの不在カレンダーを、その製品の画面で表示します' },
+  { key: 'value', label: '⑤ その製品の値を使う', desc: 'その製品が出す値（期限の段階・残り日数など）を、ルールの条件や本文の差し込みに使います' },
 ];
 const GROUPS: { key: string; title: string; lead: string; pick: (r: (typeof partnerRows)[number]) => boolean }[] = [
   {
@@ -97,6 +100,12 @@ const GROUPS: { key: string; title: string; lead: string; pick: (r: (typeof part
     title: '③ ルールから、当社のプラグインの機能を実行する',
     lead: 'ルールの動作で、ほかのアプリに入っている当社のプラグインの機能（一括更新・ステータスの一括実行・検索結果の CSV・PDF の作成・Box への転送・集計の保存し直し）を呼び出せます。',
     pick: (r) => !!r.what.run,
+  },
+  {
+    key: 'value',
+    title: '⑤ 当社のプラグインが出す値を、条件や本文に使う',
+    lead: '期限アラートが出す期限の段階・残り日数などを、ルールの条件や、通知・入力の本文の差し込みに使えます。期限アラートの帯のボタンからは、ルールなしでチャット通知へも渡せます。',
+    pick: (r) => !!r.what.value,
   },
 ];
 const partnerGroups = GROUPS.map((g) => ({ ...g, items: partnerRows.filter(g.pick).map((r) => r.p) }))
@@ -237,7 +246,7 @@ const faqJsonLd = {
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'kintone',
           // Literal on purpose: scripts/check-plugin-summaries.mjs reads it as text. Keep equal to VERSION.
-          "softwareVersion": "2.4.0",
+          "softwareVersion": "2.5.0",
           dateModified: DATE_MODIFIED,
           url: PAGE_URL,
           downloadUrl: `https://kizuna-works.jp${ZIP}`,
@@ -282,6 +291,7 @@ const faqJsonLd = {
             '書き込み先のアプリの当社プラグインの処理を当てる（時間帯で日時を決める・採番・文字列結合など）',
             '書き込み先のアプリのチャット通知・レコードロックとの連携',
             '他のプラグイン（付箋ボードなど）が書き込んだレコードを、書き込み先のアプリのチャット通知で送る',
+            '期限アラートが出す期限の段階・残り日数を、ルールの条件や本文の差し込みに使う（帯のボタンからルールなしでチャット通知へも渡せる）',
             'このレコードに、採番などの当社プラグインの処理を当て直す（カレンダービューのモーダル・一括更新で保存したレコード向け）',
             'ルールから当社のプラグインの機能を実行する',
             '新規作成・編集の画面にボタンを置き、画面の値をその場で書き換える（ボタンアクション。ヘッダー・スペース・フィールドのそばに配置、実際の画面を開いてドラッグで位置決め、種類・形・大きさ・色・書体を選べる）',
@@ -425,9 +435,9 @@ const faqJsonLd = {
     .kbp-matrix-block > p { margin: 0 0 12px; line-height: 1.85; color: var(--kbp-text); }
     .kbp-matrix-legend { margin: 0 0 16px; padding-left: 1.2em; line-height: 1.8; font-size: 0.92rem; color: var(--kbp-text); }
     .kbp-matrix-scroll { overflow-x: auto; min-width: 0; border: 1px solid #dbe3ee; border-radius: 10px; background: #fff; -webkit-overflow-scrolling: touch; }
-    .kbp-matrix { width: 100%; min-width: 900px; table-layout: fixed; border-collapse: collapse; font-size: 0.88rem; line-height: 1.6; }
-    .kbp-matrix col.c-name { width: 15%; }
-    .kbp-matrix col.c-mode { width: 18.5%; }
+    .kbp-matrix { width: 100%; min-width: 1060px; table-layout: fixed; border-collapse: collapse; font-size: 0.88rem; line-height: 1.6; }
+    .kbp-matrix col.c-name { width: 13%; }
+    .kbp-matrix col.c-mode { width: 15.2%; }
     .kbp-matrix col.c-ver { width: 11%; }
     .kbp-matrix th, .kbp-matrix td { padding: 10px 12px; border-bottom: 1px solid #e6ecf3; text-align: left; vertical-align: top; }
     .kbp-matrix thead th { background: var(--kbp-navy); color: #fff; font-weight: 700; font-size: 0.82rem; }
@@ -587,26 +597,22 @@ const faqJsonLd = {
       <p class="kbp-hero-note">ご利用には、プレミアム年間サポーターと KIZUNA Pro 拡張パックのご契約が必要です。ご契約が確認できるまで、設定画面にはご契約の案内だけが表示されます。<strong>30日間無料で試せます</strong>（未契約の方はプレミアムの無料体験に含まれます。プレミアム契約中の方は拡張パックだけを試せます）。</p>
     </section>
 
-    <!-- Update Info (v2.4.0) -->
+    <!-- Update Info (v2.5.0) -->
     <section class="kbp-section">
       <div class="update-box">
         <div class="update-head">
           <span class="update-tag">UPDATE</span>
-          <h2 class="update-title">v2.4.0：ユーザー・組織・グループの欄に、ログイン名やコードを入れやすく改善しました</h2>
+          <h2 class="update-title">v2.5.0：期限アラートの値を、ルールの条件や本文に使えるように改善しました</h2>
         </div>
-        <p class="update-desc">KIZUNAブリッジ for kintone を v2.4.0 にアップデートしました（2026年11月26日）。</p>
-        <p class="update-desc"><strong>氏名で入れても、ログイン名を案内して置き換えられるようにしました。</strong>ユーザー選択・組織選択・グループ選択の欄に値を入れるとき、氏名・組織名・グループ名を入れると、欄の下にログイン名（コード）が出ます。［置き換える］を押すだけで入れ直せます。複数あるときは［すべて置き換える］、同じ名前が複数あるときは候補から選べます。</p>
-        <p class="update-desc"><strong>ログイン名に空白がある人も、1名として入るようにしました。</strong>漢字の氏名と半角スペースのログイン名でも、2名に分かれません。設定画面に［1名として入れる］が出ます。以前の設定はそのまま動きます。</p>
-        <p class="update-desc"><strong>式［ログインユーザー()］をユーザー選択に入れる場合も、ログイン名で入るようにしました。</strong></p>
-        <p class="update-desc">設定の形は変わりません。v2.3.1 の設定がそのまま使えます。</p>
-        <figure class="update-shot">
-          <Picture src="/images/bridge-v240-01.png" alt="氏名を入れたユーザー選択の欄の下に、ログイン名の案内と［置き換える］ボタンが出ている" width="694" height="97" class="zoomable" />
+        <p class="update-desc">KIZUNAブリッジ for kintone を v2.5.0 にアップデートしました（2026年11月28日）。</p>
+        <p class="update-desc"><strong>期限の段階や残り日数を、ルールの条件に使えるようになりました。</strong>期限アラート for kintone と同じアプリで使うと、ルールの条件に「他のプラグインの値」が選べます。「期限の段階が［超過］のとき」「残り日数が3日以下のとき」のように指定できます。</p>
+        <div class="update-shot">
+          <Picture class="zoomable" src="/images/bridge-due-alert-condition-01.png" alt="KIZUNAブリッジのルールの条件。他のプラグインの値「期限アラート：見積回答：期限の段階」を選び、「超過」にチェックが付いている" width="1366" height="1350" />
           <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-        </figure>
-        <figure class="update-shot">
-          <Picture src="/images/bridge-v240-02.png" alt="ログイン名に空白を含む人を［1名として入れる］で入れる案内" width="694" height="65" class="zoomable" />
-          <p class="zoom-hint">画像をクリックすると拡大表示します</p>
-        </figure>
+        </div>
+        <p class="update-desc"><strong>残り日数などを、通知や入力の本文に差し込めるようになりました。</strong>「期限まで あと◯日です」のような文を、ルールの動作に入れられます。</p>
+        <p class="update-desc"><strong>期限アラートの帯から、ルールなしでチャット通知へ渡せるようになりました。</strong>帯の［チャットで知らせる］を押すと、その段階のレコードをチャット通知で知らせます（チャット通知が同じアプリに入っているとき）。</p>
+        <p class="update-desc">設定の形は変わりません。v2.4.0 の設定がそのまま使えます。</p>
         <p class="update-note">既存ユーザーの方は、最新版をダウンロードして kintone のシステム管理 → プラグインから上書きアップロードするだけで適用できます。アプリに保存済みのルールはそのまま引き継がれます。</p>
       </div>
     </section>
@@ -809,7 +815,7 @@ const faqJsonLd = {
 
         <div class="kbp-matrix-block" id="matrix">
           <h3 class="kbp-h3">組み合わせ早見表：どの製品と、何ができるか</h3>
-          <p>連携には4つの形があります。お使いの製品の行を見ると、ブリッジと組み合わせて何ができるかが分かります。</p>
+          <p>連携には5つの形があります。お使いの製品の行を見ると、ブリッジと組み合わせて何ができるかが分かります。</p>
           <ul class="kbp-matrix-legend">
             {MODE_COLUMNS.map((c) => <li><strong>{c.label}</strong>：{c.desc}</li>)}
           </ul>

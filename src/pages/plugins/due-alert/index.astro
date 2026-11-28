@@ -1,0 +1,684 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Picture from '../../../components/Picture.astro';
+import ResellerCard from '../../../components/ResellerCard.astro';
+import ProPlanNote from '../../../components/ProPlanNote.astro';
+import SecurityBox from '../../../components/SecurityBox.astro';
+import BridgeRecipeLinks from '../../../components/BridgeRecipeLinks.astro';
+import PremiumFaqSection from '../../../components/PremiumFaqSection.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import TrialBanner from '../../../components/TrialBanner.astro';
+import HeroDownload from '../../../components/HeroDownload.astro';
+import HeroSubBadges from '../../../components/HeroSubBadges.astro';
+---
+
+<Layout
+  title="期限アラート for kintone｜期限が近いレコードを色と目印・件数の帯で知らせる | KIZUNA Works"
+  description="期限が近い・過ぎたレコードを、一覧の色と目印、件数の帯、詳細画面のお知らせと期限タブで知らせる kintone プラグイン。通知を増やさず、開いた画面で気づけます。期限の算出・自分の担当のみ・ブリッジ連携・多言語対応のプレミアムプラグインです。"
+  ogTitle="期限アラート for kintone｜期限が近いレコードを色と目印・件数の帯で知らせる | KIZUNA Works"
+  ogDescription="期限が近い・過ぎたレコードを、一覧の色と目印、件数の帯、詳細画面のお知らせと期限タブで知らせる kintone プラグイン。通知を増やさず、開いた画面で気づけます。期限の算出・自分の担当のみ・ブリッジ連携・多言語対応のプレミアムプラグインです。"
+  ogType="website"
+  ogUrl="https://kizuna-works.jp/plugins/due-alert/"
+  ogImage="https://kizuna-works.jp/images/due-alert-banner.png"
+  canonical="https://kizuna-works.jp/plugins/due-alert/"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://kizuna-works.jp/plugins/due-alert/",
+          "url": "https://kizuna-works.jp/plugins/due-alert/",
+          "name": "期限アラート for kintone｜期限が近いレコードを色と目印・件数の帯で知らせる | KIZUNA Works",
+          "description": "期限が近い・過ぎたレコードを、一覧の色と目印、件数の帯、詳細画面のお知らせと期限タブで知らせる kintone プラグイン。通知は増やさず、開いた画面で気づけます。",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://kizuna-works.jp/images/due-alert-banner.png",
+            "width": 1200,
+            "height": 630
+          },
+          "isPartOf": { "@type": "WebSite", "name": "KIZUNA Works", "url": "https://kizuna-works.jp/" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kizuna-works.jp/" },
+            { "@type": "ListItem", "position": 2, "name": "kintoneプラグイン", "item": "https://kizuna-works.jp/plugins/" },
+            { "@type": "ListItem", "position": 3, "name": "期限アラート for kintone", "item": "https://kizuna-works.jp/plugins/due-alert/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "期限アラート for kintone",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "kintone",
+          "softwareVersion": "1.0.0",
+          "dateModified": "2026-11-28",
+          "url": "https://kizuna-works.jp/plugins/due-alert/",
+          "downloadUrl": "https://kizuna-works.jp/downloads/kw-due-alert-v1.0.0.zip",
+          "image": "https://kizuna-works.jp/images/due-alert-banner.png",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "無料プラン",
+              "price": "0",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "期限のルール1つで、一覧の色・目印・件数の帯・詳細画面のお知らせをお試しいただけます（利用期限なし）。"
+            },
+            {
+              "@type": "Offer",
+              "name": "プレミアム年間サポーター（ちょこっと＆プレミアムプラグインすべて込み）",
+              "price": "16500",
+              "priceCurrency": "JPY",
+              "availability": "https://schema.org/InStock",
+              "description": "プレミアム年間サポーター（税込 ¥16,500/年）に加入すると、ルール5つ・基準＋期間・自分の担当のみ・連携が使え、広告非表示になり、ちょこっと＆プレミアムプラグインすべても利用できます。単品販売はありません。"
+            }
+          ],
+          "description": "期限が近い・過ぎたレコードを、一覧の色と目印（「あと2日」「2日超過」）、一覧の上の件数の帯、詳細画面のヘッダー下のお知らせの帯と右サイドバーの「期限」タブで知らせる kintone プラグイン。通知は増やさず、開いた画面で気づける。期限の欄がないアプリでも、基準に期間を足して期限を算出できる。サイドバー拡張・一覧スタイラー・KIZUNAブリッジ・ポータル Pro と連携し、日本語・英語・中国語（簡体字）で表示できる。",
+          "publisher": { "@type": "Organization", "name": "KIZUNA Works", "url": "https://kizuna-works.jp" },
+          "featureList": [
+            "期限のセルを段階（超過・今日・N日以内）の色で塗り、「あと2日」「2日超過」の目印を付ける",
+            "一覧の上に段階ごとの件数の帯を表示し、押すとその段階のレコードだけの一覧にする",
+            "詳細画面のヘッダー下のお知らせの帯と、右サイドバーの「期限」タブ",
+            "期限の欄がないアプリでも、基準（日付・作成日時・ステータス変更日時など）＋期間で期限を算出（プレミアム）",
+            "自分の担当のレコードだけを対象にする・表示する相手を指定する（プレミアム）",
+            "ステータスが変わった日時を記録して、期限の基準に使う（プレミアム）",
+            "他のプラグインが付けた色は消さない。一覧スタイラーと重なった行は優先ルールで共存",
+            "サイドバー拡張 v1.2.0 以上の「期限」タブの中に並べる",
+            "KIZUNAブリッジ v2.5.0 以上で、期限の段階・残り日数を条件・差し込みに使い、帯からチャット通知へ渡す",
+            "ポータル Pro v1.4.0 以上で、期限の件数と期限が近いレコードをポータルに表示",
+            "日本語・英語・中国語（簡体字）に対応。ゲストスペースにも対応",
+            "表示・計算はすべて自ドメインの kintone REST API の範囲で行い、業務データを外部へ送信しない"
+          ]
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <style is:global>
+    body { background-color: #F0F4F8; }
+    :root {
+      --color-navy: #1B3A6B;
+      --color-green: #2E8B2E;
+      --color-bg-light: #F0F4F8;
+      --color-text-main: #333333;
+      --color-text-muted: #64748b;
+      --color-white: #FFFFFF;
+      --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .afp-hero {
+      background: linear-gradient(135deg, rgba(21,41,77,0.72) 0%, rgba(27,58,107,0.55) 60%, rgba(46,139,46,0.5) 130%),
+                  url('/images/premium-plugins-bg.png') center center / cover no-repeat;
+      background-color: #1B3A6B;
+      color: #fff;
+      padding: 56px 5% 48px;
+      text-align: center;
+    }
+    .afp-hero-icon {
+      width: 132px; height: 132px; object-fit: contain; display: block; margin: 0 auto 16px;
+      background: rgba(255,255,255,0.14); border-radius: 24px; padding: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .afp-hero-badges { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 14px; }
+    .afp-badge-premium {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+      padding: 6px 14px; border-radius: 20px; line-height: 1;
+    }
+    /* Crown and label are separate flex items with line-height:1 so the emoji
+       centres against the text instead of sitting on its baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    /* The crown is a separate flex item with line-height:1 so it centres against
+       the label instead of sitting on the text baseline. */
+    .afp-badge-premium .crown { display: block; line-height: 1; font-size: 1.02em; }
+    .afp-badge-premium .label { display: block; line-height: 1; }
+    .afp-hero-version {
+      display: inline-flex; align-items: center; line-height: 1;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 12px; border-radius: 20px;
+    }
+    .afp-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .afp-hero .afp-tagline { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; }
+    .afp-hero .afp-sub { font-size: 1rem; opacity: 0.92; margin: 0 auto; max-width: 720px; line-height: 1.8; }
+    .afp-hero-gradient-line { height: 6px; background: linear-gradient(to right, var(--color-navy), var(--color-green)); }
+
+    .afp-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+    .afp-section { padding: 56px 0; }
+    .afp-section.alt { background: #fff; }
+    .afp-h2 {
+      font-size: 1.7rem; color: var(--color-navy); margin: 0 0 28px; padding-left: 16px;
+      border-left: 5px solid var(--color-green);
+    }
+    .afp-lead {
+      font-size: 1.08rem; line-height: 1.9; color: var(--color-text-main);
+      background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card);
+      /* The lead is itself a white card, so keep a gap below it */
+      margin: 0 0 26px;
+    }
+    .afp-lead strong { color: var(--color-navy); }
+
+    .afp-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; margin-bottom: 48px; }
+    .afp-feature:last-child { margin-bottom: 0; }
+    .afp-feature.reverse { grid-template-columns: 1fr 1.05fr; }
+    .afp-feature.reverse .afp-feature-text { order: 2; }
+    .afp-feature picture, .afp-feature img { width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: var(--shadow-card); background: #fff; display: block; }
+    .afp-feature img { cursor: zoom-in; }
+    .afp-feature h3 { font-size: 1.25rem; color: var(--color-navy); margin: 0 0 12px; }
+    .afp-feature p { font-size: 1rem; line-height: 1.8; margin: 0; }
+
+    .afp-grid-feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .afp-feat-card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: var(--shadow-card); }
+    .afp-feat-card h3 { font-size: 1.1rem; color: var(--color-navy); margin: 0 0 10px; }
+    .afp-feat-card p { font-size: 0.95rem; line-height: 1.75; margin: 0; }
+
+    .afp-shot { max-width: 960px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: var(--shadow-card); overflow: hidden; }
+    .afp-shot img { width: 100%; height: auto; display: block; background: #F0F4F8; cursor: zoom-in; }
+    .dap-shot { min-width: 0; }
+    .afp-shot-cap { text-align: center; font-size: 0.9rem; color: var(--color-text-muted); margin: 12px 0 0; }
+
+    .afp-tablewrap { overflow-x: auto; }
+    table.afp-compare { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); min-width: 520px; }
+    table.afp-compare th, table.afp-compare td { border: 1px solid #e2e8f0; padding: 12px 14px; text-align: left; }
+    table.afp-compare thead th { background: var(--color-navy); color: #fff; }
+    table.afp-compare td.c, table.afp-compare th.c { text-align: center; }
+    table.afp-compare tbody tr:nth-child(even) { background: #f8fafc; }
+
+    .afp-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 44px; align-items: stretch; }
+    .afp-plan-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 34px 28px 30px; box-shadow: var(--shadow-card); position: relative; text-align: center; display: flex; flex-direction: column; }
+    .afp-plan-card.recommended { border: 2px solid var(--color-green); }
+    .afp-plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 6px 18px; border-radius: 20px; white-space: nowrap; }
+    .afp-plan-name { font-size: 1.3rem; color: var(--color-navy); margin: 0 0 18px; }
+    .afp-plan-price { margin-bottom: 6px; }
+    .afp-plan-price .amt { font-size: 2.4rem; font-weight: 700; color: var(--color-navy); }
+    .afp-plan-price .unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 4px; }
+    .afp-plan-discount { color: var(--color-green); font-weight: 700; font-size: 0.92rem; margin-bottom: 16px; }
+    .afp-plan-features { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; flex-grow: 1; }
+    .afp-plan-features li { font-size: 0.95rem; line-height: 1.7; padding: 9px 0; border-bottom: 1px solid #eef2f7; }
+    .afp-plan-cta { display: block; background: var(--color-navy); color: #fff; font-weight: 700; padding: 14px 20px; border-radius: 8px; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
+    .afp-plan-card.recommended .afp-plan-cta { background: var(--color-green); }
+    .afp-plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.16); }
+    .afp-plan-compare-head { font-size: 1.15rem; color: var(--color-navy); margin: 8px 0 16px; padding-left: 12px; border-left: 4px solid var(--color-green); }
+
+    .afp-note { background: #fff8e6; border-left: 4px solid #e0a400; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; line-height: 1.7; }
+    .afp-cautions { background: #fff; border-radius: 10px; padding: 24px 28px; box-shadow: var(--shadow-card); }
+    .afp-cautions li { margin: 8px 0; line-height: 1.7; }
+
+    .afp-cta { background: linear-gradient(135deg, #15294d 0%, #1B3A6B 60%, #2E8B2E 140%); color: #fff; text-align: center; padding: 56px 5%; }
+    .afp-cta h2 { font-size: 1.6rem; margin: 0 0 12px; }
+    .afp-cta p { font-size: 1.05rem; opacity: 0.95; max-width: 640px; margin: 0 auto 24px; line-height: 1.8; }
+    .afp-cta-btn { display: inline-block; background: #fff; color: var(--color-navy); font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .afp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+
+    .afp-blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .afp-blog-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: var(--shadow-card); overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; }
+    .afp-blog-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.14); }
+    .afp-blog-card img { width: 100%; height: auto; display: block; aspect-ratio: 1200 / 630; object-fit: cover; background: #F0F4F8; }
+    .afp-blog-body { padding: 18px 20px 20px; }
+    .afp-blog-body h3 { font-size: 1.05rem; color: var(--color-navy); margin: 0 0 10px; line-height: 1.5; }
+    .afp-blog-body p { font-size: 0.9rem; line-height: 1.7; color: var(--color-text-main); margin: 0 0 12px; }
+    .afp-blog-link { color: var(--color-green); font-weight: 700; font-size: 0.9rem; }
+
+    .zoomable { cursor: zoom-in; }
+
+    /* Update box (version highlight) */
+    .update-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1px solid #e2e8f0;
+      border-left: 5px solid var(--color-green);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 32px 32px 36px;
+    }
+    .update-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .update-tag {
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .update-title {
+      color: var(--color-navy);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .update-desc {
+      color: var(--color-text-main);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 24px;
+    }
+    .update-desc strong { color: var(--color-navy); }
+    .update-note {
+      color: var(--color-text-muted);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+    /* Smaller, centered screenshot inside the update box */
+    .update-shot {
+      max-width: 640px;
+      margin: 0 auto 24px;
+    }
+    .update-shot img { width: 100%; height: auto; display: block; }
+    .update-shot .zoom-hint {
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 12px;
+      margin: 10px 0 0;
+    }
+    /* Screenshot frame used inside the update box */
+    .screenshot-frame {
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+    }
+    .screenshot-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .afp-steps { counter-reset: afpstep; list-style: none; padding: 0; margin: 8px 0 4px; }
+    .steps-list li { display: flex; gap: 20px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed #d7dee8; line-height: 1.9; }
+    .steps-list li:first-child { border-top: none; }
+    .steps-list li::before {
+      counter-increment: afpstep; content: counter(afpstep);
+      flex-shrink: 0; width: 38px; height: 38px; background: var(--color-navy); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px;
+    }
+    .steps-list li > span { flex: 1; min-width: 0; font-size: 14.5px; }
+
+    .afp-cfgstep { margin-bottom: 40px; }
+    .afp-cfgstep:last-child { margin-bottom: 0; }
+    .afp-cfgstep-head { display: flex; align-items: flex-start; gap: 14px; margin: 0 auto 16px; max-width: 960px; }
+    .afp-cfgstep-badge { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--color-navy); color: #fff; font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; }
+    .afp-cfgstep-body h3 { font-size: 1.2rem; color: var(--color-navy); margin: 4px 0 6px; }
+    .afp-cfgstep-body p { font-size: 0.98rem; line-height: 1.8; margin: 0; color: var(--color-text-main); }
+    .afp-cfgstep-body p strong { color: var(--color-navy); }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; cursor: zoom-out; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 14px; right: 22px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 28px; line-height: 1; border-radius: 50%; cursor: pointer; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      .afp-hero h1 { font-size: 1.6rem; }
+      .afp-feature, .afp-feature.reverse { grid-template-columns: 1fr; }
+      .afp-feature.reverse .afp-feature-text { order: 0; }
+      .afp-plan-grid { grid-template-columns: 1fr; }
+      .afp-blog-grid { grid-template-columns: 1fr; }
+      .afp-h2 { font-size: 1.4rem; }
+      .update-box { padding: 24px 20px 28px; }
+      .update-title { font-size: 17px; }
+    }
+
+    /* Stage cards (overdue / today / soon / none) */
+    .dap-three { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin: 0 0 8px; }
+    .dap-stage { background: #fff; border-radius: 10px; box-shadow: var(--shadow-card); padding: 18px 20px; border-top: 5px solid #94a3b8; min-width: 0; }
+    .dap-stage h3 { font-size: 1.05rem; margin: 0 0 6px; color: var(--color-navy); }
+    .dap-stage p { font-size: 0.93rem; line-height: 1.7; margin: 0; }
+    .dap-stage.over { border-top-color: #d64545; }
+    .dap-stage.today { border-top-color: #f08a24; }
+    .dap-stage.soon { border-top-color: #e6c229; }
+    .dap-stage.none { border-top-color: #94a3b8; }
+  </style>
+
+  <main>
+    <!-- Hero -->
+    <section class="afp-hero">
+      <img class="afp-hero-icon" src="/images/due-alert-icon.png" alt="期限アラート for kintone アイコン" width="200" height="200" loading="eager" />
+      <div class="afp-hero-badges">
+        <span class="afp-badge-premium"><span class="crown" aria-hidden="true">👑</span><span class="label">PREMIUM PLUGIN</span></span>
+        <span class="afp-hero-version">v1.0.0</span>
+      </div>
+      <HeroSubBadges pluginId="kw-due-alert" />
+      <h1>期限アラート for kintone</h1>
+      <p class="afp-tagline">通知を増やさずに、開いた画面で期限に気づける。</p>
+      <p class="afp-sub">期限が近いレコード・過ぎたレコードを、一覧の色と目印（「あと2日」「2日超過」）、件数の帯、詳細画面のお知らせと右サイドバーの「期限」タブで知らせます。帯の件数を押すと、その段階のレコードだけの一覧になります。期限の欄がないアプリでも「受付日＋7日」のように期限を算出でき、自分の担当だけの表示もできます。サイドバー拡張・KIZUNAブリッジ・ポータル Pro とも連携し、日本語・英語・中国語（簡体字）にも対応。</p>
+      <HeroDownload href="/downloads/kw-due-alert-v1.0.0.zip" premium />
+    </section>
+    <div class="afp-hero-gradient-line"></div>
+
+    <!-- 定義（結論ファースト） -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <p class="afp-lead">
+          <strong>期限アラート for kintone</strong> は、期限が近いレコード・過ぎたレコードを<strong>一覧の色と目印、件数の帯、詳細画面のお知らせ</strong>で知らせる kintone プラグインです。メールやチャットの通知を増やすと、そのうち見られなくなります。本プラグインは通知を送らず、<strong>一覧や詳細画面を開いたときに目に入る形</strong>で期限を知らせます。期限のセルは段階（超過・今日・N日以内）の色で塗られ、「あと2日」「2日超過」の目印が付き、一覧の上には<strong>超過・今日・3日以内・期限なし</strong>の件数が並びます。KIZUNA Works のプレミアムプラグインで、無料でも期限のルール1つで基本機能を使えます。
+        </p>
+      </div>
+    </section>
+
+    <!-- 段階 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">期限を4つの段階で見分けられます</h2>
+        <div class="dap-three">
+          <div class="dap-stage over"><h3>超過</h3><p>期限を過ぎたレコード。赤系の色で、「2日超過」と目印が付きます。超過の日数が長いほど濃くなります（プレミアム）。</p></div>
+          <div class="dap-stage today"><h3>今日</h3><p>期限が今日のレコード。橙系の色で知らせます。日時の期限は「あと3時間」と出ます。</p></div>
+          <div class="dap-stage soon"><h3>N日以内</h3><p>近いと見なす日数（1〜999の日または時間）以内のレコード。黄系の色で「あと2日」と出ます。</p></div>
+          <div class="dap-stage none"><h3>期限なし</h3><p>期限が空のレコード。色・目印は付けず、帯の件数にだけ入ります。</p></div>
+        </div>
+        <div class="afp-shot dap-shot">
+          <Picture class="zoomable" src="/images/due-alert-list-01.png" alt="kintone のレコード一覧。上部の帯に超過・今日・3日以内・期限なしの件数と［アラートを非表示］［チャットで知らせる］が並び、期限のセルが段階ごとの色で塗られて「10日超過」「今日」「あと1日」などの目印が付いている。超過は日数が多いほど濃い赤になっている" width="1366" height="1150" />
+        </div>
+        <p class="afp-shot-cap">一覧の帯と期限のセル。画像をクリックすると拡大表示します</p>
+      </div>
+    </section>
+
+    <!-- 主な機能 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">主な機能</h2>
+        <div class="afp-grid-feats">
+          <div class="afp-feat-card">
+            <h3>一覧の色と目印</h3>
+            <p>期限のセルを段階の色で塗り、「あと2日」「2日超過」の目印を付けます。目印は、期限の日付と段階の札のどちらを出すか選べ、両方オフにすると色だけになります。目印は、値の右に並べるか、値の下に出すかも選べます。目印にカーソルを合わせると、期限と基準、ルール名が出ます。他のプラグインが付けた色は消しません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>件数の帯</h3>
+            <p>一覧の上に、超過・今日・3日以内・期限なしの件数を出します。件数を押すと、その段階のレコードだけの一覧になり、押したボタンが濃い色になります。［絞り込みを解除］か、同じボタンをもう一度押すと元の一覧に戻ります。［アラートを非表示］でその日だけ帯を閉じられます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>詳細画面のお知らせと期限タブ</h3>
+            <p>詳細画面のヘッダーの下に、「見積回答：期限 11/26 を過ぎています（2日超過）」のような期限の帯を出します。段階ごとに1行で、色の付いた帯なので見落としません。右サイドバーの「期限」タブには、このレコードの期限と自分の期限アラートの一覧が出ます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>期限を算出する（プレミアム）</h3>
+            <p>期限の欄がないアプリでも、基準（日付・日時・作成日時・更新日時・ステータス変更日時）に期間（時間・日・週・か月）を足して期限にできます。「受付日＋7日」「承認待ちになってから＋8時間」のような決め方です。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>自分の担当だけ・表示する相手（プレミアム）</h3>
+            <p>作業者・ユーザー選択・組織選択・グループ選択で、自分の担当のレコードだけを対象にできます。指定したユーザー・組織・グループの画面にだけ出す設定もあります（表示の切り替えで、アクセス権ではありません）。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>対象レコードの条件</h3>
+            <p>判定するレコードを絞れます（例：ステータスが「完了」「取消」でない）。無料は3つまで、プレミアムは10まで。「いずれかを満たす」もプレミアムで選べます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>ステータスの変更日時を記録（プレミアム）</h3>
+            <p>プロセス管理のステータスが変わった日時を、画面に出さない日時フィールドに記録し、期限の基準に使えます。［フィールドを追加］で記録先を自動作成できます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>一覧スタイラーと共存</h3>
+            <p>一覧スタイラー v1.6.3 以上と併用すると、一覧スタイラーが塗った行を見分けて重ならないようにします。既定では一覧スタイラーの色を優先し、期限アラートはセルの色と目印にします。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>サイドバー拡張・ポータル Pro と連携</h3>
+            <p>サイドバー拡張 v1.2.0 以上と併用すると、「期限」タブをサイドバーの中に並べられます。ポータル Pro v1.4.0 以上には、設定を貼り付けて、期限の件数と期限が近いレコード、自分の期限のアプリ横断を出せます。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>KIZUNAブリッジ連携（プレミアム）</h3>
+            <p>期限の段階・残り日数・算出した期限を、ブリッジのルールの条件や本文の差し込みに使えます（ブリッジ v2.5.0 以上）。帯に［チャットで知らせる］ボタンを出し、ルールなしでチャット通知へ渡すこともできます。時間が経ったことをきっかけに通知は送りません。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>日本語・英語・中国語に対応</h3>
+            <p>一覧・詳細画面・設定画面が、kintone の表示言語に合わせて<strong>日本語・英語・中国語（簡体字）</strong>で表示されます。ゲストスペースにも対応します。</p>
+          </div>
+          <div class="afp-feat-card">
+            <h3>データは外へ出しません</h3>
+            <p>件数の取得・判定は、すべて同一ドメインの REST API の範囲で行います。業務データを外部へ送信せず、第三者の CDN・外部サーバーも使いません。</p>
+          </div>
+        </div>
+        <div class="afp-shot dap-shot" style="margin-top:28px;">
+          <Picture class="zoomable" src="/images/due-alert-detail-01.png" alt="kintone のレコード詳細画面。ヘッダーの下に期限のお知らせの帯が出て、右サイドバーに「期限」タブが開いている" width="1366" height="860" />
+        </div>
+        <p class="afp-shot-cap">ヘッダーの下の期限のお知らせの帯と、右の「期限」タブ</p>
+        <div class="afp-shot dap-shot" style="margin-top:28px;">
+          <Picture class="zoomable" src="/images/due-alert-chat-button-01.png" alt="一覧の帯の［チャットで知らせる］を押したところ。超過・今日・3日以内の件数を選ぶメニューが表示されている" width="1366" height="860" />
+        </div>
+        <p class="afp-shot-cap">帯の［チャットで知らせる］（プレミアム）</p>
+        <div class="afp-shot dap-shot" style="margin-top:28px;">
+          <Picture class="zoomable" src="/images/bridge-due-alert-condition-01.png" alt="KIZUNAブリッジのルールの条件。他のプラグインの値「期限アラート：見積回答：期限の段階」を選び、「超過」にチェックが付いている" width="1366" height="1350" />
+        </div>
+        <p class="afp-shot-cap">KIZUNAブリッジのルールの条件に、期限の段階を使う</p>
+        <div class="afp-shot dap-shot" style="margin-top:28px;">
+          <Picture class="zoomable" src="/images/sidebar-enhancer-due-alert-tab-01.png" alt="サイドバー拡張のタブと並んで、期限アラートの「期限」タブがサイドバーの中に表示されている" width="1366" height="860" />
+        </div>
+        <p class="afp-shot-cap">サイドバー拡張の中に並ぶ「期限」タブ</p>
+        <div class="afp-shot dap-shot" style="margin-top:28px;">
+          <Picture class="zoomable" src="/images/portal-pro-due-alert-widgets-01.png" alt="ポータル Pro の期限のウィジェット2種。左の「期限アラート」は超過・今日・近い期限の件数と期限の近い5件、右の「自分の期限」はアプリごとの件数を表示している" width="1385" height="480" />
+        </div>
+        <p class="afp-shot-cap">ポータル Pro の期限ウィジェット（左：期限アラート／右：自分の期限）</p>
+      </div>
+    </section>
+
+    <!-- 設定 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">設定はタブで4ステップ・ライブプレビュー付き</h2>
+        <p style="text-align:center;margin:-8px auto 34px;max-width:760px;line-height:1.8;color:var(--color-text-muted);">左下の<strong>ライブプレビュー</strong>（一覧／詳細）で見た目を確かめながら、①〜④のタブを順に設定します。</p>
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">1</div>
+            <div class="afp-cfgstep-body">
+              <h3>カード — 期限のルールを決める</h3>
+              <p>「カード」は期限のルール1つです。<strong>期限フィールドを直接指定</strong>するか、<strong>基準＋期間</strong>（プレミアム）で決めます。近いと見なす日数、対象レコードの条件、対象範囲（すべて／自分の担当のみ）を選び、［テスト］で該当件数と超過件数を確かめられます。</p>
+            </div>
+          </div>
+          <div class="afp-shot dap-shot">
+            <Picture class="zoomable" src="/images/due-alert-config-card-01.png" alt="設定画面のカードタブ。左にライブプレビュー、右に期限のルール、近いと見なす日数、対象レコードの条件、対象範囲の設定が表示されている" width="1366" height="1250" />
+          </div>
+        </div>
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">2</div>
+            <div class="afp-cfgstep-body">
+              <h3>表示 — 帯・目印・色の出し方</h3>
+              <p>動かす一覧、件数の範囲（アプリ全体／今の一覧の条件）、件数の出し方（帯／ボタン＋バッジ／出さない）、目印（期限の日付・段階の札・位置［値の右／値の下］）、色の付け方、詳細画面の表示（上部のお知らせ［帯］を出す）を選びます。</p>
+            </div>
+          </div>
+          <div class="afp-shot dap-shot">
+            <Picture class="zoomable" src="/images/due-alert-config-view-01.png" alt="設定画面の表示タブ。左にライブプレビュー、右に動かす一覧、件数の出し方、目印（日付・段階の札・位置）、色の付け方、詳細画面の表示の設定が表示されている" width="1366" height="1250" />
+          </div>
+        </div>
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">3</div>
+            <div class="afp-cfgstep-body">
+              <h3>ステータスの記録（プレミアム）</h3>
+              <p>プロセス管理のステータスが変わった日時を記録するフィールドを選びます。［フィールドを追加］で自動作成できます。</p>
+            </div>
+          </div>
+          <div class="afp-shot dap-shot">
+            <Picture class="zoomable" src="/images/due-alert-config-status-01.png" alt="設定画面のステータスの記録タブ。ステータスが変わった日時を記録するフィールドの選択と、［フィールドを追加］の設定が表示されている" width="1366" height="1250" />
+          </div>
+        </div>
+        <div class="afp-cfgstep">
+          <div class="afp-cfgstep-head">
+            <div class="afp-cfgstep-badge">4</div>
+            <div class="afp-cfgstep-body">
+              <h3>連携（プレミアム）</h3>
+              <p>ブリッジ連携、帯の［チャットで知らせる］、ポータル Pro 用の［設定をコピー］を設定します。設定できたら［保存］を押すと「アプリの設定」に戻るので、［アプリを更新］で反映します。</p>
+            </div>
+          </div>
+          <div class="afp-shot dap-shot">
+            <Picture class="zoomable" src="/images/due-alert-config-link-01.png" alt="設定画面の連携タブ。ブリッジ連携、帯の［チャットで知らせる］、ポータル Pro 用の設定をコピーする欄が表示されている" width="1366" height="1250" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- プランについて -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">プランについて</h2>
+        <p style="margin:-12px 0 30px;line-height:1.8;">無料プランでも<strong>期限のルール1つ</strong>で、一覧の色・目印・件数の帯・詳細画面のお知らせをお試しいただけます。<strong>ルール5つ・期限の算出・自分の担当のみ・連携</strong>と広告非表示は、<strong>プレミアム年間サポーター</strong>で解放されます（単品販売はありません）。</p>
+
+        <div class="afp-plan-grid">
+          <div class="afp-plan-card">
+            <h3 class="afp-plan-name">無料プラン</h3>
+            <div class="afp-plan-price"><span class="amt">¥0</span><span class="unit">/ 完全無料</span></div>
+            <ul class="afp-plan-features">
+              <li>✅ 期限のルール1つ（期限フィールドを直接指定）</li>
+              <li>✅ 一覧の色と目印・件数の帯・詳細画面のお知らせと期限タブ</li>
+              <li>✅ 対象レコードの条件3つまで（すべて満たす）</li>
+              <li>✅ 利用期限なし（レコード一覧画面に控えめな広告あり）</li>
+            </ul>
+            <a href="/downloads/kw-due-alert-v1.0.0.zip" download class="afp-plan-cta" id="btn-download">無料でダウンロード</a>
+          </div>
+
+          <div class="afp-plan-card recommended">
+            <span class="afp-plan-badge">👑 全機能を解放</span>
+            <h3 class="afp-plan-name">プレミアム年間サポーター</h3>
+            <div class="afp-plan-price"><span class="amt">¥16,500</span><span class="unit">/年（税込）</span></div>
+            <div class="afp-plan-discount">税抜 ¥15,000 ／ 月額換算 約 1,250 円</div>
+            <ul class="afp-plan-features">
+              <li>✅ <strong>ルール5つ・基準＋期間での期限の算出</strong></li>
+              <li>✅ 自分の担当のみ・表示する相手の指定・行全体の色</li>
+              <li>✅ ステータスの記録・ブリッジ連携・ポータル Pro への受け渡し</li>
+              <li>✅ プラグイン内の<strong>広告非表示</strong></li>
+              <li>✅ ちょこっと＆プレミアムプラグイン<strong>すべて</strong>も対象（契約期間中に新しく公開されるちょこっと・プレミアムプラグインも追加料金なし）</li>
+            </ul>
+            <a href="/plugins/supporter/?plan=all" class="afp-plan-cta">プレミアム年間サポーターを申し込む →</a>
+          </div>
+        </div>
+
+        <div style="margin: 0 0 32px;">
+          <TrialBanner />
+        </div>
+
+        <ProPlanNote />
+
+        <ResellerCard />
+
+        <h3 class="afp-plan-compare-head">機能の詳細比較</h3>
+        <div class="afp-tablewrap">
+          <table class="afp-compare">
+            <thead>
+              <tr><th>機能</th><th class="c">無料プラン</th><th class="c">プレミアム年間サポーター</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>期限のルールの数</td><td class="c">1つ</td><td class="c">5つ</td></tr>
+              <tr><td>期限の決め方</td><td class="c">期限フィールド</td><td class="c">基準＋期間も</td></tr>
+              <tr><td>対象レコードの条件</td><td class="c">3つ・すべて満たす</td><td class="c">10まで・いずれかも</td></tr>
+              <tr><td>対象範囲</td><td class="c">すべて</td><td class="c">自分の担当のみも</td></tr>
+              <tr><td>表示する相手の指定</td><td class="c">－</td><td class="c">○</td></tr>
+              <tr><td>一覧の表示</td><td class="c">帯・丸ラベル・セルの背景ほか</td><td class="c">行全体・超過の濃さほか すべて</td></tr>
+              <tr><td>ステータスの記録・連携</td><td class="c">－</td><td class="c">○</td></tr>
+              <tr><td>レコード一覧画面の広告</td><td class="c">あり</td><td class="c">なし</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin:16px 0 0;line-height:1.8;">プレミアム年間サポーターの契約が終わっても、設定は消えません。無料の範囲で動き続けます。</p>
+      </div>
+    </section>
+
+    <!-- インストール手順 -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">インストール手順</h2>
+        <ol class="afp-steps steps-list">
+          <li><span>システム管理者で kintone にログインし、<strong>歯車アイコン → kintone システム管理 → プラグイン</strong> を開き、<strong>「読み込む」</strong>からプラグイン zip をアップロードします。</span></li>
+          <li><span>期限を見たいアプリで <strong>アプリの設定 → プラグイン → 「＋追加する」</strong> から「期限アラート」を追加します。</span></li>
+          <li><span>プラグイン一覧の<strong>歯車アイコン</strong>から設定画面を開き、<strong>［カード］</strong>で期限の決め方を選びます。左下のライブプレビューで見た目を確かめます。</span></li>
+          <li><span><strong>「保存」</strong>を押して「アプリの設定」に戻り、<strong>「アプリを更新」</strong>を実行して反映します。一覧と詳細画面に期限が出ます。</span></li>
+        </ol>
+        <div class="afp-note">APIトークンの発行は不要です。色と目印は、画面に出ている行（1ページ最大100件）に付きます。件数の帯は、アプリ全体（または一覧の条件）の全件が対象です。</div>
+      </div>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="afp-section alt">
+      <div class="afp-wrap">
+        <h2 class="afp-h2">ご利用にあたっての注意</h2>
+        <div class="afp-cautions">
+          <ul>
+            <li>本プラグインは<strong>通知を送りません</strong>。一覧と詳細画面を開いたときに知らせます。チャットへ知らせたいときは、ブリッジのルールか、帯のボタンを使います。</li>
+            <li>対象は<strong>表形式の一覧</strong>です。カスタマイズビュー・カレンダー形式の一覧には動きません。</li>
+            <li>サブテーブル内の日付・条件は対象外です。フィールドどうしの比較は条件にできません。</li>
+            <li>土日・祝日を除いた期限の算出はできません。</li>
+            <li>他の人の更新は、件数に反映されるまで使い回しの時間（既定5分）だけ遅れることがあります。自分の保存はすぐ反映されます。</li>
+            <li>期限タブはパソコンのみです。詳細画面のお知らせの帯は、設定でオフにできます。</li>
+            <li>「表示する相手」は表示の切り替えで、アクセス権ではありません。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <PremiumFaqSection
+      pluginId="kw-due-alert"
+      pageUrl="https://kizuna-works.jp/plugins/due-alert/"
+      headingClass="afp-h2"
+    />
+
+    <!-- セキュリティ -->
+    <section class="afp-section">
+      <div class="afp-wrap">
+        <BridgeRecipeLinks pluginId="kw-due-alert" />
+        <SecurityBox pluginId="kw-due-alert" />
+        <ShareButtons title="期限アラート for kintone" />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="afp-cta">
+      <h2>プレミアム年間サポーターで使ってみる</h2>
+      <p>期限アラートをはじめ、ちょこっと＆プレミアムプラグインすべてをご利用いただけます。年額 ¥16,500（税込）。まずは無料プランでお試しいただけます（利用期限なし）。</p>
+      <a class="afp-cta-btn" href="/plugins/supporter/?plan=all">プレミアム年間サポーターを申し込む →</a>
+    </section>
+  </main>
+
+  <div class="lightbox" id="dap-lightbox" aria-hidden="true">
+    <button class="lightbox-close" type="button" aria-label="閉じる">×</button>
+    <img src="" alt="拡大画像" />
+  </div>
+
+  <script is:inline>
+    (function () {
+      var lb = document.getElementById('dap-lightbox');
+      var lbImg = lb ? lb.querySelector('img') : null;
+      function closeLb() { if (!lb) return; lb.classList.remove('is-open'); lb.setAttribute('aria-hidden', 'true'); if (lbImg) lbImg.src = ''; }
+      if (lb && lbImg) {
+        document.querySelectorAll('img.zoomable').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lbImg.src = img.currentSrc || img.src;
+            lbImg.alt = img.alt || '拡大画像';
+            lb.classList.add('is-open');
+            lb.setAttribute('aria-hidden', 'false');
+          });
+        });
+        lb.addEventListener('click', closeLb);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLb(); });
+      }
+    })();
+    (function () {
+      var dl = document.getElementById('btn-download');
+      if (dl && typeof gtag === 'function') {
+        dl.addEventListener('click', function () {
+          gtag('event', 'file_download', {
+            file_name: 'kw-due-alert-v1.0.0.zip',
+            file_extension: 'zip',
+            link_text: '無料でダウンロード',
+            link_url: '/downloads/kw-due-alert-v1.0.0.zip'
+          });
+        });
+      }
+    })();
+  </script>
+</Layout>

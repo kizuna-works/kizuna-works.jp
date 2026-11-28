@@ -929,6 +929,28 @@ export const securityProfiles: Record<string, SecurityProfile> = {
       },
     ],
   },
+  'kw-due-alert': {
+    extraComm: [
+      {
+        label: 'レコードの件数・一覧の取得（自ドメイン内）',
+        scope: 'internal',
+        detail:
+          'ご利用中の kintone ドメイン内の REST API だけを使います。一覧を開いたときの段階ごとの件数と、期限タブの「自分の期限アラート」で、期限・担当・条件の判定に使うフィールドだけを取得します（ゲストスペースにも対応）。レコードの書き換えはしません。',
+      },
+      {
+        label: 'パソコンの時計のずれの補正（同じ画面の URL）',
+        scope: 'internal',
+        detail:
+          '一覧を開いたとき1回、同じ kintone の URL へ HEAD を送り、応答の日時だけを読みます。レコードや本文は扱いません。',
+      },
+      {
+        label: 'ステータスの変更日時の記録先フィールドの作成（設定画面）',
+        scope: 'internal',
+        detail:
+          '設定画面で［フィールドを追加］を押したときだけ、自ドメインの API でフィールドを1つ作ります。',
+      },
+    ],
+  },
 };
 
 /**

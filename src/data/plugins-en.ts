@@ -397,4 +397,8 @@ export const pluginsEn: Record<string, PluginEn> = {
     name: 'Record Permission Assist for kintone',
     summary: 'Fill the fields used by record permissions from the record\'s own values on every save, including parent organizations and mapped values.',
   },
+  'kw-due-alert': {
+    name: 'Due Alert for kintone',
+    summary: 'Show records that are due soon or overdue with colors and marks in the list, a count band and a notice on the detail screen, without adding notifications.',
+  },
 };
