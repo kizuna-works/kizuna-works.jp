@@ -1,6 +1,6 @@
 ---
-title: "「Excelのほうがよかった」と言わせない！現場が納得するkintoneへの優しい移行ステップ【2026年版】"
-description: "Excelに慣れた現場がkintoneに抵抗を感じる理由を解説し、ハイブリッド運用・データ移行・便利機能の体験など3つの優しい移行ステップを紹介。Field Styler／Field Comment など KIZUNA Worksプラグインを活用した具体的な改善例もあわせて掲載します。"
+title: "kintoneとExcelの違いと移行手順｜「Excelのほうがよかった」と言わせない3ステップ【2026年版】"
+description: "kintoneとExcelの違い（得意なこと・苦手なこと）を整理し、脱エクセルで現場が反発しない移行手順を3ステップで解説。Excelデータの取り込み、Excelと併用するハイブリッド運用、Excel風の画面に近づけるプラグインまで、移行担当者が明日から使える形でまとめました。"
 pubDate: 2026-05-23
 author: "KIZUNA Works"
 tags: ["kintone", "Excel", "脱Excel", "DX推進", "業務改善", "kintone管理者"]
@@ -30,7 +30,7 @@ kintoneを導入する際、現場から最も多く上がるのが「今まで�
 
 ---
 
-## Excelとkintone、それぞれの「得意なこと」を知る
+## kintoneとExcelの違い：それぞれの「得意なこと」を知る
 
 **ポイント：どちらが優れているかではなく、それぞれに得意分野があることを理解しましょう。**
 

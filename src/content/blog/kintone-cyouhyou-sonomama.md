@@ -17,7 +17,7 @@ relatedPlugins: ["report-designer", "csv-export"]
 - 背景PDF＋ドラッグ配置で帳票化する具体的な手順と、無料で始める方法
 - レイアウトが崩れやすい箇所と、その回避のしかた
 
-本記事は帳票出力シリーズのうち、**「手持ちの書式をそのまま使う」方式に特化**した記事です。帳票出力の方法を一から俯瞰したい方は[kintone帳票出力・PDF出力の完全ガイド](/blog/kintone-cyouhyou-pdf-output/)、製品を比較して選びたい方は[帳票出力プラグイン徹底比較](/blog/kintone-cyouhyou-plugin-hikaku/)をご覧ください。
+本記事は帳票出力シリーズのうち、**「手持ちの書式をそのまま使う」方式に特化**した記事です。帳票出力の方法を一から俯瞰したい方は[kintoneの帳票出力・PDF出力の方法](/blog/kintone-cyouhyou-pdf-output/)、製品を比較して選びたい方は[帳票出力プラグイン徹底比較](/blog/kintone-cyouhyou-plugin-hikaku/)をご覧ください。
 
 ## 「フォーマットは変えたくない、でもkintoneから出したい」という壁
 
@@ -40,7 +40,7 @@ kintoneにもレコードの印刷機能はあります。レコード詳細画�
 - サブテーブル（明細行）を、決まった罫線の表の中にきれいに収めたい
 - 角印（電子印鑑）を指定の位置に重ねたい
 
-標準印刷はレイアウトを自由に組めないため、こうした「取引先に出せる体裁」には届きません。標準機能でどこまでできるかを詳しく確認したい方は、[kintone帳票出力・PDF出力の完全ガイド](/blog/kintone-cyouhyou-pdf-output/)にまとめてあります。
+標準印刷はレイアウトを自由に組めないため、こうした「取引先に出せる体裁」には届きません。標準機能でどこまでできるかを詳しく確認したい方は、[kintoneの帳票出力・PDF出力の方法](/blog/kintone-cyouhyou-pdf-output/)にまとめてあります。
 
 ## 帳票化には「作り直す」と「今のを活かす」の2つの道がある
 
@@ -110,7 +110,7 @@ kintoneで本格的に帳票を出すなら、専用のプラグインを使う�
 
 社内の控えやメモ用途なら、標準印刷で十分です。データを表計算で加工したいだけなら[CSV出力](/plugins/csv-export/)などで書き出すのが早道。**取引先にそのまま渡せる体裁が必要なとき**に、はじめて帳票プラグインが現実的な選択肢になります。
 
-標準印刷・CSV・帳票プラグインの費用と向き不向きを表で見比べたい方は、[kintone帳票出力・PDF出力の完全ガイド](/blog/kintone-cyouhyou-pdf-output/)で整理しています。
+標準の印刷・CSV＋Excel・自作・帳票プラグインの費用と向き不向きを表で見比べたい方は、[kintoneの帳票出力・PDF出力の方法](/blog/kintone-cyouhyou-pdf-output/)で整理しています。
 
 帳票プラグインは各社から出ており、Excel出力に対応するもの、買い切り型のものなど特徴はさまざまです。他社製品も含めて比較したい方は、[kintone帳票出力プラグイン徹底比較](/blog/kintone-cyouhyou-plugin-hikaku/)で機能・コスト・電子帳簿保存法対応を整理しています。
 
@@ -146,7 +146,7 @@ KIZUNA Worksでは、kintoneの構築・カスタマイズ支援や、帳票・�
 
 - [帳票デザイナー for kintone](/plugins/report-designer/) — 手持ちのPDFを背景にドラッグ配置で帳票化。無料プランあり
 - [kintone帳票出力プラグイン徹底比較](/blog/kintone-cyouhyou-plugin-hikaku/) — 他社製品も含めた機能・コスト・電帳法対応の比較
-- [kintone帳票出力・PDF出力の完全ガイド](/blog/kintone-cyouhyou-pdf-output/) — 帳票出力の全体像。標準機能でどこまでできるかと、無料で帳票化する手順
+- [kintoneの帳票出力・PDF出力の方法](/blog/kintone-cyouhyou-pdf-output/) — 帳票出力の全体像。標準機能でどこまでできるかと、無料で帳票化する手順
 - [かんたんCSV出力 for kintone](/plugins/csv-export/) — 一覧の絞り込み結果をワンクリックでCSV書き出し
 - [「Excelのほうがよかった」と言わせないkintone移行ステップ](/blog/kintone-excel-iko-steps/) — Excel帳票運用からkintoneへ無理なく移行するコツ
 

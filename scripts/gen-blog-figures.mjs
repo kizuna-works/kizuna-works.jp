@@ -219,6 +219,21 @@ const FIGURES = [
     ]),
   },
   {
+    name: 'kintone-cyouhyou-pdf-output-overview4',
+    w: 1000, h: 490,
+    el: overview5([
+      { n: '1', name: '標準の印刷でPDF', desc: 'レコード画面をブラウザーでPDF保存。1件・社内の控えに。', tag: '無料', paid: false },
+      { n: '2', name: 'CSV＋Excelで帳票', desc: 'CSVをExcelのひな形に流し込む。無料で体裁を整えたいときに。', tag: '無料', paid: false },
+      { n: '3', name: 'JavaScriptで自作', desc: 'jsPDFなどでPDFを組み立てる。開発と保守ができる体制向け。', tag: '開発が必要', paid: true },
+      { n: '4', name: '帳票プラグイン', desc: '指定の様式で一括出力・添付保存まで。大量・継続の運用に。', tag: '有料（無料枠あり）', paid: true },
+    ], 490),
+  },
+  {
+    name: 'kintone-cyouhyou-pdf-output-jisaku',
+    w: 1000, h: 210,
+    el: flowCaptioned(['画面に\nボタンを置く', 'レコードの\n値を読む', 'jsPDFで\nPDFを組み立てる', '表示・保存'], C.navy, '日本語フォントの用意と、明細の改ページ処理まで自分で書く必要がある'),
+  },
+  {
     name: 'kintone-cyouhyou-pdf-output-flow',
     w: 1000, h: 164,
     el: flow(['kintone一覧で絞り込み', 'CSVで書き出し', 'Excel帳票に反映', 'PDFで保存']),
